@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>AZ369 보세의류쇼핑몰</title>
+    <link rel="stylesheet" href="./css/reservation_01.css">
+
+    <!--자바스크립트-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/scrolla.jquery.min.js"></script>
+
+
+    <!--폰트-->
+    <link href="https://fonts.googleapis.com/css?
+    family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+
+    <!--reservation css link-->
+    <link rel="stylesheet" type="text/css" href="css/lib/jquery.seat-charts.css">
+    <link rel="stylesheet" type="text/css" href="css/lib/bootstrap.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/lib/bootstrap.min.css">-->
+    <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="css/booking.css">
+
+</head>
+
+<body>
+    <div class="wrap">
+
+        <header>
+
+            <!--모바일 아이콘 열기-->
+            <a href="#" class="open"><img src="img/btn_berger_m.png" alt="메뉴열기"></a>
+
+            <div class="innerHeader">
+                <h1 class="logo">
+                    <a href="index.asp"><img src="./img/main/logo2.png" alt="센트럴돔 로고"></a>
+                </h1>
+                <nav class="gnb">
+                    <ul>
+                        <li style="color: #a0772b; font-weight: bold">ㅁㅁㅁ님</li>
+                        <li><a href="login.html">로그아웃</a></li>
+                        <li><a href="reservation_01.html">장차예매</a></li>
+                        <li><a href="mypage.html">마이페이지</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+
+
+            <!--모바일 메뉴-->
+            <nav class="gnb_mo">
+                <a href="#" class="close"><img src="img/btn_gnb_close.png" alt="메뉴닫기"></a>
+                <ul>
+                    <li><a href="login.html">로그인</a></li>
+                    <li><a href="join_01.html">회원가입</a></li>
+                    <li><a href="reservation_01.html">장차예매</a></li>
+                    <li><a href="mypage.html">마이페이지</a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+
+        <!--// header완료-->
+        <!--secton.sub_wrap 시작-->
+
+        <!--<section class="main">
+            <div class="main_bg"></div>
+        </section>-->
+
+        <section class="sub_wrap">
+            <div class="inner_sub_wrap">
+
+                <h1>장차버스예매</h1>
+
+
+                <div class="reserve_box">
+
+                    <ul>
+                        <li>
+
+                            <!--예약 왼쪽목록-->
+                            <div class="reserve_left">
+
+                                <!--왼쪽 상단 : 지역-->
+                                <div class="location left_list">
+                                    <h4>지역선택 <span style="color: #777; font-weight: normal; font-size: 16px;">(왕복)</span></h4>
+                                    <ul>
+                                        <li>
+                                            <label for="departure" style="font-weight: normal;">출발지</label>
+                                            <select id="departure" name="departure">
+                                                <option value="pyeongtaek">평택</option>
+                                            </select>
+                                        </li>
+
+                                        <li>
+                                            <label for="arrival" style="font-weight: normal;">도착지</label>
+                                            <select id="arrival" name="arrival">
+                                                <option value="seoul">서울</option>
+                                            </select>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!--왼쪽 하단 버스선택-->
+                                <div class="select_bus left_list">
+                                    <h4>날짜 및 차량선택</h4>
+
+                                    <div class="select_bus_list">
+                                        <div class="select_bus_list_tit">
+                                            <ul>
+                                                <li>출발 날짜/시간</li>
+                                                <li>차량정보</li>
+                                                <li>잔여 좌석</li>
+                                            </ul>
+                                        </div>
+
+                                        <label class="tablinks" onclick="openBus(event, '01')">
+
+                                            <input type="radio" name="bus">
+                                            <span class="select_bus_time">02월 03일(월) 22:00</span>
+                                            <span class="select_bus_name">
+                                                충남고속 (11가 1234)
+                                            </span>
+                                            <span class="select_bus_seat">
+                                                40 / 45 석
+                                            </span>
+                                        </label>
+
+                                        <label class="tablinks" onclick="openBus(event, '02')">
+                                            <input type="radio" name="bus">
+
+                                            <span class="select_bus_time">02월 10일(월) 22:00</span>
+                                            <span class="select_bus_name">
+                                                충남고속 (11가 1234)
+                                            </span>
+                                            <span class="select_bus_seat">
+                                                36 / 36 석
+                                            </span>
+                                        </label>
+
+                                        <label class="tablinks" onclick="openBus(event, '03')">
+                                            <input type="radio" name="bus">
+
+                                            <span class="select_bus_time">02월 17일(월) 22:00</span>
+                                            <span class="select_bus_name">
+                                                충남고속 (11가 1234)
+                                            </span>
+                                            <span class="select_bus_seat">
+                                                27 / 27 석
+                                            </span>
+                                        </label>
+
+                                        <label class="tablinks" onclick="openBus(event, '04')">
+                                            <input type="radio" name="bus">
+
+                                            <span class="select_bus_time">02월 24일(월) 22:00</span>
+                                            <span class="select_bus_name">
+                                                충남고속 (11가 1234)
+                                            </span>
+                                            <span class="select_bus_seat">
+                                                40 / 45 석
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+
+                        <li>
+                            <div class="reserve_right">
+
+                                <div id="01" class="tabcontent">
+
+                                    <div class="container">
+                                        <div class="seat-map" class="seat-panel">
+
+                                        </div>
+                                        <div class="booking-details">
+                                           <h4>좌석을 선택해주세요.</h4> <br>
+                                            <h5> 좌석 개수<span id="counter"> 0</span></h5>
+                                            <ul id="selected-seats"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="02" class="tabcontent">
+
+                                    <div class="container">
+                                        <div class="seat-map" class="seat-panel">
+
+                                        </div>
+                                        <div class="booking-details">
+                                           <h4>좌석을 선택해주세요.</h4> <br>
+                                            <h5> 좌석 개수<span id="counter"> 0</span></h5>
+                                            <ul id="selected-seats"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div id="03" class="tabcontent">
+
+                                    <div class="container">
+                                        <div class="seat-map" class="seat-panel">
+
+                                        </div>
+                                        <div class="booking-details">
+                                           <h4>좌석을 선택해주세요.</h4> <br>
+                                            <h5> 좌석 개수<span id="counter"> 0</span></h5>
+                                            <ul id="selected-seats"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div id="04" class="tabcontent">
+
+                                    <div class="container">
+                                        <div class="seat-map" class="seat-panel">
+
+                                        </div>
+                                        <div class="booking-details">
+                                           <h4>좌석을 선택해주세요.</h4> <br>
+                                            <h5> 좌석 개수<span id="counter"> 0</span></h5>
+                                            <ul id="selected-seats"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="reserve_btn">
+                 <a href=""> 예약하기</a></div>
+
+            </div>
+        </section>
+
+        <script>
+            function openBus(evt, busSeat) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(busSeat).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+        </script>
+
+        <!--//secton.about 완료-->
+
+
+        <!--<footer></footer>-->
+    </div>
+
+    <script>
+        'use sctrict';
+
+        //gnb scroll 
+        //고정헤더, 사이드바 이벤트
+        var scrollTop = 0;
+        scrollTop = $(document).scrollTop();
+        fixHeader();
+
+        //윈도우창 조절시에 이벤트
+        $(window).on('scroll resize', function() {
+            scrollTop = $(document).scrollTop();
+            fixHeader();
+
+        });
+
+        //고정헤더 함수
+        function fixHeader() {
+            if (scrollTop > 200) {
+                $('header').addClass('on');
+            } else {
+                $('header').removeClass('on');
+            }
+        }
+
+
+        //모바일 모드 gnb_mo
+
+        setGnbMo();
+
+        function setGnbMo() {
+            $('header .open').on('click', function() {
+                $('.gnb_mo').addClass('on');
+            }); //햄버거버튼
+            $('.gnb_mo .close').on('click', function() {
+                $('.gnb_mo').removeClass('on');
+                $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
+                $('.gnb_mo > ul > li > a').removeClass('on')
+            });
+
+
+            //inner메뉴 열기
+
+            $('.gnb_mo > ul > li > a').on('click', function() {
+                $(this).next().slideToggle();
+                $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
+            });
+        }
+
+
+        //scroll 애니
+        $(function() {
+            var scrollAni = 0;
+            //스크롤했을때 이벤트 적용
+            scrollAni = $(document).scrollTop();
+            ani('.menu_list, .int_slide, .owner_img, .insta_list'); //각 클래스 적용
+            //윈도우창사이즈 조절시 동일하게 이벤트 적용
+            $(window).on('scroll resize', function() {
+                scrollAni = $(document).scrollTop();
+                ani('.menu_list, .int_slide, .owner_img, .insta_list');
+            });
+
+            //함수선언 ani-함수명/(selector)-선택자
+            function ani(selector) {
+                $(selector).each(function() {
+
+                    var $selector = $(this);
+                    var minShow = $selector.offset().top - $(window).height();
+                    var maxShow = $selector.offset().top + $selector.outerHeight();
+
+                    $selector.removeClass('down on up');
+                    if (scrollTop < minShow) {
+                        $selector.addClass('down');
+                    } else if (scrollTop > maxShow) {
+                        $selector.addClass('up');
+                    } else {
+                        $selector.addClass('on');
+                    }
+                });
+            }
+        });
+    </script>
+
+
+
+    <!--reservation 스크립트-->
+    <script src="js/lib/jquery-1.11.0.min.js"></script>
+    <script src="js/lib/jquery.seat-charts.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/booking.js"></script>
+
+    <script>
+        var firstSeatLabel = 1;
+        $(document).ready(function() {
+            var $cart = $('#selected-seats'),
+                $counter = $('#counter'),
+                $total = $('#total'),
+                sc = $('.seat-map').seatCharts({
+                    map: [
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'eeeee',
+                    ],
+                    seats: {
+                        f: {
+                            price: 100,
+                            classes: 'first-class', //your custom CSS class
+                            category: 'First Class'
+                        },
+                        e: {
+                            price: 40,
+                            classes: '일반', //your custom CSS class
+                            category: '일반'
+                        }
+
+                    },
+                    naming: {
+                        top: false,
+                        getLabel: function(character, row, column) {
+                            return firstSeatLabel++;
+                        },
+                    },
+                    legend: {
+                        node: $('#legend'),
+                        items: [
+                            ['f', 'available', 'First Class'],
+                            ['e', 'available', '일반'],
+                            ['r', 'unavailable', 'Already Booked']
+                        ]
+                    },
+                    click: function() {
+                        if (this.status() == 'available') {
+                            //let's create a new <li> which we'll add to the cart items
+                            $('<li>' + this.data().category + ' 좌석번호 ' + this.settings.label + '</b> <a href="#" class="cancel-cart-item">[취소]</a></li>')
+                                .attr('id', 'cart-item-' + this.settings.id)
+                                .data('seatId', this.settings.id)
+                                .appendTo($cart);
+
+                            /*
+                             * Lets update the counter and total
+                             *
+                             * .find function will not find the current seat, because it will change its stauts only after return
+                             * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
+                             */
+                            $counter.text(sc.find('selected').length + 1);
+                            $total.text(recalculateTotal(sc) + this.data().price);
+
+                            return 'selected';
+                        } else if (this.status() == 'selected') {
+                            //update the counter
+                            $counter.text(sc.find('selected').length - 1);
+                            //and total
+                            $total.text(recalculateTotal(sc) - this.data().price);
+
+                            //remove the item from our cart
+                            $('#cart-item-' + this.settings.id).remove();
+
+                            //seat has been vacated
+                            return 'available';
+                        } else if (this.status() == 'unavailable') {
+                            //seat has been already booked
+                            return 'unavailable';
+                        } else {
+                            return this.style();
+                        }
+                    }
+                });
+
+            //this will handle "[cancel]" link clicks
+            $('#selected-seats').on('click', '.cancel-cart-item', function() {
+                //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
+                sc.get($(this).parents('li:first').data('seatId')).click();
+            });
+
+            //let's pretend some seats have already been booked
+            sc.get(['2_1','2_2', '4_1', '4_2', '8_2']).status('unavailable');
+
+        });
+
+        function recalculateTotal(sc) {
+            var total = 0;
+
+            //basically find every selected seat and sum its price
+            sc.find('selected').each(function() {
+                total += this.data().price;
+            });
+
+            return total;
+        }
+    </script>
+
+
+
+
+
+</body></html>

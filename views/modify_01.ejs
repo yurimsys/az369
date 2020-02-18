@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>AZ369 보세의류쇼핑몰</title>
+    <link rel="stylesheet" href="./css/modify_01.css">
+
+    <!--자바스크립트-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/scrolla.jquery.min.js"></script>
+
+
+    <!--폰트-->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <div class="wrap">
+
+        <header>
+
+            <!--모바일 아이콘 열기-->
+            <a href="#" class="open"><img src="img/btn_berger_m.png" alt="메뉴열기"></a>
+
+            <div class="innerHeader">
+                <h1 class="logo">
+                    <a href="index.asp"><img src="./img/main/logo2.png" alt="센트럴돔 로고"></a>
+                </h1>
+                <nav class="gnb">
+                    <ul>
+                        <li style="color: #a0772b; font-weight: bold">ㅁㅁㅁ님</li>
+                        <li><a href="login.html">로그아웃</a></li>
+                        <li><a href="reservation">장차예매</a></li>
+                        <li><a href="mypage">마이페이지</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+
+
+            <!--모바일 메뉴-->
+            <nav class="gnb_mo">
+                <a href="#" class="close"><img src="img/btn_gnb_close.png" alt="메뉴닫기"></a>
+                <ul>
+                    <li><a href="login.html">로그인</a></li>
+                    <li><a href="join">회원가입</a></li>
+                    <li><a href="reservation">장차예매</a></li>
+                    <li><a href="mypage">마이페이지</a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+
+        <!--// header완료-->
+        <!--secton.sub_wrap 시작-->
+
+        <!--<section class="main">
+            <div class="main_bg"></div>
+        </section>-->
+
+
+        <section class="sub_wrap">
+            <div class="inner_sub_wrap">
+
+                <h1>내정보 수정</h1>
+
+
+                <div class="modify_box">
+                    
+                    <form action="/action_page.php">
+                       <div class="modify_process"> <span>본인인증</span> > 내정보 수정</div>
+
+                    <h2>01. 본인인증</h2>
+                    <p>본인인증 후 내정보 수정이 가능합니다.</p>
+                        <ul>
+                            <li>
+                                <label for="phone"></label>
+                                <input type="text" id="phone" name="휴대전화" placeholder="휴대전화">
+                            </li>
+
+                            <li>
+                                <button onclick="phone_check" class="phone_check_btn">본인인증</button>
+                            </li>
+
+                            <li>
+                                <label for="phone2"></label>
+                                <input type="text" id="phone2" name="휴대전화" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
+                            </li>
+
+                        </ul>
+                        
+                    </form>
+                    
+                    <div class="modify_btn">
+                            <ul>
+                                <a href="mypage"><li class="back">취소</li></a>
+                                <a href="modify2"><li class="next">다음</li></a>
+                            </ul>
+                        </div>
+
+                    
+                </div>
+
+
+            </div>
+        </section>
+
+        <!--//secton.about 완료-->
+
+
+        <!--<footer></footer>-->
+    </div>
+
+    <script>
+        'use sctrict';
+
+        //gnb scroll 
+        //고정헤더, 사이드바 이벤트
+        var scrollTop = 0;
+        scrollTop = $(document).scrollTop();
+        fixHeader();
+
+        //윈도우창 조절시에 이벤트
+        $(window).on('scroll resize', function() {
+            scrollTop = $(document).scrollTop();
+            fixHeader();
+
+        });
+
+        //고정헤더 함수
+        function fixHeader() {
+            if (scrollTop > 200) {
+                $('header').addClass('on');
+            } else {
+                $('header').removeClass('on');
+            }
+        }
+
+
+        //모바일 모드 gnb_mo
+
+        setGnbMo();
+
+        function setGnbMo() {
+            $('header .open').on('click', function() {
+                $('.gnb_mo').addClass('on');
+            }); //햄버거버튼
+            $('.gnb_mo .close').on('click', function() {
+                $('.gnb_mo').removeClass('on');
+                $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
+                $('.gnb_mo > ul > li > a').removeClass('on')
+            });
+
+
+            //inner메뉴 열기
+
+            $('.gnb_mo > ul > li > a').on('click', function() {
+                $(this).next().slideToggle();
+                $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
+            });
+        }
+
+
+        //scroll 애니
+        $(function() {
+            var scrollAni = 0;
+            //스크롤했을때 이벤트 적용
+            scrollAni = $(document).scrollTop();
+            ani('.menu_list, .int_slide, .owner_img, .insta_list'); //각 클래스 적용
+            //윈도우창사이즈 조절시 동일하게 이벤트 적용
+            $(window).on('scroll resize', function() {
+                scrollAni = $(document).scrollTop();
+                ani('.menu_list, .int_slide, .owner_img, .insta_list');
+            });
+
+            //함수선언 ani-함수명/(selector)-선택자
+            function ani(selector) {
+                $(selector).each(function() {
+
+                    var $selector = $(this);
+                    var minShow = $selector.offset().top - $(window).height();
+                    var maxShow = $selector.offset().top + $selector.outerHeight();
+
+                    $selector.removeClass('down on up');
+                    if (scrollTop < minShow) {
+                        $selector.addClass('down');
+                    } else if (scrollTop > maxShow) {
+                        $selector.addClass('up');
+                    } else {
+                        $selector.addClass('on');
+                    }
+                });
+            }
+        });
+    </script>
+
+
+    <script>
+        function openBus(evt, busSeat) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(busSeat).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</body></html>

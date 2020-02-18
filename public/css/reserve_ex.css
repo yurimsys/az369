@@ -1,0 +1,64 @@
+
+.content-wrapper {
+   padding-top: 50px;
+   padding-bottom: 50px;
+   margin-left: 300px;
+}
+
+#table-body .col:hover {
+   cursor: pointer;
+   /*border: 1px solid grey;*/
+   background-color: #E0E0E0;
+}
+
+.empty-day:hover {
+   cursor: default !important;
+   background-color: #fff !important;
+}
+
+#table-body .row .col {
+   padding: .75rem;
+}
+
+#table-body .col {
+   border: 1px solid transparent;
+}
+
+#table-body {}
+
+#table-body .row {
+   margin-bottom: 0;
+}
+
+#table-body .col {
+   padding-top: 1.3rem !important;
+   padding-bottom: 1.3rem !important;
+}
+
+#calendar-table {
+   text-align: center;
+}
+
+.prev-button {
+   position: absolute;
+   cursor: pointer;
+   left: 0%;
+   top: 35%;
+   color: grey !important;
+}
+
+.prev-button i {
+   font-size: 4em;
+}
+
+.next-button {
+   position: absolute;
+   cursor: pointer;
+   right: 0%;
+   top: 35%;
+   color: grey !important;
+}
+
+.next-button i {
+   font-size: 4em;
+}
