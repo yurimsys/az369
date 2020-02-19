@@ -81,13 +81,6 @@ router.get('/login', function(req, res, next){
     res.render('login', { title : '로그인' });
 });
 
-router.get('/findId1', function(req, res, next) {
-    res.render('find_id_01');
-  });
-
-router.get('/findId2', function(req, res, next) {
-    res.render('find_id_02');
-});
 
 
   //회원가입 페이지
@@ -95,8 +88,23 @@ router.get('/join2', function(req, res, next) {
     res.render('join_02');
 });
 
+//회원가입 완료페이지
+router.get('/join3', function(req, res, next) {
+    res.render('join_03');
+});
+
+//아이디 찾기 1페이지
+router.get('/findId', function(req, res, next) {
+    res.render('find_id_01');
+  });
+
+//아이디 찾기 완료 페이지
+router.get('/findId2', function(req, res, next) {
+    res.render('find_id_02');
+});
+
 //회원가입 액션
-router.post('/join/user', (req, res, next) =>{
+router.post('/api/user/join', (req, res, next) =>{
     let query = `insert into tu (U_UserName, U_Pw, U_Name, U_Phone, U_Brand, U_Zip, U_Addr1, U_Addr2) 
             values( :uUserName,  :uPw,  :uName,  :uPhone , :uBrand,  :uZip,  :uAddr1,  :uAddr2)`;
     //console.log(req.body);
@@ -114,14 +122,13 @@ router.post('/join/user', (req, res, next) =>{
         },
         function(err, rows, fields) {
             if (err) throw err;
-            res.json({
-                statusCode : 200
-            });
+            console.log(rows);
+            res.json( { name : req.body.name, id : req.body.id });
         });
 });
 
 //아이디 중복확인
-router.post('/join/overlap', (req, res, next) =>{
+router.post('/api/user/overlap', (req, res, next) =>{
     let query = "select U_UserName from tu where U_UserName = :uUserName";
     
     console.log(req.body);
@@ -131,22 +138,56 @@ router.post('/join/overlap', (req, res, next) =>{
             uUserName : req.body.id                      
         },
         function(err, rows, fields) {
-            if (err) throw err;
-            // if(rows.length == 0){
-            //     check = 1;
-            // }else{
-            //     check = 0;
-            // }
-            //console.log(rows);
-            // res.json({ data : check })
-            //console.log(check);
+            if (err) throw err;           
             res.json( {  data : rows[0] });
         });
         
 });
 
+//아이디 찾기
 
-router.get('/join3', function(req, res, next) {
-    res.render('join_03');
+router.post('/api/user/findId', (req, res, next) =>{
+    let query = "select U_UserName from tu where U_Name =:uName and U_Phone =:uPhone";
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {
+            uName : req.body.name,
+            uPhone : req.body.phone                     
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            //console.log(findId);
+            res.json( {  data : rows[0]});
+            //console.log(rows);
+        });
+        
 });
+// //찾은 아이디를 findID2에 보내줌
+// router.post('/api/user/findId2', (req, res, next) =>{
+    
+//     let findId = req.body.userId;
+//     console.log(findId);
+
+
+//     res.json( { data : findId});
+//     //res.render('find_id_02', { data : findId });
+    
+//     // connection.query(query, 
+//     //     {
+//     //         uName : req.body.name,
+//     //         uPhone : req.body.phone                     
+//     //     },
+//     //     function(err, rows, fields) {
+//     //         if (err) throw err;          
+
+//     //         res.json( {  data : rows[0] });
+//     //         console.log(rows);
+//     //     });
+        
+// });
+
+
 module.exports = router;

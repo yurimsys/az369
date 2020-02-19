@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>AZ369 보세의류쇼핑몰</title>
+    <link rel="stylesheet" href="css/find_id_01.css">
+
+    <!--자바스크립트-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/scrolla.jquery.min.js"></script>
+
+
+    <!--폰트-->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <div class="wrap">
+
+        <header>
+
+            <!--모바일 아이콘 열기-->
+            <a href="#" class="open"><img src="img/btn_berger_m.png" alt="메뉴열기"></a>
+
+            <div class="innerHeader">
+                <h1 class="logo">
+                    <a href="index.asp"><img src="./img/main/logo2.png" alt="센트럴돔 로고"></a>
+                </h1>
+                <nav class="gnb">
+                    <ul>
+                        <li><a href="summary.asp" class="gnb_link">사업안내</a>
+                            <ul>
+                                <li><a href="summary.asp">사업개요</a></li>
+                                <li><a href="ctd_info.asp">센트럴돔 소개</a></li>
+                                <li><a href="location.asp">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="benefit.asp" class="gnb_link">입점신청 및 혜택</a>
+                            <ul>
+                                <li><a href="benefit.asp">입점 상가 혜택</a></li>
+                                <li><a href="benefit_application.asp">입점 상담 신청</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="vehicle.asp" class="gnb_link">장차예매</a>
+                            <ul>
+                                <li><a href="vehicle.asp">장차운행안내</a></li>
+                                <li><a href="reservation_01.asp">장차예매신청</a></li>
+                                <li><a href="mypage.asp">장차예매현황</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <nav class="gnb2">
+                   <ul>
+                       <li><a href="login.asp">로그인</a></li>
+                        <li><a href="join_01.asp">회원가입</a></li>
+                        <li><div class="tooltip">전화문의
+                            <span class="tooltiptext">031 - 668 - 0116</span></div>
+                  </li>
+                   </ul>
+                </nav>
+                <!--<div class="call">
+                    문의 <span>031 - 668 - 0116</span>
+                </div>-->
+                
+            </div>
+
+            <!--모바일 메뉴-->
+            <nav class="gnb_mo">
+                <a href="#" class="close"><img src="img/btn_gnb_close.png" alt="메뉴닫기"></a>
+                
+                <ul>
+                   <!--<li class="login_gnb_mo">
+                    <ul>
+                        <li><a href="login.html">로그인</a></li>
+                        <li><a href="join_01.html">회원가입</a></li>
+                    </ul>
+                   </li>-->
+                    <li>
+                        <a href="#">사업안내</a>
+                        <ul class="inner">
+                            <li><a href="summary.asp">사업개요</a></li>
+                            <li><a href="ctd_info.asp">센트럴돔 소개</a></li>
+                            <li><a href="location.asp">오시는 길</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">입점신청 및 혜택</a>
+                        <ul class="inner">
+                            <li><a href="benefit.asp">입점상가혜택</a></li>
+                            <li><a href="benefit_application.asp">입점상담신청</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">장차예매</a>
+                        <ul class="inner">
+                            <li><a href="vehicle.asp">장차운행안내</a></li>
+                            <li><a href="reservation_01.html">장차예약신청</a></li>
+                            <li><a href="mypage.html">장차예매현황</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+
+        <!--// header완료-->
+        <!--section.main 시작-->
+
+        <section class="main">
+            <div class="inner_main">
+                <div class="main_bg"></div>
+                <div class="tnb">
+                    <ul>
+                        <a href="login.asp">
+                            <li style="background: #ad8743; color: #fff">로그인</li>
+                        </a>
+                        <a href="join_01.asp">
+                            <li>회원가입</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!--//secton.main 완료-->
+        <!--secton.sub_wrap 시작-->
+
+
+        <section class="sub_wrap">
+            <div class="inner_sub_wrap">
+
+                <h6>아이디찾기</h6>
+                <h1 style="font-family: 'PT Serif', serif;">FIND ID</h1>
+                <div class="bar"></div>
+
+
+                <div class="find_box">
+                    <div class="tab">
+                        <ul>
+                            <a href="find_id_01.asp">
+                                <li style="border-top: 1px solid #ad863c; border-left: 1px solid #ad863c; border-right: 1px solid #ad863c; ">아이디 찾기</li>
+                            </a>
+
+                            <a href="find_pw_01.asp">
+                                <li style="border-bottom: 1px solid #ad863c; background: #f1f1f1; color: #777;">비밀번호 찾기</li>
+                            </a>
+                        </ul>
+                    </div>
+
+                    <div class="find_box_inner">
+                        <h2>아이디 찾기</h2>
+                        <p>회원가입 시 등록한 <strong>전화번호</strong>를 입력해주세요.</p>
+                        <form action="/action_page.php">
+
+                            <div class="find_form">
+                                <label for="name"></label>
+                                <input type="text" id="name" name="이름" placeholder="이름">
+
+                                <ul>
+                                    <li>
+                                        <label for="phone"></label>
+                                        <input type="text" id="phone" name="휴대전화번호" placeholder="휴대전화번호">
+                                    </li>
+
+                                    <!--<li>
+                                        <button onclick="id_check">본인인증</button>
+                                    </li>
+
+                                    <li>
+                                        <label for="phone2"></label>
+                                        <input type="text" id="phone2" name="휴대전화" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
+                                    </li>-->
+                                </ul>
+                            </div>
+                            
+                            <div class="find_id_btn">
+                                <ul>
+                                    <li>
+                                        <a href="login.asp"><div class="login_btn">로그인</div></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="findId()"><div class="next_btn">다음</div></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!--<input type="submit" value="아이디 찾기" style="font-size: 18px;">-->
+
+                        </form>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </section>
+
+        <!--//secton.about 완료-->
+
+
+        <!--<footer></footer>-->
+    </div>
+
+    <script>
+        // function findId(){
+        //     $.ajax({
+        //         method : 'POST',
+        //         dataType : 'json',
+        //         url: "api/user/findId",
+        //         data: {
+        //             name : $("#name").val(),
+        //             phone : $("#phone").val()
+        //         },
+        //         success: function(res){
+        //             console.log(res);
+        //             //console.log(res.data);
+                    
+        //             if(res.data === undefined){
+        //                 alert("등록된 회원이 아닙니다.");
+        //                 location.reload();
+        //             } else if(res.data.U_UserName != ""){
+        //                 $.ajax({
+        //                 method : "post",
+        //                 dataType : "json",
+        //                 async: false,
+        //                 url : "api/user/findId2",
+        //                 data: {
+        //                     userId : res.data.U_UserName
+        //                 },success: function(res){
+                            
+        //                     console.log(res);
+        //                     //console.log("undidi :", res.data);
+        //                     location.href = "findId2";
+                            
+        //                 }
+        //             })
+                        
+        //             }
+                  
+        //         }
+        //     })
+        // }
+
+
+        function findId(){
+            $.ajax({
+                method : 'POST',
+                dataType : 'json',
+                url: "api/user/findId",
+                data: {
+                    name : $("#name").val(),
+                    phone : $("#phone").val()
+                },
+                success: function(res){
+                    console.log(res);
+                    //console.log(res.data);
+                    
+                    if(res.data === undefined){
+                        alert("등록된 회원이 아닙니다.");
+                        location.reload();
+                    } else if(res.data.U_UserName != ""){
+                        var orderDetail = [{name:"findId", value:res.data.U_UserName }];
+                        sessionStorage.setItem("orderDetail",JSON.stringify(orderDetail));
+                        location.href = "findId2";
+                        
+                    }
+                  
+                }
+            })
+        }
+
+    </script>
+
+    <script>
+        'use sctrict';
+
+        //gnb scroll 
+        //고정헤더, 사이드바 이벤트
+        var scrollTop = 0;
+        scrollTop = $(document).scrollTop();
+        fixHeader();
+
+        //윈도우창 조절시에 이벤트
+        $(window).on('scroll resize', function() {
+            scrollTop = $(document).scrollTop();
+            fixHeader();
+
+        });
+
+        //고정헤더 함수
+        function fixHeader() {
+            if (scrollTop > 200) {
+                $('header').addClass('on');
+            } else {
+                $('header').removeClass('on');
+            }
+        }
+
+
+        //모바일 모드 gnb_mo
+
+        setGnbMo();
+
+        function setGnbMo() {
+            $('header .open').on('click', function() {
+                $('.gnb_mo').addClass('on');
+            }); //햄버거버튼
+            $('.gnb_mo .close').on('click', function() {
+                $('.gnb_mo').removeClass('on');
+                $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
+                $('.gnb_mo > ul > li > a').removeClass('on')
+            });
+
+
+            //inner메뉴 열기
+
+            $('.gnb_mo > ul > li > a').on('click', function() {
+                $(this).next().slideToggle();
+                $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
+            });
+        }
+
+
+        //scroll 애니
+        $(function() {
+            var scrollAni = 0;
+            //스크롤했을때 이벤트 적용
+            scrollAni = $(document).scrollTop();
+            ani('.menu_list, .int_slide, .owner_img, .insta_list'); //각 클래스 적용
+            //윈도우창사이즈 조절시 동일하게 이벤트 적용
+            $(window).on('scroll resize', function() {
+                scrollAni = $(document).scrollTop();
+                ani('.menu_list, .int_slide, .owner_img, .insta_list');
+            });
+
+            //함수선언 ani-함수명/(selector)-선택자
+            function ani(selector) {
+                $(selector).each(function() {
+
+                    var $selector = $(this);
+                    var minShow = $selector.offset().top - $(window).height();
+                    var maxShow = $selector.offset().top + $selector.outerHeight();
+
+                    $selector.removeClass('down on up');
+                    if (scrollTop < minShow) {
+                        $selector.addClass('down');
+                    } else if (scrollTop > maxShow) {
+                        $selector.addClass('up');
+                    } else {
+                        $selector.addClass('on');
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>
