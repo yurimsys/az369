@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : 'qw12',
-    database : 'BusReservation'
+    database : 'az369'
 });
 
 connection.config.queryFormat = function (query, values) {
@@ -103,6 +103,27 @@ router.get('/findId2', function(req, res, next) {
     res.render('find_id_02');
 });
 
+//비밀번호 찾기 페이지
+router.get('/findPw', function(req, res, next) {
+    res.render('find_pw_01');
+});
+
+//비밀번호 수정 페이지
+router.get('/findPw2', function(req, res, next) {
+    res.render('find_pw_02');
+});
+
+//비밀번호 수정 완료 페이지
+router.get('/findPw3', function(req, res, next) {
+    res.render('find_pw_03');
+});
+
+//입점신청 페이지
+router.get('/benefit_application', function(req, res, next) {
+    res.render('benefit_application');
+});
+
+
 //회원가입 액션
 router.post('/api/user/join', (req, res, next) =>{
     let query = `insert into tu (U_UserName, U_Pw, U_Name, U_Phone, U_Email, U_Brand, U_Zip, U_Addr1, U_Addr2) 
@@ -146,7 +167,6 @@ router.post('/api/user/overlap', (req, res, next) =>{
 });
 
 //아이디 찾기
-
 router.post('/api/user/findId', (req, res, next) =>{
     let query = "select U_UserName from tu where U_Name =:uName and U_Phone =:uPhone";
     
@@ -166,29 +186,98 @@ router.post('/api/user/findId', (req, res, next) =>{
         });
         
 });
-// //찾은 아이디를 findID2에 보내줌
-// router.post('/api/user/findId2', (req, res, next) =>{
+
+
+//비밀번호 찾기
+router.post('/api/user/findPw', (req, res, next) =>{
+    let query = "select U_UserName from tu where U_UserName =:uId and U_Name =:uName";
     
-//     let findId = req.body.userId;
-//     console.log(findId);
+    console.log(req.body);
 
-
-//     res.json( { data : findId});
-//     //res.render('find_id_02', { data : findId });
-    
-//     // connection.query(query, 
-//     //     {
-//     //         uName : req.body.name,
-//     //         uPhone : req.body.phone                     
-//     //     },
-//     //     function(err, rows, fields) {
-//     //         if (err) throw err;          
-
-//     //         res.json( {  data : rows[0] });
-//     //         console.log(rows);
-//     //     });
+    connection.query(query, 
+        {
+            uId : req.body.id, 
+            uName : req.body.name
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            //console.log(findId);
+            res.json( {  data : rows[0], name : req.body.name, id : req.body.id });
+            //console.log(rows);
+        });
         
-// });
+});
 
+//비밀번호 수정
+router.post('/api/user/modifyPw', (req, res, next) =>{
+    let query = "update tu set U_Pw = :uPw where U_UserName = :uUserName";
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {
+            uUserName : req.body.id, 
+            uPw : req.body.password
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            //console.log(findId);
+            res.json( {  data : rows[0]});
+            //console.log(rows);
+        });
+        
+});
+
+//입점신청 
+router.post('/api/user/benefitApply', (req, res, next) =>{
+    let query = `insert into tsi (SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Content) 
+        values( :siName, :siPhone, :siBrand, :siAddr, :siMemo)`;
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {          
+            siName : req.body.name, 
+            siPhone : req.body.phone,
+            siBrand: req.body.brand,
+            siAddr: req.body.address,
+            siMemo: req.body.memo
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            //console.log(findId);
+            res.json( {  data : rows[0]});
+            //console.log(rows);
+        });
+        
+});
+
+//입점신청 조회
+router.post('/api/user/lookUp', (req, res, next) =>{
+    let query = `select SI_cDt from tsi where SI_Name = :siName and SI_Phone = :siPhone `;
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {          
+            siName : req.body.name, 
+            siPhone : req.body.phone
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            //console.log(findId);
+            res.json( {  data : rows[0]});
+            console.log(rows);
+        });
+        
+});
 
 module.exports = router;

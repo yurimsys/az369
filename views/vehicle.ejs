@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>AZ369 보세의류쇼핑몰</title>
-    <link rel="stylesheet" href="css/join_03.css">
+    <link rel="stylesheet" href="./css/vehicle.css">
 
 
     <!--자바스크립트-->
@@ -109,58 +109,70 @@
                 </ul>
             </nav>
         </header>
-        
+
         <!--// header완료-->
         <!--section.main 시작-->
-        
+
         <section class="main">
             <div class="inner_main">
                 <div class="main_bg"></div>
-                <div class="tnb">
-                    <ul>
-                        <a href="login.html">
-                            <li>로그인</li>
-                        </a>
-                        <a href="join_01.html">
-                            <li style="background: #ad8743; color: #fff">회원가입</li>
-                        </a>
-                    </ul>
-                </div>
             </div>
         </section>
 
+        <!--//secton.main 완료-->
+        <!--secton.sub_wrap 시작-->
 
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
-                <h6>회원가입</h6>
-                <h1 style="font-family: 'PT Serif', serif;">JOIN</h1>
-                <div class="bar"></div>
 
-
-                <div class="join_box">
-                    <div class="join_process">약관동의 > 정보입력 > <span>가입완료</span></div>
-
-                    <h2>03. 가입완료</h2>
-                    
-                    <div class="check_img">
-                        <img src="img/login/join_03_check.png" alt="가입완료">
-                    </div>
-                    
-                    <div class="join_txt">
-                        <h3><span id="yourName"></span>님의 회원가입이 <br> 완료되었습니다.</h3>
-                        <h4>AZ369에 가입하신 아이디는 <br><span id="yourId"></span> 입니다.</h4>
+                <div class="tnb">
+                    <ul>
+                        <a href="vehicle.asp">
+                            <li style="background: #ad8743; color: #fff">장차운행안내</li>
+                        </a>
+                            <a href="reservation_01.asp"><li>장차예매신청</li></a>
+                            <a href="mypage.asp">
+                            <li>장차예매현황</li>
+                        </a>
                         
-                        <p>로그인하시면 장차예매 서비스를 이용하실 수 있습니다.</p>
-                    </div>
-
-                            <a href="login.html"><div class="login_btn">로그인</div> </a>
-
-
+                    </ul>
                 </div>
 
+                <h6>장차운행안내</h6>
+                <h1 style="font-family: 'PT Serif', serif;">VEHICLE SERVICE</h1>
+                <div class="bar"></div>
+                <h5><strong style="color: #444;">평택 센트럴돔</strong>에서 <strong style="color: #444;">서울 동대문 상가</strong>까지</h5>
+                
+                <h2><em><strong>AZ369</strong>에서는  <br>장차운행 서비스를 시행합니다.</em></h2>
+                <div class="sub_bg"><img src="img/vehicle/vehicle_sub_bg.png" alt=""></div>
+
+                <div class="sub_info">
 
 
+                    <em>오가는 길 <strong>든든</strong>하고 <strong>편안</strong>하게</em> <br>
+                    <h3><strong>AZ369</strong>에서 지원하는 장차는
+                         <br>인원수 상관없이 정해진 날짜에 <strong>항시 운행</strong>합니다.</h3>
+
+                        <p><strong style="font-size: 1.1rem">서울 동대문 상가 ↔ 평택 가로수길 센트럴돔 (왕복)</strong><br>
+                        <strong>평택 → 서울</strong> 월요일 밤 9시 ~ 10시 출발<br>
+                        <strong>서울 → 평택</strong> 월요일 새벽 4시 ~ 5시 출발<br>
+                        (최소 주 1회. 추후 주 2회로 늘일 예정)<br>
+                        선착순 입석 (이후 좌석선택으로 변경될 예정)
+                        </p>
+                        <!--<div class="info_notice">
+                            <p>
+                                장차예약신청 페이지는 현재 작업진행중으로, <br> 빠른 시일 내에 오픈하도록 하겠습니다.<br>
+                                <span>문의 031 - 668 - 0116</span>
+                            </p>
+                        </div>-->
+                    <br>
+
+                    <div class="vehicle_btn">
+                        <a href="reservation_01.asp">장차예매신청</a>
+                    </div>
+
+                </div>
             </div>
         </section>
 
@@ -169,17 +181,6 @@
 
         <!--<footer></footer>-->
     </div>
-    
-    <script>
-        //넘겨받은 데이터 뿌려주기
-        var orderDetail = JSON.parse(sessionStorage.getItem("orderDetail"));
-        console.log(orderDetail);
-        //console.log(orderDetail[0].value);
-        var findName = orderDetail[0].value;
-        var findId = orderDetail[1].value;
-        $("#yourId").append(findId);
-        $("#yourName").append(findName);
-    </script>
 
     <script>
         'use sctrict';
@@ -230,6 +231,39 @@
             });
         }
 
+        //main 슬라이드
+        var slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            setTimeout(showSlides, 6000); // Change image every 2 seconds
+        }
+
+        //gallery 슬라이드
+        var slides = document.querySelectorAll('#slides .slide');
+        var currentSlide = 0;
+        var slideInterval = setInterval(nextSlide, 3000);
+
+        function nextSlide() {
+            slides[currentSlide].className = 'slide';
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].className = 'slide showing';
+        }
 
         //scroll 애니
         $(function() {
@@ -261,14 +295,6 @@
                     }
                 });
             }
-        });
-
-
-        /*agreement 전체동의 체크*/
-        $(document).ready(function() {
-            $('.check-all').click(function() {
-                $('.ab').prop('checked', this.checked);
-            });
         });
     </script>
 </body></html>

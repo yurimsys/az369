@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>AZ369 보세의류쇼핑몰</title>
+    <link rel="stylesheet" href="./css/benefit_application.css">
+
+    <!--자바스크립트-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/scrolla.jquery.min.js"></script>
+
+
+    <!--폰트-->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <div class="wrap">
+
+        <header>
+
+            <!--모바일 아이콘 열기-->
+            <a href="#" class="open"><img src="img/btn_berger_m.png" alt="메뉴열기"></a>
+
+            <div class="innerHeader">
+                <h1 class="logo">
+                    <a href="index.asp"><img src="./img/main/logo2.png" alt="센트럴돔 로고"></a>
+                </h1>
+                <nav class="gnb">
+                    <ul>
+                        <li><a href="summary.asp" class="gnb_link">사업안내</a>
+                            <ul>
+                                <li><a href="summary.asp">사업개요</a></li>
+                                <li><a href="ctd_info.asp">센트럴돔 소개</a></li>
+                                <li><a href="location.asp">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="benefit.asp" class="gnb_link">입점신청 및 혜택</a>
+                            <ul>
+                                <li><a href="benefit.asp">입점 상가 혜택</a></li>
+                                <li><a href="benefit_application.asp">입점 상담 신청</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="vehicle.asp" class="gnb_link">장차예매</a>
+                            <ul>
+                                <li><a href="vehicle.asp">장차운행안내</a></li>
+                                <li><a href="reservation_01.asp">장차예매신청</a></li>
+                                <li><a href="mypage.asp">장차예매현황</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <nav class="gnb2">
+                   <ul>
+                       <li><a href="login.asp">로그인</a></li>
+                        <li><a href="join_01.asp">회원가입</a></li>
+                        <li><div class="tooltip">전화문의
+                            <span class="tooltiptext">031 - 668 - 0116</span></div>
+                  </li>
+                   </ul>
+                </nav>
+                <!--<div class="call">
+                    문의 <span>031 - 668 - 0116</span>
+                </div>-->
+                
+            </div>
+
+            <!--모바일 메뉴-->
+            <nav class="gnb_mo">
+                <a href="#" class="close"><img src="img/btn_gnb_close.png" alt="메뉴닫기"></a>
+                
+                <ul>
+                   <!--<li class="login_gnb_mo">
+                    <ul>
+                        <li><a href="login.html">로그인</a></li>
+                        <li><a href="join_01.html">회원가입</a></li>
+                    </ul>
+                   </li>-->
+                    <li>
+                        <a href="#">사업안내</a>
+                        <ul class="inner">
+                            <li><a href="summary.asp">사업개요</a></li>
+                            <li><a href="ctd_info.asp">센트럴돔 소개</a></li>
+                            <li><a href="location.asp">오시는 길</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">입점신청 및 혜택</a>
+                        <ul class="inner">
+                            <li><a href="benefit.asp">입점상가혜택</a></li>
+                            <li><a href="benefit_application.asp">입점상담신청</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">장차예매</a>
+                        <ul class="inner">
+                            <li><a href="vehicle.asp">장차운행안내</a></li>
+                            <li><a href="reservation_01.asp">장차예약신청</a></li>
+                            <li><a href="mypage.asp">장차예매현황</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <!--// header완료-->
+        <!--section.main 시작-->
+
+
+        <section class="main">
+            <div class="inner_main">
+                <div class="main_bg"></div>
+            </div>
+
+        </section>
+
+        <!--//secton.main 완료-->
+        <!--secton.sub_wrap 시작-->
+
+        <section class="sub_wrap">
+            <div class="inner_sub_wrap">
+
+                <div class="tnb">
+                    <ul>
+                        <a href="benefit.asp">
+                            <li>입점상가혜택</li>
+                        </a>
+                        <a href="benefit_application.asp">
+                            <li style="background: #ad8743; color: #fff">입점상담신청</li>
+                        </a>
+                    </ul>
+                </div>
+
+                <h6>입점상담신청</h6>
+                <h1 style="font-family: 'PT Serif', serif;">APPLICATION</h1>
+                <div class="bar"></div>
+                <h5><strong>모이면 모일수록 더</strong> 커지는 혜택</h5>
+                <h2><em><strong>AZ369</strong>와 함께하실 <br>입점주분들을 환영합니다.</em></h2>
+
+
+            </div>
+
+            <div class="sub_form">
+
+                <div class="apply_form">
+                    <h3>상담신청</h3>
+                    <p>상담신청 후 하단의 제출여부조회를 통해 꼭 <strong>제출 여부를 확인</strong>해주세요.</p>
+
+                    <form>
+                        <ul>
+                            <li>
+                                <label for="name">이름</label>
+                                <input type="text" id="name" name="이름" placeholder="이름">
+                            </li>
+
+                            <li>
+                                <label for="phone">휴대전화</label>
+                                <input type="text" id="phone" name="휴대전화" placeholder="예시) 010 ⋯">
+                            </li>
+
+                            <li>
+                                <label for="brand">브랜드명</label>
+                                <input type="text" id="brand" name="브랜드명" placeholder="브랜드명">
+                            </li>
+
+                            <li>
+                                <label for="address">매장 주소</label>
+                                <input type="text" id="address" name="주소" placeholder="예시) 경기도 평택시 비전1동 ⋯">
+                            </li>
+
+                            <li>
+                                <label for="address">문의사항</label>
+                                <textarea name="비고" id="memo" cols="30" rows="5" placeholder="문의하실 내용을 간략히 입력해주세요."></textarea>
+                            </li>
+                        </ul>
+
+                        <input type="submit" value="제출하기" onclick="applyCon()">
+                    </form>
+                </div>
+
+                <div class="apply_check">
+                    <h3>제출여부조회</h3>
+
+                    <form action="/action_page.php">
+                        <ul>
+                            <li>
+                                <label for="name">이름</label>
+                                <input type="text" id="name" name="이름" placeholder="이름">
+                            </li>
+
+                            <li>
+                                <label for="phone">휴대전화</label>
+                                <input type="text" id="phone" name="휴대전화" placeholder="예시) 010 ⋯">
+                            </li>
+                        </ul>
+                    </form>
+
+                    <div class="check_btn">
+                        <a href="#popup" class="popup_open" onclick="lookUp()">
+                            제출여부조회
+                        </a>
+                    </div>
+
+                    <div id="popup" class="layer">
+                        <div class="popup_box">
+                               <div class="popup_header">제출여부 확인</div>
+                               <h5><span>문의날짜</span> <br>2020.00.00 (월) 00:00</h5>
+                                <p>입점상담신청 문의가 성공적으로 보내졌습니다. <br> 빠른시일 내에 연락드리겠습니다.</p>
+
+                            <div class="popup_btn">
+                                <a href="#" class="popup_close">닫기</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+
+
+        </section>
+        <script>
+            //입점상담신청
+           function applyCon(){
+            if($('#name').val() == "" || $('#phone').val()=='' || $('#brand').val()=='' || $('#address').val()=='' || $('#memo').val()==''){
+                alert("빈칸을 입력해 주세요");
+                return;
+            }
+            $.ajax({
+                url: "api/user/benefitApply",
+                dataType: "json",
+                method: "post",
+                data: {
+                    name : $("#name").val(),
+                    phone : $("#phone").val(),
+                    brand : $("#brand").val(),
+                    address : $("#address").val(),
+                    memo : $("#memo").val()
+                },
+                success: function(){
+                    alert("신청이 완료되었습니다. \n빠른시일내 연락드리겠습니다.");
+                    location.reload();
+                }
+
+            })
+           }
+           
+           function lookUp(){
+                if($('#name').val() == "" || $('#phone').val()==''){
+                    alert("빈칸을 입력해 주세요");
+                    return;
+                }
+
+                $.ajax({
+                   url: "api/user/lookUp",
+                   method: "post",
+                   dataType: "json",
+                   data: {
+                       name: $("#name").val(),
+                       phone: $("#phone").val()
+                   },
+                   success: function(res){
+                    console.log(res.data);
+                   }
+
+
+                });
+           }
+
+        </script>
+
+        <!--//secton.about 완료-->
+
+        <script>
+            $('.btn-example').click(function() {
+                var $href = $(this).attr('href');
+                layer_popup($href);
+            });
+
+            function layer_popup(el) {
+
+                var $el = $(el); //레이어의 id를 $el 변수에 저장
+                var isDim = $el.prev().hasClass('dimBg'); //dimmed 레이어를 감지하기 위한 boolean 변수
+
+                isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+
+                var $elWidth = ~~($el.outerWidth()),
+                    $elHeight = ~~($el.outerHeight()),
+                    docWidth = $(document).width(),
+                    docHeight = $(document).height();
+
+                // 화면의 중앙에 레이어를 띄운다.
+                if ($elHeight < docHeight || $elWidth < docWidth) {
+                    $el.css({
+                        marginTop: -$elHeight / 2,
+                        marginLeft: -$elWidth / 2
+                    })
+                } else {
+                    $el.css({
+                        top: 0,
+                        left: 0
+                    });
+                }
+
+                $el.find('a.btn-layerClose').click(function() {
+                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    return false;
+                });
+
+                $('.layer .dimBg').click(function() {
+                    $('.dim-layer').fadeOut();
+                    return false;
+                });
+
+            }
+        </script>
+
+    </div>
+
+    <script>
+        'use sctrict';
+
+        //gnb scroll 
+        //고정헤더, 사이드바 이벤트
+        var scrollTop = 0;
+        scrollTop = $(document).scrollTop();
+        fixHeader();
+
+        //윈도우창 조절시에 이벤트
+        $(window).on('scroll resize', function() {
+            scrollTop = $(document).scrollTop();
+            fixHeader();
+
+        });
+
+        //고정헤더 함수
+        function fixHeader() {
+            if (scrollTop > 200) {
+                $('header').addClass('on');
+            } else {
+                $('header').removeClass('on');
+            }
+        }
+
+
+        //모바일 모드 gnb_mo
+
+        setGnbMo();
+
+        function setGnbMo() {
+            $('header .open').on('click', function() {
+                $('.gnb_mo').addClass('on');
+            }); //햄버거버튼
+            $('.gnb_mo .close').on('click', function() {
+                $('.gnb_mo').removeClass('on');
+                $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
+                $('.gnb_mo > ul > li > a').removeClass('on')
+            });
+
+
+            //inner메뉴 열기
+
+            $('.gnb_mo > ul > li > a').on('click', function() {
+                $(this).next().slideToggle();
+                $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
+            });
+        }
+
+        //main 슬라이드
+        var slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            setTimeout(showSlides, 6000); // Change image every 2 seconds
+        }
+
+        //gallery 슬라이드
+        var slides = document.querySelectorAll('#slides .slide');
+        var currentSlide = 0;
+        var slideInterval = setInterval(nextSlide, 3000);
+
+        function nextSlide() {
+            slides[currentSlide].className = 'slide';
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].className = 'slide showing';
+        }
+
+        //scroll 애니
+        $(function() {
+            var scrollAni = 0;
+            //스크롤했을때 이벤트 적용
+            scrollAni = $(document).scrollTop();
+            ani('.menu_list, .int_slide, .owner_img, .insta_list'); //각 클래스 적용
+            //윈도우창사이즈 조절시 동일하게 이벤트 적용
+            $(window).on('scroll resize', function() {
+                scrollAni = $(document).scrollTop();
+                ani('.menu_list, .int_slide, .owner_img, .insta_list');
+            });
+
+            //함수선언 ani-함수명/(selector)-선택자
+            function ani(selector) {
+                $(selector).each(function() {
+
+                    var $selector = $(this);
+                    var minShow = $selector.offset().top - $(window).height();
+                    var maxShow = $selector.offset().top + $selector.outerHeight();
+
+                    $selector.removeClass('down on up');
+                    if (scrollTop < minShow) {
+                        $selector.addClass('down');
+                    } else if (scrollTop > maxShow) {
+                        $selector.addClass('up');
+                    } else {
+                        $selector.addClass('on');
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>

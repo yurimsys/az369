@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>AZ369 보세의류쇼핑몰</title>
-    <link rel="stylesheet" href="css/join_03.css">
+    <link rel="stylesheet" href="css/find_pw_01.css">
 
 
     <!--자바스크립트-->
@@ -109,54 +109,97 @@
                 </ul>
             </nav>
         </header>
-        
+
+
         <!--// header완료-->
         <!--section.main 시작-->
-        
+
         <section class="main">
             <div class="inner_main">
                 <div class="main_bg"></div>
                 <div class="tnb">
                     <ul>
-                        <a href="login.html">
-                            <li>로그인</li>
+                        <a href="login.asp">
+                            <li style="background: #ad8743; color: #fff">로그인</li>
                         </a>
-                        <a href="join_01.html">
-                            <li style="background: #ad8743; color: #fff">회원가입</li>
+                        <a href="join_01.asp">
+                            <li>회원가입</li>
                         </a>
                     </ul>
                 </div>
             </div>
         </section>
 
+        <!--//secton.main 완료-->
+        <!--secton.sub_wrap 시작-->
+
 
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
-                <h6>회원가입</h6>
-                <h1 style="font-family: 'PT Serif', serif;">JOIN</h1>
+                <h6>비밀번호찾기</h6>
+                <h1 style="font-family: 'PT Serif', serif;">FIND PW</h1>
                 <div class="bar"></div>
 
 
-                <div class="join_box">
-                    <div class="join_process">약관동의 > 정보입력 > <span>가입완료</span></div>
-
-                    <h2>03. 가입완료</h2>
-                    
-                    <div class="check_img">
-                        <img src="img/login/join_03_check.png" alt="가입완료">
-                    </div>
-                    
-                    <div class="join_txt">
-                        <h3><span id="yourName"></span>님의 회원가입이 <br> 완료되었습니다.</h3>
-                        <h4>AZ369에 가입하신 아이디는 <br><span id="yourId"></span> 입니다.</h4>
-                        
-                        <p>로그인하시면 장차예매 서비스를 이용하실 수 있습니다.</p>
+                <div class="find_box">
+                    <div class="tab">
+                        <ul>
+                            <a href="findId">
+                                <li style="border-bottom: 1px solid #ad863c; background: #f1f1f1; color: #777; ">아이디 찾기</li>
+                            </a>
+                            <a href="findPw">
+                                <li style="border-top: 1px solid #ad863c; border-left: 1px solid #ad863c; border-right: 1px solid #ad863c; ">비밀번호 찾기</li>
+                            </a>
+                        </ul>
                     </div>
 
-                            <a href="login.html"><div class="login_btn">로그인</div> </a>
+                    <div class="find_box_inner">
+                        <h2>비밀번호 찾기</h2>
+                        <p>회원가입 시 등록한 <strong>아이디</strong>와 <strong>이름</strong>을 입력해주세요.</p>
+                        <form action="/action_page.php">
 
+                            <div class="find_form">
+                                <label for="id"></label>
+                                <input type="text" id="id" name="아이디" placeholder="아이디">
 
+                                <label for="name"></label>
+                                <input type="text" id="name" name="이름" placeholder="이름">
+
+                                <!--<ul>
+                                    <li>
+                                        <label for="phone"></label>
+                                        <input type="text" id="phone" name="휴대전화번호" placeholder="휴대전화번호">
+                                    </li>
+
+                                    <li>
+                                        <button onclick="phone_check">본인인증</button>
+                                    </li>
+
+                                    <li>
+                                        <label for="phone2"></label>
+                                        <input type="text" id="phone2" name="휴대전화" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
+                                    </li>
+                                </ul>-->
+                            </div>
+
+                            <div class="find_pw_btn">
+                                <ul>
+                                    <li>
+                                        <a href="login">
+                                            <div class="login_btn">로그인</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="findPw()">
+                                            <div class="next_btn">다음</div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
 
 
@@ -169,16 +212,31 @@
 
         <!--<footer></footer>-->
     </div>
-    
+
     <script>
-        //넘겨받은 데이터 뿌려주기
-        var orderDetail = JSON.parse(sessionStorage.getItem("orderDetail"));
-        console.log(orderDetail);
-        //console.log(orderDetail[0].value);
-        var findName = orderDetail[0].value;
-        var findId = orderDetail[1].value;
-        $("#yourId").append(findId);
-        $("#yourName").append(findName);
+        function findPw(){
+            if($("#id").val == "" || $("#name").val() == ""){
+                alert("빈칸을 입력해주세요.");
+            }
+            $.ajax({
+               url : "api/user/findPw",
+               method : "post",
+               dataType : "json",
+               data : {id : $("#id").val(), name : $("#name").val()},
+               success : function(res){
+                    console.log(res);
+                    if(res.data === undefined){
+                        alert("등록된 회원이 아닙니다.");
+                        location.reload();
+                    } else if(res.data.U_UserName != ""){
+                        var orderDetail = [{name:"findId", value:res.name }, {name:"findName", value:res.id}];
+                        sessionStorage.setItem("orderDetail",JSON.stringify(orderDetail));
+                        location.href = "findPw2";
+                        
+                    }
+               }
+            });
+        }
     </script>
 
     <script>
@@ -263,12 +321,7 @@
             }
         });
 
-
-        /*agreement 전체동의 체크*/
-        $(document).ready(function() {
-            $('.check-all').click(function() {
-                $('.ab').prop('checked', this.checked);
-            });
-        });
     </script>
-</body></html>
+</body>
+
+</html>
