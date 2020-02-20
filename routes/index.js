@@ -105,8 +105,8 @@ router.get('/findId2', function(req, res, next) {
 
 //회원가입 액션
 router.post('/api/user/join', (req, res, next) =>{
-    let query = `insert into tu (U_UserName, U_Pw, U_Name, U_Phone, U_Brand, U_Zip, U_Addr1, U_Addr2) 
-            values( :uUserName,  :uPw,  :uName,  :uPhone , :uBrand,  :uZip,  :uAddr1,  :uAddr2)`;
+    let query = `insert into tu (U_UserName, U_Pw, U_Name, U_Phone, U_Email, U_Brand, U_Zip, U_Addr1, U_Addr2) 
+            values( :uUserName,  :uPw,  :uName,  :uPhone , :uEmail, :uBrand,  :uZip,  :uAddr1,  :uAddr2)`;
     //console.log(req.body);
 
     connection.query(query, 
@@ -115,6 +115,7 @@ router.post('/api/user/join', (req, res, next) =>{
             uPw : req.body.password,
             uName : req.body.name,
             uPhone : req.body.phone,
+            uEmail : req.body.email,
             uBrand : req.body.brand,
             uZip : req.body.postcode,
             uAddr1 : req.body.address,

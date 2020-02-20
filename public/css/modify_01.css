@@ -3,8 +3,8 @@
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #444;}
-h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0; font-family: inherit;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
 a img {border: none;}
@@ -13,47 +13,123 @@ address, em, i {font-style: normal;}
 p {text-align: justify; font-family: inherit; font-size: 16px;}
 
 .wrap {
-    position: relative;
     width: 100%;
     margin: 0 auto;
     height: auto;
-    background: #f8f8f8;
-    overflow: hidden;
 }
 
-
-
-header {width: 1920px; height: 80px; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05);}
+header {width: 100%; height: 80px; position: fixed; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05);}
 
 .innerHeader {
-    width: 1200px;
+    width: 100%;
     height: 80px;
     position: relative;
     margin: 0 auto;
      z-index: 500;
-    font-size: 15px;
+    font-size: 18px;
 }
 
-nav.gnb {width: 35%; margin: 0 auto; float: right;}
+/*로고*/
+.innerHeader h1.logo {float: left; margin-left: 3%; line-height: 70px; overflow: hidden;}
 
-.innerHeader ul li {
+
+/*nav_gnb*/
+nav.gnb {width: 45%;/* float: left; */margin: 0 auto;} 
+
+nav.gnb ul li {
     float: left;
     margin: 0 auto;
+    width: 33.3%;
     height: 80px;
     line-height: 80px;
     text-align: center;
     font-weight: normal;
-    width: 25%;
 }
 
-.innerHeader ul li a {display: block;}
-.innerHeader h1.logo {float: left;margin-right: 6%; margin-top: 0.5%; overflow: hidden;}
-.innerHeader h1.logo img {width:70%;}
+nav.gnb ul li a {display: block;}
+
+
 .innerHeader ul li:hover {color: #a0772b;}
 
+.innerHeader ul ul {display: none;   border: 1px solid #000;}
+.innerHeader ul ul li {float: none; width: 100%; height: 50px; line-height: 50px; position: relative;  color: #242424; background: #fff; font-size: 16px;}
+.innerHeader ul li ul li a {display: block;}
+
+.innerHeader ul li:hover > ul {display: block;}
+.innerHeader ul li ul li:hover { color: #333; background: #e3ddd2;}
+
+/*gnb2*/
+nav.gnb2 {width: 16%; float: right; margin-right: 5%; line-height: 80px; font-size: 16px; color: #777; }
+nav.gnb2 ul li {width: 33.3%; float: left; text-align: center; }
+nav.gnb2 a {display: block;}
 
 
+.tooltip {
+  position: relative;
+  display: inline-block; 
+   /* color: #333;*/
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 180px;
+    height: 60px;
+    line-height: 60px;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 1px 0;
+  position: absolute;
+    font-size: 16px;
+    font-weight: normal;
+  z-index: 1;
+  top: 100%;
+  left: 0%;
+  margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -8px;
+  border-width: 8px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+/*section.main*/
+section.main {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+}
+
+.main_bg {background: url(../img/login/login_main_bg.jpg);
+background-position: center;
+background-size: cover; width: 100%; height: 300px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
+
+@keyframes bg {
+    0% {transform: scale(1.05);
+    100% {transform: scale(1);}
+    }
+}
+
+.tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); }
+.tnb ul li {float: left; width: 50%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 1.2rem; color: #444; transition: all 0.2s; font-size: 17px;}
+
+
+
+/*section.main 완료*/
 /*section.sub_wrap 시작*/
+
 
 section.sub_wrap {
    width: 100%;
@@ -64,16 +140,34 @@ section.sub_wrap {
     overflow: hidden;
 }
 
+.modify_field {width: 100%; height: auto; overflow: hidden; padding-top: 7%;}
+
+/*
+section.sub_wrap .bar {
+    border-bottom: 2px solid #624000; 
+    width: 35px; 
+    margin: 0 auto;
+    margin-top: 2%;
+    margin-bottom: 4%;
+}
+*/
+
+section.sub_wrap h6 {text-align: center; color: #a0772b;  font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+
+section.sub_wrap h1 {
+    text-align: center;
+    font-size: 2.8rem;
+    margin-top: -1%;
+}
+.inner_sub_wrap h1 {font-size: 35px; font-weight: bold; margin: 0; padding-bottom: 1%; border-bottom: 1px solid #eee; margin-bottom: 3.5%;}
+
 /*폰트적용*/
 .inner_sub_wrap h1,
-.inner_sub_wrap h2 {font-family: 'Noto Sans KR', sans-serif; }
+.inner_sub_wrap h2 {font-family: 'Noto Sans KR', sans-serif; font-weight: normal;}
 
 .inner_sub_wrap {width: 1200px; margin: 0 auto;}
 
-.inner_sub_wrap h1 {font-size: 35px; font-weight: bold; margin: 0; padding-bottom: 1%; border-bottom: 1px solid #eee; margin-bottom: 3.5%;}
-.inner_sub_wrap h1 span {font-size: 17px; font-weight: normal; color: #777;}
-
-.modify_box {position: relative; width: 100%; background: #fff; border: 1px solid #ddd; height: auto; overflow: hidden;font-size: 16px; padding: 8% 20% 3%;}
+.modify_box {position: relative; width: 100%; background: #fff; border: 1px solid #ddd; height: auto; overflow: hidden;font-size: 16px; padding: 5% 20% ;}
 
 .modify_box form {width: 100%; margin: 0 auto;}
 .modify_box input {width: 100%; height: 50px; padding: 2%; margin: 0.5%; border: 1px solid #eee; margin: 0;}
@@ -105,7 +199,7 @@ section.sub_wrap {
 .modify_btn {width: 100%; margin: 0 auto; text-align: center; margin-left: 17%; margin-top: 4%;}
 .modify_btn ul li {float: left; margin-right: 1%;}
 .modify_btn ul li:nth-child(2) {margin-right: 0;}
-.back {border: 1px solid #aaa; width: 230px; height: 50px; line-height: 50px; float: left;}
+.back {border: 1px solid #ddd; width: 230px; height: 50px; line-height: 50px; float: left;}
 .next {background: #ad863c; color: #fff;  width: 230px; height: 50px; line-height: 50px; float: left;}
 
 /*section.sub_wrap 완료*/
