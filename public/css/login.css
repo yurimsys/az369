@@ -4,7 +4,11 @@
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+<<<<<<< HEAD
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
+=======
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0; font-family: inherit;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
 a img {border: none;}
@@ -13,6 +17,7 @@ address, em, i {font-style: normal;}
 p {text-align: justify; font-family: inherit; font-size: 16px;}
 
 .wrap {
+<<<<<<< HEAD
     width: 100%;
     margin: 0 auto;
     height: auto;
@@ -22,10 +27,26 @@ header {width: 100%; height: 80px; position: fixed; z-index: 10000; background: 
 
 .innerHeader {
     width: 100%;
+=======
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    background: #f8f8f8;
+    overflow: hidden;
+}
+
+
+header {width: 1920px; height: 80px; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05); overflow: hidden;}
+
+.innerHeader {
+    width: 1200px;
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     height: 80px;
     position: relative;
     margin: 0 auto;
      z-index: 500;
+<<<<<<< HEAD
     font-size: 18px;
 }
 
@@ -40,10 +61,22 @@ nav.gnb ul li {
     float: left;
     margin: 0 auto;
     width: 33.3%;
+=======
+    font-size: 15px;
+    overflow: hidden;
+}
+
+nav.gnb {width: 35%; margin: 0 auto; float: right;}
+
+.innerHeader ul li {
+    float: left;
+    margin: 0 auto;
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     height: 80px;
     line-height: 80px;
     text-align: center;
     font-weight: normal;
+<<<<<<< HEAD
 }
 
 nav.gnb ul li a {display: block;}
@@ -159,10 +192,34 @@ section.sub_wrap h1 {
 }
 
 
+=======
+    width: 25%;
+}
+
+.innerHeader ul li a {display: block;}
+.innerHeader h1.logo {float: left;margin-right: 6%; margin-top: 0.5%; overflow: hidden;}
+.innerHeader h1.logo img {width:70%;}
+.innerHeader ul li:hover {color: #a0772b;}
+
+
+
+/*section.sub_wrap 시작*/
+
+section.sub_wrap {
+   width: 100%;
+    height: 889px;
+    margin: 0 auto;
+    color: #333;
+    padding: 1.8% 0 3%; 
+    overflow: hidden;
+}
+
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 /*폰트적용*/
 .inner_sub_wrap h1,
 .inner_sub_wrap h2 {font-family: 'Noto Sans KR', sans-serif; }
 
+<<<<<<< HEAD
 /*.inner_sub_wrap {width: 1200px; margin: 0 auto; overflow: hidden;}*/
 
 
@@ -178,6 +235,27 @@ input[type=submit] {width: 100%; height: 50px; background: #ad863c; color: #fff;
 .form_bottom {width: 100%;}
 .form_bottom ul li { float: left; width: 50%;}
 .find_btn {margin-top: 6%; float: left; padding: 3.9% 0; font-size: 15px; color: #666;}
+=======
+.inner_sub_wrap {width: 1200px; margin: 0 auto; overflow: hidden;}
+
+.inner_sub_wrap h1 {font-size: 35px; font-weight: bold; margin: 0; padding-bottom: 1%; border-bottom: 1px solid #eee; margin-bottom: 3.5%;}
+.inner_sub_wrap h1 span {font-size: 17px; font-weight: normal; color: #777;}
+.inner_sub_wrap h1 br {display: none;}
+
+.login_box {position: relative; width: 100%; height: 530px; background: #fff; /*box-shadow: 0 0 5px rgba(0,0,0,0.1);*/ border: 1px solid #ddd;}
+
+.form_box {position: absolute; padding: 8% 22%; width: 100%; top: 50%; transform: translateY(-50%); overflow: hidden;}
+.form_box h2 {font-size: 24px; display: block; margin: 0; margin-bottom: 3%;}
+form_box form .login_form {width: 100%;}
+.login_form input {width: 100%; height: 50px; padding: 2%; border: 1px solid #eee; margin-bottom: 1%;}
+.login_form input[type=password] {margin-bottom: 0%;}
+
+input[type=submit] {width: 100%; height: 55px; background: #ad863c; color: #fff; border: none; cursor: pointer;}
+
+.form_bottom {width: 100%;}
+.form_bottom ul li { float: left; width: 50%;}
+.search_btn {margin-top: 6%; float: left; padding: 3.9% 0;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 .join_btn {margin-top: 6%; float: right; padding: 3.9% 25%; border: 1px solid #ccc; transition: all 0.3s;}
 .join_btn:hover {background: #f4f4f4;}
 
@@ -231,7 +309,11 @@ input[type=submit] {width: 100%; height: 50px; background: #ad863c; color: #fff;
 }
 
 .checks.etrans input[type="checkbox"] + label {
+<<<<<<< HEAD
   padding-left: 30px; color: #666; font-size: 15px;
+=======
+  padding-left: 30px;
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 }
 .checks.etrans input[type="checkbox"] + label:before {
   position: absolute;
@@ -316,6 +398,7 @@ header .open {
 @media screen and (max-width: 1200px) {
     
     /*Header*/
+<<<<<<< HEAD
     header {width: 1200px;}
     header .gnb {display: none;}
     header .innerHeader {width: 1200px; position: fixed;}
@@ -328,11 +411,21 @@ header .open {
     /*main*/
     section.main {width: 100%;}
     section.main .inner_main {width: 1200px;}
+=======
+    header {width: 1200px; overflow: hidden;}
+    header .gnb {display: none;}
+    header .innerHeader {width: 1200px; overflow: hidden;}
+    header .logo {padding-top: 0.35%;  margin-left: 3%; }
+    header .logo img {width: 85%;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     .inner_sub_wrap {width: 95%; margin: 0 auto;}
+<<<<<<< HEAD
     .tnb {width: 1200px; margin-top: -5%;}
+=======
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     
     
   /*gnb_mo*/
@@ -437,7 +530,11 @@ header .open {
 
     .gnb_mo > ul > li .inner {
         display: none;
+<<<<<<< HEAD
         background-color: #e3ddd2;
+=======
+        background-color: #e6d0a6;
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     }
 
     .gnb_mo > ul > li .inner.on {
@@ -461,12 +558,19 @@ header .open {
     /*Header*/
     header {width: 1024px;}
     header .gnb {display: none;}
+<<<<<<< HEAD
     header .innerHeader {width: 1024px; position: fixed;}
+=======
+    header .innerHeader {width: 1024px;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
+<<<<<<< HEAD
      .tnb {width: 1024px; margin-top: -5.9%;}
+=======
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     
     /*footer*/
     footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
@@ -483,18 +587,28 @@ header .open {
     /*Header*/
     header {width: 768px;}
     header .gnb {display: none;}
+<<<<<<< HEAD
     header .innerHeader {width: 768px; position: fixed;}
+=======
+    header .innerHeader {width: 768px;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     header .innerHeader .call {padding-right: 7%;}
     
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     section.sub_wrap .inner_sub_wrap {width: 95%;}
+<<<<<<< HEAD
     .tnb {width: 768px; margin-top:-7.6%;}
     section.sub_wrap h1 {font-size: 2.2rem;}
     section.sub_wrap h2 {font-weight: normal;}
     
     .login_box {padding: 5% 7%;}
+=======
+    section.sub_wrap h1 {font-size: 2rem;}
+    
+    .form_box {padding: 5% 7%;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     .etrans {margin: 5% 0 9%;}
     .etrans label {font-size: 14px;}
     
@@ -513,6 +627,7 @@ header .open {
     /*Header*/
     header {width: 414px;}
     header .gnb {display: none;}
+<<<<<<< HEAD
     header .innerHeader {width: 414px; position: fixed;}
     header .innerHeader .call {display: none;}
     header .logo img {width: 40%; margin-top: 3%;}
@@ -541,6 +656,25 @@ header .open {
     .search_btn {padding: 0; float: right; font-size: 12px; color: #888;}
     input[type="submit"] {font-size: 16px; height: 45px;}
     .etrans {margin: 5% 0; font-size: 14px;}
+=======
+    header .innerHeader {width: 414px;}
+    header .logo img {width: 40%; margin-top: 3%;}
+    
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%; height: 700px;}
+    section.sub_wrap h1 {font-size: 22px; line-height: 1.1; padding: 5% 0; color: #666; text-align: center;}
+    section.sub_wrap h1 br {display: block;}
+    section.sub_wrap h1 span {font-size: 14px;}
+    section.sub_wrap h2 {font-size: 24px;}
+    .checks label {color: #888; font-size: 13px;}
+    
+    .login_box {width: 100%;}
+    .form_box {padding: 0 5%;}
+    .form_bottom ul li {float: none; width: 100%; text-align: center;}
+    .join_btn {padding: 0; width: 100%; height: 45px; line-height: 45px;}
+    .search_btn {padding: 0; float: right; font-size: 12px; color: #888;}
+    input[type="submit"] {font-size: 16px;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 
     /*footer*/
     footer {width: 100%; margin: 0 auto; }

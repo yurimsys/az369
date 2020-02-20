@@ -1,26 +1,52 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const session =  require('express-session');
+const mysqlStore = require('express-mysql-session')(session);
+const passport = require('passport');
+const passportConfig = require('./config/passport');
+const path = require('path');
+const flash = require('connect-flash');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var app = express();
+const app = express();
+const fs = require('fs');
+const dbconf = JSON.parse( fs.readFileSync('./config/database.json') );
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// Debuging 용도
+// app.use(function(req, res, next) {
+//     console.log('handling request for: ' + req.url);
+//     next();
+// });
+
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+    secret : 'qw12!@#yurimsys!@#',
+    store: new mysqlStore(dbconf),
+    resave: false,
+    saveUninitialized: false
+}));
 
+// Sessions Config
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Flash Set
+app.use(flash());
+
+// Router Config
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -31,7 +57,6 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

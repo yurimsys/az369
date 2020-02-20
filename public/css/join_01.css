@@ -4,7 +4,11 @@
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+<<<<<<< HEAD
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
+=======
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0; font-family: inherit;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
 a img {border: none;}
@@ -12,6 +16,7 @@ li {list-style: none;}
 address, em, i {font-style: normal;}
 p {text-align: justify; font-family: inherit; font-size: 16px;}
 
+<<<<<<< HEAD
 .wrap {
     width: 100%;
     margin: 0 auto;
@@ -22,10 +27,29 @@ header {width: 100%; height: 80px; position: fixed; z-index: 10000; background: 
 
 .innerHeader {
     width: 100%;
+=======
+
+.wrap {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    background: #f8f8f8;
+    overflow: hidden;
+}
+
+
+
+header {width: 1920px; height: 80px; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05); overflow: hidden;}
+
+.innerHeader {
+    width: 1200px;
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     height: 80px;
     position: relative;
     margin: 0 auto;
      z-index: 500;
+<<<<<<< HEAD
     font-size: 18px;
 }
 
@@ -40,10 +64,21 @@ nav.gnb ul li {
     float: left;
     margin: 0 auto;
     width: 33.3%;
+=======
+    font-size: 15px;
+}
+
+nav.gnb {width: 35%; margin: 0 auto; float: right;}
+
+.innerHeader ul li {
+    float: left;
+    margin: 0 auto;
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     height: 80px;
     line-height: 80px;
     text-align: center;
     font-weight: normal;
+<<<<<<< HEAD
 }
 
 nav.gnb ul li a {display: block;}
@@ -166,14 +201,55 @@ section.sub_wrap h1 {
 .join_box h3 {font-size: 18px; font-weight: normal; color: #666; margin-bottom: 2%;}
 .join_box h3 span {color: #ad863c;}
 
+=======
+    width: 25%;
+}
+
+.innerHeader ul li a {display: block;}
+.innerHeader h1.logo {float: left;margin-right: 6%; margin-top: 0.28%; overflow: hidden;}
+.innerHeader h1.logo img {width:70%;}
+.innerHeader ul li:hover {color: #a0772b;}
+
+
+
+/*section.sub_wrap 시작*/
+
+section.sub_wrap {
+   width: 100%;
+    margin: 0 auto;
+    color: #333;
+    height: 100%;
+    padding: 1.8% 0 3%; 
+    overflow: hidden;
+}
+
+/*폰트적용*/
+.inner_sub_wrap h1,
+.inner_sub_wrap h2 {font-family: 'Noto Sans KR', sans-serif; }
+
+.inner_sub_wrap {width: 1200px; margin: 0 auto;}
+.inner_sub_wrap h1 {font-size: 35px; font-weight: bold; margin: 0; padding-bottom: 1%; border-bottom: 1px solid #eee; margin-bottom: 3.5%;}
+.inner_sub_wrap .bar {width: 35px; height: 1px; background: #a37d33; margin: 0 auto; margin-bottom: 3.5%; margin-top: 3%;}
+
+/*join_box*/
+.join_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #ddd; padding: 5%; height: auto;}
+.join_box .join_process {text-align: center; color: #888;}
+.join_box .join_process span {color: #ad863c; font-weight: bold;}
+.join_box h2 {text-align: center; font-size: 26px;}
+.join_box h3 {font-size: 18px;}
+.join_box h3 span {color: #ad863c;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 .join_agreement {width: 100%; margin: 0 auto; height: 130px; overflow: scroll; background: #f8f7f1; overflow-x: hidden; margin-bottom: 4%;}
 
 .agreement_tit ul li {float: left;}
 .agreement_tit ul li:nth-child(2) {float: right;}
 
+<<<<<<< HEAD
 .join_agreement strong {font-size: 16px; color: #555;}
 .join_agreement h5 {color: #555; font-size: 15px; font-weight: normal;}
 .join_agreement p {color: #888; font-size: 14px;}
+=======
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 
 /*동의 라디오버튼*/
 .etrans {font-size: 16px;}
@@ -269,6 +345,7 @@ section.sub_wrap h1 {
   border: 1px solid #ad863c;
 }
 
+<<<<<<< HEAD
 .check_all_btn {text-align: center; padding: 2% 0; border: 1px solid #ddd; color: #444;}
 
 /*하단 버튼*/
@@ -277,6 +354,16 @@ section.sub_wrap h1 {
 .join_btn ul li:nth-child(2) {margin-right: 0;}
 .back {border: 1px solid #ddd; width: 230px;}
 .next {background: #ad863c; color: #fff;  width: 230px;}
+=======
+.check_all_btn {text-align: center; padding: 2% 0; border: 1px solid #ddd;}
+
+/*하단 버튼*/
+.join_btn {width: 50%; margin: 0 auto; text-align: center; margin-left: 50%; transform: translateX(-50%); padding: 4% 0;}
+.join_btn ul li {float: left; margin-right: 2%;}
+.join_btn ul li:nth-child(2) {margin-right: 0;}
+.back {border: 1px solid #aaa; width: 230px; height: 50px; line-height: 50px;}
+.next {background: #ad863c; color: #fff;  width: 230px; height: 50px; line-height: 50px;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 
 
 /*section.sub_wrap 완료*/
@@ -319,6 +406,7 @@ header .open {
     /*Header*/
     header {width: 1200px;}
     header .gnb {display: none;}
+<<<<<<< HEAD
     header .innerHeader {width: 1200px; position: fixed;}
     header .logo {padding-top: 0.35%;}
     header .logo img {width: 85%;}
@@ -334,6 +422,17 @@ header .open {
     section.sub_wrap {width:100%;}
     .inner_sub_wrap {width: 95%; margin: 0 auto;}
     .tnb {width: 1200px;}
+=======
+    header .innerHeader {width: 1200px;}
+    header .logo {padding-top: 0.35%; margin-left: 3%;}
+    header .logo img {width: 85%;}
+
+    
+    /*section.sub_wrap*/
+    section.sub_wrap {width: 1200px; overflow: hidden;}
+    section.sub_wrap .inner_sub_wrap {width: 95%; overflow: hidden;}
+    .inner_sub_wrap h1 {margin-bottom: 2%;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     
   /*gnb_mo*/
     header .open {
@@ -437,7 +536,11 @@ header .open {
 
     .gnb_mo > ul > li .inner {
         display: none;
+<<<<<<< HEAD
         background-color: #e3ddd2;
+=======
+        background-color: #e6d0a6;
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     }
 
     .gnb_mo > ul > li .inner.on {
@@ -461,12 +564,19 @@ header .open {
     /*Header*/
     header {width: 1024px;}
     header .gnb {display: none;}
+<<<<<<< HEAD
     header .innerHeader {width: 1024px; position: fixed;}
 
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
      .tnb {width: 1024px; margin-top: -5.9%;}
+=======
+    header .innerHeader {width: 1024px;}
+    
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     
     /*하단 버튼*/
     .join_btn {width: 100%; margin-left: 72%; transform: translateX(-50%);}
@@ -486,6 +596,7 @@ header .open {
     /*Header*/
     header {width: 768px;}
     header .gnb {display: none;}
+<<<<<<< HEAD
     header .innerHeader {width: 768px; position: fixed;}
     header .innerHeader .call {padding-right: 7%;}
     
@@ -495,6 +606,13 @@ header .open {
     .tnb {width: 768px;}
     section.sub_wrap h1 {font-size: 2.2rem;}
     section.sub_warp .bar {display: none;}
+=======
+    header .innerHeader {width: 768px;}
+    
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%;}
+    section.sub_wrap h1 {font-size: 2rem;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     
     /*하단 버튼*/
     .join_btn {margin-left: 62%; transform: translateX(-50%);}
@@ -514,6 +632,7 @@ header .open {
     /*Header*/
     header {width: 414px;}
     header .gnb {display: none;}
+<<<<<<< HEAD
     header .innerHeader {width: 414px; position: fixed;}
     header .innerHeader .call {display: none;}
     header .logo img {width: 40%; margin-top: 3%;}
@@ -544,11 +663,37 @@ header .open {
     .check_all_btn {margin-top: 5%; font-size: 14px; margin-top: 5%; color: #444;} 
     
     .join_btn {width: 100%; margin: 0; margin-top: 8%; margin-left: 50%; height: 40px; line-height: 40px;}
+=======
+    header .innerHeader {width: 414px;}
+    header .logo img {width: 40%; margin-top: 3%;}
+    
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%; margin-bottom: 10%;}
+    .join_box .join_process {font-size: 12px;}
+    .join_box .join_process {font-size: 12px;}
+    section.sub_wrap h1 {font-size: 22px; color: #666; text-align: center;}
+    
+    .inner_sub_wrap .bar {margin-top: 5%;}
+    .join_box h2 {font-size: 24px; font-weight: bold;}
+    .join_box h3 {font-size: 14px; color: #666;}
+    .check_btn{margin-top: 20%; color: #666;}
+    .join_agreement {font-size: 12px;}
+    .check_all_btn {margin-top: 5%; font-size: 14px; padding: 4%; color: #444;} 
+    
+    /*section.sub_wrap*/
+    .search_box_inner {margin: 0 auto; padding: 10% 5%;}
+    
+    .join_btn {width: 100%; margin: 0; margin-top: 8%; margin-left: 50%; }
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     .join_btn ul li {width: 49%; margin-right: 1%; }
     .join_btn ul li:last-child {margin-right: 0;}
     
     .join_box {padding-bottom: 23%;}
+<<<<<<< HEAD
     .agreement_tit {margin-top: 16%;0}
+=======
+    .agreement_tit {margin-top: 16%;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     
     /*footer*/
     footer {width: 100%; margin: 0 auto; }

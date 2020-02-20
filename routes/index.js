@@ -1,12 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
 const mysql = require('mysql');
-var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'qw12',
-    database : 'az369'
-});
+const fs = require('fs');
+const pconf = require('../config/passport');
+let dbconf = JSON.parse( fs.readFileSync('./config/database.json') );
+const connection = mysql.createConnection(dbconf);
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -22,18 +21,35 @@ connection.config.queryFormat = function (query, values) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'AZ369' });
+  res.render('index', { title: 'Express' });
 });
 
-router.get('/mypage', function(req, res, next) {
+router.get('/login', function(req, res, next){
+    res.render('login');
+});
+
+router.get('/logout', function(req, res, next){
+    req.logOut();
+    res.redirect('/');
+});
+
+router.post('/login', 
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/login',
+        failureMessage: "fail message"
+    })
+);
+
+
+router.get('/mypage', pconf.isAuthenticated, function(req, res, next) {
 
   let query = "SELECT u_name, u_email, u_phone, u_brand from tU where u_name = :name";
   connection.query(query, { name : "김동현"},
     function(err, rows, fields) {
-      if (err) throw err;
-    res.render('mypage', { title: '버스 예약시스템', data : rows[0] });
-  });
-  
+        if (err) throw err;
+        res.render('mypage', { title: '버스 예약시스템', data : rows[0] });
+    });
 });
 
 router.get('/modify', function(req, res, next){
@@ -47,8 +63,6 @@ router.get('/modify2', function(req, res, next){
 router.get('/reservation', (req, res) => {
     res.render('reservation_01');
 });
-
-
 
 router.post('/api/user/phone', (req, res, next) => {
   

@@ -3,8 +3,13 @@
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
+<<<<<<< HEAD
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
+=======
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #444;}
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0; font-family: inherit;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
 a img {border: none;}
@@ -13,6 +18,7 @@ address, em, i {font-style: normal;}
 p {text-align: justify; font-family: inherit; font-size: 16px;}
 
 .wrap {
+<<<<<<< HEAD
     width: 100%;
     margin: 0 auto;
     height: auto;
@@ -22,10 +28,27 @@ header {width: 100%; height: 80px; position: fixed; z-index: 10000; background: 
 
 .innerHeader {
     width: 100%;
+=======
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    background: #f8f8f8;
+    overflow: hidden;
+}
+
+
+
+header {width: 1920px; height: 80px; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05);}
+
+.innerHeader {
+    width: 1200px;
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     height: 80px;
     position: relative;
     margin: 0 auto;
      z-index: 500;
+<<<<<<< HEAD
     font-size: 18px;
 }
 
@@ -40,10 +63,21 @@ nav.gnb ul li {
     float: left;
     margin: 0 auto;
     width: 33.3%;
+=======
+    font-size: 15px;
+}
+
+nav.gnb {width: 35%; margin: 0 auto; float: right;}
+
+.innerHeader ul li {
+    float: left;
+    margin: 0 auto;
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     height: 80px;
     line-height: 80px;
     text-align: center;
     font-weight: normal;
+<<<<<<< HEAD
 }
 
 nav.gnb ul li a {display: block;}
@@ -131,6 +165,20 @@ background-size: cover; width: 100%; height: 300px; animation: bg; animation-del
 /*section.sub_wrap 시작*/
 
 
+=======
+    width: 25%;
+}
+
+.innerHeader ul li a {display: block;}
+.innerHeader h1.logo {float: left;margin-right: 6%; margin-top: 0.5%; overflow: hidden;}
+.innerHeader h1.logo img {width:70%;}
+.innerHeader ul li:hover {color: #a0772b;}
+
+
+
+/*section.sub_wrap 시작*/
+
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 section.sub_wrap {
    width: 100%;
     height: auto;
@@ -140,6 +188,7 @@ section.sub_wrap {
     overflow: hidden;
 }
 
+<<<<<<< HEAD
 .modify_field {width: 100%; height: auto; overflow: hidden; padding-top: 7%;}
 
 /*
@@ -168,6 +217,18 @@ section.sub_wrap h1 {
 .inner_sub_wrap {width: 1200px; margin: 0 auto;}
 
 .modify_box {position: relative; width: 100%; background: #fff; border: 1px solid #ddd; height: auto; overflow: hidden;font-size: 16px; padding: 5% 20% ;}
+=======
+/*폰트적용*/
+.inner_sub_wrap h1,
+.inner_sub_wrap h2 {font-family: 'Noto Sans KR', sans-serif; }
+
+.inner_sub_wrap {width: 1200px; margin: 0 auto;}
+
+.inner_sub_wrap h1 {font-size: 35px; font-weight: bold; margin: 0; padding-bottom: 1%; border-bottom: 1px solid #eee; margin-bottom: 3.5%;}
+.inner_sub_wrap h1 span {font-size: 17px; font-weight: normal; color: #777;}
+
+.modify_box {position: relative; width: 100%; background: #fff; border: 1px solid #ddd; height: auto; overflow: hidden;font-size: 16px; padding: 8% 20% 3%;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 
 .modify_box form {width: 100%; margin: 0 auto;}
 .modify_box input {width: 100%; height: 50px; padding: 2%; margin: 0.5%; border: 1px solid #eee; margin: 0;}
@@ -199,7 +260,11 @@ section.sub_wrap h1 {
 .modify_btn {width: 100%; margin: 0 auto; text-align: center; margin-left: 17%; margin-top: 4%;}
 .modify_btn ul li {float: left; margin-right: 1%;}
 .modify_btn ul li:nth-child(2) {margin-right: 0;}
+<<<<<<< HEAD
 .back {border: 1px solid #ddd; width: 230px; height: 50px; line-height: 50px; float: left;}
+=======
+.back {border: 1px solid #aaa; width: 230px; height: 50px; line-height: 50px; float: left;}
+>>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 .next {background: #ad863c; color: #fff;  width: 230px; height: 50px; line-height: 50px; float: left;}
 
 /*section.sub_wrap 완료*/
