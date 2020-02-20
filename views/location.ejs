@@ -6,16 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>AZ369 보세의류쇼핑몰</title>
-    <link rel="stylesheet" href="./css/vehicle.css">
-
+    <link rel="stylesheet" href="./css/location.css">
 
     <!--자바스크립트-->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/scrolla.jquery.min.js"></script>
 
-
     <!--폰트-->
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
+    
+    <!--폰트어썸-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
 
 </head>
@@ -26,71 +27,51 @@
         <% include templates/header.ejs %>
         <!--section.main 시작-->
 
+
         <section class="main">
             <div class="inner_main">
-                <div class="main_bg"></div>
-            </div>
+                        <div class="main_bg"></div>
+                    </div>
         </section>
+
 
         <!--//secton.main 완료-->
         <!--secton.sub_wrap 시작-->
 
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
-
-
-                <div class="tnb">
+               
+               <div class="tnb">
+                            <ul>
+                               <a href="summary.asp"> <li>사업개요</li></a>
+                                <a href="ctd_info.asp"><li>센트럴돔 소개</li></a>
+                                <a href="location.asp"><li style="background: #ad8743; color: #fff">오시는 길</li></a>
+                            </ul>
+                        </div>
+               
+               
+                <h6>오시는 길</h6>
+                <h1 style="font-family: 'PT Serif', serif;" >LOCATION</h1>
+                <div class="bar"></div>
+                <h5>경기도 평택시 비전1동 104-28</h5> 
+                <h2><em>평택 가로수길 센트럴돔</em></h2>
+                <div class="sub_map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3186.454932067259!2d127.11039511529547!3d36.99894187990809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b3b204150bffd%3A0xb26cb125e0565d8b!2z7Y-J7YOd6rCA66Gc7IiY6ri4IOyEvO2KuOuftOuPlA!5e0!3m2!1sko!2skr!4v1578987141300!5m2!1sko!2skr" width="100%"  height="450px;"
+                 frameborder="0" style="border:0;" allowfullscreen=""></iframe></div>
+                
+                <div class="sub_contents">
                     <ul>
-                        <a href="vehicle.asp">
-                            <li style="background: #ad8743; color: #fff">장차운행안내</li>
-                        </a>
-                            <a href="reservation_01.asp"><li>장차예매신청</li></a>
-                            <a href="mypage.asp">
-                            <li>장차예매현황</li>
-                        </a>
+                        <li><h3><i class="fas fa-map-marker-alt"></i>주소</h3><p>경기도 평택시 비전1동 104-28</p></li>
+                        <li><h3><i class="fas fa-mobile-alt"></i>문의</h3><p>031 - 668 - 0116</p></li>
+                        
                         
                     </ul>
                 </div>
-
-                <h6>장차운행안내</h6>
-                <h1 style="font-family: 'PT Serif', serif;">VEHICLE SERVICE</h1>
-                <div class="bar"></div>
-                <h5><strong style="color: #444;">평택 센트럴돔</strong>에서 <strong style="color: #444;">서울 동대문 상가</strong>까지</h5>
                 
-                <h2><em><strong>AZ369</strong>에서는  <br>장차운행 서비스를 시행합니다.</em></h2>
-                <div class="sub_bg"><img src="img/vehicle/vehicle_sub_bg.png" alt=""></div>
-
-                <div class="sub_info">
-
-
-                    <em>오가는 길 <strong>든든</strong>하고 <strong>편안</strong>하게</em> <br>
-                    <h3><strong>AZ369</strong>에서 지원하는 장차는
-                         <br>인원수 상관없이 정해진 날짜에 <strong>항시 운행</strong>합니다.</h3>
-
-                        <p><strong style="font-size: 1.1rem">서울 동대문 상가 ↔ 평택 가로수길 센트럴돔 (왕복)</strong><br>
-                        <strong>평택 → 서울</strong> 월요일 밤 9시 ~ 10시 출발<br>
-                        <strong>서울 → 평택</strong> 월요일 새벽 4시 ~ 5시 출발<br>
-                        (최소 주 1회. 추후 주 2회로 늘일 예정)<br>
-                        선착순 입석 (이후 좌석선택으로 변경될 예정)
-                        </p>
-                        <!--<div class="info_notice">
-                            <p>
-                                장차예약신청 페이지는 현재 작업진행중으로, <br> 빠른 시일 내에 오픈하도록 하겠습니다.<br>
-                                <span>문의 031 - 668 - 0116</span>
-                            </p>
-                        </div>-->
-                    <br>
-
-                    <div class="vehicle_btn">
-                        <a href="reservation_01.asp">장차예매신청</a>
-                    </div>
-
-                </div>
             </div>
         </section>
 
-        <!--//secton.about 완료-->
-
+        <!--//secton.sub_wrap 완료-->
+        
 
         <!--<footer></footer>-->
     </div>
@@ -119,8 +100,8 @@
                 $('header').removeClass('on');
             }
         }
-
-
+        
+        
         //모바일 모드 gnb_mo
 
         setGnbMo();
@@ -143,7 +124,7 @@
                 $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
             });
         }
-
+        
         //main 슬라이드
         var slideIndex = 0;
         showSlides();
@@ -166,17 +147,44 @@
             dots[slideIndex - 1].className += " active";
             setTimeout(showSlides, 6000); // Change image every 2 seconds
         }
-
+        
         //gallery 슬라이드
-        var slides = document.querySelectorAll('#slides .slide');
-        var currentSlide = 0;
-        var slideInterval = setInterval(nextSlide, 3000);
+            var slides = document.querySelectorAll('#slides .slide');
+            var currentSlide = 0;
+            var slideInterval = setInterval(nextSlide, 3000);
 
-        function nextSlide() {
-            slides[currentSlide].className = 'slide';
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].className = 'slide showing';
+            function nextSlide() {
+                slides[currentSlide].className = 'slide';
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].className = 'slide showing';
+            }
+
+        //gnb modla 
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
         }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
 
         //scroll 애니
         $(function() {

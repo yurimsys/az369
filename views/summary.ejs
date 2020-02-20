@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>AZ369 보세의류쇼핑몰</title>
-    <link rel="stylesheet" href="css/find_pw_03.css">
+    <link rel="stylesheet" href="./css/summary.css">
 
 
     <!--자바스크립트-->
@@ -26,64 +26,62 @@
         <% include templates/header.ejs %>
         <!--section.main 시작-->
 
+
         <section class="main">
             <div class="inner_main">
                 <div class="main_bg"></div>
-                <div class="tnb">
-                    <ul>
-                        <a href="login.asp">
-                            <li style="background: #ad8743; color: #fff">로그인</li>
-                        </a>
-                        <a href="join_01.asp">
-                            <li>회원가입</li>
-                        </a>
-                    </ul>
-                </div>
             </div>
         </section>
 
         <!--//secton.main 완료-->
         <!--secton.sub_wrap 시작-->
 
-
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
-                <h6>비밀번호찾기</h6>
-                <h1 style="font-family: 'PT Serif', serif;">FIND PW</h1>
-                <div class="bar"></div>
 
-
-                <div class="find_box">
-                    <div class="tab">
-                        <ul>
-                            <a href="find_id_01.asp">
-                                <li style="border-bottom: 1px solid #ad863c; background: #f1f1f1; color: #777; ">아이디 찾기</li>
-                            </a>
-                            <a href="find_pw_01.asp">
-                                <li style="border-top: 1px solid #ad863c; border-left: 1px solid #ad863c; border-right: 1px solid #ad863c; ">비밀번호 찾기</li>
-                            </a>
-                        </ul>
-                    </div>
-
-                    <div class="find_box_inner">
-                        <!--<h2>비밀번호 찾기</h2>-->
-                        
-                        <div class="find_img"><img src="img/login/find_pw_img.png" alt=""></div>
-
-                        <h3><span id="yourName"></span>의 비밀번호 변경이 완료되었습니다!</h3>
-                        <p>변경된 비밀번호로 로그인 후 장차예매 서비스를 진행하실 수 있습니다.</p>
-                        <form action="/action_page.php">
-
-                                <a href="login">
-                                    <div class="login_btn">로그인</div>
-                                </a>
-                        </form>
-                    </div>
+                <div class="tnb">
+                    <ul>
+                        <a href="summary.asp">
+                            <li style="background: #ad8743; color: #fff">사업개요</li>
+                        </a>
+                        <a href="ctd_info.asp">
+                            <li>센트럴돔 소개</li>
+                        </a>
+                        <a href="location.asp">
+                            <li>오시는 길</li>
+                        </a>
+                    </ul>
                 </div>
 
+                <h6>사업개요</h6>
+                <h1 style="font-family: 'PT Serif', serif;">SUMMARY</h1>
+                <div class="bar"></div>
+                <h5><strong style="color: #333;">모이면 모일수록 더! </strong>행복해지는</h5>
+                <h2><em>전문 보세의류 쇼핑몰 <strong>AZ369</strong>가<br> 당신과 함께합니다.</em></h2>
+                <div class="sub_bg"><img src="img/summary/summary_sub_bg.jpg" alt=""></div>
+
+                <div class="sub_info">
 
 
+                    <em>기존의 아울렛과는 <strong>다릅니다.</strong></em> <br>
+                    <h3><strong>AZ369</strong>는 경기남부권 최대규모 <br><strong>보세전문 쇼핑몰</strong>을 만들고자 합니다.</h3>
+
+                    <p>성장도시 평택의 최고의 지리적 중심, 평택 가로수길 센트럴돔에서 <br>
+                        흩어져있는 보세 의류 옷가게들을 여기 센트럴돔으로 모아<br>
+                        관리비용을 낮추고 경쟁력을 높이는 것이 저희의 목표이자 의지입니다. <br>
+                        보세의류도 백화점처럼 연인 또는 가족과 함께 편하게 찾아올 수 있는 쇼핑몰. <br>
+                        이를 구현하기 위해 저희 AZ369는 현재, <br>다양한 혜택과 함께하실 <strong>입점주분들을 모집</strong>하고 있습니다. </p>
+                    <br>
+                    <ul>
+                        <li>
+                            <div class="info_btn"><a href="benefit.asp">입점신청혜택</a></div>
+                        </li>
+                        <li>
+                            <div class="info_btn"><a href="ctd_info.asp">센트럴돔 소개</a></div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
 
@@ -92,14 +90,6 @@
 
         <!--<footer></footer>-->
     </div>
-    <script>        
-        //넘겨받은 데이터 뿌려주기
-        var orderDetail = JSON.parse(sessionStorage.getItem("orderDetail"));
-        console.log(orderDetail);
-        //console.log(orderDetail[0].value);
-        var findName = orderDetail[0].value;
-        $("#yourName").append(findName+"님");
-    </script>
 
     <script>
         'use sctrict';
@@ -150,6 +140,39 @@
             });
         }
 
+        //main 슬라이드
+        var slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            setTimeout(showSlides, 6000); // Change image every 2 seconds
+        }
+
+        //gallery 슬라이드
+        var slides = document.querySelectorAll('#slides .slide');
+        var currentSlide = 0;
+        var slideInterval = setInterval(nextSlide, 3000);
+
+        function nextSlide() {
+            slides[currentSlide].className = 'slide';
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].className = 'slide showing';
+        }
 
         //scroll 애니
         $(function() {
