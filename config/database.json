@@ -2,6 +2,10 @@
     "host"     : "localhost",
     "user"     : "root",
     "password" : "qw12",
+<<<<<<< HEAD
     "database" : "az369",
+=======
+    "database" : "BusReservation",
+>>>>>>> 51528de58831a7ed7ff273f98f9c11f5e28b0e0b
     "port"     : "3306"
 }
