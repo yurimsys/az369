@@ -93,8 +93,42 @@ router.get('/benefit_application', function(req, res, next){
     res.render('benefit_application', { title : '입점신청' });
 });
 
+router.get('/login', function(req, res, next){
+    res.render('login', { title : '로그인' });
+});
 
-  //회원가입 페이지
+
+//사업개요
+router.get('/summary', (req, res, next) => {
+    res.render('summary')
+});
+
+//센트럴돔 소개
+router.get('/ctd_info', (req, res, next) => {
+    res.render('ctd_info')
+});
+
+//위치 안내
+router.get('/location', (req, res, next) => {
+    res.render('location')
+});
+
+//장차운행안내
+router.get('/benefit', (req, res, next) => {
+    res.render('benefit')
+});
+
+//장차운행안내
+router.get('/vehicle', (req, res, next) => {
+    res.render('vehicle')
+});
+
+//회원가입 동의 페이지
+router.get('/join', (req, res, next) => {
+    res.render('join_01')
+});
+
+//회원가입 페이지
 router.get('/join2', function(req, res, next) {
     res.render('join_02');
 });
