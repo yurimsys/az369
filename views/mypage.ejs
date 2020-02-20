@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>AZ369 보세의류쇼핑몰</title>
-    <link rel="stylesheet" href="./css/mypage.css">
+    <link rel="stylesheet" href="css/mypage.css">
 
     <!--자바스크립트-->
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -14,649 +14,660 @@
 
 
     <!--폰트-->
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
 
 
     <!--폰트어썸-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
-    <script>
-        console.log("<%=data%>");
-        console.log("<%=title%>");
-    </script>
+
 </head>
 
 <body>
     <div class="wrap">
 
         <% include templates/header.ejs %>
-        <!--secton.sub_wrap 시작-->
+        <!--section.main 시작-->
 
         <!--<section class="main">
-            <div class="main_bg"></div>
-        </section>-->
+            <div class="inner_main">
+                <div class="main_bg"></div>
+                <div class="tnb">
+                    <ul>
+                        <a href="vehicle.asp">
+                            <li>장차운행안내</li>
+                        </a>
+                            <a href="reservation_01.asp"><li>장차예매신청</li></a>
+                            <a href="mypage.asp">
+                            <li style="background: #ad8743; color: #fff">장차예매현황</li>
+                        </a>
+                        
+                    </ul>
+                </div>
+            </div>
+        </section>
+-->
+        <!--//secton.main 완료-->
+        <!--secton.sub_wrap 시작-->
 
 
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
-                <h1>마이페이지</h1>
-                <!--마이페이지 전체 틀-->
-                <div class="mypage_box">
-                    <ul>
-                        <!--마이페이지 왼쪽-->
-                        <li class="box_01">
-                            <div class="mypage_left">
-                                <div class="info_title">
-                                    <h2>내정보</h2>
-                                    <div class="modify_btn">
-                                        <a href="modify">
-                                            수정
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="bar"></div>
-                                <div class="info">
-                                   <h5><%=data.u_name%>
-                                   <span><%=data.u_brand%></span></h5>
-                                    
-
-                                    <p><span><%=data.u_email%></span>
-                                        <br>
-                                        <%=data.u_phone%>
-                                    </p>
-                                </div>
-
-                                <div class="mypage_nav">
-                                    <button class="tablinks" onclick="openList(event, '01')" id="defaultOpen"> 현 장차예매 현황 <span><i class="fas fa-chevron-right"></i></span></button>
-
-                                    <button class="tablinks" onclick="openList(event, '02')"> 예매 및 결제내역 <span><i class="fas fa-chevron-right"></i></span></button>
-
-                                    <button class="tablinks" onclick="openList(event, '03')"> 취소 및 환불조회 <span><i class="fas fa-chevron-right"></i></span></button>
-                                </div>
-                                <div class="logout"><a href="login.ejs">로그아웃</a></div>
-                            </div>
-
-                            <!--왼쪽 목록버튼-->
-                            <div class="mypage_nav_mo">
-                                <button class="tablinks" onclick="openList(event, '01')" id="defaultOpen">
-                                    <p>현 장차예매 현황</p>
-                                </button>
-
-                                <button class="tablinks" onclick="openList(event, '02')">
-                                    <p>예매 및 결제내역</p>
-                                </button>
-
-                                <button class="tablinks" onclick="openList(event, '03')">
-                                    <p>취소 및 환불조회</p>
-                                </button>
-                            </div>
-                        </li>
-
-
-                        <!--오른쪽박스-->
-                        <li class="box_02">
-                            <div class="mypage_right">
-
-                                <!--첫번째 리스트 PC-->
-                                <div id="01" class="tabcontent">
-                                    <h4>장차예매현황</h4>
-                                    <p>현재 예매중인 장차내역입니다.</p>
-
-                                    <div id="reserve_list">
-                                        <div class="reserve_list_tit">
-                                            <ul>
-                                                <li>출발날짜</li>
-                                                <li>운행지역</li>
-                                                <li>차량정보</li>
-                                                <li>선택좌석</li>
-                                            </ul>
-                                        </div>
-                                        <% for(let i=0; i<10 ;i++){ %>
-                                        <div class="reserve_bar_list">
-                                            <label>
-                                                <input type="checkbox" name="day">
-                                                <span class="reserve_bar">
-                                                    <ul>
-                                                        <li>2020.02.03 22:00</li>
-                                                        <li> 평택 > 서울 동대문</li>
-                                                        <li> 충남고속 (11가 1234)</li>
-                                                        <li>좌석: 01번</li>
-                                                    </ul>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <% }%>
-
-                                        <!-- <div class="reserve_bar_list">
-                                            <label>
-                                                <input type="checkbox" name="day">
-                                                <span class="reserve_bar">
-                                                    <ul>
-                                                        <li>2020.02.10 22:00</li>
-                                                        <li> 평택 > 서울 동대문</li>
-                                                        <li> 충남고속 (11가 1234)</li>
-                                                        <li>좌석: 10번</li>
-                                                    </ul>
-                                                </span>
-                                            </label>
-                                        </div>
-
-                                        <div class="reserve_bar_list">
-                                            <label>
-                                                <input type="checkbox" name="day">
-                                                <span class="reserve_bar">
-                                                    <ul>
-                                                        <li>2020.02.17 22:00</li>
-                                                        <li> 평택 > 서울 동대문</li>
-                                                        <li> 충남고속 (11가 1234)</li>
-                                                        <li>좌석: 20번</li>
-                                                    </ul>
-                                                </span>
-                                            </label>
-                                        </div>
-
-                                        <div class="reserve_bar_list">
-                                            <label>
-                                                <input type="checkbox" name="day">
-                                                <span class="reserve_bar">
-                                                    <ul>
-                                                        <li>2020.02.24 22:00</li>
-                                                        <li> 평택 > 서울 동대문</li>
-                                                        <li> 충남고속 (11가 1234)</li>
-                                                        <li>좌석: 30번</li>
-                                                    </ul>
-                                                </span>
-                                            </label>
-                                        </div> -->
-
-                                        <!--첫번째 리스트 mo 768px-->
-                                        <div class="reserve_bar_mo_list">
-                                            <label>
-                                                <input type="checkbox" name="day">
-                                                <span class="reserve_bar_mo">
-                                                    <ul>
-                                                        <li>
-                                                            2020.02.03
-                                                            <h6>22:00</h6>
-                                                        </li>
-                                                        <li>
-                                                            평택 - 서울동대문
-                                                            <h6>충남고속</h6>
-                                                        </li>
-                                                        <li>
-                                                            선택좌석
-                                                            <h6>1,2,3,4,5</h6>
-                                                        </li>
-                                                        <li><i class="fas fa-chevron-right"></i></li>
-                                                    </ul>
-                                                </span>
-                                            </label>
-                                        </div>
-
-                                        <div class="reserve_bar_mo_list">
-                                            <label>
-                                                <input type="checkbox" name="day">
-                                                <span class="reserve_bar_mo">
-                                                    <ul>
-                                                        <li>
-                                                            2020.02.03
-                                                            <h6>22:00</h6>
-                                                        </li>
-                                                        <li>
-                                                            평택 - 서울동대문
-                                                            <h6>충남고속</h6>
-                                                        </li>
-                                                        <li>
-                                                            선택좌석
-                                                            <h6>1,2,3,4,5</h6>
-                                                        </li>
-                                                        <li><i class="fas fa-chevron-right"></i></li>
-                                                    </ul>
-                                                </span>
-                                            </label>
-                                        </div>
-
-                                        <div class="reserve_bar_mo_list">
-                                            <label>
-                                                <input type="checkbox" name="day">
-                                                <span class="reserve_bar_mo">
-                                                    <ul>
-                                                        <li>
-                                                            2020.02.03
-                                                            <h6>22:00</h6>
-                                                        </li>
-                                                        <li>
-                                                            평택 - 서울동대문
-                                                            <h6>충남고속</h6>
-                                                        </li>
-                                                        <li>
-                                                            선택좌석
-                                                            <h6>1,2,3,4,5</h6>
-                                                        </li>
-                                                        <li><i class="fas fa-chevron-right"></i></li>
-                                                    </ul>
-                                                </span>
-                                            </label>
-                                        </div>
-
-                                        <div class="reserve_bar_mo_list">
-                                            <label>
-                                                <input type="checkbox" name="day">
-                                                <span class="reserve_bar_mo">
-                                                    <ul>
-                                                        <li>
-                                                            2020.02.03
-                                                            <h6>22:00</h6>
-                                                        </li>
-                                                        <li>
-                                                            평택 - 서울동대문
-                                                            <h6>충남고속</h6>
-                                                        </li>
-                                                        <li>
-                                                            선택좌석
-                                                            <h6>1,2,3,4,5</h6>
-                                                        </li>
-                                                        <li><i class="fas fa-chevron-right"></i></li>
-                                                    </ul>
-                                                </span>
-                                            </label>
+                <div class="box">
+                    <h6>마이페이지</h6>
+                    <h1 style="font-family: 'PT Serif', serif;">MYPAGE</h1>
+                    <div class="bar"></div>
+                    
+                    <!--마이페이지 전체 틀-->
+                    <div class="mypage_box">
+                        <ul>
+                    
+                            <!--마이페이지 왼쪽-->
+                            <li class="box_01">
+                                <div class="mypage_left">
+                                    <div class="info_title">
+                                        <h2>내정보</h2>
+                                        <div class="modify_btn">
+                                            <a href="modify_01.html">
+                                                수정
+                                            </a>
                                         </div>
                                     </div>
-
-                                    <p class="cancel_info">취소할 예매 목록을 선택하시고 하단의 버튼을 누르시면 예매를 취소하실 수 있습니다.</p>
-
-                                    <a href="#popup" class="popup_open">선택예매취소</a>
-
-
-                                    <div id="popup" class="layer">
-                                        <!--popup PC-->
-                                        <div class="popup_box">
-                                            <h2>장차예매취소</h2>
-
-                                            <table class="table">
-                                                <tr>
-                                                    <th>예약번호</th>
-                                                    <th>결제날짜</th>
-                                                    <th>예약정보</th>
-                                                    <th>좌석개수</th>
-                                                    <th>결제수단</th>
-                                                    <th>결제금액</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>AZ123451234512</td>
-                                                    <td>2020.00.00</td>
-                                                    <td>2020.00.00 22:00 충남고속 (평택 > 서울 동대문)</td>
-                                                    <td>00개</td>
-                                                    <td>카드결제(신한)</td>
-                                                    <td>00,000원</td>
-                                                </tr>
-                                            </table>
-
-                                            <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한 예매를 취소하겠습니까?</p>
-                                            <ul class="popup_btn">
-                                                <li>
-                                                    <a href="#" class="popup_close1">닫기</a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#" class="popup_close2">예매 취소</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-
-                                        <!--popup mo 768px-->
-                                        <div class="popup_box_mo">
-                                            <h2>장차예매취소</h2>
-
-                                            <div class="table_mo">
-                                                <dl>
-                                                    <dt>예약번호</dt>
-                                                    <dd>AZ123451234512</dd>
-                                                    <dt>결제날짜</dt>
-                                                    <dd>2020.00.00</dd>
-                                                    <dl class="dl3">
-                                                        <dt>예약정보</dt>
-                                                        <dd>2020.00.00 22:00 충남고속 <br> (평택 > 서울 동대문)</dd>
-                                                    </dl>
-                                                    <dt>좌석개수</dt>
-                                                    <dd>00개</dd>
-                                                    <dt>결제수단</dt>
-                                                    <dd>카드결제(신한)</dd>
-                                                    <dt>결제금액</dt>
-                                                    <dd>00,000원</dd>
-                                                </dl>
-                                            </div>
-
-
-                                            <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한 예매를 취소하겠습니까?</p>
-
-                                            <div class="popup_btn_mo">
+                                    <div class="info">
+                                       <h5>김유림님
+                                       <span>(asdf1212)</span></h5>
+                                        
+                    
+                                        <p>
+                                          브랜드명 <br>
+                                           asdaf1212@naver.com
+                                            <br>
+                                            010 - 0000 - 0000
+                                        </p>
+                                    </div>
+                    
+                                    <div class="mypage_nav">
+                                        <button class="tablinks" onclick="openList(event, '01')" id="defaultOpen"> 현 장차예매 현황 <span><i class="fas fa-chevron-right"></i></span></button>
+                    
+                                        <button class="tablinks" onclick="openList(event, '02')"> 예매 및 결제내역 <span><i class="fas fa-chevron-right"></i></span></button>
+                    
+                                        <button class="tablinks" onclick="openList(event, '03')"> 취소 및 환불조회 <span><i class="fas fa-chevron-right"></i></span></button>
+                                    </div>
+                                    <div class="logout"><a href="login.html">로그아웃</a></div>
+                                </div>
+                    
+                                <!--왼쪽 목록버튼-->
+                                <div class="mypage_nav_mo">
+                                    <button class="tablinks" onclick="openList(event, '01')" id="defaultOpen">
+                                        <p>현 장차예매 현황</p>
+                                    </button>
+                    
+                                    <button class="tablinks" onclick="openList(event, '02')">
+                                        <p>예매 및 결제내역</p>
+                                    </button>
+                    
+                                    <button class="tablinks" onclick="openList(event, '03')">
+                                        <p>취소 및 환불조회</p>
+                                    </button>
+                                </div>
+                            </li>
+                    
+                    
+                            <!--오른쪽박스-->
+                            <li class="box_02">
+                                <div class="mypage_right">
+                    
+                                    <!--첫번째 리스트 PC-->
+                                    <div id="01" class="tabcontent">
+                                        <h4>장차예매현황</h4>
+                                        <p>현재 예매중인 장차내역입니다.</p>
+                    
+                                        <div id="reserve_list">
+                                            <div class="reserve_list_tit">
                                                 <ul>
+                                                    <li>출발날짜</li>
+                                                    <li>운행지역</li>
+                                                    <li>차량정보</li>
+                                                    <li>선택좌석</li>
+                                                </ul>
+                                            </div>
+                                            <div class="reserve_bar_list">
+                                                <label>
+                                                    <input type="checkbox" name="day">
+                                                    <span class="reserve_bar">
+                                                        <ul>
+                                                            <li>2020.02.03 22:00</li>
+                                                            <li> 평택 > 서울 동대문</li>
+                                                            <li> 충남고속 (11가 1234)</li>
+                                                            <li>01번</li>
+                                                        </ul>
+                                                    </span>
+                                                </label>
+                                            </div>
+                    
+                                            <div class="reserve_bar_list">
+                                                <label>
+                                                    <input type="checkbox" name="day">
+                                                    <span class="reserve_bar">
+                                                        <ul>
+                                                            <li>2020.02.10 22:00</li>
+                                                            <li> 평택 > 서울 동대문</li>
+                                                            <li> 충남고속 (11가 1234)</li>
+                                                            <li>10번</li>
+                                                        </ul>
+                                                    </span>
+                                                </label>
+                                            </div>
+                    
+                                            <div class="reserve_bar_list">
+                                                <label>
+                                                    <input type="checkbox" name="day">
+                                                    <span class="reserve_bar">
+                                                        <ul>
+                                                            <li>2020.02.17 22:00</li>
+                                                            <li> 평택 > 서울 동대문</li>
+                                                            <li> 충남고속 (11가 1234)</li>
+                                                            <li>20번</li>
+                                                        </ul>
+                                                    </span>
+                                                </label>
+                                            </div>
+                    
+                                            <div class="reserve_bar_list">
+                                                <label>
+                                                    <input type="checkbox" name="day">
+                                                    <span class="reserve_bar">
+                                                        <ul>
+                                                            <li>2020.02.24 22:00</li>
+                                                            <li> 평택 > 서울 동대문</li>
+                                                            <li> 충남고속 (11가 1234)</li>
+                                                            <li>30번</li>
+                                                        </ul>
+                                                    </span>
+                                                </label>
+                                            </div>
+                    
+                                            <!--첫번째 리스트 mo 768px-->
+                                            <div class="reserve_bar_mo_list">
+                                                <label>
+                                                    <input type="checkbox" name="day">
+                                                    <span class="reserve_bar_mo">
+                                                        <ul>
+                                                            <li>
+                                                                2020.02.03
+                                                                <h6>22:00</h6>
+                                                            </li>
+                                                            <li>
+                                                                평택 - 서울동대문
+                                                                <h6>충남고속</h6>
+                                                            </li>
+                                                            <li>
+                                                                선택좌석
+                                                                <h6>1,2,3,4,5</h6>
+                                                            </li>
+                                                            <li><i class="fas fa-chevron-right"></i></li>
+                                                        </ul>
+                                                    </span>
+                                                </label>
+                                            </div>
+                    
+                                            <div class="reserve_bar_mo_list">
+                                                <label>
+                                                    <input type="checkbox" name="day">
+                                                    <span class="reserve_bar_mo">
+                                                        <ul>
+                                                            <li>
+                                                                2020.02.03
+                                                                <h6>22:00</h6>
+                                                            </li>
+                                                            <li>
+                                                                평택 - 서울동대문
+                                                                <h6>충남고속</h6>
+                                                            </li>
+                                                            <li>
+                                                                선택좌석
+                                                                <h6>1,2,3,4,5</h6>
+                                                            </li>
+                                                            <li><i class="fas fa-chevron-right"></i></li>
+                                                        </ul>
+                                                    </span>
+                                                </label>
+                                            </div>
+                    
+                                            <div class="reserve_bar_mo_list">
+                                                <label>
+                                                    <input type="checkbox" name="day">
+                                                    <span class="reserve_bar_mo">
+                                                        <ul>
+                                                            <li>
+                                                                2020.02.03
+                                                                <h6>22:00</h6>
+                                                            </li>
+                                                            <li>
+                                                                평택 - 서울동대문
+                                                                <h6>충남고속</h6>
+                                                            </li>
+                                                            <li>
+                                                                선택좌석
+                                                                <h6>1,2,3,4,5</h6>
+                                                            </li>
+                                                            <li><i class="fas fa-chevron-right"></i></li>
+                                                        </ul>
+                                                    </span>
+                                                </label>
+                                            </div>
+                    
+                                            <div class="reserve_bar_mo_list">
+                                                <label>
+                                                    <input type="checkbox" name="day">
+                                                    <span class="reserve_bar_mo">
+                                                        <ul>
+                                                            <li>
+                                                                2020.02.03
+                                                                <h6>22:00</h6>
+                                                            </li>
+                                                            <li>
+                                                                평택 - 서울동대문
+                                                                <h6>충남고속</h6>
+                                                            </li>
+                                                            <li>
+                                                                선택좌석
+                                                                <h6>1,2,3,4,5</h6>
+                                                            </li>
+                                                            <li><i class="fas fa-chevron-right"></i></li>
+                                                        </ul>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                    
+                                        <p class="cancel_info">취소할 예매 목록을 선택하시고 하단의 버튼을 누르시면 예매를 취소하실 수 있습니다.</p>
+                    
+                                        <a href="#popup" class="popup_open">선택예매취소</a>
+                    
+                    
+                                        <div id="popup" class="layer">
+                                            <!--popup PC-->
+                                            <div class="popup_box">
+                                                <h2>장차예매취소</h2>
+                    
+                                                <table class="table">
+                                                    <tr>
+                                                        <th>예약번호</th>
+                                                        <th>결제날짜</th>
+                                                        <th>예약정보</th>
+                                                        <th>좌석개수</th>
+                                                        <th>결제수단</th>
+                                                        <th>결제금액</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>AZ123451234512</td>
+                                                        <td>2020.00.00</td>
+                                                        <td>2020.02.03 22:00 충남고속 <br> <span>(평택 > 서울 동대문)</span></td>
+                                                        <td>00개</td>
+                                                        <td>카드결제(신한)</td>
+                                                        <td>00,000원</td>
+                                                    </tr>
+                                                </table>
+                    
+                                                <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한 예매를 취소하겠습니까?</p>
+                                                <ul class="popup_btn">
                                                     <li>
                                                         <a href="#" class="popup_close1">닫기</a>
                                                     </li>
-
+                    
                                                     <li>
                                                         <a href="#" class="popup_close2">예매 취소</a>
                                                     </li>
                                                 </ul>
                                             </div>
+                    
+                    
+                                            <!--popup mo 768px-->
+                                            <div class="popup_box_mo">
+                                                <h2>장차예매취소</h2>
+                    
+                                                <div class="table_mo">
+                                                    <dl>
+                                                        <dt>예약번호</dt>
+                                                        <dd>AZ123451234512</dd>
+                                                        <dt>결제날짜</dt>
+                                                        <dd>2020.00.00</dd>
+                                                        <dl class="dl3">
+                                                            <dt>예약정보</dt>
+                                                            <dd>2020.02.03 22:00 충남고속 <br> <span>(평택 > 서울 동대문)</span></dd>
+                                                        </dl>
+                                                        <dt>좌석개수</dt>
+                                                        <dd>00개</dd>
+                                                        <dt>결제수단</dt>
+                                                        <dd>카드결제(신한)</dd>
+                                                        <dt>결제금액</dt>
+                                                        <dd>00,000원</dd>
+                                                    </dl>
+                                                </div>
+                    
+                    
+                                                <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한 예매를 취소하겠습니까?</p>
+                    
+                                                <div class="popup_btn_mo">
+                                                    <ul>
+                                                        <li>
+                                                            <a href="#" class="popup_close1">닫기</a>
+                                                        </li>
+                    
+                                                        <li>
+                                                            <a href="#" class="popup_close2">예매 취소</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                    
                                         </div>
-
+                                    </div>
+                    
+                    
+                    
+                    
+                    
+                                    <div id="02" class="tabcontent">
+                    
+                                        <div class="tab_tit">
+                                            <h4>장차예매 및 결제내역</h4>
+                                            <p>장차예매 및 결제내역은 오늘날짜기준 최대 3개월까지만 조회가 가능합니다. </p>
+                                        </div>
+                    
+                    
+                                        <!--두번째 리스트 PC-->
+                                        <div class="list02">
+                                            <table class="table">
+                                                <tr>
+                                                    <th>결제일시</th>
+                                                    <th>출발날짜</th>
+                                                    <th>차량정보</th>
+                                                    <th>좌석개수</th>
+                                                    <th>결제금액</th>
+                                                </tr>
+                    
+                    
+                                                <tr>
+                                                    <td>2020.00.00</td>
+                                                    <td>2020.00.00 22:00</td>
+                                                    <td>충남고속 (11가 1234)</td>
+                                                    <td>00개</td>
+                                                    <td>00,000원</td>
+                                                </tr>
+                    
+                                                <tr>
+                                                    <td>2020.00.00</td>
+                                                    <td>2020.00.00 22:00</td>
+                                                    <td>충남고속 (11가 1234)</td>
+                                                    <td>00개</td>
+                                                    <td>00,000원</td>
+                                                </tr>
+                    
+                                                <tr>
+                                                    <td>2020.00.00</td>
+                                                    <td>2020.00.00 22:00</td>
+                                                    <td>충남고속 (11가 1234)</td>
+                                                    <td>00개</td>
+                                                    <td>00,000원</td>
+                                                </tr>
+                    
+                                                <tr>
+                                                    <td>2020.00.00</td>
+                                                    <td>2020.00.00 22:00</td>
+                                                    <td>충남고속 (11가 1234)</td>
+                                                    <td>00개</td>
+                                                    <td>00,000원</td>
+                                                </tr>
+                    
+                                                <tr>
+                                                    <td>2020.00.00</td>
+                                                    <td>2020.00.00 22:00</td>
+                                                    <td>충남고속 (11가 1234)</td>
+                                                    <td>00개</td>
+                                                    <td>00,000원</td>
+                                                </tr>
+                    
+                                                <tr>
+                                                    <td>2020.00.00</td>
+                                                    <td>2020.00.00 22:00</td>
+                                                    <td>충남고속 (11가 1234)</td>
+                                                    <td>00개</td>
+                                                    <td>00,000원</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                    
+                    
+                                        <!--두번째 리스트 mo 414px-->
+                                        <div class="list02_mo">
+                                           
+                                            <div class="list02_mo_list">
+                                                <a href="#popup2" class="popup_open2">
+                                                    <ul>
+                                                        <li class="text">2020.02.03 </li>
+                                                        <li>평택 - 서울동대문</li>
+                                                        <li><i class="fas fa-chevron-right"></i></li>
+                                                    </ul>
+                                                </a>
+                                            </div>
+                                            <div class="list02_mo_list">
+                                                <a href="#popup2" class="popup_open2">
+                                                    <ul>
+                                                        <li class="text">2020.02.03 <!--<strong>22:00</strong>--></li>
+                                                        <li>평택 - 서울동대문</li>
+                                                        <li><i class="fas fa-chevron-right"></i></li>
+                                                    </ul>
+                                                </a>
+                                            </div>
+                                            <div class="list02_mo_list">
+                                                <a href="#popup2" class="popup_open2">
+                                                    <ul>
+                                                        <li class="text">2020.02.03 <!--<strong>22:00</strong>--></li>
+                                                        <li>평택 - 서울동대문</li>
+                                                        <li><i class="fas fa-chevron-right"></i></li>
+                                                    </ul>
+                                                </a>
+                                            </div>
+                                            <div class="list02_mo_list">
+                                                <a href="#popup2" class="popup_open2">
+                                                    <ul>
+                                                        <li class="text">2020.02.03 <!--<strong>22:00</strong>--></li>
+                                                        <li>평택 - 서울동대문</li>
+                                                        <li><i class="fas fa-chevron-right"></i></li>
+                                                    </ul>
+                                                </a>
+                                            </div>
+                                            
+                    
+                                        </div>
+                    
+                                        <!--두번째 리스트 popup mo-->
+                                        <div id="popup2" class="layer">
+                                            <div class="popup_box_mo">
+                                                <h2>예매 및 결제 상세내역</h2>
+                    
+                                                <div class="table_mo">
+                                                    <dl>
+                                                        <dt>예약번호</dt>
+                                                        <dd>AZ123451234512</dd>
+                                                        <dt>결제날짜</dt>
+                                                        <dd>2020.00.00</dd>
+                                                        <dl class="dl3">
+                                                            <dt>예약정보</dt>
+                                                            <dd>2020.02.03 22:00 충남고속 <br> <span>(평택 > 서울 동대문)</span></dd>
+                                                        </dl>
+                                                        <dt>좌석개수</dt>
+                                                        <dd>00개</dd>
+                                                        <dt>결제수단</dt>
+                                                        <dd>카드결제(신한)</dd>
+                                                        <dt>결제금액</dt>
+                                                        <dd>00,000원</dd>
+                                                    </dl>
+                                                </div>
+                    
+                                                <div class="popup_btn_mo">
+                                                    <a href="#" class="popup_close1">닫기</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                    
+                    
+                                    </div>
+                    
+                                    <div id="03" class="tabcontent">
+                    
+                                        <div class="tab_tit">
+                                            <h4>취소 및 환불조회</h4>
+                                            <p>취소 및 환불조회는 오늘날짜기준 최대 3개월까지만 조회가 가능합니다. </p>
+                                        </div>
+                    
+                                        <div class="list03">
+                                            <table class="table">
+                                                <tr>
+                                                    <th>결제일시</th>
+                                                    <th>출발날짜</th>
+                                                    <th>취소날짜</th>
+                                                    <th>결제수단</th>
+                                                    <th>환불금액</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>2020.00.00</td>
+                                                    <td>2020.00.00 22:00</td>
+                                                    <td>2020.00.00</td>
+                                                    <td>카드결제(신한)</td>
+                                                    <td>00,000원</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2020.00.00</td>
+                                                    <td>2020.00.00 22:00</td>
+                                                    <td>2020.00.00</td>
+                                                    <td>카드결제(신한)</td>
+                                                    <td>00,000원</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2020.00.00</td>
+                                                    <td>2020.00.00 22:00</td>
+                                                    <td>2020.00.00</td>
+                                                    <td>카드결제(신한)</td>
+                                                    <td>00,000원</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        
+                                        
+                                        <!--세번째 리스트 mo 414px-->
+                                        <div class="list03_mo">
+                                           
+                                            <div class="list03_mo_list">
+                                                <a href="#popup3" class="popup_open3">
+                                                    <ul>
+                                                       <li class="state_y" style="color: #a0772b; font-weight: bold;">(완료)</li>
+                                                        <li class="text">2020.02.03</li>
+                                                        <li>평택 - 서울동대문</li>
+                                                        <li><i class="fas fa-chevron-right"></i></li>
+                                                    </ul>
+                                                </a>
+                                            </div>
+                                            <div class="list03_mo_list">
+                                                <a href="#popup4" class="popup_open3">
+                                                    <ul>
+                                                       <li class="state_n" style="color: #888; font-weight: bold;">(대기)</li>
+                                                        <li class="text">2020.02.03</li>
+                                                        <li>평택 - 서울동대문</li>
+                                                        <li><i class="fas fa-chevron-right"></i></li>
+                                                    </ul>
+                                                </a>
+                                            </div>
+                    
+                                        </div>
+                                        
+                                        
+                           
+                                        
+                                        <!--세번째 리스트 popup mo-->
+                                        <!--환불완료-->
+                                        <div id="popup3" class="layer">
+                                            <div class="popup_box_mo">
+                                                <h2>취소 및 환불 상세내역</h2>
+                    
+                                                <div class="table_mo">
+                                                    <dl>
+                                                        <dt>예약번호</dt>
+                                                        <dd>AZ123451234512</dd>
+                                                        <dt>결제일시</dt>
+                                                        <dd>2020.00.00</dd>
+                                                        <dl class="dl3">
+                                                            <dt>예약정보</dt>
+                                                            <dd>2020.02.03 22:00 충남고속 <br> <span>(평택 > 서울 동대문)</span></dd>
+                                                        </dl>
+                                                        <dt>좌석개수</dt>
+                                                        <dd>00개</dd>
+                                                        <dt>취소날짜</dt>
+                                                        <dd>2020.00.00</dd>
+                                                        <dt>결제수단</dt>
+                                                        <dd>카드결제(신한)</dd>
+                                                        <dt>환불금액</dt>
+                                                        <dd>00,000원</dd>
+                                                        <dt>환불상태</dt>
+                                                        <dd><span style="color: blue">환불완료</span></dd>
+                                                    </dl>
+                                                </div>
+                    
+                                                <div class="popup_btn_mo">
+                                                    <a href="#" class="popup_close1">닫기</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!--환불대기중-->
+                                        <div id="popup4" class="layer">
+                                            <div class="popup_box_mo">
+                                                <h2>취소 및 환불 상세내역</h2>
+                    
+                                                <div class="table_mo">
+                                                    <dl>
+                                                        <dt>예약번호</dt>
+                                                        <dd>AZ123451234512</dd>
+                                                        <dt>결제일시</dt>
+                                                        <dd>2020.00.00</dd>
+                                                        <dl class="dl3">
+                                                            <dt>예약정보</dt>
+                                                            <dd>2020.02.03 22:00 충남고속 <br> <span>(평택 > 서울 동대문)</span></dd>
+                                                        </dl>
+                                                        <dt>좌석개수</dt>
+                                                        <dd>00개</dd>
+                                                        <dt>취소날짜</dt>
+                                                        <dd>2020.00.00</dd>
+                                                        <dt>결제수단</dt>
+                                                        <dd>카드결제(신한)</dd>
+                                                        <dt>환불금액</dt>
+                                                        <dd>00,000원</dd>
+                                                        <dt>환불상태</dt>
+                                                        <dd><span style="color: red">환불대기중</span></dd>
+                                                    </dl>
+                                                </div>
+                    
+                                                <div class="popup_btn_mo">
+                                                    <a href="#" class="popup_close1">닫기</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
                                     </div>
                                 </div>
-
-
-
-
-
-                                <div id="02" class="tabcontent">
-
-                                    <div class="tab_tit">
-                                        <h4>장차예매 및 결제내역</h4>
-                                        <p>장차예매 및 결제내역은 오늘날짜기준 최대 3개월까지만 조회가 가능합니다. </p>
-                                    </div>
-
-
-                                    <!--두번째 리스트 PC-->
-                                    <div class="list02">
-                                        <table class="table">
-                                            <tr>
-                                                <th>결제일시</th>
-                                                <th>출발날짜</th>
-                                                <th>차량정보</th>
-                                                <th>좌석개수</th>
-                                                <th>결제금액</th>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td>2020.00.00</td>
-                                                <td>2020.00.00 22:00</td>
-                                                <td>충남고속 (11가 1234)</td>
-                                                <td>00개</td>
-                                                <td>00,000원</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>2020.00.00</td>
-                                                <td>2020.00.00 22:00</td>
-                                                <td>충남고속 (11가 1234)</td>
-                                                <td>00개</td>
-                                                <td>00,000원</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>2020.00.00</td>
-                                                <td>2020.00.00 22:00</td>
-                                                <td>충남고속 (11가 1234)</td>
-                                                <td>00개</td>
-                                                <td>00,000원</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>2020.00.00</td>
-                                                <td>2020.00.00 22:00</td>
-                                                <td>충남고속 (11가 1234)</td>
-                                                <td>00개</td>
-                                                <td>00,000원</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>2020.00.00</td>
-                                                <td>2020.00.00 22:00</td>
-                                                <td>충남고속 (11가 1234)</td>
-                                                <td>00개</td>
-                                                <td>00,000원</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>2020.00.00</td>
-                                                <td>2020.00.00 22:00</td>
-                                                <td>충남고속 (11가 1234)</td>
-                                                <td>00개</td>
-                                                <td>00,000원</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-
-
-                                    <!--두번째 리스트 mo 414px-->
-                                    <div class="list02_mo">
-                                       
-                                        <div class="list02_mo_list">
-                                            <a href="#popup2" class="popup_open2">
-                                                <ul>
-                                                    <li class="text">2020.02.03 <strong>22:00</strong></li>
-                                                    <li>평택 - 서울동대문</li>
-                                                    <li><i class="fas fa-chevron-right"></i></li>
-                                                </ul>
-                                            </a>
-                                        </div>
-                                        <div class="list02_mo_list">
-                                            <a href="#popup2" class="popup_open2">
-                                                <ul>
-                                                    <li class="text">2020.02.03 <strong>22:00</strong></li>
-                                                    <li>평택 - 서울동대문</li>
-                                                    <li><i class="fas fa-chevron-right"></i></li>
-                                                </ul>
-                                            </a>
-                                        </div>
-                                        <div class="list02_mo_list">
-                                            <a href="#popup2" class="popup_open2">
-                                                <ul>
-                                                    <li class="text">2020.02.03 <strong>22:00</strong></li>
-                                                    <li>평택 - 서울동대문</li>
-                                                    <li><i class="fas fa-chevron-right"></i></li>
-                                                </ul>
-                                            </a>
-                                        </div>
-                                        <div class="list02_mo_list">
-                                            <a href="#popup2" class="popup_open2">
-                                                <ul>
-                                                    <li class="text">2020.02.03 <strong>22:00</strong></li>
-                                                    <li>평택 - 서울동대문</li>
-                                                    <li><i class="fas fa-chevron-right"></i></li>
-                                                </ul>
-                                            </a>
-                                        </div>
-                                        <div class="list02_mo_list">
-                                            <a href="#popup2" class="popup_open2">
-                                                <ul>
-                                                    <li class="text">2020.02.03 <strong>22:00</strong></li>
-                                                    <li>평택 - 서울동대문</li>
-                                                    <li><i class="fas fa-chevron-right"></i></li>
-                                                </ul>
-                                            </a>
-                                        </div>
-
-                                    </div>
-
-                                    <!--두번째 리스트 popup mo-->
-                                    <div id="popup2" class="layer">
-                                        <div class="popup_box_mo">
-                                            <h2>예매 및 결제 상세내역</h2>
-
-                                            <div class="table_mo">
-                                                <dl>
-                                                    <dt>예약번호</dt>
-                                                    <dd>AZ123451234512</dd>
-                                                    <dt>결제날짜</dt>
-                                                    <dd>2020.00.00</dd>
-                                                    <dl class="dl3">
-                                                        <dt>예약정보</dt>
-                                                        <dd>2020.00.00 22:00 충남고속 <br> (평택 > 서울 동대문)</dd>
-                                                    </dl>
-                                                    <dt>좌석개수</dt>
-                                                    <dd>00개</dd>
-                                                    <dt>결제수단</dt>
-                                                    <dd>카드결제(신한)</dd>
-                                                    <dt>결제금액</dt>
-                                                    <dd>00,000원</dd>
-                                                </dl>
-                                            </div>
-
-                                            <div class="popup_btn_mo">
-                                                <a href="#" class="popup_close1">닫기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                                <div id="03" class="tabcontent">
-
-                                    <div class="tab_tit">
-                                        <h4>취소 및 환불조회</h4>
-                                        <p>취소 및 환불조회는 오늘날짜기준 최대 3개월까지만 조회가 가능합니다. </p>
-                                    </div>
-
-                                    <div class="list03">
-                                        <table class="table">
-                                            <tr>
-                                                <th>결제일시</th>
-                                                <th>출발날짜</th>
-                                                <th>취소날짜</th>
-                                                <th>결제수단</th>
-                                                <th>환불금액</th>
-                                            </tr>
-                                            <tr>
-                                                <td>2020.00.00</td>
-                                                <td>2020.00.00 22:00</td>
-                                                <td>2020.00.00</td>
-                                                <td>카드결제(신한)</td>
-                                                <td>00,000원</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2020.00.00</td>
-                                                <td>2020.00.00 22:00</td>
-                                                <td>2020.00.00</td>
-                                                <td>카드결제(신한)</td>
-                                                <td>00,000원</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2020.00.00</td>
-                                                <td>2020.00.00 22:00</td>
-                                                <td>2020.00.00</td>
-                                                <td>카드결제(신한)</td>
-                                                <td>00,000원</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    
-                                    
-                                    <!--세번째 리스트 mo 414px-->
-                                    <div class="list03_mo">
-                                       
-                                        <div class="list03_mo_list">
-                                            <a href="#popup3" class="popup_open3">
-                                                <ul>
-                                                   <li class="state_y" style="color: #a0772b; font-weight: bold;">(완료)</li>
-                                                    <li class="text">예약일 2020.02.03</li>
-                                                    <li>평택 - 서울동대문</li>
-                                                    <li><i class="fas fa-chevron-right"></i></li>
-                                                </ul>
-                                            </a>
-                                        </div>
-                                        <div class="list03_mo_list">
-                                            <a href="#popup4" class="popup_open3">
-                                                <ul>
-                                                   <li class="state_n" style="color: #888; font-weight: bold;">(대기)</li>
-                                                    <li class="text">예약일 2020.02.03</li>
-                                                    <li>평택 - 서울동대문</li>
-                                                    <li><i class="fas fa-chevron-right"></i></li>
-                                                </ul>
-                                            </a>
-                                        </div>
-
-                                    </div>
-                                    
-                                    
-                       
-                                    
-                                    <!--세번째 리스트 popup mo-->
-                                    <!--환불완료-->
-                                    <div id="popup3" class="layer">
-                                        <div class="popup_box_mo">
-                                            <h2>취소 및 환불 상세내역</h2>
-
-                                            <div class="table_mo">
-                                                <dl>
-                                                    <dt>예약번호</dt>
-                                                    <dd>AZ123451234512</dd>
-                                                    <dt>결제일시</dt>
-                                                    <dd>2020.00.00</dd>
-                                                    <dl class="dl3">
-                                                        <dt>예약정보</dt>
-                                                        <dd>평택 - 서울동대문 <br>2020.00.00 22:00</dd>
-                                                    </dl>
-                                                    <dt>좌석개수</dt>
-                                                    <dd>00개</dd>
-                                                    <dt>취소날짜</dt>
-                                                    <dd>2020.00.00</dd>
-                                                    <dt>결제수단</dt>
-                                                    <dd>카드결제(신한)</dd>
-                                                    <dt>환불금액</dt>
-                                                    <dd>00,000원</dd>
-                                                    <dt>환불상태</dt>
-                                                    <dd><span style="color: blue">환불완료</span></dd>
-                                                </dl>
-                                            </div>
-
-                                            <div class="popup_btn_mo">
-                                                <a href="#" class="popup_close1">닫기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!--환불대기중-->
-                                    <div id="popup4" class="layer">
-                                        <div class="popup_box_mo">
-                                            <h2>취소 및 환불 상세내역</h2>
-
-                                            <div class="table_mo">
-                                                <dl>
-                                                    <dt>예약번호</dt>
-                                                    <dd>AZ123451234512</dd>
-                                                    <dt>결제일시</dt>
-                                                    <dd>2020.00.00</dd>
-                                                    <dl class="dl3">
-                                                        <dt>예약정보</dt>
-                                                        <dd>평택 - 서울동대문 <br>2020.00.00 22:00</dd>
-                                                    </dl>
-                                                    <dt>좌석개수</dt>
-                                                    <dd>00개</dd>
-                                                    <dt>취소날짜</dt>
-                                                    <dd>2020.00.00</dd>
-                                                    <dt>결제수단</dt>
-                                                    <dd>카드결제(신한)</dd>
-                                                    <dt>환불금액</dt>
-                                                    <dd>00,000원</dd>
-                                                    <dt>환불상태</dt>
-                                                    <dd><span style="color: red">환불대기중</span></dd>
-                                                </dl>
-                                            </div>
-
-                                            <div class="popup_btn_mo">
-                                                <a href="#" class="popup_close1">닫기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                </div>
-                            </div>
-
-                            <!--768부터적용-->
-                            <div class="logout_mo"><a href="login.ejs">로그아웃</a></div>
-
-
-                        </li>
-
-                    </ul>
+                    
+                                <!--768부터적용-->
+                                <div class="logout_mo"><a href="login.html">로그아웃</a></div>
+                    
+                    
+                            </li>
+                    
+                        </ul>
+                    </div>
                 </div>
 
 
