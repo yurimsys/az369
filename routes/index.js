@@ -52,12 +52,13 @@ router.get('/mypage', pconf.isAuthenticated, function(req, res, next) {
     });
 });
 
+//마이페이지 본인확인 페이지
 router.get('/modify', function(req, res, next){
-    res.render('modify_01', { title : '정보수정' });
+    res.render('modify_01');
 });
 
 router.get('/modify2', function(req, res, next){
-    res.render('modify_02', { title : '정보수정' });
+    res.render('modify_02');
 });
 
 router.get('/reservation', (req, res) => {
@@ -122,12 +123,12 @@ router.get('/findPw', function(req, res, next) {
     res.render('find_pw_01');
 });
 
-//비밀번호 수정 페이지
+//비밀번호 찾은 후 수정 페이지
 router.get('/findPw2', function(req, res, next) {
     res.render('find_pw_02');
 });
 
-//비밀번호 수정 완료 페이지
+//비밀번호 찾은 후 수정 완료 페이지
 router.get('/findPw3', function(req, res, next) {
     res.render('find_pw_03');
 });
@@ -224,7 +225,7 @@ router.post('/api/user/findPw', (req, res, next) =>{
         
 });
 
-//비밀번호 수정
+//비밀번호 찾기 후 수정
 router.post('/api/user/modifyPw', (req, res, next) =>{
     let query = "update tu set U_Pw = :uPw where U_UserName = :uUserName";
     
@@ -283,6 +284,27 @@ router.post('/api/user/lookUp', (req, res, next) =>{
             siName : req.body.name, 
             siPhone : req.body.phone
                                 
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            //console.log(findId);
+            res.json( {  data : rows[0]});
+            console.log(rows);
+        });
+        
+});
+
+//마이페이지 본인 비밀번호 확인  ** 세션
+router.post('/api/user/lookUp', (req, res, next) =>{
+    let query = `select U_Pw from tu where U_UserName = :uUserName and U_Pw = :uPw `;
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {          
+            //uUserName = req.body.ssessionId
+            // uPw = req.body.pw                    
         },
         function(err, rows, fields) {
             if (err) throw err;          

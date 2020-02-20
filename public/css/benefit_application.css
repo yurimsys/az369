@@ -104,6 +104,7 @@ nav.gnb2 a {display: block;}
   visibility: visible;
 }
 
+/*header 완료*/
 /*section.main*/
 section.main {
     position: relative;
@@ -305,6 +306,9 @@ header .open {
     header .logo {padding-top: 0.35%;}
     header .logo img {width: 85%;}
     header .call {display: block;  padding-right: 4%;}
+    
+    .gnb2 {display: none;}
+    .gnb_mo_login {background: #f8f8f8; margin-top: 2%; padding: 1.5% 0; color: #666;}
 
     /*main*/
     section.main {width: 100%;}
@@ -450,6 +454,8 @@ header .open {
     header {width: 1024px;}
     header .gnb {display: none;}
     header .innerHeader {width: 1024px; position: fixed;}
+    
+    .gnb_mo_login {margin-top: 3%;}
 
     /*main*/
     section.main {width: 100%;}
@@ -481,6 +487,9 @@ header .open {
     header .gnb {display: none;}
     header .innerHeader {width: 768px; position: fixed;}
     header .innerHeader .call {padding-right: 7%;}
+    
+    .gnb_mo_login {margin-top: 3.5%;}
+    
     /*main*/
     section.main {width: 100%;}
     section.main .inner_main {width: 768px;}
@@ -514,7 +523,10 @@ header .open {
     header .gnb {display: none;}
     header .innerHeader {width: 414px; position: fixed;}
     header .innerHeader .call {display: none;}
-    header .logo img {width: 40%; margin-top: 3%;}
+    header .logo img {width: 80%; margin-left: 3%;}
+    
+    .gnb_mo_login {margin-top: 6%;}
+    
     /*main*/
     section.main {width: 100%;}
     section.main .inner_main {width: 414px;}
@@ -527,7 +539,7 @@ header .open {
      section.sub_wrap h2 {font-size: 1.6rem; padding-bottom: 7%; line-height: 1.5;}
     section.sub_wrap h2 br {display: block;}
     section.sub_wrap h5{font-size: 1.2rem; margin-bottom: -1%;}
-    section.sub_wrap h6 {padding-top: 30%;}
+    section.sub_wrap h6 {padding-top: 22%;}
     
     
     .tnb {width: 414px; margin-top: -14.6%;} 

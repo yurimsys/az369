@@ -76,12 +76,9 @@
                 <a href="#" class="close"><img src="img/btn_gnb_close.png" alt="메뉴닫기"></a>
                 
                 <ul>
-                   <!--<li class="login_gnb_mo">
-                    <ul>
-                        <li><a href="login.html">로그인</a></li>
-                        <li><a href="join_01.html">회원가입</a></li>
-                    </ul>
-                   </li>-->
+                   <li class="gnb_mo_login">
+                        <a href="login.asp">장차예매 시 <u>로그인</u>이 필요합니다.</a>
+                    </li>
                     <li>
                         <a href="#">사업안내</a>
                         <ul class="inner">
@@ -101,8 +98,8 @@
                         <a href="#">장차예매</a>
                         <ul class="inner">
                             <li><a href="vehicle.asp">장차운행안내</a></li>
-                            <li><a href="reservation_01.html">장차예약신청</a></li>
-                            <li><a href="mypage.html">장차예매현황</a></li>
+                            <li><a href="reservation_01.asp">장차예약신청</a></li>
+                            <li><a href="mypage.asp">장차예매현황</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -113,7 +110,7 @@
         <!--// header완료-->
         <!--section.main 시작-->
 
-        <section class="main">
+        <!--<section class="main">
             <div class="inner_main">
                 <div class="main_bg"></div>
                 <div class="tnb">
@@ -128,7 +125,7 @@
                     </ul>
                 </div>
             </div>
-        </section>
+        </section>-->
 
         <!--//secton.main 완료-->
         <!--secton.sub_wrap 시작-->
@@ -137,53 +134,55 @@
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
-                <h6>로그인</h6>
-                <h1 style="font-family: 'PT Serif', serif;">LOGIN</h1>
-                <div class="bar"></div>
-                <!--<h5>장차예매 페이지는 로그인 후 이용가능합니다.</h5>
--->         
-                <div class="login_box">
-                    <h2>회원 로그인</h2>
-                    <p>장차예매 페이지는 로그인 후 이용가능합니다.</p>
+                <div class="box">
+                    <h6>로그인</h6>
+                    <h1 style="font-family: 'PT Serif', serif;">LOGIN</h1>
+                    <div class="bar"></div>
                     
-                    <form action="/login" method="POST">
-                        <ul>
-                            <div class="login_form">
-                                <label for="id"></label>
-                                <input type="text" id="id" name="id" placeholder="아이디">
-
-                                <label for="password"></label>
-                                <input type="password" id="password" name="password" placeholder="비밀번호">
-                            </div>
-                            <div class="checks etrans">
-                                <input type="checkbox" id="ex_chk3">
-                                <label for="ex_chk3">아이디 저장</label>
-                            </div>
-
-                            <input type="submit" value="로그인">
-                        </ul>
-                    </form>
-
-                    <div class="form_bottom">
-                        <ul>
-                            <li>
-                                <div class="find_btn"><a href="find_id_01.asp">아이디/비밀번호 찾기 ></a></div>
-                            </li>
-                            <li>
-                                <a href="join_01.asp">
-                                    <div class="join_btn">회원가입</div>
-                                </a>
-                            </li>
-                        </ul>
+                    <div class="login_box">
+                        <h2>회원 로그인</h2>
+                        <p>장차예매 페이지는 로그인 후 이용가능합니다.</p>
+                    
+                        <form action="/action_page.php">
+                            <ul>
+                                <div class="login_form">
+                                    <label for="id"></label>
+                                    <input type="text" id="id" name="id" placeholder="아이디">
+                    
+                                    <label for="password"></label>
+                                    <input type="password" id="password" name="password" placeholder="비밀번호">
+                                </div>
+                                <div class="checks etrans">
+                                    <input type="checkbox" id="ex_chk3">
+                                    <label for="ex_chk3">아이디 저장</label>
+                                </div>
+                    
+                                <input type="submit" value="로그인">
+                            </ul>
+                        </form>
+                    
+                        <div class="form_bottom">
+                            <ul>
+                                <li>
+                                    <div class="find_btn"><a href="find_id_01.asp">아이디/비밀번호 찾기 ></a></div>
+                                </li>
+                                <li>
+                                    <a href="join_01.asp">
+                                        <div class="join_btn">회원가입</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    
                     </div>
-
                 </div>
-
 
             </div>
         </section>
 
         <!--//secton.about 완료-->
+
+
         <!--<footer></footer>-->
     </div>
 

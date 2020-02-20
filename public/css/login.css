@@ -1,14 +1,9 @@
 @charset="UFT-8";
 
-
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
-<<<<<<< HEAD
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
-=======
-h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0; font-family: inherit;}
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
 a img {border: none;}
@@ -17,73 +12,40 @@ address, em, i {font-style: normal;}
 p {text-align: justify; font-family: inherit; font-size: 16px;}
 
 .wrap {
-<<<<<<< HEAD
     width: 100%;
     margin: 0 auto;
     height: auto;
 }
 
-header {width: 100%; height: 80px; position: fixed; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05);}
+header {width: 1920px; height: 80px; position: fixed; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05);}
 
 .innerHeader {
     width: 100%;
-=======
-    position: relative;
-    width: 100%;
-    margin: 0 auto;
-    height: auto;
-    background: #f8f8f8;
-    overflow: hidden;
-}
-
-
-header {width: 1920px; height: 80px; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05); overflow: hidden;}
-
-.innerHeader {
-    width: 1200px;
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     height: 80px;
     position: relative;
     margin: 0 auto;
      z-index: 500;
-<<<<<<< HEAD
     font-size: 18px;
 }
 
 /*로고*/
 .innerHeader h1.logo {float: left; margin-left: 3%; line-height: 70px; overflow: hidden;}
 
-
 /*nav_gnb*/
 nav.gnb {width: 45%;/* float: left; */margin: 0 auto;} 
-
 nav.gnb ul li {
     float: left;
     margin: 0 auto;
     width: 33.3%;
-=======
-    font-size: 15px;
-    overflow: hidden;
-}
-
-nav.gnb {width: 35%; margin: 0 auto; float: right;}
-
-.innerHeader ul li {
-    float: left;
-    margin: 0 auto;
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     height: 80px;
     line-height: 80px;
     text-align: center;
     font-weight: normal;
-<<<<<<< HEAD
 }
-
 nav.gnb ul li a {display: block;}
 
 
 .innerHeader ul li:hover {color: #a0772b;}
-
 .innerHeader ul ul {display: none;   border: 1px solid #000;}
 .innerHeader ul ul li {float: none; width: 100%; height: 50px; line-height: 50px; position: relative;  color: #242424; background: #fff; font-size: 16px;}
 .innerHeader ul li ul li a {display: block;}
@@ -91,18 +53,16 @@ nav.gnb ul li a {display: block;}
 .innerHeader ul li:hover > ul {display: block;}
 .innerHeader ul li ul li:hover { color: #333; background: #e3ddd2;}
 
-/*gnb2*/
+/*gnb2 - 로그인 회원가입 전화문의*/
 nav.gnb2 {width: 16%; float: right; margin-right: 5%; line-height: 80px; font-size: 16px; color: #777; }
 nav.gnb2 ul li {width: 33.3%; float: left; text-align: center; }
 nav.gnb2 a {display: block;}
 
-
+/*전화문의 툴팁*/
 .tooltip {
   position: relative;
   display: inline-block; 
-   /* color: #333;*/
 }
-
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 180px;
@@ -121,7 +81,6 @@ nav.gnb2 a {display: block;}
   left: 0%;
   margin-left: -60px;
 }
-
 .tooltip .tooltiptext::after {
   content: "";
   position: absolute;
@@ -132,14 +91,16 @@ nav.gnb2 a {display: block;}
   border-style: solid;
   border-color: transparent transparent black transparent;
 }
-
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
 
 
-/*section.main*/
-section.main {
+/*header 완료*/
+/*section.main 시작*/
+
+
+/*section.main {
     position: relative;
     width: 100%;
     height: 240px;
@@ -157,9 +118,7 @@ background-size: cover; width: 100%; height: 300px; animation: bg; animation-del
 }
 
 .tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); }
-.tnb ul li {float: left; width: 50%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 1.2rem; color: #444; transition: all 0.2s; font-size: 17px;}
-
-
+.tnb ul li {float: left; width: 50%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 1.2rem; color: #444; transition: all 0.2s; font-size: 17px;}*/
 
 
 /*section.main 완료*/
@@ -174,13 +133,16 @@ section.sub_wrap {
     overflow: hidden;
 }
 
+
 section.sub_wrap .bar {
-    border-bottom: 2px solid #624000; 
+    border-bottom: 2px solid #ad863c; 
     width: 35px; 
     margin: 0 auto;
     margin-top: 2%;
     margin-bottom: 4%;
 }
+
+.box {position: relative; padding-top: 5%; overflow: hidden;}
 
 section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 5%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
 
@@ -192,38 +154,16 @@ section.sub_wrap h1 {
 }
 
 
-=======
-    width: 25%;
-}
-
-.innerHeader ul li a {display: block;}
-.innerHeader h1.logo {float: left;margin-right: 6%; margin-top: 0.5%; overflow: hidden;}
-.innerHeader h1.logo img {width:70%;}
-.innerHeader ul li:hover {color: #a0772b;}
-
-
-
-/*section.sub_wrap 시작*/
-
-section.sub_wrap {
-   width: 100%;
-    height: 889px;
-    margin: 0 auto;
-    color: #333;
-    padding: 1.8% 0 3%; 
-    overflow: hidden;
-}
-
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 /*폰트적용*/
 .inner_sub_wrap h1,
 .inner_sub_wrap h2 {font-family: 'Noto Sans KR', sans-serif; }
 
-<<<<<<< HEAD
-/*.inner_sub_wrap {width: 1200px; margin: 0 auto; overflow: hidden;}*/
+.login_box {width: 100%; overflow: hidden; background: #fff; /*box-shadow: 0 0 5px rgba(0,0,0,0.1);*/ height: auto; border: 1px solid #eee; padding: 5% 22%; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
 
-
-.login_box {width: 100%; overflow: hidden; background: #fff; /*box-shadow: 0 0 5px rgba(0,0,0,0.1);*/ height: auto; border: 1px solid #eee; padding: 5% 22%;}
+@keyframes box {
+    0% {opacity: 0; transform: translateY(2%);}
+    100%; {opacity: 1; transform: translateY(0%);}
+}
 
 .login_box h2 {font-size: 22px; display: block; margin: 0; font-weight: normal;}
 .login_box p {color: #777;  margin-bottom: 2%;}
@@ -235,27 +175,6 @@ input[type=submit] {width: 100%; height: 50px; background: #ad863c; color: #fff;
 .form_bottom {width: 100%;}
 .form_bottom ul li { float: left; width: 50%;}
 .find_btn {margin-top: 6%; float: left; padding: 3.9% 0; font-size: 15px; color: #666;}
-=======
-.inner_sub_wrap {width: 1200px; margin: 0 auto; overflow: hidden;}
-
-.inner_sub_wrap h1 {font-size: 35px; font-weight: bold; margin: 0; padding-bottom: 1%; border-bottom: 1px solid #eee; margin-bottom: 3.5%;}
-.inner_sub_wrap h1 span {font-size: 17px; font-weight: normal; color: #777;}
-.inner_sub_wrap h1 br {display: none;}
-
-.login_box {position: relative; width: 100%; height: 530px; background: #fff; /*box-shadow: 0 0 5px rgba(0,0,0,0.1);*/ border: 1px solid #ddd;}
-
-.form_box {position: absolute; padding: 8% 22%; width: 100%; top: 50%; transform: translateY(-50%); overflow: hidden;}
-.form_box h2 {font-size: 24px; display: block; margin: 0; margin-bottom: 3%;}
-form_box form .login_form {width: 100%;}
-.login_form input {width: 100%; height: 50px; padding: 2%; border: 1px solid #eee; margin-bottom: 1%;}
-.login_form input[type=password] {margin-bottom: 0%;}
-
-input[type=submit] {width: 100%; height: 55px; background: #ad863c; color: #fff; border: none; cursor: pointer;}
-
-.form_bottom {width: 100%;}
-.form_bottom ul li { float: left; width: 50%;}
-.search_btn {margin-top: 6%; float: left; padding: 3.9% 0;}
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 .join_btn {margin-top: 6%; float: right; padding: 3.9% 25%; border: 1px solid #ccc; transition: all 0.3s;}
 .join_btn:hover {background: #f4f4f4;}
 
@@ -309,11 +228,7 @@ input[type=submit] {width: 100%; height: 55px; background: #ad863c; color: #fff;
 }
 
 .checks.etrans input[type="checkbox"] + label {
-<<<<<<< HEAD
   padding-left: 30px; color: #666; font-size: 15px;
-=======
-  padding-left: 30px;
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 }
 .checks.etrans input[type="checkbox"] + label:before {
   position: absolute;
@@ -364,12 +279,10 @@ input[type="submit"] {font-size: 18px;}
 
 
 /*gnb 자바스크립트*/
-/*
 header.on {
     background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
     height: 80px;
 }
-*/
 
 
 /*모바일 메뉴*/
@@ -398,34 +311,22 @@ header .open {
 @media screen and (max-width: 1200px) {
     
     /*Header*/
-<<<<<<< HEAD
     header {width: 1200px;}
     header .gnb {display: none;}
     header .innerHeader {width: 1200px; position: fixed;}
-    header .logo {padding-top: 0.35%;}
-    header .logo img {width: 85%;}
     header .call {display: block;  padding-right: 4%;}
     
     .gnb2 {display: none;}
+    .gnb_mo_login {background: #f8f8f8; margin-top: 2%; padding: 1.5% 0; color: #666;}
 
     /*main*/
     section.main {width: 100%;}
     section.main .inner_main {width: 1200px;}
-=======
-    header {width: 1200px; overflow: hidden;}
-    header .gnb {display: none;}
-    header .innerHeader {width: 1200px; overflow: hidden;}
-    header .logo {padding-top: 0.35%;  margin-left: 3%; }
-    header .logo img {width: 85%;}
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     .inner_sub_wrap {width: 95%; margin: 0 auto;}
-<<<<<<< HEAD
     .tnb {width: 1200px; margin-top: -5%;}
-=======
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     
     
   /*gnb_mo*/
@@ -485,7 +386,6 @@ header .open {
     .gnb_mo > ul {
         position: absolute;
         right: 0px;
-        top: 0;
         background-color: #fff;
         color: #242424;
         width: 75%;
@@ -505,6 +405,8 @@ header .open {
         text-indent: 20px;
         border-bottom: 1px solid #ddd;
     }
+    
+    .gnb_mo > ul > li:nth-child(1) {border-bottom: none;}
 
     .gnb_mo > ul > li > a {
         display: block;
@@ -530,11 +432,7 @@ header .open {
 
     .gnb_mo > ul > li .inner {
         display: none;
-<<<<<<< HEAD
         background-color: #e3ddd2;
-=======
-        background-color: #e6d0a6;
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     }
 
     .gnb_mo > ul > li .inner.on {
@@ -558,19 +456,13 @@ header .open {
     /*Header*/
     header {width: 1024px;}
     header .gnb {display: none;}
-<<<<<<< HEAD
     header .innerHeader {width: 1024px; position: fixed;}
-=======
-    header .innerHeader {width: 1024px;}
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 
+    .gnb_mo_login {margin-top: 3%;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-<<<<<<< HEAD
-     .tnb {width: 1024px; margin-top: -5.9%;}
-=======
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
+    .box {padding-top: 7%;}
     
     /*footer*/
     footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
@@ -587,28 +479,21 @@ header .open {
     /*Header*/
     header {width: 768px;}
     header .gnb {display: none;}
-<<<<<<< HEAD
     header .innerHeader {width: 768px; position: fixed;}
-=======
-    header .innerHeader {width: 768px;}
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
     header .innerHeader .call {padding-right: 7%;}
+    
+    .gnb_mo_login {margin-top: 3.5%;}
     
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     section.sub_wrap .inner_sub_wrap {width: 95%;}
-<<<<<<< HEAD
-    .tnb {width: 768px; margin-top:-7.6%;}
     section.sub_wrap h1 {font-size: 2.2rem;}
     section.sub_wrap h2 {font-weight: normal;}
     
-    .login_box {padding: 5% 7%;}
-=======
-    section.sub_wrap h1 {font-size: 2rem;}
+    .box {padding-top: 9.5%;}
     
-    .form_box {padding: 5% 7%;}
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
+    .login_box {padding: 5% 7%;}
     .etrans {margin: 5% 0 9%;}
     .etrans label {font-size: 14px;}
     
@@ -627,10 +512,11 @@ header .open {
     /*Header*/
     header {width: 414px;}
     header .gnb {display: none;}
-<<<<<<< HEAD
     header .innerHeader {width: 414px; position: fixed;}
     header .innerHeader .call {display: none;}
-    header .logo img {width: 40%; margin-top: 3%;}
+    header .logo img {width: 80%; margin-left: 3%;}
+    
+    .gnb_mo_login {margin-top: 6%;}
     
     /*main*/
     section.main {width: 100%;}
@@ -644,6 +530,8 @@ header .open {
      section.sub_wrap h2 {font-size: 18px;  line-height: 1.5; text-align: center; color: #555;}
     section.sub_wrap p {font-size: 14px; text-align: center; margin-bottom: 3%; color: #888;}
     
+     .box {padding-top: 20%;}
+    
     
     .tnb {width: 414px;} 
     .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
@@ -656,25 +544,6 @@ header .open {
     .search_btn {padding: 0; float: right; font-size: 12px; color: #888;}
     input[type="submit"] {font-size: 16px; height: 45px;}
     .etrans {margin: 5% 0; font-size: 14px;}
-=======
-    header .innerHeader {width: 414px;}
-    header .logo img {width: 40%; margin-top: 3%;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%; height: 700px;}
-    section.sub_wrap h1 {font-size: 22px; line-height: 1.1; padding: 5% 0; color: #666; text-align: center;}
-    section.sub_wrap h1 br {display: block;}
-    section.sub_wrap h1 span {font-size: 14px;}
-    section.sub_wrap h2 {font-size: 24px;}
-    .checks label {color: #888; font-size: 13px;}
-    
-    .login_box {width: 100%;}
-    .form_box {padding: 0 5%;}
-    .form_bottom ul li {float: none; width: 100%; text-align: center;}
-    .join_btn {padding: 0; width: 100%; height: 45px; line-height: 45px;}
-    .search_btn {padding: 0; float: right; font-size: 12px; color: #888;}
-    input[type="submit"] {font-size: 16px;}
->>>>>>> ade449b30c3107d27d648ab41d535ce594cbcad8
 
     /*footer*/
     footer {width: 100%; margin: 0 auto; }

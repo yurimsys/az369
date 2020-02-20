@@ -14,7 +14,7 @@
 
 
     <!--폰트-->
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
 
 
 </head>
@@ -33,24 +33,78 @@
                 </h1>
                 <nav class="gnb">
                     <ul>
-                        <li style="color: #a0772b; font-weight: bold">ㅁㅁㅁ님</li>
-                        <li><a href="login.html">로그아웃</a></li>
-                        <li><a href="reservation">장차예매</a></li>
-                        <li><a href="mypage">마이페이지</a></li>
+                        <li><a href="summary.asp" class="gnb_link">사업안내</a>
+                            <ul>
+                                <li><a href="summary.asp">사업개요</a></li>
+                                <li><a href="ctd_info.asp">센트럴돔 소개</a></li>
+                                <li><a href="location.asp">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="benefit.asp" class="gnb_link">입점신청 및 혜택</a>
+                            <ul>
+                                <li><a href="benefit.asp">입점 상가 혜택</a></li>
+                                <li><a href="benefit_application.asp">입점 상담 신청</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="vehicle.asp" class="gnb_link">장차예매</a>
+                            <ul>
+                                <li><a href="vehicle.asp">장차운행안내</a></li>
+                                <li><a href="reservation_01.asp">장차예매신청</a></li>
+                                <li><a href="mypage.asp">장차예매현황</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
+                
+                <nav class="gnb2">
+                   <ul>
+                       <li><a href="login.asp">로그인</a></li>
+                        <li><a href="join_01.asp">회원가입</a></li>
+                        <li><div class="tooltip">전화문의
+                            <span class="tooltiptext">031 - 668 - 0116</span></div>
+                  </li>
+                   </ul>
+                </nav>
+                <!--<div class="call">
+                    문의 <span>031 - 668 - 0116</span>
+                </div>-->
+                
             </div>
-
-
 
             <!--모바일 메뉴-->
             <nav class="gnb_mo">
                 <a href="#" class="close"><img src="img/btn_gnb_close.png" alt="메뉴닫기"></a>
+                
                 <ul>
-                    <li><a href="login.html">로그인</a></li>
-                    <li><a href="join">회원가입</a></li>
-                    <li><a href="reservation">장차예매</a></li>
-                    <li><a href="mypage">마이페이지</a></li>
+                   <!--<li class="login_gnb_mo">
+                    <ul>
+                        <li><a href="login.html">로그인</a></li>
+                        <li><a href="join_01.html">회원가입</a></li>
+                    </ul>
+                   </li>-->
+                    <li>
+                        <a href="#">사업안내</a>
+                        <ul class="inner">
+                            <li><a href="summary.asp">사업개요</a></li>
+                            <li><a href="ctd_info.asp">센트럴돔 소개</a></li>
+                            <li><a href="location.asp">오시는 길</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">입점신청 및 혜택</a>
+                        <ul class="inner">
+                            <li><a href="benefit.asp">입점상가혜택</a></li>
+                            <li><a href="benefit_application.asp">입점상담신청</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">장차예매</a>
+                        <ul class="inner">
+                            <li><a href="vehicle.asp">장차운행안내</a></li>
+                            <li><a href="reservation_01.html">장차예약신청</a></li>
+                            <li><a href="mypage.html">장차예매현황</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -58,55 +112,76 @@
 
 
         <!--// header완료-->
-        <!--secton.sub_wrap 시작-->
+        <!--section.main 시작-->
 
         <!--<section class="main">
-            <div class="main_bg"></div>
+            <div class="inner_main">
+                <div class="main_bg"></div>
+                <div class="tnb">
+                    <ul>
+                        <a href="login.asp">
+                            <li style="background: #ad8743; color: #fff">로그인</li>
+                        </a>
+                        <a href="join_01.asp">
+                            <li>회원가입</li>
+                        </a>
+                        
+                    </ul>
+                </div>
+            </div>
         </section>-->
+
+        <!--//secton.main 완료-->
+        <!--secton.sub_wrap 시작-->
 
 
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
-                <h1>내정보 수정</h1>
-
-
-                <div class="modify_box">
+                <div class="modify_field">
+                    <h6>내정보 수정</h6>
+                <h1 style="font-family: 'PT Serif', serif;">MODIFY</h1>
+                <div class="bar"></div>
                     
-                    <form action="/action_page.php">
-                       <div class="modify_process"> <span>본인인증</span> > 내정보 수정</div>
-
-                    <h2>01. 본인인증</h2>
-                    <p>본인인증 후 내정보 수정이 가능합니다.</p>
-                        <ul>
-                            <li>
-                                <label for="phone"></label>
-                                <input type="text" id="phone" name="휴대전화" placeholder="휴대전화">
-                            </li>
-
-                            <li>
-                                <button onclick="phone_check" class="phone_check_btn">본인인증</button>
-                            </li>
-
-                            <li>
-                                <label for="phone2"></label>
-                                <input type="text" id="phone2" name="휴대전화" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
-                            </li>
-
-                        </ul>
+                    
+                    <div class="modify_box">
                         
-                    </form>
+                        <form action="/action_page.php">
+                           <div class="modify_process"> <span>본인인증</span> > 내정보 수정</div>
                     
-                    <div class="modify_btn">
+                        <h2>01. 본인인증</h2>
+                        <p>비밀번호를 입력하시면 내정보 수정이 가능합니다.</p>
                             <ul>
-                                <a href="mypage"><li class="back">취소</li></a>
-                                <a href="modify2"><li class="next">다음</li></a>
-                            </ul>
-                        </div>
-
+                                <li>
+                                    <label for="pw"></label>
+                                    <input type="password" id="pw" name="pw" placeholder="비밀번호">
+                                </li>
                     
-                </div>
+                                <!--<li>
+                                    <button onclick="phone_check" class="phone_check_btn">본인인증</button>
+                                </li>
+                    
+                                <li>
+                                    <label for="phone2"></label>
+                                    <input type="text" id="phone2" name="휴대전화" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
+                                </li>-->
+                    
+                            </ul>
+                            
+                        </form>
+                        
+                        <div class="modify_btn">
+                                <ul>
+                                    <a href="mypage"><li class="back">취소</li></a>
+                                    <a onclick="confirmPw"><li class="next">다음</li></a>
+                                </ul>
+                            </div>
+                    
+                        
+                    </div>
 
+                </div>
+                
 
             </div>
         </section>
@@ -116,6 +191,33 @@
 
         <!--<footer></footer>-->
     </div>
+
+    <script>
+        //비밀번호 확인 
+        function confirmPw(){
+            if($("#pw").val() == ""){
+                alert("빈칸을 입력해 주세요.");
+            }
+            $.ajax({
+                url: "api/user/confirm",
+                method: "post",
+                dataType: "json",
+                data: {pw : $("#pw").val()}, //세션 아이디도 추가로 보냄
+                success: function(res){
+                    if(res.data.U_UserName === $("#id").val()){                        
+                       location.href = "modify2"
+                    } else if(res.data === undefined){
+                        alert ( "비밀번호 오류입니다.");
+                        location.reload();
+                    }
+
+
+                    
+                }
+            })
+        }
+
+    </script>
 
     <script>
         'use sctrict';

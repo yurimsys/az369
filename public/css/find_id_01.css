@@ -137,6 +137,8 @@ section.sub_wrap {
     overflow: hidden;
 }
 
+.box {position: relative; padding-top: 5%; overflow: hidden;}
+
 section.sub_wrap .bar {
     border-bottom: 2px solid #624000; 
     width: 35px; 
@@ -212,10 +214,10 @@ header .open {
     header {width: 1200px;}
     header .gnb {display: none;}
     header .innerHeader {width: 1200px; position: fixed;}
-    header .logo {padding-top: 0.35%;}
-    header .logo img {width: 85%;}
     header .call {display: block;  padding-right: 4%;}
+    
     .gnb2 {display: none;}
+    .gnb_mo_login {background: #f8f8f8; margin-top: 2%; padding: 1.5% 0; color: #666;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
@@ -349,10 +351,12 @@ header .open {
     header {width: 1024px;}
     header .gnb {display: none;}
     header .innerHeader {width: 1024px; position: fixed;}
+
+    .gnb_mo_login {margin-top: 3%;}
     
     /*section.sub_wrap*/
-    section.sub_wrap {width: 1024px;}
-    .tnb {width: 1024px;}
+    section.sub_wrap {width:100%;}
+    .box {padding-top: 7%;}
     
     /*footer*/
     footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
@@ -372,12 +376,15 @@ header .open {
     header .innerHeader {width: 768px; position: fixed;}
     header .innerHeader .call {padding-right: 7%;}
     
+    .gnb_mo_login {margin-top: 3.5%;}
+    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     .tnb {width: 768px;}
     section.sub_wrap h1 {font-size: 2.2rem;}
     section.sub_warp .bar {display: none;} 
     
+    .box {padding-top: 9.5%;}
     
     .find_id_btn {width: 100%; }
     
@@ -399,14 +406,11 @@ header .open {
     header .gnb {display: none;}
     header .innerHeader {width: 414px; position: fixed;}
     header .innerHeader .call {display: none;}
-    header .logo img {width: 40%; margin-top: 3%;}
+    header .logo img {width: 80%; margin-left: 3%;}
     
-    /*main*/
-    section.main {width: 100%;}
-    section.main .inner_main {width: 414px;}
-        
-    .tnb {width: 414px;} 
-    .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
+    .gnb_mo_login {margin-top: 6%;}
+    
+    .box {padding-top: 20%;}
     
     .find_box .tab ul li {height: 50px; font-size: 16px; line-height: 50px;}
     

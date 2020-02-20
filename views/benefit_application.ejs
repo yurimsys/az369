@@ -202,23 +202,23 @@
                     </form>
 
                     <div class="check_btn">
-                        <a href="#popup" class="popup_open" onclick="lookUp()">
+                        <a class="popup_open" onclick="lookUp()">
                             제출여부조회
                         </a>
                     </div>
-
+                   
                     <div id="popup" class="layer">
                         <div class="popup_box">
                                <div class="popup_header">제출여부 확인</div>
-                               <h5><span>문의날짜</span> <br>2020.00.00 (월) 00:00</h5>
+                               <h5><span>문의날짜</span> <br><h5 id="applyDate"></h5></h5>
                                 <p>입점상담신청 문의가 성공적으로 보내졌습니다. <br> 빠른시일 내에 연락드리겠습니다.</p>
 
                             <div class="popup_btn">
-                                <a href="#" class="popup_close">닫기</a>
+                                <a href="benefit_application" class="popup_close">닫기</a>
                             </div>
                         </div>
                     </div>
-
+                    
                 </div>
 
 
@@ -230,6 +230,8 @@
 
         </section>
         <script>
+            let nowData = 0;
+
             //입점상담신청
            function applyCon(){
             if($('#name').val() == "" || $('#phone').val()=='' || $('#brand').val()=='' || $('#address').val()=='' || $('#memo').val()==''){
@@ -270,15 +272,29 @@
                        phone: $("#phone2").val()
                    },
                    success: function(res){
-                       //location.reload();
-                    console.log(res.data.SI_cDt);
-                    var applyDay = res.data.SI_cDt;
-                    var nowDay = applyDay.split('T')
+
+                    if(res.data === undefined){                           
+                        alert ("신청하지 않으셨거나 이름 혹은 전화번호가 다릅니다.");
+                        location.href="benefit_application"; 
+                        $("#popup").attr('css', 'disabled');
+                    } else if(res.data.U_UserName != ""){                        
+                        var applyDay = res.data.SI_cDt;
+                        //console.log("aaap :", applyDay);
+                        var nowDay = applyDay.split('T')
+                        //console.log("now :",nowDay[0]);
+                        $("#applyDate").append(nowDay[0]);
+                        //console.log("nonono :", nowData);
+                        $(".layer").show();
+
+                    }
+                                 
                    }
 
 
                 });
            }
+
+           
 
         </script>
 
