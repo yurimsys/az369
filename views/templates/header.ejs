@@ -4,7 +4,7 @@
 
     <div class="innerHeader">
         <h1 class="logo">
-            <a href="index"><img src="./img/main/logo2.png" alt="센트럴돔 로고"></a>
+            <a href="/"><img src="./img/main/logo2.png" alt="센트럴돔 로고"></a>
         </h1>
         <nav class="gnb">
             <ul>
@@ -33,8 +33,13 @@
         
         <nav class="gnb2">
            <ul>
-                <li><a href="login">로그인</a></li>
-                <li><a href="join">회원가입</a></li>
+                <% if( sessionUser ) { %>
+                    <li><a href="mypage" style="font-weight:bold">김동현 님</a></li>
+                    <li><a href="join">로그아웃</a></li>
+                <% } else { %>
+                    <li><a href="login">로그인</a></li>
+                    <li><a href="join">회원가입</a></li>
+                <% } %>
                 <li>
                     <div class="tooltip">전화문의
                     <span class="tooltiptext">031 - 668 - 0116</span>
