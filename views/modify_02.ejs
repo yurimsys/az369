@@ -125,9 +125,10 @@
                             <div class="modify_process">본인인증 > <span>내정보 수정</span></div>
 
                             <h2>02. 내정보 수정</h2>
+                            <h4 id="sessionId" value='<%=sessionUser.U_UserName%>'>테스트용</h4>
                             <!--<div class="bar"></div>-->
 
-                            <p><%=data.U_Name%>님 (<%=data.U_UserName%>)</p>
+                            <p><%=sessionUser.U_Name%>님 (<%=sessionUser.U_UserName%>)</p>
                             <ul>
                                 <!--<h3>수정할 정보를 입력해주세요.</h3>-->
 
@@ -144,22 +145,22 @@
                                <!--새 휴대전화번호-->
                                 <li>
                                     <label for="phone"></label>
-                                    <input type="text" id="phone" name="phone" value='<%= data.U_Phone%>' placeholder="새 휴대전화번호">
+                                    <input type="text" id="phone" name="phone" value='<%= sessionUser.U_Phone%>' placeholder="새 휴대전화번호">
                                 </li>
                                 
                                 <!--새 브랜드명-->
                                 <li>
                                     <label for="brand"></label>
-                                    <input type="text" id="brand" name="brand" value='<%= data.U_Brand%>' placeholder="새 브랜드명">
+                                    <input type="text" id="brand" name="brand" value='<%= sessionUser.U_Brand%>' placeholder="새 브랜드명">
                                 </li>
 
                                <!--새 매장주소-->
                                 <li>
                                     <div class="address_form">
-                                        <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" value='<%= data.U_Zip%>' style="background: #f8f8f8;">
+                                        <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" value='<%= sessionUser.U_Zip%>' style="background: #f8f8f8;">
                                         <button type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn-primary round">우편번호찾기</button><br>
-                                        <input type="text" id="address" name="address" placeholder="매장주소" value='<%= data.U_Addr1%>' style="background: #f8f8f8;"><br>
-                                        <input type="text" id="detailAddress" name="detailAddress" value='<%= data.U_Addr2%>' placeholder="매장상세주소">
+                                        <input type="text" id="address" name="address" placeholder="매장주소" value='<%= sessionUser.U_Addr1%>' style="background: #f8f8f8;"><br>
+                                        <input type="text" id="detailAddress" name="detailAddress" value='<%= sessionUser.U_Addr2%>' placeholder="매장상세주소">
                                         <input type="text" id="extraAddress" name="extraAddress" hidden=""> <!-- 기본정보  -->
                                         <input type="text" id="roadAddress" name="roadAddress" hidden="">
                                         <input type="text" id="jibunAddress" name="jibunAddress" hidden="">
@@ -169,9 +170,27 @@
                                     <a onclick="modifyInfo()">내정보 변경</a>
                                 </div>
 
-                                <div class="withdrawal"><a href="index.asp"><u>회원탈퇴</u></a></div>
+                                <div class="withdrawal"><a onclick="delUser()"><u>회원탈퇴</u></a></div>
+                                
 
 
+                                <!-- <div class="check_btn">
+                                    <a href="#popup" onclick="lookUp()">
+                                        제출여부조회
+                                    </a>
+                                </div>
+                               
+                                <div id="popup" class="layer">
+                                    <div class="popup_box">
+                                           <div class="popup_header">제출여부 확인</div>
+                                           <h5><span>문의날짜</span> <br><h5 id="applyDate"></h5></h5>
+                                            <p>입점상담신청 문의가 성공적으로 보내졌습니다. <br> 빠른시일 내에 연락드리겠습니다.</p>
+            
+                                        <div class="popup_btn">
+                                            <a href="benefit_application" class="popup_close">닫기</a>
+                                        </div>
+                                    </div>
+                                </div> -->
 
                                 <!--<div class="pw_modify_form modify_form">
                                     <ul>
@@ -310,6 +329,22 @@
                         success: function(res){
                             alret("수정이 완료되었습니다.");
                             location.href = "mypage";
+                        }
+                    })
+                }
+
+                //회원 탈퇴
+                function modifyInfo(){
+                    $.ajax({
+                        url: "api/user/deleteUser",
+                        method: "post",
+                        dataType: "json",
+                        data: {
+                            id : $("#sessionId").val()
+                        },
+                        success: function(res){
+                            alret("탈퇴가 완료되었습니다.");
+                            location.href = "index";
                         }
                     })
                 }

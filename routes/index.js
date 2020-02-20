@@ -342,14 +342,41 @@ router.post('/api/user/confirm', pconf.isAuthenticated, (req, res, next) =>{
 
 //마이페이지 정보 수정
 router.post('/api/user/modifyInfo', pconf.isAuthenticated, (req, res, next) =>{
-    let query = "update tu set U_Pw = :uPw where U_UserName = :uUserName";
+    let query = `update tu set U_Pw = :uPw, U_Phone = :uPhone, U_Brand = :uBrand,
+                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2 where U_UserName = :uUserName`;
     
     console.log(req.body);
 
     connection.query(query, 
         {          
-            uId = req.body.sessionId,
-            uPw = req.body.pw                    
+            // uId = req.body.sessionId,
+            // uPw = req.body.pw,
+            // uPhone = req.body.phone,
+            // uBRand = req.body.brand,
+            // uZip = req.body.postcode,
+            // uAddr1 = req.body.address,
+            // uAddr2 = req.body.detailAddress                    
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            //console.log(findId);
+            
+            res.json( {  data : rows[0]});
+            console.log(rows);
+        });
+        
+});
+
+//회원탈퇴
+router.post('/api/user/deleteUser', pconf.isAuthenticated, (req, res, next) =>{
+    let query = `delete from tu where U_UserName = :uUserName`;   
+    console.log(req.body);
+
+    connection.query(query, 
+        {          
+            // uUserName = req.body.sessionId,
+                               
         },
         function(err, rows, fields) {
             if (err) throw err;          
