@@ -191,12 +191,12 @@
                         <ul>
                             <li>
                                 <label for="name">이름</label>
-                                <input type="text" id="name" name="이름" placeholder="이름">
+                                <input type="text" id="name2" name="이름" placeholder="이름">
                             </li>
 
                             <li>
                                 <label for="phone">휴대전화</label>
-                                <input type="text" id="phone" name="휴대전화" placeholder="예시) 010 ⋯">
+                                <input type="text" id="phone2" name="휴대전화" placeholder="예시) 010 ⋯">
                             </li>
                         </ul>
                     </form>
@@ -256,7 +256,7 @@
            }
            
            function lookUp(){
-                if($('#name').val() == "" || $('#phone').val()==''){
+                if($('#name2').val() == "" || $('#phone2').val()==''){
                     alert("빈칸을 입력해 주세요");
                     return;
                 }
@@ -266,11 +266,14 @@
                    method: "post",
                    dataType: "json",
                    data: {
-                       name: $("#name").val(),
-                       phone: $("#phone").val()
+                       name: $("#name2").val(),
+                       phone: $("#phone2").val()
                    },
                    success: function(res){
-                    console.log(res.data);
+                       //location.reload();
+                    console.log(res.data.SI_cDt);
+                    var applyDay = res.data.SI_cDt;
+                    var nowDay = applyDay.split('T')
                    }
 
 
