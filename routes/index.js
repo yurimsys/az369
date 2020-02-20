@@ -19,18 +19,16 @@ connection.config.queryFormat = function (query, values) {
 };
 
 
-/* GET home page. */
+
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { sessionUser : req.user });
 });
 
 router.get('/login', function(req, res, next){
-    res.render('login');
-});
-
-router.get('/logout', function(req, res, next){
-    req.logOut();
-    res.redirect('/');
+    if(req.user.u_username !== undefined){
+        res.redirect('/');
+    }
+    res.render('login', { sessionUser : req.user });
 });
 
 router.post('/login', 
@@ -41,6 +39,10 @@ router.post('/login',
     })
 );
 
+router.get('/logout', function(req, res, next){
+    req.logOut();
+    res.redirect('/');
+});
 
 router.get('/mypage', pconf.isAuthenticated, function(req, res, next) {
 
@@ -48,21 +50,21 @@ router.get('/mypage', pconf.isAuthenticated, function(req, res, next) {
   connection.query(query, { name : "김동현"},
     function(err, rows, fields) {
         if (err) throw err;
-        res.render('mypage', { title: '버스 예약시스템', data : rows[0] });
+        res.render('mypage', { sessionUser : req.user, title: '버스 예약시스템', data : rows[0] });
     });
 });
 
 //마이페이지 본인확인 페이지
 router.get('/modify', function(req, res, next){
-    res.render('modify_01');
+    res.render('modify_01', { sessionUser : req.user });
 });
 
 router.get('/modify2', function(req, res, next){
-    res.render('modify_02');
+    res.render('modify_02', { sessionUser : req.user });
 });
 
 router.get('/reservation', (req, res) => {
-    res.render('reservation_01');
+    res.render('reservation_01', { sessionUser : req.user });
 });
 
 router.post('/api/user/phone', (req, res, next) => {
@@ -88,79 +90,74 @@ router.post('/api/user/phone', (req, res, next) => {
     // 로그 추가
 });
 
-router.get('/login', function(req, res, next){
-    res.render('login', { title : '로그인' });
-});
-
-
 //사업개요
 router.get('/summary', (req, res, next) => {
-    res.render('summary')
+    res.render('summary', { sessionUser : req.user })
 });
 
 //센트럴돔 소개
 router.get('/ctd_info', (req, res, next) => {
-    res.render('ctd_info')
+    res.render('ctd_info', { sessionUser : req.user })
 });
 
 //위치 안내
 router.get('/location', (req, res, next) => {
-    res.render('location')
+    res.render('location', { sessionUser : req.user })
 });
 
 //장차운행안내
 router.get('/benefit', (req, res, next) => {
-    res.render('benefit')
+    res.render('benefit', { sessionUser : req.user })
 });
 
 //장차운행안내
 router.get('/vehicle', (req, res, next) => {
-    res.render('vehicle')
+    res.render('vehicle', { sessionUser : req.user })
 });
 
 //회원가입 동의 페이지
 router.get('/join', (req, res, next) => {
-    res.render('join_01')
+    res.render('join_01', { sessionUser : req.user })
 });
 
 //회원가입 페이지
 router.get('/join2', function(req, res, next) {
-    res.render('join_02');
+    res.render('join_02', { sessionUser : req.user });
 });
 
 //회원가입 완료페이지
 router.get('/join3', function(req, res, next) {
-    res.render('join_03');
+    res.render('join_03', { sessionUser : req.user });
 });
 
 //아이디 찾기 1페이지
 router.get('/findId', function(req, res, next) {
-    res.render('find_id_01');
+    res.render('find_id_01', { sessionUser : req.user });
   });
 
 //아이디 찾기 완료 페이지
 router.get('/findId2', function(req, res, next) {
-    res.render('find_id_02');
+    res.render('find_id_02', { sessionUser : req.user });
 });
 
 //비밀번호 찾기 페이지
 router.get('/findPw', function(req, res, next) {
-    res.render('find_pw_01');
+    res.render('find_pw_01', { sessionUser : req.user });
 });
 
 //비밀번호 찾은 후 수정 페이지
 router.get('/findPw2', function(req, res, next) {
-    res.render('find_pw_02');
+    res.render('find_pw_02', { sessionUser : req.user });
 });
 
 //비밀번호 찾은 후 수정 완료 페이지
 router.get('/findPw3', function(req, res, next) {
-    res.render('find_pw_03');
+    res.render('find_pw_03', { sessionUser : req.user });
 });
 
 //입점신청 페이지
 router.get('/benefit_application', function(req, res, next) {
-    res.render('benefit_application');
+    res.render('benefit_application', { sessionUser : req.user });
 });
 
 
