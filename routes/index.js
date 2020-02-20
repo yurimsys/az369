@@ -53,8 +53,9 @@ router.get('/mypage', pconf.isAuthenticated, function(req, res, next) {
 });
 
 //마이페이지 본인확인 페이지
-router.get('/modify', function(req, res, next){
-    res.render('modify_01');
+router.get('/modify', pconf.isAuthenticated, function(req, res, next){
+    let myId = req.user.U_UserName;
+    res.render('modify_01', {data : req.user});
 });
 
 router.get('/modify2', function(req, res, next){
@@ -91,11 +92,6 @@ router.post('/api/user/phone', (req, res, next) => {
 router.get('/benefit_application', function(req, res, next){
     res.render('benefit_application', { title : '입점신청' });
 });
-
-router.get('/login', function(req, res, next){
-    res.render('login', { title : '로그인' });
-});
-
 
 
   //회원가입 페이지
@@ -296,20 +292,21 @@ router.post('/api/user/lookUp', (req, res, next) =>{
 });
 
 //마이페이지 본인 비밀번호 확인  ** 세션
-router.post('/api/user/lookUp', (req, res, next) =>{
-    let query = `select U_Pw from tu where U_UserName = :uUserName and U_Pw = :uPw `;
+router.post('/api/user/confirm', (req, res, next) =>{
+    let query = "select U_UserName from tu where U_UserName =:uId and U_Pw =:uPw";
     
     console.log(req.body);
 
     connection.query(query, 
         {          
-            //uUserName = req.body.ssessionId
-            // uPw = req.body.pw                    
+            uId = req.body.sessionId,
+            uPw = req.body.pw                    
         },
         function(err, rows, fields) {
             if (err) throw err;          
              
             //console.log(findId);
+            
             res.json( {  data : rows[0]});
             console.log(rows);
         });
