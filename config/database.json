@@ -1,0 +1,7 @@
+{
+    "host"     : "localhost",
+    "user"     : "root",
+    "password" : "qw12",
+    "database" : "BusReservation",
+    "port"     : "3306"
+}
