@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>AZ369 보세의류쇼핑몰</title>
-    <link rel="stylesheet" href="./css/modify_02.css">
+    <link rel="stylesheet" href="css/modify_02.css">
 
     <!--자바스크립트-->
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -14,7 +14,7 @@
 
 
     <!--폰트-->
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
 
 
 </head>
@@ -22,94 +22,223 @@
 <body>
     <div class="wrap">
 
-        <% include templates/header.ejs %>
+        <header>
+
+            <!--모바일 아이콘 열기-->
+            <a href="#" class="open"><img src="img/btn_berger_m.png" alt="메뉴열기"></a>
+
+            <div class="innerHeader">
+                <h1 class="logo">
+                    <a href="index.asp"><img src="./img/main/logo2.png" alt="센트럴돔 로고"></a>
+                </h1>
+                <nav class="gnb">
+                    <ul>
+                        <li><a href="summary.asp" class="gnb_link">사업안내</a>
+                            <ul>
+                                <li><a href="summary.asp">사업개요</a></li>
+                                <li><a href="ctd_info.asp">센트럴돔 소개</a></li>
+                                <li><a href="location.asp">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="benefit.asp" class="gnb_link">입점신청 및 혜택</a>
+                            <ul>
+                                <li><a href="benefit.asp">입점 상가 혜택</a></li>
+                                <li><a href="benefit_application.asp">입점 상담 신청</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="vehicle.asp" class="gnb_link">장차예매</a>
+                            <ul>
+                                <li><a href="vehicle.asp">장차운행안내</a></li>
+                                <li><a href="reservation_01.asp">장차예매신청</a></li>
+                                <li><a href="mypage.asp">장차예매현황</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <nav class="gnb2">
+                   <ul>
+                       <li><a href="login.asp">로그인</a></li>
+                        <li><a href="join_01.asp">회원가입</a></li>
+                        <li><div class="tooltip">전화문의
+                            <span class="tooltiptext">031 - 668 - 0116</span></div>
+                  </li>
+                   </ul>
+                </nav>
+                
+            </div>
+
+            <!--모바일 메뉴-->
+            <nav class="gnb_mo">
+                <a href="#" class="close"><img src="img/btn_gnb_close.png" alt="메뉴닫기"></a>
+                
+                
+                
+                <ul>
+                   <li class="gnb_mo_login">
+                        <a href="login.asp">장차예매 시 <u>로그인</u>이 필요합니다.</a>
+                    </li>
+                    <li>
+                        <a href="#">사업안내</a>
+                        <ul class="inner">
+                            <li><a href="summary.asp">사업개요</a></li>
+                            <li><a href="ctd_info.asp">센트럴돔 소개</a></li>
+                            <li><a href="location.asp">오시는 길</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">입점신청 및 혜택</a>
+                        <ul class="inner">
+                            <li><a href="benefit.asp">입점상가혜택</a></li>
+                            <li><a href="benefit_application.asp">입점상담신청</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">장차예매</a>
+                        <ul class="inner">
+                            <li><a href="vehicle.asp">장차운행안내</a></li>
+                            <li><a href="reservation_01.asp">장차예약신청</a></li>
+                            <li><a href="mypage.asp">장차예매현황</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+
+
+        <!--// header완료-->
         <!--secton.sub_wrap 시작-->
 
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
-                <h1>내정보 수정</h1>
-
-
-                <div class="modify_box">
-                    <div class="modify_process">본인인증 > <span>내정보 수정</span></div>
-
-                    <h2>01. 내정보 수정</h2>
+                <div class="box">
+                    <h6>내정보 수정</h6>
+                    <h1 style="font-family: 'PT Serif', serif;">MODIFY</h1>
                     <div class="bar"></div>
 
-                    <p>ㅁㅁㅁ님 (asdf1212@naver.com)</p>
-                    <ul>
-                        <div class="pw_modify_form modify_form">
+
+                    <div class="modify_box">
+
+                        <form action="/action_page.php">
+                            <div class="modify_process">본인인증 > <span>내정보 수정</span></div>
+
+                            <h2>02. 내정보 수정</h2>
+                            <!--<div class="bar"></div>-->
+
+                            <p><%=data.U_Name%>님 (<%=data.U_UserName%>)</p>
                             <ul>
-                                <h3>비밀번호 변경</h3>
-                                <li>
-                                    <label for="password1"></label>
-                                    <input type="password" id="password1" name="현재 비밀번호" placeholder="현재 비밀번호">
-                                </li>
+                                <!--<h3>수정할 정보를 입력해주세요.</h3>-->
 
-
+                                <!--새 비밀번호-->
                                 <li>
                                     <label for="password2"></label>
-                                    <input type="password" id="password2" name="새 비밀번호" placeholder="새 비밀번호 (영어 + 숫자 10자리 이상)">
+                                    <input type="password" id="password" name="password" placeholder="새 비밀번호 (영문 + 숫자 + 특문 포함 10글자 이상)">
                                 </li>
-
                                 <li>
                                     <label for="password2"></label>
-                                    <input type="password" id="password2" name="패스워드" placeholder="비밀번호 확인">
-                                </li>
-                            </ul>
-
-                            <div class="modify_btn">
-                                <a href="mypage.html">비밀번호 변경</a>
-                            </div>
-                        </div>
-
-
-
-                        <div class="phone_modify_form modify_form">
-                            <ul>
-                                <h3>전화번호 변경</h3>
+                                    <input type="password" id="password2" name="password2" placeholder="비밀번호 확인">                                </li>
+                                    <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+								    <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지않습니다.</div>
+                               <!--새 휴대전화번호-->
                                 <li>
                                     <label for="phone"></label>
-                                    <input type="text" id="phone" name="새 휴대전화" placeholder="새 휴대전화번호">
+                                    <input type="text" id="phone" name="phone" value='<%= data.U_Phone%>' placeholder="새 휴대전화번호">
                                 </li>
-
+                                
+                                <!--새 브랜드명-->
                                 <li>
-                                    <button onclick="phone_check" id="phone_coheck_btn">본인인증</button>
+                                    <label for="brand"></label>
+                                    <input type="text" id="brand" name="brand" value='<%= data.U_Brand%>' placeholder="새 브랜드명">
                                 </li>
 
-                                <li>
-                                    <label for="phone2"></label>
-                                    <input type="text" id="phone2" name="휴대전화" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
-                                </li>
-                            </ul>
-                            <div class="modify_btn">
-                                <a onclick="modifyPhone()">전화번호 변경</a>
-                            </div>
-                        </div>
-
-                        <div class="add_modify_form modify_form">
-                            <ul>
-                                <h3>매장주소 변경</h3>
+                               <!--새 매장주소-->
                                 <li>
                                     <div class="address_form">
-                                        <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" style="background: #f8f8f8;">
+                                        <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" value='<%= data.U_Zip%>' style="background: #f8f8f8;">
                                         <button type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn-primary round">우편번호찾기</button><br>
-                                        <input type="text" id="address" name="address" placeholder="매장주소" style="background: #f8f8f8;"><br>
-                                        <input type="text" id="detailAddress" name="detailAddress" placeholder="매장상세주소">
+                                        <input type="text" id="address" name="address" placeholder="매장주소" value='<%= data.U_Addr1%>' style="background: #f8f8f8;"><br>
+                                        <input type="text" id="detailAddress" name="detailAddress" value='<%= data.U_Addr2%>' placeholder="매장상세주소">
                                         <input type="text" id="extraAddress" name="extraAddress" hidden=""> <!-- 기본정보  -->
                                         <input type="text" id="roadAddress" name="roadAddress" hidden="">
                                         <input type="text" id="jibunAddress" name="jibunAddress" hidden="">
                                     </div>
                                 </li>
+                                <div class="modify_btn">
+                                    <a onclick="modifyInfo()">내정보 변경</a>
+                                </div>
+
+                                <div class="withdrawal"><a href="index.asp"><u>회원탈퇴</u></a></div>
+
+
+
+                                <!--<div class="pw_modify_form modify_form">
+                                    <ul>
+                                        <li>
+                                            <label for="password2"></label>
+                                            <input type="password" id="password2" name="새 비밀번호" placeholder="새 비밀번호 (영문 + 숫자 + 특문 포함 10글자 이상)">
+                                        </li>
+
+                                        <li>
+                                            <label for="password2"></label>
+                                            <input type="password" id="password2" name="패스워드" placeholder="비밀번호 확인">
+                                        </li>
+                                    </ul>
+
+                                    <div class="modify_btn">
+                                        <a href="mypage.html">비밀번호 변경</a>
+                                    </div>
+                                </div>-->
+
+
+
+                                <!--<div class="phone_modify_form modify_form">
+                                    <ul>
+                                        <li>
+
+                                            <label for="phone"></label>
+                                            <input type="text" id="phone" name="새 휴대전화" placeholder="새 휴대전화번호">
+                                        </li>
+
+                                        <li>
+                                            <button onclick="phone_check" id="phone_coheck_btn">본인인증</button>
+                                        </li>
+                    
+                                        <li>
+                                            <label for="phone2"></label>
+                                            <input type="text" id="phone2" name="휴대전화" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
+                                        </li>
+                                    </ul>
+                                    <div class="modify_btn">
+                                        <a href="mypage.html">전화번호 변경</a>
+                                    </div>
+                                </div>-->
+
+
+
+                                <!--<div class="add_modify_form modify_form">
+                                    <ul>
+                                        <li>
+                                            <div class="address_form">
+                                                <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" style="background: #f8f8f8;">
+                                                <button type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn-primary round">우편번호찾기</button><br>
+                                                <input type="text" id="address" name="address" placeholder="매장주소" style="background: #f8f8f8;"><br>
+                                                <input type="text" id="detailAddress" name="detailAddress" placeholder="매장상세주소">
+                                                <input type="text" id="extraAddress" name="extraAddress" hidden="">  기본정보  
+                                                <input type="text" id="roadAddress" name="roadAddress" hidden="">
+                                                <input type="text" id="jibunAddress" name="jibunAddress" hidden="">
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    
+                                </div>-->
                             </ul>
-                            <div class="modify_btn">
-                                <a href="mypage.html">매장주소 변경</a>
-                            </div>
-                            
-                                <div class="withdrawal"><a href="#"><u>회원탈퇴</u></a></div>
-                        </div>
-                        </ul>
+
+
+                        </form>
+
+                    </div>
                 </div>
 
 
@@ -122,7 +251,73 @@
         <!--<footer></footer>-->
     </div>
 
+    <!-- 다음 주소 API -->
+    <script src="js/join_address.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
     <script>
+        //비밀번호 정규식
+        $("#password").change(function(){
+            checkPassword($('#password').val());
+        });
+        function checkPassword(password){
+            
+            if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){            
+                alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
+                $('#password').val('').focus();
+                return false;
+            }    
+            var checkNumber = password.search(/[0-9]/g);
+            var checkEnglish = password.search(/[a-z]/ig);
+            if(checkNumber <0 || checkEnglish <0){
+                alert("숫자와 영문자를 혼용하여야 합니다.");
+                $('#password').val('').focus();
+                return false;
+            }                                
+        }
+        //비밀번호 확인
+         $(function(){ 
+                $("#alert-success").hide();
+                $("#alert-danger").hide();
+                $("input").keyup(function(){ 
+                    var pwd1=$("#password").val(); 
+                    var pwd2=$("#password2").val();
+                    if(pwd1 != "" || pwd2 != ""){ 
+                        if(pwd1 == pwd2){ 
+                            $("#alert-success").show();
+                            $("#alert-danger").hide(); 
+                            $("#submit").removeAttr("disabled"); 
+                            }else{
+                            $("#alert-success").hide();
+                            $("#alert-danger").show(); 
+                            $("#submit").attr("disabled", "disabled");
+                            } 
+                        } 
+                    }); 
+                });
+
+                //정보 수정
+                function modifyInfo(){
+                    $.ajax({
+                        url: "api/user/modifyInfo",
+                        method: "post",
+                        dataType: "json",
+                        data: {
+                            pw : $("#password").val(), phone : $("#phone").val(),
+                            brand : $("#brand").val(), postcode : $("#postcode").val(),
+                            address : $("#address").val(), detailAddress : $("#detailAddress").val()
+                        },
+                        success: function(res){
+                            alret("수정이 완료되었습니다.");
+                            location.href = "mypage";
+                        }
+                    })
+                }
+
+
+
+
+    
         'use sctrict';
 
         //gnb scroll 
@@ -219,22 +414,6 @@
             }
             document.getElementById(busSeat).style.display = "block";
             evt.currentTarget.className += " active";
-        }
-
-        function modifyPhone(){            
-
-            $.ajax({
-                method : 'POST',
-                dataType : 'json',
-                url: "api/user/phone",
-                data: {
-                    phone : $("#phone").val()
-                }
-            }).done(function() {
-                alert("success");
-                location.href = "/mypage";
-            });
-            
         }
     </script>
 </body></html>

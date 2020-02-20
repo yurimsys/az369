@@ -58,8 +58,8 @@ router.get('/modify', pconf.isAuthenticated, function(req, res, next){
     res.render('modify_01', {data : req.user});
 });
 
-router.get('/modify2', function(req, res, next){
-    res.render('modify_02');
+router.get('/modify2', pconf.isAuthenticated, function(req, res, next){
+    res.render('modify_02',{data : req.user });
 });
 
 router.get('/reservation', (req, res) => {
@@ -326,8 +326,31 @@ router.post('/api/user/lookUp', (req, res, next) =>{
 });
 
 //마이페이지 본인 비밀번호 확인  ** 세션
-router.post('/api/user/confirm', (req, res, next) =>{
+router.post('/api/user/confirm', pconf.isAuthenticated, (req, res, next) =>{
     let query = "select U_UserName from tu where U_UserName =:uId and U_Pw =:uPw";
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {          
+            //uId = req.body.sessionId,
+           // uPw = req.body.pw                    
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            //console.log(findId);
+            
+            res.json( {  data : rows[0]});
+            console.log(rows);
+        });
+        
+});
+
+
+//마이페이지 정보 수정
+router.post('/api/user/modifyInfo', pconf.isAuthenticated, (req, res, next) =>{
+    let query = "update tu set U_Pw = :uPw where U_UserName = :uUserName";
     
     console.log(req.body);
 
@@ -346,5 +369,4 @@ router.post('/api/user/confirm', (req, res, next) =>{
         });
         
 });
-
 module.exports = router;
