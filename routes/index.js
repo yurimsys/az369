@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next){
-    if(req.user.u_username !== undefined){
+    if(req.user.U_username !== undefined){
         res.redirect('/');
     }
     res.render('login', { sessionUser : req.user });
@@ -326,7 +326,7 @@ router.post('/api/user/confirm', pconf.isAuthenticated, (req, res, next) =>{
     connection.query(query, 
         {          
             //uId = req.body.sessionId,
-           // uPw = req.body.pw                    
+            //uPw = req.body.pw                    
         },
         function(err, rows, fields) {
             if (err) throw err;          
