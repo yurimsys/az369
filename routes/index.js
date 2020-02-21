@@ -25,10 +25,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next){
-    if(req.user.U_username !== undefined){
+    if(req.user !== undefined){
         res.redirect('/');
     }
-    res.render('login', { sessionUser : req.user });
+    res.render('login');
 });
 
 router.post('/login', 
