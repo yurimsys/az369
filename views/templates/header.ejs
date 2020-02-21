@@ -34,7 +34,7 @@
         <nav class="gnb2">
            <ul>
                 <% if( sessionUser ) { %>
-                    <li><a href="mypage" style="font-weight:bold">김동현 님</a></li>
+                    <li><a href="mypage" style="font-weight:bold"><%= sessionUser.U_Name %> 님</a></li>
                     <li><a href="logout">로그아웃</a></li>
                 <% } else { %>
                     <li><a href="login">로그인</a></li>

@@ -28,7 +28,7 @@ router.get('/login', function(req, res, next){
     if(req.user !== undefined){
         res.redirect('/');
     }
-    res.render('login');
+    res.render('login', { sessionUser : null });
 });
 
 router.post('/login', 

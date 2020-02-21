@@ -21,5 +21,10 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-158824124-1');
+  
+</script>
+<% if( sessionUser ){ %>
+<script>
   gtag('set', {'user_id': '<%=sessionUser.U_UserName%>' });
 </script>
+<% } %>
