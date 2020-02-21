@@ -4,8 +4,14 @@ const passport = require('passport');
 const mysql = require('mysql');
 const fs = require('fs');
 const pconf = require('../config/passport');
-let dbconf = JSON.parse( fs.readFileSync('./config/database.json') );
-const connection = mysql.createConnection(dbconf);
+// let dbconf = JSON.parse( fs.readFileSync('./config/database.json') );
+const connection = mysql.createConnection({
+    "host"     : "localhost",
+    "user"     : "root",
+    "password" : "qw12qw12(",
+    "database" : "yurimsys12",
+    "port"     : "3306"
+});
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
