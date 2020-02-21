@@ -4,7 +4,6 @@
 <head>
     <% include templates/head.ejs %>
     <link rel="stylesheet" href="css/mypage.css">
-
 </head>
 
 <body>
@@ -12,7 +11,7 @@
 
         <% include templates/header.ejs %>
 
-        <!--secton.sub_wrap 시작-->
+
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
@@ -31,24 +30,24 @@
                                     <div class="info_title">
                                         <h2>내정보</h2>
                                         <div class="modify_btn">
-                                            <a href="modify">
+                                            <a href="modify_01.asp">
                                                 수정
                                             </a>
                                         </div>
                                     </div>
                                     <div class="info">
-                                       <h5><%= sessionUser.U_Name %>님
-                                       <span>(<%= sessionUser.U_UserName %>)</span></h5>
-                                        
-                    
-                                        <p>
-                                            <%= sessionUser.U_Brand %>
-                                            <br>
-                                            <%= sessionUser.U_Email %>
-                                            <br>
-                                            <%= sessionUser.U_Phone %>
-                                        </p>
-                                    </div>
+                                        <h5><%= sessionUser.U_Name %>님
+                                        <span>(<%= sessionUser.U_UserName %>)</span></h5>
+                                         
+                     
+                                         <p>
+                                             <%= sessionUser.U_Brand %>
+                                             <br>
+                                             <%= sessionUser.U_Email %>
+                                             <br>
+                                             <%= sessionUser.U_Phone %>
+                                         </p>
+                                     </div>
                     
                                     <div class="mypage_nav">
                                         <button class="tablinks" onclick="openList(event, '01')" id="defaultOpen"> 현 장차예매 현황 <span><i class="fas fa-chevron-right"></i></span></button>
@@ -57,7 +56,7 @@
                     
                                         <button class="tablinks" onclick="openList(event, '03')"> 취소 및 환불조회 <span><i class="fas fa-chevron-right"></i></span></button>
                                     </div>
-                                    <div class="logout"><a href="logout">로그아웃</a></div>
+                                    <div class="logout"><a href="login.asp">로그아웃</a></div>
                                 </div>
                     
                                 <!--왼쪽 목록버튼-->
@@ -75,6 +74,7 @@
                                     </button>
                                 </div>
                             </li>
+                    
                     
                             <!--오른쪽박스-->
                             <li class="box_02">
@@ -94,23 +94,22 @@
                                                     <li>선택좌석</li>
                                                 </ul>
                                             </div>
-                                            <% for(let i=0; i<5; i++){ %>
-                                            <div class="reserve_bar_list">
-                                                <label>
-                                                    <input type="checkbox" name="day">
-                                                    <span class="reserve_bar">
-                                                        <ul>
-                                                            <li>2020.02.03 22:00</li>
-                                                            <li> 평택 > 서울 동대문</li>
-                                                            <li> 충남고속 (11가 1234)</li>
-                                                            <li>01번</li>
-                                                        </ul>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <% } %>
+                                            <% for(let i=0; i<data.length; i++){ %>
+                                                <div class="reserve_bar_list">
+                                                    <label>
+                                                        <input type="checkbox" name="day">
+                                                        <span class="reserve_bar">
+                                                            <ul>
+                                                                <li><%=data[i].CT_DepartureTe%></li>
+                                                                <li> 평택 > 서울 동대문</li>
+                                                                <li><%=data[i].CT_CarNum%></li>
+                                                                <li><%=data[i].CR_SeatNum%></li>
+                                                            </ul>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <% } %>                                                            
                                             <!--첫번째 리스트 mo 768px-->
-                                            <% for(let i=0; i<5; i++){ %>
                                             <div class="reserve_bar_mo_list">
                                                 <label>
                                                     <input type="checkbox" name="day">
@@ -133,7 +132,77 @@
                                                     </span>
                                                 </label>
                                             </div>
-                                            <% } %>
+                    
+                                            <div class="reserve_bar_mo_list">
+                                                <label>
+                                                    <input type="checkbox" name="day">
+                                                    <span class="reserve_bar_mo">
+                                                        <ul>
+                                                            <li>
+                                                                2020.02.03
+                                                                <h6>22:00</h6>
+                                                            </li>
+                                                            <li>
+                                                                평택 - 서울동대문
+                                                                <h6>충남고속</h6>
+                                                            </li>
+                                                            <li>
+                                                                선택좌석
+                                                                <h6>1,2,3,4,5</h6>
+                                                            </li>
+                                                            <li><i class="fas fa-chevron-right"></i></li>
+                                                        </ul>
+                                                    </span>
+                                                </label>
+                                            </div>
+                    
+                                            <div class="reserve_bar_mo_list">
+                                                <label>
+                                                    <input type="checkbox" name="day">
+                                                    <span class="reserve_bar_mo">
+                                                        <ul>
+                                                            <li>
+                                                                2020.02.03
+                                                                <h6>22:00</h6>
+                                                            </li>
+                                                            <li>
+                                                                평택 - 서울동대문
+                                                                <h6>충남고속</h6>
+                                                            </li>
+                                                            <li>
+                                                                선택좌석
+                                                                <h6>1,2,3,4,5</h6>
+                                                            </li>
+                                                            <li><i class="fas fa-chevron-right"></i></li>
+                                                        </ul>
+                                                    </span>
+                                                </label>
+                                            </div>
+                    
+                                            <div class="reserve_bar_mo_list">
+                                                <label>
+                                                    <input type="checkbox" name="day">
+                                                    <span class="reserve_bar_mo">
+                                                        <ul>
+                                                            <li>
+                                                                2020.02.03
+                                                                <h6>22:00</h6>
+                                                            </li>
+                                                            <li>
+                                                                평택 - 서울동대문
+                                                                <h6>충남고속</h6>
+                                                            </li>
+                                                            <li>
+                                                                선택좌석
+                                                                <h6>1,2,3,4,5</h6>
+                                                            </li>
+                                                            <li><i class="fas fa-chevron-right"></i></li>
+                                                        </ul>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                    
                                         <p class="cancel_info">취소할 예매 목록을 선택하시고 하단의 버튼을 누르시면 예매를 취소하실 수 있습니다.</p>
                     
                                         <a href="#popup" class="popup_open">선택예매취소</a>
@@ -240,55 +309,15 @@
                                                     <th>좌석개수</th>
                                                     <th>결제금액</th>
                                                 </tr>
-                    
-                    
-                                                <tr>
-                                                    <td>2020.00.00</td>
-                                                    <td>2020.00.00 22:00</td>
-                                                    <td>충남고속 (11가 1234)</td>
-                                                    <td>00개</td>
-                                                    <td>00,000원</td>
-                                                </tr>
-                    
-                                                <tr>
-                                                    <td>2020.00.00</td>
-                                                    <td>2020.00.00 22:00</td>
-                                                    <td>충남고속 (11가 1234)</td>
-                                                    <td>00개</td>
-                                                    <td>00,000원</td>
-                                                </tr>
-                    
-                                                <tr>
-                                                    <td>2020.00.00</td>
-                                                    <td>2020.00.00 22:00</td>
-                                                    <td>충남고속 (11가 1234)</td>
-                                                    <td>00개</td>
-                                                    <td>00,000원</td>
-                                                </tr>
-                    
-                                                <tr>
-                                                    <td>2020.00.00</td>
-                                                    <td>2020.00.00 22:00</td>
-                                                    <td>충남고속 (11가 1234)</td>
-                                                    <td>00개</td>
-                                                    <td>00,000원</td>
-                                                </tr>
-                    
-                                                <tr>
-                                                    <td>2020.00.00</td>
-                                                    <td>2020.00.00 22:00</td>
-                                                    <td>충남고속 (11가 1234)</td>
-                                                    <td>00개</td>
-                                                    <td>00,000원</td>
-                                                </tr>
-                    
-                                                <tr>
-                                                    <td>2020.00.00</td>
-                                                    <td>2020.00.00 22:00</td>
-                                                    <td>충남고속 (11가 1234)</td>
-                                                    <td>00개</td>
-                                                    <td>00,000원</td>
-                                                </tr>
+                                                <%for(let k=0; k<data.length; k++){%>
+                                                    <tr>
+                                                        <td><%=data[k].CR_cDt%></td>
+                                                        <td><%=data[k].DepartureTe%></td>
+                                                        <td><%=data[k].CT_CarNum%></td>
+                                                        <td>fdsfsdfs</td>
+                                                        <td><%=data[k].Price%></td>
+                                                    </tr>
+                                                    <% }%>                                            
                                             </table>
                                         </div>
                     
@@ -385,7 +414,6 @@
                                                     <th>결제수단</th>
                                                     <th>환불금액</th>
                                                 </tr>
-                                                <% for(let i =0; i<5; i++){ %>
                                                 <tr>
                                                     <td>2020.00.00</td>
                                                     <td>2020.00.00 22:00</td>
@@ -393,7 +421,20 @@
                                                     <td>카드결제(신한)</td>
                                                     <td>00,000원</td>
                                                 </tr>
-                                                <% } %>
+                                                <tr>
+                                                    <td>2020.00.00</td>
+                                                    <td>2020.00.00 22:00</td>
+                                                    <td>2020.00.00</td>
+                                                    <td>카드결제(신한)</td>
+                                                    <td>00,000원</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2020.00.00</td>
+                                                    <td>2020.00.00 22:00</td>
+                                                    <td>2020.00.00</td>
+                                                    <td>카드결제(신한)</td>
+                                                    <td>00,000원</td>
+                                                </tr>
                                             </table>
                                         </div>
                                         
@@ -501,7 +542,7 @@
                                 </div>
                     
                                 <!--768부터적용-->
-                                <div class="logout_mo"><a href="logout">로그아웃</a></div>
+                                <div class="logout_mo"><a href="login.asp">로그아웃</a></div>
                     
                     
                             </li>

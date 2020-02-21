@@ -49,12 +49,14 @@ router.get('/logout', function(req, res, next){
 });
 
 router.get('/mypage', pconf.isAuthenticated, function(req, res, next) {
-
-  let query = "SELECT u_name, u_email, u_phone, u_brand from tU where u_name = :name";
-  connection.query(query, { name : "김동현"},
+  let sessionId = req.user.U_ID;
+  let query = `select * from tct 
+                inner join tcr on tct.CT_ID = tcr.CR_CT_ID where tcr.CR_U_ID = :sessionId`;
+  connection.query(query, { sessionId},
     function(err, rows, fields) {
         if (err) throw err;
-        res.render('mypage', { sessionUser : req.user, title: '버스 예약시스템', data : rows[0] });
+        res.render('mypage', { sessionUser : req.user, title: '버스 예약시스템', data : rows });
+        console.log(rows);
     });
 });
 
