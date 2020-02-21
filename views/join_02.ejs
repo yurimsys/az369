@@ -129,41 +129,42 @@
                             <ul>
                                 <li>
                                     <label>
-                                        <input type="checkbox" name="day" id="mon" val="월">
+                                        <input type="checkbox" class="selDay" name="day" val="월">
                                         <span>월</span>
                                     </label>
                                 </li>
 
                                 <li>
                                     <label>
-                                        <input type="checkbox" name="day" id="tues" val="화">
+                                        <input type="checkbox" class="selDay" name="day" val="화">
                                         <span>화</span>
                                     </label>
                                 </li>
 
                                 <li>
                                     <label>
-                                        <input type="checkbox" name="day" id='wed' val="수">
+                                        <input type="checkbox" class="selDay" name="day" val="수">
                                         <span>수</span>
                                     </label>
                                 </li>
 
                                 <li>
                                     <label>
-                                        <input type="checkbox" name="day" id='thurs' val="목">
+                                        <input type="checkbox" class="selDay" name="day" val="목">
                                         <span>목</span>
                                     </label>
                                 </li>
 
                                 <li>
                                     <label>
-                                        <input type="checkbox" name="day" id='fri' val="금">
+                                        <input type="checkbox" class="selDay" name="day" val="금">
                                         <span>금</span>
                                     </label>
                                 </li>
+                                
                             </ul>
                         </div>
-
+                        <div id="hideId" style="display: none;"></div>
                        
                         <div class="time">
                            <h4>장차운행시간</h4>
@@ -309,27 +310,47 @@
                             } else if(res.data.U_UserName === $("#id").val()){
                                 alert ( "아이디 중복입니다.");
                             }
-                           
-                                           
+                                       
                         }                      
                     })                                                                                                                           
                 };
-                        //////장차선호도
-                        var days;                         
-                        var sel = $("#select01 option:selected").val();
-                        var sel2 = $('#select02 option:selected').val();                              
-                        $('.day label').children('input').off().on('click' ,function(){
-                            //console.log("itetemtem : ", item);                                          
-                            console.log($(this).attr('val'));                      
-                            days = $(this).attr('val');
-                            console.log("셀렉트 :",$("#select01 option:selected").val(),$('#select02 option:selected').val());  
+                        // //////장차선호도
+                        // var days;                         
+                        // var sel = $("#select01 option:selected").val();
+                        // var sel2 = $('#select02 option:selected').val();                              
+                        // $('.day label').children('input').off().on('click' ,function(){
+                        //     //console.log("itetemtem : ", item);                                          
+                        //     console.log($(this).attr('val'));                      
+                        //     days = $(this).attr('val');
+                        //     console.log("셀렉트 :",$("#select01 option:selected").val(),$('#select02 option:selected').val());  
                                                                               
-                            console.log("n1 :", days);                      
-                        });
+                        //     console.log("n1 :", days);                      
+                        // });
 
+                        // let test = $('#select02 option:selected').val();
+                        // console.log("테스트야 :", test);                       
+                            var qwer;
+                            var dayCnt = 0;
+                            $('.selDay').each(function(item){                               
+                                $(this).off().on('click', function(){                                
+                                    qwer = $(this).attr('val');
+                                  
+                                    
+                                    
+                                    // if(dayCnt%2 == 0){
+                                    //     qwer = null;
+                                    // }
+                                $("#hideId").attr('val',qwer);                 
+                                   
+                                });     
+                                console.log("이치문 :", qwer);                     
+                            });
+
+                            console.log($('#hideId').val())
               
                ///회원가입 버튼 클릭
-                function joinUser(){  
+                function joinUser(){
+                    console.log($("#hideId").val())  
                     if(checkCount == 0){
                         alert("아이디 중복확인을 해주세요.", checkCount);
                         return;     
@@ -364,7 +385,7 @@
                            url: "api/user/carPool",
                            dataType: "json",
                            method: "post",
-                           data: {sel : $("#select01 option:selected").val(), sel2 : $("#select02 option:selected").val(), days : days, id : res.id},
+                           data: {sel : $("#select01 option:selected").val(), sel2 : $("#select02 option:selected").val(), days : $("#hideId").val(), id : res.id},
                            success: function(res){
                                if(res.data === '성공'){
                                  location.href = "join3"
@@ -378,7 +399,6 @@
 
                 }
 
-        
         </script>
 
     <script>
