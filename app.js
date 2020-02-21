@@ -1,7 +1,8 @@
 const createError = require('http-errors');
 const express = require('express');
 const session =  require('express-session');
-const mysqlStore = require('express-mysql-session')(session);
+const fileStore = require('session-file-store')(session)
+// const mysqlStore = require('express-mysql-session')(session);
 const passport = require('passport');
 const passportConfig = require('./config/passport');
 const path = require('path');
@@ -14,7 +15,7 @@ const usersRouter = require('./routes/users');
 
 const app = express();
 const fs = require('fs');
-const dbconf = JSON.parse( fs.readFileSync('./config/database.json') );
+// const dbconf = JSON.parse( fs.readFileSync('./config/database.json') );
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,7 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret : 'qw12!@#yurimsys!@#',
-    store: new mysqlStore(dbconf),
+    store: new fileStore(),
     resave: false,
     saveUninitialized: false
 }));

@@ -18,10 +18,8 @@ connection.config.queryFormat = function (query, values) {
     }.bind(this));
 };
 
-
-
 router.get('/', function(req, res, next) {
-  res.render('index', { sessionUser : req.user });
+    res.render('index', { sessionUser : req.user });
 });
 
 router.get('/login', function(req, res, next){
