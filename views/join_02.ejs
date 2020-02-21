@@ -2,21 +2,8 @@
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>AZ369 보세의류쇼핑몰</title>
+    <% include templates/head.ejs %>
     <link rel="stylesheet" href="css/join_02.css">
-
-
-    <!--자바스크립트-->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/scrolla.jquery.min.js"></script>
-
-
-    <!--폰트-->
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
-
 
 </head>
 
@@ -31,13 +18,13 @@
                 <div class="main_bg"></div>
                 <div class="tnb">
                     <ul>
-                        <a href="login.html">
+                        <a href="login">
                             <li>로그인</li>
                         </a>
-                        <a href="join_01.html">
+                        <a href="join1">
                             <li style="background: #ad8743; color: #fff">회원가입</li>
                         </a>
-                        <a href="mypage.html">
+                        <a href="mypage">
                             <li>장차예매현황</li>
                         </a>
                     </ul>
@@ -215,7 +202,7 @@
 
                     <div class="join_btn">
                         <ul>
-                            <a href="join_01.html">
+                            <a href="join1">
                                 <li class="back">이전</li>
                             </a>
                             <a onclick="joinUser()">

@@ -2,20 +2,8 @@
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>AZ369 보세의류쇼핑몰</title>
+    <% include templates/head.ejs %>
     <link rel="stylesheet" href="css/find_id_02.css">
-
-    <!--자바스크립트-->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/scrolla.jquery.min.js"></script>
-
-
-    <!--폰트-->
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
-
 
 </head>
 
@@ -30,10 +18,10 @@
                 <div class="main_bg"></div>
                 <div class="tnb">
                     <ul>
-                        <a href="login.html">
+                        <a href="login">
                             <li style="background: #ad8743; color: #fff">로그인</li>
                         </a>
-                        <a href="join_01.html">
+                        <a href="join">
                             <li>회원가입</li>
                         </a>
                     </ul>
@@ -56,11 +44,11 @@
                 <div class="find_box">
                     <div class="tab">
                         <ul>
-                            <a href="find_id_01.html">
+                            <a href="findId">
                                 <li style="border-top: 1px solid #ad863c; border-left: 1px solid #ad863c; border-right: 1px solid #ad863c; ">아이디 찾기</li>
                             </a>
 
-                            <a href="find_pw_01.html">
+                            <a href="findPw">
                                 <li style="border-bottom: 1px solid #ad863c; background: #f1f1f1; color: #777;">비밀번호 찾기</li>
                             </a>
                         </ul>
@@ -76,10 +64,10 @@
                             <div class="find_id_btn">
                                 <ul>
                                     <li>
-                                        <a href="find_pw_01.html"><div class="pw_btn">비밀번호 찾기</div></a>
+                                        <a href="findPw"><div class="pw_btn">비밀번호 찾기</div></a>
                                     </li>
                                     <li>
-                                        <a href="login.html"><div class="login_btn">로그인</div></a>
+                                        <a href="login"><div class="login_btn">로그인</div></a>
                                     </li>
                                 </ul>
                             </div>
