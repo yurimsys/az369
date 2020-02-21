@@ -33,11 +33,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Session Path
+let fileStoreOption = {
+    path : path.join(__dirname, 'sessions')
+}
 app.use(session({
     secret : 'qw12!@#yurimsys!@#',
-    store: new fileStore(),
+    store: new fileStore(fileStoreOption),
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false 
 }));
 
 // Sessions Config
