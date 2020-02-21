@@ -186,6 +186,28 @@ router.post('/api/user/join', (req, res, next) =>{
         });
 });
 
+//회원가입 페이지 장차선호
+router.post('/api/user/carPool', (req, res, next) =>{
+    let query = `insert into tcp(CP_PreferDays, CP_DepartureTe, CP_ReturnTe) values(:preferDays, :departureTe, :returnTe) 
+                 where CP_U_ID = :uUserName`;
+    let preferDays = req.body.days;
+    let departureTe = req.body.sel;
+    let returnTe = req.body.sel2;
+    let uUserName = req.body.id;
+    console.log("@@@1 :",preferDays)
+    console.log("@@@1 :",departureTe)
+    console.log("@@@1 :",returnTe)
+    console.log("@@@1 :",uUserName)
+    connection.query(query, 
+        {
+            preferDays, departureTe, returnTe, uUserName                    
+        },
+        function(err, rows, fields) {
+            if (err) throw err;           
+            res.json( { data : "성공" });
+        });
+});
+
 //아이디 중복확인
 router.post('/api/user/overlap', (req, res, next) =>{
     let query = "select U_UserName from tu where U_UserName = :uUserName";
@@ -398,4 +420,5 @@ router.post('/api/user/deleteUser', pconf.isAuthenticated, (req, res, next) =>{
         });
         
 });
+
 module.exports = router;
