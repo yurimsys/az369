@@ -315,16 +315,16 @@
                     })                                                                                                                           
                 };
                         //////장차선호도
-                        var days = new Array();                           
+                        var days;                         
                         var sel = $("#select01 option:selected").val();
                         var sel2 = $('#select02 option:selected').val();                              
                         $('.day label').children('input').off().on('click' ,function(){
                             //console.log("itetemtem : ", item);                                          
                             console.log($(this).attr('val'));                      
-                            days.push($(this).attr('val'));
+                            days = $(this).attr('val');
                             console.log("셀렉트 :",$("#select01 option:selected").val(),$('#select02 option:selected').val());  
                                                                               
-                            //console.log("n1 :", days);                      
+                            console.log("n1 :", days);                      
                         });
 
               
