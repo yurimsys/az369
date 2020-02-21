@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const mysql = require('mysql');
 const fs = require('fs');
-const pconf = require('../config/passport');
+const auth = require('../config/passport');
 // let dbconf = JSON.parse( fs.readFileSync('./config/database.json') );
 const connection = mysql.createConnection({
     "host"     : "localhost",
@@ -48,7 +48,7 @@ router.get('/logout', function(req, res, next){
     res.redirect('/');
 });
 
-router.get('/mypage', pconf.isAuthenticated, function(req, res, next) {
+router.get('/mypage', auth.isLoggedIn, function(req, res, next) {
   let sessionId = req.user.U_ID;
   let query = `select * from tct 
                 inner join tcr on tct.CT_ID = tcr.CR_CT_ID where tcr.CR_U_ID = :sessionId`;
@@ -347,7 +347,7 @@ router.post('/api/user/lookUp', (req, res, next) =>{
 });
 
 //마이페이지 본인 비밀번호 확인  ** 세션
-router.post('/api/user/confirm', pconf.isAuthenticated, (req, res, next) =>{1
+router.post('/api/user/confirm', auth.isLoggedIn, (req, res, next) =>{1
 
     //console.log(req.body.pw);
     let uPw = req.body.pw
@@ -373,7 +373,7 @@ router.post('/api/user/confirm', pconf.isAuthenticated, (req, res, next) =>{1
 
 
 //마이페이지 정보 수정
-router.post('/api/user/modifyInfo', pconf.isAuthenticated, (req, res, next) =>{
+router.post('/api/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     
 
     // let query = `UPDATE tu SET U_Pw = :?, U_Phone = :?, U_Brand = :?,
@@ -408,7 +408,7 @@ router.post('/api/user/modifyInfo', pconf.isAuthenticated, (req, res, next) =>{
 });
 
 //회원탈퇴
-router.post('/api/user/deleteUser', pconf.isAuthenticated, (req, res, next) =>{
+router.post('/api/user/deleteUser', auth.isLoggedIn, (req, res, next) =>{
     let query = `delete from tu where U_UserName = :uUserName`;   
     console.log(req.body);
     let uUserName = req.user.U_UserName;

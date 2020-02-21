@@ -52,7 +52,7 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-exports.isAuthenticated = (req, res, next) => {
+exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
       return next();
     }
