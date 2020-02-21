@@ -39,7 +39,6 @@
                             <div class="modify_process">본인인증 > <span>내정보 수정</span></div>
 
                             <h2>02. 내정보 수정</h2>
-                            <h4 id="sessionId" value='<%=sessionUser.U_UserName%>'>테스트용</h4>
                             <!--<div class="bar"></div>-->
 
                             <p><%=sessionUser.U_Name%>님 (<%=sessionUser.U_UserName%>)</p>
@@ -235,30 +234,39 @@
                         url: "api/user/modifyInfo",
                         method: "post",
                         dataType: "json",
+                        async: false,
                         data: {
                             pw : $("#password").val(), phone : $("#phone").val(),
                             brand : $("#brand").val(), postcode : $("#postcode").val(),
                             address : $("#address").val(), detailAddress : $("#detailAddress").val()
                         },
-                        success: function(res){
-                            alret("수정이 완료되었습니다.");
+                        success: function(){
+                            //alret("수정이 완료되었습니다.");
                             location.href = "mypage";
                         }
                     })
                 }
 
                 //회원 탈퇴
-                function modifyInfo(){
+                function delUser(){
                     $.ajax({
                         url: "api/user/deleteUser",
                         method: "post",
                         dataType: "json",
+                        async: false,
                         data: {
                             id : $("#sessionId").val()
                         },
                         success: function(res){
-                            alret("탈퇴가 완료되었습니다.");
-                            location.href = "index";
+                            console.log("res :",res);
+                            console.log("res.data :", res.data);
+                            if(res.data === '삭제'){
+                                alert("탈퇴가 완료되었습니다.");
+                                location.href="/";
+                                //location.href = '/logout';
+                            }
+                            
+                            
                         }
                     })
                 }

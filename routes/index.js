@@ -28,7 +28,7 @@ router.get('/login', function(req, res, next){
     if(req.user !== undefined){
         res.redirect('/');
     }
-    res.render('login');
+    res.render('login', {sessionUser : req.user});
 });
 
 router.post('/login', 
@@ -310,23 +310,27 @@ router.post('/api/user/lookUp', (req, res, next) =>{
         function(err, rows, fields) {
             if (err) throw err;          
              
-            //console.log(findId);
+            // //console.log(findId);
             res.json( {  data : rows[0]});
-            console.log(rows);
+            console.log("로우수로울우ㅜ",rows);
+            
         });
         
 });
 
 //마이페이지 본인 비밀번호 확인  ** 세션
-router.post('/api/user/confirm', pconf.isAuthenticated, (req, res, next) =>{
-    let query = "select U_UserName from tu where U_UserName =:uId and U_Pw =:uPw";
-    
-    console.log(req.body);
+router.post('/api/user/confirm', pconf.isAuthenticated, (req, res, next) =>{1
 
+    //console.log(req.body.pw);
+    let uPw = req.body.pw
+    let uId = req.user.U_UserName
+    console.log(uPw);
+    console.log("내 아이이디 :",req.user.U_UserName);
+    let query = "select U_Pw from tu where U_UserName =:uId and U_Pw =:uPw";
+    
     connection.query(query, 
         {          
-            //uId = req.body.sessionId,
-            //uPw = req.body.pw                    
+            uId, uPw                   
         },
         function(err, rows, fields) {
             if (err) throw err;          
@@ -342,20 +346,27 @@ router.post('/api/user/confirm', pconf.isAuthenticated, (req, res, next) =>{
 
 //마이페이지 정보 수정
 router.post('/api/user/modifyInfo', pconf.isAuthenticated, (req, res, next) =>{
-    let query = `update tu set U_Pw = :uPw, U_Phone = :uPhone, U_Brand = :uBrand,
-                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2 where U_UserName = :uUserName`;
     
-    console.log(req.body);
 
+    // let query = `UPDATE tu SET U_Pw = :?, U_Phone = :?, U_Brand = :?,
+    //             U_Zip = :?, U_Addr1 = :?, U_Addr2 = :? WHERE U_UserName =:UserName`;           
+
+    let uUserName = req.user.U_UserName;
+    let uPw = req.body.pw;
+    let uPhone = req.body.phone;
+    let uBrand = req.body.brand;
+    let uZip = req.body.postcode;
+    let uAddr1 = req.body.address;
+    let uAddr2 = req.body.detailAddress;
+    
+    console.log(uUserName, uPw, uPw, uBrand, uZip, uAddr1, uAddr2);
+
+    let query = `UPDATE tu SET U_Pw = :uPw, U_Phone = :uPhone, U_Brand = :uBrand,
+                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2 WHERE U_UserName =:uUserName`;
     connection.query(query, 
         {          
-            // uId = req.body.sessionId,
-            // uPw = req.body.pw,
-            // uPhone = req.body.phone,
-            // uBRand = req.body.brand,
-            // uZip = req.body.postcode,
-            // uAddr1 = req.body.address,
-            // uAddr2 = req.body.detailAddress                    
+            uPw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName
+                              
         },
         function(err, rows, fields) {
             if (err) throw err;          
@@ -372,19 +383,18 @@ router.post('/api/user/modifyInfo', pconf.isAuthenticated, (req, res, next) =>{
 router.post('/api/user/deleteUser', pconf.isAuthenticated, (req, res, next) =>{
     let query = `delete from tu where U_UserName = :uUserName`;   
     console.log(req.body);
-
+    let uUserName = req.user.U_UserName;
     connection.query(query, 
         {          
-            // uUserName = req.body.sessionId,
+            uUserName
                                
         },
         function(err, rows, fields) {
             if (err) throw err;          
              
             //console.log(findId);
-            
-            res.json( {  data : rows[0]});
-            console.log(rows);
+            req.logOut();            
+            res.json( {  data : "삭제"});
         });
         
 });

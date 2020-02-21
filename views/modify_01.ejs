@@ -38,8 +38,7 @@
                         <form>
                            <div class="modify_process"> <span>본인인증</span> > 내정보 수정</div>
                     
-                        <h2>01. 본인인증</h2>
-                        <h1 id="myId" val= '<%=sessionUser.U_UserName%>'> </h1>
+                        <h2>01. 본인인증</h2>                        
                         <p>비밀번호를 입력하시면 내정보 수정이 가능합니다.</p>
                             <ul>
                                 <li>
@@ -57,7 +56,6 @@
                                 </li>-->
                     
                             </ul>
-                            
                         </form>
                         
                         <div class="modify_btn">
@@ -83,9 +81,9 @@
     </div>
 
     <script>
-   // console.log($("#myId").text());
+   console.log($("#myId").val());
     
-    console.log("myId :", myId);
+    //console.log("myId :", myId);
         //비밀번호 확인 
         function confirmPw(){
             if($("#pw").val() == ""){
@@ -95,18 +93,17 @@
                 url: "api/user/confirm",
                 method: "post",
                 dataType: "json",
-                data: {sessionId : $("#myId").val(), pw : $("#pw").val()},
+                data: {pw : $("#pw").val()},
                 success: function(res){
-                    console.log(res);
-                    if(res.data.U_UserName === $("#id").val()){                        
-                       location.href = "modify2"
-                    } else if(res.data === undefined){
-                        alert ( "비밀번호 오류입니다.");
+                    console.log(res);                   
+                    if(res.data === undefined){ 
+                        alert ( "비밀번호 오류입니다.");  
                         location.reload();
-                    }
-
-
-                    
+                        
+                    } else if(res.data.U_Pw === $("#pw").val()){
+                        location.href = "modify2"
+                        
+                    }                    
                 }
             })
         }
