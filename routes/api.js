@@ -1,6 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../config/passport');
+const mysql = require('mysql');
+const dbconf = require('../config/database');
+const connection = mysql.createConnection({
+    "host"     : "nodejs-005.cafe24.com",
+    "user"     : "yurimsys12",
+    "password" : "qw12qw12(",
+    "database" : "yurimsys12",
+    "port"     : "3306",
+    'date'     : 'dateStrings'
+});
+
+connection.config.queryFormat = function (query, values) {
+    if (!values) return query;
+    
+    return query.replace(/\:(\w+)/g, function (txt, key) {
+        if (values.hasOwnProperty(key)) {
+            return this.escape(values[key]);
+        }
+        return txt;
+    }.bind(this));
+};
 
 router.post('/user/phone', (req, res, next) => {
   

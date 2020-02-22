@@ -22,7 +22,6 @@ connection.config.queryFormat = function (query, values) {
         return txt;
     }.bind(this));
 };
-
 passport.use(new LocalStrategy({ usernameField: 'id' }, (username, password, done) => {
     let query = "SELECT u_id, u_username, u_pw from tU where u_username = :id";
         connection.query(query, { id: username }, (err, rows) =>{

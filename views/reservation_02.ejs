@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <% include templates/head.ejs %>
+    <link rel="stylesheet" href="css/reservation_02.css">
+
+</head>
+
+<body>
+    <div class="wrap">
+
+        <% include templates/header.ejs %>
+        <!--section.sub_wrap 시작-->
+        
+        <section class="sub_wrap">
+            <div class="inner_sub_wrap">
+
+                <div class="box">
+                    <h6>장차버스예매</h6>
+                    <h1 style="font-family: 'PT Serif', serif;">RESERVATION</h1>
+                    <div class="bar"></div>
+                    
+                    
+                    <div class="reservation_box">
+                        <!--<div class="join_process">장차선택 > 결제하기 > <span>예매완료</span></div>-->
+                    
+                        <h2><span>이용해주셔서 감사합니다.</span> <br>장차예매가 정상적으로 완료되었습니다.</h2>
+                        
+                        <div class="reservation_img">
+                            <img src="img/reservation/reservation_icon.png" alt="가입완료">
+                        </div>
+                        
+                        <div class="reservation_txt">
+                            <!--<h3>2020.02.03 22:00 <span>(평택 - 서울동대문)</span></h3>
+                            
+                            <h5>결제수단 - 신용카드 (일시불)</h5>
+                            
+                            <h4>100,000원 결제완료</h4>-->
+                            <table class="order">
+                                <th>주문내역</th>
+                                <td>2020.02.03 22:00 <span>(평택 - 서울동대문)</span></td>
+                                <td>신용카드 (일시불)</td>
+                                <td class="td">100,000원 결제완료</td>
+                            </table>
+                            
+                            <p>장차예매내역은 장차예매 > 장차예매현황 에서 확인하실 수 있습니다.</p>
+                        </div>
+                    
+                        <div class="mypage_btn"><a href="mypage">예매내역 확인 </a></div>
+                    
+                    
+                    </div>
+                </div>
+
+
+
+            </div>
+        </section>
+
+        <!--//secton.about 완료-->
+
+
+        <!--<footer></footer>-->
+    </div>
+
+    <script>
+        'use sctrict';
+
+        //gnb scroll 
+        //고정헤더, 사이드바 이벤트
+        var scrollTop = 0;
+        scrollTop = $(document).scrollTop();
+        fixHeader();
+
+        //윈도우창 조절시에 이벤트
+        $(window).on('scroll resize', function() {
+            scrollTop = $(document).scrollTop();
+            fixHeader();
+
+        });
+
+        //고정헤더 함수
+        function fixHeader() {
+            if (scrollTop > 200) {
+                $('header').addClass('on');
+            } else {
+                $('header').removeClass('on');
+            }
+        }
+
+
+        //모바일 모드 gnb_mo
+
+        setGnbMo();
+
+        function setGnbMo() {
+            $('header .open').on('click', function() {
+                $('.gnb_mo').addClass('on');
+            }); //햄버거버튼
+            $('.gnb_mo .close').on('click', function() {
+                $('.gnb_mo').removeClass('on');
+                $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
+                $('.gnb_mo > ul > li > a').removeClass('on')
+            });
+
+
+            //inner메뉴 열기
+
+            $('.gnb_mo > ul > li > a').on('click', function() {
+                $(this).next().slideToggle();
+                $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
+            });
+        }
+
+
+        //scroll 애니
+        $(function() {
+            var scrollAni = 0;
+            //스크롤했을때 이벤트 적용
+            scrollAni = $(document).scrollTop();
+            ani('.menu_list, .int_slide, .owner_img, .insta_list'); //각 클래스 적용
+            //윈도우창사이즈 조절시 동일하게 이벤트 적용
+            $(window).on('scroll resize', function() {
+                scrollAni = $(document).scrollTop();
+                ani('.menu_list, .int_slide, .owner_img, .insta_list');
+            });
+
+            //함수선언 ani-함수명/(selector)-선택자
+            function ani(selector) {
+                $(selector).each(function() {
+
+                    var $selector = $(this);
+                    var minShow = $selector.offset().top - $(window).height();
+                    var maxShow = $selector.offset().top + $selector.outerHeight();
+
+                    $selector.removeClass('down on up');
+                    if (scrollTop < minShow) {
+                        $selector.addClass('down');
+                    } else if (scrollTop > maxShow) {
+                        $selector.addClass('up');
+                    } else {
+                        $selector.addClass('on');
+                    }
+                });
+            }
+        });
+
+
+        /*agreement 전체동의 체크*/
+        $(document).ready(function() {
+            $('.check-all').click(function() {
+                $('.ab').prop('checked', this.checked);
+            });
+        });
+    </script>
+</body></html>

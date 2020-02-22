@@ -5,14 +5,9 @@ const mysql = require('mysql');
 const fs = require('fs');
 const auth = require('../config/passport');
 // let dbconf = JSON.parse( fs.readFileSync('./config/database.json') );
-const connection = mysql.createConnection({
-    "host"     : "nodejs-005.cafe24.com",
-    "user"     : "yurimsys12",
-    "password" : "qw12qw12(",
-    "database" : "yurimsys12",
-    "port"     : "3306",
-    'dateStrings' : 'date'
-});
+const dbconf = require('../config/database');
+console.log('dbconf', dbconf);
+const connection = mysql.createConnection(dbconf);
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -125,19 +120,24 @@ router.post('/api/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
     let seatNum = req.body['sendArray[]'].join(',');
    // let seatNum2 = req.body.sendJson;
     //console.log("num2 :", seatNum2);
+    for(var i in seatNum){
+        seatNum[i] = JSON.stringify(seatNum[i]);
+        sessionId[i];
+    }
     console.log(seatNum);
-    
+    console.log("dddd :", sessionId);
     //console.log(seatNum);    
     let query = `
                 select 
                 CR_cDt,
-                (select CT_DepartureTe from tCT where tCT.ct_id = tCR.CR_CT_ID) as dept_te,
-                (select ct_carnum from tCT where tCT.ct_id = tCR.CR_CT_ID) as carnum,
+                (select CT_DepartureTe from tCT where tCT.CT_ID = tCR.CR_CT_ID) as dept_te,
+                (select CT_CarNum from tCT where tCT.CT_ID= tCR.CR_CT_ID) as carnum,
                 CR_cDt,
-                CR_Price
+                CR_Price,
+                CR_SeatNum
                 from tCR
-                where cr_u_id= :sessionId and CR_SeatNum IN(:seatNum)
-                group by cr_ct_id
+                where CR_U_ID= :sessionId and CR_SeatNum in (:seatNum)
+                group by CR_CT_ID, CR_SeatNum;
                 `;
                 console.log("좌석 :", seatNum);
     console.log("세션 :", sessionId);
