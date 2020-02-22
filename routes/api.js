@@ -1,6 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../config/passport');
+const mysql = require('mysql');
+const dbconf = require('../config/database');
+const connection = mysql.createConnection(dbconf);
+
+connection.config.queryFormat = function (query, values) {
+    if (!values) return query;
+    
+    return query.replace(/\:(\w+)/g, function (txt, key) {
+        if (values.hasOwnProperty(key)) {
+            return this.escape(values[key]);
+        }
+        return txt;
+    }.bind(this));
+};
 
 router.post('/user/phone', (req, res, next) => {
   

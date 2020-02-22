@@ -2,14 +2,8 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mysql = require('mysql');
 const fs = require('fs');
-// const dbconf = JSON.parse( fs.readFileSync('./config/database.json') );
-const connection = mysql.createConnection({
-    "host"     : "localhost",
-    "user"     : "root",
-    "password" : "qw12qw12(",
-    "database" : "yurimsys12",
-    "port"     : "3306"
-});
+const dbconf = require('../config/database');
+const connection = mysql.createConnection(dbconf);
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -21,7 +15,6 @@ connection.config.queryFormat = function (query, values) {
         return txt;
     }.bind(this));
 };
-
 passport.use(new LocalStrategy({ usernameField: 'id' }, (username, password, done) => {
     let query = "SELECT u_id, u_username, u_pw from tU where u_username = :id";
         connection.query(query, { id: username }, (err, rows) =>{
