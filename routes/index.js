@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const mysql = require('mysql');
 const fs = require('fs');
-const pconf = require('../config/passport');
+const auth = require('../config/passport');
 // let dbconf = JSON.parse( fs.readFileSync('./config/database.json') );
 const connection = mysql.createConnection({
     "host"     : "nodejs-005.cafe24.com",
@@ -49,6 +49,7 @@ router.get('/logout', function(req, res, next){
     res.redirect('/');
 });
 
+<<<<<<< HEAD
 
 //마이페이지 첫화면
 router.get('/mypage', pconf.isAuthenticated, function(req, res, next) {
@@ -85,6 +86,18 @@ router.post('/api/user/resList', (req, res, next) =>{
             
         });
         
+=======
+router.get('/mypage', auth.isLoggedIn, function(req, res, next) {
+  let sessionId = req.user.U_ID;
+  let query = `select * from tct 
+                inner join tcr on tct.CT_ID = tcr.CR_CT_ID where tcr.CR_U_ID = :sessionId`;
+  connection.query(query, { sessionId},
+    function(err, rows, fields) {
+        if (err) throw err;
+        res.render('mypage', { sessionUser : req.user, title: '버스 예약시스템', data : rows });
+        console.log(rows);
+    });
+>>>>>>> 998bdaa000c32bc6d584fdbb222785e0da3deee5
 });
 
 //마이페이지 예매 및 결제내역
@@ -204,29 +217,6 @@ router.get('/reservation', (req, res) => {
     res.render('reservation_01', { sessionUser : req.user });
 });
 
-router.post('/api/user/phone', (req, res, next) => {
-  
-    let query  = "update tU set u_phone = :newPhone where u_name = :name";
-    console.log(req.body.phone);
-    console.log(req.body);
-    
-    connection.query(query, 
-    {
-        newPhone : req.body.phone,
-        name : "김동현"
-    },
-    function(err, rows, fields) {
-        if (err) throw err;
-        res.json({
-            statusCode : 200
-        });
-    });
-
-    res.json("test");
-    // 주소 변경
-    // 로그 추가
-});
-
 //사업개요
 router.get('/summary', (req, res, next) => {
     res.render('summary', { sessionUser : req.user })
@@ -297,6 +287,7 @@ router.get('/benefit_application', function(req, res, next) {
     res.render('benefit_application', { sessionUser : req.user });
 });
 
+<<<<<<< HEAD
 
 //회원가입 액션
 router.post('/api/user/join', (req, res, next) =>{
@@ -558,4 +549,6 @@ router.post('/api/user/deleteUser', pconf.isAuthenticated, (req, res, next) =>{
         
 });
 
+=======
+>>>>>>> 998bdaa000c32bc6d584fdbb222785e0da3deee5
 module.exports = router;

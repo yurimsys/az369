@@ -2,7 +2,6 @@ const createError = require('http-errors');
 const express = require('express');
 const session =  require('express-session');
 const fileStore = require('session-file-store')(session)
-// const mysqlStore = require('express-mysql-session')(session);
 const passport = require('passport');
 const passportConfig = require('./config/passport');
 const path = require('path');
@@ -10,8 +9,9 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index'),
+    apiRouter = require('./routes/api'),
+    usersRouter = require('./routes/users');
 
 const app = express();
 const fs = require('fs');
@@ -33,11 +33,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Session Path
+let fileStoreOption = {
+    path : path.join(__dirname, 'sessions')
+}
 app.use(session({
     secret : 'qw12!@#yurimsys!@#',
-    store: new fileStore(),
+    store: new fileStore(fileStoreOption),
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false 
 }));
 
 // Sessions Config
@@ -49,6 +54,7 @@ app.use(flash());
 
 // Router Config
 app.use('/', indexRouter);
+app.use('/api', apiRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
