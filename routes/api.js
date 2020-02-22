@@ -27,7 +27,7 @@ router.post('/user/phone', (req, res, next) => {
 
 //회원가입 액션
 router.post('/user/join', (req, res, next) =>{
-    let query = `insert into tu (U_UserName, U_Pw, U_Name, U_Phone, U_Email, U_Brand, U_Zip, U_Addr1, U_Addr2) 
+    let query = `insert into tU (U_UserName, U_Pw, U_Name, U_Phone, U_Email, U_Brand, U_Zip, U_Addr1, U_Addr2) 
             values( :uUserName,  :uPw,  :uName,  :uPhone , :uEmail, :uBrand,  :uZip,  :uAddr1,  :uAddr2)`;
     //console.log(req.body);
 
@@ -52,7 +52,7 @@ router.post('/user/join', (req, res, next) =>{
 
 //회원가입 페이지 장차선호
 router.post('/user/carPool', (req, res, next) =>{
-    let query = `insert into tcp(CP_PreferDays, CP_DepartureTe, CP_ReturnTe) values(:preferDays, :departureTe, :returnTe) 
+    let query = `insert into tCP(CP_PreferDays, CP_DepartureTe, CP_ReturnTe) values(:preferDays, :departureTe, :returnTe) 
                  where CP_U_ID = :uUserName`;
     let preferDays = req.body.days;
     let departureTe = req.body.sel;
@@ -74,7 +74,7 @@ router.post('/user/carPool', (req, res, next) =>{
 
 //아이디 중복확인
 router.post('/user/overlap', (req, res, next) =>{
-    let query = "select U_UserName from tu where U_UserName = :uUserName";
+    let query = "select U_UserName from tU where U_UserName = :uUserName";
     
     console.log(req.body);
 
@@ -91,7 +91,7 @@ router.post('/user/overlap', (req, res, next) =>{
 
 //아이디 찾기
 router.post('/user/findId', (req, res, next) =>{
-    let query = "select U_UserName from tu where U_Name =:uName and U_Phone =:uPhone";
+    let query = "select U_UserName from tU where U_Name =:uName and U_Phone =:uPhone";
     
     console.log(req.body);
 
@@ -113,7 +113,7 @@ router.post('/user/findId', (req, res, next) =>{
 
 //비밀번호 찾기
 router.post('/user/findPw', (req, res, next) =>{
-    let query = "select U_UserName from tu where U_UserName =:uId and U_Name =:uName";
+    let query = "select U_UserName from tU where U_UserName =:uId and U_Name =:uName";
     
     console.log(req.body);
 
@@ -135,7 +135,7 @@ router.post('/user/findPw', (req, res, next) =>{
 
 //비밀번호 찾기 후 수정
 router.post('/user/modifyPw', (req, res, next) =>{
-    let query = "update tu set U_Pw = :uPw where U_UserName = :uUserName";
+    let query = "update tU set U_Pw = :uPw where U_UserName = :uUserName";
     
     console.log(req.body);
 
@@ -157,7 +157,7 @@ router.post('/user/modifyPw', (req, res, next) =>{
 
 //입점신청 
 router.post('/user/benefitApply', (req, res, next) =>{
-    let query = `insert into tsi (SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Content) 
+    let query = `insert into tSI (SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Content) 
         values( :siName, :siPhone, :siBrand, :siAddr, :siMemo)`;
     
     console.log(req.body);
@@ -183,7 +183,7 @@ router.post('/user/benefitApply', (req, res, next) =>{
 
 //입점신청 조회
 router.post('/user/lookUp', (req, res, next) =>{
-    let query = `select SI_cDt from tsi where SI_Name = :siName and SI_Phone = :siPhone `;
+    let query = `select SI_cDt from tSI where SI_Name = :siName and SI_Phone = :siPhone `;
     
     console.log(req.body);
 
@@ -198,7 +198,7 @@ router.post('/user/lookUp', (req, res, next) =>{
              
             // //console.log(findId);
             res.json( {  data : rows[0]});
-            console.log("로우수로울우ㅜ",rows);
+            console.log("rows",rows);
             
         });
         
@@ -212,7 +212,7 @@ router.post('/user/confirm', auth.isLoggedIn, (req, res, next) =>{1
     let uId = req.user.U_UserName
     console.log(uPw);
     console.log("내 아이이디 :",req.user.U_UserName);
-    let query = "select U_Pw from tu where U_UserName =:uId and U_Pw =:uPw";
+    let query = "select U_Pw from tU where U_UserName =:uId and U_Pw =:uPw";
     
     connection.query(query, 
         {          
@@ -247,7 +247,7 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     
     console.log(uUserName, uPw, uPw, uBrand, uZip, uAddr1, uAddr2);
 
-    let query = `UPDATE tu SET U_Pw = :uPw, U_Phone = :uPhone, U_Brand = :uBrand,
+    let query = `UPDATE tU SET U_Pw = :uPw, U_Phone = :uPhone, U_Brand = :uBrand,
                 U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2 WHERE U_UserName =:uUserName`;
     connection.query(query, 
         {          
@@ -267,7 +267,7 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
 
 //회원탈퇴
 router.post('/user/deleteUser', auth.isLoggedIn, (req, res, next) =>{
-    let query = `delete from tu where U_UserName = :uUserName`;   
+    let query = `delete from tU where U_UserName = :uUserName`;   
     console.log(req.body);
     let uUserName = req.user.U_UserName;
     connection.query(query, 
