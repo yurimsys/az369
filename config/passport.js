@@ -1,16 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mysql = require('mysql');
-const fs = require('fs');
-// const dbconf = JSON.parse( fs.readFileSync('./config/database.json') );
-const connection = mysql.createConnection({
-    "host"     : "nodejs-005.cafe24.com",
-    "user"     : "yurimsys12",
-    "password" : "qw12qw12(",
-    "database" : "yurimsys12",
-    "port"     : "3306",
-    'date'     : 'dateStrings'
-});
+const connection = mysql.createConnection(dbconf);
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;

@@ -3,14 +3,7 @@ const router = express.Router();
 const auth = require('../config/passport');
 const mysql = require('mysql');
 const dbconf = require('../config/database');
-const connection = mysql.createConnection({
-    "host"     : "nodejs-005.cafe24.com",
-    "user"     : "yurimsys12",
-    "password" : "qw12qw12(",
-    "database" : "yurimsys12",
-    "port"     : "3306",
-    'date'     : 'dateStrings'
-});
+const connection = mysql.createConnection(dbconf);
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
