@@ -4,7 +4,9 @@ const passport = require('passport');
 const mysql = require('mysql');
 const fs = require('fs');
 const auth = require('../config/passport');
+// let dbconf = JSON.parse( fs.readFileSync('./config/database.json') );
 const dbconf = require('../config/database');
+console.log('dbconf', dbconf);
 const connection = mysql.createConnection(dbconf);
 
 connection.config.queryFormat = function (query, values) {
@@ -42,20 +44,155 @@ router.get('/logout', function(req, res, next){
     res.redirect('/');
 });
 
-router.get('/mypage', auth.isLoggedIn, function(req, res, next) {
-  let sessionId = req.user.U_ID;
-  let query = `select * from tct 
-                inner join tcr on tct.CT_ID = tcr.CR_CT_ID where tcr.CR_U_ID = :sessionId`;
-  connection.query(query, { sessionId},
-    function(err, rows, fields) {
-        if (err) throw err;
-        res.render('mypage', { sessionUser : req.user, title: '버스 예약시스템', data : rows });
-        console.log(rows);
-    });
+
+//마이페이지 첫화면
+router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
+    let sessionId = req.user.U_ID;
+    let crCancel = "N";
+    let query = `SELECT * FROM tCT 
+                  INNER JOIN tCR ON tCT.CT_ID = tCR.CR_CT_ID WHERE tCR.CR_Cancel = :crCancel AND tCR.CR_U_ID = :sessionId`;
+    connection.query(query, { sessionId, crCancel},
+      function(err, rows, fields) {
+          if (err) throw err;
+          res.render('mypage', { sessionUser : req.user, title: '버스 예약시스템', data : rows });
+          console.log(rows);
+      });
+  });
+
+//마이페이지 장차예매 현황
+router.post('/api/user/resList',  auth.isLoggedIn, (req, res, next) =>{
+    let query = `select SI_cDt from tSI where SI_Name = :siName and SI_Phone = :siPhone `;
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {          
+            siName : req.body.name, 
+            siPhone : req.body.phone
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            // //console.log(findId);
+            res.json( {  data : rows[0]});
+            console.log("rows :",rows);
+            
+        });
+        
 });
 
+//마이페이지 예매 및 결제내역
+router.post('/api/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
+    let sessionId = req.user.U_ID;
+    let query = `select 
+                    count(cr_seatnum) as seat_cnt,
+                    sum(cr_price) as total_price,
+                    (select ct_carnum from tCT where tCT.ct_id = tCR.CR_CT_ID) as carnum,
+                    (select CT_DepartureTe from tCT where tCT.ct_id = tCR.CR_CT_ID) as dept_te,
+                    CR_cDt
+                    from tCR
+                    where cr_u_id=:sessionId
+                    group by cr_ct_id;
+                `;
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {          
+            sessionId
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            // //console.log(findId);
+            res.json( {  data : rows});
+            console.log("rows :",rows);
+            
+        });
+        
+});
+
+//마이페이지 예매취소 리스트
+router.post('/api/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
+    let sessionId = req.user.U_ID;
+    let seatNum = req.body['sendArray[]'].join(',');
+   // let seatNum2 = req.body.sendJson;
+    //console.log("num2 :", seatNum2);
+    for(var i in seatNum){
+        seatNum[i] = JSON.stringify(seatNum[i]);
+        sessionId[i];
+    }
+    console.log(seatNum);
+    console.log("dddd :", sessionId);
+    //console.log(seatNum);    
+    let query = `
+                select 
+                CR_cDt,
+                (select CT_DepartureTe from tCT where tCT.CT_ID = tCR.CR_CT_ID) as dept_te,
+                (select CT_CarNum from tCT where tCT.CT_ID= tCR.CR_CT_ID) as carnum,
+                CR_cDt,
+                CR_Price,
+                CR_SeatNum
+                from tCR
+                where CR_U_ID= :sessionId and CR_SeatNum in (:seatNum)
+                group by CR_CT_ID, CR_SeatNum;
+                `;
+                console.log("좌석 :", seatNum);
+    console.log("세션 :", sessionId);
+    
+
+    connection.query(query, 
+        {          
+            sessionId, seatNum
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            // //console.log(findId);
+            res.json( {  data : rows});
+            console.log("rows :",rows);
+            
+        });
+        
+});
+//마이페이지 취소 및 환불조회
+router.post('/api/user/resCancel', auth.isLoggedIn, (req, res, next) =>{
+    let query = `   select 
+                    CR_cDt,
+                    (select CT_DepartureTe from tCT where tCT.ct_id = tCR.CR_CT_ID) as dept_te,
+                    CR_CancelDt,
+                    CR_Price
+                    from tCR
+                    where cr_u_id= :sessionId and CR_Cancel = :crCancel
+                    group by cr_ct_id;`;
+
+    let sessionId = req.user.U_ID;
+    let crCancel = 'Y';
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {          
+            sessionId, crCancel
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            // //console.log(findId);
+            res.json( {  data : rows});
+            console.log("rows : ",rows);
+            
+        });
+        
+});
+  
+
 //마이페이지 본인확인 페이지
-router.get('/modify', function(req, res, next){
+router.get('/modify', auth.isLoggedIn, function(req, res, next){
     res.render('modify_01', { sessionUser : req.user });
 });
 
