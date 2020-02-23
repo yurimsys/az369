@@ -22,10 +22,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Debuging 용도
-// app.use(function(req, res, next) {
-//     console.log('handling request for: ' + req.url);
-//     next();
-// });
+app.use(function(req, res, next) {
+    console.log('handling request for: ' + req.url);
+    next();
+});
 
 app.use(logger('dev'));
 app.use(express.json());
