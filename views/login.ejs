@@ -167,4 +167,9 @@
             }
         });
     </script>
+    <% if( loginFailMsg ) { %>
+        <script>
+            alert( "<%= loginFailMsg %>")
+        </script>
+    <% }%>
 </body></html>

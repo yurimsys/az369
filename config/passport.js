@@ -19,10 +19,10 @@ passport.use(new LocalStrategy({ usernameField: 'id' }, (username, password, don
         connection.query(query, { id: username }, (err, rows) =>{
             if (err) {return done(err);}
             if(!rows[0])
-                return done( null, false );
+                return done( null, false, {message: "ID와 Password를 확인해주세요"} );
             let user = rows[0];
             if( user.u_pw !== password ){
-                return done( null, false, {message: "login fail"} );
+                return done( null, false, {message: "ID와 Password를 확인해주세요"} );
             } else {
                 return done( null , user );
             }
