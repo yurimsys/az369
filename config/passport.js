@@ -45,7 +45,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
     let query = `SELECT * from tU where u_id = ${id}`;
-    connection.query(query, { id : id }, (err, rows) =>{
+    connection.query(query, (err, rows) =>{
         console.log("deserializeUser");console.log(rows[0]);
         let user = rows[0];
         done( null , user );

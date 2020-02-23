@@ -1,3 +1,4 @@
+require('./config/init');
 const createError = require('http-errors');
 const express = require('express');
 const session =  require('express-session');
@@ -14,8 +15,7 @@ const indexRouter = require('./routes/index'),
     usersRouter = require('./routes/users');
 
 const app = express();
-const fs = require('fs');
-// const dbconf = JSON.parse( fs.readFileSync('./config/database.json') );
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
