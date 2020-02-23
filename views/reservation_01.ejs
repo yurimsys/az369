@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <% include templates/head.ejs %>
+    <link rel="stylesheet" href="css/reservation_01.css">
+
+    <!--reservation css link-->
+    <link rel="stylesheet" type="text/css" href="css/lib/jquery.seat-charts.css">
+    <link rel="stylesheet" type="text/css" href="css/lib/booking.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/lib/bootstrap.min.css">-->
+    <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="css/booking.css">
+
+</head>
+
+<body>
+    <div class="wrap">
+        <% include templates/header.ejs %>
+        <!--secton.sub_wrap 시작-->
+
+        <section class="sub_wrap">
+            <div class="inner_sub_wrap">
+
+                <div class="box">
+
+                    <!--PC버전 1920px ~ 1024px-->
+
+                    <h6>장차버스예매</h6>
+                    <h1 style="font-family: 'PT Serif', serif;">RESERVATION</h1>
+                    <div class="bar"></div>
+
+                    <div class="reservation_box">
+                        <ul>
+                            <li>
+                                <!--예약 왼쪽목록-->
+                                <div class="reserve_left">
+
+                                    <!--왼쪽 상단 : 지역-->
+                                    <div class="location left_list">
+                                        <h4>1. 지역 및 시간 선택 <span style="color: #777; font-weight: normal; font-size: 16px;">(왕복)</span></h4>
+                                        <ul>
+                                            <li>
+                                                <div class="location_select01 location_select">
+                                                    <select>
+                                                        <option value="0">지역 / 출발시간</option>
+                                                        <option value="1">평택 22:00</option>
+
+                                                    </select>
+                                                </div>
+                                            </li>
+                                            <li><img src="img/reservation/location_icon.png" alt="왕복 아이콘">
+
+                                            </li>
+
+                                            <li>
+                                                <div class="location_select02 location_select">
+                                                    <select>
+                                                        <option value="0">지역 / 출발시간</option>
+                                                        <option value="1">서울 동대문 04:00</option>
+
+                                                    </select>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!--왼쪽 하단 버스선택-->
+                                    <div class="select_bus left_list">
+                                        <h4>2. 날짜 및 차량 선택</h4>
+
+                                        <div class="select_bus_list">
+                                            <div class="select_bus_list_tit">
+                                                <ul>
+                                                    <li>출발 날짜/시간</li>
+                                                    <li>차량정보</li>
+                                                    <li>잔여 좌석</li>
+                                                </ul>
+
+                                            </div>
+
+                                            <div class="tab">
+                                                <button class="tablinks" onclick="openBus(event, '01')">
+                                                    <span class="select_bus_time">02월 24일(월) </span>
+                                                    <span class="select_bus_name">
+                                                        충남고속 (11가 1234)
+                                                    </span>
+                                                    <span class="select_bus_seat">
+                                                        40 / 45 석
+                                                    </span>
+                                                </button>
+
+                                                <button class="tablinks select_bus_btn" onclick="openBus(event, '01')">
+                                                    <span class="select_bus_time">02월 24일(월) </span>
+                                                    <span class="select_bus_name">
+                                                        충남고속 (11가 1234)
+                                                    </span>
+                                                    <span class="select_bus_seat">
+                                                        40 / 45 석
+                                                    </span>
+                                                </button>
+
+                                                <button class="tablinks select_bus_btn" onclick="openBus(event, '01')">
+                                                    <span class="select_bus_time">02월 24일(월) </span>
+                                                    <span class="select_bus_name">
+                                                        충남고속 (11가 1234)
+                                                    </span>
+                                                    <span class="select_bus_seat">
+                                                        40 / 45 석
+                                                    </span>
+                                                </button>
+
+
+                                                <button class="tablinks select_bus_btn" onclick="openBus(event, '01')">
+                                                    <span class="select_bus_time">02월 24일(월) </span>
+                                                    <span class="select_bus_name">
+                                                        충남고속 (11가 1234)
+                                                    </span>
+                                                    <span class="select_bus_seat">
+                                                        40 / 45 석
+                                                    </span>
+                                                </button>
+                                                <button class="tablinks select_bus_btn" onclick="openBus(event, '01')">
+                                                    <span class="select_bus_time">02월 24일(월) </span>
+                                                    <span class="select_bus_name">
+                                                        충남고속 (11가 1234)
+                                                    </span>
+                                                    <span class="select_bus_seat">
+                                                        40 / 45 석
+                                                    </span>
+                                                </button>
+                                                <button class="tablinks select_bus_btn" onclick="openBus(event, '01')">
+                                                    <span class="select_bus_time">02월 24일(월) </span>
+                                                    <span class="select_bus_name">
+                                                        충남고속 (11가 1234)
+                                                    </span>
+                                                    <span class="select_bus_seat">
+                                                        40 / 45 석
+                                                    </span>
+                                                </button>
+                                                <button class="tablinks select_bus_btn" onclick="openBus(event, '04')">
+                                                    <span class="select_bus_time">02월 24일(월) </span>
+                                                    <span class="select_bus_name">
+                                                        충남고속 (11가 1234)
+                                                    </span>
+                                                    <span class="select_bus_seat">
+                                                        40 / 45 석
+                                                    </span>
+                                                </button>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="reserve_right">
+                                    <div id="01" class="tabcontent">
+
+                                        <div class="container">
+
+                                            <!--좌석선택표-->
+                                            <div class="seat-map" class="seat-panel"></div>
+
+                                            <!--<div class="booking-details">
+                                                <h4>좌석선택</h4>
+                                                <h5> 좌석 개수<span id="counter"> 0</span></h5>
+                                                <ul id="selected-seats"></ul>
+                                            </div>-->
+                                            
+                                            <!--좌석선택 텍스트-->
+                                            <div class="select_seat">
+                                                <h4>3. 좌석 선택 <span>(최대 4개)</span></h4>
+                                                <div class="seat_table">
+                                                    <dl>
+                                                        <dt>선택된 좌석</dt>
+                                                        <dd>01번, 02번</dd>
+                                                    </dl>
+                                                    <dl>
+                                                        <dt>좌석 개수</dt>
+                                                       <dd>2개</dd>
+                                                    </dl>
+                                                    
+                                                    <button class="reload_btn"><img src="img/reservation/reload.png" alt="새로고침"> <p>좌석 새로고침</p></button>
+                                                    
+                                                    <!--pupop PC 버튼-->
+                                            <a href="#payment" class="payment_open">예매하기</a>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--1024, 768, 414 모바일버튼-->
+                    <div class="reservation_btn_mo">
+                        <ul>
+                            <li><a href="mypage" class="back">뒤로</a></li>
+                            <li><a href="reservation_2" class="next">다음</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="payment" class="layer">
+                        <!--popup PC-->
+                        <div class="payment_box">
+                            <div class="payment_tit">
+                                예매정보 및 결제금액
+                            </div>
+                            <div class="info_table">
+                                <dl>
+                                    <dt>운행지역</dt>
+                                    <dd>평택 - 서울 동대문</dd>
+                                </dl>
+                                <dl class="info_time">
+                                    <dt>출발시간</dt>
+                                    <dd><span>평택</span> 2020.02.03(월) 22:00</dd>
+                                    <dd><span>서울 동대문</span> 2020.02.04(화) 04:00</dd>
+                                </dl>
+                                <dl>
+                                    <dt>차량정보</dt>
+                                    <dd>충남고속 (11가 1234)</dd>
+                                </dl>
+                                <dl>
+                                    <dt>좌석개수</dt>
+                                    <dd>1개</dd>
+                                </dl>
+                                <dl>
+                                    <dt>좌석번호</dt>
+                                    <dd>01번</dd>
+                                </dl>
+                            </div>
+                            <div class="price">
+                                <dl>
+                                    <dt>예매금액</dt>
+                                    <dd>100,000원</dd>
+                                </dl>
+                                <dl class="price_sale">
+                                    <dt>할인금액</dt>
+                                    <dd>-100,000원</dd>
+                                </dl>
+                                <dl class="total_dl">
+                                    <dt>총 결제금액</dt>
+                                    <dd class="total_price">0원</dd>
+                                </dl>
+                            </div>
+
+                            <div class="notice">
+                                <h5>NOTICE</h5>
+                                <p>
+                                    · 3월 2일 ~ 3월 31일까지 장차이용 무료서비스가 진행중입니다. <br>
+                                    · 취소 및 환불은 출발일로부터 4일전까지 가능합니다. <br>
+                                    · 출발일 4일전, 적정 인원수가 부족하면 차량이 변경될 수 있습니다.
+                                </p>
+                            </div>
+
+                            <ul class="payment_btn">
+                                <li>
+                                    <a href="#" class="payment_close1 payment_close">취소</a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="payment_close2 payment_close">결제하기</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </section>
+
+        <script>
+            function openBus(evt, busSeat) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(busSeat).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+        </script>
+
+        <!--//secton.about 완료-->
+
+
+        <!--<footer></footer>-->
+    </div>
+
+    <script>
+        'use sctrict';
+
+        //gnb scroll 
+        //고정헤더, 사이드바 이벤트
+        var scrollTop = 0;
+        scrollTop = $(document).scrollTop();
+        fixHeader();
+
+        //윈도우창 조절시에 이벤트
+        $(window).on('scroll resize', function() {
+            scrollTop = $(document).scrollTop();
+            fixHeader();
+
+        });
+
+        //고정헤더 함수
+        function fixHeader() {
+            if (scrollTop > 200) {
+                $('header').addClass('on');
+            } else {
+                $('header').removeClass('on');
+            }
+        }
+
+
+        //모바일 모드 gnb_mo
+
+        setGnbMo();
+
+        function setGnbMo() {
+            $('header .open').on('click', function() {
+                $('.gnb_mo').addClass('on');
+            }); //햄버거버튼
+            $('.gnb_mo .close').on('click', function() {
+                $('.gnb_mo').removeClass('on');
+                $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
+                $('.gnb_mo > ul > li > a').removeClass('on')
+            });
+
+
+            //inner메뉴 열기
+
+            $('.gnb_mo > ul > li > a').on('click', function() {
+                $(this).next().slideToggle();
+                $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
+            });
+        }
+
+
+        //scroll 애니
+        $(function() {
+            var scrollAni = 0;
+            //스크롤했을때 이벤트 적용
+            scrollAni = $(document).scrollTop();
+            ani('.menu_list, .int_slide, .owner_img, .insta_list'); //각 클래스 적용
+            //윈도우창사이즈 조절시 동일하게 이벤트 적용
+            $(window).on('scroll resize', function() {
+                scrollAni = $(document).scrollTop();
+                ani('.menu_list, .int_slide, .owner_img, .insta_list');
+            });
+
+            //함수선언 ani-함수명/(selector)-선택자
+            function ani(selector) {
+                $(selector).each(function() {
+
+                    var $selector = $(this);
+                    var minShow = $selector.offset().top - $(window).height();
+                    var maxShow = $selector.offset().top + $selector.outerHeight();
+
+                    $selector.removeClass('down on up');
+                    if (scrollTop < minShow) {
+                        $selector.addClass('down');
+                    } else if (scrollTop > maxShow) {
+                        $selector.addClass('up');
+                    } else {
+                        $selector.addClass('on');
+                    }
+                });
+            }
+        });
+    </script>
+
+
+
+    <!--reservation 스크립트-->
+    <script src="js/lib/jquery-1.11.0.min.js"></script>
+    <script src="js/lib/jquery.seat-charts.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/booking.js"></script>
+
+    <script>
+        var firstSeatLabel = 1;
+        $(document).ready(function() {
+            var $cart = $('#selected-seats'),
+                $counter = $('#counter'),
+                $total = $('#total'),
+                sc = $('.seat-map').seatCharts({
+                    map: [
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'eeeee',
+                    ],
+                    seats: {
+                        f: {
+                            price: 100,
+                            classes: 'first-class', //your custom CSS class
+                            category: 'First Class'
+                        },
+                        e: {
+                            price: 40,
+                            classes: '일반', //your custom CSS class
+                            category: '일반'
+                        }
+
+                    },
+                    naming: {
+                        top: false,
+                        getLabel: function(character, row, column) {
+                            return firstSeatLabel++;
+                        },
+                    },
+                    legend: {
+                        node: $('#legend'),
+                        items: [
+                            ['f', 'available', 'First Class'],
+                            ['e', 'available', '일반'],
+                            ['r', 'unavailable', 'Already Booked']
+                        ]
+                    },
+                    click: function() {
+                        if (this.status() == 'available') {
+                            //let's create a new <li> which we'll add to the cart items
+                            $('<li>' + this.data().category + ' 좌석번호 ' + this.settings.label + '</b> <a href="#" class="cancel-cart-item">[취소]</a></li>')
+                                .attr('id', 'cart-item-' + this.settings.id)
+                                .data('seatId', this.settings.id)
+                                .appendTo($cart);
+
+                            /*
+                             * Lets update the counter and total
+                             *
+                             * .find function will not find the current seat, because it will change its stauts only after return
+                             * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
+                             */
+                            $counter.text(sc.find('selected').length + 1);
+                            $total.text(recalculateTotal(sc) + this.data().price);
+
+                            return 'selected';
+                        } else if (this.status() == 'selected') {
+                            //update the counter
+                            $counter.text(sc.find('selected').length - 1);
+                            //and total
+                            $total.text(recalculateTotal(sc) - this.data().price);
+
+                            //remove the item from our cart
+                            $('#cart-item-' + this.settings.id).remove();
+
+                            //seat has been vacated
+                            return 'available';
+                        } else if (this.status() == 'unavailable') {
+                            //seat has been already booked
+                            return 'unavailable';
+                        } else {
+                            return this.style();
+                        }
+                    }
+                });
+
+            //this will handle "[cancel]" link clicks
+            $('#selected-seats').on('click', '.cancel-cart-item', function() {
+                //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
+                sc.get($(this).parents('li:first').data('seatId')).click();
+            });
+
+            //let's pretend some seats have already been booked
+            sc.get(['2_1', '2_2', '4_1', '4_2', '8_2']).status('unavailable');
+
+        });
+
+        function recalculateTotal(sc) {
+            var total = 0;
+
+            //basically find every selected seat and sum its price
+            sc.find('selected').each(function() {
+                total += this.data().price;
+            });
+
+            return total;
+        }
+    </script>
+
+
+    <!--seletbox js-->
+    <script>
+        var x, i, j, selElmnt, a, b, c;
+        x = document.getElementsByClassName("location_select");
+        for (i = 0; i < x.length; i++) {
+            selElmnt = x[i].getElementsByTagName("select")[0];
+            /*for each element, create a new DIV that will act as the selected item:*/
+            a = document.createElement("DIV");
+            a.setAttribute("class", "select-selected");
+            a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+            x[i].appendChild(a);
+            /*for each element, create a new DIV that will contain the option list:*/
+            b = document.createElement("DIV");
+            b.setAttribute("class", "select-items select-hide");
+            for (j = 1; j < selElmnt.length; j++) {
+                /*for each option in the original select element,
+                create a new DIV that will act as an option item:*/
+                c = document.createElement("DIV");
+                c.innerHTML = selElmnt.options[j].innerHTML;
+                c.addEventListener("click", function(e) {
+                    /*when an item is clicked, update the original select box,
+                    and the selected item:*/
+                    var y, i, k, s, h;
+                    s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                    h = this.parentNode.previousSibling;
+                    for (i = 0; i < s.length; i++) {
+                        if (s.options[i].innerHTML == this.innerHTML) {
+                            s.selectedIndex = i;
+                            h.innerHTML = this.innerHTML;
+                            y = this.parentNode.getElementsByClassName("same-as-selected");
+                            for (k = 0; k < y.length; k++) {
+                                y[k].removeAttribute("class");
+                            }
+                            this.setAttribute("class", "same-as-selected");
+                            break;
+                        }
+                    }
+                    h.click();
+                });
+                b.appendChild(c);
+            }
+            x[i].appendChild(b);
+            a.addEventListener("click", function(e) {
+                /*when the select box is clicked, close any other select boxes,
+                and open/close the current select box:*/
+                e.stopPropagation();
+                closeAllSelect(this);
+                this.nextSibling.classList.toggle("select-hide");
+                this.classList.toggle("select-arrow-active");
+            });
+        }
+
+        function closeAllSelect(elmnt) {
+            /*a function that will close all select boxes in the document,
+            except the current select box:*/
+            var x, y, i, arrNo = [];
+            x = document.getElementsByClassName("select-items");
+            y = document.getElementsByClassName("select-selected");
+            for (i = 0; i < y.length; i++) {
+                if (elmnt == y[i]) {
+                    arrNo.push(i)
+                } else {
+                    y[i].classList.remove("select-arrow-active");
+                }
+            }
+            for (i = 0; i < x.length; i++) {
+                if (arrNo.indexOf(i)) {
+                    x[i].classList.add("select-hide");
+                }
+            }
+        }
+        /*if the user clicks anywhere outside the select box,
+        then close all select boxes:*/
+        document.addEventListener("click", closeAllSelect);
+    </script>
+
+
+    <!--select_bus_btn js-->
+    <!--<script>
+        var header = document.getElementById("select_bus_list");
+        var btns = header.getElementsByClassName("select_bus_btn");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function() {
+                var current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+            });
+        }
+    </script>-->
+
+
+
+
+
+</body></html>

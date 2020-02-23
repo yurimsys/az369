@@ -41,8 +41,8 @@ router.get('/logout', function(req, res, next){
     res.redirect('/');
 });
 
-router.get('/reservation', function(req,res, next){
-    res.send("hi");
+router.get('/reservation', auth.isLoggedIn, function(req,res, next){
+    res.render('reservation_01', {sessionUser : req.user} );
 });
 //마이페이지 첫화면
 router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {

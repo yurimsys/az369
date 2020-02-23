@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <% include templates/head.ejs %>
+    <link rel="stylesheet" href="css/reservation_01-2.css">
+
+    <!--reservation css link-->
+    <link rel="stylesheet" type="text/css" href="css/lib/jquery.seat-charts.css">
+    <link rel="stylesheet" type="text/css" href="css/lib/booking.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/lib/bootstrap.min.css">-->
+    <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="css/booking.css">
+
+</head>
+
+<body>
+    <div class="wrap">
+
+        <% include templates/header.ejs %>
+        <!--secton.sub_wrap 시작-->
+
+       <!--reservation01의 오른쪽 영역 MO 1024px, 768, 414 적용-->
+        <section class="sub_wrap">
+            <div class="inner_sub_wrap">
+
+                <div class="box">
+
+                    <h6>장차버스예매</h6>
+                    <h1 style="font-family: 'PT Serif', serif;">RESERVATION</h1>
+                    <div class="bar"></div>
+
+                    <div class="reservation_box">
+                        <!--<div id="01" class="tabcontent">-->
+
+                            <div class="container">
+
+                                <!--좌석선택표-->
+                                <div class="seat-map" class="seat-panel"></div>
+
+
+
+                                <!--좌석선택 텍스트-->
+                                <div class="select_seat">
+                                    <h4>3. 좌석 선택 <span>(최대 4개)</span></h4>
+                                    <div class="seat_table">
+                                        <dl>
+                                            <dt>선택된 좌석</dt>
+                                            <dd>01번, 02번</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>좌석 개수</dt>
+                                            <dd>2개</dd>
+                                        </dl>
+
+                                        <button class="reload_btn"><img src="img/reservation/reload.png" alt="새로고침">
+                                            <p>좌석 새로고침</p>
+                                        </button>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    <div class="reservation_btn_mo">
+                        <ul>
+                            <li><a href="reservation" class="back">이전</a></li>
+                            <li><a href="#payment" class="payment_open">예매하기</a></li>
+                        </ul>
+                    </div>
+
+                    
+
+                    </div>
+
+                    <div id="payment" class="layer">
+                        <!--popup PC-->
+                        <div class="payment_box">
+                            <div class="payment_tit">
+                                예매정보 및 결제금액
+                            </div>
+                            <div class="payment_box_inner">
+                                <div class="info_table">
+                                    <dl>
+                                        <dt>운행지역</dt>
+                                        <dd>평택 - 서울 동대문</dd>
+                                    </dl>
+                                    <dl class="info_time">
+                                        <dt>출발시간</dt>
+                                        <dd><span>평택</span> 2020.02.03(월) 22:00</dd>
+                                        <dd><span>서울 동대문</span> 2020.02.04(화) 04:00</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>차량정보</dt>
+                                        <dd>충남고속 (11가 1234)</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>좌석개수</dt>
+                                        <dd>1개</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>좌석번호</dt>
+                                        <dd>01번</dd>
+                                    </dl>
+                                </div>
+                                <div class="price">
+                                    <dl>
+                                        <dt>예매금액</dt>
+                                        <dd>100,000원</dd>
+                                    </dl>
+                                    <dl class="price_sale">
+                                        <dt>할인금액</dt>
+                                        <dd>-100,000원</dd>
+                                    </dl>
+                                    <dl class="total_dl">
+                                        <dt>총 결제금액</dt>
+                                        <dd class="total_price">0원</dd>
+                                    </dl>
+                                </div>
+                                
+                                <div class="notice">
+                                    <h5>NOTICE</h5>
+                                    <p>
+                                        · 3월 2일 ~ 3월 31일까지 장차이용 무료서비스가 진행중입니다. <br>
+                                        · 취소 및 환불은 출발일로부터 4일전까지 가능합니다. <br>
+                                        · 출발일 4일전, 적정 인원수가 부족하면 차량이 변경될 수 있습니다.
+                                    </p>
+                                </div>
+                                
+                                <ul class="payment_btn">
+                                    <li>
+                                        <a href="#" class="payment_close1 payment_close">취소</a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="#" class="payment_close2 payment_close">결제하기</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+            </div>
+
+        </section>
+
+        <!--<footer></footer>-->
+    </div>
+
+    <script>
+        'use sctrict';
+
+        //gnb scroll 
+        //고정헤더, 사이드바 이벤트
+        var scrollTop = 0;
+        scrollTop = $(document).scrollTop();
+        fixHeader();
+
+        //윈도우창 조절시에 이벤트
+        $(window).on('scroll resize', function() {
+            scrollTop = $(document).scrollTop();
+            fixHeader();
+
+        });
+
+        //고정헤더 함수
+        function fixHeader() {
+            if (scrollTop > 200) {
+                $('header').addClass('on');
+            } else {
+                $('header').removeClass('on');
+            }
+        }
+
+
+        //모바일 모드 gnb_mo
+
+        setGnbMo();
+
+        function setGnbMo() {
+            $('header .open').on('click', function() {
+                $('.gnb_mo').addClass('on');
+            }); //햄버거버튼
+            $('.gnb_mo .close').on('click', function() {
+                $('.gnb_mo').removeClass('on');
+                $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
+                $('.gnb_mo > ul > li > a').removeClass('on')
+            });
+
+
+            //inner메뉴 열기
+
+            $('.gnb_mo > ul > li > a').on('click', function() {
+                $(this).next().slideToggle();
+                $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
+            });
+        }
+
+    </script>
+
+
+
+    <!--reservation 스크립트-->
+    <script src="js/lib/jquery-1.11.0.min.js"></script>
+    <script src="js/lib/jquery.seat-charts.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/booking.js"></script>
+
+    <script>
+        var firstSeatLabel = 1;
+        $(document).ready(function() {
+            var $cart = $('#selected-seats'),
+                $counter = $('#counter'),
+                $total = $('#total'),
+                sc = $('.seat-map').seatCharts({
+                    map: [
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'eeeee',
+                    ],
+                    seats: {
+                        f: {
+                            price: 100,
+                            classes: 'first-class', //your custom CSS class
+                            category: 'First Class'
+                        },
+                        e: {
+                            price: 40,
+                            classes: '일반', //your custom CSS class
+                            category: '일반'
+                        }
+
+                    },
+                    naming: {
+                        top: false,
+                        getLabel: function(character, row, column) {
+                            return firstSeatLabel++;
+                        },
+                    },
+                    legend: {
+                        node: $('#legend'),
+                        items: [
+                            ['f', 'available', 'First Class'],
+                            ['e', 'available', '일반'],
+                            ['r', 'unavailable', 'Already Booked']
+                        ]
+                    },
+                    click: function() {
+                        if (this.status() == 'available') {
+                            //let's create a new <li> which we'll add to the cart items
+                            $('<li>' + this.data().category + ' 좌석번호 ' + this.settings.label + '</b> <a href="#" class="cancel-cart-item">[취소]</a></li>')
+                                .attr('id', 'cart-item-' + this.settings.id)
+                                .data('seatId', this.settings.id)
+                                .appendTo($cart);
+
+                            /*
+                             * Lets update the counter and total
+                             *
+                             * .find function will not find the current seat, because it will change its stauts only after return
+                             * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
+                             */
+                            $counter.text(sc.find('selected').length + 1);
+                            $total.text(recalculateTotal(sc) + this.data().price);
+
+                            return 'selected';
+                        } else if (this.status() == 'selected') {
+                            //update the counter
+                            $counter.text(sc.find('selected').length - 1);
+                            //and total
+                            $total.text(recalculateTotal(sc) - this.data().price);
+
+                            //remove the item from our cart
+                            $('#cart-item-' + this.settings.id).remove();
+
+                            //seat has been vacated
+                            return 'available';
+                        } else if (this.status() == 'unavailable') {
+                            //seat has been already booked
+                            return 'unavailable';
+                        } else {
+                            return this.style();
+                        }
+                    }
+                });
+
+            //this will handle "[cancel]" link clicks
+            $('#selected-seats').on('click', '.cancel-cart-item', function() {
+                //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
+                sc.get($(this).parents('li:first').data('seatId')).click();
+            });
+
+            //let's pretend some seats have already been booked
+            sc.get(['2_1', '2_2', '4_1', '4_2', '8_2']).status('unavailable');
+
+        });
+
+        function recalculateTotal(sc) {
+            var total = 0;
+
+            //basically find every selected seat and sum its price
+            sc.find('selected').each(function() {
+                total += this.data().price;
+            });
+
+            return total;
+        }
+    </script>
+
+
+
+
+</body></html>
