@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <% include templates/head.ejs %>
+    <link rel="stylesheet" href="./css/benefit_list01.css">
+
+</head>
+
+<body>
+    <div class="wrap">
+
+        <% include templates/header.ejs %>
+        <!--section.main 시작-->
+
+
+        <section class="main">
+            <div class="inner_main">
+                <div class="main_bg"></div>
+                <div class="tnb">
+                    <ul>
+                        <a href="benefit">
+                            <li style="background: #ad8743; color: #fff">입점상가혜택</li>
+                        </a>
+
+                        <a href="benefit_application">
+                            <li>입점상담신청</li>
+                        </a>
+
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+        <!--//secton.main 완료-->
+        <!--secton.sub_wrap 시작-->
+
+        <section class="sub_wrap">
+            <div class="inner_sub_wrap">
+
+                <h6 style="font-family: 'PT Serif', serif;">BENEFIT 01</h6>
+                <h1>소상공인 창업자금 <br>컨설팅 지원</h1>
+                <div class="bar"></div>
+                <h2><em>소상공인시장진흥공단</em>에서는 <br>
+                    <strong>소상공인분들을 위한 지원사업</strong>을 하고 있습니다. <br><span>2020.01 기준</span>
+                </h2>
+
+                <div class="tab">
+                        <button class="tablinks" onclick="openCity(event, '01')" id="defaultOpen">일반경영안정</button>
+                        <button class="tablinks" onclick="openCity(event, '02')">청년고용</button>
+                        <button class="tablinks" onclick="openCity(event, '03')">성장촉진</button>
+                        <button class="tablinks" onclick="openCity(event, '04')">역량강화</button>
+                </div>
+ 
+                <div id="01" class="tabcontent">
+                    <h3>일반경영안정자금 (융자)</h3>
+                    <p>소상공인 경영애로 해소를 위해 필요한 운영자금 지원</p>
+                    <dl>
+                        <dt>지원규모</dt>
+                        <dd>11,025억원 (35,600개사)</dd>
+                        <dt>지원대상</dt>
+                        <dd>소상공인 보호 및 지원에 관한 법률상 소상공인* <br><span>* 소상공인 : 상시근로자 5인 미만 사업자(제조·건설·운수·광업은 10인 미만)</span></dd>
+                        <dt>지원조건</dt>
+                        <dd>대출금리 : 매분기 초 소상공인시장진흥공단 홈페이지에 공고(변동금리) <br>
+                            대출한도 : 업체당 7～10천만원 / 대출기간* : 5년 이내 <br>
+                            <span>* 재도전특별자금(8년), 장애인기업자금(7년) 등 일부자금은 대출기간 별도 적용</span> </dd>
+                        <dt>2020년 주요 <br>변경 내용</dt>
+                        <dd> 사업성은 있으나 저신용 등(CB등급 7등급 이하, 연체 이력, 신용불량 등)으로 금융권 자금이용에 어려움을 겪는 소상공인을 위한
+                            재도전특별자금 확대(’19. 300억원 → ’20. 500억원. 1억원 한도) <br>
+                            지역 내 도시 정비, 재개발 등으로 매출 감소에 따른 자금 확보에 어려운 겪는 소상공인을 위한 전용자금 신설(’20년 100억원)
+                        </dd>
+                        <dt>제출서류</dt>
+                        <dd>정책자금 융자신청서, 사업자등록증명원, 상시근로자 확인서류 등</dd>
+                        <dt>신청·접수</dt>
+                        <dd>소상공인시장진흥공단 지역센터 방문 접수</dd>
+                    </dl>
+                </div>
+
+                <div id="02" class="tabcontent">
+                    <h3>청년고용특별자금 (융자)</h3>
+                    <p>자금 애로를 겪는 청년 소상공인 경영 활성화 및 청년 일자리 창출 지원</p>
+                    <dl>
+                        <dt>지원규모</dt>
+                        <dd>4,475억원 (14,400개사)</dd>
+                        <dt>지원대상</dt>
+                        <dd>① 청년 소상공인(만39세 이하) 사업주 ② 청년근로자(만39세 이하)고용 소상공인 <br>③ 최근 1년 이내 청년근로자(만 39세 이하)고용 사업주</dd>
+                        <dt>지원조건</dt>
+                        <dd>대출금리 : 매분기 초 소상공인시장진흥공단 홈페이지에 공고(변동금리) <br>
+                            대출한도 : 업체당 1억원 / 대출기간 : 5년 이내 (거치기간 2년 포함)</dd>
+                        <dt>상환방식</dt>
+                        <dd>2년 거치 후 3년간 원금균등분할상환
+                        </dd>
+                        <dt>지원안되는 기업</dt>
+                        <dd>국세 또는 지방세 체납으로 규제중인 소상공인(성실 납부기업 등 일부예외) <br>
+                            금융기관 등으로부터 채무불이행자로 규제 중인 개인 또는 기업, 휴･폐업 중인 소상공인 등
+                        </dd>
+                        <dt>제출서류</dt>
+                        <dd>대출신청서, 사업자등록증명원, 표준재무제표증명 등</dd>
+                        <dt>신청·접수</dt>
+                        <dd>소상공인시장진흥공단 지역센터 방문 접수</dd>
+                    </dl>
+                </div>
+
+                <div id="03" class="tabcontent">
+                    <h3>성장촉진자금 (융자)</h3>
+                    <p>성장기 및 성숙기 소상인의 활력 제고 및 재도약을 위한 자금 지원</p>
+                    <dl>
+                        <dt>지원규모</dt>
+                        <dd>2,300억원 (4,600개사)</dd>
+                        <dt>지원대상</dt>
+                        <dd>사업자등록증 기준 업력 5년 이상 소상인</dd>
+                        <dt>지원조건</dt>
+                        <dd>대출금리 : 매분기 초 소상공인시장진흥공단 홈페이지에 공고(변동금리 <br>
+                            대출한도 : 업체당 1억원(시설 2억원) / 대출기간 : 5년 이내 (거치기간 2년 포함)</dd>
+                        <dt>상환방식</dt>
+                        <dd>2년 거치 후 3년간 원금균등분할상환
+                        </dd>
+                        <dt>제출서류</dt>
+                        <dd>대출신청서, 사업자등록증명원, 표준재무제표증명 등</dd>
+                        <dt>신청·접수</dt>
+                        <dd>소상공인시장진흥공단 지역센터 방문 접수</dd>
+                    </dl>
+                </div>
+                <div id="04" class="tabcontent">
+                    <h3>소상공인 역량강화 <br>(컨설팅 및 연계지원)</h3>
+                    <p>소상공인의 경영역량 강화를 위한 컨설팅 제공과 <br> 고용창출 소상공인을 위한 컨설팅 및 수요자 맞춤형 연계지원</p>
+                    <dl>
+                        <dt>지원규모</dt>
+                        <dd>5,500건 (예산 79.8억원)</dd>
+                        <dt>지원대상</dt>
+                        <dd>소상공인, 예비창업자(임대차계약서 등 소지자)</dd>
+                        <dt>지원내용</dt>
+                        <dd>① (소상공인컨설팅) 경영애로 소상공인의 경영환경 개선 및 영업 정상화를 위해 업종별 전문가를 활용한 맞춤형 컨설팅 제공 <br>
+                            ② (소상공인 무료법률지원) 소상공인의 경영안정 및 권익보호를 위해 소상공인 관련 법률상담 및 소송비용 지원</dd>
+                        <dt>신청·접수</dt>
+                        <dd>연중 (1월 ～ 예산 소진 시) <br>
+                            ◦ 소상공인컨설팅시스템(con.sbiz.or.kr) → 로그인 → 나의 컨설팅 메뉴 클릭 → 하단에 ‘신청하기’ 클릭</dd>
+                            <dt>문의처</dt>
+                        <dd>중소벤처기업부 소상공인지원과(www.mss.go.kr) : 042-481-4490 <br>
+                            소상공인시장진흥공단(www.semas.or.kr) : 042-363-7832∼4 <br>
+                            기업마당(www.bizinfo.go.kr) 전화상담 : ☎1357
+                        </dd>
+                    </dl>
+                </div>
+
+                <script>
+                    function openCity(evt, cityName) {
+                        var i, tabcontent, tablinks;
+                        tabcontent = document.getElementsByClassName("tabcontent");
+                        for (i = 0; i < tabcontent.length; i++) {
+                            tabcontent[i].style.display = "none";
+                        }
+                        tablinks = document.getElementsByClassName("tablinks");
+                        for (i = 0; i < tablinks.length; i++) {
+                            tablinks[i].className = tablinks[i].className.replace(" active", "");
+                        }
+                        document.getElementById(cityName).style.display = "block";
+                        evt.currentTarget.className += " active";
+                    }
+
+                    // Get the element with id="defaultOpen" and click on it
+                    document.getElementById("defaultOpen").click();
+                </script>
+
+
+
+            </div>
+        </section>
+
+        <!--//secton.about 완료-->
+
+
+        <!--<footer></footer>-->
+    </div>
+
+    <script>
+        'use sctrict';
+
+        //gnb scroll 
+        //고정헤더, 사이드바 이벤트
+        var scrollTop = 0;
+        scrollTop = $(document).scrollTop();
+        fixHeader();
+
+        //윈도우창 조절시에 이벤트
+        $(window).on('scroll resize', function() {
+            scrollTop = $(document).scrollTop();
+            fixHeader();
+
+        });
+
+        //고정헤더 함수
+        function fixHeader() {
+            if (scrollTop > 200) {
+                $('header').addClass('on');
+            } else {
+                $('header').removeClass('on');
+            }
+        }
+
+
+        //모바일 모드 gnb_mo
+
+        setGnbMo();
+
+        function setGnbMo() {
+            $('header .open').on('click', function() {
+                $('.gnb_mo').addClass('on');
+            }); //햄버거버튼
+            $('.gnb_mo .close').on('click', function() {
+                $('.gnb_mo').removeClass('on');
+                $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
+                $('.gnb_mo > ul > li > a').removeClass('on')
+            });
+
+
+            //inner메뉴 열기
+
+            $('.gnb_mo > ul > li > a').on('click', function() {
+                $(this).next().slideToggle();
+                $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
+            });
+        }
+
+        //main 슬라이드
+        var slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            setTimeout(showSlides, 6000); // Change image every 2 seconds
+        }
+
+        //gallery 슬라이드
+        var slides = document.querySelectorAll('#slides .slide');
+        var currentSlide = 0;
+        var slideInterval = setInterval(nextSlide, 3000);
+
+        function nextSlide() {
+            slides[currentSlide].className = 'slide';
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].className = 'slide showing';
+        }
+
+        //scroll 애니
+        $(function() {
+            var scrollAni = 0;
+            //스크롤했을때 이벤트 적용
+            scrollAni = $(document).scrollTop();
+            ani('.menu_list, .int_slide, .owner_img, .insta_list'); //각 클래스 적용
+            //윈도우창사이즈 조절시 동일하게 이벤트 적용
+            $(window).on('scroll resize', function() {
+                scrollAni = $(document).scrollTop();
+                ani('.menu_list, .int_slide, .owner_img, .insta_list');
+            });
+
+            //함수선언 ani-함수명/(selector)-선택자
+            function ani(selector) {
+                $(selector).each(function() {
+
+                    var $selector = $(this);
+                    var minShow = $selector.offset().top - $(window).height();
+                    var maxShow = $selector.offset().top + $selector.outerHeight();
+
+                    $selector.removeClass('down on up');
+                    if (scrollTop < minShow) {
+                        $selector.addClass('down');
+                    } else if (scrollTop > maxShow) {
+                        $selector.addClass('up');
+                    } else {
+                        $selector.addClass('on');
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>

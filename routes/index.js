@@ -273,4 +273,14 @@ router.get('/benefit_application', function(req, res, next) {
     res.render('benefit_application', { sessionUser : req.user });
 });
 
+//입점혜택 페이지1
+router.get('/benefit_1', function(req, res, next) {
+    res.render('benefit_list01', { sessionUser : req.user });
+});
+
+//입점혜택 페이지4
+router.get('/benefit_4', function(req, res, next) {
+    res.render('benefit_list04', { sessionUser : req.user });
+});
+
 module.exports = router;
