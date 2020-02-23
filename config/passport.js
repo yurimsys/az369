@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mysql = require('mysql');
+const dbconf = require('../config/database');
 const connection = mysql.createConnection(dbconf);
 
 connection.config.queryFormat = function (query, values) {

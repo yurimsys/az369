@@ -4,7 +4,6 @@ const passport = require('passport');
 const mysql = require('mysql');
 const auth = require('../config/passport');
 const dbconf = require('../config/database');
-console.log('dbconf', dbconf);
 const connection = mysql.createConnection(dbconf);
 
 connection.config.queryFormat = function (query, values) {
