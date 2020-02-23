@@ -40,7 +40,7 @@ let fileStoreOption = {
 }
 app.use(session({
     secret : 'qw12!@#yurimsys!@#',
-    store: new fileStore(fileStoreOption),
+    // store: new fileStore(fileStoreOption),
     resave: false,
     saveUninitialized: false 
 }));
