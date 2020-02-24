@@ -51,6 +51,11 @@ router.get('/logout', function(req, res, next){
 router.get('/reservation', auth.isLoggedIn, function(req,res, next){
     res.render('reservation_01', {sessionUser : req.user} );
 });
+
+router.get('/complate', auth.isLoggedIn, function(req, res, next){
+    res.render('reservation_02', {sessionUser: req.user} );
+});
+
 //마이페이지 첫화면
 router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
     let sessionId = req.user.U_ID;
@@ -80,6 +85,9 @@ router.get('/modify2', function(req, res, next){
 
 router.get('/reservation', (req, res) => {
     res.render('reservation_01', { sessionUser : req.user });
+});
+router.get('/reservation2', (req, res) => {
+    res.render('reservation_01-2', { sessionUser : req.user });
 });
 
 //사업개요
