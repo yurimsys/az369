@@ -30,7 +30,7 @@
                                     <div class="info_title">
                                         <h2>내정보</h2>
                                         <div class="modify_btn">
-                                            <a href="modify_01.asp">
+                                            <a href="modify">
                                                 수정
                                             </a>
                                         </div>
@@ -255,27 +255,24 @@
                                         <a href="#popup" class="popup_open" onclick="cancelBtn()">선택예매취소</a>
 
                                         <div id="popup" class="layer">
+                                    <!-- 예매취소 후 리스트 @@@@@@@@@@@@@@@@@@@@@@@@@@@222 -->
                                             <!--popup PC-->
                                             <div class="popup_box">
                                                 <h2>장차예매취소</h2>
                     
                                                 <table class="table">
-                                                    <tr>
+                                                    <thead>
                                                         <th>예약번호</th>
                                                         <th>결제날짜</th>
                                                         <th>예약정보</th>
-                                                        <th>좌석개수</th>
+                                                        <th>좌석번호</th>
                                                         <th>결제수단</th>
                                                         <th>결제금액</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>AZ123451234512</td>
-                                                        <td>2020.00.00</td>
-                                                        <td>2020.02.03 22:00 충남고속 <br> <span>(평택 > 서울 동대문)</span></td>
-                                                        <td>00개</td>
-                                                        <td>카드결제(신한)</td>
-                                                        <td>00,000원</td>
-                                                    </tr>
+                                                    </thead>
+                                                    <tbody class="cancelRes">
+
+                                                    </tbody>
+                                                    
                                                 </table>
                     
                                                 <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한 예매를 취소하겠습니까?</p>
@@ -285,7 +282,7 @@
                                                     </li>
                     
                                                     <li>
-                                                        <a href="#" class="popup_close2">예매 취소</a>
+                                                        <a href="#" class="popup_close2" onclick="resCancel()" >예매 취소</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -324,7 +321,7 @@
                                                         </li>
                     
                                                         <li>
-                                                            <a href="#" class="popup_close2">예매 취소</a>
+                                                            <a  class="popup_close2">예매 취소</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -348,15 +345,13 @@
                                         <!--두번째 리스트 PC-->
                                         <div class="list02">
                                             <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>결제일시</th>
-                                                        <th>출발날짜</th>
-                                                        <th>차량정보</th>
-                                                        <th>좌석개수</th>
-                                                        <th>결제금액</th>
-                                                    </tr>
-                                                </thead> 
+                                                <thead>                                               
+                                                    <th>결제일시</th>
+                                                    <th>출발날짜</th>
+                                                    <th>차량정보</th>
+                                                    <th>좌석개수</th>
+                                                    <th>결제금액</th>                                               
+                                               </thead> 
                                                 <tbody id="payList">
 
                                                 </tbody>            
@@ -446,7 +441,7 @@
                                             <h4>취소 및 환불조회</h4>
                                             <p>취소 및 환불조회는 오늘날짜기준 최대 3개월까지만 조회가 가능합니다. </p>
                                         </div>
-                                        <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22 -->
+                            <!--환불조회 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22 -->
                                         <div class="list03">
                                             <table class="table">
                                                 <thead>
@@ -600,18 +595,12 @@
         <!--<footer></footer>-->
     </div>
     <script>
-        // $("#tab1").on('click',function(){
-        //     $.ajax({
-        //        url: "api/user/resList",
-        //        method: "post",
-        //        dataType: "json",
-        //        data: {sessionId : sessionUser.U_ID, sessionUserName : sessionUser.U_UserName},
-        //        success: function(res){
-        //         console.log("예매현황 :", res.data);
-        //        }
-        //     });
-        // });
+        var trVal = Array();
+        var tdVal = Array();
+        //선택예매취소 후 리스트 보여주기
         function cancelBtn(){
+            $(".cancelRes").empty();
+            //체크된 레이블 보여주기
             var send_array = Array();
             var send_cnt = 0;
             var chkbox = $(".chk");
@@ -625,27 +614,58 @@
             console.log('sendjson :',sendJson); 
 
             var seatArr = JSON.parse(sendJson);
-            
-            //$("#array").val(send_array);
-            //console.log(send_cnt);
-            //console.log(send_array);
             console.log('seatArr :', seatArr);
             $.ajax({
                 url: "api/user/payCancel",
                 method: 'post',
                 dataType: 'json',
-                data: {
-                    'sendJson' : sendJson,   
+                data: { 
                     'sendArray' : seatArr
                 },
                 success: function(res){
+                    
                     console.log(res.data);
+                    
+                    for(let i=0; i<res.data.length; i++){    
+                        let html = "<tr val="+res.data[i].CR_CT_ID+">";
+                            html += "<td val="+res.data[i].CR_SeatNum+">AZ123412341234</td>";
+                            html += "<td>"+res.data[i].CR_cDt+"</td>";
+                            html += "<td>"+res.data[i].dept_te+"&emsp;"+res.data[i].carnum+"</td>";
+                            html += "<td>"+res.data[i].CR_SeatNum+"</td>";
+                            html += "<td>무료</td>";
+                            html += "<td>"+res.data[i].CR_Price+"</td>";
+                            html += "</tr>";
+                            $(".cancelRes").append(html); 
+                            trVal[i] = res.data[i].CR_CT_ID;
+                            tdVal[i] = res.data[i].CR_SeatNum;
+                            console.log("tr td :", trVal, tdVal);
+
+                            
+                            
+                    }
+                    console.log("tr td22 :", trVal, tdVal);
                 }
             })
         }
         
-        
+        console.log("tr td555 :", trVal, tdVal);
+        //예매 취소
+        function resCancel(){
+                    $.ajax({
+                        url: "api/user/cancelRes",
+                        method: 'post',
+                        dataType: 'json',
+                        async: false,
+                        data: {'trVal' : trVal, 'tdVal' : tdVal},
+                        success: function(res){
+                            console.log(res.data);
+                            alert("취소완료");
+                            location.href="mypage";
+                        }
+                    })
+                }
 
+        //결제리스트
         $("#tab2").on('click',function(){
             $("#payList").empty();
             $.ajax({
@@ -670,10 +690,11 @@
             });
         });
 
+        //취소 및 환불 리스트
         $("#tab3").on('click',function(){
             $("#cancelList").empty();
             $.ajax({
-               url: "api/user/resCancel",
+               url: "api/user/resCancelList",
                method: "post",
                dataType: "json",
                success: function(res){

@@ -59,32 +59,34 @@ router.post('/user/join', (req, res, next) =>{
         },
         function(err, rows, fields) {
             if (err) throw err;
-            console.log(rows);
-            res.json( { name : req.body.name, id : req.body.id });
+            console.log("회원가입 ::",rows);
+            res.json( { name : req.body.name, id : req.body.id, data:rows });
         });
 });
 
 //회원가입 페이지 장차선호
 router.post('/user/carPool', (req, res, next) =>{
-    let query = `insert into tCP(CP_PreferDays, CP_DepartureTe, CP_ReturnTe) values(:preferDays, :departureTe, :returnTe) 
-                 where CP_U_ID = :uUserName`;
-    let preferDays = req.body.days;
+    let query = `insert into tCP(CP_U_ID, CP_PreferDays, CP_DepartureTe, CP_ReturnTe) 
+                values( :joinId, :preferDays, :departureTe, :returnTe)`;
+    let preferDays = req.body['days[]'].join(',');
     let departureTe = req.body.sel;
     let returnTe = req.body.sel2;
-    let uUserName = req.body.id;
-    console.log("@@@1 :",preferDays)
-    console.log("@@@1 :",departureTe)
-    console.log("@@@1 :",returnTe)
-    console.log("@@@1 :",uUserName)
+    let joinId = req.body.joinId;
+    console.log("날짜 :",preferDays)
+    console.log("출발시간 :",departureTe)
+    console.log("도착시간 :",returnTe)
+    console.log("회원 아이디 :",joinId)
     connection.query(query, 
         {
-            preferDays, departureTe, returnTe, uUserName                    
+            joinId, preferDays, departureTe, returnTe                
         },
         function(err, rows, fields) {
             if (err) throw err;           
             res.json( { data : "성공" });
         });
 });
+
+
 
 //아이디 중복확인
 router.post('/user/overlap', (req, res, next) =>{

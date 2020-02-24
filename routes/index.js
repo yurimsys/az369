@@ -123,18 +123,19 @@ router.post('/api/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
 //마이페이지 예매취소 리스트
 router.post('/api/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
-    let seatNum = req.body['sendArray[]'].join(',');
+    let seatNum = req.body['sendArray[]'];
    // let seatNum2 = req.body.sendJson;
     //console.log("num2 :", seatNum2);
-    for(var i in seatNum){
-        seatNum[i] = JSON.stringify(seatNum[i]);
-        sessionId[i];
-    }
+    // for(var i in seatNum){
+    //     seatNum[i] = JSON.stringify(seatNum[i]);
+        
+    // }
     console.log(seatNum);
     console.log("dddd :", sessionId);
     //console.log(seatNum);    
     let query = `
                 select 
+                CR_CT_ID,
                 CR_cDt,
                 (select CT_DepartureTe from tCT where tCT.CT_ID = tCR.CR_CT_ID) as dept_te,
                 (select CT_CarNum from tCT where tCT.CT_ID= tCR.CR_CT_ID) as carnum,
@@ -142,7 +143,7 @@ router.post('/api/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                 CR_Price,
                 CR_SeatNum
                 from tCR
-                where CR_U_ID= :sessionId and CR_SeatNum in (:seatNum)
+                where CR_U_ID= :sessionId and CR_SeatNum IN (:seatNum)
                 group by CR_CT_ID, CR_SeatNum;
                 `;
                 console.log("좌석 :", seatNum);
@@ -164,16 +165,45 @@ router.post('/api/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
         });
         
 });
+
+//예매취소 
+router.post('/api/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
+    let query = `update tCR set CR_Cancel = :crCancel, CR_CancelDt = now() where CR_U_Id = :sessionId and CR_CT_ID IN (:ctId) and CR_SeatNum IN (:crSeatNum)`;
+
+    let sessionId = req.user.U_ID;
+    let crCancel = 'Y';
+    let ctId = req.body['trVal[]'];
+    let crSeatNum = req.body['tdVal[]'];
+    
+    console.log("ctId :", ctId);
+    console.log("crSeatNum :", crSeatNum);
+
+    connection.query(query, 
+        {          
+            sessionId, crCancel, ctId, crSeatNum
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            // //console.log(findId);
+            res.json( {  data : "성공"});
+            console.log("rows : ",rows);
+            
+        });
+        
+});
+
+
 //마이페이지 취소 및 환불조회
-router.post('/api/user/resCancel', auth.isLoggedIn, (req, res, next) =>{
+router.post('/api/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
     let query = `   select 
                     CR_cDt,
                     (select CT_DepartureTe from tCT where tCT.ct_id = tCR.CR_CT_ID) as dept_te,
                     CR_CancelDt,
                     CR_Price
                     from tCR
-                    where cr_u_id= :sessionId and CR_Cancel = :crCancel
-                    group by cr_ct_id;`;
+                    where cr_u_id= :sessionId and CR_Cancel = :crCancel`;
 
     let sessionId = req.user.U_ID;
     let crCancel = 'Y';
@@ -290,4 +320,8 @@ router.get('/benefit_4', function(req, res, next) {
     res.render('benefit_list04', { sessionUser : req.user });
 });
 
+//테스트
+router.get('/daytest', function(req, res, next) {
+    res.render('daytest', { sessionUser : req.user });
+});
 module.exports = router;

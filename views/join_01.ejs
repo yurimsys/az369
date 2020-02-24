@@ -193,7 +193,7 @@
                             <a href="login">
                                 <li class="back">취소</li>
                             </a>
-                            <a href="join2">
+                            <a onclick="nextBtn()">
                                 <li class="next">다음</li>
                             </a>
                         </ul>
@@ -211,6 +211,26 @@
 
         <!--<footer></footer>-->
     </div>
+    <script>
+        function nextBtn(){
+            if($("#ex_chk1").is(":checked") == false || $("#ex_chk2").is(":checked") == false){
+                alert('약관동의에 체크해 주세요');
+                return;
+            }
+            if($("#ex_chk1").is(":checked") == true && $("#ex_chk2").is(":checked") == true){
+                $('#ex_chk3').prop('checked', this.checked);
+                location.href = "join2";
+            }
+        }
+       
+        //  /*agreement 전체동의 체크*/
+        //  $(document).ready(function() {
+        //     $('.check-all').click(function() {
+        //         $('.ab').prop('checked', this.checked);
+        //     });
+        // });
+
+    </script>
 
     <script>
         

@@ -129,35 +129,35 @@
                             <ul>
                                 <li>
                                     <label>
-                                        <input type="checkbox" class="selDay" name="day" val="월">
+                                        <input type="checkbox" class='chk' name="day[]" value="월">
                                         <span>월</span>
                                     </label>
                                 </li>
 
                                 <li>
                                     <label>
-                                        <input type="checkbox" class="selDay" name="day" val="화">
+                                        <input type="checkbox" class='chk' name="day[]" value="화">
                                         <span>화</span>
                                     </label>
                                 </li>
 
                                 <li>
                                     <label>
-                                        <input type="checkbox" class="selDay" name="day" val="수">
+                                        <input type="checkbox" class='chk' name="day[]" value="수">
                                         <span>수</span>
                                     </label>
                                 </li>
 
                                 <li>
                                     <label>
-                                        <input type="checkbox" class="selDay" name="day" val="목">
+                                        <input type="checkbox" class='chk' name="day[]" value="목">
                                         <span>목</span>
                                     </label>
                                 </li>
 
                                 <li>
                                     <label>
-                                        <input type="checkbox" class="selDay" name="day" val="금">
+                                        <input type="checkbox" class='chk' name="day[]" value="금">
                                         <span>금</span>
                                     </label>
                                 </li>
@@ -173,10 +173,10 @@
                                     <div class="time_select01 time_select" >
                                         <select id="select01">
                                             <option value="0">평택 출발시간</option>
-                                            <option value="평택 20:00">평택 20:00</option>
-                                            <option value="평택 21:00">평택 21:00</option>
-                                            <option value="평택 22:00">평택 22:00</option>
-                                            <option value="평택 23:00">평택 23:00</option>
+                                            <option value="20:00:00">평택 20:00</option>
+                                            <option value="21:00:00">평택 21:00</option>
+                                            <option value="22:00:00">평택 22:00</option>
+                                            <option value="23:00:00">평택 23:00</option>
 
                                         </select>
                                     </div>
@@ -189,10 +189,10 @@
                                     <div class="time_select02 time_select" >
                                         <select id="select02">
                                             <option value="0">서울동대문 출발시간</option>
-                                            <option value="서울동대문 02:00">서울동대문 02:00</option>
-                                            <option value="서울동대문 03:00">서울동대문 03:00</option>
-                                            <option value="서울동대문 04:00">서울동대문 04:00</option>
-                                            <option value="서울동대문 05:00">서울동대문 05:00</option>
+                                            <option value="02:00:00">서울동대문 02:00</option>
+                                            <option value="03:00:00">서울동대문 03:00</option>
+                                            <option value="04:00:00">서울동대문 04:00</option>
+                                            <option value="05:00:00">서울동대문 05:00</option>
                                         </select>
                                     </div>
                                 </li>
@@ -314,39 +314,8 @@
                         }                      
                     })                                                                                                                           
                 };
-                        // //////장차선호도
-                        // var days;                         
-                        // var sel = $("#select01 option:selected").val();
-                        // var sel2 = $('#select02 option:selected').val();                              
-                        // $('.day label').children('input').off().on('click' ,function(){
-                        //     //console.log("itetemtem : ", item);                                          
-                        //     console.log($(this).attr('val'));                      
-                        //     days = $(this).attr('val');
-                        //     console.log("셀렉트 :",$("#select01 option:selected").val(),$('#select02 option:selected').val());  
-                                                                              
-                        //     console.log("n1 :", days);                      
-                        // });
-
-                        // let test = $('#select02 option:selected').val();
-                        // console.log("테스트야 :", test);                       
-                            var qwer;
-                            var dayCnt = 0;
-                            $('.selDay').each(function(item){                               
-                                $(this).off().on('click', function(){                                
-                                    qwer = $(this).attr('val');
-                                  
-                                    
-                                    
-                                    // if(dayCnt%2 == 0){
-                                    //     qwer = null;
-                                    // }
-                                $("#hideId").attr('val',qwer);                 
-                                   
-                                });     
-                                console.log("이치문 :", qwer);                     
-                            });
-
-                            console.log($('#hideId').val())
+                                          
+                         
               
                ///회원가입 버튼 클릭
                 function joinUser(){
@@ -374,27 +343,52 @@
                             postcode : $("#postcode").val(),
                             address : $("#address").val(),
                             detailAddress : $("#detailAddress").val()
-                        }
-                    }).done(function(res){
-                        console.log(res);
-                        console.log(res.name);
-                        console.log(res.id);
-                        var orderDetail = [{name:"findId", value:res.name }, {name:"findName", value:res.id}];
-                        sessionStorage.setItem("orderDetail",JSON.stringify(orderDetail));                      
-                        $.ajax({
-                           url: "api/user/carPool",
-                           dataType: "json",
-                           method: "post",
-                           data: {sel : $("#select01 option:selected").val(), sel2 : $("#select02 option:selected").val(), days : $("#hideId").val(), id : res.id},
-                           success: function(res){
-                               if(res.data === '성공'){
-                                 location.href = "join3"
-                               }
-                            //
-                           }
-                        });
-                        
-                        
+                        },
+                        success: function(res){
+                            console.log("회원가입 시 :::", res.data.insertId);
+                            joinId = res.data.insertId;
+                            var orderDetail = [{name:"findId", value:res.name }, {name:"findName", value:res.id}];
+                            sessionStorage.setItem("orderDetail",JSON.stringify(orderDetail));
+
+                            //장차선호 날짜
+                            var send_array = Array();
+                            var send_cnt = 0;
+                            var chkbox = $(".chk");
+                            for(i=0; i<chkbox.length; i++){
+                                if(chkbox[i].checked == true){
+                                    send_array[send_cnt] = chkbox[i].value;
+                                    send_cnt++
+                                }
+                            }
+                            var sendJson = JSON.stringify(send_array);
+                            console.log('sendjson :',sendJson); 
+
+                            var seatArr = JSON.parse(sendJson);
+                            console.log('seatArr :', seatArr);  
+                            //선호 시간                                            
+                            var sel = $("#select01 option:selected").val();
+                            var sel2 = $('#select02 option:selected').val();     
+                            console.log("시간 :", sel, sel2);                        
+                         
+                            $.ajax({
+                                url: "api/user/carPool",
+                                dataType: "json",
+                                method: "post",
+                                data: {
+                                    'joinId' : joinId, 
+                                    'sel' : $("#select01 option:selected").val(), 
+                                    'sel2' : $("#select02 option:selected").val(), 
+                                    'days' : seatArr
+                                     },
+                                success: function(res){
+                                    if(res.data === '성공'){
+                                        location.href = "join3"
+                                    }
+                                
+                                }
+                            });
+
+                        }                    
                     });
 
                 }
