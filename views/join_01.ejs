@@ -218,7 +218,8 @@
                 return;
             }
             if($("#ex_chk1").is(":checked") == true && $("#ex_chk2").is(":checked") == true){
-                $('#ex_chk3').prop('checked', this.checked);
+                $("input[type=checkbox]").prop("checked",true);
+               
                 location.href = "join2";
             }
         }
