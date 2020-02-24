@@ -301,4 +301,143 @@ router.post('/user/deleteUser', auth.isLoggedIn, (req, res, next) =>{
         
 });
 
+//마이페이지 예매 및 결제내역
+router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
+    let sessionId = req.user.U_ID;
+    let query = `select 
+                    count(cr_seatnum) as seat_cnt,
+                    sum(cr_price) as total_price,
+                    (select ct_carnum from tCT where tCT.ct_id = tCR.CR_CT_ID) as carnum,
+                    (select CT_DepartureTe from tCT where tCT.ct_id = tCR.CR_CT_ID) as dept_te,
+                    CR_cDt
+                    from tCR
+                    where cr_u_id=:sessionId
+                    group by cr_ct_id order by tCR.CR_cDt desc;
+                `;
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {          
+            sessionId
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            // //console.log(findId);
+            res.json( {  data : rows});
+            console.log("rows :",rows);
+            
+        });
+        
+});
+
+//마이페이지 예매취소 리스트
+router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
+    let sessionId = req.user.U_ID;
+    let seatNum = req.body['sendArray[]'];
+   // let seatNum2 = req.body.sendJson;
+    //console.log("num2 :", seatNum2);
+    // for(var i in seatNum){
+    //     seatNum[i] = JSON.stringify(seatNum[i]);
+        
+    // }
+    console.log(seatNum);
+    console.log("dddd :", sessionId);
+    //console.log(seatNum);    
+    let query = `
+                select 
+                CR_CT_ID,
+                CR_cDt,
+                (select CT_DepartureTe from tCT where tCT.CT_ID = tCR.CR_CT_ID) as dept_te,
+                (select CT_CarNum from tCT where tCT.CT_ID= tCR.CR_CT_ID) as carnum,
+                CR_cDt,
+                CR_Price,
+                CR_SeatNum
+                from tCR
+                where CR_U_ID= :sessionId and CR_SeatNum IN (:seatNum)
+                group by CR_CT_ID, CR_SeatNum order by tCR.CR_cDt desc
+                `;
+                console.log("좌석 :", seatNum);
+    console.log("세션 :", sessionId);
+    
+
+    connection.query(query, 
+        {          
+            sessionId, seatNum
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            // //console.log(findId);
+            res.json( {  data : rows});
+            console.log("rows :",rows);
+            
+        });
+        
+});
+
+//예매취소 
+router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
+    let query = `update tCR set CR_Cancel = :crCancel, CR_CancelDt = now() where CR_U_Id = :sessionId and CR_CT_ID IN (:ctId) and CR_SeatNum IN (:crSeatNum)`;
+
+    let sessionId = req.user.U_ID;
+    let crCancel = 'Y';
+    let ctId = req.body['trVal[]'];
+    let crSeatNum = req.body['tdVal[]'];
+    
+    console.log("ctId :", ctId);
+    console.log("crSeatNum :", crSeatNum);
+
+    connection.query(query, 
+        {          
+            sessionId, crCancel, ctId, crSeatNum
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            // //console.log(findId);
+            res.json( {  data : "성공"});
+            console.log("rows : ",rows);
+            
+        });
+        
+});
+
+
+//마이페이지 취소 및 환불조회
+router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
+    let query = `   select 
+                    CR_cDt,
+                    (select CT_DepartureTe from tCT where tCT.ct_id = tCR.CR_CT_ID) as dept_te,
+                    CR_CancelDt,
+                    CR_Price
+                    from tCR
+                    where cr_u_id= :sessionId and CR_Cancel = :crCancel
+                    order by tCR.CR_cDt desc`;
+
+    let sessionId = req.user.U_ID;
+    let crCancel = 'Y';
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {          
+            sessionId, crCancel
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            // //console.log(findId);
+            res.json( {  data : rows});
+            console.log("rows : ",rows);
+            
+        });
+        
+});
+  
 module.exports = router;
