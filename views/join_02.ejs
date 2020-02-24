@@ -8,30 +8,11 @@
 </head>
 
 <body>
-    <div class="wrap">
-
-        <% include templates/header.ejs %>
+    <div class="wrap">       
+            <% include templates/header.ejs %>
+        
+        
         <!--section.main 시작-->
-
-        <section class="main">
-            <div class="inner_main">
-                <div class="main_bg"></div>
-                <div class="tnb">
-                    <ul>
-                        <a href="login">
-                            <li>로그인</li>
-                        </a>
-                        <a href="join1">
-                            <li style="background: #ad8743; color: #fff">회원가입</li>
-                        </a>
-                        <a href="mypage">
-                            <li>장차예매현황</li>
-                        </a>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
 
         <!--//secton.main 완료-->
         <!--secton.sub_wrap 시작-->
@@ -39,10 +20,11 @@
 
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
-
-                <h6>회원가입</h6>
-                <h1 style="font-family: 'PT Serif', serif;">JOIN</h1>
-                <div class="bar"></div>
+                              
+                <div class="box">
+                    <h6>회원가입</h6>
+                    <h1 style="font-family: 'PT Serif', serif;">JOIN</h1>
+                    <div class="bar"></div>
 
 
                 <div class="join_box">
@@ -50,7 +32,7 @@
 
                     <h2>02. 정보입력</h2>
 
-                    <h3>회원정보를 입력해주세요.</h3>
+                    <!-- <h3>회원정보를 입력해주세요.</h3> -->
                     <form action="/action_page.php">
                         <ul>
                             <li>
@@ -210,15 +192,9 @@
                                 <li class="next">다음</li>
                             </a>
                         </ul>
+                        </div>
                     </div>
-
-
-
-
                 </div>
-
-
-
             </div>
         </section>
 
