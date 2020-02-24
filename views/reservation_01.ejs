@@ -11,7 +11,7 @@
     <!--<link rel="stylesheet" type="text/css" href="css/lib/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-theme.css">
     <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="css/booking.css">
+    
 
 </head>
 
@@ -73,7 +73,7 @@
                                         <div class="select_bus_list">
                                             <div class="select_bus_list_tit">
                                                 <ul>
-                                                    <li>출발 날짜/시간</li>
+                                                    <li>출발 날짜</li>
                                                     <li>차량정보</li>
                                                     <li>잔여 좌석</li>
                                                 </ul>
@@ -90,65 +90,6 @@
                                                         40 / 45 석
                                                     </span>
                                                 </button>
-
-                                                <button class="tablinks select_bus_btn" onclick="openBus(event, '01')">
-                                                    <span class="select_bus_time">02월 24일(월) </span>
-                                                    <span class="select_bus_name">
-                                                        충남고속 (11가 1234)
-                                                    </span>
-                                                    <span class="select_bus_seat">
-                                                        40 / 45 석
-                                                    </span>
-                                                </button>
-
-                                                <button class="tablinks select_bus_btn" onclick="openBus(event, '01')">
-                                                    <span class="select_bus_time">02월 24일(월) </span>
-                                                    <span class="select_bus_name">
-                                                        충남고속 (11가 1234)
-                                                    </span>
-                                                    <span class="select_bus_seat">
-                                                        40 / 45 석
-                                                    </span>
-                                                </button>
-
-
-                                                <button class="tablinks select_bus_btn" onclick="openBus(event, '01')">
-                                                    <span class="select_bus_time">02월 24일(월) </span>
-                                                    <span class="select_bus_name">
-                                                        충남고속 (11가 1234)
-                                                    </span>
-                                                    <span class="select_bus_seat">
-                                                        40 / 45 석
-                                                    </span>
-                                                </button>
-                                                <button class="tablinks select_bus_btn" onclick="openBus(event, '01')">
-                                                    <span class="select_bus_time">02월 24일(월) </span>
-                                                    <span class="select_bus_name">
-                                                        충남고속 (11가 1234)
-                                                    </span>
-                                                    <span class="select_bus_seat">
-                                                        40 / 45 석
-                                                    </span>
-                                                </button>
-                                                <button class="tablinks select_bus_btn" onclick="openBus(event, '01')">
-                                                    <span class="select_bus_time">02월 24일(월) </span>
-                                                    <span class="select_bus_name">
-                                                        충남고속 (11가 1234)
-                                                    </span>
-                                                    <span class="select_bus_seat">
-                                                        40 / 45 석
-                                                    </span>
-                                                </button>
-                                                <button class="tablinks select_bus_btn" onclick="openBus(event, '04')">
-                                                    <span class="select_bus_time">02월 24일(월) </span>
-                                                    <span class="select_bus_name">
-                                                        충남고속 (11가 1234)
-                                                    </span>
-                                                    <span class="select_bus_seat">
-                                                        40 / 45 석
-                                                    </span>
-                                                </button>
-
                                             </div>
                                         </div>
 
@@ -176,11 +117,11 @@
                                                 <div class="seat_table">
                                                     <dl>
                                                         <dt>선택된 좌석</dt>
-                                                        <dd>01번, 02번</dd>
+                                                        <dd id="selected_seats_num">　</dd>
                                                     </dl>
                                                     <dl>
                                                         <dt>좌석 개수</dt>
-                                                       <dd>2개</dd>
+                                                        <dd id="selected_seats_cnt">　</dd>
                                                     </dl>
                                                     
                                                     <button class="reload_btn"><img src="img/reservation/reload.png" alt="새로고침"> <p>좌석 새로고침</p></button>
@@ -232,21 +173,21 @@
                                 </dl>
                                 <dl>
                                     <dt>좌석개수</dt>
-                                    <dd>1개</dd>
+                                    <dd id="payment_seats_cnt">1개</dd>
                                 </dl>
                                 <dl>
                                     <dt>좌석번호</dt>
-                                    <dd>01번</dd>
+                                    <dd id="payment_seats_nums">01번</dd>
                                 </dl>
                             </div>
                             <div class="price">
                                 <dl>
                                     <dt>예매금액</dt>
-                                    <dd>100,000원</dd>
+                                    <dd id="original_price">100,000</dd>
                                 </dl>
                                 <dl class="price_sale">
                                     <dt>할인금액</dt>
-                                    <dd>-100,000원</dd>
+                                    <dd id="sale_price">-100,000원</dd>
                                 </dl>
                                 <dl class="total_dl">
                                     <dt>총 결제금액</dt>
@@ -394,15 +335,20 @@
     <script src="js/lib/jquery.seat-charts.js"></script>
     <script src="js/lib/bootstrap.js"></script>
     <script src="js/lib/bootstrap.min.js"></script>
-    <script src="js/lib/angular.min.js"></script>
-    <script src="js/booking.js"></script>
+    <script src="js/lib/angular.min.js"></script>    
 
     <script>
         var firstSeatLabel = 1;
         $(document).ready(function() {
+            let selected_seats_cnt = 0,
+                selected_seats = [];
             var $cart = $('#selected-seats'),
-                $counter = $('#counter'),
-                $total = $('#total'),
+                $nums = $('#selected_seats_num'),
+                $counter = $('#selected_seats_cnt'),
+                $origin_price = $('#original_price'),
+                $sale_price = $('#sale_price'),
+                $payment_seats_cnt = $('#payment_seats_cnt')
+                $payment_seats_nums = $('#payment_seats_nums')
                 sc = $('.seat-map').seatCharts({
                     map: [
                         'ee_ee',
@@ -418,13 +364,8 @@
                         'eeeee',
                     ],
                     seats: {
-                        f: {
-                            price: 100,
-                            classes: 'first-class', //your custom CSS class
-                            category: 'First Class'
-                        },
                         e: {
-                            price: 40,
+                            price: 30000,
                             classes: '일반', //your custom CSS class
                             category: '일반'
                         }
@@ -446,31 +387,34 @@
                     },
                     click: function() {
                         if (this.status() == 'available') {
-                            //let's create a new <li> which we'll add to the cart items
-                            $('<li>' + this.data().category + ' 좌석번호 ' + this.settings.label + '</b> <a href="#" class="cancel-cart-item">[취소]</a></li>')
-                                .attr('id', 'cart-item-' + this.settings.id)
-                                .data('seatId', this.settings.id)
-                                .appendTo($cart);
+                            if( selected_seats_cnt >=4){
+                                alert("최대 4개까지 선택가능합니다.");
+                                return this.style();
+                            }
+                            selected_seats_cnt = sc.find('selected').length + 1;
+                            selected_seats.push( this.settings.label );
+                            
+                            $nums.text('　'.concat( selected_seats.join('번, ')+'번' ) );
+                            $payment_seats_nums.text( selected_seats.join('번, ')+'번' );
 
-                            /*
-                             * Lets update the counter and total
-                             *
-                             * .find function will not find the current seat, because it will change its stauts only after return
-                             * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
-                             */
-                            $counter.text(sc.find('selected').length + 1);
-                            $total.text(recalculateTotal(sc) + this.data().price);
-
+                            $counter.text('　'.concat( sc.find('selected').length + 1) );
+                            $payment_seats_cnt.text( sc.find('selected').length + 1 );
+                            $origin_price.text( formatNumber(recalculateTotal(sc) + this.data().price) + '원');
+                            $sale_price.text('-' + formatNumber(recalculateTotal(sc) + this.data().price) + '원' );
                             return 'selected';
                         } else if (this.status() == 'selected') {
-                            //update the counter
-                            $counter.text(sc.find('selected').length - 1);
-                            //and total
-                            $total.text(recalculateTotal(sc) - this.data().price);
+                            selected_seats_cnt = sc.find('selected').length - 1;
+                            
+                            let idx = selected_seats.indexOf( this.settings.label );
+                            selected_seats.splice(idx, 1);
+                            $nums.text( '　'.concat( selected_seats.join('번, ')+'번' ) );
+                            $payment_seats_nums.text( selected_seats.join('번, ')+'번' );
 
-                            //remove the item from our cart
-                            $('#cart-item-' + this.settings.id).remove();
-
+                            $counter.text('　'.concat( sc.find('selected').length - 1 ) );
+                            $payment_seats_cnt.text( sc.find('selected').length - 1);
+                            $origin_price.text( formatNumber(recalculateTotal(sc) - this.data().price) + '원' );
+                            $sale_price.text('-' + formatNumber(recalculateTotal(sc) - this.data().price) + '원' );
+                            
                             //seat has been vacated
                             return 'available';
                         } else if (this.status() == 'unavailable') {
@@ -580,7 +524,13 @@
         /*if the user clicks anywhere outside the select box,
         then close all select boxes:*/
         document.addEventListener("click", closeAllSelect);
-    </script>
+
+    // 숫자 천단위 , 찍어주는 function
+    function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
+
+</script>
 
 
     <!--select_bus_btn js-->
