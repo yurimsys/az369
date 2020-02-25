@@ -43,10 +43,10 @@
                                         <ul>
                                             <li>
                                                 <div class="location_select01 location_select">
-                                                    <select>
+                                                    <select id="depart01">
                                                         <option value="0">지역 / 출발시간</option>
-                                                        <option value="1">평택 22:00</option>
-
+                                                        <option value="2200">평택 22:00</option>
+                                                        <option value="2300">평택 23:00</option>
                                                     </select>
                                                 </div>
                                             </li>
@@ -56,10 +56,10 @@
 
                                             <li>
                                                 <div class="location_select02 location_select">
-                                                    <select>
+                                                    <select id="depart02">
                                                         <option value="0">지역 / 출발시간</option>
-                                                        <option value="1">서울 동대문 04:00</option>
-
+                                                        <option value="0400">서울 동대문 04:00</option>
+                                                        <option value="0500">서울 동대문 05:00</option>
                                                     </select>
                                                 </div>
                                             </li>
@@ -224,6 +224,38 @@
         </section>
 
         <script>
+            $(document).ready(function(){
+                
+                $("#depart01,#depart02").change(function(){
+                    alert("dddd");
+                    $.ajax({
+                    url: "api/user/resCarList",
+                    method: "get",
+                    dataType: "json",
+                    data : {'sel': $("#depart01 option:selected").val(), 'sel2' : $("#depart02 option:selected").val()},
+                    success: function(res){
+                        console.log(res);
+                        //ct_id, deptte, ctcarnum, seatnum, total
+                        }
+                    });
+                
+                });
+
+                
+               
+            
+    
+    
+            });
+            
+            
+        </script>
+
+
+
+
+
+        <script>
             function openBus(evt, busSeat) {
                 var i, tabcontent, tablinks;
                 tabcontent = document.getElementsByClassName("tabcontent");
@@ -244,6 +276,7 @@
 
         <!--<footer></footer>-->
     </div>
+    
 
     <script>
         'use sctrict';

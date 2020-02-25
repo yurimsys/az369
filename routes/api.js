@@ -5,6 +5,8 @@ const mysql = require('mysql');
 const dbconf = require('../config/database');
 const connection = mysql.createConnection(dbconf);
 const bcrypt = require('bcrypt');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -224,13 +226,13 @@ router.post('/user/lookUp', (req, res, next) =>{
         
 });
 
-//마이페이지 본인 비밀번호 확인  ** 세션
-router.post('/user/confirm', auth.isLoggedIn, (req, res, next) =>{1
+ //마이페이지 본인 비밀번호 확인
+router.post('/user/confirm', auth.isLoggedIn, (req, res, done) =>{
 
     //console.log(req.body.pw);
     let uPw = req.body.pw
     let uId = req.user.U_UserName
-    console.log(uPw);
+    console.log("비밀번호",uPw);
     console.log("내 아이이디 :",req.user.U_UserName);
     let query = "select U_Pw from tU where U_UserName =:uId and U_Pw =:uPw";
     
@@ -238,16 +240,18 @@ router.post('/user/confirm', auth.isLoggedIn, (req, res, next) =>{1
         {          
             uId, uPw                   
         },
-        function(err, rows, fields) {
-            if (err) throw err;          
-             
-            //console.log(findId);
+        function(err, rows) {
             
-            res.json( {  data : rows[0]});
-            console.log(rows);
-        });
-        
-});
+            if (err) {return done(err);}
+            if( !bcrypt.compareSync(uPw, req.user.U_Pw) ){
+                console.log("확인");
+                res.json({data: "실패"});
+                return done( null, false, {message: "ID와 Password를 확인해주세요"} );
+            } else {
+                res.json( {  data : "성공"});
+            }           
+        });      
+}); 
 
 
 //마이페이지 정보 수정
@@ -258,20 +262,22 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     //             U_Zip = :?, U_Addr1 = :?, U_Addr2 = :? WHERE U_UserName =:UserName`;           
 
     let uUserName = req.user.U_UserName;
-    let uPw = req.body.pw;
     let uPhone = req.body.phone;
     let uBrand = req.body.brand;
     let uZip = req.body.postcode;
     let uAddr1 = req.body.address;
     let uAddr2 = req.body.detailAddress;
-    
-    console.log(uUserName, uPw, uPw, uBrand, uZip, uAddr1, uAddr2);
+    let password = req.body.pw;
+    let hash_pw = bcrypt.hashSync(password, 10, null);
+    console.log("유저아이디 :", uUserName);
+    console.log("password :", password);
+    console.log("hash :", hash_pw);
 
-    let query = `UPDATE tU SET U_Pw = :uPw, U_Phone = :uPhone, U_Brand = :uBrand,
-                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2 WHERE U_UserName =:uUserName`;
+    let query = `UPDATE tU SET U_Pw = :hash_pw, U_Phone = :uPhone, U_Brand = :uBrand,
+                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
     connection.query(query, 
         {          
-            uPw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName
+            hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName
                               
         },
         function(err, rows, fields) {
@@ -279,32 +285,53 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
              
             //console.log(findId);
             
-            res.json( {  data : rows[0]});
+            res.json( {  data : "성공"});
             console.log(rows);
         });
         
 });
 
+
 //회원탈퇴
-router.post('/user/deleteUser', auth.isLoggedIn, (req, res, next) =>{
-    let query = `delete from tU where U_UserName = :uUserName`;   
-    console.log(req.body);
+router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
+    let query = `delete from tU where U_UserName = :uUserName`;    
     let uUserName = req.user.U_UserName;
+    let uPw = req.body.pw;
+    console.log("id :", uUserName);
+    console.log("pw :", uPw);    
+    if( !bcrypt.compareSync(uPw, req.user.U_Pw) ){
+        res.json({data : "실패"});
+    } else {
+        connection.query(query,{uUserName},
+            function(){
+                req.logout();
+                res.json( {  data : "성공"});
+            })
+    }        
+        
+});
+
+//회원 예약유무 
+router.post('/user/delchoice',  auth.isLoggedIn, (req, res, next) =>{
+   
+    let query = `select * from tCR where CR_U_ID = :sessionId AND CR_Cancel = 'N' 
+                AND (select CT_DepartureTe from tCT where tCT.CT_ID = tCR.CR_CT_ID) > now()`;
+    let sessionId = req.user.U_ID;
+
+    console.log(req.body);
     connection.query(query, 
         {          
-            uUserName
-                               
+            sessionId
         },
         function(err, rows, fields) {
             if (err) throw err;          
              
-            //console.log(findId);
-            req.logOut();            
-            res.json( {  data : "삭제"});
-        });
-        
+            // //console.log(findId);
+            res.json( {  data : rows});
+            console.log("rows :",rows);
+            
+        });       
 });
-
 //마이페이지 예매 및 결제내역
 router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
@@ -436,6 +463,40 @@ router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
         function(err, rows, fields) {
             if (err) throw err;          
              
+            // //console.log(findId);
+            res.json( {  data : rows});
+            console.log("rows : ",rows);
+            
+        });
+        
+});
+
+//장차예매 리스트
+//마이페이지 취소 및 환불조회
+router.get('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
+    let query = `select 
+                    CT_ID,
+                    date_format(tCT.CT_DepartureTe,'%m%d') as deptTe,
+                    CT_CarNum,
+                    (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = :crCancel) as seatNum,
+                    (select CY_Totalpassenger from tCY where tCY.CY_ID = tCT.Ct_CY_ID) as total
+                from tCT
+                where date_format(CT_DepartureTe,'%H%i') = :deptTe AND date_format(CT_ReturnTe,'%H%i') = :retuTe`;
+
+    let sessionId = req.user.U_ID;
+    let crCancel = 'N';
+    let deptTe = req.body.sel;
+    let retuTe = req.body.sel2;
+    console.log("deptTe :", deptTe);
+    console.log("retuTe :", retuTe);
+
+    connection.query(query, 
+        {          
+            crCancel, deptTe, retuTe
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;                       
             // //console.log(findId);
             res.json( {  data : rows});
             console.log("rows : ",rows);

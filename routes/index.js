@@ -60,10 +60,10 @@ router.get('/complate', auth.isLoggedIn, function(req, res, next){
 router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
     let sessionId = req.user.U_ID;
     let crCancel = "N";
-    let query = `SELECT * FROM tCT 
+    let query = `SELECT * FROM tCT    
                   INNER JOIN tCR 
                   ON tCT.CT_ID = tCR.CR_CT_ID WHERE tCR.CR_Cancel = :crCancel AND tCR.CR_U_ID = :sessionId
-                  AND tCT.CT_DepartureTe < now() order by tCT.CT_DepartureTe desc`; //서비스 후 > now() 변경
+                  AND tCT.CT_DepartureTe > now() order by tCT.CT_DepartureTe desc`; //서비스 후 > now() 변경
     connection.query(query, { sessionId, crCancel},
       function(err, rows, fields) {
           if (err) throw err;

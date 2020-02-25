@@ -15,7 +15,7 @@
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
-                <div class="modify_field">
+                <div class="box">
                     <h6>내정보 수정</h6>
                 <h1 style="font-family: 'PT Serif', serif;">MODIFY</h1>
                 <div class="bar"></div>
@@ -69,7 +69,6 @@
     </div>
 
     <script>
-   console.log($("#myId").val());
     
     //console.log("myId :", myId);
         //비밀번호 확인 
@@ -84,11 +83,11 @@
                 data: {pw : $("#pw").val()},
                 success: function(res){
                     console.log(res);                   
-                    if(res.data === undefined){ 
+                    if(res.data === "실패"){ 
                         alert ( "비밀번호 오류입니다.");  
                         location.reload();
                         
-                    } else if(res.data.U_Pw === $("#pw").val()){
+                    } else if(res.data === "성공"){
                         location.href = "modify2"
                         
                     }                    
