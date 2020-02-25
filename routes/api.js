@@ -4,6 +4,7 @@ const auth = require('../config/passport');
 const mysql = require('mysql');
 const dbconf = require('../config/database');
 const connection = mysql.createConnection(dbconf);
+const bcrypt = require('bcrypt');
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -45,10 +46,13 @@ router.post('/user/join', (req, res, next) =>{
             values( :uUserName,  :uPw,  :uName,  :uPhone , :uEmail, :uBrand,  :uZip,  :uAddr1,  :uAddr2)`;
     //console.log(req.body);
 
+    let password = req.body.password;
+    let hash_pw = bcrypt.hashSync(password, 10, null);
+    
     connection.query(query, 
         {
             uUserName : req.body.id,
-            uPw : req.body.password,
+            uPw : hash_pw,
             uName : req.body.name,
             uPhone : req.body.phone,
             uEmail : req.body.email,
