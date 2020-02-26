@@ -3,14 +3,14 @@
 
 <head>
     <% include templates/head.ejs %>
-    <link rel="stylesheet" href="css/reservation_01.css">
+    <link rel="stylesheet" href="/css/reservation_01.css">
 
     <!--reservation css link-->
-    <link rel="stylesheet" type="text/css" href="css/lib/jquery.seat-charts.css">
-    <link rel="stylesheet" type="text/css" href="css/lib/booking.css">
-    <!--<link rel="stylesheet" type="text/css" href="css/lib/bootstrap.min.css">-->
-    <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-theme.css">
-    <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/lib/jquery.seat-charts.css">
+    <link rel="stylesheet" type="text/css" href="/css/lib/booking.css">
+    <!--<link rel="stylesheet" type="text/css" href="/css/lib/bootstrap.min.css">-->
+    <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-theme.min.css">
     
 
 </head>
@@ -50,7 +50,7 @@
                                                     </select>
                                                 </div>
                                             </li>
-                                            <li><img src="img/reservation/location_icon.png" alt="왕복 아이콘">
+                                            <li><img src="/img/reservation/location_icon.png" alt="왕복 아이콘">
 
                                             </li>
 
@@ -124,7 +124,7 @@
                                                         <dd id="selected_seats_cnt">　</dd>
                                                     </dl>
                                                     
-                                                    <button class="reload_btn"><img src="img/reservation/reload.png" alt="새로고침"> <p>좌석 새로고침</p></button>
+                                                    <button class="reload_btn"><img src="/img/reservation/reload.png" alt="새로고침"> <p>좌석 새로고침</p></button>
                                                     
                                                     <!--pupop PC 버튼-->
                                             <a href="#payment" class="payment_open">예매하기</a>
@@ -203,22 +203,19 @@
                                     · 출발일 4일전, 적정 인원수가 부족하면 차량이 변경될 수 있습니다.
                                 </p>
                             </div>
-
+                            
                             <ul class="payment_btn">
                                 <li>
                                     <a href="#" class="payment_close1 payment_close">취소</a>
                                 </li>
 
                                 <li>
-                                    <a href="/complate" class="payment_close2 payment_close">결제하기</a>
+                                    <a onclick="processPayment()" class="payment_close2 payment_close">결제하기</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
 
         </section>
@@ -368,24 +365,25 @@
 
 
     <!--reservation 스크립트-->
-    <script src="js/lib/jquery-1.11.0.min.js"></script>
-    <script src="js/lib/jquery.seat-charts.js"></script>
-    <script src="js/lib/bootstrap.js"></script>
-    <script src="js/lib/bootstrap.min.js"></script>
-    <script src="js/lib/angular.min.js"></script>    
+    <script src="/js/lib/jquery-1.11.0.min.js"></script>
+    <script src="/js/lib/jquery.seat-charts.js"></script>
+    <script src="/js/lib/bootstrap.js"></script>
+    <script src="/js/lib/bootstrap.min.js"></script>
+    <script src="/js/lib/angular.min.js"></script>    
 
     <script>
         var firstSeatLabel = 1;
+        var selected_seats = [];
+        var selected_seats_cnt = 0;
         $(document).ready(function() {
-            let selected_seats_cnt = 0,
-                selected_seats = [];
+
             var $cart = $('#selected-seats'),
                 $nums = $('#selected_seats_num'),
                 $counter = $('#selected_seats_cnt'),
                 $origin_price = $('#original_price'),
                 $sale_price = $('#sale_price'),
-                $payment_seats_cnt = $('#payment_seats_cnt')
-                $payment_seats_nums = $('#payment_seats_nums')
+                $payment_seats_cnt = $('#payment_seats_cnt'),
+                $payment_seats_nums = $('#payment_seats_nums'),
                 sc = $('.seat-map').seatCharts({
                     map: [
                         'ee_ee',
@@ -430,28 +428,36 @@
                             }
                             selected_seats_cnt = sc.find('selected').length + 1;
                             selected_seats.push( this.settings.label );
-                            
-                            $nums.text('　'.concat( selected_seats.join('번, ')+'번' ) );
-                            $payment_seats_nums.text( selected_seats.join('번, ')+'번' );
+                            let origin_price = recalculateTotal(sc) + this.data().price;
+
+                            $nums.text('　'.concat( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) ) );
+                            $payment_seats_nums.text( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) );
 
                             $counter.text('　'.concat( sc.find('selected').length + 1) );
                             $payment_seats_cnt.text( sc.find('selected').length + 1 );
-                            $origin_price.text( formatNumber(recalculateTotal(sc) + this.data().price) + '원');
-                            $sale_price.text('-' + formatNumber(recalculateTotal(sc) + this.data().price) + '원' );
+                            $origin_price.text( formatNumber(origin_price) + '원');
+                            $origin_price.data( 'price', origin_price);
+                            $sale_price.text('-' + formatNumber(origin_price) + '원' );
+                            $sale_price.data( 'price', origin_price);
+
                             return 'selected';
                         } else if (this.status() == 'selected') {
                             selected_seats_cnt = sc.find('selected').length - 1;
-                            
                             let idx = selected_seats.indexOf( this.settings.label );
                             selected_seats.splice(idx, 1);
-                            $nums.text( '　'.concat( selected_seats.join('번, ')+'번' ) );
-                            $payment_seats_nums.text( selected_seats.join('번, ')+'번' );
+
+                            let origin_price = recalculateTotal(sc) - this.data().price;
+
+                            $nums.text( '　'.concat( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) ) );
+                            $payment_seats_nums.text( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) );
 
                             $counter.text('　'.concat( sc.find('selected').length - 1 ) );
                             $payment_seats_cnt.text( sc.find('selected').length - 1);
-                            $origin_price.text( formatNumber(recalculateTotal(sc) - this.data().price) + '원' );
-                            $sale_price.text('-' + formatNumber(recalculateTotal(sc) - this.data().price) + '원' );
-                            
+                            $origin_price.text( formatNumber(origin_price) + '원' );
+                            $origin_price.data( 'price', origin_price);
+                            $sale_price.text('-' + formatNumber(origin_price) + '원' );
+                            $sale_price.data( 'price', origin_price);
+
                             //seat has been vacated
                             return 'available';
                         } else if (this.status() == 'unavailable') {
@@ -567,24 +573,28 @@
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     }
 
+    function processPayment(){
+        let origin_price = $("#original_price").data('price');
+        let sale_price = $("#sale_price").data('price');
+        let ct_id = 1;
+
+        $.ajax({
+            method  : "POST",
+            dataType: "json",
+            url     : "/api/payment",
+            data    : {
+                "seatNums"  : selected_seats,
+                "oPrice"    : origin_price,
+                "sPrice"    : sale_price,
+                "ct_id"     : ct_id
+            }
+        }).done((result)=>{
+            
+            sessionStorage.setItem("price", result.price);
+            location.href = "/complate";
+        });
+    }
+
 </script>
-
-
-    <!--select_bus_btn js-->
-    <!--<script>
-        var header = document.getElementById("select_bus_list");
-        var btns = header.getElementsByClassName("select_bus_btn");
-        for (var i = 0; i < btns.length; i++) {
-            btns[i].addEventListener("click", function() {
-                var current = document.getElementsByClassName("active");
-                current[0].className = current[0].className.replace(" active", "");
-                this.className += " active";
-            });
-        }
-    </script>-->
-
-
-
-
 
 </body></html>

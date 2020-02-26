@@ -19,6 +19,13 @@ connection.config.queryFormat = function (query, values) {
     }.bind(this));
 };
 
+connection.on('error', function(err) {
+    console.log('------ on error!');
+    console.log(err);
+});
+// let a = connection.query('select * from tu where u_id =2');
+
+// debugger;
 router.post('/user/phone', (req, res, next) => {
   
     let query  = "update tU set u_phone = :newPhone where u_name = :name";
@@ -463,12 +470,53 @@ router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
         function(err, rows, fields) {
             if (err) throw err;          
              
-            // //console.log(findId);
             res.json( {  data : rows});
             console.log("rows : ",rows);
             
         });
         
+});  
+
+//결제완료
+router.post('/payment', (req, res) =>{
+    req.user = {};
+    req.user.U_ID = 2;
+
+    console.log(req.body);
+    //test
+    
+    let str_values_list = [],
+        str_values ="",
+        seatNums = req.body['seatNums[]'],
+        ct_id = 1,
+        oPrice = req.body.oPrice,
+        sPrice = req.body.sPrice;
+    
+    let query = `
+        INSERT INTO tCR
+            (CR_CT_ID, CR_U_ID, CR_SeatNum, CR_OPrice, CR_SPrice, CR_Price, CR_PMethod)
+        VALUES
+    `;
+    
+    if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
+        seatNums.map((seatNum)=>{
+            str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${seatNum}, ${oPrice}, ${sPrice}, ${(oPrice-sPrice)}, '신용카드')`);
+        });
+        str_values = str_values_list.join(', ');
+    } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
+        str_values = `(${ct_id}, ${req.user.U_ID}, ${seatNums}, ${oPrice}, ${sPrice}, ${(oPrice-sPrice)}, '신용카드')`;
+    }
+
+    query += str_values;
+
+    connection.query(query, null,
+        function(err, result) {
+            if(err) throw err;
+            
+            res.json({ 
+                price : (oPrice - sPrice)
+            });
+        });
 });
 
 //장차예매 리스트

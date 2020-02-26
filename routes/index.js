@@ -174,4 +174,38 @@ router.get('/benefit_4', function(req, res, next) {
 router.get('/daytest', function(req, res, next) {
     res.render('daytest', { sessionUser : req.user });
 });
+
+//결제완료
+router.post('/complate', auth.isLoggedIn, (req, res) =>{
+    
+    let seatNums = 16,
+        oPrice = 30000,
+        sPrice = 30000;
+    
+    let query = `
+        INSERT INTO tCR
+            (CR_CT_ID, CR_U_ID, CR_SeatNum, CR_OPrice, CR_SPrice, CR_Price, CR_PMethod)
+        VALUES
+            (:ct_id, :u_id, :seatNum, :oPrice, :sPrice, :Price, '신용카드')
+    `;
+    
+    connection.query(query,
+        {
+            ct_id   : 1,
+            u_id    : req.user.U_ID,
+            seatNum : seatNums,
+            oPrice  : oPrice,
+            sPrice  : sPrice,
+            Price   : (oPrice - sPrice)
+        },
+        function(err, result) {
+            if(err) throw err;
+            
+            res.render('reservation_02',{ 
+                sessionUser : req.user,
+                price : (oPrice - sPrice)
+            });
+        });
+});
+
 module.exports = router;

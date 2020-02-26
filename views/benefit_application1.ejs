@@ -9,8 +9,10 @@
 
 <body>
     <div class="wrap">
-            <% include templates/header.ejs %>
-            <!--section.main 시작-->
+
+        <% include templates/header.ejs %>
+        <!--section.main 시작-->
+
 
         <section class="main">
             <div class="inner_main">
@@ -55,27 +57,27 @@
                         <ul>
                             <li>
                                 <label for="name">이름</label>
-                                <input type="text" id="name" name="name" placeholder="이름">
+                                <input type="text" id="name" name="이름" placeholder="이름">
                             </li>
 
                             <li>
                                 <label for="phone">휴대전화</label>
-                                <input type="text" id="phone" name="phone" placeholder="예시) 010 ⋯">
+                                <input type="text" id="phone" name="휴대전화" placeholder="예시) 010 ⋯">
                             </li>
 
                             <li>
                                 <label for="brand">브랜드명</label>
-                                <input type="text" id="brand" name="brand" placeholder="브랜드명">
+                                <input type="text" id="brand" name="브랜드명" placeholder="브랜드명">
                             </li>
 
                             <li>
                                 <label for="address">매장 주소</label>
-                                <input type="text" id="address" name="address" placeholder="예시) 경기도 평택시 비전1동 ⋯">
+                                <input type="text" id="address" name="주소" placeholder="예시) 경기도 평택시 비전1동 ⋯">
                             </li>
 
                             <li>
                                 <label for="address">문의사항</label>
-                                <textarea name="memo" id="memo" cols="30" rows="5" placeholder="문의하실 내용을 간략히 입력해주세요."></textarea>
+                                <textarea name="비고" id="memo" cols="30" rows="5" placeholder="문의하실 내용을 간략히 입력해주세요."></textarea>
                             </li>
                         </ul>
 
@@ -86,16 +88,16 @@
                 <div class="apply_check">
                     <h3>제출여부조회</h3>
 
-                    <form>
+                    <form action="/action_page.php">
                         <ul>
                             <li>
                                 <label for="name">이름</label>
-                                <input type="text" id="name2" name="name" placeholder="이름">
+                                <input type="text" id="name2" name="이름" placeholder="이름">
                             </li>
 
                             <li>
                                 <label for="phone">휴대전화</label>
-                                <input type="text" id="phone2" name="phone" placeholder="예시) 010 ⋯">
+                                <input type="text" id="phone2" name="휴대전화" placeholder="예시) 010 ⋯">
                             </li>
                         </ul>
                     </form>
@@ -105,12 +107,12 @@
                             제출여부조회
                         </a>
                     </div>
-
+                   
                     <div id="popup" class="layer">
                         <div class="popup_box">
                                <div class="popup_header">제출여부 확인</div>
                                <h5><span>문의날짜</span> <br><h5 id="applyDate"></h5></h5>
-                                <p>입점상담신청 문의가 성공적으로 보내졌습니다.<br>빠른시일 내에 연락드리겠습니다.</p>
+                                <p>입점상담신청 문의가 성공적으로 보내졌습니다. <br> 빠른시일 내에 연락드리겠습니다.</p>
 
                             <div class="popup_btn">
                                 <a href="benefit_application" class="popup_close">닫기</a>
@@ -118,76 +120,87 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-            <script>
-                let nowData = 0;
-    
-                //입점상담신청
-               function applyCon(){
-                if($('#name').val() == "" || $('#phone').val()=='' || $('#brand').val()=='' || $('#address').val()=='' || $('#memo').val()==''){
+
+
+
+                
+
+
+            </div>
+
+
+
+        </section>
+        <script>
+            let nowData = 0;
+
+            //입점상담신청
+           function applyCon(){
+            if($('#name').val() == "" || $('#phone').val()=='' || $('#brand').val()=='' || $('#address').val()=='' || $('#memo').val()==''){
+                alert("빈칸을 입력해 주세요");
+                return;
+            }
+            $.ajax({
+                url: "api/user/benefitApply",
+                dataType: "json",
+                method: "post",
+                data: {
+                    name : $("#name").val(),
+                    phone : $("#phone").val(),
+                    brand : $("#brand").val(),
+                    address : $("#address").val(),
+                    memo : $("#memo").val()
+                },
+                success: function(){
+                    alert("신청이 완료되었습니다. \n빠른시일내 연락드리겠습니다.");
+                    location.reload();
+                }
+
+            })
+           }
+           //제출여부조회
+           function lookUp(){
+                if($('#name2').val() == "" || $('#phone2').val()==''){
                     alert("빈칸을 입력해 주세요");
                     return;
                 }
-                $.ajax({
-                    url: "api/user/benefitApply",
-                    dataType: "json",
-                    method: "post",
-                    data: {
-                        name : $("#name").val(),
-                        phone : $("#phone").val(),
-                        brand : $("#brand").val(),
-                        address : $("#address").val(),
-                        memo : $("#memo").val()
-                    },
-                    success: function(){
-                        alert("신청이 완료되었습니다. \n빠른시일내 연락드리겠습니다.");
-                        location.reload();
-                    }
-    
-                })
-               }
-               //제출여부조회
-               function lookUp(){
-                    if($('#name2').val() == "" || $('#phone2').val()==''){
-                        $(".layer").hide();
-                        alert("빈칸을 입력해 주세요");    
-                        location.reload();    
-                               
-                    }
-    
-                    $.ajax({
-                       url: "api/user/lookUp",
-                       method: "post",
-                       dataType: "json",
-                       data: {
-                           name: $("#name2").val(),
-                           phone: $("#phone2").val()
-                       },
-                       success: function(res){
 
-                        if(res.data === undefined){
-                            alert("이름 혹은 휴대전화가 틀리거나 제출하시지 않으셨습니다.");
-                            location.reload();                                                                       
-                        }else if(res.data.SI_cDt != ""){  
-                            $("#applyDate").append(res.data.SI_cDt);                          
-                            location.href="#popup"; 
-                           
-                            
-                        }
-                       
-                           
+                $.ajax({
+                   url: "api/user/lookUp",
+                   method: "post",
+                   dataType: "json",
+                   data: {
+                       name: $("#name2").val(),
+                       phone: $("#phone2").val()
+                   },
+                   success: function(res){
+
+                    if(res.data === undefined){                           
+                        alert ("신청하지 않으셨거나 이름 혹은 전화번호가 다릅니다.");
+                        location.href="benefit_application";                       
+                    } else if(res.data.U_UserName != ""){                        
+                        var applyDay = res.data.SI_cDt;
+                        console.log("aaap :", applyDay);
                         
-                                     
-                       }
-    
-    
-                    });
-               }
-       
-            </script>
-       
+                        //console.log("now :",nowDay[0]);
+                        $("#applyDate").append(applyDay);
+                        //$("#popup").attr();
+                        //console.log("nonono :", nowData);
+                       
+
+                    }
+                                 
+                   }
+
+
+                });
+           }
+
+           
+
+        </script>
+
         <!--//secton.about 완료-->
 
         <script>
