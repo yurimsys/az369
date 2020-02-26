@@ -520,16 +520,16 @@ router.post('/payment', (req, res) =>{
 });
 
 //장차예매 리스트
-//마이페이지 취소 및 환불조회
+//마이페이지 취소 및 환불조회 //,'%m%d'
 router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
     let query = `select 
                     CT_ID,
-                    date_format(tCT.CT_DepartureTe,'%m%d') as deptTe,
+                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d') as deptTe,
                     CT_CarNum,
                     (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = :crCancel) as seatNum,
                     (select CY_Totalpassenger from tCY where tCY.CY_ID = tCT.Ct_CY_ID) as total
                 from tCT
-                where date_format(CT_DepartureTe,'%H%i') = :deptTe AND date_format(CT_ReturnTe,'%H%i') = :retuTe`;
+                where date_format(CT_DepartureTe,'%H%i') = :deptTe AND date_format(CT_ReturnTe,'%H%i') = :retuTe order by tCT.CT_DepartureTe asc`;
 
     let sessionId = req.user.U_ID;
     let crCancel = 'N';

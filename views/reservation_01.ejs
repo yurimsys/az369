@@ -221,9 +221,13 @@
         </section>
 
         <script>
-       
+
+               
+                
+                    
                     
                 $('#timeSelect01, #timeSelect02').click(function(){
+                    $(".tab").empty();
                     //alert($("#depart01").val());
                     //alert($("#depart02").val());
                     console.log($("#depart01").val())
@@ -236,8 +240,17 @@
                     success: function(res){
                         console.log(res.data.length);
                         for(let i=0; i<res.data.length; i++){
-                            let html = "<button class='tablinks' onclick='openBus(event, "+0+res.data[i].CT_ID+")'>";
-                                html += "<span class='select_bus_time'>"+res.data[i].deptTe+"</span>";
+                            function getInputDayLabel() {                   
+                                var week = new Array('일', '월', '화', '수', '목', '금', '토');                         
+                                var today = new Date(res.data[i].deptTe).getDay();
+                                var todayLabel = week[today];                          
+                                return todayLabel;
+                            }
+                            
+                            console.log("요일",getInputDayLabel());  
+                        
+                            let html = "<button class='tablinks' onclick='openBus(event, \""+0+res.data[i].CT_ID+"\")'>";
+                                html += "<span class='select_bus_time'>"+res.data[i].deptTe+'\t'+getInputDayLabel()+"</span>";
                                 html += "<span class='select_bus_name'>"+res.data[i].CT_CarNum+"</span>";
                                 html += " <span class='select_bus_seat'>"+(res.data[i].total - res.data[i].seatNum)+" / "+res.data[i].total+"</span>";
                                 $(".tab").append(html);
@@ -246,7 +259,8 @@
                         }
                     });
                 })
-                                          
+
+                                
               
             
             
