@@ -42,7 +42,7 @@
                                         <h4>1. 지역 및 시간 선택 <span style="color: #777; font-weight: normal; font-size: 16px;">(왕복)</span></h4>
                                         <ul>
                                             <li>
-                                                <div class="location_select01 location_select">
+                                                <div class="location_select01 location_select" id="timeSelect01">
                                                     <select id="depart01">
                                                         <option value="0">지역 / 출발시간</option>
                                                         <option value="2200">평택 22:00</option>
@@ -55,7 +55,7 @@
                                             </li>
 
                                             <li>
-                                                <div class="location_select02 location_select">
+                                                <div class="location_select02 location_select" id="timeSelect02">
                                                     <select id="depart02">
                                                         <option value="0">지역 / 출발시간</option>
                                                         <option value="0400">서울 동대문 04:00</option>
@@ -81,7 +81,7 @@
                                             </div>
 
                                             <div class="tab">
-                                                <button class="tablinks" onclick="openBus(event, '01')">
+                                                <!-- <button class="tablinks" onclick="openBus(event, '01')">
                                                     <span class="select_bus_time">02월 24일(월) </span>
                                                     <span class="select_bus_name">
                                                         충남고속 (11가 1234)
@@ -89,7 +89,7 @@
                                                     <span class="select_bus_seat">
                                                         40 / 45 석
                                                     </span>
-                                                </button>
+                                                </button> -->
                                             </div>
                                         </div>
 
@@ -224,29 +224,33 @@
         </section>
 
         <script>
-            $(document).ready(function(){
-                
-                $("#depart01,#depart02").change(function(){
-                    alert("dddd");
+       
+                    
+                $('#timeSelect01, #timeSelect02').click(function(){
+                    //alert($("#depart01").val());
+                    //alert($("#depart02").val());
+                    console.log($("#depart01").val())
+                    console.log($("#depart02").val())
                     $.ajax({
                     url: "api/user/resCarList",
-                    method: "get",
+                    method: "post",
                     dataType: "json",
                     data : {'sel': $("#depart01 option:selected").val(), 'sel2' : $("#depart02 option:selected").val()},
                     success: function(res){
-                        console.log(res);
+                        console.log(res.data.length);
+                        for(let i=0; i<res.data.length; i++){
+                            let html = "<button class='tablinks' onclick='openBus(event, "+0+res.data[i].CT_ID+")'>";
+                                html += "<span class='select_bus_time'>"+res.data[i].deptTe+"</span>";
+                                html += "<span class='select_bus_name'>"+res.data[i].CT_CarNum+"</span>";
+                                html += " <span class='select_bus_seat'>"+(res.data[i].total - res.data[i].seatNum)+" / "+res.data[i].total+"</span>";
+                                $(".tab").append(html);
+                        }
                         //ct_id, deptte, ctcarnum, seatnum, total
                         }
                     });
-                
-                });
-
-                
-               
-            
-    
-    
-            });
+                })
+                                          
+              
             
             
         </script>

@@ -473,7 +473,7 @@ router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
 
 //장차예매 리스트
 //마이페이지 취소 및 환불조회
-router.get('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
+router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
     let query = `select 
                     CT_ID,
                     date_format(tCT.CT_DepartureTe,'%m%d') as deptTe,
