@@ -238,6 +238,7 @@
                     dataType: "json",
                     data : {'sel': $("#depart01 option:selected").val(), 'sel2' : $("#depart02 option:selected").val()},
                     success: function(res){
+                       
                         console.log(res.data.length);
                         for(let i=0; i<res.data.length; i++){
                             function getInputDayLabel() {                   
@@ -249,9 +250,9 @@
                             
                             console.log("요일",getInputDayLabel());  
                         
-                            let html = "<button class='tablinks' onclick='openBus(event, \""+0+res.data[i].CT_ID+"\")'>";
-                                html += "<span class='select_bus_time'>"+res.data[i].deptTe+'\t'+getInputDayLabel()+"</span>";
-                                html += "<span class='select_bus_name'>"+res.data[i].CT_CarNum+"</span>";
+                            let html = "<button class='tablinks' onclick='openBus(event, \""+0+res.data[i].ctID+"\")'>";
+                                html += "<span class='select_bus_time'>"+res.data[i].deptTe+'\t('+getInputDayLabel()+")</span>";
+                                html += "<span class='select_bus_name'>"+res.data[i].carName+'\n'+"("+res.data[i].carNum+")</span>";
                                 html += " <span class='select_bus_seat'>"+(res.data[i].total - res.data[i].seatNum)+" / "+res.data[i].total+"</span>";
                                 $(".tab").append(html);
                         }

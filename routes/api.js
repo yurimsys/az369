@@ -523,13 +523,15 @@ router.post('/payment', (req, res) =>{
 //마이페이지 취소 및 환불조회 //,'%m%d'
 router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
     let query = `select 
-                    CT_ID,
-                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d') as deptTe,
-                    CT_CarNum,
-                    (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = :crCancel) as seatNum,
-                    (select CY_Totalpassenger from tCY where tCY.CY_ID = tCT.Ct_CY_ID) as total
-                from tCT
-                where date_format(CT_DepartureTe,'%H%i') = :deptTe AND date_format(CT_ReturnTe,'%H%i') = :retuTe order by tCT.CT_DepartureTe asc`;
+	tCT.CT_ID as ctID,
+	tB.B_Name as carName,
+	date_format(tCT.CT_DepartureTe,'%y%y-%m-%d') as deptTe, 
+	tCT.CT_CarNum as carNum,
+	(select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as seatNum,
+	(select CY_Totalpassenger from tCY where tCY.CY_ID = tCT.Ct_CY_ID) as total
+
+from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID
+where date_format(CT_DepartureTe,'%H%i') = :deptTe AND date_format(CT_ReturnTe,'%H%i') = :retuTe AND tCT.CT_DepartureTe > now() order by tCT.CT_DepartureTe asc`;
 
     let sessionId = req.user.U_ID;
     let crCancel = 'N';

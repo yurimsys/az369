@@ -3,12 +3,8 @@
 
 <head>
     <% include templates/head.ejs %>
-<<<<<<< HEAD
-    <link rel="stylesheet" href="css/modify_02.css">
-=======
     <link rel="stylesheet" href="/css/modify_02.css">
 
->>>>>>> 715475b3698fdf9fa68893e8371fdc653ac3ca6c
 </head>
 
 <body>
@@ -223,89 +219,6 @@
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <script>
-        //비밀번호 정규식
-        $("#password").change(function(){
-            checkPassword($('#password').val());
-        });
-        function checkPassword(password){
-            
-            if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){            
-                alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
-                $('#password').val('').focus();
-                return false;
-            }    
-            var checkNumber = password.search(/[0-9]/g);
-            var checkEnglish = password.search(/[a-z]/ig);
-            if(checkNumber <0 || checkEnglish <0){
-                alert("숫자와 영문자를 혼용하여야 합니다.");
-                $('#password').val('').focus();
-                return false;
-            }                                
-        }
-        //비밀번호 확인
-         $(function(){ 
-                $("#alert-success").hide();
-                $("#alert-danger").hide();
-                $("input").keyup(function(){ 
-                    var pwd1=$("#password").val(); 
-                    var pwd2=$("#password2").val();
-                    if(pwd1 != "" || pwd2 != ""){ 
-                        if(pwd1 == pwd2){ 
-                            $("#alert-success").show();
-                            $("#alert-danger").hide(); 
-                            $("#submit").removeAttr("disabled"); 
-                            }else{
-                            $("#alert-success").hide();
-                            $("#alert-danger").show(); 
-                            $("#submit").attr("disabled", "disabled");
-                            } 
-                        } 
-                    }); 
-                });
-
-                //정보 수정
-                function modifyInfo(){
-                    $.ajax({
-                        url: "api/user/modifyInfo",
-                        method: "post",
-                        dataType: "json",
-                        async: false,
-                        data: {
-                            pw : $("#password").val(), phone : $("#phone").val(),
-                            brand : $("#brand").val(), postcode : $("#postcode").val(),
-                            address : $("#address").val(), detailAddress : $("#detailAddress").val()
-                        },
-                        success: function(){
-                            //alret("수정이 완료되었습니다.");
-                            location.href = "mypage";
-                        }
-                    })
-                }
-
-                //회원 탈퇴
-                function delUser(){
-                    $.ajax({
-                        url: "api/user/deleteUser",
-                        method: "post",
-                        dataType: "json",
-                        async: false,
-                        data: {
-                            id : $("#sessionId").val()
-                        },
-                        success: function(res){
-                            console.log("res :",res);
-                            console.log("res.data :", res.data);
-                            if(res.data === '삭제'){
-                                alert("탈퇴가 완료되었습니다.");
-                                location.href="/";
-                                //location.href = '/logout';
-                            }
-                            
-                            
-                        }
-                    })
-                }
-
          //비밀번호 정규식
          $("#password").change(function(){
              checkPassword($('#password').val());
