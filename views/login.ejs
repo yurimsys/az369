@@ -46,7 +46,7 @@
                             <ul>
                                 <div class="login_form">
                                     <label for="id"></label>
-                                    <input type="text" id="id" name="id" placeholder="아이디">
+                                    <input type="text" id="id" name="id" placeholder="아이디" value="">
                     
                                     <label for="password"></label>
                                     <input type="password" id="password" name="password" placeholder="비밀번호">
@@ -56,7 +56,7 @@
                                     <label for="ex_chk3">아이디 저장</label>
                                 </div>
                     
-                                <input type="submit" value="로그인">
+                                <input type="submit" value="로그인" id="loginBtn">
                             </ul>
                         </form>
                     
@@ -84,6 +84,25 @@
 
         <!--<footer></footer>-->
     </div>
+    <script>
+        //아이디 저장
+        localStorage.getItem("myId");    
+        $("#id").val(localStorage.getItem("myId"));
+
+        //아이디 저장 체크시 로컬호스트에 저장
+        $("#loginBtn").on('click',function(){
+            if($("#ex_chk3").is(":checked") === true){
+                alert($("#ex_chk3").is(":checked"))                                      
+                localStorage.setItem("myId",$("#id").val());                           
+            }else if($("#ex_chk3").is(":checked") === false){
+                localStorage.clear(); 
+            }   
+        })                          
+        if( $("#id").val() != ""){
+            $("#ex_chk3").prop('checked', true);
+        }             
+
+    </script>
     
     <script>
         'use sctrict';

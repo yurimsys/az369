@@ -17,6 +17,17 @@ connection.config.queryFormat = function (query, values) {
     }.bind(this));
 };
 
+router.get('/adminIndex', function(req, res, next) {
+    res.render('admin_index');
+});
+
+
+router.get('/adminTable', function(req, res, next) {
+    res.render('admin_table');
+});
+
+
+
 router.get('/', function(req, res, next) {
     res.render('index', { sessionUser : req.user });
 });
@@ -29,7 +40,7 @@ router.get('/login', function(req, res, next){
         let fmsg = req.flash("error");
         let loginFailMsg = '';
         if( fmsg.length > 0){
-            loginFailMsg = fmsg[0];
+            loginFailMsg = fmsg[0];       
         }
         res.render('login', {sessionUser : req.user, loginFailMsg : loginFailMsg});
     }
@@ -39,8 +50,8 @@ router.post('/login',
     passport.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/login',
-        failureFlash: true
-    })
+        failureFlash: true       
+    }) 
 );
 
 router.get('/logout', function(req, res, next){

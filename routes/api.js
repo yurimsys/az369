@@ -48,6 +48,25 @@ router.post('/user/phone', (req, res, next) => {
     // 주소 변경
     // 로그 추가
 });
+ 
+//회원탈퇴
+router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
+    let query = `delete from tU where U_UserName = :uUserName`;    
+    let uUserName = req.user.U_UserName;
+    let uPw = req.body.pw;
+    console.log("id :", uUserName);
+    console.log("pw :", uPw);    
+    if( !bcrypt.compareSync(uPw, req.user.U_Pw) ){
+        res.json({data : "실패"});
+    } else {
+        connection.query(query,{uUserName},
+            function(){
+                req.logout();
+                res.json( {  data : "성공"});
+            })
+    }        
+        
+});
 
 //회원가입 액션
 router.post('/user/join', (req, res, next) =>{
