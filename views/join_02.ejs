@@ -305,6 +305,10 @@
          			alert("빈칸을 입력해 주세요");
          			return;
                      }
+                     if($(".chk").is(':checked') == false || $("#select01 option:selected").val()=='0' || $("#select02 option:selected").val()=='0'){
+                         alert("장차 선호날짜와 시간을 선택해주세요.");
+                         return;
+                     }
                     $.ajax({
                         method : 'POST',
                         dataType : 'json',
