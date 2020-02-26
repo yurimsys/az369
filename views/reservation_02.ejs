@@ -3,7 +3,7 @@
 
 <head>
     <% include templates/head.ejs %>
-    <link rel="stylesheet" href="css/reservation_02.css">
+    <link rel="stylesheet" href="/css/reservation_02.css">
 
 </head>
 
@@ -28,7 +28,7 @@
                         <h2><span>이용해주셔서 감사합니다.</span> <br>장차예매가 정상적으로 완료되었습니다.</h2>
                         
                         <div class="reservation_img">
-                            <img src="img/reservation/reservation_icon.png" alt="가입완료">
+                            <img src="/img/reservation/reservation_icon.png" alt="가입완료">
                         </div>
                         
                         <div class="reservation_txt">
@@ -41,13 +41,13 @@
                                 <th>주문내역</th>
                                 <td>2020.02.03 22:00 <span>(평택 - 서울동대문)</span></td>
                                 <td>신용카드 (일시불)</td>
-                                <td class="td">100,000원 결제완료</td>
+                                <td class="td"><span id="price"></span>원 결제완료</td>
                             </table>
                             
                             <p>장차예매내역은 장차예매 > 장차예매현황 에서 확인하실 수 있습니다.</p>
                         </div>
                     
-                        <div class="mypage_btn"><a href="mypage">예매내역 확인 </a></div>
+                        <div class="mypage_btn"><a href="/mypage">예매내역 확인 </a></div>
                     
                     
                     </div>
@@ -147,11 +147,15 @@
         });
 
 
-        /*agreement 전체동의 체크*/
+
         $(document).ready(function() {
+            /*agreement 전체동의 체크*/
             $('.check-all').click(function() {
                 $('.ab').prop('checked', this.checked);
             });
+
+            
+            $("#price").text( sessionStorage.getItem("price") );
         });
     </script>
 </body></html>
