@@ -478,17 +478,12 @@ router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
 });  
 
 //결제완료
-router.post('/payment', (req, res) =>{
-    req.user = {};
-    req.user.U_ID = 2;
-
-    console.log(req.body);
-    //test
+router.post('/payment', auth.isLoggedIn, (req, res) =>{
     
     let str_values_list = [],
         str_values ="",
         seatNums = req.body['seatNums[]'],
-        ct_id = 1,
+        ct_id = req.body.ct_id,
         oPrice = req.body.oPrice,
         sPrice = req.body.sPrice;
     
@@ -554,5 +549,24 @@ where date_format(CT_DepartureTe,'%H%i') = :deptTe AND date_format(CT_ReturnTe,'
         });
         
 });
-  
+
+
+// CT_ID로 예약된 좌석 정보 가져오기
+router.get('/useSeat/:ct_id', auth.isLoggedIn, (req, res, next) =>{
+    let query = `select CR_SeatNum from tCR where CR_CT_ID = :ct_id and CR_Cancel = 'N' `;
+    let ct_id = req.params.ct_id;
+    
+    connection.query(query, { ct_id : ct_id },
+        function(err, rows, fields) {
+            if(err) throw err;
+            let seat_list = [];
+            rows.map((data) => {
+                seat_list.push(data.CR_SeatNum);
+            });
+            res.json({ data : seat_list });
+
+        })
+ 
+});
+
 module.exports = router;

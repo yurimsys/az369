@@ -98,7 +98,7 @@
                             </li>
                             <li>
                                 <div class="reserve_right">
-                                    <div id="01" class="tabcontent">
+                                    <div id="bus_seat_layer" class="tabcontent">
 
                                         <div class="container">
 
@@ -124,10 +124,10 @@
                                                         <dd id="selected_seats_cnt">　</dd>
                                                     </dl>
                                                     
-                                                    <button class="reload_btn"><img src="/img/reservation/reload.png" alt="새로고침"> <p>좌석 새로고침</p></button>
+                                                    <button class="reload_btn" onclick="flushSeat()"><img src="/img/reservation/reload.png" alt="새로고침"> <p>좌석 새로고침</p></button>
                                                     
                                                     <!--pupop PC 버튼-->
-                                            <a href="#payment" class="payment_open">예매하기</a>
+                                                    <a href="#payment" class="payment_open">예매하기</a>
                                                 </div>
                                                 
                                                 
@@ -137,7 +137,6 @@
                                     </div>
 
                                 </div>
-
 
                             </li>
                         </ul>
@@ -221,50 +220,42 @@
         </section>
 
         <script>
-
-               
-                
+     
+            $('#timeSelect01, #timeSelect02').click(function(){
+                $(".tab").empty();
+                //alert($("#depart01").val());
+                //alert($("#depart02").val());
+                console.log($("#depart01").val())
+                console.log($("#depart02").val())
+                $.ajax({
+                url: "api/user/resCarList",
+                method: "post",
+                dataType: "json",
+                data : {'sel': $("#depart01 option:selected").val(), 'sel2' : $("#depart02 option:selected").val()},
+                success: function(res){
                     
-                    
-                $('#timeSelect01, #timeSelect02').click(function(){
-                    $(".tab").empty();
-                    //alert($("#depart01").val());
-                    //alert($("#depart02").val());
-                    console.log($("#depart01").val())
-                    console.log($("#depart02").val())
-                    $.ajax({
-                    url: "api/user/resCarList",
-                    method: "post",
-                    dataType: "json",
-                    data : {'sel': $("#depart01 option:selected").val(), 'sel2' : $("#depart02 option:selected").val()},
-                    success: function(res){
-                       
-                        console.log(res.data.length);
-                        for(let i=0; i<res.data.length; i++){
-                            function getInputDayLabel() {                   
-                                var week = new Array('일', '월', '화', '수', '목', '금', '토');                         
-                                var today = new Date(res.data[i].deptTe).getDay();
-                                var todayLabel = week[today];                          
-                                return todayLabel;
-                            }
-                            
-                            console.log("요일",getInputDayLabel());  
+                    console.log(res.data.length);
+                    for(let i=0; i<res.data.length; i++){
+                        function getInputDayLabel() {                   
+                            var week = new Array('일', '월', '화', '수', '목', '금', '토');                         
+                            var today = new Date(res.data[i].deptTe).getDay();
+                            var todayLabel = week[today];                          
+                            return todayLabel;
+                        }
                         
-                            let html = "<button class='tablinks' onclick='openBus(event, \""+0+res.data[i].ctID+"\")'>";
-                                html += "<span class='select_bus_time'>"+res.data[i].deptTe+'\t('+getInputDayLabel()+")</span>";
-                                html += "<span class='select_bus_name'>"+res.data[i].carName+'\n'+"("+res.data[i].carNum+")</span>";
-                                html += " <span class='select_bus_seat'>"+(res.data[i].total - res.data[i].seatNum)+" / "+res.data[i].total+"</span>";
-                                $(".tab").append(html);
-                        }
-                        //ct_id, deptte, ctcarnum, seatnum, total
-                        }
-                    });
-                })
+                        console.log("요일",getInputDayLabel());  
+                    
+                        let html = "<button class='tablinks' onclick='openBus(event, \""+res.data[i].ctID+"\")'>";
+                            html += "<span class='select_bus_time'>"+res.data[i].deptTe+'\t('+getInputDayLabel()+")</span>";
+                            html += "<span class='select_bus_name'>"+res.data[i].carName+'\n'+"("+res.data[i].carNum+")</span>";
+                            html += " <span class='select_bus_seat'>"+(res.data[i].total - res.data[i].seatNum)+" / "+res.data[i].total+"</span>";
+                            $(".tab").append(html);
+                    }
+                    //ct_id, deptte, ctcarnum, seatnum, total
+                    }
+                });
+            })
 
-                                
-              
-            
-            
         </script>
 
 
@@ -273,17 +264,17 @@
 
         <script>
             function openBus(evt, busSeat) {
-                var i, tabcontent, tablinks;
-                tabcontent = document.getElementsByClassName("tabcontent");
-                for (i = 0; i < tabcontent.length; i++) {
-                    tabcontent[i].style.display = "none";
-                }
+                var i, tablinks;
+                
                 tablinks = document.getElementsByClassName("tablinks");
                 for (i = 0; i < tablinks.length; i++) {
                     tablinks[i].className = tablinks[i].className.replace(" active", "");
                 }
-                document.getElementById(busSeat).style.display = "block";
+                sessionStorage.setItem('ct_id', busSeat);
+                document.getElementById("bus_seat_layer").style.display = "block";
                 evt.currentTarget.className += " active";
+
+                flushSeat();
             }
         </script>
 
@@ -427,14 +418,6 @@
                             return firstSeatLabel++;
                         },
                     },
-                    legend: {
-                        node: $('#legend'),
-                        items: [
-                            ['f', 'available', 'First Class'],
-                            ['e', 'available', '일반'],
-                            ['r', 'unavailable', 'Already Booked']
-                        ]
-                    },
                     click: function() {
                         if (this.status() == 'available') {
                             if( selected_seats_cnt >=4){
@@ -490,8 +473,6 @@
                 sc.get($(this).parents('li:first').data('seatId')).click();
             });
 
-            //let's pretend some seats have already been booked
-            sc.get(['2_1', '2_2', '4_1', '4_2', '8_2']).status('unavailable');
 
         });
 
@@ -504,6 +485,64 @@
             });
 
             return total;
+        }
+
+        function flushSeat(){
+            var sc = $('.seat-map').seatCharts();
+            selected_seats = [];
+            selected_seats_cnt = 0;
+
+            sc.find('e.selected').status('available');
+            $("#selected_seats_num").text('　');
+            $("#selected_seats_cnt").text('　');
+            
+            // 데이터 가져와서 예약된 좌석 상태 설정.
+            var ct_id = sessionStorage.getItem('ct_id');
+            $.ajax({
+                dataType: "json",
+                method: "GET",
+                url:"/api/useSeat/"+ct_id
+            }).done((res)=>{
+                let seat_id_list = [];
+                console.log(res);
+                res.data.map((seat_num) => {
+                    seat_id_list.push( getSeatId(seat_num) );
+                });
+                console.log(seat_id_list);
+                sc.find('unavailable').status('available');
+                sc.status( seat_id_list, 'unavailable');
+            });
+        }
+
+        // 45인승 기준 seatId 가져오기
+        function getSeatId(seat_num){
+            if( seat_num <= 45 && seat_num > 0){
+
+                let seat_id = "1_1";
+                let row = '',
+                    column = '';
+                
+                if(seat_num > 40){
+                    row = 11;
+                    column  = seat_num % 10;
+                } else {
+                    if( (seat_num % 4) === 0 ){
+                        row = Number.parseInt(seat_num / 4);
+                        column = 4;
+                    } else {
+                        row = (Number.parseInt(seat_num / 4))+1;
+                        column = seat_num % 4;
+                    }
+
+                    if(column >=3 ) column +=1;
+                }
+
+                seat_id = row+"_"+column;
+                return seat_id;
+            } else {
+                return null;
+            }
+            
         }
     </script>
 
@@ -591,7 +630,7 @@
     function processPayment(){
         let origin_price = $("#original_price").data('price');
         let sale_price = $("#sale_price").data('price');
-        let ct_id = 1;
+        let ct_id = sessionStorage.getItem("ct_id");
 
         $.ajax({
             method  : "POST",

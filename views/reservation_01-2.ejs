@@ -135,7 +135,7 @@
                                     </li>
                                 
                                     <li>
-                                        <a href="/complate" class="payment_close2 payment_close">결제하기</a>
+                                        <a onclick="processPayment()" class="payment_close2 payment_close">결제하기</a>
                                     </li>
                                 </ul>
                             </div>
@@ -214,9 +214,10 @@
 
     <script>
         var firstSeatLabel = 1;
+        var selected_seats_cnt = 0,
+            selected_seats = [];
         $(document).ready(function() {
-            let selected_seats_cnt = 0,
-                selected_seats = [];
+            
             var $cart = $('#selected-seats'),
                 $nums = $('#selected_seats_num'),
                 $counter = $('#selected_seats_cnt'),
@@ -268,28 +269,34 @@
                             }
                             selected_seats_cnt = sc.find('selected').length + 1;
                             selected_seats.push( this.settings.label );
-                            
+                            let origin_price = recalculateTotal(sc) + this.data().price;
+
                             $nums.text('　'.concat( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) ) );
                             $payment_seats_nums.text( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) );
 
                             $counter.text('　'.concat( sc.find('selected').length + 1) );
                             $payment_seats_cnt.text( sc.find('selected').length + 1 );
-                            $origin_price.text( formatNumber(recalculateTotal(sc) + this.data().price) + '원');
-                            $sale_price.text('-' + formatNumber(recalculateTotal(sc) + this.data().price) + '원' );
-
+                            $origin_price.text( formatNumber(origin_price) + '원');
+                            $origin_price.data( 'price', origin_price);
+                            $sale_price.text('-' + formatNumber(origin_price) + '원' );
+                            $sale_price.data( 'price', origin_price);
                             return 'selected';
                         } else if (this.status() == 'selected') {
                             selected_seats_cnt = sc.find('selected').length - 1;
-                            
                             let idx = selected_seats.indexOf( this.settings.label );
                             selected_seats.splice(idx, 1);
+
+                            let origin_price = recalculateTotal(sc) - this.data().price;
+
                             $nums.text( '　'.concat( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) ) );
                             $payment_seats_nums.text( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) );
 
                             $counter.text('　'.concat( sc.find('selected').length - 1 ) );
                             $payment_seats_cnt.text( sc.find('selected').length - 1);
-                            $origin_price.text( formatNumber(recalculateTotal(sc) - this.data().price) + '원' );
-                            $sale_price.text('-' + formatNumber(recalculateTotal(sc) - this.data().price) + '원' );
+                            $origin_price.text( formatNumber(origin_price) + '원' );
+                            $origin_price.data( 'price', origin_price);
+                            $sale_price.text('-' + formatNumber(origin_price) + '원' );
+                            $sale_price.data( 'price', origin_price);
 
                             //seat has been vacated
                             return 'available';
@@ -326,6 +333,28 @@
 
         function formatNumber(num) {
             return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        }
+
+        function processPayment(){
+            let origin_price = $("#original_price").data('price');
+            let sale_price = $("#sale_price").data('price');
+            let ct_id = 1;
+
+            $.ajax({
+                method  : "POST",
+                dataType: "json",
+                url     : "/api/payment",
+                data    : {
+                    "seatNums"  : selected_seats,
+                    "oPrice"    : origin_price,
+                    "sPrice"    : sale_price,
+                    "ct_id"     : ct_id
+                }
+            }).done((result)=>{
+                
+                sessionStorage.setItem("price", result.price);
+                location.href = "/complate";
+            });
         }
     </script>
 
