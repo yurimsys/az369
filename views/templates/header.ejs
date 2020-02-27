@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/css/header.css">
 <header>
     <!--모바일 아이콘 열기-->
     <a href="#" class="open"><img src="/img/btn_berger_m.png" alt="메뉴열기"></a>
@@ -59,7 +60,14 @@
         
         <ul>
            <li class="gnb_mo_login">
-                <a href="login">장차예매 시 <u>로그인</u>이 필요합니다.</a>
+                <% if( sessionUser ){ %>
+                    <ul>
+                        <li><strong style="font-weight: bold; font-size: 18px;"><%= sessionUser.U_Name %> 님</strong></li>
+                        <li><a href="logout"><u>로그아웃</u></a></li>
+                    </ul>
+                <% } else { %>
+                    <a href="login">장차예매 시 <u>로그인</u>이 필요합니다.</a>
+                <% } %>
             </li>
             <li>
                 <a href="#">사업안내</a>
