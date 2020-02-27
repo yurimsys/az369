@@ -102,9 +102,12 @@ router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
     let query = `select 
                     distinct tB.B_Name as carName,
                     date_format(tCT.CT_DepartureTe,'%m.%d') as deptTe1,
-                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%m') as deptTe2,
+                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptTe2,
+                    date_format(tCT.CT_DepartureTe,'%k:%i') as deptTe3,
+                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
                     tCT.CT_DepartureTe,
                     tCT.CT_CarNum as carNum,
+                    tCR.CR_cDt as payDay,
                     (select group_concat(CR_SeatNum ,'번')) as seatNum
                 from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                     where tCR.CR_CT_ID =tCT.CT_ID AND tCR.CR_Cancel = :crCancel

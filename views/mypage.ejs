@@ -65,11 +65,11 @@
                                         <p>현 장차예매 현황</p>
                                     </button>
                     
-                                    <button class="tablinks" onclick="openList(event, '02')">
+                                    <button class="tablinks" id="tab_mo2" onclick="openList(event, '02')">
                                         <p>예매 및 결제내역</p>
                                     </button>
                     
-                                    <button class="tablinks" onclick="openList(event, '03')">
+                                    <button class="tablinks" id="tab_mo3" onclick="openList(event, '03')">
                                         <p>취소 및 환불조회</p>
                                     </button>
                                 </div>
@@ -97,10 +97,10 @@
                                             <% for(let i=0; i<data.length; i++){ %>
                                                 <div class="reserve_bar_list">
                                                     <label>
-                                                        <input type="checkbox" class='chk' value='<%=data[i].CR_SeatNum%>' name="day[]">
+                                                        <input type="radio" class='chk' value='<%=data[i].payDay%>' name="day[]">
                                                         <span class="reserve_bar">
                                                             <ul>
-                                                                <li><%=data[i].CT_DepartureTe%></li>
+                                                                <li><%=data[i].deptTe%></li>
                                                                 <li> 평택 > 서울 동대문</li>
                                                                 <li><%=data[i].carName%> / <%=data[i].carNum%></li>
                                                                 <li><%=data[i].seatNum%></li>
@@ -114,27 +114,28 @@
                                                            
                                             <div class="reserve_bar_mo_list">
                                                 <label>
-                                                    <input type="checkbox" class='chk' value='<%=data[i].CR_SeatNum%>' name="day[]">
+                                                    <input type="checkbox" class='chk' value='<%=data[i].payDay%>' name="day[]">
                                                     <span class="reserve_bar_mo">
                                                         <ul>
                                                             <li>
                                                                 <%=data[i].deptTe2%>
-                                                                <h6><%=data[i].deptTe1%></h6>
+                                                                <h6><%=data[i].deptTe3%></h6>
                                                             </li>
                                                             <li>
                                                                 평택 - 서울동대문
-                                                                <h6>충남고속</h6>
+                                                                <h6><%=data[i].carName%></h6>
                                                             </li>
                                                             <li>
                                                                 선택좌석
-                                                                <h6>1,2,3,4,5</h6>
+                                                                <h6><%=data[i].seatNum%></h6>
                                                             </li>
                                                             <li><i class="fas fa-chevron-right"></i></li>
                                                         </ul>
                                                     </span>
                                                 </label>
                                             </div>
-                                        <% } %>                                                     
+                                        <% } %>  
+                                        
                                         </div>
                     
                                         <p class="cancel_info">취소할 예매 목록을 선택하시고 하단의 버튼을 누르시면 예매를 취소하실 수 있습니다.</p>
@@ -152,7 +153,7 @@
                                                         <th>예약번호</th>
                                                         <th>결제날짜</th>
                                                         <th>예약정보</th>
-                                                        <th>좌석번호</th>
+                                                        <th>좌석개수</th>
                                                         <th>결제수단</th>
                                                         <th>결제금액</th>
                                                     </thead>
@@ -179,23 +180,7 @@
                                             <div class="popup_box_mo">
                                                 <h2>장차예매취소</h2>
                     
-                                                <div class="table_mo">
-                                                    <dl>
-                                                        <dt>예약번호</dt>
-                                                        <dd>AZ123451234512</dd>
-                                                        <dt>결제날짜</dt>
-                                                        <dd>2020.00.00</dd>
-                                                        <dl class="dl3">
-                                                            <dt>예약정보</dt>
-                                                            <dd>2020.02.03 22:00 충남고속 <br> <span>(평택 > 서울 동대문)</span></dd>
-                                                        </dl>
-                                                        <dt>좌석개수</dt>
-                                                        <dd>00개</dd>
-                                                        <dt>결제수단</dt>
-                                                        <dd>카드결제(신한)</dd>
-                                                        <dt>결제금액</dt>
-                                                        <dd>00,000원</dd>
-                                                    </dl>
+                                                <div class="table_mo">                                                
                                                 </div>
                     
                     
@@ -208,7 +193,7 @@
                                                         </li>
                     
                                                         <li>
-                                                            <a  class="popup_close2">예매 취소</a>
+                                                            <a  class="popup_close2" onclick="resCancel()">예매 취소</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -220,15 +205,14 @@
                     
                     
                     
-                    
+                       <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2 -->
                                     <div id="02" class="tabcontent">
                     
                                         <div class="tab_tit">
                                             <h4>장차예매 및 결제내역</h4>
                                             <p>장차예매 및 결제내역은 오늘날짜기준 최대 3개월까지만 조회가 가능합니다. </p>
                                         </div>
-                    
-                    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2 -->
+                                    
                                         <!--두번째 리스트 PC-->
                                         <div class="list02">
                                             <table class="table">
@@ -237,6 +221,7 @@
                                                     <th>출발날짜</th>
                                                     <th>차량정보</th>
                                                     <th>좌석개수</th>
+                                                    <th>결제수단</th>
                                                     <th>결제금액</th>                                               
                                                </thead> 
                                                 <tbody id="payList">
@@ -247,44 +232,9 @@
                     
                     
                                         <!--두번째 리스트 mo 414px-->
+                                       
+
                                         <div class="list02_mo">
-                                           
-                                            <div class="list02_mo_list">
-                                                <a href="#popup2" class="popup_open2">
-                                                    <ul>
-                                                        <li class="text">2020.02.03 </li>
-                                                        <li>평택 - 서울동대문</li>
-                                                        <li><i class="fas fa-chevron-right"></i></li>
-                                                    </ul>
-                                                </a>
-                                            </div>
-                                            <div class="list02_mo_list">
-                                                <a href="#popup2" class="popup_open2">
-                                                    <ul>
-                                                        <li class="text">2020.02.03 <!--<strong>22:00</strong>--></li>
-                                                        <li>평택 - 서울동대문</li>
-                                                        <li><i class="fas fa-chevron-right"></i></li>
-                                                    </ul>
-                                                </a>
-                                            </div>
-                                            <div class="list02_mo_list">
-                                                <a href="#popup2" class="popup_open2">
-                                                    <ul>
-                                                        <li class="text">2020.02.03 <!--<strong>22:00</strong>--></li>
-                                                        <li>평택 - 서울동대문</li>
-                                                        <li><i class="fas fa-chevron-right"></i></li>
-                                                    </ul>
-                                                </a>
-                                            </div>
-                                            <div class="list02_mo_list">
-                                                <a href="#popup2" class="popup_open2">
-                                                    <ul>
-                                                        <li class="text">2020.02.03 <!--<strong>22:00</strong>--></li>
-                                                        <li>평택 - 서울동대문</li>
-                                                        <li><i class="fas fa-chevron-right"></i></li>
-                                                    </ul>
-                                                </a>
-                                            </div>
                                             
                     
                                         </div>
@@ -335,6 +285,7 @@
                                                     <th>결제일시</th>
                                                     <th>출발날짜</th>
                                                     <th>취소날짜</th>
+                                                    <th>좌석개수</th>
                                                     <th>결제수단</th>
                                                     <th>환불금액</th>
                                                 </thead>
@@ -349,26 +300,8 @@
                                         <!--세번째 리스트 mo 414px-->
                                         <div class="list03_mo">
                                            
-                                            <div class="list03_mo_list">
-                                                <a href="#popup3" class="popup_open3">
-                                                    <ul>
-                                                       <li class="state_y" style="color: #a0772b; font-weight: bold;">(완료)</li>
-                                                        <li class="text">2020.02.03</li>
-                                                        <li>평택 - 서울동대문</li>
-                                                        <li><i class="fas fa-chevron-right"></i></li>
-                                                    </ul>
-                                                </a>
-                                            </div>
-                                            <div class="list03_mo_list">
-                                                <a href="#popup4" class="popup_open3">
-                                                    <ul>
-                                                       <li class="state_n" style="color: #888; font-weight: bold;">(대기)</li>
-                                                        <li class="text">2020.02.03</li>
-                                                        <li>평택 - 서울동대문</li>
-                                                        <li><i class="fas fa-chevron-right"></i></li>
-                                                    </ul>
-                                                </a>
-                                            </div>
+                                           
+                                          
                     
                                         </div>
                                         
@@ -408,43 +341,7 @@
                                                     <a href="#" class="popup_close1">닫기</a>
                                                 </div>
                                             </div>
-                                        </div>
-                                        
-                                        <!--환불대기중-->
-                                        <div id="popup4" class="layer">
-                                            <div class="popup_box_mo">
-                                                <h2>취소 및 환불 상세내역</h2>
-                    
-                                                <div class="table_mo">
-                                                    <dl>
-                                                        <dt>예약번호</dt>
-                                                        <dd>AZ123451234512</dd>
-                                                        <dt>결제일시</dt>
-                                                        <dd>2020.00.00</dd>
-                                                        <dl class="dl3">
-                                                            <dt>예약정보</dt>
-                                                            <dd>2020.02.03 22:00 충남고속 <br> <span>(평택 > 서울 동대문)</span></dd>
-                                                        </dl>
-                                                        <dt>좌석개수</dt>
-                                                        <dd>00개</dd>
-                                                        <dt>취소날짜</dt>
-                                                        <dd>2020.00.00</dd>
-                                                        <dt>결제수단</dt>
-                                                        <dd>카드결제(신한)</dd>
-                                                        <dt>환불금액</dt>
-                                                        <dd>00,000원</dd>
-                                                        <dt>환불상태</dt>
-                                                        <dd><span style="color: red">환불대기중</span></dd>
-                                                    </dl>
-                                                </div>
-                    
-                                                <div class="popup_btn_mo">
-                                                    <a href="#" class="popup_close1">닫기</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        
+                                        </div>                                    
                                     </div>
                                 </div>
                     
@@ -484,7 +381,7 @@
     <script>
         var trVal = Array();
         var tdVal = Array();
-        //선택예매취소 후 리스트 보여주기
+        //선택예매취소 클릭 후 리스트 보여주기
         function cancelBtn(){
             if($(".chk").is(":checked") == false){
                 alert("취소 항목을 선택해 주세요.");
@@ -515,27 +412,35 @@
                     'sendArray' : seatArr
                 },
                 success: function(res){
-                    
-                    console.log(res.data);
-                    
-                    for(let i=0; i<res.data.length; i++){    
-                        let html = "<tr val="+res.data[i].CR_CT_ID+">";
-                            html += "<td val="+res.data[i].CR_SeatNum+">AZ123412341234</td>";
-                            html += "<td>"+res.data[i].CR_cDt+"</td>";
-                            html += "<td>"+res.data[i].dept_te+"&emsp;"+res.data[i].carnum+"</td>";
-                            html += "<td>"+res.data[i].CR_SeatNum+"</td>";
-                            html += "<td>무료</td>";
-                            html += "<td>"+res.data[i].CR_Price+"</td>";
+                    //PC 예매취소 리스트
+                    for(let i=0; i<res.data.length; i++){ 
+                        let html = "<tr val="+res.data[i].pId+">";
+                            html += "<td val="+res.data[i].ctId+">AZ123412341234</td>";
+                            html += "<td>"+res.data[i].PayDay+"</td>";
+                            html += "<td>"+res.data[i].deptTe+res.data[i].carName+"<br><span>(평택 > 서울 동대문)</span></td>";
+                            html += "<td>"+res.data[i].seatCnt+"</td>";
+                            html += "<td>"+res.data[i].payType+"</td>";
+                            html += "<td>"+res.data[i].price+"</td>";
                             html += "</tr>";
                             $(".cancelRes").append(html); 
-                            trVal[i] = res.data[i].CR_CT_ID;
-                            tdVal[i] = res.data[i].CR_SeatNum;
-                            console.log("tr td :", trVal, tdVal);
-
-                            
-                            
+                            trVal[i] = res.data[i].pId;
+                            tdVal[i] = res.data[i].ctId;                         
                     }
-                    console.log("tr td22 :", trVal, tdVal);
+                 
+                    //모바일 예매취소 리스트
+                    console.log(res);
+                    for(let k=0; k<res.data.length; k++){
+                        let html = "<dl>";
+                            html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
+                            html += "<dt>결제날짜</dt><dd>"+res.data[k].PayDay+"</dd>";
+                            html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[k].deptTe+"\n"+res.data[k].carName+"<br> <span>(평택 > 서울 동대문)</span></dd></dl>";
+                            html += "<dt>좌석개수</dt><dd>"+res.data[k].seatCnt+"</dd>";
+                            html += "<dt>결제수단</dt><dd>"+res.data[k].payType+"</dd>";
+                            html += "<dt>결제금액</dt><dd>"+res.data[k].price+"</dd></dl>";
+                        $(".table_mo").append(html);
+                        trVal[i] = res.data[i].pId;
+                        tdVal[i] = res.data[i].ctId;   
+                    }
                 }
             })
         }
@@ -568,18 +473,46 @@
                dataType: "json",
               
                success: function(res){
-              
+              //PC리스트
                   for(let i=0; i<res.data.length; i++){
                       let html = "<tr>";
-                      html += "<td>"+res.data[i].CR_cDt+"</td>";
-                      html += "<td>"+res.data[i].dept_te+"</td>";
-                      html += "<td>"+res.data[i].carnum+"</td>";
-                      html += "<td>"+res.data[i].seat_cnt+"</td>";
-                      html += "<td>"+res.data[i].total_price+"</td>";
-                      html += "</tr>";
-                      $("#payList").append(html);
+                        html += "<td>"+res.data[i].PayDay+"</td>";
+                        html += "<td>"+res.data[i].deptTe+"</td>";
+                        html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
+                        html += "<td>"+res.data[i].seatCnt+"</td>";
+                        html += "<td>"+res.data[i].payType+"</td>";
+                        html += "<td>"+res.data[i].price+"</td>";
+                        html += "</tr>";
+                      $("#payList").append(html);                  
+                  }            
+                }
+            });
+        });
+
+             //결제리스트 모바일
+            $("#tab_mo2").on('click',function(){
+            $("#payList").empty();
+            $.ajax({
+               url: "api/user/resPayMo",
+               method: "post",
+               dataType: "json",            
+               success: function(res){
+                   //모바일 리스트
+                  for(let i=0; i<res.data.length; i++){                     
+                      let html2 = "<div class='list02_mo_list'>";
+                            html2 += "<a href='#popup2' class='popup_open2'>";
+                            html2 += "<ul>";
+                            html2 += "<li class='text'>"+res.data[i].deptTe+"</li>";
+                            html2 += "<li>평택 - 서울동대문</li>";
+                            html2 += "<li><i class='fas fa-chevron-right'></i></li>";
+                            html2 += "</ul></a>";
+                            html2 += "</div>";
+                        $(".list02_mo").append(html2);                        
+                  }            
+    
+               
+               
                       
-                  }                      
                }
             });
         });
@@ -592,18 +525,44 @@
                method: "post",
                dataType: "json",
                success: function(res){
-                console.log("취소 :", res.data);
+               console.log("취소 :", res.data);
+               //PC 리스트
                 for(let i=0; i<res.data.length; i++){
-                      let html = "<tr>";
-                      html += "<td>"+res.data[i].CR_cDt+"</td>";
-                      html += "<td>"+res.data[i].dept_te+"</td>";
-                      html += "<td>"+res.data[i].CR_CancelDt+"</td>";
-                      html += "<td>무료</td>";
-                      html += "<td>"+res.data[i].CR_Price+"</td>";
-                      html += "</tr>";
-                      $("#cancelList").append(html);
-                      
-                  } 
+                    let html = "<tr>";
+                        html += "<td>"+res.data[i].PayDay+"</td>";
+                        html += "<td>"+res.data[i].deptTe+"</td>";
+                        html += "<td>"+res.data[i].cancelDay+"</td>";
+                        html += "<td>"+res.data[i].seatCnt+"</td>";
+                        html += "<td>"+res.data[i].payType+"</td>";
+                        html += "<td>"+res.data[i].price+"</td>";
+                        html += "</tr>";
+                            $("#cancelList").append(html); 
+                                              
+                }
+               }
+            });
+        });
+
+        $("#tab_mo3").on('click',function(){
+            $("#cancelList").empty();
+            $(".list03_mo").empty();
+            $.ajax({
+               url: "api/user/resCancelListMo",
+               method: "post",
+               dataType: "json",
+               success: function(res){
+               console.log("취소 :", res.data);
+                //모바일 리스트
+                for(let k=0; k<res.data.length; k++){
+                    let html2 = "<div class='list03_mo_list'>";
+                        html2 += "<a href='#popup3' class='popup_open3'>";
+                        html2 += "<ul>";
+                        html2 += "<li>"+res.data[k].deptTe+"</li>";
+                        html2 += "<li>평택 - 서울동대문</li>";
+                        html2 += "<li><i class='fas fa-chevron-right'></i></li>";
+                        html2 += "</ul></a></div>";
+                            $(".list03_mo").append(html2);
+                }
                }
             });
         });

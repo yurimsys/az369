@@ -362,15 +362,19 @@ router.post('/user/delchoice',  auth.isLoggedIn, (req, res, next) =>{
 router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
     let query = `select 
-                    count(cr_seatnum) as seat_cnt,
-                    sum(cr_price) as total_price,
-                    (select ct_carnum from tCT where tCT.ct_id = tCR.CR_CT_ID) as carnum,
-                    (select CT_DepartureTe from tCT where tCT.ct_id = tCR.CR_CT_ID) as dept_te,
-                    CR_cDt
-                    from tCR
-                    where cr_u_id=:sessionId
-                    group by cr_ct_id order by tCR.CR_cDt desc;
-                `;
+                    date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
+                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
+                    tB.B_Name as carName,
+                    tCT.CT_CarNum as carNum,
+                    count(CR_SeatNum) as seatCnt,
+                    tPH.PH_Type as payType,
+                    tPH.PH_Price as price	
+                from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                    where tCR.CR_CT_ID = tCT.CT_ID
+                    and tCR.CR_U_ID = :sessionId
+                    group by tCR.CR_cDt
+                order by PayDay desc
+             `;
     
     console.log(req.body);
 
@@ -390,6 +394,41 @@ router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
         
 });
 
+//마이페이지 예매 및 결제내역 모바일
+router.post('/user/resPayMo',  auth.isLoggedIn, (req, res, next) =>{
+    let sessionId = req.user.U_ID;
+    let query = `select 
+                    date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
+                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
+                    tB.B_Name as carName,
+                    tCT.CT_CarNum as carNum,
+                    count(CR_SeatNum) as seatCnt,
+                    tPH.PH_Type as payType,
+                    tPH.PH_Price as price	
+                from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                    where tCR.CR_CT_ID = tCT.CT_ID
+                    and tCR.CR_U_ID = :sessionId
+                    group by tCR.CR_cDt
+                order by PayDay desc
+             `;
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {          
+            sessionId
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            // //console.log(findId);
+            res.json( {  data : rows});
+            console.log("rows :",rows);
+            
+        });
+        
+});
 //마이페이지 예매취소 리스트
 router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
@@ -405,19 +444,28 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
     //console.log(seatNum);    
     let query = `
                 select 
-                CR_CT_ID,
-                CR_cDt,
-                (select CT_DepartureTe from tCT where tCT.CT_ID = tCR.CR_CT_ID) as dept_te,
-                (select CT_CarNum from tCT where tCT.CT_ID= tCR.CR_CT_ID) as carnum,
-                CR_cDt,
-                CR_Price,
-                CR_SeatNum
-                from tCR
-                where CR_U_ID= :sessionId and CR_SeatNum IN (:seatNum)
-                group by CR_CT_ID, CR_SeatNum order by tCR.CR_cDt desc
+                    tCR.CR_CT_ID as ctId,
+                    tCR.CR_cDt as payDay,
+                    date_format(tCT.CT_DepartureTe,'%m.%d') as deptTe1,
+                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptTe2,
+                    date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
+                    tCR.CR_cDt as cDt,
+                    tCT.CT_DepartureTe as deptTe,
+                    tB.B_Name as carName,
+                    tCT.CT_CarNum as carNum,
+                    tPH.PH_Type as payType,
+                    tPH.PH_Price as price,
+                    tPH.PH_ID as pId,
+                    count(CR_SeatNum) as seatCnt
+                from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = 'N'
+                    and tCR.CR_U_ID = :sessionId and tCR.CR_cDt IN ( :seatNum)
+                    and tCT.CT_DepartureTe > now() 
+                group by tCR.CR_cDt
+                order by tCT.CT_DepartureTe desc	 
                 `;
-                console.log("좌석 :", seatNum);
-    console.log("세션 :", sessionId);
+    console.log("좌석 :", seatNum);
+    console.log("세션 :", sessionId); 
     
 
     connection.query(query, 
@@ -438,19 +486,19 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
 
 //예매취소 
 router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
-    let query = `update tCR set CR_Cancel = :crCancel, CR_CancelDt = now() where CR_U_Id = :sessionId and CR_CT_ID IN (:ctId) and CR_SeatNum IN (:crSeatNum)`;
-
+    let query = `update tCR set CR_Cancel = :crCancel, CR_CancelDt = now() where CR_U_Id = :sessionId and CR_PH_ID IN (:crPId) and CR_CT_ID IN (:crCtId)`;
+    //pID  cr_cdt
     let sessionId = req.user.U_ID;
     let crCancel = 'Y';
-    let ctId = req.body['trVal[]'];
-    let crSeatNum = req.body['tdVal[]'];
+    let crPId = req.body['trVal[]'];
+    let crCtId = req.body['tdVal[]'];
     
-    console.log("ctId :", ctId);
-    console.log("crSeatNum :", crSeatNum);
+    console.log("pId@@@@@@@@ :", crPId);
+    console.log("cDt@@@@@@@@ :", crCtId);
 
     connection.query(query, 
         {          
-            sessionId, crCancel, ctId, crSeatNum
+            crCancel, sessionId, crPId, crCtId
                                 
         },
         function(err, rows, fields) {
@@ -468,13 +516,18 @@ router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
 //마이페이지 취소 및 환불조회
 router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
     let query = `   select 
-                    CR_cDt,
-                    (select CT_DepartureTe from tCT where tCT.ct_id = tCR.CR_CT_ID) as dept_te,
-                    CR_CancelDt,
-                    CR_Price
-                    from tCR
-                    where cr_u_id= :sessionId and CR_Cancel = :crCancel
-                    order by tCR.CR_cDt desc`;
+                        date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
+                        date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
+                        tCR.CR_CancelDt as cancelDay,
+                        count(CR_SeatNum) as seatCnt,
+                        tPH.PH_Type as payType,
+                        tPH.PH_Price as price	
+                    from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                        where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = :crCancel
+                        and tCR.CR_U_ID = :sessionId
+                        group by tCR.CR_cDt
+                    order by PayDay desc
+	                `;
 
     let sessionId = req.user.U_ID;
     let crCancel = 'Y';
@@ -495,6 +548,42 @@ router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
         });
         
 });  
+
+//마이페이지 취소 및 환불조회 모바일
+router.post('/user/resCancelListMo', auth.isLoggedIn, (req, res, next) =>{
+    let query = `   select 
+                        date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
+                        date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
+                        tCR.CR_CancelDt as cancelDay,
+                        count(CR_SeatNum) as seatCnt,
+                        tPH.PH_Type as payType,
+                        tPH.PH_Price as price	
+                    from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                        where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = :crCancel
+                        and tCR.CR_U_ID = :sessionId
+                        group by tCR.CR_cDt
+                    order by PayDay desc
+	                `;
+
+    let sessionId = req.user.U_ID;
+    let crCancel = 'Y';
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {          
+            sessionId, crCancel
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            res.json( {  data : rows});
+            console.log("rows : ",rows);
+            
+        });
+        
+}); 
 
 //결제완료
 router.post('/payment', auth.isLoggedIn, (req, res) =>{
