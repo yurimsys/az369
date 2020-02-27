@@ -479,7 +479,6 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
             // //console.log(findId);
             res.json( {  data : rows});
             console.log("rows :",rows);
-            
         });
         
 });
@@ -593,33 +592,61 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
         seatNums = req.body['seatNums[]'],
         ct_id = req.body.ct_id,
         oPrice = req.body.oPrice,
-        sPrice = req.body.sPrice;
+        sPrice = req.body.sPrice,
+        price = ((oPrice-sPrice) < 0) ? 0 : (oPrice-sPrice),
+        ph_type = '-'; // 무료기간동안만 - 으로 넣음.
     
-    let query = `
-        INSERT INTO tCR
-            (CR_CT_ID, CR_U_ID, CR_SeatNum, CR_OPrice, CR_SPrice, CR_Price, CR_PMethod)
+    /**
+     * TODO : 무료기간 끝나면 PH_TYPE 값 결제 수단으로 변경해야함.
+     */
+    let ph_query = `
+        INSERT INTO tPH
+            (PH_U_ID, PH_PG_ID, PH_Price, PH_OPrice, PH_SPrice, PH_Type)
         VALUES
+            (:u_id, :pg_id, :price, :oPrice, :sPrice, :ph_type)
     `;
     
-    if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
-        seatNums.map((seatNum)=>{
-            str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${seatNum}, ${oPrice}, ${sPrice}, ${(oPrice-sPrice)}, '신용카드')`);
-        });
-        str_values = str_values_list.join(', ');
-    } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
-        str_values = `(${ct_id}, ${req.user.U_ID}, ${seatNums}, ${oPrice}, ${sPrice}, ${(oPrice-sPrice)}, '신용카드')`;
-    }
+    //  결제 내역 먼저 추가. 
+    connection.query(ph_query, {
+        u_id    : req.user.U_ID,
+        pg_id   : 1,    // pg_id :  PG 사 결정되면 결제 정보 입력해야함.
+        oPrice  : oPrice,
+        sPrice  : sPrice,
+        price   : (oPrice-sPrice),
+        ph_type : ph_type
+    }, function (err, result){
 
-    query += str_values;
+        let ph_id = result.insertId;
 
-    connection.query(query, null,
-        function(err, result) {
-            if(err) throw err;
-            
-            res.json({ 
-                price : (oPrice - sPrice)
+        let cr_query = `
+            INSERT INTO tCR
+                (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum)
+            VALUES
+        `;
+        
+        if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
+            seatNums.map((seatNum)=>{
+                str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum})`);
             });
-        });
+            str_values = str_values_list.join(', ');
+        } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
+            str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums})`;
+        }
+    
+        cr_query += str_values;
+
+        //  예약 정보 추가
+        connection.query(cr_query, null,
+            function(err, result) {
+                if(err) throw err;
+                
+                res.json({
+                    ph_type : ph_type,
+                    price : price
+                });
+            });
+    });
+    
 });
 
 //장차예매 리스트

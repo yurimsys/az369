@@ -1,0 +1,256 @@
+@charset="UFT-8";
+
+/*reset*/
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
+a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
+img {vertical-align: middle;}
+a img {border: none;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+p {text-align: justify; font-family: inherit; font-size: 16px;}
+
+.wrap {
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+}
+
+
+/*section.main*/
+section.main {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+}
+
+.main_bg {background: url(../img/login/login_main_bg.jpg);
+background-position: center;
+background-size: cover; width: 100%; height: 300px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
+
+@keyframes bg {
+    0% {transform: scale(1.05);
+    100% {transform: scale(1);}
+    }
+}
+
+.tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); }
+.tnb ul li {float: left; width: 50%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; color: #444; transition: all 0.2s;}
+
+
+/*section.main 완료*/
+/*section.sub_wrap 시작*/
+
+section.sub_wrap {
+    width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 6.5%;
+    color: #333;
+    overflow: hidden;
+}
+
+.box {position: relative; padding-top: 5%; overflow: hidden;}
+
+section.sub_wrap .bar {
+    border-bottom: 2px solid #624000; 
+    width: 35px; 
+    margin: 0 auto;
+    margin-top: 2%;
+    margin-bottom: 4%;
+}
+
+section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 5%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+
+section.sub_wrap h1 {
+    text-align: center; 
+    font-size: 2.8rem;
+    margin-top: -1%;
+    font-weight: normal;
+}
+
+.reservation_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; padding: 4% 5%; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
+
+@keyframes box {
+    0% {opacity: 0; transform: translateY(1%);}
+    100%; {opacity: 1; transform: translateY(0%);}
+}
+
+
+.reservation_box h2 {text-align: center; font-size: 26px; line-height: 1.6;}
+.reservation_box h2 span {font-size: 20px; font-weight: normal; color: #ad863c;}
+.reservation_txt {text-align: center; overflow: hidden; width: 100%;}
+
+.reservation_box h3 {font-size: 22px; font-weight: bold; margin: 0; color: #555;}
+.reservation_box h3 span {font-size: 18px; font-weight: normal;}
+.reservation_box h5 {font-size: 18px; font-weight: normal; color: #777; }
+.reservation_box h4 {font-size: 20px; margin-bottom: 3%; font-weight: normal;}
+.reservation_box p {color: #777; text-align: center;}
+
+table.order {width: 50%; text-align: center; border: 1px solid #ddd; margin: 0 auto; padding: 0; margin-bottom: 3%;}
+th {width: 100%; background: #eee; float: left; position: relative; overflow: hidden; font-size: 18px;}
+td {width: 100%; float: left; position: relative; border-bottom: 1px solid #eee;}
+
+th {height: 45px; line-height: 45px;}
+td {height: 40px; line-height: 40px; color: #555;}
+.td {border-bottom: none;}
+
+
+.reservation_img { margin-left: 50%; transform: translateX(-50%); text-align: center; margin-top: 3%; margin-bottom: 3%; }
+
+ 
+.mypage_btn {width: 230px; margin: 0 auto; text-align: center; height: 50px; line-height: 50px; color: #fff; background: #ad863c; border: 1px solid #aaa; margin-top: 4%;}
+
+.mypage_btn a {display: block;}
+
+/*section.sub_wrap 완료*/
+
+
+
+
+/*gnb 자바스크립트*/
+header.on {
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
+    height: 80px;
+}
+
+
+/*모바일 메뉴*/
+header .open {
+    /*버거버튼 클래스*/
+    width: 0;
+    height: 0;
+    display: none;
+    opacity: 0;
+    z-index: -9999;
+}
+
+.gnb_mo {
+    /*모바일 네비 전체*/
+    width: 0;
+    height: 0;
+    display: none;
+    opacity: 0;
+    z-index: -9999;
+}
+
+
+/*반응형*/
+
+/*1200px*/
+@media screen and (max-width: 1200px) {
+    
+    /*main*/
+    section.main {width: 100%;}
+    section.main .inner_main {width: 1200px;}
+
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%;}
+    .inner_sub_wrap {width: 95%; margin: 0 auto;}
+    .tnb {width: 1200px;}
+    
+}
+
+
+/*1024px*/
+@media screen and (max-width: 1024px) {
+    
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%;}
+    .box {padding-top: 7%;}
+    
+    .login_btn {margin-top: 6%;}
+    section.sub_wrap h4 {margin-bottom: 2%;}
+    
+    /*footer*/
+    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
+    footer .footer_inner {width: 90%; margin: 0 auto;}
+    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
+    footer .footer_txt p {margin: 2% 0;}
+    footer .footer_logo { z-index: 100; margin-right: 55%;}
+}
+
+
+/*768px*/
+@media screen and (max-width: 768px) {
+    
+    .box {padding-top: 9.5%;}
+    
+    table.order {width: 70%;}
+    
+    
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%;}
+    section.sub_wrap .inner_sub_wrap {width: 95%;}
+    
+    .reservation_box {padding: 5%;}
+    
+    section.sub_wrap h1 {font-size: 2.2rem;}
+    section.sub_wrap h2 {font-size: 24px;}
+    section.sub_wrap h3 {font-size: 20px;}
+    section.sub_wrap h5 {font-size: 16px;}
+    section.sub_wrap h4 {font-size: 18px; margin-bottom: 4%;}
+    
+    .reservation_img {margin-top: 5%; margin-bottom: 5%;} 
+    .mypage_btn {margin-top: 5%;}
+    
+    /*footer*/
+    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
+    footer .footer_inner {width: 90%; margin: 0 auto;}
+    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
+    footer .footer_txt p {margin: 2% 0;}
+    footer .footer_logo { z-index: 100; margin-right: 55%;}
+}
+
+/*414px*/
+@media screen and (max-width: 414px) {
+    
+    .box {padding-top: 20%;}
+    
+    table.order {width: 100%;}
+    
+    /*section.sub_wrap*/
+    
+    section.sub_wrap {width:100%; margin-bottom: 10%;}
+    section.sub_wrap h6 {padding-top: 6%;}
+    section.sub_wrap h1 {font-size: 28px; margin-bottom: 2%;}
+    section.sub_wrap .bar {display: none;}
+    
+    .reservation_box {padding: 8% 6%;}
+     section.sub_wrap h2 {font-size: 20px;  line-height: 1.5; text-align: center; color: #555; margin-bottom: 5%;} 
+    section.sub_wrap h2 span {font-size: 18px;}
+    section.sub_wrap h3 {font-size: 20px;} 
+    section.sub_wrap h5 {font-size: 16px;}
+    section.sub_wrap h4 {margin-bottom:4%; font-size: 18px;}
+    section.sub_wrap p {font-size: 12px;}
+    
+    .reservation_img {margin-top: 8%; margin-bottom: 8%;}
+    .reservation_img img {width: 75%;}
+    
+    .mypage_btn {margin-top: 10%; width: 100%;}
+    
+
+    /*footer*/
+    footer {width: 100%; margin: 0 auto; }
+    footer .footer_inner {width: 90%; margin: 0 auto;}
+    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
+    footer .footer_txt p {margin: 2% 0;}
+    footer .footer_logo { z-index: 100; margin-right: 55%;}
+}
+
+/*320px*/
+@media screen and (max-width: 320px) {
+    
+    /*section.sub_wrap*/
+    section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
+    section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
+    section.sub_wrap h2 span {font-size: 16px;}
+    section.sub_wrap p {margin-bottom: 5%;}
+    
+    table.order th {font-size: 17px;}
+    table.order td {font-size: 15px;}
+
+    .mypage_btn {font-size: 15px; height: 40px; line-height: 40px;}
+}
+

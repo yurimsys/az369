@@ -1,0 +1,124 @@
+div.seatCharts-container {
+	width: 52%;
+    margin: 0;
+    background: #f8f8f8;
+    padding: 5% 2%;
+}
+div.seatCharts-cell {
+	width: 16px;
+	margin: 3px;
+	float: left;
+	text-align: center;
+	outline: none;
+	line-height:16px;
+	color: blue;
+
+}
+div.seatCharts-seat {
+	color: #444;
+    line-height: 28px;
+    font-weight: bold;
+    font-size: 15px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	cursor: default;
+}
+div.seatCharts-seat:focus {
+	border: none;
+}
+/*
+.seatCharts-seat:focus {
+	outline: none;
+}
+*/
+
+
+div.seatCharts-row {
+	height: 50px;
+    margin: 0;
+}
+
+div.seatCharts-row:after {
+	clear: both;
+}
+
+/*div.seatCharts-seat.selected {
+	background-color: aqua;
+}*/
+
+/*div.seatCharts-seat.focused {
+	background-color: #6db131;
+}*/
+
+/*div.seatCharts-seat.available {
+	background-color: green;
+}*/
+
+div.seatCharts-seat.unavailable {
+	background: url(../../img/reservation/seat_img_disable.png) center no-repeat;
+    background-size: contain;
+    cursor: not-allowed;
+}
+
+/*ul.seatCharts-legendList {
+	list-style: none;
+}
+li.seatCharts-legendItem {
+	margin-top: 10px;
+	line-height: 2;
+}*/
+
+/*반응형*/
+
+/*1200px*/
+@media screen and (max-width: 1200px) {
+    div.seatCharts-container {
+	width: 54%;
+    margin: 0;
+    background: #f8f8f8;
+    padding: 5% 2%;
+}
+}
+
+/*1024px*/
+@media screen and (max-width: 1024px) {
+    div.seatCharts-container {
+	width: 54%;
+    margin: 0;
+    background: #f8f8f8;
+    padding: 5% 3%;
+}
+    div.seatCharts-seat {
+    line-height: 45px;
+    font-size: 22px;
+}
+    div.seatCharts-cell {margin: 7px;}
+}
+
+/*768px*/
+@media screen and (max-width: 768px) {
+    div.seatCharts-seat {line-height: 30px; font-size: 17px;}
+    div.seatCharts-cell {margin: 5px;}
+}
+
+/*414px*/
+@media screen and (max-width: 414px) {
+    div.seatCharts-container {
+	width: 100%;
+    margin: 0;
+    background: #f8f8f8;
+    padding: 5% 4%;
+}
+}
+
+/*320px*/
+@media screen and (max-width: 320px) {
+    div.seatCharts-container {
+	width: 100%;
+    margin: 0;
+    background: #f8f8f8;
+    padding: 5% 5%;
+}
+    div.seatCharts-cell {margin: 3px;}
+}

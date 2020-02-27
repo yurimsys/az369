@@ -1,0 +1,252 @@
+header {width: 100%; height: 80px; position: fixed; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05);}
+
+.innerHeader {
+    width: 100%;
+    height: 80px;
+    position: relative;
+    margin: 0 auto;
+     z-index: 500;
+    font-size: 18px;
+}
+
+/*로고*/
+.innerHeader h1.logo {float: left; margin-left: 3%; line-height: 70px; overflow: hidden;}
+
+/*nav_gnb*/
+nav.gnb {width: 45%;/* float: left; */margin: 0 auto;} 
+nav.gnb ul li {
+    float: left;
+    margin: 0 auto;
+    width: 33.3%;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    font-weight: normal;
+}
+nav.gnb ul li a {display: block;}
+
+
+.innerHeader ul li:hover {color: #a0772b;}
+.innerHeader ul ul {display: none;   border: 1px solid #000;}
+.innerHeader ul ul li {float: none; width: 100%; height: 50px; line-height: 50px; position: relative;  color: #242424; background: #fff; font-size: 16px;}
+.innerHeader ul li ul li a {display: block;}
+
+.innerHeader ul li:hover > ul {display: block;}
+.innerHeader ul li ul li:hover { color: #333; background: #e3ddd2;}
+
+/*gnb2 - 로그인 회원가입 전화문의*/
+nav.gnb2 {width: 16%; float: right; margin-right: 5%; line-height: 80px; font-size: 16px; color: #777; }
+nav.gnb2 ul li {width: 33.3%; float: left; text-align: center; }
+nav.gnb2 a {display: block;}
+
+/*전화문의 툴팁*/
+.tooltip {
+  position: relative;
+  display: inline-block; 
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 180px;
+    height: 60px;
+    line-height: 60px;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 1px 0;
+  position: absolute;
+    font-size: 16px;
+    font-weight: normal;
+  z-index: 1;
+  top: 100%;
+  left: 0%;
+  margin-left: -60px;
+}
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -8px;
+  border-width: 8px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+/*1200px*/
+@media screen and (max-width: 1200px) {
+    /*Header*/
+    header {width: 1200px;}
+    header .gnb {display: none;}
+    header .innerHeader {width: 1200px; position: fixed;}
+    
+    .gnb2 {display: none;}
+    .gnb_mo_login {background: #f8f8f8; margin-top: 2%; padding: 1.5% 0; color: #666;}
+    .gnb_mo_login ul {width: 100%; overflow: hidden;}
+    .gnb_mo_login ul li {float: left;}
+    
+    /*gnb_mo*/
+    header .open {
+        display: block;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: 30px;
+        top: 25px;
+        opacity: 1;
+        z-index: 1000000000;
+    }
+
+    header .open img {width: 100%; height: auto;}
+
+    .gnb_mo {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        right: -1100px;
+        background: rgba(0, 0, 0, 0.6);
+        top: 0;
+        transition: all 0.3s;
+        overflow: hidden;
+        z-index: 1000;
+        opacity: 0;
+        color: #eee;
+    }
+
+    .gnb_mo.on {
+        right: 0;
+        transition: opacity 0.3s;
+        opacity: 1;
+    }
+
+    .gnb_mo .close {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        z-index: 200;
+        transform: rotate(360deg);
+        transition: all 0.3s;
+        width: 25px;
+        height: 25px;
+    }
+
+    .gnb_mo .close img {width: 100%;}
+
+    .gnb_mo.on .close {
+        right: 77%;
+        transform: rotate(0);
+        transition: all 0.5s;
+    }
+
+    .gnb_mo > ul {
+        position: absolute;
+        right: 0px;
+        background-color: #fff;
+        color: #242424;
+        width: 75%;
+        height: 100%;
+        transition: all 0.3s;
+        padding-top: 60px;
+    }
+
+    .gnb_mo.on > ul {
+        right: 0;
+        transition: all 0.5s;
+    }
+
+    .gnb_mo > ul > li {
+        font-size: 16px;
+        line-height: 50px;
+        text-indent: 20px;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .gnb_mo > ul > li:nth-child(1) {border-bottom: none;}
+
+    .gnb_mo > ul > li > a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .gnb_mo > ul > li > a:after {
+        position: absolute;
+        content: '';
+        width: 21px;
+        height: 12px;
+        background: url(img/index_img/mob_gnb_arrow.png) no-repeat center/cover;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .gnb_mo > ul > li > a.on:after {
+        background: url(img/index_img/mob_gnb_arrow2.png) no-repeat center/cover;
+    }
+
+    .gnb_mo > ul > li .inner {
+        display: none;
+        background-color: #e3ddd2;
+    }
+
+    .gnb_mo > ul > li .inner.on {
+        background-color: #fff;
+        display: block;
+    }
+
+    .gnb_mo > ul > li .inner li {
+        border-bottom: 1px solid #ddd;
+        font-size: 14px;
+        color: #000;
+    }
+
+    .gnb_mo > ul > li .inner li:last-child {border-bottom: none;}
+}
+
+
+/*1024px*/
+@media screen and (max-width: 1024px) {
+    /*Header*/
+    header {width: 1024px;}
+    header .gnb {display: none;}
+    header .innerHeader {width: 1024px; position: fixed;}
+
+    .gnb_mo_login {margin-top: 3%;}
+}
+
+/*768px*/
+
+@media screen and (max-width: 768px) {
+    /*Header*/
+    header {width: 768px;}
+    header .gnb {display: none;}
+    header .innerHeader {width: 768px; position: fixed;}
+    
+    .gnb_mo_login {margin-top: 3.5%;}
+}
+
+
+/*414px*/
+@media screen and (max-width: 414px) {
+    /*Header*/
+    header {width: 414px;}
+    header .gnb {display: none;}
+    header .innerHeader {width: 414px; position: fixed;}
+    header .logo img {width: 80%; margin-left: 3%;}
+    
+    .gnb_mo_login {margin-top: 6%;}
+}
+
+@media screen and (max-width: 320px) {
+    
+    /*Header*/
+    header {width: 320px;}
+    header .innerHeader {width: 320px;}
+    .gnb_mo_login a {font-size: 13px;}    
+}
