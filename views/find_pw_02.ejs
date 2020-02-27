@@ -115,7 +115,7 @@
         });
         function checkPassword(password){
             
-            if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){            
+            if( !( /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password) ) ){            
                 alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
                 $('#password').val('').focus();
                 return false;
@@ -128,26 +128,26 @@
                 return false;
             }                                
         }
+
         //비밀번호 확인
-         $(function(){ 
+        $("#alert-success").hide();
+        $("#alert-danger").hide();
+        $("input").keyup(function(){ 
+            var pwd1=$("#password").val(); 
+            var pwd2=$("#password2").val();
+            if(pwd1 != "" || pwd2 != ""){ 
+                if(pwd1 == pwd2){ 
+                    $("#alert-success").show();
+                    $("#alert-danger").hide(); 
+                    $("#submit").removeAttr("disabled"); 
+                }else{
                 $("#alert-success").hide();
-                $("#alert-danger").hide();
-                $("input").keyup(function(){ 
-                    var pwd1=$("#password").val(); 
-                    var pwd2=$("#password2").val();
-                    if(pwd1 != "" || pwd2 != ""){ 
-                        if(pwd1 == pwd2){ 
-                            $("#alert-success").show();
-                            $("#alert-danger").hide(); 
-                            $("#submit").removeAttr("disabled"); 
-                            }else{
-                            $("#alert-success").hide();
-                            $("#alert-danger").show(); 
-                            $("#submit").attr("disabled", "disabled");
-                            } 
-                        } 
-                    }); 
-                });
+                $("#alert-danger").show(); 
+                $("#submit").attr("disabled", "disabled");
+                } 
+            } 
+        }); 
+                
         
         //넘겨받은 데이터 뿌려주기
         var orderDetail = JSON.parse(sessionStorage.getItem("orderDetail"));
@@ -184,102 +184,5 @@
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //////////////////////////////////
-        'use sctrict';
-
-        //gnb scroll 
-        //고정헤더, 사이드바 이벤트
-        var scrollTop = 0;
-        scrollTop = $(document).scrollTop();
-        fixHeader();
-
-        //윈도우창 조절시에 이벤트
-        $(window).on('scroll resize', function() {
-            scrollTop = $(document).scrollTop();
-            fixHeader();
-
-        });
-
-        //고정헤더 함수
-        function fixHeader() {
-            if (scrollTop > 200) {
-                $('header').addClass('on');
-            } else {
-                $('header').removeClass('on');
-            }
-        }
-
-
-        //모바일 모드 gnb_mo
-
-        setGnbMo();
-
-        function setGnbMo() {
-            $('header .open').on('click', function() {
-                $('.gnb_mo').addClass('on');
-            }); //햄버거버튼
-            $('.gnb_mo .close').on('click', function() {
-                $('.gnb_mo').removeClass('on');
-                $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
-                $('.gnb_mo > ul > li > a').removeClass('on')
-            });
-
-
-            //inner메뉴 열기
-
-            $('.gnb_mo > ul > li > a').on('click', function() {
-                $(this).next().slideToggle();
-                $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
-            });
-        }
-
-
-        //scroll 애니
-        $(function() {
-            var scrollAni = 0;
-            //스크롤했을때 이벤트 적용
-            scrollAni = $(document).scrollTop();
-            ani('.menu_list, .int_slide, .owner_img, .insta_list'); //각 클래스 적용
-            //윈도우창사이즈 조절시 동일하게 이벤트 적용
-            $(window).on('scroll resize', function() {
-                scrollAni = $(document).scrollTop();
-                ani('.menu_list, .int_slide, .owner_img, .insta_list');
-            });
-
-            //함수선언 ani-함수명/(selector)-선택자
-            function ani(selector) {
-                $(selector).each(function() {
-
-                    var $selector = $(this);
-                    var minShow = $selector.offset().top - $(window).height();
-                    var maxShow = $selector.offset().top + $selector.outerHeight();
-
-                    $selector.removeClass('down on up');
-                    if (scrollTop < minShow) {
-                        $selector.addClass('down');
-                    } else if (scrollTop > maxShow) {
-                        $selector.addClass('up');
-                    } else {
-                        $selector.addClass('on');
-                    }
-                });
-            }
-        });
     </script>
 </body></html>
