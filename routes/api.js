@@ -519,7 +519,7 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
     
     //  결제 내역 먼저 추가. 
     connection.query(ph_query, {
-        u_id    : req.body.U_ID,
+        u_id    : req.user.U_ID,
         pg_id   : 1,    // pg_id :  PG 사 결정되면 결제 정보 입력해야함.
         oPrice  : oPrice,
         sPrice  : sPrice,
