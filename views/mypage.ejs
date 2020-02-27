@@ -97,27 +97,29 @@
                                             <% for(let i=0; i<data.length; i++){ %>
                                                 <div class="reserve_bar_list">
                                                     <label>
-                                                        <input type="checkbox" class='chk' value='<%=data[i].CR_SeatNum%>'' name="day[]">
+                                                        <input type="checkbox" class='chk' value='<%=data[i].CR_SeatNum%>' name="day[]">
                                                         <span class="reserve_bar">
                                                             <ul>
                                                                 <li><%=data[i].CT_DepartureTe%></li>
                                                                 <li> 평택 > 서울 동대문</li>
-                                                                <li><%=data[i].CT_CarNum%></li>
-                                                                <li><%=data[i].CR_SeatNum%></li>
+                                                                <li><%=data[i].carName%> / <%=data[i].carNum%></li>
+                                                                <li><%=data[i].seatNum%></li>
                                                             </ul>
                                                         </span>
                                                     </label>
                                                 </div>
                                                 <% } %>                                                            
                                             <!--첫번째 리스트 mo 768px-->
+                                        <% for(let i=0; i<data.length; i++){ %>
+                                                           
                                             <div class="reserve_bar_mo_list">
                                                 <label>
-                                                    <input type="checkbox" name="day">
+                                                    <input type="checkbox" class='chk' value='<%=data[i].CR_SeatNum%>' name="day[]">
                                                     <span class="reserve_bar_mo">
                                                         <ul>
                                                             <li>
-                                                                2020.02.03
-                                                                <h6>22:00</h6>
+                                                                <%=data[i].deptTe2%>
+                                                                <h6><%=data[i].deptTe1%></h6>
                                                             </li>
                                                             <li>
                                                                 평택 - 서울동대문
@@ -132,122 +134,7 @@
                                                     </span>
                                                 </label>
                                             </div>
-                    
-                                            <div class="reserve_bar_mo_list">
-                                                <label>
-                                                    <input type="checkbox" name="day">
-                                                    <span class="reserve_bar_mo">
-                                                        <ul>
-                                                            <li>
-                                                                2020.02.03
-                                                                <h6>22:00</h6>
-                                                            </li>
-                                                            <li>
-                                                                평택 - 서울동대문
-                                                                <h6>충남고속</h6>
-                                                            </li>
-                                                            <li>
-                                                                선택좌석
-                                                                <h6>1,2,3,4,5</h6>
-                                                            </li>
-                                                            <li><i class="fas fa-chevron-right"></i></li>
-                                                        </ul>
-                                                    </span>
-                                                </label>
-                                            </div>
-                    
-                                            <!--첫번째 리스트 mo 768px-->
-                                            <div class="reserve_bar_mo_list">
-                                                <label>
-                                                    <input type="checkbox" name="day">
-                                                    <span class="reserve_bar_mo">
-                                                        <ul>
-                                                            <li>
-                                                                2020.02.03
-                                                                <h6>22:00</h6>
-                                                            </li>
-                                                            <li>
-                                                                평택 - 서울동대문
-                                                                <h6>충남고속</h6>
-                                                            </li>
-                                                            <li>
-                                                                선택좌석
-                                                                <h6>1,2,3,4,5</h6>
-                                                            </li>
-                                                            <li><i class="fas fa-chevron-right"></i></li>
-                                                        </ul>
-                                                    </span>
-                                                </label>
-                                            </div>
-                    
-                                            <div class="reserve_bar_mo_list">
-                                                <label>
-                                                    <input type="checkbox" name="day">
-                                                    <span class="reserve_bar_mo">
-                                                        <ul>
-                                                            <li>
-                                                                2020.02.03
-                                                                <h6>22:00</h6>
-                                                            </li>
-                                                            <li>
-                                                                평택 - 서울동대문
-                                                                <h6>충남고속</h6>
-                                                            </li>
-                                                            <li>
-                                                                선택좌석
-                                                                <h6>1,2,3,4,5</h6>
-                                                            </li>
-                                                            <li><i class="fas fa-chevron-right"></i></li>
-                                                        </ul>
-                                                    </span>
-                                                </label>
-                                            </div>
-                    
-                                            <div class="reserve_bar_mo_list">
-                                                <label>
-                                                    <input type="checkbox" name="day">
-                                                    <span class="reserve_bar_mo">
-                                                        <ul>
-                                                            <li>
-                                                                2020.02.03
-                                                                <h6>22:00</h6>
-                                                            </li>
-                                                            <li>
-                                                                평택 - 서울동대문
-                                                                <h6>충남고속</h6>
-                                                            </li>
-                                                            <li>
-                                                                선택좌석
-                                                                <h6>1,2,3,4,5</h6>
-                                                            </li>
-                                                            <li><i class="fas fa-chevron-right"></i></li>
-                                                        </ul>
-                                                    </span>
-                                                </label>
-                                            </div>
-                    
-                                            <div class="reserve_bar_mo_list">
-                                                <label>
-                                                    <input type="checkbox" name="day">
-                                                    <span class="reserve_bar_mo">
-                                                        <ul>
-                                                            <li>
-                                                                2020.02.03
-                                                                <h6>22:00</h6>
-                                                            </li>
-                                                            <li>
-                                                                평택 - 서울동대문
-                                                                <h6>충남고속</h6>
-                                                            </li>
-                                                            <li>
-                                                                선택좌석
-                                                                <h6>1,2,3,4,5</h6>
-                                                            </li>
-                                                            <li><i class="fas fa-chevron-right"></i></li>
-                                                        </ul>
-                                                    </span>
-                                                </label>
-                                            </div>
+                                        <% } %>                                                     
                                         </div>
                     
                                         <p class="cancel_info">취소할 예매 목록을 선택하시고 하단의 버튼을 누르시면 예매를 취소하실 수 있습니다.</p>

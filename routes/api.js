@@ -539,7 +539,6 @@ router.post('/payment', (req, res) =>{
 });
 
 //장차예매 리스트
-//마이페이지 취소 및 환불조회 //,'%m%d'
 router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
     let query = `select 
 	tCT.CT_ID as ctID,
