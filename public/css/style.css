@@ -1,0 +1,787 @@
+@charset="UFT-8";
+
+
+/*reset*/
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
+a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
+img {vertical-align: middle;}
+a img {border: none;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+p {text-align: justify; font-family: inherit; font-size: 16px;}
+
+.wrap {
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+}
+
+
+/*section.main 시작*/
+
+
+section.main {
+    position: relative;
+    width: 100%;
+    height: 1080px;
+    overflow: hidden;
+}
+
+.slideshow-container img {
+    width: 100%;
+    height: 1080px;
+    overflow: hidden;
+}
+
+.main_slideshow-container .main_Slide01 {background: url(../img/main/main_slide01.png); width: 100%; height: 1080px; background-size: cover; background-position: center;z-index: 1;} 
+
+.main_slideshow-container .main_Slide02 {background: url(../img/main/main_slide02.png); width: 100%; height: 1080px; background-size: cover; background-position: center; z-index: 1;} 
+
+.main_slideshow-container .main_Slide03 {background: url(../img/main/main_slide03.png); width: 100%; height: 1080px; background-size: cover; background-position: center; z-index: 1;} 
+
+
+.main_text {
+    position: absolute;
+    width: 1200px;
+    margin: 0 auto;
+    text-align: justify;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    color: #f0f0f0;
+}
+
+
+.main_text h2 {font-size: 1.6rem; font-weight: normal; margin-bottom: -5%; color: #ddd;}
+.main_text h2 br {display: none;}
+.main_text > h1 {font-size: 5rem; font-weight: normal; font-family: 'PT Serif', serif;}
+.main_text h2 em {color: #fff;}
+.main_text p { font-size: 1.1rem; line-height: 1.7; color: #ddd;}
+
+
+.mainlides {
+	display: none;
+}
+
+.slideshow-container {
+	width: 100%;
+	position: relative;
+    overflow: hidden;
+
+}
+
+.main_btn {width: 8%; height: auto; background: red; position: absolute; top: 65%; left: 18.5%; z-index: 10;}
+
+.main_prev, .main_next {
+	cursor: pointer;
+	position: absolute;
+	width: auto;
+	padding: 8% 18%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid #fff;
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+	transition: 0.6s ease;
+	border-radius: 0 3px 3px 0;
+    z-index: 10;
+}
+ 
+.main_next {
+	right: 0;
+	border-radius: 3px 0 0 3px;
+}
+ 
+.main_prev:hover, .main_next:hover {
+	background-color: rgba(0,0,0,0.8);
+}
+
+.dot {
+	cursor: pointer;
+	height: 10px;
+	width: 10px;
+	margin: 0 2px;
+    border: 1px solid #a0772b;
+	/*background-color: #eee;*/
+	border-radius: 50%;
+	display: inline-block;
+	transition: background-color 0.6s ease;
+    z-index: 100;
+}
+.active, .dot:hover {
+	background-color: #a0772b;
+}
+.main_ani {
+	-webkit-animation-name: main_ani;
+	-webkit-animation-duration: 5s;
+	animation-name: main_ani;
+	animation-duration: 5s;
+}
+@-webkit-keyframes main_ani {
+  0% {opacity: 1; transform: scale(1.05);}
+    100% {opacity: 1; transform: scale(1);}
+}
+
+@keyframes main_ani {
+  0% {opacity: 1; transform: scale(1.05);}
+  100% {opacity: 1; transform: scale(1);}
+}
+
+
+/*section.main 완료*/
+/*section.about 시작*/
+
+
+/*공통속성*/
+section .bar {
+    border-bottom: 2px solid #624000; 
+    width: 35px; 
+    margin: 0 auto;
+    margin-top: 2%;
+    margin-bottom: 4%;
+}
+
+section h6 {text-align: center; color: #a0772b; margin-bottom: -1%; font-weight: bold; font-size: 1rem;}
+
+section h3 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.7rem;
+    font-family: 'PT Serif', serif;
+}
+
+section.about {
+    width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+    margin-top: 5%;
+    margin-bottom: 6.5%;
+    color: #272727;
+}
+
+
+section.about ul li {float: left; width: 47%;}
+section.about .about_img {overflow: hidden;}
+section.about .about_img img {width: 100%;}
+section.about .about_text {margin-left: 8%; margin-top: 3.5%;}
+section.about .about_text h5 {font-size: 1.2rem; line-height: 1.6; font-weight: normal; color: #555;}
+section.about .about_text h4 {color: #222; font-weight: bold; font-size: 1.5rem; margin-top: }
+section.about .about_text p {margin-top: 8%; line-height: 1.8;}
+section.about .about_btn {padding: 1.5% 8%;  border: 1px solid #bbb; display: inline-block; transition: all 0.4s; margin-top: 12.5%; color: #a0772b;}
+section.about .about_btn a {display: block;}
+section.about .about_btn:hover {background: #a7813c; color: #fff; border: 1px solid #be974f;}
+
+
+/*section.about 완료*/
+/*section.benefit 시작*/
+
+
+section.benefit {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+section.benefit .benefit_bg {background: url(../img/main/benefit_bg.png); width: 100%; height: 500px; z-index: -100; position: absolute;}
+
+.inner_benefit {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.benefit_tit {margin-top: 8%; float: left;}
+.benefit_tit h3 {text-align: justify;margin-top: -6%;}
+.benefit_tit .bar {margin-bottom: 15%; padding-top: 5%; margin-left: 0;}
+.benefit_tit h6 {text-align: justify; font-family: 'Noto Sans KR', sans-serif;}
+
+.benefit_list {width: 60%; float: right; padding: 5% 0; text-align: center; margin: 0 auto; color: #444; font-weight: normal;}
+
+.benefit_list ul li {width: 48%; height: 500px; float: left; transition: all 0.3s; overflow: hidden;}
+.benefit_list ul li {margin-right: 2%;}
+.benefit_list ul li:nth-child(2) {margin-right: 0;}
+.benefit_list ul li:hover { box-shadow: 0 0 8px rgba(0,0,0,0.3);}
+
+.benefit_01 {background: url(../img/main/benefit_list01.png); background-size: cover; width: 100%; height: 500px;transition: all 0.3s; overflow: hidden;}
+.benefit_02 {background: url(../img/main/benefit_list02.png); background-size: cover; width: 100%; height: 500px; transition: all 0.3s; overflow: hidden;}
+
+
+.benefit_list_txt h5 {font-size: 1.05rem; line-height: 1.6; font-weight: normal;}
+.benefit_list_txt h4 {font-size: 1.8rem; font-weight: bold; color: #222;}
+.benefit_list_txt {margin-top: 25%;}
+
+
+.benefit_list ul li p {margin-top: 50%;}
+.benefit_list ul li span {font-size: 20px; color: #a0772b; font-weight: bold;}
+
+.benefit_btn {padding: 1.5% 8%;  border: 1px solid #555; display: inline-block; transition: all 0.4s; margin-top: 7%; color: #000;}
+
+.benefit_list ul li:hover .benefit_btn {background: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.4);}
+
+
+/*section.benefit 완료*/
+/*section.gallery 시작*/
+
+
+section.gallery {
+    width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    color: #272727;
+}
+
+section.gallery .bar {margin-bottom: 3%;}
+
+section.gallery p {text-align: center; margin: 0;  margin-bottom: 3%;}
+
+
+.gallery_slider {
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.gallery_slide_viewer {
+  height: 550px;
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery_slide_group {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.gallery_slide {
+  display: none;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.gallery_slide:first-child {
+  display: block;
+}
+
+
+.gallery_slide_buttons {
+    width: 100%;
+  left: 0;
+  position: relative;
+  right: 0;
+  text-align: center;
+}
+
+a.slide_btn {
+  color: #888;
+    font-size: 20px;
+    line-height: 60px;
+  margin: 0 0.175em;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -ms-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.slide_btn.active, .slide_btn:hover {
+  cursor: pointer;
+    background: none;
+    color: #a0772b;
+}
+
+.directional_nav {
+  height: 60px;
+  margin: 0 auto;
+  max-width: 100%;
+  position: relative;
+  top: -55px;
+}
+
+.directional_nav i {font-size: 25px;}
+.directional_nav i:hover {color: #a0772b;}
+
+.previous_btn {
+  bottom: 0;
+  left: 35%;
+  margin: auto;
+  position: absolute;
+  top: 0;
+
+}
+
+.next_btn {
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+  right: 35%;
+  top: 0;
+}
+
+.previous_btn, .next_btn {
+  cursor: pointer;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+  color: #000;
+    padding: 0% 5%;
+  -webkit-transition: opacity 0.4s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  -ms-transition: opacity 0.4s ease-in-out;
+  -o-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+
+/*section.gallery 완료*/
+/*section.video 시작*/
+
+
+section.video {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+   padding-top: 4.5%;
+    color: #272727;
+    background: #f4f4f4;
+}
+
+section.video .bar {margin-top: 1.5%; margin-bottom: 2%;}
+section.video h6 {margin-bottom: -0.5%;}
+
+.video-slider {
+	width: 1200px;
+    height: 800px;
+    margin: 0 auto;
+    margin-top: 2%;
+	position: relative;
+	overflow: hidden;
+}
+	.video_slide {
+		position: absolute;
+		top: 0;
+		left: 100%;
+		height: 675px;
+		width: 100%;
+		overflow: hidden;
+	}
+	.video_slide:first-child{left: 0;}
+	.video{height: 100%; width: 100%; border:0;}
+
+.video_btn div {
+    color: #555;
+    background: transparent;
+    border: 1px solid #888;
+    width: 5%;
+    margin-top: 56.5%;
+    cursor: pointer;
+    -webkit-transition: opacity 0.4s ease-in-out;
+    -moz-transition: opacity 0.4s ease-in-out;
+    -ms-transition: opacity 0.4s ease-in-out;
+    -o-transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.video_btn div:hover {background: #a0772b; color: #fff;}
+
+.video_btn i {padding: 20% 14%; font-size: 30px;}
+	.slide-arrow{
+		position: absolute;
+		top: 0;
+		right: 62px;
+        text-align: center;
+		cursor: pointer;
+	}
+
+	.slide-arrow:after{
+		text-align: center;
+		display: block;
+		height: 10%;
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		font-size: 3em;
+	}
+	.slide-arrow.right{left: auto; right: 0;}
+
+
+
+footer {
+    width: 100%;
+    height: 200px;
+    margin: 0 auto;
+    background: #211e1c;
+}
+
+
+
+/*gnb 자바스크립트*/
+header.on {
+    background: rgba(255,255,255,0.95);
+    height: 80px;
+}
+
+
+/*모바일 메뉴*/
+header .open {
+    /*버거버튼 클래스*/
+    width: 0;
+    height: 0;
+    display: none;
+    opacity: 0;
+    z-index: -9999;
+}
+
+.gnb_mo {
+    /*모바일 네비 전체*/
+    width: 0;
+    height: 0;
+    display: none;
+    opacity: 0;
+    z-index: -9999;
+}
+
+
+/*반응형*/
+
+/*1200px*/
+@media screen and (max-width: 1200px) {
+    
+    /*main 이미지*/
+    section.main {width: 100%; height: 900px;}
+    section.main .inner_main {width: 1200px; }
+    section.main .main_bg img {width: 100%; height: 900px;} 
+
+    /*main 타이틀*/
+    section.main .main_text {width: 800px; text-shadow: 0 0 5px rgba(0,0,0,0.5);}
+    section.main .main_text h2 {margin-bottom: -8%;}
+    section.main .main_text p {margin-top: -1%;}
+    
+    
+    /*main_btn*/
+    .main_btn {width: 12%; top: 68%; left: 16.5%;}
+    .main_prev, .main_next {padding: 10% 20%;}
+    
+    /*section.about*/
+    section.about {width: 1200px;}
+    section.about .inner_about {width: 100%;}
+    section.about .about_img {margin-left: 5%;}
+    section.about .about_text {margin-top:2%;}
+
+    /*section.benefit*/
+    section.benefit .benefit_tit {margin-left: 5%;}
+    section.benefit .benefit_list {margin-right: 5%;}  
+
+    /*section.gallery*/
+    section.gallery {width: 1200px;}
+    section.gallery .inner_story {width: 100%;}
+    
+    /*section.video*/
+    section.video {width: 1200px;}
+    .inner_video { width: 100%; margin: 0 auto;}
+    .video-slider {width: 95%;}    
+    .video_btn div {margin: 0 auto; margin-right: 43%; margin-top: 61%; width: 6%;}
+    .video_btn i {padding: 28% 0;}
+    .slide-arrow {right: 90px;}
+    
+
+    /*section.video iframe {width: 95%; margin-left: 50%; transform: translateX(-50%);}*/
+    
+    
+    
+    
+    
+
+
+/*1024px*/
+@media screen and (max-width: 1024px) {
+    
+    /*main 이미지*/
+    section.main {width: 100%; height: 820px;}
+    section.main .inner_main {width: 1024px;}
+    
+    /*main 타이틀*/
+    section.main .main_text {width: 800px;}
+    
+    /*main_btn*/
+    .main_btn {width: 15%; top: 71.5%; left: 11%;}
+
+    
+    /*공통속성*/
+    section h3 {font-size: 2.5rem;}
+    
+    /*section.about*/
+    section.about {width: 1024px;}
+    section.about .inner_about {width: 100%;}
+    section.about .about_text {margin-top: 0%;}
+    section.about .about_text p {margin-top: 6%;}
+    section.about .about_btn {margin-top: 10%;}
+
+    /*section.benefit*/
+    section.benefit {width: 100%;}
+    section.about .inner_benefit {width: 1024px;}
+    section.benefit .benefit_tit {margin-left: 5%;}
+    section.benefit .benefit_list {width: 53%; margin-right: 20%;}  
+
+    /*section.gallery*/
+    section.gallery {width: 1024px; margin: 0 auto;}
+    section.gallery .inner_story {width: 100%;}
+    .gallery_slide {width: 1024px;}
+    .gallery_slide_group, .gallery_slide_viewer {height: 470px;}
+    .gallery_slide img {width: 100%;}
+    
+    .video-slider {height:700px;}
+    
+    /*section.video*/
+    section.video {width: 1024px;}
+    .inner_video {width: 1024px; margin: 0 auto;}
+    .video_slide {height: 550px;}
+    .video_btn div {margin: 0 auto; margin-right: 43%; margin-top: 60%; width: 7.5%;}
+    .video_btn i {padding: 28% 0;}
+    .slide-arrow {right: 90px;}
+    
+    
+    
+
+    /*footer*/
+    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
+    footer .footer_inner {width: 90%; margin: 0 auto;}
+    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
+    footer .footer_txt p {margin: 2% 0;}
+    footer .footer_logo { z-index: 100; margin-right: 55%;}
+}
+
+
+/*768px*/
+@media screen and (max-width: 768px) {
+    
+    /*main 이미지*/
+    section.main {width: 100%; height: 800px;}
+    section.main .inner_main {width: 768px;}
+    .slideshow-container .main_slide_bg {width: 100%; background-size: cover; height: 800px;}
+    
+    /*main 타이틀*/
+    section.main .main_text {width: 60%; margin-top: -20%; text-align: center; padding: 4% 4%; background: rgba(0,0,0,0.5);}
+    section.main .main_text h1 {line-height: 1.1; margin: 3% 0;}
+    section.main .main_text p {text-align: center;}
+     section.main .main_text02 {margin-top: -8.5%;}
+    
+    
+    
+    /*main_btn*/
+    .main_btn {width: 20%; top: 75%; left: 50%; transform: translateX(-50%);}
+    .main_prev, .main_next {padding: 10% 20%;  background: rgba(0,0,0,0.5);}
+    
+    /*section.about*/
+    section.about {width: 768px; margin-top: 7%;}
+    section.about .inner_about {width: 100%; margin: 0;}
+    section.about ul li {float: none; width: 100%; margin: 0 auto;}
+    section.about .about_text {width: 95%; margin: 0 auto; text-align: center; margin-top: 5%;}
+    section.about .about_img {margin-left:0%; width: 95%; margin: 0 auto;}
+    section.about .about_text p {text-align: center; margin-top: 4%;}
+    section.about .bar {margin-bottom: 5%;}
+    section.about .about_btn {margin-top: 6%; padding: 1.5% 10%;}
+    
+    /*section.benefit*/
+    section.benefit {width: 100%;}
+    section.about .inner_benefit {width: 768px;}
+    section.benefit .benefit_tit {margin-top: 5%; margin-left: 23%;}
+    section.benefit .benefit_tit h6 {text-align: center;}
+    section.benefit .benefit_tit h3 {text-align: center;}
+    section.benefit .benefit_tit p {text-align: center;}
+    section.benefit .benefit_tit .bar {margin-left: 50%; transform: translateX(-50%);}
+    section.benefit .benefit_list {width: 55%; float: left; margin-left: 5%; height: 480px; margin-top: -2%;}  
+    section.benefit .benefit_01,
+    section.benefit .benefit_02 {background-size: cover; height: 460px;} 
+
+    /*section.gallery*/
+    section.gallery {width: 768px; margin-top: 9%; margin-bottom: 0;}
+    section.gallery .inner_gallery {width: 100%;}
+    section.gallery .inner_gallery p {margin-bottom: 5%;}
+    .gallery_slide {width: 768px;}
+    .gallery_slide_group, .gallery_slide_viewer {height: 350px;}
+    .gallery_slide img {width: 100%;}
+    
+    /*section.video*/
+    section.video {width: 768px; }
+    .inner_video {width: 768px; margin: 0 auto;}
+    .video-slider {height: 550px;}
+    .video_slide {height: 410px;}
+    .video_btn div {margin: 0 auto; margin-right: 40%; margin-top: 60%; width: 10%;}
+    .video_btn i {padding: 25% 25%;}
+    .slide-arrow {right: 80px;}
+    
+    /*footer*/
+    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
+    footer .footer_inner {width: 90%; margin: 0 auto;}
+    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
+    footer .footer_txt p {margin: 2% 0;}
+    footer .footer_logo { z-index: 100; margin-right: 55%;}
+}
+
+/*414px*/
+@media screen and (max-width: 414px) {
+    
+    /*main 이미지*/
+    section.main {width: 100%; height: 500px;}
+    section.main .inner_main {width: 414px; height: auto;}
+    .main_slideshow-container .main_Slide01,
+    .main_slideshow-container .main_Slide02,
+    .main_slideshow-container .main_Slide03 {width: 100%; background-size: cover; background-position: bottom; height: 500px;}
+    
+    .main_text h2 {line-height: 1.6;}
+    .main_text h2 br {display: block;}
+
+    /*main 타이틀*/
+    section.main .main_text {width: 60%; margin-top: -11%;}
+    section.main .main_text h1 {font-size: 2.5rem; margin: 0; line-height: 1.15;}
+    section.main .main_text h2 {font-size: 1.2rem; width: 85%; margin: 0 auto; margin-bottom: -10%;}
+    section.main .main_text p {display: none;}
+    
+    section h3 {font-size: 2rem;}
+    
+    section.main .main_text02 {margin-top: 0%;}
+    
+    /*main_btn*/
+    .main_btn {width: 25%; margin-top: 10%;}
+    .main_prev, .main_next {padding: 2% 16%;}
+
+    
+    /*section.about*/
+    section.about {width: 414px; margin: 10% 0 13%;}
+    section.about .inner_about {width: 100%; margin: 0 auto;}
+    section.about .bar {margin-bottom: 10%;}
+    section.about .inner_about ul li {float: none; width: 95%; margin: 0 auto;}
+    section.about .about_text {margin: 0 auto; text-align: center; margin-top: 8%;}
+    section.about .about_text h5 {width: 65%; margin-left: 50%; transform: translateX(-50%); font-size: 1.1rem;}
+     section.about .about_text h4 {font-size: 1.6rem;}
+    section.about .about_text p br {display: none;}
+    section.about .about_text p {margin-top: 5%;}
+    section.about .about_btn {margin-top: 10%; padding: 2% 15%;}
+    
+    /*section.benefit*/
+    section.benefit {width: 414px;}
+    section.benefit .inner_benefit {width: 100%;}
+    section.benefit .benefit_tit {margin: 0 auto; margin-left: 50%; transform: translateX(-50%); margin-top: 20%;}
+    section.benefit .bar {margin-top: 5%; margin-bottom: 40%;}
+    section.benefit .benefit_tit p {display: none;}
+    section.benefit .benefit_list {float: none; width: 95%; margin: 0 auto;}  
+    section.benefit .benefit_list ul li {margin-bottom: 1%;}
+    .benefit_list_txt {text-align: center;}
+
+    section.benefit .benefit_list ul li {width: 100%; height: 450px; margin-bottom: 3%;}
+    
+    section.benefit .benefit_list {width: 95%; height: auto; margin-top: -10%;}  
+    section.benefit .benefit_01,
+    section.benefit .benefit_02 { background-size: cover; height: 450px;} 
+    
+    
+    /*section.gallery*/
+    section.gallery {width: 414px; margin-top: 15%;}
+    section.gallery p {display: none;}
+    section.gallery .bar {margin-bottom: 10%;}
+    section.gallery .inner_gallery {width: 100%;}
+    section.gallery .inner_gallery p {display: none}
+    .gallery_slide {width: 414px;}
+    .gallery_slide_group, .gallery_slide_viewer {height: 190px;}
+    .previous_btn {left: 28%;}
+    .next_btn {right: 28%;}
+    
+    /*section.video*/
+    section.video {width: 414px; padding: 12% 0;}
+    .inner_video {width: 414px; margin: 0 auto;}
+    section.video .bar {margin-bottom: 5%;}
+    section.video p {display: none;} 
+    .video-slider {height: 280px;}
+    .video_slide {height: 220px;}
+    .video_btn div {margin: 0 auto; margin-right: 39%; margin-top: 60%; width: 10%;}
+    .video_btn i {padding: 20% 33%; font-size: 20px;}
+    .slide-arrow {right: 40px;}
+    
+    /*footer*/
+    footer {width: 100%; margin: 0 auto; margin-top: -50%;}
+    footer .footer_inner {width: 90%; margin: 0 auto;}
+    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
+    footer .footer_txt p {margin: 2% 0;}
+    footer .footer_logo { z-index: 100; margin-right: 55%;}
+}
+
+/*320px*/
+@media screen and (max-width: 320px) {
+    
+    /*main 이미지*/
+    section.main {width: 100%; height: auto;}
+    section.main .inner_main {width: 320px; height: auto;}
+    .main_slideshow-container .main_Slide01,
+    .main_slideshow-container .main_Slide02,
+    .main_slideshow-container .main_Slide03 {width: 100%; background-size: cover;  background-repeat: no-repeat; height: 400px;}
+    
+    .main_text h2 {line-height: 1.6;}
+    .main_text h2 br {display: block;}
+
+    /*main 타이틀*/
+    section.main .main_text {width: 60%; margin-top: -11%;}
+    section.main .main_text h1 {font-size: 26px;}
+    section.main .main_text h2 {font-size: 18px;}
+    section.main .dot {opacity: 0;}
+    
+    section h6 {font-size: 14px;}
+    section h3 {font-size: 24px; margin-bottom: 4%;}
+    .bar {display: none;}
+
+    /*section.about*/
+    section.about {width: 320px; margin-top: 2%;}
+    section.about .about_text {margin: 0 auto; text-align: center; margin-top: 8%;}
+    section.about .about_text h5 {width: 100%; font-size: 16px;}
+     section.about .about_text h4 {font-size: 18px;}
+    section.about .about_text p {font-size: 15px;}
+    
+    /*section.benefit*/
+    section.benefit {width: 320px;}
+    section.benefit .inner_benefit {width: 100%;}
+    section.benefit .benefit_tit {margin: 0 auto; margin-left: 50%; transform: translateX(-50%); margin-top: 20%;}
+    section.benefit .benefit_tit p {display: none;}
+    section.benefit .benefit_list {float: none; margin: 0 auto;}  
+    .benefit_list h5 {font-size: 16px;}
+    .benefit_list h4 {font-size: 22px;}
+    .benefit_list_txt {text-align: center;}
+
+    section.benefit .benefit_list ul li {width: 95%; height: 450px; margin: 0 auto; margin-bottom: 3%; margin-left: 2.5%;} 
+    
+    section.benefit .benefit_list {width: 95%; height: auto; margin-top: -10%;}  
+    section.benefit .benefit_01,
+    section.benefit .benefit_02 { background-size: cover; height: 450px;} 
+    
+    
+    /*section.gallery*/
+    section.gallery {width: 320px; margin-top: 15%; margin-bottom: 0;}
+    section.gallery p {display: none;}
+    section.gallery .bar {margin-bottom: 10%;}
+    section.gallery .inner_gallery {width: 100%;}
+    section.gallery .inner_gallery p {display: none}
+    .gallery_slide {width: 320px;}
+    .gallery_slide_group, .gallery_slide_viewer {height: 150px;}
+    .previous_btn {left: 23%;}
+    .next_btn {right: 23%;}
+    
+    /*section.video*/
+    section.video {width: 320px; padding: 8% 0;}
+    .inner_video {width: 320px; margin: 0 auto;}
+    .video-slider {height: 280px;}
+    .video_slide {height: 180px;}
+    .video_btn div {margin-top: 65%;}
+    .video_btn i {font-size: 17px;}
+    .slide-arrow {right: 40px;}
+    
+    /*footer*/
+    footer {width: 100%; margin: 0 auto; margin-top: -50%;}
+    footer .footer_inner {width: 90%; margin: 0 auto;}
+    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
+    footer .footer_txt p {margin: 2% 0;}
+    footer .footer_logo { z-index: 100; margin-right: 55%;}
+}

@@ -1,0 +1,262 @@
+@charset="UFT-8";
+
+/*reset*/
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; font-weight: normal;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0; }
+a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
+img {vertical-align: middle;}
+a img {border: none;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+strong {font-weight: bold;}
+p {text-align: justify; font-family: inherit; font-size: 16px;}
+
+.wrap {
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    
+}
+
+/*section.main*/
+section.main {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    z-index: -100;
+    overflow: hidden;
+}
+
+.main_bg { background: url(../img/sub_main_bg/sub01_main_bg.jpg) no-repeat; background-position: bottom; background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
+
+@keyframes bg {
+    0% {transform: scale(1.05);
+    100% {transform: scale(1);}
+    }
+}
+
+/*section.main 완료*/
+/*section.sub_wrap 시작*/
+
+section.sub_wrap {
+    width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 6.5%;
+    color: #333;
+}
+
+.tnb {position: relative; width: 1200px; margin: 0 auto;  margin-top: -5%;}
+.tnb ul li {float: left; width: 33.33%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; color: #444; transition: all 0.2s;z-index: 10000;}
+
+
+section.sub_wrap .bar {
+    border-bottom: 2px solid #624000; 
+    width: 35px; 
+    margin: 0 auto;
+    margin-top: 2%;
+    margin-bottom: 4%;
+}
+
+section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 13%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+
+section.sub_wrap h1 {
+    text-align: center;
+    font-size: 2.8rem;
+    margin-top: -1%;
+}
+
+section.sub_wrap h2 {font-size: 2rem; text-align: center; margin-bottom: 5%; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif;}
+
+section.sub_wrap h5 {color: #777; font-size: 1.3rem; text-align:center; font-family: 'Noto Sans KR', sans-serif;}
+section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow: inset 0 -15px 0 #fcf3dc;}
+
+
+.sub_map {width: 100%; height: 450px;; box-shadow: 0 0 15px rgba(0,0,0,0.3);}
+
+/*sib_contents*/
+.sub_contents {width: 100%; margin: 0 auto; overflow: hidden; margin-top: 3%;}
+.sub_contents ul li {float: left; width: 48%; border-bottom: 1px solid #a0772b; margin-right: 4%;}
+.sub_contents ul li:nth-child(2),
+.sub_contents ul li:nth-child(4),
+.sub_contents ul li:nth-child(6) {margin-right: 0%;}
+.sub_contents ul li h3, p {display: inline-block; padding-left: 3%;}
+.sub_contents ul li h3 {margin-right: 6%; font-size: 16px; width: 20%; font-family: 'Noto Sans KR', sans-serif; color: #777;}
+.sub_contents ul li p {font-size: 18px;}
+
+.sub_contents ul li h3 i {margin-right: 15px; color: #a0772b;}
+
+/*section.about 완료*/
+
+
+footer {
+    width: 100%;
+    height: 200px;
+    margin: 0 auto;
+    background: #211e1c;
+}
+
+
+/*gnb 자바스크립트*/
+header.on {
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
+    height: 80px;
+}
+
+
+/*모바일 메뉴*/
+header .open {
+    /*버거버튼 클래스*/
+    width: 0;
+    height: 0;
+    display: none;
+    opacity: 0;
+    z-index: -9999;
+}
+
+.gnb_mo {
+    /*모바일 네비 전체*/
+    width: 0;
+    height: 0;
+    display: none;
+    opacity: 0;
+    z-index: -9999;
+}
+
+
+/*반응형*/
+
+/*1200px*/
+@media screen and (max-width: 1200px) {
+    
+    
+    /*main*/
+    section.main {width: 100%;}
+    section.main .inner_main {width: 1200px;}
+    
+    
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%;}
+    section.sub_wrap .inner_sub_wrap {width: 1200px;}
+    section.sub_wrap h6 {padding-top: 8%;}
+    
+    .tnb {padding-bottom: 5%; width: 1200px; margin-top: -5%;}
+    
+    /*sub_contents*/
+    .sub_contents {width: 95%;}
+    
+    .sub_map {width: 95%; margin: 0 auto;}
+    
+    
+  
+}
+
+
+/*1024px*/
+@media screen and (max-width: 1024px) {
+    
+    /*main*/
+    section.main {width: 100%;}
+    section.main .inner_main {width: 1024px;}
+    
+    
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%;}
+    section.sub_wrap .inner_sub_wrap {width: 1024px;}
+    
+    .tnb {padding-bottom: 6%; width: 1024px; margin-top: -5.9%;}
+    
+    .sub_map { width: 95%; margin: 0 auto;}
+    
+    
+
+    /*footer*/
+    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
+    footer .footer_inner {width: 90%; margin: 0 auto;}
+    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
+    footer .footer_txt p {margin: 2% 0;}
+    footer .footer_logo { z-index: 100; margin-right: 55%;}
+}
+
+
+/*768px*/
+@media screen and (max-width: 768px) {
+    
+    /*main*/
+    section.main {width: 100%;}
+    section.main .inner_main {width: 768px;}
+    
+    
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%;}
+    section.sub_wrap .inner_sub_wrap {width: 768px;}
+    
+    section.sub_wrap h1 {font-size: 2.2rem;}
+    section.sub_wrap h6 {padding-top: 10%;}
+    section.sub_wrap h5 {font-size: 20px;}
+    section.sub_wrap h2 {font-size: 30px;}
+    .tnb {width: 768px; margin-top:-7.6%;}
+    
+    .sub_contents {margin: 0 auto; padding-top: 3%;}
+    .sub_contents ul li { width: 49.5%; margin-right: 1%;}
+    .sub_contents ul li h3 {width: 25%;}
+    
+    /*footer*/
+    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
+    footer .footer_inner {width: 90%; margin: 0 auto;}
+    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
+    footer .footer_txt p {margin: 2% 0;}
+    footer .footer_logo { z-index: 100; margin-right: 55%;}
+}
+
+/*414px*/
+@media screen and (max-width: 414px) {
+    
+    /*main*/
+    section.main {width: 100%;}
+    section.main .inner_main {width: 414px;}
+    
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%; margin-bottom: 10%;}
+    section.sub_wrap .inner_sub_wrap {width: 414px;}
+    section.sub_wrap h1 {font-size: 2rem;}
+    section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
+    section.sub_wrap h2 {font-size: 1.5rem; padding-bottom: 7%; line-height: 1.5;}
+    section.sub_wrap h2 br {display: block;}
+    section.sub_wrap h5{font-size: 1.2rem; margin-bottom: -1%;}
+    section.sub_wrap h6 {padding-top: 22%;}
+    
+    .tnb {width: 414px; margin-top: -12%;} 
+    .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
+    
+    .sub_contents {margin-top: 7%;}
+    .sub_contents ul li {text-align: center; width: 100%; border-bottom: none; margin-bottom: 4%;}
+    .sub_contents ul li h3 {margin: 0 auto; width: 100%; padding: 0;}
+    .sub_contents ul li p {margin-bottom: 3%; width: 100%; text-align: center; padding: 0;}
+    .sub_contents ul li:last-child p {margin-bottom: 0;}
+
+    /*footer*/
+    footer {width: 100%; margin: 0 auto; }
+    footer .footer_inner {width: 90%; margin: 0 auto;}
+    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
+    footer .footer_txt p {margin: 2% 0;}
+    footer .footer_logo { z-index: 100; margin-right: 55%;}
+}
+
+
+/*320px*/
+@media screen and (max-width: 320px) {
+
+    /*main*/
+    section.main {width: 100%;}
+    section.main .inner_main {width: 320px;}
+    
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%; margin-bottom: 10%;}
+    section.sub_wrap .inner_sub_wrap {width: 320px;}
+    section.sub_wrap h1 {font-size: 24px;}
+    section.sub_wrap h2 {font-size: 20px; padding-bottom: 7%; line-height: 1.5;}
+    section.sub_wrap h6 {padding-top: 22%; font-size: 14px;}
+    
+    .tnb {width: 320px; margin-top: -15.5%;} 
+}
