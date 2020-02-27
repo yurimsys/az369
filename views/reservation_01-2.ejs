@@ -11,7 +11,7 @@
     <!--<link rel="stylesheet" type="text/css" href="/css/lib/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-theme.css">
     <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/booking.css">
+    
 
 </head>
 
@@ -54,7 +54,7 @@
                                             <dd id="selected_seats_cnt">　</dd>
                                         </dl>
 
-                                        <button class="reload_btn"><img src="/img/reservation/reload.png" alt="새로고침">
+                                        <button class="reload_btn" onclick="flushSeat()"><img src="/img/reservation/reload.png" alt="새로고침">
                                             <p>좌석 새로고침</p>
                                         </button>
                                     </div>
@@ -210,8 +210,7 @@
     <script src="/js/lib/bootstrap.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/lib/angular.min.js"></script>
-    <script src="/js/booking.js"></script>
-
+    
     <script>
         var firstSeatLabel = 1;
         var selected_seats_cnt = 0,
@@ -223,8 +222,8 @@
                 $counter = $('#selected_seats_cnt'),
                 $origin_price = $('#original_price'),
                 $sale_price = $('#sale_price'),
-                $payment_seats_cnt = $('#payment_seats_cnt')
-                $payment_seats_nums = $('#payment_seats_nums')
+                $payment_seats_cnt = $('#payment_seats_cnt'),
+                $payment_seats_nums = $('#payment_seats_nums'),
                 sc = $('.seat-map').seatCharts({
                     map: [
                         'ee_ee',
@@ -252,14 +251,6 @@
                         getLabel: function(character, row, column) {
                             return firstSeatLabel++;
                         },
-                    },
-                    legend: {
-                        node: $('#legend'),
-                        items: [
-                            ['f', 'available', 'First Class'],
-                            ['e', 'available', '일반'],
-                            ['r', 'unavailable', 'Already Booked']
-                        ]
                     },
                     click: function() {
                         if (this.status() == 'available') {
@@ -315,8 +306,7 @@
                 sc.get($(this).parents('li:first').data('seatId')).click();
             });
 
-            //let's pretend some seats have already been booked
-            sc.get(['2_1', '2_2', '4_1', '4_2', '8_2']).status('unavailable');
+            flushSeat();
 
         });
 
@@ -335,10 +325,68 @@
             return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
         }
 
+        function flushSeat(){
+            var sc = $('.seat-map').seatCharts();
+            selected_seats = [];
+            selected_seats_cnt = 0;
+
+            sc.find('e.selected').status('available');
+            $("#selected_seats_num").text('　');
+            $("#selected_seats_cnt").text('　');
+            
+            // 데이터 가져와서 예약된 좌석 상태 설정.
+            var ct_id = sessionStorage.getItem('ct_id');
+            $.ajax({
+                dataType: "json",
+                method: "GET",
+                url:"/api/useSeat/"+ct_id
+            }).done((res)=>{
+                let seat_id_list = [];
+
+                res.data.map((seat_num) => {
+                    seat_id_list.push( getSeatId(seat_num) );
+                });
+
+                sc.find('unavailable').status('available');
+                sc.status( seat_id_list, 'unavailable');
+            });
+        }
+
+        // 45인승 기준 seatId 가져오기
+        function getSeatId(seat_num){
+            if( seat_num <= 45 && seat_num > 0){
+
+                let seat_id = "1_1";
+                let row = '',
+                    column = '';
+                
+                if(seat_num > 40){
+                    row = 11;
+                    column  = seat_num % 10;
+                } else {
+                    if( (seat_num % 4) === 0 ){
+                        row = Number.parseInt(seat_num / 4);
+                        column = 4;
+                    } else {
+                        row = (Number.parseInt(seat_num / 4))+1;
+                        column = seat_num % 4;
+                    }
+
+                    if(column >=3 ) column +=1;
+                }
+
+                seat_id = row+"_"+column;
+                return seat_id;
+            } else {
+                return null;
+            }
+            
+        }
+
         function processPayment(){
             let origin_price = $("#original_price").data('price');
             let sale_price = $("#sale_price").data('price');
-            let ct_id = 1;
+            let ct_id = sessionStorage.getItem("ct_id");
 
             $.ajax({
                 method  : "POST",

@@ -504,11 +504,11 @@
                 url:"/api/useSeat/"+ct_id
             }).done((res)=>{
                 let seat_id_list = [];
-                console.log(res);
+
                 res.data.map((seat_num) => {
                     seat_id_list.push( getSeatId(seat_num) );
                 });
-                console.log(seat_id_list);
+
                 sc.find('unavailable').status('available');
                 sc.status( seat_id_list, 'unavailable');
             });
