@@ -16,7 +16,7 @@ connection.config.queryFormat = function (query, values) {
         return txt;
     }.bind(this));
 };
-
+///관리자 부분
 router.get('/adminIndex', function(req, res, next) {
     res.render('admin_index');
 });
@@ -26,7 +26,35 @@ router.get('/adminTable', function(req, res, next) {
     res.render('admin_table');
 });
 
+router.get('/adminBusiness', function(req, res, next) {  
+    let query = `SELECT * FROM tB `; //서비스 후 > now() 변경
+    connection.query(query,
+      function(err, rows, fields) {
+          if (err) throw err;
+          res.render('admin_business', { data : rows });
+          console.log("비지니스",rows);
+      });
+});
 
+
+router.get('/adminBusinessModify/:bId', function(req, res, next) {
+    let reqId = req.param.bId;
+    let reqMode = req.param.mode;
+    console.log("아이디 :", reqId);
+    console.log("변수 :", reqMode);
+    // let query = `SELECT * FROM tB `; //서비스 후 > now() 변경
+    // connection.query(query,
+    //   function(err, rows, fields) {
+    //       if (err) throw err;
+    //       res.render('admin_business', { data : rows });
+    //       console.log("비지니스",rows);
+    //   });
+});
+
+
+
+
+//////관리자 끝나는 부분
 
 router.get('/', function(req, res, next) {
     res.render('index', { sessionUser : req.user });
@@ -71,10 +99,24 @@ router.get('/complate', auth.isLoggedIn, function(req, res, next){
 router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
     let sessionId = req.user.U_ID;
     let crCancel = "N";
-    let query = `SELECT * FROM tCT    
-                  INNER JOIN tCR 
-                  ON tCT.CT_ID = tCR.CR_CT_ID WHERE tCR.CR_Cancel = :crCancel AND tCR.CR_U_ID = :sessionId
-                  AND tCT.CT_DepartureTe > now() order by tCT.CT_DepartureTe desc`; //서비스 후 > now() 변경
+    let query = `select 
+                    distinct tB.B_Name as carName,
+                    date_format(tCT.CT_DepartureTe,'%m.%d') as deptTe1,
+                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptTe2,
+                    date_format(tCT.CT_DepartureTe,'%k:%i') as deptTe3,
+                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
+                    tCT.CT_DepartureTe,
+                    tCT.CT_CarNum as carNum,
+                    tCR.CR_cDt as payDay,
+                    (select group_concat(CR_SeatNum ,'번')) as seatNum
+                from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+                    where tCR.CR_CT_ID =tCT.CT_ID AND tCR.CR_Cancel = :crCancel
+                    and tCR.CR_U_ID = :sessionId
+                and tCT.CT_DepartureTe > now() 
+                group by tCR.CR_cDt
+                order by tCT.CT_DepartureTe desc;
+
+	`; //서비스 후 > now() 변경
     connection.query(query, { sessionId, crCancel},
       function(err, rows, fields) {
           if (err) throw err;

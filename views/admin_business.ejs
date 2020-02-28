@@ -10,6 +10,15 @@
         <link href="css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/datatables-demo.js"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -79,15 +88,67 @@
                     </div>
                 </nav>
             </div>
+
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Tables Business</h1>                     
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable Example</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>B_ID</th>
+                                                <th>B_Name</th>
+                                                <th>B_Tel</th>
+                                                <th>B_Fax</th>
+                                                <th>B_Email</th>
+                                                <th>B_Zip</th>
+                                                <th>B_Addr1</th>
+                                                <th>B_Addr2</th>
+                                                <th>B_cDt</th>
+                                                <th>B_uDt</th>
+                                                <th>Modify</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>              
+                                                         
+                                        <tbody id="bList"> 
+                                           <% for(let i=0; i<data.length; i++){ %>
+                                               <tr>
+                                                   <td><%=data[i].B_ID%></td>
+                                                   <td><%=data[i].B_Name%></td>
+                                                   <td><%=data[i].B_Tel%></td>
+                                                   <td><%=data[i].B_Fax%></td>
+                                                   <td><%=data[i].B_Email%></td>
+                                                   <td><%=data[i].B_Zip%></td>
+                                                   <td><%=data[i].B_Addr1%></td>
+                                                   <td><%=data[i].B_Addr2%></td>
+                                                   <td><%=data[i].B_cDt%></td>
+                                                   <td><%=data[i].B_uDt%></td>
+                                                   <td><a href='adminBusinessModify?bId=<%=data[i].B_ID%>' >수정</a></td>
+                                                   <td><a>삭제</a></td>
+                                               </tr>
+                                               <% } %>  
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/datatables-demo.js"></script>
+ 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>
+
+
+
+        </script>
     </body>
+
+
 </html>
