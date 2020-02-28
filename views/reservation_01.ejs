@@ -127,7 +127,7 @@
                                                     <button class="reload_btn" onclick="flushSeat()"><img src="/img/reservation/reload.png" alt="새로고침"> <p>좌석 새로고침</p></button>
                                                     
                                                     <!--pupop PC 버튼-->
-                                                    <a href="#payment" class="payment_open">예매하기</a>
+                                                    <a onclick = "showPayment()" class="payment_open">예매하기</a>
                                                 </div>
                                                 
                                                 
@@ -163,12 +163,12 @@
                                 </dl>
                                 <dl class="info_time">
                                     <dt>출발시간</dt>
-                                    <dd><span>평택</span> 2020.02.03(월) 22:00</dd>
-                                    <dd><span>서울 동대문</span> 2020.02.04(화) 04:00</dd>
+                                    <dd><span class="region">평택</span> <span id="payment_deptTe">2020.02.03(월) 22:00</span></dd>
+                                    <dd><span class="region">서울 동대문</span> <span id="payment_retuTe">2020.02.04(화) 04:00</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>차량정보</dt>
-                                    <dd>충남고속 (11가 1234)</dd>
+                                    <dd id="payment_car_info"> - </dd>
                                 </dl>
                                 <dl>
                                     <dt>좌석개수</dt>
@@ -182,11 +182,11 @@
                             <div class="price">
                                 <dl>
                                     <dt>예매금액</dt>
-                                    <dd id="original_price">100,000</dd>
+                                    <dd id="original_price">0</dd>
                                 </dl>
                                 <dl class="price_sale">
                                     <dt>할인금액</dt>
-                                    <dd id="sale_price">-100,000원</dd>
+                                    <dd id="sale_price">0원</dd>
                                 </dl>
                                 <dl class="total_dl">
                                     <dt>총 결제금액</dt>
@@ -236,33 +236,40 @@
                     
                     console.log(res.data.length);
                     for(let i=0; i<res.data.length; i++){
-                        function getInputDayLabel() {                   
-                            var week = new Array('일', '월', '화', '수', '목', '금', '토');                         
-                            var today = new Date(res.data[i].deptTe).getDay();
-                            var todayLabel = week[today];                          
-                            return todayLabel;
-                        }
                         
-                        console.log("요일",getInputDayLabel());  
+                        console.log("요일",getInputDayLabel(res.data[i].deptTe));  
                     
                         let html = "<button class='tablinks' onclick='openBus(event, \""+res.data[i].ctID+"\")'>";
-                            html += "<span class='select_bus_time'>"+res.data[i].deptTe+'\t('+getInputDayLabel()+")</span>";
-                            html += "<span class='select_bus_name'>"+res.data[i].carName+'\n'+"("+res.data[i].carNum+")</span>";
-                            html += " <span class='select_bus_seat'>"+(res.data[i].total - res.data[i].seatNum)+" / "+res.data[i].total+"</span>";
+                            html += "<span class='select_bus_time'>"+res.data[i].deptTe.split(' ', 1).toString()+'\t('+getInputDayLabel(res.data[i].deptTe)+")</span>";
+                            html += "<span class='select_bus_name'>"+res.data[i].b_name+'\n'+"("+res.data[i].carNum+")</span>";
+                            html += " <span class='select_bus_seat'>"+(res.data[i].total_passenger - res.data[i].available_seat_cnt)+" / "+res.data[i].total_passenger+"</span>";
                             $(".tab").append(html);
                     }
-                    //ct_id, deptte, ctcarnum, seatnum, total
-                    }
-                });
+                    
+                    sessionStorage.setItem("car_list", JSON.stringify( res.data ));
+                }});
             })
 
         </script>
 
-
-
-
-
         <script>
+            function showPayment(){
+                let car_list = JSON.parse( sessionStorage.getItem("car_list") ),
+                    ct_id = sessionStorage.getItem("ct_id");
+
+                let reserve_car_info = car_list.find((k)=> (k.ctID == ct_id)),
+                    deptTe = reserve_car_info.deptTe,
+                    retuTe = reserve_car_info.retuTe,
+                    b_name = reserve_car_info.b_name;
+
+
+                $("#payment_deptTe").text( deptTe.split(' ').join('('+getInputDayLabel( deptTe )+') ') );
+                $("#payment_retuTe").text( retuTe.split(' ').join('('+getInputDayLabel( retuTe )+') ') );
+                $("#payment_car_info").text( b_name );
+                
+                location.href = "/reservation#payment";
+            }
+
             function openBus(evt, busSeat) {
                 var i, tablinks;
                 
@@ -389,6 +396,13 @@
 
 
         });
+
+        function getInputDayLabel( date ) {
+            var week = new Array('일', '월', '화', '수', '목', '금', '토');                         
+            var today = new Date( date ).getDay();
+            var todayLabel = week[today];                          
+            return todayLabel;
+        }
 
         function recalculateTotal(sc) {
             var total = 0;
@@ -557,8 +571,15 @@
                 "ct_id"     : ct_id
             }
         }).done((result)=>{
+            let car_list = JSON.parse( sessionStorage.getItem("car_list") ),
+                ct_id = sessionStorage.getItem("ct_id");
+
+            let payment_result = car_list.find((k)=> (k.ctID == ct_id));
+            payment_result.price = result.price;
+            payment_result.ph_type = result.ph_type;
             
-            sessionStorage.setItem("price", result.price);
+            sessionStorage.setItem("payment_result", JSON.stringify( payment_result ));
+
             location.href = "/complate";
         });
     }

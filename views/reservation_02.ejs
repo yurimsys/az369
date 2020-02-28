@@ -39,9 +39,10 @@
                             <h4>100,000원 결제완료</h4>-->
                             <table class="order">
                                 <th>주문내역</th>
-                                <td>2020.02.03 22:00 <span>(평택 - 서울동대문)</span></td>
-                                <td>신용카드 (일시불)</td>
-                                <td class="td"><span id="price"></span>원 결제완료</td>
+                                <td><span id="order_deptTe">2020.02.03 22:00</span> <span>(평택 - 서울동대문)</span></td>
+                                <!-- <td>신용카드 (일시불)</td> -->
+                                <td id="order_ph_type"></td>
+                                <td class="td"><span id="order_price"></span>원 결제완료</td>
                             </table>
                             
                             <p>장차예매내역은 장차예매 > 장차예매현황 에서 확인하실 수 있습니다.</p>
@@ -72,8 +73,12 @@
                 $('.ab').prop('checked', this.checked);
             });
 
+            let payment_result = JSON.parse( sessionStorage.getItem("payment_result") );
             
-            $("#price").text( sessionStorage.getItem("price") );
+            $("#order_price").text( payment_result.price );
+            // $("#order_ph_type").text( payment_result.ph_type );
+            $("#order_ph_type").text( '무료예약' );
+            $("#order_deptTe").text( payment_result.deptTe );
         });
     </script>
 </body></html>
