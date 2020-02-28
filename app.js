@@ -1,7 +1,7 @@
 require('./config/init');
 const createError = require('http-errors');
 const express = require('express');
-const session =  require('express-session');
+const session =  require('express-session');12
 const fileStore = require('session-file-store')(session)
 const passport = require('passport');
 const passportConfig = require('./config/passport');
