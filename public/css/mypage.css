@@ -74,7 +74,14 @@ section.sub_wrap h1 {
 
 
 /*전체 마이페이지 틀*/
-.mypage_box {position: relative; width: 100%; height: auto; font-size: 16px; overflow: hidden;}
+
+@keyframes box {
+    0% {opacity: 0; transform: translateY(2%);}
+    100%; {opacity: 1; transform: translateY(0%);}
+}
+
+
+.mypage_box {position: relative; width: 100%; height: auto; font-size: 16px; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
 .mypage_box ul li {float: left;}
 .mypage_box .box_01 {width: 25%; margin-right: 1%;  background: #fff; border: 1px solid #ddd; height: 660px; border-radius: 5px; position: relative;}
 .mypage_box .box_02 {width: 74%;  background: #fff; margin-right: 0; height: 660px; border: 1px solid #ddd; border-radius: 5px;}
