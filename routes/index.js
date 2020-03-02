@@ -228,4 +228,5 @@ router.get('/daytest', function(req, res, next) {
     res.render('daytest', { sessionUser : req.user });
 });
 
+
 module.exports = router;

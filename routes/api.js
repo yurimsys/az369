@@ -23,9 +23,7 @@ connection.on('error', function(err) {
     console.log('------ on error!');
     console.log(err);
 });
-// let a = connection.query('select * from tu where u_id =2');
 
-// debugger;
 router.post('/user/phone', (req, res, next) => {
   
     let query  = "update tU set u_phone = :newPhone where u_name = :name";
