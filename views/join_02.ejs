@@ -214,23 +214,30 @@
     <script>
 
         //아이디 중복확인
-        let chkId = $("#id").val();
-        $.ajax({
-            url: "api/user/checkId?myId="+chkId,
-            type: "get",
-            dataType: 'json',
-            data: {'myId' : $("#id").val()},
-            success: function(res){
-                console.log("아이디 중복 :", res);
-                if(res.data.length == 0){
-                    $("#check_id").text("사용이 가능합니다.")
-                }else{
-                    $("#check_id").text("아이디 중복입니다.")
-                }
-            }            
-            
+            $('#id').keyup(function(){
+            if ( $('#id').val().length > 2) {
+                var id = $(this).val();
+                // ajax 실행
+                console.log("내 아이디 :", id);
+                $.ajax({
+                    type : 'POST',
+                    url : 'api/user/checkId',
+                    data:
+                    {
+                        'id': id
+                    },
+                    success : function(res) {
+                        //console.log(result);
+                        if (res.data.length == 1) {
+                            $("#result_id_msg").html("사용 가능한 아이디 입니다.");
+                        } else {
+                            $("#result_id_msg").html("사용 불가능한 아이디 입니다.");
+                        }
+                    }
+                }); // end ajax
+            }
+        });
 
-        })
 
         //비밀번호 정규식
         $("#password").change(function(){

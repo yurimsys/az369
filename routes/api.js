@@ -70,19 +70,19 @@ router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
 
 
 //회원 아이디 중복확인
-router.get('/user/checkId', (req, res, next) =>{
+router.post('/user/checkId', (req, res, next) =>{
     let query = "select U_UserName from tU where U_UserName = :uUserName";
-    let chkId = req.param.myId;
-    console.log("내 아이디 :", chkId);
-
-    // connection.query(query, 
-    //     {
-    //         uUserName : req.body.myId                      
-    //     },
-    //     function(err, rows, fields) {
-    //         if (err) throw err;           
-    //         res.render( {  data : rows[0] });
-    //     });
+    let myId = req.body.id;
+    console.log("내 아이디 :", myId);
+    connection.query(query, 
+        {
+            uUserName : req.body.myId                      
+        },
+        function(err, rows, fields) {
+            if (err) throw err;           
+            res.render( {  data : rows });
+            console.log("rows :", rows)
+        });
         
 });
 //회원가입 액션
