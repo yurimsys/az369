@@ -67,17 +67,66 @@
       </nav>
 
       <div class="container-fluid">
-        <h1 class="mt-4">관리자 메인화면</h1>
+        <h2 class="mt-4">버스운행정보 수정 (CarTimeTable)))</h2>
+          <div class="container col-md-6">
+            <form>           
+                <label for="ctId">CT_ID:</label>
+                <input type="ctId" class="form-control" id="ctId" name="ctId" value="<%=data.CT_ID%>" readonly="readonly">  
+
+                <label for="ctCyId">CT_CY_ID:</label>
+                <input type="ctCyId" class="form-control" id="ctCyId" name="ctCyId" value="<%=data.CT_CY_ID%>">   
+
+                <label for="dept">CT_DepartureTe:</label>
+                <input type="dept" class="form-control" id="dept" name="dept" value="<%=data.CT_DepartureTe%>"> 
+
+                <label for="return">CT_ReturnTe:</label>
+                <input type="return" class="form-control" id="return" name="return" value="<%=data.CT_ReturnTe%>">
+             
+                <label for="lead">CT_LeadTe:</label>
+                <input type="lead" class="form-control" id="lead" name="lead" value="<%=data.CT_LeadTe%>">
+
+                <label for="carNum">CT_carNum:</label>
+                <input type="carNum" class="form-control" id="carNum" name="carNum" value="<%=data.CT_CarNum%>">
+
+                <label for="drName">CT_DriverName:</label>
+                <input type="drName" class="form-control" id="drName" name="drName" value="<%=data.CT_DriverName%>">
+
+                <label for="drPhone">CT_DriverPhone:</label>
+                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.CT_DriverPhone%>">
+            </form>       
+            <button type="button" class="btn btn-primary" onclick="modify()">수정</button>   
+          </div>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
-
-  </div>
+</div>
   <!-- /#wrapper -->
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script>
+    function modify(){
+      $.ajax({
+        url: "/admin/carTime/modify",
+        method: 'post',
+        dataType: 'json',
+        data: {
+            'ctId' : $("#ctId").val(), 'ctCyId' : $("#ctCyId").val(), 'dept' : $('#dept').val(),'retun' : $("#return").val(), 
+            'lead' : $("#lead").val(), 'carNum' : $("#carNum").val(),'drName' : $("#drName").val(),'drPhone' : $("#drPhone").val()
+            },
+            success: function(res){
+              if(res.data == "수정"){
+                alert("수정완료");
+                location.href="/admin/carTime";
+              }
+            }
+      })
+    }
+
+  </script>
 
   <!-- Menu Toggle Script -->
   <script>
