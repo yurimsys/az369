@@ -211,36 +211,6 @@
 
     <script>
 
-        // //아이디 중복확인
-        var timeout = null;
-            $('#id').keyup(function () {        
-                clearTimeout(timeout);                
-                timeout = setTimeout(function () {
-                    var id = $("#id").val();               
-                    $.ajax({
-                        type: 'post',
-                        dataType: 'json',
-                        data: {'id' : id},
-                        url: 'api/user/checkId',
-                        success: function (res) {
-                            console.log("res :::",res.data.length)
-                            if(res.data.length == 1){
-                                $("#overId").css("display", "block");
-                                $("#overId2").css("display", "none");
-                            } else {
-                                $("#overId").css("display", "none");
-                                $("#overId2").css("display", "block");
-                            }
-                            if($('#id').val() == ""){
-                                $("#overId").css("display", "none");
-                                $("#overId2").css("display", "none");
-                            }
-                        }, 
-                    });
-                }, 800);
-            });
-
-
         //비밀번호 정규식
         $("#password").change(function(){
             checkPassword($('#password').val());
@@ -280,15 +250,46 @@
                         } 
                     }); 
                 });
-                                                                        
-              
+
+        // //아이디 중복확인
+        var timeout = null;
+        var chkId = 0;
+            $('#id').keyup(function () {        
+                clearTimeout(timeout);                
+                timeout = setTimeout(function () {
+                    var id = $("#id").val();               
+                    $.ajax({
+                        type: 'post',
+                        dataType: 'json',
+                        data: {'id' : id},
+                        url: 'api/user/checkId',
+                        success: function (res) {
+                            console.log("res :::",res.data.length)
+                            if(res.data.length == 0){
+                                chkId = 1;
+                                $("#overId").css("display", "block");
+                                $("#overId2").css("display", "none");
+                            } else {
+                                chkId = 0;
+                                $("#overId").css("display", "none");
+                                $("#overId2").css("display", "block");
+                            }
+                            if($('#id').val() == ""){
+                                $("#overId").css("display", "none");
+                                $("#overId2").css("display", "none");
+                            }
+                        }, 
+                    });
+                }, 800);
+            });
+
+
+                                                                                   
                ///회원가입 버튼 클릭
                 function joinUser(){
-                    console.log($("#hideId").val())  
-                    if(checkCount == 0){
-                        alert("아이디 중복확인을 해주세요.", checkCount);
-                        return;     
-                    }     
+                    if(chkId == 0){
+                        alert("아이디 중복입니다.")
+                    }    
                     if($('#id').val() == "" || $('#password').val()==''|| $('#password2').val()==''|| $('#name').val()=='' || $('#phone').val()==''|| $('#brand').val()=='' || 
                 	$('#postcode').val()==''|| $('#address').val()==''||$('#detailAddress').val()=='' ||$('#email').val()==''){
          			alert("빈칸을 입력해 주세요");

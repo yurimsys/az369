@@ -88,9 +88,13 @@ router.get('/logout', function(req, res, next){
 });
 
 router.get('/reservation', auth.isLoggedIn, function(req,res, next){
-
-
-    res.render('reservation_01', {sessionUser : req.user, data : rows} );
+    let query = `select	distinct date_format(CT_DepartureTe,'%H%i') as deptTe, date_format(CT_ReturnTe, '%H%i') as returnTe from tCT`;
+    connection.query(query,
+        function(err, rows, fields) {
+            if (err) throw err;
+            res.render('reservation_01', {sessionUser : req.user, data : rows} );
+            console.log("rowrowrow :",rows);
+    });  
 });
 
 router.get('/complate', auth.isLoggedIn, function(req, res, next){
