@@ -79,6 +79,10 @@
             // $("#order_ph_type").text( payment_result.ph_type );
             $("#order_ph_type").text( '무료예약' );
             $("#order_deptTe").text( payment_result.deptTe );
+
+            sessionStorage.removeItem("payment_result");
+            sessionStorage.removeItem("ct_id");
+            sessionStorage.removeItem("car_list");
         });
     </script>
 </body></html>
