@@ -750,16 +750,20 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
 
 //장차예매 리스트
 router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
-    let query = `select 
-	tCT.CT_ID as ctID,
-	tB.B_Name as carName,
-	date_format(tCT.CT_DepartureTe,'%y%y-%m-%d') as deptTe, 
-	tCT.CT_CarNum as carNum,
-	(select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as seatNum,
-	(select CY_Totalpassenger from tCY where tCY.CY_ID = tCT.Ct_CY_ID) as total
-
-from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID
-where date_format(CT_DepartureTe,'%H%i') = :deptTe AND date_format(CT_ReturnTe,'%H%i') = :retuTe AND tCT.CT_DepartureTe > now() order by tCT.CT_DepartureTe asc`;
+    let query = `
+        SELECT
+            tCT.CT_ID as ctID,
+            tB.B_Name as b_name,
+            date_format(tCT.CT_DepartureTe,'%Y-%m-%d %H:%i') as deptTe,
+            date_format(tCT.CT_ReturnTe,'%Y-%m-%d %H:%i') as retuTe,
+            tCT.CT_CarNum as carNum,
+            (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as available_seat_cnt,
+            tCY.CY_Totalpassenger as total_passenger
+        FROM tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID
+        WHERE date_format(CT_DepartureTe,'%H%i') = :deptTe
+        AND date_format(CT_ReturnTe,'%H%i') = :retuTe
+        AND tCT.CT_DepartureTe > now()
+        ORDER BY tCT.CT_DepartureTe asc`;
 
     let sessionId = req.user.U_ID;
     let crCancel = 'N';
