@@ -33,17 +33,15 @@
                     <h2>02. 정보입력</h2>
 
                     <!-- <h3>회원정보를 입력해주세요.</h3> -->
-                    <form action="/action_page.php">
+                    <form>
                         <ul>
                             <li>
                                 <label for="name"></label>
                                 <input type="text" id="id" name="아이디" placeholder="아이디">
-                                <div id="check_id" ></div>
+                                <div id="overId" style="font-size: 12px; color: green; display: none;">아이디 사용이 가능합니다.</div>
+								<div id="overId2" style="font-size: 12px; color: red; display: none;">아이디 사용이 불가능합니다.</div>
 
                             </li>
-                            <!--<li>
-                                <button type="button" onclick="idOver()">중복확인</button>
-                            </li>-->
 
                             <li>
                                 <label for="password"></label>
@@ -54,7 +52,7 @@
                                 <label for="password2"></label>
                                 <input type="password" id="password2" name="패스워드" placeholder="비밀번호 확인">
                                 <div class="alert alert-success" id="alert-success" style="font-size: 12px; color: green;">비밀번호가 일치합니다.</div>
-								<div class="alert alert-danger" id="alert-danger" style="font-size: 12px; color: red;">비밀번호가 일치하지않습니다.</div>
+								<div class="alert alert-danger" id="alert-danger" style="font-size: 12px; color: red;">비밀번호가 일치하지 않습니다.</div>
                             </li>
                           
 
@@ -63,28 +61,22 @@
                                 <input type="text" id="name" name="이름" placeholder="이름">
                             </li>
 
-
-
                             <li>
-                                <label for="phone"></label>
-                                <input type="text" id="phone" name="휴대전화" placeholder="휴대전화">
-                            </li>
+                                    <input type="text" id="phone" name="phone" placeholder="휴대전화">
+                                </li>
+
+                                <li>
+                                    <button class="check_btn">본인인증</button>
+                                </li>
+
+                                <li>
+                                    <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
+                                </li>
 
                             <li>
                                 <label for="email"></label>
                                 <input type="text" id="email" name="이메일" placeholder="이메일주소">
                             </li>
-
-                            <!--
-                            <li>
-                                <button onclick="phone_check">본인인증</button>
-                            </li>
-
-                            <li>
-                                <label for="phone2"></label>
-                                <input type="text" id="phone2" name="휴대전화" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
-                            </li>
--->
 
                             <li>
                                 <label for="brand"></label>
@@ -213,25 +205,6 @@
 
     <script>
 
-        //아이디 중복확인
-        let chkId = $("#id").val();
-        $.ajax({
-            url: "api/user/checkId?myId="+chkId,
-            type: "get",
-            dataType: 'json',
-            data: {'myId' : $("#id").val()},
-            success: function(res){
-                console.log("아이디 중복 :", res);
-                if(res.data.length == 0){
-                    $("#check_id").text("사용이 가능합니다.")
-                }else{
-                    $("#check_id").text("아이디 중복입니다.")
-                }
-            }            
-            
-
-        })
-
         //비밀번호 정규식
         $("#password").change(function(){
             checkPassword($('#password').val());
@@ -271,56 +244,46 @@
                         } 
                     }); 
                 });
-                
-                            
-                //회원가입 중복확인
-                let checkCount = 0;  
-                function idOver(){              
-                    if($('#id').val() == ""){
-                        alert("빈칸을 입력해 주세요");
-                        return;
-                    }
+
+        // //아이디 중복확인
+        var timeout = null;
+        var chkId = 0;
+            $('#id').keyup(function () {        
+                clearTimeout(timeout);                
+                timeout = setTimeout(function () {
+                    var id = $("#id").val();               
                     $.ajax({
-                        method : "post", 
-                        dataType: 'json',                     
-                        url : "api/user/overlap",
-                        data :{
-                            id : $("#id").val()
-
-                        },
-                        success: function(res){
-                           console.log(res);
-                           console.log(res.data);
-                            // if(res.data == 0){                                
-                            //     alert("아이디 사용가능 하십니다.");
-                            // } else {
-                            //     alert("아이디 중복입니다.");
-                            // }      
-
-                            console.log(res.data);
-                            if(res.data === undefined){
-                                checkCount = 1;
-                                alert (
-                                    
-                                    "아이디 사용가능 합니다."
-                                );
-                            } else if(res.data.U_UserName === $("#id").val()){
-                                alert ( "아이디 중복입니다.");
+                        type: 'post',
+                        dataType: 'json',
+                        data: {'id' : id},
+                        url: 'api/user/checkId',
+                        success: function (res) {
+                            console.log("res :::",res.data.length)
+                            if(res.data.length == 0){
+                                chkId = 1;
+                                $("#overId").css("display", "block");
+                                $("#overId2").css("display", "none");
+                            } else {
+                                chkId = 0;
+                                $("#overId").css("display", "none");
+                                $("#overId2").css("display", "block");
                             }
-                                       
-                        }                      
-                    })                                                                                                                           
-                };
-                                          
-                         
-              
+                            if($('#id').val() == ""){
+                                $("#overId").css("display", "none");
+                                $("#overId2").css("display", "none");
+                            }
+                        }, 
+                    });
+                }, 800);
+            });
+
+
+                                                                                   
                ///회원가입 버튼 클릭
                 function joinUser(){
-                    console.log($("#hideId").val())  
-                    if(checkCount == 0){
-                        alert("아이디 중복확인을 해주세요.", checkCount);
-                        return;     
-                    }     
+                    if(chkId == 0){
+                        alert("아이디 중복입니다.")
+                    }    
                     if($('#id').val() == "" || $('#password').val()==''|| $('#password2').val()==''|| $('#name').val()=='' || $('#phone').val()==''|| $('#brand').val()=='' || 
                 	$('#postcode').val()==''|| $('#address').val()==''||$('#detailAddress').val()=='' ||$('#email').val()==''){
          			alert("빈칸을 입력해 주세요");

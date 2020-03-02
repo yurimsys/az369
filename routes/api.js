@@ -68,19 +68,19 @@ router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
 
 
 //회원 아이디 중복확인
-router.get('/user/checkId', (req, res, next) =>{
-    let query = "select U_UserName from tU where U_UserName = :uUserName";
-    let chkId = req.param.myId;
-    console.log("내 아이디 :", chkId);
-
-    // connection.query(query, 
-    //     {
-    //         uUserName : req.body.myId                      
-    //     },
-    //     function(err, rows, fields) {
-    //         if (err) throw err;           
-    //         res.render( {  data : rows[0] });
-    //     });
+router.post('/user/checkId', (req, res, next) =>{
+    let query = "select U_UserName from tU where U_UserName = :overId";
+    let overId = req.body.id;
+    console.log("내 아이디 :", overId);
+    connection.query(query, 
+        {
+           overId                     
+        },
+        function(err, rows, fields) {
+            if (err) throw err;           
+            res.json( { data : rows });
+            console.log("rows :", rows)
+        });
         
 });
 //회원가입 액션
@@ -133,24 +133,6 @@ router.post('/user/carPool', (req, res, next) =>{
         });
 });
 
-
-
-//아이디 중복확인
-router.post('/user/overlap', (req, res, next) =>{
-    let query = "select U_UserName from tU where U_UserName = :uUserName";
-    
-    console.log(req.body);
-
-    connection.query(query, 
-        {
-            uUserName : req.body.id                      
-        },
-        function(err, rows, fields) {
-            if (err) throw err;           
-            res.json( {  data : rows[0] });
-        });
-        
-});
 
 //아이디 찾기
 router.post('/user/findId', (req, res, next) =>{
@@ -298,10 +280,6 @@ router.post('/user/confirm', auth.isLoggedIn, (req, res, done) =>{
 //마이페이지 정보 수정
 router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     
-
-    // let query = `UPDATE tu SET U_Pw = :?, U_Phone = :?, U_Brand = :?,
-    //             U_Zip = :?, U_Addr1 = :?, U_Addr2 = :? WHERE U_UserName =:UserName`;           
-
     let uUserName = req.user.U_UserName;
     let uPhone = req.body.phone;
     let uBrand = req.body.brand;
@@ -316,19 +294,22 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
 
     let query = `UPDATE tU SET U_Pw = :hash_pw, U_Phone = :uPhone, U_Brand = :uBrand,
                 U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
-    connection.query(query, 
-        {          
-            hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName
-                              
-        },
-        function(err, rows, fields) {
-            if (err) throw err;          
-             
-            //console.log(findId);
-            
-            res.json( {  data : "성공"});
-            console.log(rows);
-        });
+
+    let query2 = `UPDATE tU U_Phone = :uPhone, U_Brand = :uBrand,
+                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
+
+        if(password === "" ){
+            connection.query(query2,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
+                function(){                   
+                    res.json( {  data : "성공"});
+                })
+                
+        } else if(password != "") {
+            connection.query(query,{hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
+                function(){                   
+                    res.json( {  data : "성공"});
+                })
+        }  
         
 });
 

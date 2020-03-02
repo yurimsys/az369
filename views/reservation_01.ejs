@@ -45,8 +45,10 @@
                                                 <div class="location_select01 location_select" id="timeSelect01">
                                                     <select id="depart01">
                                                         <option value="0">지역 / 출발시간</option>
-                                                        <option value="2200">평택 22:00</option>
-                                                        <option value="2300">평택 23:00</option>
+                                                       
+                                                        <%for(let i=0; i<data.length; i++) {%>
+                                                        <option value=<%=data[i].deptTe%>>평택 <%=data[i].deptTe2%></option>
+                                                        <% }%>
                                                     </select>
                                                 </div>
                                             </li>
@@ -58,8 +60,10 @@
                                                 <div class="location_select02 location_select" id="timeSelect02">
                                                     <select id="depart02">
                                                         <option value="0">지역 / 출발시간</option>
-                                                        <option value="0400">서울 동대문 04:00</option>
-                                                        <option value="0500">서울 동대문 05:00</option>
+                                                        
+                                                        <%for(let i=0; i<data.length; i++) {%>
+                                                        <option value=<%=data[i].returnTe%>>서울 동대문 <%=data[i].returnTe2%></option>
+                                                        <% }%>
                                                     </select>
                                                 </div>
                                             </li>
@@ -220,6 +224,8 @@
         </section>
 
         <script>
+
+            
      
             $('#timeSelect01, #timeSelect02').click(function(){
                 $(".tab").empty();

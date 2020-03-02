@@ -88,7 +88,15 @@ router.get('/logout', function(req, res, next){
 });
 
 router.get('/reservation', auth.isLoggedIn, function(req,res, next){
-    res.render('reservation_01', {sessionUser : req.user} );
+    let query = `select	distinct date_format(CT_DepartureTe,'%H%i') as deptTe, date_format(CT_ReturnTe, '%H%i') as returnTe, 
+                        date_format(CT_DepartureTe,'%H:%i') as deptTe2, date_format(CT_ReturnTe, '%H:%i') as returnTe2
+                 from tCT`;
+    connection.query(query,
+        function(err, rows, fields) {
+            if (err) throw err;
+            res.render('reservation_01', {sessionUser : req.user, data : rows} );
+            console.log("rowrowrow :",rows);
+    });  
 });
 
 router.get('/complate', auth.isLoggedIn, function(req, res, next){
@@ -132,15 +140,8 @@ router.get('/modify', auth.isLoggedIn, function(req, res, next){
     res.render('modify_01', { sessionUser : req.user });
 });
 
-router.get('/modify2', function(req, res, next){
+router.get('/modify2', auth.isLoggedIn, function(req, res, next){
     res.render('modify_02', { sessionUser : req.user });
-});
-
-router.get('/reservation', (req, res) => {
-    res.render('reservation_01', { sessionUser : req.user });
-});
-router.get('/reservation2', (req, res) => {
-    res.render('reservation_01-2', { sessionUser : req.user });
 });
 
 //사업개요
