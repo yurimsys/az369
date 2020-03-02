@@ -128,8 +128,23 @@ p {text-align: justify; font-size: 16px;}
     h3.agree_h3 {margin-top: 10%;}
     .apply_form p {margin-top: 5%;}
     .select_agree {width: 100%;}
-
     #select_possible {padding: 3% 10%;}
 }
 
+/*320px*/
+@media screen and (max-width: 320px) {
+    .main_title h1 {font-size: 17px; padding: 2.5% 0;}
+    .main_title h2 {width: 90%; font-size: 15px; margin: 7% auto;}
+    .apply_form h3 {margin-top: 8%; font-size: 20px;}
+    .bar {margin-bottom: 8%;}
+    .apply_form h4 {font-size: 17px; margin-top: 10%;}
+    h3.agree_h3 {margin-top: 15%; margin-bottom: 0;}
+    h4.agree_h4 {margin-top: 8%; margin-bottom: 2%;}
+    .apply_form p {margin-top: 10%; margin-bottom: 5%; font-size: 16px; color: #444;}
+    .select_agree label span {padding: 6%;}
+    #select_possible {padding: 3% 10%;}
+    input[type=submit] {margin-top: 13%;}
+
+    #select_possible {width: 100%; margin-top: 5%;}
+}
 
