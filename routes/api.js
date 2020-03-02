@@ -71,16 +71,16 @@ router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
 
 //회원 아이디 중복확인
 router.post('/user/checkId', (req, res, next) =>{
-    let query = "select U_UserName from tU where U_UserName = :uUserName";
-    let myId = req.body.id;
-    console.log("내 아이디 :", myId);
+    let query = "select U_UserName from tU where U_UserName = :overId";
+    let overId = req.body.id;
+    console.log("내 아이디 :", overId);
     connection.query(query, 
         {
-            uUserName : req.body.myId                      
+           overId                     
         },
         function(err, rows, fields) {
             if (err) throw err;           
-            res.render( {  data : rows });
+            res.json( { data : rows });
             console.log("rows :", rows)
         });
         
@@ -135,24 +135,6 @@ router.post('/user/carPool', (req, res, next) =>{
         });
 });
 
-
-
-//아이디 중복확인
-router.post('/user/overlap', (req, res, next) =>{
-    let query = "select U_UserName from tU where U_UserName = :uUserName";
-    
-    console.log(req.body);
-
-    connection.query(query, 
-        {
-            uUserName : req.body.id                      
-        },
-        function(err, rows, fields) {
-            if (err) throw err;           
-            res.json( {  data : rows[0] });
-        });
-        
-});
 
 //아이디 찾기
 router.post('/user/findId', (req, res, next) =>{

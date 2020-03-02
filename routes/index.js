@@ -88,7 +88,9 @@ router.get('/logout', function(req, res, next){
 });
 
 router.get('/reservation', auth.isLoggedIn, function(req,res, next){
-    res.render('reservation_01', {sessionUser : req.user} );
+
+
+    res.render('reservation_01', {sessionUser : req.user, data : rows} );
 });
 
 router.get('/complate', auth.isLoggedIn, function(req, res, next){
@@ -132,15 +134,8 @@ router.get('/modify', auth.isLoggedIn, function(req, res, next){
     res.render('modify_01', { sessionUser : req.user });
 });
 
-router.get('/modify2', function(req, res, next){
+router.get('/modify2', auth.isLoggedIn, function(req, res, next){
     res.render('modify_02', { sessionUser : req.user });
-});
-
-router.get('/reservation', (req, res) => {
-    res.render('reservation_01', { sessionUser : req.user });
-});
-router.get('/reservation2', (req, res) => {
-    res.render('reservation_01-2', { sessionUser : req.user });
 });
 
 //사업개요
