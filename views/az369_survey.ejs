@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>AZ369 보증보험 대체의향서</title>
+    <link rel="stylesheet" href="css/az369_survey.css">
+    <!--modal css-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+    <!--자바스크립트-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/scrolla.jquery.min.js"></script>
+
+
+    <!--폰트-->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <div class="wrap">
+
+
+        <!--<section class="main">
+            <div class="inner_main">
+                <div class="main_bg"></div>
+            </div>
+        </section>-->
+
+        <!--//secton.main 완료-->
+        <!--secton.sub_wrap 시작-->
+
+        <section class="sub_wrap">
+            <div class="inner_sub_wrap">
+
+                <div class="main_title">
+                    <!-- <h6>survey</h6>-->
+                    <h1>임대보증금 보증보험 <br>대체 의향서</h1>
+
+                    <h2>
+                        가로수길 센트롤돔 활성화 방안의 일환으로 임대인의 임대조건을 조사하여 임차인과 임대인의 매칭을 위한 기준을 만들고자 하오니 신중히 검토하시어 작성 부탁드립니다.
+                    </h2>
+
+                    <div class="intro_btn"><a href="img/survey_img.png" target="_blank">임대보증보험이란?</a></div>
+                    <!--<p>이 페이지는 모바일전용입니다.</p>-->
+                </div>
+
+
+
+
+
+
+
+                <div class="survey_form">
+
+                    <div class="apply_form">
+                        <h3>의향서 제출양식</h3>
+                        <div class="bar"></div>
+
+                        <form action="/action_page.php">
+
+                            <!--상단폼-->
+                            <div class="form_inner">
+
+                                <input type="text" id="name" name="name" placeholder="이름">
+
+                                <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( '-' 생략 )">
+                                <button class="check_btn">본인인증</button>
+                                <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
+
+                                <input type="text" id="number" name="number" placeholder="상가 호수">
+
+                                <input type="text" id="period" name="period" placeholder="희망 계약기간 (연 단위)">
+
+                                <h4><strong>희망 임대료</strong>를 기재해주세요 </h4>
+
+                                <input type="text" id="minimum" name="minimum" placeholder="최저 (만원 단위)">
+
+                                <input type="text" id="optimum" name="optimum" placeholder="적정 (만원 단위)">
+
+                                <h4><strong>희망 보증금액</strong>을 기재해주세요</h4>
+
+                                <input type="text" id="minimum" name="minimum" placeholder="최저 (만원 단위)">
+
+                                <input type="text" id="optimum" name="optimum" placeholder="적정 (만원 단위)">
+
+
+                                <h4><strong>보증보험 가능여부</strong>를 선택해주세요 </h4>
+
+                                <select id="select_possible" name="select">
+                                    <option value="01">1000만원 + 3개월</option>
+                                    <option value="02">1000만원 + 6개월</option>
+                                    <option value="03">미가입</option>
+                                </select>
+
+
+                                <br>
+                                <h3 class="agree_h3">이미 계약완료된 입점주의 경우</h3>
+                                <div class="bar"></div>
+
+                                <h4 class="agree_h4"><strong> 현재 보증금과 임대료</strong>를 기재해주세요</h4>
+
+                                <input type="text" id="deposit" name="deposit" placeholder="보증금 (만원 단위)">
+
+                                <input type="text" id="rent" name="rent" placeholder="임대료 (만원 단위)">
+
+                                <p>현재 계약된 보증금, 임대료를 의향서에 따라 조정 의향이 있으신가요?</p>
+
+                                <div class="select_agree">
+                                        <ul>
+                                            <li>
+                                                <label>
+                                                    <input type="radio" name="agree">
+                                                    <span>네</span>
+                                                </label>
+                                            </li>
+
+                                            <li>
+                                                <label>
+                                                    <input type="radio" name="agree">
+                                                    <span>아니오</span>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                </div>
+
+
+
+                            </div>
+
+                            <input type="submit" value="제출하기">
+                        </form>
+                    </div>
+
+
+                </div>
+
+
+
+
+            </div>
+        </section>
+
+        <!--//secton.about 완료-->
+
+    </div>
+
+
+</body></html>
