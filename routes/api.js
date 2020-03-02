@@ -282,10 +282,6 @@ router.post('/user/confirm', auth.isLoggedIn, (req, res, done) =>{
 //마이페이지 정보 수정
 router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     
-
-    // let query = `UPDATE tu SET U_Pw = :?, U_Phone = :?, U_Brand = :?,
-    //             U_Zip = :?, U_Addr1 = :?, U_Addr2 = :? WHERE U_UserName =:UserName`;           
-
     let uUserName = req.user.U_UserName;
     let uPhone = req.body.phone;
     let uBrand = req.body.brand;
@@ -300,19 +296,22 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
 
     let query = `UPDATE tU SET U_Pw = :hash_pw, U_Phone = :uPhone, U_Brand = :uBrand,
                 U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
-    connection.query(query, 
-        {          
-            hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName
-                              
-        },
-        function(err, rows, fields) {
-            if (err) throw err;          
-             
-            //console.log(findId);
-            
-            res.json( {  data : "성공"});
-            console.log(rows);
-        });
+
+    let query2 = `UPDATE tU U_Phone = :uPhone, U_Brand = :uBrand,
+                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
+
+        if(password === "" ){
+            connection.query(query2,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
+                function(){                   
+                    res.json( {  data : "성공"});
+                })
+                
+        } else if(password != "") {
+            connection.query(query,{hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
+                function(){                   
+                    res.json( {  data : "성공"});
+                })
+        }  
         
 });
 
