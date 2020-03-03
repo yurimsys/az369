@@ -545,8 +545,7 @@
                     //취소 및 환불조회 상세정보 모바일
                     $(".list03_mo div").each(function(item){   
                         $(this).on('click', function(){  
-                            alert($(this).attr('id'));
-                            alert($(this).attr('val'))              
+
                             $.ajax({
                                 url: "api/user/resCancelDetailMo",
                                 method: "post",
