@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Simple Sidebar - Start Bootstrap Template</title>
+  <title>Admin-Business</title>
 
   <!-- Bootstrap core CSS -->
   <link href="/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -67,7 +67,42 @@
       </nav>
 
       <div class="container-fluid">
-        <h1 class="mt-4">관리자 메인화면</h1>
+        <h1 class="mt-4">차량 운송사 추가 (Business)</h1>
+
+            <div class="continer col-md-6">
+                <ul>
+                    <li>
+                        <label>B_Name</label>
+                        <input type="text" class="form-control form-control" id="name">
+                    </li>
+                    <li>
+                        <label>B_Tel</label>
+                        <input type="text" class="form-control form-control" id="tel">
+                    </li>
+                    <li>
+                        <label>B_Fax</label>
+                        <input type="text" class="form-control form-control" id="fax">
+                    </li>
+                    <li>
+                        <label>B_Email</label>
+                        <input type="text" class="form-control form-control" id="email">
+                    </li>
+                    <li>
+                        <label>B_Zip</label>
+                        <input type="text" class="form-control form-control" id="zip">
+                    </li>
+                    <li>
+                        <label>B_Addr1</label>
+                        <input type="text" class="form-control form-control" id="addr1">
+                    </li>
+                    <li>
+                        <label>B_Addr2</label>
+                        <input type="text" class="form-control form-control" id="addr2">
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-primary" onclick="insert()">추가</button> 
+            </div>
+        
       </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -76,16 +111,37 @@
   <!-- /#wrapper -->
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
+<script>
+    function insert(){
+        $.ajax({
+            url: "/admin/business/insert",
+            method: 'post',
+            dataType: 'json',
+            data: {
+                'name' : $("#name").val(), 'tel' : $("#tel").val(), 'fax' : $("#fax").val(),
+                'email' : $("#email").val(), 'zip' : $("#zip").val(), 'addr1' : $("#addr1").val(),
+                'addr2' : $("#addr2").val()
+                },
+            success: function(res){
+                if(res.data == "추가"){
+                location.href="business";
+                }
+            }
+        })
+    }
+
+</script>
+<!-- Menu Toggle Script -->
+<script>
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+});
+</script>
 
 </body>
 

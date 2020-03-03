@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Simple Sidebar - Start Bootstrap Template</title>
+  <title>Admin-Business</title>
 
   <!-- Bootstrap core CSS -->
   <link href="/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -67,7 +67,42 @@
       </nav>
 
       <div class="container-fluid">
-        <h1 class="mt-4">관리자 메인화면</h1>
+        <h1 class="mt-4">버스운행정보 추가 (CarTime)</h1>
+
+            <div class="continer col-md-6">
+                <ul>
+                    <li>
+                        <label>CT_CY_ID</label>
+                        <input type="text" class="form-control form-control" id="ctCyId">
+                    </li>
+                    <li>
+                        <label>CT_DepartureTe</label>
+                        <input type="text" class="form-control form-control" id="dept">
+                    </li>
+                    <li>
+                        <label>CT_ReturnTe</label>
+                        <input type="text" class="form-control form-control" id="retun">
+                    </li>
+                    <li>
+                        <label>CT_LeadTe</label>
+                        <input type="text" class="form-control form-control" id="lead">
+                    </li>
+                    <li>
+                        <label>CT_CarNum</label>
+                        <input type="text" class="form-control form-control" id="carNum">
+                    </li>
+                    <li>
+                      <label>CT_DriverName</label>
+                      <input type="text" class="form-control form-control" id="drName">
+                  </li>
+                  <li>
+                      <label>CT_DriverPhone</label>
+                      <input type="text" class="form-control form-control" id="drPhone">
+                  </li>
+                </ul>
+                <button type="button" class="btn btn-primary" onclick="insert()">추가</button> 
+            </div>
+        
       </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -76,16 +111,36 @@
   <!-- /#wrapper -->
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
+<script>
+    function insert(){
+        $.ajax({
+            url: "/admin/carTime/insert",
+            method: 'post',
+            dataType: 'json',
+            data: {
+                'ctCyId' : $("#ctCyId").val(), 'dept' : $("#dept").val(), 'retun' : $("#retun").val(),
+                'lead' : $("#lead").val(), 'carNum' : $("#carNum").val(), 'drName' : $("#drName").val(), 'drPhone' : $("#drPhone").val()
+                },
+            success: function(res){
+                if(res.data == "추가"){
+                location.href="carTime";
+                }
+            }
+        })
+    }
+
+</script>
+<!-- Menu Toggle Script -->
+<script>
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+});
+</script>
 
 </body>
 

@@ -12,7 +12,8 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const indexRouter = require('./routes/index'),
     apiRouter = require('./routes/api'),
-    usersRouter = require('./routes/users');
+    usersRouter = require('./routes/users'),
+    adminRouter = require('./routes/admin');
 
 const app = express();
 
@@ -56,6 +57,7 @@ app.use(flash());
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
 app.use('/users', usersRouter);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

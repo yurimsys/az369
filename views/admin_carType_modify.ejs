@@ -67,17 +67,63 @@
       </nav>
 
       <div class="container-fluid">
-        <h1 class="mt-4">관리자 메인화면</h1>
+        <h2 class="mt-4">버스정보 수정 (CarType))</h2>
+          <div class="container col-md-6">
+            <form>           
+                <label for="cyId">CY_ID:</label>
+                <input type="cyId" class="form-control" id="cyId" name="cyId" value="<%=data.CY_ID%>" readonly="readonly">  
+
+                <label for="cyBId">CY_B_ID:</label>
+                <input type="cyBId" class="form-control" id="cyBId" name="cyBId" value="<%=data.CY_B_ID%>" readonly="readonly">   
+
+                <label for="cyTy">CY_Ty:</label>
+                <input type="cyTy" class="form-control" id="cyTy" name="cyTy" value="<%=data.CY_Ty%>"> 
+
+                <label for="total">CY_TotalPassenger:</label>
+                <input type="total" class="form-control" id="total" name="total" value="<%=data.CY_TotalPassenger%>">
+             
+                <label for="service">CY_ServicePassen:</label>
+                <input type="service" class="form-control" id="service" name="service" value="<%=data.CY_ServicePassenger%>">
+
+                <label for="price">CY_SeatPrice:</label>
+                <input type="price" class="form-control" id="price" name="price" value="<%=data.CY_SeatPrice%>">
+
+                <label for="cdt">CY_cDt:</label>
+                <input type="cdt" class="form-control" id="cdt" name="cdt" value="<%=data.CY_cDt%>" readonly="readonly">
+            </form>       
+            <button type="button" class="btn btn-primary" onclick="modify()">수정</button>   
+          </div>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
-
-  </div>
+</div>
   <!-- /#wrapper -->
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script>
+    function modify(){
+      $.ajax({
+        url: "/admin/carType/modify",
+        method: 'post',
+        dataType: 'json',
+        data: {
+            'cyId' : $("#cyId").val(), 'total' : $('#total').val(),
+            'service' : $("#service").val(), 'price' : $("#price").val(), 'cyTy' : $("#cyTy").val()
+            },
+            success: function(res){
+              if(res.data == "수정"){
+                alert("수정완료");
+                location.href="/admin/carType";
+              }
+            }
+      })
+    }
+
+  </script>
 
   <!-- Menu Toggle Script -->
   <script>

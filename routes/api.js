@@ -570,7 +570,7 @@ router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
     let crCancel = 'Y';
     
-    console.log(req.body);
+    console.log("취소 환불 ",req.body);
 
     connection.query(query, 
         {          

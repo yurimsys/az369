@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Simple Sidebar - Start Bootstrap Template</title>
+  <title>Admin-Business</title>
 
   <!-- Bootstrap core CSS -->
   <link href="/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -67,7 +67,34 @@
       </nav>
 
       <div class="container-fluid">
-        <h1 class="mt-4">관리자 메인화면</h1>
+        <h1 class="mt-4">버스정보 추가 (CarType)</h1>
+
+            <div class="continer col-md-6">
+                <ul>
+                    <li>
+                        <label>CY_B_ID</label>
+                        <input type="text" class="form-control form-control" id="cyBId">
+                    </li>
+                    <li>
+                        <label>CY_Ty</label>
+                        <input type="text" class="form-control form-control" id="cyTy">
+                    </li>
+                    <li>
+                        <label>CY_TotalPassenger</label>
+                        <input type="text" class="form-control form-control" id="total">
+                    </li>
+                    <li>
+                        <label>CY_ServicePassenger</label>
+                        <input type="text" class="form-control form-control" id="service">
+                    </li>
+                    <li>
+                        <label>CY_SeatPrice</label>
+                        <input type="text" class="form-control form-control" id="price">
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-primary" onclick="insert()">추가</button> 
+            </div>
+        
       </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -76,16 +103,36 @@
   <!-- /#wrapper -->
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
+<script>
+    function insert(){
+        $.ajax({
+            url: "/admin/carType/insert",
+            method: 'post',
+            dataType: 'json',
+            data: {
+                'cyBId' : $("#cyBId").val(), 'cyTy' : $("#cyTy").val(), 'total' : $("#total").val(),
+                'service' : $("#service").val(), 'price' : $("#price").val()
+                },
+            success: function(res){
+                if(res.data == "추가"){
+                location.href="carType";
+                }
+            }
+        })
+    }
+
+</script>
+<!-- Menu Toggle Script -->
+<script>
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+});
+</script>
 
 </body>
 
