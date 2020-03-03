@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>AZ369 보증보험 대체의향서</title>
+    <link rel="stylesheet" href="css/az369_survey_02_Y.css">
+    <!--modal css-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+    <!--자바스크립트-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/scrolla.jquery.min.js"></script>
+
+
+    <!--폰트-->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <div class="wrap">
+        <section class="sub_wrap">
+            <div class="inner_sub_wrap">
+
+                <div class="main_title">
+                    <h1>임대보증금 보증보험 <br>대체 의향서</h1>
+                    <h6>01. 개인정보입력 > <span>02. 의향선택</span> > 03. 제출완료</h6>
+                </div>
+
+
+                <div class="survey_form">
+
+                    <h3>이미 계약완료된 입점주의 경우</h3>
+                    <div class="bar"></div>
+
+
+                    <h4> 현재 보증금과 임대료 <span>(만원 단위)</span></h4>
+                    <ul class="form_01">
+                        <li>
+                            <h5>보증금</h5>
+                            <input type="number" id="deposit" name="deposit">
+                        </li>
+
+                        <li>
+                            <h5>임대료</h5>
+                            <input type="number" id="rent" name="rent">
+                        </li>
+                    </ul>
+
+
+                    <div class="select_check select_check01">
+                       <p >현재 계약된 보증금, 임대료를 의향서에 따라 조정 의향이 있으신가요?</p>
+                        <ul>
+                            <li>
+                                <label>
+                                    <input type="radio" name="agree">
+                                    <span>네</span>
+                                </label>
+                            </li>
+
+                            <li>
+                                <label>
+                                    <input type="radio" name="agree">
+                                    <span>아니오</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3>의향서 제출양식</h3>
+                    <div class="bar"></div>
+
+                    <form action="/action_page.php">
+
+                        <h4>희망계약기간 <span>(연 단위)</span></h4>
+                        <input type="number" id="period" name="period">
+
+                        <ul class="form_list">
+                               <h4>희망임대료 <span>(만원 단위)</span></h4>
+                                <li>
+                                    <input type="number" id="minimum" name="minimum" placeholder="최저 금액">
+                                </li>
+
+                                <li>
+                                    <div class="icon">~</div>
+                                </li>
+
+                                <li>
+                                    <input type="number" id="optimum" name="optimum" placeholder="적정 금액">
+                                </li>
+                            </ul>
+
+                        <ul class="form_list">
+                               <h4>희망 보증금액 <span>(만원 단위)</span></h4>
+                                <li>
+                                    <input type="number" id="minimum" name="minimum" placeholder="최저 금액">
+                                </li>
+
+                                <li>
+                                    <div class="icon">~</div>
+                                </li>
+
+                                <li>
+                                    <input type="number" id="optimum" name="optimum" placeholder="적정 금액">
+                                </li>
+                            </ul>
+
+
+
+
+                        <div class="select_check">
+
+                            <h3>보증보험 가능여부</h3>
+                            <div class="bar"></div>
+
+                            <p>보증보험에 가입하실 의향이 있으신가요?</p>
+
+                            <ul>
+                                <li>
+                                    <label>
+                                        <input type="radio" name="agree">
+                                        <span>네</span>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label>
+                                        <input type="radio" name="agree">
+                                        <span>아니오</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <a href="az369_survey_01.ejs" class="back">뒤로</a>
+                        <a href="az369_survey_03.ejs" class="next">제출하기</a>
+
+                    </form>
+                </div>
+
+
+
+
+            </div>
+        </section>
+
+        <!--//secton.about 완료-->
+
+    </div>
+
+
+</body></html>

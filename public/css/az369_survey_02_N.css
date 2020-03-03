@@ -1,0 +1,166 @@
+@charset="UFT-8";
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap');
+
+/*reset*/
+* {margin: 0;padding: 0; box-sizing: border-box;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;   font-family: 'Noto Sans KR', ;}
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0; font-family: 'Noto Sans KR', ;}
+a {color: inherit; text-decoration: inherit; cursor: pointer;}
+img {vertical-align: middle;}
+a img {border: none;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+p {text-align: justify; font-size: 16px;}
+
+
+
+/*반응형*/
+/*768px*/
+@media screen and (max-width: 768px) {
+
+    .wrap {
+        width: 100%;
+        margin: 0 auto;
+        height: auto;
+        overflow: hidden;
+        color: #222;
+        padding-bottom: 4%;
+        background: #f9f9f9;
+}
+
+
+    /*폰트공통*/
+    section h1, section h2, section h3, section h4, section h5, section h6 {font-family: 'Noto Sans KR', sans-serif; }
+
+    /*main*/
+    section.main {width: 100%;}
+    section.main .inner_main {margin: 0 auto;}
+
+    /*section.sub_wrap*/
+    .main_title {text-align: center; margin-bottom: 4%;}
+    .main_title h6 {/*font-family: 'PT Serif', serif; */font-size: 15px; color:#666; margin-top: 3%;}
+    .main_title h6 span {color: #ad863c; font-weight: bold; }
+    .main_title h1 br {display: none;}
+    .main_title h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; padding: 2.1%; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
+
+
+
+    .survey_form {width: 90%; margin: 0 auto;}
+    .survey_form h3 {font-size: 22px; margin: 0 ; padding-bottom: 1%; border-bottom: 2px solid #ad863c; display: inline-block;}
+    .bar {width: 100%; height: 2px; background: #eee; margin-top: -0.25%;}
+
+    .survey_form h4 {font-size: 17px; font-weight: normal; margin-bottom: 0; margin-top: 4%; color: #444; position: relative;}
+    .survey_form h4 span {color: #777;}
+
+    .form_inner {margin-top: 3%;}
+    input[type=number]{
+        width: 100%;
+        height: 50px;
+        padding: 0 2%;
+        margin-top: 1.3%;
+        display: inline-block;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        box-sizing: border-box;
+        position: relative; overflow: hidden;
+}
+
+    .survey_form ul {width: 100%;}
+
+    #minimum, #optimum {width: 45%; float: left; position: relative; overflow: hidden;}
+    .icon {width: 10%; float: left; text-align: center; height: 50px; line-height: 65px;}
+
+    .select_check > h3 {margin-top: 10%; position: relative;}
+    .select_check p {margin-top: 2%; color: #555;}
+
+    .select_check ul {margin-top: 4%; width: 50%; position: relative; overflow: hidden}
+    .select_check ul li {float: left; width: 48%;  margin-right: 2%;  text-align: center; position: relative;}
+    .select_check ul li:last-child {margin-right: 0;}
+    .select_check label {position: relative; cursor: pointer;}
+    .select_check label input {display: none;}
+    .select_check label span {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding: 6% 0;
+    background: transparent;
+    border: 1px solid #ccc;
+    color: #444;
+    font-size: 16px;
+    font-weight: normal;
+    border-radius: 4px;
+    margin-right: 1.5%;
+}
+    .select_check label:last-child {margin-right: 0;}
+    .select_check label input:checked ~ span { background: #fff; border: 2px solid #ad863c; font-weight: bold;}
+
+    .form_list {position: relative; width: 100%; height: auto; overflow: hidden; float: left;}
+
+
+    .next, .back {
+        display: block;
+        overflow: hidden;
+        text-align: center;
+        font-size: 16px;
+        width: 49%;
+        height: 50px; line-height: 50px;
+        background-color: #c3a164;
+        color: #fff;
+        margin-top: 8%;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        float: left;
+        margin-right: 1%;
+}
+    .back {border: 1px solid #ddd; background: #fff; color: #444;}
+}
+
+/*414px*/
+@media screen and (max-width: 414px) {
+    .main_title h1 {font-size: 22px; padding: 2.5% 0;}
+    .main_title h6 {margin: 6% 0 8%; font-size: 14px;}
+    .main_title h6 span {font-size: 16px;}
+    .survey_form h3 {font-size: 20px;}
+    .select_check h3 {margin-top: 15%;}
+    .survey_form h4 {font-size: 16PX; margin-top: 6%;}
+
+    .select_check ul {width: 80%;}
+    .select_check p {font-size: 15px; margin-top: 6%; margin-bottom: 7%;}
+
+    .next, .back {margin-top: 18%;}
+
+}
+
+/*320px*/
+@media screen and (max-width: 320px) {
+    .main_title h1 {font-size: 17px;}
+    .main_title h6 { font-size: 12px;}
+    .main_title h6 span {font-size: 13px;}
+    .survey_form h3 {font-size: 18px;}
+    .select_check h3 {margin-top: 16%;}
+    .survey_form h4 {font-size: 16px; margin-top: 8%;}
+
+    .select_check ul {width: 100%;}
+    /*.select_check p {font-size: 15px; margin-top: 8%; margin-bottom: 5%;}*/
+
+    .select_check ul li input{height: 40px; line-height: 40px;}
+
+    .next, .back {margin-top: 18%; border-radius: 0; font-size: 15px; height: 40px; line-height: 40px;}
+
+    input[type=number]{
+        height: 40px;
+        padding: 0 2%;
+        margin-top: 2%;
+        display: inline-block;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
+        position: relative; overflow: hidden;
+
+}
+
+
