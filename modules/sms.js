@@ -38,12 +38,12 @@ sms.send = ( req, data ) => {
  * 인증번호 메세지 발송
  * data 필수 값 : receiver, auth_number
  */
-sms.send = ( req, data ) => {
+sms.phoneAuthSend = ( req, data ) => {
     
     if( data.receiver === "" || !data.receiver ) throw new Error('receiver not found');
     if( data.auth_number === "" || !data.auth_number ) throw new Error('auth_number not found');
 
-    data.msg = config.message.phone_auth.replace("#auth_number#", auth_number );
+    data.msg = config.message.phone_auth.replace("#auth_number#", data.auth_number );
     
     // 메시지 발송하기
     req.body = {

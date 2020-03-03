@@ -9,6 +9,6 @@ module.exports = {
         }
     },
     message : {
-        phone_auth : `[AZ369] 본인확인 인증번호는 [#auth_number#] 입니다.`
+        phone_auth : `[AZ369] 본인확인 인증번호 [#auth_number#]를 입력해주세요.`
     }
 }

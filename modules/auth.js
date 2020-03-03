@@ -28,16 +28,19 @@ const genNumber = ( digit_length = 6) => {
 }
 
 // 인증번호 DB 저장
-// 인증번호 유효 시간 5분
+// 인증번호 유효 시간 30분
 const saveNumber = ( phone_number ) => {
     let auth_number = genNumber(6);
-    let query = `insert into phone_auth values( ${phone_number}, ${auth_number}, date_add(now(), interval 5 minute))`;
-    connection.query( query, null, (err, result) => {
-        if(err) throw err;
-        
-        result.auth_number = auth_number;
-        result.phone_number = phone_number;
-        return result;
+    let query = `insert into phone_auth values( ${phone_number}, ${auth_number}, date_add(now(), interval 30 minute))`;
+    
+    return new Promise( function (resolve, reject) {
+        connection.query( query, null, (err, result) => {
+            if(err) reject(err);
+            
+            result.auth_number = auth_number;
+            result.phone_number = phone_number;            
+            resolve(result);
+        });
     });
 }
 
@@ -50,21 +53,44 @@ const checkNubmer = ( phone_number, auth_number ) => {
         and expire_dt > now() 
         order by expire_dt desc 
         limit 1`;
-    connection.query( query, { phone_number : phone_number }, (err, result) => {
-        if(err) throw err;
-        
-        console.log(result);
-        let res_data = {};
-        if( result.auth_number === auth_number ){
-            res_data = {
-                msg : "success",
-                status_code : 200
-            }
+    return new Promise( function (resolve, reject) {
 
-            return res_data;
-        } else if( typeof result.auth_number === "undefined" ){
-            throw new Error("인증시간이 만료 되었습니다.");
-        }
+        connection.query( query, { phone_number : phone_number }, (err, result) => {
+            if(err) reject( err );
+            
+            console.log(result);
+            let res_data = {};
+            if( result.length === 1 ){
+                if( result[0].auth_number == auth_number ){
+
+                    res_data = {
+                        msg : "success",
+                        status_code : 200
+                    }
+        
+                    resolve( res_data );
+                } else {
+                    res_data = {
+                        msg : "인증번호를 잘못 입력하셨습니다.",
+                        status_code : 400
+                    }
+                    resolve( res_data );    
+                }
+            } else {
+                res_data = {
+                    msg : "인증시간이 만료 되었습니다.",
+                    status_code : 400
+                }
+                
+                resolve( res_data );
+            }
+        });
     });
+    
 }
 
+module.exports = {
+    genNumber,
+    saveNumber,
+    checkNubmer
+}
