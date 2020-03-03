@@ -12,6 +12,8 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const indexRouter = require('./routes/index'),
     apiRouter = require('./routes/api'),
+    testRouter = require('./routes/test'),
+    extraRouter = require('./routes/extra'),
     usersRouter = require('./routes/users'),
     adminRouter = require('./routes/admin');
 
@@ -56,7 +58,9 @@ app.use(flash());
 // Router Config
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
+app.use('/test', testRouter);
 app.use('/users', usersRouter);
+app.use('/extra', extraRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
