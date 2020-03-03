@@ -160,36 +160,40 @@ router.post('/user/findId', (req, res, next) =>{
 
 //비밀번호 찾기
 router.post('/user/findPw', (req, res, next) =>{
-    let query = "select U_UserName from tU where U_UserName =:uId and U_Name =:uName";
+    let query = "select U_UserName, U_Name from tU where U_UserName =:uId and U_Phone =:uPhone";
     
     console.log(req.body);
 
     connection.query(query, 
         {
             uId : req.body.id, 
-            uName : req.body.name
+            uPhone : req.body.phone
                                 
         },
         function(err, rows, fields) {
             if (err) throw err;          
              
             //console.log(findId);
-            res.json( {  data : rows[0], name : req.body.name, id : req.body.id });
-            //console.log(rows);
+            res.json( {  data : rows[0],  id : req.body.id });
+            console.log(rows);
         });
         
 });
 
 //비밀번호 찾기 후 수정
 router.post('/user/modifyPw', (req, res, next) =>{
-    let query = "update tU set U_Pw = :uPw where U_UserName = :uUserName";
+    let query = "update tU set U_Pw = :hash_pw where U_UserName = :uUserName";
     
+    let password = req.body.password;
+    let hash_pw = bcrypt.hashSync(password, 10, null);
+
     console.log(req.body);
 
     connection.query(query, 
         {
-            uUserName : req.body.id, 
-            uPw : req.body.password
+            hash_pw,
+            uUserName : req.body.id
+            
                                 
         },
         function(err, rows, fields) {
@@ -293,14 +297,18 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     console.log("유저아이디 :", uUserName);
     console.log("password :", password);
     console.log("hash :", hash_pw);
+    console.log("phone ::", uPhone);
+    console.log("uZip :", uZip);
+    console.log("uAddr1 :", uAddr1);
+    console.log("uAddr2 ::", uAddr2);
 
     let query = `UPDATE tU SET U_Pw = :hash_pw, U_Phone = :uPhone, U_Brand = :uBrand,
                 U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
 
-    let query2 = `UPDATE tU U_Phone = :uPhone, U_Brand = :uBrand,
+    let query2 = `UPDATE tU SET U_Phone = :uPhone, U_Brand = :uBrand,
                 U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
 
-        if(password === "" ){
+        if(password === "" ){           
             connection.query(query2,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
                 function(){                   
                     res.json( {  data : "성공"});

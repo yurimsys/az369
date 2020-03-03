@@ -168,14 +168,14 @@ router.post('/carType/modify', function(req, res, next) {
     let total = req.body.total;
     let service = req.body.service;
     let price = req.body.price;
-
+    let cyBId = req.body.cyBId;
 
     console.log("아이디 :", cyId);
-    let query = `update tCY set CY_Ty =:cyTy, CY_TotalPassenger =:total, CY_ServicePassenger =:service,
+    let query = `update tCY set CY_Ty =:cyTy, CY_B_ID =:cyBId, CY_TotalPassenger =:total, CY_ServicePassenger =:service,
                         CY_SeatPrice =:price, CY_uDt = now()
                  where CY_ID =:cyId`; 
 
-    connection.query(query,{cyId, cyTy, total, service, price},
+    connection.query(query,{cyId, cyTy, cyBId, total, service, price},
       function(err, rows, fields) {
           if (err) throw err;
           res.json({data : "수정"});

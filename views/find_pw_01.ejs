@@ -56,7 +56,7 @@
                     <div class="find_box_inner">
                         <h2>비밀번호 찾기</h2>
                             <p>회원가입 시 등록한 <strong>아이디</strong>와 <strong>전화번호</strong>를 입력해주세요.</p>
-                            <form action="/action_page.php">
+                            <form>
 
                                 <div class="find_form">
                                     <label for="id"></label>
@@ -64,15 +64,18 @@
 
                                     <ul>
                                         <li>
-                                            <input type="text" id="phone" name="phone" placeholder="휴대전화">
+                                            <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
                                         </li>
-
+                                        
                                         <li>
                                             <button class="check_btn">본인인증</button>
                                         </li>
-
+                                    
                                         <li>
                                             <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
+                                            <div class="text-alert" id="alert_msg" style="font-size: 15px; display: none; color: #AD863C; font-weight: bold;">인증번호의 유효시간은 30분입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+                                            <div class="text-alert" id="alert_msg_fail" style="font-size: 15px; color: red; display: none;"></div>
+                                            <div class="text-alert" id="alert_msg_success" style="font-size: 15px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
                                         </li>
                                     </ul>
                                 </div>
@@ -108,7 +111,85 @@
     </div>
 
     <script>
+
+$(document).ready(()=>{
+        //본인인증
+        $("button.check_btn").click((e) => {
+            e.preventDefault();
+            sendSmsButton();
+            return false;
+        });
+ 
+        $("#phone_check").keyup( checkPhoneNumber );
+
+    });
+
+    function sendSmsButton(){
+        let phone_number = $("#phone").val();
+        phone_number = phone_number.replace(/-/g, "");
+
+        $.ajax({
+            dataType: "json",
+            url : "/api/auth/phone",
+            method : "post",
+            data : {
+                phone_number : phone_number
+            }
+        }).done((res) => {
+            $("#alert_msg").css('display','block');
+            $("#alert_msg_success").css('display','none');
+        })
+    }
+    chkCnt = 0;
+    function checkPhoneNumber(e){
+        let ele_phone_check = $("#phone_check");
+        // let auth_number = ele_phone_check.val();
+        let auth_number = e.target.value;
+
+        let phone_number = $("#phone").val();
+        phone_number.replace(/-/g, "");
+
+        if(window.timer !== undefined) clearTimeout(window.timer);
+        
+        window.timer = setTimeout( () => {
+            $.ajax({
+                dataType: "json",
+                url : "/api/auth/phone",
+                method : "get",
+                data : {
+                    phone_number : phone_number,
+                    auth_number : auth_number
+                }
+            }).done((res) => {
+                console.log("checkPhoneNumber !! ");
+                console.log(res);
+                if( res.status_code == 200 ){
+                    ele_phone_check.data("is_confirm", true);
+                    chkCnt = 1;
+                    $("#alert_msg").css('display','none');
+                    $("#alert_msg_success").css('display','block');
+                    $("#alert_msg_fail").css('display','none');
+                } else if ( res.status_code == 400 ){
+                    ele_phone_check.data("is_confirm", false);
+                    $("#alert_msg").css('display','block');
+                    $("#alert_msg_success").css('display','none');
+                    
+                    let ele_alert_fail = $("#alert_msg_fail");
+                    ele_alert_fail.text(res.msg);
+                    ele_alert_fail.css('display','block');
+                }
+            })
+        }, 1500 );
+        
+    }
+
+
+
         function findPw(){
+            if(chkCnt == 0){
+                alert("본인인증을 해주세요");
+                return;
+            }
             if($("#id").val == "" || $("#name").val() == ""){
                 alert("빈칸을 입력해주세요.");
             }
@@ -116,14 +197,16 @@
                url : "api/user/findPw",
                method : "post",
                dataType : "json",
-               data : {id : $("#id").val(), name : $("#name").val()},
+               data : {id : $("#id").val(), phone : $("#phone").val()},
                success : function(res){
                     console.log(res);
+                    
+                    console.log("로그2 :", res.data.U_Name);
                     if(res.data === undefined){
                         alert("등록된 회원이 아닙니다.");
                         location.reload();
                     } else if(res.data.U_UserName != ""){
-                        var orderDetail = [{name:"findId", value:res.name }, {name:"findName", value:res.id}];
+                        var orderDetail = [ {name:"findId", value:res.id}, {name:"name", value:res.data.U_Name}];
                         sessionStorage.setItem("orderDetail",JSON.stringify(orderDetail));
                         location.href = "findPw2";
                         

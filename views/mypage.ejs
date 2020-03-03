@@ -56,7 +56,7 @@
                     
                                         <button class="tablinks" id="tab3" onclick="openList(event, '03')"> 취소 및 환불조회 <span><i class="fas fa-chevron-right"></i></span></button>
                                     </div>
-                                    <div class="logout"><a href="login.asp">로그아웃</a></div>
+                                    <div class="logout"><a href="login">로그아웃</a></div>
                                 </div>
                     
                                 <!--왼쪽 목록버튼-->
@@ -102,7 +102,8 @@
                                                             <ul>
                                                                 <li><%=data[i].deptTe%></li>
                                                                 <li> 평택 > 서울 동대문</li>
-                                                                <li><%=data[i].carName%> / <%=data[i].carNum%></li>
+                                                                <!-- <li><%=data[i].carName%> / <%=data[i].carNum%></li> -->
+                                                                <li><%=data[i].carName%></li>
                                                                 <li><%=data[i].seatNum%></li>
                                                             </ul>
                                                         </span>
@@ -300,7 +301,7 @@
                                 </div>
                     
                                 <!--768부터적용-->
-                                <div class="logout_mo"><a href="login.asp">로그아웃</a></div>
+                                <div class="logout_mo"><a href="logout">로그아웃</a></div>
                     
                     
                             </li>
@@ -337,12 +338,14 @@
         var tdVal = Array();
         //선택예매취소 클릭 후 리스트 보여주기
         function cancelBtn(){
+            $(".cancelRes").empty();
+            $(".table_mo").empty();
             if($(".chk").is(":checked") == false){
                 alert("취소 항목을 선택해 주세요.");
                 return;
             }
             location.href="#popup"; 
-            $(".cancelRes").empty();
+           
             //체크된 레이블 보여주기
             var send_array = Array();
             var send_cnt = 0;
@@ -382,7 +385,7 @@
                     }
                  
                     //모바일 예매취소 리스트
-                    console.log(res);
+                    console.log("여기 리스트",res.data);
                     for(let k=0; k<res.data.length; k++){
                         let html = "<dl>";
                             html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
@@ -392,8 +395,8 @@
                             html += "<dt>결제수단</dt><dd>"+res.data[k].payType+"</dd>";
                             html += "<dt>결제금액</dt><dd>"+res.data[k].price+"</dd></dl>";
                         $(".table_mo").append(html);
-                        trVal[i] = res.data[i].pId;
-                        tdVal[i] = res.data[i].ctId;   
+                        trVal[k] = res.data[k].pId;
+                        tdVal[k] = res.data[k].ctId;   
                     }
                 }
             })
@@ -428,13 +431,14 @@
                success: function(res){
               //PC리스트
                   for(let i=0; i<res.data.length; i++){
-                      let html = "<tr>";
+                    let html = "<tr>";
                         html += "<td>"+res.data[i].PayDay+"</td>";
                         html += "<td>"+res.data[i].deptTe+"</td>";
-                        html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
+                        // html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
+                        html += "<td>"+res.data[i].carName+"</td>";
                         html += "<td>"+res.data[i].seatCnt+"</td>";
-                        html += "<td>"+res.data[i].payType+"</td>";
-                        html += "<td>"+res.data[i].price+"</td>";
+                        html += "<td>"+(res.data[i].payType || "-")+"</td>";
+                        html += "<td>"+(res.data[i].price || 0)+"</td>";
                         html += "</tr>";
                       $("#payList").append(html);                  
                   }            
@@ -543,8 +547,7 @@
                     //취소 및 환불조회 상세정보 모바일
                     $(".list03_mo div").each(function(item){   
                         $(this).on('click', function(){  
-                            alert($(this).attr('id'));
-                            alert($(this).attr('val'))              
+             
                             $.ajax({
                                 url: "api/user/resCancelDetailMo",
                                 method: "post",
