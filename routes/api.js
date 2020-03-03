@@ -5,8 +5,10 @@ const mysql = require('mysql');
 const dbconf = require('../config/database');
 const connection = mysql.createConnection(dbconf);
 const bcrypt = require('bcrypt');
-const passport = require('passport');
+
 const LocalStrategy = require('passport-local').Strategy;
+const sms = require('../modules/sms');
+const localAuth = require('../modules/auth');
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -23,9 +25,7 @@ connection.on('error', function(err) {
     console.log('------ on error!');
     console.log(err);
 });
-// let a = connection.query('select * from tu where u_id =2');
 
-// debugger;
 router.post('/user/phone', (req, res, next) => {
   
     let query  = "update tU set u_phone = :newPhone where u_name = :name";
@@ -785,6 +785,47 @@ router.get('/useSeat/:ct_id', auth.isLoggedIn, (req, res, next) =>{
 
         })
  
+});
+
+// 인증번호 생성 & 발송
+router.post('/auth/phone', async ( req, res ) => {
+    let phone_number = req.body.phone_number;
+    let result = await localAuth.saveNumber( phone_number );
+    
+    let data = {
+        receiver : result.phone_number,
+        auth_number : result.auth_number
+    }
+
+    sms.phoneAuthSend( req, data )
+    .then(( send_result ) => {
+        let result_data = {};
+
+        if( send_result.result_code === 1 ){
+            result_data = {
+                statusCode : 200,
+                message : "success",
+            }
+        } else {
+            result_data = {
+                statusCode : 500,
+                message : "fail",
+            }
+        }
+        
+        res.json(result_data);
+    });
+
+});
+
+// 인증번호 확인
+router.get('/auth/phone', async ( req, res ) => {
+    let phone_number = req.query.phone_number;
+    let auth_number = req.query.auth_number;
+
+    let result = await localAuth.checkNubmer( phone_number, auth_number );
+    
+    res.json(result);
 });
 
 module.exports = router;

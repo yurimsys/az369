@@ -57,6 +57,8 @@ p {text-align: justify; font-size: 16px;}
     .apply_form h3 {font-size: 22px; margin: 0 ; padding-bottom: 1%; border-bottom: 2px solid #ad863c; display: inline-block;}
     .bar {width: 100%; height: 2px; background: #eee; margin-top: -0.25%;}
     .form_inner {margin-top: 3%;}
+    .form_inner .text-alert { font-size: 13px; padding-left: 5px; color: #c3a164; font-weight: bold; display: none;}
+    .form_inner .text-alert.active{ display: block; }
     input[type=text]{
         width: 100%;
         height: 50px;
@@ -76,7 +78,7 @@ p {text-align: justify; font-size: 16px;}
     .apply_form h4 strong {font-weight: normal; color: #000;}
     .apply_form h4 span {font-size: 16px; color: #555;}
 
-    #select_possible {padding: 1.5% 8%; font-size: 16px; font-family: 'Noto Sans KR', sans-serif; color: #555;  border-radius: 8px; margin: 2% 0; border: 1px solid #ccc;}
+    #wt_insurance_type {padding: 1.5% 8%; font-size: 16px; font-family: 'Noto Sans KR', sans-serif; color: #555;  border-radius: 8px; margin: 2% 0; border: 1px solid #ccc;}
 
     /*option {padding: 1.5% 8%; font-size: 16px; width: 50px;}*/
 
@@ -128,7 +130,7 @@ p {text-align: justify; font-size: 16px;}
     h3.agree_h3 {margin-top: 10%;}
     .apply_form p {margin-top: 5%;}
     .select_agree {width: 100%;}
-    #select_possible {padding: 3% 10%;}
+    #wt_insurance_type {padding: 3% 10%;}
 }
 
 /*320px*/
@@ -142,9 +144,9 @@ p {text-align: justify; font-size: 16px;}
     h4.agree_h4 {margin-top: 8%; margin-bottom: 2%;}
     .apply_form p {margin-top: 10%; margin-bottom: 5%; font-size: 16px; color: #444;}
     .select_agree label span {padding: 6%;}
-    #select_possible {padding: 3% 10%;}
+    #wt_insurance_type {padding: 3% 10%;}
     input[type=submit] {margin-top: 13%;}
 
-    #select_possible {width: 100%; margin-top: 5%;}
+    #wt_insurance_type {width: 100%; margin-top: 5%;}
 }
 
