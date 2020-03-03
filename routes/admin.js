@@ -334,21 +334,6 @@ router.get('/user', function(req, res, next) {
 });
 
 //user 메인화면 페이징
-router.post('/user', function(req, res, next) {
-    let query = `SELECT * FROM tU order by U_ID desc limit :beginRow, :rowPerPage`; 
-    let currentPage = req.body.currentPage;
-    //페이지 내 보여줄 수
-    let rowPerPage = 10;
-    let beginRow = (currentPage-1)* rowPerPage;
-    connection.query(query, {beginRow, rowPerPage},
-      function(err, rows, fields) {
-          if (err) throw err;
-          res.json( { data : rows});
-          //console.log("user",rows);
-      });
-});
-
-//user 메인화면 페이징2
 router.get('/user/:currentPage', function(req, res, next) {
     let query = `SELECT * FROM tU order by U_ID desc limit :beginRow, :rowPerPage`; 
     let currentPage = req.params.currentPage;
@@ -430,7 +415,7 @@ router.get('/userDelete/:uId', function(req, res, next) {
           if (err) throw err;
           //req.flash("success", "삭제 완료!");
           //console.log(msg);
-          res.send("<script type='text/javascript'>alert('삭제완료'); location.href='/admin/user';</script>");
+          res.send("<script type='text/javascript'>alert('삭제완료'); location.href='/admin/user/1';</script>");
           //res.redirect('/admin/business');
           //console.log("비지니스",rows);
       });
@@ -457,7 +442,7 @@ router.post('/user/insert', function(req, res, next) {
 
 
     let query = `insert into tU(U_UserName, U_Pw ,U_Name, U_Email, U_Phone, U_Brand, U_Zip, U_Addr1, U_Addr2) 
-                values(:userName, :name, :email, :phone, :brand, :zip, :addr1, :addr2)`; 
+                values(:userName, :hash_pw, :name, :email, :phone, :brand, :zip, :addr1, :addr2)`; 
 
     connection.query(query,{userName, hash_pw, name, email, phone, brand, zip, addr1, addr2},
       function(err, rows, fields) {

@@ -68,7 +68,7 @@
 
       <div class="container-fluid">
         
-        <h1 class="mt-4">회원정보 테이블 (User))</h1>
+        <h1 class="mt-4">회원정보 테이블 (User)</h1>
         <a href="/admin/userInsert" style="font-size: 20px;">회원정보 추가</a>
             <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead class="thead-light">
@@ -102,22 +102,18 @@
                         <td><%=data[i].U_Addr2%></td>
                         <td><%=data[i].U_cDt%></td>
                         <td><%=data[i].U_uDt%></td>
-                        <td><a href='userModify/<%=data[i].U_ID%>'>수정</a></td>
-                        <td><a href='userDelete/<%=data[i].U_ID%>'>삭제</a></td>
+                        <td><a href='/admin/userModify/<%=data[i].U_ID%>'>수정</a></td>
+                        <td><a href='/admin/userDelete/<%=data[i].U_ID%>'>삭제</a></td>
                     </tr>
                     <% } %>                     
                 </tbody>               
             </table>
             <br>
-            <div class="container" style="width:300px;
-            position:absolute;
-            left:55%;
-            
-            margin-left:-150px;">
-              <a href="#" id="preBtn">이전</a>
+            <div class="container" style="position:absolute;left:48%;">
+              <!-- <a href="#" id="preBtn">이전</a> -->
               
               <label id="link2"></label>
-              <a href="#" id="nextBtn">다음</a>
+              <!-- <a href="#" id="nextBtn">다음</a> -->
           </div>
       </div>
     </div>
@@ -142,22 +138,27 @@
     method : "post",
     async : false,	
     success : function(res){
-      for(let i=1; i<Math.ceil(res.data[0].cnt/10)+1; i++){
-        let html ="<a href=/admin/user/"+i+">"+i+"</a>";
-        $("#link2").append(html);
+      for(i=1; i<Math.ceil(res.data[0].cnt/10)+1; i++){
+        let html ="<a href=/admin/user/"+i+" style='font-size: 30px;'>"+i+"</a>&emsp;";
+        $("#link2").append(html);       
       }
     }       
   });		
 
+
   //이전버튼
   $("#preBtn").click(function(){
-    currentPage = currentPage-1;	
-		location.href="/admin/user/"+currentPage;
-	});
-  //다음버튼
+    if(i == 1){
+      alert("첫 페이지 입니다.");
+      return;
+    }
+      
+    location.href="/admin/user/"+i-1;
+  });
+    //다음버튼
   $("#nextBtn").click(function(){
     currentPage += 1;
-    location.href="/admin/user/"+currentPage;
+    location.href="/admin/user/"+i+1;
   });
 
 
