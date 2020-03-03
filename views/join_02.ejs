@@ -68,10 +68,10 @@
                             <li>
                                 <button class="check_btn">본인인증</button>
                             </li>
-
+        
                             <li>
                                 <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
-                                <div class="text-alert" id="alert_msg" style="font-size: 15px; display: none;">인증번호의 유효시간은 30분입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+                                <div class="text-alert" id="alert_msg" style="font-size: 15px; display: none; color: #AD863C; font-weight: bold;">인증번호의 유효시간은 30분입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
                                 <div class="text-alert" id="alert_msg_fail" style="font-size: 15px; color: red; display: none;"></div>
                                 <div class="text-alert" id="alert_msg_success" style="font-size: 15px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
                             </li>
@@ -236,7 +236,7 @@
             $("#alert_msg_success").css('display','none');
         })
     }
-
+    let chkCnt = 0;
     function checkPhoneNumber(e){
         let ele_phone_check = $("#phone_check");
         // let auth_number = ele_phone_check.val();
@@ -246,7 +246,7 @@
         phone_number.replace(/-/g, "");
 
         if(window.timer !== undefined) clearTimeout(window.timer);
-        
+  
         window.timer = setTimeout( () => {
             $.ajax({
                 dataType: "json",
@@ -261,7 +261,7 @@
                 console.log(res);
                 if( res.status_code == 200 ){
                     ele_phone_check.data("is_confirm", true);
-    
+                    chkCnt = 1;
                     $("#alert_msg").css('display','none');
                     $("#alert_msg_success").css('display','block');
                     $("#alert_msg_fail").css('display','none');
@@ -275,7 +275,7 @@
                     ele_alert_fail.css('display','block');
                 }
             })
-        }, 2000 );
+        }, 800 );
         
     }
 /////////////////////
@@ -321,7 +321,7 @@
 
         // //아이디 중복확인
         var timeout = null;
-        var chkId = 0;
+        let chkId = 0;
         $('#id').keyup(function () {        
             clearTimeout(timeout);                
             timeout = setTimeout(function () {
@@ -338,7 +338,6 @@
                             $("#overId").css("display", "block");
                             $("#overId2").css("display", "none");
                         } else {
-                            chkId = 0;
                             $("#overId").css("display", "none");
                             $("#overId2").css("display", "block");
                         }
@@ -355,11 +354,13 @@
                                                                                    
         ///회원가입 버튼 클릭
         function joinUser(){
-            if($("#alert_msg_success").css('display','none')){
-                alert("본인인증 오류입니다.");
+            if(chkCnt == 0){
+                alert("본인인증을 해주세요.");
+                return;
             }
             if(chkId == 0){
                 alert("아이디 중복입니다.")
+                return;
             }    
             if($('#id').val() == "" || $('#password').val()==''|| $('#password2').val()==''|| $('#name').val()=='' || $('#phone').val()==''|| $('#brand').val()=='' || 
             $('#postcode').val()==''|| $('#address').val()==''||$('#detailAddress').val()=='' ||$('#email').val()==''){

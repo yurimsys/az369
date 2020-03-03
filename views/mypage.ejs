@@ -385,7 +385,7 @@
                     }
                  
                     //모바일 예매취소 리스트
-                    console.log(res);
+                    console.log("여기 리스트",res.data);
                     for(let k=0; k<res.data.length; k++){
                         let html = "<dl>";
                             html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
@@ -395,8 +395,8 @@
                             html += "<dt>결제수단</dt><dd>"+res.data[k].payType+"</dd>";
                             html += "<dt>결제금액</dt><dd>"+res.data[k].price+"</dd></dl>";
                         $(".table_mo").append(html);
-                        trVal[i] = res.data[i].pId;
-                        tdVal[i] = res.data[i].ctId;   
+                        trVal[k] = res.data[k].pId;
+                        tdVal[k] = res.data[k].ctId;   
                     }
                 }
             })
