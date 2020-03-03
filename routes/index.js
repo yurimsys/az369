@@ -16,45 +16,7 @@ connection.config.queryFormat = function (query, values) {
         return txt;
     }.bind(this));
 };
-///관리자 부분
-router.get('/adminIndex', function(req, res, next) {
-    res.render('admin_index');
-});
 
-
-router.get('/adminTable', function(req, res, next) {
-    res.render('admin_table');
-});
-
-router.get('/adminBusiness', function(req, res, next) {  
-    let query = `SELECT * FROM tB `; //서비스 후 > now() 변경
-    connection.query(query,
-      function(err, rows, fields) {
-          if (err) throw err;
-          res.render('admin_business', { data : rows });
-          console.log("비지니스",rows);
-      });
-});
-
-
-router.get('/adminBusinessModify/:bId', function(req, res, next) {
-    let reqId = req.param.bId;
-    let reqMode = req.param.mode;
-    console.log("아이디 :", reqId);
-    console.log("변수 :", reqMode);
-    // let query = `SELECT * FROM tB `; //서비스 후 > now() 변경
-    // connection.query(query,
-    //   function(err, rows, fields) {
-    //       if (err) throw err;
-    //       res.render('admin_business', { data : rows });
-    //       console.log("비지니스",rows);
-    //   });
-});
-
-
-
-
-//////관리자 끝나는 부분
 
 router.get('/', function(req, res, next) {
     res.render('index', { sessionUser : req.user });
