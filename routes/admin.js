@@ -329,13 +329,50 @@ router.post('/carTime/insert', function(req, res, next) {
 
 //user 메인화면
 router.get('/user', function(req, res, next) {
+    res.render('admin_user');
 
-    let query = `SELECT * FROM tU order by U_ID desc`; 
+});
+
+//user 메인화면 페이징
+router.post('/user', function(req, res, next) {
+    let query = `SELECT * FROM tU order by U_ID desc limit :beginRow, :rowPerPage`; 
+    let currentPage = req.body.currentPage;
+    //페이지 내 보여줄 수
+    let rowPerPage = 10;
+    let beginRow = (currentPage-1)* rowPerPage;
+    connection.query(query, {beginRow, rowPerPage},
+      function(err, rows, fields) {
+          if (err) throw err;
+          res.json( { data : rows});
+          //console.log("user",rows);
+      });
+});
+
+//user 메인화면 페이징2
+router.get('/user/:currentPage', function(req, res, next) {
+    let query = `SELECT * FROM tU order by U_ID desc limit :beginRow, :rowPerPage`; 
+    let currentPage = req.params.currentPage;
+    console.log("커런트 페이지지ㅣ ::", currentPage);
+    //페이지 내 보여줄 수
+    let rowPerPage = 10;
+    let beginRow = (currentPage-1)* rowPerPage;
+    connection.query(query, {beginRow, rowPerPage},
+      function(err, rows, fields) {
+          if (err) throw err;
+          res.render("admin_user", { data : rows});
+          console.log("user",rows);
+      });
+});
+
+//user 메인화면 카운트
+router.post('/user/count', function(req, res, next) {
+    let query = `SELECT count(*) as cnt FROM tU `; 
     connection.query(query,
       function(err, rows, fields) {
           if (err) throw err;
-          res.render('admin_user', { data : rows });
-          console.log("user",rows);
+          let cnt = rows;
+          res.send( { data : cnt});
+          console.log("카운트는 :",cnt);
       });
 });
 
@@ -415,12 +452,14 @@ router.post('/user/insert', function(req, res, next) {
     let zip = req.body.postcode;
     let addr1 = req.body.address;
     let addr2 = req.body.detailAddress;
+    let password = req.body.pw;
+    let hash_pw = bcrypt.hashSync(password, 10, null);
 
 
-    let query = `insert into tU(U_UserName, U_Name, U_Email, U_Phone, U_Brand, U_Zip, U_Addr1, U_Addr2) 
+    let query = `insert into tU(U_UserName, U_Pw ,U_Name, U_Email, U_Phone, U_Brand, U_Zip, U_Addr1, U_Addr2) 
                 values(:userName, :name, :email, :phone, :brand, :zip, :addr1, :addr2)`; 
 
-    connection.query(query,{userName, name, email, phone, brand, zip, addr1, addr2},
+    connection.query(query,{userName, hash_pw, name, email, phone, brand, zip, addr1, addr2},
       function(err, rows, fields) {
           if (err) throw err;
           res.json({data : "추가"});
