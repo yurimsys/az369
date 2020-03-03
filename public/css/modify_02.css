@@ -69,6 +69,10 @@ section.sub_wrap h1 {
 .add_modify_form {width: 100%; height:auto; margin-top: 4%;}
 
 
+#phone {width: 70%; float: left; margin-right: 1%;}
+.check_btn {width: 29%; height: 50px; float: left; background: #fff; border: 1px solid #ccc; cursor: pointer;}
+#phone_check {margin-top: 1%;}
+
 /*.phone_modify_form #phone {width: 70%; margin-right: 1%; float: left;}
 #phone_coheck_btn {width: 29%; float: left;}*/
 
