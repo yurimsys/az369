@@ -153,10 +153,10 @@
         var orderDetail = JSON.parse(sessionStorage.getItem("orderDetail"));
         console.log(orderDetail);
         //console.log(orderDetail[0].value);
-        var findName = orderDetail[0].value;
-        var findId = orderDetail[1].value;
+        var findId = orderDetail[0].value;
+        var findName = orderDetail[1].value;
         $("#yourId").append(findId);
-        $("#yourName").append(findName+"님");
+        $("#yourName").append(findName,'님');
     
 
 

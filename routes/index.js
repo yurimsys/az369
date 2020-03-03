@@ -65,6 +65,10 @@ router.get('/complate', auth.isLoggedIn, function(req, res, next){
     res.render('reservation_02', {sessionUser: req.user} );
 });
 
+router.get('/reservation2', auth.isLoggedIn, function(req, res, next){
+    res.render('reservation_01-2', {sessionUser: req.user} );
+});
+
 //마이페이지 첫화면
 router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
     let sessionId = req.user.U_ID;
