@@ -411,7 +411,14 @@
                         async: false,
                         data: {'trVal' : trVal, 'tdVal' : tdVal},
                         success: function(res){
-                            location.href="mypage";
+                            console.log("업데이트 값",res.data);
+                            if(res.data == 0){
+                                alert("출발 3일전에는 취소가 불가능합니다.");
+                                location.href="mypage";
+                            }else{
+                                location.href="mypage";
+                            }
+                            
                         }
                     })
                 }

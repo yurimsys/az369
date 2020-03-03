@@ -532,7 +532,11 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
 
 //예매취소 
 router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
-    let query = `update tCR set CR_Cancel = :crCancel, CR_CancelDt = now() where CR_U_Id = :sessionId and CR_PH_ID IN (:crPId) and CR_CT_ID IN (:crCtId)`;
+    let query = `update tCR 
+                    inner join tCT on tCR.CR_CT_ID = tCT.CT_ID 
+                    set CR_Cancel = :crCancel, CR_CancelDt = now() 
+                    where CR_U_Id = :sessionId and CR_PH_ID IN (:crPId) and 
+                    CR_CT_ID IN (:crCtId) and tCT.CT_DepartureTe > date_add(now(),interval +3 day);`;
     //pID  cr_cdt
     let sessionId = req.user.U_ID;
     let crCancel = 'Y';
@@ -551,8 +555,8 @@ router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
             if (err) throw err;          
              
             // //console.log(findId);
-            res.json( {  data : "성공"});
-            console.log("rows : ",rows);
+            res.json( {  data : rows.affectedRows});
+            console.log("rows : ",rows.affectedRows);
             
         });
         
