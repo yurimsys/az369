@@ -47,7 +47,7 @@ router.post('/survey', function(req, res){
         WT_Modify : req.body.wt_modify 
     }, function(err, result){
         if(err) throw err;
-        res.json({data : result, msg : 'success'});
+        res.render('az369_survey_send');
     });
 
 });
