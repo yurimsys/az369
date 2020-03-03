@@ -46,10 +46,19 @@
                                 </li>
 
                                 <!--새 휴대전화번호-->
-                                <li>
-                                    <label for="phone"></label>
-                                    <input type="text" id="phone" name="phone" value='<%= sessionUser.U_Phone%>' placeholder="새 휴대전화번호">
-                                </li>
+                                <ul>
+                                        <li>
+                                            <input type="text" id="phone" name="phone" placeholder="휴대전화">
+                                        </li>
+
+                                        <li>
+                                            <button class="check_btn">본인인증</button>
+                                        </li>
+
+                                        <li>
+                                            <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
+                                        </li>
+                                    </ul>
 
                                 <!--새 브랜드명-->
                                 <li>
