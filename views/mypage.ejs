@@ -102,7 +102,8 @@
                                                             <ul>
                                                                 <li><%=data[i].deptTe%></li>
                                                                 <li> 평택 > 서울 동대문</li>
-                                                                <li><%=data[i].carName%> / <%=data[i].carNum%></li>
+                                                                <!-- <li><%=data[i].carName%> / <%=data[i].carNum%></li> -->
+                                                                <li><%=data[i].carName%></li>
                                                                 <li><%=data[i].seatNum%></li>
                                                             </ul>
                                                         </span>
@@ -430,13 +431,14 @@
                success: function(res){
               //PC리스트
                   for(let i=0; i<res.data.length; i++){
-                      let html = "<tr>";
+                    let html = "<tr>";
                         html += "<td>"+res.data[i].PayDay+"</td>";
                         html += "<td>"+res.data[i].deptTe+"</td>";
-                        html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
+                        // html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
+                        html += "<td>"+res.data[i].carName+"</td>";
                         html += "<td>"+res.data[i].seatCnt+"</td>";
-                        html += "<td>"+res.data[i].payType+"</td>";
-                        html += "<td>"+res.data[i].price+"</td>";
+                        html += "<td>"+(res.data[i].payType || "-")+"</td>";
+                        html += "<td>"+(res.data[i].price || 0)+"</td>";
                         html += "</tr>";
                       $("#payList").append(html);                  
                   }            
