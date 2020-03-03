@@ -46,10 +46,22 @@
                                 </li>
 
                                 <!--새 휴대전화번호-->
+                                
                                 <li>
-                                    <label for="phone"></label>
-                                    <input type="text" id="phone" name="phone" value='<%= sessionUser.U_Phone%>' placeholder="새 휴대전화번호">
+                                    <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
                                 </li>
+                                
+                                <li>
+                                    <button class="check_btn">본인인증</button>
+                                </li>
+                            
+                                <li>
+                                    <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
+                                    <div class="text-alert" id="alert_msg" style="font-size: 15px; display: none;">인증번호의 유효시간은 30분입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+                                    <div class="text-alert" id="alert_msg_fail" style="font-size: 15px; color: red; display: none;"></div>
+                                    <div class="text-alert" id="alert_msg_success" style="font-size: 15px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
+                                </li>
+                            
 
                                 <!--새 브랜드명-->
                                 <li>
@@ -133,74 +145,8 @@
 
                                     </div>
                                 </div>
-
-
-
-                                <!--<div class="pw_modify_form modify_form">
-                                    <ul>
-                                        <li>
-                                            <label for="password2"></label>
-                                            <input type="password" id="password2" name="새 비밀번호" placeholder="새 비밀번호 (영문 + 숫자 + 특문 포함 10글자 이상)">
-                                        </li>
-
-                                        <li>
-                                            <label for="password2"></label>
-                                            <input type="password" id="password2" name="패스워드" placeholder="비밀번호 확인">
-                                        </li>
-                                    </ul>
-
-                                    <div class="modify_btn">
-                                        <a href="mypage.html">비밀번호 변경</a>
-                                    </div>
-                                </div>-->
-
-
-
-                                <!--<div class="phone_modify_form modify_form">
-                                    <ul>
-                                        <li>
-
-                                            <label for="phone"></label>
-                                            <input type="text" id="phone" name="새 휴대전화" placeholder="새 휴대전화번호">
-                                        </li>
-
-                                        <li>
-                                            <button onclick="phone_check" id="phone_coheck_btn">본인인증</button>
-                                        </li>
-                    
-                                        <li>
-                                            <label for="phone2"></label>
-                                            <input type="text" id="phone2" name="휴대전화" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
-                                        </li>
-                                    </ul>
-                                    <div class="modify_btn">
-                                        <a href="mypage.html">전화번호 변경</a>
-                                    </div>
-                                </div>-->
-
-
-
-                                <!--<div class="add_modify_form modify_form">
-                                    <ul>
-                                        <li>
-                                            <div class="address_form">
-                                                <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" style="background: #f8f8f8;">
-                                                <button type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn-primary round">우편번호찾기</button><br>
-                                                <input type="text" id="address" name="address" placeholder="매장주소" style="background: #f8f8f8;"><br>
-                                                <input type="text" id="detailAddress" name="detailAddress" placeholder="매장상세주소">
-                                                <input type="text" id="extraAddress" name="extraAddress" hidden="">  기본정보  
-                                                <input type="text" id="roadAddress" name="roadAddress" hidden="">
-                                                <input type="text" id="jibunAddress" name="jibunAddress" hidden="">
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    
-                                </div>-->
                             </ul>
-
-
                         </form>
-
                     </div>
                 </div>
 
@@ -219,6 +165,78 @@
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <script>
+        $(document).ready(()=>{
+        //본인인증
+        $("button.check_btn").click((e) => {
+            e.preventDefault();
+            sendSmsButton();
+            return false;
+        });
+ 
+        $("#phone_check").keyup( checkPhoneNumber );
+
+    });
+
+    function sendSmsButton(){
+        let phone_number = $("#phone").val();
+        phone_number = phone_number.replace(/-/g, "");
+
+        $.ajax({
+            dataType: "json",
+            url : "/api/auth/phone",
+            method : "post",
+            data : {
+                phone_number : phone_number
+            }
+        }).done((res) => {
+            $("#alert_msg").css('display','block');
+            $("#alert_msg_success").css('display','none');
+        })
+    }
+    chkCnt = 0;
+    function checkPhoneNumber(e){
+        let ele_phone_check = $("#phone_check");
+        // let auth_number = ele_phone_check.val();
+        let auth_number = e.target.value;
+
+        let phone_number = $("#phone").val();
+        phone_number.replace(/-/g, "");
+
+        if(window.timer !== undefined) clearTimeout(window.timer);
+        
+        window.timer = setTimeout( () => {
+            $.ajax({
+                dataType: "json",
+                url : "/api/auth/phone",
+                method : "get",
+                data : {
+                    phone_number : phone_number,
+                    auth_number : auth_number
+                }
+            }).done((res) => {
+                console.log("checkPhoneNumber !! ");
+                console.log(res);
+                if( res.status_code == 200 ){
+                    ele_phone_check.data("is_confirm", true);
+                    chkCnt = 1;
+                    $("#alert_msg").css('display','none');
+                    $("#alert_msg_success").css('display','block');
+                    $("#alert_msg_fail").css('display','none');
+                } else if ( res.status_code == 400 ){
+                    ele_phone_check.data("is_confirm", false);
+                    $("#alert_msg").css('display','block');
+                    $("#alert_msg_success").css('display','none');
+                    
+                    let ele_alert_fail = $("#alert_msg_fail");
+                    ele_alert_fail.text(res.msg);
+                    ele_alert_fail.css('display','block');
+                }
+            })
+        }, 2000 );
+        
+    }
+
+
          //비밀번호 정규식
          $("#password").change(function(){
              checkPassword($('#password').val());
@@ -261,11 +279,16 @@
  
         //정보 수정
         function modifyInfo(){
+            console.log("체크카운트 :", chkCnt);
+            if($("#phone").val() != "" && chkCnt == 0){
+                alert("본인인증을 해주세요.");
+                return;
+                
+            }
             $.ajax({
                 url: "api/user/modifyInfo",
                 method: "post",
                 dataType: "json",
-                async: false,
                 data: {
                     pw : $("#password").val(), phone : $("#phone").val(),
                     brand : $("#brand").val(), postcode : $("#postcode").val(),

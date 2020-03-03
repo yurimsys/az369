@@ -8,7 +8,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Admin-Business</title>
+  <title>Admin-Cartime</title>
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
   <!-- Bootstrap core CSS -->
   <link href="/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -102,20 +104,41 @@
                 </ul>
                 <button type="button" class="btn btn-primary" onclick="insert()">추가</button> 
             </div>
-        
+            <div id="datetimepicker1" class="input-append date">
+              <input data-format="yyyy/MM/dd hh:mm:ss" type="text"></input>
+              <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                </i>
+              </span>
+            </div>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
+    
+
 
   </div>
   <!-- /#wrapper -->
 
+  
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
   <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+
 
 <script>
+//피커
+$(function() {
+    $('#datetimepicker1').datetimepicker({
+      language: 'pt-BR'
+    });
+  });
+
+
     function insert(){
         $.ajax({
             url: "/admin/carTime/insert",

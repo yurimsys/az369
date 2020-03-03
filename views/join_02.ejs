@@ -51,8 +51,8 @@
                             <li>
                                 <label for="password2"></label>
                                 <input type="password" id="password2" name="패스워드" placeholder="비밀번호 확인">
-                                <div class="alert alert-success" id="alert-success" style="font-size: 12px; color: green;">비밀번호가 일치합니다.</div>
-								<div class="alert alert-danger" id="alert-danger" style="font-size: 12px; color: red;">비밀번호가 일치하지 않습니다.</div>
+                                <div class="alert alert-success" id="alert-success" style="font-size: 15px; color: green;">비밀번호가 일치합니다.</div>
+								<div class="alert alert-danger" id="alert-danger" style="font-size: 15px; color: red;">비밀번호가 일치하지 않습니다.</div>
                             </li>
                           
 
@@ -62,16 +62,19 @@
                             </li>
 
                             <li>
-                                    <input type="text" id="phone" name="phone" placeholder="휴대전화">
-                                </li>
+                                <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
+                            </li>
 
-                                <li>
-                                    <button class="check_btn">본인인증</button>
-                                </li>
+                            <li>
+                                <button class="check_btn">본인인증</button>
+                            </li>
 
-                                <li>
-                                    <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
-                                </li>
+                            <li>
+                                <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 6자리를 입력하세요." style="background: #eee;">
+                                <div class="text-alert" id="alert_msg" style="font-size: 15px; display: none;">인증번호의 유효시간은 30분입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+                                <div class="text-alert" id="alert_msg_fail" style="font-size: 15px; color: red; display: none;"></div>
+                                <div class="text-alert" id="alert_msg_success" style="font-size: 15px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
+                            </li>
 
                             <li>
                                 <label for="email"></label>
@@ -205,6 +208,77 @@
 
     <script>
 
+      $(document).ready(()=>{
+        //본인인증
+        $("button.check_btn").click((e) => {
+            e.preventDefault();
+            sendSmsButton();
+            return false;
+        });
+ 
+        $("#phone_check").keyup( checkPhoneNumber );
+
+    });
+
+    function sendSmsButton(){
+        let phone_number = $("#phone").val();
+        phone_number = phone_number.replace(/-/g, "");
+
+        $.ajax({
+            dataType: "json",
+            url : "/api/auth/phone",
+            method : "post",
+            data : {
+                phone_number : phone_number
+            }
+        }).done((res) => {
+            $("#alert_msg").css('display','block');
+            $("#alert_msg_success").css('display','none');
+        })
+    }
+
+    function checkPhoneNumber(e){
+        let ele_phone_check = $("#phone_check");
+        // let auth_number = ele_phone_check.val();
+        let auth_number = e.target.value;
+
+        let phone_number = $("#phone").val();
+        phone_number.replace(/-/g, "");
+
+        if(window.timer !== undefined) clearTimeout(window.timer);
+        
+        window.timer = setTimeout( () => {
+            $.ajax({
+                dataType: "json",
+                url : "/api/auth/phone",
+                method : "get",
+                data : {
+                    phone_number : phone_number,
+                    auth_number : auth_number
+                }
+            }).done((res) => {
+                console.log("checkPhoneNumber !! ");
+                console.log(res);
+                if( res.status_code == 200 ){
+                    ele_phone_check.data("is_confirm", true);
+    
+                    $("#alert_msg").css('display','none');
+                    $("#alert_msg_success").css('display','block');
+                    $("#alert_msg_fail").css('display','none');
+                } else if ( res.status_code == 400 ){
+                    ele_phone_check.data("is_confirm", false);
+                    $("#alert_msg").css('display','block');
+                    $("#alert_msg_success").css('display','none');
+                    
+                    let ele_alert_fail = $("#alert_msg_fail");
+                    ele_alert_fail.text(res.msg);
+                    ele_alert_fail.css('display','block');
+                }
+            })
+        }, 2000 );
+        
+    }
+/////////////////////
         //비밀번호 정규식
         $("#password").change(function(){
             checkPassword($('#password').val());
@@ -248,114 +322,117 @@
         // //아이디 중복확인
         var timeout = null;
         var chkId = 0;
-            $('#id').keyup(function () {        
-                clearTimeout(timeout);                
-                timeout = setTimeout(function () {
-                    var id = $("#id").val();               
-                    $.ajax({
-                        type: 'post',
-                        dataType: 'json',
-                        data: {'id' : id},
-                        url: 'api/user/checkId',
-                        success: function (res) {
-                            console.log("res :::",res.data.length)
-                            if(res.data.length == 0){
-                                chkId = 1;
-                                $("#overId").css("display", "block");
-                                $("#overId2").css("display", "none");
-                            } else {
-                                chkId = 0;
-                                $("#overId").css("display", "none");
-                                $("#overId2").css("display", "block");
-                            }
-                            if($('#id').val() == ""){
-                                $("#overId").css("display", "none");
-                                $("#overId2").css("display", "none");
-                            }
-                        }, 
-                    });
-                }, 800);
-            });
+        $('#id').keyup(function () {        
+            clearTimeout(timeout);                
+            timeout = setTimeout(function () {
+                var id = $("#id").val();               
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    data: {'id' : id},
+                    url: 'api/user/checkId',
+                    success: function (res) {
+                        console.log("res :::",res.data.length)
+                        if(res.data.length == 0){
+                            chkId = 1;
+                            $("#overId").css("display", "block");
+                            $("#overId2").css("display", "none");
+                        } else {
+                            chkId = 0;
+                            $("#overId").css("display", "none");
+                            $("#overId2").css("display", "block");
+                        }
+                        if($('#id').val() == ""){
+                            $("#overId").css("display", "none");
+                            $("#overId2").css("display", "none");
+                        }
+                    }, 
+                });
+            }, 800);
+        });
 
 
                                                                                    
-               ///회원가입 버튼 클릭
-                function joinUser(){
-                    if(chkId == 0){
-                        alert("아이디 중복입니다.")
-                    }    
-                    if($('#id').val() == "" || $('#password').val()==''|| $('#password2').val()==''|| $('#name').val()=='' || $('#phone').val()==''|| $('#brand').val()=='' || 
-                	$('#postcode').val()==''|| $('#address').val()==''||$('#detailAddress').val()=='' ||$('#email').val()==''){
-         			alert("빈칸을 입력해 주세요");
-         			return;
-                     }
-                     if($(".chk").is(':checked') == false || $("#select01 option:selected").val()=='0' || $("#select02 option:selected").val()=='0'){
-                         alert("장차 선호날짜와 시간을 선택해주세요.");
-                         return;
-                     }
+        ///회원가입 버튼 클릭
+        function joinUser(){
+            if($("#alert_msg_success").css('display','none')){
+                alert("본인인증 오류입니다.");
+            }
+            if(chkId == 0){
+                alert("아이디 중복입니다.")
+            }    
+            if($('#id').val() == "" || $('#password').val()==''|| $('#password2').val()==''|| $('#name').val()=='' || $('#phone').val()==''|| $('#brand').val()=='' || 
+            $('#postcode').val()==''|| $('#address').val()==''||$('#detailAddress').val()=='' ||$('#email').val()==''){
+            alert("빈칸을 입력해 주세요");
+            return;
+                }
+                if($(".chk").is(':checked') == false || $("#select01 option:selected").val()=='0' || $("#select02 option:selected").val()=='0'){
+                    alert("장차 선호날짜와 시간을 선택해주세요.");
+                    return;
+                }
+            $.ajax({
+                method : 'POST',
+                dataType : 'json',
+                url: "api/user/join",
+                data: {
+                    id : $("#id").val(),
+                    password : $("#password").val(),
+                    name : $("#name").val(),
+                    phone : $("#phone").val(),
+                    email : $("#email").val(),
+                    brand : $("#brand").val(),
+                    postcode : $("#postcode").val(),
+                    address : $("#address").val(),
+                    detailAddress : $("#detailAddress").val()
+                },
+                success: function(res){
+                    console.log("회원가입 시 :::", res.data.insertId);
+                    joinId = res.data.insertId;
+                    var orderDetail = [{name:"findId", value:res.name }, {name:"findName", value:res.id}];
+                    sessionStorage.setItem("orderDetail",JSON.stringify(orderDetail));
+
+                    //장차선호 날짜
+                    var send_array = Array();
+                    var send_cnt = 0;
+                    var chkbox = $(".chk");
+                    for(i=0; i<chkbox.length; i++){
+                        if(chkbox[i].checked == true){
+                            send_array[send_cnt] = chkbox[i].value;
+                            send_cnt++
+                        }
+                    }
+                    var sendJson = JSON.stringify(send_array);
+                    console.log('sendjson :',sendJson); 
+
+                    var seatArr = JSON.parse(sendJson);
+                    console.log('seatArr :', seatArr);  
+                    //선호 시간                                            
+                    var sel = $("#select01 option:selected").val();
+                    var sel2 = $('#select02 option:selected').val();     
+                    console.log("시간 :", sel, sel2);                        
+                    
                     $.ajax({
-                        method : 'POST',
-                        dataType : 'json',
-                        url: "api/user/join",
+                        url: "api/user/carPool",
+                        dataType: "json",
+                        method: "post",
                         data: {
-                            id : $("#id").val(),
-                            password : $("#password").val(),
-                            name : $("#name").val(),
-                            phone : $("#phone").val(),
-                            email : $("#email").val(),
-                            brand : $("#brand").val(),
-                            postcode : $("#postcode").val(),
-                            address : $("#address").val(),
-                            detailAddress : $("#detailAddress").val()
-                        },
+                            'joinId' : joinId, 
+                            'sel' : $("#select01 option:selected").val(), 
+                            'sel2' : $("#select02 option:selected").val(), 
+                            'days' : seatArr
+                                },
                         success: function(res){
-                            console.log("회원가입 시 :::", res.data.insertId);
-                            joinId = res.data.insertId;
-                            var orderDetail = [{name:"findId", value:res.name }, {name:"findName", value:res.id}];
-                            sessionStorage.setItem("orderDetail",JSON.stringify(orderDetail));
-
-                            //장차선호 날짜
-                            var send_array = Array();
-                            var send_cnt = 0;
-                            var chkbox = $(".chk");
-                            for(i=0; i<chkbox.length; i++){
-                                if(chkbox[i].checked == true){
-                                    send_array[send_cnt] = chkbox[i].value;
-                                    send_cnt++
-                                }
+                            if(res.data === '성공'){
+                                location.href = "join3"
                             }
-                            var sendJson = JSON.stringify(send_array);
-                            console.log('sendjson :',sendJson); 
-
-                            var seatArr = JSON.parse(sendJson);
-                            console.log('seatArr :', seatArr);  
-                            //선호 시간                                            
-                            var sel = $("#select01 option:selected").val();
-                            var sel2 = $('#select02 option:selected').val();     
-                            console.log("시간 :", sel, sel2);                        
-                         
-                            $.ajax({
-                                url: "api/user/carPool",
-                                dataType: "json",
-                                method: "post",
-                                data: {
-                                    'joinId' : joinId, 
-                                    'sel' : $("#select01 option:selected").val(), 
-                                    'sel2' : $("#select02 option:selected").val(), 
-                                    'days' : seatArr
-                                     },
-                                success: function(res){
-                                    if(res.data === '성공'){
-                                        location.href = "join3"
-                                    }
-                                
-                                }
-                            });
-
-                        }                    
+                        
+                        }
                     });
 
-                }
+                }                    
+            });
+
+        }
 
       
         'use sctrict';
