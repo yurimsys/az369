@@ -7,7 +7,7 @@ router.get('/sms', function(req, res){
     
     let data = {
         receiver : "01012341234",
-        auth_number : auth.genNumber(6)
+        auth_number : auth.genNumber(4)
     };
 
     sms.phoneAuthSend( req, data ).then((r) => {
