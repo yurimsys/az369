@@ -476,7 +476,7 @@ router.get('/payment/:currentPage', function(req, res, next) {
     connection.query(query, {beginRow, rowPerPage},
       function(err, rows, fields) {
           if (err) throw err;
-          res.render("admin_user", { data : rows});
+          res.render("admin_payment", { data : rows});
           console.log("user",rows);
       });
 });

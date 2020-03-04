@@ -182,12 +182,16 @@ $(document).ready(()=>{
                     ele_alert_fail.css('display','block');
                 }
             })
-        }, 2000 );
+        }, 1000 );
         
     }
 
 
         function findId() {
+            if($("#name").val() =="" || $("#phone").val() == ""){
+                alert("이름 또는 전화번호를 입력해주세요.");
+                return;
+            }
             if(chkCnt == 0){
                 alert("본인인증을 해주세요");
                 return;

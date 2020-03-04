@@ -175,7 +175,7 @@ router.post('/user/findPw', (req, res, next) =>{
              
             //console.log(findId);
             res.json( {  data : rows[0],  id : req.body.id });
-            console.log(rows);
+            console.log("비밀번호 찾기 ::", rows[0]);
         });
         
 });
