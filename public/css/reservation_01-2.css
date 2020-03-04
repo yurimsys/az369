@@ -222,7 +222,7 @@ section.sub_wrap h1 {
 .info_table dl:last-child {border-bottom: 1px solid #eee;}
 .info_table dt {width: 35%; float: left; color: #666;}
 .info_table dd{width: 65%; float: right; color: #333;  text-align: right;}
-.info_time dd span {color: #aaa;}
+.info_time dd .region {color: #aaa;}
 
 /*팝업 금액*/
 .price {width: 100%; overflow: hidden; padding: 0 6%; padding-top: 3%;}
