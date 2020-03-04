@@ -1,0 +1,113 @@
+@charset="UFT-8";
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap');
+
+/*reset*/
+* {margin: 0;padding: 0; box-sizing: border-box;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;   font-family: 'Noto Sans KR', ;}
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0; font-family: 'Noto Sans KR', ;}
+a {color: inherit; text-decoration: inherit; cursor: pointer;}
+img {vertical-align: middle;}
+a img {border: none;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+p {text-align: justify; font-size: 16px;}
+
+
+
+/*반응형*/
+/*768px*/
+@media screen and (max-width: 768px) {
+
+    .wrap {
+        width: 100%;
+        margin: 0 auto;
+        height: auto;
+        overflow: hidden;
+        color: #222;
+        padding-bottom: 3%;
+        background: #f8f8f8;
+}
+
+
+
+    /* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}
+
+
+    /*폰트공통*/
+    section h1, section h2, section h3, section h4, section h5, section h6 {font-family: 'Noto Sans KR', sans-serif; }
+
+    /*.chart {margin-top: 5%;}*/
+
+    /*section.sub_wrap*/
+    .main_title {text-align: center; margin-bottom: 5%;}
+    .main_title h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; padding: 2.1%; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
+
+
+    .main_title h2 {padding: 2% 3% 2.5%; width: 85%; font-size: 17px; color: #555; margin: 3% auto; border: 1px solid #d4c8b1; border-radius: 8px; background: #fff;}
+    .main_title h2 span {font-size: 16px; color: #777; }
+    .main_title p {font-size: 14px; text-align: center; padding: 2% 0 3%; color: #777;}
+
+    .intro_btn {display: inline-block; width: 200px; height: 40px; line-height: 40px; background: #c3a164; color: #fff; font-size: 15px; border-radius: 8px;}
+
+
+
+    .chart {width: 90%;}
+    .chart04 {width: 60%; margin-top: 6%;}
+    #myChart01-2 {width: 90%;}
+
+    .chart_form {width: 90%; margin: 0 auto;}
+    .chart_form h3 {font-size: 22px; margin: 0 ; padding-bottom: 1%; border-bottom: 2px solid #ad863c; display: inline-block; margin-top: 6%;}
+    .bar {width: 100%; height: 2px; background: #eee; margin-top: -0.25%; }
+    .chart_form h4 {font-size: 16px; font-weight: normal;}
+    .chart_form h4 span {/*font-weight: bold;*/ font-size: 18px; color: #ad863c;}
+
+
+
+    .chart_form p {margin: 6% 0 2.5%; font-size: 16px; color: #444;}
+    .select_agree { width: 60%;}
+    .select_agree ul li {float: left; width: 48%;  margin-right: 2%;  text-align: center;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+/*414px*/
+@media screen and (max-width: 414px) {
+    .main_title h1 {font-size: 22px; padding: 2.5% 0;}
+    .main_title h2 {width: 90%; font-size: 16px; margin: 5% auto;}
+    .apply_form h3 {margin-top: 5%;}
+    h3.agree_h3 {margin-top: 10%;}
+    .apply_form p {margin-top: 5%;}
+    .select_agree {width: 100%;}
+    #select_possible {padding: 3% 10%;}
+}
+
+/*320px*/
+@media screen and (max-width: 320px) {
+    .main_title h1 {font-size: 17px; padding: 2.5% 0;}
+    .main_title h2 {width: 90%; font-size: 15px; margin: 7% auto;}
+    .apply_form h3 {margin-top: 8%; font-size: 20px;}
+    .bar {margin-bottom: 8%;}
+    .apply_form h4 {font-size: 17px; margin-top: 10%;}
+    h3.agree_h3 {margin-top: 15%; margin-bottom: 0;}
+    h4.agree_h4 {margin-top: 8%; margin-bottom: 2%;}
+    .apply_form p {margin-top: 10%; margin-bottom: 5%; font-size: 16px; color: #444;}
+    .select_agree label span {padding: 6%;}
+    #select_possible {padding: 3% 10%;}
+    input[type=submit] {margin-top: 13%;}
+
+    #select_possible {width: 100%; margin-top: 5%;}
+}
+

@@ -230,10 +230,17 @@ input{
 
 button{
   clear: both;
+<<<<<<< HEAD
   display: block;
   line-height: 40px;
   margin-top: 80px;
   background-color: #eee;
+=======
+  display: block;
+  line-height: 40px;
+  margin-top: 80px;
+  background-color: #eee;
+>>>>>>> origin/master
   color: #333;
   border: 1px solid #666;
   padding-left: 20px;
@@ -241,7 +248,11 @@ button{
   border-radius: 4px;
 }
 #ui-datepicker-div{
+<<<<<<< HEAD
  top:-999px;
+=======
+ top:-999px;
+>>>>>>> origin/master
  border: 0;
  font-size: 14px;
 }
@@ -252,12 +263,21 @@ button{
   border: 1px solid #ddd;
 }
 
+<<<<<<< HEAD
 
 /*search 박스*/
 .searchBox{table-layout:fixed; border-collapse:collapse;border-spacing:0; border:none; width: 66%;position: relative; margin: 0 auto; margin-bottom: 2%;}
 
 
 .clearfix{*zoom:1; float: left;}
+=======
+
+/*search 박스*/
+.searchBox{table-layout:fixed; border-collapse:collapse;border-spacing:0; border:none; width: 66%;position: relative; margin: 0 auto; margin-bottom: 2%;}
+
+
+.clearfix{*zoom:1; float: left;}
+>>>>>>> origin/master
 .search_btn {float: left;}
 
 .clearfix:after{content:"";display:block;clear:both;overflow:hidden}
@@ -270,8 +290,13 @@ button{
 .searchDate li .chkbox label {display:block; width: 88px;  height:30px; line-height:30px;font-size:15px; color:#555; text-align:center; text-decoration:none;cursor:pointer;background:#fff; border: 1px solid #bbb; border-radius: 15px; float: left; position: relative;}
 .searchDate li .chkbox.on label {background:#c3a164; color: #fff; border: none;}
 
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> origin/master
 .demi{display:inline-block;margin:0 5px;vertical-align:middle}
 
 
@@ -371,7 +396,11 @@ header .open {
     /*.tabcontent {padding: 2% 3% 3%;}*/
     
     .searchBox {width: 80%;}
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> origin/master
 }
 
 
@@ -397,7 +426,11 @@ header .open {
     .layer .popup_box{width: 95%; margin-top: -35%;}
     
 
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> origin/master
     
     
     /*footer*/
@@ -426,7 +459,11 @@ header .open {
     .info_title {margin-top: 0; }
     
     .searchDate li .chkbox label {margin-right: 5px;}
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> origin/master
     .mypage_left h2 {font-size: 30px;}
     
     .mypage_box .modify_btn {width: 18%; margin-top: 0; font-size: 16px;}
@@ -620,6 +657,15 @@ header .open {
     .clearfix {margin-top: 2%; text-align: center; }
     .search_btn {width: 100%; margin-top: 3%;}
 
+
+    /*search 박스*/
+    .searchBox{width: 95%;}
+
+    .searchDate{margin-left: 0%;}
+    .searchDate li .chkbox label {display:block; width: 67px;}
+    .clearfix {margin-top: 2%; text-align: center; }
+    .search_btn {width: 100%; margin-top: 3%;}
+
     /*footer*/
     footer {width: 100%; margin: 0 auto; }
     footer .footer_inner {width: 90%; margin: 0 auto;}
@@ -663,9 +709,15 @@ header .open {
     .join_box {padding-bottom: 10%;}
 
     .table_mo {height: 290px; overflow: scroll;}
+<<<<<<< HEAD
 
     /*search 박스*/
 
+=======
+
+    /*search 박스*/
+
+>>>>>>> origin/master
     .searchDate{margin-left: 0%; margin-top: 3%;}
     .searchDate li .chkbox label {display:block; width: 52px; margin-right: 2px;}
     .searchDate li .chkbox label:nth-child(5) {margin-right: 0;}

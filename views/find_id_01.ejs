@@ -74,15 +74,9 @@
                                 
                                     <li>
                                         <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);"/>
-<<<<<<< HEAD
-                                        <div class="text-alert" id="alert_msg" style="font-size: 15px; display: none; color: #AD863C; font-weight: bold;">인증번호의 유효시간은 30분입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
-                                        <div class="text-alert" id="alert_msg_fail" style="font-size: 15px; color: red; display: none;"></div>
-                                        <div class="text-alert" id="alert_msg_success" style="font-size: 15px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
-=======
                                         <div class="text-alert" id="alert_msg" style="font-size: 13px; display: none; color: #AD863C; font-weight: bold;">인증번호의 유효시간은 30분입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
                                         <div class="text-alert" id="alert_msg_fail" style="font-size: 13px; color: red; display: none;"></div>
                                         <div class="text-alert" id="alert_msg_success" style="font-size: 13px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
->>>>>>> origin/master
                                     </li>
                                 </ul>
                             </div>
@@ -188,12 +182,16 @@ $(document).ready(()=>{
                     ele_alert_fail.css('display','block');
                 }
             })
-        }, 2000 );
+        }, 1000 );
         
     }
 
 
         function findId() {
+            if($("#name").val() =="" || $("#phone").val() == ""){
+                alert("이름 또는 전화번호를 입력해주세요.");
+                return;
+            }
             if(chkCnt == 0){
                 alert("본인인증을 해주세요");
                 return;

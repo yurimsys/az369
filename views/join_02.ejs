@@ -71,15 +71,9 @@
         
                             <li>
                                 <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);"/>
-<<<<<<< HEAD
-                                <div class="text-alert" id="alert_msg" style="font-size: 15px; display: none; color: #AD863C; font-weight: bold;">인증번호의 유효시간은 30분입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
-                                <div class="text-alert" id="alert_msg_fail" style="font-size: 15px; color: red; display: none;"></div>
-                                <div class="text-alert" id="alert_msg_success" style="font-size: 15px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
-=======
                                 <div class="text-alert" id="alert_msg" style="font-size: 13px; display: none; color: #AD863C; font-weight: bold;">인증번호의 유효시간은 30분입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
                                 <div class="text-alert" id="alert_msg_fail" style="font-size: 13px; color: red; display: none;"></div>
                                 <div class="text-alert" id="alert_msg_success" style="font-size: 13px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
->>>>>>> origin/master
                             </li>
 
                             <li>
@@ -281,7 +275,7 @@
                     ele_alert_fail.css('display','block');
                 }
             })
-        }, 800 );
+        }, 1000 );
         
     }
 /////////////////////
@@ -305,20 +299,18 @@
             }                                
         }
         //비밀번호 확인
-         $(function(){ 
-            $("#alert-success").hide();
-            $("#alert-danger").hide();
+         $(function(){
             $("input").keyup(function(){ 
                 var pwd1=$("#password").val(); 
                 var pwd2=$("#password2").val();
                 if(pwd1 != "" || pwd2 != ""){ 
                     if(pwd1 == pwd2){ 
-                        $("#alert-success").show();
-                        $("#alert-danger").hide(); 
+                        $("#alert-success").css('display', 'block')
+                        $("#alert-danger").css('display', 'none')
                         $("#submit").removeAttr("disabled"); 
                     }else{
-                            $("#alert-success").hide();
-                            $("#alert-danger").show(); 
+                            $("#alert-success").css('display', 'none')
+                            $("#alert-danger").css('display', 'block')
                             $("#submit").attr("disabled", "disabled");
                         } 
                     } 
@@ -464,30 +456,6 @@
             } else {
                 $('header').removeClass('on');
             }
-        }
-
-
-        //모바일 모드 gnb_mo
-
-        setGnbMo();
-
-        function setGnbMo() {
-            $('header .open').on('click', function() {
-                $('.gnb_mo').addClass('on');
-            }); //햄버거버튼
-            $('.gnb_mo .close').on('click', function() {
-                $('.gnb_mo').removeClass('on');
-                $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
-                $('.gnb_mo > ul > li > a').removeClass('on')
-            });
-
-
-            //inner메뉴 열기
-
-            $('.gnb_mo > ul > li > a').on('click', function() {
-                $(this).next().slideToggle();
-                $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
-            });
         }
         
     
