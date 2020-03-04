@@ -74,14 +74,7 @@ section.sub_wrap h1 {
 
 
 /*전체 마이페이지 틀*/
-
-@keyframes box {
-    0% {opacity: 0; transform: translateY(2%);}
-    100%; {opacity: 1; transform: translateY(0%);}
-}
-
-
-.mypage_box {position: relative; width: 100%; height: auto; font-size: 16px; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
+.mypage_box {position: relative; width: 100%; height: auto; font-size: 16px; overflow: hidden;}
 .mypage_box ul li {float: left;}
 .mypage_box .box_01 {width: 25%; margin-right: 1%;  background: #fff; border: 1px solid #ddd; height: 660px; border-radius: 5px; position: relative;}
 .mypage_box .box_02 {width: 74%;  background: #fff; margin-right: 0; height: 660px; border: 1px solid #ddd; border-radius: 5px;}
@@ -115,7 +108,7 @@ section.sub_wrap h1 {
 }
 
 .tabcontent h4 {font-family: 'Noto Sans KR', sans-serif; color: #444; font-weight: bold; font-size: 24px; text-align: center;}
-.tabcontent p {color: #777; margin-bottom: 3%; font-size: 15px; text-align: center;}
+.tabcontent p {color: #777; margin-bottom: 2%; font-size: 15px; text-align: center;}
 
 /*오른쪽 예약현황 reserve_list*/
 #reserve_list {width: 100%; height: 400px; background: #fff; border: 1px solid #f2f2f2; overflow: scroll; overflow-x: hidden; margin-top: 2%; overflow-x: hidden;}
@@ -221,10 +214,71 @@ section.sub_wrap h1 {
 .list02_mo {display: none;}
 
 .list02,
-.list03 {width: 100%; height: 470px; background: #fff; overflow: scroll; overflow-x: hidden;/* border: 1px solid #eee;*/ background: #f9f9f9;}
+.list03 {width: 100%; height: 450px; background: #fff; overflow: scroll; overflow-x: hidden;/* border: 1px solid #eee;*/ background: #f9f9f9;}
 
 tr.canceled td {background: #eee; border: none; color: #999; text-decoration: line-through;}
 p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
+
+input{
+    line-height: 30px;
+    margin: 0;
+    padding: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 190px;
+}  }
+
+button{
+  clear: both;
+  display: block;  
+  line-height: 40px;
+  margin-top: 80px;
+  background-color: #eee;  
+  color: #333;
+  border: 1px solid #666;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 4px;
+}
+#ui-datepicker-div{
+ top:-999px; 
+ border: 0;
+ font-size: 14px;
+}
+.ui-datepicker-header{font-size: 13px;}
+
+.ui-datepicker-calendar{
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+        
+/*search 박스*/
+.searchBox{table-layout:fixed; border-collapse:collapse;border-spacing:0; border:none; width: 66%;position: relative; margin: 0 auto; margin-bottom: 2%;}
+            
+        
+.clearfix{*zoom:1; float: left;} 
+.search_btn {float: left;}
+
+.clearfix:after{content:"";display:block;clear:both;overflow:hidden}
+
+.searchDate{overflow:hidden; object-position: center; margin-bottom:10px;/**zoom:1;*/ width: 100%; margin-left: 7%;}
+.searchDate:after{display:block;clear:both;content:'';}
+.searchDate li{position:relative;float:left;margin:0 7px 0 0;}
+.searchDate li .chkbox {display:block;text-align:center; }
+.searchDate li .chkbox input {position:absolute; display: none;}
+.searchDate li .chkbox label {display:block; width: 88px;  height:30px; line-height:30px;font-size:15px; color:#555; text-align:center; text-decoration:none;cursor:pointer;background:#fff; border: 1px solid #bbb; border-radius: 15px; float: left; position: relative;}
+.searchDate li .chkbox.on label {background:#c3a164; color: #fff; border: none;}
+
+    
+        
+.demi{display:inline-block;margin:0 5px;vertical-align:middle}
+
+
+.inpType{padding-left:2%; height:35px;line-height:35px;border:1px solid #eee; font-size: 17px; border-radius: 8px; background: #f4f4f4; width: 46%;}
+.search_btn {width: 15%; height: 35px; background: #fff; border-radius: 8px; border: 1px solid #aaa; font-size: 15px;}
+
+
 
 
 .table {
@@ -256,8 +310,6 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 
 .popup_box_mo {display: none;}
 .table_mo {display: none;}
-
-
 
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
 .layer .popup_box{padding: 1.5% 1%; 60px;margin:20px;width: 62.5%; background:#fff;position:relative; z-index: 1000;}
@@ -318,6 +370,8 @@ header .open {
     .layer .popup_box{width: 95%;}
     /*.tabcontent {padding: 2% 3% 3%;}*/
     
+    .searchBox {width: 80%;}
+    
 }
 
 
@@ -331,6 +385,7 @@ header .open {
     
     .mypage_box .box_01, .mypage_box .box_02 {height: 650px;}
     .logout {margin-top: 63%;}
+    .list02, .list03 {height: 440px;}
  
     
     /*section.sub_wrap*/
@@ -340,6 +395,8 @@ header .open {
     .mypage_left h2 {font-size: 25px;}
     .info h5 {font-size: 18px;}
     .layer .popup_box{width: 95%; margin-top: -35%;}
+    
+
     
     
     
@@ -367,6 +424,8 @@ header .open {
     .mypage_box .box_01 {width: 100%; }
     
     .info_title {margin-top: 0; }
+    
+    .searchDate li .chkbox label {margin-right: 5px;}
     
     .mypage_left h2 {font-size: 30px;}
     
@@ -551,6 +610,15 @@ header .open {
     .tab_tit p {font-size: 12px; width: 80%; margin: 0 auto; line-height: 1.5; margin-bottom: 5%;}
     
    .table th, .table td {font-size: 10px; padding: 5px;}
+    
+    
+    /*search 박스*/
+    .searchBox{width: 95%;}
+            
+    .searchDate{margin-left: 0%;}
+    .searchDate li .chkbox label {display:block; width: 67px;}
+    .clearfix {margin-top: 2%; text-align: center; }
+    .search_btn {width: 100%; margin-top: 3%;}
 
     /*footer*/
     footer {width: 100%; margin: 0 auto; }
@@ -559,6 +627,8 @@ header .open {
     footer .footer_txt p {margin: 2% 0;}
     footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
+
+
 
 
 /*320px*/
@@ -593,4 +663,13 @@ header .open {
     .join_box {padding-bottom: 10%;}
 
     .table_mo {height: 290px; overflow: scroll;}
+    
+    /*search 박스*/
+            
+    .searchDate{margin-left: 0%; margin-top: 3%;}
+    .searchDate li .chkbox label {display:block; width: 52px; margin-right: 2px;}
+    .searchDate li .chkbox label:nth-child(5) {margin-right: 0;}
+    .clearfix {margin-top: 2%; text-align: center; }
+    .inpType {width: 125px; font-size: 16px; }
+    .search_btn {width: 100%; margin-top: 3%;}
 }

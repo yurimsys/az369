@@ -73,9 +73,6 @@
     //console.log("myId :", myId);
         //비밀번호 확인 
         function confirmPw(){
-            if($("#pw").val() == ""){
-                alert("빈칸을 입력해 주세요.");
-            }
             $.ajax({
                 url: "api/user/confirm",
                 method: "post",

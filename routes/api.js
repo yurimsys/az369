@@ -175,7 +175,7 @@ router.post('/user/findPw', (req, res, next) =>{
              
             //console.log(findId);
             res.json( {  data : rows[0],  id : req.body.id });
-            console.log(rows);
+            console.log("비밀번호 찾기 ::", rows[0]);
         });
         
 });
@@ -308,19 +308,34 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     let query2 = `UPDATE tU SET U_Phone = :uPhone, U_Brand = :uBrand,
                 U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
 
-        if(password === "" ){           
-            connection.query(query2,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
+    let query3 = `UPDATE tU SET  U_Pw = :hash_pw, U_Brand = :uBrand,
+                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
+
+    let query4 = `UPDATE tU SET U_Phone = :uPhone, U_Brand = :uBrand,
+                 U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
+
+        if(password === "" && uPhone === "" ){           
+            connection.query(query2,{uBrand, uZip, uAddr1, uAddr2, uUserName},
                 function(){                   
                     res.json( {  data : "성공"});
                 })
                 
-        } else if(password != "") {
+        } else if(password != "" && uPhone != "" ) {
             connection.query(query,{hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
                 function(){                   
                     res.json( {  data : "성공"});
                 })
-        }  
-        
+        } else if(password != "" && uPhone === "" ) {
+            connection.query(query3,{hash_pw, uBrand, uZip, uAddr1, uAddr2, uUserName},
+                function(){                   
+                    res.json( {  data : "성공"});
+            })     
+        } else if(password === "" && uPhone != "" ) {
+            connection.query(query4,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
+                function(){                   
+                    res.json( {  data : "성공"});
+            })     
+        }   
 });
 
 
@@ -374,12 +389,13 @@ router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
                     tCT.CT_CarNum as carNum,
                     count(CR_SeatNum) as seatCnt,
                     tPH.PH_Type as payType,
-                    tPH.PH_Price as price	
+                    tPH.PH_Price as price,
+                    tCR.CR_cDt as no	
                 from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
                     where tCR.CR_CT_ID = tCT.CT_ID
                     and tCR.CR_U_ID = :sessionId
                     group by tCR.CR_cDt
-                order by PayDay desc
+                order by no desc
              `;
     
     console.log(req.body);
@@ -413,12 +429,13 @@ router.post('/user/resPayMo',  auth.isLoggedIn, (req, res, next) =>{
                     tPH.PH_Price as price,
                     CR_cDt as crCdt,
                     tCR.CR_CT_ID as crCTID,
-                    tCR.CR_PH_ID as crPHID	
+                    tCR.CR_PH_ID as crPHID,
+                    tCR.CR_cDt as no	
                 from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
                     where tCR.CR_CT_ID = tCT.CT_ID
                     and tCR.CR_U_ID = :sessionId
                     group by tCR.CR_cDt
-                order by PayDay desc
+                order by no desc
              `;
     
     console.log(req.body);

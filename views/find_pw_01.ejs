@@ -179,13 +179,17 @@ $(document).ready(()=>{
                     ele_alert_fail.css('display','block');
                 }
             })
-        }, 1500 );
+        }, 1000 );
         
     }
 
 
 
         function findPw(){
+            if($("#id").val() == "" || $("#phone").val() == ""){
+                alert("아이디 혹은 전화번호를 입력해주세요.");
+                return;
+            }
             if(chkCnt == 0){
                 alert("본인인증을 해주세요");
                 return;
@@ -200,12 +204,12 @@ $(document).ready(()=>{
                data : {id : $("#id").val(), phone : $("#phone").val()},
                success : function(res){
                     console.log(res);
-                    
-                    console.log("로그2 :", res.data.U_Name);
+
                     if(res.data === undefined){
                         alert("등록된 회원이 아닙니다.");
                         location.reload();
                     } else if(res.data.U_UserName != ""){
+                        console.log("로그2 :", res.data.U_Name)
                         var orderDetail = [ {name:"findId", value:res.id}, {name:"name", value:res.data.U_Name}];
                         sessionStorage.setItem("orderDetail",JSON.stringify(orderDetail));
                         location.href = "findPw2";
