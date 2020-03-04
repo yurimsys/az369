@@ -226,7 +226,7 @@
                                         <table class="searchBox">
                                             <tbody>
                                                 <tr>
-                                                    <td>
+                                                    <td>                                                     
                                                         <ul class="searchDate">
                                                             <li>
                                                                 <span class="chkbox2 chkbox">
@@ -259,29 +259,27 @@
                                                                 </span>
                                                             </li>
                                                         </ul>
-
+                                                        
                                                         <div class="clearfix">
                                                             <!-- 시작일 -->
                                                             <span class="dset">
-                                                                <input type="text" class="datepicker inpType searchStartDate" name="searchStartDate">
+                                                                <input type="text" id="deptDay" class="datepicker inpType searchStartDate" name="searchStartDate">
                                                             </span>
                                                             
                                                             <span class="demi">~</span>
                                                             
                                                             <!-- 종료일 -->
                                                             <span class="dset">
-                                                                <input type="text" class="datepicker inpType searchEndDate" name="searchEndDate">
+                                                                <input type="text" id="endDay" class="datepicker inpType searchEndDate" name="searchEndDate">
                                                            </span>
                                                         </div>
                                                         
-                                                        <button class="search_btn">날짜조회</button>
+                                                        <button class="search_btn" onclick="payBetween()">날짜조회</button>
                                                     </td>
                                                 </tr>
 
                                             <tbody>
                                         </table>
-
-
                                         
                                         <!--두번째 리스트 PC-->
                                         <div class="list02">
@@ -299,14 +297,11 @@
                                                 </tbody>            
                                             </table>
                                         </div>
-                    
-                    
+                                     
                                         <!--두번째 리스트 mo 414px-->
                                        
-
                                         <div class="list02_mo">
-                                            
-                    
+                                                              
                                         </div>
                     
                                         <!--두번째 리스트 popup mo-->
@@ -330,7 +325,7 @@
                                             <h4>취소 및 환불조회</h4>
                                             <p>취소 및 환불조회는 오늘날짜기준 최대 3개월까지만 조회가 가능합니다. </p>
                                         </div>
-                                        
+
                                         <!-- search -->
                                         <table class="searchBox">
                                             <tbody>
@@ -372,18 +367,18 @@
                                                         <div class="clearfix">
                                                             <!-- 시작일 -->
                                                             <span class="dset">
-                                                                <input type="text" class="datepicker inpType searchStartDate" name="searchStartDate">
+                                                                <input type="text" id="cancelDeptDay" class="datepicker inpType searchStartDate" name="searchStartDate">
                                                             </span>
                                                             
                                                             <span class="demi">~</span>
                                                             
                                                             <!-- 종료일 -->
                                                             <span class="dset">
-                                                                <input type="text" class="datepicker inpType searchEndDate" name="searchEndDate">
+                                                                <input type="text" id="cancelEndDay" class="datepicker inpType searchEndDate" name="searchEndDate">
                                                            </span>
                                                         </div>
                                                         
-                                                        <button class="search_btn">날짜조회</button>
+                                                        <button class="search_btn" onclick="cancelBetween()">날짜조회</button>
                                                     </td>
                                                 </tr>
 
@@ -534,37 +529,41 @@
         
         //예매 취소
         function resCancel(){
-                    $.ajax({
-                        url: "api/user/cancelRes",
-                        method: 'post',
-                        dataType: 'json',
-                        async: false,
-                        data: {'trVal' : trVal, 'tdVal' : tdVal},
-                        success: function(res){
-                            console.log("업데이트 값",res.data);
-                            if(res.data == 0){
-                                alert("출발 3일전에는 취소가 불가능합니다.");
-                                location.href="mypage";
-                            }else{
-                                location.href="mypage";
-                            }
+            $.ajax({
+                url: "api/user/cancelRes",
+                method: 'post',
+                dataType: 'json',
+                async: false,
+                data: {'trVal' : trVal, 'tdVal' : tdVal},
+                success: function(res){
+                    console.log("업데이트 값",res.data);
+                    if(res.data == 0){
+                        alert("출발 3일전에는 취소가 불가능합니다.");
+                        location.href="mypage";
+                    }else{
+                        location.href="mypage";
+                    }
 
-                        }
-                    })
                 }
+            })
+        }
 
         //현 장차예매 현황 체크박스 지우기
         $("#tab1").on('click',function(){
-            $("input[type=checkbox]").prop("checked",false);
+            $("input[type=radio]").prop("checked",false);
         })
+        
         //결제리스트
         $("#tab2").on('click',function(){
+            $('input[type=radio]').prop('checked',false);
+            //달력 val 지우기
+            $("#deptDay").val('')
+            $("#endDay").val('')
             $("#payList").empty();
             $.ajax({
                url: "api/user/resPay",
                method: "post",
-               dataType: "json",
-              
+               dataType: "json",              
                success: function(res){
               //PC리스트
                   for(let i=0; i<res.data.length; i++){
@@ -582,11 +581,13 @@
                 }
             });
         });
-        
 
-        //결제리스트 모바일
+            //결제리스트 모바일
         $("#tab_mo2").on('click',function(){
-            $("#payList").empty();
+             //달력 val 지우기
+            $("#deptDay").val('')
+            $("#endDay").val('')
+            //재 클릭시 테이블 비우기          
             $(".list02_mo").empty();  
             $.ajax({
                 url: "api/user/resPayMo",
@@ -594,7 +595,7 @@
                 dataType: "json",            
                 success: function(res){
                     for(let i=0; i<res.data.length; i++){                     
-                        let html2 = "<div class='list02_mo_list' id="+res.data[i].crCTID+" val="+res.data[i].crPHID+">";
+                        let html2 = "<div class='list02_mo_list' onclick='payMo()' id="+res.data[i].crCTID+" val="+res.data[i].crPHID+">";
                             html2 += "<a class='popup_open2'>";
                             html2 += "<ul>";
                             html2 += "<li class='text'>"+res.data[i].deptTe+"</li>";
@@ -603,41 +604,123 @@
                             html2 += "</ul></a>";
                             html2 += "</div>";
                         $(".list02_mo").append(html2);        
-                    }
-                    //예매 및 결제내역 상세정보 모바일
-                    $(".list02_mo div").each(function(item){   
-                        $(this).on('click', function(){                
-                            $.ajax({
-                                url: "api/user/resPayDetailMo",
-                                method: "post",
-                                dataType: "json",
-                                data: {
-                                    'ctId' : $(this).attr('id'),
-                                    'phId' : $(this).attr('val')
-                                },
-                                success: function(res){
-                                    $('.table_mo').empty();
-                                    location.href= "#popup2"
-                                    for(let i=0; i<res.data.length; i++){
-                                        let html = "<dl>";
-                                            //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
-                                            html += "<dt>결제일시</dt><dd>"+res.data[i].PayDay+"</dd>";
-                                            html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[i].deptTe+'\n'+""+res.data[i].carName+"<br><span>(평택 > 서울 동대문)</span></dd></dl>";
-                                            html += "<dt>좌석개수</dt><dd>"+res.data[i].seatCnt+"</dd>";
-                                            html += "<dt>결제수단</dt><dd>"+res.data[i].payType+"</dd>";
-                                            html += "<dt>결제금액</dt><dd>"+res.data[i].price+"</dd></dl>";
-                                        $('.table_mo').append(html);
-                                    }
-                                }
-                            })
-                        })                             
-                    })                                     
+                    }                                
                 }
             });
         });
-   
-        //PC 취소 및 환불 리스트
+        
+        //예매 및 결제내역 상세정보 모바일
+        function payMo(){            
+            $(".list02_mo div").on('click',function(){  
+                console.log("ID ::",$(this).attr('id'))
+                console.log("val ::", $(this).attr('val'))             
+                $.ajax({
+                    url: "api/user/resPayDetailMo",
+                    method: "post",
+                    dataType: "json",
+                    data: {
+                        'ctId' : $(this).attr('id'),
+                        'phId' : $(this).attr('val')
+                    },
+                    success: function(res){
+                        $('.table_mo').empty();
+                        location.href= "#popup2"
+                        for(let i=0; i<res.data.length; i++){
+                            let html = "<dl>";
+                                //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
+                                html += "<dt>결제일시</dt><dd>"+res.data[i].PayDay+"</dd>";
+                                html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[i].deptTe+'\n'+""+res.data[i].carName+"<br><span>(평택 > 서울 동대문)</span></dd></dl>";
+                                html += "<dt>좌석개수</dt><dd>"+res.data[i].seatCnt+"</dd>";
+                                html += "<dt>결제수단</dt><dd>"+res.data[i].payType+"</dd>";
+                                html += "<dt>결제금액</dt><dd>"+res.data[i].price+"</dd></dl>";
+                            $('.table_mo').append(html);
+                        }
+                    }
+                })
+            })                                          
+        }
+
+
+        //결제리스트 날짜 선택 @@@@@@@
+        function payBetween(){
+            $('#payList').empty();
+            $(".list02_mo").empty();
+            $.ajax({
+                url: "api/user/resPayBetween",
+                method: "post",
+                dataType: "json",
+                data: { 'deptDay' : $("#deptDay").val(),
+                        'endDay' : $("#endDay").val()
+                    },
+                success: function(res){
+                    console.log('resData ::::', res.data);
+                    for(let i=0; i<res.data.length; i++){
+                        let html = "<tr>";
+                        html += "<td>"+res.data[i].PayDay+"</td>";
+                        html += "<td>"+res.data[i].deptTe+"</td>";
+                        // html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
+                        html += "<td>"+res.data[i].carName+"</td>";
+                        html += "<td>"+res.data[i].seatCnt+"</td>";
+                        html += "<td>"+(res.data[i].payType || "-")+"</td>";
+                        html += "<td>"+(res.data[i].price || 0)+"</td>";
+                        html += "</tr>";
+                      $("#payList").append(html);  
+                    }
+                //모바일 부분 @@@@@@@@@@@@@@@@@@@@@@@@@
+                    for(let i=0; i<res.data.length; i++){                     
+                        let html2 = "<div class='list02_mo_list' onclick='payMoBetween()' id="+res.data[i].crCTID+" val="+res.data[i].crPHID+" name=>";
+                            html2 += "<a class='popup_open2'>";
+                            html2 += "<ul>";
+                            html2 += "<li class='text'>"+res.data[i].deptTe+"</li>";
+                            html2 += "<li>평택 - 서울동대문</li>";
+                            html2 += "<li><i class='fas fa-chevron-right'></i></li>";
+                            html2 += "</ul></a>";
+                            html2 += "</div>";
+                        $(".list02_mo").append(html2);        
+                    }               
+                }
+            })
+        }
+        //결제내역 모바일 상세보기 클릭@@$@$@#$#@$#@$#@$#@$#@$#@$#@$#@$#@$#@ 
+        function payMoBetween(){ 
+            $('.list02_mo_list').on('click', function(){
+                console.log("id :::",$(this).attr('id'))
+                console.log("val :::",$(this).attr('val'))
+                $.ajax({
+                    url: "api/user/resPayDetailMo",
+                    method: "post",
+                    dataType: "json",
+                    data: {
+                        'ctId' : $(this).attr('id'),
+                        'phId' : $(this).attr('val')
+                    },
+                    success: function(res){
+                        $('.table_mo').empty();
+                        location.href= "#popup2"
+                        for(let i=0; i<res.data.length; i++){
+                            let html = "<dl>";
+                                //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
+                                html += "<dt>결제일시</dt><dd>"+res.data[i].PayDay+"</dd>";
+                                html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[i].deptTe+'\n'+""+res.data[i].carName+"<br><span>(평택 > 서울 동대문)</span></dd></dl>";
+                                html += "<dt>좌석개수</dt><dd>"+res.data[i].seatCnt+"</dd>";
+                                html += "<dt>결제수단</dt><dd>"+res.data[i].payType+"</dd>";
+                                html += "<dt>결제금액</dt><dd>"+res.data[i].price+"</dd></dl>";
+                            $('.table_mo').append(html);
+                        }
+                    }
+                })
+            })              
+            
+        }
+
+
+
+
+    //@@@@@PC 취소 및 환불 리스트
         $("#tab3").on('click',function(){
+             //달력 val 지우기
+            $("#cancelDeptDay").val('')
+            $("#cancelEndDay").val('')
             $("#cancelList").empty();
             $.ajax({
                 url: "api/user/resCancelList",
@@ -660,11 +743,11 @@
         });
 
         //모바일 취소 및 환불 리스트
-        $("#tab_mo3").on('click',function(){
-            //재 클릭시 테이블 비우기
-            $("#cancelList").empty();
+        $("#tab_mo3").on('click',function(){    
+            //달력 val 지우기
+            $("#cancelDeptDay").val('')
+            $("#cancelEndDay").val('')        
             $(".list03_mo").empty();
-
             $.ajax({
                 url: "api/user/resCancelListMo",
                 method: "post",
@@ -672,7 +755,7 @@
                 success: function(res){           
                     console.log("모바일 취소 리스트 :", res.data);
                     for(let k=0; k<res.data.length; k++){
-                        let html2 = "<div class='list03_mo_list' id="+res.data[k].ctId+" val="+res.data[k].phId+">";
+                        let html2 = "<div class='list03_mo_list' onclick='cancelMo()' id="+res.data[k].ctId+" val="+res.data[k].phId+">";
                             html2 += "<a class='popup_open3'>";
                             html2 += "<ul>";
                             html2 += "<li>"+res.data[k].deptTe+"</li>";
@@ -681,40 +764,112 @@
                             html2 += "</ul></a></div>";
                     $(".list03_mo").append(html2);
                     }
-                    //취소 및 환불조회 상세정보 모바일
-                    $(".list03_mo div").each(function(item){   
-                        $(this).on('click', function(){  
-             
-                            $.ajax({
-                                url: "api/user/resCancelDetailMo",
-                                method: "post",
-                                dataType: "json",
-                                data: {
-                                    'ctId' : $(this).attr('id'),
-                                    'phId' : $(this).attr('val')
-                                },
-                                success: function(res){
-                                    console.log("여기데이터 :", res.data);
-                                    $('.table_mo').empty();
-                                    location.href= "#popup3"
-                                    for(let i=0; i<res.data.length; i++){
-                                        let html = "<dl>";
-                                            //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
-                                            html += "<dt>결제일시</dt><dd>"+res.data[i].PayDay+"</dd>";
-                                            html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[i].deptTe+'\n'+""+res.data[i].carName+"<br><span>(평택 > 서울 동대문)</span></dd></dl>";
-                                            html += "<dt>좌석개수</dt><dd>"+res.data[i].seatCnt+"</dd>";
-                                            html += "<dt>취소날짜</dt><dd>"+res.data[i].cancelDay+"</dd>"
-                                            html += "<dt>결제수단</dt><dd>"+res.data[i].payType+"</dd>";
-                                            html += "<dt>환불금액</dt><dd>"+res.data[i].price+"</dd></dl>";
-                                        $('.table_mo').append(html);
-                                    }
-                                }
-                            })
-                        })                             
-                    })  
                 }    
             });
         });
+        //취소 및 환불조회 상세정보 모바일
+        function cancelMo(){           
+            $(".list03_mo div").each(function(item){   
+                $(this).on('click', function(){         
+                    $.ajax({
+                        url: "api/user/resCancelDetailMo",
+                        method: "post",
+                        dataType: "json",
+                        data: {
+                            'ctId' : $(this).attr('id'),
+                            'phId' : $(this).attr('val')
+                        },
+                        success: function(res){
+                            console.log("여기데이터 :", res.data);
+                            $('.table_mo').empty();
+                            location.href= "#popup3"
+                            for(let i=0; i<res.data.length; i++){
+                                let html = "<dl>";
+                                    //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
+                                    html += "<dt>결제일시</dt><dd>"+res.data[i].PayDay+"</dd>";
+                                    html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[i].deptTe+'\n'+""+res.data[i].carName+"<br><span>(평택 > 서울 동대문)</span></dd></dl>";
+                                    html += "<dt>좌석개수</dt><dd>"+res.data[i].seatCnt+"</dd>";
+                                    html += "<dt>취소날짜</dt><dd>"+res.data[i].cancelDay+"</dd>"
+                                    html += "<dt>결제수단</dt><dd>"+res.data[i].payType+"</dd>";
+                                    html += "<dt>환불금액</dt><dd>"+res.data[i].price+"</dd></dl>";
+                                $('.table_mo').append(html);
+                            }
+                        }
+                    })
+                })                             
+            })  
+        }
+
+
+        //PC 취소 및 환불 리스트 날짜 검색
+        function cancelBetween(){
+            $("#cancelList").empty();
+            $(".list03_mo").empty();
+            $.ajax({
+                url: 'api/user/resCancelListBetween',
+                method: 'post',
+                dataType: 'json',
+                data: { 'cancelDeptDay' : $("#cancelDeptDay").val(),
+                        'cancelEndDay' : $("#cancelEndDay").val()
+                    },
+                success: function(res){
+                    for(let i=0; i<res.data.length; i++){
+                        let html = "<tr>";
+                            html += "<td>"+res.data[i].PayDay+"</td>";
+                            html += "<td>"+res.data[i].deptTe+"</td>";
+                            html += "<td>"+res.data[i].cancelDay+"</td>";
+                            html += "<td>"+res.data[i].seatCnt+"</td>";
+                            html += "<td>"+res.data[i].payType+"</td>";
+                            html += "<td>"+res.data[i].price+"</td>";
+                            html += "</tr>";
+                        $("#cancelList").append(html);                                              
+                    }
+            ///모바일 부분@@@@@@@@@@@@@@@@@@@@@@@@@
+                    for(let k=0; k<res.data.length; k++){
+                        let html2 = "<div class='list03_mo_list' onclick='cancelMoBetween()' id="+res.data[k].ctId+" val="+res.data[k].phId+">";
+                            html2 += "<a class='popup_open3'>";
+                            html2 += "<ul>";
+                            html2 += "<li>"+res.data[k].deptTe+"</li>";
+                            html2 += "<li>평택 - 서울동대문</li>";
+                            html2 += "<li><i class='fas fa-chevron-right'></i></li>";
+                            html2 += "</ul></a></div>";
+                    $(".list03_mo").append(html2);
+                    }
+                }
+            })
+        }
+    //취소 및 환불조회 상세정보 모바일
+        function cancelMoBetween(){       
+            $(".list03_mo div").on('click',function(){          
+                $.ajax({
+                    url: "api/user/resCancelDetailMo",
+                    method: "post",
+                    dataType: "json",
+                    data: {
+                        'ctId' : $(this).attr('id'),
+                        'phId' : $(this).attr('val')
+                    },
+                    success: function(res){
+                        console.log("여기데이터 :", res.data);
+                        $('.table_mo').empty();
+                        location.href= "#popup3"
+                        for(let i=0; i<res.data.length; i++){
+                            let html = "<dl>";
+                                //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
+                                html += "<dt>결제일시</dt><dd>"+res.data[i].PayDay+"</dd>";
+                                html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[i].deptTe+'\n'+""+res.data[i].carName+"<br><span>(평택 > 서울 동대문)</span></dd></dl>";
+                                html += "<dt>좌석개수</dt><dd>"+res.data[i].seatCnt+"</dd>";
+                                html += "<dt>취소날짜</dt><dd>"+res.data[i].cancelDay+"</dd>"
+                                html += "<dt>결제수단</dt><dd>"+res.data[i].payType+"</dd>";
+                                html += "<dt>환불금액</dt><dd>"+res.data[i].price+"</dd></dl>";
+                            $('.table_mo').append(html);
+                        }
+                    }
+                })
+            })                                       
+        }
+
+
 
     </script>
 
