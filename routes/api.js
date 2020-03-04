@@ -532,10 +532,10 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
 
 //예매취소 
 router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
-    let query = `update tCR 
-                    inner join tCT on tCR.CR_CT_ID = tCT.CT_ID 
-                    set CR_Cancel = :crCancel, CR_CancelDt = now() 
-                    where CR_U_Id = :sessionId and CR_PH_ID IN (:crPId) and 
+    let query = `update tCR
+                    inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
+                    set CR_Cancel = :crCancel, CR_CancelDt = now()
+                    where CR_U_Id = :sessionId and CR_PH_ID IN (:crPId) and
                     CR_CT_ID IN (:crCtId) and tCT.CT_DepartureTe > date_add(now(),interval +3 day);`;
     //pID  cr_cdt
     let sessionId = req.user.U_ID;
