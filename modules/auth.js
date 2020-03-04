@@ -16,9 +16,9 @@ connection.config.queryFormat = function (query, values) {
 };
 
 
-// 인증번호 6자리 생성
-const genNumber = ( digit_length = 6) => {
-    if( digit_length <= 0 ) digit_length = 6;
+// 인증번호 4자리 생성
+const genNumber = ( digit_length = 4) => {
+    if( digit_length <= 0 ) digit_length = 4;
 
     let number = 0;
     while(1){
@@ -30,7 +30,7 @@ const genNumber = ( digit_length = 6) => {
 // 인증번호 DB 저장
 // 인증번호 유효 시간 30분
 const saveNumber = ( phone_number ) => {
-    let auth_number = genNumber(6);
+    let auth_number = genNumber(4);
     let query = `insert into phone_auth values( ${phone_number}, ${auth_number}, date_add(now(), interval 30 minute))`;
     
     return new Promise( function (resolve, reject) {
