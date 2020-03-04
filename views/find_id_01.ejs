@@ -73,7 +73,7 @@
                                     </li>
                                 
                                     <li>
-                                        <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;">
+                                        <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);"/>
 <<<<<<< HEAD
                                         <div class="text-alert" id="alert_msg" style="font-size: 15px; display: none; color: #AD863C; font-weight: bold;">인증번호의 유효시간은 30분입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
                                         <div class="text-alert" id="alert_msg_fail" style="font-size: 15px; color: red; display: none;"></div>
@@ -228,6 +228,14 @@ $(document).ready(()=>{
         }
 
     </script>
-</body>
 
-</html>
+    <!--input maxlength-->
+    <script>
+    function numberMaxLength(e){
+        if(e.value.length > e.maxLength){
+            e.value = e.value.slice(0, e.maxLength);
+        }
+    }
+    </script>
+
+</body></html>
