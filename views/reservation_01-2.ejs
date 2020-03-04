@@ -68,7 +68,7 @@
                     <div class="reservation_btn_mo">
                         <ul>
                             <li><a href="reservation" class="back">이전</a></li>
-                            <li><a href="#payment" class="payment_open">예매하기</a></li>
+                            <li><a onclick="showPayment()" class="payment_open">예매하기</a></li>
                         </ul>
                     </div>
 
@@ -90,12 +90,12 @@
                                     </dl>
                                     <dl class="info_time">
                                         <dt>출발시간</dt>
-                                        <dd><span>평택</span> 2020.02.03(월) 22:00</dd>
-                                        <dd><span>서울 동대문</span> 2020.02.04(화) 04:00</dd>
+                                        <dd><span class="region">평택</span> <span id="payment_deptTe">2020.02.03(월) 22:00</span></dd>
+                                    <dd><span class="region">서울 동대문</span> <span id="payment_retuTe">2020.02.04(화) 04:00</span></dd>
                                     </dl>
                                     <dl>
                                         <dt>차량정보</dt>
-                                        <dd>충남고속 (11가 1234)</dd>
+                                        <dd id="payment_car_info"> - </dd>
                                     </dl>
                                     <dl>
                                         <dt>좌석개수</dt>
@@ -384,6 +384,30 @@
             
         }
 
+        function showPayment(){
+            let car_list = JSON.parse( sessionStorage.getItem("car_list") ),
+                ct_id = sessionStorage.getItem("ct_id");
+
+            let reserve_car_info = car_list.find((k)=> (k.ctID == ct_id)),
+                deptTe = reserve_car_info.deptTe,
+                retuTe = reserve_car_info.retuTe,
+                b_name = reserve_car_info.b_name;
+
+
+            $("#payment_deptTe").text( deptTe.split(' ').join('('+getInputDayLabel( deptTe )+') ') );
+            $("#payment_retuTe").text( retuTe.split(' ').join('('+getInputDayLabel( retuTe )+') ') );
+            $("#payment_car_info").text( b_name );
+            
+            location.href = "/reservation2#payment";
+        }
+
+        function getInputDayLabel( date ) {
+            var week = new Array('일', '월', '화', '수', '목', '금', '토');                         
+            var today = new Date( date ).getDay();
+            var todayLabel = week[today];                          
+            return todayLabel;
+        }
+
         function processPayment(){
             let origin_price = $("#original_price").data('price');
             let sale_price = $("#sale_price").data('price');
@@ -400,8 +424,15 @@
                     "ct_id"     : ct_id
                 }
             }).done((result)=>{
+                let car_list = JSON.parse( sessionStorage.getItem("car_list") ),
+                    ct_id = sessionStorage.getItem("ct_id");
+
+                let payment_result = car_list.find((k)=> (k.ctID == ct_id));
+                payment_result.price = result.price;
+                payment_result.ph_type = result.ph_type;
                 
-                sessionStorage.setItem("price", result.price);
+                sessionStorage.setItem("payment_result", JSON.stringify( payment_result ));
+
                 location.href = "/complate";
             });
         }
