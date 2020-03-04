@@ -329,7 +329,8 @@ router.post('/carTime/insert', function(req, res, next) {
 
 //user 메인화면
 router.get('/user', function(req, res, next) {
-    res.render('admin_user');
+    res.redirect('/admin/user/1');
+   // res.render('admin_user');
 
 });
 
@@ -451,5 +452,45 @@ router.post('/user/insert', function(req, res, next) {
       });
 });
 
+///////////////////@@@@결제관리@@@@///////////////////////
+
+//user 메인화면
+router.get('/payment', function(req, res, next) {
+    res.redirect('/admin/payment/1');
+    //res.render('admin_payment');
+
+});
+
+//user 메인화면 페이징
+router.get('/payment/:currentPage', function(req, res, next) {
+    let query = `select 
+                    tPH.PH_ID as PH_ID, tPH.PH_U_ID as PH_U_ID, tU.U_UserName as U_UserName, tU.U_Name as U_Name,
+                    tPH.PH_PG_ID as PH_PG_ID, tPH.PH_PG_Name as PH_PG_Name, tPH.PH_Price as PH_Price, tPH.PH_OPrice as PH_Oprice,
+                    tPH.PH_SPrice as PH_SPrice, tPH.PH_Type as PH_Type, tCR.CR_Cancel as CR_Cancel, tCR.CR_cDt as CR_cDt
+                from tPH inner join tU on tPH.PH_U_ID = tU.U_ID inner join tCR on tPH.PH_ID = tCR.CR_PH_ID
+                    order by CR_cDt desc  limit :beginRow, :rowPerPage`; 
+    let currentPage = req.params.currentPage;
+    //페이지 내 보여줄 수
+    let rowPerPage = 10;
+    let beginRow = (currentPage-1)* rowPerPage;
+    connection.query(query, {beginRow, rowPerPage},
+      function(err, rows, fields) {
+          if (err) throw err;
+          res.render("admin_user", { data : rows});
+          console.log("user",rows);
+      });
+});
+
+//user 메인화면 카운트
+router.post('/payment/count', function(req, res, next) {
+    let query = `SELECT count(*) as cnt FROM tPH `; 
+    connection.query(query,
+      function(err, rows, fields) {
+          if (err) throw err;
+          let cnt = rows;
+          res.send( { data : cnt});
+          console.log("카운트는 :",cnt);
+      });
+});
 
 module.exports = router;

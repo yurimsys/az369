@@ -151,7 +151,7 @@
                     
                                                 <table class="table">
                                                     <thead>
-                                                        <th>예약번호</th>
+                                                        <!-- <th>예약번호</th> -->
                                                         <th>결제날짜</th>
                                                         <th>예약정보</th>
                                                         <th>좌석개수</th>
@@ -167,7 +167,7 @@
                                                 <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한 예매를 취소하겠습니까?</p>
                                                 <ul class="popup_btn">
                                                     <li>
-                                                        <a href="#" class="popup_close1">닫기</a>
+                                                        <a href="mypage" class="popup_close1">닫기</a>
                                                     </li>
                     
                                                     <li>
@@ -190,7 +190,7 @@
                                                 <div class="popup_btn_mo">
                                                     <ul>
                                                         <li>
-                                                            <a href="#" class="popup_close1">닫기</a>
+                                                            <a href="mypage" class="popup_close1">닫기</a>
                                                         </li>
                     
                                                         <li>
@@ -388,7 +388,7 @@
                     console.log("여기 리스트",res.data);
                     for(let k=0; k<res.data.length; k++){
                         let html = "<dl>";
-                            html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
+                            //html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
                             html += "<dt>결제날짜</dt><dd>"+res.data[k].PayDay+"</dd>";
                             html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[k].deptTe+"\n"+res.data[k].carName+"<br> <span>(평택 > 서울 동대문)</span></dd></dl>";
                             html += "<dt>좌석개수</dt><dd>"+res.data[k].seatCnt+"</dd>";
@@ -490,7 +490,7 @@
                                     location.href= "#popup2"
                                     for(let i=0; i<res.data.length; i++){
                                         let html = "<dl>";
-                                            html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
+                                            //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
                                             html += "<dt>결제일시</dt><dd>"+res.data[i].PayDay+"</dd>";
                                             html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[i].deptTe+'\n'+""+res.data[i].carName+"<br><span>(평택 > 서울 동대문)</span></dd></dl>";
                                             html += "<dt>좌석개수</dt><dd>"+res.data[i].seatCnt+"</dd>";
@@ -569,7 +569,7 @@
                                     location.href= "#popup3"
                                     for(let i=0; i<res.data.length; i++){
                                         let html = "<dl>";
-                                            html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
+                                            //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
                                             html += "<dt>결제일시</dt><dd>"+res.data[i].PayDay+"</dd>";
                                             html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[i].deptTe+'\n'+""+res.data[i].carName+"<br><span>(평택 > 서울 동대문)</span></dd></dl>";
                                             html += "<dt>좌석개수</dt><dd>"+res.data[i].seatCnt+"</dd>";

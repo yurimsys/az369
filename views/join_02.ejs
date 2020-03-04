@@ -457,30 +457,6 @@
                 $('header').removeClass('on');
             }
         }
-
-
-        //모바일 모드 gnb_mo
-
-        setGnbMo();
-
-        function setGnbMo() {
-            $('header .open').on('click', function() {
-                $('.gnb_mo').addClass('on');
-            }); //햄버거버튼
-            $('.gnb_mo .close').on('click', function() {
-                $('.gnb_mo').removeClass('on');
-                $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
-                $('.gnb_mo > ul > li > a').removeClass('on')
-            });
-
-
-            //inner메뉴 열기
-
-            $('.gnb_mo > ul > li > a').on('click', function() {
-                $(this).next().slideToggle();
-                $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
-            });
-        }
         
     
             var x, i, j, selElmnt, a, b, c;
