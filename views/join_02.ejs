@@ -300,19 +300,17 @@
         }
         //비밀번호 확인
          $(function(){ 
-            $("#alert-success").hide();
-            $("#alert-danger").hide();
             $("input").keyup(function(){ 
                 var pwd1=$("#password").val(); 
                 var pwd2=$("#password2").val();
                 if(pwd1 != "" || pwd2 != ""){ 
                     if(pwd1 == pwd2){ 
-                        $("#alert-success").show();
-                        $("#alert-danger").hide(); 
+                        $("#alert-success").css('display', 'block')
+                        $("#alert-danger").css('display', 'none')
                         $("#submit").removeAttr("disabled"); 
                     }else{
-                            $("#alert-success").hide();
-                            $("#alert-danger").show(); 
+                            $("#alert-success").css('display', 'none')
+                            $("#alert-danger").css('display', 'block') 
                             $("#submit").attr("disabled", "disabled");
                         } 
                     } 

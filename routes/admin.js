@@ -314,7 +314,7 @@ router.post('/carTime/insert', function(req, res, next) {
     let carNum = req.body.carNum;
     let drName = req.body.drName;
     let drPhone = req.body.drPhone;
-
+    console.log("입력 ::", req.body)
     let query = `insert into tCT(CT_CY_ID, CT_DepartureTe, CT_ReturnTe, CT_LeadTe, CT_CarNum, CT_DriverName, CT_DriverPhone) 
                 values(:ctCyId, :dept, :retun, :lead, :carNum, :drName, :drPhone)`; 
 
