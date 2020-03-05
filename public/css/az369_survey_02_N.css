@@ -65,8 +65,7 @@ p {text-align: justify; font-size: 16px;}
         position: relative; overflow: hidden;
 }
 
-    #minimum, #optimum,
-    #minimum2, #optimum2 {width: 45%; float: left; position: relative; overflow: hidden;}
+    input[type=number].range {width: 45%; float: left; position: relative; overflow: hidden;}
     .icon {width: 10%; float: left; text-align: center; height: 50px; line-height: 65px;}
 
 

@@ -71,7 +71,8 @@ p {text-align: justify; font-size: 16px;}
     #phone {width: 70%; float: left;}
     .check_btn {width: 29%; margin-left: 1%; height: 50px; float: left; border: 1px solid #bbb; background: #fff; border-radius: 5px; margin-top: 1.5%;}
 
-
+    .text-alert { font-size: 13px; padding-left: 5px; color: #c3a164; font-weight: bold; display: none;}
+    .text-alert.active{ display: block; }
 
 
 
