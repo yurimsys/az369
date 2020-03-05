@@ -14,12 +14,7 @@ address, em, i {font-style: normal;}
 p {text-align: justify; font-size: 16px;}
 
 
-
-/*반응형*/
-/*768px*/
-@media screen and (max-width: 768px) {
-
-    .wrap {
+.wrap {
         width: 100%;
         margin: 0 auto;
         height: auto;
@@ -33,27 +28,25 @@ p {text-align: justify; font-size: 16px;}
     /*폰트공통*/
     .wrap h1, .wrap h2, .wrap h3, .wrap h4, .wrap h5, .wrap h6, .wrap p {font-family: 'Noto Sans KR', sans-serif; font-weight: normal;}
 
+.sub_wrap {padding: 0 20%;}
+.wrap h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; padding: 20px; text-align: center; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
+
 
     /*main_title*/
     .main_title {text-align: center; margin-bottom: 5%;}
     .main_title h6 {font-size: 15px; color:#666; margin-top: 3%;}
     .main_title h6 span {color: #ad863c; font-weight: bold; }
-    .main_title h1 br {display: none;}
-    .main_title h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; padding: 2.1%; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
 
 
+    /*의향서 폼 : 의향서작성*/
+.survey_form {width: 90%; margin: 0 auto; height: auto;}
+.survey_form h3 {font-size: 22px;}
+.bar {width: 100%; height: 2px; background: #ad863c; margin-bottom: 4%;}
+.survey_form h3 span { font-size: 18px; color: #666;}
+.survey_form h4 {font-size: 17px; font-weight: normal; margin-bottom: 0; color: #666;}
 
-    /*의향서 폼 : 개인정보입력*/
-    .survey_form {width: 90%; margin: 0 auto; height: auto;}
-    .survey_form h3 {font-size: 22px;}
-    .bar {width: 100%; height: 2px; background: #c3a164; margin-bottom: 4%;}
-    .survey_form h4 {font-size: 17px; font-weight: normal; margin-bottom: 0; margin-top: 3%; color: #555;}
-    .survey_form h3 span { font-size: 18px; color: #%55;}
-
-    .form_list {position: relative; width: 100%; height: auto; overflow: hidden; float: left; margin-bottom: 7%;}
-
-    /*인풋속성*/
-    input[type=number]{
+/*인풋디자인*/
+input[type=number] {
         width: 100%;
         height: 50px;
         padding: 0 2%;
@@ -62,18 +55,32 @@ p {text-align: justify; font-size: 16px;}
         border: 1px solid #eee;
         border-radius: 5px;
         box-sizing: border-box;
-        position: relative; overflow: hidden;
-}
-
-    #minimum, #optimum,
-    #minimum2, #optimum2 {width: 45%; float: left; position: relative; overflow: hidden;}
-    .icon {width: 10%; float: left; text-align: center; height: 50px; line-height: 65px;}
+    }
 
 
 
-    /*계약기간 select*/
-    .survey_form h5 {width: 20%; float: left; margin: 0; height: 50px; line-height: 50px; color: #555; font-size: 17px;}
+/*개별적용부분*/
+.form_list {position: relative; width: 100%; height: auto; overflow: hidden; float: left; margin-bottom: 25px; margin-top: 2.5%;}
 
+#deposit, #rent{width: 80%; float: left; overflow: hidden; position: relative;}
+#deposit {margin-top: 0;}
+#rent {margin-bottom: 25px;}
+.period_h5 {float: left; width: 20%; }
+.rent_h4 {margin-top: 0%; width: 100%; float: left;}
+
+/*최저 적정*/
+#minimum, #optimum,
+#minimum2, #optimum2 {width: 45%; float: left; position: relative; overflow: hidden;}
+.icon {width: 10%; float: left; text-align: center; height: 50px; line-height: 65px;}
+
+
+
+/*계약기간 select*/
+    .survey_form .period_h4 {
+        width: 20%;
+        float: left;
+        line-height: 50px;
+    }
 
     .survey_form .period_select {
         width: 80%;
@@ -87,6 +94,7 @@ p {text-align: justify; font-size: 16px;}
         float: left;
         width: 100%;
         margin-bottom: 4%;
+        /*margin-top: 2%;*/
     }
 
     .period_select select {
@@ -120,7 +128,9 @@ p {text-align: justify; font-size: 16px;}
         user-select: none;
     }
 
-    .select-selected {background-color: #fff;}
+    .select-selected {
+        background-color: #fff;
+    }
 
     .select-items {
         position: absolute;
@@ -132,7 +142,9 @@ p {text-align: justify; font-size: 16px;}
         z-index: 99;
     }
 
-    .select-hide {display: none;}
+    .select-hide {
+        display: none;
+    }
 
     .select-items div:hover,
     .same-as-selected {
@@ -143,14 +155,22 @@ p {text-align: justify; font-size: 16px;}
 
 
     /*Y or N 체크박스*/
-    .select_check { height: auto;margin-bottom: 18%;}
+    .select_check {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        padding-bottom: 1%;
+        margin-bottom: 5em;
+    }
 
-    .survey_form h4 span {color: #d40000;}
+    .survey_form h4 span {
+        color: #d40000;
+    }
 
     .checks {
         position: relative;
         float: left;
-        margin-top: 3%;
+        margin-top: 25px;
         margin-left: 1.5%;
         margin-right: 3%;
     }
@@ -259,19 +279,33 @@ p {text-align: justify; font-size: 16px;}
     }
 
 
-    /*하단 버튼*/
-    .survey_btn {width: 100%;overflow: hidden; margin-top: 8%;}
 
-    .survey_btn ul li {width: 49%; float: left; margin-right: 1%}
-    .survey_btn ul li a {display: block;}
+    /*하단버튼*/
+    .survey_btn {
+        width: 100%;
+        overflow: hidden;
+        margin-top: 3%;
+    }
 
-     .next, .back {
+    .survey_btn ul li {
+        width: 49%;
+        float: left;
+        margin-right: 1%
+    }
+
+    .survey_btn ul li a {
+        display: block;
+    }
+
+    .next,
+    .back {
         display: block;
         overflow: hidden;
         text-align: center;
         font-size: 16px;
-         width: 100%;
-        height: 50px; line-height: 50px;
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
         background-color: #c3a164;
         color: #fff;
         border: none;
@@ -280,62 +314,71 @@ p {text-align: justify; font-size: 16px;}
         transition: all 0.3s;
         float: left;
         margin-right: 1%;
+    }
+
+    .back {
+        border: 1px solid #ddd;
+        background: #fff;
+        color: #444;
+    }
+
+
+/*반응형*/
+/*1200px*/
+@media screen and (max-width: 1200px) {
+    .sub_wrap {padding: 0 13%;}
 }
-    .back {border: 1px solid #ddd; background: #fff; color: #444;}
-}
+
+/*768px*/
+@media screen and (max-width: 768px) {
+    .sub_wrap {padding: 0 0%;}
+    .wrap h1 {padding: 2.1%;}
+    .select_check {padding-bottom: 1%;}
+ }
 
 
 
  /*414px*/
 @media screen and (max-width: 414px) {
-    .main_title h1 {font-size: 22px; padding: 2.5% 0;}
+    .wrap h1 {font-size: 22px; padding: 2.5% 0;}
+
     .main_title h6 {margin: 6% 0 10%; font-size: 14px;}
     .main_title h6 span {font-size: 16px;}
+    .survey_form h4 {font-size: 16px; margin-top: 1em;}
+    .survey_form h3 {width: 100%;}
+    .survey_form h5 { font-size: 16px; line-height: normal; margin-top: 0%;}
 
-    .select_check {width: 100%; margin-bottom: 5%;}
 
-    .survey_form h5 {width: 100%; height: auto; line-height: normal; padding-top: 3%;}
+    /*개별적용부분*/
+    .form_01 {width: 100%; position: relative; }
+    .form_01 h5 {width: 100%; height: auto; line-height: normal;}
     #deposit, #rent {width: 100%;}
+    .survey_form .period_h4 {line-height: normal; width: 100%; float: none; margin-top: 6%;}
+    .period_h5 {width: 100%;}
+    #deposit {margin-top: 1.3%; margin-bottom: 1em;}
 
-    .survey_form .period_select {width: 100%; height: auto; margin-top: 2%;}
+    .survey_form .period_select {width: 100%;}
 
-    .form_01 {width: 100%;}
-
-    .survey_form h4 { margin-top: 4%;}
-
+    .select_check {width: 100%; margin-bottom: 25px;}
+    .select_check ul {width: 80%;}
 
     .checks input[type="radio"] + label {font-size: 16px; padding-bottom: 2%;}
-
-    .select_check {margin-bottom: 10%;}
-
+    .select_check {margin-bottom:15%;}
     .checks.etrans input[type="radio"] + label {margin-right: 15px; margin-top: 5%;}
-    .next, .back {margin-top: 18%;}
     .checks input[type="radio"] + label:before {width: 27px; height: 27px;}
-    .select_check h4 {letter-spacing: -0.8px; line-height: 1.8;  font-size: 16.5px;}
-
-    .next, .back {margin-top: 35%;}
+    .select_check h4 {letter-spacing: -0.5px; line-height: 1.8; margin-top: 0;}
 
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
-    .main_title h1 {font-size: 17px;}
+    .wrap h1 {font-size: 17px;}
+
     .main_title h6 { font-size: 12px;}
     .main_title h6 span {font-size: 13px;}
     .survey_form h3 {font-size: 18px; margin-top: 10%;}
-
-    .survey_form h4 {margin-top: 4%;}
+    .survey_form h4 {letter-spacing: -0.5px; line-height: 1.8; font-size: 16px; margin-top: 4%;}
     .survey_form h5 {margin-top: 4%; padding: 0; font-size: 16px;}
-
-    .select_check ul {width: 100%;}
-
-    .next, .back {margin-top: 18%; border-radius: 0; font-size: 15px; height: 40px; line-height: 40px;}
-
-    .survey_form h4 {letter-spacing: -0.5px; line-height: 1.8; font-size: 16px;}
-
-    .select-items div, .select-selected {padding: 7px 4%;}
-
-    .select_check {margin-bottom: 90px;}
 
     input[type=number]{
         height: 40px;
@@ -347,6 +390,12 @@ p {text-align: justify; font-size: 16px;}
         font-size: 14px;
         box-sizing: border-box;
         position: relative; overflow: hidden;
-
 }
+
+    .select_check ul {width: 100%;}
+    .select-items div, .select-selected {padding: 7px 4%;}
+
+    .checks {margin-top: 3%;}
+
+    .next, .back {margin-top: 18%; border-radius: 0; font-size: 15px; height: 40px; line-height: 40px;}
 }
