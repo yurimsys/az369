@@ -31,7 +31,12 @@
                 <ul>
                     <li>
                         <label>CY_B_ID</label>
-                        <input type="text" class="form-control form-control" id="cyBId">
+                        <select id="cyBId" class='form-control'>
+                            <option value=0>운송사 선택</option>
+                            <%for(let i=0; i<data.length; i++) {%>
+                                <option value=<%=data[i].B_ID%>><%=data[i].B_Name%></option>
+                                <% }%>
+                        </select>
                     </li>
                     <li>
                         <label>CY_Ty</label>
@@ -66,13 +71,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script>
+
+
+
     function insert(){
         $.ajax({
             url: "/admin/carType/insert",
             method: 'post',
             dataType: 'json',
             data: {
-                'cyBId' : $("#cyBId").val(), 'cyTy' : $("#cyTy").val(), 'total' : $("#total").val(),
+                'cyBId' : $("#cyBId option:selected").val(), 'cyTy' : $("#cyTy").val(), 'total' : $("#total").val(),
                 'service' : $("#service").val(), 'price' : $("#price").val()
                 },
             success: function(res){

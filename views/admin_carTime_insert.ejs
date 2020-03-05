@@ -32,7 +32,12 @@
                 <ul>
                     <li>
                         <label>CT_CY_ID</label>
-                        <input type="text" class="form-control form-control" id="ctCyId">
+                        <select id="ctCyId" class='form-control'>
+                            <option value=0>운송사 선택</option>
+                            <%for(let i=0; i<data.length; i++) {%>
+                                <option value=<%=data[i].cyId%>><%=data[i].bName%></option>
+                                <% }%>
+                        </select>
                     </li>
                     <li>
                         <label>CT_DepartureTe</label>
@@ -108,7 +113,7 @@ $(function() {
             method: 'post',
             dataType: 'json',
             data: {
-                'ctCyId' : $("#ctCyId").val(), 'dept' : $("#dept").val(), 'retun' : $("#retun").val(),
+                'ctCyId' : $("#ctCyId option:selected").val(), 'dept' : $("#dept").val(), 'retun' : $("#retun").val(),
                 'lead' : $("#lead").val(), 'carNum' : $("#carNum").val(), 'drName' : $("#drName").val(), 'drPhone' : $("#drPhone").val()
                 },
             success: function(res){
