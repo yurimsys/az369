@@ -38,18 +38,17 @@
                         <label>B_Email</label>
                         <input type="text" class="form-control form-control" id="email">
                     </li>
-                    <li>
-                        <label>B_Zip</label>
-                        <input type="text" class="form-control form-control" id="zip">
-                    </li>
-                    <li>
-                        <label>B_Addr1</label>
-                        <input type="text" class="form-control form-control" id="addr1">
-                    </li>
-                    <li>
-                        <label>B_Addr2</label>
-                        <input type="text" class="form-control form-control" id="addr2">
-                    </li>
+                    <div class="address_form">
+                        <div style="display: inline;">
+                            <input type="text" id="postcode"  name="postcode" placeholder="매장 우편번호" style="background: #f8f8f8; width: 400px;">
+                            <button type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn btn-primary">우편번호찾기</button><br>
+                        </div>
+                        <input type="text" class='form-control form-control' id="address" name="address" placeholder="매장주소" style="background: #f8f8f8;"><br>
+                        <input type="text" class='form-control form-control' id="detailAddress" name="detailAddress" placeholder="매장상세주소">
+                        <input type="text" id="extraAddress" name="extraAddress" hidden=""> <!-- 기본정보  -->
+                        <input type="text" id="roadAddress" name="roadAddress" hidden="">
+                        <input type="text" id="jibunAddress" name="jibunAddress" hidden="">
+                    </div>
                 </ul>
                 <button type="button" class="btn btn-primary" onclick="insert()">추가</button> 
             </div>
@@ -65,6 +64,8 @@
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/admin/js/join_address.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
     function insert(){
@@ -74,8 +75,8 @@
             dataType: 'json',
             data: {
                 'name' : $("#name").val(), 'tel' : $("#tel").val(), 'fax' : $("#fax").val(),
-                'email' : $("#email").val(), 'zip' : $("#zip").val(), 'addr1' : $("#addr1").val(),
-                'addr2' : $("#addr2").val()
+                'email' : $("#email").val(), 'postcode' : $("#postcode").val(), 'address' : $("#address").val(),
+                'detailAddress' : $("#detailAddress").val()
                 },
             success: function(res){
                 if(res.data == "추가"){
