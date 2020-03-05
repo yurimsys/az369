@@ -229,10 +229,8 @@
      
             $('#timeSelect01, #timeSelect02').click(function(){
                 $(".tab").empty();
-                //alert($("#depart01").val());
-                //alert($("#depart02").val());
-                console.log($("#depart01").val())
-                console.log($("#depart02").val())
+                //console.log($("#depart01").val())
+                //console.log($("#depart02").val())
                 $.ajax({
                 url: "api/user/resCarList",
                 method: "post",
@@ -240,10 +238,10 @@
                 data : {'sel': $("#depart01 option:selected").val(), 'sel2' : $("#depart02 option:selected").val()},
                 success: function(res){
                     
-                    console.log(res.data.length);
+                    
                     for(let i=0; i<res.data.length; i++){
                         
-                        console.log("요일",getInputDayLabel(res.data[i].deptTe));  
+                        //console.log("요일",getInputDayLabel(res.data[i].deptTe));  
                     
                         let html = "<button class='tablinks' onclick='openBus(event, \""+res.data[i].ctID+"\")'>";
                             html += "<span class='select_bus_time'>"+res.data[i].deptTe.split(' ', 1).toString()+'\t('+getInputDayLabel(res.data[i].deptTe)+")</span>";
