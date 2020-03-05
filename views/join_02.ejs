@@ -299,7 +299,7 @@
             }                                
         }
         //비밀번호 확인
-         $(function(){ 
+         $(function(){
             $("input").keyup(function(){ 
                 var pwd1=$("#password").val(); 
                 var pwd2=$("#password2").val();
@@ -310,7 +310,7 @@
                         $("#submit").removeAttr("disabled"); 
                     }else{
                             $("#alert-success").css('display', 'none')
-                            $("#alert-danger").css('display', 'block') 
+                            $("#alert-danger").css('display', 'block')
                             $("#submit").attr("disabled", "disabled");
                         } 
                     } 

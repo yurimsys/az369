@@ -314,7 +314,7 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     let query4 = `UPDATE tU SET U_Phone = :uPhone, U_Brand = :uBrand,
                  U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
 
-        if(password === "" && uPhone === "" ){           
+        if(password === "" && uPhone === "" ){
             connection.query(query2,{uBrand, uZip, uAddr1, uAddr2, uUserName},
                 function(){                   
                     res.json( {  data : "성공"});
@@ -327,15 +327,15 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
                 })
         } else if(password != "" && uPhone === "" ) {
             connection.query(query3,{hash_pw, uBrand, uZip, uAddr1, uAddr2, uUserName},
-                function(){                   
+                function(){
                     res.json( {  data : "성공"});
-            })     
+            })
         } else if(password === "" && uPhone != "" ) {
             connection.query(query4,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
-                function(){                   
+                function(){
                     res.json( {  data : "성공"});
-            })     
-        }   
+            })
+        }
 });
 
 
@@ -386,9 +386,9 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
     let seatNum = req.body['sendArray[]'];
     console.log(seatNum);
     console.log("dddd :", sessionId);
-    //console.log(seatNum);    
+    //console.log(seatNum);
     let query = `
-                select 
+                select
                     tCR.CR_CT_ID as ctId,
                     tCR.CR_cDt as payDay,
                     date_format(tCT.CT_DepartureTe,'%m.%d') as deptTe1,
@@ -405,30 +405,30 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                 from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
                 where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = 'N'
                     and tCR.CR_U_ID = :sessionId and tCR.CR_cDt IN ( :seatNum)
-                    and tCT.CT_DepartureTe > now() 
+                    and tCT.CT_DepartureTe > now()
                 group by tCR.CR_cDt
-                order by tCT.CT_DepartureTe desc	 
+                order by tCT.CT_DepartureTe desc
                 `;
     console.log("좌석 :", seatNum);
-    console.log("세션 :", sessionId); 
-    
+    console.log("세션 :", sessionId);
 
-    connection.query(query, 
-        {          
+
+    connection.query(query,
+        {
             sessionId, seatNum
-                                
+
         },
         function(err, rows, fields) {
-            if (err) throw err;          
-             
+            if (err) throw err;
+
             // //console.log(findId);
             res.json( {  data : rows});
             console.log("rows :",rows);
         });
-        
+
 });
 
-//예매취소 
+//예매취소
 router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
     let query = `update tCR
                     inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
@@ -440,24 +440,24 @@ router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
     let crCancel = 'Y';
     let crPId = req.body['trVal[]'];
     let crCtId = req.body['tdVal[]'];
-    
+
     console.log("pId@@@@@@@@ :", crPId);
     console.log("cDt@@@@@@@@ :", crCtId);
 
-    connection.query(query, 
-        {          
+    connection.query(query,
+        {
             crCancel, sessionId, crPId, crCtId
-                                
+
         },
         function(err, rows, fields) {
-            if (err) throw err;          
-             
+            if (err) throw err;
+
             // //console.log(findId);
             res.json( {  data : rows.affectedRows});
             console.log("rows : ",rows.affectedRows);
-            
+
         });
-        
+
 });
 
 //마이페이지 예매 및 결제내역
@@ -515,7 +515,7 @@ router.post('/user/resPayBetween',  auth.isLoggedIn, (req, res, next) =>{
                     CR_cDt as crCdt,
                     tCR.CR_CT_ID as crCTID,
                     tCR.CR_PH_ID as crPHID,
-                    tCR.CR_cDt as no	
+                    tCR.CR_cDt as no
                 from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
                     where tCR.CR_CT_ID = tCT.CT_ID
                     and tCR.CR_U_ID = :sessionId and tCR.CR_cDt between date(:deptDay) AND date(:endDay)+1
@@ -555,7 +555,7 @@ router.post('/user/resPayMo',  auth.isLoggedIn, (req, res, next) =>{
                     CR_cDt as crCdt,
                     tCR.CR_CT_ID as crCTID,
                     tCR.CR_PH_ID as crPHID,
-                    tCR.CR_cDt as no	
+                    tCR.CR_cDt as no
                 from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
                     where tCR.CR_CT_ID = tCT.CT_ID
                     and tCR.CR_U_ID = :sessionId
@@ -586,7 +586,7 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
     let moCtId = req.body.ctId;
     let moPhId = req.body.phId;
-    let query = `select 
+    let query = `select
                     date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
                     date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
                     tB.B_Name as carName,
@@ -618,7 +618,7 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
             // //console.log(findId);
             res.json( {  data : rows});
             console.log("rows :",rows);
-            
+
         });
         
 });
@@ -626,7 +626,7 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
 
 //마이페이지 취소 및 환불조회
 router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
-    let query = `   select 
+    let query = `   select
                         date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
                         date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
                         tCR.CR_CancelDt as cancelDay,
@@ -634,7 +634,7 @@ router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
                         tPH.PH_Type as payType,
                         tPH.PH_Price as price,
                         CR_CT_ID as ctId,
-                        CR_PH_ID as phId	
+                        CR_PH_ID as phId
                     from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
                         where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = :crCancel
                         and tCR.CR_U_ID = :sessionId
@@ -660,7 +660,7 @@ router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
             
         });
         
-});  
+});
 
 
 //마이페이지 취소 및 환불조회 날짜검색
@@ -674,7 +674,7 @@ router.post('/user/resCancelListBetween', auth.isLoggedIn, (req, res, next) =>{
                         count(CR_SeatNum) as seatCnt,
                         tPH.PH_Type as payType,
                         CR_CT_ID as ctId,
-                        CR_PH_ID as phId,	
+                        CR_PH_ID as phId,
                         tPH.PH_Price as price	
                     from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
                         where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = :crCancel
@@ -695,10 +695,10 @@ router.post('/user/resCancelListBetween', auth.isLoggedIn, (req, res, next) =>{
         },
         function(err, rows, fields) {
             if (err) throw err;          
-                
+
             res.json( {  data : rows});
-            console.log("rows : ",rows);          
-    });       
+            console.log("rows : ",rows);
+    });
 });  
 
 //마이페이지 취소 및 환불조회 모바일

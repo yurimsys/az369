@@ -226,7 +226,7 @@
                                         <table class="searchBox">
                                             <tbody>
                                                 <tr>
-                                                    <td>                                                     
+                                                    <td>
                                                         <ul class="searchDate">
                                                             <li>
                                                                 <span class="chkbox2 chkbox">
@@ -259,28 +259,28 @@
                                                                 </span>
                                                             </li>
                                                         </ul>
-                                                        
+
                                                         <div class="clearfix">
                                                             <!-- 시작일 -->
                                                             <span class="dset">
                                                                 <input type="text" id="deptDay" class="datepicker inpType searchStartDate" name="searchStartDate">
                                                             </span>
-                                                            
+
                                                             <span class="demi">~</span>
-                                                            
+
                                                             <!-- 종료일 -->
                                                             <span class="dset">
                                                                 <input type="text" id="endDay" class="datepicker inpType searchEndDate" name="searchEndDate">
                                                            </span>
                                                         </div>
-                                                        
+
                                                         <button class="search_btn" onclick="payBetween()">날짜조회</button>
                                                     </td>
                                                 </tr>
 
                                             <tbody>
                                         </table>
-                                        
+
                                         <!--두번째 리스트 PC-->
                                         <div class="list02">
                                             <table class="table">
@@ -297,11 +297,11 @@
                                                 </tbody>            
                                             </table>
                                         </div>
-                                     
+
                                         <!--두번째 리스트 mo 414px-->
-                                       
+
                                         <div class="list02_mo">
-                                                              
+
                                         </div>
                     
                                         <!--두번째 리스트 popup mo-->
@@ -369,15 +369,15 @@
                                                             <span class="dset">
                                                                 <input type="text" id="cancelDeptDay" class="datepicker inpType searchStartDate" name="searchStartDate">
                                                             </span>
-                                                            
+
                                                             <span class="demi">~</span>
-                                                            
+
                                                             <!-- 종료일 -->
                                                             <span class="dset">
                                                                 <input type="text" id="cancelEndDay" class="datepicker inpType searchEndDate" name="searchEndDate">
                                                            </span>
                                                         </div>
-                                                        
+
                                                         <button class="search_btn" onclick="cancelBetween()">날짜조회</button>
                                                     </td>
                                                 </tr>
@@ -552,8 +552,8 @@
         $("#tab1").on('click',function(){
             $("input[type=radio]").prop("checked",false);
         })
-        
-        //결제리스트 @#$#@$#@$%#@$@#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+        //결제리스트
         $("#tab2").on('click',function(){
             $('input[type=radio]').prop('checked',false);
             //달력 val 지우기
@@ -563,7 +563,7 @@
             $.ajax({
                url: "api/user/resPay",
                method: "post",
-               dataType: "json",              
+               dataType: "json",
                success: function(res){
                    //console.log("결제내역@!#@!#@!",res.data)
               //PC리스트
@@ -588,7 +588,7 @@
              //달력 val 지우기
             $("#deptDay").val('')
             $("#endDay").val('')
-            //재 클릭시 테이블 비우기          
+            //재 클릭시 테이블 비우기
             $(".list02_mo").empty();  
             $.ajax({
                 url: "api/user/resPayMo",
@@ -633,7 +633,7 @@
                         html += "<td>"+(res.data[i].payType || "-")+"</td>";
                         html += "<td>"+(res.data[i].price || 0)+"</td>";
                         html += "</tr>";
-                      $("#payList").append(html);  
+                      $("#payList").append(html);
                     }
                 //모바일 부분 @@@@@@@@@@@@@@@@@@@@@@@@@
                     for(let i=0; i<res.data.length; i++){                     
@@ -645,8 +645,8 @@
                             html2 += "<li id="+res.data[i].crCTID+" value="+res.data[i].crPHID+"><i class='fas fa-chevron-right'></i></li>";
                             html2 += "</ul></a>";
                             html2 += "</div>";
-                        $(".list02_mo").append(html2);        
-                    }               
+                        $(".list02_mo").append(html2);
+                    }
                 }
             })
         }
@@ -712,10 +712,10 @@
         });
 
         //모바일 취소 및 환불 리스트
-        $("#tab_mo3").on('click',function(){    
+        $("#tab_mo3").on('click',function(){
             //달력 val 지우기
             $("#cancelDeptDay").val('')
-            $("#cancelEndDay").val('')        
+            $("#cancelEndDay").val('')
             $(".list03_mo").empty();
             $.ajax({
                 url: "api/user/resCancelListMo",
@@ -757,7 +757,7 @@
                             html += "<td>"+res.data[i].payType+"</td>";
                             html += "<td>"+res.data[i].price+"</td>";
                             html += "</tr>";
-                        $("#cancelList").append(html);                                              
+                        $("#cancelList").append(html);
                     }
             ///모바일 부분@@@@@@@@@@@@@@@@@@@@@@@@@
                     for(let k=0; k<res.data.length; k++){
@@ -848,7 +848,7 @@
 //datepicker 한국어로 사용하기 위한 언어설정
 $.datepicker.setDefaults($.datepicker.regional['ko']);
 
-// Datepicker            
+// Datepicker
 $(".datepicker").datepicker({
     showButtonPanel: true,
     dateFormat: "yy-mm-dd",
@@ -875,7 +875,7 @@ $(".datepicker").datepicker({
 });
 
 //시작일.
-/*$('#searchStartDate').datepicker("option","onClose", function( selectedDate ) {    
+/*$('#searchStartDate').datepicker("option","onClose", function( selectedDate ) {
     // 시작일 datepicker가 닫힐때
     // 종료일의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
     $("#searchEndDate").datepicker( "option", "minDate", selectedDate );
@@ -884,9 +884,9 @@ $(".datepicker").datepicker({
 */
 
 //종료일.
-/*$('.searchEndDate').datepicker("option","onClose", function( selectedDate ) {    
+/*$('.searchEndDate').datepicker("option","onClose", function( selectedDate ) {
     // 종료일 datepicker가 닫힐때
-    // 시작일의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
+    // 시작일의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정
     $(".searchStartDate").datepicker( "option", "maxDate", selectedDate );
     $(".searchDate").find(".chkbox2").removeClass("on");
 });*/

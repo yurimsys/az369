@@ -2,9 +2,11 @@
 
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap');
 
+@import '~pretty-checkbox/src/pretty-checkbox.scss';
+
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;   font-family: 'Noto Sans KR', ;}
+* {margin: 0;padding: 0; box-sizing: border-box;/* font-family: 'Noto Sans KR', sans-serif;*/}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;  }
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0; font-family: 'Noto Sans KR', ;}
 a {color: inherit; text-decoration: inherit; cursor: pointer;}
 img {vertical-align: middle;}
@@ -31,120 +33,308 @@ p {text-align: justify; font-size: 16px;}
 
 
     /*폰트공통*/
-    section h1, section h2, section h3, section h4, section h5, section h6 {font-family: 'Noto Sans KR', sans-serif; }
+    .wrap h1, .wrap h2, .wrap h3, .wrap h4, .wrap h5, .wrap h6, .wrap p { font-weight: normal;  font-family: 'Noto Sans KR', sans-serif;}
 
-    /*main*/
-    section.main {width: 100%;}
-    section.main .inner_main {margin: 0 auto;}
 
-    /*section.sub_wrap*/
-    .main_title {text-align: center; margin-bottom: 4%;}
-    .main_title h6 {/*font-family: 'PT Serif', serif; */font-size: 15px; color:#666; margin-top: 3%;}
+    /*main_title*/
+    .main_title {text-align: center; margin-bottom: 5%;}
+    .main_title h6 {font-size: 15px; color:#666; margin-top: 3%;}
     .main_title h6 span {color: #ad863c; font-weight: bold; }
     .main_title h1 br {display: none;}
     .main_title h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; padding: 2.1%; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
 
 
 
-    .survey_form {width: 90%; margin: 0 auto;}
-    .survey_form h3 {font-size: 22px; margin: 0 ; padding-bottom: 1%; border-bottom: 2px solid #ad863c; display: inline-block;}
-    .bar {width: 100%; height: 2px; background: #eee; margin-top: -0.25%;}
+    /*의향서 폼 : 의향서작성*/
+    .survey_form {width: 90%; margin: 0 auto; height: auto;}
+    .survey_form h3 {font-size: 22px;}
+    .bar {width: 100%; height: 2px; background: #ad863c; margin-bottom: 4%;}
+    .survey_form h3 span { font-size: 18px; color: #666;}
+    .survey_form h4 {font-size: 17px; font-weight: normal; margin-bottom: 0; color: #666;}
 
-    .survey_form h4 {font-size: 17px; font-weight: normal; margin-bottom: 0; margin-top: 4%; color: #444;}
-    .survey_form h4 span {color: #777;}
+    .form_list {position: relative; width: 100%; height: auto; overflow: hidden; float: left; margin-bottom: 7%; margin-top: 2.5%;}
+
+    .form_01 {width: 100%; position: relative; overflow: hidden;}
+    .form_01 h5 {width: 15%; float: left;}
+    .form_01 input {width: 85%; float: left;}
 
 
-    .form_inner {margin-top: 3%;}
-    input[type=number]{
+    input[type=number] {
         width: 100%;
         height: 50px;
         padding: 0 2%;
         margin-top: 1.3%;
         display: inline-block;
         border: 1px solid #eee;
-        border-radius: 8px;
+        border-radius: 5px;
         box-sizing: border-box;
-}
+    }
 
     .survey_form ul {width: 100%;}
     .form_list {position: relative;  width: 100%; height: auto; overflow: hidden; float: left;}
 
-    #minimum, #optimum {width: 45%; float: left; position: relative; overflow: hidden;}
+    #minimum, #optimum,
+    #minimum2, #optimum2 {width: 45%; float: left; position: relative; overflow: hidden;}
     .icon {width: 10%; float: left; text-align: center; height: 50px; line-height: 65px;}
 
 
+    /*계약기간 select*/
+    .survey_form .period_h4 {
+        width: 20%;
+        float: left;
+        line-height: 50px;
+    }
 
-/*    .survey_form ul li {width: 100%; position: relative; float: left;}*/
+    .survey_form .period_select {
+        width: 80%;
+        float: left;
+    }
 
-    .survey_form h5 { width: 15%; line-height: 55px; display: inline-block; margin: 0; float: left; color: #444; font-size: 17px;}
-    #deposit, #rent{width: 85%; float: left; overflow: hidden; position: relative;}
-    #rent {margin-bottom: 4%;}
+    .period_select {
+        position: relative;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        float: left;
+        width: 100%;
+        margin-bottom: 4%;
+        margin-top: 2%;
+    }
 
-    .select_check01 {margin-bottom: 10%;}
+    .period_select select {
+        display: none;
+    }
 
-    .select_check > h3 {margin-top: 10%; position: relative;}
+    .select-selected:after {
+        position: absolute;
+        content: "";
+        top: 20px;
+        right: 10px;
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-color: #ad863c transparent transparent transparent;
+    }
 
-    .select_check p {margin-top: 2%; color: #555;}
-    .select_check01 p {margin-top: 4%;}
+    .select-selected.select-arrow-active:after {
+        border-color: transparent transparent #ad863c transparent;
+        top: 14px;
+    }
 
-    .select_check ul {margin-top: 4%; width: 50%; position: relative; overflow: hidden}
-    .select_check ul li {float: left; width: 48%;  margin-right: 2%;  text-align: center; position: relative;}
-    .select_check ul li:last-child {margin-right: 0;}
-    .select_check label {position: relative; cursor: pointer;}
-    .select_check label input {display: none;}
-    .select_check label span {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    padding: 6% 0;
-    background: transparent;
-    border: 1px solid #ccc;
-    color: #444;
-    font-size: 16px;
-    font-weight: normal;
-    border-radius: 4px;
-    margin-right: 1.5%;
-}
-    .select_check label:last-child {margin-right: 0;}
-    .select_check label input:checked ~ span { background: #fff; border: 2px solid #ad863c; font-weight: bold;}
+    .select-items div,
+    .select-selected {
+        color: #222;
+        font-size: 17px;
+        padding: 11px 16px;
+        border: 1px solid transparent;
+        /*border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;*/
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .select-selected {background-color: #fff;}
+
+    .select-items {
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 99;
+    }
+
+    .select-hide {display: none;}
+
+    .select-items div:hover,
+    .same-as-selected {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
 
 
-    .next, .back {
+
+
+
+    /*Y or N 체크박스*/
+    .select_check { height: auto;  padding-bottom: 18%;}
+
+    .survey_form h4 span {color: #d40000;}
+
+    .checks {
+        position: relative;
+        float: left;
+        margin-top: 4%;
+        margin-left: 1.5%;
+        margin-right: 3%;
+    }
+
+    .checks input[type="radio"] {
+        /* 실제 체크박스는 화면에서 숨김 */
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+
+    .checks input[type="radio"] + label {
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        font-size: 17px;
+
+    }
+
+    .checks input[type="radio"] + label:before {
+        /* 가짜 체크박스 */
+        content: ' ';
+        display: inline-block;
+        width: 30px;
+        /* 체크박스의 너비를 지정 */
+        height: 30px;
+        /* 체크박스의 높이를 지정 */
+        line-height: 30px;
+        /* 세로정렬을 위해 높이값과 일치 */
+        margin: -2px 8px 0 0;
+        text-align: center;
+        vertical-align: middle;
+        background: #fafafa;
+        border: 1px solid #cacece;
+        border-radius: 3px;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    }
+
+    .checks input[type="radio"] + label:active:before,
+    .checks input[type="radio"]:checked + label:active:before {
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .checks input[type="radio"]:checked + label:before {
+        /* 체크박스를 체크했을때 */
+        content: '\2714';
+        /* 체크표시 유니코드 사용 */
+        color: #99a1a7;
+        text-shadow: 1px 1px #fff;
+        background: #e9ecee;
+        border-color: #adb8c0;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+    }
+
+    .checks.etrans input[type="radio"] + label {
+        padding-left: 40px;
+    }
+
+    .checks.etrans input[type="radio"] + label:before {
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin-top: 0;
+        opacity: .6;
+        box-shadow: none;
+        border-color: #ad863c;
+        -webkit-transition: all .12s, border-color .08s;
+        transition: all .12s, border-color .08s;
+    }
+
+    .checks.etrans input[type="radio"]:checked + label:before {
+        position: absolute;
+        content: "";
+        width: 10px;
+        top: -5px;
+        left: 5px;
+        border-radius: 0;
+        opacity: 1;
+        background: transparent;
+        border-color: transparent #ad863c #ad863c transparent;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .no-csstransforms .checks.etrans input[type="radio"]:checked + label:before {
+        /*content:"\2713";*/
+        content: "\2714";
+        top: 0;
+        left: 0;
+        width: 21px;
+        line-height: 21px;
+        color: #ad863c;
+        text-align: center;
+        border: 1px solid #ad863c;
+    }
+
+
+    /*하단버튼*/
+    .survey_btn {width: 100%;overflow: hidden; margin-top: 3%;}
+
+    .survey_btn ul li {width: 49%; float: left; margin-right: 1%}
+
+    .survey_btn ul li a {display: block;}
+
+     .next, .back {
         display: block;
         overflow: hidden;
         text-align: center;
         font-size: 16px;
-        width: 49%;
+         width: 100%;
         height: 50px; line-height: 50px;
         background-color: #c3a164;
         color: #fff;
-        margin-top: 8%;
         border: none;
-        border-radius: 8px;
+        border-radius: 5px;
         cursor: pointer;
         transition: all 0.3s;
         float: left;
         margin-right: 1%;
 }
     .back {border: 1px solid #ddd; background: #fff; color: #444;}
-}
+
+
+    .survey_form h5 { width: 20%; height: 50px; line-height: 50px;  display: inline-block; margin: 0; float: left; color: #444; font-size: 17px;}
+    #deposit, #rent{width: 80%; float: left; overflow: hidden; position: relative;}
+    #rent {margin-bottom: 4%;}
+
+
+ }
 
 /*414px*/
 @media screen and (max-width: 414px) {
     .main_title h1 {font-size: 22px; padding: 2.5% 0;}
     .main_title h6 {margin: 6% 0 10%; font-size: 14px;}
     .main_title h6 span {font-size: 16px;}
-    .survey_form h3 {font-size: 20px;}
-    .select_check h3 {margin-top: 15%;}
-    .survey_form h4 {font-size: 16.5px; margin-top: 6%;}
+
+    .select_check {width: 100%; margin-bottom: 5%;}
+
+    .survey_form h5 {width: 100%; height: auto; line-height: normal; padding-top: 3%;}
+    #deposit, #rent {width: 100%;}
+
+    .survey_form h4 {font-size: 16.5px; margin-top: 4%;}
+    .survey_form .period_h4 {line-height: normal; width: 100%; float: none; margin-top: 6%;}
+    .survey_form h5 {margin-top: 4%; padding: 0; font-size: 16px;}
+
+    .survey_form .period_select {width: 100%;}
 
     .form_01 {width: 100%; position: relative; }
 
     .select_check ul {width: 80%;}
 
-    .select_check p {position: relative; overflow: hidden; width: 100%; font-size: 15px; padding-top: 4%; padding-bottom: 3%;}
-    #deposit, #rent {width: 100%;}
-    .survey_form h5 {line-height: normal; margin-top: 6%; width: 100%;}
+    .survey_form h5 {line-height: normal; margin-top: 0%;/* width: 100%; line-height: normal; height: auto;*/}
+
+    .checks input[type="radio"] + label {font-size: 16px; padding-bottom: 2%;}
+
+    .select_check {margin-bottom:10%;}
+
+    .checks.etrans input[type="radio"] + label {margin-right: 15px; margin-top: 5%;}
+    .next, .back {margin-top: 18%;}
+    .checks input[type="radio"] + label:before {width: 27px; height: 27px;}
+    .select_check h4 {letter-spacing: -0.8px; line-height: 1.8;}
 
     .next, .back {margin-top: 18%;}
 
@@ -156,15 +346,22 @@ p {text-align: justify; font-size: 16px;}
     .main_title h6 { font-size: 12px;}
     .main_title h6 span {font-size: 13px;}
     .survey_form h3 {font-size: 18px; margin-top: 10%;}
-    .survey_form h4 {margin-top: 8%;}
-    .survey_form h5 {font-size: 15px;}
+
+    .survey_form h4 {margin-top: 4%;}
+    .survey_form h5 {margin-top: 4%; padding: 0; font-size: 16px;}
 
     .select_check ul {width: 100%;}
-    .select_check p {font-size: 15px; margin-top: 8%; margin-bottom: 5%;}
-
-    .select_check ul li input{height: 40px; line-height: 40px;}
 
     .next, .back {margin-top: 18%; border-radius: 0; font-size: 15px; height: 40px; line-height: 40px;}
+
+
+    .survey_form h4 {letter-spacing: -0.5px; line-height: 1.8; font-size: 16px;}
+    /*.survey_form .period_h4 {line-height: normal; width: 100%; float: none; margin-top: 7%;}*/
+
+
+
+    .select-items div, .select-selected {padding: 7px 4%;}
+
 
     input[type=number]{
         height: 40px;
@@ -172,10 +369,12 @@ p {text-align: justify; font-size: 16px;}
         margin-top: 2%;
         display: inline-block;
         border: 1px solid #eee;
-        border-radius: 8px;
+        border-radius: 5px;
         font-size: 14px;
         box-sizing: border-box;
         position: relative; overflow: hidden;
-
 }
 
+    .survey_btn {margin-top: 15%; overflow: hidden; }
+
+}
