@@ -57,7 +57,9 @@ input[type=number] {
         box-sizing: border-box;
     }
 
-
+/*최저 적정*/
+input[type=number].range {width: 45%; float: left; position: relative; overflow: hidden;}
+.icon {width: 10%; float: left; text-align: center; height: 50px; line-height: 65px;}
 
 /*개별적용부분*/
 .form_list {position: relative; width: 100%; height: auto; overflow: hidden; float: left; margin-bottom: 25px; margin-top: 2.5%;}
@@ -68,10 +70,6 @@ input[type=number] {
 .period_h5 {float: left; width: 20%; }
 .rent_h4 {margin-top: 0%; width: 100%; float: left;}
 
-/*최저 적정*/
-#minimum, #optimum,
-#minimum2, #optimum2 {width: 45%; float: left; position: relative; overflow: hidden;}
-.icon {width: 10%; float: left; text-align: center; height: 50px; line-height: 65px;}
 
 
 

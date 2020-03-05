@@ -186,9 +186,7 @@
         let phone_number = $("#phone").val();
         phone_number.replace(/-/g, "");
 
-        if(window.timer !== undefined) clearTimeout(window.timer);
-        
-        window.timer = setTimeout( () => {
+        if( auth_number.length >= 4 ){  
             $.ajax({
                 dataType: "json",
                 url : "/api/auth/phone",
@@ -198,8 +196,6 @@
                     auth_number : auth_number
                 }
             }).done((res) => {
-                console.log("checkPhoneNumber !! ");
-                console.log(res);
                 if( res.status_code == 200 ){
                     ele_phone_check.data("is_confirm", true);
     
@@ -216,7 +212,7 @@
                     ele_alert_fail.addClass('active');
                 }
             })
-        }, 3000 );
+        }
         
     }
 
