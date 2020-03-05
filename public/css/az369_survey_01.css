@@ -15,12 +15,7 @@ address, em, i {font-style: normal;}
 p {text-align: justify; font-size: 16px;}
 
 
-
-/*반응형*/
-/*768px*/
-@media screen and (max-width: 768px) {
-
-    .wrap {
+.wrap {
         width: 100%;
         margin: 0 auto;
         height: auto;
@@ -30,17 +25,18 @@ p {text-align: justify; font-size: 16px;}
         background: #f9f9f9;
 }
 
+.sub_wrap {padding: 0 20%;}
+
 
     /*폰트공통*/
     .wrap h1, .wrap h2, .wrap h3, .wrap h4, .wrap h5, .wrap h6 {font-family: 'Noto Sans KR', sans-serif; font-weight: normal;}
 
 
     /*main_title*/
+    .wrap h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; padding: 20px; text-align: center; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
     .main_title {text-align: center; margin-bottom: 5%;}
     .main_title h6 {font-size: 15px; color:#666; margin-top: 3%;}
     .main_title h6 span {color: #ad863c; font-weight: bold; }
-    .main_title h1 br {display: none;}
-    .main_title h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; padding: 2.1%; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
 
     .main_title h2 {padding: 2% 3% 2.5%; width: 90%; font-size: 17px; color: #555; margin: 3% auto; border: 1px solid #d4c8b1; border-radius: 5px; background: #fff; font-weight: normal;}
     .main_title h2 span {font-size: 16px; color: #777; }
@@ -208,11 +204,24 @@ p {text-align: justify; font-size: 16px;}
         transition: all 0.3s;
         margin-top: 10%;
     }
+
+
+/*반응형*/
+/*1200px*/
+@media screen and (max-width: 1200px) {
+    .sub_wrap {padding: 0 13%;}
 }
+
+/*768px*/
+@media screen and (max-width: 768px) {
+    .sub_wrap {padding: 0 0%;}
+    .wrap h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; padding: 2.1%; text-align: center; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
+}
+
 
 /*414px*/
 @media screen and (max-width: 414px) {
-    .main_title h1 {font-size: 22px; padding: 2.5% 0;}
+    .wrap h1 {font-size: 22px; padding: 2.5% 0;}
     .main_title h6 {margin: 6% 0; font-size: 14px;}
     .main_title h6 span {font-size: 16px;}
     .main_title h2 {width: 95%; font-size: 16px; margin: 5% auto; padding: 4%;}
@@ -220,30 +229,27 @@ p {text-align: justify; font-size: 16px;}
     .survey_form h3 {font-size: 20px;}
     .survey_form h3 {margin-top: 8%;}
     .select_check h3 {margin-top: 7%;}
-    .survey_form h4 {font-size: 16px; margin-top: 6%;}
-    .select_check p {font-size: 15px; margin-top: 6%; margin-bottom: 7%;}
+    .survey_form h4 {font-size: 16px; margin-top: 1em;}
 
     .checks input[type="radio"] + label {font-size: 16px; padding-bottom: 2%;}
 
     .checks.etrans input[type="radio"] + label {margin-right: 15px; margin-top: 5%;}
     .next, .back {margin-top: 18%;}
     .checks input[type="radio"] + label:before {width: 27px; height: 27px;}
-
-
 }
+
 
 /*320px*/
 @media screen and (max-width: 320px) {
-    .main_title h1 {font-size: 17px;}
+    .wrap h1 {font-size: 17px;}
     .main_title h2 {width: 90%; font-size: 15px; margin: 7% auto;}
     .main_title h6 { font-size: 12px;}
     .main_title h6 span {font-size: 13px;}
     .survey_form h3 {font-size: 18px;}
-    .survey_form h4 {font-size: 16px; margin-top: 8%;}
+    .survey_form h4 { margin-top: 20px;}
 
     .select_check ul {width: 100%;}
     .check_btn {height: 40px; line-height: 40px;}
-    /*.select_check p {font-size: 15px; margin-top: 8%; margin-bottom: 5%;}*/
 
     .select_check ul li input{height: 40px; line-height: 40px;}
 

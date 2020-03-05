@@ -334,32 +334,32 @@
                                                         <ul class="searchDate">
                                                             <li>
                                                                 <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')" />
-                                                                    <label for="dateType1">당일</label>
+                                                                    <input type="radio" name="dateType" id="dateType10" onclick="setSearchDate('0d')" />
+                                                                    <label for="dateType10">당일</label>
                                                                 </span>
                                                             </li>
                                                             <li>
                                                                 <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType2" onclick="setSearchDate('1w')" />
-                                                                    <label for="dateType2">1주</label>
+                                                                    <input type="radio" name="dateType" id="dateType11" onclick="setSearchDate('1w')" />
+                                                                    <label for="dateType11">1주</label>
                                                                 </span>
                                                             </li>
                                                             <li>
                                                                 <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType3" onclick="setSearchDate('1m')" />
-                                                                    <label for="dateType3">1개월</label>
+                                                                    <input type="radio" name="dateType" id="dateType12" onclick="setSearchDate('1m')" />
+                                                                    <label for="dateType12">1개월</label>
                                                                 </span>
                                                             </li>
                                                             <li>
                                                                 <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType4" onclick="setSearchDate('3m')" />
-                                                                    <label for="dateType4">3개월</label>
+                                                                    <input type="radio" name="dateType" id="dateType14" onclick="setSearchDate('3m')" />
+                                                                    <label for="dateType14">3개월</label>
                                                                 </span>
                                                             </li>
                                                             <li>
                                                                 <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('6m')" />
-                                                                    <label for="dateType5">6개월</label>
+                                                                    <input type="radio" name="dateType" id="dateType15" onclick="setSearchDate('6m')" />
+                                                                    <label for="dateType15">6개월</label>
                                                                 </span>
                                                             </li>
                                                         </ul>
@@ -482,10 +482,10 @@
                 }
             }
             var sendJson = JSON.stringify(send_array);
-            console.log('sendjson :',sendJson); 
+            //console.log('sendjson :',sendJson); 
 
             var seatArr = JSON.parse(sendJson);
-            console.log('seatArr :', seatArr);
+            //console.log('seatArr :', seatArr);
             $.ajax({
                 url: "api/user/payCancel",
                 method: 'post',
@@ -510,7 +510,7 @@
                     }
                  
                     //모바일 예매취소 리스트
-                    console.log("여기 리스트",res.data);
+                    //console.log("여기 리스트",res.data);
                     for(let k=0; k<res.data.length; k++){
                         let html = "<dl>";
                             //html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
@@ -536,7 +536,7 @@
                 async: false,
                 data: {'trVal' : trVal, 'tdVal' : tdVal},
                 success: function(res){
-                    console.log("업데이트 값",res.data);
+                    //console.log("업데이트 값",res.data);
                     if(res.data == 0){
                         alert("출발 3일전에는 취소가 불가능합니다.");
                         location.href="mypage";
@@ -565,6 +565,7 @@
                method: "post",
                dataType: "json",
                success: function(res){
+                   //console.log("결제내역@!#@!#@!",res.data)
               //PC리스트
                   for(let i=0; i<res.data.length; i++){
                     let html = "<tr>";
@@ -577,12 +578,12 @@
                         html += "<td>"+(res.data[i].price || 0)+"</td>";
                         html += "</tr>";
                       $("#payList").append(html);                  
-                  }            
+                  }    
                 }
             });
         });
 
-            //결제리스트 모바일
+        //결제리스트 모바일
         $("#tab_mo2").on('click',function(){
              //달력 val 지우기
             $("#deptDay").val('')
@@ -595,51 +596,19 @@
                 dataType: "json",            
                 success: function(res){
                     for(let i=0; i<res.data.length; i++){                     
-                        let html2 = "<div class='list02_mo_list' onclick='payMo()' id="+res.data[i].crCTID+" val="+res.data[i].crPHID+">";
+                        let html2 = "<div class='list02_mo_list' id="+res.data[i].crCTID+" value="+res.data[i].crPHID+">";
                             html2 += "<a class='popup_open2'>";
-                            html2 += "<ul>";
-                            html2 += "<li class='text'>"+res.data[i].deptTe+"</li>";
-                            html2 += "<li>평택 - 서울동대문</li>";
-                            html2 += "<li><i class='fas fa-chevron-right'></i></li>";
+                            html2 += "<ul class='testcode' id="+res.data[i].crCTID+" value="+res.data[i].crPHID+">";
+                            html2 += "<li id="+res.data[i].crCTID+" value="+res.data[i].crPHID+">"+res.data[i].deptTe+"</li>";
+                            html2 += "<li id="+res.data[i].crCTID+" value="+res.data[i].crPHID+">평택 - 서울동대문</li>";
+                            html2 += "<li id="+res.data[i].crCTID+" value="+res.data[i].crPHID+"><i class='fas fa-chevron-right'></i></li>";
                             html2 += "</ul></a>";
                             html2 += "</div>";
                         $(".list02_mo").append(html2);        
-                    }
+                    }    
                 }
             });
         });
-
-        //예매 및 결제내역 상세정보 모바일
-        function payMo(){
-            $(".list02_mo div").on('click',function(){
-                console.log("ID ::",$(this).attr('id'))
-                console.log("val ::", $(this).attr('val'))
-                $.ajax({
-                    url: "api/user/resPayDetailMo",
-                    method: "post",
-                    dataType: "json",
-                    data: {
-                        'ctId' : $(this).attr('id'),
-                        'phId' : $(this).attr('val')
-                    },
-                    success: function(res){
-                        $('.table_mo').empty();
-                        location.href= "#popup2"
-                        for(let i=0; i<res.data.length; i++){
-                            let html = "<dl>";
-                                //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
-                                html += "<dt>결제일시</dt><dd>"+res.data[i].PayDay+"</dd>";
-                                html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[i].deptTe+'\n'+""+res.data[i].carName+"<br><span>(평택 > 서울 동대문)</span></dd></dl>";
-                                html += "<dt>좌석개수</dt><dd>"+res.data[i].seatCnt+"</dd>";
-                                html += "<dt>결제수단</dt><dd>"+res.data[i].payType+"</dd>";
-                                html += "<dt>결제금액</dt><dd>"+res.data[i].price+"</dd></dl>";
-                            $('.table_mo').append(html);
-                        }
-                    }
-                })
-            })
-        }
-
 
         //결제리스트 날짜 선택 @@@@@@@
         function payBetween(){
@@ -653,7 +622,7 @@
                         'endDay' : $("#endDay").val()
                     },
                 success: function(res){
-                    console.log('resData ::::', res.data);
+                    //console.log('resData ::::', res.data);
                     for(let i=0; i<res.data.length; i++){
                         let html = "<tr>";
                         html += "<td>"+res.data[i].PayDay+"</td>";
@@ -667,13 +636,13 @@
                       $("#payList").append(html);
                     }
                 //모바일 부분 @@@@@@@@@@@@@@@@@@@@@@@@@
-                    for(let i=0; i<res.data.length; i++){
-                        let html2 = "<div class='list02_mo_list' onclick='payMoBetween()' id="+res.data[i].crCTID+" val="+res.data[i].crPHID+" name=>";
+                    for(let i=0; i<res.data.length; i++){                     
+                        let html2 = "<div class='list02_mo_list' id="+res.data[i].crCTID+" value="+res.data[i].crPHID+">";
                             html2 += "<a class='popup_open2'>";
                             html2 += "<ul>";
-                            html2 += "<li class='text'>"+res.data[i].deptTe+"</li>";
-                            html2 += "<li>평택 - 서울동대문</li>";
-                            html2 += "<li><i class='fas fa-chevron-right'></i></li>";
+                            html2 += "<li class='text' id="+res.data[i].crCTID+" value="+res.data[i].crPHID+">"+res.data[i].deptTe+"</li>";
+                            html2 += "<li id="+res.data[i].crCTID+" value="+res.data[i].crPHID+">평택 - 서울동대문</li>";
+                            html2 += "<li id="+res.data[i].crCTID+" value="+res.data[i].crPHID+"><i class='fas fa-chevron-right'></i></li>";
                             html2 += "</ul></a>";
                             html2 += "</div>";
                         $(".list02_mo").append(html2);
@@ -681,18 +650,21 @@
                 }
             })
         }
-        //결제내역 모바일 상세보기 클릭@@$@$@#$#@$#@$#@$#@$#@$#@$#@$#@$#@$#@
-        function payMoBetween(){
-            $('.list02_mo_list').on('click', function(){
-                console.log("id :::",$(this).attr('id'))
-                console.log("val :::",$(this).attr('val'))
-                $.ajax({
+
+
+        //모바일 결제내역 상세보기
+        $(document).on('click','.list02_mo_list',function(e){
+            let ctId = e.target.id;
+            let phId = e.target.value;
+            //console.log(ctId)
+            //console.log(phId)
+            $.ajax({
                     url: "api/user/resPayDetailMo",
                     method: "post",
                     dataType: "json",
                     data: {
-                        'ctId' : $(this).attr('id'),
-                        'phId' : $(this).attr('val')
+                        'ctId' : ctId,
+                        'phId' : phId
                     },
                     success: function(res){
                         $('.table_mo').empty();
@@ -709,10 +681,7 @@
                         }
                     }
                 })
-            })
-
-        }
-
+        })
 
 
 
@@ -753,54 +722,20 @@
                 method: "post",
                 dataType: "json",
                 success: function(res){           
-                    console.log("모바일 취소 리스트 :", res.data);
+                    //console.log("모바일 취소 리스트 :", res.data);
                     for(let k=0; k<res.data.length; k++){
-                        let html2 = "<div class='list03_mo_list' onclick='cancelMo()' id="+res.data[k].ctId+" val="+res.data[k].phId+">";
+                        let html2 = "<div class='list03_mo_list' id="+res.data[k].ctId+" value="+res.data[k].phId+">";
                             html2 += "<a class='popup_open3'>";
                             html2 += "<ul>";
-                            html2 += "<li>"+res.data[k].deptTe+"</li>";
-                            html2 += "<li>평택 - 서울동대문</li>";
-                            html2 += "<li><i class='fas fa-chevron-right'></i></li>";
+                            html2 += "<li id="+res.data[k].ctId+" value="+res.data[k].phId+">"+res.data[k].deptTe+"</li>";
+                            html2 += "<li id="+res.data[k].ctId+" value="+res.data[k].phId+">평택 - 서울동대문</li>";
+                            html2 += "<li id="+res.data[k].ctId+" value="+res.data[k].phId+"><i class='fas fa-chevron-right'></i></li>";
                             html2 += "</ul></a></div>";
                     $(".list03_mo").append(html2);
                     }
                 }    
             });
         });
-        //취소 및 환불조회 상세정보 모바일
-        function cancelMo(){
-            $(".list03_mo div").each(function(item){
-                $(this).on('click', function(){
-                    $.ajax({
-                        url: "api/user/resCancelDetailMo",
-                        method: "post",
-                        dataType: "json",
-                        data: {
-                            'ctId' : $(this).attr('id'),
-                            'phId' : $(this).attr('val')
-                        },
-                        success: function(res){
-                            console.log("여기데이터 :", res.data);
-                            $('.table_mo').empty();
-                            location.href= "#popup3"
-                            for(let i=0; i<res.data.length; i++){
-                                let html = "<dl>";
-                                    //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
-                                    html += "<dt>결제일시</dt><dd>"+res.data[i].PayDay+"</dd>";
-                                    html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[i].deptTe+'\n'+""+res.data[i].carName+"<br><span>(평택 > 서울 동대문)</span></dd></dl>";
-                                    html += "<dt>좌석개수</dt><dd>"+res.data[i].seatCnt+"</dd>";
-                                    html += "<dt>취소날짜</dt><dd>"+res.data[i].cancelDay+"</dd>"
-                                    html += "<dt>결제수단</dt><dd>"+res.data[i].payType+"</dd>";
-                                    html += "<dt>환불금액</dt><dd>"+res.data[i].price+"</dd></dl>";
-                                $('.table_mo').append(html);
-                            }
-                        }
-                    })
-                })
-            })
-        }
-
-
         //PC 취소 및 환불 리스트 날짜 검색
         function cancelBetween(){
             $("#cancelList").empty();
@@ -826,48 +761,48 @@
                     }
             ///모바일 부분@@@@@@@@@@@@@@@@@@@@@@@@@
                     for(let k=0; k<res.data.length; k++){
-                        let html2 = "<div class='list03_mo_list' onclick='cancelMoBetween()' id="+res.data[k].ctId+" val="+res.data[k].phId+">";
+                        let html2 = "<div class='list03_mo_list' id="+res.data[k].ctId+" val="+res.data[k].phId+">";
                             html2 += "<a class='popup_open3'>";
                             html2 += "<ul>";
-                            html2 += "<li>"+res.data[k].deptTe+"</li>";
-                            html2 += "<li>평택 - 서울동대문</li>";
-                            html2 += "<li><i class='fas fa-chevron-right'></i></li>";
+                            html2 += "<li id="+res.data[k].ctId+" value="+res.data[k].phId+">"+res.data[k].deptTe+"</li>";
+                            html2 += "<li id="+res.data[k].ctId+" value="+res.data[k].phId+">평택 - 서울동대문</li>";
+                            html2 += "<li id="+res.data[k].ctId+" value="+res.data[k].phId+"><i class='fas fa-chevron-right'></i></li>";
                             html2 += "</ul></a></div>";
                     $(".list03_mo").append(html2);
                     }
                 }
             })
         }
-    //취소 및 환불조회 상세정보 모바일
-        function cancelMoBetween(){
-            $(".list03_mo div").on('click',function(){
-                $.ajax({
-                    url: "api/user/resCancelDetailMo",
-                    method: "post",
-                    dataType: "json",
-                    data: {
-                        'ctId' : $(this).attr('id'),
-                        'phId' : $(this).attr('val')
-                    },
-                    success: function(res){
-                        console.log("여기데이터 :", res.data);
-                        $('.table_mo').empty();
-                        location.href= "#popup3"
-                        for(let i=0; i<res.data.length; i++){
-                            let html = "<dl>";
-                                //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
-                                html += "<dt>결제일시</dt><dd>"+res.data[i].PayDay+"</dd>";
-                                html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[i].deptTe+'\n'+""+res.data[i].carName+"<br><span>(평택 > 서울 동대문)</span></dd></dl>";
-                                html += "<dt>좌석개수</dt><dd>"+res.data[i].seatCnt+"</dd>";
-                                html += "<dt>취소날짜</dt><dd>"+res.data[i].cancelDay+"</dd>"
-                                html += "<dt>결제수단</dt><dd>"+res.data[i].payType+"</dd>";
-                                html += "<dt>환불금액</dt><dd>"+res.data[i].price+"</dd></dl>";
-                            $('.table_mo').append(html);
-                        }
+
+
+        //모바일 취소 환불 내역 상세보기
+        $(document).on('click','.list03_mo_list',function(e){
+            $.ajax({
+                url: "api/user/resCancelDetailMo",
+                method: "post",
+                dataType: "json",
+                data: {
+                    'ctId' : e.target.id,
+                    'phId' : e.target.value
+                },
+                success: function(res){
+                    //console.log("여기데이터 :", res.data);
+                    $('.table_mo').empty();
+                    location.href= "#popup3"
+                    for(let i=0; i<res.data.length; i++){
+                        let html = "<dl>";
+                            //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
+                            html += "<dt>결제일시</dt><dd>"+res.data[i].PayDay+"</dd>";
+                            html += "<dl class='dl3'><dt>예약정보</dt><dd>"+res.data[i].deptTe+'\n'+""+res.data[i].carName+"<br><span>(평택 > 서울 동대문)</span></dd></dl>";
+                            html += "<dt>좌석개수</dt><dd>"+res.data[i].seatCnt+"</dd>";
+                            html += "<dt>취소날짜</dt><dd>"+res.data[i].cancelDay+"</dd>"
+                            html += "<dt>결제수단</dt><dd>"+res.data[i].payType+"</dd>";
+                            html += "<dt>환불금액</dt><dd>"+res.data[i].price+"</dd></dl>";
+                        $('.table_mo').append(html);
                     }
-                })
+                }
             })
-        }
+        })
 
 
 

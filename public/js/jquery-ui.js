@@ -370,7 +370,7 @@ $.Widget.prototype = {
 		// all event bindings should go through this._on()
 		this.element
 			.off( this.eventNamespace )
-			.removeData( this.widgetFullName `);`
+			.removeData( this.widgetFullName);
 		this.widget()
 			.off( this.eventNamespace )
 			.removeAttr( "aria-disabled" );

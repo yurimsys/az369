@@ -471,7 +471,9 @@ router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
                     count(CR_SeatNum) as seatCnt,
                     tPH.PH_Type as payType,
                     tPH.PH_Price as price,
-                    tCR.CR_cDt as no
+                    tCR.CR_CT_ID as crCTID,
+                    tCR.CR_PH_ID as crPHID,
+                    tCR.CR_cDt as no	
                 from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
                     where tCR.CR_CT_ID = tCT.CT_ID
                     and tCR.CR_U_ID = :sessionId
