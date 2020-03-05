@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <% include templates/admin_head.ejs %>
+  <title>Admin-Preference</title>
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <% include templates/admin_sidebar.ejs %>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <!-- navi -->
+      <% include templates/admin_nav.ejs %>
+
+      <div class="container-fluid">
+        <h1 class="mt-4">선호도 조사 (Preference)</h1>
+        <button type="button" class="btn btn-primary" onclick="dayList()">전체 리스트</button>
+        <button type="button" class="btn btn-primary" onclick="allList()">도합 선호도</button>
+        <p>
+    <!-- 요일별 리스트 @@@@@@@ -->
+        <div id="dayList">
+            <h3>✔요일별 선호조사</h3>
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th>월요일</th>
+                        <th>화요일</th>
+                        <th>수요일</th>
+                        <th>목요일</th>
+                        <th>금요일</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr>
+                        <td id='mon' value="월요일"><%=data[0].mon%></td>
+                        <td id='tue' value="화요일"><%=data[0].tue%></td>
+                        <td id='wed' value="수요일"><%=data[0].wed%></td>
+                        <td id='thu' value="목요일"><%=data[0].thu%></td>
+                        <td id='fri' value="금요일"><%=data[0].fri%></td>
+                    </tr>
+                </tbody>             
+            </table>
+        </div>
+
+         <!-- 시간별 리스트 @@@@@@@ -->
+         <div id="timeList">
+            <h3>✔시간별 선호조사</h3>
+            <br>
+            <h5>*평택 출발시간</h5>
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th>평택 20시</th>
+                        <th>평택 21시</th>
+                        <th>평택 22시</th>
+                        <th>평택 23시</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr>
+                        <td id="dept2000"><%=data[0].depta%></td>
+                        <td id="dept2100"><%=data[0].deptb%></td>
+                        <td id="dept2200"><%=data[0].deptc%></td>
+                        <td id="dept2300"><%=data[0].deptd%></td>
+                </tbody>             
+            </table>
+            <br>
+            <h5>*서울 출발시간</h5>
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th>서울 02시</th>
+                        <th>서울 03시</th>
+                        <th>서울 04시</th>
+                        <th>서울 05시</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr>
+                        <td id="retu0200"><%=data[0].retua%></td>
+                        <td id="retu0300"><%=data[0].retub%></td>
+                        <td id="retu0400"><%=data[0].retuc%></td>                   
+                        <td id="retu0500"><%=data[0].retud%></td></tr>
+                </tbody>             
+            </table>
+        </div>
+
+            <!-- 도합 리스트 @@@@@@@ -->
+            <div id="allList" style="display: none;">
+                <h3>✔최고많은 선호도</h3>
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>요일</th>
+                            <th>평택 출발시간</th>
+                            <th>서울 출발시간</th>
+                        </tr>
+                    </thead> 
+                    <tbody id="nowList">
+                    </tbody>             
+                </table>
+            </div>
+
+
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+//도합 리스트
+    function allList(){
+        $('#timeList').css('display','none');
+        $('#dayList').css('display','none');
+        $('#allList').css('display','block');
+        $("#nowList").empty();
+
+        //요일 최대선호도 구하기
+        var arr = [$('#mon').text(),$('#tue').text(),$('#wed').text(),$('#thu').text(),$('#fri').text()];
+        var max = Math.max.apply(null, arr);
+        console.log(max);
+
+        //평택출발시간 최대선호도 구하기
+        var arr2 = [$('#dept2000').text(),$('#dept2100').text(),$('#dept2200').text(),$('#dept2300').text()];
+        var max2 = Math.max.apply(null, arr2);
+
+        //서울출발시간 최대선호도 구하기
+        var arr3 = [$('#retu0200').text(),$('#retu0300').text(),$('#retu0400').text(),$('#retu0500').text()];
+        var max3 = Math.max.apply(null, arr3);
+        //요일분기점
+        if(max == $('#mon').text()){
+            max = $('#mon').attr('value');
+        }else if(max == $('#tue').text()){
+            max = $('#tue').attr('value');
+        }else if(max == $('#wed').text()){
+            max = $('#wed').attr('value');
+        }
+        else if(max == $('#thu').text()){
+            max = $('#thu').attr('value');
+        }
+        else if(max == $('#fri').text()){
+            max = $('#fri').attr('value');
+        }
+        
+        //시간분기점
+        if(max2 == $('#dept2000').text()){
+            max2 = '20:00'
+        }else if(max2 == $('#dept2100').text()){
+            max2 = '21:00'
+        }else if(max2 == $('#dept2200').text()){
+            max2 = '22:00'
+        }
+        else if(max2 == $('#dept2300').text()){
+            max2 = '23:00'
+        }
+
+        
+        if(max3 == $('#retu0200').text()){
+            max3 = '02:00'
+        }
+        else if(max3 == $('#retu0300').text()){
+            max3 = '03:00'
+        }
+        else if(max3 == $('#retu0400').text()){
+            max3 = '04:00'
+        }
+        else if(max3 == $('#retu0500').text()){
+            max3 = '05:00'
+        }
+
+        console.log("선호 날짜 :", max)
+        console.log("선호 평택출발시간 :", max2)
+        console.log("선호 서울출발시간 :", max3)
+
+        let html = "<tr>";
+            html += "<td>"+max+"</td>";
+            html += "<td>"+max2+"</td>";
+            html += "<td>"+max3+"</td></tr>";
+        $("#nowList").append(html);
+
+    }
+
+    function dayList(){
+        $('#timeList').css('display','block');
+        $('#dayList').css('display','block');
+        $('#allList').css('display','none');
+    }
+    
+
+
+</script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+
+</body>
+
+</html>

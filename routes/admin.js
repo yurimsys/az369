@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../config/passport');
 const mysql = require('mysql');
 const dbconf = require('../config/database');
 const connection = mysql.createConnection(dbconf);
 const bcrypt = require('bcrypt');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -492,5 +489,34 @@ router.post('/payment/count', function(req, res, next) {
           console.log("카운트는 :",cnt);
       });
 });
+
+//Preference 메인화면
+router.get('/preference', function(req, res, next) {
+    let query = `select
+                    (select count(CP_PreferDays) from tCP where CP_PreferDays like '%월%') as mon,
+                    (select count(CP_PreferDays) from tCP where CP_PreferDays like '%화%') as tue,
+                    (select count(CP_PreferDays) from tCP where CP_PreferDays like '%수%') as wed,
+                    (select count(CP_PreferDays) from tCP where CP_PreferDays like '%목%') as thu,
+                    (select count(CP_PreferDays) from tCP where CP_PreferDays like '%금%') as fri,
+                    (select count(CP_DepartureTe) from tCP where date_format(CP_DepartureTe, '%k%i') = '2000') as depta,
+                    (select count(CP_DepartureTe) from tCP where date_format(CP_DepartureTe, '%k%i') = '2100') as deptb,
+                    (select count(CP_DepartureTe) from tCP where date_format(CP_DepartureTe, '%k%i') = '2200') as deptc,
+                    (select count(CP_DepartureTe) from tCP where date_format(CP_DepartureTe, '%k%i') = '2300') as deptd,
+                    (select count(CP_ReturnTe) from tCP where date_format(CP_ReturnTe, '%k%i') = '200') as retua,
+                    (select count(CP_ReturnTe) from tCP where date_format(CP_ReturnTe, '%k%i') = '300') as retub,
+                    (select count(CP_ReturnTe) from tCP where date_format(CP_ReturnTe, '%k%i') = '400') as retuc,
+                    (select count(CP_ReturnTe) from tCP where date_format(CP_ReturnTe, '%k%i') = '500') as retud
+                from tCP limit 1`;
+    connection.query(query,
+    function(err, rows, fields) {
+    if (err) throw err;
+    res.render('admin_preference',{data:rows});
+    console.log("list ::",rows);
+    });
+    
+
+});
+
+
 
 module.exports = router;
