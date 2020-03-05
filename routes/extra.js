@@ -27,10 +27,10 @@ router.post('/survey', function(req, res){
     let query = `
         INSERT INTO admin_survey
             (NAME, Phone, Addr, WT_Contact_Period, WT_Rantal_Fee_Min, WT_Rantal_Fee_Max, WT_Deposit_Min,
-            WT_Deposit_Max, WT_Insurance_Type, CUR_Rantal_Fee, CUR_Deposit, WT_Modify)
+            WT_Deposit_Max, WT_Insurance_Type, CUR_Rental_Fee, CUR_Deposit, WT_Modify)
         VALUES
             (:NAME, :Phone, :Addr, :WT_Contact_Period, :WT_Rantal_Fee_Min, :WT_Rantal_Fee_Max, :WT_Deposit_Min,
-            :WT_Deposit_Max, :WT_Insurance_Type, :CUR_Rantal_Fee, :CUR_Deposit, :WT_Modify)`;
+            :WT_Deposit_Max, :WT_Insurance_Type, :CUR_Rental_Fee, :CUR_Deposit, :WT_Modify)`;
 
     connection.query(query, {
         NAME : req.body.name,
@@ -41,8 +41,8 @@ router.post('/survey', function(req, res){
         WT_Rantal_Fee_Max : req.body.wt_rental_fee_max ,
         WT_Deposit_Min : req.body.wt_deposit_min ,
         WT_Deposit_Max : req.body.wt_deposit_max ,
-        WT_Insurance_Type : (req.body.wt_insurance_type === 'n') ? 'Null' : req.body.wt_insurance_type ,
-        CUR_Rantal_Fee : req.body.cur_rental_fee ,
+        WT_Insurance_Type : req.body.wt_insurance_type ,
+        CUR_Rental_Fee : req.body.cur_rental_fee ,
         CUR_Deposit : req.body.cur_deposit ,
         WT_Modify : req.body.wt_modify 
     }, function(err, result){
@@ -69,10 +69,10 @@ router.post('/survey1', function(req, res){
     let query = `
         INSERT INTO admin_survey
             (NAME, Phone, Addr, WT_Contact_Period, WT_Rantal_Fee_Min, WT_Rantal_Fee_Max, WT_Deposit_Min,
-            WT_Deposit_Max, WT_Insurance_Type, CUR_Rantal_Fee, CUR_Deposit, WT_Modify, CUR_has_Contract)
+            WT_Deposit_Max, WT_Insurance_Type, CUR_Rental_Fee, CUR_Deposit, WT_Modify, CUR_has_Contract)
         VALUES
             (:NAME, :Phone, :Addr, :WT_Contact_Period, :WT_Rantal_Fee_Min, :WT_Rantal_Fee_Max, :WT_Deposit_Min,
-            :WT_Deposit_Max, :WT_Insurance_Type, :CUR_Rantal_Fee, :CUR_Deposit, :WT_Modify, :CUR_has_Contract)`;
+            :WT_Deposit_Max, :WT_Insurance_Type, :CUR_Rental_Fee, :CUR_Deposit, :WT_Modify, :CUR_has_Contract)`;
 
     connection.query(query, {
         NAME : req.body.name,
@@ -84,7 +84,7 @@ router.post('/survey1', function(req, res){
         WT_Deposit_Min : req.body.wt_deposit_min ,
         WT_Deposit_Max : req.body.wt_deposit_max ,
         WT_Insurance_Type : req.body.wt_insurance_type ,
-        CUR_Rantal_Fee : req.body.cur_rental_fee ,
+        CUR_Rental_Fee : req.body.cur_rental_fee ,
         CUR_Deposit : req.body.cur_deposit ,
         WT_Modify : req.body.wt_modify,
         CUR_has_Contract : req.body.cur_has_contract 
