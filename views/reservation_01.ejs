@@ -222,80 +222,8 @@
             </div>
 
         </section>
-
-        <script>
-
-            
-     
-            $('#timeSelect01, #timeSelect02').click(function(){
-                $(".tab").empty();
-                //console.log($("#depart01").val())
-                //console.log($("#depart02").val())
-                $.ajax({
-                url: "api/user/resCarList",
-                method: "post",
-                dataType: "json",
-                data : {'sel': $("#depart01 option:selected").val(), 'sel2' : $("#depart02 option:selected").val()},
-                success: function(res){
-                    
-                    
-                    for(let i=0; i<res.data.length; i++){
-                        
-                        //console.log("요일",getInputDayLabel(res.data[i].deptTe));  
-                    
-                        let html = "<button class='tablinks' onclick='openBus(event, \""+res.data[i].ctID+"\")' value="+res.data[i].seatPrice+">";
-                            html += "<span class='select_bus_time'>"+res.data[i].deptTe.split(' ', 1).toString()+'\t('+getInputDayLabel(res.data[i].deptTe)+")</span>";
-                            // html += "<span class='select_bus_name'>"+res.data[i].b_name+'\n'+"("+res.data[i].carNum+")</span>";
-                            html += "<span class='select_bus_name'>"+res.data[i].b_name+"</span>";
-                            html += " <span class='select_bus_seat'>"+(res.data[i].total_passenger - res.data[i].available_seat_cnt)+" / "+res.data[i].total_passenger+"</span>";
-                            $(".tab").append(html);
-                    }
-                    
-                    sessionStorage.setItem("car_list", JSON.stringify( res.data ));
-                }});
-            })
-
-        </script>
-
-        <script>
-            function showPayment(){
-                let car_list = JSON.parse( sessionStorage.getItem("car_list") ),
-                    ct_id = sessionStorage.getItem("ct_id");
-
-                let reserve_car_info = car_list.find((k)=> (k.ctID == ct_id)),
-                    deptTe = reserve_car_info.deptTe,
-                    retuTe = reserve_car_info.retuTe,
-                    b_name = reserve_car_info.b_name;
-
-
-                $("#payment_deptTe").text( deptTe.split(' ').join('('+getInputDayLabel( deptTe )+') ') );
-                $("#payment_retuTe").text( retuTe.split(' ').join('('+getInputDayLabel( retuTe )+') ') );
-                $("#payment_car_info").text( b_name );
-                
-                location.href = "/reservation#payment";
-            }
-            let seatPrice;
-            function openBus(evt, busSeat) {
-                var i, tablinks
-                
-                tablinks = document.getElementsByClassName("tablinks");
-                seatPrice = evt.currentTarget.value;
-                alert(seatPrice);
-                for (i = 0; i < tablinks.length; i++) {
-                    tablinks[i].className = tablinks[i].className.replace(" active", "");
-                }
-                sessionStorage.setItem('ct_id', busSeat);
-                document.getElementById("bus_seat_layer").style.display = "block";
-                evt.currentTarget.className += " active";
-
-                flushSeat();
-            }
-            console.log("시트프라이승",seatPrice);
-        </script>
-
+        
         <!--//secton.about 완료-->
-
-
         <!--<footer></footer>-->
     </div>
 
@@ -304,14 +232,78 @@
     <script src="/js/lib/jquery.seat-charts.js"></script>
     <script src="/js/lib/bootstrap.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
-    <script src="/js/lib/angular.min.js"></script>    
+    <script src="/js/lib/angular.min.js"></script>   
+
+    <script> 
+        $('#timeSelect01, #timeSelect02').click(function(){
+            $(".tab").empty();
+            //console.log($("#depart01").val())
+            //console.log($("#depart02").val())
+            $.ajax({
+            url: "api/user/resCarList",
+            method: "post",
+            dataType: "json",
+            data : {'sel': $("#depart01 option:selected").val(), 'sel2' : $("#depart02 option:selected").val()},
+            success: function(res){
+                              
+                for(let i=0; i<res.data.length; i++){
+                    
+                    //console.log("요일",getInputDayLabel(res.data[i].deptTe));  
+                
+                    let html = "<button class='tablinks' onclick='openBus(event, \""+res.data[i].ctID+"\")' value="+res.data[i].seatPrice+">";
+                        html += "<span class='select_bus_time'>"+res.data[i].deptTe.split(' ', 1).toString()+'\t('+getInputDayLabel(res.data[i].deptTe)+")</span>";
+                        // html += "<span class='select_bus_name'>"+res.data[i].b_name+'\n'+"("+res.data[i].carNum+")</span>";
+                        html += "<span class='select_bus_name'>"+res.data[i].b_name+"</span>";
+                        html += " <span class='select_bus_seat'>"+(res.data[i].total_passenger - res.data[i].available_seat_cnt)+" / "+res.data[i].total_passenger+"</span>";
+                        $(".tab").append(html);
+                }
+                
+                sessionStorage.setItem("car_list", JSON.stringify( res.data ));
+            }});
+        })
+
+    </script>
 
     <script>
+        function showPayment(){
+            let car_list = JSON.parse( sessionStorage.getItem("car_list") ),
+                ct_id = sessionStorage.getItem("ct_id");
+
+            let reserve_car_info = car_list.find((k)=> (k.ctID == ct_id)),
+                deptTe = reserve_car_info.deptTe,
+                retuTe = reserve_car_info.retuTe,
+                b_name = reserve_car_info.b_name;
+
+
+            $("#payment_deptTe").text( deptTe.split(' ').join('('+getInputDayLabel( deptTe )+') ') );
+            $("#payment_retuTe").text( retuTe.split(' ').join('('+getInputDayLabel( retuTe )+') ') );
+            $("#payment_car_info").text( b_name );
+            
+            location.href = "/reservation#payment";
+        }
         
-        var firstSeatLabel = 1;
+        function openBus(evt, busSeat) {
+            var i, tablinks
+            
+            sessionStorage.removeItem('seat_price');
+            tablinks = document.getElementsByClassName("tablinks");
+            //alert(seatPrice);
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            sessionStorage.setItem('ct_id', busSeat);
+            //좌석금액 세션에 저장
+            sessionStorage.setItem('seat_price', evt.currentTarget.value);
+            document.getElementById("bus_seat_layer").style.display = "block";
+            evt.currentTarget.className += " active";
+            var firstSeatLabel = 1;
         var selected_seats = [];
         var selected_seats_cnt = 0;
-        $(document).ready(function() {
+        var seatPrice = 0;
+
+            //좌석금액 불러오기
+            var seatPay = Number(sessionStorage.getItem('seat_price'));
+        
             var $cart = $('#selected-seats'),
                 $nums = $('#selected_seats_num'),
                 $counter = $('#selected_seats_cnt'),
@@ -335,7 +327,7 @@
                     ],
                     seats: {
                         e: {
-                            price: 30000,
+                            price: $('.tablinks').val(),
                             classes: '일반', //your custom CSS class
                             category: '일반'
                         }
@@ -403,7 +395,12 @@
             });
 
 
-        });
+      
+            flushSeat();
+            
+        }
+       
+
 
         function getInputDayLabel( date ) {
             var week = new Array('일', '월', '화', '수', '목', '금', '토');                         
@@ -427,7 +424,6 @@
             var sc = $('.seat-map').seatCharts();
             selected_seats = [];
             selected_seats_cnt = 0;
-
             sc.find('e.selected').status('available');
             $("#selected_seats_num").text('　');
             $("#selected_seats_cnt").text('　');
@@ -440,7 +436,6 @@
                 url:"/api/useSeat/"+ct_id
             }).done((res)=>{
                 let seat_id_list = [];
-
                 res.data.map((seat_num) => {
                     seat_id_list.push( getSeatId(seat_num) );
                 });

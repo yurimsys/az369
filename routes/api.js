@@ -902,6 +902,7 @@ router.get('/useSeat/:ct_id', auth.isLoggedIn, (req, res, next) =>{
  
 });
 
+
 // 인증번호 생성 & 발송
 router.post('/auth/phone', async ( req, res ) => {
     let phone_number = req.body.phone_number;
