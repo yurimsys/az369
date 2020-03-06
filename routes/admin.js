@@ -24,6 +24,7 @@ connection.on('error', function(err) {
 
 ///관리자 부분
 router.get('/index', function(req, res, next) {
+    console.log(req.app.get('views'))
     res.render('admin_index');
 });
 
