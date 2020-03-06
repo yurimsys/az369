@@ -510,7 +510,7 @@ router.get('/userRes', function(req, res, next) {
 
 //storeIn 메인화면
 router.get('/storeIn', function(req, res, next) {
-    let query = `select SI_ID, SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Addr2, left(SI_Content,8) as SI_Content from tSI`;
+    let query = `select SI_ID, SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Addr2, left(SI_Content,8) as SI_Content, SI_cDt from tSI`;
     connection.query(query,
     function(err, rows, fields) {
     if (err) throw err;
@@ -523,7 +523,7 @@ router.get('/storeIn', function(req, res, next) {
 //storeIn 메인화면 자세히 보기
 router.get('/storeInDetail/:siID', function(req, res, next) {
     let siID = req.params.siID;
-    let query = `select SI_ID, SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Addr2, SI_Content from tSI where SI_ID = :siID`;
+    let query = `select SI_ID, SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Addr2, SI_Content, SI_cDt from tSI where SI_ID = :siID`;
     connection.query(query,{siID},
     function(err, rows, fields) {
     if (err) throw err;

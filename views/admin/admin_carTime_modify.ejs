@@ -30,7 +30,12 @@
                 <input type="ctId" class="form-control" id="ctId" name="ctId" value="<%=data.CT_ID%>" readonly="readonly">  
 
                 <label for="ctCyId">CT_CY_ID:</label>
-                <input type="ctCyId" class="form-control" id="ctCyId" name="ctCyId" value="<%=data.CT_CY_ID%>">   
+                <select id="ctCyId" class='form-control'>
+                  <option value=0>운송사 선택</option>
+                  <%for(let i=0; i<data.length; i++) {%>
+                      <option value=<%=data[i].cyId%>><%=data[i].bName%></option>
+                      <% }%>
+              </select>   
 
                 <label for="dept">CT_DepartureTe:</label>
                 <input type="dept" class="form-control" id="dept" name="dept" value="<%=data.CT_DepartureTe%>"> 
