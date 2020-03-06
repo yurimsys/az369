@@ -25,11 +25,13 @@
 
       <div class="container-fluid">
         <h1 class="mt-4">버스운행정보 테이블 (CarTime)</h1>
+        <a href="/admin/carTimeInsert" style="font-weight: bold; font-size: 20px;">버스운행정보 추가</a>
             <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead class="thead-light">
                     <tr>
                         <th>CT_ID</th>
                         <th>CT_CY_ID</th>
+                        <th>B_Name</th>
                         <th>CT_DepartureTe</th>
                         <th>CT_ReturnTe</th>
                         <th>CT_LeadTe</th>
@@ -46,6 +48,7 @@
                     <tr>
                         <td><%=data[i].CT_ID%></td>
                         <td><%=data[i].CT_CY_ID%></td>
+                        <td><%=data[i].B_Name%></td>
                         <td><%=data[i].CT_DepartureTe%></td>
                         <td><%=data[i].CT_ReturnTe%></td>
                         <td><%=data[i].CT_LeadTe%></td>
@@ -58,7 +61,13 @@
                     <% } %>  
                 </tbody>
             </table>
-            <a href="/admin/carTimeInsert">버스운행정보 추가</a>
+            <br>
+            <div class="container" style="position:absolute;left:48%;">
+              <!-- <a href="#" id="preBtn">이전</a> -->
+              
+              <label id="link2"></label>
+              <!-- <a href="#" id="nextBtn">다음</a> -->
+          </div>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -69,9 +78,24 @@
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!-- Menu Toggle Script -->
   <script>
+
+  //전체 페이지 수
+  $.ajax({
+    url : "/admin/carTime/count",
+    method : "post",
+    async : false,	
+    success : function(res){
+      for(i=1; i<Math.ceil(res.data[0].cnt/10)+1; i++){
+        let html ="<a href=/admin/carTime/"+i+" style='font-size: 30px;'>"+i+"</a>&emsp;";
+        $("#link2").append(html);       
+      }
+    }       
+  });		
+
+
     $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
