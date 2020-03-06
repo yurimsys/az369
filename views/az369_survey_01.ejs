@@ -21,27 +21,24 @@
 
     <div class="wrap">
 
-            <!--상단 타이틀: 소개부분-->
-            <h1>임대보증금 보증보험 대체 의향서</h1>
-            <div class="sub_wrap">
-            <div class="main_title">
-                <h6><span>01. 개인정보입력 </span> > 02. 의향서 작성 > 03. 제출완료</h6>
+        <!--상단 타이틀: 소개부분-->
+        <h1>임대보증금 보증보험 대체 의향서</h1>
+        <div class="sub_wrap">
+        <div class="main_title">
+            <h6><span>01. 개인정보입력 </span> > 02. 의향서 작성 > 03. 제출완료</h6>
 
-                <h2>가로수길 센트롤돔 활성화 방안의 일환으로 임대인의 임대조건을 조사하여 임차인과 임대인의 매칭을 위한 기준을 만들고자 작성되었습니다. 본 의향서는 언제든지 재작성 가능하오니 많은 참여 바랍니다.</h2>
+            <h2>가로수길 센트롤돔 활성화 방안의 일환으로 임대인의 임대조건을 조사하여 임차인과 임대인의 매칭을 위한 기준을 만들고자 작성되었습니다. 본 의향서는 언제든지 재작성 가능하오니 많은 참여 바랍니다.</h2>
 
-                <div class="intro_btn"><a href="az369_survery_intro" target="_blank">보증보험이란?</a></div>
-                <!--<p>이 페이지는 모바일전용입니다.</p>-->
-            </div>
+            <div class="intro_btn"><a href="az369_survery_intro" target="_blank">보증보험이란?</a></div>
+            <!--<p>이 페이지는 모바일전용입니다.</p>-->
+        </div>
 
+        <!--폼 전체-->
+        <div class="survey_form">
+            <h3>개인정보입력</h3>
+            <div class="bar"></div>
 
-
-            <!--폼 전체-->
-            <div class="survey_form">
-
-                <h3>개인정보입력</h3>
-                <div class="bar"></div>
-
-            <!--폼 리스트-->
+        <!--폼 리스트-->
             <form name="personal_info">
 
                 <h4>상가호수</h4>
@@ -58,9 +55,9 @@
                 <div class="text-alert" id="alert_msg_fail"></div>
                 <div class="text-alert" id="alert_msg_success">인증번호가 확인되었습니다.</div>
 
-                    <!--체크박스-->
-                    <div class="select_check">
-                        <h4>소유하신 상가의 임대차 계약이 완료되었나요?</h4>
+                <!--체크박스-->
+                <div class="select_check">
+                    <h4>소유하신 상가의 임대차 계약이 완료되었나요?</h4>
 
                     <div class="checks etrans">
                         <input require=true type="radio" id="r1" name="cur_has_contract" value="y" class="ab" />
@@ -74,9 +71,10 @@
                 </div>
 
                 <a onclick="next()" class="next">다음</a>
-            </div>
+            </form>
         </div>
     </div>
+    
 
 
 
