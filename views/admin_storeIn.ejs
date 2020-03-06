@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <% include templates/admin_head.ejs %>
+  <title>Admin-User</title>
+  
+
+
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <% include templates/admin_sidebar.ejs %>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+
+      <!-- navi -->
+      <% include templates/admin_nav.ejs %>
+
+      <div class="container-fluid">
+        
+        <h1 class="mt-4">입점신청조회 테이블 (Store Inquire)</h1>
+            <table class="table table-bordered" width="100%" cellspacing="0" id="resTable">
+                <thead class="thead-light">
+                    <tr>
+                        <th>SI_ID</th>
+                        <th>SI_Name</th>
+                        <th>SI_Phone</th>
+                        <th>SI_Brand</th>
+                        <th>SI_Addr1</th>
+                        <th>SI_Addr2</th>
+                        <th>SI_Content</th>
+                        <th>자세히</th>
+                    </tr> 
+                </thead>                                              
+                <tbody id="list"> 
+                  <% for(let i=0; i<data.length; i++){ %>
+                    <tr>
+                        <td><%=data[i].SI_ID%></td>
+                        <td><%=data[i].SI_Name%></td>
+                        <td><%=data[i].SI_Phone%></td>
+                        <td><%=data[i].SI_Brand%></td>
+                        <td><%=data[i].SI_Addr1%></td>
+                        <td><%=data[i].SI_Addr2%></td>
+                        <td><%=data[i].SI_Content%></td>
+                        <td><a href="storeInDetail/<%=data[i].SI_ID%>">자세히</a></td>
+                    </tr>
+                    <% } %>                     
+                </tbody>               
+            </table>
+            <br>
+            <div class="container" style="position:absolute;left:48%;">
+              <!-- <a href="#" id="preBtn">이전</a> -->
+              
+              <label id="link2"></label>
+              <!-- <a href="#" id="nextBtn">다음</a> -->
+          </div>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+<!-- Bootstrap core JavaScript -->
+<script src="/admin/vendor/jquery/jquery.min.js"></script>
+<script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+<!-- Menu Toggle Script -->
+<script>
+
+$(document).ready(function(){
+    $("#resTable").DataTable();
+
+})
+
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  });
+</script>
+
+
+
+
+</body>
+
+</html>

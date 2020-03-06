@@ -853,7 +853,8 @@ router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
             date_format(tCT.CT_ReturnTe,'%Y-%m-%d %H:%i') as retuTe,
             tCT.CT_CarNum as carNum,
             (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as available_seat_cnt,
-            tCY.CY_Totalpassenger as total_passenger
+            tCY.CY_Totalpassenger as total_passenger,
+            tCY.CY_SeatPrice as seatPrice
         FROM tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID
         WHERE date_format(CT_DepartureTe,'%H%i') = :deptTe
         AND date_format(CT_ReturnTe,'%H%i') = :retuTe

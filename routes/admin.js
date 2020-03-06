@@ -233,40 +233,17 @@ router.post('/carType/insert', function(req, res, next) {
 /////////////@@@@@@@@@@@ 카 타임 테이블(버스운행정보 tCT) @@@@@@@@@@
  
 
-//CarTime 테이블
+
+//carTime 메인화면
 router.get('/carTime', function(req, res, next) {
-    res.redirect('/admin/carTime/1');
-});
-
-
-//carTime 메인화면 페이징
-router.get('/carTime/:currentPage', function(req, res, next) {
-    let query = `select * from tCT inner join tCY on tCT.CT_CY_ID = tCY.CY_ID inner join tB on tCY.CY_B_ID = tB.B_ID order by tCT.CT_DepartureTe desc limit :beginRow, :rowPerPage `; 
-    let currentPage = req.params.currentPage;
-    console.log("커런트 페이지지ㅣ ::", currentPage);
-    //페이지 내 보여줄 수
-    let rowPerPage = 10;
-    let beginRow = (currentPage-1)* rowPerPage;
-    connection.query(query, {beginRow, rowPerPage},
+    let query = `select * from tCT inner join tCY on tCT.CT_CY_ID = tCY.CY_ID inner join tB on tCY.CY_B_ID = tB.B_ID`; 
+    connection.query(query,
       function(err, rows, fields) {
           if (err) throw err;
           res.render("admin_carTime", { data : rows});
           console.log("user",rows);
       });
 });
-
-//user 메인화면 카운트
-router.post('/carTime/count', function(req, res, next) {
-    let query = `select count(*) as cnt from tCT inner join tCY on tCT.CT_CY_ID = tCY.CY_ID inner join tB on tCY.CY_B_ID = tB.B_ID`; 
-    connection.query(query,
-      function(err, rows, fields) {
-          if (err) throw err;
-          let cnt = rows;
-          res.send( { data : cnt});
-          console.log("카운트는 :",cnt);
-      });
-});
-
 
 //CarTime 테이블 수정 페이지
 router.get('/carTimeModify/:ctId', function(req, res, next) {
@@ -362,41 +339,16 @@ router.post('/carTime/insert', function(req, res, next) {
 
 /////////////////////////@@@@ 회원관리 @@@@@/////////////////////
 
-//user 메인화면
-router.get('/user', function(req, res, next) {
-    res.redirect('/admin/user/1');
-   // res.render('admin_user');
-
-});
-
 //user 메인화면 페이징
-router.get('/user/:currentPage', function(req, res, next) {
-    let query = `SELECT * FROM tU order by U_ID desc limit :beginRow, :rowPerPage`; 
-    let currentPage = req.params.currentPage;
-    console.log("커런트 페이지지ㅣ ::", currentPage);
-    //페이지 내 보여줄 수
-    let rowPerPage = 10;
-    let beginRow = (currentPage-1)* rowPerPage;
-    connection.query(query, {beginRow, rowPerPage},
+router.get('/user', function(req, res, next) {
+    let query = `SELECT * FROM tU`; 
+    connection.query(query,
       function(err, rows, fields) {
           if (err) throw err;
           res.render("admin_user", { data : rows});
           console.log("user",rows);
       });
 });
-
-//user 메인화면 카운트
-router.post('/user/count', function(req, res, next) {
-    let query = `SELECT count(*) as cnt FROM tU `; 
-    connection.query(query,
-      function(err, rows, fields) {
-          if (err) throw err;
-          let cnt = rows;
-          res.send( { data : cnt});
-          console.log("카운트는 :",cnt);
-      });
-});
-
 //user 테이블 수정 페이지
 router.get('/userModify/:uId', function(req, res, next) {
     let uId = req.params.uId;
@@ -489,26 +441,15 @@ router.post('/user/insert', function(req, res, next) {
 
 ///////////////////@@@@결제관리@@@@///////////////////////
 
-//user 메인화면
-router.get('/payment', function(req, res, next) {
-    res.redirect('/admin/payment/1');
-    //res.render('admin_payment');
-
-});
-
-//user 메인화면 페이징
-router.get('/payment/:currentPage', function(req, res, next) {
+//payment 메인화면
+router.get('/payment/', function(req, res, next) {
     let query = `select
                     tPH.PH_ID as PH_ID, tPH.PH_U_ID as PH_U_ID, tU.U_UserName as U_UserName, tU.U_Name as U_Name,
                     tPH.PH_PG_ID as PH_PG_ID, tPH.PH_PG_Name as PH_PG_Name, tPH.PH_Price as PH_Price, tPH.PH_OPrice as PH_Oprice,
                     tPH.PH_SPrice as PH_SPrice, tPH.PH_Type as PH_Type, tCR.CR_Cancel as CR_Cancel, tCR.CR_cDt as CR_cDt
                 from tPH inner join tU on tPH.PH_U_ID = tU.U_ID inner join tCR on tPH.PH_ID = tCR.CR_PH_ID
-                    order by CR_cDt desc  limit :beginRow, :rowPerPage`;
-    let currentPage = req.params.currentPage;
-    //페이지 내 보여줄 수
-    let rowPerPage = 10;
-    let beginRow = (currentPage-1)* rowPerPage;
-    connection.query(query, {beginRow, rowPerPage},
+                    order by CR_cDt desc`;
+    connection.query(query,
       function(err, rows, fields) {
           if (err) throw err;
           res.render("admin_payment", { data : rows});
@@ -516,17 +457,8 @@ router.get('/payment/:currentPage', function(req, res, next) {
       });
 });
 
-//user 메인화면 카운트
-router.post('/payment/count', function(req, res, next) {
-    let query = `SELECT count(*) as cnt FROM tPH `;
-    connection.query(query,
-      function(err, rows, fields) {
-          if (err) throw err;
-          let cnt = rows;
-          res.send( { data : cnt});
-          console.log("카운트는 :",cnt);
-      });
-});
+
+//선호도 조사
 
 //Preference 메인화면
 router.get('/preference', function(req, res, next) {
@@ -552,6 +484,51 @@ router.get('/preference', function(req, res, next) {
     console.log("list ::",rows);
     });
     
+
+});
+
+/////예약관리
+
+//userRes 메인화면
+router.get('/userRes', function(req, res, next) {
+    let query = `select 
+                        CR_ID, CR_CT_ID, CR_U_ID, U_UserName, U_Name, B_Name, CY_Ty ,CR_U_ID, CR_PH_ID, PH_Type, CR_SeatNum, PH_Price, CR_Cancel, CR_CancelDt, CR_cDt, CR_uDt
+                    from tCR inner join tCT on tCR.CR_CT_ID = tCT.CT_ID inner join tU on tCR.CR_U_ID = tU.U_ID inner join tCY on tCT.CT_CY_ID = tCY.CY_ID
+                        inner join tB on tCY.CY_B_ID = tB.B_ID inner join tPH on tCR.CR_PH_ID = tPH.PH_ID
+                    order by CR_cDt desc`;
+    connection.query(query,
+    function(err, rows, fields) {
+    if (err) throw err;
+    res.render("admin_userRes", { data : rows});
+    console.log("user",rows);
+    });
+
+});
+
+//입점선호도 조사
+
+//storeIn 메인화면
+router.get('/storeIn', function(req, res, next) {
+    let query = `select SI_ID, SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Addr2, left(SI_Content,8) as SI_Content from tSI`;
+    connection.query(query,
+    function(err, rows, fields) {
+    if (err) throw err;
+    res.render("admin_storeIn", { data : rows});
+    console.log("user",rows);
+    });
+
+});
+
+//storeIn 메인화면 자세히 보기
+router.get('/storeInDetail/:siID', function(req, res, next) {
+    let siID = req.params.siID;
+    let query = `select SI_ID, SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Addr2, SI_Content from tSI where SI_ID = :siID`;
+    connection.query(query,{siID},
+    function(err, rows, fields) {
+    if (err) throw err;
+    res.render("admin_storeIn_detail", { data : rows[0]});
+    console.log("user",rows);
+    });
 
 });
 

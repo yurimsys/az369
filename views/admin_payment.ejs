@@ -23,7 +23,7 @@
       <div class="container-fluid">
 
         <h1 class="mt-4">결제관리 테이블 (PH)</h1>
-            <table class="table table-bordered" width="100%" cellspacing="0">
+            <table class="table table-bordered" width="100%" cellspacing="0" id="payTable">
                 <thead class="thead-light">
                     <tr>
                         <th>PH_ID</th>
@@ -93,40 +93,13 @@
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 
 <!-- Menu Toggle Script -->
 <script>
-  let currentPage = 1;
-  //전체 페이지 수
-  $.ajax({
-    url : "/admin/payment/count",
-    method : "post",
-    async : false,
-    success : function(res){
-      for(i=1; i<Math.ceil(res.data[0].cnt/10)+1; i++){
-        let html ="<a href=/admin/payment/"+i+" style='font-size: 30px;'>"+i+"</a>&emsp;";
-        $("#link2").append(html);
-      }
-    }
-  });
-
-
-  //이전버튼
-  $("#preBtn").click(function(){
-    if(i == 1){
-      alert("첫 페이지 입니다.");
-      return;
-    }
-
-    location.href="/admin/payment/"+i-1;
-  });
-    //다음버튼
-  $("#nextBtn").click(function(){
-    currentPage += 1;
-    location.href="/admin/paymnet/"+i+1;
-  });
-
-
+$(document).ready(function(){
+  $("#payTable").DataTable();
+})
 
   $("#menu-toggle").click(function(e) {
     e.preventDefault();

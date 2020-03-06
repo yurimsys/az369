@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <% include templates/admin_head.ejs %>
+  <title>Admin-User</title>
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <% include templates/admin_sidebar.ejs %>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+
+      <!-- navi -->
+      <% include templates/admin_nav.ejs %>
+
+      <div class="container-fluid">
+        
+        <h1 class="mt-4">회원좌석정보 테이블 (Car Reservation)</h1>
+            <table class="table table-bordered" width="100%" cellspacing="0" id="resTable">
+                <thead class="thead-light">
+                    <tr>
+                        <th>CR_ID</th>
+                        <th>CR_CT_ID</th>
+                        <th>CR_U_ID</th>
+                        <th>U_UserName</th>
+                        <th>U_Name</th>
+                        <th>B_Name</th>
+                        <th>CY_Ty</th>
+                        <th>CR_PH_ID</th>
+                        <th>PH_Type</th>
+                        <th>CR_SeatNum</th>
+                        <th>PH_Price</th>
+                        <th>CR_Cancel</th>
+                        <th>CR_CancelDt</th>                        
+                        <th>CR_cDt</th>
+                        <th>CR_uDt</th>
+                    </tr> 
+                    <tr>
+                        <th>CR_ID</th>
+                        <th>버스아이디</th>
+                        <th>회원고유키</th>
+                        <th>회원아이디</th>
+                        <th>회원이름</th>
+                        <th>운송사이름</th>
+                        <th>버스규모</th>
+                        <th>CR_PH_ID</th>
+                        <th>결제수단</th>
+                        <th>예매좌석</th>
+                        <th>결제금액</th>
+                        <th>취소여부</th>
+                        <th>취소일시</th>                        
+                        <th>결제일시</th>
+                        <th>CR_uDt</th>
+                    </tr>
+                </thead>                                              
+                <tbody id="list"> 
+                  <% for(let i=0; i<data.length; i++){ %>
+                    <tr>
+                        <td><%=data[i].CR_ID%></td>
+                        <td><%=data[i].CR_CT_ID%></td>
+                        <td><%=data[i].CR_U_ID%></td>
+                        <td><%=data[i].U_UserName%></td>
+                        <td><%=data[i].U_Name%></td>
+                        <td><%=data[i].B_Name%></td>
+                        <td><%=data[i].CY_Ty%></td>
+                        <td><%=data[i].CR_PH_ID%></td>
+                        <td><%=data[i].PH_Type%></td>
+                        <td><%=data[i].CR_SeatNum%></td>
+                        <td><%=data[i].PH_Price%></td>
+                        <td><%=data[i].CR_Cancel%></td>
+                        <td><%=data[i].CR_CancelDt%></td>
+                        <td><%=data[i].CR_cDt%></td>
+                        <td><%=data[i].CR_uDt%></td>
+                    </tr>
+                    <% } %>                     
+                </tbody>               
+            </table>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+<!-- Bootstrap core JavaScript -->
+<script src="/admin/vendor/jquery/jquery.min.js"></script>
+<script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+<!-- Menu Toggle Script -->
+<script>
+
+$(document).ready(function(){
+    $("#resTable").DataTable();
+
+})
+
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  });
+</script>
+
+
+
+
+</body>
+
+</html>
