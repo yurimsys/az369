@@ -265,6 +265,9 @@
     </script>
 
     <script>
+        var selected_seats = [];
+        var selected_seats_cnt = 0;
+        var seatPrice = 0;
         function showPayment(){
             let car_list = JSON.parse( sessionStorage.getItem("car_list") ),
                 ct_id = sessionStorage.getItem("ct_id");
@@ -297,9 +300,7 @@
             document.getElementById("bus_seat_layer").style.display = "block";
             evt.currentTarget.className += " active";
             var firstSeatLabel = 1;
-        var selected_seats = [];
-        var selected_seats_cnt = 0;
-        var seatPrice = 0;
+        
 
             //좌석금액 불러오기
             var seatPay = Number(sessionStorage.getItem('seat_price'));
@@ -327,7 +328,7 @@
                     ],
                     seats: {
                         e: {
-                            price: $('.tablinks').val(),
+                            
                             classes: '일반', //your custom CSS class
                             category: '일반'
                         }
@@ -347,7 +348,7 @@
                             }
                             selected_seats_cnt = sc.find('selected').length + 1;
                             selected_seats.push( this.settings.label );
-                            let origin_price = recalculateTotal(sc) + this.data().price;
+                            let origin_price = recalculateTotal(sc) + Number(sessionStorage.getItem("seat_price"));
 
                             $nums.text('　'.concat( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) ) );
                             $payment_seats_nums.text( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) );
@@ -365,7 +366,7 @@
                             let idx = selected_seats.indexOf( this.settings.label );
                             selected_seats.splice(idx, 1);
 
-                            let origin_price = recalculateTotal(sc) - this.data().price;
+                            let origin_price = recalculateTotal(sc) - Number(sessionStorage.getItem("seat_price"));
 
                             $nums.text( '　'.concat( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) ) );
                             $payment_seats_nums.text( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) );
@@ -414,7 +415,7 @@
 
             //basically find every selected seat and sum its price
             sc.find('selected').each(function() {
-                total += this.data().price;
+                total += Number(sessionStorage.getItem("seat_price"));
             });
 
             return total;
