@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../config/passport');
 const mysql = require('mysql');
 const dbconf = require('../config/database');
 const connection = mysql.createConnection(dbconf);
 const bcrypt = require('bcrypt');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -27,6 +24,7 @@ connection.on('error', function(err) {
 
 ///관리자 부분
 router.get('/index', function(req, res, next) {
+    console.log(req.app.get('views'))
     res.render('admin_index');
 });
 
@@ -136,7 +134,7 @@ router.post('/business/insert', function(req, res, next) {
 //CarType 테이블
 router.get('/carType', function(req, res, next) {
 
-    let query = `SELECT * FROM tCY `; 
+    let query = `SELECT * FROM tCY inner join tB on tCY.CY_B_ID = tB.B_ID`; 
     connection.query(query,
       function(err, rows, fields) {
           if (err) throw err;
@@ -203,7 +201,15 @@ router.get('/carTypeDelete/:cyId', function(req, res, next) {
 
 //CarType 테이블 추가
 router.get('/carTypeInsert', function(req, res, next) {
-    res.render('admin_carType_insert');
+    let query = `select B_Name, B_ID from tB`; 
+
+    connection.query(query,
+      function(err, rows, fields) {
+          if (err) throw err;
+          res.render('admin_carType_insert',{data:rows});
+      });
+
+   
 });
 
 //CarType 테이블 추가하기
@@ -230,15 +236,38 @@ router.post('/carType/insert', function(req, res, next) {
 
 //CarTime 테이블
 router.get('/carTime', function(req, res, next) {
+    res.redirect('/admin/carTime/1');
+});
 
-    let query = `SELECT * FROM tCT `; 
+
+//carTime 메인화면 페이징
+router.get('/carTime/:currentPage', function(req, res, next) {
+    let query = `select * from tCT inner join tCY on tCT.CT_CY_ID = tCY.CY_ID inner join tB on tCY.CY_B_ID = tB.B_ID order by tCT.CT_DepartureTe desc limit :beginRow, :rowPerPage `; 
+    let currentPage = req.params.currentPage;
+    console.log("커런트 페이지지ㅣ ::", currentPage);
+    //페이지 내 보여줄 수
+    let rowPerPage = 10;
+    let beginRow = (currentPage-1)* rowPerPage;
+    connection.query(query, {beginRow, rowPerPage},
+      function(err, rows, fields) {
+          if (err) throw err;
+          res.render("admin_carTime", { data : rows});
+          console.log("user",rows);
+      });
+});
+
+//user 메인화면 카운트
+router.post('/carTime/count', function(req, res, next) {
+    let query = `select count(*) as cnt from tCT inner join tCY on tCT.CT_CY_ID = tCY.CY_ID inner join tB on tCY.CY_B_ID = tB.B_ID`; 
     connection.query(query,
       function(err, rows, fields) {
           if (err) throw err;
-          res.render('admin_carTime', { data : rows });
-          console.log("carTime",rows);
+          let cnt = rows;
+          res.send( { data : cnt});
+          console.log("카운트는 :",cnt);
       });
 });
+
 
 //CarTime 테이블 수정 페이지
 router.get('/carTimeModify/:ctId', function(req, res, next) {
@@ -302,7 +331,14 @@ router.get('/carTimeDelete/:ctId', function(req, res, next) {
 
 //CarTime 테이블 추가
 router.get('/carTimeInsert', function(req, res, next) {
-    res.render('admin_carTime_insert');
+    let query = `select tCY.CY_ID as cyId, tCY.CY_B_ID as cyBId, tB.B_Name as bName from tCY inner join tB on tCY.CY_B_ID = tB.B_ID`; 
+    connection.query(query,
+      function(err, rows, fields) {        
+          if (err) throw err;
+          res.render('admin_carTime_insert',{data:rows});
+
+      });
+
 });
 
 //CarTime 테이블 추가하기
@@ -492,5 +528,34 @@ router.post('/payment/count', function(req, res, next) {
           console.log("카운트는 :",cnt);
       });
 });
+
+//Preference 메인화면
+router.get('/preference', function(req, res, next) {
+    let query = `select
+                    (select count(CP_PreferDays) from tCP where CP_PreferDays like '%월%') as mon,
+                    (select count(CP_PreferDays) from tCP where CP_PreferDays like '%화%') as tue,
+                    (select count(CP_PreferDays) from tCP where CP_PreferDays like '%수%') as wed,
+                    (select count(CP_PreferDays) from tCP where CP_PreferDays like '%목%') as thu,
+                    (select count(CP_PreferDays) from tCP where CP_PreferDays like '%금%') as fri,
+                    (select count(CP_DepartureTe) from tCP where date_format(CP_DepartureTe, '%k%i') = '2000') as depta,
+                    (select count(CP_DepartureTe) from tCP where date_format(CP_DepartureTe, '%k%i') = '2100') as deptb,
+                    (select count(CP_DepartureTe) from tCP where date_format(CP_DepartureTe, '%k%i') = '2200') as deptc,
+                    (select count(CP_DepartureTe) from tCP where date_format(CP_DepartureTe, '%k%i') = '2300') as deptd,
+                    (select count(CP_ReturnTe) from tCP where date_format(CP_ReturnTe, '%k%i') = '200') as retua,
+                    (select count(CP_ReturnTe) from tCP where date_format(CP_ReturnTe, '%k%i') = '300') as retub,
+                    (select count(CP_ReturnTe) from tCP where date_format(CP_ReturnTe, '%k%i') = '400') as retuc,
+                    (select count(CP_ReturnTe) from tCP where date_format(CP_ReturnTe, '%k%i') = '500') as retud
+                from tCP limit 1`;
+    connection.query(query,
+    function(err, rows, fields) {
+    if (err) throw err;
+    res.render('admin_preference',{data:rows});
+    console.log("list ::",rows);
+    });
+    
+
+});
+
+
 
 module.exports = router;

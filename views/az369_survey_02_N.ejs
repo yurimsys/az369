@@ -26,96 +26,102 @@
     <div class="wrap">
 
         <h1>임대보증금 보증보험 대체 의향서</h1>
-
         <div class="sub_wrap">
             <div class="main_title">
                 <h6>01. 개인정보입력 > <span>02. 의향서 작성</span> > 03. 제출완료</h6>
             </div>
 
             <div class="survey_form">
-
                 <h3>희망 금액 의향서 작성 <span>(단위: 만원)</span></h3>
                 <div class="bar"></div>
 
-                <h5 class="period_h5">계약기간</h5>
-                <div class="period_select">
-                    <select>
-                        <option value="0">선택</option>
-                        <option value="1">1년</option>
-                        <option value="2">2년</option>
-                        <option value="3">3년</option>
-                    </select>
-                </div>
-
-                <h4 class="rent_h4">임대료</h4>
-
-                <ul>
-
-                    <li>
-                        <input type="number" id="minimum" name="minimum" placeholder="최저 금액" maxlength="6" oninput="numberMaxLength(this);" />
-                    </li>
-
-                    <li>
-                        <div class="icon">~</div>
-                    </li>
-
-                    <li>
-                        <input type="number" id="optimum" name="optimum" placeholder="적정 금액" maxlength="6" oninput="numberMaxLength(this);" />
-                    </li>
-
-
-                </ul>
-
-
-
-                <ul class="form_list">
-                    <h4>임대보증금액</h4>
-                    <li>
-                        <input type="number" id="minimum2" name="minimum2" placeholder="최저 금액" maxlength="6" oninput="numberMaxLength(this);" />
-                    </li>
-
-                    <li>
-                        <div class="icon">~</div>
-                    </li>
-
-                    <li>
-                        <input type="number" id="optimum2" name="optimum2" placeholder="적정 금액" maxlength="6" oninput="numberMaxLength(this);" />
-                    </li>
-                </ul>
-
-                <div class="select_check">
-
-                    <h4 class="check_h4">위 작성하신 금액을 기준으로 매칭되는 세입자와 보증보험을 통해 계약할 의향이 있으신가요?
-                        <br> <span>( '예' 를 선택하신 분께는 매칭이 우선적으로 진행됩니다. )</span></h4>
-
-                    <div class="checks etrans">
-                        <input type="radio" id="r3" name="rr" class="ab" />
-                        <label for="r3"><span></span>예</label>
+                <form name="survey_form"  method="post" onsubmit="surveySubmit()">
+                    <h5 class="period_h5">계약기간</h5>
+                    <div class="period_select">
+                        <select id="wt_contact_period" name="wt_contact_period" required=true>
+                            <option value="0">선택</option>
+                            <option value="1">1년</option>
+                            <option value="2">2년</option>
+                            <option value="3">3년</option>
+                        </select>
                     </div>
 
-                    <div class="checks etrans">
-                        <input type="radio" id="r4" name="rr" class="ab" />
-                        <label for="r4"><span></span>아니오</label>
-                    </div>
-
-
-                </div>
-
-                <div class="survey_btn">
+                    <h4 class="rent_h4">임대료</h4>
                     <ul>
                         <li>
-                            <a href="az369_survey_01.ejs" class="back">뒤로</a>
+                            <input required = true class="range" type="number" id="wt_rental_fee_min" name="wt_rental_fee_min" placeholder="최저 금액" maxlength="6" oninput="numberMaxLength(this);" />
                         </li>
+
                         <li>
-                            <a href="az369_survey_03.ejs" class="next">제출하기</a>
+                            <div class="icon">~</div>
+                        </li>
+
+                        <li>
+                            <input required = true class="range" type="number" id="wt_rental_fee_max" name="wt_rental_fee_max" placeholder="적정 금액" maxlength="6" oninput="numberMaxLength(this);" />
                         </li>
                     </ul>
-                </div>
-            </div>
 
+                    <ul class="form_list">
+                        <h4>임대보증금액</h4>
+                        <li>
+                            <input required = true class="range" type="number" id="wt_deposit_min" name="wt_deposit_min" placeholder="최저 금액" maxlength="6" oninput="numberMaxLength(this);" />
+                        </li>
+
+                        <li>
+                            <div class="icon">~</div>
+                        </li>
+
+                        <li>
+                            <input required = true class="range" type="number" id="wt_deposit_max" name="wt_deposit_max" placeholder="적정 금액" maxlength="6" oninput="numberMaxLength(this);" />
+                        </li>
+                    </ul>
+
+                    <div class="select_check">
+
+                        <h4 class="check_h4">위 작성하신 금액을 기준으로 매칭되는 세입자와 보증보험을 통해 계약할 의향이 있으신가요?
+                            <br> <span>( '예' 를 선택하신 분께는 매칭이 우선적으로 진행됩니다. )</span></h4>
+
+                        <div class="checks etrans">
+                            <input required=true type="radio" id="r3" value="y" name="wt_insurance_type" class="ab" />
+                            <label for="r3"><span></span>예</label>
+                        </div>
+
+                        <div class="checks etrans">
+                            <input required=true type="radio" id="r4" value="n" name="wt_insurance_type" class="ab" />
+                            <label for="r4"><span></span>아니오</label>
+                        </div>
+                    </div>
+                    <div class="survey_btn">
+                        <ul>
+                            <li>
+                                <a href="survey1" class="back">뒤로</a>
+                            </li>
+                            <li>
+                                <input type="submit" class="next" value="제출하기">
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
+
+<script>
+    
+    function surveySubmit(){
+        let survey_result = JSON.parse( sessionStorage.getItem("survey_result") );
+        let sub_html = "";
+        for (let key in survey_result) {
+
+            sub_html += `<input type='hidden' name='${key}' value='${survey_result[key]}' />`
+        }
+
+        $("form").append(sub_html);
+        // document.survey_form.submit();
+    }
+
+</script>
 
 <!--seletbox js-->
     <script>

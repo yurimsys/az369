@@ -21,7 +21,8 @@ const app = express();
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+// app.set('views', path.join(__dirname, 'views'));
+app.use( require('./config/view_route') );
 app.set('view engine', 'ejs');
 
 // Debuging 용도
@@ -75,6 +76,7 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   
+  console.log(err);
   console.log(err.message);
   // render the error page
   res.status(err.status || 500);
