@@ -133,7 +133,7 @@ router.get('/logout', function(req, res, next){
 router.get('/reservation', auth.isLoggedIn, function(req,res, next){
     let query = `select	distinct date_format(CT_DepartureTe,'%H%i') as deptTe, date_format(CT_ReturnTe, '%H%i') as returnTe, 
                         date_format(CT_DepartureTe,'%H:%i') as deptTe2, date_format(CT_ReturnTe, '%H:%i') as returnTe2
-                 from tCT`;
+                from tCT`;
     connection.query(query,
         function(err, rows, fields) {
             if (err) throw err;

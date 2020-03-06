@@ -27,7 +27,7 @@
         
         <h1 class="mt-4">회원정보 테이블 (User)</h1>
         <a href="/admin/userInsert" style="font-size: 20px;">회원정보 추가</a>
-            <table class="table table-bordered" width="100%" cellspacing="0">
+            <table class="table table-bordered" width="100%" cellspacing="0" id="userTable">
                 <thead class="thead-light">
                     <tr>
                         <th>U_ID</th>
@@ -85,40 +85,13 @@
 <script src="/admin/js/join_address.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 
 <!-- Menu Toggle Script -->
 <script>
-  let currentPage = 1;
-  //전체 페이지 수
-  $.ajax({
-    url : "/admin/user/count",
-    method : "post",
-    async : false,	
-    success : function(res){
-      for(i=1; i<Math.ceil(res.data[0].cnt/10)+1; i++){
-        let html ="<a href=/admin/user/"+i+" style='font-size: 30px;'>"+i+"</a>&emsp;";
-        $("#link2").append(html);       
-      }
-    }       
-  });		
-
-
-  //이전버튼
-  $("#preBtn").click(function(){
-    if(i == 1){
-      alert("첫 페이지 입니다.");
-      return;
-    }
-      
-    location.href="/admin/user/"+i-1;
-  });
-    //다음버튼
-  $("#nextBtn").click(function(){
-    currentPage += 1;
-    location.href="/admin/user/"+i+1;
-  });
-
-
+  $(document).ready(function(){
+    $("#userTable").DataTable()
+  })
 
   $("#menu-toggle").click(function(e) {
     e.preventDefault();

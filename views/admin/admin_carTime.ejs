@@ -26,7 +26,7 @@
       <div class="container-fluid">
         <h1 class="mt-4">버스운행정보 테이블 (CarTime)</h1>
         <a href="/admin/carTimeInsert" style="font-weight: bold; font-size: 20px;">버스운행정보 추가</a>
-            <table class="table table-bordered" width="100%" cellspacing="0">
+            <table class="table table-bordered" width="100%" cellspacing="0" id="carTable">
                 <thead class="thead-light">
                     <tr>
                         <th>CT_ID</th>
@@ -79,22 +79,13 @@
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
   <!-- Menu Toggle Script -->
   <script>
 
-  //전체 페이지 수
-  $.ajax({
-    url : "/admin/carTime/count",
-    method : "post",
-    async : false,	
-    success : function(res){
-      for(i=1; i<Math.ceil(res.data[0].cnt/10)+1; i++){
-        let html ="<a href=/admin/carTime/"+i+" style='font-size: 30px;'>"+i+"</a>&emsp;";
-        $("#link2").append(html);       
-      }
-    }       
-  });		
-
+$(document).ready(function(){
+  $('#carTable').DataTable();
+})
 
     $("#menu-toggle").click(function(e) {
       e.preventDefault();

@@ -853,7 +853,8 @@ router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
             date_format(tCT.CT_ReturnTe,'%Y-%m-%d %H:%i') as retuTe,
             tCT.CT_CarNum as carNum,
             (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as available_seat_cnt,
-            tCY.CY_Totalpassenger as total_passenger
+            tCY.CY_Totalpassenger as total_passenger,
+            tCY.CY_SeatPrice as seatPrice
         FROM tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID
         WHERE date_format(CT_DepartureTe,'%H%i') = :deptTe
         AND date_format(CT_ReturnTe,'%H%i') = :retuTe
@@ -901,6 +902,24 @@ router.get('/useSeat/:ct_id', auth.isLoggedIn, (req, res, next) =>{
  
 });
 
+router.get('/useSeat2/:ct_id', auth.isLoggedIn, (req, res, next) =>{
+    let query = `select 
+                    CY_SeatPrice from tCR inner join tCT on tCR.CR_CT_ID = tCT.CT_ID inner join tCY on tCT.CT_CY_ID = tCY.CY_ID
+                where CR_CT_ID = :ct_id and CR_Cancel = 'N'`;
+    let ct_id = req.params.ct_id;
+    
+    connection.query(query, { ct_id : ct_id },
+        function(err, rows, fields) {
+            if(err) throw err;
+            let seat_price = [];
+            rows.map((data) => {
+                seat_price.push(data.CY_SeatPrice);
+            });
+            res.json({data : seat_price});
+
+        })
+ 
+});
 // 인증번호 생성 & 발송
 router.post('/auth/phone', async ( req, res ) => {
     let phone_number = req.body.phone_number;
