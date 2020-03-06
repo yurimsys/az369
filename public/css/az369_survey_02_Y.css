@@ -41,9 +41,9 @@ p {text-align: justify; font-size: 16px;}
 
 /*의향서 폼 : 의향서작성*/
 .survey_form {width: 90%; margin: 0 auto; height: auto;}
-.survey_form h3 {font-size: 22px;}
+.survey_form h3 {font-size: 24px;}
 .bar {width: 100%; height: 2px; background: #ad863c; margin-bottom: 4%;}
-.survey_form h3 span { font-size: 18px; color: #666;}
+.survey_form h3 span { font-size: 20px; color: #666;}
 .survey_form h4 {font-size: 17px; font-weight: normal; margin-bottom: 0; color: #666;}
 
 
