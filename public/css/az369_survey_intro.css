@@ -1,0 +1,79 @@
+@charset="UFT-8";
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap');
+
+/*reset*/
+* {margin: 0;padding: 0; box-sizing: border-box;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;   font-family: 'Noto Sans KR', ; background: #f9f9f9;}
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0; font-family: 'Noto Sans KR', ;}
+a {color: inherit; text-decoration: inherit; cursor: pointer;}
+img {vertical-align: middle;}
+a img {border: none;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+p {text-align: justify; font-size: 16px;}
+
+
+.wrap {
+        width: 100%;
+        margin: 0 auto;
+        height: auto;
+        overflow: hidden;
+        color: #222;
+        padding-bottom: 4%;
+        background: #f9f9f9;
+}
+
+
+/*폰트공통*/
+.wrap h1, .wrap h2, .wrap h3, .wrap h4, .wrap h5, .wrap h6, .wrap p { font-weight: normal;  font-family: 'Noto Sans KR', sans-serif;}
+
+.wrap p {color: #444;}
+
+
+.sub_wrap {padding: 0 20%;}
+.wrap h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; padding: 20px; text-align: center; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
+
+
+.intro_img {padding: 2%; background: #fff; border-radius: 15px; box-shadow: 0 0 8px rgba(0,0,0,0.1);}
+.intro_img img {width: 100%;}
+
+.sub_wrap h2 {margin-top: 2%;}
+.sub_wrap h2 span {color: #ad863c;}
+
+.txt_top { margin-bottom: 4%; margin-top: 4%;}
+.txt_bottom {margin-top: 3%;}
+
+
+/*반응형*/
+/*1200px*/
+@media screen and (max-width: 1200px) {
+    .sub_wrap {padding: 0 13%;}
+}
+
+
+/*768px*/
+@media screen and (max-width: 768px) {
+    .sub_wrap {padding: 0 0%; width: 90%; margin: 0 auto;}
+    .wrap h1 {padding: 2.1%;}
+    .sub_wrap h2 {font-size: 26px; margin-top: 3%;}
+ }
+
+/*414px*/
+@media screen and (max-width: 414px) {
+    .wrap h1 {font-size: 22px; padding: 2.5% 0;}
+    .sub_wrap h2 {font-size: 24px; margin-top: 6%;}
+
+}
+
+/*320px*/
+@media screen and (max-width: 320px) {
+    .wrap h1 {font-size: 17px;}
+
+    .sub_wrap h2 {font-size: 20px; margin-top: 5%;}
+    .sub_wrap p {font-size: 15px;}
+    .txt_top {margin: 6% 0 10%;}
+    .txt_top p br {display: none;}
+    .txt_bottom {margin-top: 8%;}
+}
+
