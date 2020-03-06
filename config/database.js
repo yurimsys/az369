@@ -2,8 +2,8 @@ const database_json =
 {
     "development" : 
         {
-            "host"     : "nodejs-005.cafe24.com",
-            "user"     : "yurimsys12",
+            "host"     : "192.168.0.78",
+            "user"     : "root",
             "password" : "qw12qw12(",
             "database" : "yurimsys12",
             "port"     : "3306",
