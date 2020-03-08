@@ -639,8 +639,7 @@ router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
                         where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = :crCancel
                         and tCR.CR_U_ID = :sessionId
                         group by tCR.CR_cDt
-                    order by PayDay desc
-	                `;
+                    order by PayDay desc`;
 
     let sessionId = req.user.U_ID;
     let crCancel = 'Y';
