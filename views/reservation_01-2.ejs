@@ -152,44 +152,14 @@
         <!--<footer></footer>-->
     </div>
 
-    <script>
-        'use sctrict';
-
-        //gnb scroll 
-        //고정헤더, 사이드바 이벤트
-        var scrollTop = 0;
-        scrollTop = $(document).scrollTop();
-        fixHeader();
-
-        //윈도우창 조절시에 이벤트
-        $(window).on('scroll resize', function() {
-            scrollTop = $(document).scrollTop();
-            fixHeader();
-
-        });
-
-        //고정헤더 함수
-        function fixHeader() {
-            if (scrollTop > 200) {
-                $('header').addClass('on');
-            } else {
-                $('header').removeClass('on');
-            }
-        }
-
-
-
-    </script>
-
-
-
     <!--reservation 스크립트-->
     <script src="/js/lib/jquery-1.11.0.min.js"></script>
     <script src="/js/lib/jquery.seat-charts.js"></script>
     <script src="/js/lib/bootstrap.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/lib/angular.min.js"></script>
-    
+    <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
+        
     <script>
         var firstSeatLabel = 1;
         var selected_seats_cnt = 0,
