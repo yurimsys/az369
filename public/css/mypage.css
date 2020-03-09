@@ -641,7 +641,7 @@ header .open {
     .dl3 dd span {color: #888;}
     
     .list02 {display: none;}
-    .list02_mo {display: block; width: 100%; height: 250px; font-size: 12px; overflow: scroll; }
+    list02_mo {display: block; width: 100%; height: 250px; font-size: 12px; overflow: scroll;}
     .popup_open2 {width: 100%;}
     .popup_open2 ul li {float: left; text-align: justify;}
     .popup_open2 ul li:nth-child(1) {width: 33%; color: #ad863c;}
@@ -652,7 +652,6 @@ header .open {
     
     .list03 {display: none;}
     .list03_mo {display: block; width: 100%; height: 250px; font-size: 12px; overflow: scroll;}
-    .popup_open3 {width: 100%;}
     .popup_open3 ul li {float: left; text-align: justify;}
     .popup_open3 ul li:nth-child(1) {width: 33%; color: #ad863c;}
     .popup_open3 ul li:nth-child(2) {width: 32%; color: #222;}
