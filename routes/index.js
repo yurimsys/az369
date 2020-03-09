@@ -18,9 +18,15 @@ connection.config.queryFormat = function (query, values) {
 };
 
 
+router.get('/opentest', function(req, res, next) {
+    res.render('opentest');
+});
+
+
 router.get('/', function(req, res, next) {
     res.render('index', { sessionUser : req.user });
 });
+
 
 // Survey 이전버전
 router.get('/a', function(req, res){

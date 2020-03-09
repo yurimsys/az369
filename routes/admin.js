@@ -261,7 +261,6 @@ router.get('/carTimeModify/:ctId', function(req, res, next) {
 });
 
 
-
 //CarTime 테이블 수정하기
 router.post('/carTime/modify', function(req, res, next) {
     let ctId = req.body.ctId;
