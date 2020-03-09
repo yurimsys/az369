@@ -297,6 +297,7 @@
             sessionStorage.setItem('ct_id', busSeat);
             //좌석금액 세션에 저장
             sessionStorage.setItem('seat_price', evt.currentTarget.value);
+            
             document.getElementById("bus_seat_layer").style.display = "block";
             evt.currentTarget.className += " active";
             var firstSeatLabel = 1;

@@ -143,6 +143,17 @@ router.get('/carType', function(req, res, next) {
       });
 });
 
+//carType 운송사 목록
+router.post('/carTypeBList', function(req,res){
+    let query = `select B_Name, B_ID from tB`;
+    connection.query(query,
+        function(err, rows){
+            if(err) throw err;
+            res.json({data : rows});
+            console.log('운송사 목록 :', rows);
+        })
+})
+
 //CarType 테이블 수정 페이지
 router.get('/carTypeModify/:cyId', function(req, res, next) {
     let cyId = req.params.cyId;
@@ -246,6 +257,20 @@ router.get('/carTime', function(req, res, next) {
       });
 });
 
+
+
+//carTime 운송사 목록
+router.post('/carTimeBList', function(req, res) {
+    let query = `SELECT CY_ID, B_Name, CY_Ty FROM tCY inner join tB on tCY.CY_B_ID = tB.B_ID`; 
+    connection.query(query,
+      function(err, rows) {
+          if (err) throw err;
+          res.json({ data : rows});
+          console.log("운송사 목록 :",rows);
+      });
+});
+
+
 //CarTime 테이블 수정 페이지
 router.get('/carTimeModify/:ctId', function(req, res, next) {
     let ctId = req.params.ctId;
@@ -304,10 +329,9 @@ router.get('/carTimeDelete/:ctId', function(req, res, next) {
       });
 });
 
-
 //CarTime 테이블 추가
 router.get('/carTimeInsert', function(req, res, next) {
-    let query = `select tCY.CY_ID as cyId, tCY.CY_B_ID as cyBId, tB.B_Name as bName from tCY inner join tB on tCY.CY_B_ID = tB.B_ID`; 
+    let query = `select tCY.CY_ID as cyId, tCY.CY_B_ID as cyBId, tB.B_Name as bName, CY_Ty  from tCY inner join tB on tCY.CY_B_ID = tB.B_ID`; 
     connection.query(query,
       function(err, rows, fields) {        
           if (err) throw err;
@@ -454,6 +478,41 @@ router.get('/payment/', function(req, res, next) {
           if (err) throw err;
           res.render("admin_payment", { data : rows});
           console.log("user",rows);
+      });
+});
+
+//Payment 결제취소 페이지
+router.get('/cancelList/:phId/:phUId', function(req, res, next) {
+    let phId = req.params.phId;
+    let phUId = req.params.phUId;
+    //console.log("아이디 :", ctId);
+    let query = `select 
+                    PH_ID, PH_U_ID, U_UserName, U_Name, B_Name, CT_DepartureTe, count(PH_Price) as cnt, sum(PH_Price) as PH_Price,PH_Type, CR_Cancel, CR_cDt
+                 from tPH inner join tU on tPH.PH_U_ID = tU.U_ID inner join tCR on tPH.PH_ID = tCR.CR_PH_ID inner join tCT on tCT.CT_ID = tCR.CR_CT_ID inner join tCY on tCY.CY_ID = tCT.CT_CY_ID inner join tB on tB.B_ID = tcy.CY_B_ID
+                 where tPH.PH_U_ID = :phUId and tPH.PH_ID = :phId`; 
+    connection.query(query,{phUId, phId},
+      function(err, rows, fields) {
+         
+          if (err) throw err;
+          res.render('admin_payment_cancelList',{data : rows[0]});
+
+      });
+});
+
+
+//Payment 결제취소 페이지
+router.post('/cancelPayment', function(req, res, next) {
+    let phId = req.body.phId;
+    let phUId = req.body.phUId;
+    let query = `update tCR set CR_Cancel = 'Y', CR_uDT = now() where CR_U_ID = :phUId and CR_PH_ID = :phId`; 
+    connection.query(query,{phUId, phId},
+      function(err, rows, fields) {
+         
+          if (err) throw err;
+          //req.flash("success", "삭제 완료!");
+          //console.log(msg);
+          
+          res.json({data : "취소"});
       });
 });
 

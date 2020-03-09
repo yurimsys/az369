@@ -52,6 +52,7 @@
                         <th>결제수단</th>
                         <th>취소여부</th>
                         <th>결제일시</th>
+                        <th>결제취소</th>
                     </tr>
                 </thead>
                 <tbody id="list">
@@ -69,8 +70,7 @@
                         <td><%=data[i].PH_Type%></td>
                         <td><%=data[i].CR_Cancel%></td>
                         <td><%=data[i].CR_cDt%></td>
-                        <!-- <td><a href='/admin/userModify/<%=data[i].U_ID%>'>수정</a></td>
-                        <td><a href='/admin/userDelete/<%=data[i].U_ID%>'>삭제</a></td> -->
+                        <td><a href='/admin/cancelList/<%=data[i].PH_ID%>/<%=data[i].PH_U_ID%>'>취소</a></td>
                     </tr>
                     <% } %>
                 </tbody>

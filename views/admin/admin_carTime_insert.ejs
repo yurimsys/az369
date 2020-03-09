@@ -35,7 +35,7 @@
                         <select id="ctCyId" class='form-control'>
                             <option value=0>운송사 선택</option>
                             <%for(let i=0; i<data.length; i++) {%>
-                                <option value=<%=data[i].cyId%>><%=data[i].bName%></option>
+                                <option value=<%=data[i].cyId%>><%=data[i].cyId%>.&nbsp<%=data[i].bName%>&nbsp<%=data[i].CY_Ty%></option>
                                 <% }%>
                         </select>
                     </li>
