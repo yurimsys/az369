@@ -75,9 +75,9 @@ section.sub_wrap h1 {
 
 /*전체 마이페이지 틀*/
 .mypage_box {position: relative; width: 100%; height: auto; font-size: 16px; overflow: hidden;}
-.mypage_box ul li {float: left;}
-.mypage_box .box_01 {width: 25%; margin-right: 1%;  background: #fff; border: 1px solid #ddd; height: 660px; border-radius: 5px; position: relative;}
-.mypage_box .box_02 {width: 74%;  background: #fff; margin-right: 0; height: 660px; border: 1px solid #ddd; border-radius: 5px;}
+/*.mypage_box ul li {float: left;}*/
+.mypage_box .box_01 {width: 25%; margin-right: 1%;  background: #fff; border: 1px solid #ddd; height: 660px; border-radius: 5px; position: relative; float: left;}
+.mypage_box .box_02 {width: 74%;  background: #fff; margin-right: 0; height: 660px; border: 1px solid #ddd; border-radius: 5px; float: right;}
 
 /*마이페이지 왼쪽*/
 .mypage_left {width: 100%; height: auto; padding: 3% 8% 4%; overflow: hidden;}
@@ -110,19 +110,24 @@ section.sub_wrap h1 {
 .tabcontent h4 {font-family: 'Noto Sans KR', sans-serif; color: #444; font-weight: bold; font-size: 24px; text-align: center;}
 .tabcontent p {color: #777; margin-bottom: 2%; font-size: 15px; text-align: center;}
 
-/*오른쪽 예약현황 reserve_list*/
-#reserve_list {width: 100%; height: 400px; background: #fff; border: 1px solid #f2f2f2; overflow: scroll; overflow-x: hidden; margin-top: 2%; overflow-x: hidden;}
 
+
+/*오른쪽 예약현황*/
 /*reserve_list 타이틀*/
 .reserve_list_tit {overflow: auto; width: 100%; margin: 0 auto;  border: 1px solid #f2f2f2;}
 .reserve_list_tit ul li {float: left; width: 25%; text-align: center; height: 50px; line-height: 50px; background: #f4f4f4; color: #444; font-weight: bold; border-top: 2px solid #ad863c;}
 
+
+/*reserve_list*/
+#reserve_list {width: 100%; height: 370px; background: #fff; border: 1px solid #f2f2f2; overflow: scroll; overflow-x: hidden; overflow-x: hidden;}
+
+
 /*reserve_list 목록*/
 .reserve_bar { width: 100%; 
-  height: 50px; line-height: 50px; /* border-radius: 5px; */font-weight: normal;font-weight: normal;  color: #444; padding: 0; border: 1px solid #f4f4f4;}
+  height: 50px; line-height: 50px;font-weight: normal;font-weight: normal;  color: #444; padding: 0; border: 1px solid #f4f4f4;}
 
 .reserve_bar ul li {float: left; width: 25%; text-align: center; font-size: 16px; font-weight: normal;}
-/*.reserve_bar ul li:nth-child(1) {font-weight: bold;}*/
+
 
 #reserve_list label {position: relative; cursor: pointer; padding: 0; margin: 0;}
 #reserve_list label input {display: none;}
@@ -143,7 +148,7 @@ section.sub_wrap h1 {
 /*스크롤 css*/
 .list02::-webkit-scrollbar,
 .list03::-webkit-scrollbar,
-#reserve_list::-webkit-scrollbar {width: 10px; height: 20px} 
+#reserve_list::-webkit-scrollbar {width: 5px; height: 20px} 
 
 .list02::-webkit-scrollbar-track,
 .list03::-webkit-scrollbar-track,
@@ -214,7 +219,7 @@ section.sub_wrap h1 {
 .list02_mo {display: none;}
 
 .list02,
-.list03 {width: 100%; height: 450px; background: #fff; overflow: scroll; overflow-x: hidden;/* border: 1px solid #eee;*/ background: #f9f9f9;}
+.list03 {width: 100%; height: 320px; background: #fff; overflow: scroll; overflow-x: hidden;/* border: 1px solid #eee;*/ background: #f9f9f9;}
 
 tr.canceled td {background: #eee; border: none; color: #999; text-decoration: line-through;}
 p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
@@ -230,17 +235,10 @@ input{
 
 button{
   clear: both;
-<<<<<<< HEAD
-  display: block;
+  display: block;  
   line-height: 40px;
   margin-top: 80px;
-  background-color: #eee;
-=======
-  display: block;
-  line-height: 40px;
-  margin-top: 80px;
-  background-color: #eee;
->>>>>>> origin/master
+  background-color: #eee;  
   color: #333;
   border: 1px solid #666;
   padding-left: 20px;
@@ -248,11 +246,7 @@ button{
   border-radius: 4px;
 }
 #ui-datepicker-div{
-<<<<<<< HEAD
- top:-999px;
-=======
- top:-999px;
->>>>>>> origin/master
+ top:-999px; 
  border: 0;
  font-size: 14px;
 }
@@ -263,83 +257,123 @@ button{
   border: 1px solid #ddd;
 }
 
-<<<<<<< HEAD
-
+        
 /*search 박스*/
-.searchBox{table-layout:fixed; border-collapse:collapse;border-spacing:0; border:none; width: 66%;position: relative; margin: 0 auto; margin-bottom: 2%;}
-
-
-.clearfix{*zoom:1; float: left;}
-=======
-
-/*search 박스*/
-.searchBox{table-layout:fixed; border-collapse:collapse;border-spacing:0; border:none; width: 66%;position: relative; margin: 0 auto; margin-bottom: 2%;}
-
-
-.clearfix{*zoom:1; float: left;}
->>>>>>> origin/master
-.search_btn {float: left;}
-
+.searchBox {table-layout:fixed; /*border-collapse:collapse;*/ border-spacing:0; border:none; width: 80%; position: relative; margin: 0 auto; margin-top: 2%; margin-bottom: 4%; overflow: hidden; height: auto;}
+            
+        
 .clearfix:after{content:"";display:block;clear:both;overflow:hidden}
-
-.searchDate{overflow:hidden; object-position: center; margin-bottom:10px;/**zoom:1;*/ width: 100%; margin-left: 7%;}
 .searchDate:after{display:block;clear:both;content:'';}
-.searchDate li{position:relative;float:left;margin:0 7px 0 0;}
-.searchDate li .chkbox {display:block;text-align:center; }
+
+/*날짜 버튼*/
+.searchDate{overflow:hidden; object-position: center; width: 100%; margin: 0 auto;}
+.searchDate li{position:relative;float:left; width: 18%; margin-right: 2%; margin-bottom: 1.5%;}
+.searchDate li:last-child {margin-right: 0;}
+.searchDate li .chkbox {display:block;text-align:center;}
 .searchDate li .chkbox input {position:absolute; display: none;}
-.searchDate li .chkbox label {display:block; width: 88px;  height:30px; line-height:30px;font-size:15px; color:#555; text-align:center; text-decoration:none;cursor:pointer;background:#fff; border: 1px solid #bbb; border-radius: 15px; float: left; position: relative;}
+.searchDate li .chkbox label {display:block; height:30px; width: 100%;  line-height:30px; font-size: 15px; color:#666; text-align:center; text-decoration:none;cursor:pointer;background:#fff; border: 1px solid #ddd; border-radius: 15px; float: left; position: relative;}
 .searchDate li .chkbox.on label {background:#c3a164; color: #fff; border: none;}
 
-<<<<<<< HEAD
+/*날짜 표시 사이 아이콘*/
+.demi{display:inline-block;margin:0 2%;vertical-align:middle}
+
+/*날짜표시칸*/
+.clearfix{ float: left; width: 80%;} 
+.inpType{padding-left:2%; height:35px; line-height:35px; border:1px solid #eee; font-size: 17px; border-radius: 8px; background: #f4f4f4; width: 46%;}
+
+/*날짜조회 버튼*/
+.search_btn {width: 17%; height: 35px; background: #fff; border-radius: 5px; border: 1px solid #ccc; font-size: 15px; float: right; color: #555;}
 
 
-=======
 
 
->>>>>>> origin/master
-.demi{display:inline-block;margin:0 5px;vertical-align:middle}
 
 
-.inpType{padding-left:2%; height:35px;line-height:35px;border:1px solid #eee; font-size: 17px; border-radius: 8px; background: #f4f4f4; width: 46%;}
-.search_btn {width: 15%; height: 35px; background: #fff; border-radius: 8px; border: 1px solid #aaa; font-size: 15px;}
 
 
+
+
+
+
+/*두번째 테이블 타이틀 간격*/
+.table_tit2 {border: none; border-top: 2px solid #ad863c; text-align: center; background: #f8f8f8; height: 50px; line-height: 50px; width: 100%;}
+.table_tit2 ul {width: 100%;}
+.table_tit2 ul li {float: left;}
+.table_tit2 ul li:nth-child(1) {width: 16%;}
+.table_tit2 ul li:nth-child(2) {width: 20%;}
+.table_tit2 ul li:nth-child(3) {width: 22%;}
+.table_tit2 ul li:nth-child(4) {width: 10%;}
+.table_tit2 ul li:nth-child(5) {width: 16%;}
+.table_tit2 ul li:nth-child(6) {width: 16%;}
+
+
+
+/*세번째 테이블 타이틀 간격*/
+.table_tit3 {border: none; border-top: 2px solid #ad863c; text-align: center; background: #f8f8f8; height: 50px; line-height: 50px; width: 100%; }
+.table_tit3 ul {width: 100%;}
+.table_tit3 ul li {float: left; position: relative;}
+.table_tit3 ul li:nth-child(1) {width: 17%;}
+.table_tit3 ul li:nth-child(2) {width: 22%;}
+.table_tit3 ul li:nth-child(3) {width: 17%;}
+.table_tit3 ul li:nth-child(4) {width: 10%;}
+.table_tit3 ul li:nth-child(5) {width: 17%;}
+.table_tit3 ul li:nth-child(6) {width:  17%;}
 
 
 .table {
     width: 100%;
-      border-collapse: collapse;
-      border-top: 2px solid #ad863c;
-    }  
-    .table th {
-      color: #444;
-      background: #f4f4f4;
-      text-align: center;
-    }
-.table td {font-size: 15px; background: #fff; color: #666;}
-    .table th, .table td {
-      padding: 10px;
-      border: 1px solid #eee;
-        text-align: center;
-    }
-    .table th:first-child, .table td:first-child {
-      border-left: 0;
-    }
-    .table th:last-child, .table td:last-child {
-      border-right: 0;
-    }
-    .table tr td:first-child{
-      text-align: center;
-    }
-    .table caption{caption-side: bottom; display: none;}
+    border-collapse: collapse;
+    margin-top: -0.3%;
 
+}
+
+.table th {
+    color: #444;
+    background: #f4f4f4;
+    text-align: center;
+    padding: 10px 5px;
+}
+
+.table td {
+    font-size: 15px;
+    background: #fff;
+    color: #666;
+}
+
+.table td {
+    padding: 10px 5px;
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+.table th:first-child,
+.table td:first-child {
+    border-left: 0;
+}
+
+.table th:last-child,
+.table td:last-child {
+    border-right: 0;
+}
+
+.table tr td:first-child {
+    text-align: center;
+}
+
+/*.table caption {
+    caption-side: bottom;
+    display: none;
+}*/
+
+
+/*선택예매취소 팝업버튼*/
 .popup_box_mo {display: none;}
 .table_mo {display: none;}
 
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
 .layer .popup_box{padding: 1.5% 1%; 60px;margin:20px;width: 62.5%; background:#fff;position:relative; z-index: 1000;}
 
-.popup_open {margin: 0 auto; width: 200px; height: 50px; line-height: 50px; background: #eee; display: block; text-align: center; transition: all 0.3s;}
+.popup_open {margin: 0 auto; width: 200px; height: 45px; line-height: 45px; background: #eee; display: block; text-align: center; transition: all 0.3s; color: #555;}
 .popup_open:hover {background: #ddd;}
 
 .popup_btn {width: 40%; margin: 0 auto; margin-top: 3%;}
@@ -354,7 +388,7 @@ button{
 .popup_box h2 {font-size: 24px; text-align: center;}
 .popup_box p {margin-top: 2%; margin-bottom: 0;}
 
-p.cancel_info {margin: 1.5% 0 3.5%; text-align: center;}
+p.cancel_info {margin:2% 0; text-align: center;}
 
 
 
@@ -396,11 +430,7 @@ header .open {
     /*.tabcontent {padding: 2% 3% 3%;}*/
     
     .searchBox {width: 80%;}
-<<<<<<< HEAD
-
-=======
-
->>>>>>> origin/master
+    
 }
 
 
@@ -414,7 +444,6 @@ header .open {
     
     .mypage_box .box_01, .mypage_box .box_02 {height: 650px;}
     .logout {margin-top: 63%;}
-    .list02, .list03 {height: 440px;}
  
     
     /*section.sub_wrap*/
@@ -426,11 +455,7 @@ header .open {
     .layer .popup_box{width: 95%; margin-top: -35%;}
     
 
-<<<<<<< HEAD
-
-=======
-
->>>>>>> origin/master
+    
     
     
     /*footer*/
@@ -451,19 +476,12 @@ header .open {
     section.sub_wrap {width:100%;}
     section.sub_wrap .inner_sub_wrap {width: 95%;}
     .tnb {width: 768px;}
-     
-    /*.mypage_box .box_01 {height: 400px;}*/
-    .mypage_box ul li{float: none; width: 100%;}
-    .mypage_box .box_01 {width: 100%; }
     
+    .box_01, .box_02 {float: none; width: 100%; overflow: hidden;}
+    
+     
     .info_title {margin-top: 0; }
     
-    .searchDate li .chkbox label {margin-right: 5px;}
-<<<<<<< HEAD
-
-=======
-
->>>>>>> origin/master
     .mypage_left h2 {font-size: 30px;}
     
     .mypage_box .modify_btn {width: 18%; margin-top: 0; font-size: 16px;}
@@ -588,8 +606,6 @@ header .open {
     
     p.cancel_info {font-size: 12px; line-height: 1.4; width: 85%; margin: 0 auto;  padding: 2% 0 8%;} 
     
-    /*.popup_btn_mo {width: 100%; margin-top: 10%;}
-    .popup_btn_mo {width: 60%;}*/
     .popup_open {font-size: 14px; height: 40px; line-height: 40px;}
     .logout_mo {font-size: 14px; height: 40px; line-height: 40px; margin-top: 8%;}
     
@@ -602,6 +618,10 @@ header .open {
     .popup_box_mo {display: block; width: 95%; background: #fff; height: auto; margin: 0 auto; padding: 0; top: 15%; position: absolute; padding: 1.5% 2%; font-size: 14px; overflow: hidden;}
     .popup_box_mo h2 {text-align: center; margin-bottom: 3.5%; font-size: 18px;}
     .popup_box_mo p {font-size: 13px;}
+    
+    
+    .table_tit2, .table_tit3 {display: none;}
+    
     
     .table_mo {display: block;}
     .table_mo {width:100%; overflow: hidden; margin-bottom: 5%;}
@@ -647,31 +667,23 @@ header .open {
     .tab_tit p {font-size: 12px; width: 80%; margin: 0 auto; line-height: 1.5; margin-bottom: 5%;}
     
    .table th, .table td {font-size: 10px; padding: 5px;}
+    
 
-
+    
     /*search 박스*/
-    .searchBox{width: 95%;}
-
-    .searchDate{margin-left: 0%;}
-    .searchDate li .chkbox label {display:block; width: 67px;}
-    .clearfix {margin-top: 2%; text-align: center; }
-    .search_btn {width: 100%; margin-top: 3%;}
+.searchBox {width: 100%;}
 
 
-    /*search 박스*/
-    .searchBox{width: 95%;}
+/*날짜 표시 사이 아이콘*/
+.demi{display:inline-block;margin:0 2%;vertical-align:middle}
 
-    .searchDate{margin-left: 0%;}
-    .searchDate li .chkbox label {display:block; width: 67px;}
-    .clearfix {margin-top: 2%; text-align: center; }
-    .search_btn {width: 100%; margin-top: 3%;}
+/*날짜표시칸*/
+.clearfix{ float: left; width: 100%;} 
+.inpType{padding-left:2%; height:35px; line-height:35px; border:1px solid #eee; font-size: 17px; border-radius: 8px; background: #f4f4f4; width: 45%; margin-top: 2%;}
 
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+/*날짜조회 버튼*/
+.search_btn {width: 100%; margin-top: 3%;}
+
 }
 
 
@@ -709,15 +721,9 @@ header .open {
     .join_box {padding-bottom: 10%;}
 
     .table_mo {height: 290px; overflow: scroll;}
-<<<<<<< HEAD
-
+    
     /*search 박스*/
-
-=======
-
-    /*search 박스*/
-
->>>>>>> origin/master
+            
     .searchDate{margin-left: 0%; margin-top: 3%;}
     .searchDate li .chkbox label {display:block; width: 52px; margin-right: 2px;}
     .searchDate li .chkbox label:nth-child(5) {margin-right: 0;}

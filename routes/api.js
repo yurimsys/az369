@@ -71,7 +71,7 @@ router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
 
 //회원 아이디 중복확인
 router.post('/user/checkId', (req, res, next) =>{
-    let query = "select U_UserName from tU where U_UserName = :overId";
+    let query = "select U_UserName from tU where U_UserName = :overId limit 1";
     let overId = req.body.id;
     console.log("내 아이디 :", overId);
     connection.query(query, 
@@ -138,7 +138,7 @@ router.post('/user/carPool', (req, res, next) =>{
 
 //아이디 찾기
 router.post('/user/findId', (req, res, next) =>{
-    let query = "select U_UserName from tU where U_Name =:uName and U_Phone =:uPhone";
+    let query = "select U_UserName from tU where U_Name =:uName and U_Phone =:uPhone limit 1";
     
     console.log(req.body);
 
@@ -160,7 +160,7 @@ router.post('/user/findId', (req, res, next) =>{
 
 //비밀번호 찾기
 router.post('/user/findPw', (req, res, next) =>{
-    let query = "select U_UserName, U_Name from tU where U_UserName =:uId and U_Phone =:uPhone";
+    let query = "select U_UserName, U_Name from tU where U_UserName =:uId and U_Phone =:uPhone limit 1";
     
     console.log(req.body);
 
@@ -234,7 +234,7 @@ router.post('/user/benefitApply', (req, res, next) =>{
 
 //입점신청 조회
 router.post('/user/lookUp', (req, res, next) =>{
-    let query = `select SI_cDt from tSI where SI_Name = :siName and SI_Phone = :siPhone `;
+    let query = `select SI_cDt from tSI where SI_Name = :siName and SI_Phone = :siPhone limit 1`;
     
     console.log(req.body);
 
@@ -314,28 +314,28 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     let query4 = `UPDATE tU SET U_Phone = :uPhone, U_Brand = :uBrand,
                  U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
 
-        if(password === "" && uPhone === "" ){
-            connection.query(query2,{uBrand, uZip, uAddr1, uAddr2, uUserName},
-                function(){                   
-                    res.json( {  data : "성공"});
-                })
-                
-        } else if(password != "" && uPhone != "" ) {
-            connection.query(query,{hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
-                function(){                   
-                    res.json( {  data : "성공"});
-                })
-        } else if(password != "" && uPhone === "" ) {
-            connection.query(query3,{hash_pw, uBrand, uZip, uAddr1, uAddr2, uUserName},
-                function(){
-                    res.json( {  data : "성공"});
+    if(password === "" && uPhone === "" ){
+        connection.query(query2,{uBrand, uZip, uAddr1, uAddr2, uUserName},
+            function(){                   
+                res.json( {  data : "성공"});
             })
-        } else if(password === "" && uPhone != "" ) {
-            connection.query(query4,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
-                function(){
-                    res.json( {  data : "성공"});
+            
+    } else if(password != "" && uPhone != "" ) {
+        connection.query(query,{hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
+            function(){                   
+                res.json( {  data : "성공"});
             })
-        }
+    } else if(password != "" && uPhone === "" ) {
+        connection.query(query3,{hash_pw, uBrand, uZip, uAddr1, uAddr2, uUserName},
+            function(){
+                res.json( {  data : "성공"});
+        })
+    } else if(password === "" && uPhone != "" ) {
+        connection.query(query4,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
+            function(){
+                res.json( {  data : "성공"});
+        })
+    }
 });
 
 
@@ -639,8 +639,7 @@ router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
                         where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = :crCancel
                         and tCR.CR_U_ID = :sessionId
                         group by tCR.CR_cDt
-                    order by PayDay desc
-	                `;
+                    order by PayDay desc`;
 
     let sessionId = req.user.U_ID;
     let crCancel = 'Y';
