@@ -226,7 +226,7 @@
                                 <div class="video_img">
                                     <iframe src="https://www.youtube.com/embed/te8MTGFWYvc?controls=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
-                                 <div class="video_txt">
+                                <div class="video_txt">
                                     <h4>평택 센트럴돔 크리스마스 트리 소원성취 1부</h4>
                                     <p>평택센트럴돔TV <span>|</span> 2020.02.14</p>
                                 </div>
@@ -250,7 +250,7 @@
                         <li>
                             <a href="#popup" class="popup_open">
                                 <div class="video_img">
-                                    <iframe style="height: 100%;"  src="https://www.youtube.com/embed/PJbLwptk0Lw?controls=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <iframe style="height: 100%;" src="https://www.youtube.com/embed/PJbLwptk0Lw?controls=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                                 <div class="video_txt">
                                     <h4>평택 가로수길 센트럴돔 현재 모습</h4>
@@ -359,48 +359,6 @@
                                     </div>
 
                                 </div>
-
-
-                                <!--video 슬라이드-->
-                                <script>
-                                    var slideIndex = 1;
-                                    showSlides(slideIndex);
-
-                                    function plusSlides(n) {
-                                        showSlides(slideIndex += n);
-                                    }
-
-                                    function currentSlide(n) {
-                                        showSlides(slideIndex = n);
-                                    }
-
-                                    function showSlides(n) {
-                                        var i;
-                                        var slides = document.getElementsByClassName("mySlides");
-                                        var dots = document.getElementsByClassName("dot");
-                                        if (n > slides.length) {
-                                            slideIndex = 1
-                                        }
-                                        if (n < 1) {
-                                            slideIndex = slides.length
-                                        }
-                                        for (i = 0; i < slides.length; i++) {
-                                            slides[i].style.display = "none";
-                                        }
-                                        for (i = 0; i < dots.length; i++) {
-                                            dots[i].className = dots[i].className.replace(" active", "");
-                                        }
-                                        slides[slideIndex - 1].style.display = "block";
-                                        dots[slideIndex - 1].className += " active";
-                                    }
-                                </script>
-
-
-
-
-
-
-
 
                             </div>
 
@@ -527,9 +485,38 @@
         });
     </script>
 
+    <!--video 슬라이드-->
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
 
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
 
-    <!--<!--video 슬라이드 이동시 재생중지되는 JS (참고용)-->
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
 
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = slides.length
+            }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
 
 </body></html>
