@@ -779,14 +779,14 @@ router.get('/storeInDetail/:siID', auth.isLoggedIn, function(req, res, next) {
 });
 
 
-//storeIn 메인화면 자세히 보기
-router.get('/storeIn/check', auth.isLoggedIn, function(req, res, next) {
+//storeIn 문의사항 확인
+router.post('/storeIn/check', auth.isLoggedIn, function(req, res, next) {
                                                                     
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let siId = req.params.siId;
-        let query = `update set tSI SI_Read = 'y' where SI_ID = :siId`;
+        let siId = req.body.siId;
+        let query = `update tSI set SI_Read = 'y' where SI_ID = :siId`;
         connection.query(query,{siId},
         function(err, rows, fields) {
         if (err) throw err;
