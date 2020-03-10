@@ -17,7 +17,8 @@ connection.config.queryFormat = function (query, values) {
     }.bind(this));
 };
 passport.use(new LocalStrategy({ usernameField: 'id' }, (username, password, done) => {
-    let query = "SELECT u_id, u_username, u_pw from tU where u_username = :id";
+    let query = "SELECT u_id, u_username, u_pw, u_isAdmin  from tU where u_username = :id";
+    //let query2 = 'select u_id, u_username, u_pw, u_isAdmin from tU where u_username = :id';
         connection.query(query, { id: username }, (err, rows) =>{
             if (err) {return done(err);}
             if(!rows[0])
@@ -25,10 +26,11 @@ passport.use(new LocalStrategy({ usernameField: 'id' }, (username, password, don
             let user = rows[0];
             if( !bcrypt.compareSync(password, user.u_pw) ){
                 return done( null, false, {message: "ID와 Password를 확인해주세요"} );
-            } else {
+            }else {
                 return done( null , user );
             }
         }
+        
     );
 }));
 

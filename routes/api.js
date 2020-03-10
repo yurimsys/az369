@@ -5,6 +5,7 @@ const mysql = require('mysql');
 const dbconf = require('../config/database');
 const connection = mysql.createConnection(dbconf);
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
 
 const LocalStrategy = require('passport-local').Strategy;
 const sms = require('../modules/sms');
@@ -211,7 +212,22 @@ router.post('/user/benefitApply', (req, res, next) =>{
     let query = `insert into tSI (SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Content) 
         values( :siName, :siPhone, :siBrand, :siAddr, :siMemo)`;
     
-    console.log(req.body);
+console.log("asdasd");
+    let transporter  = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'yr.hb.sim@gmail.com',
+            pass: 'go121212!!'
+        }
+    })
+
+    let mailOptions = {
+        from: 'yr.hb.sim@gmail.com',
+        to: 'kudy96@naver.com',
+        subject: '신규 입점문의 내역.',
+        text: '이름 :'+req.body.name+'\n'+'휴대전화 : '+req.body.phone+'\n'+'브랜드명 : '+req.body.brand+
+              '\n'+'주소 : '+req.body.address+'\n'+'문의내역 : '+req.body.memo
+    }
 
     connection.query(query, 
         {          
@@ -223,11 +239,12 @@ router.post('/user/benefitApply', (req, res, next) =>{
                                 
         },
         function(err, rows, fields) {
-            if (err) throw err;          
-             
-            //console.log(findId);
-            res.json( {  data : rows[0]});
-            //console.log(rows);
+           
+            if (err) throw err;                      
+            transporter.sendMail(mailOptions, function(error, info){ 
+                transporter.close();
+            })
+            res.json({data: ''});
         });
         
 });
