@@ -778,6 +778,24 @@ router.get('/storeInDetail/:siID', auth.isLoggedIn, function(req, res, next) {
 
 });
 
+
+//storeIn 메인화면 자세히 보기
+router.get('/storeIn/check', auth.isLoggedIn, function(req, res, next) {
+                                                                    
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let siId = req.params.siId;
+        let query = `update set tSI SI_Read = 'y' where SI_ID = :siId`;
+        connection.query(query,{siId},
+        function(err, rows, fields) {
+        if (err) throw err;
+        res.json({data : ''})
+        });
+    }
+
+});
+
 //입점신청 알림 
 router.post('/nowRow', auth.isLoggedIn, function(req, res, next) {
                                                                     
