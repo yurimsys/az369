@@ -282,5 +282,9 @@ router.get('/daytest', function(req, res, next) {
     res.render('daytest', { sessionUser : req.user });
 });
 
+//비디오
+router.get('/video', function(req, res, next) {
+    res.render('video', { sessionUser : req.user });
+});
 
 module.exports = router;
