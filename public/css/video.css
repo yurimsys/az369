@@ -82,11 +82,19 @@ section.main_video {width: 100%; overflow: hidden; margin: 0 auto; margin-top: 3
 
 
 
+<<<<<<< HEAD
 /*section.video_list*/
 section.video_list{width: 100%; margin-top: 8%; overflow: hidden;}
 
 /*section.video_list 타이틀*/
 .video_list h4 {font-size: 18px;}
+=======
+/*최신 VIDEO*/
+section.video_list{width: 100%; margin-top: 8%; overflow: hidden;}
+.video_list h4 {font-size: 18px;}
+
+/*최신 VIDEO 소제목*/
+>>>>>>> 058627f01fb5d4d75354e215aeedbee35858afac
 .hr-sect {
 	display: flex;
 	flex-basis: 100%;
@@ -106,7 +114,11 @@ section.video_list{width: 100%; margin-top: 8%; overflow: hidden;}
 }
 .hr-sect p {color: #444; font-size: 26px;}
 
+<<<<<<< HEAD
 /*section.video_list 영상목록*/
+=======
+/*최신 VIDEO 영상목록*/
+>>>>>>> 058627f01fb5d4d75354e215aeedbee35858afac
 .video_list ul {width: 100%; margin-top: 30px; height: auto;}
 .video_list ul li {float: left; position: relative; width: 31.6%; margin-right: 30px; margin-bottom: 30px; height: auto;}
 .video_list ul li:nth-child(3),
@@ -116,6 +128,7 @@ section.video_list{width: 100%; margin-top: 8%; overflow: hidden;}
 {border: 1px solid #c3a164;}
 
 
+<<<<<<< HEAD
 /*section.video_list 영상이미지*/
 .video_img {width: 100%; float:left; height: 213px; overflow: hidden; box-shadow: 0 0 12px rgba(85, 79, 47, 0.15); position: relative;}
 .video_img iframe {width: 100%; transition: all 0.3s; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px; z-index: -10000; position: absolute;}
@@ -124,6 +137,18 @@ section.video_list{width: 100%; margin-top: 8%; overflow: hidden;}
 .video_list ul li iframe {width: 100%;}
 .video_txt {width: 100%; float: left; height: 120px; padding: 10px 15px 10px; text-align: justify; background: #fff; border: 1px solid #eee; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; box-shadow: 0 0 12px rgba(85, 79, 47, 0.15);}
 .video_txt h4 {font-size: 17px; color: #222; font-weight: normal; line-height: 1.5;}
+=======
+/*최신 VIDEO 리스트 이미지영역*/
+.video_img {width: 100%; float:left; height: 213px; overflow: hidden; box-shadow: 0 0 12px rgba(85, 79, 47, 0.15); position: relative;}
+.video_img iframe {width: 100%; transition: all 0.3s; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px; z-index: -10000; position: absolute;}
+.popup_open:hover iframe {transform: scale(1.1);}
+.video_list ul li iframe {width: 100%;}
+
+
+/*최신 VIDEO 리스트 텍스트영역*/
+.video_txt {width: 100%; float: left; height: 120px; padding: 14px 15px 10px; text-align: justify; background: #fff; border: 1px solid #eee; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; box-shadow: 0 0 12px rgba(85, 79, 47, 0.15);}
+.video_txt h4 {font-size: 17px; color: #222; font-weight: normal; line-height: 1.5; }
+>>>>>>> 058627f01fb5d4d75354e215aeedbee35858afac
 .video_txt p {font-size: 15px; color: #999; margin-top: 8px;}
 .video_txt p span {color: #ddd; padding: 0 15px;}
 
@@ -153,47 +178,33 @@ section.video_list{width: 100%; margin-top: 8%; overflow: hidden;}
 /*영상 이미지 클릭시 팝업*/
 .layer{display:none;justify-content:center;align-items:center;background:#fff;position:fixed;left:0;right:0;top:0;bottom:0; width: 100%; z-index: 10000;}
 
+.layer:target{display:flex;animation:open 0.5s;}
+@keyframes open {from {opacity:0;} to {opacity:1;}}
 
 
+/*영상팝업설정*/
 .layer .popup_box{width: 100%; height: 100%; background:#fff;position:relative; z-index: 1000;}
 
 .popup_box_header {width: 100%; height: 80px; position: relative; box-shadow: 0 0 5px rgba(0,0,0,0.1);}
 .popup_close {position: absolute; height: 80px; line-height: 80px; right: 60px;}
 .popup_box_inner {padding:80px 100px; height: 100%;background: #f4f4f4;}
 
-.popup_btn {width: 40%; margin: 0 auto; margin-top: 3%;}
-.popup_btn li {float: left; width: 49%; margin-right: 1%;}
-.popup_btn li:last-child {margin-right: 0;}
-.layer:target{display:flex;animation:open 0.5s;}
-@keyframes open {from {opacity:0;} to {opacity:1;}}
-
-
-.popup_box h2 {font-size: 24px; text-align: center;}
-.popup_box p {margin-top: 2%; margin-bottom: 0;}
-
-p.cancel_info {margin:2% 0; text-align: center;}
-
-
-
-/* Slideshow container */
+/*영상팝업 내부 슬라이드 컨테이너*/
 .slideshow-container {
   position: relative;
 overflow: hidden;
 }
 
-/* Slides */
+/*영상팝업 내부 슬라이드*/
 .mySlides {
   display: none;
   text-align: center;
 }
 
+/*영상팝업 내부 슬라이드 버튼*/
 .video_control {position: absolute; width:181px; height: 60px; float: left; bottom: 10px; right: 0;}
-
 .video_control_num {float: left; margin-right: 20px; line-height: 60px; font-size: 16px; color: #777;}
-
 .video_control_num strong {color: #222;}
-
-/* Next & previous buttons */
 .prev, .next {
   cursor: pointer;
   position: absolute;
@@ -208,30 +219,23 @@ overflow: hidden;
     border: 1px solid #ddd;
     background: transparent;
 }
-
-/* Position the "next button" to the right */
-
 .next {
   position: absolute;
   right: 0;
 }
-
-/* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
  background: #fff;
   border: 1px solid #c3a164;
   box-shadow: 0 0 12px rgba(85, 79, 47, 0.1);
 }
 
-/* The dot/bullet/indicator container */
-.dot-container {
-     display: none;
-}
+.dot-container {display: none;}
 
-
+/*영상팝업 내부 영상영역*/
 .video_slide {float: left; width: 70%; height: 670px;}
-.video_slide_txt {float: right; width: 28%; text-align: left;  margin-top: 10px;}
 
+/*영상팝업 내부 택스트영역*/
+.video_slide_txt {float: right; width: 28%; text-align: left;  margin-top: 10px;}
 .mySlides .video_slide_txt h3 {font-size: 30px; line-height: 1.4;}
 .mySlides .video_slide_txt h5 {font-size: 16px; color: #999; margin-top: 10px; font-weight: normal; /*padding-bottom: 4%; border-bottom: 1px solid #ddd;*/}
 .mySlides .video_slide_txt h5 span {color: #ddd; padding: 0 15px;}
@@ -239,14 +243,6 @@ overflow: hidden;
 
 
 
-
-
-footer {
-    width: 100%;
-    height: 200px;
-    margin: 0 auto;
-    background: #211e1c;
-}
 /*section.sub_wrap 완료*/
 
 
