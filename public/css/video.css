@@ -82,19 +82,11 @@ section.main_video {width: 100%; overflow: hidden; margin: 0 auto; margin-top: 3
 
 
 
-<<<<<<< HEAD
-/*section.video_list*/
-section.video_list{width: 100%; margin-top: 8%; overflow: hidden;}
-
-/*section.video_list 타이틀*/
-.video_list h4 {font-size: 18px;}
-=======
 /*최신 VIDEO*/
 section.video_list{width: 100%; margin-top: 8%; overflow: hidden;}
 .video_list h4 {font-size: 18px;}
 
 /*최신 VIDEO 소제목*/
->>>>>>> 058627f01fb5d4d75354e215aeedbee35858afac
 .hr-sect {
 	display: flex;
 	flex-basis: 100%;
@@ -115,12 +107,16 @@ section.video_list{width: 100%; margin-top: 8%; overflow: hidden;}
 .hr-sect p {color: #444; font-size: 26px;}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*section.video_list 영상목록*/
 =======
 /*최신 VIDEO 영상목록*/
 >>>>>>> 058627f01fb5d4d75354e215aeedbee35858afac
+=======
+/*최신 VIDEO 리스트*/
+>>>>>>> 96198548f823fd77b236debcfe64382bd7697691
 .video_list ul {width: 100%; margin-top: 30px; height: auto;}
-.video_list ul li {float: left; position: relative; width: 31.6%; margin-right: 30px; margin-bottom: 30px; height: auto;}
+.video_list ul li {float: left; position: relative; width: 32%; margin-right: 2%; margin-bottom: 2%; height: auto;}
 .video_list ul li:nth-child(3),
 .video_list ul li:nth-child(6) {margin-right: 0;}
 .video_list ul li:hover .video_txt,
@@ -281,19 +277,24 @@ header .open {
 
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1200px;}
+    /*section.main .inner_main {width: 1200px;}*/
 
 
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1200px;}
+    section.sub_wrap .inner_sub_wrap {width: 100%;}
+    .video_wrap {width: 95%; margin: 0 auto;}
 
-    .tnb {padding-bottom: 5%; width: 1200px; margin-top: -5%;}
+    .tnb {padding-bottom: 5%; width: 100%; margin-top: -5%;}
     section.sub_wrap h6 {padding-top: 8%;}
-    .sub_bg {width: 95%; margin: 0 auto;}
 
-    /*sub_contents*/
-    .sub_contents {width: 95%;}
+
+
+
+
+
+
+
 
   /*gnb_mo*/
     header .open {
