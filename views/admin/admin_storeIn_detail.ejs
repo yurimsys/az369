@@ -44,7 +44,7 @@
                 </form>
                 <br>
                 <button type="button" id="back" class="btn btn-primary">뒤로가기</button>
-                <button type="button" id="check" class="btn btn-primary">문의확인</button>
+                <button type="button" id="storeCheck" class="btn btn-primary">문의확인</button>
             </div>
             
 
@@ -72,7 +72,7 @@ $("#back").click(function(){
     location.href="/admin/storeIn";
 })
 
-$("#check").on('click',function(){
+$("#storeCheck").on('click',function(){
   $.ajax({
     url: '/admin/storeIn/check',
     method: 'post',
