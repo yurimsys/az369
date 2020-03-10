@@ -29,7 +29,7 @@
         <h1 class="mt-4">입점신청조회 테이블 (Store Inquire)</h1>
             <div class="container">
                 <form>
-                    <label>고객 이름 :</label>
+                    <label class="siId" id="<%=data.SI_ID%>" >고객 이름 :</label>
                     <input type="text" class="form-control" value="<%=data.SI_Name%>" readonly = "readonly">
                     <label>휴대전화 :</label>
                     <input type="text" class="form-control" value="<%=data.SI_Phone%>" readonly = "readonly">
@@ -44,6 +44,7 @@
                 </form>
                 <br>
                 <button type="button" id="back" class="btn btn-primary">뒤로가기</button>
+                <button type="button" id="check" class="btn btn-primary">문의확인</button>
             </div>
             
 
@@ -71,7 +72,18 @@ $("#back").click(function(){
     location.href="/admin/storeIn";
 })
 
-
+$("#check").on('click',function(){
+  $.ajax({
+    url: '/admin/storeIn/check',
+    method: 'post',
+    dataType: 'json',
+    data: {'siId':$('.siId').attr('id')},
+    success: function(res){
+      alert("문의확인");
+      location.href="/admin/storeIn";
+    }
+  })
+})
 
   $("#menu-toggle").click(function(e) {
     e.preventDefault();

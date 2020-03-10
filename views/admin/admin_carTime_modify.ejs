@@ -32,9 +32,6 @@
                 <label for="ctCyId">CT_CY_ID:</label>
                 <select id="ctCyId" class='form-control'>
                   <option value=0>운송사 선택</option>
-                  <%for(let i=0; i<data.length; i++) {%>
-                      <option value=<%=data[i].cyId%>><%=data[i].bName%></option>
-                      <% }%>
                 </select>   
 
                 <label for="dept">CT_DepartureTe:</label>
@@ -69,6 +66,23 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <script>
+
+ctCyId
+
+$(document).ready(function(){
+  $.ajax({
+    url: '/admin/carTimeBList',
+    method: 'post',
+    dataType: 'json',
+    success: function(res){
+      console.log("여여여 :", res.data);
+      for(let i=0; i<res.data.length; i++){
+        let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"&nbsp"+res.data[i].CY_Ty+"</option>"
+          $("#ctCyId").append(html);
+      }
+    }
+  })
+})
     function modify(){
       $.ajax({
         url: "/admin/carTime/modify",

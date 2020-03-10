@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include templates/admin_head.ejs %>
+  <title>Admin-PayMent</title>
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <% include templates/admin_sidebar.ejs %>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+
+      <!-- navi -->
+      <% include templates/admin_nav.ejs %>
+      <div class="container-fluid">
+
+        <h1 class="mt-4">결제관리 테이블 (PH)</h1>
+        <div class="container col-md-6">
+            <form>           
+                <label for="userName">phId :</label> 
+                <input type="userName" class="form-control" id="phId" name="userName" value="<%=data.PH_ID%>" readonly= "readonly"> 
+                <label for="userName">phUId :</label> 
+                <input type="userName" class="form-control" id="phUId" name="userName" value="<%=data.PH_U_ID%>" readonly= "readonly"> 
+
+                <label for="userName">아이디 :</label> 
+                <input type="userName" class="form-control" id="userName" name="userName" value="<%=data.U_UserName%>" readonly= "readonly"> 
+
+                <label for="name">이름 :</label>
+                <input type="dept" class="form-control" id="dept" name="dept" value="<%=data.U_Name%>" readonly= "readonly"> 
+
+                <label for="return">운송사 :</label>
+                <input type="return" class="form-control" id="return" name="return" value="<%=data.B_Name%>" readonly= "readonly">
+             
+                <label for="lead">출발시간 :</label>
+                <input type="lead" class="form-control" id="lead" name="lead" value="<%=data.CT_DepartureTe%>" readonly= "readonly">
+
+                <label for="carNum">좌석개수 :</label>
+                <input type="carNum" class="form-control" id="carNum" name="carNum" value="<%=data.cnt%>" readonly= "readonly">
+
+                <label for="drName">총 가격 :</label>
+                <input type="drName" class="form-control" id="drName" name="drName" value="<%=data.PH_Price%>" readonly= "readonly">
+
+                <label for="drPhone">결제수단 :</label>
+                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.PH_Type%>" readonly= "readonly">
+
+                <label for="drPhone">취소여부 :</label>
+                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.CR_Cancel%>" readonly= "readonly">
+
+                <label for="drPhone">결제일 :</label>
+                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.CR_cDt%>" readonly= "readonly">
+            </form>
+            <br>       
+            <button type="button" class="btn btn-primary" onclick="modify()">결제취소</button>   
+          </div>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  </div>
+  <!-- /#wrapper -->
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+
+<!-- Menu Toggle Script -->
+<script>
+function modify(){
+    $.ajax({
+        url: '/admin/cancelPayment',
+        method: 'post',
+        dataType: 'json',
+        data: {'phId': $("#phId").val() ,'phUId': $("#phUId").val()},
+        success: function(res){
+            alert("취소완료");
+            location.href= "/admin/payment"
+        }
+
+    })
+}
+
+
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  });
+</script>
+
+
+
+
+</body>
+
+</html>

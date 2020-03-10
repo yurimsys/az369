@@ -89,7 +89,7 @@
                             </li>
                         </ul>
 
-                        <input type="submit" value="제출하기" onclick="applyCon()">
+                        <input type="submit" value="제출하기" onclick="applyCon(event)">
                     </form>
                 </div>
 
@@ -132,13 +132,13 @@
         </section>
 
             <script>
-                let nowData = 0;
     
                 //입점상담신청
-               function applyCon(){
+               function applyCon(e){
+                e.preventDefault(); //다음 이벤트 제거
                 if($('#name').val() == "" || $('#phone').val()=='' || $('#brand').val()=='' || $('#address').val()=='' || $('#memo').val()==''){
                     alert("빈칸을 입력해 주세요");
-                    return;
+                    return false;
                 }
                 $.ajax({
                     url: "api/user/benefitApply",
@@ -150,22 +150,20 @@
                         brand : $("#brand").val(),
                         address : $("#address").val(),
                         memo : $("#memo").val()
-                    },
-                    success: function(){
-                        alert("신청이 완료되었습니다. \n빠른시일내 연락드리겠습니다.");
-                        location.reload();
                     }
-    
+                }).done(()=>{
+                    alert("신청이 완료되었습니다. \n빠른시일내 연락드리겠습니다.");
+                    location.href = '/benefit_application'
                 })
                }
+
                //제출여부조회
                function lookUp(){
                     if($('#name2').val() == "" || $('#phone2').val()==''){
                         $(".layer").hide();
                         alert("빈칸을 입력해 주세요");
                         //return;    
-                        location.reload();    
-                               
+                        location.reload();                                   
                     }
     
                     $.ajax({
@@ -183,15 +181,9 @@
                             location.reload();                                                                       
                         }else if(res.data.SI_cDt != ""){  
                             $("#applyDate").append(res.data.SI_cDt);                          
-                            location.href="#popup"; 
-                           
-                            
-                        }
-                                                                        
-                                     
+                            location.href="#popup";                            
+                        }                                                                                                           
                        }
-    
-    
                     });
                }
        
@@ -245,41 +237,5 @@
 
     </div>
 
-    <script>
 
-        //main 슬라이드
-        var slideIndex = 0;
-        showSlides();
-
-        function showSlides() {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("dot");
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) {
-                slideIndex = 1
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-            setTimeout(showSlides, 6000); // Change image every 2 seconds
-        }
-
-        //gallery 슬라이드
-        var slides = document.querySelectorAll('#slides .slide');
-        var currentSlide = 0;
-        var slideInterval = setInterval(nextSlide, 3000);
-
-        function nextSlide() {
-            slides[currentSlide].className = 'slide';
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].className = 'slide showing';
-        }
-
-    </script>
 </body></html>

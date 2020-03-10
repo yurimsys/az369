@@ -31,7 +31,9 @@
                 <input type="cyId" class="form-control" id="cyId" name="cyId" value="<%=data.CY_ID%>" readonly="readonly">  
 
                 <label for="cyBId">CY_B_ID:</label>
-                <input type="cyBId" class="form-control" id="cyBId" name="cyBId" value="<%=data.CY_B_ID%>">   
+                <select id="cyBId" class='form-control'>
+                  <option value=0>운송사 선택</option>
+              </select>  
 
                 <label for="cyTy">CY_Ty:</label>
                 <input type="cyTy" class="form-control" id="cyTy" name="cyTy" value="<%=data.CY_Ty%>"> 
@@ -54,41 +56,60 @@
     </div>
     <!-- /#page-content-wrapper -->
 </div>
-  <!-- /#wrapper -->
+<!-- /#wrapper -->
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <script>
-    function modify(){
-      $.ajax({
-        url: "/admin/carType/modify",
-        method: 'post',
-        dataType: 'json',
-        data: {
-            'cyId' : $("#cyId").val(), 'total' : $('#total').val(), 'cyBId' : $("#cyBId").val(),
-            'service' : $("#service").val(), 'price' : $("#price").val(), 'cyTy' : $("#cyTy").val()
-            },
-            success: function(res){
-              if(res.data == "수정"){
-                alert("수정완료");
-                location.href="/admin/carType";
-              }
+<script>
+ 
+
+  $(document).ready(function(){
+    $.ajax({
+      url: '/admin/carTypeBList',
+      method: 'post',
+      dataType: 'json',
+      success: function(res){
+        console.log("data ::", res.data);
+        for(let i=0; i<res.data.length; i++){
+          let html = "<option value="+res.data[i].B_ID+">"+res.data[i].B_Name+"</option>"
+              $("#cyBId").append(html);
+        }
+      }
+
+    })
+  })
+  
+
+  function modify(){
+    $.ajax({
+      url: "/admin/carType/modify",
+      method: 'post',
+      dataType: 'json',
+      data: {
+          'cyId' : $("#cyId").val(), 'total' : $('#total').val(), 'cyBId' : $("#cyBId").val(),
+          'service' : $("#service").val(), 'price' : $("#price").val(), 'cyTy' : $("#cyTy").val()
+          },
+          success: function(res){
+            if(res.data == "수정"){
+              alert("수정완료");
+              location.href="/admin/carType";
             }
-      })
-    }
+          }
+    })
+  }
 
-  </script>
+</script>
 
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
+<!-- Menu Toggle Script -->
+<script>
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  });
+</script>
 
 </body>
 

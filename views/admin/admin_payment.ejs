@@ -26,25 +26,9 @@
             <table class="table table-bordered" width="100%" cellspacing="0" id="payTable">
                 <thead class="thead-light">
                     <tr>
-                        <th>PH_ID</th>
-                        <th>PH_U_ID</th>
-                        <th>U_UserName</th>
-                        <th>U_Name</th>
-                        <th>PH_PG_ID</th>
-                        <th>PH_PG_Name</th>
-                        <th>PH_Price</th>
-                        <th>PH_Oprice</th>
-                        <th>PH_Sprice</th>
-                        <th>PH_Type</th>
-                        <th>CR_Cancel</th>
-                        <th>CR_cDt</th>
-                    </tr>
-                    <tr>
-                        <th>PH_ID</th>
-                        <th>회원고유키</th>
                         <th>회원아이디</th>
                         <th>회원이름</th>
-                        <th>PG사 아이디</th>
+                        <th>회원전화번호</th>
                         <th>PG사 이름</th>
                         <th>실제 결제금액</th>
                         <th>할인전 금액</th>
@@ -52,16 +36,15 @@
                         <th>결제수단</th>
                         <th>취소여부</th>
                         <th>결제일시</th>
+                        <th>결제취소</th>
                     </tr>
                 </thead>
                 <tbody id="list">
                   <% for(let i=0; i<data.length; i++){ %>
                     <tr>
-                        <td><%=data[i].PH_ID%></td>
-                        <td><%=data[i].PH_U_ID%></td>
                         <td><%=data[i].U_UserName%></td>
                         <td><%=data[i].U_Name%></td>
-                        <td><%=data[i].PH_PG_ID%></td>
+                        <td><%=data[i].U_Phone%></td>
                         <td><%=data[i].PH_PG_Name%></td>
                         <td><%=data[i].PH_Price%></td>
                         <td><%=data[i].PH_Oprice%></td>
@@ -69,8 +52,7 @@
                         <td><%=data[i].PH_Type%></td>
                         <td><%=data[i].CR_Cancel%></td>
                         <td><%=data[i].CR_cDt%></td>
-                        <!-- <td><a href='/admin/userModify/<%=data[i].U_ID%>'>수정</a></td>
-                        <td><a href='/admin/userDelete/<%=data[i].U_ID%>'>삭제</a></td> -->
+                        <td><a href='/admin/cancelList/<%=data[i].PH_ID%>/<%=data[i].PH_U_ID%>'>취소</a></td>
                     </tr>
                     <% } %>
                 </tbody>
@@ -99,6 +81,7 @@
 <script>
 $(document).ready(function(){
   $("#payTable").DataTable();
+  
 })
 
   $("#menu-toggle").click(function(e) {

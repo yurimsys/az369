@@ -32,28 +32,27 @@
             <table class="table table-bordered" width="100%" cellspacing="0" id="resTable">
                 <thead class="thead-light">
                     <tr>
-                        <th>SI_ID</th>
                         <th>SI_Name</th>
                         <th>SI_Phone</th>
                         <th>SI_Brand</th>
                         <th>SI_Addr1</th>
-                        <th>SI_Addr2</th>
                         <th>SI_Content</th>
                         <th>SI_cDt</th>
+                        <th>상태</th>
                         <th>자세히</th>
                     </tr> 
                 </thead>                                              
                 <tbody id="list"> 
                   <% for(let i=0; i<data.length; i++){ %>
                     <tr>
-                        <td><%=data[i].SI_ID%></td>
                         <td><%=data[i].SI_Name%></td>
                         <td><%=data[i].SI_Phone%></td>
                         <td><%=data[i].SI_Brand%></td>
                         <td><%=data[i].SI_Addr1%></td>
-                        <td><%=data[i].SI_Addr2%></td>
                         <td><%=data[i].SI_Content%></td>
                         <td><%=data[i].SI_cDt%></td>
+                        <td><%=data[i].SI_Read%></td>
+
                         <td><a href="storeInDetail/<%=data[i].SI_ID%>">자세히</a></td>
                     </tr>
                     <% } %>                     
@@ -85,6 +84,10 @@ $(document).ready(function(){
     $("#resTable").DataTable();
 
 })
+
+sessionStorage.setItem("datarow", $("#list tr").length);
+
+
 
   $("#menu-toggle").click(function(e) {
     e.preventDefault();
