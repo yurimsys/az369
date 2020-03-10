@@ -108,7 +108,7 @@ section.video_list{width: 100%; margin-top: 8%; overflow: hidden;}
 
 /*최신 VIDEO 리스트*/
 .video_list ul {width: 100%; margin-top: 30px; height: auto;}
-.video_list ul li {float: left; position: relative; width: 32%; margin-right: 2%; margin-bottom: 30px; height: auto;}
+.video_list ul li {float: left; position: relative; width: 32%; margin-right: 2%; margin-bottom: 2%; height: auto;}
 .video_list ul li:nth-child(3),
 .video_list ul li:nth-child(6) {margin-right: 0;}
 .video_list ul li:hover .video_txt,
