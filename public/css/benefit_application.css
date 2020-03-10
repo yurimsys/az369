@@ -72,7 +72,7 @@ section.sub_wrap h1 {
 section.sub_wrap h2 {font-size: 30px; text-align: center; margin-bottom: 5%; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif; font-weight:normal;}
 section.sub_wrap h2 br {display: none;}
 
-section.sub_wrap h5 {color: #777; font-size: 1.3rem; text-align:center; font-weight: normal;}
+section.sub_wrap h5 {color: #777; font-size: 20px; text-align:center; font-weight: normal;}
 section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow: inset 0 -15px 0 #fcf3dc;}
 
 
