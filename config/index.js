@@ -21,6 +21,6 @@ module.exports = {
             id : 'yr.hb.sim@gmail.com',
             pw : 'go121212!!'
         }
-    }
-    
+    },
+    enc_salt : '!@#yurimsys#@!'
 }
