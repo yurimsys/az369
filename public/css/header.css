@@ -17,7 +17,7 @@ nav.gnb {width: 45%;/* float: left; */margin: 0 auto;}
 nav.gnb ul li {
     float: left;
     margin: 0 auto;
-    width: 33.3%;
+    width: 25%;
     height: 80px;
     line-height: 80px;
     text-align: center;
