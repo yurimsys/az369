@@ -222,9 +222,10 @@ header .open {
     
     .sub_bg {padding: 2% 0;}
     .sub_info {width: 414px; padding: 5% 0; margin-top: 8%;}
-    .sub_info p {width: 93%; margin: 0 auto;}
+    .sub_info p {width: 95%; margin: 0 auto; text-align: left;}
     .sub_info p br {display: none;}
     
+
     /*footer*/
     footer {width: 100%; margin: 0 auto; }
     footer .footer_inner {width: 90%; margin: 0 auto;}

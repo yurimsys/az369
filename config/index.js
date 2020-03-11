@@ -10,5 +10,17 @@ module.exports = {
     },
     message : {
         phone_auth : `[AZ369] 본인확인 인증번호 [#auth_number#]를 입력해주세요.`
+    },
+    mail_address : {
+        ceo : 'hb.sim@yurim-info.com',
+        company : 'post@yurim-info.com',
+        dev : 'dev.yurimsys@gmail.com'
+    },
+    account : {
+        mail : {
+            id : 'yr.hb.sim@gmail.com',
+            pw : 'go121212!!'
+        }
     }
+    
 }

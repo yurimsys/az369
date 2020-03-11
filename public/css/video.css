@@ -18,6 +18,8 @@ p {text-align: justify; font-family: inherit; font-size: 16px;}
 }
 
 
+
+
 /*section.main*/
 section.main {
     position: relative;
@@ -27,13 +29,13 @@ section.main {
     overflow: hidden;
 }
 
-.main_bg { background: url(/img/video/video_bg4.jpg) no-repeat; background-position: center; background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
+.main_bg { background: url(/img/video/video_bg.jpg) no-repeat; background-position: center; background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 
 @keyframes bg {
-    0% {transform: scale(1.05);
+    0% {transform: scale(1.05);}
     100% {transform: scale(1);}
-    }
 }
+
 
 /*section.main 완료*/
 /*section.sub_wrap 시작*/
@@ -77,7 +79,7 @@ section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow
 section.main_video {width: 100%; overflow: hidden; margin: 0 auto; margin-top: 30px;}
 .main_video_txt {width: 100%; text-align: center;}
 .main_video_txt h3 {font-size: 22px; color: #444; margin-top: 1%}
-.main_video_txt h5 {font-size: 16px; color: #999; font-weight: normal; margin-top: 5px;}
+.main_video_txt h5 {font-size: 16px; color: #777; font-weight: normal; margin-top: 5px;}
 .main_video_txt h5 span {color: #ccc; padding: 0 15px;}
 
 
@@ -124,9 +126,9 @@ section.video_list{width: 100%; margin-top: 8%; overflow: hidden;}
 
 
 /*최신 VIDEO 리스트 텍스트영역*/
-.video_txt {width: 100%; float: left; height: 120px; padding: 14px 15px 10px; text-align: justify; background: #fff; border: 1px solid #eee; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; box-shadow: 0 0 12px rgba(85, 79, 47, 0.15);}
+.video_txt {width: 100%; float: left; height: 120px; padding: 14px 15px 10px; text-align: left; background: #fff; border: 1px solid #eee; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; box-shadow: 0 0 12px rgba(85, 79, 47, 0.15);}
 .video_txt h4 {font-size: 17px; color: #222; font-weight: normal; line-height: 1.5; }
-.video_txt p {font-size: 15px; color: #999; margin-top: 8px;}
+.video_txt p {font-size: 15px; color: #777; margin-top: 8px;}
 .video_txt p span {color: #ddd; padding: 0 15px;}
 
 
@@ -175,6 +177,7 @@ overflow: hidden;
 /*영상팝업 내부 슬라이드*/ 
 .mySlides {
   text-align: center;
+     height: 670px;
 }
 
 /*영상팝업 내부 슬라이드 버튼*/
@@ -194,6 +197,7 @@ overflow: hidden;
   user-select: none;
     border: 1px solid #ddd;
     background: transparent;
+    border-radius: 5px;
 }
 .next {
   position: absolute;
@@ -204,22 +208,25 @@ overflow: hidden;
   border: 1px solid #c3a164;
   box-shadow: 0 0 12px rgba(85, 79, 47, 0.1);
 }
-
+.dot-container{
+    display: none;
+}
 
 
 /*영상팝업 내부 영상영역*/
-.video_slide {float: left; width: 70%; height: 670px;}
+.video_slide {float: left; width: 70%; height: 100%;}
 
 /*영상팝업 내부 택스트영역*/
 .video_slide_txt {float: right; width: 28%; text-align: left;  margin-top: 10px;}
-.mySlides .video_slide_txt h3 {font-size: 30px; line-height: 1.4;}
-.mySlides .video_slide_txt h5 {font-size: 16px; color: #999; margin-top: 10px; font-weight: normal; /*padding-bottom: 4%; border-bottom: 1px solid #ddd;*/}
+.mySlides .video_slide_txt h3 {font-size: 30px; line-height: 1.4; color: #222;}
+.mySlides .video_slide_txt h5 {font-size: 16px; color: #777; margin-top: 10px; font-weight: normal; /*padding-bottom: 4%; border-bottom: 1px solid #ddd;*/}
 .mySlides .video_slide_txt h5 span {color: #ddd; padding: 0 15px;}
 .mySlides .video_slide_txt p {margin-top: 4%; color: #444;}
 
 
 
-/*section.sub_wrap 완료*/
+
+
 
 
 
@@ -257,7 +264,6 @@ header .open {
 
     /*main*/
     section.main {width: 100%;}
-    /*section.main .inner_main {width: 1200px;}*/
 
 
     /*section.sub_wrap*/
@@ -266,12 +272,14 @@ header .open {
     .video_wrap {width: 95%; margin: 0 auto;}
 
     .tnb {padding-bottom: 5%; width: 100%; margin-top: -5%;}
-    section.sub_wrap h6 {padding-top: 8%;}
+    section.sub_wrap h6 {padding-top: 11.5%;}
 
-
-
-
-
+    /*팝업영역*/
+    .popup_close {right: 3%;}
+    .popup_box_inner {padding:30px 25px;}
+    /*팝업 내 텍스트*/
+    .mySlides .video_slide_txt h3 {font-size: 28px;}
+    .mySlides .video_slide_txt p {margin-top: 20px;}
 
 
 
@@ -410,9 +418,16 @@ header .open {
     section.sub_wrap .inner_sub_wrap {width: 1024px;}
     section.sub_wrap {padding-top: -10%;}
 
-    .tnb {padding-bottom: 6%; width: 1024px; margin-top: -5.9%;}
+    /*팝업영역*/
+    .video_slide {width: 100%; height: 548px;}
+    /*팝업 내 텍스트*/
+    .video_slide_txt {width: 100%; padding: 0 1%;}
+    .mySlides .video_slide_txt h3 {font-size: 26px; margin-top:7px;}
+    .mySlides .video_slide_txt h5 {font-size: 15px;}
+    .mySlides .video_slide_txt p {font-size: 16px;  height: auto; overflow: hidden; position: relative;}
+    /*팝업슬라이드버튼*/
+    .video_control {position: static; float: right; margin-top: 1%;}
 
-    .sub_bg {margin: 0 auto;}
 
     /*footer*/
     footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
@@ -437,74 +452,76 @@ header .open {
     section.sub_wrap .inner_sub_wrap {width: 768px;}
     .tnb {width: 768px; margin-top:-7.6%;}
     section.sub_wrap h1 {font-size: 2.2rem;}
-    section.sub_wrap h2 {margin-bottom: 6%; font-size: 30px;}
+    section.sub_wrap h2 {margin-bottom: 8%; font-size: 26px;}
 
-    .sub_bg {margin: 0 auto;}
+    .video_list ul li {width: 48%;}
+    .video_list ul li:nth-child(3) {margin-right: 2%;}
+    .video_list ul li:nth-child(6) {margin-right: 0;}
+    .video_txt {padding: 14px 16px;}
+    .video_txt h4 {font-size: 18px;}
 
-    .sub_info {margin: 0 auto; padding-top: 6%;}
-    .sub_info ul {width: 80%;}
-    .sub_info h3 {font-size: 1.5rem;}
-    section.sub_wrap h6 {padding-top: 10%;}
 
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    /*팝업영역*/
+    .video_slide {width: 100%; height: 410px;}
+    /*팝업 내 텍스트*/
+    .mySlides .video_slide_txt h3 {font-size: 24px;}
+    .mySlides .video_slide_txt h5 {font-size: 14px;}
+    /*팝업 슬라이드 버튼*/
+    .video_control { width:166px; height: 50px; margin-top: 2%;}
+    .prev, .next {height: 50px; width: 50px; font-size: 20px;}
+
+
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
 
     /*main*/
-    section.main {width: 100%;}
+    section.main {width: 100%; background-position: right;}
     section.main .inner_main {width: 414px;}
-    .main_bg {
-        background: url(../img/vehicle/vehicle_main_bg2.png);
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: right;
-        width: 100%;
-    }
+    /*.main_bg {background-position: right;}*/
+
+
 
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 414px;}
+    section.sub_wrap .inner_sub_wrap {width: 100%;}
     section.sub_wrap h1 {font-size: 2rem;}
     section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-    section.sub_wrap h2 {font-size: 26px; padding-bottom: 7%; line-height: 1.5;}
+    section.sub_wrap h2 {font-size: 24px; padding-bottom: 7%; line-height: 1.5;}
     section.sub_wrap h2 br {display: block;}
-
-    section.sub_wrap h2 span {font-size: 1.1rem;}
-    section.sub_wrap h6 {padding-top: 22%;}
+    section.sub_wrap h2 span {font-size: 18px;}
+    section.sub_wrap h6 {padding-top: 24%;}
 
     .tnb {width: 414px; margin-top: -12%;}
-    .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
-    .sub_bg {margin: 0 auto; margin-bottom: 2%;}
+    .tnb ul li {height: 50px; line-height: 50px; font-size: 15px;}
 
-    .sub_info {margin-top: 5%;}
-    .sub_info h3 {font-size: 20px; width: 95%; margin: 0 auto; color: #555; }
+    section.main_video {margin-top: 22px;}
 
-    .sub_info p {width: 95%; margin: 0 auto; margin-top: 10%; font-size: 15px;}
-    .sub_info ul {width: 95%;}
+    .main_video_txt h3 {font-size: 20px; line-height: 1.5; margin-top: 2%; text-align: left;}
 
-    .info_notice {margin: 12% 0; padding: 4% 4%;}
-    .info_notice p > br {display: none;}
-    .info_notice p {width: 75%; margin-top: 0; font-size: 1rem;}
-    .info_notice p span {display: block; margin-top: 2%;  width: 100%;}
-
-    .vehicle_btn {width:100%; margin-left: 2%; margin-top: 8%;padding-bottom:1%;}
-    .vehicle_btn ul li {width: 49%; float: left; height: 50px; line-height: 50px;}
-    .vehicle_btn ul li a {padding: 0; }
+    .video_list ul li {width: 100%; margin-bottom: 3%;}
+    .video_list ul li:nth-child(3) {margin-right: 2%;}
+    .video_list ul li:nth-child(6) {margin-right: 0;}
+    .video_txt {padding: 16px; height: auto;}
+    .video_txt h4 {font-size: 17px;}
+    .video_txt p {font-size: 14px;}
+    .video_txt p span {padding: 0 2px;}
 
 
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+
+    /*팝업영역*/
+    .popup_box_inner {padding:20px 15px;}
+    .popup_box_header {height: 60px;}
+    .popup_close {height: 60px; line-height: 60px; margin-right: 1%;}
+    .video_slide {width: 100%; height: 210px;}
+    .mySlides {height: auto;}
+    /*팝업 내 텍스트*/
+    .mySlides .video_slide_txt h3 {font-size: 20px;}
+    /*팝업 슬라이드 버튼*/
+    .video_control { width:153px; height: 45px; margin-top: 5%;}
+    .video_control_num {line-height: 45px;}
+    .prev, .next {height: 45px; width: 45px; line-height:35px; text-align: center; font-size: 14px;}
 }
 
 /*320px*/
@@ -519,33 +536,37 @@ header .open {
     /*main*/
     section.main {width: 100%;}
     section.main .inner_main {width: 320px;}
+    /*.main_bg {background-position: center;}*/
 
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
     section.sub_wrap .inner_sub_wrap {width: 320px;}
     section.sub_wrap h1 {font-size: 24px;}
     section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-    section.sub_wrap h2 {font-size: 20px;; padding-bottom: 7%; line-height: 1.5;}
+    section.sub_wrap h2 {font-size: 20px; padding-bottom: 7%; line-height: 1.5;}
+    section.sub_wrap h2 span {font-size: 16px;}
     section.sub_wrap h2 br {display: block;}
-    section.sub_wrap h5{font-size: 15px;}
-    section.sub_wrap h6 {font-size: 14px;}
+    section.sub_wrap h6 {font-size: 14px; margin-top: 3%;}
 
+    .hr-sect p {font-size: 22px;}
+    .main_video_txt h3 {font-size: 18px; padding: 0 5px; margin-top: 10px;}
+    .main_video_txt h5 {font-size: 14px;}
+    .video_txt h4 {font-size: 16px;}
+    .video_txt p {font-size: 13px; margin-top: 5px;}
+
+    section.video_list {margin-top: 12%;}
+    .pagination a {padding: 5px 12px;}
 
     .tnb {width: 320px; margin-top: -15.5%;}
-    .tnb ul li {font-size: 15px;}
-    .sub_bg {margin: 0 auto;}
 
-    .sub_info {margin-top: 5%;}
-    .sub_info em {font-size: 14px;}
-    .sub_info h3 {font-size: 18px; width: 90%; margin: 0 auto; margin-top: 1%;}
 
-    .sub_info p {width: 95%; margin: 0 auto; margin-top: 7%; font-size: 15px;}
-    .sub_info em {font-size: 1.05rem; }
+    /*팝업영역*/
+    .popup_box_inner {padding:15px 10px;}
+    .popup_close img {width: 80%;}
+    /*팝업 내 텍스트*/
+    .mySlides .video_slide_txt p {margin-top: 15px;}
 
-    .sub_info p {width: 90%; margin: 0 auto; text-align: justify; margin-top: 7%;}
-    .sub_info p br{display: none;}
-    .sub_info ul {width: 95%;}
 
-    .info_btn {margin: 10% 0;}
-    .sub_info .info_btn a {font-size: 15px;}
+    .video_control { width:143px; height: 50px; margin-top: 30px;}
+    .prev, .next {width: 40px; height: 40px; padding:0% 5%; font-size: 14px;}
 }
