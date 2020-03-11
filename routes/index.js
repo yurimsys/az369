@@ -284,7 +284,16 @@ router.get('/daytest', function(req, res, next) {
 
 //비디오
 router.get('/video', function(req, res, next) {
-    res.render('video', { sessionUser : req.user });
+    let query = `select * from tyl`;
+
+    connection.query(query,
+        function(err, rows){
+            if(err) throw err
+            res.render('video', { data : rows});
+            console.log("rwrwr :", rows);
+    })
+
+    
 });
 
 module.exports = router;

@@ -978,4 +978,29 @@ router.get('/auth/phone', async ( req, res ) => {
     res.json(result);
 });
 
+
+//비디오 팝업
+router.post('/user/videoPopup', (req, res, next) =>{
+    let query = `select * from tyl where YL_id = :youId`;
+    let youId = req.body.youId;
+ 
+    console.log("youId@@@@@@@@ :", youId);
+
+
+    connection.query(query,
+        {
+            youId
+
+        },
+        function(err, rows, fields) {
+            if (err) throw err;
+
+            // //console.log(findId);
+            res.json( {  data : rows});
+            console.log("rows : ",rows);
+
+        });
+
+});
+
 module.exports = router;
