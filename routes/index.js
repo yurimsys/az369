@@ -282,9 +282,25 @@ router.get('/daytest', function(req, res, next) {
     res.render('daytest', { sessionUser : req.user });
 });
 
-//비디오
+
+//비디오 페이징
 router.get('/video', function(req, res, next) {
-    res.render('video', { sessionUser : req.user });
+    res.redirect('/video/1')
 });
 
+//비디오 페이징
+router.get('/video/:currentPage', function(req, res, next) {
+    let query = `SELECT * FROM tyl limit :beginRow, :rowPerPage`; 
+    let currentPage = req.params.currentPage;
+    console.log("커런트 페이지지ㅣ ::", currentPage);
+    //페이지 내 보여줄 수
+    let rowPerPage = 6;
+    let beginRow = (currentPage-1)* rowPerPage;
+    connection.query(query, {beginRow, rowPerPage},
+      function(err, rows, fields) {
+          if (err) throw err;
+          res.render('video', { data : rows,sessionUser: req.user });
+          console.log("user",rows);
+      });
+});
 module.exports = router;
