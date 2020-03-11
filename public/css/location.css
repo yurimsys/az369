@@ -194,7 +194,7 @@ header .open {
     section.sub_wrap h1 {font-size: 2.2rem;}
     section.sub_wrap h6 {padding-top: 10%;}
     section.sub_wrap h5 {font-size: 20px;}
-    section.sub_wrap h2 {font-size: 30px;}
+    section.sub_wrap h2 {font-size: 28px;}
     .tnb {width: 768px; margin-top:-7.6%;}
     
     .sub_contents {margin: 0 auto; padding-top: 3%;}
@@ -221,19 +221,20 @@ header .open {
     section.sub_wrap .inner_sub_wrap {width: 414px;}
     section.sub_wrap h1 {font-size: 2rem;}
     section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-    section.sub_wrap h2 {font-size: 1.5rem; padding-bottom: 7%; line-height: 1.5;}
+    section.sub_wrap h2 {font-size: 24px;; padding-bottom: 7%; line-height: 1.5;}
     section.sub_wrap h2 br {display: block;}
-    section.sub_wrap h5{font-size: 1.2rem; margin-bottom: -1%;}
+    section.sub_wrap h5{font-size: 18px; margin-bottom: -1%;}
     section.sub_wrap h6 {padding-top: 22%;}
     
     .tnb {width: 414px; margin-top: -12%;} 
     .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
     
-    .sub_contents {margin-top: 7%;}
+    .sub_contents {margin-top: 4%; padding: 4%;}
     .sub_contents ul li {text-align: center; width: 100%; border-bottom: none; margin-bottom: 4%;}
     .sub_contents ul li h3 {margin: 0 auto; width: 100%; padding: 0;}
-    .sub_contents ul li p {margin-bottom: 3%; width: 100%; text-align: center; padding: 0;}
+    .sub_contents ul li p {margin-bottom: 2; width: 100%; text-align: center; padding: 0;}
     .sub_contents ul li:last-child p {margin-bottom: 0;}
+
 
     /*footer*/
     footer {width: 100%; margin: 0 auto; }

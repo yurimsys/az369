@@ -9,12 +9,14 @@ img {vertical-align: middle;}
 a img {border: none;}
 li {list-style: none;}
 address, em, i {font-style: normal;}
+strong {font-weight: bold;}
 p {text-align: justify; font-family: inherit; font-size: 16px;}
 
 .wrap {
     width: 100%;
     margin: 0 auto;
     height: auto;
+
 }
 
 
@@ -71,12 +73,13 @@ section.sub_wrap h1 {
     text-align: center; 
     font-size: 2.8rem;
     margin-top: -1%;
+     font-weight: normal;
 }
 
-section.sub_wrap h2 {font-size: 30px; text-align: center; margin-bottom: 5%; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif;}
+section.sub_wrap h2 {font-size: 2rem; text-align: center; margin-bottom: 5%; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif;  font-weight: normal;}
 section.sub_wrap h2 br {display: none;}
 
-section.sub_wrap h5 {color: #777; font-size: 20px; text-align:center; margin-bottom: -0.5%;}
+section.sub_wrap h5 {color: #777; font-size: 1.3rem; text-align:center; margin-bottom: -0.5%;  font-weight: normal;}
 section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow: inset 0 -15px 0 #fcf3dc;}
 
 
@@ -262,9 +265,9 @@ header .open {
     section.sub_wrap .inner_sub_wrap {width: 414px;}
     section.sub_wrap h1 {font-size: 2rem;}
     section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-     section.sub_wrap h2 {font-size: 1.6rem; padding-bottom: 7%; line-height: 1.5;}
+     section.sub_wrap h2 {font-size: 24px; padding-bottom: 7%; line-height: 1.5;}
     section.sub_wrap h2 br {display: block;}
-    section.sub_wrap h5{font-size: 1.2rem; margin-bottom: -1%;}
+    section.sub_wrap h5{font-size: 18px; margin-bottom: -1%;}
     section.sub_wrap h6 {padding-top: 11%;}
     
     
@@ -286,7 +289,8 @@ header .open {
      .info_notice { width: 100%; margin-top: 10%;}
     .info_notice p {font-size: 1rem; padding: 2% 0; line-height: 1.8;}
     
-   /* .apply_btn {width: 100%; margin-top: 6%;} .apply_btn {width: 100%; margin-top: 6%;}*/
+    .apply_btn {width: 95%; margin-top: 6%;}
+
     
     /*footer*/
     footer {width: 100%; margin: 0 auto; }
@@ -295,7 +299,6 @@ header .open {
     footer .footer_txt p {margin: 2% 0;}
     footer .footer_logo { z-index: 100; margin-right: 55%; color: #a0772b;}
 }
-
 /*320px*/
 @media screen and (max-width: 320px) {
     
