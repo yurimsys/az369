@@ -1016,7 +1016,7 @@ router.post('/user/videoPopup', (req, res, next) =>{
 
 
 router.post('/video/count', function(req, res, next) {
-    let query = `SELECT count(*) as cnt FROM tyl `; 
+    let query = `SELECT count(*) as cnt FROM tYL `; 
     connection.query(query,
       function(err, rows, fields) {
           if (err) throw err;
