@@ -245,6 +245,18 @@
     <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
     
     <script> 
+
+        $.ajax({
+            url: 'api/user/resDept',
+            method: 'post',
+            dataType: 'json',
+            success: function(res){
+                for(let i=0; i<res.data.length; i++){
+                    let html = "<option value="+res.data[i].deptTe+">평택 "+res.data[i].deptTe2+"</option>"
+                    $('#depart01').append(html);
+                }
+            }
+        })
         $('#timeSelect01, #timeSelect02').click(function(){
             $(".tab").empty();
             //console.log($("#depart01").val())

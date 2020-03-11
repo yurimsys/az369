@@ -14,38 +14,38 @@
         </h1>
         <nav class="gnb">
             <ul>
-                <li><a href="/./summary" class="gnb_link">사업안내</a>
+                <li><a href="/summary" class="gnb_link">사업안내</a>
                     <ul>
-                        <li><a href="/./summary">사업개요</a></li>
-                        <li><a href="/./ctd_info">센트럴돔 소개</a></li>
-                        <li><a href="/./location">오시는 길</a></li>
+                        <li><a href="/summary">사업개요</a></li>
+                        <li><a href="/ctd_info">센트럴돔 소개</a></li>
+                        <li><a href="/location">오시는 길</a></li>
                     </ul>
                 </li>
-                <li><a href="/./benefit" class="gnb_link">입점신청 및 혜택</a>
+                <li><a href="/benefit" class="gnb_link">입점신청 및 혜택</a>
                     <ul>
-                        <li><a href="/./benefit">입점 상가 혜택</a></li>
-                        <li><a href="/./benefit_application">입점 상담 신청</a></li>
+                        <li><a href="/benefit">입점 상가 혜택</a></li>
+                        <li><a href="/benefit_application">입점 상담 신청</a></li>
                     </ul>
                 </li>
-                <li><a href="/./vehicle" class="gnb_link">장차예매</a>
+                <li><a href="/vehicle" class="gnb_link">장차예매</a>
                     <ul>
-                        <li><a href="vehicle">장차운행안내</a></li>
-                        <li><a href="reservation">장차예매신청</a></li>
-                        <li><a href="mypage">장차예매현황</a></li>
+                        <li><a href="/vehicle">장차운행안내</a></li>
+                        <li><a href="/reservation">장차예매신청</a></li>
+                        <li><a href="/mypage">장차예매현황</a></li>
                     </ul>
                 </li>
-                <li><a href="/./video" class="gnb_link">소개영상</a></li>
+                <li><a href="/video" class="gnb_link">소개영상</a></li>
             </ul>
         </nav>
         
         <nav class="gnb2">
            <ul>
                 <% if( sessionUser ) { %>
-                    <li><a href="/./mypage" style="font-weight:bold"><%= sessionUser.U_Name %> 님</a></li>
-                    <li><a href="/./logout">로그아웃</a></li>
+                    <li><a href="/mypage" style="font-weight:bold"><%= sessionUser.U_Name %> 님</a></li>
+                    <li><a href="/logout">로그아웃</a></li>
                 <% } else { %>
-                    <li><a href="/./login">로그인</a></li>
-                    <li><a href="/./join">회원가입</a></li>
+                    <li><a href="/login">로그인</a></li>
+                    <li><a href="/join">회원가입</a></li>
                 <% } %>
                 <li>
                     <div class="tooltip">전화문의
@@ -68,40 +68,40 @@
            <li class="gnb_mo_login">
                 <% if( sessionUser ){ %>
                     <ul>
-                        <li><a href="/./mypage"><strong style="font-weight: bold; font-size: 18px;"><u><%= sessionUser.U_Name %> 님</u></strong></a></li>
-                        <li><a href="/./logout">로그아웃</a></li>
+                        <li><a href="/mypage"><strong style="font-weight: bold; font-size: 18px;"><u><%= sessionUser.U_Name %> 님</u></strong></a></li>
+                        <li><a href="/logout">로그아웃</a></li>
                     </ul>
                 <% } else { %>
-                    <a href="/./login">장차예매 시 <u>로그인</u>이 필요합니다.</a>
+                    <a href="/login">장차예매 시 <u>로그인</u>이 필요합니다.</a>
                 <% } %>
             </li>
             <li>
                 <a href="#">사업안내</a>
                 <ul class="inner">
-                    <li><a href="/./summary">사업개요</a></li>
-                    <li><a href="/./ctd_info">센트럴돔 소개</a></li>
-                    <li><a href="/./location">오시는 길</a></li>
+                    <li><a href="/summary">사업개요</a></li>
+                    <li><a href="/ctd_info">센트럴돔 소개</a></li>
+                    <li><a href="/location">오시는 길</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">입점신청 및 혜택</a>
                 <ul class="inner">
-                    <li><a href="/./benefit">입점상가혜택</a></li>
-                    <li><a href="/./benefit_application">입점상담신청</a></li>
+                    <li><a href="/benefit">입점상가혜택</a></li>
+                    <li><a href="/benefit_application">입점상담신청</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">장차예매</a>
                 <ul class="inner">
-                    <li><a href="/./vehicle">장차운행안내</a></li>
-                    <li><a href="/./reservation">장차예약신청</a></li>
-                    <li><a href="/./mypage">장차예매현황</a></li>
+                    <li><a href="/vehicle">장차운행안내</a></li>
+                    <li><a href="/reservation">장차예약신청</a></li>
+                    <li><a href="/mypage">장차예매현황</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">소개영상</a>
                 <ul class="inner">
-                    <li><a href="/./video" class="gnb_link">소개영상</a></li>
+                    <li><a href="/video" class="gnb_link">소개영상</a></li>
                 </ul>
             </li>
         </ul>

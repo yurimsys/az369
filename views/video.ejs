@@ -152,7 +152,6 @@
             </div>
         </section>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script> 
 
         'use sctrict';
@@ -256,8 +255,7 @@
             method : "post",
             async : false,	
             success : function(res){
-                $("#endPage").text(res.data[0].cnt)
-               
+                $("#endPage").text(res.data[0].cnt)              
                 for(let i=1; i<Math.ceil(res.data[0].cnt/6)+1; i++){
                     let html = ""
                     if(i == 1){
@@ -301,11 +299,10 @@
             $('.mySlides').remove()
         }
        
-
          //이전버튼
          $('#prevA').on('click', function(){
           var para = document.location.href.split("/");
-          console.log('link2 :', para[4])
+          //console.log('link2 :', para[4])
           if(para[4] == 1){
               return;
           }else{
@@ -313,7 +310,6 @@
           }
           
         })
-
 
         //이전버튼
         $(".prev").on('click', function(){           
@@ -344,9 +340,7 @@
         })
 
 
-        $("#nextA").click(function(){
-       
-            //db의 전체 사이즈 가져옴		
+        $("#nextA").click(function(){  	
             let count = 0;
             $.ajax({
                 url : "/api/video/count",
@@ -357,19 +351,18 @@
                 }                
             });
             var para = document.location.href.split("/");
-            console.log('link2 :', para[4])
+            //console.log('link2 :', para[4])
             if(para[4] == count){
                 return;
             }else{
                 location.href='/video/'+(Number(para[4])+1);
             }
-        
             
         });
         //다음버튼
         $(".next").on('click', function(){           
             let yPage =Number($('.mySlides').attr('id'))+1
-            console.log(yPage)
+            //console.log(yPage)
             if(yPage-1 == Number($("#endPage").text())){
                 return;
             }else{
