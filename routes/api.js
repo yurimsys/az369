@@ -1000,7 +1000,17 @@ router.post('/user/videoPopup', (req, res, next) =>{
             console.log("rows : ",rows);
 
         });
-
 });
 
+
+router.post('/video/count', function(req, res, next) {
+    let query = `SELECT count(*) as cnt FROM tyl `; 
+    connection.query(query,
+      function(err, rows, fields) {
+          if (err) throw err;
+          let cnt = rows;
+          res.send( { data : cnt});
+          console.log("카운트는 :",cnt);
+      });
+});
 module.exports = router;
