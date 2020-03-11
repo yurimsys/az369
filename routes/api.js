@@ -996,11 +996,8 @@ router.get('/auth/phone', async ( req, res ) => {
 
 //비디오 팝업
 router.post('/user/videoPopup', (req, res, next) =>{
-    let query = `select * from tyl where YL_id = :youId`;
+    let query = `select * from tYL where YL_id = :youId`;
     let youId = req.body.youId;
- 
-    console.log("youId@@@@@@@@ :", youId);
-
 
     connection.query(query,
         {
