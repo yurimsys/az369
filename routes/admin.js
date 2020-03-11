@@ -5,7 +5,8 @@ const dbconf = require('../config/database');
 const passport = require('passport');
 const auth = require('../config/passport');
 const connection = mysql.createConnection(dbconf);
-const bcrypt = require('bcrypt');
+const config = require('../config');
+const CryptoJS = require('crypto-js');
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -595,8 +596,7 @@ router.post('/user/insert', auth.isLoggedIn, function(req, res, next) {
         let addr1 = req.body.address;
         let addr2 = req.body.detailAddress;
         let password = req.body.pw;
-        let hash_pw = bcrypt.hashSync(password, 10, null);
-    
+        let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString();
     
         let query = `insert into tU(U_UserName, U_Pw ,U_Name, U_Email, U_Phone, U_Brand, U_Zip, U_Addr1, U_Addr2) 
                     values(:userName, :hash_pw, :name, :email, :phone, :brand, :zip, :addr1, :addr2)`; 

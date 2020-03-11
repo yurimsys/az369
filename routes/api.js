@@ -4,10 +4,9 @@ const auth = require('../config/passport');
 const mysql = require('mysql');
 const dbconf = require('../config/database');
 const connection = mysql.createConnection(dbconf);
-const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const config = require('../config');
-
+const CryptoJS = require('crypto-js');
 const LocalStrategy = require('passport-local').Strategy;
 const sms = require('../modules/sms');
 const localAuth = require('../modules/auth');
@@ -58,7 +57,7 @@ router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
     let uPw = req.body.pw;
     console.log("id :", uUserName);
     console.log("pw :", uPw);    
-    if( !bcrypt.compareSync(uPw, req.user.U_Pw) ){
+    if( CryptoJS.AES.decrypt(user.u_pw, config.enc_salt).toString(CryptoJS.enc.Utf8) !== req.user.U_Pw ){
         res.json({data : "실패"});
     } else {
         connection.query(query,{uUserName},
@@ -91,10 +90,10 @@ router.post('/user/checkId', (req, res, next) =>{
 router.post('/user/join', (req, res, next) =>{
     let query = `insert into tU (U_UserName, U_Pw, U_Name, U_Phone, U_Email, U_Brand, U_Zip, U_Addr1, U_Addr2) 
             values( :uUserName,  :uPw,  :uName,  :uPhone , :uEmail, :uBrand,  :uZip,  :uAddr1,  :uAddr2)`;
-    //console.log(req.body);
 
     let password = req.body.password;
-    let hash_pw = bcrypt.hashSync(password, 10, null);
+    let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString()
+
     
     connection.query(query, 
         {
@@ -187,7 +186,7 @@ router.post('/user/modifyPw', (req, res, next) =>{
     let query = "update tU set U_Pw = :hash_pw where U_UserName = :uUserName";
     
     let password = req.body.password;
-    let hash_pw = bcrypt.hashSync(password, 10, null);
+    let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString();
 
     console.log(req.body);
 
@@ -289,7 +288,7 @@ router.post('/user/confirm', auth.isLoggedIn, (req, res, done) =>{
         function(err, rows) {
             
             if (err) {return done(err);}
-            if( !bcrypt.compareSync(uPw, req.user.U_Pw) ){
+            if( CryptoJS.AES.decrypt(uPw, config.enc_salt).toString(CryptoJS.enc.Utf8) !== req.user.U_Pw ){
                 console.log("확인");
                 res.json({data: "실패"});
                 return done( null, false, {message: "ID와 Password를 확인해주세요"} );
@@ -310,7 +309,8 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     let uAddr1 = req.body.address;
     let uAddr2 = req.body.detailAddress;
     let password = req.body.pw;
-    let hash_pw = bcrypt.hashSync(password, 10, null);
+    let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString();
+    
     console.log("유저아이디 :", uUserName);
     console.log("password :", password);
     console.log("hash :", hash_pw);
@@ -363,7 +363,8 @@ router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
     let uPw = req.body.pw;
     console.log("id :", uUserName);
     console.log("pw :", uPw);    
-    if( !bcrypt.compareSync(uPw, req.user.U_Pw) ){
+    
+    if( CryptoJS.AES.decrypt(uPw, config.enc_salt).toString(CryptoJS.enc.Utf8) !== req.user.U_Pw ){
         res.json({data : "실패"});
     } else {
         connection.query(query,{uUserName},
