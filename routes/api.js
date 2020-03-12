@@ -996,11 +996,8 @@ router.get('/auth/phone', async ( req, res ) => {
 
 //비디오 팝업
 router.post('/user/videoPopup', (req, res, next) =>{
-    let query = `select * from tyl where YL_id = :youId`;
+    let query = `select * from tYL where YL_id = :youId`;
     let youId = req.body.youId;
- 
-    console.log("youId@@@@@@@@ :", youId);
-
 
     connection.query(query,
         {
@@ -1019,7 +1016,7 @@ router.post('/user/videoPopup', (req, res, next) =>{
 
 //비디오 총 수
 router.post('/video/count', function(req, res, next) {
-    let query = `SELECT count(*) as cnt FROM tyl `; 
+    let query = `SELECT count(*) as cnt FROM tYL `; 
     connection.query(query,
       function(err, rows, fields) {
           if (err) throw err;
