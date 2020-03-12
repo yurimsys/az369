@@ -1017,7 +1017,7 @@ router.post('/user/videoPopup', (req, res, next) =>{
         });
 });
 
-
+//비디오 총 수
 router.post('/video/count', function(req, res, next) {
     let query = `SELECT count(*) as cnt FROM tyl `; 
     connection.query(query,
@@ -1026,6 +1026,16 @@ router.post('/video/count', function(req, res, next) {
           let cnt = rows;
           res.send( { data : cnt});
           console.log("카운트는 :",cnt);
+      });
+});
+
+//추천 비디오
+router.post('/video/best', function(req, res, next) {
+    let query = `select * from tYL where YL_d_order order by rand() limit 1`; 
+    connection.query(query,
+      function(err, rows, fields) {
+          if (err) throw err;
+          res.send( { data : rows});
       });
 });
 module.exports = router;
