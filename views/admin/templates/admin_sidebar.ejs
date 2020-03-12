@@ -1,20 +1,21 @@
+<ul class="sidebar-accordion">
+    <li class="list-title">차량</li>
+    <li><a href="/admin/business"><i class="icon-office"></i> <span>운송사</span></a></li>
+    <li><a href="/admin/carType"><i class="icon-public-bus"></i> <span>운송사 차량</span></a></li>
+    <li><a href="/admin/carTime"><i class="icon-table4"></i> <span>배차관리</span></a></li>
+   
+    <li class="list-title">회원</li>
+    <li><a href="/admin/user"><i class="icon-user"></i> <span>회원정보</span></a></li>
+    <li><a href="/admin/userRes"><i class="icon-grid2"></i><span>회원 좌석예약</span></a></li>
+    <li><a href="/admin/storeIn"><i class="icon-mail-read"></i><span>입점상담 신청</span>&emsp;<span class="badge badge-pill badge-danger" id="push"></span></a></li>
+    <li><a href="/admin/preference"><i class="icon-thumbs-up"></i> <span>장차 선호도</span></a></li>
 
-<div class="bg-light border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading"><a href="/admin/index">HOME</a></div>
-    <div class="list-group list-group-flush">
-      <a href="/admin/business" class="list-group-item list-group-item-action bg-light">운송사목록</a>
-      <a href="/admin/carType" class="list-group-item list-group-item-action bg-light">운송사 차량 정보</a>
-      <a href="/admin/carTime" class="list-group-item list-group-item-action bg-light">차량 운행 정보</a>
-      <a href="/admin/payment" class="list-group-item list-group-item-action bg-light">결제관리</a>
-      <a href="/admin/user" class="list-group-item list-group-item-action bg-light">회원목록</a>
-      <a href="/admin/preference" class="list-group-item list-group-item-action bg-light">선호도 조사</a>
-      <a href="/admin/userRes" class="list-group-item list-group-item-action bg-light">회원 좌석예약 목록</a>
-      <a href="/admin/storeIn" class="list-group-item list-group-item-action bg-light">입점상담 신청 목록<span class="badge badge-success" id="push"></span></a>
-    </div>
-  </div>
+    <li class="list-title">결제</li>
+    <li><a href="/admin/payment"><i class="icon-credit-card"></i> <span>결제관리</span></a></li>
+</ul>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script>
     //입점상담 신청 목록 확인하지 않은 알림
     $(document).ready(function(){
       $.ajax({
@@ -22,10 +23,46 @@
         method: 'post',
         dataType: 'json',
         success: function(res){
-          console.log("reres:",res)
           $("#push").append(res.data.length);
         }
       })
     })
 
-  </script>
+if ($.fn.navAccordion) {
+    $('.sidebar-accordion').each(function() {
+        $(this).navAccordion({
+            eventType: 'click',
+            hoverDelay: 100,
+            autoClose: true,
+            saveState: false,
+            disableLink: true,
+            speed: 'fast',
+            showCount: false,
+            autoExpand: true,
+            classExpand: 'acc-current-parent'
+        });
+    });
+}
+
+var pgurl = window.location.href.substr(window.location.href.lastIndexOf("/")+1);
+$(".sidebar ul.sidebar-accordion li a").each(function(){
+    if($(this).attr("href") == pgurl || $(this).attr("href") == '' )
+    {
+        $(this).addClass(" active");
+        $(this).parent().parent().css("display","block");
+        $(this).parent().parent().parent().addClass(" active");
+        $(this).parent().parent().parent().parent().css("display","block");
+        $(this).parent().parent().parent().parent().parent().addClass(" active");
+    }
+})
+$(".leftmenu ul.sidebar-accordion li a").each(function(){
+    if($(this).attr("href") == pgurl || $(this).attr("href") == '' )
+    {
+        $(this).addClass(" active");
+        $(this).parent().parent().css("display","block");
+        $(this).parent().parent().parent().addClass(" active");
+        $(this).parent().parent().parent().parent().css("display","block");
+        $(this).parent().parent().parent().parent().parent().addClass(" active");
+    }
+})
+</script>

@@ -13,6 +13,7 @@
     "cookie-parser": "~1.4.4",
     "cross-env": "^7.0.0",
     "crypto-js": "^4.0.0",
+    "datatables.net-editor": "^1.6.5",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",

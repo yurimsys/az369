@@ -1,103 +1,148 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-
-  <% include templates/admin_head.ejs %>
-  <title>Admin-User</title>
-  
-
-
-
+	<% include templates/admin_head.ejs %>
 </head>
+<body id="top">
 
-<body>
+<!-- Preloader -->
+<!-- <div id="preloader">
+	<div id="status">
+		<div class="loader"></div>
+	</div>
+</div> -->
+<!-- /Preloader -->
 
-  <div class="d-flex" id="wrapper">
+<div id="body-wrapper" class="body-container">
 
-    <!-- Sidebar -->
-    <% include templates/admin_sidebar.ejs %>
-    <!-- /#sidebar-wrapper -->
+	<!-- Header begins -->
+	<header class="main-nav clearfix">
+		<% include templates/admin_header.ejs %>
+	</header>
+	<!-- /Header ends -->
 
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
+	<!-- 네비게이션!@!@-->
+	<aside class="menu">
+		<div class="left-aside-container">			
+			<% include templates/admin_sidebar.ejs %>
+			<!-- /User profile -->
+			<!-- Main menu -->
+			<div class="menu-container">
+				
+			</div>
+			<!-- /Main menu -->
+		</div>
+	</aside>
+	<!-- /Sidebar -->
 
+	<!-- Page container begins -->
+	<section class="main-container">
+		<h1 style="display:none">Empty Heading</h1>
 
-      <!-- navi -->
-      <% include templates/admin_nav.ejs %>
+			<!--Page Header-->
+			<div class="header">
+				<div class="header-content">
+					<div class="page-title">
+						<i class="icon-table2 position-left"></i> Advanced datatable
+					</div>
+				</div>
+			</div>
+			<!--/Page Header-->
 
-      <div class="container-fluid">
-        
-        <h1 class="mt-4">입점신청조회 테이블 (Store Inquire)</h1>
-            <table class="table table-bordered" width="100%" cellspacing="0" id="resTable">
-                <thead class="thead-light">
-                    <tr>
-                        <th>SI_Name</th>
-                        <th>SI_Phone</th>
-                        <th>SI_Brand</th>
-                        <th>SI_Addr1</th>
-                        <th>SI_Content</th>
-                        <th>SI_cDt</th>
-                        <th>상태</th>
-                        <th>자세히</th>
-                    </tr> 
-                </thead>                                              
-                <tbody id="list"> 
-                  <% for(let i=0; i<data.length; i++){ %>
-                    <tr>
-                        <td><%=data[i].SI_Name%></td>
-                        <td><%=data[i].SI_Phone%></td>
-                        <td><%=data[i].SI_Brand%></td>
-                        <td><%=data[i].SI_Addr1%></td>
-                        <td><%=data[i].SI_Content%></td>
-                        <td><%=data[i].SI_cDt%></td>
-                        <td><%=data[i].SI_Read%></td>
+			<div class="container-fluid page-content">
 
-                        <td><a href="storeInDetail/<%=data[i].SI_ID%>">자세히</a></td>
-                    </tr>
-                    <% } %>                     
-                </tbody>               
-            </table>
-            <br>
-            <div class="container" style="position:absolute;left:48%;">
-              <!-- <a href="#" id="preBtn">이전</a> -->
-              
-              <label id="link2"></label>
-              <!-- <a href="#" id="nextBtn">다음</a> -->
-          </div>
-      </div>
-    </div>
-    <!-- /#page-content-wrapper -->
+				<!-- Individual column searching (text fields) -->
+				<div class="card card-inverse card-flat table-responsive">
+					<div class="card-header">
+						<div class="card-title">Individual column searching <span class="text-semibold">(Text fields)</span></div>
+					</div>
+					<div class="card-block p-b-0">
+						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
+					</div>
+					<div class="table-responsive">
+					<table class="table datatable-button-init-basic" id="tList">
+						<thead>
+							<tr>
+                                <th>SI_Name</th>
+                                <th>SI_Phone</th>
+                                <th>SI_Brand</th>
+                                <th>SI_Addr1</th>
+                                <th>SI_Content</th>
+                                <th>SI_cDt</th>
+                                <th>상태</th>
+                                <th>자세히</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for(let i=0; i<data.length; i++){ %>
+							<tr>
+                                <td><%=data[i].SI_Name%></td>
+                                <td><%=data[i].SI_Phone%></td>
+                                <td><%=data[i].SI_Brand%></td>
+                                <td><%=data[i].SI_Addr1%></td>
+                                <td><%=data[i].SI_Content%></td>
+                                <td><%=data[i].SI_cDt%></td>
+                                <td><%=data[i].SI_Read%></td>
+                                <td><a href="storeInDetail/<%=data[i].SI_ID%>"><i class="icon-search4"></i>자세히</a></td>		
+							</tr>
+							<% } %>  
+							
+						</tbody>
+	
+					</table>
+				</div>
+				</div>
+			</div>
 
-  </div>
-  <!-- /#wrapper -->
+		</section>
+		<!-- /Page Container ends -->
+		<!-- ScrolltoTop -->
+		<!-- <a id="scrollTop" href="#top"><i class="icon-arrow-up12"></i></a> -->
+		<!-- /ScrolltoTop -->
+		<% include templates/admin_footer.ejs %>
+	</div>
 
-<!-- Bootstrap core JavaScript -->
-<script src="/admin/vendor/jquery/jquery.min.js"></script>
-<script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
-<!-- Menu Toggle Script -->
-<script>
+	<script>
+	// var editor; // use a global for the submit and return data rendering in the examples
+ 
+	// $(document).ready(function() {
 
-$(document).ready(function(){
-    $("#resTable").DataTable();
+	// 	// Activate an inline edit on click of a table cell
+	// 	$('#edit').on('click', 'tbody td', function () {
+	// 		alert('dd')
+	// 		editor.inline( this );
+	// 	} );
+	
+	// 	$('#tList').DataTable( {
+	// 		dom: "Bfrtip",
+	// 		ajax: "../php/staff.php",
+	// 		order: [[ 1, 'asc' ]],
+	// 		columns: [
+	// 			{
+	// 				data: null,
+	// 				defaultContent: '',
+	// 				className: 'select-checkbox',
+	// 				orderable: false
+	// 			},
+	// 			{ data: "bName" },
+	// 			{ data: "dept" },
+	// 			{ data: "retu" },
+	// 			{ data: "lead" },
+	// 			{ data: "carNum" },
+	// 			{ data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
+	// 		],
+	// 		select: {
+	// 			style:    'os',
+	// 			selector: 'td:first-child'
+	// 		},
+	// 		buttons: [
+	// 			{ extend: "create", editor: editor },
+	// 			{ extend: "edit",   editor: editor },
+	// 			{ extend: "remove", editor: editor }
+	// 		]
+	// 	} );
+	// } );
 
-})
-
-sessionStorage.setItem("datarow", $("#list tr").length);
-
-
-
-  $("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-  });
-</script>
-
-
-
-
+	</script>
 </body>
-
 </html>

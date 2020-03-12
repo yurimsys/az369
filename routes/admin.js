@@ -24,6 +24,13 @@ connection.on('error', function(err) {
     console.log(err);
 });
 
+//datatable_advanced
+
+///관리자 부분
+router.get('/index12',function(req, res, next) {
+res.render('datatable_advanced');
+
+});
 
 ///관리자 부분
 router.get('/index', auth.isLoggedIn, function(req, res, next) {
@@ -51,7 +58,7 @@ router.get('/business', auth.isLoggedIn, function(req, res, next) {
               if (err) throw err;
               
               let smsg = req.flash("success");
-              console.log("smsg : ", smsg);
+              console.log("비지니스스스 :: ", rows);
               res.render('admin_business', { data : rows, message : smsg });
               
           });
@@ -107,12 +114,12 @@ router.post('/business/modify', auth.isLoggedIn, function(req, res, next) {
 
 
 //관리자 비지니스 테이블 삭제 페이지
-router.get('/businessDelete/:bId', auth.isLoggedIn, function(req, res, next) {
+router.post('/businessDelete', auth.isLoggedIn, function(req, res, next) {
 
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let bId = req.params.bId;
+        let bId = req.body.bId;
         console.log("아이디 :", bId);
         let query = `delete FROM tB where B_ID = :bId`; 
         connection.query(query,{bId},
@@ -120,7 +127,7 @@ router.get('/businessDelete/:bId', auth.isLoggedIn, function(req, res, next) {
             if (err) throw err;
             //req.flash("success", "삭제 완료!");
             //console.log(msg);
-            res.send("<script type='text/javascript'>alert('삭제완료'); location.href='/admin/business';</script>");
+            res.json({data : ""});
           });
     }
 
@@ -251,12 +258,12 @@ router.post('/carType/modify', auth.isLoggedIn, function(req, res, next) {
 
 
 //CarType 테이블 삭제 페이지
-router.get('/carTypeDelete/:cyId', auth.isLoggedIn, function(req, res, next) {
+router.post('/carTypeDelete', auth.isLoggedIn, function(req, res, next) {
 
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let cyId = req.params.cyId;
+        let cyId = req.body.cyId;
         console.log("아이디 :", cyId);
         let query = `delete FROM tCY where CY_ID = :cyId`; 
         connection.query(query,{cyId},
@@ -265,7 +272,7 @@ router.get('/carTypeDelete/:cyId', auth.isLoggedIn, function(req, res, next) {
               if (err) throw err;
               //req.flash("success", "삭제 완료!");
               //console.log(msg);
-              res.send("<script type='text/javascript'>alert('삭제완료'); location.href='/admin/carType';</script>");
+              res.json({data : ""});
               //res.redirect('/admin/business');
               //console.log("비지니스",rows);
           });
@@ -410,12 +417,12 @@ router.post('/carTime/modify', auth.isLoggedIn, function(req, res, next) {
 
 
 //CarTime 테이블 삭제 페이지
-router.get('/carTimeDelete/:ctId', auth.isLoggedIn, function(req, res, next) {
+router.post('/carTimeDelete', auth.isLoggedIn, function(req, res, next) {
         
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let ctId = req.params.ctId;
+        let ctId = req.body.ctId;
         console.log("아이디 :", ctId);
         let query = `delete FROM tCT where CT_ID = :ctId`; 
         connection.query(query,{ctId},
@@ -424,7 +431,7 @@ router.get('/carTimeDelete/:ctId', auth.isLoggedIn, function(req, res, next) {
               if (err) throw err;
               //req.flash("success", "삭제 완료!");
               //console.log(msg);
-              res.send("<script type='text/javascript'>alert('삭제완료'); location.href='/admin/carTime';</script>");
+              res.json({data : ""});
               //res.redirect('/admin/business');
               //console.log("비지니스",rows);
           });
@@ -547,12 +554,12 @@ router.post('/user/modify', auth.isLoggedIn, function(req, res, next) {
 
 
 //user 테이블 삭제 페이지 
-router.get('/userDelete/:uId', auth.isLoggedIn, function(req, res, next) {
+router.post('/userDelete', auth.isLoggedIn, function(req, res, next) {
                                 
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let uId = req.params.uId;
+        let uId = req.body.uId;
         console.log("아이디 :", uId);
         let query = `delete FROM tU where U_ID = :uId`; 
         connection.query(query,{uId},
@@ -561,7 +568,7 @@ router.get('/userDelete/:uId', auth.isLoggedIn, function(req, res, next) {
               if (err) throw err;
               //req.flash("success", "삭제 완료!");
               //console.log(msg);
-              res.send("<script type='text/javascript'>alert('삭제완료'); location.href='/admin/user/1';</script>");
+              res.json({data : ""});
               //res.redirect('/admin/business');
               //console.log("비지니스",rows);
           });
@@ -645,7 +652,7 @@ router.get('/cancelList/:phId/:phUId', auth.isLoggedIn, function(req, res, next)
         //console.log("아이디 :", ctId);
         let query = `select 
                         PH_ID, PH_U_ID, U_UserName, U_Name, B_Name, CT_DepartureTe, count(PH_Price) as cnt, sum(PH_Price) as PH_Price,PH_Type, CR_Cancel, CR_cDt
-                     from tPH inner join tU on tPH.PH_U_ID = tU.U_ID inner join tCR on tPH.PH_ID = tCR.CR_PH_ID inner join tCT on tCT.CT_ID = tCR.CR_CT_ID inner join tCY on tCY.CY_ID = tCT.CT_CY_ID inner join tB on tB.B_ID = tcy.CY_B_ID
+                     from tPH inner join tU on tPH.PH_U_ID = tU.U_ID inner join tCR on tPH.PH_ID = tCR.CR_PH_ID inner join tCT on tCT.CT_ID = tCR.CR_CT_ID inner join tCY on tCY.CY_ID = tCT.CT_CY_ID inner join tB on tB.B_ID = tCY.CY_B_ID
                      where tPH.PH_U_ID = :phUId and tPH.PH_ID = :phId`; 
         connection.query(query,{phUId, phId},
           function(err, rows, fields) {
