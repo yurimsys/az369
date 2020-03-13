@@ -859,6 +859,20 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
     });
     
 });
+//장차예매 리스트
+router.post('/user/resDept', auth.isLoggedIn, (req, res, next) =>{
+    let query = `
+                select	distinct date_format(CT_DepartureTe,'%H%i') as deptTe, date_format(CT_DepartureTe,'%H:%i') as deptTe2
+                 from tCT`;
+
+    connection.query(query,
+        function(err, rows, fields) {
+            if (err) throw err;                       
+            // //console.log(findId);
+            res.json( {  data : rows});
+            console.log("rows : ",rows);            
+        });       
+});
 
 //장차예매 리스트
 router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
@@ -982,11 +996,8 @@ router.get('/auth/phone', async ( req, res ) => {
 
 //비디오 팝업
 router.post('/user/videoPopup', (req, res, next) =>{
-    let query = `select * from tyl where YL_id = :youId`;
+    let query = `select * from tYL where YL_id = :youId`;
     let youId = req.body.youId;
- 
-    console.log("youId@@@@@@@@ :", youId);
-
 
     connection.query(query,
         {
@@ -1003,15 +1014,25 @@ router.post('/user/videoPopup', (req, res, next) =>{
         });
 });
 
-
+//비디오 총 수
 router.post('/video/count', function(req, res, next) {
-    let query = `SELECT count(*) as cnt FROM tyl `; 
+    let query = `SELECT count(*) as cnt FROM tYL `; 
     connection.query(query,
       function(err, rows, fields) {
           if (err) throw err;
           let cnt = rows;
           res.send( { data : cnt});
           console.log("카운트는 :",cnt);
+      });
+});
+
+//추천 비디오
+router.post('/video/best', function(req, res, next) {
+    let query = `select * from tYL where YL_d_order order by rand() limit 1`; 
+    connection.query(query,
+      function(err, rows, fields) {
+          if (err) throw err;
+          res.send( { data : rows});
       });
 });
 module.exports = router;

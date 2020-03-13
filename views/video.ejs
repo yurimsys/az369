@@ -61,14 +61,6 @@
                 </div>
                 <section class="main_video">
 
-                    <div style="position: relative; height:0; padding-bottom: 56.25%;">
-                        <iframe class="myFrame" src="https://www.youtube.com/embed/sVxfPoeonzg?rel=0&vq=hd1080" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; width:100%; height:100%;"></iframe>
-                    </div>
-
-                    <div class="main_video_txt">
-                        <h3>평택 가로수길 센트럴돔 헬로파크 현장을 가보니?</h3>
-                        <h5>평택센트럴돔TV <span>|</span> 2020.03.03</h5>
-                    </div>
                 </section>
                 <!--// section.main_video-->
 
@@ -152,7 +144,6 @@
             </div>
         </section>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script> 
 
         'use sctrict';
@@ -249,6 +240,22 @@
             });
         });
         
+
+        //추천 비디오
+        $.ajax({
+            url: '/api/video/best',
+            method: 'post',
+            dataType: 'json',
+            success: function(res){
+                console.log("res :::",res)
+                let html ="<div style='position: relative; height:0; padding-bottom: 56.25%;'>"
+                    html += "<iframe class='myFrame' src="+res.data[0].YL_url+" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen style='position: absolute; width:100%; height:100%;''></iframe></div>";
+                    html += "<h3>"+res.data[0].YL_title+"</h3>";
+                    html += "<h5>"+res.data[0].YL_ch_name+"<span>|</span>"+res.data[0].YL_dDt+"</h5></div>"
+                $('.main_video').append(html);
+            }
+        })
+
         let currentPage = 1;
         //전체 페이지 수
         $.ajax({
@@ -256,8 +263,7 @@
             method : "post",
             async : false,	
             success : function(res){
-                $("#endPage").text(res.data[0].cnt)
-               
+                $("#endPage").text(res.data[0].cnt)              
                 for(let i=1; i<Math.ceil(res.data[0].cnt/6)+1; i++){
                     let html = ""
                     if(i == 1){
@@ -301,11 +307,10 @@
             $('.mySlides').remove()
         }
        
-
          //이전버튼
          $('#prevA').on('click', function(){
           var para = document.location.href.split("/");
-          console.log('link2 :', para[4])
+          //console.log('link2 :', para[4])
           if(para[4] == 1){
               return;
           }else{
@@ -313,7 +318,6 @@
           }
           
         })
-
 
         //이전버튼
         $(".prev").on('click', function(){           
@@ -344,9 +348,7 @@
         })
 
 
-        $("#nextA").click(function(){
-       
-            //db의 전체 사이즈 가져옴		
+        $("#nextA").click(function(){  	
             let count = 0;
             $.ajax({
                 url : "/api/video/count",
@@ -357,19 +359,18 @@
                 }                
             });
             var para = document.location.href.split("/");
-            console.log('link2 :', para[4])
+            //console.log('link2 :', para[4])
             if(para[4] == count){
                 return;
             }else{
                 location.href='/video/'+(Number(para[4])+1);
             }
-        
             
         });
         //다음버튼
         $(".next").on('click', function(){           
             let yPage =Number($('.mySlides').attr('id'))+1
-            console.log(yPage)
+            //console.log(yPage)
             if(yPage-1 == Number($("#endPage").text())){
                 return;
             }else{
