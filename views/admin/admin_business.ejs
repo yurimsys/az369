@@ -60,8 +60,7 @@
 						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
 					</div>
 					<div class="table-responsive">
-						<button type="button" id="addRow"></button>
-					<table class="table datatable-button-init-basic" id="tList">
+					<table id="tList">
 						<thead>
 							<tr>
                                 <th>B_ID</th>
@@ -73,30 +72,12 @@
                                 <th>B_Addr1</th>
                                 <th>B_Addr2</th>
                                 <th>B_cDt</th>
-                                <th>B_uDt</th>
-                                <th>Modify</th>
-                                <th>Delete</th>
+								<th>B_uDt</th>
+								<th>Modify</th>
+								<th>Delete</th>
 							</tr>
 						</thead>
-						<tbody>
-							<% for(let i=0; i<data.length; i++){ %>
-							<tr>
-                                <td><%=data[i].B_ID%></td>
-                                <td><%=data[i].B_Name%></td>
-                                <td><%=data[i].B_Tel%></td>
-                                <td><%=data[i].B_Fax%></td>
-                                <td><%=data[i].B_Email%></td>
-                                <td><%=data[i].B_Zip%></td>
-                                <td><%=data[i].B_Addr1%></td>
-                                <td><%=data[i].B_Addr2%></td>
-                                <td><%=data[i].B_cDt%></td>
-                                <td><%=data[i].B_uDt%></td>
-								<td><a class="dropdown-item" id="edit" id='<%=data[i].B_ID%>'><i class="icon-pencil6" onclick="edit(this)"></i> Edit</a></td>
-                                <td><a href="#" class="dropdown-item" id='<%=data[i].B_ID%>' onclick="del(this)"><i class="icon-trash"></i> Delete</a></td>			
-							</tr>
-							<% } %>  
-							
-						</tbody>
+
 	
 					</table>
 				</div>
@@ -112,86 +93,90 @@
 	</div>
 
 	<script>
-
 var editor; // use a global for the submit and return data rendering in the examples
  $(document).ready(function() {
 	 editor = new $.fn.dataTable.Editor({
-		 ajax: "/admin/business",
+		 ajax: "/admin/business/List",
 		 table: "#tList",
 		 fields: [{
-				 label: "B_ID:",
-				 name: "B_ID"
+				 label: "B_ID",
+				 name: "data.B_ID"
 			 }, {
-				 label: "B_Name:",
-				 name: "B_Name"
+				 label: "B_Name",
+				 name: "data.B_Name"
 			 }, {
-				 label: "B_Tel:",
-				 name: "B_Tel"
+				 label: "B_Tel",
+				 name: "data.B_Tel"
 			 }, {
-				 label: "B_Fax:",
-				 name: "B_Fax"
+				 label: "B_Fax",
+				 name: "data.B_Fax"
 			 }, {
-				 label: "B_Email:",
-				 name: "B_Email"
+				 label: "B_Email",
+				 name: "data.B_Email"
 			 }, {
-				 label: "B_Zip:",
-				 name: "B_Zip"
+				 label: "B_Zip",
+				 name: "data.B_Zip"
 			 }, {
-				 label: "B_Addr1:",
-				 name: "start_date"
+				 label: "B_Addr1",
+				 name: "data.start_date"
 			 }, {
-				 label: "B_Addr2:",
-				 name: "B_Addr2"
+				 label: "B_Addr2",
+				 name: "data.B_Addr2"
 			 },{
-				 label: "B_cDt:",
-				 name: "B_cDt",
+				 label: "B_cDt",
+				 name: "data.B_cDt",
                  type: "datetime"
 			 },{
-				 label: "B_uDt:",
-				 name: "B_uDt",
+				 label: "B_uDt",
+				 name: "data.B_uDt",
                  type: "datetime"
 			 }
-		 ]
+		 ], formOptions: {
+            inline: {
+                onBlur: 'submit'
+            }
+        }
 	 } );
+
+
+
 	 
 	 $('#tList').on( 'click', 'tbody td:not(:first-child)', function (e) {
-		 alert("dd")
-		 editor.inline( this, {
-			 submit: 'allIfChanged'
-		 } );
+		 console.log(e.target)
+		 console.log('click')
+		 editor.inline( this);
 	 } );
+
+
+	 $('#tList').DataTable( {
+		 dom: "Bfrtip",
+		 ajax: "/admin/business",				
+		 columns: [
+			 {
+				 data: null
+			 },
+			 { data: "B_ID" },
+			 { data: "B_Name" },
+			 { data: "B_Tel" },
+			 { data: "B_Fax" },
+			 { data: "B_Email" },
+			 { data: "B_Zip"},
+			 { data: "B_Addr1"},
+			 { data: "B_Addr2"},
+			 { data: "B_cDt"},
+			 { data: "B_uDt"}
+		 ],
+		 order: [ 1, 'asc' ],
+		 select: {
+			 style:    'os',
+			 selector: 'td:first-child'
+		 }
+	 });
+
 	});
   
-// 	 $('#tList').DataTable( {
-// 		 dom: "Bfrtip",
-// 		 ajax: "../php/staff.php",
-// 		 columns: [
-// 			 {
-// 				 data: null,
-// 				 defaultContent: '',
-// 				 className: 'select-checkbox',
-// 				 orderable: false
-// 			 },
-// 			 { data: "first_name" },
-// 			 { data: "last_name" },
-// 			 { data: "position" },
-// 			 { data: "office" },
-// 			 { data: "start_date" },
-// 			 { data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
-// 		 ],
-// 		 order: [ 1, 'asc' ],
-// 		 select: {
-// 			 style:    'os',
-// 			 selector: 'td:first-child'
-// 		 },
-// 		 buttons: [
-// 			 { extend: "create", editor: editor },
-// 			 { extend: "edit",   editor: editor },
-// 			 { extend: "remove", editor: editor }
-// 		 ]
-// 	 } );
-//  } );
 
+	 
 
 	function del(e){
 	  let bId = e.id;

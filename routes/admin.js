@@ -7,6 +7,15 @@ const auth = require('../config/passport');
 const connection = mysql.createConnection(dbconf);
 const config = require('../config');
 const CryptoJS = require('crypto-js');
+var $  = require('jquery');
+var dt = require('datatables.net');
+let{
+    Editor,
+    Field,
+    Validate,
+    Format,
+    Options
+} = require('datatables.net-editor-server');
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -24,13 +33,101 @@ connection.on('error', function(err) {
     console.log(err);
 });
 
-//datatable_advanced
+// //TESTSETESTS
+// router.get('/data', async function(req, res, next) {
+//     let editor = new Editor( mysql, 'tU' )
+//         .fields(
+//             new Field( 'U_UserName' ),
+//             new Field( 'U_Name' ),
+//             new Field( 'U_Brand' )
+//         );
+ 
+//     await editor.process(req.body);
+//     res.json( editor.data() );
+// });
 
-///관리자 부분
-router.get('/index12',function(req, res, next) {
-res.render('datatable_advanced');
+
+//TESTSETESTS
+// router.get('/data', function(req, res, next) {
+
+//     res.render('datatest');
+// });
+
+//TESTSETESTS
+router.get('/data', function(req, res, next) {
+    let query = `SELECT * FROM tU`; 
+    connection.query(query,
+      function(err, rows, fields) {
+          if (err) throw err;
+          res.render('datatest',{ data : rows});
+          console.log("으라으ㅏ르ㅏㅇ",rows);
+    });
+});
+
+
+router.post('/dataList', function(req, res, next) {
+        let query = `SELECT * FROM tU`; 
+        connection.query(query,
+          function(err, rows, fields) {
+              if (err) throw err;
+              res.json({ data : rows});
+              console.log("좀 돼라",rows);
+          });
+    
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+//데이터테이블 테스트
+router.all('/business', async function(req, res) {
+    let editor = new Editor( mysql, 'tB', 'B_ID')
+     .fields(
+            new Field( 'B_ID' ),
+            new Field( 'B_Name' ),
+            new Field( 'B_Tel' ),
+            new Field( 'B_Fax' ),
+            new Field( 'B_Email' ),
+            new Field( 'B_Zip' ),
+            new Field( 'B_Addr1' ),
+            new Field( 'B_Addr2' ),
+            new Field( 'B_cDt' ),
+            new Field( 'B_uDt' )
+        );
+    await editor.process(req.body);
+    res.json(editor.data());
+    console.log("데데데ㅔ데데데데데데데ㅔ데데데데데데데데데ㅔ데데데데데덷데데데",editor.data())
+});
+
+
+// //데이터테이블 테스트
+// router.all('/business', async function(req, res) {
+//     if(req.user.U_isAdmin === 'n'){
+//         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+//     }else{
+//         let query = `SELECT * FROM tB`; 
+//         connection.query(query,
+//           function(err, rows, fields) {
+//               if (err) throw err;
+//               result = JSON.stringify(rows);
+
+//               res.send('admin_business', { data : result });
+//               console.log("비지니스",rows);
+//           });
+//     }
+// });
+
+
 
 ///관리자 부분
 router.get('/index', auth.isLoggedIn, function(req, res, next) {
@@ -45,25 +142,60 @@ router.get('/index', auth.isLoggedIn, function(req, res, next) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////비지니스 테이블 
 
-
-//관리자 비지니스 테이블
-router.get('/business', auth.isLoggedIn, function(req, res, next) {  
-
+//비지니스 테이블
+router.get('/business', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `SELECT * FROM tB `; 
+        let query = `SELECT * FROM tB`; 
         connection.query(query,
           function(err, rows, fields) {
               if (err) throw err;
-              
-              let smsg = req.flash("success");
-              console.log("비지니스스스 :: ", rows);
-              res.render('admin_business', { data : rows, message : smsg });
-              
+              res.render('admin_business', { data : rows });
+              console.log("비지니스",rows);
           });
-    }    
+    }
 });
+
+
+// //관리자 비지니스 테이블
+// router.get('/business', auth.isLoggedIn, function(req, res, next) {  
+
+//     if(req.user.U_isAdmin === 'n'){
+//         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+//     }else{
+
+//             res.render('admin_business');
+            
+         
+//     }    
+// });
+
+
+// //관리자 비지니스 테이블
+// router.post('/business', auth.isLoggedIn, function(req, res, next) {  
+
+//     if(req.user.U_isAdmin === 'n'){
+//         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+//     }else{
+//         let query = `SELECT * FROM tB `; 
+//         connection.query(query,
+//           function(err, rows, fields) {
+//             if (err) throw err;
+//               let testB = [];
+//               rows.map((data) => {
+//                 testB.push(data);
+//               });
+              
+              
+//               console.log("데이터테이블 테스트 :: ", rows);
+//               res.json('admin_business', { data : testB});
+              
+//           });
+//     }    
+// });
+
+
 
 //관리자 비지니스 테이블 수정 페이지
 router.get('/businessModify/:bId', auth.isLoggedIn, function(req, res, next) {
@@ -185,8 +317,6 @@ router.get('/carType', auth.isLoggedIn, function(req, res, next) {
               console.log("비지니스",rows);
           });
     }
-
-
 });
 
 //carType 운송사 목록
