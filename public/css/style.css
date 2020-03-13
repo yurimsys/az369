@@ -74,15 +74,15 @@ section.main {
 
 }
 
-.main_btn {width: 11%; height: auto; position: absolute; margin-top: 260px;}
+.main_btn {width: 11%; height: auto; position: absolute; margin-top: 270px;}
 
 .main_prev, .main_next {
 	cursor: pointer;
 	position: absolute;
 	width: auto;
 	padding: 8% 18%;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid #fff;
+    /*background: rgba(255,255,255,0.1);*/
+    border: 1px solid #ccc;
 	color: white;
 	font-weight: bold;
 	font-size: 20px;
