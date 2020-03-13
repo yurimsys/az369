@@ -130,14 +130,6 @@
 
                 <div class="btn_box">
                     <div class="pagination">
-                        <!-- <a href="#">❮</a>
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                        <a href="#">❯</a> -->
                     </div>
                 </div>
 
@@ -270,14 +262,26 @@
                     if(i == 1){
                         html = "<a id='prevA'>❮</a>"
                     }
-                    html +="<a href=/video/"+i+">"+i+"</a>";
+                    html +="<a href=/video/"+i+" id="+i+"p"+" onclick='nowPage(this)'>"+i+"</a>";
                     if(i == Math.ceil(res.data[0].cnt/6)){
                         html +="<a id='nextA'>❯</a>";
                     }
                     $(".pagination").append(html);
+                    //페이징 선택부분 색상 변경
+                    if(document.location.href.split("/")[4] == i){
+                        $("#"+i+"p").attr('class','active')
+                    }
                 }
+           
+
             }       
         });	
+        
+        function nowPage(e){   
+            let pa = e.id    
+           $("#pa").attr('class','active');                       
+        } 
+            
 
         function popVideo(e){
             $('#popup').css('display', 'block');
