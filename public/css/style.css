@@ -1,4 +1,4 @@
-@charset="UTF-8";
+@charset="UFT-8";
 
 
 /*reset*/
@@ -42,9 +42,9 @@ section.main {
 .main_slideshow-container .main_Slide03 {background: url(../img/main/main_slide03.png); width: 100%; height: 1080px; background-size: cover; background-position: center; z-index: 1;} 
 
 
-.main_text {
+.main_text_box {
     position: absolute;
-    width: 1200px;
+    width: 60%;
     margin: 0 auto;
     text-align: justify;
     top: 40%;
@@ -54,13 +54,14 @@ section.main {
     color: #f0f0f0;
 }
 
+.main_text {width: auto; left: 0; float: left;}
 
-.main_text h2 {font-size: 1.6rem; font-weight: normal; margin-bottom: -5%; color: #ddd;}
+
+.main_text h2 {font-size: 1.6rem; font-weight: normal;color: #ddd; padding: 0; margin: 0; margin-bottom: -3%;}
 .main_text h2 br {display: none;}
-.main_text > h1 {font-size: 5rem; font-weight: normal; font-family: 'PT Serif', serif;}
+.main_text h1 {font-size: 5rem; font-weight: normal; font-family: 'PT Serif', serif; line-height: 1.5;}
 .main_text h2 em {color: #fff;}
-.main_text p { font-size: 1.1rem; line-height: 1.7; color: #ddd;}
-
+.main_text p { font-size: 1.1rem; line-height: 1.7; color: #ddd; width: 100%; overflow: hidden; position: relative;}
 
 .mainlides {
 	display: none;
@@ -73,7 +74,7 @@ section.main {
 
 }
 
-.main_btn {width: 8%; height: auto; background: red; position: absolute; top: 65%; left: 18.5%; z-index: 10;}
+.main_btn {width: 11%; height: auto; position: absolute; margin-top: 260px;}
 
 .main_prev, .main_next {
 	cursor: pointer;
@@ -100,16 +101,7 @@ section.main {
 }
 
 .dot {
-	cursor: pointer;
-	height: 10px;
-	width: 10px;
-	margin: 0 2px;
-    border: 1px solid #a0772b;
-	/*background-color: #eee;*/
-	border-radius: 50%;
-	display: inline-block;
-	transition: background-color 0.6s ease;
-    z-index: 100;
+	display: none;
 }
 .active, .dot:hover {
 	background-color: #a0772b;
@@ -151,6 +143,7 @@ section h3 {
     font-weight: bold;
     font-size: 2.7rem;
     font-family: 'PT Serif', serif;
+    font-weight: normal;
 }
 
 section.about {
@@ -338,6 +331,94 @@ a.slide_btn {
 
 
 /*section.gallery 완료*/
+/*section.video 시작*/
+
+section.video {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+   padding-top: 4.5%;
+    color: #272727;
+    background: #f4f4f4;
+}
+
+section.video .bar {margin-top: 1.5%; margin-bottom: 2%;}
+section.video h6 {margin-bottom: -0.5%;}
+
+.video-slider {
+	width: 1200px;
+    height: 800px;
+    margin: 0 auto;
+    margin-top: 2%;
+	position: relative;
+	overflow: hidden;
+}
+	.video_slide {
+		position: absolute;
+		top: 0;
+		left: 100%;
+		height: 675px;
+		width: 100%;
+		overflow: hidden;
+	}
+	.video_slide:first-child{left: 0;}
+	.video{height: 100%; width: 100%; border:0;}
+
+.video_btn div {
+    color: #555;
+    background: transparent;
+    border: 1px solid #888;
+    width: 5%;
+    margin-top: 56.5%;
+    cursor: pointer;
+    -webkit-transition: opacity 0.4s ease-in-out;
+    -moz-transition: opacity 0.4s ease-in-out;
+    -ms-transition: opacity 0.4s ease-in-out;
+    -o-transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.video_btn div:hover {background: #a0772b; color: #fff;}
+
+.video_btn i {padding: 20% 14%; font-size: 30px;}
+	.slide-arrow{
+		position: absolute;
+		top: 0;
+		right: 62px;
+        text-align: center;
+		cursor: pointer;
+	}
+
+	.slide-arrow:after{
+		text-align: center;
+		display: block;
+		height: 10%;
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		font-size: 3em;
+	}
+	.slide-arrow.right{left: auto; right: 0;}
+
+
+
+footer {
+    width: 100%;
+    height: 200px;
+    margin: 0 auto;
+    background: #211e1c;
+}
+
+
+
+/*gnb 자바스크립트*/
+header.on {
+    background: rgba(255,255,255,0.95);
+    height: 80px;
+}
+
+
 /*모바일 메뉴*/
 header .open {
     /*버거버튼 클래스*/
@@ -369,14 +450,12 @@ header .open {
     section.main .main_bg img {width: 100%; height: 900px;} 
 
     /*main 타이틀*/
-    section.main .main_text {width: 800px; text-shadow: 0 0 5px rgba(0,0,0,0.5);}
-    section.main .main_text h2 {margin-bottom: -8%;}
+    .main_text_box {width: 80%;}
+    section.main .main_text h2 {margin-bottom: -4%;}
     section.main .main_text p {margin-top: -1%;}
-    
-    
+
     /*main_btn*/
-    .main_btn {width: 12%; top: 68%; left: 16.5%;}
-    .main_prev, .main_next {padding: 10% 20%;}
+    .main_btn {width: 13%; top: 10px;}
     
     /*section.about*/
     section.about {width: 1200px;}
@@ -415,12 +494,15 @@ header .open {
     /*main 이미지*/
     section.main {width: 100%; height: 820px;}
     section.main .inner_main {width: 1024px;}
+
     
     /*main 타이틀*/
-    section.main .main_text {width: 800px;}
+    .main_text_box {width: 80%;}
+    section.main .main_text h1 {font-size: 70px;}
+    section.main .main_text h2 {margin-bottom: -4%;}
     
     /*main_btn*/
-    .main_btn {width: 15%; top: 71.5%; left: 11%;}
+    .main_btn {width: 15%; top: -10px;}
 
     
     /*공통속성*/
@@ -477,16 +559,15 @@ header .open {
     .slideshow-container .main_slide_bg {width: 100%; background-size: cover; height: 800px;}
     
     /*main 타이틀*/
-    section.main .main_text {width: 60%; margin-top: -20%; text-align: center; padding: 4% 4%; background: rgba(0,0,0,0.5);}
-    section.main .main_text h1 {line-height: 1.1; margin: 3% 0;}
-    section.main .main_text p {text-align: center;}
-     section.main .main_text02 {margin-top: -8.5%;}
-    
-    
+    .main_text_box {text-align: center; float: none; clear: both; padding: 2%; border-radius: 15px;}
+    .main_text {width: 100%;}
+    section.main .main_text p {text-align: center; margin-top: 1%;}
+    section.main .main_text h1 {font-size: 70px;}
+    section.main .main_text h2 {font-size: 22px;}
     
     /*main_btn*/
-    .main_btn {width: 20%; top: 75%; left: 50%; transform: translateX(-50%);}
-    .main_prev, .main_next {padding: 10% 20%;  background: rgba(0,0,0,0.5);}
+    .main_btn {width: 21%; top: 20px; left: 50%;transform: translateX(-50%);}
+    .main_prev, .main_next {background: rgba(0,0,0,0.5); position: relative; float: left;}
     
     /*section.about*/
     section.about {width: 768px; margin-top: 7%;}
@@ -549,19 +630,15 @@ header .open {
     .main_text h2 br {display: block;}
 
     /*main 타이틀*/
-    section.main .main_text {width: 60%; margin-top: -11%;}
-    section.main .main_text h1 {font-size: 2.5rem; margin: 0; line-height: 1.15;}
-    section.main .main_text h2 {font-size: 1.2rem; width: 85%; margin: 0 auto; margin-bottom: -10%;}
+    section.main .main_text h1 {font-size: 40px; margin: 0;}
+    section.main .main_text h2 {font-size: 18px; margin: 0 auto;}
     section.main .main_text p {display: none;}
-    
     section h3 {font-size: 2rem;}
-    
     section.main .main_text02 {margin-top: 0%;}
-    
-    /*main_btn*/
-    .main_btn {width: 25%; margin-top: 10%;}
-    .main_prev, .main_next {padding: 2% 16%;}
 
+    /*main_btn*/
+    .main_btn {width: 30%; margin-top: 25%; left: 50%; transform: translateX(-50%);}
+    .main_prev, .main_next {background: rgba(0,0,0,0.2); position: relative; float: left; padding: 2% 16%;}
     
     /*section.about*/
     section.about {width: 414px; margin: 10% 0 13%;}
@@ -635,18 +712,23 @@ header .open {
     .main_text h2 {line-height: 1.6;}
     .main_text h2 br {display: block;}
 
+
     /*main 타이틀*/
-    section.main .main_text {width: 60%; margin-top: -11%;}
-    section.main .main_text h1 {font-size: 26px;}
-    section.main .main_text h2 {font-size: 18px;}
-    section.main .dot {opacity: 0;}
+    section.main .main_text h1 {font-size: 30px; margin: 0;}
+    section.main .main_text h2 {font-size: 16px; margin: 0 auto;}
+    section.main .main_text p {display: none;}
+    section.main .main_text02 {margin-top: 0%;}
+
+    /*main_btn*/
+    .main_btn {width: 30%; margin-top: 28%; left: 50%; transform: translateX(-50%);}
+    .main_btn a {font-size: 16px;}
+    .main_prev, .main_next {padding: 3% 18%;}
     
+    section h3 {font-size: 24px;}
     section h6 {font-size: 14px;}
-    section h3 {font-size: 24px; margin-bottom: 4%;}
-    .bar {display: none;}
 
     /*section.about*/
-    section.about {width: 320px; margin-top: 2%;}
+    section.about {width: 320px; margin-top: 40px;}
     section.about .about_text {margin: 0 auto; text-align: center; margin-top: 8%;}
     section.about .about_text h5 {width: 100%; font-size: 16px;}
      section.about .about_text h4 {font-size: 18px;}
