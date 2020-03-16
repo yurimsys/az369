@@ -63,41 +63,61 @@
                         <div class="container col-md-6">
                             <form>           
                                 <label for="userName">phId :</label> 
-                                <input type="userName" class="form-control" id="phId" name="userName" value="<%=data.PH_ID%>" readonly= "readonly"> 
+								<input type="userName" class="form-control" id="phId" name="userName" value="<%=data.PH_ID%>" readonly= "readonly" style="font-size: 20px; color: black;"> 
+								
                                 <label for="userName">phUId :</label> 
-                                <input type="userName" class="form-control" id="phUId" name="userName" value="<%=data.PH_U_ID%>" readonly= "readonly"> 
-                
+								<input type="userName" class="form-control" id="phUId" name="userName" value="<%=data.PH_U_ID%>" readonly= "readonly" style="font-size: 20px; color: black;"> 
+								
                                 <label for="userName">아이디 :</label> 
-                                <input type="userName" class="form-control" id="userName" name="userName" value="<%=data.U_UserName%>" readonly= "readonly"> 
+                                <input type="userName" class="form-control" id="userName" name="userName" value="<%=data.U_UserName%>" readonly= "readonly" style="font-size: 20px; color: black;"> 
                 
                                 <label for="name">이름 :</label>
-                                <input type="dept" class="form-control" id="dept" name="dept" value="<%=data.U_Name%>" readonly= "readonly"> 
+                                <input type="dept" class="form-control" id="dept" name="dept" value="<%=data.U_Name%>" readonly= "readonly" style="font-size: 20px; color: black;"> 
                 
                                 <label for="return">운송사 :</label>
-                                <input type="return" class="form-control" id="return" name="return" value="<%=data.B_Name%>" readonly= "readonly">
+                                <input type="return" class="form-control" id="return" name="return" value="<%=data.B_Name%>" readonly= "readonly" style="font-size: 20px; color: black;">
                              
                                 <label for="lead">출발시간 :</label>
-                                <input type="lead" class="form-control" id="lead" name="lead" value="<%=data.CT_DepartureTe%>" readonly= "readonly">
+                                <input type="lead" class="form-control" id="lead" name="lead" value="<%=data.CT_DepartureTe%>" readonly= "readonly" style="font-size: 20px; color: black;">
                 
                                 <label for="carNum">좌석개수 :</label>
-                                <input type="carNum" class="form-control" id="carNum" name="carNum" value="<%=data.cnt%>" readonly= "readonly">
+                                <input type="carNum" class="form-control" id="carNum" name="carNum" value="<%=data.cnt%>" readonly= "readonly" style="font-size: 20px; color: black;">
                 
                                 <label for="drName">총 가격 :</label>
-                                <input type="drName" class="form-control" id="drName" name="drName" value="<%=data.PH_Price%>" readonly= "readonly">
+                                <input type="drName" class="form-control" id="drName" name="drName" value="<%=data.PH_Price%>" readonly= "readonly" style="font-size: 20px; color: black;">
                 
                                 <label for="drPhone">결제수단 :</label>
-                                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.PH_Type%>" readonly= "readonly">
+                                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.PH_Type%>" readonly= "readonly" style="font-size: 20px; color: black;">
                 
                                 <label for="drPhone">취소여부 :</label>
-                                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.CR_Cancel%>" readonly= "readonly">
+                                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.CR_Cancel%>" readonly= "readonly" style="font-size: 20px; color: black;">
                 
                                 <label for="drPhone">결제일 :</label>
-                                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.CR_cDt%>" readonly= "readonly">
+                                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.CR_cDt%>" readonly= "readonly" style="font-size: 20px; color: black;">
                             </form>
                             <br>       
-                            <button type="button" class="btn btn-primary" onclick="modify()">결제취소</button>   
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_danger_header"  onclick="modify()">결제취소</button>   
                           </div>
+					</div>
 				</div>
+
+				<!-- 삭제 모달 -->
+				<div id="modal_danger_header" class="modal fade" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header bg-danger">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<div class="modal-title">결제 취소</div>
+							</div>
+							<div class="modal-body">
+								<p>취소 하시겠습니까.?</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-danger" id="delete">Delete</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -109,19 +129,21 @@
 		<% include templates/admin_footer.ejs %>
 	</div>
 <script>
-    function modify(){
-    $.ajax({
-        url: '/admin/cancelPayment',
-        method: 'post',
-        dataType: 'json',
-        data: {'phId': $("#phId").val() ,'phUId': $("#phUId").val()},
-        success: function(res){
-            alert("취소완료");
-            location.href= "/admin/payment"
-        }
 
-    })
-}
+	function modify(e){
+		$('#delete').on('click',function(){
+			$.ajax({
+				url: '/admin/cancelPayment',
+				method: 'post',
+				dataType: 'json',
+				data: {'phId': $("#phId").val() ,'phUId': $("#phUId").val()},
+				success: function(res){
+					location.href= "/admin/payment"
+				}
+			})
+		})
+	}
+
 
 </script>
 </body>

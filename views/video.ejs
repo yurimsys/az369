@@ -130,6 +130,14 @@
 
                 <div class="btn_box">
                     <div class="pagination">
+                        <!-- <a href="#">❮</a>
+                        <a href="#" class="active">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">❯</a> -->
                     </div>
                 </div>
 
@@ -242,7 +250,6 @@
                 console.log("res :::",res)
                 let html ="<div style='position: relative; height:0; padding-bottom: 56.25%;'>"
                     html += "<iframe class='myFrame' src="+res.data[0].YL_url+" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen style='position: absolute; width:100%; height:100%;''></iframe></div>";
-                    html += "<div class='main_video_txt'>"
                     html += "<h3>"+res.data[0].YL_title+"</h3>";
                     html += "<h5>"+res.data[0].YL_ch_name+"<span>|</span>"+res.data[0].YL_dDt+"</h5></div>"
                 $('.main_video').append(html);
@@ -262,26 +269,14 @@
                     if(i == 1){
                         html = "<a id='prevA'>❮</a>"
                     }
-                    html +="<a href=/video/"+i+" id="+i+"p"+" onclick='nowPage(this)'>"+i+"</a>";
+                    html +="<a href=/video/"+i+">"+i+"</a>";
                     if(i == Math.ceil(res.data[0].cnt/6)){
                         html +="<a id='nextA'>❯</a>";
                     }
                     $(".pagination").append(html);
-                    //페이징 선택부분 색상 변경
-                    if(document.location.href.split("/")[4] == i){
-                        $("#"+i+"p").attr('class','active')
-                    }
                 }
-           
-
             }       
         });	
-        
-        function nowPage(e){   
-            let pa = e.id    
-           $("#pa").attr('class','active');                       
-        } 
-            
 
         function popVideo(e){
             $('#popup').css('display', 'block');

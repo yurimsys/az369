@@ -38,7 +38,6 @@
 	<!-- Page container begins -->
 	<section class="main-container">
 		<h1 style="display:none">Empty Heading</h1>
-
 			<!--Page Header-->
 			<div class="header">
 				<div class="header-content">
@@ -50,7 +49,6 @@
 			<!--/Page Header-->
 
 			<div class="container-fluid page-content">
-
 				<!-- Individual column searching (text fields) -->
 				<div class="card card-inverse card-flat table-responsive">
 					<div class="card-header">
@@ -60,43 +58,128 @@
 						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
 					</div>
 					<div class="table-responsive">
-					<table class="table datatable-button-init-basic" id="tList">
-						<thead>
-							<tr>
-								<th>CT_ID</th>
-								<th>CT_CY_ID</th>
-								<th>B_Name</th>
-								<th>CT_DepartureTe</th>
-								<th>CT_ReturnTe</th>
-								<th>CT_LeadTe</th>
-								<th>CT_CarNum</th>
-								<th>CT_DriverName</th>
-								<th>CT_DriverPhone</th>
-								<th class="text-center">Edit</th>
-								<th class="text-center">Delete</th>
-							</tr>
-						</thead>
-						<tbody>
-							<% for(let i=0; i<data.length; i++){ %>
-							<tr>
-								<td><%=data[i].CT_ID%></td>
-								<td><%=data[i].CT_CY_ID%></td>
-								<td><%=data[i].B_Name%></td>
-								<td><%=data[i].CT_DepartureTe%></td>
-								<td><%=data[i].CT_ReturnTe%></td>
-								<td><%=data[i].CT_LeadTe%></td>
-								<td><%=data[i].CT_CarNum%></td>
-								<td><%=data[i].CT_DriverName%></td>
-								<td><%=data[i].CT_DriverPhone%></td>
-								<td><a class="dropdown-item" id="edit" id='<%=data[i].CT_ID%>' onclick="edit(this)"><i class="icon-pencil6"></i> Edit</a></td>
-								<td><a href="#" class="dropdown-item" id='<%=data[i].CT_ID%>' onclick="del(this)"><i class="icon-trash"></i> Delete</a></td>
-								
-							<% } %>  
-							
-						</tbody>
-	
-					</table>
+						<table class="table datatable-button-init-basic" id="tList">
+							<thead>
+								<tr>
+									<th>B_Name</th>
+									<th>CY_Ty</th>
+									<th>CT_DepartureTe</th>
+									<th>CT_ReturnTe</th>
+									<th>CT_LeadTe</th>
+									<th>CT_CarNum</th>
+									<th>CT_DriverName</th>
+									<th>CT_DriverPhone</th>
+									<th>현재 좌석수</th>
+									<th class="text-center">Edit</th>
+									<th class="text-center">Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for(let i=0; i<data.length; i++){ %>
+								<tr>
+									<td><%=data[i].B_Name%></td>
+									<td><%=data[i].CY_Ty%></td>
+									<td><%=data[i].CT_DepartureTe%></td>
+									<td><%=data[i].CT_ReturnTe%></td>
+									<td><%=data[i].CT_LeadTe%></td>
+									<td><%=data[i].CT_CarNum%></td>
+									<td><%=data[i].CT_DriverName%></td>
+									<td><%=data[i].CT_DriverPhone%></td>
+									<td><a id='<%=data[i].CT_ID%>' onclick="seatnow(this)"><%=data[i].now%>&nbsp;/&nbsp;<%=data[i].CY_TotalPassenger%></a></td>
+									<td><a class="icon-pencil6" id='<%=data[i].CT_ID%>' data-toggle="modal" data-target="#modal_info_header" onclick="edit(this)">Edit</a></td>
+									<td><a class="icon-trash" id='<%=data[i].CT_ID%>' data-toggle="modal" data-target="#modal_danger_header" onclick="del(this)">Delete</a></td>								
+								<% } %>  							
+							</tbody>	
+						</table>
+						
+					</div>
+					
 				</div>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" onclick="insert()">추가</button>
+				<input type="text" class="form-control datepicker-here"data-timepicker="true" data-position="top left" >
+
+				<!-- 수정 모달 -->
+				<div id="modal_info_header" class="modal fade container-fluid page-content" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header bg-info">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<div class="modal-title">배차 수정</div>
+							</div>
+
+							<div class="modal-body" id="moList">
+
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-info" id="update">Modify</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 삭제 모달 -->
+				<div id="modal_warning_header" class="modal fade" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header bg-warning">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<div class="modal-title">Warning header</div>
+							</div>
+
+							<div class="modal-body">
+								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-warning">Submit</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 행 추가 -->
+				<div id="modal_primary_header" class="modal fade" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header bg-primary">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<div class="modal-title">배차 등록</div>
+							</div>
+
+							<div class="modal-body" id="insertList">
+								
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary" onclick="insertCar()">추가</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- 좌석 모달 -->
+				<div id="modal_large" class="modal fade" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<div class="modal-title">배차 추가</div>
+							</div>
+
+							<div class="modal-body">
+								<div class="seat-map" class="seat-panel"></div>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary" onclick="insertCar()">추가</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -107,91 +190,127 @@
 		<!-- /ScrolltoTop -->
 		<% include templates/admin_footer.ejs %>
 	</div>
-
 	<script>
-	// var editor; // use a global for the submit and return data rendering in the examples
- 
-	// $(document).ready(function() {
-	// 	editor = new $.fn.dataTable.Editor( {
-	// 		ajax: "/admin/carTime/modify",
-	// 		table: "#tList",
-	// 		fields: [ {
-	// 			label: "B_Name:",
-	// 				name: "bName"
-	// 			}, {
-	// 				label: "CT_DepartureTe:",
-	// 				name: "dept",
-	// 				type: "datetime"
-	// 			}, {
-	// 				label: "CT_ReturnTe:",
-	// 				name: "retu",
-	// 				type: "datetime"
-	// 			}, {
-	// 				label: "CT_LeadTe:",
-	// 				name: "lead",
-	// 				type: "datetime"
-	// 			}, {
-	// 				label: "CT_CarNum:",
-	// 				name: "carNum"
-	// 			}, {
-	// 				label: "CT_DriverName:",
-	// 				name: "dName",
-	// 			}, {
-	// 				label: "CT_DriverPhone:",
-	// 				name: "dPhone"
-	// 			}
-	// 		]
-	// 	} );
-	
-	// 	// Activate an inline edit on click of a table cell
-	// 	$('#edit').on('click', 'tbody td', function () {
-	// 		alert('dd')
-	// 		editor.inline( this );
-	// 	} );
-	
-	// 	$('#tList').DataTable( {
-	// 		dom: "Bfrtip",
-	// 		ajax: "../php/staff.php",
-	// 		order: [[ 1, 'asc' ]],
-	// 		columns: [
-	// 			{
-	// 				data: null,
-	// 				defaultContent: '',
-	// 				className: 'select-checkbox',
-	// 				orderable: false
-	// 			},
-	// 			{ data: "bName" },
-	// 			{ data: "dept" },
-	// 			{ data: "retu" },
-	// 			{ data: "lead" },
-	// 			{ data: "carNum" },
-	// 			{ data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
-	// 		],
-	// 		select: {
-	// 			style:    'os',
-	// 			selector: 'td:first-child'
-	// 		},
-	// 		buttons: [
-	// 			{ extend: "create", editor: editor },
-	// 			{ extend: "edit",   editor: editor },
-	// 			{ extend: "remove", editor: editor }
-	// 		]
-	// 	} );
-	// } );
-	
-	function del(e){
-      let ctId = e.id;
-      $.ajax({
-        url: '/admin/carTimeDelete',
-        method: 'post',
-        dataType: 'json',
-        data: {'ctId' : ctId},
-        success: function(res){
-			alert("삭제");
-			location.reload();
-        }
-      })
-  }
+					  
+	//배차 추가
+	function insert(){
+		$('#insertList').empty();
+		$.ajax({
+			url: '/admin/carTimeInsert',
+			method: 'post',
+			dataType: 'json',
+			success: function(res){
+				let	html = "<select id='ctCyId' class='form-control col-md-6'><option value='0'>운송사 선택</option></select>";
+					html += "<label>CT_DepartureTe</label><input type='text' class='form-control form-control regdate' id='dept'>";
+					html += "<label>CT_ReturnTe</label><input type='text' class='form-control form-control regdate' id='retun'>";
+					html += "<label>CT_LeadTe</label><input type='text' class='form-control form-control timepicker' id='lead'>";
+					html += "<label>CT_CarNum</label><input type='text' class='form-control form-control' id='carNum'>";
+					html += "<label>CT_DriverName</label><input type='text' class='form-control form-control' id='drName'>";
+					html += "<label>CT_DriverPhone</label><input type='text' class='form-control form-control' id='drPhone'>";
+				$('#insertList').append(html);	
+				$.ajax({
+					url: '/admin/carTimeInsert',
+					method: 'post',
+					dataType: 'json',
+					success: function(res){
+					for(let i=0; i<res.data.length; i++){
+						let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"&nbsp"+res.data[i].CY_Ty+"</option>"
+						$("#ctCyId").append(html);
+					}
+					}
+				})
+			}
+		})
+		$('#modal_primary_header').css('display','block')
+	}
+
+    function insertCar(){
+        $.ajax({
+            url: "/admin/carTime/insert",
+            method: 'post',
+            dataType: 'json',
+            data: {
+                'ctCyId' : $("#ctCyId option:selected").val(), 'dept' : $("#dept").val(), 'retun' : $("#retun").val(),
+                'lead' : $("#lead").val(), 'carNum' : $("#carNum").val(), 'drName' : $("#drName").val(), 'drPhone' : $("#drPhone").val()
+                },
+            success: function(res){
+                if(res.data == "추가"){
+                location.reload();
+                }
+            }
+        })
+    }
+
+	//수정                    		
+	function edit(e){
+		$('#moList').empty();
+		$.ajax({
+			url: '/admin/carTimeModify',
+			method: 'post',
+			dataType: 'json',
+			data: {'ctId' : e.id},
+			success: function(res){
+				let	html ="<input type='ctId' class='form-control' id='ctId' value="+res.data.CT_ID+" style='display: none;'>";
+					html += "<select id='ctCyId' class='form-control col-md-6'><option value=0>운송사 선택</option></select>";
+					html += "<label for='dept'>CT_DepartureTe:</label><input type='dept' class='form-control datepicker-here' data-timepicker='true' data-position='top left' id='dept' value='"+res.data.CT_DepartureTe+"'>";
+					html += "<label for='return'>CT_ReturnTe:</label><input type='return' class='form-control' id='return' value='"+res.data.CT_ReturnTe+"'>";
+					html += "<label for='lead'>CT_LeadTe:</label><input type='lead' class='form-control' id='lead' value="+res.data.CT_LeadTe+">";
+					html += "<label for='carNum'>CT_carNum:</label><input type='carNum' class='form-control' id='carNum' value="+res.data.CT_CarNum+">";
+					html += "<label for='drName'>CT_DriverName:</label><input type='drName' class='form-control' id='drName' value="+res.data.CT_DriverName+">";	
+					html += "<label for='drPhone'>CT_DriverPhone:</label><input type='drPhone' class='form-control' id='drPhone' value="+res.data.CT_DriverPhone+">";	
+				$('#moList').append(html);	
+				$.ajax({
+					url: '/admin/carTimeBList',
+					method: 'post',
+					dataType: 'json',
+					success: function(res){
+					for(let i=0; i<res.data.length; i++){
+						let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"&nbsp"+res.data[i].CY_Ty+"</option>"
+						$("#ctCyId").append(html);
+					}
+					}
+				})
+			}
+		})
+		$('#modal_info_header').css('display','block');
+	}
+
+    $('#update').on('click', function(){
+		$.ajax({
+			url: "/admin/carTime/modify",
+			method: 'post',
+			dataType: 'json',
+			data: {
+				'ctId' : $("#ctId").val(), 'ctCyId' : $("#ctCyId").val(), 'dept' : $('#dept').val(),'retun' : $("#return").val(), 
+				'lead' : $("#lead").val(), 'carNum' : $("#carNum").val(),'drName' : $("#drName").val(),'drPhone' : $("#drPhone").val()
+				},
+            success: function(res){
+              if(res.data == "수정"){
+                alert("수정완료");
+                location.href="/admin/carTime";
+              }
+            }
+      	})
+	})
+
+	//삭제
+  	function del(e){
+		$('#delete').attr('val', e.id);
+		$('#delete').on('click',function(){
+			$.ajax({
+				url: '/admin/carTimeDelete',
+				method: 'post',
+				dataType: 'json',
+				data: {'ctId' : e.id},
+				success: function(res){
+					alert("삭제");
+					location.reload();
+				}
+			})
+		})
+	}
+	// 좌석 . .. . . .. . . . .. . . .. . . ..
+		
 	</script>
 </body>
 </html>
