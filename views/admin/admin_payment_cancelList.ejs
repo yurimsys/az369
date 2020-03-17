@@ -1,103 +1,150 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <% include templates/admin_head.ejs %>
-  <title>Admin-PayMent</title>
+	<% include templates/admin_head.ejs %>
 </head>
+<body id="top">
 
-<body>
+<!-- Preloader -->
+<!-- <div id="preloader">
+	<div id="status">
+		<div class="loader"></div>
+	</div>
+</div> -->
+<!-- /Preloader -->
 
-  <div class="d-flex" id="wrapper">
+<div id="body-wrapper" class="body-container">
 
-    <!-- Sidebar -->
-    <% include templates/admin_sidebar.ejs %>
-    <!-- /#sidebar-wrapper -->
+	<!-- Header begins -->
+	<header class="main-nav clearfix">
+		<% include templates/admin_header.ejs %>
+	</header>
+	<!-- /Header ends -->
 
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
+	<!-- 네비게이션!@!@-->
+	<aside class="menu">
+		<div class="left-aside-container">			
+			<% include templates/admin_sidebar.ejs %>
+			<!-- /User profile -->
+			<!-- Main menu -->
+			<div class="menu-container">
+				
+			</div>
+			<!-- /Main menu -->
+		</div>
+	</aside>
+	<!-- /Sidebar -->
 
+	<!-- Page container begins -->
+	<section class="main-container">
+		<h1 style="display:none">Empty Heading</h1>
 
-      <!-- navi -->
-      <% include templates/admin_nav.ejs %>
-      <div class="container-fluid">
+			<!--Page Header-->
+			<div class="header">
+				<div class="header-content">
+					<div class="page-title">
+						<i class="icon-table2 position-left"></i> Advanced datatable
+					</div>
+				</div>
+			</div>
+			<!--/Page Header-->
 
-        <h1 class="mt-4">결제관리 테이블 (PH)</h1>
-        <div class="container col-md-6">
-            <form>           
-                <label for="userName">phId :</label> 
-                <input type="userName" class="form-control" id="phId" name="userName" value="<%=data.PH_ID%>" readonly= "readonly"> 
-                <label for="userName">phUId :</label> 
-                <input type="userName" class="form-control" id="phUId" name="userName" value="<%=data.PH_U_ID%>" readonly= "readonly"> 
+			<div class="container-fluid page-content">
 
-                <label for="userName">아이디 :</label> 
-                <input type="userName" class="form-control" id="userName" name="userName" value="<%=data.U_UserName%>" readonly= "readonly"> 
+				<!-- Individual column searching (text fields) -->
+				<div class="card card-inverse card-flat table-responsive">
+					<div class="card-header">
+						<div class="card-title">Individual column searching <span class="text-semibold">(Text fields)</span></div>
+					</div>
+					<div class="card-block p-b-0">
+						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
+					</div>
+					<div class="table-responsive">
+                        <div class="container col-md-6">
+                            <form>           
+                                <label for="userName">phId :</label> 
+								<input type="userName" class="form-control" id="phId" name="userName" value="<%=data.PH_ID%>" readonly= "readonly" style="font-size: 20px; color: black;"> 
+								
+                                <label for="userName">phUId :</label> 
+								<input type="userName" class="form-control" id="phUId" name="userName" value="<%=data.PH_U_ID%>" readonly= "readonly" style="font-size: 20px; color: black;"> 
+								
+                                <label for="userName">아이디 :</label> 
+                                <input type="userName" class="form-control" id="userName" name="userName" value="<%=data.U_UserName%>" readonly= "readonly" style="font-size: 20px; color: black;"> 
+                
+                                <label for="name">이름 :</label>
+                                <input type="dept" class="form-control" id="dept" name="dept" value="<%=data.U_Name%>" readonly= "readonly" style="font-size: 20px; color: black;"> 
+                
+                                <label for="return">운송사 :</label>
+                                <input type="return" class="form-control" id="return" name="return" value="<%=data.B_Name%>" readonly= "readonly" style="font-size: 20px; color: black;">
+                             
+                                <label for="lead">출발시간 :</label>
+                                <input type="lead" class="form-control" id="lead" name="lead" value="<%=data.CT_DepartureTe%>" readonly= "readonly" style="font-size: 20px; color: black;">
+                
+                                <label for="carNum">좌석개수 :</label>
+                                <input type="carNum" class="form-control" id="carNum" name="carNum" value="<%=data.cnt%>" readonly= "readonly" style="font-size: 20px; color: black;">
+                
+                                <label for="drName">총 가격 :</label>
+                                <input type="drName" class="form-control" id="drName" name="drName" value="<%=data.PH_Price%>" readonly= "readonly" style="font-size: 20px; color: black;">
+                
+                                <label for="drPhone">결제수단 :</label>
+                                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.PH_Type%>" readonly= "readonly" style="font-size: 20px; color: black;">
+                
+                                <label for="drPhone">취소여부 :</label>
+                                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.CR_Cancel%>" readonly= "readonly" style="font-size: 20px; color: black;">
+                
+                                <label for="drPhone">결제일 :</label>
+                                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.CR_cDt%>" readonly= "readonly" style="font-size: 20px; color: black;">
+                            </form>
+                            <br>       
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_danger_header"  onclick="modify()">결제취소</button>   
+                          </div>
+					</div>
+				</div>
 
-                <label for="name">이름 :</label>
-                <input type="dept" class="form-control" id="dept" name="dept" value="<%=data.U_Name%>" readonly= "readonly"> 
+				<!-- 삭제 모달 -->
+				<div id="modal_danger_header" class="modal fade" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header bg-danger">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<div class="modal-title">결제 취소</div>
+							</div>
+							<div class="modal-body">
+								<p>취소 하시겠습니까.?</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-danger" id="delete">Delete</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-                <label for="return">운송사 :</label>
-                <input type="return" class="form-control" id="return" name="return" value="<%=data.B_Name%>" readonly= "readonly">
-             
-                <label for="lead">출발시간 :</label>
-                <input type="lead" class="form-control" id="lead" name="lead" value="<%=data.CT_DepartureTe%>" readonly= "readonly">
-
-                <label for="carNum">좌석개수 :</label>
-                <input type="carNum" class="form-control" id="carNum" name="carNum" value="<%=data.cnt%>" readonly= "readonly">
-
-                <label for="drName">총 가격 :</label>
-                <input type="drName" class="form-control" id="drName" name="drName" value="<%=data.PH_Price%>" readonly= "readonly">
-
-                <label for="drPhone">결제수단 :</label>
-                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.PH_Type%>" readonly= "readonly">
-
-                <label for="drPhone">취소여부 :</label>
-                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.CR_Cancel%>" readonly= "readonly">
-
-                <label for="drPhone">결제일 :</label>
-                <input type="drPhone" class="form-control" id="drPhone" name="drPhone" value="<%=data.CR_cDt%>" readonly= "readonly">
-            </form>
-            <br>       
-            <button type="button" class="btn btn-primary" onclick="modify()">결제취소</button>   
-          </div>
-      </div>
-    </div>
-    <!-- /#page-content-wrapper -->
-  </div>
-  <!-- /#wrapper -->
-
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
-
-<!-- Menu Toggle Script -->
+		</section>
+		<!-- /Page Container ends -->
+		<!-- ScrolltoTop -->
+		<!-- <a id="scrollTop" href="#top"><i class="icon-arrow-up12"></i></a> -->
+		<!-- /ScrolltoTop -->
+		<% include templates/admin_footer.ejs %>
+	</div>
 <script>
-function modify(){
-    $.ajax({
-        url: '/admin/cancelPayment',
-        method: 'post',
-        dataType: 'json',
-        data: {'phId': $("#phId").val() ,'phUId': $("#phUId").val()},
-        success: function(res){
-            alert("취소완료");
-            location.href= "/admin/payment"
-        }
 
-    })
-}
+	function modify(e){
+		$('#delete').on('click',function(){
+			$.ajax({
+				url: '/admin/cancelPayment',
+				method: 'post',
+				dataType: 'json',
+				data: {'phId': $("#phId").val() ,'phUId': $("#phUId").val()},
+				success: function(res){
+					location.href= "/admin/payment"
+				}
+			})
+		})
+	}
 
 
-  $("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-  });
 </script>
-
-
-
-
 </body>
-
 </html>
