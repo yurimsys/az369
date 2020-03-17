@@ -77,22 +77,8 @@
 									<th>Delete</th>
 								</tr>
 							</thead>
-							<tbody>
-							<% for(let i=0; i<data.length; i++){ %>
-								<tr>
-									<td><%=data[i].B_ID%></td>
-									<td><%=data[i].B_Name%></td>
-									<td><%=data[i].B_Tel%></td>
-									<td><%=data[i].B_Fax%></td>
-									<td><%=data[i].B_Email%></td>
-									<td><%=data[i].B_Zip%></td>
-									<td><%=data[i].B_Addr1%></td>
-									<td><%=data[i].B_Addr2%></td>
-									<td><%=data[i].B_cDt%></td>
-									<td><%=data[i].B_uDt%></td>
-									<td><a id='<%=data[i].B_ID%>' class="icon-pencil6" data-toggle="modal" data-target="#modal_info_header" onclick="edit(this)">Edit</a></td>
-									<td><a id='<%=data[i].B_ID%>' class="dropdown-item" data-toggle="modal" data-target="#modal_danger_header" onclick="del(this)">Delete</a></td>
-								<% } %>  							
+							<tbody id="testList">
+							
 							</tbody>
 						</table>
 					</div>
@@ -183,7 +169,33 @@
 		<% include templates/admin_footer.ejs %>
 	</div>
 
-	<script>
+	<script>		
+
+	//테이블 생성
+	$.ajax({
+		url: '/admin/business/List',
+		method: 'post',
+		dataType: 'json',
+		success: function(res){
+			for(let i=0; i<res.data.length; i++){
+				let html = "<tr><td>"+res.data[i].B_ID+"</td>";
+					html += "<td>"+res.data[i].B_Name+"</td>";
+					html += "<td>"+res.data[i].B.Tel+"</td>";
+					html += "<td>"+res.data[i].B_Fax+"</td>";
+					html += "<td>"+res.data[i].B_Email+"</td>";
+					html += "<td>"+res.data[i].B_Zip+"</td>";
+					html += "<td>"+res.data[i].B_Addr1+"</td>";
+					html += "<td>"+res.data[i].B_Addr2+"</td>";
+					html += "<td>"+res.data[i].B_cDt+"</td>";
+					html += "<td>"+res.data[i].B_uDt+"</td>";
+					html += "<td><a id="+res.data[i].B_ID+" class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a></td>";
+					html += "<td><a id="+res.data[i].B_ID+" class='dropdown-item' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)''>Delete</a></td></tr>";
+				$('#testList').append(html);
+			}
+		}
+	})
+
+
 	//운송사 추가
 		function insert(){
 			$.ajax({

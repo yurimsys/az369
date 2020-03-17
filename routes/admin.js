@@ -54,12 +54,26 @@ router.get('/business', auth.isLoggedIn, function(req, res, next) {
         connection.query(query,
           function(err, rows, fields) {
               if (err) throw err;
-              res.render('admin_business', { data : rows });
-              console.log("비지니스",rows);
+              res.render('admin_business');
+              //console.log("비지니스",rows);
           });
     }
 });
 
+//비지니스 테이블
+router.post('/business/List', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let query = `SELECT * FROM tB`; 
+        connection.query(query,
+          function(err, rows, fields) {
+              if (err) throw err;
+              res.json({ data : rows });
+              console.log("비지니스",rows);
+          });
+    }
+});
 
 //관리자 비지니스 테이블 수정 페이지
 router.post('/businessModify', auth.isLoggedIn, function(req, res, next) {
