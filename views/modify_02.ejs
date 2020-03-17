@@ -45,7 +45,7 @@
                                 <!--새 비밀번호-->
                                 <li>
                                     <label for="password2"></label>
-                                    <input type="password" id="password" name="password" placeholder="새 비밀번호 (영문 + 숫자 + 특문 포함 8글자 이상)">
+                                    <input type="password" id="password" class="password" name="password" placeholder="새 비밀번호 (영문 + 숫자 + 특문 포함 10글자 이상)">
                                 </li>
                                 <li>
                                     <label for="password2"></label>
@@ -59,14 +59,16 @@
                                 <li>
                                     <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
                                 </li>
-                                
+
                                 <li>
-                                    <button class="check_btn">본인인증</button>
+                                    <div class="check_btn" onclick="myFunction()">인증번호 받기</div>
                                 </li>
-                            
+
                                 <li>
-                                    <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);"/>
-                                    <div class="text-alert" id="alert_msg" style="font-size: 13px; display: none; color: #AD863C; font-weight: bold;">인증번호의 유효시간은 30분입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+                                    <div id="phone_check_box">
+                                        <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);" />
+                                    </div>
+                                    <div class="text-alert" id="alert_msg" style="font-size: 13px; display: none; color: #AD863C; font-weight: bold;">인증번호의 유효시간은 30분입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
                                     <div class="text-alert" id="alert_msg_fail" style="font-size: 13px; color: red; display: none;"></div>
                                     <div class="text-alert" id="alert_msg_success" style="font-size: 13px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
                                 </li>
@@ -176,7 +178,7 @@
     <script>
         $(document).ready(()=>{
         //본인인증
-        $("button.check_btn").click((e) => {
+        $("div.check_btn").click((e) => {
             e.preventDefault();
             sendSmsButton();
             return false;
@@ -369,6 +371,13 @@
             e.value = e.value.slice(0, e.maxLength);
         }
     }
+    </script>
+
+     <!--인증번호받기 js-->
+    <script>
+        function myFunction() {
+            document.getElementById("phone_check_box").style.display = "block";
+        }
     </script>
 
 </body></html>

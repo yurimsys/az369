@@ -71,14 +71,26 @@ section.sub_wrap h1 {
 .find_box_inner form ul li button:hover {background: #f4f4f4;}*/
 
 #phone {width: 70%; float: left; margin-right: 1%;}
-.check_btn {width: 29%; height: 50px; float: left; background: #fff; border: 1px solid #bbb; cursor: pointer;}
+.check_btn {width: 29%; height: 50px; line-height: 50px; float: left; background: #fff; border: 1px solid #ccc; cursor: pointer;}
 #phone_check {margin-top: 1%;}
 
-
-.find_id_btn {width: 65%; margin: 0 auto; margin-top: 5.5%; height: 50px; line-height: 50px;}
+.find_id_btn {width: 65%; margin: 0 auto; margin-top: 4.5%; height: 50px; line-height: 50px;}
 .find_id_btn ul li a {float:left; width: 49%; margin-right: 1%; text-align: center; }
 .login_btn {border: 1px solid #ddd;}
 .next_btn {background: #ad863c; color: #fff; border: 1px solid #ad863c;}
+
+#phone_check_box {
+  font-size: 16px;
+  text-align: center;
+width: 100%;
+  margin: auto;
+}
+
+#phone_check_box {
+  display: none;
+}
+
+.find_form {overflow: hidden;}
 
 
 
@@ -174,11 +186,13 @@ header .open {
      section.sub_wrap h2 {font-size: 18px;  line-height: 1.5; text-align: center; color: #555;}
 
     .find_box_inner {margin: 0 auto; padding: 10% 5%;}
-    .find_box p {font-size: 12px;}
+    .find_box p {font-size: 14px; margin-bottom: 22px; margin-top: 7px;}
     .find_box .tnb ul li {font-size: 16px; color: #555;}
     
     
     .find_id_btn {width: 100%; margin-top: 10%; font-size: 16px; height: 40px; line-height: 40px;}
+     #phone {width: 60%;}
+    .check_btn {width: 39%; font-size: 15px;}
 
     /*footer*/
     footer {width: 100%; margin: 0 auto; }
@@ -200,5 +214,6 @@ header .open {
     .find_box .tnb ul li {font-size: 15px;}
     
     .find_id_btn { font-size: 15px;}
+    .check_btn {font-size: 14px;}
 
 }

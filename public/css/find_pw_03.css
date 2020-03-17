@@ -181,7 +181,7 @@ header .open {
     .find_box_inner {margin: 0 auto; padding: 10% 5%;}
     section.sub_wrap h2 {font-size: 18px;  line-height: 1.5; text-align: center; color: #555;}
     .find_box_inner h3 {font-size: 16px; margin-top: 4%;}
-    .find_box p {font-size: 12px;}
+    .find_box p {font-size: 14px; margin-bottom: 22px; margin-top: 7px;}
     .find_box .tnb ul li {font-size: 16px; color: #555;}
     
     .login_btn {width: 60%; height: 40px; line-height: 40px;}

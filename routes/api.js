@@ -277,6 +277,7 @@ router.post('/user/confirm', auth.isLoggedIn, (req, res, done) =>{
     //console.log(req.body.pw);
     let uPw = req.body.pw
     let uId = req.user.U_UserName
+    //let hash_pw = CryptoJS.AES.encrypt(uPw, config.enc_salt).toString();
     console.log("비밀번호",uPw);
     console.log("내 아이이디 :",req.user.U_UserName);
     let query = "select U_Pw from tU where U_UserName =:uId and U_Pw =:uPw";
@@ -288,11 +289,11 @@ router.post('/user/confirm', auth.isLoggedIn, (req, res, done) =>{
         function(err, rows) {
             
             if (err) {return done(err);}
-            if( CryptoJS.AES.decrypt(uPw, config.enc_salt).toString(CryptoJS.enc.Utf8) !== req.user.U_Pw ){
-                console.log("확인");
+            if(CryptoJS.AES.decrypt(req.user.U_Pw, config.enc_salt).toString(CryptoJS.enc.Utf8)!== uPw ){
                 res.json({data: "실패"});
                 return done( null, false, {message: "ID와 Password를 확인해주세요"} );
             } else {
+                console.log("성공")
                 res.json( {  data : "성공"});
             }           
         });      
