@@ -357,6 +357,9 @@ header .open {
     .survey_box {background: #fff; border: none; padding: 0; margin: 10% 0 13%;}
     .survey_box h3 {font-size: 16px;}
 
+    #phone {width: 60%;}
+    .check_btn {width: 39%; font-size: 15px;}
+
     /*footer*/
     footer {width: 100%; margin: 0 auto; }
     footer .footer_inner {width: 90%; margin: 0 auto;}
