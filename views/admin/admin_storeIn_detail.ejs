@@ -1,99 +1,114 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-
-  <% include templates/admin_head.ejs %>
-  <title>Admin-User</title>
-  
-
+	<% include templates/admin_head.ejs %>
 </head>
+<body id="top">
 
-<body>
+<!-- Preloader -->
+<!-- <div id="preloader">
+	<div id="status">
+		<div class="loader"></div>
+	</div>
+</div> -->
+<!-- /Preloader -->
 
-  <div class="d-flex" id="wrapper">
+<div id="body-wrapper" class="body-container">
 
-    <!-- Sidebar -->
-    <% include templates/admin_sidebar.ejs %>
-    <!-- /#sidebar-wrapper -->
+	<!-- Header begins -->
+	<header class="main-nav clearfix">
+		<% include templates/admin_header.ejs %>
+	</header>
+	<!-- /Header ends -->
 
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
+	<!-- 네비게이션!@!@-->
+	<aside class="menu">
+		<div class="left-aside-container">			
+			<% include templates/admin_sidebar.ejs %>
+			<!-- /User profile -->
+			<!-- Main menu -->
+			<div class="menu-container">
+				
+			</div>
+			<!-- /Main menu -->
+		</div>
+	</aside>
+	<!-- /Sidebar -->
 
+	<!-- Page container begins -->
+	<section class="main-container">
+		<h1 style="display:none">Empty Heading</h1>
 
-      <!-- navi -->
-      <% include templates/admin_nav.ejs %>
+			<!--Page Header-->
+			<div class="header">
+				<div class="header-content">
+					<div class="page-title">
+						<i class="icon-table2 position-left"></i> Advanced datatable
+					</div>
+				</div>
+			</div>
+			<!--/Page Header-->
 
-      <div class="container-fluid">
-        
-        <h1 class="mt-4">입점신청조회 테이블 (Store Inquire)</h1>
-            <div class="container">
-                <form>
-                    <label class="siId" id="<%=data.SI_ID%>" >고객 이름 :</label>
-                    <input type="text" class="form-control" value="<%=data.SI_Name%>" readonly = "readonly">
-                    <label>휴대전화 :</label>
-                    <input type="text" class="form-control" value="<%=data.SI_Phone%>" readonly = "readonly">
-                    <label>브랜드명 :</label>
-                    <input type="text" class="form-control" value="<%=data.SI_Brand%>" readonly = "readonly">
-                    <label>주소 :</label>
-                    <input type="text" class="form-control" value="<%=data.SI_Addr1%>" readonly = "readonly">
-                    <label>문의날짜 :</label>
-                    <input type="text" class="form-control" value="<%=data.SI_cDt%>" readonly = "readonly">
-                    <label>문의사항 :</label>
-                    <textarea class="form-control" cols="40" rows="10" value="<%=data.SI_Content%>" readonly="readonly"><%=data.SI_Content%></textarea>
-                </form>
-                <br>
-                <button type="button" id="back" class="btn btn-primary">뒤로가기</button>
-                <button type="button" id="storeCheck" class="btn btn-primary">문의확인</button>
-            </div>
-            
+			<div class="container-fluid page-content">
 
-          </div>
-      </div>
-    </div>
-    <!-- /#page-content-wrapper -->
+				<!-- Individual column searching (text fields) -->
+				<div class="card card-inverse card-flat table-responsive">
+					<div class="card-header">
+						<div class="card-title">Individual column searching <span class="text-semibold">(Text fields)</span></div>
+					</div>
+					<div class="card-block p-b-0">
+						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
+					</div>
+					<div class="table-responsive">
+                        <div class="container">
+                            <form>
+                                <label class="siId" id="<%=data.SI_ID%>" >고객 이름 :</label>
+                                <input type="text" class="form-control" value="<%=data.SI_Name%>" readonly = "readonly" style="font-size: 20px; color: black;">
+                                <label>휴대전화 :</label>
+                                <input type="text" class="form-control" value="<%=data.SI_Phone%>" readonly = "readonly" style="font-size: 20px; color: black;">
+                                <label>브랜드명 :</label>
+                                <input type="text" class="form-control" value="<%=data.SI_Brand%>" readonly = "readonly" style="font-size: 20px; color: black;">
+                                <label>주소 :</label>
+                                <input type="text" class="form-control" value="<%=data.SI_Addr1%>" readonly = "readonly" style="font-size: 20px; color: black;">
+                                <label>문의날짜 :</label>
+                                <input type="text" class="form-control" value="<%=data.SI_cDt%>" readonly = "readonly" style="font-size: 20px; color: black;">
+                                <label>문의사항 :</label>
+                                <textarea class="form-control" cols="40" rows="10" value="<%=data.SI_Content%>" readonly = "readonly" style="font-size: 20px; color: black;"><%=data.SI_Content%></textarea>
+                            </form>
+                            <br>
+                            <button type="button" id="back" class="btn btn-primary">뒤로가기</button>
+                            <button type="button" id="storeCheck" class="btn btn-primary">문의확인</button>
+                        </div>
+				    </div>
+				</div>
+			</div>
 
-  </div>
-  <!-- /#wrapper -->
+		</section>
+		<!-- /Page Container ends -->
+		<!-- ScrolltoTop -->
+		<!-- <a id="scrollTop" href="#top"><i class="icon-arrow-up12"></i></a> -->
+		<!-- /ScrolltoTop -->
+		<% include templates/admin_footer.ejs %>
+	</div>
 
-<!-- Bootstrap core JavaScript -->
-<script src="/admin/vendor/jquery/jquery.min.js"></script>
-<script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Menu Toggle Script -->
-<script>
+	<script>
+		$("#back").click(function(){
+			location.href="/admin/storeIn";
+		})
 
-$(document).ready(function(){
-    $("#resTable").DataTable();
+		$("#storeCheck").on('click',function(){
+		$.ajax({
+			url: '/admin/storeIn/check',
+			method: 'post',
+			dataType: 'json',
+			data: {'siId':$('.siId').attr('id')},
+			success: function(res){
+			alert("문의확인");
+			location.href="/admin/storeIn";
+			}
+		})
+		})
 
-})
-
-$("#back").click(function(){
-    location.href="/admin/storeIn";
-})
-
-$("#storeCheck").on('click',function(){
-  $.ajax({
-    url: '/admin/storeIn/check',
-    method: 'post',
-    dataType: 'json',
-    data: {'siId':$('.siId').attr('id')},
-    success: function(res){
-      alert("문의확인");
-      location.href="/admin/storeIn";
-    }
-  })
-})
-
-  $("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-  });
-</script>
-
-
-
-
+	</script>
 </body>
-
 </html>

@@ -1,90 +1,288 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-
-  <% include templates/admin_head.ejs %>
-  <title>Admin-CarType</title>
-
+	<% include templates/admin_head.ejs %>
 </head>
+<body id="top">
 
-<body>
+<!-- Preloader -->
+<!-- <div id="preloader">
+	<div id="status">
+		<div class="loader"></div>
+	</div>
+</div> -->
+<!-- /Preloader -->
 
-  <div class="d-flex" id="wrapper">
+<div id="body-wrapper" class="body-container">
 
-    <!-- Sidebar -->
-    <% include templates/admin_sidebar.ejs %>
-    <!-- /#sidebar-wrapper -->
+	<!-- Header begins -->
+	<header class="main-nav clearfix">
+		<% include templates/admin_header.ejs %>
+	</header>
+	<!-- /Header ends -->
 
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
+	<!-- 네비게이션!@!@-->
+	<aside class="menu">
+		<div class="left-aside-container">			
+			<% include templates/admin_sidebar.ejs %>
+			<!-- /User profile -->
+			<!-- Main menu -->
+			<div class="menu-container">
+				
+			</div>
+			<!-- /Main menu -->
+		</div>
+	</aside>
+	<!-- /Sidebar -->
+
+	<!-- Page container begins -->
+	<section class="main-container">
+		<h1 style="display:none">Empty Heading</h1>
+
+			<!--Page Header-->
+			<div class="header">
+				<div class="header-content">
+					<div class="page-title">
+						<i class="icon-table2 position-left"></i> Advanced datatable
+					</div>
+				</div>
+			</div>
+			<!--/Page Header-->
+
+			<div class="container-fluid page-content">
+
+				<!-- Individual column searching (text fields) -->
+				<div class="card card-inverse card-flat table-responsive">
+					<div class="card-header">
+						<div class="card-title">Individual column searching <span class="text-semibold">(Text fields)</span></div>
+					</div>
+					<div class="card-block p-b-0">
+						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
+					</div>
+					<div class="table-responsive">
+						<table class="table datatable-button-init-basic" id="tList">
+							<thead>
+								<tr>
+									<th>CY_ID</th>
+									<th>CY_B_ID</th>
+									<th>B_Name</th>
+									<th>CY_Ty</th>
+									<th>CY_TotalPassenger</th>
+									<th>CY_ServicePassenger</th>
+									<th>CY_SeatPrice</th>
+									<th>CY_cDt</th>
+									<th>CY_uDt</th>
+									<th>Modify</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for(let i=0; i<data.length; i++){ %>
+								<tr>
+									<td><%=data[i].CY_ID%></td>
+									<td><%=data[i].CY_B_ID%></td>
+									<td><%=data[i].B_Name%></td>
+									<td><%=data[i].CY_Ty%></td>
+									<td><%=data[i].CY_TotalPassenger%></td>
+									<td><%=data[i].CY_ServicePassenger%></td>
+									<td><%=data[i].CY_SeatPrice%></td>
+									<td><%=data[i].CY_cDt%></td>
+									<td><%=data[i].CY_uDt%></td>
+									<td><a class="icon-pencil6" id='<%=data[i].CY_ID%>' data-toggle="modal" data-target="#modal_info_header" onclick="edit(this)">Edit</a></td>
+									<td><a class="icon-trash" id='<%=data[i].CY_ID%>' data-toggle="modal" data-target="#modal_danger_header" onclick="del(this)">Delete</a></td>		
+								</tr>
+								<% } %>  							
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" onclick="insert()">차량 추가</button>
+				<!-- 수정 모달 -->
+				<div id="modal_info_header" class="modal fade" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header bg-info">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<div class="modal-title">차량 수정</div>
+							</div>
+
+							<div class="modal-body" id="moList">
+								
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-info" id="update">Modify</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 삭제 모달 -->
+				<div id="modal_danger_header" class="modal fade" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header bg-danger">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<div class="modal-title">차량 삭제</div>
+							</div>
+
+							<div class="modal-body">
+								<p>삭제?</p>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-danger" id="delete">Delete</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 행 추가 -->
+				<div id="modal_primary_header" class="modal fade" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header bg-primary">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<div class="modal-title">배차 등록</div>
+							</div>
+
+							<div class="modal-body" id="insertList">
+								
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary" onclick="insertBusiness()">추가</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</section>
+		<!-- /Page Container ends -->
+		<!-- ScrolltoTop -->
+		<!-- <a id="scrollTop" href="#top"><i class="icon-arrow-up12"></i></a> -->
+		<!-- /ScrolltoTop -->
+		<% include templates/admin_footer.ejs %>
+	</div>
+
+	<script>
+
+	function insert(){
+		$('#insertList').empty();
+		let	html =  "<label>CY_B_ID</label><select id='cyBId' class='form-control col-md-6'><option value=0>운송사 선택</option></select>";
+			html += "<label for='cyTy'>CY_Ty:</label><input type='cyTy' class='form-control' id='cyTy'> ";
+			html += "<label for='total'>CY_TotalPassenger:</label><input type='total' class='form-control' id='total'>";
+			html += "<label for='service'>CY_ServicePassen:</label><input type='service' class='form-control' id='service'>";
+			html += "<label for='price'>CY_SeatPrice:</label><input type='price' class='form-control' id='price'>";	
+		$('#insertList').append(html);	
+		$.ajax({
+			url: '/admin/carTypeBList',
+			method: 'post',
+			dataType: 'json',
+			success: function(res){
+				console.log("data ::", res.data);
+				for(let i=0; i<res.data.length; i++){
+				let html = "<option value="+res.data[i].B_ID+">"+res.data[i].B_Name+"</option>"
+					$("#cyBId").append(html);
+				}
+			}
+		})
+	}
+
+	function insertBusiness(){
+        $.ajax({
+            url: "/admin/carType/insert",
+            method: 'post',
+            dataType: 'json',
+            data: {
+                'cyBId' : $("#cyBId option:selected").val(), 'cyTy' : $("#cyTy").val(), 'total' : $("#total").val(),
+                'service' : $("#service").val(), 'price' : $("#price").val()
+                },
+            success: function(res){
+                if(res.data == "추가"){
+                location.reload();
+                }
+            }
+        })
+    }
+
+	function edit(e){
+		//alert(e.id)
+		$('#moList').empty();
+		$.ajax({
+			url: '/admin/carTypeModify',
+			method: 'post',
+			dataType: 'json',
+			data: {'cyId' : e.id},
+			success: function(res){
+				let	html ="<input type='cyId' class='form-control' id='cyId' value="+res.data.CY_ID+" style='display: none;'>";
+					html += "<label>CY_B_ID</label><select id='cyBId' class='form-control col-md-6'><option value=0>운송사 선택</option></select>";
+					html += "<label for='cyTy'>CY_Ty:</label><input type='cyTy' class='form-control' id='cyTy' value="+res.data.CY_Ty+"> ";
+					html += "<label for='total'>CY_TotalPassenger:</label><input type='total' class='form-control' id='total' value="+res.data.CY_TotalPassenger+">";
+					html += "<label for='service'>CY_ServicePassen:</label><input type='service' class='form-control' id='service' value="+res.data.CY_ServicePassenger+">";
+					html += "<label for='price'>CY_SeatPrice:</label><input type='price' class='form-control' id='price' value="+res.data.CY_SeatPrice+">";	
+				$('#moList').append(html);	
+				$.ajax({
+					url: '/admin/carTypeBList',
+					method: 'post',
+					dataType: 'json',
+					success: function(res){
+						console.log("data ::", res.data);
+						for(let i=0; i<res.data.length; i++){
+						let html = "<option value="+res.data[i].B_ID+">"+res.data[i].B_Name+"</option>"
+							$("#cyBId").append(html);
+						}
+					}
+				})
+			}
+		})
+		$('#modal_info_header').css('display','block');
+	}
+	
+
+	$('#update').on('click',function(){
+		if($("#cyBId").val() == 0){
+			alert("운송사를 선택하세요.");
+			return;
+		}
+		//alert("ddd")
+		$.ajax({
+		url: "/admin/carType/modify",
+		method: 'post',
+		dataType: 'json',
+		data: {
+			'cyId' : $("#cyId").val(), 'total' : $('#total').val(), 'cyBId' : $("#cyBId").val(),
+			'service' : $("#service").val(), 'price' : $("#price").val(), 'cyTy' : $("#cyTy").val()
+			},
+			success: function(res){
+				if(res.data == "수정"){
+				location.reload();
+				}
+			}
+		})
+	})
 
 
-      <!-- navi -->
-      <% include templates/admin_nav.ejs %>
-      <div class="container-fluid">
-        <h1 class="mt-4">버스정보 테이블 (CarType)</h1>
-            <table class="table table-bordered" width="100%" cellspacing="0" id="carTable">
-                <thead class="thead-light">
-                    <tr>
-                        <th>CY_ID</th>
-                        <th>CY_B_ID</th>
-                        <th>B_Name</th>
-                        <th>CY_Ty</th>
-                        <th>CY_TotalPassenger</th>
-                        <th>CY_ServicePassenger</th>
-                        <th>CY_SeatPrice</th>
-                        <th>CY_cDt</th>
-                        <th>CY_uDt</th>
-                        <th>Modify</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>              
-                                
-                <tbody> 
-                <% for(let i=0; i<data.length; i++){ %>
-                    <tr>
-                        <td><%=data[i].CY_ID%></td>
-                        <td><%=data[i].CY_B_ID%></td>
-                        <td><%=data[i].B_Name%></td>
-                        <td><%=data[i].CY_Ty%></td>
-                        <td><%=data[i].CY_TotalPassenger%></td>
-                        <td><%=data[i].CY_ServicePassenger%></td>
-                        <td><%=data[i].CY_SeatPrice%></td>
-                        <td><%=data[i].CY_cDt%></td>
-                        <td><%=data[i].CY_uDt%></td>
-                        <td><a href='carTypeModify/<%=data[i].CY_ID%>'>수정</a></td>
-                        <td><a href='carTypeDelete/<%=data[i].CY_ID%>'>삭제</a></td>
-                    </tr>
-                    <% } %>  
-                </tbody>
-            </table>
-            <a href="/admin/carTypeInsert">버스정보 추가</a>
-      </div>
-    </div>
-    <!-- /#page-content-wrapper -->
-
-  </div>
-  <!-- /#wrapper -->
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
-
-  <!-- Menu Toggle Script -->
-  <script>
-    $(document).ready(function(){
-      $('#carTable').DataTable();
-    })
-
-
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
-
+	//삭제
+	function del(e){
+		$('#delete').attr('val', e.id);
+		$('#delete').on('click',function(){
+			$.ajax({
+				url: '/admin/carTypeDelete',
+				method: 'post',
+				dataType: 'json',
+				data: {'cyId' : e.id},
+				success: function(res){
+					//alert("삭제");
+					location.reload()
+				}
+			})
+		})
+	}
+	</script>
 </body>
-
 </html>

@@ -1,129 +1,169 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-
-  <% include templates/admin_head.ejs %>
-  <title>Admin-Preference</title>
+	<% include templates/admin_head.ejs %>
 </head>
+<body id="top">
 
-<body>
+<!-- Preloader -->
+<!-- <div id="preloader">
+	<div id="status">
+		<div class="loader"></div>
+	</div>
+</div> -->
+<!-- /Preloader -->
 
-  <div class="d-flex" id="wrapper">
+<div id="body-wrapper" class="body-container">
 
-    <!-- Sidebar -->
-    <% include templates/admin_sidebar.ejs %>
-    <!-- /#sidebar-wrapper -->
+	<!-- Header begins -->
+	<header class="main-nav clearfix">
+		<% include templates/admin_header.ejs %>
+	</header>
+	<!-- /Header ends -->
 
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-      <!-- navi -->
-      <% include templates/admin_nav.ejs %>
+	<!-- 네비게이션!@!@-->
+	<aside class="menu">
+		<div class="left-aside-container">			
+			<% include templates/admin_sidebar.ejs %>
+			<!-- /User profile -->
+			<!-- Main menu -->
+			<div class="menu-container">
+				
+			</div>
+			<!-- /Main menu -->
+		</div>
+	</aside>
+	<!-- /Sidebar -->
 
-      <div class="container-fluid">
-        <h1 class="mt-4">선호도 조사 (Preference)</h1>
-        <button type="button" class="btn btn-primary" onclick="dayList()">전체 리스트</button>
-        <button type="button" class="btn btn-primary" onclick="allList()">도합 선호도</button>
-        <p>
-    <!-- 요일별 리스트 @@@@@@@ -->
-        <div id="dayList">
-            <h3>✔요일별 선호조사</h3>
-            <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead class="thead-light">
-                    <tr>
-                        <th>월요일</th>
-                        <th>화요일</th>
-                        <th>수요일</th>
-                        <th>목요일</th>
-                        <th>금요일</th>
-                    </tr>
-                </thead> 
-                <tbody>
-                    <tr>
-                        <td id='mon' value="월요일"><%=data[0].mon%></td>
-                        <td id='tue' value="화요일"><%=data[0].tue%></td>
-                        <td id='wed' value="수요일"><%=data[0].wed%></td>
-                        <td id='thu' value="목요일"><%=data[0].thu%></td>
-                        <td id='fri' value="금요일"><%=data[0].fri%></td>
-                    </tr>
-                </tbody>             
-            </table>
-        </div>
+	<!-- Page container begins -->
+	<section class="main-container">
+		<h1 style="display:none">Empty Heading</h1>
 
-         <!-- 시간별 리스트 @@@@@@@ -->
-         <div id="timeList">
-            <h3>✔시간별 선호조사</h3>
-            <br>
-            <h5>*평택 출발시간</h5>
-            <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead class="thead-light">
-                    <tr>
-                        <th>평택 20시</th>
-                        <th>평택 21시</th>
-                        <th>평택 22시</th>
-                        <th>평택 23시</th>
-                    </tr>
-                </thead> 
-                <tbody>
-                    <tr>
-                        <td id="dept2000"><%=data[0].depta%></td>
-                        <td id="dept2100"><%=data[0].deptb%></td>
-                        <td id="dept2200"><%=data[0].deptc%></td>
-                        <td id="dept2300"><%=data[0].deptd%></td>
-                </tbody>             
-            </table>
-            <br>
-            <h5>*서울 출발시간</h5>
-            <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead class="thead-light">
-                    <tr>
-                        <th>서울 02시</th>
-                        <th>서울 03시</th>
-                        <th>서울 04시</th>
-                        <th>서울 05시</th>
-                    </tr>
-                </thead> 
-                <tbody>
-                    <tr>
-                        <td id="retu0200"><%=data[0].retua%></td>
-                        <td id="retu0300"><%=data[0].retub%></td>
-                        <td id="retu0400"><%=data[0].retuc%></td>                   
-                        <td id="retu0500"><%=data[0].retud%></td></tr>
-                </tbody>             
-            </table>
-        </div>
+			<!--Page Header-->
+			<div class="header">
+				<div class="header-content">
+					<div class="page-title">
+						<i class="icon-table2 position-left"></i> Advanced datatable
+					</div>
+				</div>
+			</div>
+			<!--/Page Header-->
 
-            <!-- 도합 리스트 @@@@@@@ -->
-            <div id="allList" style="display: none;">
-                <h3>✔최고많은 선호도</h3>
-                <table class="table table-bordered" width="100%" cellspacing="0">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>요일</th>
-                            <th>평택 출발시간</th>
-                            <th>서울 출발시간</th>
-                        </tr>
-                    </thead> 
-                    <tbody id="nowList">
-                    </tbody>             
-                </table>
-            </div>
+			<div class="container-fluid page-content">
 
+				<!-- Individual column searching (text fields) -->
+				<div class="card card-inverse card-flat table-responsive">
+					<div class="card-header">
+						<div class="card-title">Individual column searching <span class="text-semibold">(Text fields)</span></div>
+					</div>
+					<div class="card-block p-b-0">
+						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
+					</div>
+					<div class="table-responsive">
+                        <div class="container-fluid">
+                            <h1 class="mt-4">선호도 조사 (Preference)</h1>
+                            <button type="button" class="btn btn-primary" onclick="dayList()">전체 리스트</button>
+                            <button type="button" class="btn btn-primary" onclick="allList()">도합 선호도</button>
+                            <p>
+                        <!-- 요일별 리스트 @@@@@@@ -->
+                            <div id="dayList">
+                                <h3>✔요일별 선호조사</h3>
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>월요일</th>
+                                            <th>화요일</th>
+                                            <th>수요일</th>
+                                            <th>목요일</th>
+                                            <th>금요일</th>
+                                        </tr>
+                                    </thead> 
+                                    <tbody>
+                                        <tr>
+                                            <td id='mon' value="월요일"><%=data[0].mon%></td>
+                                            <td id='tue' value="화요일"><%=data[0].tue%></td>
+                                            <td id='wed' value="수요일"><%=data[0].wed%></td>
+                                            <td id='thu' value="목요일"><%=data[0].thu%></td>
+                                            <td id='fri' value="금요일"><%=data[0].fri%></td>
+                                        </tr>
+                                    </tbody>             
+                                </table>
+                            </div>
+                    
+                             <!-- 시간별 리스트 @@@@@@@ -->
+                             <div id="timeList">
+                                <h3>✔시간별 선호조사</h3>
+                                <br>
+                                <h5>*평택 출발시간</h5>
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>평택 20시</th>
+                                            <th>평택 21시</th>
+                                            <th>평택 22시</th>
+                                            <th>평택 23시</th>
+                                        </tr>
+                                    </thead> 
+                                    <tbody>
+                                        <tr>
+                                            <td id="dept2000"><%=data[0].depta%></td>
+                                            <td id="dept2100"><%=data[0].deptb%></td>
+                                            <td id="dept2200"><%=data[0].deptc%></td>
+                                            <td id="dept2300"><%=data[0].deptd%></td>
+                                    </tbody>             
+                                </table>
+                                <br>
+                                <h5>*서울 출발시간</h5>
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>서울 02시</th>
+                                            <th>서울 03시</th>
+                                            <th>서울 04시</th>
+                                            <th>서울 05시</th>
+                                        </tr>
+                                    </thead> 
+                                    <tbody>
+                                        <tr>
+                                            <td id="retu0200"><%=data[0].retua%></td>
+                                            <td id="retu0300"><%=data[0].retub%></td>
+                                            <td id="retu0400"><%=data[0].retuc%></td>                   
+                                            <td id="retu0500"><%=data[0].retud%></td></tr>
+                                    </tbody>             
+                                </table>
+                            </div>
+                    
+                                <!-- 도합 리스트 @@@@@@@ -->
+                                <div id="allList" style="display: none;">
+                                    <h3>✔최고많은 선호도</h3>
+                                    <table class="table table-bordered" width="100%" cellspacing="0">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>요일</th>
+                                                <th>평택 출발시간</th>
+                                                <th>서울 출발시간</th>
+                                            </tr>
+                                        </thead> 
+                                        <tbody id="nowList">
+                                        </tbody>             
+                                    </table>
+                                </div>
+                    
+                    
+                          </div>
+				</div>
+				</div>
+			</div>
 
-      </div>
-    </div>
-    <!-- /#page-content-wrapper -->
-
-  </div>
-  <!-- /#wrapper -->
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+		</section>
+		<!-- /Page Container ends -->
+		<!-- ScrolltoTop -->
+		<!-- <a id="scrollTop" href="#top"><i class="icon-arrow-up12"></i></a> -->
+		<!-- /ScrolltoTop -->
+		<% include templates/admin_footer.ejs %>
+	</div>
 <script>
-
-//도합 리스트
+    //도합 리스트
     function allList(){
         $('#timeList').css('display','none');
         $('#dayList').css('display','none');
@@ -204,16 +244,5 @@
 
 
 </script>
-
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
-
-
 </body>
-
 </html>
