@@ -97,6 +97,7 @@
 						</table>
 					</div>
 				</div>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">운송사 추가</button>
 				<!-- 수정 모달 -->
 				<div id="modal_info_header" class="modal fade" style="display: none;" aria-hidden="true">
 					<div class="modal-dialog">
@@ -139,6 +140,39 @@
 					</div>
 				</div>
 
+				<!-- 행 추가 -->
+				<div id="modal_primary_header" class="modal fade" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header bg-primary">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<div class="modal-title">배차 등록</div>
+							</div>
+
+							<div class="modal-body" id="insertList">
+								<label>B_Name</label><input type='text' class='form-control'id='name'>
+								<label>B_Tel</label><input type='text' class='form-control' id='tel'>
+								<label>B_Fax</label><input type='text' class='form-control' id='fax'>
+								<label>B_Email</label><input type='text' class='form-control' id='email'>
+								<div class="address_form">
+									<input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" style="background: #f8f8f8;">
+									<button type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn-primary round">우편번호찾기</button><br>
+									<input type="text" id="address" name="address" placeholder="매장주소" style="background: #f8f8f8;"><br>
+									<input type="text" id="detailAddress" name="detailAddress" placeholder="매장상세주소">
+									<input type="text" id="extraAddress" name="extraAddress" hidden=""> <!-- 기본정보  -->
+									<input type="text" id="roadAddress" name="roadAddress" hidden="">
+									<input type="text" id="jibunAddress" name="jibunAddress" hidden="">
+								</div>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary" onclick="insert()">추가</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 
 		</section>
@@ -150,7 +184,23 @@
 	</div>
 
 	<script>
-
+	//운송사 추가
+		function insert(){
+			$.ajax({
+				url: '/admin/business/insert',
+				method: 'post',
+				dataType: 'json',
+				data: {
+					'name':$('#name').val(), 'tel' : $('#tel').val(), 'fax':$('#fax').val(), 'email':$('#email').val(),
+					'zip':$('#postcode').val(), 'addr1':$('#address').val() , 'addr2':$('#detailAddress').val()
+				},
+				success: function(res){
+				if(res.data == "추가"){
+                location.reload();
+                }
+				}
+			})
+		}
 
 		//수정                    		
 		function edit(e){

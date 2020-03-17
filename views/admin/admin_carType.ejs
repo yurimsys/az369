@@ -96,6 +96,7 @@
 						</table>
 					</div>
 				</div>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" onclick="insert()">차량 추가</button>
 				<!-- 수정 모달 -->
 				<div id="modal_info_header" class="modal fade" style="display: none;" aria-hidden="true">
 					<div class="modal-dialog">
@@ -138,6 +139,26 @@
 					</div>
 				</div>
 
+				<!-- 행 추가 -->
+				<div id="modal_primary_header" class="modal fade" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header bg-primary">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<div class="modal-title">배차 등록</div>
+							</div>
+
+							<div class="modal-body" id="insertList">
+								
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary" onclick="insertBusiness()">추가</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 		</section>
@@ -150,6 +171,44 @@
 
 	<script>
 
+	function insert(){
+		$('#insertList').empty();
+		let	html =  "<label>CY_B_ID</label><select id='cyBId' class='form-control col-md-6'><option value=0>운송사 선택</option></select>";
+			html += "<label for='cyTy'>CY_Ty:</label><input type='cyTy' class='form-control' id='cyTy'> ";
+			html += "<label for='total'>CY_TotalPassenger:</label><input type='total' class='form-control' id='total'>";
+			html += "<label for='service'>CY_ServicePassen:</label><input type='service' class='form-control' id='service'>";
+			html += "<label for='price'>CY_SeatPrice:</label><input type='price' class='form-control' id='price'>";	
+		$('#insertList').append(html);	
+		$.ajax({
+			url: '/admin/carTypeBList',
+			method: 'post',
+			dataType: 'json',
+			success: function(res){
+				console.log("data ::", res.data);
+				for(let i=0; i<res.data.length; i++){
+				let html = "<option value="+res.data[i].B_ID+">"+res.data[i].B_Name+"</option>"
+					$("#cyBId").append(html);
+				}
+			}
+		})
+	}
+
+	function insertBusiness(){
+        $.ajax({
+            url: "/admin/carType/insert",
+            method: 'post',
+            dataType: 'json',
+            data: {
+                'cyBId' : $("#cyBId option:selected").val(), 'cyTy' : $("#cyTy").val(), 'total' : $("#total").val(),
+                'service' : $("#service").val(), 'price' : $("#price").val()
+                },
+            success: function(res){
+                if(res.data == "추가"){
+                location.reload();
+                }
+            }
+        })
+    }
 
 	function edit(e){
 		//alert(e.id)

@@ -309,9 +309,25 @@ router.post('/carType/insert', auth.isLoggedIn, function(req, res, next) {
 
 
 /////////////@@@@@@@@@@@ 카 타임 테이블(버스운행정보 tCT) @@@@@@@@@@
+
+//carTime 좌석 리스트
+router.post('/carTimeSeatList', auth.isLoggedIn, function(req, res) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let query = `select CR_SeatNum from tCR where CR_CT_ID = :ctId`; 
+        let ctId = req.body.ctId
+        connection.query(query,{ctId},
+          function(err, rows) {
+              if (err) throw err;
+              res.json({ data : rows});
+              console.log("좌석 목록 :",rows);
+          });
+    }
+
+});
+
  
-
-
 //carTime 메인화면
 router.get('/carTime', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
@@ -320,7 +336,6 @@ router.get('/carTime', auth.isLoggedIn, function(req, res, next) {
         let query = `select
                         CT_ID,
                         B_Name,
-                        CY_ID,
                         CY_Ty,
                         CT_DepartureTe,
                         CT_ReturnTe,
@@ -328,11 +343,10 @@ router.get('/carTime', auth.isLoggedIn, function(req, res, next) {
                         CT_CarNum,
                         CT_DriverName,
                         CT_DriverPhone,
-                        (select count(CR_CT_ID) from tCR where CR_Cancel = 'n' and CR_CT_ID = CT_ID) as cnt,
-                        CY_TotalPassenger,
-                        (CY_TotalPassenger-(select count(CR_CT_ID) from tCR where CR_Cancel = 'n' and CR_CT_ID = CT_ID)) as now
-                    from tCT inner join tCY on tCT.CT_CY_ID = tCY.CY_ID inner join tCR on tCR.CR_CT_ID = tCT.CT_ID inner join tB on tB.B_ID = tCY.CY_B_ID
-                    group by CT_ID`; 
+                        (CY_TotalPassenger-(select count(CR_CT_ID) from tCR where CR_Cancel = 'n' and CR_CT_ID = CT_ID)) as now,
+                        CY_TotalPassenger as total
+                    from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tB on tB.B_ID = tCY.CY_B_ID
+                    group by CT_ID order by CT_DepartureTe desc;`; 
         connection.query(query,
           function(err, rows, fields) {
               if (err) throw err;
@@ -343,21 +357,6 @@ router.get('/carTime', auth.isLoggedIn, function(req, res, next) {
 
 });
 
-//carTime 현재 좌석수
-router.post('/carTimeCnt', auth.isLoggedIn, function(req, res, next) {
-    if(req.user.U_isAdmin === 'n'){
-        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
-    }else{
-        let query = `select CR_SeatNum from tCR where CR_CT_ID = :ctId and CR_Cancel = 'N'`; 
-        let ctId = req.body.ctId;
-        connection.query(query,{ctId},
-          function(err, rows, fields) {
-              if (err) throw err;
-              res.json({ data : rows});
-          });
-    }
-
-});
 
 //carTime 운송사 목록
 router.post('/carTimeBList', auth.isLoggedIn, function(req, res) {

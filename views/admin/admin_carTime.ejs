@@ -85,9 +85,10 @@
 									<td><%=data[i].CT_CarNum%></td>
 									<td><%=data[i].CT_DriverName%></td>
 									<td><%=data[i].CT_DriverPhone%></td>
-									<td><a id='<%=data[i].CT_ID%>' onclick="seatnow(this)"><%=data[i].now%>&nbsp;/&nbsp;<%=data[i].CY_TotalPassenger%></a></td>
+									<td><a id='<%=data[i].CT_ID%>' data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)"><%=data[i].now%>&nbsp;/&nbsp;<%=data[i].total%></a></td>
 									<td><a class="icon-pencil6" id='<%=data[i].CT_ID%>' data-toggle="modal" data-target="#modal_info_header" onclick="edit(this)">Edit</a></td>
-									<td><a class="icon-trash" id='<%=data[i].CT_ID%>' data-toggle="modal" data-target="#modal_danger_header" onclick="del(this)">Delete</a></td>								
+									<td><a class="icon-trash" id='<%=data[i].CT_ID%>' data-toggle="modal" data-target="#modal_danger_header" onclick="del(this)">Delete</a></td>
+								</tr>									
 								<% } %>  							
 							</tbody>	
 						</table>
@@ -97,6 +98,14 @@
 				</div>
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" onclick="insert()">추가</button>
 				<input type="text" class="form-control datepicker-here"data-timepicker="true" data-position="top left" >
+
+				<div class="card card-block text-center">
+					<h4 class="m-b-20">Basic time picker</h4>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="icon-alarm"></i></span>
+						<input type="text" class="form-control datepicker-here" data-time-format="hh:ii aa" data-timepicker="true" data-language="en" data-position="top left" placeholder="">
+					</div>
+				</div>
 
 				<!-- 수정 모달 -->
 				<div id="modal_info_header" class="modal fade container-fluid page-content" style="display: none;" aria-hidden="true">
@@ -120,25 +129,26 @@
 				</div>
 
 				<!-- 삭제 모달 -->
-				<div id="modal_warning_header" class="modal fade" style="display: none;" aria-hidden="true">
+				<div id="modal_danger_header" class="modal fade" style="display: none;" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
-							<div class="modal-header bg-warning">
+							<div class="modal-header bg-danger">
 								<button type="button" class="close" data-dismiss="modal">×</button>
-								<div class="modal-title">Warning header</div>
+								<div class="modal-title">배차 삭제</div>
 							</div>
 
 							<div class="modal-body">
-								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
+								<p>삭제......</p>
 							</div>
 
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-warning">Submit</button>
+								<button type="button" class="btn btn-danger" id="delete">Delete</button>
 							</div>
 						</div>
 					</div>
 				</div>
+
 				<!-- 행 추가 -->
 				<div id="modal_primary_header" class="modal fade" style="display: none;" aria-hidden="true">
 					<div class="modal-dialog">
@@ -167,20 +177,65 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal">×</button>
-								<div class="modal-title">배차 추가</div>
+								<div class="modal-title">좌석 현황</div>
 							</div>
 
-							<div class="modal-body">
-								<div class="seat-map" class="seat-panel"></div>
+							<div class="modal-body" id="nowSeatList">
+								<table id="seatList" style="margin: auto;">
+									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+										<td></td> 
+										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+									</tr>
+									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+										<td></td> 
+										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+									</tr>
+									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+										<td></td> 
+										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+									</tr>
+									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+										<td></td> 
+										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+									</tr>
+									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+										<td></td> 
+										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+									</tr>
+									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+										<td></td> 
+										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+									</tr>
+									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+										<td></td> 
+										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+									</tr>
+									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+										<td></td> 
+										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+									</tr>
+									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+										<td></td> 
+										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+									</tr>
+									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+										<td></td> 
+										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+									</tr>
+									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+										<td><img src='/img/reservation/seat_img.png'></td> 
+										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
+									</tr>
+								</table>
 							</div>
-
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary" onclick="insertCar()">추가</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeSeat()">Close</button>
+								
 							</div>
 						</div>
 					</div>
 				</div>
+				
 			</div>
 
 		</section>
@@ -191,36 +246,58 @@
 		<% include templates/admin_footer.ejs %>
 	</div>
 	<script>
+
+
+					  
+	//좌석예약표
+	function seatnow(e){		
+		$('#modal_large').css('display','block')
+		$.ajax({
+			url: '/admin/carTimeSeatList',
+			method: 'post',
+			dataType: 'json',
+			data: {'ctId' : e.id},
+			success: function(res){
+				$('#seatList img').each(function(item,index){	
+					this.setAttribute("id", item+1);
+					//console.log(this.id)
+					for(let i=0; i<res.data.length; i++){
+					//console.log("222",res.data[i].CR_SeatNum)
+						if(this.id == res.data[i].CR_SeatNum){
+							$('#'+this.id).attr('src','/img/reservation/seat_img_select.png')
+						}
+					}
+				})					
+			}
+		})
+	}
+	function closeSeat(){
+		$('#seatList img').attr('src', '/img/reservation/seat_img.png')
+	}
 					  
 	//배차 추가
 	function insert(){
 		$('#insertList').empty();
-		$.ajax({
-			url: '/admin/carTimeInsert',
-			method: 'post',
-			dataType: 'json',
-			success: function(res){
-				let	html = "<select id='ctCyId' class='form-control col-md-6'><option value='0'>운송사 선택</option></select>";
-					html += "<label>CT_DepartureTe</label><input type='text' class='form-control form-control regdate' id='dept'>";
-					html += "<label>CT_ReturnTe</label><input type='text' class='form-control form-control regdate' id='retun'>";
-					html += "<label>CT_LeadTe</label><input type='text' class='form-control form-control timepicker' id='lead'>";
-					html += "<label>CT_CarNum</label><input type='text' class='form-control form-control' id='carNum'>";
-					html += "<label>CT_DriverName</label><input type='text' class='form-control form-control' id='drName'>";
-					html += "<label>CT_DriverPhone</label><input type='text' class='form-control form-control' id='drPhone'>";
-				$('#insertList').append(html);	
-				$.ajax({
-					url: '/admin/carTimeInsert',
-					method: 'post',
-					dataType: 'json',
-					success: function(res){
-					for(let i=0; i<res.data.length; i++){
-						let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"&nbsp"+res.data[i].CY_Ty+"</option>"
-						$("#ctCyId").append(html);
-					}
-					}
-				})
-			}
-		})
+			let	html = "<select id='ctCyId' class='form-control col-md-6'><option value='0'>운송사 선택</option></select>";
+				html += "<label>testtest</label><input type='text' class='form-control datepicker-here' data-timepicker='true' data-position='top left'>"
+				html += "<label>CT_DepartureTe</label><input type='text' class='form-control datepicker-here' data-timepicker='true' data-position='top left' id='dept'>";
+				html += "<label>CT_ReturnTe</label><input type='text' class='form-control form-control regdate' id='retun'>";
+				html += "<label>CT_LeadTe</label><input type='text' class='form-control form-control timepicker' id='lead'>";
+				html += "<label>CT_CarNum</label><input type='text' class='form-control form-control' id='carNum'>";
+				html += "<label>CT_DriverName</label><input type='text' class='form-control form-control' id='drName'>";
+				html += "<label>CT_DriverPhone</label><input type='text' class='form-control form-control' id='drPhone'>";
+			$('#insertList').append(html);	
+			$.ajax({
+				url: '/admin/carTimeInsert',
+				method: 'post',
+				dataType: 'json',
+				success: function(res){
+				for(let i=0; i<res.data.length; i++){
+					let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"&nbsp"+res.data[i].CY_Ty+"</option>"
+					$("#ctCyId").append(html);
+				}
+				}
+			})
 		$('#modal_primary_header').css('display','block')
 	}
 
@@ -303,7 +380,6 @@
 				dataType: 'json',
 				data: {'ctId' : e.id},
 				success: function(res){
-					alert("삭제");
 					location.reload();
 				}
 			})
