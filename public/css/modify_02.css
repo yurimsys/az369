@@ -70,7 +70,7 @@ section.sub_wrap h1 {
 
 
 #phone {width: 70%; float: left; margin-right: 1%;}
-.check_btn {width: 29%; height: 50px; line-height: 50px; float: left; background: #fff; border: 1px solid #ccc; cursor: pointer; text-align: center; }
+.check_btn {width: 29%; height: 50px; line-height: 50px; float: left; background: #fff; border: 1px solid #ccc; cursor: pointer; text-align: center;  color: #444;}
 #phone_check {margin-top: 1%;}
 
 #phone_check_box {
@@ -92,6 +92,7 @@ width: 100%;
 /*.add_modify_form #postcode {width: 70%; margin-right: 0.5%; float: left;}*/
 
 #postcode {width: 70%; float: left; margin-right: 1%;}
+.btn-primary.round {color: #444;}
 
 
 
@@ -243,7 +244,8 @@ header .open {
     .modify_form {padding-bottom: 8%; border-bottom: 1px solid #eee;}
     .modify_form:nth-child(3) {border-bottom: 0; padding-bottom: 0;}
     
-    .check_btn, .modify_box button {font-size: 14px;}
+    #phone, #postcode {width: 60%;}
+    .check_btn, .modify_box button {width: 39%; font-size: 15px;}
 
     /*footer*/
     footer {width: 100%; margin: 0 auto; }
@@ -266,6 +268,6 @@ header .open {
     .modify_box {padding-bottom: 10%;}
     .withdrawal_open {margin-top: 30%; font-size: 15px;}
 
-    .check_btn, .modify_box button {font-size: 11.5px;}
+    .check_btn, .modify_box button {font-size: 14px;}
     .password::placeholder {font-size: 12px;}
 }

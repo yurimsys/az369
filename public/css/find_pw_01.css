@@ -187,7 +187,8 @@ header .open {
     .find_box .tnb ul li {font-size: 16px; color: #555;}
     
     .find_pw_btn {height: 40px; line-height: 40px;}
-    .check_btn {font-size: 14px;}
+     #phone {width: 60%;}
+    .check_btn {width: 39%; font-size: 15px;}
     
 
     /*footer*/
@@ -210,6 +211,6 @@ header .open {
     .find_box .tnb ul li {font-size: 15px;}
     
     .find_id_btn { font-size: 15px;}
-    .check_btn {font-size: 11.5px;}
+    .check_btn {font-size: 14px;}
 
 }
