@@ -182,50 +182,7 @@
 
 							<div class="modal-body" id="nowSeatList">
 								<table id="seatList" style="margin: auto;">
-									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-										<td></td> 
-										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-									</tr>
-									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-										<td></td> 
-										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-									</tr>
-									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-										<td></td> 
-										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-									</tr>
-									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-										<td></td> 
-										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-									</tr>
-									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-										<td></td> 
-										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-									</tr>
-									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-										<td></td> 
-										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-									</tr>
-									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-										<td></td> 
-										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-									</tr>
-									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-										<td></td> 
-										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-									</tr>
-									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-										<td></td> 
-										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-									</tr>
-									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-										<td></td> 
-										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-									</tr>
-									<tr><td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-										<td><img src='/img/reservation/seat_img.png'></td> 
-										<td><img src='/img/reservation/seat_img.png'></td> <td><img src='/img/reservation/seat_img.png'></td>
-									</tr>
+
 								</table>
 							</div>
 							<div class="modal-footer">
@@ -250,7 +207,8 @@
 
 					  
 	//좌석예약표
-	function seatnow(e){		
+	function seatnow(e){	
+		$('#seatList').empty();	
 		$('#modal_large').css('display','block')
 		$.ajax({
 			url: '/admin/carTimeSeatList',
@@ -258,13 +216,42 @@
 			dataType: 'json',
 			data: {'ctId' : e.id},
 			success: function(res){
+				//좌석생성
+				for(let k=0; k<10; k++){
+					let html = "<tr>"
+					for(let j=0; j<4; j++){
+						html += "<td><img></td>"
+						if(j == 1){
+							html += "<td></td>"
+						}						
+					}	
+					html += "</tr>"
+					$('#seatList').append(html)
+				}
+				for(let k=0; k<1; k++){
+					let html ="<tr>";
+					for(let l=0; l<5; l++){
+						html += "<td><img></td>"
+					}
+					html += "</tr>"
+					$("#seatList").append(html);
+				}
+				$('#seatList img').attr('src','/img/reservation/seat_img.png');
+				//이미지 아이디값 부여
 				$('#seatList img').each(function(item,index){	
 					this.setAttribute("id", item+1);
-					//console.log(this.id)
 					for(let i=0; i<res.data.length; i++){
 					//console.log("222",res.data[i].CR_SeatNum)
 						if(this.id == res.data[i].CR_SeatNum){
-							$('#'+this.id).attr('src','/img/reservation/seat_img_select.png')
+							console.log("this.id::", this.id)
+							console.log('lelel :', res.data[i].CR_SeatNum)
+							console.log("thus",this)
+							console.log("thus1",$(this))
+							console.log("thus2",$('#'+this.id))
+							
+							//console.log("data.CR_SeatNUm::", res.data[i].CR_SeatNum)
+							$(this).attr('src','/img/reservation/seat_img_select.png')
+							//$('#'+this.id).attr('src','/img/reservation/seat_img_select.png')							
 						}
 					}
 				})					

@@ -60,43 +60,64 @@
 						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
 					</div>
 					<div class="table-responsive">
-					<table class="table datatable-button-init-basic" id="tList">
-						<thead>
-							<tr>
-								<th>회원아이디</th>
-								<th>회원이름</th>
-								<th>회원전화번호</th>
-								<th>운송사이름</th>
-								<th>버스규모</th>
-								<th>결제수단</th>
-								<th>예매좌석</th>
-								<th>결제금액</th>
-								<th>취소여부</th>
-								<th>취소일시</th>                        
-								<th>결제일시</th>
-							</tr>
-						</thead>
-						<tbody>
-							<% for(let i=0; i<data.length; i++){ %>
-							<tr>
-								<td><%=data[i].U_UserName%></td>                        
-								<td><%=data[i].U_Name%></td>
-								<td><%=data[i].U_Phone%></td>
-								<td><%=data[i].B_Name%></td>
-								<td><%=data[i].CY_Ty%></td>
-								<td><%=data[i].PH_Type%></td>
-								<td><%=data[i].CR_SeatNum%></td>
-								<td><%=data[i].PH_Price%></td>
-								<td><%=data[i].CR_Cancel%></td>
-								<td><%=data[i].CR_CancelDt%></td>
-								<td><%=data[i].CR_cDt%></td>
-							</tr>	
-							<% } %>  
-							
-						</tbody>
-	
-					</table>
+						<table class="table datatable-button-init-basic" id="tList">
+							<thead>
+								<tr>
+									<th>회원아이디</th>
+									<th>회원이름</th>
+									<th>회원전화번호</th>
+									<th>운송사이름</th>
+									<th>버스규모</th>
+									<th>결제수단</th>
+									<th>예매좌석</th>
+									<th>결제금액</th>
+									<th>취소여부</th>
+									<th>취소일시</th>                        
+									<th>결제일시</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for(let i=0; i<data.length; i++){ %>
+								<tr>
+									<td><%=data[i].U_UserName%></td>                        
+									<td><%=data[i].U_Name%></td>
+									<td><%=data[i].U_Phone%></td>
+									<td><%=data[i].B_Name%></td>
+									<td><%=data[i].CY_Ty%></td>
+									<td><%=data[i].PH_Type%></td>
+									<td><a id='<%=data[i].U_ID%>' name='<%=data[i].CR_cDt%>' onclick="seatnow(this)" data-toggle="modal" data-target="#modal_large" style="color:darkblue; "><%=data[i].CR_SeatNum%></a></td>
+									<td><%=data[i].PH_Price%></td>
+									<td><%=data[i].CR_Cancel%></td>
+									<td><%=data[i].CR_uDt%></td>
+									<td><%=data[i].CR_cDt%></td>
+								</tr>	
+								<% } %>  
+								
+							</tbody>
+						</table>
+					</div>
 				</div>
+
+				<!-- 좌석 모달 -->
+				<div id="modal_large" class="modal fade" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<div class="modal-title">좌석 현황</div>
+							</div>
+
+							<div class="modal-body" id="nowSeatList">
+								<table id="seatList" style="margin: auto;">
+
+								</table>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeSeat()">Close</button>
+								
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -107,7 +128,64 @@
 		<!-- /ScrolltoTop -->
 		<% include templates/admin_footer.ejs %>
 	</div>
+	<script>
+	//좌석예약표
+	function seatnow(e){	
+		console.log("idididid", e.id)
+		console.log('vlkavlavl', e.name)
+		$('#seatList').empty();	
+		$('#modal_large').css('display','block')
+		$.ajax({
+			url: '/admin/userResList',
+			method: 'post',
+			dataType: 'json',
+			data: {'uId' : e.id,
+					'cDt' : e.name	
+				},
+			success: function(res){
+				//좌석생성
+				for(let k=0; k<10; k++){
+					let html = "<tr>"
+					for(let j=0; j<4; j++){
+						html += "<td><img></td>"
+						if(j == 1){
+							html += "<td></td>"
+						}						
+					}	
+					html += "</tr>"
+					$('#seatList').append(html)
+				}
+				for(let k=0; k<1; k++){
+					let html ="<tr>";
+					for(let l=0; l<5; l++){
+						html += "<td><img></td>"
+					}
+					html += "</tr>"
+					$("#seatList").append(html);
+				}
+				$('#seatList img').attr('src','/img/reservation/seat_img.png');
+				//이미지 아이디값 부여
+				$('#seatList img').each(function(item,index){	
+					this.setAttribute("id", item+1);
+					for(let i=0; i<res.data.length; i++){
+					//console.log("222",res.data[i].CR_SeatNum)
+						if(this.id == res.data[i].CR_SeatNum){
+							console.log("this.id::", this.id)
+							console.log('lelel :', res.data[i].CR_SeatNum)
+							console.log("thus",this)
+							console.log("thus1",$(this))
+							console.log("thus2",$('#'+this.id))
+							
+							//console.log("data.CR_SeatNUm::", res.data[i].CR_SeatNum)
+							$(this).attr('src','/img/reservation/seat_img_select.png')
+							//$('#'+this.id).attr('src','/img/reservation/seat_img_select.png')							
+						}
+					}
+				})					
+			}
+		})
+	}
 
-
+	</script>
 </body>
 </html>

@@ -60,7 +60,7 @@
 						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
 					</div>
 					<div class="table-responsive">
-						<table class="table datatable-button-init-basic" id="tList">
+						<table id="tList" class="table datatable-button-init-basic">
 							<thead>
 								<tr>
 									<th>B_ID</th>
@@ -78,7 +78,7 @@
 								</tr>
 							</thead>
 							<tbody id="testList">
-							
+
 							</tbody>
 						</table>
 					</div>
@@ -170,31 +170,35 @@
 	</div>
 
 	<script>		
-
-	//테이블 생성
-	$.ajax({
-		url: '/admin/business/List',
-		method: 'post',
-		dataType: 'json',
-		success: function(res){
-			console.log(res.data)
-			for(let i=0; i<res.data.length; i++){
-				let html = "<tr><td>"+res.data[i].B_ID+"</td>";
-					html += "<td>"+res.data[i].B_Name+"</td>";
-					html += "<td>"+res.data[i].B_Tel+"</td>";
-					html += "<td>"+res.data[i].B_Fax+"</td>";
-					html += "<td>"+res.data[i].B_Email+"</td>";
-					html += "<td>"+res.data[i].B_Zip+"</td>";
-					html += "<td>"+res.data[i].B_Addr1+"</td>";
-					html += "<td>"+res.data[i].B_Addr2+"</td>";
-					html += "<td>"+res.data[i].B_cDt+"</td>";
-					html += "<td>"+res.data[i].B_uDt+"</td>";
-					html += "<td><a id="+res.data[i].B_ID+" class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a></td>";
-					html += "<td><a id="+res.data[i].B_ID+" class='dropdown-item' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)''>Delete</a></td></tr>";
-				$('#testList').append(html);
+	$(document).ready(function(){
+				
+		//테이블 생성
+		$.ajax({
+			url: '/admin/business/List',
+			method: 'post',
+			dataType: 'json',
+			success: function(res){
+				console.log(res.data)
+				for(let i=0; i<res.data.length; i++){
+					let html = "<tr><td>"+res.data[i].B_ID+"</td>";
+						html += "<td>"+res.data[i].B_Name+"</td>";
+						html += "<td>"+res.data[i].B_Tel+"</td>";
+						html += "<td>"+res.data[i].B_Fax+"</td>";
+						html += "<td>"+res.data[i].B_Email+"</td>";
+						html += "<td>"+res.data[i].B_Zip+"</td>";
+						html += "<td>"+res.data[i].B_Addr1+"</td>";
+						html += "<td>"+res.data[i].B_Addr2+"</td>";
+						html += "<td>"+res.data[i].B_cDt+"</td>";
+						html += "<td>"+res.data[i].B_uDt+"</td>";
+						html += "<td><a id="+res.data[i].B_ID+" class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a></td>";
+						html += "<td><a id="+res.data[i].B_ID+" class='dropdown-item' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)''>Delete</a></td></tr>";
+					$('#testList').append(html);
+				} 
+				
 			}
-		}
+		})
 	})
+
 
 
 	//운송사 추가

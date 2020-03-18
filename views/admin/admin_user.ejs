@@ -102,7 +102,7 @@
 						</table>
 					</div>
 				</div>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" onclick="insert()">회원 추가</button>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">회원 추가</button>
 				<!-- 수정 모달 -->
 				<div id="modal_info_header" class="modal fade" style="display: none;" aria-hidden="true">
 					<div class="modal-dialog">
@@ -151,11 +151,12 @@
 							</div>
 							<div class="modal-body" id="insertList">
 								<label>UserName</label><input type='text' class='form-control'id='userName'>
+								<label>UserPw</label><input type='password' class='form-control'id='pw'>
 								<label>Name</label><input type='text' class='form-control' id='name'>
 								<label>Email</label><input type='text' class='form-control' id='email'>
 								<label>Phone</label><input type='text' class='form-control' id='phone'>
 								<label>Brand</label><input type='text' class='form-control' id='brand'>
-								<label>Admin</label><select><option value='y'>관리자</option><option value='n'>일반회원</option></select>
+								<label>Admin</label><select id="admin"><option value='y'>관리자</option><option value='n'>일반회원</option></select>
 								<div class="address_form">
 									<input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" style="background: #f8f8f8;">
 									<button type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn-primary round">우편번호찾기</button><br>
@@ -186,6 +187,25 @@
 	</div>
 
 	<script>
+
+	function insertMember(){
+		$.ajax({
+            url: "/admin/user/insert",
+            method: 'post',
+            dataType: 'json',
+            data: {
+                'userName' : $("#userName").val(), 'pw' : $("#pw").val(), 'name' : $("#name").val(), 'email' : $("#email").val(),
+                'phone' : $("#phone").val(), 'brand' : $("#brand").val(), 'postcode' : $("#postcode").val(), 'address' : $("#address").val(),
+                'detailAddress' : $("#detailAddress").val(), 'admin': $('#admin').val()
+                },
+            success: function(res){
+                if(res.data == "추가"){
+                location.href="/admin/user/";
+                }
+            }
+        })
+	}
+	
 	//수정                    					
 	function edit(e){
 		$('#moList').empty();
