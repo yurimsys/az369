@@ -46,13 +46,21 @@ section.sub_wrap h1 {
     font-weight: normal;
 }
 
-.find_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee;}
+
+@keyframes box {
+    0% {opacity: 0; transform: translateY(2%);}
+    100%; {opacity: 1; transform: translateY(0%);}
+}
+
+.find_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
+
+
 .find_box_inner p {text-align: center; color: #777;margin-bottom: 5%;}
 .find_box_inner h2 {font-size: 24px;}
 .find_box_inner strong {color: #555;}
 
 .find_box .tab {width: 100%;}
-.find_box .tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 17px; font-weight: bold;}
+.find_box .tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: bold;}
 
 .find_box_inner {width: 100%; padding: 8% 20%; margin: 0 auto; text-align: center; overflow: hidden; }
 
@@ -202,7 +210,7 @@ header .open {
 /*320px*/
 @media screen and (max-width: 320px) {
     
-    .find_box .tab ul li {height: 50px; font-size: 16px; line-height: 50px;}
+    .find_box .tab ul li {height: 50px; font-size: 15px; line-height: 50px;}
     
     /*section.sub_wrap*/
     section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
