@@ -88,7 +88,7 @@ header.on {
     /*Header*/
 	header {height: 65px;}
     header .gnb {display: none;}
-    header .innerHeader {width: 1200px; height: 100%; position: fixed;}
+    header .innerHeader {width: 1200px; position: fixed;}
 	.innerHeader h1.logo { line-height: 55px;}
 	.innerHeader h1.logo img {width: 90%;}
     
