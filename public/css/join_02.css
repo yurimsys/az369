@@ -210,10 +210,7 @@ width: 100%;
 .join_btn ul li {float: left; margin-right: 2%;}
 .join_btn ul li:nth-child(2) {margin-right: 0;}
 .back {border: 1px solid #ddd; width: 230px;}
-.next {background: #ad863c; color: #fff;  width: 230px;}
-
-
-
+.next {background: #ad863c; color: #fff;  width: 230px; border: 1px solid #ad863c;}
 
 .address_form input {margin-bottom: 1%;}
 
