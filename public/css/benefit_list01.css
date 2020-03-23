@@ -101,6 +101,7 @@ section.sub_wrap h2 span {font-size: 16px; color: #777;}
 
 .tab button.active {
   background-color: #ad8743;
+    border: 1px solid #ad8743;
     color: #fff;
 }
 
@@ -172,14 +173,14 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1200px;}
+    section.main .inner_main {width: 100%;}
     section.main .tnb {bottom: -14%;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1200px;}
+    section.sub_wrap .inner_sub_wrap {width: 100%;}
     
-    .tnb {padding-bottom: 5%; width: 1200px; margin-top: -5%;}
+    .tnb {padding-bottom: 5%; width:100%; margin-top: -5%;}
     
     .tab {width: 95%; margin: 0 auto;}
     .tabcontent {width: 95%; margin: 0 auto;}
@@ -196,21 +197,11 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1024px;}
-    
-    
+
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1024px;}
     
-    .tnb {padding-bottom: 6%; width: 1024px;}
-
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    .tnb {padding-bottom: 6%;}
 }
 
 
@@ -219,32 +210,21 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 768px;}
 
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 768px;}
-    .tnb {width: 768px; margin-top:-7.6%;}
+    .tnb {margin-top:-7.6%;}
     section.sub_wrap h1 {font-size: 2.2rem;}
     section.sub_wrap h6 {padding-top: 13%;}
     
     section.sub_wrap h2 {margin-bottom: 4%; font-size: 28px;}
     
-    .tnb {width: 768px; margin-bottom: 2.2%;}
+    .tnb {margin-bottom: 2.2%;}
     
     .tabcontent p br {display: block;}
     .tabcontent dt br {display: block;}
     .tabcontent p {padding-bottom: 4%;}
     .tabcontent dl {margin-top: 3%;}
-    
-    /*.tabcontent dt {width: 25%;}
-    .tabcontent dd {width: 75%;}*/
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*414px*/
@@ -252,25 +232,20 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 414px;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 414px;}
     section.sub_wrap h1 {font-size: 30px;}
     section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
      section.sub_wrap h2 {font-size: 24px; padding-bottom: 10%; line-height: 1.5; width: 92%; margin: 0 auto;}
     section.sub_wrap h5{font-size: 18px; margin-bottom: -1%;}
     section.sub_wrap h6 {padding-top: 11%;}
     
-    
-    .tnb {width: 414px; margin-bottom: 9.3%;} 
+    .tnb {margin-bottom: 9.3%;}
     .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
     
-    
-    .tab {width: 414px;}
-    .tab button {width: 50%;}
-    .tabcontent {width: 414px; text-align: center;}
+    .tab button {width: 50%; height: 50px; padding: 0;}
+    .tabcontent {width: 95%; text-align: center;}
     .tabcontent h3 {margin-top: 3%; padding-bottom: 5%; border-bottom: 1px solid #eee; line-height: 1.5;}
     .tabcontent h3 br {display: block;}
     .tabcontent p {display: none;}
@@ -280,10 +255,14 @@ header .open {
     .tabcontent dt br {display: none;}
     .tabcontent dd {width: 100%; padding-bottom: 5%; color: #777}
     .tabcontent dd span {font-size: 15px;}
-    
-    
-
 }
+
+
+/*375px*/
+@media screen and (max-width: 375px) {
+    .tnb {margin-top: -13%;}
+}
+
 
 /*320px*/
 @media screen and (max-width: 320px) {
@@ -291,7 +270,6 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 320px;}
     
     /*section.sub_wrap*/
     section.sub_wrap .inner_sub_wrap {width: 320px;}
@@ -300,7 +278,7 @@ header .open {
     section.sub_wrap h6 {font-size: 14px;}
     
     
-    .tnb {width: 320px; margin-bottom: 13.8%;} 
+    .tnb {margin-bottom: 13.8%;}
     
     
     .tab {width: 320px;}

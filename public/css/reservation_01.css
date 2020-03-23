@@ -1,4 +1,4 @@
-@charset="UTF-8";
+@charset="UFT-8";
 
 
 /*reset*/
@@ -60,7 +60,7 @@ section.sub_wrap h1 {
 
 @keyframes box {
     0% {opacity: 0; transform: translateY(2%);}
-    100% {opacity: 1; transform: translateY(0%);}
+    100%; {opacity: 1; transform: translateY(0%);}
 }
 
 
@@ -137,9 +137,9 @@ section.sub_wrap h1 {
 /*왼쪽영역*/
 .reserve_left {width: 100%; background: #fff; border: 1px solid #ddd; padding: 5% 6%; height: 650px;}
 .reserve_left ul li { width: 100%; }
-.reserve_left h4 {font-size: 18px; margin-bottom: 3%; color: #444; font-weight: bold; padding-bottom: 1%; border-bottom: 1px solid #eee;}
+.reserve_left h4 {font-size: 18px; margin-bottom: 2%; color: #444; font-weight: bold; }
 /*.left_list {padding-bottom: 5%; border-bottom: 1px solid #eee;}*/
-.left_list:nth-child(2) { padding-top: 4%; border-bottom: none;}
+.left_list:nth-child(2) { padding-top: 6%; border-bottom: none;}
 
 
 /*왼쪽상단 - 지역*/
@@ -153,7 +153,7 @@ section.sub_wrap h1 {
 
 /*왼쪽하단 - 버스선택*/
 .select_bus {width: 100%; overflow: hidden;}
-.select_bus_list {width: 100%; height: 400px; overflow: scroll; overflow-x: hidden;background: #f4f4f4;}
+.select_bus_list {width: 100%; height: 370px; overflow: scroll; overflow-x: hidden;background: #f4f4f4;}
 .select_bus p {font-size: 14px; color: #ad863c; margin-top: 2%;}
 
 .select_bus label input {display: none;}
@@ -166,7 +166,7 @@ section.sub_wrap h1 {
 
 .select_bus {width: 100%;}
 .select_bus_list {border: 1px solid #eee; background: #f8f8f8;}
-.select_bus_list_tit {width: 100%; font-size: 16px;  height: 50px; line-height: 50px; background: #fff; color: #444;}
+.select_bus_list_tit {width: 99%; font-size: 16px;  height: 50px; line-height: 50px; background: #fff; color: #444; border-top: 2px solid #eee;}
 .select_bus_list_tit ul li {float: left; text-align: center;  margin-bottom: 0%;   border-bottom: 1px solid #eee;}
 .select_bus_list_tit ul li:nth-child(1) {width: 35%;}
 .select_bus_list_tit ul li:nth-child(2) {width: 35%;}
@@ -180,7 +180,7 @@ section.sub_wrap h1 {
 
 
 /*select_bus_list 스크롤 css*/
-.select_bus_list::-webkit-scrollbar {width: 10px; height: 20px} 
+.select_bus_list::-webkit-scrollbar {width: 5px; height: 20px}
 .select_bus_list::-webkit-scrollbar-track {background-color: #ddd;}
 .select_bus_list::-webkit-scrollbar-button {display: none;}
 .select_bus_list::-webkit-scrollbar-thumb {border-radius: 5px; background-color: #ad863c;}
@@ -215,7 +215,7 @@ section.sub_wrap h1 {
 
 
 /*오른쪽영역*/
-.reserve_right { width: 100%; background: #fff; border: 1px solid #ddd; height: 650px; font-size: 15px; padding: 3%;}
+.reserve_right { width: 100%; background: #fff; border: 1px solid #ddd; height: 650px; font-size: 15px; padding: 3%; }
 .reserve_right h4 {margin-left: 3%; font-size: 19px; font-weight: bold; margin-top: 2%; display: inline-block;}
 .reserve_right h5 {font-size: 20px; margin-left: 3%; display: inline-block;}
 .reserve_right ul li {background: transparent; margin-left: 3%;}
@@ -276,7 +276,7 @@ section.sub_wrap h1 {
 .info_table dl:last-child {border-bottom: 1px solid #eee;}
 .info_table dt {width: 35%; float: left; color: #666;}
 .info_table dd{width: 65%; float: right; color: #333;  text-align: right;}
-.info_time dd .region {color: #aaa;}
+.info_time dd span {color: #aaa;}
 
 /*팝업 금액*/
 .price {width: 100%; overflow: hidden; padding: 0 6%; padding-top: 3%;}
@@ -341,27 +341,17 @@ header .open {
 
 /*1200px*/
 @media screen and (max-width: 1200px) {
-    
-    /*main*/
-    section.main {width: 100%;}
-    section.main .inner_main {width: 1200px;}
-    
-    
+
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1200px;} 
+    section.sub_wrap .inner_sub_wrap {width: 100%;}
     
     .reservation_box {width: 95%; margin: 0 auto;}
     .payment_open {right: 5%; bottom: 3.2%; width: 200px;}
     
     .payment_box {width: 40%; margin-top: 8%;}
-    
-    
+
     .select_seat {width: 46%; padding-left: 2%;}
-    
-    
-    
-    
   }
 
 
@@ -373,7 +363,6 @@ header .open {
    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1024px;}
     section.sub_wrap {padding-top: -10%;}
      .box {padding-top: 7%; padding-bottom: 5%;}
     
@@ -394,13 +383,6 @@ header .open {
     .reservation_btn_mo ul li a {display: block;}
     .back {border: 1px solid #ddd;}
     .next {background: #ad863c; color: #fff; }
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 
@@ -411,8 +393,6 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 768px;}
-    
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
@@ -422,19 +402,10 @@ header .open {
     section.sub_wrap h2 {margin-bottom: 6%;}
 
     .select_bus_list {height: 340px;}
-    
-    
+
     .box {padding-bottom: 4%;}
     .location_select {width: 250px;}
     .reserve_left h4 {font-size: 20px;}
-
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*414px*/
@@ -471,12 +442,7 @@ header .open {
     section.sub_wrap h2 {font-size: 1.6rem; padding-bottom: 7%; line-height: 1.5;}
     section.sub_wrap h2 br {display: block;}
     section.sub_wrap h5{font-size: 1.2rem; margin-bottom: -1%;}
-    
-    
-    .tnb {width: 414px; margin-top: -14.6%;} 
-    .tnb ul li {font-size: 15px;}
-    .sub_bg {margin: 0 auto;}
-    
+
     .sub_info {margin-top: 5%;}
     .sub_info em {font-size: 1.05rem;}
     .sub_info h3 {font-size: 1.2rem; width: 70%; margin: 0 auto; margin-top: 3%;}
@@ -489,14 +455,6 @@ header .open {
     .sub_info ul {width: 95%;}
     
     .info_btn {margin: 10% 0;}
-
-
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*320px*/
@@ -517,4 +475,6 @@ header .open {
     .select_bus_btn p {display: none;}
     
     .reservation_btn_mo ul li {height: 40px; line-height: 40px; font-size: 15px;}
+
+	.select_bus_list_tit{display: none;}
 }

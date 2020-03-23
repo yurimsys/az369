@@ -408,12 +408,9 @@ header .open {
   
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1024px;}
-    
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1024px;}
     section.sub_wrap {padding-top: -10%;}
     
     /*팝업영역*/
@@ -442,13 +439,10 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 768px;}
-    
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 768px;}
-    .tnb {width: 768px; margin-top:-7.6%;}
+    .tnb {margin-top:-7.6%;}
     section.sub_wrap h1 {font-size: 2.2rem;}
     section.sub_wrap h2 {margin-bottom: 8%; font-size: 26px;}
     
@@ -476,10 +470,6 @@ header .open {
     
     /*main*/
     section.main {width: 100%; background-position: right;}
-    section.main .inner_main {width: 414px;}
-    /*.main_bg {background-position: right;}*/
-    
-    
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
@@ -491,7 +481,7 @@ header .open {
     section.sub_wrap h2 span {font-size: 18px;}
     section.sub_wrap h6 {padding-top: 24%;}
     
-    .tnb {width: 414px; margin-top: -12%;} 
+    .tnb {margin-top: -12%;}
     .tnb ul li {height: 50px; line-height: 50px; font-size: 15px;}
     
     section.main_video {margin-top: 22px;}
@@ -522,23 +512,21 @@ header .open {
     .prev, .next {height: 45px; width: 45px; line-height:35px; text-align: center; font-size: 14px;}
 }
 
+/*375px*/
+@media screen and (max-width: 375px) {
+    .tnb {margin-top: -13%;}
+}
+
 /*320px*/
 @media screen and (max-width: 320px) {
-    
-    /*Header*/
-    header {width: 320px;}
-    header .innerHeader {width: 320px;}
-    
+
     .gnb_mo_login a {font-size: 13px;}
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 320px;}
-    /*.main_bg {background-position: center;}*/
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 320px;}
     section.sub_wrap h1 {font-size: 24px;}
     section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
     section.sub_wrap h2 {font-size: 20px; padding-bottom: 7%; line-height: 1.5;}
@@ -555,7 +543,7 @@ header .open {
     section.video_list {margin-top: 12%;}
     .pagination a {padding: 5px 12px;}
     
-    .tnb {width: 320px; margin-top: -15.5%;} 
+    .tnb {margin-top: -15.5%;}
     
     
     /*팝업영역*/

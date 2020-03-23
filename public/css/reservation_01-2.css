@@ -287,24 +287,15 @@ header .open {
 
 /*1200px*/
 @media screen and (max-width: 1200px) {
-    
-    /*Header*/
-    header {width: 1200px;}
-    header .gnb {display: none;}
-    header .innerHeader {width: 1200px; position: fixed;}
-    header .call {display: block;  padding-right: 4%;}
-    
-    .gnb2 {display: none;}
-    .gnb_mo_login {background: #f8f8f8; margin-top: 2%; padding: 1.5% 0; color: #666;}
 
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1200px;}
+    section.main .inner_main {width: 100%;}
     
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1200px;} 
+    section.sub_wrap .inner_sub_wrap {width: 100%;}
     
     .reservation_box {width: 95%; margin: 0 auto;}
     
@@ -312,146 +303,18 @@ header .open {
     
     
     .select_seat {width: 46%; padding-left: 2%;}
-    
-    
-    
-    
-  /*gnb_mo*/
-    header .open {
-        display: block;
-        width: 30px;
-        height: 30px;
-        position: absolute;
-        right: 30px;
-        top: 25px;
-        opacity: 1;
-        z-index: 1000000000;
-    }
 
-    header .open img {width: 100%; height: auto;}
-
-    .gnb_mo {
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.6);
-        right: -1100px;
-        top: 0;
-        transition: all 0.3s;
-        overflow: hidden;
-        z-index: 1000;
-        opacity: 0;
-        color: #eee;
-    }
-
-    .gnb_mo.on {
-        right: 0;
-        transition: opacity 0.3s;
-        opacity: 1;
-    }
-
-    .gnb_mo .close {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        z-index: 200;
-        transform: rotate(360deg);
-        transition: all 0.3s;
-        width: 25px;
-        height: 25px;
-    }
-
-    .gnb_mo .close img {width: 100%;}
-
-    .gnb_mo.on .close {
-        right: 77%;
-        transform: rotate(0);
-        transition: all 0.5s;
-    }
-
-    .gnb_mo > ul {
-        position: absolute;
-        right: 0px;
-        top: 0;
-        background-color: #fff;
-        color: #242424;
-        width: 75%;
-        height: 100%;
-        transition: all 0.3s;
-        padding-top: 60px;
-    }
-
-    .gnb_mo.on > ul {
-        right: 0;
-        transition: all 0.5s;
-    }
-
-    .gnb_mo > ul > li {
-        font-size: 16px;
-        line-height: 50px;
-        text-indent: 20px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .gnb_mo > ul > li > a {
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: relative;
-    }
-
-    .gnb_mo > ul > li > a:after {
-        position: absolute;
-        content: '';
-        width: 21px;
-        height: 12px;
-        background: url(img/index_img/mob_gnb_arrow.png) no-repeat center/cover;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .gnb_mo > ul > li > a.on:after {
-        background: url(img/index_img/mob_gnb_arrow2.png) no-repeat center/cover;
-    }
-
-    .gnb_mo > ul > li .inner {
-        display: none;
-        background-color: #e6d0a6;
-    }
-
-    .gnb_mo > ul > li .inner.on {
-        background-color: #fff;
-        display: block;
-    }
-
-    .gnb_mo > ul > li .inner li {
-        border-bottom: 1px solid #ddd;
-        font-size: 14px;
-        color: #000;
-    }
-
-    .gnb_mo > ul > li .inner li:last-child {border-bottom: none;}
 }
 
 
 /*1024px*/
 @media screen and (max-width: 1024px) {
-    
-   /*Header*/
-    header {width: 1024px;}
-    header .gnb {display: none;}
-    header .innerHeader {width: 1024px; position: fixed;}
 
-    .gnb_mo_login {margin-top: 3%;}
-    
     .payment_box {width: 47%; margin-top: 8%;}
 
    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1024px;}
     section.sub_wrap {padding-top: -10%;}
      .box {padding-top: 7%; padding-bottom: 5%;}
     
@@ -485,27 +348,16 @@ header .open {
 
 /*768px*/
 @media screen and (max-width: 768px) {
-    
-    /*Header*/
-    header {width: 768px;}
-    header .gnb {display: none;}
-    header .innerHeader {width: 768px; position: fixed;}
-    header .innerHeader .call {padding-right: 7%;}
-    
-    .gnb_mo_login {margin-top: 3.5%;}
-    
+
     .box {padding-top: 9.5%;}
     
     .reservation_btn_mo {width: 60%; margin-top: 4%;}
 
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 768px;}
-    
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 768px;}
     .tnb {width: 768px; margin-top:-7.6%;}
     section.sub_wrap h1 {font-size: 2.2rem;}
     section.sub_wrap h2 {margin-bottom: 6%;}
@@ -527,32 +379,17 @@ header .open {
 
 /*414px*/
 @media screen and (max-width: 414px) {
-    
-    /*Header*/
-    header {width: 414px;}
-    header .gnb {display: none;}
-    header .innerHeader {width: 414px; position: fixed;}
-    header .innerHeader .call {display: none;}
-    header .logo img {width: 80%; margin-left: 3%;}
-    
-    .gnb_mo_login {margin-top: 6%;}
-    
+
     .box {padding-top: 20%;}
     
     .select_seat {float: left; width: 100%; margin-top: 5%;}
-    .reload_btn {margin-bottom: 5%; margin-top: -1%;}
-    .reload_btn_top {display: block;}
-    .reload_btn_bottom {display: none;}
+    .reload_btn {margin-top: 2%;}
     /*.payment_open {width: 100%; margin: 0 auto; position: relative; overflow: hidden; margin-top: 8%;}*/
     .reservation_btn_mo {width: 95%; margin-top: 4%;}
     
     .payment_box {width: 92%; margin-top: 20%; height: 600px;}
     .payment_box_inner {height: 550px; overflow: scroll;}
-    
-    /*main*/
-    section.main {width: 100%;}
-    section.main .inner_main {width: 414px;}
-    
+
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
     section.sub_wrap .inner_sub_wrap {width: 414px;}
@@ -573,14 +410,7 @@ header .open {
 
 /*320px*/
 @media screen and (max-width: 320px) {
-    
-    /*Header*/
-    header {width: 320px;}
-    header .innerHeader {width: 320px; position: fixed;}
-    
-    .gnb_mo_login a {font-size: 13px;}
-    
-    
+
     /*section.sub_wrap*/
     section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
     section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
@@ -600,4 +430,3 @@ header .open {
     
     .reservation_btn_mo ul li {height: 40px; line-height: 40px; font-size: 15px;}
 }
-

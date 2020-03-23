@@ -229,16 +229,18 @@ header .open {
     section.sub_wrap {width:100%; margin-bottom: 10%;}
     section.sub_wrap h1 {font-size: 28px; margin-bottom: 2%;}
     .modify_box .modify_process {font-size: 14px;}
-    .inner_sub_wrap h2 {font-size: 20px;}
+    .inner_sub_wrap h2 {font-size: 21px;}
     .modify_box h3 {color: #555; font-size: 17px; margin-top: 0;}
     section.sub_wrap .bar {display: none;}
     section.sub_wrap h6 {padding-top: 6%;}
     section.sub_wrap p {margin-bottom: 8%;}
     
+
+
     /*section.sub_wrap*/
     .modify_box {margin: 0 auto; padding: 10% 5%;}
     .modify_box h2 {margin-bottom: 3%;}
-    .modify_box p {font-size: 14px;}
+    .modify_box p {font-size: 16px;}
     .modify_btn {width: 100%; margin: 0; margin-top: 3%; font-size: 16px;}
     
     .modify_form {padding-bottom: 8%; border-bottom: 1px solid #eee;}
@@ -247,12 +249,7 @@ header .open {
     #phone, #postcode {width: 60%;}
     .check_btn, .modify_box button {width: 39%; font-size: 15px;}
 
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+	.modify_btn {height: 40px; line-height: 40px;}
 }
 
 /*320px*/
@@ -263,11 +260,12 @@ header .open {
     section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
     section.sub_wrap p {margin-bottom: 10%;}
 
+
     .modify_btn {margin-top: 10%;}
     .modify_btn ul li {font-size: 15px; line-height: 40px; height: 40px;}
     .modify_box {padding-bottom: 10%;}
     .withdrawal_open {margin-top: 30%; font-size: 15px;}
 
-    .check_btn, .modify_box button {font-size: 11.5px;}
+    .check_btn, .modify_box button {font-size: 14x;}
     .password::placeholder {font-size: 12px;}
 }
