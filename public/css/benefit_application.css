@@ -166,25 +166,7 @@ input[type=submit]:hover {
 .layer:target{display:flex;animation:open 0.5s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
 
-
-
-footer {
-    width: 100%;
-    height: 200px;
-    margin: 0 auto;
-    background: #211e1c;
-}
-
-
 /*section.sub_wrap 완료*/
-
-
-
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
 
 
 /*모바일 메뉴*/

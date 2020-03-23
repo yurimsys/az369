@@ -95,17 +95,7 @@ section.sub_wrap h1 {
  
 .login_btn {width: 230px; margin: 0 auto; text-align: center; height: 50px; line-height: 50px; color: #fff; background: #ad863c; border: 1px solid #aaa; margin-top: 4%;}
 
-
 /*section.sub_wrap 완료*/
-
-
-
-
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
 
 
 /*모바일 메뉴*/

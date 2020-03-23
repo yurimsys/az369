@@ -401,22 +401,7 @@ section.video h6 {margin-bottom: -0.5%;}
 	}
 	.slide-arrow.right{left: auto; right: 0;}
 
-
-
-footer {
-    width: 100%;
-    height: 200px;
-    margin: 0 auto;
-    background: #211e1c;
-}
-
-
-
-/*gnb 자바스크립트*/
-header.on {
-    background: rgba(255,255,255,0.95);
-    height: 80px;
-}
+/*section.sub_wrap 완료*/
 
 
 /*모바일 메뉴*/

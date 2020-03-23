@@ -214,16 +214,7 @@ width: 100%;
 #postcode {width: 70%; margin-right: 1%; float: left;}
 .btn-primary {width: 28%; height: 50px; cursor: pointer; float:left; background: #fff; border: 1px solid rgba(173, 134, 60,0.7); color: #333;}
 
-
-
 /*section.sub_wrap 완료*/
-
-
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
 
 
 /*모바일 메뉴*/

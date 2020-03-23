@@ -136,15 +136,6 @@ width: 100%;
 /*section.sub_wrap 완료*/
 
 
-
-
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
-
-
 /*모바일 메뉴*/
 header .open {
     /*버거버튼 클래스*/

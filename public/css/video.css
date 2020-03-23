@@ -221,18 +221,7 @@ overflow: hidden;
 .mySlides .video_slide_txt h5 span {color: #ddd; padding: 0 15px;}
 .mySlides .video_slide_txt p {margin-top: 4%; color: #444;}
 
-
-
-
-
-
-
-
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
+/*section.sub_wrap 완료*/
 
 
 /*모바일 메뉴*/
