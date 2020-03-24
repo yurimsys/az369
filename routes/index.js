@@ -83,10 +83,10 @@ router.post('/b', function(req, res){
     let query = `
         INSERT INTO admin_survey
             (NAME, Phone, Addr, WT_Contact_Period, WT_Rantal_Fee_Min, WT_Rantal_Fee_Max, WT_Deposit_Min,
-            WT_Deposit_Max, WT_Insurance_Type, CUR_Rental_Fee, CUR_Deposit, WT_Modify, CUR_has_Contract)
+            WT_Deposit_Max, WT_Insurance_Type, CUR_Rental_Fee, CUR_Deposit, WT_Modify, CUR_has_Contract, Opinion)
         VALUES
             (:NAME, :Phone, :Addr, :WT_Contact_Period, :WT_Rantal_Fee_Min, :WT_Rantal_Fee_Max, :WT_Deposit_Min,
-            :WT_Deposit_Max, :WT_Insurance_Type, :CUR_Rental_Fee, :CUR_Deposit, :WT_Modify, :CUR_has_Contract)`;
+            :WT_Deposit_Max, :WT_Insurance_Type, :CUR_Rental_Fee, :CUR_Deposit, :WT_Modify, :CUR_has_Contract, :Opinion)`;
 
     connection.query(query, {
         NAME : req.body.name,
@@ -101,7 +101,8 @@ router.post('/b', function(req, res){
         CUR_Rental_Fee : req.body.cur_rental_fee ,
         CUR_Deposit : req.body.cur_deposit ,
         WT_Modify : req.body.wt_modify,
-        CUR_has_Contract : req.body.cur_has_contract 
+        CUR_has_Contract : req.body.cur_has_contract,
+        Opinion : req.body.opinion 
     }, function(err, result){
         if(err) throw err;
         res.render('az369_survey_03');
