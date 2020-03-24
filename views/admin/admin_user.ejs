@@ -43,13 +43,51 @@
 			<div class="header">
 				<div class="header-content">
 					<div class="page-title">
-						<i class="icon-table2 position-left"></i> Advanced datatable
+						<i class="icon-table2 position-left"></i> 회원 테이블
 					</div>
 				</div>
 			</div>
 			<!--/Page Header-->
 
 			<div class="container-fluid page-content">
+				<table>
+					<tbody style="padding: 0;">
+						<tr>
+							<td>검색어</td>
+							<td>
+								<select id="choi">
+									<option vlaue="userName">아이디</option>
+									<option value="name">이름</option>
+									<option value="brand">브랜드</option>
+								</select>
+								<input type="text" id="selResult">
+							</td>
+						</tr>
+						<tr>
+							<td>구분</td>
+							<td>
+								<input type="radio" class="chkMem" name="mem">관리자
+								<input type="radio" class="chkMem" name="mem">회원
+							</td>
+						</tr>
+						<tr>
+							<td>가입일</td>
+							<td><input type="text" id="dept"> ~ <input type="text" id="end"></td>
+						</tr>
+					</tbody>
+					<tbody id="detailList" style="display: none;">
+						<tr>
+							<td>탈퇴여부</td>
+							<td>		
+								<input type="radio" class="chkOut" name="now">탈퇴
+								<input type="radio" class="chkOut" name="now">정상
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button type="button" onclick="searchGo()">검색</button>
+				<a id="detailGo" onclick="detailGo()" style="display: block; color: blue;">상세보기 펼침</a>
+				<a id="detailExit" onclick="detailExit()" style="display: none; color: blue;">상세보기 닫기</a>
 
 				<!-- Individual column searching (text fields) -->
 				<div class="card card-inverse card-flat table-responsive">
@@ -187,6 +225,31 @@
 	</div>
 
 	<script>
+
+	function searchGo(){
+		$.ajax({
+			url: '/admin/user/search',
+			method: 'post',
+			dataType: 'json',
+			data: {
+				'selectName' : $('#choi option:selected').val(), 
+				'selResult' : $('#selResult').val(), 'chkMem' : $('.chkMem option"selected').val()
+			}
+		})
+	}
+
+	function detailGo(){
+		$('#detailList').css('display', 'block');
+		$('#detailExit').css('display','block');
+		$('#detailGo').css('display','none');
+
+	}
+
+	function detailExit(){
+		$('#detailList').css('display', 'none');
+		$('#detailExit').css('display','none');
+		$('#detailGo').css('display','block');
+	}
 
 	function insertMember(){
 		$.ajax({

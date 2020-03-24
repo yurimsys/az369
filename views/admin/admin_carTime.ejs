@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 	<% include templates/admin_head.ejs %>
+	<style>
+		.datepicker{z-index:1151 !important;}
+	</style>
 </head>
 <body id="top">
 
@@ -85,7 +88,7 @@
 									<td><%=data[i].CT_CarNum%></td>
 									<td><%=data[i].CT_DriverName%></td>
 									<td><%=data[i].CT_DriverPhone%></td>
-									<td><a id='<%=data[i].CT_ID%>' data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)"><%=data[i].now%>&nbsp;/&nbsp;<%=data[i].total%></a></td>
+									<td><a id='<%=data[i].CT_ID%>' data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)" style="color:darkblue; "><%=data[i].now%>&nbsp;/&nbsp;<%=data[i].total%></a></td>
 									<td><a class="icon-pencil6" id='<%=data[i].CT_ID%>' data-toggle="modal" data-target="#modal_info_header" onclick="edit(this)">Edit</a></td>
 									<td><a class="icon-trash" id='<%=data[i].CT_ID%>' data-toggle="modal" data-target="#modal_danger_header" onclick="del(this)">Delete</a></td>
 								</tr>									
@@ -96,8 +99,8 @@
 					</div>
 					
 				</div>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" onclick="insert()">추가</button>
-				<input type="text" class="form-control datepicker-here"data-timepicker="true" data-position="top left" >
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" onclick="insert(this)">추가</button>
+				
 
 				<div class="card card-block text-center">
 					<h4 class="m-b-20">Basic time picker</h4>
@@ -158,8 +161,8 @@
 								<div class="modal-title">배차 등록</div>
 							</div>
 
-							<div class="modal-body" id="insertList">
-								
+							<div class="modal-body card card-block text-center" id="insertList">
+					
 							</div>
 
 							<div class="modal-footer">
@@ -263,9 +266,9 @@
 	}
 					  
 	//배차 추가
-	function insert(){
+	function insert(e){
 		$('#insertList').empty();
-			let	html = "<select id='ctCyId' class='form-control col-md-6'><option value='0'>운송사 선택</option></select>";
+			let	html = "<select id='ctCyId' class='form-control col-md-6'><option value='0'>운송사 선택</option></select>";				
 				html += "<label>testtest</label><input type='text' class='form-control datepicker-here' data-timepicker='true' data-position='top left'>"
 				html += "<label>CT_DepartureTe</label><input type='text' class='form-control datepicker-here' data-timepicker='true' data-position='top left' id='dept'>";
 				html += "<label>CT_ReturnTe</label><input type='text' class='form-control form-control regdate' id='retun'>";
@@ -279,10 +282,10 @@
 				method: 'post',
 				dataType: 'json',
 				success: function(res){
-				for(let i=0; i<res.data.length; i++){
-					let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"&nbsp"+res.data[i].CY_Ty+"</option>"
-					$("#ctCyId").append(html);
-				}
+					for(let i=0; i<res.data.length; i++){
+						let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"&nbsp"+res.data[i].CY_Ty+"</option>"
+						$("#ctCyId").append(html);
+					}
 				}
 			})
 		$('#modal_primary_header').css('display','block')

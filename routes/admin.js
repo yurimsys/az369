@@ -33,7 +33,8 @@ connection.on('error', function(err) {
 });
 
 ///관리자 부분
-router.get('/index', auth.isLoggedIn, function(req, res, next) {
+// router.get('/index', auth.isLoggedIn, function(req, res, next) {
+router.get('/index', function(req, res, next) {
     console.log(req.app.get('views'))
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
@@ -46,11 +47,12 @@ router.get('/index', auth.isLoggedIn, function(req, res, next) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////비지니스 테이블 
 
 //비지니스 테이블
-router.get('/business', auth.isLoggedIn, function(req, res, next) {
+// router.get('/business', auth.isLoggedIn, function(req, res, next) {
+router.get('/business', function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `SELECT * FROM tB`; 
+        let query = `SELECT * FROM tB limit 200`; 
         connection.query(query,
           function(err, rows, fields) {
               if (err) throw err;
@@ -60,34 +62,61 @@ router.get('/business', auth.isLoggedIn, function(req, res, next) {
     }
 });
 
-// //비지니스 테이블
-// router.get('/business', auth.isLoggedIn, function(req, res, next) {
-//     if(req.user.U_isAdmin === 'n'){
-//         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
-//     }else{
-//         let query = `SELECT * FROM tB`; 
-//         connection.query(query,
-//           function(err, rows, fields) {
-//               if (err) throw err;
-//               res.render('admin_business',{data:rows});
-//               //console.log("비지니스",rows);
-//           });
-//     }
+// //비지니스 페이징
+// router.get('/business', function(req, res, next) {
+//     res.redirect('/admin/business/1')
+// });
+
+// //비지니스 페이징
+// router.get('/business/:currentPage', function(req, res, next) {
+//     let query = `SELECT * FROM tB limit :beginRow, :rowPerPage`; 
+//     let currentPage = req.params.currentPage;
+//     console.log("현재 페이지 ::", currentPage);
+//     //페이지 내 보여줄 수
+//     let rowPerPage = 20;
+//     let beginRow = (currentPage-1)* rowPerPage;
+//     connection.query(query, {beginRow, rowPerPage},
+//       function(err, rows, fields) {
+//           if (err) throw err;
+//           res.render('admin_business', { data : rows });
+//           console.log("user",rows);
+//       });
+// });
+
+
+// //비지니스 총 수
+// router.post('/business/count', function(req, res, next) {
+//     let query = `SELECT count(*) as cnt FROM tB `; 
+//     connection.query(query,
+//       function(err, rows, fields) {
+//           if (err) throw err;
+//           let cnt = rows;
+//           res.send( { data : cnt});
+//           console.log("카운트는 :",cnt);
+//       });
 // });
 
 
 //비지니스 테이블
-router.post('/business/List', auth.isLoggedIn, function(req, res, next) {
+// router.get('/business/List', auth.isLoggedIn, function(req, res, next) {
+router.get('/business/List', function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `SELECT * FROM tB`; 
-        connection.query(query,
-          function(err, rows, fields) {
-              if (err) throw err;
-              res.json({ data : rows });
+        let query = `SELECT * FROM tB limit :now, :page`; 
+        let page =  Number(req.query.length);
+        let now = Number(req.query.start);
+        connection.query(query,{page, now},
+            function(err, rows, fields) {
+                if (err) throw err;
+              
+                res.json(
+                { 
+                    data : rows,
+                    draw : req.query.draw
+                });
               console.log("비지니스",rows);
-          });
+        });
     }
 });
 
@@ -647,6 +676,36 @@ router.post('/user/insert', auth.isLoggedIn, function(req, res, next) {
     
         let query = `insert into tU(U_UserName, U_Pw ,U_Name, U_Email, U_Phone, U_Brand, U_Zip, U_Addr1, U_Addr2, U_isAdmin) 
                     values(:userName, :hash_pw, :name, :email, :phone, :brand, :zip, :addr1, :addr2, :admin)`; 
+    
+        connection.query(query,{userName, hash_pw, name, email, phone, brand, zip, addr1, addr2, admin},
+          function(err, rows, fields) {
+              if (err) throw err;
+              res.json({data : "추가"});
+          });
+    }
+
+});
+
+
+//user 테이블 검색
+router.post('/user/search', auth.isLoggedIn, function(req, res, next) {
+                                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let userName = req.body.userName;
+        let name = req.body.name;
+        let email = req.body.email;
+        let phone = req.body.phone;
+        let brand = req.body.brand;
+        let zip = req.body.postcode;
+        let addr1 = req.body.address;
+        let addr2 = req.body.detailAddress;
+        let admin = req.body.admin
+        let password = req.body.pw;
+        let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString();
+    
+        let query = `select * from tU where :selectName like '%:%' and U_Brand like '%:brand%' and U_cDt between date(:) AND date(:)`; 
     
         connection.query(query,{userName, hash_pw, name, email, phone, brand, zip, addr1, addr2, admin},
           function(err, rows, fields) {

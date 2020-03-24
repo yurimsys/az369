@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<% include templates/admin_head.ejs %>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 </head>
 <body id="top">
 
@@ -38,12 +39,58 @@
 	<!-- Page container begins -->
 	<section class="main-container">
 		<h1 style="display:none">Empty Heading</h1>
-
+	
 			<!--Page Header-->
 			<div class="header">
 				<div class="header-content">
 					<div class="page-title">
-						<i class="icon-table2 position-left"></i> Advanced datatable
+						<i class="icon-table2 position-left"></i> 운송사 관리
+						<table>
+							<tbody style="padding: 0;">
+								<tr>
+									<td>검색어</td>
+									<td>
+										<select>
+											<option>운송사 이름</option>
+											<option>전화번호</option>
+											<option>브랜드</option>
+										</select>
+										<input type="text">
+									</td>
+								</tr>
+								<tr>
+									<td>구분</td>
+									<td>
+										<input type="radio" name="mem">관리자
+										<input type="radio" name="mem">회원
+									</td>
+								</tr>
+								<tr>
+									<td>가입일</td>
+									<td><input type="text"> ~ <input type="text"></td>
+								</tr>
+							</tbody>
+							<tbody id="detailList" style="display: none;">
+								<tr>
+									<td>항목</td>
+									<td>		
+										<input type="radio" name="now">항목
+										<input type="radio" name="now">항목
+									</td>
+								</tr>
+								<tr>
+									<td>테스트</td>
+									<td>		
+										<input type="text">값
+										<input type="text">값
+									</td>
+								</tr>
+			
+							</tbody>
+						</table>
+						<button type="button">검색</button>
+						<a id="detailGo" onclick="detailGo()" style="display: block;">상세보기 펼침</a>
+						<a id="detailExit" onclick="detailExit()" style="display: none;">상세보기 닫기</a>
 					</div>
 				</div>
 			</div>
@@ -60,7 +107,7 @@
 						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
 					</div>
 					<div class="table-responsive">
-						<table id="tList" class="table datatable-button-init-basic">
+						<table id="tList">
 							<thead>
 								<tr>
 									<th>B_ID</th>
@@ -77,10 +124,9 @@
 									<th>Delete</th>
 								</tr>
 							</thead>
-							<tbody id="testList">
-
-							</tbody>
 						</table>
+
+						<div class="pagination"></div>
 					</div>
 				</div>
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">운송사 추가</button>
@@ -168,39 +214,85 @@
 		<!-- /ScrolltoTop -->
 		<% include templates/admin_footer.ejs %>
 	</div>
+	
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
 
 	<script>		
+
+function detailGo(){
+		$('#detailList').css('display', 'block');
+		$('#detailExit').css('display','block');
+		$('#detailGo').css('display','none');
+
+	}
+
+	function detailExit(){
+		$('#detailList').css('display', 'none');
+		$('#detailExit').css('display','none');
+		$('#detailGo').css('display','block');
+	}
 	$(document).ready(function(){
-				
+		
 		//테이블 생성
-		$.ajax({
-			url: '/admin/business/List',
-			method: 'post',
-			dataType: 'json',
-			success: function(res){
-				console.log(res.data)
-				for(let i=0; i<res.data.length; i++){
-					let html = "<tr><td>"+res.data[i].B_ID+"</td>";
-						html += "<td>"+res.data[i].B_Name+"</td>";
-						html += "<td>"+res.data[i].B_Tel+"</td>";
-						html += "<td>"+res.data[i].B_Fax+"</td>";
-						html += "<td>"+res.data[i].B_Email+"</td>";
-						html += "<td>"+res.data[i].B_Zip+"</td>";
-						html += "<td>"+res.data[i].B_Addr1+"</td>";
-						html += "<td>"+res.data[i].B_Addr2+"</td>";
-						html += "<td>"+res.data[i].B_cDt+"</td>";
-						html += "<td>"+res.data[i].B_uDt+"</td>";
-						html += "<td><a id="+res.data[i].B_ID+" class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a></td>";
-						html += "<td><a id="+res.data[i].B_ID+" class='dropdown-item' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)''>Delete</a></td></tr>";
-					$('#testList').append(html);
-				} 
+		// $.ajax({
+		// 	url: '/admin/business/List',
+		// 	method: 'post',
+		// 	dataType: 'json',
+		// 	success: function(res){
+		// 		console.log(res.data)
+		// 		for(let i=0; i<res.data.length; i++){
+		// 			let html = "<tr><td>"+res.data[i].B_ID+"</td>";
+		// 				html += "<td>"+res.data[i].B_Name+"</td>";
+		// 				html += "<td>"+res.data[i].B_Tel+"</td>";
+		// 				html += "<td>"+res.data[i].B_Fax+"</td>";
+		// 				html += "<td>"+res.data[i].B_Email+"</td>";
+		// 				html += "<td>"+res.data[i].B_Zip+"</td>";
+		// 				html += "<td>"+res.data[i].B_Addr1+"</td>";
+		// 				html += "<td>"+res.data[i].B_Addr2+"</td>";
+		// 				html += "<td>"+res.data[i].B_cDt+"</td>";
+		// 				html += "<td>"+res.data[i].B_uDt+"</td>";
+		// 				html += "<td><a id="+res.data[i].B_ID+" class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a></td>";
+		// 				html += "<td><a id="+res.data[i].B_ID+" class='dropdown-item' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)''>Delete</a></td></tr>";
+		// 			$('#testList').append(html);
+		// 		} 
 				
-			}
-		})
+		// 	}
+		// })
+		$('#tList').DataTable({
+			serverSide: true,
+			// processing: true,
+			ajax : '/admin/business/List',
+			deferRender: true,
+			columnDefs : [
+				{
+					targets:0,
+					className : 'dt-body-center'
+				}
+			],
+			start: 0,
+			length: 50,
+			pageLength: 10,
+			rowId : "B_ID",
+			columns : [
+				{ "data": "B_ID" },
+				{ "data": "B_Name" },
+				{ "data": "B_Tel" },
+				{ "data": "B_Fax" },
+				{ "data": "B_Email" },
+				{ "data": "B_Zip" },
+				{ "data": "B_Addr1" },
+				{ "data": "B_Addr2" },
+				{ "data": "B_cDt" },
+				{ "data": "B_uDt" }
+			],
+			// buttons: [ 'copy', 'csv', 'excel' ]
+			
+		});
 	})
 
-
-
+	
 	//운송사 추가
 		function insert(){
 			$.ajax({
