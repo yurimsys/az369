@@ -57,6 +57,8 @@ input[type=number] {
         box-sizing: border-box;
     }
 
+input:focus {border: 1px solid #C3A164;}
+
 /*최저 적정*/
 input[type=number].range {width: 45%; float: left; position: relative; overflow: hidden;}
 .icon {width: 10%; float: left; text-align: center; height: 50px; line-height: 65px;}

@@ -109,6 +109,8 @@ input[type=text]:nth-child(2) {margin-right: 0; margin-top: 1%;}
 
 textarea {margin-top: 0.5%;}
 
+input:focus {border: 1px solid #C3A164;}
+
 input[type=submit] {
   width: 100%;
   background-color: #eee;
