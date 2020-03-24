@@ -57,6 +57,17 @@ input[type=number] {
         box-sizing: border-box;
     }
 
+/* textarea 디자인*/
+textarea{
+    width: 100%;
+    height: 100px;
+    padding: 2% 2%;
+    margin-top: 1.3%;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
 input:focus {border: 1px solid #C3A164;}
 
 /*개별적용부분*/
@@ -163,7 +174,7 @@ input[type=number].range {width: 45%; float: left; position: relative; overflow:
         width: 100%;
         overflow: hidden;
         padding-bottom: 1%;
-        margin-bottom: 5em;
+        margin-bottom: 2em;
     }
 
     .survey_form h4 span {
@@ -324,8 +335,6 @@ input[type=number].range {width: 45%; float: left; position: relative; overflow:
         background: #fff;
         color: #444;
     }
-
-
 
 
 /*반응형*/
