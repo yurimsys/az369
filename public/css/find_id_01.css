@@ -92,11 +92,7 @@ width: 100%;
 
 .find_form {overflow: hidden;}
 
-
-
 /*section.sub_wrap 완료*/
-
-
 
 /*모바일 메뉴*/
 header .open {
@@ -126,35 +122,22 @@ header .open {
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     .inner_sub_wrap {width: 95%; margin: 0 auto;}
-    .tnb {width: 1200px}
 }
     
     
 /*1024px*/
 @media screen and (max-width: 1024px) {
-    
-    
+
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     .box {padding-top: 7%;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
-
 
 /*768px*/
 @media screen and (max-width: 768px) {
-    
-    
-    
+
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    .tnb {width: 768px;}
     section.sub_wrap h1 {font-size: 2.2rem;}
     section.sub_warp .bar {display: none;} 
     
@@ -163,13 +146,6 @@ header .open {
     .find_id_btn {width: 100%; }
     
     .find_box_inner {margin: 0 auto; padding: 5% 12%;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*414px*/
@@ -186,34 +162,28 @@ header .open {
      section.sub_wrap h2 {font-size: 18px;  line-height: 1.5; text-align: center; color: #555;}
 
     .find_box_inner {margin: 0 auto; padding: 10% 5%;}
-    .find_box p {font-size: 14px; margin-bottom: 22px; margin-top: 7px;}
+    .find_box p {font-size: 16px; margin-bottom: 22px; margin-top: 4px;}
     .find_box .tnb ul li {font-size: 16px; color: #555;}
-    
-    
-    .find_id_btn {width: 100%; margin-top: 10%; font-size: 16px; height: 40px; line-height: 40px;}
-     #phone {width: 60%;}
-    .check_btn {width: 39%; font-size: 15px;}
 
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    .find_id_btn {width: 100%; margin-top: 10%; font-size: 16px; height: 40px; line-height: 40px;}
+
+    #phone {width: 60%;}
+    .check_btn {width: 39%; font-size: 15px;}
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
 
-    .find_box .tab ul li {height: 50px; font-size: 16px; line-height: 50px;}
+    .find_box .tab ul li {height: 40px; font-size: 15px; line-height: 40px;}
     
     /*section.sub_wrap*/
    section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
     section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
 
     .find_box .tnb ul li {font-size: 15px;}
+	.find_box_inner {margin: 0 auto; padding: 10% 3%;}
+    .find_box p {font-size: 15px;}
     
     .find_id_btn { font-size: 15px;}
     .check_btn {font-size: 14px;}
-
 }

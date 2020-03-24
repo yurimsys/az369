@@ -106,16 +106,6 @@ td {height: 40px; line-height: 40px; color: #555;}
 
 /*section.sub_wrap 완료*/
 
-
-
-
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
-
-
 /*모바일 메뉴*/
 header .open {
     /*버거버튼 클래스*/
@@ -223,7 +213,7 @@ header .open {
     section.sub_wrap h3 {font-size: 20px;} 
     section.sub_wrap h5 {font-size: 16px;}
     section.sub_wrap h4 {margin-bottom:4%; font-size: 18px;}
-    section.sub_wrap p {font-size: 12px;}
+    section.sub_wrap p {font-size: 15px;}
     
     .reservation_img {margin-top: 8%; margin-bottom: 8%;}
     .reservation_img img {width: 75%;}

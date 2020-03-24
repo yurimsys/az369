@@ -150,7 +150,7 @@ section.sub_wrap h1 {
 .list03::-webkit-scrollbar,
 .list02_mo::-webkit-scrollbar,
 .list03_mo::-webkit-scrollbar,
-#reserve_list::-webkit-scrollbar {width: 5px; height: 20px} 
+#reserve_list::-webkit-scrollbar {width: 5px; height: 20px;}
 
 .list02::-webkit-scrollbar-track,
 .list03::-webkit-scrollbar-track,
@@ -293,16 +293,6 @@ button{
 .search_btn {width: 17%; height: 35px; background: #fff; border-radius: 5px; border: 1px solid #ccc; font-size: 15px; float: right; color: #555;}
 
 
-
-
-
-
-
-
-
-
-
-
 /*두번째 테이블 타이틀 간격*/
 .table_tit2 {border: none; border-top: 2px solid #ad863c; text-align: center; background: #f8f8f8; height: 50px; line-height: 50px; width: 100%;}
 .table_tit2 ul {width: 100%;}
@@ -398,6 +388,7 @@ button{
 
 p.cancel_info {margin:2% 0; text-align: center;}
 
+/*section.sub_wrap 완료*/
 
 
 /*모바일 메뉴*/
@@ -531,15 +522,14 @@ header .open {
     .mypage_right p {font-size: 14px;}
     
     
-    .mypage_box .box_01 {position: relative; width: 100%; height: 360px; overflow: hidden; margin-bottom: 0.5%;}
+    .mypage_box .box_01 {position: relative; width: 100%; height: 360px; overflow: hidden;}
     .mypage_nav {display: none;}
     .mypage_nav_mo {bottom: 0;  position: absolute; display: block; width: 100%; overflow: hidden;}
-    .mypage_nav_mo .tablinks {width: 33.3%; float: left; height: 60px; background: #fff; border: 1px solid #eee; font-size: 14px; color: #444;}
-    .mypage_nav_mo p {width:60%; margin: 0 auto; text-align: center; font-size: 15px;}
+    .mypage_nav_mo .tablinks {width: 33.3%; float: left; height: 60px; background: #fff; border: none; font-size: 14px; color: #444; border: 1px solid #ddd;}
+    .mypage_nav_mo p {width:60%; margin: 0 auto; text-align: center; font-size: 16px;}
     
-    .mypage_nav_mo button.active {color: #fff; background: #c49b4e;}
-    
-    
+    .mypage_nav_mo button.active {background: #ad863c; border: 1px solid #ad863c; color: #fff;}
+
     #reserve_list {width: 100%; height: 250px;}
     .reserve_list_tit ul li {float: left; width: 25%;}
     .reserve_bar {width: 100%;}
@@ -584,16 +574,16 @@ header .open {
     section.sub_wrap h1 {font-size: 28px; color: #666; text-align: center;}
     section.sub_wrap .bar {display: none;}
     .mypage_box h2 {font-size: 24px;}
-    .mypage_box h5 {font-size: 18px; color: #555; margin-bottom: 2%; padding-top: 2%;}
+    .mypage_box h5 {font-size: 18px; color: #555; margin-bottom: 2.5%; padding-top: 2%;}
     .mypage_box h5 span {font-size: 14px;}
-    .info p {font-size: 14px; }
+    .info p {font-size: 15px;}
     
     .mypage_box .modify_btn {width: 25%; margin-top: 1%;}
     .mypage_box .modify_btn a {font-size: 14px;}
     
-    .mypage_box .box_01 {position: relative; width: 100%; height: 290px; overflow: hidden; margin-bottom: 1%;}
+    .mypage_box .box_01 {position: relative; width: 100%; height: 290px; overflow: hidden;}
     .mypage_nav_mo .tablinks {width: 33.3%; float: left; height: 55px; background: #fff; border: 1px solid #eee; font-size: 14px; color: #444;}
-    .mypage_nav_mo p {width:90%; margin: 0 auto; text-align: center; font-size: 12px; }
+    .mypage_nav_mo p {width:90%; margin: 0 auto; text-align: center; font-size: 15px;}
     
     #reserve_list {background: #f8f8f8;}
     .reserve_list_tit {display: none;}
@@ -612,7 +602,7 @@ header .open {
     
     .mypage_nav_mo button.active {color: #fff; background: #c49b4e;}
     
-    p.cancel_info {font-size: 12px; line-height: 1.4; width: 85%; margin: 0 auto;  padding: 2% 0 8%;} 
+    p.cancel_info {font-size: 14px; line-height: 1.4; width: 90%; margin: 0 auto;  padding: 4% 0 8%;}
     
     .popup_open {font-size: 14px; height: 40px; line-height: 40px;}
     .logout_mo {font-size: 14px; height: 40px; line-height: 40px; margin-top: 8%;}
@@ -721,6 +711,7 @@ header .open {
     
     .popup_box_mo2 .table_mo {height: 350px;}
     
+	.mypage_nav_mo p {padding: 5%;}
     
     .layer {width: 320px;}
     

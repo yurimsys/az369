@@ -82,22 +82,8 @@ section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow
 .sub_info {width: 100%; background: #f6f6f6; height: auto; padding: 3% 0; margin-top: 5%;}
 .sub_info p {text-align: center; color: #555;}
 
-
-
-footer {
-    width: 100%;
-    height: 200px;
-    margin: 0 auto;
-    background: #211e1c;
-}
-
 /*section.sub_wrap 완료*/
 
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
 
 
 /*모바일 메뉴*/
@@ -128,15 +114,14 @@ header .open {
    
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1200px;}
+    section.main .inner_main {width: 100%;}
     section.main .tnb {bottom: -14%;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1200px;}
+    section.sub_wrap .inner_sub_wrap {width: 100%;}
     
-    .tnb {padding-bottom: 5%; width: 1200px; margin-top: -5%;}
-    
+    .tnb {padding-bottom: 5%; width: 100%; margin-top: -5%;}
     
     /*sub_bg*/
     .sub_bg {width: 95%;}
@@ -145,58 +130,32 @@ header .open {
 
 /*1024px*/
 @media screen and (max-width: 1024px) {
-    
-    
+
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1024px;}
-    
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1024px;}
     
-    .tnb {padding-bottom: 6%; width: 1024px; margin-top: -5.9%;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    .tnb {padding-bottom: 6%; margin-top: -5.9%;}
 }
 
 
 /*768px*/
 @media screen and (max-width: 768px) {
-    
-    
+
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 768px;}
-    
-    
-    /*section.sub_wrap*/
+
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 768px;}
-    .tnb {width: 768px; margin-top:-7.6%;}
+    .tnb {margin-top:-7.6%; margin-bottom: 2.1%;}
     section.sub_wrap h1 {font-size: 2.2rem;}
     section.sub_wrap h6 {padding-top: 13%;}
     
     section.sub_wrap h2 {margin-bottom: 4%;}
-    
-    .tnb {width: 768px; margin-bottom: 2.1%;}
-    
+
     .sub_bg {padding: 1% 0;}
-    .sub_info {width: 768px;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*414px*/
@@ -205,33 +164,28 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 414px;}
     section.main .main_bg {background-size: cover;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 414px;}
     section.sub_wrap h1 {font-size: 30px;}
     section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
      section.sub_wrap h2 {font-size: 24px; padding-bottom: 10%; line-height: 1.5; width: 92%; margin: 0 auto;}
     section.sub_wrap h6 {padding-top: 11%;}
     
     
-    .tnb {width: 414px; margin-bottom: 9.3%;} 
+    .tnb {margin-bottom: 9.3%;}
     .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
     
     .sub_bg {padding: 2% 0;}
-    .sub_info {width: 414px; padding: 5% 0; margin-top: 8%;}
-    .sub_info p {width: 95%; margin: 0 auto; text-align: left;}
+    .sub_info {padding: 5% 0; margin-top: 8%;}
+    .sub_info p {width: 95%; margin: 0 auto; text-align:justify;}
     .sub_info p br {display: none;}
-    
+}
 
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%; color: #a0772b}
+/*375px*/
+@media screen and (max-width: 375px) {
+    .tnb {margin-top: -13%;}
 }
 
 /*320px*/
@@ -239,18 +193,17 @@ header .open {
 
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 320px;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 320px;}
     section.sub_wrap h1 {font-size: 24px;}
     section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
      section.sub_wrap h2 {font-size: 20px; padding-bottom: 10%; line-height: 1.5; width: 92%; margin: 0 auto;}
     section.sub_wrap h6 {padding-top: 11%; font-size: 14px;}
     
-    .tnb {width: 320px; margin-bottom: 13.8%;} 
+    .tnb {margin-bottom: 13.8%;}
     
     .sub_info {width: 100%;}
     .sub_info p {font-size: 15px;}
 }
+

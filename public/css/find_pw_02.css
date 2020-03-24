@@ -78,7 +78,6 @@ section.sub_wrap h1 {
 /*section.sub_wrap 완료*/
 
 
-
 /*모바일 메뉴*/
 header .open {
     /*버거버튼 클래스*/
@@ -170,7 +169,7 @@ header .open {
     section.sub_wrap h2 {font-size: 18px;  line-height: 1.5; text-align: center; color: #555;}
     .find_box_inner h3 {font-size: 14px; margin-top: 4%;}
     .find_box_inner h3 strong {font-size: 16px;}
-    .find_box p {font-size: 14px; margin-bottom: 22px; margin-top: 7px;}
+    .find_box p {font-size: 14px;}
     .find_box .tnb ul li {font-size: 16px; color: #555;}
 
     .find_pw_btn {height: 40px; line-height: 40px;}
@@ -186,15 +185,17 @@ header .open {
 /*320px*/
 @media screen and (max-width: 320px) {
     
-    .find_box .tab ul li {height: 50px; font-size: 15px; line-height: 50px;}
+    .find_box .tab ul li {height: 40px; font-size: 15px; line-height: 40px;}
     
     /*section.sub_wrap*/
     section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
     section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
 
     .find_box .tnb ul li {font-size: 15px;}
-    .find_box h3 {margin-top: 5%;}
+/*    .find_box h3 {margin-top: 6%;}*/
+
+	.find_box p {margin-bottom: 10%;}
     
-    .find_id_btn { font-size: 15px;}
+    .find_pw_btn { font-size: 15px;}
 
 }

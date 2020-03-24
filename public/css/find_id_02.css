@@ -78,11 +78,7 @@ section.sub_wrap h1 {
 .pw_btn {border: 1px solid #ddd;}
 .login_btn {background: #ad863c; color: #fff; border: 1px solid #ad863c;}
 
-
-
 /*section.sub_wrap 완료*/
-
-
 
 
 /*모바일 메뉴*/
@@ -185,6 +181,8 @@ header .open {
     
     .find_id_btn {width: 100%; margin-top: 10%; font-size: 16px; height: 40px; line-height: 40px;}
 
+    .find_img img {width: 18%; margin: 2% 0;}
+
 
     /*footer*/
     footer {width: 100%; margin: 0 auto; }
@@ -196,15 +194,17 @@ header .open {
 
 /*320px*/
 @media screen and (max-width: 320px) {
-    
-    .find_box .tab ul li {height: 50px; font-size: 16px; line-height: 50px;}
+
+    .find_box .tab ul li {height: 40px; font-size: 15px; line-height: 40px;}
     
     /*section.sub_wrap*/
-    section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
+   section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
     section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
 
     .find_box .tnb ul li {font-size: 15px;}
+	.find_box_inner {margin: 0 auto; padding: 10% 3%;}
+	.find_box p {font-size: 15px;}
     
     .find_id_btn { font-size: 15px;}
-
+    .check_btn {font-size: 14px;}
 }

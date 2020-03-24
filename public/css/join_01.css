@@ -168,24 +168,15 @@ section.sub_wrap h1 {
 
 .check_all_btn {text-align: center; padding: 2% 0; border: 1px solid #ddd; color: #444;}
 
-/*하단 버튼*/
-.join_btn {width: 50%; margin: 0 auto; text-align: center; margin-left: 50%; transform: translateX(-50%); padding: 4% 0;  height: 50px; line-height: 50px;}
-.join_btn ul li {float: left; margin-right: 2%;}
-.join_btn ul li:nth-child(2) {margin-right: 0;}
-.back {border: 1px solid #ddd; width: 230px;}
-.next {background: #ad863c; color: #fff;  width: 230px;}
 
+/*하단 버튼*/
+.join_btn {width: 60%; margin: 0 auto; margin-top: 4%;}
+.join_btn ul li {float: left; width: 49%; margin-right: 1%; text-align: center; height: 50px; line-height: 50px;}
+.join_btn ul li:nth-child(2) {margin-right: 0;}
+.back {border: 1px solid #ddd;}
+.next{background: #ad863c; border: 1px solid #ad863c; color: #fff;}
 
 /*section.sub_wrap 완료*/
-
-
-
-
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
 
 
 /*모바일 메뉴*/
@@ -233,14 +224,8 @@ header .open {
     .box {padding-top: 7%;}
     
     /*하단 버튼*/
-    .join_btn {width: 100%; margin-left: 72%; transform: translateX(-50%);}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    .join_btn {width: 70%;}
+
 }
 
 
@@ -254,17 +239,6 @@ header .open {
     section.sub_wrap h2 {font-weight: normal;}
     
     .box {padding-top: 9.5%;}
-    
-    /*하단 버튼*/
-    .join_btn {margin-left: 62%; transform: translateX(-50%);}
-    .join_box {padding-bottom:8%;}
-
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*414px*/
@@ -278,7 +252,7 @@ header .open {
     section.sub_wrap h6 {padding-top: 6%;}
     section.sub_wrap h1 {font-size: 28px; margin-bottom: 2%;}
     section.sub_wrap .bar {display: none;}
-     section.sub_wrap h2 {font-size: 18px;  line-height: 1.5; text-align: center; color: #555;}
+     section.sub_wrap h2 {font-size: 21px;  line-height: 1.5; text-align: center; color: #555;}
     
     
     .join_box h3 {font-size: 14px; color: #666; margin-bottom: 0;}
@@ -291,9 +265,8 @@ header .open {
     .join_agreement p {font-size: 11px; color: #aaa;}
     .check_all_btn {margin-top: 5%; font-size: 14px; margin-top: 5%; color: #444;} 
     
-    .join_btn {width: 100%; margin: 0; margin-top: 8%; margin-left: 50%; height: 40px; line-height: 40px;}
-    .join_btn ul li {width: 49%; margin-right: 1%; }
-    .join_btn ul li:last-child {margin-right: 0;}
+    .join_btn {width: 100%; margin-top: 8%;}
+    .join_btn ul li {height: 40px; line-height: 40px; }
     
     .join_box {padding-bottom: 23%;}
     .agreement_tit {margin-top: 16%;0}
