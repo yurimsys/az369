@@ -64,6 +64,7 @@ input:focus {border: 1px solid #C3A164;}
 
 .form_01 {width: 100%; overflow: hidden;}
 .form_01 h5 { width: 20%; height: 50px; line-height: 50px;  display: inline-block; margin: 0; float: left; color: #444; font-size: 17px; /*margin-top: 1%;*/}
+.form_01 .form_h5  {margin-top: 15px;}
 #cur_deposit, #cur_rental_fee{width: 80%; float: left; overflow: hidden; position: relative;}
 #cur_deposit {margin-top: 0;}
 #cur_rental_fee {margin-bottom: 25px;}
@@ -331,13 +332,15 @@ input[type=number].range {width: 45%; float: left; position: relative; overflow:
 /*1200px*/
 @media screen and (max-width: 1200px) {
     .sub_wrap {padding: 0 13%;}
+	.form_01 .form_h5  {margin-top: 10px;}
 }
 
 /*768px*/
 @media screen and (max-width: 768px) {
     .sub_wrap {padding: 0 0%;}
+	.form_01 .form_h5  {margin-top: 0px;}
     .wrap h1 {padding: 2.1%;}
-    .select_check {padding-bottom: 1%;}
+    .select_check { padding-bottom: 1%;}
  }
 
 /*414px*/
