@@ -103,20 +103,21 @@ router.get('/business/List', function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `SELECT * FROM tB limit :now, :page`; 
-        let page =  Number(req.query.length);
-        let now = Number(req.query.start);
-        connection.query(query,{page, now},
+        //let query = `SELECT * FROM tB limit :now, :page`;
+        let query = `SELECT * FROM tB limit 8000`; 
+        //let page =  Number(req.query.length);
+        //let now = Number(req.query.start);
+        connection.query(query,
             function(err, rows, fields) {
                 if (err) throw err;
               
                 res.json(
                 { 
-                    data : rows,
-                    draw : req.query.draw
+                    data : rows
                 });
               console.log("비지니스",rows);
         });
+        
     }
 });
 
@@ -220,6 +221,39 @@ router.post('/business/insert', auth.isLoggedIn, function(req, res, next) {
           function(err, rows, fields) {
               if (err) throw err;
               res.json({data : "추가"});
+          });
+    }
+
+});
+
+//business 테이블 검색
+router.post('/business/search', auth.isLoggedIn, function(req, res, next) {
+                                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+
+        let selectName = req.body.selectName;
+        let selResult = req.body.selResult;
+        let dept = req.body.dept;
+        let end = req.body.end;
+        let query = "";
+        
+        if(selResult == "" && dept == "" && end == ""){
+            query = 'select * from tB';
+        } else if(selResult != "" && dept == "" && end == ""){
+            query = 'select * from tB where \n'+selectName +`\n like` + connection.escape('%'+selResult+'%'); 
+        } else if(selResult != "" && dept != "" && end != ""){
+            query = `select * from tB where date_format(B_cDt,'%y%y-%d-%d %H:%i:%s') between date(:dept) AND date(:end) and \n`+ selectName +`\n like` + connection.escape('%'+selResult+'%');  
+        } else if(selResult == "" && dept != "" && end != ""){
+            query = `select * from tB where date_format(B_cDt,'%y%y-%d-%d %H:%i:%s') between date(:dept) AND date(:end)`;  
+        }
+
+        connection.query(query,{selectName, selResult, dept, end},
+          function(err, rows, fields) {
+              if (err) throw err;
+              res.json({data : rows});
+              console.log(rows)
           });
     }
 
@@ -693,24 +727,19 @@ router.post('/user/search', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let userName = req.body.userName;
-        let name = req.body.name;
-        let email = req.body.email;
-        let phone = req.body.phone;
-        let brand = req.body.brand;
-        let zip = req.body.postcode;
-        let addr1 = req.body.address;
-        let addr2 = req.body.detailAddress;
-        let admin = req.body.admin
-        let password = req.body.pw;
-        let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString();
-    
-        let query = `select * from tU where :selectName like '%:%' and U_Brand like '%:brand%' and U_cDt between date(:) AND date(:)`; 
-    
-        connection.query(query,{userName, hash_pw, name, email, phone, brand, zip, addr1, addr2, admin},
+
+        let selectName = req.body.selectName;
+        let selResult = req.body.selResult;
+        let chkMem = req.body.chkMem;
+        let dept = req.body.dept;
+        let end = req.body.end;
+        let query = `select * from tU where U_isAdmin = :chkMem and U_cDt between date(:dept) AND date(:end) and \n`+ selectName +`\n like` + connection.escape('%'+selResult+'%'); 
+        
+        connection.query(query,{selectName, selResult, chkMem, dept, end},
           function(err, rows, fields) {
               if (err) throw err;
-              res.json({data : "추가"});
+              res.json({data : rows});
+              console.log(rows)
           });
     }
 

@@ -7,6 +7,6 @@
     today: 'Today',
     clear: 'Clear',
     dateFormat: 'yyyy/mm/dd',
-    timeFormat: 'hh:ii',
+    timeFormat: 'hh:ii:ss',
     firstDay: 0
 }; })(jQuery);

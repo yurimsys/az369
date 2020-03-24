@@ -56,9 +56,9 @@
 							<td>검색어</td>
 							<td>
 								<select id="choi">
-									<option vlaue="userName">아이디</option>
-									<option value="name">이름</option>
-									<option value="brand">브랜드</option>
+									<option value="U_UserName">아이디</option>
+									<option value="U_Name">이름</option>
+									<option value="U_Brand">브랜드</option>
 								</select>
 								<input type="text" id="selResult">
 							</td>
@@ -66,8 +66,8 @@
 						<tr>
 							<td>구분</td>
 							<td>
-								<input type="radio" class="chkMem" name="mem">관리자
-								<input type="radio" class="chkMem" name="mem">회원
+								<input type="radio" class="chkMem" name="mem" value="y">관리자
+								<input type="radio" class="chkMem" name="mem" value="n">회원
 							</td>
 						</tr>
 						<tr>
@@ -117,7 +117,7 @@
 								<th>Delete</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="testList">
 								<% for(let i=0; i<data.length; i++){ %>
 								<tr>
 								<td><%=data[i].U_ID%></td>
@@ -227,13 +227,32 @@
 	<script>
 
 	function searchGo(){
+		$('#testList').empty();
 		$.ajax({
 			url: '/admin/user/search',
 			method: 'post',
 			dataType: 'json',
 			data: {
 				'selectName' : $('#choi option:selected').val(), 
-				'selResult' : $('#selResult').val(), 'chkMem' : $('.chkMem option"selected').val()
+				'selResult' : $('#selResult').val(), 'chkMem' : $('input[name="mem"]:checked').val(),
+				'dept' : $('#dept').val(), 'end' : $('#end').val()
+			},
+			success: function(res){
+				console.log(res.data)
+				for(let i=0; i<res.data.length; i++){
+					let html = "<tr>";
+						html += "<td>"+res.data[i].U_ID+"</td>";
+						html += "<td>"+res.data[i].U_UserName+"</td>";
+						html += "<td>"+res.data[i].U_Name+"</td>";
+						html += "<td>"+res.data[i].U_Email+"</td>";
+						html += "<td>"+res.data[i].U_Phone+"</td>";
+						html += "<td>"+res.data[i].U_Brand+"</td>";
+						html += "<td>"+res.data[i].U_Zip+"</td>";
+						html += "<td>"+res.data[i].U_Addr1+"</td>";
+						html += "<td>"+res.data[i].U_Addr2+"</td></tr>";
+					$('#testList').append(html);
+
+				}
 			}
 		})
 	}
