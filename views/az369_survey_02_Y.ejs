@@ -7,6 +7,8 @@
 
     <title>AZ369 보증보험 대체의향서</title>
     <link rel="stylesheet" href="/css/az369_survey_02_Y.css">
+    <!--modal css-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <!--자바스크립트-->
     <script src="/js/jquery-3.3.1.min.js"></script>
@@ -34,7 +36,7 @@
                         <h5>임대보증금</h5>
                         <input class="text-input deposit" required=true type="number" id="cur_deposit" name="cur_deposit">
 
-                        <h5>임대료</h5>
+                        <h5 class="form_h5">임대료</h5>
                         <input class="text-input rent" required=true type="number" id="cur_rental_fee" name="cur_rental_fee">
                     </div>
 
@@ -107,12 +109,15 @@
                             <label for="r4"><span>아니오</span></label>
                         </div>
                     </div>
-
+                    <div class="opinion">
+                        <h4 class="check_h4">기타 추가 문의 사항이 있으신가요?</h4>
+                        <textarea id="opinion" name="opinion"></textarea>
+                    </div>
                     <!--하단버든-->
                     <div class="survey_btn">
                         <ul>
                             <li>
-                                <a href="survey1" class="back">뒤로</a>
+                                <a href="b" class="back">뒤로</a>
                             </li>
                             <li>
                                 <input type="submit" class="next" value="제출하기">
