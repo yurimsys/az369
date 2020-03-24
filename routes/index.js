@@ -109,6 +109,11 @@ router.post('/b', function(req, res){
 
 });
 
+router.get('/az369_survey_intro', function(req,res){
+    
+    res.render('az369_survey_intro');
+});
+
 router.get('/login', function(req, res, next){
     if(req.user !== undefined){
         res.redirect('/');

@@ -29,7 +29,7 @@
 
             <h2>가로수길 센트롤돔 활성화 방안의 일환으로 임대인의 임대조건을 조사하여 임차인과 임대인의 매칭을 위한 기준을 만들고자 작성되었습니다. 본 의향서는 언제든지 재작성 가능하오니 많은 참여 바랍니다.</h2>
 
-            <div class="intro_btn"><a href="az369_survery_intro" target="_blank">보증보험이란?</a></div>
+            <div class="intro_btn"><a href="az369_survey_intro" target="_blank">보증보험이란?</a></div>
             <!--<p>이 페이지는 모바일전용입니다.</p>-->
         </div>
 
@@ -49,7 +49,7 @@
 
                 <h4>휴대전화번호 ('-' 생략)</h4>
                 <input type="number" id="phone" name="phone">
-                <div class="check_btn" onclick="myFunction()">인증번호 받기</div>
+                <button class="check_btn" onclick="myFunction()">인증번호 받기</button>
                 <div id="phone_check_box">
                     <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);" />
                 </div>
@@ -160,7 +160,10 @@
         function next(){
             let survey_result = {};
             let phone_check = $("#phone_check").data("is_confirm") || false;
-            if(!phone_check) alert('휴대전화번호 본인인증이 필요합니다.');
+            if(!phone_check) {
+                alert('휴대전화번호 본인인증이 필요합니다.');
+                return false;
+            }
             survey_result.addr = $("#addr").val();
             survey_result.name = $("#name").val();
             survey_result.phone = $("#phone").val();

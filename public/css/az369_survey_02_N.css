@@ -1,4 +1,4 @@
-@charset="UTF-8";
+@charset "UTF-8";
 
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap');
 
@@ -56,6 +56,17 @@ input[type=number] {
         border-radius: 5px;
         box-sizing: border-box;
     }
+
+/* textarea 디자인*/
+textarea{
+    width: 100%;
+    height: 100px;
+    padding: 0 2%;
+    margin-top: 1.3%;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
 
 /*최저 적정*/
 input[type=number].range {width: 45%; float: left; position: relative; overflow: hidden;}
@@ -158,7 +169,7 @@ input[type=number].range {width: 45%; float: left; position: relative; overflow:
         width: 100%;
         overflow: hidden;
         padding-bottom: 1%;
-        margin-bottom: 5em;
+        margin-bottom: 2em;
     }
 
     .survey_form h4 span {
@@ -361,7 +372,7 @@ input[type=number].range {width: 45%; float: left; position: relative; overflow:
     .select_check ul {width: 80%;}
 
     .checks input[type="radio"] + label {font-size: 16px; padding-bottom: 2%;}
-    .select_check {margin-bottom:15%;}
+    
     .checks.etrans input[type="radio"] + label {margin-right: 15px; margin-top: 5%;}
     .checks input[type="radio"] + label:before {width: 27px; height: 27px;}
     .select_check h4 {letter-spacing: -0.5px; line-height: 1.8; margin-top: 0;}
