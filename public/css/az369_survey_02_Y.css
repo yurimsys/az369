@@ -57,6 +57,8 @@ input[type=number] {
         box-sizing: border-box;
     }
 
+input:focus {border: 1px solid #C3A164;}
+
 /*개별적용부분*/
 .form_list {position: relative; width: 100%; height: auto; overflow: hidden; float: left; margin-bottom: 25px; margin-top: 2.5%;}
 
