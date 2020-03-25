@@ -1,4 +1,4 @@
-header {width: 100%; height: 80px; position: fixed; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05);}
+header {width: 100%; height: 80px; position: fixed; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05); transition: .5s all;}
 
 .innerHeader {
     width: 100%;
@@ -35,7 +35,7 @@ nav.gnb ul li a {display: block;}
 .innerHeader ul li ul li:hover { color: #333; background: #e3ddd2;}
 
 /*gnb2 - 로그인 회원가입 전화문의*/
-nav.gnb2 {width: 16%; float: right; margin-right: 5%; line-height: 80px; font-size: 16px; color: #777; }
+nav.gnb2 {width: 16%; float: right; margin-right: 5%; line-height: 80px; font-size: 16px; color: #777;}
 nav.gnb2 ul li {width: 33.3%; float: left; text-align: center; }
 nav.gnb2 a {display: block;}
 
@@ -47,12 +47,12 @@ nav.gnb2 a {display: block;}
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 180px;
-    height: 60px;
-    line-height: 60px;
-  background-color: #000;
+    height: 45px;
+    line-height: 45px;
+  background-color: #ad863c;
   color: #fff;
   text-align: center;
-  border-radius: 6px;
+  border-radius: 10px;
   padding: 1px 0;
   position: absolute;
     font-size: 16px;
@@ -70,23 +70,37 @@ nav.gnb2 a {display: block;}
   margin-left: -8px;
   border-width: 8px;
   border-style: solid;
-  border-color: transparent transparent black transparent;
+  border-color: transparent transparent #ad863c transparent;
 }
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
 
 
-/*gnb 자바스크립트*/
+
+
+
+/*gnb 자바스크립트: header scroll*/
 header.on {
     background: rgba(255,255,255,0.95);
     height: 65px;
+	line-height: 65px;
+	transition: .5s all;
 }
+
+header.on nav.gnb ul li, header.on nav.gnb2 {height: 65px; line-height: 65px; transition: .5s all;}
+
+header.on .innerHeader h1.logo {line-height: 55px;}
+header.on .innerHeader h1.logo img {width: 90%;}
+
+
+
+
 
 /*1200px*/
 @media screen and (max-width: 1200px) {
     /*Header*/
-	header {height: 65px;}
+	header {height: 65px; line-height: 65px;}
     header .gnb {display: none;}
     header .innerHeader {width: 1200px; position: fixed;}
 	.innerHeader h1.logo { line-height: 55px;}
@@ -96,7 +110,9 @@ header.on {
     .gnb_mo_login {background: #f8f8f8; margin-top: 2%; padding: 1.5% 0; color: #666;}
     .gnb_mo_login ul {width: 100%; overflow: hidden;}
     .gnb_mo_login ul li {float: left;}
-    
+
+
+
     /*gnb_mo*/
     header .open {
         display: block;
@@ -104,7 +120,6 @@ header.on {
         height: 30px;
         position: absolute;
         right: 30px;
-        top: 15px;
         opacity: 1;
         z-index: 1000000000;
     }
