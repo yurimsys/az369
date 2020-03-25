@@ -27,22 +27,24 @@ const app = express();
 app.use( require('./config/view_route') );
 app.set('view engine', 'ejs');
 
-// Debuging 용도
+// 개발환경일 경우만 실행
 if( app.get('env') == "development"){
+    // Debuging 용도
     app.use(function(req, res, next) {
         console.log('handling request for: ' + req.url);
         next();
     });
+
+    // Live Reload Server Config
+    const liveServer = livereload.createServer({
+        // observe exts
+        exts: ['js', 'css', 'ejs', 'png', 'gif', 'jpg'],
+        debug: true
+    });
+
+    liveServer.watch(__dirname);
+    app.use(livereloadMiddleware());
 }
-
-// Live Reload Server Config
-const liveServer = livereload.createServer({
-    // observe exts
-    exts: ['js', 'css', 'ejs', 'png', 'gif', 'jpg'],
-    debug: true
-});
-
-liveServer.watch(__dirname);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -50,7 +52,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
-app.use(livereloadMiddleware());
 
 // Session Path
 let fileStoreOption = {
