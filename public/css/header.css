@@ -81,7 +81,11 @@ nav.gnb2 a {display: block;}
 header.on {
     background: rgba(255,255,255,0.95);
     height: 65px;
+	line-height: 65px;
+	transition: .5s all;
 }
+
+header.on nav.gnb ul li {height: 65px; line-height: 65px; transition: .5s all;}
 
 /*1200px*/
 @media screen and (max-width: 1200px) {
