@@ -47,12 +47,12 @@ nav.gnb2 a {display: block;}
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 180px;
-    height: 60px;
-    line-height: 60px;
-  background-color: #000;
+    height: 45px;
+    line-height: 45px;
+  background-color: #ad863c;
   color: #fff;
   text-align: center;
-  border-radius: 6px;
+  border-radius: 10px;
   padding: 1px 0;
   position: absolute;
     font-size: 16px;
@@ -70,12 +70,22 @@ nav.gnb2 a {display: block;}
   margin-left: -8px;
   border-width: 8px;
   border-style: solid;
-  border-color: transparent transparent black transparent;
+  border-color: transparent transparent #ad863c transparent;
 }
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
 
+
+/*gnb 자바스크립트*/
+header.on {
+    background: rgba(255,255,255,0.95);
+    height: 65px;
+	line-height: 65px;
+	transition: .5s all;
+}
+
+header.on nav.gnb ul li, header.on nav.gnb2 {height: 65px; line-height: 65px; transition: .5s all;}
 
 /*gnb 자바스크립트*/
 header.on {
