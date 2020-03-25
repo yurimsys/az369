@@ -10,6 +10,8 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const livereload = require('livereload');
+const livereloadMiddleware = require('connect-livereload');
 const indexRouter = require('./routes/index'),
     apiRouter = require('./routes/api'),
     testRouter = require('./routes/test'),
@@ -33,12 +35,22 @@ if( app.get('env') == "development"){
     });
 }
 
+// Live Reload Server Config
+const liveServer = livereload.createServer({
+    // observe exts
+    exts: ['js', 'css', 'ejs', 'png', 'gif', 'jpg'],
+    debug: true
+});
+
+liveServer.watch(__dirname);
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(livereloadMiddleware());
 
 // Session Path
 let fileStoreOption = {
