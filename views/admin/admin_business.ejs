@@ -46,40 +46,38 @@
 					<div class="page-title">
 						<i class="icon-table2 position-left"></i> 운송사 관리
 						<table class="table table-border table-striped">
-							<tbody style="padding: 0;">
-								<tr>
-									<td style="width: 5%;">검색어</td>
-									<td>
-										<select id='choi' class="form-control" style="width: 15%;">
-											<option value="B_Name">운송사 이름</option>
-											<option value="B_Tel">전화번호</option>
-										</select>
-										<span>
-										<input type="text" id="selResult" class="form-control" style="width: 15%;">
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<td>가입일</td>
-									<td>
-										<div class="input-group" style="width: 15%; height: 5%;">
-											<span class="input-group-addon"><i class="icon-alarm" style="width: 10px;"></i></span>
-											<input type="text" class="form-control datepicker-here" data-time-format="hh:ii" data-timepicker="true" placeholder="" id="dept" style="width: 300px;">
-										</div>
-										<p style="font-size: 20px;">~</p>
-										<div class="input-group" style="width: 15%; height: 5%;">
-											<span class="input-group-addon"><i class="icon-alarm" style="width: 10px;"></i></span>
-											<input type="text" class="form-control datepicker-here" data-time-format="hh:ii" data-timepicker="true" placeholder="" id="end" style="width: 300px;">
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td><i class="icon icon-search4"><button type="button" onclick="searchGo()" class="btn btn-primary">검색</button></i></td>
-									<td></td>
-								</tr>
-							</tbody>
+							<tr>
+								<td style="width: 5%;">검색어</td>
+								<td>
+									<select id='choi' class="form-control" style="width: 15%;">
+										<option value="B_Name">운송사 이름</option>
+										<option value="B_Tel">전화번호</option>
+									</select>
+									<span>
+									<input type="text" id="selResult" class="form-control" style="width: 15%;">
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<td>가입일</td>
+								<td>
+									<div class="input-group" style="width: 15%; height: 5%;">
+										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+										<input type="text" class="form-control datepicker-here" data-language="en" placeholder="" id="dept" style="width: 300px;">
+									</div>
+									<p style="font-size: 20px;">~</p>
+									<div class="input-group" style="width: 15%; height: 5%;">
+										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+										<input type="text" class="form-control datepicker-here" data-language="en" placeholder="" id="end" style="width: 300px;">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td><button type="button" onclick="searchGo()" class="btn btn-primary">검색</button></td>
+								<td></td>
+							</tr>
 						</table>
-						
+
 					</div>
 				</div>
 			</div>
@@ -89,30 +87,25 @@
 
 				<!-- Individual column searching (text fields) -->
 				<div class="card card-inverse card-flat table-responsive">
-
-
 					<div class="table-responsive">
-						<table id="tList">
+						<table id="tList" class="table table-border table-striped">
 							<thead>
 								<tr>
-									<th>B_ID</th>
-									<th>B_Name</th>
-									<th>B_Tel</th>
-									<th>B_Fax</th>
-									<th>B_Email</th>
-									<th>B_Zip</th>
-									<th>B_Addr1</th>
-									<th>B_Addr2</th>
-									<th>B_cDt</th>
-									<th>B_uDt</th>
-									<th>Modify</th>
-									<th>Delete</th>
+									<th></th>
+									<th>운송사명</th>
+									<th>전화번호</th>
+									<th>팩스</th>
+									<th>이메일</th>
+									<th>우편번호</th>
+									<th>주소</th>
+									<th>상세주소</th>
+									<th>생성날짜</th>
+									<th>수정날짜</th>
+									<th>수정</th>
+									<th>삭제</th>
 								</tr>
 							</thead>
-							<tbody id="testList"></tbody>
 						</table>
-
-						<div class="pagination"></div>
 					</div>
 				</div>
 			
@@ -222,13 +215,13 @@
 
 	$(document).ready(function(){
 		
-		table =$('#tList').DataTable({
-
+		let table =$('#tList').DataTable({
 			dom: 'l<"toolbar">frtip',
 			initComplete: function(){
 				$("div.toolbar").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">운송사 추가</button>');           
 			}, 
-			//serverSide: true,
+		
+			//serverSide: true,	
 			//processing: true,
 			//searching: true,
 			ajax : '/admin/business/List',
@@ -237,14 +230,38 @@
 				{
 					targets:0,
 					className : 'dt-body-center',
-					
+					"searchable": false,
+            		"orderable": false,
+				},
+				{
+					targets: 8,
+					render: function(data, type, row){
+						var test = row.B_cDt;
+						var test2 = test.split(' ',1)
+						return test2;
+											
+				}
+				},
+				{
+					targets: 9,
+					render: function(data, type, row){
+						var test = row.B_uDt;
+						var test2 = test.split(' ',1)
+						return test2;
+											
+					}
 				}
 			],
 			// start: 0,
 			// pageLength: 10,
 			rowId : "B_ID",
 			columns : [
-				{ "data": "B_ID" },
+				{ 
+					"data": null, 
+					"render": function (data, type, full, meta) {
+						return meta.row + 1
+					}
+				},
 				{ "data": "B_Name" },
 				{ "data": "B_Tel" },
 				{ "data": "B_Fax" },
@@ -265,20 +282,30 @@
 					className: 'B_ID',
 					defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)'>Delete</a>"
 				}
-			],
-			buttons: [ 
-			{
-                text: 'My button'
-            }
 			]
-			
 		});
-
-		
+		table.on( 'order.dt search.dt', function () {
+			table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+				cell.innerHTML = i+1;
+			} );
+		} ).draw();
 	})
+
 	function searchGo(){
+		if($('#dept').val() != "" && $('#end').val() == ""){
+			alert("기간을 입력하세요.");
+			return;
+		}
+		if($('#dept').val() == "" && $('#end').val() != ""){
+			alert("기간을 입력하세요.");
+			return;
+		}
 		$('#tList').DataTable().clear().destroy();
 		$('#tList').DataTable({
+			dom: 'l<"toolbar">frtip',
+			initComplete: function(){
+				$("div.toolbar").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">운송사 추가</button>');           
+			}, 
 			processing: true,
 			ajax : {
 				url : '/admin/business/search',
@@ -292,9 +319,24 @@
 			columnDefs : [
 				{
 					targets:0,
-					className : 'dt-body-center',
-					createCell : function(td, cellData, rowData, row, col){
-						$(td).attr('id', 'B_ID')
+					className : 'dt-body-center'
+				},
+				{
+					targets: 8,
+					render: function(data, type, row){
+						var test = row.B_cDt;
+						var test2 = test.split(' ',1)
+						return test2;
+											
+				}
+				},
+				{
+					targets: 9,
+					render: function(data, type, row){
+						var test = row.B_uDt;
+						var test2 = test.split(' ',1)
+						return test2;
+											
 					}
 				}
 			],
@@ -303,7 +345,12 @@
 			pageLength: 10,
 			rowId : "B_ID",
 			columns : [
-				{ "data": "B_ID" },
+				{ 
+					"data": null, 
+					"render": function (data, type, full, meta) {
+						return meta.row + 1
+					}
+				},
 				{ "data": "B_Name" },
 				{ "data": "B_Tel" },
 				{ "data": "B_Fax" },
@@ -327,7 +374,6 @@
 			],
 
 		});
-		return true;
 	}
 	
 	

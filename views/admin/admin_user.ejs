@@ -44,103 +44,84 @@
 				<div class="header-content">
 					<div class="page-title">
 						<i class="icon-table2 position-left"></i> 회원 테이블
+						<table class="table table-border table-striped">
+							<tr>
+								<td style="width: 5%;">검색어</td>
+								<td>
+									<select id="choi" class="form-control" style="width: 15%;">
+										<option value="U_UserName">아이디</option>
+										<option value="U_Name">이름</option>
+										<option value="U_Brand">브랜드</option>
+									</select>
+									<input type="text" id="selResult" class="form-control" style="width: 15%;">
+								</td>
+							</tr>
+							<tr>
+								<td>구분</td>
+								<td>
+									<label class="radio-inline">
+										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="y"></span></div>
+										관리자
+									</label>
+									
+									<label class="radio-inline">
+										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="n"></span></div>
+										회원
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<td>가입일</td>
+								<td>
+									<div class="input-group" style="width: 15%; height: 5%;">
+										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+										<input type="text" class="form-control datepicker-here" data-language="en" placeholder="" id="dept" style="width: 300px;">
+									</div>
+									<p style="font-size: 20px;">~</p>
+									<div class="input-group" style="width: 15%; height: 5%;">
+										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+										<input type="text" class="form-control datepicker-here" data-language="en" placeholder="" id="end" style="width: 300px;">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td><button type="button" onclick="searchGo()" class="btn btn-primary">검색</button></td>
+								<td></td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
 			<!--/Page Header-->
 
+
 			<div class="container-fluid page-content">
-				<table>
-					<tbody style="padding: 0;">
-						<tr>
-							<td>검색어</td>
-							<td>
-								<select id="choi">
-									<option value="U_UserName">아이디</option>
-									<option value="U_Name">이름</option>
-									<option value="U_Brand">브랜드</option>
-								</select>
-								<input type="text" id="selResult">
-							</td>
-						</tr>
-						<tr>
-							<td>구분</td>
-							<td>
-								<input type="radio" class="chkMem" name="mem" value="y">관리자
-								<input type="radio" class="chkMem" name="mem" value="n">회원
-							</td>
-						</tr>
-						<tr>
-							<td>가입일</td>
-							<td><input type="text" id="dept"> ~ <input type="text" id="end"></td>
-						</tr>
-					</tbody>
-					<tbody id="detailList" style="display: none;">
-						<tr>
-							<td>탈퇴여부</td>
-							<td>		
-								<input type="radio" class="chkOut" name="now">탈퇴
-								<input type="radio" class="chkOut" name="now">정상
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<button type="button" onclick="searchGo()">검색</button>
-				<a id="detailGo" onclick="detailGo()" style="display: block; color: blue;">상세보기 펼침</a>
-				<a id="detailExit" onclick="detailExit()" style="display: none; color: blue;">상세보기 닫기</a>
 
 				<!-- Individual column searching (text fields) -->
 				<div class="card card-inverse card-flat table-responsive">
-					<div class="card-header">
-						<div class="card-title">Individual column searching <span class="text-semibold">(Text fields)</span></div>
-					</div>
-					<div class="card-block p-b-0">
-						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
-					</div>
 					<div class="table-responsive">
-						<table class="table datatable-button-init-basic" id="tList">
+						<table id="tList" class="table table-border table-striped">
 							<thead>
 								<tr>
-								<th>U_ID</th>
-								<th>U_UserName</th>
-								<th>U_Name</th>
-								<th>U_Email</th>
-								<th>U_Phone</th>
-								<th>U_Brand</th>
-								<th>U_Zip</th>
-								<th>U_Addr1</th>
-								<th>U_Addr2</th>
-								<th>U_cDt</th>
-								<th>U_uDt</th>
-								<th>Admin</th>
-								<th>Modify</th>
-								<th>Delete</th>
+									<th></th>
+									<th>아이디</th>
+									<th>이름</th>
+									<th>이메일</th>
+									<th>휴대전화</th>
+									<th>브랜드명</th>
+									<th>우편번호</th>
+									<th>주소</th>
+									<th>상세주소</th>
+									<th>생성날짜</th>
+									<th>수정날짜</th>
+									<th>회원구분</th>
+									<th>수정</th>
+									<th>삭제</th>
 								</tr>
 							</thead>
-							<tbody id="testList">
-								<% for(let i=0; i<data.length; i++){ %>
-								<tr>
-								<td><%=data[i].U_ID%></td>
-								<td><%=data[i].U_UserName%></td>
-								<td><%=data[i].U_Name%></td>
-								<td><%=data[i].U_Email%></td>
-								<td><%=data[i].U_Phone%></td>
-								<td><%=data[i].U_Brand%></td>
-								<td><%=data[i].U_Zip%></td>
-								<td><%=data[i].U_Addr1%></td>
-								<td><%=data[i].U_Addr2%></td>
-								<td><%=data[i].U_cDt%></td>
-								<td><%=data[i].U_uDt%></td>
-								<td><%=data[i].U_isAdmin%></td>
-								<td><a class="icon-pencil6" id='<%=data[i].U_ID%>' data-toggle="modal" data-target="#modal_info_header" onclick="edit(this)">Edit</a></td>
-								<td><a class="icon-trash" id='<%=data[i].U_ID%>' data-toggle="modal" data-target="#modal_danger_header" onclick="del(this)">Delete</a></td>		
-								</tr>
-								<% } %>  				
-							</tbody>
 						</table>
 					</div>
 				</div>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">회원 추가</button>
 				<!-- 수정 모달 -->
 				<div id="modal_info_header" class="modal fade" style="display: none;" aria-hidden="true">
 					<div class="modal-dialog">
@@ -194,7 +175,7 @@
 								<label>Email</label><input type='text' class='form-control' id='email'>
 								<label>Phone</label><input type='text' class='form-control' id='phone'>
 								<label>Brand</label><input type='text' class='form-control' id='brand'>
-								<label>Admin</label><select id="admin"><option value='y'>관리자</option><option value='n'>일반회원</option></select>
+								<label>Admin</label><select id="admin"><option value='n'>일반회원</option><option value='y'>관리자</option></select>
 								<div class="address_form">
 									<input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" style="background: #f8f8f8;">
 									<button type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn-primary round">우편번호찾기</button><br>
@@ -226,48 +207,131 @@
 
 	<script>
 
-	function searchGo(){
-		$('#testList').empty();
-		$.ajax({
-			url: '/admin/user/search',
-			method: 'post',
-			dataType: 'json',
-			data: {
-				'selectName' : $('#choi option:selected').val(), 
-				'selResult' : $('#selResult').val(), 'chkMem' : $('input[name="mem"]:checked').val(),
-				'dept' : $('#dept').val(), 'end' : $('#end').val()
-			},
-			success: function(res){
-				console.log(res.data)
-				for(let i=0; i<res.data.length; i++){
-					let html = "<tr>";
-						html += "<td>"+res.data[i].U_ID+"</td>";
-						html += "<td>"+res.data[i].U_UserName+"</td>";
-						html += "<td>"+res.data[i].U_Name+"</td>";
-						html += "<td>"+res.data[i].U_Email+"</td>";
-						html += "<td>"+res.data[i].U_Phone+"</td>";
-						html += "<td>"+res.data[i].U_Brand+"</td>";
-						html += "<td>"+res.data[i].U_Zip+"</td>";
-						html += "<td>"+res.data[i].U_Addr1+"</td>";
-						html += "<td>"+res.data[i].U_Addr2+"</td></tr>";
-					$('#testList').append(html);
-
+	$(document).ready(function(){
+		
+		let table =$('#tList').DataTable({
+			dom: 'l<"toolbar">frtip',
+			initComplete: function(){
+				$("div.toolbar").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">회원 추가</button>');           
+			}, 
+		
+			//serverSide: true,	
+			//processing: true,
+			//searching: true,
+			ajax : '/admin/user/List',
+			deferRender: true,
+			columnDefs : [
+				{
+					targets:0,
+					className : 'dt-body-center',
+					"searchable": false,
+            		"orderable": false,
 				}
-			}
-		})
-	}
+			],
+			// start: 0,
+			// pageLength: 10,
+			rowId : "U_ID",
+			columns : [
+				{ 
+					"data": null, 
+					"render": function (data, type, full, meta) {
+						return meta.row + 1
+					}
+				},
+				{ "data": "U_UserName" },
+				{ "data": "U_Name" },
+				{ "data": "U_Email" },
+				{ "data": "U_Phone" },
+				{ "data": "U_Brand" },
+				{ "data": "U_Zip" },
+				{ "data": "U_Addr1" },
+				{ "data": "U_Addr2" },
+				{ "data": "U_cDt" },
+				{ "data": "U_uDt" },
+				{ "data": "U_isAdmin" },
+				{ 
+					data: null,
+					className: 'U_ID',
+					defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a>"
+			
+				},
+				{ 	
+					data: null,
+					className: 'U_ID',
+					defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)'>Delete</a>"
+				}
+			]
+		});
 
-	function detailGo(){
-		$('#detailList').css('display', 'block');
-		$('#detailExit').css('display','block');
-		$('#detailGo').css('display','none');
+		
+	})
 
-	}
 
-	function detailExit(){
-		$('#detailList').css('display', 'none');
-		$('#detailExit').css('display','none');
-		$('#detailGo').css('display','block');
+	function searchGo(){
+		if($('#dept').val() != "" && $('#end').val() == ""){
+			alert("기간을 입력하세요.");
+			return;
+		}else if($('#dept').val() == "" && $('#end').val() != ""){
+			alert("기간을 입력하세요.");
+			return;
+		}
+		$('#tList').DataTable().clear().destroy();
+		$('#tList').DataTable({
+			dom: 'l<"toolbar">frtip',
+			initComplete: function(){
+				$("div.toolbar").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">회원 추가</button>');           
+			}, 
+			processing: true,
+			ajax : {
+				url : '/admin/user/search',
+				method: 'post',
+				data : {
+					'selectName' : $('#choi option:selected').val(), 'chkMem' : $("input:radio[name='radio-inline-left']:checked").val(),
+					'selResult' : $('#selResult').val(), 'dept' : $('#dept').val(), 'end' : $('#end').val()
+				}
+			},
+			deferRender: true,
+			columnDefs : [
+				{
+					targets:0,
+					className : 'dt-body-center'
+				}
+			],
+			start: 0,
+			length: 50,
+			pageLength: 10,
+			rowId : "U_ID",
+			columns : [
+				{ 
+					"data": null, 
+					"render": function (data, type, full, meta) {
+						return meta.row + 1
+					}
+				},
+				{ "data": "U_UserName" },
+				{ "data": "U_Name" },
+				{ "data": "U_Email" },
+				{ "data": "U_Brand" },
+				{ "data": "U_Zip" },
+				{ "data": "U_Addr1" },
+				{ "data": "U_Addr2" },
+				{ "data": "U_cDt" },
+				{ "data": "U_uDt" },
+				{ "data": "U_isAdmin" },
+				{ 
+					data: null,
+					className: 'U_ID',
+					defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a>"
+			
+				},
+				{ 	
+					data: null,
+					className: 'U_ID',
+					defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)'>Delete</a>"
+				}			
+			],
+
+		});
 	}
 
 	function insertMember(){
@@ -295,7 +359,7 @@
 			url: '/admin/userModify',
 			method: 'post',
 			dataType: 'json',
-			data: {'uId' : e.id},
+			data: {'uId' : e.parentElement.parentElement.id},
 			success: function(res){
 				console.log(res.data);
 				let	html ="<input type='uId' class='form-control' id='uId' value="+res.data.U_ID+" style='display: none;'>";
@@ -341,7 +405,7 @@
 				url: '/admin/userDelete',
 				method: 'post',
 				dataType: 'json',
-				data: {'uId' : e.id},
+				data: {'uId' : e.parentElement.parentElement.id},
 				success: function(res){
 					location.reload()
 				}

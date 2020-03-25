@@ -45,7 +45,45 @@
 			<div class="header">
 				<div class="header-content">
 					<div class="page-title">
-						<i class="icon-table2 position-left"></i> Advanced datatable
+						<i class="icon-table2 position-left"></i> 배차관리
+						<table class="table table-border table-striped">
+							<tr>
+								<td style="width: 5%;">검색어</td>
+								<td>
+									<select id='choi' class="form-control" style="width: 15%;">
+										<option value="B_Name">운송사</option>
+										<option value="CY_Ty">차량종류</option>
+										<option value="CT_CarNum">차량번호</option>
+										<option value="CT_DriverName">기사이름</option>
+									</select>
+									<span>
+									<input type="text" id="selResult" class="form-control" style="width: 15%;">
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<td>출발시간</td>
+								<td>
+									<div class="input-group" style="width: 15%; height: 5%;">
+										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+										<input type="text" class="form-control datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="dept" style="width: 300px;">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>복귀시간</td>
+								<td>
+									<div class="input-group" style="width: 15%; height: 5%;">
+										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+										<input type="text" class="form-control datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="end" style="width: 300px;">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td><button type="button" onclick="searchGo()" class="btn btn-primary">검색</button></td>
+								<td></td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -54,62 +92,28 @@
 			<div class="container-fluid page-content">
 				<!-- Individual column searching (text fields) -->
 				<div class="card card-inverse card-flat table-responsive">
-					<div class="card-header">
-						<div class="card-title">Individual column searching <span class="text-semibold">(Text fields)</span></div>
-					</div>
-					<div class="card-block p-b-0">
-						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
-					</div>
 					<div class="table-responsive">
-						<table class="table datatable-button-init-basic" id="tList">
+						<table class="table table-border table-striped" id="tList">
 							<thead>
 								<tr>
-									<th>B_Name</th>
-									<th>CY_Ty</th>
-									<th>CT_DepartureTe</th>
-									<th>CT_ReturnTe</th>
-									<th>CT_LeadTe</th>
-									<th>CT_CarNum</th>
-									<th>CT_DriverName</th>
-									<th>CT_DriverPhone</th>
+									<th></th>
+									<th>운송사명</th>
+									<th>차량종류</th>
+									<th>출발시간</th>
+									<th>복귀시간</th>
+									<th>걸리는시간</th>
+									<th>차량번호</th>
+									<th>기사이름</th>
+									<th>기사전화번호</th>
 									<th>현재 좌석수</th>
-									<th class="text-center">Edit</th>
-									<th class="text-center">Delete</th>
+									<th>수정</th>
+									<th>삭제</th>
 								</tr>
 							</thead>
-							<tbody>
-								<% for(let i=0; i<data.length; i++){ %>
-								<tr>
-									<td><%=data[i].B_Name%></td>
-									<td><%=data[i].CY_Ty%></td>
-									<td><%=data[i].CT_DepartureTe%></td>
-									<td><%=data[i].CT_ReturnTe%></td>
-									<td><%=data[i].CT_LeadTe%></td>
-									<td><%=data[i].CT_CarNum%></td>
-									<td><%=data[i].CT_DriverName%></td>
-									<td><%=data[i].CT_DriverPhone%></td>
-									<td><a id='<%=data[i].CT_ID%>' data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)" style="color:darkblue; "><%=data[i].now%>&nbsp;/&nbsp;<%=data[i].total%></a></td>
-									<td><a class="icon-pencil6" id='<%=data[i].CT_ID%>' data-toggle="modal" data-target="#modal_info_header" onclick="edit(this)">Edit</a></td>
-									<td><a class="icon-trash" id='<%=data[i].CT_ID%>' data-toggle="modal" data-target="#modal_danger_header" onclick="del(this)">Delete</a></td>
-								</tr>									
-								<% } %>  							
-							</tbody>	
-						</table>
-						
-					</div>
-					
+						</table>						
+					</div>					
 				</div>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" onclick="insert(this)">추가</button>
 				
-
-				<div class="card card-block text-center">
-					<h4 class="m-b-20">Basic time picker</h4>
-					<div class="input-group">
-						<span class="input-group-addon"><i class="icon-alarm"></i></span>
-						<input type="text" class="form-control datepicker-here" data-time-format="hh:ii" data-timepicker="true" data-language="en" data-position="top left" placeholder="">
-					</div>
-				</div>
-
 				<!-- 수정 모달 -->
 				<div id="modal_info_header" class="modal fade container-fluid page-content" style="display: none;" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
@@ -208,7 +212,136 @@
 	<script>
 
 
-					  
+$(document).ready(function(){
+	let table =$('#tList').DataTable({
+		dom: 'l<"toolbar">frtip',
+		initComplete: function(){
+			$("div.toolbar").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" onclick="insert()">배차 추가</button>');           
+		}, 
+	
+		//serverSide: true,	
+		//processing: true,
+		//searching: true,
+		ajax : '/admin/carTime/List',
+		deferRender: true,
+		columnDefs : [
+			{
+				targets:0,
+				className : 'dt-body-center',
+				"searchable": false,
+				"orderable": false,
+			},
+			{
+				targets: 9,
+				render: function(data, type, row){
+					return '<a id='+row.CT_ID+' data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)" style="color:darkblue; ">'+row.now+'&nbsp;/&nbsp;'+row.total+'</a>';
+										
+				}
+			}
+		],
+		// start: 0,
+		// pageLength: 10,
+		rowId : "CT_ID",
+		columns : [
+			{ 
+				"data": null, 
+				"render": function (data, type, full, meta) {
+					return meta.row + 1
+				}
+			},
+			{ "data": "B_Name" },
+			{ "data": "CY_Ty" },
+			{ "data": "CT_DepartureTe" },
+			{ "data": "CT_ReturnTe" },
+			{ "data": "CT_LeadTe" },
+			{ "data": "CT_CarNum" },
+			{ "data": "CT_DriverName" },
+			{ "data": "CT_DriverPhone" },
+			{ "data": "now"},
+			{ 
+				data: null,
+				defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a>"
+		
+			},
+			{ 	
+				data: null,
+				defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)'>Delete</a>"
+			}
+		]
+	});
+	table.on( 'order.dt search.dt', function () {
+		table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+			cell.innerHTML = i+1;
+		} );
+	} ).draw();
+})
+
+	function searchGo(){
+
+		$('#tList').DataTable().clear().destroy();
+		$('#tList').DataTable({
+			dom: 'l<"toolbar">frtip',
+			initComplete: function(){
+				$("div.toolbar").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">운송사 추가</button>');           
+			}, 
+			processing: true,
+			ajax : {
+				url : '/admin/carTime/search',
+				method: 'post',
+				data : {
+					'selectName' : $('#choi option:selected').val(), 
+					'selResult' : $('#selResult').val(), 'dept' : $('#dept').val(), 'end' : $('#end').val()
+				}
+			},
+			deferRender: true,
+			columnDefs : [
+				{
+					targets:0,
+					className : 'dt-body-center'
+				},
+				{
+					targets: 9,
+					render: function(data, type, row){
+						return '<a id='+row.CT_ID+' data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)" style="color:darkblue; ">'+row.now+'&nbsp;/&nbsp;'+row.total+'</a>';
+                                            
+					}
+				}
+			],
+			rowId : "CT_ID",
+			columns : [
+				{ 
+					"data": null, 
+					"render": function (data, type, full, meta) {
+						return meta.row + 1
+					}
+				},
+				{ "data": "B_Name" },
+				{ "data": "CY_Ty" },
+				{ "data": "CT_DepartureTe" },
+				{ "data": "CT_ReturnTe" },
+				{ "data": "CT_LeadTe" },
+				{ "data": "CT_CarNum" },
+				{ "data": "CT_DriverName" },
+				{ "data": "CT_DriverPhone" },
+				{ "data": "now"},
+				{ 
+					data: null,
+					className: 'CT_ID',
+					defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a>"
+			
+				},
+				{ 	
+					data: null,
+					className: 'CT_ID',
+					defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)'>Delete</a>"
+				}			
+			],
+
+		});
+	}					  
+
+
+
 	//좌석예약표
 	function seatnow(e){	
 		$('#seatList').empty();	
