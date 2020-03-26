@@ -46,14 +46,14 @@
 						<i class="icon-table2 position-left"></i> 회원좌석예약
 						<table class="table table-border table-striped">
 							<tr>
-								<td style="width: 5%;">검색어</td>
+								<td style="width: 10%;">검색어</td>
 								<td>
-									<select id="choi" class="form-control" style="width: 15%;">
+									<select id="choi">
 										<option value="U_UserName">아이디</option>
 										<option value="U_Name">이름</option>
 										<option value="B_Name">운송사</option>
 									</select>
-									<input type="text" id="selResult" class="form-control" style="width: 15%;">
+									<input type="text" id="selResult" class="form-control2" style="width: 15%;">
 								</td>
 							</tr>
 							<tr>
@@ -73,14 +73,14 @@
 							<tr>
 								<td>결제일시</td>
 								<td>
-									<div class="input-group" style="width: 15%; height: 5%;">
+									<div class="input-group" style="height: 30px;">
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control datepicker-here" data-language="en" placeholder="" id="dept" style="width: 300px;">
+										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="dept" style="width: 290px; height: 30px;">
 									</div>
-									<p style="font-size: 20px;">~</p>
-									<div class="input-group" style="width: 15%; height: 5%;">
+									~
+									<div class="input-group" style="height: 30px;">
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control datepicker-here" data-language="en" placeholder="" id="end" style="width: 300px;">
+										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="end" style="width: 290px;">
 									</div>
 								</td>
 							</tr>
@@ -166,8 +166,18 @@ $(document).ready(function(){
 			{
 				targets: 6,
 				render: function(data, type, row){
-					// debugger;
-					return '<a id='+row.U_ID+' name="'+row.CR_cDt+'"  data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)" style="color:darkblue; ">'+row.CR_SeatNum.data.toString()+'</a>';
+					console.log(row.CR_SeatNum.data)
+					// var arrayBuffer = new Uint8Array(row.CR_SeatNum.data);
+
+					// console.log("dddd", arrayBuffer)
+					var seatNum = String.fromCharCode.apply(null, row.CR_SeatNum.data);
+					//console.log(seatNum)
+					decodeURIComponent(seatNum);
+					//console.log(String.fromCharCode(235, 178, 136))
+					//console.log(decodeURIComponent(seatNum))
+
+
+					return '<a id='+row.U_ID+' name="'+row.CR_cDt+'"  data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)" style="color:darkblue; ">'+decodeURIComponent(seatNum)+'</a>';
 										
 				}
 			},
@@ -290,8 +300,8 @@ $(document).ready(function(){
 
 	//좌석예약표
 	function seatnow(e){	
-		console.log("idididid", e.id)
-		console.log('vlkavlavl', e.name)
+		//console.log("idididid", e.id)
+		//console.log('vlkavlavl', e.name)
 		$('#seatList').empty();	
 		$('#modal_large').css('display','block')
 		$.ajax({
@@ -302,7 +312,7 @@ $(document).ready(function(){
 				   'cDt' : e.name	
 				},
 			success: function(res){
-				console.log("dadadadada",res.data)
+				//console.log("dadadadada",res.data)
 				//좌석생성
 				for(let k=0; k<10; k++){
 					let html = "<tr>"
@@ -330,12 +340,6 @@ $(document).ready(function(){
 					for(let i=0; i<res.data.length; i++){
 					//console.log("222",res.data[i].CR_SeatNum)
 						if(this.id == res.data[i].CR_SeatNum){
-							console.log("this.id::", this.id)
-							console.log('lelel :', res.data[i].CR_SeatNum)
-							console.log("thus",this)
-							console.log("thus1",$(this))
-							console.log("thus2",$('#'+this.id))
-							
 							//console.log("data.CR_SeatNUm::", res.data[i].CR_SeatNum)
 							$(this).attr('src','/img/reservation/seat_img_select.png')
 							//$('#'+this.id).attr('src','/img/reservation/seat_img_select.png')							

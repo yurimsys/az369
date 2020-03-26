@@ -45,35 +45,35 @@
 				<div class="header-content">
 					<div class="page-title">
 						<i class="icon-table2 position-left"></i> 운송사 관리
-						<table class="table table-border table-striped">
+						<table class="table table-cols">
 							<tr>
-								<td style="width: 5%;">검색어</td>
+								<th style="width: 10%;">검색어</th>
 								<td>
-									<select id='choi' class="form-control" style="width: 15%;">
+									<select id='choi'>
 										<option value="B_Name">운송사 이름</option>
 										<option value="B_Tel">전화번호</option>
 									</select>
 									<span>
-									<input type="text" id="selResult" class="form-control" style="width: 15%;">
+									<input type="text" id="selResult" class="form-control2" style="width: 15%;">
 									</span>
 								</td>
 							</tr>
 							<tr>
-								<td>가입일</td>
+								<th>가입일</th>
 								<td>
-									<div class="input-group" style="width: 15%; height: 5%;">
+									<div class="input-group" style="height: 30px;">
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control datepicker-here" data-language="en" placeholder="" id="dept" style="width: 300px;">
+										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="dept" style="width: 290px; height: 30px;">
 									</div>
-									<p style="font-size: 20px;">~</p>
-									<div class="input-group" style="width: 15%; height: 5%;">
+									~
+									<div class="input-group" style="height: 30px;">
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control datepicker-here" data-language="en" placeholder="" id="end" style="width: 300px;">
+										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="end" style="width: 290px;">
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<td><button type="button" onclick="searchGo()" class="btn btn-primary">검색</button></td>
+								<th><button type="button" onclick="searchGo()" class="btn btn-primary">검색</button></td>
 								<td></td>
 							</tr>
 						</table>

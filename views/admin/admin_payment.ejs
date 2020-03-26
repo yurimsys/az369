@@ -45,43 +45,43 @@
 					<div class="page-title">
 						<i class="icon-table2 position-left"></i> 결제관리
 						
-						<table class="table table-border table-striped">
+						<table class="table table-cols">
 							<tr>
-								<td style="width: 5%;">검색어</td>
+								<th style="width: 10%;">검색어</th>
 								<td>
-									<select id="choi" class="form-control" style="width: 15%;">
+									<select id="choi">
 										<option value="U_UserName">아이디</option>
 										<option value="U_Name">이름</option>
 										<option value="U_Phone">전화번호</option>
 									</select>
-									<input type="text" id="selResult" class="form-control" style="width: 15%;">
+									<input type="text" id="selResult" class="form-control2" style="width: 15%;">
 								</td>
 							</tr>
 							<tr>
-								<td>결제구분</td>
+								<th>결제구분</th>
 								<td>
 									<label class="radio-inline">
 										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="n"></span></div>
-										결제완료
+										&emsp;&emsp;결제완료
 									</label>
 									
 									<label class="radio-inline">
 										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="y"></span></div>
-										취소완료
+										&emsp;&emsp;취소완료
 									</label>
 								</td>
 							</tr>
 							<tr>
-								<td>날짜선택</td>
+								<th>날짜선택</th>
 								<td>
-									<div class="input-group" style="width: 15%; height: 5%;">
+									<div class="input-group" style="height: 30px;">
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control datepicker-here" data-language="en" placeholder="" id="dept" style="width: 300px;">
+										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="dept" style="width: 290px; height: 30px;">
 									</div>
-									<p style="font-size: 20px;">~</p>
-									<div class="input-group" style="width: 15%; height: 5%;">
+									~
+									<div class="input-group" style="height: 30px;">
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control datepicker-here" data-language="en" placeholder="" id="end" style="width: 300px;">
+										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="end" style="width: 290px;">
 									</div>
 								</td>
 							</tr>

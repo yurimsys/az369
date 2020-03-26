@@ -465,21 +465,19 @@ router.post('/carTime/modify', auth.isLoggedIn, function(req, res, next) {
     }else{
         let ctId = req.body.ctId;
         let ctCyId = req.body.ctCyId;
-        let dept = req.body.dept;
-        let retun = req.body.retun;
+        let deptTe = req.body.deptTe;
+        let returnTe = req.body.return;
         let lead = req.body.lead;
         let carNum = req.body.carNum;
         let drName = req.body.drName;
         let drPhone = req.body.drPhone;
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-        console.log(ctId, ctCyId, dept, retun, lead, carNum, drName, drPhone);
     
         console.log("아이디 :", ctId);
-        let query = `update tCT set CT_CY_ID =:ctCyId, CT_DepartureTe =:dept, CT_ReturnTe =:retun,
+        let query = `update tCT set CT_CY_ID =:ctCyId, CT_DepartureTe =:deptTe, CT_ReturnTe =:returnTe,
                                     CT_LeadTe =:lead, CT_carNum =:carNum, CT_DriverName =:drName, CT_DriverPhone =:drPhone
                      where CT_ID =:ctId`; 
     
-        connection.query(query,{ctCyId, dept, retun, lead, carNum, drName, drPhone, ctId},
+        connection.query(query,{ctCyId, deptTe, returnTe, lead, carNum, drName, drPhone, ctId},
           function(err, rows, fields) {
               if (err) throw err;
               res.json({data : "수정"});
@@ -928,75 +926,13 @@ router.get('/preference', auth.isLoggedIn, function(req, res, next) {
 /////예약관리
 
 //userRes 메인화면
-router.get('/userRes', auth.isLoggedIn, function(req, res, next) {
-                                                            
-    if(req.user.U_isAdmin === 'n'){
-        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
-    }else{
-        let query = `select
-                        tU.U_ID,
-                        tU.U_UserName,
-                        tU.U_Name,
-                        tU.U_Phone,
-                        tB.B_Name,
-                        tCY.CY_Ty,
-                        tPH.PH_Type,
-                        tPH.PH_Price,
-                        tCR.CR_Cancel,
-                        tCR.CR_uDt,
-                        (select group_concat(CR_SeatNum ,'번')) as CR_SeatNum,
-                        tCR.CR_cDt
-                    from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID inner join tU on tCR.CR_U_ID = tU.U_ID inner join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                        where tCR.CR_CT_ID =tCT.CT_ID AND tCR.CR_Cancel = 'n'
-                    and tCT.CT_DepartureTe > now() 
-                    group by tCR.CR_cDt
-                    order by tCR.CR_cDt desc`;
-        connection.query(query,
-            function(err, rows, fields) {
-            if (err) throw err;
-            res.render("admin_userRes", { data : rows});
-            console.log("user",rows);
-        });
-    }
-});
-
-// //userRes 메인화면
 // router.get('/userRes', auth.isLoggedIn, function(req, res, next) {
                                                             
 //     if(req.user.U_isAdmin === 'n'){
 //         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
 //     }else{
-//          res.render("admin_userRes");
-//     }
-// });
-
-
-// //UserRes 데이터테이블
-// router.get('/userRes/List', auth.isLoggedIn, function(req, res, next) {
-//     if(req.user.U_isAdmin === 'n'){
-//         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
-//     }else{
-//     // let query = `select
-//     //         tU.U_ID,
-//     //         tU.U_UserName,
-//     //         CR_SeatNum,
-//     //         tU.U_Name,
-//     //         tU.U_Phone,
-//     //         tB.B_Name,
-//     //         tCY.CY_Ty,
-//     //         tPH.PH_Type,
-//     //         tPH.PH_Price,
-//     //         tCR.CR_Cancel,
-//     //         tCR.CR_uDt,
-//     //         tCR.CR_cDt
-//     //     from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID inner join tU on tCR.CR_U_ID = tU.U_ID inner join tPH on tPH.PH_ID = tCR.CR_PH_ID
-//     //         where tCR.CR_CT_ID =tCT.CT_ID
-//     //     and tCT.CT_DepartureTe > now() 
-        
-//     //     order by tCR.CR_cDt desc limit 8000`; 
 //         let query = `select
 //                         tU.U_ID,
-//                         (select group_concat(CR_SeatNum ,'번')) as CR_SeatNum,
 //                         tU.U_UserName,
 //                         tU.U_Name,
 //                         tU.U_Phone,
@@ -1006,33 +942,95 @@ router.get('/userRes', auth.isLoggedIn, function(req, res, next) {
 //                         tPH.PH_Price,
 //                         tCR.CR_Cancel,
 //                         tCR.CR_uDt,
+//                         (select group_concat(CR_SeatNum ,'번')) as CR_SeatNum,
 //                         tCR.CR_cDt
 //                     from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID inner join tU on tCR.CR_U_ID = tU.U_ID inner join tPH on tPH.PH_ID = tCR.CR_PH_ID
 //                         where tCR.CR_CT_ID =tCT.CT_ID AND tCR.CR_Cancel = 'n'
 //                     and tCT.CT_DepartureTe > now() 
 //                     group by tCR.CR_cDt
-//                     order by tCR.CR_cDt desc`; 
-//         // let query = `select tcr.CR_cDt, tcr.CR_SeatNum 
-//         // from tcr, tct where tcr.cr_ct_id = tct.ct_id limit 1000`;
-
+//                     order by tCR.CR_cDt desc`;
 //         connection.query(query,
 //             function(err, rows, fields) {
-//                 if (err) throw err;
-//                 // let result = {};
-//                 // rows.forEach(data => {
-//                 //     if(result[data.CR_cDt] == undefined)
-//                 //     result[data.CR_cDt] = [];
-//                 //     result[data.CR_cDt].push(data.CR_SeatNum);
-//                 // });
-//                 // console.log("-------------------------");
-//                 // console.log(result);
-//                 // console.log("-------------------------");
-//                 // console.log(rows);
-//                 res.json({data : rows});
+//             if (err) throw err;
+//             res.render("admin_userRes", { data : rows});
+//             console.log("user",rows);
 //         });
-        
 //     }
 // });
+
+//userRes 메인화면
+router.get('/userRes', auth.isLoggedIn, function(req, res, next) {
+                                                            
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+         res.render("admin_userRes");
+    }
+});
+
+
+//UserRes 데이터테이블
+router.get('/userRes/List', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+    // let query = `select
+    //         tU.U_ID,
+    //         tU.U_UserName,
+    //         CR_SeatNum,
+    //         tU.U_Name,
+    //         tU.U_Phone,
+    //         tB.B_Name,
+    //         tCY.CY_Ty,
+    //         tPH.PH_Type,
+    //         tPH.PH_Price,
+    //         tCR.CR_Cancel,
+    //         tCR.CR_uDt,
+    //         tCR.CR_cDt
+    //     from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID inner join tU on tCR.CR_U_ID = tU.U_ID inner join tPH on tPH.PH_ID = tCR.CR_PH_ID
+    //         where tCR.CR_CT_ID =tCT.CT_ID
+    //     and tCT.CT_DepartureTe > now() 
+        
+    //     order by tCR.CR_cDt desc limit 8000`; 
+        let query = `select
+                        tU.U_ID,
+                        (select group_concat(CR_SeatNum)) as CR_SeatNum,
+                        tU.U_UserName,
+                        tU.U_Name,
+                        tU.U_Phone,
+                        tB.B_Name,
+                        tCY.CY_Ty,
+                        tPH.PH_Type,
+                        tPH.PH_Price,
+                        tCR.CR_Cancel,
+                        tCR.CR_uDt,
+                        tCR.CR_cDt
+                    from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID inner join tU on tCR.CR_U_ID = tU.U_ID inner join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                        where tCR.CR_CT_ID =tCT.CT_ID AND tCR.CR_Cancel = 'n'
+                    and tCT.CT_DepartureTe > now() 
+                    group by tCR.CR_cDt
+                    order by tCR.CR_cDt desc`; 
+        // let query = `select tcr.CR_cDt, tcr.CR_SeatNum 
+        // from tcr, tct where tcr.cr_ct_id = tct.ct_id limit 1000`;
+
+        connection.query(query,
+            function(err, rows, fields) {
+                if (err) throw err;
+                // let result = {};
+                // rows.forEach(data => {
+                //     if(result[data.CR_cDt] == undefined)
+                //     result[data.CR_cDt] = [];
+                //     result[data.CR_cDt].push(data.CR_SeatNum);
+                // });
+                // console.log("-------------------------");
+                // console.log(result);
+                // console.log("-------------------------");
+                // console.log(rows);
+                res.json({data : rows});
+        });
+        
+    }
+});
 
 //UserRes 좌석확인
 router.post('/userResList', auth.isLoggedIn, function(req, res, next) {
