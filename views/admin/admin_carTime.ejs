@@ -260,12 +260,12 @@ $(document).ready(function(){
 			{ "data": "now"},
 			{ 
 				data: null,
-				defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a>"
+				defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)' style='color:darkblue;'>Edit</a>"
 		
 			},
 			{ 	
 				data: null,
-				defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)'>Delete</a>"
+				defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)' style='color:darkblue;'>Delete</a>"
 			}
 		]
 	});
@@ -302,7 +302,7 @@ $(document).ready(function(){
 				{
 					targets: 9,
 					render: function(data, type, row){
-						return '<a id='+row.CT_ID+' data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)" style="color:darkblue; ">'+row.now+'&nbsp;/&nbsp;'+row.total+'</a>';
+						return '<a id='+row.CT_ID+' data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)" style="color:darkblue;">'+row.now+'&nbsp;/&nbsp;'+row.total+'</a>';
                                             
 					}
 				}
@@ -327,13 +327,13 @@ $(document).ready(function(){
 				{ 
 					data: null,
 					className: 'CT_ID',
-					defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a>"
+					defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)' style='color:darkblue;'>Edit</a>"
 			
 				},
 				{ 	
 					data: null,
 					className: 'CT_ID',
-					defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)'>Delete</a>"
+					defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)' style='color:darkblue;'>Delete</a>"
 				}			
 			],
 
@@ -350,7 +350,7 @@ $(document).ready(function(){
 			url: '/admin/carTimeSeatList',
 			method: 'post',
 			dataType: 'json',
-			data: {'ctId' : e.id},
+			data: {'ctId' : e.parentElement.parentElement.id},
 			success: function(res){
 				//좌석생성
 				for(let k=0; k<10; k++){
@@ -448,7 +448,7 @@ $(document).ready(function(){
 			url: '/admin/carTimeModify',
 			method: 'post',
 			dataType: 'json',
-			data: {'ctId' : e.id},
+			data: {'ctId' : e.parentElement.parentElement.id},
 			success: function(res){
 				let	html ="<input type='ctId' class='form-control' id='ctId' value="+res.data.CT_ID+" style='display: none;'>";
 					html += "<select id='ctCyId' class='form-control col-md-6'><option value=0>운송사 선택</option></select>";
@@ -495,13 +495,13 @@ $(document).ready(function(){
 
 	//삭제
   	function del(e){
-		$('#delete').attr('val', e.id);
+		$('#delete').attr('val', e.parentElement.parentElement.id);
 		$('#delete').on('click',function(){
 			$.ajax({
 				url: '/admin/carTimeDelete',
 				method: 'post',
 				dataType: 'json',
-				data: {'ctId' : e.id},
+				data: {'ctId' : e.parentElement.parentElement.id},
 				success: function(res){
 					location.reload();
 				}
