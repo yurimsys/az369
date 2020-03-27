@@ -2,6 +2,17 @@
 <html lang="en">
 <head>
 	<% include templates/admin_head.ejs %>
+	<style>        
+        table#tList tbody tr:hover > .sorting_1 {
+        background-color:white;
+        }
+        #tList:hover tbody tr:hover td {
+            background: #eee;
+            cursor: pointer;
+            color: black;
+        }
+   
+    </style>
 </head>
 <body id="top">
 
@@ -43,8 +54,16 @@
 			<div class="header">
 				<div class="header-content">
 					<div class="page-title">
-						<i class="icon-table2 position-left"></i> 회원 테이블
-						<table class="table table-border table-striped">
+						<div class="row" style="margin: 0;">
+							<div class="col-6">
+								<i class="icon-table2 position-left"></i>회원 관리
+							</div>
+							<div class="col-6">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" style="height: 40px; float: right;" onclick="insert()">회원 추가</button>
+							</div>
+						</div>
+					</div>
+						<table class="table table-cols">
 							<tr>
 								<th style="width: 10%;">검색어</th>
 								<td>
@@ -61,35 +80,30 @@
 								<td>
 									<label class="radio-inline">
 										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="y"></span></div>
-										관리자
+										&emsp;&emsp;관리자
 									</label>
 									
 									<label class="radio-inline">
 										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="n"></span></div>
-										회원
+										&emsp;&emsp;회원
 									</label>
 								</td>
 							</tr>
 							<tr>
-								<td>가입일</td>
+								<th>가입일</th>
 								<td>
 									<div class="input-group" style="height: 30px;">
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="dept" style="width: 290px; height: 30px;">
-									</div>
-									~
-									<div class="input-group" style="height: 30px;">
+										<input type="text" class="form-control2 datepicker-here" id="dept" style="width: 290px; height: 30px;">
+										&emsp14; ~ &emsp14;
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="end" style="width: 290px;">
+										<input type="text" class="form-control2 datepicker-here" id="end" style="width: 290px;">
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td><button type="button" onclick="searchGo()" class="btn btn-primary">검색</button></td>
-								<td></td>
-							</tr>
 						</table>
-					</div>
+						<button type="button" onclick="searchGo()" class="btn btn-primary" style=" width: 200px; margin-left: 40%">검색</button>
+					
 				</div>
 			</div>
 			<!--/Page Header-->
@@ -134,7 +148,7 @@
 								
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal" id="delete">Delete</button>
 								<button type="button" class="btn btn-info" id="update">Modify</button>
 							</div>
 						</div>
@@ -150,11 +164,11 @@
 								<div class="modal-title">회원 삭제</div>
 							</div>
 							<div class="modal-body">
-								<p>삭제?</p>
+								<p>삭제 하시겠습니까?</p>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-danger" id="delete">Delete</button>
+								<button type="button" class="btn btn-danger" id="delAction">Delete</button>
 							</div>
 						</div>
 					</div>
@@ -211,13 +225,6 @@
 		
 		let table =$('#tList').DataTable({
 			dom: 'l<"toolbar">frtip',
-			initComplete: function(){
-				$("div.toolbar").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">회원 추가</button>');           
-			}, 
-		
-			//serverSide: true,	
-			//processing: true,
-			//searching: true,
 			ajax : '/admin/user/List',
 			deferRender: true,
 			columnDefs : [
@@ -226,6 +233,18 @@
 					className : 'dt-body-center',
 					"searchable": false,
             		"orderable": false,
+				},
+				{
+					targets: 11,
+					render: function(data, row, type){
+						let adminType = row.U_isAdmin;
+						if(row.U_isAdmin == 'y'){
+							adminType = '관리자'
+						}else{
+							adminType = '회원'
+						}
+						return adminType;
+					}
 				}
 			],
 			// start: 0,
@@ -262,7 +281,32 @@
 				}
 			]
 		});
-
+		//수정                    					
+		$('#tList tbody').on('click', 'tr', function(e){
+			$('#moList').empty();
+			localStorage.setItem('nowId', e.currentTarget.id)
+			$.ajax({
+				url: '/admin/userModify',
+				method: 'post',
+				dataType: 'json',
+				data: {'uId' : e.currentTarget.id},
+				success: function(res){
+					console.log(res.data);
+					let	html ="<input type='uId' class='form-control' id='uId' value="+res.data.U_ID+" style='display: none;'>";
+						html += "<label for='userName'>U_UserName:</label><input type='userName' class='form-control' id='userName' value="+res.data.U_UserName+">";
+						html += "<label for='name'>U_Name:</label><input type='name' class='form-control' id='name' value="+res.data.U_Name+">";
+						html += "<label for='email'>U_Email:</label><input type='email' class='form-control' id='email' value="+res.data.U_Email+"> ";
+						html += "<label for='phone'>U_Phone:</label><input type='phone' class='form-control' id='phone' value="+res.data.U_Phone+"> ";
+						html += "<label for='brand'>U_Brand:</label><input type='brand' class='form-control' id='brand' value="+res.data.U_Brand+">";	
+						html += "<label for='zip'>U_Zip:</label><input type='zip' class='form-control' id='zip' value="+res.data.U_Zip+">";
+						html += "<label for='addr1'>U_Addr1:</label><input type='addr1' class='form-control' id='addr1' value="+res.data.U_Addr1+">";
+						html += "<label for='addr2'>U_Addr2:</label><input type='addr2' class='form-control' id='addr2' value="+res.data.U_Addr2+">";
+						html += "<label for='admin'>U_admin:</label><input type='admin' class='form-control' id='admin' value="+res.data.U_isAdmin+">";		
+					$('#moList').append(html);	
+				}
+			})
+			$('#modal_info_header').modal()
+		})
 		
 	})
 
@@ -278,9 +322,6 @@
 		$('#tList').DataTable().clear().destroy();
 		$('#tList').DataTable({
 			dom: 'l<"toolbar">frtip',
-			initComplete: function(){
-				$("div.toolbar").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">회원 추가</button>');           
-			}, 
 			processing: true,
 			ajax : {
 				url : '/admin/user/search',
@@ -295,6 +336,18 @@
 				{
 					targets:0,
 					className : 'dt-body-center'
+				},
+				{
+					targets: 11,
+					render: function(data, row, type){
+						let adminType = row.U_isAdmin;
+						if(row.U_isAdmin == 'y'){
+							adminType = '관리자'
+						}else{
+							adminType = '회원'
+						}
+						return adminType;
+					}
 				}
 			],
 			start: 0,
@@ -311,6 +364,7 @@
 				{ "data": "U_UserName" },
 				{ "data": "U_Name" },
 				{ "data": "U_Email" },
+				{ "data": "U_Phone" },
 				{ "data": "U_Brand" },
 				{ "data": "U_Zip" },
 				{ "data": "U_Addr1" },
@@ -352,31 +406,6 @@
         })
 	}
 	
-	//수정                    					
-	function edit(e){
-		$('#moList').empty();
-		$.ajax({
-			url: '/admin/userModify',
-			method: 'post',
-			dataType: 'json',
-			data: {'uId' : e.parentElement.parentElement.id},
-			success: function(res){
-				console.log(res.data);
-				let	html ="<input type='uId' class='form-control' id='uId' value="+res.data.U_ID+" style='display: none;'>";
-					html += "<label for='userName'>U_UserName:</label><input type='userName' class='form-control' id='userName' value="+res.data.U_UserName+">";
-					html += "<label for='name'>U_Name:</label><input type='name' class='form-control' id='name' value="+res.data.U_Name+">";
-					html += "<label for='email'>U_Email:</label><input type='email' class='form-control' id='email' value="+res.data.U_Email+"> ";
-					html += "<label for='phone'>U_Phone:</label><input type='phone' class='form-control' id='phone' value="+res.data.U_Phone+"> ";
-					html += "<label for='brand'>U_Brand:</label><input type='brand' class='form-control' id='brand' value="+res.data.U_Brand+">";	
-					html += "<label for='zip'>U_Zip:</label><input type='zip' class='form-control' id='zip' value="+res.data.U_Zip+">";
-					html += "<label for='addr1'>U_Addr1:</label><input type='addr1' class='form-control' id='addr1' value="+res.data.U_Addr1+">";
-					html += "<label for='addr2'>U_Addr2:</label><input type='addr2' class='form-control' id='addr2' value="+res.data.U_Addr2+">";
-					html += "<label for='admin'>U_admin:</label><input type='admin' class='form-control' id='admin' value="+res.data.U_isAdmin+">";		
-				$('#moList').append(html);	
-			}
-		})
-		$('#modal_info_header').css('display','block');
-	}
 
 	$('#update').on('click', function(){
 		$.ajax({
@@ -398,20 +427,20 @@
 
 
 
-	function del(e){
-		$('#delete').attr('val', e.id);
-		$('#delete').on('click',function(){
+	$('#delete').on('click',function(){
+		$('#modal_danger_header').modal()	
+		$('#delAction').on('click',function(){
 			$.ajax({
 				url: '/admin/userDelete',
 				method: 'post',
 				dataType: 'json',
-				data: {'uId' : e.parentElement.parentElement.id},
+				data: {'uId' : localStorage.getItem('nowId')},
 				success: function(res){
 					location.reload()
 				}
 			})
 		})
-	}
+	})
 
 	</script>
 </body>

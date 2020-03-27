@@ -2,6 +2,16 @@
 <html lang="en">
 <head>
 	<% include templates/admin_head.ejs %>
+	<style>        
+        table#tList tbody tr:hover > .sorting_1 {
+        background-color:white;
+        }
+        #tList:hover tbody tr:hover td {
+            background: #eee;
+            cursor: pointer;
+            color: black;
+        }
+    </style>
 </head>
 <body id="top">
 
@@ -43,7 +53,15 @@
 			<div class="header">
 				<div class="header-content">
 					<div class="page-title">
-						<i class="icon-table2 position-left"></i>운송사 차량 관리
+						<div class="row" style="margin: 0;">
+							<div class="col-6">
+								<i class="icon-table2 position-left"></i>차량 관리
+							</div>
+							<div class="col-6">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" style="height: 40px; float: right;" onclick="insert()">차량 추가</button>
+							</div>
+						</div>
+					</div>
 						<table class="table table-cols">
 							<tr>
 								<th style="width: 10%;">검색어</th>
@@ -61,21 +79,16 @@
 								<td>
 									<div class="input-group" style="height: 30px;">
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="dept" style="width: 290px; height: 30px;">
-									</div>
-									~
-									<div class="input-group" style="height: 30px;">
+										<input type="text" class="form-control2 datepicker-here" id="dept" style="width: 290px; height: 30px;">
+										&emsp14; ~ &emsp14; 
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="end" style="width: 290px;">
+										<input type="text" class="form-control2 datepicker-here" id="end" style="width: 290px;">
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td><button type="button" onclick="searchGo()" class="btn btn-primary">검색</button></td>
-								<td></td>
-							</tr>
 						</table>
-					</div>
+						<button type="button" onclick="searchGo()" class="btn btn-primary" style=" width: 200px; margin-left: 40%">검색</button>
+					
 				</div>
 			</div>
 			<!--/Page Header-->
@@ -96,8 +109,6 @@
 									<th>좌석가격</th>
 									<th>생성일</th>
 									<th>수정일</th>
-									<th>수정</th>
-									<th>삭제</th>
 								</tr>
 							</thead>
 						</table>
@@ -117,7 +128,7 @@
 							</div>
 
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal" id="delete" >Delete</button>
 								<button type="button" class="btn btn-info" id="update">Modify</button>
 							</div>
 						</div>
@@ -134,12 +145,12 @@
 							</div>
 
 							<div class="modal-body">
-								<p>삭제?</p>
+								<p>삭제 하시겠습니까?</p>
 							</div>
 
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-danger" id="delete">Delete</button>
+								<button type="button" class="btn btn-danger" id="delAction">Delete</button>
 							</div>
 						</div>
 					</div>
@@ -177,17 +188,13 @@
 
 	<script>
 
-$(document).ready(function(){
+	$(document).ready(function(){
 		
 		let table =$('#tList').DataTable({
 			dom: 'l<"toolbar">frtip',
-			initComplete: function(){
-				$("div.toolbar").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" onclick="insert()">차량 추가</button>');           
-			}, 
-		
-			//serverSide: true,	
-			//processing: true,
-			//searching: true,
+			// initComplete: function(){
+			// 	$("div.toolbar").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" onclick="insert()">차량 추가</button>');           
+			// }, 
 			ajax : '/admin/carType/List',
 			deferRender: true,
 			columnDefs : [
@@ -232,26 +239,42 @@ $(document).ready(function(){
 				{ "data": "CY_ServicePassenger" },
 				{ "data": "CY_SeatPrice" },
 				{ "data": "CY_cDt" },
-				{ "data": "CY_uDt" },
-				{ 
-					data: null,
-					className: 'CY_ID',
-					defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)' style='color:darkblue;'>Edit</a>"
-			
-				},
-				{ 	
-					data: null,
-					className: 'CY_ID',
-					defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)' style='color:darkblue;'>Delete</a>"
-				}
+				{ "data": "CY_uDt" }
 			]
 		});
-		table.on( 'order.dt search.dt', function () {
-			table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-				cell.innerHTML = i+1;
-			} );
-		} ).draw();
-		
+		$('#tList tbody').on('click', 'tr', function(e){
+			//alert(e.id)
+			$('#moList').empty();
+			localStorage.setItem('nowId', e.currentTarget.id)
+			$.ajax({
+				url: '/admin/carTypeModify',
+				method: 'post',
+				dataType: 'json',
+				data: {'cyId' : e.currentTarget.id},
+				success: function(res){
+					let	html ="<input type='cyId' class='form-control' id='cyId' value="+res.data.CY_ID+" style='display: none;'>";
+						html += "<label>CY_B_ID</label><select id='cyBId' class='form-control col-md-6'><option value=0>운송사 선택</option></select>";
+						html += "<label for='cyTy'>CY_Ty:</label><input type='cyTy' class='form-control' id='cyTy' value="+res.data.CY_Ty+"> ";
+						html += "<label for='total'>CY_TotalPassenger:</label><input type='total' class='form-control' id='total' value="+res.data.CY_TotalPassenger+">";
+						html += "<label for='service'>CY_ServicePassen:</label><input type='service' class='form-control' id='service' value="+res.data.CY_ServicePassenger+">";
+						html += "<label for='price'>CY_SeatPrice:</label><input type='price' class='form-control' id='price' value="+res.data.CY_SeatPrice+">";	
+					$('#moList').append(html);	
+					$.ajax({
+						url: '/admin/carTypeBList',
+						method: 'post',
+						dataType: 'json',
+						success: function(res){
+							console.log("data ::", res.data);
+							for(let i=0; i<res.data.length; i++){
+							let html = "<option value="+res.data[i].B_ID+">"+res.data[i].B_Name+"</option>"
+								$("#cyBId").append(html);
+							}
+						}
+					})
+				}
+			})
+			$('#modal_info_header').modal()
+		})
 	})
 
 	function searchGo(){
@@ -266,9 +289,6 @@ $(document).ready(function(){
 		$('#tList').DataTable().clear().destroy();
 		$('#tList').DataTable({
 			dom: 'l<"toolbar">frtip',
-			initComplete: function(){
-				$("div.toolbar").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">운송사 추가</button>');           
-			}, 
 			processing: true,
 			ajax : {
 				url : '/admin/carType/search',
@@ -317,18 +337,7 @@ $(document).ready(function(){
 				{ "data": "CY_ServicePassenger" },
 				{ "data": "CY_SeatPrice" },
 				{ "data": "CY_cDt" },
-				{ "data": "CY_uDt" },
-				{ 
-					data: null,
-					className: 'CY_ID',
-					defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a>"
-			
-				},
-				{ 	
-					data: null,
-					className: 'CY_ID',
-					defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)'>Delete</a>"
-				}			
+				{ "data": "CY_uDt" }			
 			],
 
 		});
@@ -374,38 +383,7 @@ $(document).ready(function(){
         })
     }
 
-	function edit(e){
-		//alert(e.id)
-		$('#moList').empty();
-		$.ajax({
-			url: '/admin/carTypeModify',
-			method: 'post',
-			dataType: 'json',
-			data: {'cyId' : e.parentElement.parentElement.id},
-			success: function(res){
-				let	html ="<input type='cyId' class='form-control' id='cyId' value="+res.data.CY_ID+" style='display: none;'>";
-					html += "<label>CY_B_ID</label><select id='cyBId' class='form-control col-md-6'><option value=0>운송사 선택</option></select>";
-					html += "<label for='cyTy'>CY_Ty:</label><input type='cyTy' class='form-control' id='cyTy' value="+res.data.CY_Ty+"> ";
-					html += "<label for='total'>CY_TotalPassenger:</label><input type='total' class='form-control' id='total' value="+res.data.CY_TotalPassenger+">";
-					html += "<label for='service'>CY_ServicePassen:</label><input type='service' class='form-control' id='service' value="+res.data.CY_ServicePassenger+">";
-					html += "<label for='price'>CY_SeatPrice:</label><input type='price' class='form-control' id='price' value="+res.data.CY_SeatPrice+">";	
-				$('#moList').append(html);	
-				$.ajax({
-					url: '/admin/carTypeBList',
-					method: 'post',
-					dataType: 'json',
-					success: function(res){
-						console.log("data ::", res.data);
-						for(let i=0; i<res.data.length; i++){
-						let html = "<option value="+res.data[i].B_ID+">"+res.data[i].B_Name+"</option>"
-							$("#cyBId").append(html);
-						}
-					}
-				})
-			}
-		})
-		$('#modal_info_header').css('display','block');
-	}
+
 	
 
 	$('#update').on('click',function(){
@@ -430,23 +408,21 @@ $(document).ready(function(){
 		})
 	})
 
-
 	//삭제
-	function del(e){
-		$('#delete').attr('val', e.parentElement.parentElement.id);
-		$('#delete').on('click',function(){
+	$('#delete').on('click',function(){
+		$('#modal_danger_header').modal()		
+		$('#delAction').on('click',function(){
 			$.ajax({
 				url: '/admin/carTypeDelete',
 				method: 'post',
 				dataType: 'json',
-				data: {'cyId' : e.parentElement.parentElement.id},
+				data: {'cyId' : localStorage.getItem('nowId')},
 				success: function(res){
-					//alert("삭제");
 					location.reload()
 				}
 			})
 		})
-	}
+	})
 	</script>
 </body>
 </html>

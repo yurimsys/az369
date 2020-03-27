@@ -2,7 +2,17 @@
 <html lang="en">
 <head>
 	<% include templates/admin_head.ejs %>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+	<style>        
+        table#tList tbody tr:hover > .sorting_1 {
+        background-color:white;
+        }
+        #tList:hover tbody tr:hover td {
+            background: #eee;
+            cursor: pointer;
+            color: black;
+        }
+   
+    </style>
 </head>
 <body id="top">
 
@@ -44,41 +54,42 @@
 			<div class="header">
 				<div class="header-content">
 					<div class="page-title">
-						<i class="icon-table2 position-left"></i> 운송사 관리
-						<table class="table table-cols">
-							<tr>
-								<th style="width: 10%;">검색어</th>
-								<td>
-									<select id='choi'>
-										<option value="B_Name">운송사 이름</option>
-										<option value="B_Tel">전화번호</option>
-									</select>
-									<span>
-									<input type="text" id="selResult" class="form-control2" style="width: 15%;">
-									</span>
-								</td>
-							</tr>
-							<tr>
-								<th>가입일</th>
-								<td>
-									<div class="input-group" style="height: 30px;">
-										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="dept" style="width: 290px; height: 30px;">
-									</div>
-									~
-									<div class="input-group" style="height: 30px;">
-										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="end" style="width: 290px;">
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th><button type="button" onclick="searchGo()" class="btn btn-primary">검색</button></td>
-								<td></td>
-							</tr>
-						</table>
-
+						<div class="row" style="margin: 0;">
+							<div class="col-6">
+								<i class="icon-table2 position-left"></i> 운송사 관리
+							</div>
+							<div class="col-6">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" style="height: 40px; float: right;">운송사 추가</button>
+							</div>
+						</div>
 					</div>
+					<table class="table table-cols">
+						<tr>
+							<th style="width: 10%;">검색어</th>
+							<td>
+								<select id='choi'>
+									<option value="B_Name">운송사 이름</option>
+									<option value="B_Tel">전화번호</option>
+								</select>
+								<span>
+								<input type="text" id="selResult" class="form-control2" style="width: 15%;">
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>가입일</th>
+							<td>
+								<div class="input-group" style="height: 30px;">
+									<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+									<input type="text" class="form-control2 datepicker-here" id="dept" style="width: 290px; height: 30px;">
+									&emsp14; ~ &emsp14; 
+									<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+									<input type="text" class="form-control2 datepicker-here" id="end" style="width: 290px;">
+								</div>
+							</td>
+						</tr>
+					</table>
+					<button type="button" onclick="searchGo()" class="btn btn-primary" style=" width: 200px; margin-left: 40%">검색</button>
 				</div>
 			</div>
 			<!--/Page Header-->
@@ -101,8 +112,6 @@
 									<th>상세주소</th>
 									<th>생성날짜</th>
 									<th>수정날짜</th>
-									<th>수정</th>
-									<th>삭제</th>
 								</tr>
 							</thead>
 						</table>
@@ -119,11 +128,10 @@
 							</div>
 
 							<div class="modal-body" id="moList">
-								
 							</div>
 
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal" id="delete" >delete</button>
 								<button type="button" class="btn btn-info" id="update">Modify</button>
 							</div>
 						</div>
@@ -140,12 +148,12 @@
 							</div>
 
 							<div class="modal-body">
-								<p>삭제?</p>
+								<p>삭제 하시겠습니까?</p>
 							</div>
 
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-danger" id="delete">Delete</button>
+								<button type="button" class="btn btn-danger" id="delAction">Delete</button>
 							</div>
 						</div>
 					</div>
@@ -200,30 +208,10 @@
 
 	<script>		
 
-	// function detailGo(){
-	// 		$('#detailList').css('display', 'block');
-	// 		$('#detailExit').css('display','block');
-	// 		$('#detailGo').css('display','none');
-
-	// 	}
-
-	// 	function detailExit(){
-	// 		$('#detailList').css('display', 'none');
-	// 		$('#detailExit').css('display','none');
-	// 		$('#detailGo').css('display','block');
-	// 	}
-
 	$(document).ready(function(){
 		
 		let table =$('#tList').DataTable({
 			dom: 'l<"toolbar">frtip',
-			initComplete: function(){
-				$("div.toolbar").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">운송사 추가</button>');           
-			}, 
-		
-			//serverSide: true,	
-			//processing: true,
-			//searching: true,
 			ajax : '/admin/business/List',
 			deferRender: true,
 			columnDefs : [
@@ -270,25 +258,44 @@
 				{ "data": "B_Addr1" },
 				{ "data": "B_Addr2" },
 				{ "data": "B_cDt" },
-				{ "data": "B_uDt" },
-				{ 
-					data: null,
-					className: 'B_ID',
-					defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)' style='color:darkblue;'>Edit</a>"
+				{ "data": "B_uDt" }
+				// { 
+				// 	data: null,
+				// 	className: 'B_ID',
+				// 	defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)' style='color:darkblue;'>Edit</a>"
 			
-				},
-				{ 	
-					data: null,
-					className: 'B_ID',
-					defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)' style='color:darkblue;'>Delete</a>"
-				}
+				// },
+				// { 	
+				// 	data: null,
+				// 	className: 'B_ID',
+				// 	defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)' style='color:darkblue;'>Delete</a>"
+				// }
 			]
 		});
-		table.on( 'order.dt search.dt', function () {
-			table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-				cell.innerHTML = i+1;
-			} );
-		} ).draw();
+		$('#tList tbody').on('click', 'tr', function(e){
+			$('#moList').empty();
+			localStorage.setItem('nowId', e.currentTarget.id)
+			$.ajax({
+				url: '/admin/businessModify',
+				method: 'post',
+				dataType: 'json',
+				data: {'bId' : e.currentTarget.id},
+				success: function(res){
+					console.log(res.data.B_Name)
+					let	html = "<label for='name'>B_Name:</label><input type='name' class='form-control' id='name' value="+res.data.B_Name+">";
+						html += "<label for='Tel'>B_Tel:</label><input type='Tel' class='form-control' id='tel' value="+res.data.B_Tel+">";
+						html += "<label for='Fax'>B_Fax:</label><input type='Fax' class='form-control' id='fax' value="+res.data.B_Fax+">";
+						html += "<label for='eMail'>B_eMail:</label><input type='eMail' class='form-control' id='eMail' value="+res.data.B_Email+">";
+						html += "<label for='zip'>B_Zip:</label><input type='zip' class='form-control' id='zip' value="+res.data.B_Zip+">";												
+						html += "<label for='addr1'>B_Addr1:</label><input type='addr1' class='form-control' id='addr1' value="+res.data.B_Addr1+">";
+						html += "<label for='addr2'>B_Addr2:</label><input type='addr2' class='form-control' id='addr2' value="+res.data.B_Addr2+">";
+						html += "<input type='bId' class='form-control' id='bId' value="+res.data.B_ID+" style='display: none;'>";
+					$('#moList').append(html);	
+				}
+			})
+			$('#modal_info_header').modal()
+		})
+
 	})
 
 	function searchGo(){
@@ -303,9 +310,6 @@
 		$('#tList').DataTable().clear().destroy();
 		$('#tList').DataTable({
 			dom: 'l<"toolbar">frtip',
-			initComplete: function(){
-				$("div.toolbar").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">운송사 추가</button>');           
-			}, 
 			processing: true,
 			ajax : {
 				url : '/admin/business/search',
@@ -359,18 +363,7 @@
 				{ "data": "B_Addr1" },
 				{ "data": "B_Addr2" },
 				{ "data": "B_cDt" },
-				{ "data": "B_uDt" },
-				{ 
-					data: null,
-					className: 'B_ID',
-					defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a>"
-			
-				},
-				{ 	
-					data: null,
-					className: 'B_ID',
-					defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)'>Delete</a>"
-				}			
+				{ "data": "B_uDt" }			
 			],
 
 		});
@@ -395,30 +388,6 @@
 			})
 		}
 
-		//수정                    		
-		function edit(e){
-			$('#moList').empty();
-			$.ajax({
-				url: '/admin/businessModify',
-				method: 'post',
-				dataType: 'json',
-				data: {'bId' : e.parentElement.parentElement.id},
-				success: function(res){
-					console.log(res.data.B_Name)
-					let	html = "<label for='name'>B_Name:</label><input type='name' class='form-control' id='name' value="+res.data.B_Name+">";
-						html += "<label for='Tel'>B_Tel:</label><input type='Tel' class='form-control' id='tel' value="+res.data.B_Tel+">";
-						html += "<label for='Fax'>B_Fax:</label><input type='Fax' class='form-control' id='fax' value="+res.data.B_Fax+">";
-						html += "<label for='eMail'>B_eMail:</label><input type='eMail' class='form-control' id='eMail' value="+res.data.B_Email+">";
-						html += "<label for='zip'>B_Zip:</label><input type='zip' class='form-control' id='zip' value="+res.data.B_Zip+">";												
-						html += "<label for='addr1'>B_Addr1:</label><input type='addr1' class='form-control' id='addr1' value="+res.data.B_Addr1+">";
-						html += "<label for='addr2'>B_Addr2:</label><input type='addr2' class='form-control' id='addr2' value="+res.data.B_Addr2+">";
-						html += "<input type='bId' class='form-control' id='bId' value="+res.data.B_ID+" style='display: none;'>";
-					$('#moList').append(html);	
-				}
-			})
-			$('#modal_info_header').css('display','block');
-		}
-
 		$('#update').on('click',function(){
 			$.ajax({
 				url: "/admin/business/modify",
@@ -438,23 +407,22 @@
 			})
 		})
 
-
 		//삭제
-		function del(e){
-			$('#delete').attr('val', e.parentElement.parentElement.id);
-			$('#delete').on('click',function(){
+		$('#delete').on('click',function(){
+			$('#modal_danger_header').modal()		
+			$('#delAction').on('click',function(){
 				$.ajax({
 					url: '/admin/businessDelete',
 					method: 'post',
 					dataType: 'json',
-					data: {'bId' : e.parentElement.parentElement.id},
+					data: {'bId' : localStorage.getItem('nowId')},
 					success: function(res){
-						//alert("삭제");
 						location.reload()
 					}
 				})
 			})
-		}
+		})
+
 	</script>
 </body>
 </html>

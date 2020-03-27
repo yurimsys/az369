@@ -2,6 +2,17 @@
 <html lang="en">
 <head>
 	<% include templates/admin_head.ejs %>
+	<style>        
+        table#tList tbody tr:hover > .sorting_1 {
+        background-color:white;
+        }
+        #tList:hover tbody tr:hover td {
+            background: #eee;
+            cursor: pointer;
+            color: black;
+        }
+   
+    </style>
 </head>
 <body id="top">
 
@@ -76,20 +87,15 @@
 								<td>
 									<div class="input-group" style="height: 30px;">
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="dept" style="width: 290px; height: 30px;">
-									</div>
-									~
-									<div class="input-group" style="height: 30px;">
+										<input type="text" class="form-control2 datepicker-here" id="dept" style="width: 290px; height: 30px;">
+										&emsp;&emsp;
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="end" style="width: 290px;">
+										<input type="text" class="form-control2 datepicker-here" id="end" style="width: 290px;">
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td><button type="button" onclick="searchGo()" class="btn btn-primary">검색</button></td>
-								<td></td>
-							</tr>
 						</table>
+						<button type="button" onclick="searchGo()" class="btn btn-primary" style=" width: 200px; margin-left: 40%">검색</button>
 					</div>
 				</div>
 			</div>
@@ -111,7 +117,6 @@
 									<th>문의내역</th>
 									<th>신청날짜</th>
 									<th>상태</th>
-									<th>자세히</th>
 								</tr>
 							</thead>
 						</table>
@@ -166,12 +171,18 @@ $(document).ready(function(){
 				}
 			},
 			{
-				targets: 8,
+				targets: 7,
 				render: function(data, type, row){
-					return "<a id="+row.SI_ID+" class='icon-search4' data-toggle='modal' data-target='#modal_primary_header' onclick='detail(this)' style='color:darkblue;'>&nbsp;자세히</a>";
+					let readType = row.SI_Read
+					if(row.SI_Read == 'y'){
+						readType ='읽음'
+					}else{
+						readType = '읽지않음'
+					}
+					return readType;
 										
 				}
-			},
+			}
 		],
 		rowId : "SI_ID",
 		columns : [
@@ -187,13 +198,38 @@ $(document).ready(function(){
 			{ "data": "SI_Addr1" },
 			{ "data": "SI_Content" },
 			{ "data": "SI_cDt"},
-			{ "data": "SI_Read"},
-			{ 	
-				data: null,
-				defaultContent: "<a class='icon-search4' data-toggle='modal' data-target='#modal_primary_header' onclick='detail(this)'>&nbsp;자세히</a>"
-			}
+			{ "data": "SI_Read"}
 		]
 	});
+	$('#tList tbody').on('click', 'tr', function(e){
+		$('#insertList').empty();
+		$.ajax({
+			url: '/admin/storeInDetail',
+			method: 'post',
+			dataType: 'json',
+			data: {
+				'siId' : e.currentTarget.id
+			},
+			success: function(res){
+				let html = "<label class='detailId' id="+res.data.SI_ID+" >고객 이름 :</label>";
+					html += "<input type='text' class='form-control' value="+res.data.SI_Name+" readonly = 'readonly' style='font-size: 20px; color: black;'>"
+					html += "<label>휴대전화 :</label>"
+					html += "<input type='text' class='form-control' value="+res.data.SI_Phone+" readonly = 'readonly' style='font-size: 20px; color: black;'>"
+					html += '<label>브랜드명 :</label>'
+					html += "<input type='text' class='form-control' value="+res.data.SI_Brand+" readonly = 'readonly' style='font-size: 20px; color: black;''>"
+					html += "<label>주소 :</label>"
+					html += "<input type='text' class='form-control' value="+res.data.SI_Addr1+" readonly = 'readonly' style='font-size: 20px; color: black;'>"
+					html += "<label>문의날짜 :</label>"
+					html += "<input type='text' class='form-control' value="+res.data.SI_cDt+" readonly = 'readonly' style='font-size: 20px; color: black;''>"
+					html += "<label>문의사항 :</label>"
+					html += "<textarea class='form-control' cols='40' rows='10' value="+res.data.SI_Content+" readonly = 'readonly' style='font-size: 20px; color: black;''>"+res.data.SI_Content+"</textarea>";
+					$('#insertList').append(html);
+			}
+
+		})
+		$('#modal_primary_header').modal()
+	})
+
 })
 
 	function searchGo(){
@@ -233,12 +269,18 @@ $(document).ready(function(){
 					}
 				},
 				{
-					targets: 8,
+					targets: 7,
 					render: function(data, type, row){
-						return "<a id="+row.SI_ID+" class='icon-search4' data-toggle='modal' data-target='#modal_primary_header' onclick='detail(this)'>&nbsp;자세히</a>";
+						let readType = row.SI_Read
+						if(row.SI_Read == 'y'){
+							readType ='읽음'
+						}else{
+							readType = '읽지않음'
+						}
+						return readType;
 											
 					}
-				},
+				}
 			],
 			rowId : "SI_ID",
 			columns : [
@@ -254,42 +296,11 @@ $(document).ready(function(){
 				{ "data": "SI_Addr1" },
 				{ "data": "SI_Content" },
 				{ "data": "SI_cDt"},
-				{ "data": "SI_Read" },
-				{ data: null}	
+				{ "data": "SI_Read" }
 			],
 
 		});
 	}	
-
-
-	function detail(e){
-		$('#insertList').empty();
-		$.ajax({
-			url: '/admin/storeInDetail',
-			method: 'post',
-			dataType: 'json',
-			data: {
-				'siId' : e.id
-			},
-			success: function(res){
-				console.log(res.data)
-				let html = "<label class='detailId' id="+res.data.SI_ID+" >고객 이름 :</label>";
-					html += "<input type='text' class='form-control' value="+res.data.SI_Name+" readonly = 'readonly' style='font-size: 20px; color: black;'>"
-					html += "<label>휴대전화 :</label>"
-					html += "<input type='text' class='form-control' value="+res.data.SI_Phone+" readonly = 'readonly' style='font-size: 20px; color: black;'>"
-					html += '<label>브랜드명 :</label>'
-					html += "<input type='text' class='form-control' value="+res.data.SI_Brand+" readonly = 'readonly' style='font-size: 20px; color: black;''>"
-					html += "<label>주소 :</label>"
-					html += "<input type='text' class='form-control' value="+res.data.SI_Addr1+" readonly = 'readonly' style='font-size: 20px; color: black;'>"
-					html += "<label>문의날짜 :</label>"
-					html += "<input type='text' class='form-control' value="+res.data.SI_cDt+" readonly = 'readonly' style='font-size: 20px; color: black;''>"
-					html += "<label>문의사항 :</label>"
-					html += "<textarea class='form-control' cols='40' rows='10' value="+res.data.SI_Content+" readonly = 'readonly' style='font-size: 20px; color: black;''>"+res.data.SI_Content+"</textarea>";
-					$('#insertList').append(html);
-			}
-
-		})
-	}
 
 	function checkIn(){
 		$.ajax({

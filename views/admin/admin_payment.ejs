@@ -2,6 +2,16 @@
 <html lang="en">
 <head>
 	<% include templates/admin_head.ejs %>
+	<style>        
+        table#tList tbody tr:hover > .sorting_1 {
+      	 	background-color:white;
+        }
+        #tList:hover tbody tr:hover td {
+            background: #eee;
+            cursor: pointer;
+            color: black;
+        }
+    </style>
 </head>
 <body id="top">
 
@@ -44,7 +54,6 @@
 				<div class="header-content">
 					<div class="page-title">
 						<i class="icon-table2 position-left"></i> 결제관리
-						
 						<table class="table table-cols">
 							<tr>
 								<th style="width: 10%;">검색어</th>
@@ -76,20 +85,15 @@
 								<td>
 									<div class="input-group" style="height: 30px;">
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="dept" style="width: 290px; height: 30px;">
-									</div>
-									~
-									<div class="input-group" style="height: 30px;">
+										<input type="text" class="form-control2 datepicker-here" id="dept" style="width: 290px; height: 30px;">
+										&emsp14; ~ &emsp14; 
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="end" style="width: 290px;">
+										<input type="text" class="form-control2 datepicker-here" id="end" style="width: 290px;">
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td><button type="button" onclick="searchGo()" class="btn btn-primary">검색</button></td>
-								<td></td>
-							</tr>
 						</table>
+						<button type="button" onclick="searchGo()" class="btn btn-primary" style=" width: 200px; margin-left: 40%">검색</button>
 					</div>
 				</div>
 			</div>
@@ -115,7 +119,6 @@
 									<th>결제구분</th>
 									<th>결제일시</th>
 									<th>취소일시</th>
-									<th>결제취소</th>
 								</tr>
 							</thead>
 						</table>
@@ -164,6 +167,18 @@
 				className : 'dt-body-center'
 			},
 			{
+				targets:9,
+				render: function(data, type, row){
+					let cancelType = row.CR_Cancel
+					if(row.CR_Cancel == 'Y'){
+						cancelType = '결제취소'
+					}else{
+						cancelType = '결제완료'
+					}
+					return cancelType;
+				}
+			},
+			{
 				targets: 10,
 				render: function(data, type, row){
 					var test = row.CR_cDt;
@@ -173,11 +188,12 @@
 				}
 			},
 			{
-				targets: 12,
+				targets: 1,
 				render: function(data, type, row){
-					return "<a id="+row.PH_ID+" value="+row.CR_Cancel+" name="+row.CR_Cancel+" class='icon-trash' data-toggle='modal' data-target='#modal_primary_header' onclick='cancel(this)' style='color:darkblue;'>&nbsp;취소</a>";
+					return '<p value='+row.CR_Cancel+'>'+row.U_UserName+'</p>'
+										
 				}
-			},
+			}
 		],
 		rowId : "PH_ID",
 		columns : [
@@ -197,10 +213,38 @@
 			{ "data": "PH_Type"},
 			{ "data": "CR_Cancel"},
 			{ "data": "CR_cDt"},
-			{ "data": "CR_CancelDt"},                            
-			{ "data": null}
+			{ "data": "CR_CancelDt"}
 		]
 	});
+
+	$('#tList tbody').on('click', 'tr', function(e){
+		$('#insertList').empty();
+		if($(e.currentTarget).children('td').children('p').attr('value') === 'N'){
+			$('#modal_primary_header').modal();
+			$.ajax({
+				url: '/admin/cancelList',
+				method: 'post',
+				dataType: 'json',
+				data: { phId : e.currentTarget.id},
+				success: function(res){
+					let html = '<label>아이디 :</label><input type="text" class="form-control" id="userName" value='+res.data.U_UserName+' name='+res.data.PH_ID+' readonly= "readonly" style="font-size: 20px; color: black;">  ';
+						html += '<label>이름 :</label><input type="text" class="form-control" id="name" value='+res.data.U_Name+'  name='+res.data.PH_U_ID+' readonly= "readonly" style="font-size: 20px; color: black;">'
+						html += '<label>운송사 :</label><input type="text" class="form-control" id="Bname" value='+res.data.B_Name+' readonly= "readonly" style="font-size: 20px; color: black;">'
+						html += '<label>좌석개수 :</label><input type="text" class="form-control" id="carNum" value='+res.data.cnt+' readonly= "readonly" style="font-size: 20px; color: black;">'
+						html += '<label>총 가격 :</label><input type="text" class="form-control" id="price"  value='+res.data.PH_Price+' readonly= "readonly" style="font-size: 20px; color: black;">'
+						html += '<label>결제수단 :</label><input type="text" class="form-control" id="drPhone" value='+res.data.PH_Type+' readonly= "readonly" style="font-size: 20px; color: black;">'
+						html += '<label>결제일 :</label><input type="text" class="form-control" id="drPhone" name="drPhone" value='+res.data.CR_cDt+' readonly= "readonly" style="font-size: 20px; color: black;">'
+					$('#insertList').append(html);	
+				}
+			})
+		}else{
+			alert('이미 취소되었습니다.')
+			return;
+			
+		}
+		//$('#modal_primary_header').modal()
+	})
+
 })
 
 	function searchGo(){
@@ -240,9 +284,15 @@
 					}
 				},
 				{
-					targets: 12,
+					targets: 11,
 					render: function(data, type, row){
-						return "<a id="+row.PH_ID+" class='icon-trash' data-toggle='modal' data-target='#modal_primary_header' onclick='cancel(this)' style='color:darkblue;'>&nbsp;취소</a>";
+						let canDt = row.CR_CancelDt
+						if(row.CR_CancelDt == null){
+							canDt = ""
+						}else{
+							canDt = row.CR_CancelDt
+						}
+						return "<p value="+row.CR_Cancel+">"+canDt+"</p>";
 					}
 				},
 			],
@@ -264,35 +314,9 @@
 				{ "data": "PH_Type"},
 				{ "data": "CR_Cancel"},
 				{ "data": "CR_cDt"},
-				{ "data": "CR_CancelDt"},                            
-				{ "data": null}
+				{ "data": "CR_CancelDt"}
 			]
 		});
-	}
-
-	function cancel(e){
-		$('#insertList').empty();
-		if(e.getAttribute("value") === 'Y'){
-			alert('이미 취소되었습니다.')
-		}else{
-			$.ajax({
-				url: '/admin/cancelList',
-				method: 'post',
-				dataType: 'json',
-				data: { phId : e.id},
-				success: function(res){
-					let html = '<label>아이디 :</label><input type="text" class="form-control" id="userName" value='+res.data.U_UserName+' name='+res.data.PH_ID+' readonly= "readonly" style="font-size: 20px; color: black;">  ';
-						html += '<label>이름 :</label><input type="text" class="form-control" id="name" value='+res.data.U_Name+'  name='+res.data.PH_U_ID+' readonly= "readonly" style="font-size: 20px; color: black;">'
-						html += '<label>운송사 :</label><input type="text" class="form-control" id="Bname" value='+res.data.B_Name+' readonly= "readonly" style="font-size: 20px; color: black;">'
-						html += '<label>좌석개수 :</label><input type="text" class="form-control" id="carNum" value='+res.data.cnt+' readonly= "readonly" style="font-size: 20px; color: black;">'
-						html += '<label>총 가격 :</label><input type="text" class="form-control" id="price"  value='+res.data.PH_Price+' readonly= "readonly" style="font-size: 20px; color: black;">'
-						html += '<label>결제수단 :</label><input type="text" class="form-control" id="drPhone" value='+res.data.PH_Type+' readonly= "readonly" style="font-size: 20px; color: black;">'
-						html += '<label>결제일 :</label><input type="text" class="form-control" id="drPhone" name="drPhone" value='+res.data.CR_cDt+' readonly= "readonly" style="font-size: 20px; color: black;">'
-					$('#insertList').append(html);	
-				}
-
-			})
-		}
 	}
 
 	function cancelPay(){

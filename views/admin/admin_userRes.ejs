@@ -44,9 +44,9 @@
 				<div class="header-content">
 					<div class="page-title">
 						<i class="icon-table2 position-left"></i> 회원좌석예약
-						<table class="table table-border table-striped">
+						<table class="table table-cols">
 							<tr>
-								<td style="width: 10%;">검색어</td>
+								<th style="width: 10%;">검색어</th>
 								<td>
 									<select id="choi">
 										<option value="U_UserName">아이디</option>
@@ -57,38 +57,33 @@
 								</td>
 							</tr>
 							<tr>
-								<td>상태</td>
+								<th>상태</th>
 								<td>
 									<label class="radio-inline">
 										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="y"></span></div>
-										예매취소
+										&emsp;&emsp;예매취소
 									</label>
 									
 									<label class="radio-inline">
 										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="n"></span></div>
-										예매
+										&emsp;&emsp;예매
 									</label>
 								</td>
 							</tr>
 							<tr>
-								<td>결제일시</td>
+								<th>결제일시</th>
 								<td>
 									<div class="input-group" style="height: 30px;">
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="dept" style="width: 290px; height: 30px;">
-									</div>
-									~
-									<div class="input-group" style="height: 30px;">
+										<input type="text" class="form-control2 datepicker-here" id="dept" style="width: 290px; height: 30px;">
+										&emsp14; ~ &emsp14; 
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" data-time-format="hh:ii" data-timepicker="true" id="end" style="width: 290px;">
+										<input type="text" class="form-control2 datepicker-here" id="end" style="width: 290px;">
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td><button type="button" onclick="searchGo()" class="btn btn-primary">검색</button></td>
-								<td></td>
-							</tr>
 						</table> 
+						<button type="button" onclick="searchGo()" class="btn btn-primary" style=" width: 200px; margin-left: 40%">검색</button>
 					</div>
 				</div>
 			</div>
@@ -175,9 +170,21 @@ $(document).ready(function(){
 					decodeURIComponent(seatNum);
 					//console.log(String.fromCharCode(235, 178, 136))
 					//console.log(decodeURIComponent(seatNum))
-
-
 					return '<a id='+row.U_ID+' name="'+row.CR_cDt+'"  data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)" style="color:darkblue; ">'+decodeURIComponent(seatNum)+'</a>';
+										
+				}
+			},
+			{
+				targets: 9,
+				render: function(data, type, row){
+					let cancelType = row.CR_Cancel
+					if(row.CR_Cancel == 'Y'){
+						cancelType = '결제취소'
+					}else{
+						cancelType = '결제완료'
+					}
+
+					return cancelType;
 										
 				}
 			},
@@ -223,6 +230,8 @@ $(document).ready(function(){
 			{ "data": "CR_uDt"}
 		]
 	});
+
+	
 })
 
 	function searchGo(){
