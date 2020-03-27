@@ -3,7 +3,11 @@
 <head>
 	<% include templates/admin_head.ejs %>
 
+<style>
+	.datepicker{z-index:1151 !important;}
+	.timepicker{z-index:1151 !important;}
 
+</style>
 </head>
 <body id="top">
 
@@ -49,7 +53,7 @@
 								<i class="icon-table2 position-left"></i> 배차 관리
 							</div>
 							<div class="col-6">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" style="height: 40px; float: right;" onclick="insert()">배차 추가</button>
+								<button type="button" class="btn btn-primary" style="height: 40px; float: right;" onclick="insert()">배차 추가</button>
 							</div>
 						</div>
 					</div>
@@ -124,10 +128,63 @@
 								<div class="modal-title">배차 수정</div>
 							</div>
 
-							<div class="modal-body" id="moList">
-
+							<div class="modal-body">
+								<table class="table table-cols">
+									<tr>
+										<th style="width: 10%;">운송사 선택</th>
+										<td>
+											<select id='ctCyId2'>
+												<option value='0'>운송사 선택</option>
+											</select>	
+										</td>
+									</tr>
+									<tr>
+										<th>출발시간</th>
+										<td>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+												<input type='text' class='form-control datepicker-here' data-timepicker='true' id='insDept2'>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>복귀시간</th>
+										<td>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+												<input type='text' class='form-control datepicker-here' data-timepicker='true' id='insReturn2'>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>주행시간</th>
+										<td>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+												<input type='text' class='form-control timepicker-here' id='insLead2'>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>차량번호</th>
+										<td>
+											<input type="text" id="carNum2" class="form-control">
+										</td>
+									</tr>
+									<tr>
+										<th>기사이름</th>
+										<td>
+											<input type="text" id="drName2" class="form-control">
+										</td>
+									</tr>
+									<tr>
+										<th>기사전화</th>
+										<td>
+											<input type="text" id="drPhone2" class="form-control">
+										</td>
+									</tr>
+								</table>
 							</div>
-
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal"id="delete" >Delete</button>
 								<button type="button" class="btn btn-info" id="update">Modify</button>
@@ -165,11 +222,63 @@
 								<button type="button" class="close" data-dismiss="modal">×</button>
 								<div class="modal-title">배차 등록</div>
 							</div>
-
-							<div class="modal-body card card-block text-center" id="insertList">
-					
-							</div>
-
+						<div class="modal-body" id='insertList'>
+							<table class="table table-cols">
+								<tr>
+									<th style="width: 10%;">운송사 선택</th>
+									<td>
+										<select id='ctCyId'>
+											<option value='0'>운송사 선택</option>
+										</select>	
+									</td>
+								</tr>
+								<tr>
+									<th>출발시간</th>
+									<td>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+											<input type='text' class='form-control2 datepicker-here' data-timepicker='true' id='insDept'>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>복귀시간</th>
+									<td>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+											<input type='text' class='form-control2 datepicker-here' data-timepicker='true' id='insReturn'>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>주행시간</th>
+									<td>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+											<input type='text' class='form-control2 timepicker' id='insLead'>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>차량번호</th>
+									<td>
+										<input type="text" id="carNum" class="form-control2">
+									</td>
+								</tr>
+								<tr>
+									<th>기사이름</th>
+									<td>
+										<input type="text" id="drName" class="form-control2">
+									</td>
+								</tr>
+								<tr>
+									<th>기사전화</th>
+									<td>
+										<input type="text" id="drPhone" class="form-control2">
+									</td>
+								</tr>
+							</table>
+						</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								<button type="button" class="btn btn-primary" onclick="insertCar()">추가</button>
@@ -256,41 +365,42 @@ $(document).ready(function(){
 	});
 	//수정                    		
 	$('#tList tbody').on('click', 'tr', function(e){
+		//alert(e.currentTarget.id)
+		localStorage.setItem('carTimeId', e.currentTarget.id)
 		$('#moList').empty();
 		if(e.target.className.trim() == 'seat_info'){
 			localStorage.setItem('nowId', e.currentTarget.id)
 			seatnow();
 			return false;
 		}
+		$('#modal_info_header').modal()
 		$.ajax({
 			url: '/admin/carTimeModify',
 			method: 'post',
 			dataType: 'json',
 			data: {'ctId' : e.currentTarget.id},
-			success: function(res){
-				let	html ="<input type='ctId' class='form-control' id='ctId' value="+res.data.CT_ID+" style='display: none;'>";
-					html += "<select id='ctCyId' class='form-control col-md-6'><option value=0>운송사 선택</option></select>";
-					html += "<label for='dept'>CT_DepartureTe:</label><input type='dept' class='form-control datepicker-here' data-timepicker='true' data-position='top left' id='deptTe' value='"+res.data.CT_DepartureTe+"'>";
-					html += "<label for='return'>CT_ReturnTe:</label><input type='return' class='form-control' id='return' value='"+res.data.CT_ReturnTe+"'>";
-					html += "<label for='lead'>CT_LeadTe:</label><input type='lead' class='form-control' id='lead' value="+res.data.CT_LeadTe+">";
-					html += "<label for='carNum'>CT_carNum:</label><input type='carNum' class='form-control' id='carNum' value="+res.data.CT_CarNum+">";
-					html += "<label for='drName'>CT_DriverName:</label><input type='drName' class='form-control' id='drName' value="+res.data.CT_DriverName+">";	
-					html += "<label for='drPhone'>CT_DriverPhone:</label><input type='drPhone' class='form-control' id='drPhone' value="+res.data.CT_DriverPhone+">";	
-				$('#moList').append(html);	
+			success: function(res){	
+				$('#ctCyId2').attr('name', res.data.CT_ID)
+				$('#insDept2').val(res.data.CT_DepartureTe);
+				$('#insReturn2').val(res.data.CT_ReturnTe);
+				$("#insLead2").val(res.data.CT_LeadTe);
+				$('#carNum2').val(res.data.CT_CarNum);
+				$('#drName2').val(res.data.CT_DriverName);
+				$('#drPhone2').val(res.data.CT_DriverPhone)
 				$.ajax({
 					url: '/admin/carTimeBList',
 					method: 'post',
 					dataType: 'json',
 					success: function(res){
-					for(let i=0; i<res.data.length; i++){
-						let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"&nbsp"+res.data[i].CY_Ty+"</option>"
-						$("#ctCyId").append(html);
-					}
+						for(let i=0; i<res.data.length; i++){
+							let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"&nbsp"+res.data[i].CY_Ty+"</option>"
+							$("#ctCyId2").append(html);
+						}
 					}
 				})
 			}
 		})
-		$('#modal_info_header').modal()
+		
 	})
 })
 
@@ -405,29 +515,20 @@ $(document).ready(function(){
 	}
 					  
 	//배차 추가
-	function insert(){
-		$('#insertList').empty();
-			let	html = "<select id='ctCyId' class='form-control col-md-6'><option value='0'>운송사 선택</option></select>";				
-				html += "<label>testtest</label><input type='text' class='form-control datepicker-here' data-timepicker='true' data-position='top left'>"
-				html += "<label>CT_DepartureTe</label><input type='text' class='form-control datepicker-here' data-timepicker='true' data-position='top left' id='dept'>";
-				html += "<label>CT_ReturnTe</label><input type='text' class='form-control form-control regdate' id='retun'>";
-				html += "<label>CT_LeadTe</label><input type='text' class='form-control form-control timepicker' id='lead'>";
-				html += "<label>CT_CarNum</label><input type='text' class='form-control form-control' id='carNum'>";
-				html += "<label>CT_DriverName</label><input type='text' class='form-control form-control' id='drName'>";
-				html += "<label>CT_DriverPhone</label><input type='text' class='form-control form-control' id='drPhone'>";
-			$('#insertList').append(html);	
-			$.ajax({
-				url: '/admin/carTimeInsert',
-				method: 'post',
-				dataType: 'json',
-				success: function(res){
-					for(let i=0; i<res.data.length; i++){
-						let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"&nbsp"+res.data[i].CY_Ty+"</option>"
-						$("#ctCyId").append(html);
-					}
+	function insert(){		
+		$("#ctCyId").empty();
+		$('#modal_primary_header').modal()
+		$.ajax({
+			url: '/admin/carTimeInsert',
+			method: 'post',
+			dataType: 'json',
+			success: function(res){
+				for(let i=0; i<res.data.length; i++){
+					let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"&nbsp"+res.data[i].CY_Ty+"</option>"
+					$("#ctCyId").append(html);
 				}
-			})
-		$('#modal_primary_header').css('display','block')
+			}
+		})
 	}
 
     function insertCar(){
@@ -436,8 +537,8 @@ $(document).ready(function(){
             method: 'post',
             dataType: 'json',
             data: {
-                'ctCyId' : $("#ctCyId option:selected").val(), 'dept' : $("#dept").val(), 'retun' : $("#retun").val(),
-                'lead' : $("#lead").val(), 'carNum' : $("#carNum").val(), 'drName' : $("#drName").val(), 'drPhone' : $("#drPhone").val()
+                'ctCyId' : $("#ctCyId option:selected").val(), 'dept' : $("#insDept").val(), 'retun' : $("#insReturn").val(),
+                'lead' : $("#insLead").val(), 'carNum' : $("#carNum").val(), 'drName' : $("#drName").val(), 'drPhone' : $("#drPhone").val()
                 },
             success: function(res){
                 if(res.data == "추가"){
@@ -455,8 +556,8 @@ $(document).ready(function(){
 			method: 'post',
 			dataType: 'json',
 			data: {
-				'ctId' : $("#ctId").val(), 'ctCyId' : $("#ctCyId").val(), 'deptTe' : $('#deptTe').val(), 'return' : $("#return").val(), 
-				'lead' : $("#lead").val(), 'carNum' : $("#carNum").val(),'drName' : $("#drName").val(),'drPhone' : $("#drPhone").val()
+				'ctId' : $("#ctCyId2").attr('name'), 'ctCyId' : $("#ctCyId2").val(), 'deptTe' : $('#insDept2').val(), 'return' : $("#insReturn2").val(), 
+				'insLead' : $("#insLead2").val(), 'carNum' : $("#carNum2").val(),'drName' : $("#drName2").val(),'drPhone' : $("#drPhone2").val()
 				},
             success: function(res){
               if(res.data == "수정"){
@@ -468,13 +569,14 @@ $(document).ready(function(){
 
 	//삭제
 	$('#delete').on('click',function(){
+		//alert(localStorage.getItem('carTimeId'))
 		$('#modal_danger_header').modal()	
 		$('#delAction').on('click',function(){
 			$.ajax({
 				url: '/admin/carTimeDelete',
 				method: 'post',
 				dataType: 'json',
-				data: {'ctId' : localStorage.getItem('nowId')},
+				data: {'ctId' : localStorage.getItem('carTimeId')},
 				success: function(res){
 					location.reload();
 				}
