@@ -1167,7 +1167,7 @@ router.post('/nowRow', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `SELECT * FROM tsi where SI_Read = 'n'`;
+        let query = `SELECT * FROM tSI where SI_Read = 'n'`;
         connection.query(query,
         function(err, rows, fields) {
         if (err) throw err;
