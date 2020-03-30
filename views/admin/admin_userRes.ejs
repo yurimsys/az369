@@ -49,7 +49,7 @@
 								<th style="width: 10%;">검색어</th>
 								<td>
 									<select id="choi">
-										<option value="U_UserName">아이디</option>
+										<option value="U_uId">아이디</option>
 										<option value="U_Name">이름</option>
 										<option value="B_Name">운송사</option>
 									</select>
@@ -223,7 +223,7 @@ $(document).ready(function(){
 					return meta.row + 1
 				}
 			},
-			{ "data": "U_UserName" },
+			{ "data": "U_uId" },
 			{ "data": "U_Name" },
 			{ "data": "U_Phone" },
 			{ "data": "B_Name" },
@@ -328,7 +328,7 @@ $(document).ready(function(){
 						return meta.row + 1
 					}
 				},
-				{ "data": "U_UserName" },
+				{ "data": "U_uId" },
 				{ "data": "U_Name" },
 				{ "data": "U_Phone" },
 				{ "data": "B_Name" },

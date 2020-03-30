@@ -666,7 +666,7 @@ router.post('/user/modify', auth.isLoggedIn, function(req, res, next) {
         let addr2 = req.body.addr2;
        
         console.log("아이디 :", uId);
-        let query = `update tU set U_UserName =:userName, U_Name =:name, U_Email =:email, U_Phone =:phone,
+        let query = `update tU set U_uId =:userName, U_Name =:name, U_Email =:email, U_Phone =:phone,
                             U_Brand =:brand, U_Zip =:zip, U_Addr1 =:addr1, U_Addr2 =:addr2, U_uDt = now()
                      where U_ID =:uId`; 
     
@@ -722,7 +722,7 @@ router.post('/user/insert', auth.isLoggedIn, function(req, res, next) {
         let password = req.body.pw;
         let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString();
     
-        let query = `insert into tU(U_UserName, U_Pw ,U_Name, U_Email, U_Phone, U_Brand, U_Zip, U_Addr1, U_Addr2, U_isAdmin) 
+        let query = `insert into tU(U_uId, U_Pw ,U_Name, U_Email, U_Phone, U_Brand, U_Zip, U_Addr1, U_Addr2, U_isAdmin) 
                     values(:userName, :hash_pw, :name, :email, :phone, :brand, :zip, :addr1, :addr2, :admin)`; 
     
         connection.query(query,{userName, hash_pw, name, email, phone, brand, zip, addr1, addr2, admin},
@@ -786,7 +786,7 @@ router.get('/payment/List', auth.isLoggedIn, function(req, res, next) {
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
         let query = `select
-                        PH_ID, PH_U_ID, U_UserName, U_Name, U_Phone, PH_PG_ID, PH_PG_Name, PH_Price, PH_OPrice, PH_SPrice, PH_Type, CR_Cancel, CR_cDt, CR_CancelDt
+                        PH_ID, PH_U_ID, U_uId, U_Name, U_Phone, PH_PG_ID, PH_PG_Name, PH_Price, PH_OPrice, PH_SPrice, PH_Type, CR_Cancel, CR_cDt, CR_CancelDt
                     from tPH inner join tU on PH_U_ID = U_ID inner join tCR on PH_ID = CR_PH_ID
                     group by PH_ID order by CR_cDt desc limit 8000`; 
         connection.query(query,
@@ -811,15 +811,15 @@ router.post('/payment/search', auth.isLoggedIn, function(req, res, next) {
         let dept = req.body.dept;
         let end = req.body.end;
         let query = `select
-                        PH_ID, PH_U_ID, U_UserName, U_Name, U_Phone, PH_PG_ID, PH_PG_Name, PH_Price, PH_OPrice, PH_SPrice, PH_Type, CR_Cancel, CR_cDt, CR_CancelDt
+                        PH_ID, PH_U_ID, U_uId, U_Name, U_Phone, PH_PG_ID, PH_PG_Name, PH_Price, PH_OPrice, PH_SPrice, PH_Type, CR_Cancel, CR_cDt, CR_CancelDt
                     from tPH inner join tU on PH_U_ID = U_ID inner join tCR on PH_ID = CR_PH_ID
                     where 1=1
                     `
 
         if(selResult !== "" && selResult !== undefined){
             query += ` and ${selectName} like '%${selResult}%'`
-
-        }if(chkRad == "y" && chkRad !== undefined && dept !== "" && dept !== undefined && end !== "" && end !== undefined){
+        }
+        if(chkRad == "y" && chkRad !== undefined && dept !== "" && dept !== undefined && end !== "" && end !== undefined){
             query += " and CR_Cancel = 'y' and date_format(CR_CancelDt,'%y%y-%m-%d') between date(:dept) AND date(:end)"
         }else if(chkRad !== "" && chkRad !== undefined && dept == "" && dept == undefined && end == "" && end == undefined){
             query += `and CR_Cancel = :chkRad `
@@ -854,7 +854,7 @@ router.post('/cancelList', auth.isLoggedIn, function(req, res, next) {
         let phId = req.body.phId;
         //console.log("아이디 :", ctId);
         let query = `select 
-                        PH_ID, PH_U_ID, U_UserName, U_Name, B_Name, CT_DepartureTe, count(PH_Price) as cnt, sum(PH_Price) as PH_Price, PH_Type, CR_Cancel, CR_cDt
+                        PH_ID, PH_U_ID, U_uId, U_Name, B_Name, CT_DepartureTe, count(PH_Price) as cnt, sum(PH_Price) as PH_Price, PH_Type, CR_Cancel, CR_cDt
                      from tPH inner join tU on tPH.PH_U_ID = tU.U_ID inner join tCR on tPH.PH_ID = tCR.CR_PH_ID inner join tCT on tCT.CT_ID = tCR.CR_CT_ID inner join tCY on tCY.CY_ID = tCT.CT_CY_ID inner join tB on tB.B_ID = tCY.CY_B_ID
                      where PH_ID = :phId`; 
         connection.query(query,{phId},
@@ -944,7 +944,7 @@ router.get('/userRes/List', auth.isLoggedIn, function(req, res, next) {
     }else{
     // let query = `select
     //         tU.U_ID,
-    //         tU.U_UserName,
+    //         tU.U_uId,
     //         CR_SeatNum,
     //         tU.U_Name,
     //         tU.U_Phone,
@@ -963,7 +963,7 @@ router.get('/userRes/List', auth.isLoggedIn, function(req, res, next) {
         let query = `select
                         tU.U_ID,
                         (select group_concat(CR_SeatNum)) as CR_SeatNum,
-                        tU.U_UserName,
+                        tU.U_uId,
                         tU.U_Name,
                         tU.U_Phone,
                         tB.B_Name,
@@ -1032,7 +1032,7 @@ router.post('/userRes/search', auth.isLoggedIn, function(req, res, next) {
         let end = req.body.end;
         let query = `select
                         tU.U_ID,
-                        tU.U_UserName,
+                        tU.U_uId,
                         (select group_concat(CR_SeatNum)) as CR_SeatNum,
                         tU.U_Name,
                         tU.U_Phone,
@@ -1261,6 +1261,147 @@ router.post('/survey/search', auth.isLoggedIn, function(req, res, next) {
           });
     }
 
+});
+
+//video 메인화면
+router.get('/video', auth.isLoggedIn, function(req, res, next) {
+                                            
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        res.render("admin_video");
+    }
+});
+
+//video 데이터테이블
+router.get('/video/List', auth.isLoggedIn, function(req, res, next) {
+                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let query = `select YL_id, YL_url, YL_title, left(YL_description,10) as YL_description, YL_ch_name, YL_d_order, YL_dDt from tYL order by YL_dDt desc limit 8000`; 
+        connection.query(query,
+            function(err, rows, fields) {
+                if (err) throw err;
+                res.json({ data : rows});
+            }
+        );
+    }
+});  
+
+//video 검색
+router.post('/video/search', auth.isLoggedIn, function(req, res, next) {
+                                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+
+        let selectName = req.body.selectName;
+        let selResult = req.body.selResult;
+        let dept = req.body.dept;
+        let end = req.body.end;
+        let query = `select YL_id, YL_url, YL_title, left(YL_description,10) as YL_description, YL_ch_name, YL_d_order, YL_dDt from tYL where 1=1`
+
+        if(selResult !== "" && selResult !== undefined){
+            query += ` and ${selectName} like '%${selResult}%'`
+        }
+        if(dept !== "" && dept !== undefined && end !== "" && end !== undefined){
+            query += " and date_format(YL_dDt,'%y%y-%m-%d') between date(:dept) AND date(:end)"
+        }
+            query += ` \n order by YL_dDt desc limit 8000`
+        connection.query(query,{selectName, selResult, dept, end},
+          function(err, rows, fields) {
+              if (err) throw err;
+              res.json({data : rows});
+              console.log(rows)
+          });
+    }
+});
+
+//video 테이블 수정 페이지
+router.post('/videoModify', auth.isLoggedIn, function(req, res, next) {                       
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let ylId = req.body.ylId;
+        let query = `select YL_id, YL_url, YL_title, YL_description, YL_ch_name, YL_d_order, YL_dDt from tYL where YL_id = :ylId order by YL_dDt desc`; 
+        connection.query(query,{ylId},
+            function(err, rows, fields) {
+                if (err) throw err;
+                res.json({ data : rows[0] });
+                console.log("video",rows);
+            }
+        );
+    }
+});  
+
+//video 테이블 수정
+router.post('/video/modify', auth.isLoggedIn, function(req, res, next) {                       
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let ylId = req.body.ylId;
+        let ylUrl = req.body.ylUrl;
+        let ylTitle = req.body.ylTitle;
+        let ylContent = req.body.ylContent;
+        let ylChName = req.body.ylChName;
+        let ylOrder = req.body.ylOrder;
+        let query =`update tYL set YL_url =:ylUrl, YL_title =:ylTitle, YL_description =:ylContent, YL_ch_name =:ylChName, YL_d_order = :ylOrder
+                        where YL_id =:ylId`
+
+        if(ylOrder == "" || ylOrder == undefined){
+            ylOrder = null;
+        }
+                
+        connection.query(query,{ylId, ylUrl, ylTitle, ylContent, ylChName, ylOrder},
+            function(err, rows, fields) {
+                if (err) throw err;
+                res.json({ data : '수정' });
+                console.log("video",rows);
+            }
+        );
+    }
+});  
+
+//video 테이블 추가
+router.post('/video/insert', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let ylUrl = req.body.ylUrl;
+        let ylTitle = req.body.ylTitle;
+        let ylContent = req.body.ylContent;
+        let ylChName = req.body.ylChName;
+        let ylOrder = req.body.ylOrder;
+        let query = "";
+
+        if(ylOrder == "" || ylOrder == undefined){
+            query = `insert into tYL(YL_url, YL_title, YL_description, YL_ch_name) values(:ylUrl, :ylTitle, :ylContent, :ylChName) `; 
+        }else{
+            query = `insert into tYL(YL_url, YL_title, YL_description, YL_ch_name, YL_d_order) values(:ylUrl, :ylTitle, :ylContent, :ylChName, :ylOrder) `; 
+        }
+
+        connection.query(query,{ylUrl, ylTitle, ylContent, ylChName, ylOrder},
+          function(err, rows, fields) {        
+              if (err) throw err;
+              res.json({data : "추가"});
+        });
+    }
+});
+
+//video 테이블 삭제
+router.post('/videoDelete', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let ylId = req.body.ylId;
+        let query = `delete from tYL where YL_id = :ylId `; 
+        connection.query(query,{ylId},
+          function(err, rows, fields) {        
+              if (err) throw err;
+              res.json({data : "삭제"});
+        });
+    }
 });
 
 module.exports = router;

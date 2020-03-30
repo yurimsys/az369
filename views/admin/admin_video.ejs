@@ -45,10 +45,10 @@
 					<div class="page-title">
 						<div class="row" style="margin: 0;">
 							<div class="col-6">
-								<i class="icon-table2 position-left"></i>회원 관리
+								<i class="icon-table2 position-left"></i>영상 관리
 							</div>
 							<div class="col-6">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" style="height: 40px; float: right;" onclick="insert()">회원 추가</button>
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" style="height: 40px; float: right;" onclick="insert()">영상 추가</button>
 							</div>
 						</div>
 					</div>
@@ -56,30 +56,15 @@
 							<tr>
 								<th style="width: 10%;">검색어</th>
 								<td>
-									<select id="choi">
-										<option value="U_uId">아이디</option>
-										<option value="U_Name">이름</option>
-										<option value="U_Brand">브랜드</option>
+									<select id="choi">										
+                                        <option value="YL_ch_name">채널명</option>
+                                        <option value="YL_title">타이틀</option>
 									</select>
 									<input type="text" id="selResult" class="form-control2" style="width: 15%;">
 								</td>
 							</tr>
 							<tr>
-								<th>구분</th>
-								<td>
-									<label class="radio-inline">
-										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="y"></span></div>
-										&emsp;&emsp;관리자
-									</label>
-									
-									<label class="radio-inline">
-										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="n"></span></div>
-										&emsp;&emsp;회원
-									</label>
-								</td>
-							</tr>
-							<tr>
-								<th>가입일</th>
+								<th>생성일</th>
 								<td>
 									<div class="input-group" style="height: 30px;">
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
@@ -106,18 +91,13 @@
 						<table id="tList" class="table table-border table-striped">
 							<thead>
 								<tr>
-									<th></th>
-									<th>아이디</th>
-									<th>이름</th>
-									<th>이메일</th>
-									<th>휴대전화</th>
-									<th>브랜드명</th>
-									<th>우편번호</th>
-									<th>주소</th>
-									<th>상세주소</th>
-									<th>생성날짜</th>
-									<th>수정날짜</th>
-									<th>회원구분</th>
+                                    <th></th>
+									<th>URL</th>
+									<th>타이틀</th>
+									<th>상세내용</th>
+									<th>채널명</th>
+									<th>추천동영상</th>
+									<th>생성일</th>
 								</tr>
 							</thead>
 						</table>
@@ -129,7 +109,7 @@
 						<div class="modal-content">
 							<div class="modal-header bg-info">
 								<button type="button" class="close" data-dismiss="modal">×</button>
-								<div class="modal-title">회원 수정</div>
+								<div class="modal-title">영상 수정</div>
 							</div>
 							<div class="modal-body" id="moList">
 								
@@ -148,7 +128,7 @@
 						<div class="modal-content">
 							<div class="modal-header bg-danger">
 								<button type="button" class="close" data-dismiss="modal">×</button>
-								<div class="modal-title">회원 삭제</div>
+								<div class="modal-title">영상 삭제</div>
 							</div>
 							<div class="modal-body">
 								<p>삭제 하시겠습니까?</p>
@@ -167,33 +147,22 @@
 						<div class="modal-content">
 							<div class="modal-header bg-primary">
 								<button type="button" class="close" data-dismiss="modal">×</button>
-								<div class="modal-title">회원 등록</div>
+								<div class="modal-title">영상 등록</div>
 							</div>
 							<div class="modal-body" id="insertList">
-								<label>UserName</label><input type='text' class='form-control'id='userName'>
-								<label>UserPw</label><input type='password' class='form-control'id='pw'>
-								<label>Name</label><input type='text' class='form-control' id='name'>
-								<label>Email</label><input type='text' class='form-control' id='email'>
-								<label>Phone</label><input type='text' class='form-control' id='phone'>
-								<label>Brand</label><input type='text' class='form-control' id='brand'>
-								<label>Admin</label><select id="admin"><option value='n'>일반회원</option><option value='y'>관리자</option></select>
-								<div class="address_form">
-									<input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" style="background: #f8f8f8;">
-									<button type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn-primary round">우편번호찾기</button><br>
-									<input type="text" id="address" name="address" placeholder="매장주소" style="background: #f8f8f8;"><br>
-									<input type="text" id="detailAddress" name="detailAddress" placeholder="매장상세주소">
-									<input type="text" id="extraAddress" name="extraAddress" hidden=""> <!-- 기본정보  -->
-									<input type="text" id="roadAddress" name="roadAddress" hidden="">
-									<input type="text" id="jibunAddress" name="jibunAddress" hidden="">
-								</div>
+								<label>타이틀</label><input type='text' class='form-control'id='ylTitle'>						
+								<label>채널명</label><input type='text' class='form-control' id='ylChName'>
+								<label>url</label><input type='text' class='form-control' id='ylUrl'>
+                                <label>추천영상여부</label><input type='text' class='form-control' id='ylOrder'>
+                                <label>상세내용</label><textarea cols="85" rows="10" class='form-control' id='ylContent'></textarea>
 							</div>
-
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								<button type="button" class="btn btn-primary" onclick="insertMember()">추가</button>
 							</div>
 						</div>
-					</div>
+                    </div>
+                    
 				</div>
 
 			</div>
@@ -221,48 +190,26 @@
 				'</select>'
 			},
 			dom: 'l<"toolbar">frtip',
-			ajax : '/admin/user/List',
+			ajax : '/admin/video/List',
 			deferRender: true,
 			columnDefs : [
 				{
 					targets:0,
 					className : 'dt-body-center'
-				},
-				{
-					targets: 9,
+                },
+                {
+					targets: 6,
 					render: function(data, type, row){
-						var test = row.U_cDt;
+						var test = row.YL_dDt;
 						var test2 = test.split(' ',1)
 						return test2;
 											
 					}
 				},
-				{
-					targets: 10,
-					render: function(data, type, row){
-						var test = row.U_uDt;
-						var test2 = test.split(' ',1)
-						return test2;
-											
-					}
-				},
-				{
-					targets: 11,
-					render: function(data, row, type){
-						console.log(data)
-						let adminType = row.U_isAdmin;
-						if(data == 'y'){
-							adminType = '관리자'
-						}else{
-							adminType = '회원'
-						}
-						return adminType;
-					}
-				}
 			],
 			// start: 0,
 			// pageLength: 10,
-			rowId : "U_ID",
+			rowId : "YL_id",
 			columns : [
 				{ 
 					"data": null, 
@@ -270,17 +217,12 @@
 						return meta.row + 1
 					}
 				},
-				{ "data": "U_uId" },
-				{ "data": "U_Name" },
-				{ "data": "U_Email" },
-				{ "data": "U_Phone" },
-				{ "data": "U_Brand" },
-				{ "data": "U_Zip" },
-				{ "data": "U_Addr1" },
-				{ "data": "U_Addr2" },
-				{ "data": "U_cDt" },
-				{ "data": "U_uDt" },
-				{ "data": "U_isAdmin" }
+				{ "data": "YL_url" },
+				{ "data": "YL_title" },
+                { "data": "YL_description" },
+                { "data": "YL_ch_name" },
+				{ "data": "YL_d_order" },
+				{ "data": "YL_dDt" },
 			]
 		});
 
@@ -292,30 +234,42 @@
 			$('#moList').empty();
 			localStorage.setItem('nowId', e.currentTarget.id)
 			$.ajax({
-				url: '/admin/userModify',
+				url: '/admin/videoModify',
 				method: 'post',
 				dataType: 'json',
-				data: {'uId' : e.currentTarget.id},
+				data: {'ylId' : e.currentTarget.id},
 				success: function(res){
-					//console.log(res.data);
-					let	html ="<input type='uId' class='form-control' id='uId' value="+res.data.U_ID+" style='display: none;'>";
-						html += "<label for='userName'>U_uId:</label><input type='userName' class='form-control' id='userName' value="+res.data.U_uId+">";
-						html += "<label for='name'>U_Name:</label><input type='name' class='form-control' id='name' value="+res.data.U_Name+">";
-						html += "<label for='email'>U_Email:</label><input type='email' class='form-control' id='email' value="+res.data.U_Email+"> ";
-						html += "<label for='phone'>U_Phone:</label><input type='phone' class='form-control' id='phone' value="+res.data.U_Phone+"> ";
-						html += "<label for='brand'>U_Brand:</label><input type='brand' class='form-control' id='brand' value="+res.data.U_Brand+">";	
-						html += "<label for='zip'>U_Zip:</label><input type='zip' class='form-control' id='zip' value="+res.data.U_Zip+">";
-						html += "<label for='addr1'>U_Addr1:</label><input type='addr1' class='form-control' id='addr1' value="+res.data.U_Addr1+">";
-						html += "<label for='addr2'>U_Addr2:</label><input type='addr2' class='form-control' id='addr2' value="+res.data.U_Addr2+">";
-						html += "<label for='admin'>U_admin:</label><input type='admin' class='form-control' id='admin' value="+res.data.U_isAdmin+">";		
+					let	html ="<input type='text' class='form-control' id='ylId2' value="+res.data.YL_id+" style='display: none;'>";
+						html += "<label>타이틀 :</label><input type='text' class='form-control' id='ylTitle2' value="+res.data.YL_title+">";
+						html += "<label>채널명 :</label><input type='text' class='form-control' id='ylChName2' value="+res.data.YL_ch_name+"> ";
+						html += "<label>url :</label><input type='text' class='form-control' id='ylUrl2' value="+res.data.YL_url+">";
+						html += "<label>추천영상여부 :</label><input type='text' class='form-control' id='ylOrder2' value="+res.data.YL_d_order+">";	
+                        html += "<label>상세내용 :</label><textarea cols='85' rows='10' class='form-control' id='ylContent2'>"+res.data.YL_description+"</textarea>";                        	
 					$('#moList').append(html);	
 				}
 			})
 			$('#modal_info_header').modal()
 		})
-		
+    })
+    
+    
+	$('#update').on('click', function(){
+		$.ajax({
+			url: "/admin/video/modify",
+			method: 'post',
+			dataType: 'json',
+			data: {
+                'ylTitle' : $("#ylTitle2").val(), 'ylContent' : $("#ylContent2").val(), 
+                'ylChName' : $("#ylChName2").val(), 'ylUrl' : $("#ylUrl2").val(),
+                'ylOrder' : $("#ylOrder2").val(), 'ylId' : $('#ylId2').val()
+				},
+            success: function(res){
+            	if(res.data == "수정"){
+                	location.reload();
+				}
+            }
+     	})
 	})
-
 
 	function searchGo(){
 		if($('#dept').val() != "" && $('#end').val() == ""){
@@ -339,11 +293,11 @@
 			dom: 'l<"toolbar">frtip',
 			processing: true,
 			ajax : {
-				url : '/admin/user/search',
+				url : '/admin/video/search',
 				method: 'post',
 				data : {
-					'selectName' : $('#choi option:selected').val(), 'chkMem' : $("input:radio[name='radio-inline-left']:checked").val(),
-					'selResult' : $('#selResult').val(), 'dept' : $('#dept').val(), 'end' : $('#end').val()
+                    'selectName' : $('#choi option:selected').val(),'selResult' : $('#selResult').val(), 
+                    'dept' : $('#dept').val(), 'end' : $('#end').val()
 				}
 			},
 			deferRender: true,
@@ -351,39 +305,17 @@
 				{
 					targets:0,
 					className : 'dt-body-center'
-				},
-				{
-					targets: 9,
+                },
+                {
+					targets: 6,
 					render: function(data, type, row){
-						var test = row.U_cDt;
+						var test = row.YL_dDt;
 						var test2 = test.split(' ',1)
-						return test2;
-											
-					}
-				},
-				{
-					targets: 10,
-					render: function(data, type, row){
-						var test = row.U_uDt;
-						var test2 = test.split(' ',1)
-						return test2;
-											
-					}
-				},
-				{
-					targets: 11,
-					render: function(data, row, type){
-						let adminType = data;
-						if(data == 'y'){
-							adminType = '관리자'
-						}else{
-							adminType = '회원'
-						}
-						return adminType;
+						return test2;											
 					}
 				}
 			],
-			rowId : "U_ID",
+			rowId : "YL_id",
 			columns : [
 				{ 
 					"data": null, 
@@ -391,71 +323,46 @@
 						return meta.row + 1
 					}
 				},
-				{ "data": "U_uId" },
-				{ "data": "U_Name" },
-				{ "data": "U_Email" },
-				{ "data": "U_Phone" },
-				{ "data": "U_Brand" },
-				{ "data": "U_Zip" },
-				{ "data": "U_Addr1" },
-				{ "data": "U_Addr2" },
-				{ "data": "U_cDt" },
-				{ "data": "U_uDt" },
-				{ "data": "U_isAdmin" }		
+				{ "data": "YL_url" },
+				{ "data": "YL_title" },
+                { "data": "YL_description" },
+                { "data": "YL_ch_name" },
+				{ "data": "YL_d_order" },
+				{ "data": "YL_dDt" },
 			],
 		});
 		$('.dataTables_length select').addClass('form-control')
 		$(".dataTables_filter input").addClass("form-control")
-
 	}
 
+
+    
 	function insertMember(){
 		$.ajax({
-            url: "/admin/user/insert",
+            url: "/admin/video/insert",
             method: 'post',
             dataType: 'json',
             data: {
-                'userName' : $("#userName").val(), 'pw' : $("#pw").val(), 'name' : $("#name").val(), 'email' : $("#email").val(),
-                'phone' : $("#phone").val(), 'brand' : $("#brand").val(), 'postcode' : $("#postcode").val(), 'address' : $("#address").val(),
-                'detailAddress' : $("#detailAddress").val(), 'admin': $('#admin').val()
+                'ylTitle' : $("#ylTitle").val(), 'ylContent' : $("#ylContent").val(), 
+                'ylChName' : $("#ylChName").val(), 'ylUrl' : $("#ylUrl").val(),
+                'ylOrder' : $("#ylOrder").val()
                 },
             success: function(res){
                 if(res.data == "추가"){
-                location.href="/admin/user/";
+                location.reload();
                 }
             }
         })
 	}
 	
-
-	$('#update').on('click', function(){
-		$.ajax({
-			url: "/admin/user/modify",
-			method: 'post',
-			dataType: 'json',
-			data: {
-				'uId' : $("#uId").val(), 'userName' : $('#userName').val(),'name' : $("#name").val(), 'email' : $("#email").val(),
-				'brand' : $("#brand").val(), 'zip' : $("#zip").val(), 'addr1' : $("#addr1").val(), 'addr2' : $("#addr2").val(),
-				'phone' : $("#phone").val()
-				},
-            success: function(res){
-            	if(res.data == "수정"){
-                	location.reload();
-				}
-            }
-     	})
-	})
-
-
-
 	$('#delete').on('click',function(){
 		$('#modal_danger_header').modal()	
 		$('#delAction').on('click',function(){
 			$.ajax({
-				url: '/admin/userDelete',
+				url: '/admin/videoDelete',
 				method: 'post',
 				dataType: 'json',
-				data: {'uId' : localStorage.getItem('nowId')},
+				data: {'ylId' : localStorage.getItem('nowId')},
 				success: function(res){
 					location.reload()
 				}

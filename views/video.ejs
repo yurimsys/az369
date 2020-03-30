@@ -77,7 +77,7 @@
                         <!--영상 목록 1번-->
                         <%for(let i=0; i<data.length; i++) {%>
                             
-                        <li class="popup_open" id='<%=data[i].YL_id%>' onclick="popVideo(this)">
+                        <li class="popup_open" id='<%=data[i].YL_id%>' onclick="popVideo(this)" value='<%=i+1%>'>
                             <a>
                                <div class="video_img" id='<%=data[i].YL_id%>' >
                                     <iframe style="width: 100%; height: 100%;" src="<%=data[i].YL_url%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -130,14 +130,6 @@
 
                 <div class="btn_box">
                     <div class="pagination">
-                        <!-- <a href="#">❮</a>
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                        <a href="#">❯</a> -->
                     </div>
                 </div>
 
@@ -286,6 +278,17 @@
         function popVideo(e){
             $('#popup').css('display', 'block');
             //$('.video_control').css('display','block')
+            //alert(document.location.href.split("/")[4])
+            //alert(e.getAttribute('value'))
+            let chkVal = Number(e.getAttribute('value'))
+            if(document.location.href.split("/")[4] == 2){
+                chkVal = chkVal + 6
+            }else if(document.location.href.split("/")[4] == 3){
+                chkVal = chkVal + 12
+            }else if(document.location.href.split("/")[4] == 4){
+                chkVal = chkVal + 18
+            }
+            
             let youId = e.id
             $.ajax({
                 url: '/api/user/videoPopup',
@@ -293,7 +296,7 @@
                 dataType: 'json',
                 data: {'youId' : youId},
                 success: function(res){
-                    $('#firstPage').text(youId)
+                    $('#firstPage').text(chkVal)
                     let html =  "<div class='mySlides' id="+res.data[0].YL_id+">";
                         html += "<div class='video_slide'>";
                         html += "<iframe class='video' width='100%' height='100%;' src="+res.data[0].YL_url+" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";
@@ -325,19 +328,20 @@
         })
 
         //이전버튼
-        $(".prev").on('click', function(){           
-            let yPage =Number($('.mySlides').attr('id'))-1
-            if(yPage == 0){
+        $(".prev").on('click', function(){      
+            let begin = $('#firstPage').text()    
+            //let yPage =Number($('.mySlides').attr('id'))-1
+            if($('#firstPage').text() == 1){
                 return;
             }else{
                 $.ajax({
-                url: '/api/user/videoPopup',
+                url: '/api/user/videoPopupBtn',
                 method: 'post',
                 dataType: 'json',
-                data: {'youId' : yPage},
+                data: {'begin' : Number(begin)-2},
                 success: function(res){
                     $('.mySlides').remove()
-                    $('#firstPage').text(yPage)
+                    $('#firstPage').text(Number(begin)-1)
                     let html =  "<div class='mySlides' id="+res.data[0].YL_id+">";
                         html += "<div class='video_slide'>";
                         html += "<iframe class='video' width='100%' height='100%;' src="+res.data[0].YL_url+" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";
@@ -374,20 +378,21 @@
         });
         
         //다음버튼
-        $(".next").on('click', function(){           
-            let yPage =Number($('.mySlides').attr('id'))+1
+        $(".next").on('click', function(){   
+            let begin = $('#firstPage').text()          
+            //let yPage =Number($('.mySlides').attr('id'))+1
             //console.log(yPage)
-            if(yPage-1 == Number($("#endPage").text())){
+            if(begin == Number($("#endPage").text())){
                 return;
             }else{
                 $.ajax({
-                url: '/api/user/videoPopup',
+                url: '/api/user/videoPopupBtn',
                 method: 'post',
                 dataType: 'json',
-                data: {'youId' : yPage},
+                data: {'begin' : Number(begin)},
                 success: function(res){
                     $('.mySlides').remove();
-                    $('#firstPage').text(yPage)
+                    $('#firstPage').text(Number(begin)+1)
                     let html =  "<div class='mySlides' id="+res.data[0].YL_id+">";
                         html += "<div class='video_slide'>";
                         html += "<iframe class='video' width='100%' height='100%;' src="+res.data[0].YL_url+" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";
