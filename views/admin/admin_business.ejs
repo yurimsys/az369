@@ -200,7 +200,16 @@
 
 	$(document).ready(function(){
 		
-		let table =$('#tList').DataTable({
+		let table =$('#tList').DataTable({ 
+			language: {
+				"lengthMenu":'<select>'+
+				'<option value="5">5</option>'+
+				'<option value="15">15</option>'+
+				'<option value="30">30</option>'+
+				'<option value="50">50</option>'+
+				'<option value="-1">All</option>'+
+				'</select>'
+			},
 			dom: 'l<"toolbar">frtip',
 			ajax : '/admin/business/List',
 			deferRender: true,
@@ -262,7 +271,7 @@
 				// }
 			]
 		});
-		$('.dataTables_length select').addClass('form-control col-6')
+		$('.dataTables_length select').addClass('form-control')
 		$(".dataTables_filter input").addClass("form-control")
 
 		$('#tList tbody').on('click', 'tr', function(e){
@@ -302,6 +311,15 @@
 		}
 		$('#tList').DataTable().clear().destroy();
 		$('#tList').DataTable({
+			language: {
+				"lengthMenu":'<select>'+
+				'<option value="5">5</option>'+
+				'<option value="15">15</option>'+
+				'<option value="30">30</option>'+
+				'<option value="50">50</option>'+
+				'<option value="-1">All</option>'+
+				'</select>'
+			},
 			dom: 'l<"toolbar">frtip',
 			processing: true,
 			ajax : {
@@ -359,7 +377,7 @@
 				{ "data": "B_uDt" }			
 			],
 		});
-		$('.dataTables_length select').addClass('form-control col-6')
+		$('.dataTables_length select').addClass('form-control')
 		$(".dataTables_filter input").addClass("form-control")
 
 	}

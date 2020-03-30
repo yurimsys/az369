@@ -54,7 +54,7 @@ jQuery(document).ready(function($) {
                 });
 				$(".main-container").css('margin-top', containerMargin);
 				$(".user-profile").load("menus/sidebar-user-profile.html");
-				$(".menu-container").load("menus/material-sidebar.html");
+				//$(".menu-container").load("menus/material-sidebar.html");
 				$('.left-aside-container').slimscroll({
 					height: calc_wh + 50,
 					width: "250px"
@@ -93,7 +93,7 @@ jQuery(document).ready(function($) {
 				if(layout == "material"){
 			        $(".menu").addClass(" sidebar");
 					$(".user-profile").load("menus/sidebar-user-profile.html");
-					$(".menu-container").load("menus/material-sidebar.html");
+					//$(".menu-container").load("menus/material-sidebar.html");
 					$(".sidebar").css({
 	                    "height": menuHeight ,
 						"top": menuMargin
@@ -193,7 +193,7 @@ jQuery(document).ready(function($) {
 				// ---------------------------------
 			    else if(layout == 'sidebar'){
 			        $(".menu").addClass(" leftmenu");
-					$(".menu-container").load("menus/material-sidebar.html");
+					//$(".menu-container").load("menus/material-sidebar.html");
 					$(".main-container").css('margin-top', containerMargin);
 					$(".leftmenu").css({
 	                    "height": menuHeight +1,
@@ -214,7 +214,7 @@ jQuery(document).ready(function($) {
 				// ---------------------------------
 			    else if(layout == 'boxed'){
 			        $(".menu").addClass(" leftmenu");
-					$(".menu-container").load("menus/material-sidebar.html");
+					//$(".menu-container").load("menus/material-sidebar.html");
 					$(".main-container").css('margin-top', containerMargin);
 					$(".leftmenu").css({
 	                    "height": menuHeight +1,
@@ -235,7 +235,7 @@ jQuery(document).ready(function($) {
 				// ---------------------------------
 			    else if(layout == 'iconbar'){
 			        $(".menu").addClass(" leftmenu");
-					$(".menu-container").load("menus/material-sidebar.html");
+					//$(".menu-container").load("menus/material-sidebar.html");
 					$(".main-container").css('margin-top', containerMargin);
 					$(".leftmenu").css({
 	                    "height": menuHeight +1,
@@ -256,7 +256,7 @@ jQuery(document).ready(function($) {
 				// ---------------------------------
 			    else if(layout == ''){
 					$(".menu").addClass(" leftmenu");
-					$(".menu-container").load("menus/material-sidebar.html");
+					//$(".menu-container").load("menus/material-sidebar.html");
 					$(".main-container").css('margin-top', containerMargin);
 					$(".leftmenu").css({
 	                    "height": menuHeight +1,

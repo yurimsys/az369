@@ -323,6 +323,15 @@
 
 $(document).ready(function(){
 	let table =$('#tList').DataTable({
+		language: {
+				"lengthMenu":'<select>'+
+				'<option value="5">5</option>'+
+				'<option value="15">15</option>'+
+				'<option value="30">30</option>'+
+				'<option value="50">50</option>'+
+				'<option value="-1">All</option>'+
+				'</select>'
+		},
 		dom: 'l<"toolbar">frtip',
 		ajax : '/admin/carTime/List',
 		deferRender: true,
@@ -362,7 +371,7 @@ $(document).ready(function(){
 			{ "data": "now"}
 		]
 	});
-	$('.dataTables_length select').addClass('form-control col-6')
+	$('.dataTables_length select').addClass('form-control')
 	$(".dataTables_filter input").addClass("form-control")
 
 	//수정                    		
@@ -410,6 +419,15 @@ $(document).ready(function(){
 
 		$('#tList').DataTable().clear().destroy();
 		$('#tList').DataTable({
+			language: {
+				"lengthMenu":'<select>'+
+				'<option value="5">5</option>'+
+				'<option value="15">15</option>'+
+				'<option value="30">30</option>'+
+				'<option value="50">50</option>'+
+				'<option value="-1">All</option>'+
+				'</select>'
+			},
 			dom: 'l<"toolbar">frtip',
 			processing: true,
 			ajax : {
@@ -453,7 +471,7 @@ $(document).ready(function(){
 				{ "data": "now"}			
 			],
 		});
-		$('.dataTables_length select').addClass('form-control col-6')
+		$('.dataTables_length select').addClass('form-control')
 		$(".dataTables_filter input").addClass("form-control")
 
 	}					  
