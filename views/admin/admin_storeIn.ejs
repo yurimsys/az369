@@ -190,6 +190,10 @@ $(document).ready(function(){
 			{ "data": "SI_Read"}
 		]
 	});
+	
+	$('.dataTables_length select').addClass('form-control col-6')
+	$(".dataTables_filter input").addClass("form-control")
+
 	$('#tList tbody').on('click', 'tr', function(e){
 		$('#insertList').empty();
 		$.ajax({
@@ -287,8 +291,10 @@ $(document).ready(function(){
 				{ "data": "SI_cDt"},
 				{ "data": "SI_Read" }
 			],
-
 		});
+		$('.dataTables_length select').addClass('form-control col-6')
+		$(".dataTables_filter input").addClass("form-control")
+
 	}	
 
 	function checkIn(){

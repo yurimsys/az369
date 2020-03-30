@@ -270,6 +270,10 @@
 				}
 			]
 		});
+
+		$('.dataTables_length select').addClass('form-control col-6')
+		$(".dataTables_filter input").addClass("form-control")
+
 		//수정                    					
 		$('#tList tbody').on('click', 'tr', function(e){
 			$('#moList').empty();
@@ -373,8 +377,10 @@
 					defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)' style='color:darkblue;'>Delete</a>"
 				}			
 			],
-
 		});
+		$('.dataTables_length select').addClass('form-control col-6')
+		$(".dataTables_filter input").addClass("form-control")
+
 	}
 
 	function insertMember(){

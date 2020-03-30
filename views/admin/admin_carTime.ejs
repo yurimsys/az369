@@ -6,7 +6,6 @@
 <style>
 	.datepicker{z-index:1151 !important;}
 	.timepicker{z-index:1151 !important;}
-
 </style>
 </head>
 <body id="top">
@@ -363,6 +362,9 @@ $(document).ready(function(){
 			{ "data": "now"}
 		]
 	});
+	$('.dataTables_length select').addClass('form-control col-6')
+	$(".dataTables_filter input").addClass("form-control")
+
 	//수정                    		
 	$('#tList tbody').on('click', 'tr', function(e){
 		//alert(e.currentTarget.id)
@@ -400,9 +402,9 @@ $(document).ready(function(){
 				})
 			}
 		})
-		
 	})
 })
+
 
 	function searchGo(){
 
@@ -450,13 +452,15 @@ $(document).ready(function(){
 				{ "data": "CT_DriverPhone" },
 				{ "data": "now"}			
 			],
-
 		});
+		$('.dataTables_length select').addClass('form-control col-6')
+		$(".dataTables_filter input").addClass("form-control")
+
 	}					  
 
 	//좌석예약표
 	function seatnow(){	
-		event.stopPropagation();
+		//event.stopPropagation();
 		$('#modal_large').modal();
 		//event.stopImmediatePropagation()
 		$('#seatList').empty();
@@ -583,7 +587,6 @@ $(document).ready(function(){
 			})
 		})
 	})
-	// 좌석 . .. . . .. . . . .. . . .. . . ..
 		
 	</script>
 </body>

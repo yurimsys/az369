@@ -231,7 +231,9 @@ $(document).ready(function(){
 		]
 	});
 
-	
+	$('.dataTables_length select').addClass('form-control col-6')
+	$(".dataTables_filter input").addClass("form-control")
+
 })
 
 	function searchGo(){
@@ -323,8 +325,10 @@ $(document).ready(function(){
 				{ "data": "CR_cDt"},
 				{ "data": "CR_uDt"}		
 			],
-
 		});
+		$('.dataTables_length select').addClass('form-control col-6')
+		$(".dataTables_filter input").addClass("form-control")
+
 	}	
 
 

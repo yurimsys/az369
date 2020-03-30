@@ -206,6 +206,8 @@
 			{ "data": "CR_CancelDt"}
 		]
 	});
+	$('.dataTables_length select').addClass('form-control col-6')
+	$(".dataTables_filter input").addClass("form-control")
 
 	$('#tList tbody').on('click', 'tr', function(e){
 		$('#insertList').empty();
@@ -265,6 +267,18 @@
 					className : 'dt-body-center'
 				},
 				{
+					targets:9,
+					render: function(data, type, row){
+						let cancelType = row.CR_Cancel
+						if(row.CR_Cancel == 'Y'){
+							cancelType = '결제취소'
+						}else{
+							cancelType = '결제완료'
+						}
+						return cancelType;
+					}
+				},
+				{
 					targets: 10,
 					render: function(data, type, row){
 						var test = row.CR_cDt;
@@ -307,6 +321,8 @@
 				{ "data": "CR_CancelDt"}
 			]
 		});
+		$('.dataTables_length select').addClass('form-control col-6')
+		$(".dataTables_filter input").addClass("form-control")
 	}
 
 	function cancelPay(){

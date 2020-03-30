@@ -277,7 +277,10 @@ $(document).ready(function(){
 			{ "data": "cur_has_contract"},
 			{ "data": "create_dt"}
         ]
-    });
+	});
+	
+	$('.dataTables_length select').addClass('form-control col-6')
+	$(".dataTables_filter input").addClass("form-control")
 
     $('#tList tbody').on('click', 'tr', function(e){
         $('#sList').empty();
@@ -419,7 +422,10 @@ $(document).ready(function(){
                 { "data": "cur_has_contract"},
                 { "data": "create_dt"}
             ]
-        });
+		});
+		$('.dataTables_length select').addClass('form-control col-6')
+		$(".dataTables_filter input").addClass("form-control")
+
     }	
     
 	</script>

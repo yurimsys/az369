@@ -262,6 +262,9 @@
 				// }
 			]
 		});
+		$('.dataTables_length select').addClass('form-control col-6')
+		$(".dataTables_filter input").addClass("form-control")
+
 		$('#tList tbody').on('click', 'tr', function(e){
 			$('#moList').empty();
 			localStorage.setItem('nowId', e.currentTarget.id)
@@ -355,8 +358,10 @@
 				{ "data": "B_cDt" },
 				{ "data": "B_uDt" }			
 			],
-
 		});
+		$('.dataTables_length select').addClass('form-control col-6')
+		$(".dataTables_filter input").addClass("form-control")
+
 	}
 	
 	
