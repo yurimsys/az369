@@ -1,49 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-
-  <% include templates/admin_head.ejs %>
-  <title>Admin-Index</title>
+	<% include templates/admin_head.ejs %>
+	<style>        
+        table#tList tbody tr:hover > .sorting_1 {
+        	background-color:white;
+        }
+        #tList:hover tbody tr:hover td {
+            background: #eee;
+            cursor: pointer;
+            color: black;
+        }
+   
+    </style>
 
 </head>
+<body id="top">
 
-<body>
+<!-- Preloader -->
+<!-- <div id="preloader">
+	<div id="status">
+		<div class="loader"></div>
+	</div>
+</div> -->
+<!-- /Preloader -->
 
-  <div class="d-flex" id="wrapper">
+<div id="body-wrapper" class="body-container">
 
-    <!-- Sidebar -->
-    <% include templates/admin_sidebar.ejs %>
-    <!-- /#sidebar-wrapper -->
+	<!-- Header begins -->
+	<header class="main-nav clearfix">
+		<% include templates/admin_header.ejs %>
+	</header>
+	<!-- /Header ends -->
 
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
+	<!-- 네비게이션!@!@-->
+	<aside class="menu">
+		<div class="left-aside-container">			
+			<% include templates/admin_sidebar.ejs %>
+			<!-- /User profile -->
+			<!-- Main menu -->
+			<div class="menu-container">
+				
+			</div>
+			<!-- /Main menu -->
+		</div>
+	</aside>
+	<!-- /Sidebar -->
+
+	<!-- Page container begins -->
+	<section class="main-container">
+		<h1 style="display:none">Empty Heading</h1>
+			<!--Page Header-->
+			<div class="header">
+				<div class="header-content">
+					<div class="page-title">
+						<div class="row" style="margin: 0;">
+							<div class="col-6">
+								<i class="icon-table2 position-left"></i> INDEX
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/Page Header-->
 
 
-      <!-- navi -->
-      <% include templates/admin_nav.ejs %>
 
-      <div class="container-fluid">
-        <h1 class="mt-4">관리자 메인화면🛵</h1>
-      </div>
-    </div>
-    <!-- /#page-content-wrapper -->
-
-  </div>
-  <!-- /#wrapper -->
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
-
+		</section>
+		<!-- /Page Container ends -->
+		<!-- ScrolltoTop -->
+		<!-- <a id="scrollTop" href="#top"><i class="icon-arrow-up12"></i></a> -->
+		<!-- /ScrolltoTop -->
+		<% include templates/admin_footer.ejs %>
+	</div>
 </body>
-
 </html>
