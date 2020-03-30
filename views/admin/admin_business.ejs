@@ -70,10 +70,10 @@
 							<th>가입일</th>
 							<td>
 								<div class="input-group" style="height: 30px;">
-									<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+									<span class="input-group-addon"><i class="icon-calendar2" style="margin-top: 8px;"></i></span>
 									<input type="text" class="form-control2 datepicker-here" id="dept" style="width: 290px; height: 30px;">
 									&emsp14; ~ &emsp14; 
-									<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+									<span class="input-group-addon"><i class="icon-calendar2" style="margin-top: 8px;"></i></span>
 									<input type="text" class="form-control2 datepicker-here" id="end" style="width: 290px;">
 								</div>
 							</td>
@@ -181,17 +181,11 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 
 		</section>
-		<!-- /Page Container ends -->
-		<!-- ScrolltoTop -->
-		<!-- <a id="scrollTop" href="#top"><i class="icon-arrow-up12"></i></a> -->
-		<!-- /ScrolltoTop -->
 		<% include templates/admin_footer.ejs %>
 	</div>
-	
   
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
@@ -216,9 +210,7 @@
 			columnDefs : [
 				{
 					targets:0,
-					className : 'dt-body-center',
-					"searchable": false,
-            		"orderable": false,
+					className : 'dt-body-center'
 				},
 				{
 					targets: 8,
@@ -283,7 +275,6 @@
 				dataType: 'json',
 				data: {'bId' : e.currentTarget.id},
 				success: function(res){
-					console.log(res.data.B_Name)
 					let	html = "<label for='name'>B_Name:</label><input type='name' class='form-control' id='name' value="+res.data.B_Name+">";
 						html += "<label for='Tel'>B_Tel:</label><input type='Tel' class='form-control' id='tel' value="+res.data.B_Tel+">";
 						html += "<label for='Fax'>B_Fax:</label><input type='Fax' class='form-control' id='fax' value="+res.data.B_Fax+">";
@@ -350,8 +341,7 @@
 					render: function(data, type, row){
 						var test = row.B_uDt;
 						var test2 = test.split(' ',1)
-						return test2;
-											
+						return test2;											
 					}
 				}
 			],
@@ -435,7 +425,6 @@
 				})
 			})
 		})
-
 	</script>
 </body>
 </html>

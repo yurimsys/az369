@@ -833,7 +833,7 @@ router.post('/payment/search', auth.isLoggedIn, function(req, res, next) {
         if(chkRad !== "" && chkRad !== undefined){
             query += `and CR_Cancel = :chkRad `
         }
-            query += '\n group by PH_ID limit 8000'
+            query += '\n group by PH_ID order by CR_cDt desc limit 8000'
 
         connection.query(query,{selectName, selResult, chkRad, dept, end},
           function(err, rows, fields) {

@@ -266,7 +266,7 @@
 						method: 'post',
 						dataType: 'json',
 						success: function(res){
-							console.log("data ::", res.data);
+							//console.log("data ::", res.data);
 							for(let i=0; i<res.data.length; i++){
 							let html = "<option value="+res.data[i].B_ID+">"+res.data[i].B_Name+"</option>"
 								$("#cyBId").append(html);
@@ -359,7 +359,7 @@
 
 	function insert(){
 		$('#insertList').empty();
-		let	html =  "<label>CY_B_ID</label><select id='cyBId' class='form-control col-md-6'><option value=0>운송사 선택</option></select>";
+		let	html =  "<label>CY_B_ID</label><select id='cyBId2' class='form-control col-md-6'><option value=0>운송사 선택</option></select>";
 			html += "<label for='cyTy'>CY_Ty:</label><input type='cyTy' class='form-control' id='cyTy'> ";
 			html += "<label for='total'>CY_TotalPassenger:</label><input type='total' class='form-control' id='total'>";
 			html += "<label for='service'>CY_ServicePassen:</label><input type='service' class='form-control' id='service'>";
@@ -373,7 +373,7 @@
 				console.log("data ::", res.data);
 				for(let i=0; i<res.data.length; i++){
 				let html = "<option value="+res.data[i].B_ID+">"+res.data[i].B_Name+"</option>"
-					$("#cyBId").append(html);
+					$("#cyBId2").append(html);
 				}
 			}
 		})
@@ -385,7 +385,7 @@
             method: 'post',
             dataType: 'json',
             data: {
-                'cyBId' : $("#cyBId option:selected").val(), 'cyTy' : $("#cyTy").val(), 'total' : $("#total").val(),
+                'cyBId' : $("#cyBId2 option:selected").val(), 'cyTy' : $("#cyTy").val(), 'total' : $("#total").val(),
                 'service' : $("#service").val(), 'price' : $("#price").val()
                 },
             success: function(res){
