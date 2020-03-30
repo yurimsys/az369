@@ -7,6 +7,14 @@ const auth = require('../config/passport');
 const connection = mysql.createConnection(dbconf);
 const config = require('../config');
 const CryptoJS = require('crypto-js');
+var async = require('async');
+let{
+    Editor,
+    Field,
+    Validate,
+    Format,
+    Options
+} = require('datatables.net-editor-server');
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -24,9 +32,9 @@ connection.on('error', function(err) {
     console.log(err);
 });
 
-
 ///관리자 부분
-router.get('/index', auth.isLoggedIn, function(req, res, next) {
+// router.get('/index', auth.isLoggedIn, function(req, res, next) {
+router.get('/index', function(req, res, next) {
     console.log(req.app.get('views'))
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
@@ -38,37 +46,46 @@ router.get('/index', auth.isLoggedIn, function(req, res, next) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////비지니스 테이블 
 
-
-//관리자 비지니스 테이블
-router.get('/business', auth.isLoggedIn, function(req, res, next) {  
-
+//비지니스 테이블
+router.get('/business', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `SELECT * FROM tB `; 
+        res.render('admin_business');
+    }
+});
+
+
+//비지니스 테이블
+router.get('/business/List', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        //let query = `SELECT * FROM tB limit :now, :page`;
+        let query = `SELECT * FROM tB limit 8000`; 
+        //let page =  Number(req.query.length);
+        //let now = Number(req.query.start);
         connection.query(query,
-          function(err, rows, fields) {
-              if (err) throw err;
-              
-              let smsg = req.flash("success");
-              console.log("smsg : ", smsg);
-              res.render('admin_business', { data : rows, message : smsg });
-              
-          });
-    }    
+            function(err, rows, fields) {
+                if (err) throw err;
+                res.json({data : rows});
+              console.log("비지니스",rows);
+        });
+        
+    }
 });
 
 //관리자 비지니스 테이블 수정 페이지
-router.get('/businessModify/:bId', auth.isLoggedIn, function(req, res, next) {
+router.post('/businessModify', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let bId = req.params.bId;
+        let bId = req.body.bId;
         let query = `SELECT * FROM tB where B_ID = :bId`; 
         connection.query(query,{bId},
           function(err, rows, fields) {
               if (err) throw err;
-              res.render('admin_business_modify', { data : rows[0] });
+              res.json({ data : rows[0] });
               console.log("비지니스",rows);
           });
     }
@@ -107,12 +124,12 @@ router.post('/business/modify', auth.isLoggedIn, function(req, res, next) {
 
 
 //관리자 비지니스 테이블 삭제 페이지
-router.get('/businessDelete/:bId', auth.isLoggedIn, function(req, res, next) {
+router.post('/businessDelete', auth.isLoggedIn, function(req, res, next) {
 
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let bId = req.params.bId;
+        let bId = req.body.bId;
         console.log("아이디 :", bId);
         let query = `delete FROM tB where B_ID = :bId`; 
         connection.query(query,{bId},
@@ -120,21 +137,10 @@ router.get('/businessDelete/:bId', auth.isLoggedIn, function(req, res, next) {
             if (err) throw err;
             //req.flash("success", "삭제 완료!");
             //console.log(msg);
-            res.send("<script type='text/javascript'>alert('삭제완료'); location.href='/admin/business';</script>");
+            res.json({data : ""});
           });
     }
 
-});
-
-//비지니스 테이블 추가
-router.get('/businessInsert', auth.isLoggedIn, function(req, res, next) {
-    if(req.user.U_isAdmin === 'n'){
-        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
-    }else{
-        res.render('admin_business_insert');
-    }
-
-   
 });
 
 //비지니스 테이블 추가하기
@@ -163,6 +169,34 @@ router.post('/business/insert', auth.isLoggedIn, function(req, res, next) {
 
 });
 
+//business 테이블 검색
+router.post('/business/search', auth.isLoggedIn, function(req, res, next) {
+                                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+
+        let selectName = req.body.selectName;
+        let selResult = req.body.selResult;
+        let dept = req.body.dept;
+        let end = req.body.end;
+        let query = 'select * from tB where 1=1 '
+
+        if(selResult !== "" && selResult !== undefined){
+            query += ` and ${selectName} like '%${selResult}%'`
+        }if(dept !== "" && dept !== undefined && end !== "" && end !== undefined){
+            query += " and date_format(B_cDt,'%y%y-%m-%d') between date(:dept) AND date(:end)"
+        }
+
+        connection.query(query,{selectName, selResult, dept, end},
+          function(err, rows, fields) {
+              if (err) throw err;
+              res.json({data : rows});
+              console.log(rows)
+          });
+    }
+});
+
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 카타입 테이블(버스정보 테이블 tCY)  @@@@@@@@@@@@@@
 
 //CarType 테이블
@@ -170,16 +204,23 @@ router.get('/carType', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `SELECT * FROM tCY inner join tB on tCY.CY_B_ID = tB.B_ID`; 
+        res.render('admin_carType');
+
+    }
+});
+
+//CarType 데이터테이블
+router.get('/carType/List', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let query = `SELECT * FROM tCY inner join tB on tCY.CY_B_ID = tB.B_ID limit 8000`; 
         connection.query(query,
           function(err, rows, fields) {
               if (err) throw err;
-              res.render('admin_carType', { data : rows });
-              console.log("비지니스",rows);
+              res.json({ data : rows });
           });
     }
-
-
 });
 
 //carType 운송사 목록
@@ -187,7 +228,7 @@ router.post('/carTypeBList', auth.isLoggedIn, function(req,res){
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `select B_Name, B_ID from tB`;
+        let query = `select B_Name, B_ID from tB order by B_ID asc limit 200`;
         connection.query(query,
             function(err, rows){
                 if(err) throw err;
@@ -200,20 +241,19 @@ router.post('/carTypeBList', auth.isLoggedIn, function(req,res){
 })
 
 //CarType 테이블 수정 페이지
-router.get('/carTypeModify/:cyId', auth.isLoggedIn, function(req, res, next) {
-
+router.post('/carTypeModify', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let cyId = req.params.cyId;
+        let cyId = req.body.cyId;
 
         console.log("아이디 :", cyId);
         let query = `SELECT * FROM tCY where CY_ID = :cyId`; 
         connection.query(query,{cyId},
           function(err, rows, fields) {
               if (err) throw err;
-              res.render('admin_carType_modify', { data : rows[0] });
-              console.log("비지니스",rows);
+              res.json({ data : rows[0] });
+              console.log("@@@@@@@@@@@@@@@@@@@@@@@@",rows);
           });
     }
 
@@ -224,7 +264,6 @@ router.get('/carTypeModify/:cyId', auth.isLoggedIn, function(req, res, next) {
 
 //CarType 테이블 수정하기
 router.post('/carType/modify', auth.isLoggedIn, function(req, res, next) {
-    
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
@@ -251,46 +290,23 @@ router.post('/carType/modify', auth.isLoggedIn, function(req, res, next) {
 
 
 //CarType 테이블 삭제 페이지
-router.get('/carTypeDelete/:cyId', auth.isLoggedIn, function(req, res, next) {
+router.post('/carTypeDelete', auth.isLoggedIn, function(req, res, next) {
 
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let cyId = req.params.cyId;
+        let cyId = req.body.cyId;
         console.log("아이디 :", cyId);
         let query = `delete FROM tCY where CY_ID = :cyId`; 
         connection.query(query,{cyId},
-          function(err, rows, fields) {
-             
+          function(err, rows, fields) {      
               if (err) throw err;
-              //req.flash("success", "삭제 완료!");
-              //console.log(msg);
-              res.send("<script type='text/javascript'>alert('삭제완료'); location.href='/admin/carType';</script>");
-              //res.redirect('/admin/business');
-              //console.log("비지니스",rows);
+              res.json({data : ""});
+
           });
     }
-
 });
 
-
-//CarType 테이블 추가
-router.get('/carTypeInsert', auth.isLoggedIn, function(req, res, next) {
-    if(req.user.U_isAdmin === 'n'){
-        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
-    }else{
-        let query = `select B_Name, B_ID from tB`; 
-
-        connection.query(query,
-          function(err, rows, fields) {
-              if (err) throw err;
-              res.render('admin_carType_insert',{data:rows});
-          });
-    
-    }
-
-   
-});
 
 //CarType 테이블 추가하기
 router.post('/carType/insert', auth.isLoggedIn, function(req, res, next) {
@@ -313,30 +329,94 @@ router.post('/carType/insert', auth.isLoggedIn, function(req, res, next) {
               res.json({data : "추가"});
           });
     }
-
 });
 
-
-/////////////@@@@@@@@@@@ 카 타임 테이블(버스운행정보 tCT) @@@@@@@@@@
- 
-
-
-//carTime 메인화면
-router.get('/carTime', auth.isLoggedIn, function(req, res, next) {
+//CarType 테이블 검색
+router.post('/carType/search', auth.isLoggedIn, function(req, res, next) {
+                                        
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `select * from tCT inner join tCY on tCT.CT_CY_ID = tCY.CY_ID inner join tB on tCY.CY_B_ID = tB.B_ID`; 
-        connection.query(query,
+
+        let selectName = req.body.selectName;
+        let selResult = req.body.selResult;
+        let dept = req.body.dept;
+        let end = req.body.end;
+        let query = 'SELECT * FROM tCY inner join tB on tCY.CY_B_ID = tB.B_ID where 1=1 '
+
+        if(selResult !== "" && selResult !== undefined){
+            query += ` and ${selectName} like '%${selResult}%'`
+        }if(dept !== "" && dept !== undefined && end !== "" && end !== undefined){
+            query += " and date_format(CY_cDt,'%y%y-%m-%d') between date(:dept) AND date(:end)"
+        }
+
+        connection.query(query,{selectName, selResult, dept, end},
           function(err, rows, fields) {
               if (err) throw err;
-              res.render("admin_carTime", { data : rows});
-              console.log("user",rows);
+              res.json({data : rows});
           });
     }
 
 });
 
+/////////////@@@@@@@@@@@ 카 타임 테이블(버스운행정보 tCT) @@@@@@@@@@
+
+//carTime 좌석 리스트
+router.post('/carTimeSeatList', auth.isLoggedIn, function(req, res) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let query = `select CR_SeatNum from tCR where CR_CT_ID = :ctId and CR_Cancel = 'n'`; 
+        let ctId = req.body.ctId
+        connection.query(query,{ctId},
+          function(err, rows) {
+              if (err) throw err;
+              res.json({ data : rows});
+              console.log("좌석 목록 :",rows);
+          });
+    }
+
+});
+
+ 
+//carTime 메인화면
+router.get('/carTime', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        res.render("admin_carTime");
+    }
+
+});
+
+//user 데이터테이블
+router.get('/carTime/List', auth.isLoggedIn, function(req, res, next) {
+                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let query = `select
+                        CT_ID,
+                        B_Name,
+                        CY_Ty,
+                        date_format(CT_DepartureTe,'%y%y-%m-%d %H:%i') as CT_DepartureTe,
+                        date_format(CT_ReturnTe,'%y%y-%m-%d %H:%i') as CT_ReturnTe,
+                        date_format(CT_LeadTe,'%H:%i') as CT_LeadTe,
+                        CT_CarNum,
+                        CT_DriverName,
+                        CT_DriverPhone,
+                        (CY_TotalPassenger-(select count(CR_CT_ID) from tCR where CR_Cancel = 'n' and CR_CT_ID = CT_ID)) as now,
+                        CY_TotalPassenger as total
+                        from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tB on tB.B_ID = tCY.CY_B_ID
+                    group by CT_ID order by CT_DepartureTe desc limit 8000`; 
+        connection.query(query,
+            function(err, rows, fields) {
+                if (err) throw err;
+                res.json({ data : rows});
+            }
+        );
+    }
+});  
 
 
 //carTime 운송사 목록
@@ -357,19 +437,19 @@ router.post('/carTimeBList', auth.isLoggedIn, function(req, res) {
 
 
 //CarTime 테이블 수정 페이지
-router.get('/carTimeModify/:ctId', auth.isLoggedIn, function(req, res, next) {
+router.post('/carTimeModify', auth.isLoggedIn, function(req, res, next) {
 
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let ctId = req.params.ctId;
+        let ctId = req.body.ctId;
 
         console.log("아이디 :", ctId);
         let query = `SELECT * FROM tCT where CT_ID = :ctId`; 
         connection.query(query,{ctId},
           function(err, rows, fields) {
               if (err) throw err;
-              res.render('admin_carTime_modify', { data : rows[0] });
+              res.json({ data : rows[0] });
               console.log("비지니스",rows);
           });
     }
@@ -385,21 +465,19 @@ router.post('/carTime/modify', auth.isLoggedIn, function(req, res, next) {
     }else{
         let ctId = req.body.ctId;
         let ctCyId = req.body.ctCyId;
-        let dept = req.body.dept;
-        let retun = req.body.retun;
+        let deptTe = req.body.deptTe;
+        let returnTe = req.body.return;
         let lead = req.body.lead;
         let carNum = req.body.carNum;
         let drName = req.body.drName;
         let drPhone = req.body.drPhone;
     
-        console.log(ctId, ctCyId, dept, retun, lead, carNum, drName, drPhone);
-    
         console.log("아이디 :", ctId);
-        let query = `update tCT set CT_CY_ID =:ctCyId, CT_DepartureTe =:dept, CT_ReturnTe =:retun,
+        let query = `update tCT set CT_CY_ID =:ctCyId, CT_DepartureTe =:deptTe, CT_ReturnTe =:returnTe,
                                     CT_LeadTe =:lead, CT_carNum =:carNum, CT_DriverName =:drName, CT_DriverPhone =:drPhone
                      where CT_ID =:ctId`; 
     
-        connection.query(query,{ctCyId, dept, retun, lead, carNum, drName, drPhone, ctId},
+        connection.query(query,{ctCyId, deptTe, returnTe, lead, carNum, drName, drPhone, ctId},
           function(err, rows, fields) {
               if (err) throw err;
               res.json({data : "수정"});
@@ -410,12 +488,12 @@ router.post('/carTime/modify', auth.isLoggedIn, function(req, res, next) {
 
 
 //CarTime 테이블 삭제 페이지
-router.get('/carTimeDelete/:ctId', auth.isLoggedIn, function(req, res, next) {
+router.post('/carTimeDelete', auth.isLoggedIn, function(req, res, next) {
         
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let ctId = req.params.ctId;
+        let ctId = req.body.ctId;
         console.log("아이디 :", ctId);
         let query = `delete FROM tCT where CT_ID = :ctId`; 
         connection.query(query,{ctId},
@@ -424,7 +502,7 @@ router.get('/carTimeDelete/:ctId', auth.isLoggedIn, function(req, res, next) {
               if (err) throw err;
               //req.flash("success", "삭제 완료!");
               //console.log(msg);
-              res.send("<script type='text/javascript'>alert('삭제완료'); location.href='/admin/carTime';</script>");
+              res.json({data : ""});
               //res.redirect('/admin/business');
               //console.log("비지니스",rows);
           });
@@ -433,16 +511,16 @@ router.get('/carTimeDelete/:ctId', auth.isLoggedIn, function(req, res, next) {
 });
 
 //CarTime 테이블 추가
-router.get('/carTimeInsert', auth.isLoggedIn, function(req, res, next) {
+router.post('/carTimeInsert', auth.isLoggedIn, function(req, res, next) {
             
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `select tCY.CY_ID as cyId, tCY.CY_B_ID as cyBId, tB.B_Name as bName, CY_Ty  from tCY inner join tB on tCY.CY_B_ID = tB.B_ID`; 
+        let query = `select tCY.CY_ID, tCY.CY_B_ID, tB.B_Name, CY_Ty from tCY inner join tB on tCY.CY_B_ID = tB.B_ID`; 
         connection.query(query,
           function(err, rows, fields) {        
               if (err) throw err;
-              res.render('admin_carTime_insert',{data:rows});
+              res.json({data:rows});
     
           });
     }
@@ -472,46 +550,102 @@ router.post('/carTime/insert', auth.isLoggedIn, function(req, res, next) {
               res.json({data : "추가"});
           });
     }
+});
+
+//carTime 테이블 검색
+router.post('/carTime/search', auth.isLoggedIn, function(req, res, next) {
+                                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+
+        let selectName = req.body.selectName;
+        let selResult = req.body.selResult;
+        let chkMem = req.body.chkMem;
+        let dept = req.body.dept;
+        let end = req.body.end;
+        let query = `select
+                        CT_ID,
+                        B_Name,
+                        CY_Ty,
+                        date_format(CT_DepartureTe,'%y%y-%m-%d %H:%i') as CT_DepartureTe,
+                        date_format(CT_ReturnTe,'%y%y-%m-%d %H:%i') as CT_ReturnTe,
+                        date_format(CT_LeadTe,'%H:%i') as CT_LeadTe,
+                        CT_CarNum,
+                        CT_DriverName,
+                        CT_DriverPhone,
+                        (CY_TotalPassenger-(select count(CR_CT_ID) from tCR where CR_Cancel = 'n' and CR_CT_ID = CT_ID)) as now,
+                        CY_TotalPassenger as total
+                        from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tB on tB.B_ID = tCY.CY_B_ID
+                    where 1=1 `;
+
+        if(selResult !== "" && selResult !== undefined){
+            query += ` and ${selectName} like '%${selResult}%'`
+        }if(end !== "" && end !== undefined){
+            query += " and date_format(CT_ReturnTe,'%y%y-%m-%d %H:%i') = :end"
+        }if(dept !== "" && dept !== undefined){
+            query += " and date_format(CT_DepartureTe,'%y%y-%m-%d %H:%i') = :dept"
+        }
+            query += "\n group by CT_ID order by CT_DepartureTe desc "
+        connection.query(query,{selectName, selResult, chkMem, dept, end},
+          function(err, rows, fields) {
+              if (err) throw err;
+              res.json({data : rows});
+          });
+    }
 
 });
+
+
 
 /////////////////////////@@@@ 회원관리 @@@@@/////////////////////
 
 //user 메인화면 페이징
 router.get('/user', auth.isLoggedIn, function(req, res, next) {
-                    
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `SELECT * FROM tU`; 
-        connection.query(query,
-          function(err, rows, fields) {
-              if (err) throw err;
-              res.render("admin_user", { data : rows});
-              console.log("user",rows);
-          });
+        res.render("admin_user");
     }
-
 });
-//user 테이블 수정 페이지
-router.get('/userModify/:uId', auth.isLoggedIn, function(req, res, next) {
+
+
+//user 데이터테이블
+router.get('/user/List', auth.isLoggedIn, function(req, res, next) {
                         
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let uId = req.params.uId;
+        let query = `SELECT * FROM tU limit 8000`; 
+        connection.query(query,
+            function(err, rows, fields) {
+                if (err) throw err;
+                res.json({ data : rows});
+                console.log("user",rows);
+            }
+        );
+    }
+});  
 
+
+//user 테이블 수정 페이지
+router.post('/userModify', auth.isLoggedIn, function(req, res, next) {
+                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let uId = req.body.uId;
         console.log("아이디 :", uId);
         let query = `SELECT * FROM tU where U_ID = :uId`; 
         connection.query(query,{uId},
-          function(err, rows, fields) {
-              if (err) throw err;
-              res.render('admin_user_modify', { data : rows[0] });
-              console.log("user",rows);
-          });
+            function(err, rows, fields) {
+                if (err) throw err;
+                res.json({ data : rows[0] });
+                console.log("user",rows);
+            }
+        );
     }
-
-});
+});  
 
 
 
@@ -532,7 +666,7 @@ router.post('/user/modify', auth.isLoggedIn, function(req, res, next) {
         let addr2 = req.body.addr2;
        
         console.log("아이디 :", uId);
-        let query = `update tU set U_UserName =:userName, U_Name =:name, U_Email =:email, U_Phone =:phone,
+        let query = `update tU set U_uId =:userName, U_Name =:name, U_Email =:email, U_Phone =:phone,
                             U_Brand =:brand, U_Zip =:zip, U_Addr1 =:addr1, U_Addr2 =:addr2, U_uDt = now()
                      where U_ID =:uId`; 
     
@@ -547,12 +681,12 @@ router.post('/user/modify', auth.isLoggedIn, function(req, res, next) {
 
 
 //user 테이블 삭제 페이지 
-router.get('/userDelete/:uId', auth.isLoggedIn, function(req, res, next) {
+router.post('/userDelete', auth.isLoggedIn, function(req, res, next) {
                                 
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let uId = req.params.uId;
+        let uId = req.body.uId;
         console.log("아이디 :", uId);
         let query = `delete FROM tU where U_ID = :uId`; 
         connection.query(query,{uId},
@@ -561,7 +695,7 @@ router.get('/userDelete/:uId', auth.isLoggedIn, function(req, res, next) {
               if (err) throw err;
               //req.flash("success", "삭제 완료!");
               //console.log(msg);
-              res.send("<script type='text/javascript'>alert('삭제완료'); location.href='/admin/user/1';</script>");
+              res.json({data : ""});
               //res.redirect('/admin/business');
               //console.log("비지니스",rows);
           });
@@ -571,17 +705,6 @@ router.get('/userDelete/:uId', auth.isLoggedIn, function(req, res, next) {
 
 
 //user 테이블 추가
-router.get('/userInsert', auth.isLoggedIn, function(req, res, next) {
-                                    
-    if(req.user.U_isAdmin === 'n'){
-        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
-    }else{
-        res.render('admin_user_insert');
-    }
-
-});
-
-//user 테이블 추가하기 @@@
 router.post('/user/insert', auth.isLoggedIn, function(req, res, next) {
                                         
     if(req.user.U_isAdmin === 'n'){
@@ -595,16 +718,50 @@ router.post('/user/insert', auth.isLoggedIn, function(req, res, next) {
         let zip = req.body.postcode;
         let addr1 = req.body.address;
         let addr2 = req.body.detailAddress;
+        let admin = req.body.admin
         let password = req.body.pw;
         let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString();
     
-        let query = `insert into tU(U_UserName, U_Pw ,U_Name, U_Email, U_Phone, U_Brand, U_Zip, U_Addr1, U_Addr2) 
-                    values(:userName, :hash_pw, :name, :email, :phone, :brand, :zip, :addr1, :addr2)`; 
+        let query = `insert into tU(U_uId, U_Pw ,U_Name, U_Email, U_Phone, U_Brand, U_Zip, U_Addr1, U_Addr2, U_isAdmin) 
+                    values(:userName, :hash_pw, :name, :email, :phone, :brand, :zip, :addr1, :addr2, :admin)`; 
     
-        connection.query(query,{userName, hash_pw, name, email, phone, brand, zip, addr1, addr2},
+        connection.query(query,{userName, hash_pw, name, email, phone, brand, zip, addr1, addr2, admin},
           function(err, rows, fields) {
               if (err) throw err;
               res.json({data : "추가"});
+          });
+    }
+
+});
+
+
+//user 테이블 검색
+router.post('/user/search', auth.isLoggedIn, function(req, res, next) {
+                                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+
+        let selectName = req.body.selectName;
+        let selResult = req.body.selResult;
+        let chkMem = req.body.chkMem;
+        let dept = req.body.dept;
+        let end = req.body.end;
+        //let query = ""
+        let query = 'select * from tU where 1=1 '
+        if(selResult !== "" && selResult !== undefined){
+            query += ` and ${selectName} like '%${selResult}%'`
+        }if(chkMem !== "" && chkMem !== undefined){
+            query += " and U_isAdmin = :chkMem "
+        }if(dept !== "" && dept !== undefined && end !== "" && end !== undefined){
+            query += " and date_format(U_cDt,'%y%y-%m-%d') between date(:dept) AND date(:end)"
+        }
+
+        connection.query(query,{selectName, selResult, chkMem, dept, end},
+          function(err, rows, fields) {
+              if (err) throw err;
+              res.json({data : rows});
+              console.log(rows)
           });
     }
 
@@ -618,40 +775,93 @@ router.get('/payment/', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
+        res.render("admin_payment");
+    }
+});
+
+//payment 데이터테이블
+router.get('/payment/List', auth.isLoggedIn, function(req, res, next) {
+                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
         let query = `select
-                        tPH.PH_ID as PH_ID, tPH.PH_U_ID as PH_U_ID, tU.U_UserName as U_UserName, tU.U_Phone as U_Phone, tU.U_Name as U_Name,
-                        tPH.PH_PG_ID as PH_PG_ID, tPH.PH_PG_Name as PH_PG_Name, tPH.PH_Price as PH_Price, tPH.PH_OPrice as PH_Oprice,
-                        tPH.PH_SPrice as PH_SPrice, tPH.PH_Type as PH_Type, tCR.CR_Cancel as CR_Cancel, tCR.CR_cDt as CR_cDt
-                        from tPH inner join tU on tPH.PH_U_ID = tU.U_ID inner join tCR on tPH.PH_ID = tCR.CR_PH_ID
-                    order by CR_cDt desc`;
+                        PH_ID, PH_U_ID, U_uId, U_Name, U_Phone, PH_PG_ID, PH_PG_Name, PH_Price, PH_OPrice, PH_SPrice, PH_Type, CR_Cancel, CR_cDt, CR_CancelDt
+                    from tPH inner join tU on PH_U_ID = U_ID inner join tCR on PH_ID = CR_PH_ID
+                    group by PH_ID order by CR_cDt desc limit 8000`; 
         connection.query(query,
             function(err, rows, fields) {
                 if (err) throw err;
-                res.render("admin_payment", { data : rows});
-            console.log("user",rows);
-        });
+                res.json({ data : rows});
+            }
+        );
     }
+});  
 
+//payment 검색
+router.post('/payment/search', auth.isLoggedIn, function(req, res, next) {
+                                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+
+        let selectName = req.body.selectName;
+        let selResult = req.body.selResult;
+        let chkRad = req.body.chkRad;
+        let dept = req.body.dept;
+        let end = req.body.end;
+        let query = `select
+                        PH_ID, PH_U_ID, U_uId, U_Name, U_Phone, PH_PG_ID, PH_PG_Name, PH_Price, PH_OPrice, PH_SPrice, PH_Type, CR_Cancel, CR_cDt, CR_CancelDt
+                    from tPH inner join tU on PH_U_ID = U_ID inner join tCR on PH_ID = CR_PH_ID
+                    where 1=1
+                    `
+
+        if(selResult !== "" && selResult !== undefined){
+            query += ` and ${selectName} like '%${selResult}%'`
+        }
+        if(chkRad == "y" && chkRad !== undefined && dept !== "" && dept !== undefined && end !== "" && end !== undefined){
+            query += " and CR_Cancel = 'y' and date_format(CR_CancelDt,'%y%y-%m-%d') between date(:dept) AND date(:end)"
+        }else if(chkRad !== "" && chkRad !== undefined && dept == "" && dept == undefined && end == "" && end == undefined){
+            query += `and CR_Cancel = :chkRad `
+        }
+
+        if(chkRad == "n" && chkRad !== undefined && dept !== "" && dept !== undefined && end !== "" && end !== undefined){
+            query += " and CR_Cancel = 'n' and date_format(CR_cDt,'%y%y-%m-%d') between date(:dept) AND date(:end)"
+        }else if(chkRad !== "" && chkRad !== undefined && dept == "" && dept == undefined && end == "" && end == undefined){
+            query += `and CR_Cancel = :chkRad `
+        }
+        if(chkRad !== "" && chkRad !== undefined){
+            query += `and CR_Cancel = :chkRad `
+        }
+            query += '\n group by PH_ID order by CR_cDt desc limit 8000'
+
+        connection.query(query,{selectName, selResult, chkRad, dept, end},
+          function(err, rows, fields) {
+              if (err) throw err;
+              res.json({data : rows});
+              console.log(rows)
+          });
+    }
 });
 
+
 //Payment 결제취소 페이지
-router.get('/cancelList/:phId/:phUId', auth.isLoggedIn, function(req, res, next) {
+router.post('/cancelList', auth.isLoggedIn, function(req, res, next) {
                                                 
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let phId = req.params.phId;
-        let phUId = req.params.phUId;
+        let phId = req.body.phId;
         //console.log("아이디 :", ctId);
         let query = `select 
-                        PH_ID, PH_U_ID, U_UserName, U_Name, B_Name, CT_DepartureTe, count(PH_Price) as cnt, sum(PH_Price) as PH_Price,PH_Type, CR_Cancel, CR_cDt
-                     from tPH inner join tU on tPH.PH_U_ID = tU.U_ID inner join tCR on tPH.PH_ID = tCR.CR_PH_ID inner join tCT on tCT.CT_ID = tCR.CR_CT_ID inner join tCY on tCY.CY_ID = tCT.CT_CY_ID inner join tB on tB.B_ID = tcy.CY_B_ID
-                     where tPH.PH_U_ID = :phUId and tPH.PH_ID = :phId`; 
-        connection.query(query,{phUId, phId},
+                        PH_ID, PH_U_ID, U_uId, U_Name, B_Name, CT_DepartureTe, count(PH_Price) as cnt, sum(PH_Price) as PH_Price, PH_Type, CR_Cancel, CR_cDt
+                     from tPH inner join tU on tPH.PH_U_ID = tU.U_ID inner join tCR on tPH.PH_ID = tCR.CR_PH_ID inner join tCT on tCT.CT_ID = tCR.CR_CT_ID inner join tCY on tCY.CY_ID = tCT.CT_CY_ID inner join tB on tB.B_ID = tCY.CY_B_ID
+                     where PH_ID = :phId`; 
+        connection.query(query,{phId},
           function(err, rows, fields) {
              
               if (err) throw err;
-              res.render('admin_payment_cancelList',{data : rows[0]});
+              res.json({data : rows[0]});
     
           });
     }
@@ -673,8 +883,7 @@ router.post('/cancelPayment', auth.isLoggedIn, function(req, res, next) {
              
               if (err) throw err;
               //req.flash("success", "삭제 완료!");
-              //console.log(msg);
-              
+              //console.log(msg);        
               res.json({data : "취소"});
           });
     }
@@ -712,12 +921,10 @@ router.get('/preference', auth.isLoggedIn, function(req, res, next) {
             console.log("list ::",rows);
         });
     }
-
-    
-
 });
 
 /////예약관리
+
 
 //userRes 메인화면
 router.get('/userRes', auth.isLoggedIn, function(req, res, next) {
@@ -725,19 +932,139 @@ router.get('/userRes', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `select 
-                        CR_ID, CR_CT_ID, CR_U_ID, U_UserName, U_Name, U_Phone, B_Name, CY_Ty ,CR_U_ID, CR_PH_ID, PH_Type, CR_SeatNum, PH_Price, CR_Cancel, CR_CancelDt, CR_cDt, CR_uDt
-                    from tCR inner join tCT on tCR.CR_CT_ID = tCT.CT_ID inner join tU on tCR.CR_U_ID = tU.U_ID inner join tCY on tCT.CT_CY_ID = tCY.CY_ID
-                        inner join tB on tCY.CY_B_ID = tB.B_ID inner join tPH on tCR.CR_PH_ID = tPH.PH_ID
-                    order by CR_cDt desc`;
+         res.render("admin_userRes");
+    }
+});
+
+
+//UserRes 데이터테이블
+router.get('/userRes/List', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+    // let query = `select
+    //         tU.U_ID,
+    //         tU.U_uId,
+    //         CR_SeatNum,
+    //         tU.U_Name,
+    //         tU.U_Phone,
+    //         tB.B_Name,
+    //         tCY.CY_Ty,
+    //         tPH.PH_Type,
+    //         tPH.PH_Price,
+    //         tCR.CR_Cancel,
+    //         tCR.CR_uDt,
+    //         tCR.CR_cDt
+    //     from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID inner join tU on tCR.CR_U_ID = tU.U_ID inner join tPH on tPH.PH_ID = tCR.CR_PH_ID
+    //         where tCR.CR_CT_ID =tCT.CT_ID
+    //     and tCT.CT_DepartureTe > now() 
+        
+    //     order by tCR.CR_cDt desc limit 8000`; 
+        let query = `select
+                        tU.U_ID,
+                        (select group_concat(CR_SeatNum)) as CR_SeatNum,
+                        tU.U_uId,
+                        tU.U_Name,
+                        tU.U_Phone,
+                        tB.B_Name,
+                        tCY.CY_Ty,
+                        tPH.PH_Type,
+                        tPH.PH_Price,
+                        tCR.CR_Cancel,
+                        tCR.CR_uDt,
+                        tCR.CR_cDt
+                    from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID inner join tU on tCR.CR_U_ID = tU.U_ID inner join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                        where tCR.CR_CT_ID =tCT.CT_ID
+                    and tCT.CT_DepartureTe > now() 
+                    group by tCR.CR_cDt
+                    order by tCR.CR_cDt desc`; 
+        // let query = `select tcr.CR_cDt, tcr.CR_SeatNum 
+        // from tcr, tct where tcr.cr_ct_id = tct.ct_id limit 1000`;
+
         connection.query(query,
             function(err, rows, fields) {
+                if (err) throw err;
+                // let result = {};
+                // rows.forEach(data => {
+                //     if(result[data.CR_cDt] == undefined)
+                //     result[data.CR_cDt] = [];
+                //     result[data.CR_cDt].push(data.CR_SeatNum);
+                // });
+                // console.log("-------------------------");
+                // console.log(result);
+                // console.log("-------------------------");
+                // console.log(rows);
+                res.json({data : rows});
+        });
+        
+    }
+});
+
+//UserRes 좌석확인
+router.post('/userResList', auth.isLoggedIn, function(req, res, next) {
+                                                            
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let query = `select CR_SeatNum from tCR where CR_U_ID = :uId and CR_cDt = :cDt`;
+        let uId = req.body.uId;
+        let cDt = req.body.cDt;
+        connection.query(query,{uId, cDt},
+            function(err, rows, fields) {
             if (err) throw err;
-            res.render("admin_userRes", { data : rows});
+            res.json({ data : rows});
             console.log("user",rows);
         });
     }
+});
 
+//userRes 테이블 검색
+router.post('/userRes/search', auth.isLoggedIn, function(req, res, next) {
+                                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+
+        let selectName = req.body.selectName;
+        let selResult = req.body.selResult;
+        let chkRad = req.body.chkRad;
+        let dept = req.body.dept;
+        let end = req.body.end;
+        let query = `select
+                        tU.U_ID,
+                        tU.U_uId,
+                        (select group_concat(CR_SeatNum)) as CR_SeatNum,
+                        tU.U_Name,
+                        tU.U_Phone,
+                        tB.B_Name,
+                        tCY.CY_Ty,
+                        tPH.PH_Type,
+                        tPH.PH_Price,
+                        tCR.CR_Cancel,
+                        CR_uDt,
+                        CR_cDt
+                    from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID inner join tU on tCR.CR_U_ID = tU.U_ID inner join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                        where tCR.CR_CT_ID =tCT.CT_ID  and tCT.CT_DepartureTe > now() `
+
+        if(selResult !== "" && selResult !== undefined){
+            query += ` and ${selectName} like '%${selResult}%'`
+        }if(chkRad !== "" && chkRad !== undefined){
+            query += " and CR_Cancel = :chkRad "
+        }if(dept !== "" && dept !== undefined && end !== "" && end !== undefined){
+            query += " and date_format(CR_cDt,'%y%y-%m-%d') between date(:dept) AND date(:end)"
+        }
+            query += " \n group by tCR.CR_cDt order by tCR.CR_cDt desc"
+        connection.query(query,{selectName, selResult, chkRad, dept, end},
+          function(err, rows, fields) {
+              if (err) throw err;
+              res.json({data : rows});
+              console.log(rows)
+          });
+    }
+
+
+    
+   
 });
 
 //입점선호도 조사
@@ -748,31 +1075,69 @@ router.get('/storeIn', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `select SI_ID, SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Addr2, left(SI_Content,8) as SI_Content, SI_cDt, SI_Read from tSI`;
+        res.render("admin_storeIn");
+    }
+});
+
+//storeIn 데이터테이블
+router.get('/storeIn/List', auth.isLoggedIn, function(req, res, next) {
+                                                                
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let query = `select SI_ID, SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Addr2, left(SI_Content,8) as SI_Content, SI_cDt, SI_Read from tSI order by SI_cDt desc`;
         connection.query(query,
             function(err, rows, fields) {
             if (err) throw err;
-            res.render("admin_storeIn", { data : rows});
-            console.log("user",rows);
+            res.json({ data : rows});
         });
     }
-
-
 });
 
+//storeIn 검색
+router.post('/storeIn/search', auth.isLoggedIn, function(req, res, next) {
+                                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+
+        let selectName = req.body.selectName;
+        let selResult = req.body.selResult;
+        let chkRad = req.body.chkRad;
+        let dept = req.body.dept;
+        let end = req.body.end;
+        let query = 'select SI_ID, SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Addr2, left(SI_Content,8) as SI_Content, SI_cDt, SI_Read from tSI where 1=1'
+
+        if(selResult !== "" && selResult !== undefined){
+            query += ` and ${selectName} like '%${selResult}%'`
+        }if(dept !== "" && dept !== undefined && end !== "" && end !== undefined){
+            query += " and date_format(SI_cDt,'%y%y-%m-%d') between date(:dept) AND date(:end)"
+        }if(chkRad !== "" && chkRad !== undefined){
+            query += ` and SI_Read = :chkRad `
+        }
+            query += ` order by SI_cDt desc`
+        connection.query(query,{selectName, selResult, chkRad, dept, end},
+          function(err, rows, fields) {
+              if (err) throw err;
+              res.json({data : rows});
+              console.log(rows)
+          });
+    }
+});
+
+
 //storeIn 메인화면 자세히 보기
-router.get('/storeInDetail/:siID', auth.isLoggedIn, function(req, res, next) {
+router.post('/storeInDetail', auth.isLoggedIn, function(req, res, next) {
                                                                     
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let siID = req.params.siID;
-        let query = `select SI_ID, SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Addr2, SI_Content, SI_cDt from tSI where SI_ID = :siID`;
-        connection.query(query,{siID},
+        let siId = req.body.siId;
+        let query = `select * from tSI where SI_ID = :siId`;
+        connection.query(query,{siId},
         function(err, rows, fields) {
         if (err) throw err;
-        res.render("admin_storeIn_detail", { data : rows[0]});
-        console.log("user",rows);
+        res.json({ data : rows[0]});
         });
     }
 
@@ -813,4 +1178,230 @@ router.post('/nowRow', auth.isLoggedIn, function(req, res, next) {
     }
 
 });
+
+
+//의향서
+//survey 메인화면
+router.get('/survey', auth.isLoggedIn, function(req, res, next) {
+                                                                
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        res.render("admin_survey");
+    }
+});
+
+//survey 데이터테이블
+router.get('/survey/List', auth.isLoggedIn, function(req, res, next) {
+                                                                
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let query = `select * from admin_survey order by create_dt desc`;
+        connection.query(query,
+            function(err, rows, fields) {
+            if (err) throw err;
+            res.json({ data : rows});
+        });
+    }
+});
+
+//survey 상세보기
+router.post('/survey/all', auth.isLoggedIn, function(req, res, next) {
+                                                                
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let surId = req.body.surId;
+        let surPhone = req.body.surPhone;
+        let query = `select * from admin_survey where Name = :surId and Phone = :surPhone order by create_dt desc`;
+        connection.query(query,{surId, surPhone},
+            function(err, rows, fields) {
+            if (err) throw err;
+            res.json({ data : rows});
+        });
+    }
+});
+
+//survey 테이블 검색
+router.post('/survey/search', auth.isLoggedIn, function(req, res, next) {
+                                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+
+        let selectName = req.body.selectName;
+        let selResult = req.body.selResult;
+        let chkIns = req.body.chkIns;
+        let chkMod = req.body.chkMod;
+        let chkCon = req.body.chkCon;
+        let dept = req.body.dept;
+        let end = req.body.end;
+        let query = 'SELECT * FROM admin_survey where 1=1 '
+
+        if(selResult !== "" && selResult !== undefined){
+            query += ` and ${selectName} like '%${selResult}%'`
+        }
+        if(chkIns !== "" && chkIns !== undefined){
+            query += ` and wt_insurance_type = :chkIns `
+        }
+        if(chkMod !== "" && chkMod !== undefined){
+            query += ` and wt_modify = :chkMod`
+        }
+        if(chkCon !== "" && chkCon !== undefined){
+            query += ` and cur_has_contract = :chkCon `
+        }          
+        if(dept !== "" && dept !== undefined && end !== "" && end !== undefined){
+            query += " and date_format(create_dt,'%y%y-%m-%d') between date(:dept) AND date(:end)"
+        }
+        connection.query(query,{selectName, selResult, chkIns, chkMod, chkCon, dept, end},
+          function(err, rows, fields) {
+              if (err) throw err;
+              res.json({data : rows});
+          });
+    }
+
+});
+
+//video 메인화면
+router.get('/video', auth.isLoggedIn, function(req, res, next) {
+                                            
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        res.render("admin_video");
+    }
+});
+
+//video 데이터테이블
+router.get('/video/List', auth.isLoggedIn, function(req, res, next) {
+                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let query = `select YL_id, YL_url, YL_title, left(YL_description,10) as YL_description, YL_ch_name, YL_d_order, YL_dDt from tYL order by YL_dDt desc limit 8000`; 
+        connection.query(query,
+            function(err, rows, fields) {
+                if (err) throw err;
+                res.json({ data : rows});
+            }
+        );
+    }
+});  
+
+//video 검색
+router.post('/video/search', auth.isLoggedIn, function(req, res, next) {
+                                        
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+
+        let selectName = req.body.selectName;
+        let selResult = req.body.selResult;
+        let dept = req.body.dept;
+        let end = req.body.end;
+        let query = `select YL_id, YL_url, YL_title, left(YL_description,10) as YL_description, YL_ch_name, YL_d_order, YL_dDt from tYL where 1=1`
+
+        if(selResult !== "" && selResult !== undefined){
+            query += ` and ${selectName} like '%${selResult}%'`
+        }
+        if(dept !== "" && dept !== undefined && end !== "" && end !== undefined){
+            query += " and date_format(YL_dDt,'%y%y-%m-%d') between date(:dept) AND date(:end)"
+        }
+            query += ` \n order by YL_dDt desc limit 8000`
+        connection.query(query,{selectName, selResult, dept, end},
+          function(err, rows, fields) {
+              if (err) throw err;
+              res.json({data : rows});
+              console.log(rows)
+          });
+    }
+});
+
+//video 테이블 수정 페이지
+router.post('/videoModify', auth.isLoggedIn, function(req, res, next) {                       
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let ylId = req.body.ylId;
+        let query = `select YL_id, YL_url, YL_title, YL_description, YL_ch_name, YL_d_order, YL_dDt from tYL where YL_id = :ylId order by YL_dDt desc`; 
+        connection.query(query,{ylId},
+            function(err, rows, fields) {
+                if (err) throw err;
+                res.json({ data : rows[0] });
+                console.log("video",rows);
+            }
+        );
+    }
+});  
+
+//video 테이블 수정
+router.post('/video/modify', auth.isLoggedIn, function(req, res, next) {                       
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let ylId = req.body.ylId;
+        let ylUrl = req.body.ylUrl;
+        let ylTitle = req.body.ylTitle;
+        let ylContent = req.body.ylContent;
+        let ylChName = req.body.ylChName;
+        let ylOrder = req.body.ylOrder;
+        let query =`update tYL set YL_url =:ylUrl, YL_title =:ylTitle, YL_description =:ylContent, YL_ch_name =:ylChName, YL_d_order = :ylOrder
+                        where YL_id =:ylId`
+
+        if(ylOrder == "" || ylOrder == undefined){
+            ylOrder = null;
+        }
+                
+        connection.query(query,{ylId, ylUrl, ylTitle, ylContent, ylChName, ylOrder},
+            function(err, rows, fields) {
+                if (err) throw err;
+                res.json({ data : '수정' });
+                console.log("video",rows);
+            }
+        );
+    }
+});  
+
+//video 테이블 추가
+router.post('/video/insert', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let ylUrl = req.body.ylUrl;
+        let ylTitle = req.body.ylTitle;
+        let ylContent = req.body.ylContent;
+        let ylChName = req.body.ylChName;
+        let ylOrder = req.body.ylOrder;
+        let query = "";
+
+        if(ylOrder == "" || ylOrder == undefined){
+            query = `insert into tYL(YL_url, YL_title, YL_description, YL_ch_name) values(:ylUrl, :ylTitle, :ylContent, :ylChName) `; 
+        }else{
+            query = `insert into tYL(YL_url, YL_title, YL_description, YL_ch_name, YL_d_order) values(:ylUrl, :ylTitle, :ylContent, :ylChName, :ylOrder) `; 
+        }
+
+        connection.query(query,{ylUrl, ylTitle, ylContent, ylChName, ylOrder},
+          function(err, rows, fields) {        
+              if (err) throw err;
+              res.json({data : "추가"});
+        });
+    }
+});
+
+//video 테이블 삭제
+router.post('/videoDelete', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let ylId = req.body.ylId;
+        let query = `delete from tYL where YL_id = :ylId `; 
+        connection.query(query,{ylId},
+          function(err, rows, fields) {        
+              if (err) throw err;
+              res.json({data : "삭제"});
+        });
+    }
+});
+
 module.exports = router;

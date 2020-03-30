@@ -52,8 +52,8 @@ router.post('/user/phone', (req, res, next) => {
  
 //회원탈퇴
 router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
-    let query = `delete from tU where U_UserName = :uUserName`;    
-    let uUserName = req.user.U_UserName;
+    let query = `delete from tU where U_uId = :uUserName`;    
+    let uUserName = req.user.U_uId;
     let uPw = req.body.pw;
     console.log("id :", uUserName);
     console.log("pw :", uPw);    
@@ -72,7 +72,7 @@ router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
 
 //회원 아이디 중복확인
 router.post('/user/checkId', (req, res, next) =>{
-    let query = "select U_UserName from tU where U_UserName = :overId limit 1";
+    let query = "select U_uId from tU where U_uId = :overId limit 1";
     let overId = req.body.id;
     console.log("내 아이디 :", overId);
     connection.query(query, 
@@ -88,12 +88,11 @@ router.post('/user/checkId', (req, res, next) =>{
 });
 //회원가입 액션
 router.post('/user/join', (req, res, next) =>{
-    let query = `insert into tU (U_UserName, U_Pw, U_Name, U_Phone, U_Email, U_Brand, U_Zip, U_Addr1, U_Addr2) 
+    let query = `insert into tU (U_uId, U_Pw, U_Name, U_Phone, U_Email, U_Brand, U_Zip, U_Addr1, U_Addr2) 
             values( :uUserName,  :uPw,  :uName,  :uPhone , :uEmail, :uBrand,  :uZip,  :uAddr1,  :uAddr2)`;
 
     let password = req.body.password;
     let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString()
-
     
     connection.query(query, 
         {
@@ -139,7 +138,7 @@ router.post('/user/carPool', (req, res, next) =>{
 
 //아이디 찾기
 router.post('/user/findId', (req, res, next) =>{
-    let query = "select U_UserName from tU where U_Name =:uName and U_Phone =:uPhone limit 1";
+    let query = "select U_uId from tU where U_Name =:uName and U_Phone =:uPhone limit 1";
     
     console.log(req.body);
 
@@ -161,7 +160,7 @@ router.post('/user/findId', (req, res, next) =>{
 
 //비밀번호 찾기
 router.post('/user/findPw', (req, res, next) =>{
-    let query = "select U_UserName, U_Name from tU where U_UserName =:uId and U_Phone =:uPhone limit 1";
+    let query = "select U_uId, U_Name from tU where U_uId =:uId and U_Phone =:uPhone limit 1";
     
     console.log(req.body);
 
@@ -183,7 +182,7 @@ router.post('/user/findPw', (req, res, next) =>{
 
 //비밀번호 찾기 후 수정
 router.post('/user/modifyPw', (req, res, next) =>{
-    let query = "update tU set U_Pw = :hash_pw where U_UserName = :uUserName";
+    let query = "update tU set U_Pw = :hash_pw where U_uId = :uUserName";
     
     let password = req.body.password;
     let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString();
@@ -276,11 +275,11 @@ router.post('/user/confirm', auth.isLoggedIn, (req, res, done) =>{
 
     //console.log(req.body.pw);
     let uPw = req.body.pw
-    let uId = req.user.U_UserName
+    let uId = req.user.U_uId
     //let hash_pw = CryptoJS.AES.encrypt(uPw, config.enc_salt).toString();
     console.log("비밀번호",uPw);
-    console.log("내 아이이디 :",req.user.U_UserName);
-    let query = "select U_Pw from tU where U_UserName =:uId and U_Pw =:uPw";
+    console.log("내 아이이디 :",req.user.U_uId);
+    let query = "select U_Pw from tU where U_uId =:uId and U_Pw =:uPw";
     
     connection.query(query, 
         {          
@@ -303,7 +302,7 @@ router.post('/user/confirm', auth.isLoggedIn, (req, res, done) =>{
 //마이페이지 정보 수정
 router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     
-    let uUserName = req.user.U_UserName;
+    let uUserName = req.user.U_uId;
     let uPhone = req.body.phone;
     let uBrand = req.body.brand;
     let uZip = req.body.postcode;
@@ -321,16 +320,16 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     console.log("uAddr2 ::", uAddr2);
 
     let query = `UPDATE tU SET U_Pw = :hash_pw, U_Phone = :uPhone, U_Brand = :uBrand,
-                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
+                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_uId =:uUserName`;
 
     let query2 = `UPDATE tU SET U_Phone = :uPhone, U_Brand = :uBrand,
-                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
+                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_uId =:uUserName`;
 
     let query3 = `UPDATE tU SET  U_Pw = :hash_pw, U_Brand = :uBrand,
-                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
+                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_uId =:uUserName`;
 
     let query4 = `UPDATE tU SET U_Phone = :uPhone, U_Brand = :uBrand,
-                 U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_UserName =:uUserName`;
+                 U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_uId =:uUserName`;
 
     if(password === "" && uPhone === "" ){
         connection.query(query2,{uBrand, uZip, uAddr1, uAddr2, uUserName},
@@ -359,8 +358,8 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
 
 //회원탈퇴
 router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
-    let query = `delete from tU where U_UserName = :uUserName`;    
-    let uUserName = req.user.U_UserName;
+    let query = `delete from tU where U_uId = :uUserName`;    
+    let uUserName = req.user.U_uId;
     let uPw = req.body.pw;
     console.log("id :", uUserName);
     console.log("pw :", uPw);    
@@ -1014,6 +1013,23 @@ router.post('/user/videoPopup', (req, res, next) =>{
 
         });
 });
+
+//비디오 좌우
+router.post('/user/videoPopupBtn', (req, res, next) =>{
+    let query = `select * from tYL order by YL_dDt desc limit :begin, 1`;
+    let begin = Number(req.body.begin);
+
+    connection.query(query,{begin},
+        function(err, rows, fields) {
+            if (err) throw err;
+
+            // //console.log(findId);
+            res.json( {  data : rows});
+            console.log("rows : ",rows);
+
+        });
+});
+
 
 //비디오 총 수
 router.post('/video/count', function(req, res, next) {

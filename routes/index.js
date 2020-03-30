@@ -296,7 +296,7 @@ router.get('/video', function(req, res, next) {
 
 //비디오 페이징
 router.get('/video/:currentPage', function(req, res, next) {
-    let query = `SELECT * FROM tYL limit :beginRow, :rowPerPage`; 
+    let query = `SELECT * FROM tYL order by YL_dDt desc limit :beginRow, :rowPerPage`; 
     let currentPage = req.params.currentPage;
     console.log("커런트 페이지지ㅣ ::", currentPage);
     //페이지 내 보여줄 수

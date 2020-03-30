@@ -1,0 +1,8 @@
+table#tList tbody tr:hover > .sorting_1 {
+    background-color:white;
+}
+#tList:hover tbody tr:hover td {
+    background: #eee;
+    cursor: pointer;
+    color: black;
+}

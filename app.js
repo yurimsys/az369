@@ -10,6 +10,8 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const livereload = require('livereload');
+const livereloadMiddleware = require('connect-livereload');
 const indexRouter = require('./routes/index'),
     apiRouter = require('./routes/api'),
     testRouter = require('./routes/test'),
@@ -25,12 +27,23 @@ const app = express();
 app.use( require('./config/view_route') );
 app.set('view engine', 'ejs');
 
-// Debuging 용도
+// 개발환경일 경우만 실행
 if( app.get('env') == "development"){
+    // Debuging 용도
     app.use(function(req, res, next) {
         console.log('handling request for: ' + req.url);
         next();
     });
+
+    // Live Reload Server Config
+    const liveServer = livereload.createServer({
+        // observe exts
+        exts: ['js', 'css', 'ejs', 'png', 'gif', 'jpg'],
+        debug: true
+    });
+
+    liveServer.watch(__dirname);
+    app.use(livereloadMiddleware());
 }
 
 app.use(logger('dev'));

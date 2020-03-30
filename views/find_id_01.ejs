@@ -227,10 +227,10 @@ $(document).ready(()=>{
                     if (res.data === undefined) {
                         alert("등록된 회원이 아닙니다.");
                         location.reload();
-                    } else if (res.data.U_UserName != "") {
+                    } else if (res.data.U_uId != "") {
                         var orderDetail = [{
                             name: "findId",
-                            value: res.data.U_UserName
+                            value: res.data.U_uId
                         }];
                         sessionStorage.setItem("orderDetail", JSON.stringify(orderDetail));
                         location.href = "findId2";
