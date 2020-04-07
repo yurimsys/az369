@@ -79,19 +79,15 @@ router.get('/b', function(req, res){
 router.get('/c1', function(req, res){
     res.render('az369_survey_main_x');
 });
-
 router.get('/c2', function(req, res){
     res.render('az369_survey_login');
 });
-
 router.get('/c3', function(req, res){
     res.render('az369_survey_join');
 });
-
 router.get('/c4', function(req, res){
     res.render('az369_survey_main_o');
 });
-
 router.get('/c5', function(req, res){
     res.render('az369_survey_survey');
 });
