@@ -1,0 +1,132 @@
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
+
+
+/*reset*/
+* {margin: 0;padding: 0; box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif;}
+body {margin: 0; font-size: 16px; line-height: 1.6; color: #222; }
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
+a {color: inherit; text-decoration: inherit; cursor: pointer;}
+img {vertical-align: middle;}
+a img {border: none;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+p {text-align: justify; font-size: 16px;}
+
+
+.wrap {
+        width: 100%;
+        margin: 0 auto;
+        height: auto;
+        overflow: hidden;
+        padding-bottom: 40px;
+        background: #f9f9f9;
+}
+
+.sub_wrap {padding: 0 20%;}
+
+    /*main_title*/
+    .wrap h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; font-weight: 500; padding: 20px; text-align: center; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
+
+
+    .main_title {text-align: justify; padding: 25px;  margin: 0 auto; /*background: #fff; border: 1px solid #ddd;*/ margin: 20px 30px 0;}
+
+    .main_title h2 { font-size: 18px; margin: 0 auto; font-weight: 300; color: #222;}
+
+.main_title h2 span {font-size: 28px; font-weight: 400;}
+
+    /*임대보증보험이란?*/
+    .intro_btn {display: inline-block; height: 40px; line-height: 40px;/* background: #666;*/ color: #222; padding-bottom: 3px; /*s*/font-size: 18px; text-align: center; margin-left: 50%; transform: translateX(-50%); box-shadow: inset 0 -3px 0 #c3a164; font-weight: 500; margin-top: 15px;}
+
+
+/*
+.bar {width: 100%; border-bottom: 1px dashed #ddd; margin: 45px 0;}
+*/
+
+.main_button {width: 70%; height: auto; margin: 0 auto; margin-top: 70px;}
+
+.main_button p {text-align: center; margin-bottom: 20px; font-weight: 300; color: #444; font-weight: 16px;}
+
+.main_button p span {font-weight: 500;}
+
+
+.main_button ul li {float: left; width: 49%; height: 50px; line-height: 50px; text-align: center; font-weight:400;}
+.main_button ul li a {display: block; font-weight: 18px;}
+.login {background: #c3a164; color: #fff; font-size: 16px; border: 1px solid #c3a164; margin-right: 1%;}
+.join {background: #fff; border: 1px solid #ccc;}
+
+
+/*반응형*/
+/*1200px*/
+@media screen and (max-width: 1200px) {
+    .sub_wrap {padding: 0 13%;}
+}
+
+/*768px*/
+@media screen and (max-width: 768px) {
+    .sub_wrap {padding: 0 0%;}
+
+	.wrap h1 {font-weight: 26px;}
+    /*.wrap h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; padding: 2.1%; text-align: center; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}*/
+}
+
+
+/*414px*/
+@media screen and (max-width: 414px) {
+    .wrap h1 {font-size: 22px; padding: 2.5% 0;}
+    .main_title h6 {margin: 6% 0; font-size: 14px;}
+    .main_title h6 span {font-size: 16px;}
+    .main_title h2 {width: 95%; font-size: 16px; margin: 5% auto; padding: 4%;}
+
+    .survey_form h3 {font-size: 20px;}
+    .survey_form h3 {margin-top: 8%;}
+    .select_check h3 {margin-top: 7%;}
+    .survey_form h4 {font-size: 16px; margin-top: 1em;}
+
+    .checks input[type="radio"] + label {font-size: 16px; padding-bottom: 2%;}
+
+    .checks.etrans input[type="radio"] + label {margin-right: 15px; margin-top: 5%;}
+    .next, .back {margin-top: 18%;}
+    .checks input[type="radio"] + label:before {width: 27px; height: 27px;}
+
+    #phone {width: 60%;}
+    .check_btn {width: 39%;}
+}
+
+
+/*320px*/
+@media screen and (max-width: 320px) {
+    .wrap h1 {font-size: 17px;}
+    .main_title h2 {width: 90%; font-size: 15px; margin: 7% auto;}
+    .main_title h6 { font-size: 12px;}
+    .main_title h6 span {font-size: 13px;}
+    .survey_form h3 {font-size: 18px;}
+    .survey_form h4 { margin-top: 20px;}
+
+    .select_check ul {width: 100%;}
+    .check_btn {height: 40px; line-height: 40px;}
+
+    .select_check ul li input{height: 40px; line-height: 40px;}
+
+    .next, .back {margin-top: 18%; border-radius: 0; font-size: 15px; height: 40px; line-height: 40px;}
+
+    input[type=number], input[type=text]{
+        height: 40px;
+        padding: 0 2%;
+        margin-top: 2%;
+        display: inline-block;
+        border: 1px solid #eee;
+        font-size: 14px;
+        box-sizing: border-box;
+        position: relative; overflow: hidden;}
+
+    .survey_form h4 {letter-spacing: -0.8px;}
+    .checks input[type="radio"] + label {font-size: 15px;}
+
+    .checks input[type="radio"] + label:before {width: 26px; height: 26px;}
+
+    .check_btn {font-size: 15px;}
+
+}
+

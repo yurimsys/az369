@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>AZ369 보증보험 대체의향서</title>
+    <link rel="stylesheet" href="/css/az369_survey_join.css">
+
+    <!--modal css
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+
+    <!--자바스크립트-->
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/scrolla.jquery.min.js"></script>
+
+    <!--폰트-->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="wrap">
+
+        <h1>임대보증금 보증보험 대체 의향서</h1>
+
+        <!--폼 전체-->
+        <div class="survey_form">
+            <h3><span>회원가입</span> 후 <br> 의향서 작성이 가능합니다.</h3>
+            <div class="bar"></div>
+
+        <!--폼 리스트-->
+            <form name="personal_info">
+
+                <h4>상가호수</h4>
+                <input require=true type="number" id="addr" name="addr">
+
+                <h4>이름</h4>
+                <input require=true type="text" id="name" name="name">
+
+                <h4>휴대전화번호 ('-' 생략)</h4>
+                <input type="number" id="phone" name="phone">
+                <button class="check_btn" onclick="myFunction(event)">인증번호 받기</button>
+                <div id="phone_check_box">
+                    <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);" />
+                </div>
+                <div class="text-alert" id="alert_msg">인증번호의 유효시간은 <span>30분</span>입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+                <div class="text-alert" id="alert_msg_fail"></div>
+                <div class="text-alert" id="alert_msg_success">인증번호가 확인되었습니다.</div>
+
+                <h4>비밀번호</h4>
+                <input type="password" id="pw" name="pw">
+                 <h4>비밀번호 재확인</h4>
+                <input require=true type="password" id="pw" name="pw">
+
+
+                <!--체크박스-->
+                <!--<div class="select_check">
+                    <h4>소유하신 상가의 임대차 계약이 완료되었나요?</h4>
+
+                    <div class="checks etrans">
+                        <input require=true type="radio" id="r1" name="cur_has_contract" value="y" class="ab" />
+                        <label for="r1"><span></span>계약완료</label>
+                    </div>
+
+                    <div class="checks etrans">
+                        <input require=true type="radio" id="r2" name="cur_has_contract" value="n" class="ab" />
+                        <label for="r2"><span></span>공실</label>
+                    </div>
+                </div>-->
+
+                <a onclick="next()" class="join">가입하기</a>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <!--input maxlength-->
+    <script>
+        $(document).ready(()=>{
+            //본인인증
+            $("button.check_btn").click((e) => {
+                e.preventDefault();
+                sendSmsButton();
+                return false;
+            });
+
+            $("#phone_check").keyup( checkPhoneNumber );
+
+        });
+
+        function numberMaxLength(e) {
+            if (e.value.length > e.maxLength) {
+                e.value = e.value.slice(0, e.maxLength);
+            }
+        }
+
+        function sendSmsButton(){
+            let phone_number = $("#phone").val();
+            phone_number = phone_number.replace(/-/g, "");
+
+            $.ajax({
+                dataType: "json",
+                url : "/api/auth/phone",
+                method : "post",
+                data : {
+                    phone_number : phone_number
+                }
+            }).done((res) => {
+                $("#alert_msg_success").removeClass('active');
+                $("#alert_msg").addClass('active');
+            })
+        }
+
+        function checkPhoneNumber(e){
+            let ele_phone_check = $("#phone_check");
+            // let auth_number = ele_phone_check.val();
+            let auth_number = e.target.value;
+
+            let phone_number = $("#phone").val();
+            phone_number.replace(/-/g, "");
+
+            if( auth_number.length >= 4){
+
+                $.ajax({
+                    dataType: "json",
+                    url : "/api/auth/phone",
+                    method : "get",
+                    data : {
+                        phone_number : phone_number,
+                        auth_number : auth_number
+                    }
+                }).done((res) => {
+                    console.log("checkPhoneNumber !! ");
+                    console.log(res);
+                    if( res.status_code == 200 ){
+                        ele_phone_check.data("is_confirm", true);
+
+                        $("#alert_msg").removeClass('active');
+                        $("#alert_msg_fail").removeClass('active');
+                        $("#alert_msg_success").addClass('active');
+                    } else if ( res.status_code == 400 ){
+                        ele_phone_check.data("is_confirm", false);
+                        $("#alert_msg").removeClass('active');
+                        $("#alert_msg_success").removeClass('active');
+
+                        let ele_alert_fail = $("#alert_msg_fail");
+                        ele_alert_fail.text(res.msg);
+                        ele_alert_fail.addClass('active');
+                    }
+                });
+            }
+
+        }
+        function next(){
+            let survey_result = {};
+            let phone_check = $("#phone_check").data("is_confirm") || false;
+            if(!phone_check) {
+                alert('휴대전화번호 본인인증이 필요합니다.');
+                return false;
+            }
+            survey_result.addr = $("#addr").val();
+            survey_result.name = $("#name").val();
+            survey_result.phone = $("#phone").val();
+            survey_result.cur_has_contract = $("[name=cur_has_contract]:checked").val();
+
+            sessionStorage.setItem("survey_result", JSON.stringify(survey_result));
+
+            location.href +='?ctrt='+$("[name=cur_has_contract]:checked").val();
+        }
+    </script>
+
+    <!--인증번호받기 js-->
+    <script>
+        function myFunction(e) {
+            e.preventDefault();
+            document.getElementById("phone_check_box").style.display = "block";
+        }
+    </script>
+
+
+
+</body></html>
