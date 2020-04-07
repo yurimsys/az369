@@ -49,45 +49,123 @@
 							</div>
 						</div>
 					</div>
-						<table class="table table-cols">
-							<tr>
-								<th style="width: 10%;">검색어</th>
-								<td>
-									<select id="choi">
-										<option value="U_uId">아이디</option>
-										<option value="U_Name">이름</option>
-										<option value="U_Brand">브랜드</option>
-									</select>
-									<input type="text" id="selResult" class="form-control2" style="width: 15%;">
-								</td>
-							</tr>
-							<tr>
-								<th>구분</th>
-								<td>
-									<label class="radio-inline">
-										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="y"></span></div>
-										&emsp;&emsp;관리자
-									</label>
-									
-									<label class="radio-inline">
-										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="n"></span></div>
-										&emsp;&emsp;회원
-									</label>
-								</td>
-							</tr>
-							<tr>
-								<th>가입일</th>
-								<td>
-									<div class="input-group" style="height: 30px;">
-										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" id="dept" style="width: 290px; height: 30px;">
-										&emsp14; ~ &emsp14;
-										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" id="end" style="width: 290px;">
-									</div>
-								</td>
-							</tr>
-						</table>
+                    <table class="table table-cols">
+                        <tbody>
+                        <tr style="width: 50px;">
+                            <th style="width: 10%;">검색어</th>
+                            <td colspan='3'>
+                                <select id="choi">
+                                    <option value="Name">회원이름</option>
+                                    <option value="Phone">전화번호</option>					
+                                    <option value="Addr">주소</option>
+                                </select>
+                                <input type="text" id="selResult" class="form-control2" style="width: 15%;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>개인정보 동의여부</th>
+                            <td>
+                                <label class="radio-inline">
+                                    <div class="choice"><span class=""><input type="radio" name="insType" class="styled" value="y"></span></div>
+                                    &emsp;&emsp;신청
+                                </label>
+                                
+                                <label class="radio-inline">
+                                    <div class="choice"><span class=""><input type="radio" name="insType" class="styled" value="n"></span></div>
+                                    &emsp;&emsp;신청안함
+                                </label>
+                            </td>
+                            <th>고객구분</th>
+                            <td>
+                                <label class="radio-inline">
+                                    <div class="choice"><span class=""><input type="radio" name="modType" class="styled" value="y"></span></div>
+                                    &emsp;&emsp;쇼핑몰단독
+                                </label>
+                                
+                                <label class="radio-inline">
+                                    <div class="choice"><span class=""><input type="radio" name="modType" class="styled" value="n"></span></div>
+                                    &emsp;&emsp;다른판매자 이용
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>회원등급</th>
+                            <td>
+                                <select id="choi">
+                                    <option value="Name">등급</option>
+                                    <option value="Name">골드</option>
+                                    <option value="Phone">실버</option>					
+                                    <option value="Addr">브론즈</option>
+                                    <option value="Addr">다이아몬드</option>
+                                </select>                                
+                            </td>
+                            <th>회원상태</th>
+                            <td>
+                                <select id="choi">
+                                    <option value="Name">정상</option>
+                                    <option value="Name">휴먼</option>
+                                    <option value="Phone">탈퇴</option>					
+                                </select>                                
+                            </td>
+                        </tr>  
+                    </tbody> 
+
+                    <tbody id="detailList" style='display: none;'>
+                        <tr>
+                            <th>가입경로</th>
+                            <td>
+                                <label class="radio-inline">
+                                    <div class="choice"><span class=""><input type="radio" name="insType" class="styled" value="y"></span></div>
+                                    &emsp;&emsp;전체
+                                </label>
+                                
+                                <label class="radio-inline">
+                                    <div class="choice"><span class=""><input type="radio" name="insType" class="styled" value="n"></span></div>
+                                    &emsp;&emsp;PC
+                                </label>
+                                <label class="radio-inline">
+                                    <div class="choice"><span class=""><input type="radio" name="modType" class="styled" value="y"></span></div>
+                                    &emsp;&emsp;모바일
+                                </label>
+                                
+                                <label class="radio-inline">
+                                    <div class="choice"><span class=""><input type="radio" name="modType" class="styled" value="n"></span></div>
+                                    &emsp;&emsp;포스
+                                </label>
+                            </td>
+                            <th>회원가입일</th>
+                            <td>
+                                <div class="input-group" style="height: 30px;">
+                                    <span class="input-group-addon"><i class="icon-calendar2" style="margin-top: 8px;"></i></span>
+                                    <input type="text" class="form-control2 datepicker-here" id="dept" style="width: 290px; height: 30px;">
+                                    &emsp14; ~ &emsp14; 
+                                    <span class="input-group-addon"><i class="icon-calendar2" style="margin-top: 8px;"></i></span>
+                                    <input type="text" class="form-control2 datepicker-here" id="end" style="width: 290px;">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>휴먼예정일</th>
+                            <td>
+                                <input type="text" class="form-control2" id="dept" style="width: 100px; height: 30px;">
+                                &emsp14; 일 전 회원
+                            </td>  
+                            <th>생일</th>
+                            <td>
+                                <input type="checkbox" id='birthChk' name="birthChk" class='checker border-primary text-primary'> 특정일 검색
+                                <div class="input-group" style="height: 30px;">
+                                    <span class="input-group-addon"><i class="icon-calendar2" style="margin-top: 8px;"></i></span>
+                                    <input type="text" class="form-control2 datepicker-here" id="birth1" style="width: 290px; height: 30px;">
+                                    &emsp14; ~ &emsp14; 
+                                    <div id="birth2I"><span class="input-group-addon"><i class="icon-calendar2"></i></span></div>
+                                    <input type="text" class="form-control2 datepicker-here" id="birth2" style="width: 290px; display: block;">
+                                </div>
+                            </td> 
+                        </tr>
+                    </tbody>    
+                    </table>
+                        <a id="detailGo" style='color: blue; font-weight: bold;'>상세보기 펼침 ▽</a>
+                        <a id="detailOut" style='color: blue; font-weight: bold; display: none;'>상세보기 닫힘 △</a>
 						<button type="button" onclick="searchGo()" class="btn btn-primary" style=" width: 200px; margin-left: 40%">검색</button>
 					
 				</div>
@@ -204,6 +282,32 @@
 	</div>
 
 	<script>
+        $('#detailGo').on('click',function(){
+            $('#detailList').css('display','table-row-group');
+            $('#detailOut').css('display','block');
+            $('#detailGo').css('display','none');
+        })
+
+        $('#detailOut').on('click',function(){
+            $('#detailList').css('display','none');
+            $('#detailOut').css('display','none');
+            $('#detailGo').css('display','block');
+        })
+
+        if( $("#birthChk").is(":checked") == true){
+            
+        }
+       
+        $('#birthChk').on('click', function(){
+            if( $("#birthChk").is(":checked") == true){
+                $('#birth2').css('display','none')
+                $('#birth2I').css('display','none')
+            }else{
+                $('#birth2').css('display','block')
+                $('#birth2I').css('display','block')
+            }
+        
+        })
 
 	$(document).ready(function(){
 		

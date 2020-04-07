@@ -7,14 +7,6 @@ const auth = require('../config/passport');
 const connection = mysql.createConnection(dbconf);
 const config = require('../config');
 const CryptoJS = require('crypto-js');
-var async = require('async');
-let{
-    Editor,
-    Field,
-    Validate,
-    Format,
-    Options
-} = require('datatables.net-editor-server');
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -1167,7 +1159,7 @@ router.post('/nowRow', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `SELECT * FROM tsi where SI_Read = 'n'`;
+        let query = `SELECT * FROM tSI where SI_Read = 'n'`;
         connection.query(query,
         function(err, rows, fields) {
         if (err) throw err;
@@ -1404,4 +1396,30 @@ router.post('/videoDelete', auth.isLoggedIn, function(req, res, next) {
     }
 });
 
+
+
+//쇼핑몰 테스트
+router.get('/shop', auth.isLoggedIn, function(req, res, next) {
+                                            
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        res.render("admin_shop");
+    }
+});
+
+router.get('/shop/List', auth.isLoggedIn, function(req, res, next) {               
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        let query = `SELECT * FROM tU limit 8000`; 
+        connection.query(query,
+            function(err, rows, fields) {
+                if (err) throw err;
+                res.json({ data : rows});
+                console.log("user",rows);
+            }
+        );
+    }
+});  
 module.exports = router;
