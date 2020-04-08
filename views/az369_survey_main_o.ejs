@@ -14,7 +14,10 @@
 	<script src="/js/jquery-3.3.1.min.js"></script>
 	<script src="/js/scrolla.jquery.min.js"></script>
 
+	<!-- 차트 js -->
+	<script src="/js/Chart.js"></script>
 	<script src="/js/chart.min.js"></script>
+
 
 	<!--폰트-->
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
@@ -29,25 +32,25 @@
 
 		<div class="sub_wrap">
 			<div class="main_title">
-				<h2><span>이 의향서는</span> 가로수길 센트롤돔 활성화 방안의 일환으로 임대인의 임대조건을 조사하여 임차인과 임대인의 매칭을 위한 기준을 만들고자 작성되었습니다. 본 의향서는
-					언제든지 재작성 가능하오니 많은 참여 바랍니다.</h2>
+				<h2>이 의향서는 가로수길 센트롤돔 활성화 방안의 일환으로 임대인의 임대조건을 조사하여 임차인과 임대인의 매칭을 위한 기준을 만들고자 작성되었습니다. 본 의향서는 언제든지 재작성
+					가능하오니 많은 참여 바랍니다.</h2>
+
+
+				<div class="title_btn">
+					<ul>
+						<li class="intro">
+							<a href="az369_survey_intro" target="_blank">보증보험이란?</a>
+						</li>
+
+						<li class="survey">
+							<a href="az369_survey_survey">의향서 작성하기</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 
-			<div class="title_btn">
-				<ul>
-					<li class="intro">
-						<a href="az369_survey_intro" target="_blank">보증보험이란?</a>
-					</li>
-
-					<li class="survey">
-						<a href="az369_survey_survey">의향서 작성하기</a>
-					</li>
-				</ul>
-			</div>
 
 
-
-			<div class="bar"></div>
 
 
 
@@ -55,7 +58,7 @@
 			<div class="survey_select">
 				<h3>조회 할 입점지역을 <strong>선택 후</strong> <br>
 					<strong>조회하기</strong>를 누르시면 <br>
-					결과확인이 가능합니다. <span>(다중선택 가능)</span></h3>
+					결과확인이 가능합니다. <br><span>(다중선택 가능)</span></h3>
 				<div class="bar"></div>
 
 				<div class="tab">
@@ -66,9 +69,9 @@
 
 				<div id="01" class="tabcontent">
 
-					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-						x="0px" y="0px" viewBox="0 0 536.61 430.13" style="enable-background:new 0 0 536.61 430.13;"
-						xml:space="preserve">
+					<svg class="map_svg" version="1.1" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 536.61 430.13"
+						style="enable-background:new 0 0 536.61 430.13;" xml:space="preserve">
 
 
 						<!-- 거리영역 : 선택불가 -->
@@ -140,9 +143,9 @@
 
 				<div id="02" class="tabcontent">
 
-					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-						x="0px" y="0px" viewBox="0 0 536.61 430.13" style="enable-background:new 0 0 536.61 430.13;"
-						xml:space="preserve">
+					<svg class="map_svg" version="1.1" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 536.61 430.13"
+						style="enable-background:new 0 0 536.61 430.13;" xml:space="preserve">
 
 
 						<!-- 거리영역 : 선택불가 -->
@@ -214,9 +217,9 @@
 
 				<div id="03" class="tabcontent">
 
-					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-						x="0px" y="0px" viewBox="0 0 536.61 430.13" style="enable-background:new 0 0 536.61 430.13;"
-						xml:space="preserve">
+					<svg class="map_svg" version="1.1" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 536.61 430.13"
+						style="enable-background:new 0 0 536.61 430.13;" xml:space="preserve">
 
 
 						<!-- 거리영역 : 선택불가 -->
@@ -287,8 +290,18 @@
 
 
 				<!-- Trigger/Open The Modal -->
-				<div class="check_btn">
-					<button id="myBtn">조회하기</button>
+				<div class="survey_select_btn">
+					<ul>
+						<li>
+							<button class="all_pick" onclick="all(event, '01')" >전체선택</button>
+						</li>
+						<li>
+							<button class="no_pick">전체취소</button>
+						</li>
+						<li>
+							<div id="myBtn">조회하기</div>
+						</li>
+					</ul>
 				</div>
 
 				<!-- The Modal -->
@@ -296,17 +309,18 @@
 
 					<!-- Modal content -->
 					<div class="modal-content">
-						<span class="close">&times;</span>
+						<div class="modal_header"><span class="close">&times;</span></div>
+
 						<h3>선택하신 입점지역에 대한 <br> <strong>조회결과</strong>입니다. <br>
-							<span>(조회일로부터 3개월까지 조회가 가능)</span></h3>
+							<span>(조회일로부터 <br> 6개월까지 조회가능)</span></h3>
 
 						<div class="bar"></div>
 
 
-						<h4>적정 임대료</h4>
+						<h4><span>적정</span> 임대료</h4>
 						<canvas id="chart01" width="100%" height="100%"></canvas>
 
-						<h4>최저 임대료</h4>
+						<h4><span>최저</span> 임대료</h4>
 						<canvas id="chart02" width="100%" height="100%"></canvas>
 
 					</div>
@@ -320,22 +334,7 @@
 		</div>
 	</div>
 
-	<!-- 센트럴돔 입점지역 클릭 이벤트 -->
-	<script>
-		// first we get all the path elements and put them in an array
-		let paths = document.getElementsByClassName('pick')
 
-		//now we can loop over the array and add an eventlistener to each path in the array
-		// it listens to the 'click' event and then runs function toggleClass()
-		for (let i = 0; i < paths.length; i++) {
-			paths[i].addEventListener('click', toggleClass)
-		}
-
-		// In the function toggleClass we can toggle the 'clicked' class.
-		function toggleClass() {
-			this.classList.toggle('clicked')
-		}
-	</script>
 
 
 	<!-- 센트럴돔 입점지역 탭 -->
@@ -389,54 +388,91 @@
 			type: 'bar',
 			data: {
 				labels: ["1월", "2월", "3월", "4월", "5월", "6월"],
-				datasets: [
-					{
-						label: '최소',
-						data: [12, 19, 3, 5, 2, 3],
-						backgroundColor: [
-							'rgb(204, 204, 204)',
-							'rgb(204, 204, 204)',
-							'rgb(204, 204, 204)',
-							'rgb(204, 204, 204)',
-							'rgb(204, 204, 204)',
-							'rgb(204, 204, 204)'
-						],
-						borderWidth: 1
-					}
-					,
-					{
-						label: '최대',
-						data: [7, 11, 5, 8, 3, 7],
-						backgroundColor: [
-							'rgb(102, 102, 102)',
-							'rgb(102, 102, 102)',
-							'rgb(102, 102, 102)',
-							'rgb(102, 102, 102)',
-							'rgb(102, 102, 102)',
-							'rgb(102, 102, 102)'
-						],
-						borderWidth: 1
-					},
-					{
-						label: '평균',
-						data: [7, 11, 5, 8, 3, 7],
-						backgroundColor: [
-							'rgb(195, 161, 100)',
-							'rgb(195, 161, 100)',
-							'rgb(195, 161, 100)',
-							'rgb(195, 161, 100)',
-							'rgb(195, 161, 100)',
-							'rgb(195, 161, 100)'
-						],
-						borderWidth: 1
-					}
-				]
+				datasets: [{
+					label: "최저의 평균",
+					type: "line",
+					borderColor: 'rgba(140, 140, 140, 0.7)',
+					pointBackgroundColor: 'rgb(140, 140, 140)',
+					borderWidth: 1,
+					lineTension: 0,
+					/*곡선제거*/
+					data: [20, 30, 35, 30, 25, 35],
+					scaleBeginAtZero: true,
+					fill: false
+				}, {
+					label: "최대의 평균",
+					type: "line",
+					borderColor: 'rgba(110,110, 110, 0.7)',
+					pointBackgroundColor: 'rgb(80, 80, 80)',
+					borderWidth: 1,
+					lineTension: 0,
+					data: [40, 50, 45, 40, 45, 50],
+					fill: false
+				}, {
+					label: "평균의 평균",
+					type: "line",
+					borderWidth: 1,
+					lineTension: 0,
+					borderColor: 'rgba(195, 161, 100, 1)',
+					pointBackgroundColor: 'rgb(195, 161, 100)',
+					data: [30, 35, 25, 30, 35, 30],
+					fill: false
+				}, {
+					label: "최저",
+					type: "bar",
+					scaleBeginAtZero: true,
+					backgroundColor: 'rgba(130, 130, 130, 0.2)',
+					backgroundColorHover: 'rgba(54, 162, 235, 0.5)',
+					data: [5, 10, 10, 5, 10, 15],
+				}, {
+					label: "최대",
+					type: "bar",
+					scaleBeginAtZero: true,
+					backgroundColor: 'rgba(0, 0, 0, 0.2)',
+					backgroundColorHover: 'rgba(234, 76, 110, 0.5)',
+					data: [30, 35, 45, 40, 45, 50]
+				}, {
+					label: "평균",
+					type: "bar",
+					scaleBeginAtZero: true,
+					backgroundColor: 'rgba(195, 161, 100, 0.4)',
+					backgroundColorHover: 'rgba(195, 161, 100, 0.8)',
+					data: [20, 30, 25, 30, 20, 30]
+				}]
 			},
 			options: {
+				responsive: true,
+				legend: {
+					labels: {
+						boxWidth: 12,
+						padding: 15
+					}
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+					titleFontSize: 18,
+					titleFontStyle: 500,
+					titleMarginBottom: 8,
+					bodyFontSize: 15,
+					bodyFontStyle: 300,
+					xPadding: 10,
+					yPadding: 10
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+
 				scales: {
 					yAxes: [{
 						ticks: {
-							reverse: false
+							reverse: false,
+							suggestedMin: 0,
+							/*y축 0부터 시작*/
+							suggestedMax: 60,
+							/*y축 맥스값*/
+							maxTicksLimit: 10
 						}
 					}]
 				}
@@ -454,54 +490,91 @@
 			type: 'bar',
 			data: {
 				labels: ["1월", "2월", "3월", "4월", "5월", "6월"],
-				datasets: [
-					{
-						label: '최소',
-						data: [12, 19, 3, 5, 2, 3],
-						backgroundColor: [
-							'rgb(204, 204, 204)',
-							'rgb(204, 204, 204)',
-							'rgb(204, 204, 204)',
-							'rgb(204, 204, 204)',
-							'rgb(204, 204, 204)',
-							'rgb(204, 204, 204)'
-						],
-						borderWidth: 1
-					}
-					,
-					{
-						label: '최대',
-						data: [7, 11, 5, 8, 3, 7],
-						backgroundColor: [
-							'rgb(102, 102, 102)',
-							'rgb(102, 102, 102)',
-							'rgb(102, 102, 102)',
-							'rgb(102, 102, 102)',
-							'rgb(102, 102, 102)',
-							'rgb(102, 102, 102)'
-						],
-						borderWidth: 1
-					},
-					{
-						label: '평균',
-						data: [7, 11, 5, 8, 3, 7],
-						backgroundColor: [
-							'rgb(195, 161, 100)',
-							'rgb(195, 161, 100)',
-							'rgb(195, 161, 100)',
-							'rgb(195, 161, 100)',
-							'rgb(195, 161, 100)',
-							'rgb(195, 161, 100)'
-						],
-						borderWidth: 1
-					}
-				]
+				datasets: [{
+					label: "최저의 평균",
+					type: "line",
+					borderColor: 'rgba(140, 140, 140, 0.7)',
+					pointBackgroundColor: 'rgb(140, 140, 140)',
+					borderWidth: 1,
+					lineTension: 0,
+					/*곡선제거*/
+					data: [20, 30, 35, 30, 25, 35],
+					scaleBeginAtZero: true,
+					fill: false
+				}, {
+					label: "최대의 평균",
+					type: "line",
+					borderColor: 'rgba(110,110, 110, 0.7)',
+					pointBackgroundColor: 'rgb(80, 80, 80)',
+					borderWidth: 1,
+					lineTension: 0,
+					data: [40, 50, 45, 40, 45, 50],
+					fill: false
+				}, {
+					label: "평균의 평균",
+					type: "line",
+					borderWidth: 1,
+					lineTension: 0,
+					borderColor: 'rgba(195, 161, 100, 1)',
+					pointBackgroundColor: 'rgb(195, 161, 100)',
+					data: [30, 35, 25, 30, 35, 30],
+					fill: false
+				}, {
+					label: "최저",
+					type: "bar",
+					scaleBeginAtZero: true,
+					backgroundColor: 'rgba(130, 130, 130, 0.2)',
+					backgroundColorHover: 'rgba(54, 162, 235, 0.5)',
+					data: [5, 10, 10, 5, 10, 15],
+				}, {
+					label: "최대",
+					type: "bar",
+					scaleBeginAtZero: true,
+					backgroundColor: 'rgba(0, 0, 0, 0.2)',
+					backgroundColorHover: 'rgba(234, 76, 110, 0.5)',
+					data: [30, 35, 45, 40, 45, 50]
+				}, {
+					label: "평균",
+					type: "bar",
+					scaleBeginAtZero: true,
+					backgroundColor: 'rgba(195, 161, 100, 0.4)',
+					backgroundColorHover: 'rgba(195, 161, 100, 0.8)',
+					data: [20, 30, 25, 30, 20, 30]
+				}]
 			},
 			options: {
+				responsive: true,
+				legend: {
+					labels: {
+						boxWidth: 12,
+						padding: 15
+					}
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+					titleFontSize: 18,
+					titleFontStyle: 500,
+					titleMarginBottom: 8,
+					bodyFontSize: 15,
+					bodyFontStyle: 300,
+					xPadding: 10,
+					yPadding: 10
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+
 				scales: {
 					yAxes: [{
 						ticks: {
-							reverse: false
+							reverse: false,
+							suggestedMin: 0,
+							/*y축 0부터 시작*/
+							suggestedMax: 60,
+							/*y축 맥스값*/
+							maxTicksLimit: 10
 						}
 					}]
 				}
@@ -511,6 +584,99 @@
 		var ctx = document.getElementById('chart02').getContext('2d');
 		new Chart(ctx, options);
 	</script>
+
+
+
+
+
+	<!-- 전체선택 버튼
+	<script>
+		$('#all_pick').on("click", function () {
+			$('.pick').css({ fill: "#c3a164", stroke: "#222", "stroke-width": 2 });
+		});
+		$('#no_pick').on("click", function () {
+			$('.pick').css({ fill: "", stroke: "" });
+		});
+	</script> -->
+
+	<!-- 센트럴돔 입점지역 클릭 이벤트 -->
+	<script>
+		let paths = document.getElementsByClassName('pick')
+
+		for (let i = 0; i < paths.length; i++) {
+			paths[i].addEventListener('click', toggleClass)
+		}
+
+		function toggleClass() {
+			this.classList.toggle('clicked')
+		}
+	</script>
+
+
+<!-- 입점지역 전체선택 -->
+
+	<!-- 센트럴돔 입점지역 탭 -->
+	<script>
+		function openMap(evt, mapFloor) {
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("tabcontent");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" active", "");
+			}
+			document.getElementById(mapFloor).style.display = "block";
+			evt.currentTarget.className += " active";
+		}
+
+		// Get the element with id="defaultOpen" and click on it
+		document.getElementById("defaultOpen").click();
+	</script>
+
+
+<!-- 센트럴돔 입점지역 탭 -->
+<script>
+	// function all(evt, all_store_pick) {
+	// 	var i, pick, all_pick;
+	// 	pick = document.getElementsByClassName("pick");
+	// 	for (i = 0; i < pick.length; i++) {
+	// 		pick[i].style.fill = "#eee";
+	// 	}
+	// 	all_pick = document.getElementsByClassName("all_pick");
+	// 	for (i = 0; i < all_pick.length; i++) {
+	// 		all_pick[i].className = all_pick[i].className.replace(" clicked", "");
+	// 	}
+	// 	document.getElementById(all_store_pick).style.fill = "#c3a164";
+	// 	evt.currentTarget.className += " clicked";
+	// }
+
+	// Get the element with id="defaultOpen" and click on it
+	// document.getElementById("defaultOpen").click();
+
+
+
+	$('.all_pick').on('click',function(){
+//   $(this).removeClass('clicked');
+  $('.pick').addClass('clicked');
+});
+
+
+$('.all_pick').on('click',function(){
+//   $('.no_pick').removeClass('clicked');
+  $('.pick').addClass('clicked');
+});
+
+$('.no_pick').on('click',function(){
+//   $('.no_pick').removeClass('clicked');
+  $('.pick').removeClass('clicked');
+});
+
+</script>
+
+
+
 
 </body>
 
