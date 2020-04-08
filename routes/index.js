@@ -192,6 +192,41 @@ router.post('/c5/action', async function(req,res){
     )
 })
 
+//c4 차트
+router.post('/c4/chart', function(req,res){
+    // let query = `select id, min(wt_rental_fee_min), date_format( create_dt , '%y%y-%m') as dt from admin_survey 
+    //                     where Addr in(select StoreNumber from admin_survey_store where Sector in( :store) and Floor in( :floor))
+    //                     group by dt `
+
+    let dataSector1 = req.body['sector1']
+    let dataFloor1 = req.body['floor1']
+    let dataSector2 = req.body['sector2']
+    let dataFloor2 = req.body['floor2']
+    let dataSector3 = req.body['sector3']
+    let dataFloor3 = req.body['floor3']
+    console.log('===========')
+    console.log('지역1', dataSector1)
+    console.log('1층', dataFloor1)
+    console.log('지역2', dataSector2)
+    console.log('2층', dataFloor2)
+    console.log('지역3', dataSector3)
+    console.log('3층', dataFloor3)
+
+    connection.query(query,
+        {
+            dataSector1,
+            dataFloor1 ,
+            dataSector2,
+            dataFloor2 ,
+            dataSector3,
+            dataFloor3 
+        },function(err, rows){
+            if(err) throw err;
+            res.json({data : rows})
+        }
+    )
+})
+
 //차트 테스트
 router.get('/testchart', function(req,res){
     let query = 'select AVG(StoreNumber) as avg, MIN(StoreNumber) as min, max(StoreNumber) as max from admin_survey_user'
