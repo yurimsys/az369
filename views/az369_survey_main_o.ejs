@@ -40,7 +40,7 @@
 					</li>
 
 					<li class="survey">
-						<a href="az369_survey_survey">의향서 작성하기</a>
+						<a href="/c5">의향서 작성하기</a>
 					</li>
 				</ul>
 			</div>
@@ -262,6 +262,19 @@
 	</div>
 
 	<script>
+
+		var mySession = JSON.parse(sessionStorage.getItem("mySession"));
+        if(mySession == undefined){
+			alert("로그인 후 이용해주세요.")
+            location.href="/c1"
+        }
+		console.log(mySession);
+		console.log(sessionStorage.getItem('mySession'))
+		// console.log(MySession[1].value);
+		// console.log(MySession[2].value);
+
+		
+
 		// first we get all the path elements and put them in an array
 		let paths = document.getElementsByClassName('pick')
 
@@ -320,52 +333,66 @@
 
 
 	<script>
-		var options = {
-  type: 'bar',
-  data: {
-    labels: ["1월", "2월", "3월", "4월", "5월", "6월"],
-    datasets: [
-	    {
-	      label: '최저',
-		  data: [12, 19, 3, 5, 2, 3],
-		  backgroundColor: [
-                'rgb(204, 204, 204)',
-                'rgb(204, 204, 204)',  
-                'rgb(204, 204, 204)',  
-				'rgb(204, 204, 204)',
-				'rgb(204, 204, 204)', 
-				'rgb(204, 204, 204)'
-            ],
-		  borderWidth: 1
+	var testCha = new Array();
+		$.ajax({
+			url: '/testchart',
+			method: 'get',
+			dataType: 'json',
+			success: function(res){
+				console.log('@@@@',res.data[0])
+				testCha[0] = res.data[0].avg
+				testCha[1] = res.data[0].min
+				testCha[2] = res.data[0].max				
+			}
+		})
+		console.log('배열2',testCha)
+
+var options = {
+	type: 'bar',
+	data: {
+		labels: ["1월", "2월", "3월", "4월", "5월", "6월"],
+		datasets: [
+		{
+		label: '최저',
+		data: testCha, //ajax 데이터 각 
+		backgroundColor: [
+			'rgb(204, 204, 204)',
+			'rgb(204, 204, 204)',  
+			'rgb(204, 204, 204)',  
+			'rgb(204, 204, 204)',
+			'rgb(204, 204, 204)', 
+			'rgb(204, 204, 204)'
+		],
+		borderWidth: 1
 		}
 		,	
-			{
-				label: '최대',
-				data: [7, 11, 5, 8, 3, 7],
-				backgroundColor: [
-                'rgb(102, 102, 102)',
-				'rgb(102, 102, 102)',
-				'rgb(102, 102, 102)',
-				'rgb(102, 102, 102)',
-				'rgb(102, 102, 102)',
-				'rgb(102, 102, 102)'
-			],
-				borderWidth: 1
-			},
-			{
-				label: '평균',
-				data: [7, 11, 5, 8, 3, 7],
-				backgroundColor: [
-                'rgb(195, 161, 100)',
-				'rgb(195, 161, 100)',
-				'rgb(195, 161, 100)',
-				'rgb(195, 161, 100)',
-				'rgb(195, 161, 100)',
-				'rgb(195, 161, 100)'
-			],
-				borderWidth: 1
-			}
-		]
+		{
+		label: '최대',
+		data: [7, 11, 5, 8, 3, 7], //ajax 데이터
+		backgroundColor: [
+			'rgb(102, 102, 102)',
+			'rgb(102, 102, 102)',
+			'rgb(102, 102, 102)',
+			'rgb(102, 102, 102)',
+			'rgb(102, 102, 102)',
+			'rgb(102, 102, 102)'
+		],
+		borderWidth: 1
+		},
+		{
+		label: '평균',
+		data: [7, 11, 5, 8, 3, 7], //ajax 데이터
+		backgroundColor: [
+			'rgb(195, 161, 100)',
+			'rgb(195, 161, 100)',
+			'rgb(195, 161, 100)',
+			'rgb(195, 161, 100)',
+			'rgb(195, 161, 100)',
+			'rgb(195, 161, 100)'
+		],
+		borderWidth: 1
+		}
+	]
   },
   options: {
   	scales: {
@@ -384,51 +411,50 @@ new Chart(ctx, options);
 
 
 <script>
-	var options = {
-type: 'bar',
-data: {
-labels: ["1월", "2월", "3월", "4월", "5월", "6월"],
-datasets: [
+var options = {
+	type: 'bar',
+	data: {
+	labels: ["1월", "2월", "3월", "4월", "5월", "6월"],
+	datasets: [
 	{
-	  label: '최저',
-	  data: [12, 19, 3, 5, 2, 3],
-	  backgroundColor: [
-			'rgb(204, 204, 204)',
-			'rgb(204, 204, 204)',  
-			'rgb(204, 204, 204)',  
-			'rgb(204, 204, 204)',
-			'rgb(204, 204, 204)', 
-			'rgb(204, 204, 204)'
-		],
-	  borderWidth: 1
+	label: '최저',
+	data: [12, 19, 3, 5, 2, 3], //ajax 데이터
+	backgroundColor: [
+		'rgb(204, 204, 204)',
+		'rgb(204, 204, 204)',  
+		'rgb(204, 204, 204)',  
+		'rgb(204, 204, 204)',
+		'rgb(204, 204, 204)', 
+		'rgb(204, 204, 204)'
+	],
+	borderWidth: 1
+	},	
+	{
+	label: '최대',
+	data: [7, 11, 5, 8, 3, 7], //ajax 데이터
+	backgroundColor: [
+		'rgb(102, 102, 102)',
+		'rgb(102, 102, 102)',
+		'rgb(102, 102, 102)',
+		'rgb(102, 102, 102)',
+		'rgb(102, 102, 102)',
+		'rgb(102, 102, 102)'
+	],
+	borderWidth: 1
+	},
+	{
+	label: '평균',
+	data: [7, 11, 5, 8, 3, 7], //ajax 데이터
+	backgroundColor: [
+		'rgb(195, 161, 100)',
+		'rgb(195, 161, 100)',
+		'rgb(195, 161, 100)',
+		'rgb(195, 161, 100)',
+		'rgb(195, 161, 100)',
+		'rgb(195, 161, 100)'
+	],
+	borderWidth: 1
 	}
-	,	
-		{
-			label: '최대',
-			data: [7, 11, 5, 8, 3, 7],
-			backgroundColor: [
-			'rgb(102, 102, 102)',
-			'rgb(102, 102, 102)',
-			'rgb(102, 102, 102)',
-			'rgb(102, 102, 102)',
-			'rgb(102, 102, 102)',
-			'rgb(102, 102, 102)'
-		],
-			borderWidth: 1
-		},
-		{
-			label: '평균',
-			data: [7, 11, 5, 8, 3, 7],
-			backgroundColor: [
-			'rgb(195, 161, 100)',
-			'rgb(195, 161, 100)',
-			'rgb(195, 161, 100)',
-			'rgb(195, 161, 100)',
-			'rgb(195, 161, 100)',
-			'rgb(195, 161, 100)'
-		],
-			borderWidth: 1
-		}
 	]
 },
 options: {

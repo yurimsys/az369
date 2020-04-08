@@ -30,8 +30,7 @@
 
 
 
-				<form name="survey_form" method="post" onsubmit="surveySubmit()">
-
+				<form>
 					<div class="form_top">
 
 						<p>계약하신 정보가 있다면 아래의 폼을 기입해주세요. (선택사항)</p>
@@ -127,8 +126,6 @@
 							<p>기타 추가 문의 사항이 있으신가요?</p>
 							<textarea id="opinion" name="opinion"></textarea>
 						</div>
-
-
 						<!--하단버든-->
 						<div class="survey_btn">
 							<ul>
@@ -136,7 +133,7 @@
 									<a href="b" class="back">취소</a>
 								</li>
 								<li>
-									<input type="submit" class="next" value="제출하기">
+									<input type="button" class="next" value="제출하기" id="goBtn">
 								</li>
 							</ul>
 						</div>
@@ -148,18 +145,38 @@
 
 
 	<script>
-		function surveySubmit() {
-			let survey_result = JSON.parse(sessionStorage.getItem("survey_result"));
-			let sub_html = "";
-			for (let key in survey_result) {
-
-				sub_html += `<input type='hidden' name='${key}' value='${survey_result[key]}' />`
-			}
-
-			$("form").append(sub_html);
-			// document.survey_form.submit();
+		var mySession = JSON.parse(sessionStorage.getItem("mySession"));
+        if(mySession == undefined){
+			alert("로그인 후 이용해주세요.")
+            location.href="/c1"
 		}
+		
+		var myName = mySession[0].value
+		var myStore = mySession[1].value
+		var myPhone = mySession[2].value
 
+		$('#goBtn').on('click', function(){
+			alert($('input:radio[name="wt_modify"]:checked').val())
+			$.ajax({
+				url: '/c5/action',
+				method: 'post',
+				dataType: 'json',
+				data: {
+					'cur_deposit' : $('#cur_deposit').val(), 'cur_rental_fee' : $('#cur_rental_fee').val(),
+					'wt_modify' : $('input:radio[name="wt_modify"]:checked').val(), 'wt_contact_period' : $('#wt_contact_period').val(),
+					'wt_rental_fee_min' : $('#wt_rental_fee_min').val(), 'wt_rental_fee_max' : $('#wt_rental_fee_max').val(),
+					'wt_deposit_min' : $('#wt_deposit_min').val(), 'wt_deposit_max' : $('#wt_deposit_max').val(), 
+					'wt_insurance_type' : $('input:radio[name="wt_insurance_type"]:checked').val(), 'opinion' : $('#opinion').val(),
+					'name' : myName, 'store' : myStore, 'phone' : myPhone
+				},
+				success: function(res){
+					if(res.data == '등록'){
+						alert('등록완료');
+						location.href = '/c4'
+					}
+				}
+			})
+		})
 	</script>
 	<!--seletbox js-->
 	<script>

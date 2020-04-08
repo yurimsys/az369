@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const mysql = require('mysql');
+const config = require('../config');
 const auth = require('../config/passport');
 const dbconf = require('../config/database');
 const connection = mysql.createConnection(dbconf);
-
+const CryptoJS = require('crypto-js');
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
     
@@ -92,6 +93,114 @@ router.get('/c5', function(req, res){
     res.render('az369_survey_survey');
 });
 
+//의향서 c2 로그인 액션
+router.post('/c2/action', function(req,res,done){
+    let query = 'select * from admin_survey_user where Phone = :phone'
+    let password = req.body.password;
+    //let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString()
+    connection.query(query, 
+        {          
+            phone : req.body.phone        
+        },
+        function(err, rows) {
+            if (err) {return done(err);}
+            if(CryptoJS.AES.decrypt(rows[0].PassWord, config.enc_salt).toString(CryptoJS.enc.Utf8) !== password ){
+                res.json({data: "실패"});
+                return done( null, false, {message: "ID와 Password를 확인해주세요"} );
+            } else {
+                console.log("성공")
+                res.json( {  data : rows});
+            }           
+            
+        });  
+})
+
+
+//의향서 c3 회원가입 액션
+router.post('/c3/action', function(req,res){
+    let query = 'insert into admin_survey_user(StoreNumber, Name, Phone, PassWord) values(:addr, :name, :phone, :hash_pw) '
+    let password = req.body.password;
+    let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString()
+    connection.query(query,
+        {
+            addr : req.body.addr,
+            name : req.body.name,
+            phone : req.body.phone,
+            hash_pw
+        },function(err, rows){
+            if(err) throw err;
+
+            res.json({data : '회원가입'})
+        }
+    )
+})
+
+//의향서 c5 액션
+router.post('/c5/action', async function(req,res){
+    let query = `insert into admin_survey
+                        (Name, Phone, Addr, wt_contact_period, wt_rental_fee_min, wt_rental_fee_max,
+                         wt_deposit_min, wt_deposit_max, wt_insurance_type, cur_rental_fee, cur_deposit, wt_modify, opinion)
+                    values(:name , :phone , :store , :wt_contact_period, :wt_rental_fee_min, :wt_rental_fee_max, 
+                           :wt_deposit_min, :wt_deposit_max, :wt_insurance_type, :cur_rental_fee, :cur_deposit, :wt_modify, :opinion) `
+
+    let name = req.body.name; //이름
+    let phone = req.body.phone; //전화번호
+    let store = req.body.store; //호수
+    let wt_contact_period = req.body.wt_contact_period; //계약기간
+    let wt_rental_fee_min = req.body.wt_rental_fee_min; //임대료 최저
+    let wt_rental_fee_max = req.body.wt_rental_fee_max; //임대료 최고
+    let wt_deposit_min = req.body.wt_deposit_min; //보증금 최저
+    let wt_deposit_max = req.body.wt_deposit_max; //보증금 최고
+    let wt_insurance_type = req.body.wt_insurance_type; //보증보험 여부
+    let cur_rental_fee = req.body.cur_rental_fee; //현재 임대료 /
+    let cur_deposit = req.body.cur_deposit; //현재 임대보증금 /
+    let wt_modify = req.body.wt_modify; //보증보험 여부 /
+    let opinion = req.body.opinion
+
+    if(cur_rental_fee == "" || cur_rental_fee == undefined){
+        cur_rental_fee = null;
+    }
+    if(cur_deposit == "" || cur_deposit == undefined){
+        cur_deposit = null;
+    }
+    if(wt_modify == "" || wt_modify == undefined){
+        wt_modify = null;
+    }
+    if(opinion == "" || opinion == undefined){
+        opinion = null;
+    }
+    connection.query(query,
+        {       
+        'name'     : name,
+        'phone'     : phone,
+        'store'     : store,
+        'wt_contact_period'     : wt_contact_period,
+        'wt_rental_fee_min'     : wt_rental_fee_min,
+        'wt_rental_fee_max'     : wt_rental_fee_max,
+        'wt_deposit_min'     : wt_deposit_min,
+        'wt_deposit_max'     : wt_deposit_max,
+        'wt_insurance_type'     : wt_insurance_type,
+        'cur_rental_fee'     : cur_rental_fee,
+        'cur_deposit'     : cur_deposit,
+        'wt_modify'     : wt_modify,
+        'opinion'     : opinion,
+
+        },function(err, rows){
+            if(err) throw err;
+            res.json({data : '등록'})
+        }
+    )
+})
+
+//차트 테스트
+router.get('/testchart', function(req,res){
+    let query = 'select AVG(StoreNumber) as avg, MIN(StoreNumber) as min, max(StoreNumber) as max from admin_survey_user'
+    connection.query(query,function(err, rows){
+            if(err) throw err;
+            res.json({data : rows})
+        }
+    )
+})
 
 router.post('/b', function(req, res){
     

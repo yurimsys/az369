@@ -1396,30 +1396,4 @@ router.post('/videoDelete', auth.isLoggedIn, function(req, res, next) {
     }
 });
 
-
-
-//쇼핑몰 테스트
-router.get('/shop', auth.isLoggedIn, function(req, res, next) {
-                                            
-    if(req.user.U_isAdmin === 'n'){
-        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
-    }else{
-        res.render("admin_shop");
-    }
-});
-
-router.get('/shop/List', auth.isLoggedIn, function(req, res, next) {               
-    if(req.user.U_isAdmin === 'n'){
-        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
-    }else{
-        let query = `SELECT * FROM tU limit 8000`; 
-        connection.query(query,
-            function(err, rows, fields) {
-                if (err) throw err;
-                res.json({ data : rows});
-                console.log("user",rows);
-            }
-        );
-    }
-});  
 module.exports = router;

@@ -54,6 +54,13 @@
 
     <!--input maxlength-->
     <script>
+
+        var mySession = JSON.parse(sessionStorage.getItem("mySession"));
+        console.log(mySession);
+        if(mySession != undefined){
+            location.href="/c4"
+        }
+
         $(document).ready(()=>{
             //본인인증
             $("button.check_btn").click((e) => {
@@ -129,22 +136,44 @@
             }
 
         }
+
         function next(){
-            let survey_result = {};
-            let phone_check = $("#phone_check").data("is_confirm") || false;
-            if(!phone_check) {
-                alert('휴대전화번호 본인인증이 필요합니다.');
-                return false;
-            }
-            survey_result.addr = $("#addr").val();
-            survey_result.name = $("#name").val();
-            survey_result.phone = $("#phone").val();
-            survey_result.cur_has_contract = $("[name=cur_has_contract]:checked").val();
+            $.ajax({
+                url:'/c2/action',
+                method: 'post',
+                dataType: 'json',
+                data:{
+                    'phone' : $('#phone').val(),
+                    'password' : $('#pw').val()
+                },
+                success: function(res){
+                    console.log(res.data)
+                    console.log(res.data[0].Name)
+                    var mySession = [{name:"name", value:res.data[0].Name}, {name:"store", value:res.data[0].StoreNumber}, {name:'phone', value:res.data[0].Phone}];
+                    sessionStorage.setItem("mySession",JSON.stringify(mySession));
+                    location.href = '/c4'
+                    
+                }
+            })
 
-            sessionStorage.setItem("survey_result", JSON.stringify(survey_result));
-
-            location.href +='?ctrt='+$("[name=cur_has_contract]:checked").val();
         }
+
+        // function next(){
+        //     let survey_result = {};
+        //     let phone_check = $("#phone_check").data("is_confirm") || false;
+        //     if(!phone_check) {
+        //         alert('휴대전화번호 본인인증이 필요합니다.');
+        //         return false;
+        //     }
+        //     survey_result.addr = $("#addr").val();
+        //     survey_result.name = $("#name").val();
+        //     survey_result.phone = $("#phone").val();
+        //     survey_result.cur_has_contract = $("[name=cur_has_contract]:checked").val();
+
+        //     sessionStorage.setItem("survey_result", JSON.stringify(survey_result));
+
+        //     location.href +='?ctrt='+$("[name=cur_has_contract]:checked").val();
+        // }
     </script>
 
     <!--인증번호받기 js-->

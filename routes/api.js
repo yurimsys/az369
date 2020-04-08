@@ -57,7 +57,8 @@ router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
     let uPw = req.body.pw;
     console.log("id :", uUserName);
     console.log("pw :", uPw);    
-    if( CryptoJS.AES.decrypt(user.u_pw, config.enc_salt).toString(CryptoJS.enc.Utf8) !== req.user.U_Pw ){
+        
+    if(CryptoJS.AES.decrypt(req.user.U_Pw, config.enc_salt).toString(CryptoJS.enc.Utf8)!== uPw ){
         res.json({data : "실패"});
     } else {
         connection.query(query,{uUserName},
@@ -294,7 +295,7 @@ router.post('/user/confirm', auth.isLoggedIn, (req, res, done) =>{
             } else {
                 console.log("성공")
                 res.json( {  data : "성공"});
-            }           
+            }           6
         });      
 }); 
 
