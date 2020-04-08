@@ -62,9 +62,9 @@
 				<div class="bar"></div>
 
 				<div class="tab">
-					<button class="tablinks" onclick="openMap(event, '01')" id="defaultOpen">1층</button>
-					<button class="tablinks" onclick="openMap(event, '02')">2층</button>
-					<button class="tablinks" onclick="openMap(event, '03')">3층</button>
+					<button class="tablinks defaultOpen" data-floor="01" onclick="openMap(event, '01')" id="defaultOpen">1층</button>
+					<button class="tablinks" data-floor="02" onclick="openMap(event, '02')">2층</button>
+					<button class="tablinks" data-floor="03" onclick="openMap(event, '03')">3층</button>
 				</div>
 
 				<div id="01" class="tabcontent">
@@ -613,65 +613,27 @@
 	</script>
 
 
-<!-- 입점지역 전체선택 -->
 
-	<!-- 센트럴돔 입점지역 탭 -->
-	<script>
-		function openMap(evt, mapFloor) {
-			var i, tabcontent, tablinks;
-			tabcontent = document.getElementsByClassName("tabcontent");
-			for (i = 0; i < tabcontent.length; i++) {
-				tabcontent[i].style.display = "none";
-			}
-			tablinks = document.getElementsByClassName("tablinks");
-			for (i = 0; i < tablinks.length; i++) {
-				tablinks[i].className = tablinks[i].className.replace(" active", "");
-			}
-			document.getElementById(mapFloor).style.display = "block";
-			evt.currentTarget.className += " active";
-		}
-
-		// Get the element with id="defaultOpen" and click on it
-		document.getElementById("defaultOpen").click();
-	</script>
-
-
-<!-- 센트럴돔 입점지역 탭 -->
+<!-- 입점지역 전체선택 / 선택삭제 -->
 <script>
-	// function all(evt, all_store_pick) {
-	// 	var i, pick, all_pick;
-	// 	pick = document.getElementsByClassName("pick");
-	// 	for (i = 0; i < pick.length; i++) {
-	// 		pick[i].style.fill = "#eee";
-	// 	}
-	// 	all_pick = document.getElementsByClassName("all_pick");
-	// 	for (i = 0; i < all_pick.length; i++) {
-	// 		all_pick[i].className = all_pick[i].className.replace(" clicked", "");
-	// 	}
-	// 	document.getElementById(all_store_pick).style.fill = "#c3a164";
-	// 	evt.currentTarget.className += " clicked";
-	// }
-
-	// Get the element with id="defaultOpen" and click on it
-	// document.getElementById("defaultOpen").click();
 
 
+	$('.all_pick').on('click', function () {
+		
+		let tab_id = document.querySelector('.tablinks.active').dataset.floor;
+		$("#"+tab_id+" .pick").addClass('clicked');
+	
+		
+	});
 
-	$('.all_pick').on('click',function(){
-//   $(this).removeClass('clicked');
-  $('.pick').addClass('clicked');
-});
+	$('.no_pick').on('click', function () {
+		
+		let tab_id = $('.tablinks.active').data("floor");
+		$("#"+tab_id+" .pick").removeClass('clicked');
+	
+		
+	});
 
-
-$('.all_pick').on('click',function(){
-//   $('.no_pick').removeClass('clicked');
-  $('.pick').addClass('clicked');
-});
-
-$('.no_pick').on('click',function(){
-//   $('.no_pick').removeClass('clicked');
-  $('.pick').removeClass('clicked');
-});
 
 </script>
 
