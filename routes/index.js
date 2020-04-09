@@ -202,18 +202,26 @@ router.post('/c4/chart', function(req,res){
     let dataSector1 = req.body['1F']
     let dataSector2 = req.body['2F']
     let dataSector3 = req.body['3F']
-    
+    let floor1 = "";
+    let floor2 = ""; 
+    let floor3 = "";
 
     if(dataSector1 == "" || dataSector1 == undefined){
         dataSector1 = ""
+    }else{
+        floor1 = '1F'
     }
 
     if(dataSector2 == "" || dataSector2 == undefined){
         dataSector2 = ""
+    }else{
+        floor2 = '2F'
     }
 
     if(dataSector3 == "" || dataSector3 == undefined){
         dataSector3 = ""
+    }else{
+        floor3 = '3F'
     }
 
     /**
@@ -230,6 +238,9 @@ router.post('/c4/chart', function(req,res){
     console.log('1층 지역', dataSector1)
     console.log('2층 지역', dataSector2)
     console.log('3층 지역', dataSector3)
+    console.log('층', floor1)
+    console.log('층', floor2)
+    console.log('층', floor3)
     connection.query(query,
         {
             dataSector,
