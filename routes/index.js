@@ -195,9 +195,16 @@ router.post('/c5/action', async function(req,res){
 //c4 차트
 router.post('/c4/chart', function(req,res){
 
-    let query = `select id, min(wt_rental_fee_min), date_format( create_dt , '%y%y-%m') as dt from admin_survey 
-                        where Addr in(select StoreNumber from admin_survey_store where Sector in( :dataSector) and Floor in( :dataFloor ))
-                        group by dt `
+    let query = `select Addr, Name, wt_rental_fee_max , wt_rental_fee_max, wt_deposit_min, wt_deposit_max ,create_dt, month(create_dt) as day
+                        from admin_survey 
+                        where date_format(create_dt , '%Y-%m') IN(select date_format(create_dt, '%Y-%m') as tes from admin_survey group by tes)
+                        group by Name 
+                        having Addr in ( select StoreNumber from admin_survey_store where Floor = :floor1 and Sector in (:dataSector1)
+                        union
+                        select StoreNumber  from admin_survey_store where Floor = :floor2 and Sector in (:dataSector2)
+                        union
+                        select StoreNumber  from admin_survey_store where Floor = :floor3 and Sector in (:dataSector3) )
+                    order by id desc;`
 
     let dataSector1 = req.body['1F']
     let dataSector2 = req.body['2F']
@@ -224,16 +231,6 @@ router.post('/c4/chart', function(req,res){
         floor3 = '3F'
     }
 
-    /**
-     * {
-     *  "1F" : ["A1", "A2", "B1", "B2"],
-     *  "2F" : ["A1", "A2", "B1"],
-     *  "3F" : ["A2", "B1", "B2"]
-     * }
-     * 
-     * 
-     */
-
     console.log('===========')
     console.log('1층 지역', dataSector1)
     console.log('2층 지역', dataSector2)
@@ -243,8 +240,12 @@ router.post('/c4/chart', function(req,res){
     console.log('층', floor3)
     connection.query(query,
         {
-            dataSector,
-            dataFloor
+            dataSector1,
+            dataSector2,
+            dataSector3,
+            floor1,
+            floor2,
+            floor3
         },function(err, rows){
             if(err) throw err;
             res.json({data : rows})
@@ -266,7 +267,6 @@ router.get('/testchart', function(req,res){
 router.post('/b', function(req, res){
     
     console.log(req.body);
-
 
     let query = `
         INSERT INTO admin_survey

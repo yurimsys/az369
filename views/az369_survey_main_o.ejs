@@ -356,31 +356,26 @@
 		var sector3 = [];
 		function toggleClass() {
 			this.classList.toggle('clicked')
-			// sector1 = [];
-			// sector2 = [];
-			// sector3 = [];
 			var now = this
 			//1층 호수 층수
 			if(now.parentElement.id == '1F' && now.className.animVal.substring(14) == 'clicked'){
 				sector1.push(now.className.animVal.substring(6, 8))	
 			}else if(now.parentElement.id == '1F' && now.className.animVal.substring(14) != 'clicked'){
-				sector1.splice(sector1.indexOf('now.className.animVal.substring(6, 8)'),1)
-				console.log(sector1)
+				sector1.splice(sector1.indexOf(now.className.animVal.substring(6, 8)),1)
 			}
-
+			console.log(sector1)
 			//2층 호수 층수
 			if(now.parentElement.id == '2F' && now.className.animVal.substring(14) == 'clicked'){
 				sector2.push(now.className.animVal.substring(6, 8))
 			}else if(now.parentElement.id == '2F' && now.className.animVal.substring(14) != 'clicked'){
-				sector2.splice(sector1.indexOf('now.className.animVal.substring(6, 8)'),1)
-				console.log(sector2)
+				sector2.splice(sector1.indexOf(now.className.animVal.substring(6, 8)),1)
 			}
 
 			//3층 호수 층수
 			if(now.parentElement.id == '3F' && now.className.animVal.substring(14) == 'clicked'){
 				sector3.push(now.className.animVal.substring(6, 8))
 			}else if(now.parentElement.id == '3F' && now.className.animVal.substring(14) != 'clicked'){
-				sector3.splice(sector1.indexOf('now.className.animVal.substring(6, 8)'),1)
+				sector3.splice(sector1.indexOf(now.className.animVal.substring(6, 8)),1)
 				console.log(sector3)
 			}
 		}
@@ -414,7 +409,11 @@
 			}
 		});
 
-		let chartData;
+		let rentalMin = [];
+		let rentalMax = [];
+		let depositMin = [];
+		let depositMax = [];
+
 		$('#myBtn').on('click', function(){	
 			//중복제거
 			var dataSector1 = [];
@@ -432,7 +431,7 @@
 				if(dataSector3.indexOf(value) == -1 ) dataSector3.push(value);
 			});
 
-			chartData = {
+			let	chartData = {
 				'1F' : dataSector1,
 				'2F' : dataSector2,
 				'3F' : dataSector3
@@ -445,16 +444,21 @@
 				async: false,
 				data: chartData,
 				success: function(res){
-					return;
 					console.log('넘겨받은 값 ::', res.data)
-					//testRes = res.data[0].id
-					//console.log('rroro', res.data[0].id)
-					//console.log('dsfsdf' , res.data[0].dt)
+					for(let i=0; i<res.data.length; i++){
+						rentalMin.push(res.data[i].wt_rental_fee_min)
+						rentalMax.push(res.data[i].wt_rental_fee_max)
+						depositMin.push(res.data[i].wt_deposit_min)
+						depositMax.push(res.data[i].wt_deposit_max)
+					}
 					
 				}
 			})			
 		})	
 
+		console.log('임대료 최저', rentalMin)
+		console.log('임대료 최고', rentalMax)
+		console.log('보증금 최저')
 		
 	</script>
 
@@ -705,57 +709,6 @@
 		var ctx = document.getElementById('chart02').getContext('2d');
 		new Chart(ctx, options);
 	</script>
-
-
-
-
-
-	<!-- 전체선택 버튼
-	<script>
-		$('#all_pick').on("click", function () {
-			$('.pick').css({ fill: "#c3a164", stroke: "#222", "stroke-width": 2 });
-		});
-		$('#no_pick').on("click", function () {
-			$('.pick').css({ fill: "", stroke: "" });
-		});
-	</script> -->
-
-	<!-- 센트럴돔 입점지역 클릭 이벤트 -->
-	<script>
-		let paths = document.getElementsByClassName('pick')
-
-		for (let i = 0; i < paths.length; i++) {
-			paths[i].addEventListener('click', toggleClass)
-		}
-
-		function toggleClass() {
-			this.classList.toggle('clicked')
-		}
-	</script>
-
-
-
-<!-- 입점지역 전체선택 / 선택삭제 -->
-<script>
-
-
-	// $('.all_pick').on('click', function (e) {	
-	// 	alert(e.currentTarget.id)
-	// 	let tab_id = document.querySelector('.tablinks.active').dataset.floor;
-	// 	$("#"+tab_id+" .pick").addClass('clicked');
-	// });
-
-	// $('.no_pick').on('click', function () {	
-	// 	let tab_id = $('.tablinks.active').data("floor");
-	// 	$("#"+tab_id+" .pick").removeClass('clicked');
-	// });
-
-
-</script>
-
-
-
-
 </body>
 
 </html>
