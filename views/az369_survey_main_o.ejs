@@ -115,7 +115,7 @@
 							<!-- 입점지역 전체부분: 선택불가 -->
 							<path class="all" d="M366.07,1.13l152,168l17,252l-169,8l-256-26c0,0-30.37-13.23-40.68-32.61S1.07,131.13,1.07,131.13l18-31
 		L366.07,1.13z" />
-
+						</g>
 
 							<!-- 입점지역 텍스트 영역 -->
 							<text transform="matrix(1 0 0 1 158.1511 93.4356)" class="svg_txt">A1</text>
@@ -136,7 +136,7 @@
 
 
 						<!-- 거리영역 : 선택불가 -->
-						<g id="2F"></g>
+						<g id="2F" >
 						<polygon class="street" points="348.55,68.72 289.94,86.6 290.81,109.65 342.55,95.72 439.55,204.72 441.54,244.59 465.53,250.05 
 		463.55,192.72 	" />
 						<path class="street" d="M446.55,333.72c-2,12-13,14-13,14l-162.64-12.97l-5.6,24.01l205.24,9.96l-3.96-84.12l-23.01-5.24
@@ -186,7 +186,7 @@
 						<!-- 입점지역 전체부분: 선택불가 -->
 						<path class="all" d="M366.07,1.13l152,168l17,252l-169,8l-256-26c0,0-30.37-13.23-40.68-32.61S1.07,131.13,1.07,131.13l18-31
 		L366.07,1.13z" />
-
+						</g>
 
 						<!-- 입점지역 텍스트 영역 -->
 						<text transform="matrix(1 0 0 1 158.1511 93.4356)" class="svg_txt">A1</text>
@@ -205,7 +205,7 @@
 
 					<svg class="map_svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 536.61 430.13" style="enable-background:new 0 0 536.61 430.13;" xml:space="preserve">
 
-
+					<g id='3F'>
 						<!-- 거리영역 : 선택불가 -->
 						<polygon class="street" points="348.55,68.72 289.94,86.6 290.81,109.65 342.55,95.72 439.55,204.72 441.54,244.59 465.53,250.05 
 		463.55,192.72 	" />
@@ -256,7 +256,7 @@
 						<!-- 입점지역 전체부분: 선택불가 -->
 						<path class="all" d="M366.07,1.13l152,168l17,252l-169,8l-256-26c0,0-30.37-13.23-40.68-32.61S1.07,131.13,1.07,131.13l18-31
 		L366.07,1.13z" />
-
+						</g>
 
 						<!-- 입점지역 텍스트 영역 -->
 						<text transform="matrix(1 0 0 1 158.1511 93.4356)" class="svg_txt">A1</text>
@@ -277,7 +277,7 @@
 							<button class="all_pick" onclick="all(event, '01')">전체선택</button>
 						</li>
 						<li>
-							<button class="no_pick">전체취소</button>
+							<button class="no_pick" id='cancelClick'>전체취소</button>
 						</li>
 					</ul>
 				</div>
@@ -319,21 +319,13 @@
 	</div>
 
 	<script>
-		/*var mySession = JSON.parse(sessionStorage.getItem("mySession"));
-		if (mySession == undefined) {
+		var mySession = JSON.parse(sessionStorage.getItem("mySession"));
+        if(mySession == undefined){
 			alert("로그인 후 이용해주세요.")
-			location.href = "/c1"
-		}*/
-		//console.log(mySession);
-		//console.log(sessionStorage.getItem('mySession'))
-		// console.log(MySession[1].value);
-		// console.log(MySession[2].value);
-
-
-
+            location.href="/c1"
+        }
 		// first we get all the path elements and put them in an array
 		let paths = document.getElementsByClassName('pick')
-
 		for (let i = 0; i < paths.length; i++) {
 			paths[i].addEventListener('click', toggleClass)
 		}
@@ -349,112 +341,108 @@
 		var sector1 = [];
 		var sector2 = [];
 		var sector3 = [];
-
-		//중복제거
-		var dataSector1 = [];
-		var dataFloor1 = [];
-		var dataSector2 = [];
-		var dataFloor2 = [];
-		var dataSector3 = [];
-		var dataFloor3 = [];
-
 		function toggleClass() {
-			//배열 초기화
-			floor1 = [];
-			floor2 = [];
-			floor3 = [];
-			sector1 = [];
-			sector2 = [];
-			sector3 = [];
-			dataSector1 = [];
-			dataFloor1 = [];
-			dataSector2 = [];
-			dataFloor2 = [];
-			dataSector3 = [];
-			dataFloor3 = [];
 			this.classList.toggle('clicked')
+			// sector1 = [];
+			// sector2 = [];
+			// sector3 = [];
 			var now = this
-			$('#myBtn').on('click', function() {
+			//1층 호수 층수
+			if(now.parentElement.id == '1F' && now.className.animVal.substring(14) == 'clicked'){
+				sector1.push(now.className.animVal.substring(6, 8))	
+			}else if(now.parentElement.id == '1F' && now.className.animVal.substring(14) != 'clicked'){
+				sector1.splice(sector1.indexOf('now.className.animVal.substring(6, 8)'),1)
+				console.log(sector1)
+			}
 
-				//1층 호수 층수
-				if (now.parentElement.id == '1F' && now.className.animVal.substring(12) == 'clicked') {
-					$('#1F').children().each(function(item) {
-						floor1.push('1F')
-						sector1.push(now.className.animVal.substring(4, 6))
-					})
-				}
+			//2층 호수 층수
+			if(now.parentElement.id == '2F' && now.className.animVal.substring(14) == 'clicked'){
+				sector2.push(now.className.animVal.substring(6, 8))
+			}else if(now.parentElement.id == '2F' && now.className.animVal.substring(14) != 'clicked'){
+				sector2.splice(sector1.indexOf('now.className.animVal.substring(6, 8)'),1)
+				console.log(sector2)
+			}
 
-				//2층 호수 층수
-				if (now.parentElement.id == '2F' && now.className.animVal.substring(12) == 'clicked') {
-					$('#2F').children().each(function(item) {
-						floor2.push('2F')
-						sector2.push(now.className.animVal.substring(4, 6))
-					})
-				}
-
-				//3층 호수 층수
-				if (now.parentElement.id == '3F' && now.className.animVal.substring(12) == 'clicked') {
-					$('#3F').children().each(function(item) {
-						floor3.push('3F')
-						sector3.push(now.className.animVal.substring(4, 6))
-					})
-				}
-
-				// console.log('층수', arr1F)
-				// console.log('호수', sec1)
-
-				//배열 중복제거
-				$.each(floor1, function(i, value) {
-					if (dataFloor1.indexOf(value) == -1) dataFloor1.push(value);
-				});
-				$.each(sector1, function(i, value) {
-					if (dataSector1.indexOf(value) == -1) dataSector1.push(value);
-				});
-
-				//배열 중복제거
-				$.each(floor2, function(i, value) {
-					if (dataFloor2.indexOf(value) == -1) dataFloor2.push(value);
-				});
-				$.each(sector2, function(i, value) {
-					if (dataSector2.indexOf(value) == -1) dataSector2.push(value);
-				});
-
-				//배열 중복제거
-				$.each(floor3, function(i, value) {
-					if (dataFloor3.indexOf(value) == -1) dataFloor3.push(value);
-				});
-				$.each(sector3, function(i, value) {
-					if (dataSector3.indexOf(value) == -1) dataSector3.push(value);
-				});
-
-				//console.log('호수야', storeNum)
-				console.log('1층', dataFloor1)
-				console.log('1층 호수', dataSector1);
-				console.log('2층', dataFloor2)
-				console.log('2층 호수', dataSector2);
-				console.log('3층', dataFloor3)
-				console.log('3층 호수', dataSector3);
-				var chartData = {
-					'sector1': dataSector1,
-					'floor1': dataFloor1,
-					'sector2': dataSector2,
-					'floor2': dataFloor2,
-					'sector3': dataSector3,
-					'floor3': dataFloor3,
-				}
-				$.ajax({
-					url: '/c4/chart',
-					method: 'post',
-					dataType: 'json',
-					data: chartData,
-					success: function(res) {
-						//console.log('넘겨받은 값 ::', res.data)
-					}
-				})
-
-			})
+			//3층 호수 층수
+			if(now.parentElement.id == '3F' && now.className.animVal.substring(14) == 'clicked'){
+				sector3.push(now.className.animVal.substring(6, 8))
+			}else if(now.parentElement.id == '3F' && now.className.animVal.substring(14) != 'clicked'){
+				sector3.splice(sector1.indexOf('now.className.animVal.substring(6, 8)'),1)
+				console.log(sector3)
+			}
 		}
+		
+		//전체 선택
+		$('.all_pick').on('click', function () {	
+			//alert(e.currentTarget.id)
+			let tab_id = document.querySelector('.tablinks.active').dataset.floor;
+			$("#"+tab_id+" .pick").addClass('clicked');
+			if(tab_id == 01){
+				sector1.push('a1','a2','b1','b2','c1','c2','d1','d2')
+				console.log(sector1)
+			}else if(tab_id == 02){
+				sector2.push('a1','a2','b1','b2','c1','c2','d1','d2')
+			}else{
+				sector3.push('a1','a2','b1','b2','c1','c2','d1','d2')
+			}
+		});
 
+		//전체 취소
+		$('.no_pick').on('click', function () {		
+			let tab_id = $('.tablinks.active').data("floor");
+			$("#"+tab_id+" .pick").removeClass('clicked');
+			if(tab_id == 01){
+				sector1 = [];
+				console.log(sector1)
+			}else if(tab_id == 02){
+				sector2 = [];
+			}else{
+				sector3 = [];
+			}
+		});
+
+		let chartData;
+		$('#myBtn').on('click', function(){	
+			//중복제거
+			var dataSector1 = [];
+			var dataSector2 = [];
+			var dataSector3 = [];
+			
+			//배열 중복제거
+			$.each(sector1,function(i,value){
+				if(dataSector1.indexOf(value) == -1 ) dataSector1.push(value);
+			});
+			$.each(sector2,function(i,value){
+				if(dataSector2.indexOf(value) == -1 ) dataSector2.push(value);
+			});
+			$.each(sector3,function(i,value){
+				if(dataSector3.indexOf(value) == -1 ) dataSector3.push(value);
+			});
+
+			chartData = {
+				'1F' : dataSector1,
+				'2F' : dataSector2,
+				'3F' : dataSector3
+			}
+			console.log(chartData)
+			$.ajax({
+				url: '/c4/chart',
+				method: 'post',
+				dataType: 'json',
+				async: false,
+				data: chartData,
+				success: function(res){
+					return;
+					console.log('넘겨받은 값 ::', res.data)
+					//testRes = res.data[0].id
+					//console.log('rroro', res.data[0].id)
+					//console.log('dsfsdf' , res.data[0].dt)
+					
+				}
+			})			
+		})	
+
+		
 	</script>
 
 	<!-- 센트럴돔 입점지역 탭 -->
@@ -747,9 +735,16 @@
 
 		$('.no_pick').on('click', function() {
 
-			let tab_id = $('.tablinks.active').data("floor");
-			$("#" + tab_id + " .pick").removeClass('clicked');
+	// $('.all_pick').on('click', function (e) {	
+	// 	alert(e.currentTarget.id)
+	// 	let tab_id = document.querySelector('.tablinks.active').dataset.floor;
+	// 	$("#"+tab_id+" .pick").addClass('clicked');
+	// });
 
+	// $('.no_pick').on('click', function () {	
+	// 	let tab_id = $('.tablinks.active').data("floor");
+	// 	$("#"+tab_id+" .pick").removeClass('clicked');
+	// });
 
 		});
 
