@@ -195,7 +195,7 @@ router.post('/c5/action', async function(req,res){
 //c4 차트
 router.post('/c4/chart', function(req,res){
 
-    let query = `select Addr, Name, wt_rental_fee_max , wt_rental_fee_max, wt_deposit_min, wt_deposit_max ,create_dt, month(create_dt) as day
+    let query = `select Addr, Name, wt_rental_fee_min , wt_rental_fee_max, wt_deposit_min, wt_deposit_max ,create_dt, concat(date_format(create_dt,'%m'), '월') as day
                         from admin_survey 
                         where date_format(create_dt , '%Y-%m') IN(select date_format(create_dt, '%Y-%m') as tes from admin_survey group by tes)
                         group by Name 

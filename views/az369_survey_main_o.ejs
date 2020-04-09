@@ -396,11 +396,6 @@
 			}
 		});
 
-		let rentalMin = [];
-		let rentalMax = [];
-		let depositMin = [];
-		let depositMax = [];
-
 		$('#myBtn').on('click', function(){	
 			//중복제거
 			var dataSector1 = [];
@@ -423,7 +418,15 @@
 				'2F' : dataSector2,
 				'3F' : dataSector3
 			}
-			console.log(chartData)
+
+			let rentalMin3 = [];
+			let rentalMin4 = [];
+			let rentalMax3 = [];
+			let rentalMax4 = [];
+			let rentalDay = [];
+			let chartDay = [];
+			let rentalTotal3 = [];
+			let rentalTotal4 = [];
 			$.ajax({
 				url: '/c4/chart',
 				method: 'post',
@@ -431,21 +434,168 @@
 				async: false,
 				data: chartData,
 				success: function(res){
-					console.log('넘겨받은 값 ::', res.data)
 					for(let i=0; i<res.data.length; i++){
-						rentalMin.push(res.data[i].wt_rental_fee_min)
-						rentalMax.push(res.data[i].wt_rental_fee_max)
-						depositMin.push(res.data[i].wt_deposit_min)
-						depositMax.push(res.data[i].wt_deposit_max)
+						if(res.data[i].day == '03월'){
+							rentalMin3.push(res.data[i].wt_rental_fee_min)
+							rentalTotal3.push(res.data[i].wt_rental_fee_min,res.data[i].wt_rental_fee_max)
+						}else if(res.data[i].day == '04월'){
+							rentalMin4.push(res.data[i].wt_rental_fee_min)
+							rentalTotal4.push(res.data[i].wt_rental_fee_min,res.data[i].wt_rental_fee_max)
+						}
+						if(res.data[i].day == '03월'){
+							rentalMax3.push(res.data[i].wt_rental_fee_max)
+						}else if(res.data[i].day == '04월'){
+							rentalMax4.push(res.data[i].wt_rental_fee_max)
+						}
+						rentalDay.push(res.data[i].day)
 					}
+
+
+					//날짜 중복 제거
+					$.each(rentalDay,function(i,value){
+						if(chartDay.indexOf(value) == -1 ) chartDay.push(value);
+					});
+					
+
+					//평균값
+					function average(list){
+						var sum=0;
+						for(var i=0;i<list.length;i++)
+						{
+						sum = sum + list[i];
+						}
+						return sum/list.length;
+					}
+
+					function min(min){
+						return Math.min.apply(null, min)
+					}
+
+					function max(max){
+						return Math.min.apply(null, max)
+					}
+
+
+					console.log('최대',max(rentalMax3))
+					console.log('최대2',max(rentalMax4))
+					console.log('평균',average(rentalMin3))
+					console.log('평균2', average(rentalMin4))
+
+					let minAvg = [average(rentalMin3), average(rentalMin4)] //최저평균
+					let maxAvg = [average(rentalMax3), average(rentalMax4)] //최대평균
+					let minArr = [min(rentalMin3), min(rentalMin4)] //최소값
+					let maxArr = [max(rentalMax3), max(rentalMax4)] //최대값
+					let rentalAvg = [average(rentalTotal3),average(rentalTotal4)] //전체평균
+					let totalAvg = [average(rentalAvg)] //평균평균
+					console.log('평균', rentalAvg)
+					console.log('평평균', totalAvg)
+					console.log('ffdfd',totalAvg)
+					var options = {
+						type: 'bar',
+						data: {
+							labels: chartDay,
+							datasets: [{
+								label: "최저의 평균",
+								type: "line",
+								borderColor: 'rgba(95, 88, 34, 0.7)',
+								pointBackgroundColor: 'rgb(140, 140, 140)',
+								borderWidth: 1,
+								lineTension: 0,
+								/*곡선제거*/
+								data: minAvg,
+								scaleBeginAtZero: true,
+								fill: false
+							}, {
+								label: "최대의 평균",
+								type: "line",
+								borderColor: 'rgba(39, 65, 88, 0.7)',
+								pointBackgroundColor: 'rgb(80, 80, 80)',
+								borderWidth: 1,
+								lineTension: 0,
+								data: maxAvg,
+								fill: false
+							}, {
+								label: "평균의 평균",
+								type: "line",
+								borderWidth: 1,
+								lineTension: 0,
+								borderColor: 'rgba(214, 157, 18, 1)',
+								pointBackgroundColor: 'rgb(195, 161, 100)',
+								data: totalAvg,
+								fill: false
+							}, {
+								label: "최저",
+								type: "bar",
+								scaleBeginAtZero: true,
+								backgroundColor: 'rgba(95, 88, 34, 0.4)',
+								backgroundColorHover: 'rgba(54, 162, 235, 0.5)',
+								data: minArr
+							}, {
+								label: "최대",
+								type: "bar",
+								scaleBeginAtZero: true,
+								backgroundColor: 'rgba(39, 65, 88, 0.4)',
+								backgroundColorHover: 'rgba(234, 76, 110, 0.5)',
+								data: maxArr
+							}, {
+								label: "평균",
+								type: "bar",
+								scaleBeginAtZero: true,
+								backgroundColor: 'rgba(214, 157, 18, 0.4)',
+								backgroundColorHover: 'rgba(195, 161, 100, 0.8)',
+								data: rentalAvg
+							}]
+						},
+						options: {
+							responsive: true,
+							legend: {
+								labels: {
+									boxWidth: 12,
+									padding: 15
+								}
+							},
+							tooltips: {
+								mode: 'index',
+								intersect: false,
+								titleFontSize: 18,
+								titleFontStyle: 500,
+								titleMarginBottom: 8,
+								bodyFontSize: 15,
+								bodyFontStyle: 300,
+								xPadding: 10,
+								yPadding: 10
+							},
+							hover: {
+								mode: 'nearest',
+								intersect: true
+							},
+							scales: {
+								yAxes: [{
+									ticks: {
+										reverse: false,
+										suggestedMin: 0,
+										/*y축 0부터 시작*/
+										suggestedMax: 60,
+										/*y축 맥스값*/
+										maxTicksLimit: 10
+									}
+								}]
+							},
+							elements: {
+								point:{
+									radius: 0
+								}
+							}
+						}
+					};
+					var ctx = document.getElementById('chart01').getContext('2d');
+					new Chart(ctx, options);
 					
 				}
 			})			
 		})	
 
-		console.log('임대료 최저', rentalMin)
-		console.log('임대료 최고', rentalMax)
-		console.log('보증금 최저')
+
 		
 	</script>
 
@@ -495,109 +645,7 @@
 
 	<!-- 첫번째 차트 : 적정 임대료 -->
 	<script>
-		var options = {
-			type: 'bar',
-			data: {
-				labels: ["1월", "2월", "3월", "4월", "5월", "6월"],
-				datasets: [{
-					label: "최저의 평균",
-					type: "line",
-					borderColor: 'rgba(95, 88, 34, 0.7)',
-					pointBackgroundColor: 'rgb(140, 140, 140)',
-					borderWidth: 1,
-					lineTension: 0,
-					/*곡선제거*/
-					data: [20, 20, 20, 20, 20, 20],
-					scaleBeginAtZero: true,
-					fill: false
-				}, {
-					label: "최대의 평균",
-					type: "line",
-					borderColor: 'rgba(39, 65, 88, 0.7)',
-					pointBackgroundColor: 'rgb(80, 80, 80)',
-					borderWidth: 1,
-					lineTension: 0,
-					data: [40, 40, 40, 40, 40, 40],
-					fill: false
-				}, {
-					label: "평균의 평균",
-					type: "line",
-					borderWidth: 1,
-					lineTension: 0,
-					borderColor: 'rgba(214, 157, 18, 1)',
-					pointBackgroundColor: 'rgb(195, 161, 100)',
-					data: [30, 30, 30, 30, 30, 30],
-					fill: false
-				}, {
-					label: "최저",
-					type: "bar",
-					scaleBeginAtZero: true,
-					backgroundColor: 'rgba(95, 88, 34, 0.4)',
-					backgroundColorHover: 'rgba(54, 162, 235, 0.5)',
-					data: [5, 10, 10, 5, 10, 15],
-				}, {
-					label: "최대",
-					type: "bar",
-					scaleBeginAtZero: true,
-					backgroundColor: 'rgba(39, 65, 88, 0.4)',
-					backgroundColorHover: 'rgba(234, 76, 110, 0.5)',
-					data: [30, 35, 45, 40, 45, 50]
-				}, {
-					label: "평균",
-					type: "bar",
-					scaleBeginAtZero: true,
-					backgroundColor: 'rgba(214, 157, 18, 0.4)',
-					backgroundColorHover: 'rgba(195, 161, 100, 0.8)',
-					data: [20, 30, 25, 30, 20, 30]
-				}]
-			},
-			options: {
-				responsive: true,
-				legend: {
-					labels: {
-						boxWidth: 12,
-						padding: 15
-					}
-				},
-				tooltips: {
-					mode: 'index',
-					intersect: false,
-					titleFontSize: 18,
-					titleFontStyle: 500,
-					titleMarginBottom: 8,
-					bodyFontSize: 15,
-					bodyFontStyle: 300,
-					xPadding: 10,
-					yPadding: 10
-				},
-				hover: {
-					mode: 'nearest',
-					intersect: true
-				},
 
-				scales: {
-					yAxes: [{
-						ticks: {
-							reverse: false,
-							suggestedMin: 0,
-							/*y축 0부터 시작*/
-							suggestedMax: 60,
-							/*y축 맥스값*/
-							maxTicksLimit: 10
-						}
-					}]
-				},
-
-				elements: {
-                    point:{
-                        radius: 0
-                    }
-                }
-			}
-		};
-
-		var ctx = document.getElementById('chart01').getContext('2d');
-		new Chart(ctx, options);
 
 	</script>
 
