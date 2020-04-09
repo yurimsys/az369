@@ -10,7 +10,7 @@ header {width: 100%; height: 80px; position: fixed; z-index: 10000; background: 
 }
 
 /*로고*/
-.innerHeader h1.logo {float: left; margin-left: 3%; line-height: 70px; overflow: hidden;}
+.innerHeader h1.logo {float: left; margin-left: 3%; line-height: 70px; overflow: hidden; transition: .5s all;}
 
 /*nav_gnb*/
 nav.gnb {width: 45%;/* float: left; */margin: 0 auto;} 
