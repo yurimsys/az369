@@ -96,13 +96,17 @@ width: 100%;
     .sub_wrap {padding: 0 13%;}
 }
 
+/*1200px*/
+@media screen and (max-width: 1024px) {
+  .sub_wrap {padding: 0 5%;}
+}
+
 /*768px*/
 @media screen and (max-width: 768px) {
     .sub_wrap {padding: 0 0%;}
-	.survey_form {width: 95%;}
+	.survey_form {width: 90%;}
     .wrap h1 {padding: 15px;}
 }
-
 
 /*414px*/
 @media screen and (max-width: 414px) {
