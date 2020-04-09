@@ -236,12 +236,14 @@ p {text-align: justify; font-size: 16px;}
 
 /*내부 닫기버튼*/
 .close {
-  color: #aaa;
+  color: #777;
   float: right;
-  margin-top: -15px;
-  font-size: 50px;
-  font-weight: bold;
+  line-height: 50px;
+  margin-right: 15px;
+  font-size: 60px;
+  font-weight: 300;
 }
+
 .close:hover,
 .close:focus {
   color: black;
@@ -295,7 +297,11 @@ p {text-align: justify; font-size: 16px;}
 	.survey_select_btn {width: 60%;}
 	.survey_select_btn ul li button {font-size: 16px;}
 	
-	#myBtn {height: 50px; line-height: 50px; margin-top: 40px;}
+  #myBtn {height: 50px; line-height: 50px; margin-top: 40px;}
+  
+  .close {
+    font-size: 35px;
+  }
 }
 
 
@@ -304,34 +310,14 @@ p {text-align: justify; font-size: 16px;}
     .wrap h1 {font-size: 18px;}
 	
 	.title_btn {width: 100%;}
-	.title_btn ul li {font-size: 16px;}
-    
-    .survey_form h3 {font-size: 18px;}
-    .survey_form h4 { margin-top: 20px;}
+  .title_btn ul li {font-size: 16px;}
+  
+  #myBtn {height: 45px; line-height: 45px; font-size: 16px;}
 
-    .select_check ul {width: 100%;}
-    .check_btn {height: 40px; line-height: 40px;}
-
-    .select_check ul li input{height: 40px; line-height: 40px;}
-
-    .next, .back {margin-top: 18%; border-radius: 0; font-size: 15px; height: 40px; line-height: 40px;}
-
-    input{
-        height: 40px;
-        padding: 0 2%;
-        margin-top: 2%;
-        display: inline-block;
-        border: 1px solid #eee;
-        font-size: 14px;
-        box-sizing: border-box;
-        position: relative; overflow: hidden;}
-
-    .survey_form h4 {letter-spacing: -0.8px;}
-    .checks input[type="radio"] + label {font-size: 15px;}
-
-    .checks input[type="radio"] + label:before {width: 26px; height: 26px;}
-
-    .check_btn {font-size: 15px;}
+  .close {
+    font-size: 30px;
+  }
+ 
 
 }
 
