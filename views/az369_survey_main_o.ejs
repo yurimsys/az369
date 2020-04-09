@@ -708,69 +708,6 @@
 		new Chart(ctx, options);
 
 	</script>
-<<<<<<< HEAD
-=======
-
-
-
-
-
-	<!-- 전체선택 버튼
-	<script>
-		$('#all_pick').on("click", function () {
-			$('.pick').css({ fill: "#c3a164", stroke: "#222", "stroke-width": 2 });
-		});
-		$('#no_pick').on("click", function () {
-			$('.pick').css({ fill: "", stroke: "" });
-		});
-	</script> -->
-
-	<!-- 센트럴돔 입점지역 클릭 이벤트 -->
-	<!-- <script>
-		let paths = document.getElementsByClassName('pick')
-
-		for (let i = 0; i < paths.length; i++) {
-			paths[i].addEventListener('click', toggleClass)
-		}
-
-		function toggleClass() {
-			this.classList.toggle('clicked')
-		}
-	</script> -->
-
-
-
-	<!-- 입점지역 전체선택 / 선택삭제 -->
-	<script>
-		$('.all_pick').on('click', function() {
-
-			let tab_id = document.querySelector('.tablinks.active').dataset.floor;
-			$("#" + tab_id + " .pick").addClass('clicked');
-
-
-		});
-
-		$('.no_pick').on('click', function() {
-
-	// $('.all_pick').on('click', function (e) {	
-	// 	alert(e.currentTarget.id)
-	// 	let tab_id = document.querySelector('.tablinks.active').dataset.floor;
-	// 	$("#"+tab_id+" .pick").addClass('clicked');
-	// });
-
-	// $('.no_pick').on('click', function () {	
-	// 	let tab_id = $('.tablinks.active').data("floor");
-	// 	$("#"+tab_id+" .pick").removeClass('clicked');
-	// });
-
-		});
-
-	</script>
-
-
-
-
->>>>>>> 8577cf68aa71db02eec3aa4f9e4f243bd59cc9d1
 </body>
 
 </html>
