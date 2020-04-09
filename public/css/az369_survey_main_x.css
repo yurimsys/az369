@@ -58,11 +58,17 @@ p {text-align: justify; font-size: 16px;}
     .sub_wrap {padding: 0 13%;}
 }
 
+/*1200px*/
+@media screen and (max-width: 1024px) {
+  .sub_wrap {padding: 0 5%;}
+}
+
+
 /*768px*/
 @media screen and (max-width: 768px) {
     .sub_wrap {padding: 0 0%;}
     .wrap h1 {padding: 15px;}
-	.main_title {width: 95%;}
+	.main_title {width: 90%;}
 }
 
 
@@ -73,7 +79,7 @@ p {text-align: justify; font-size: 16px;}
     .survey_form h3 {font-size: 26px;}
 	.bar {margin-bottom: 30px;}
     .main_title h2 { font-size: 16px;}
-	.main_button {width: 95%; margin-top: 25px;}
+	.main_button {width: 90%; margin-top: 25px;}
 	.main_button ul li {height: 50px; line-height: 50px;}
 }
 

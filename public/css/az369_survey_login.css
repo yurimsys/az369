@@ -77,6 +77,11 @@ input:focus {border: 1px solid #C3A164;}
     .sub_wrap {padding: 0 13%;}
 }
 
+/*1200px*/
+@media screen and (max-width: 1024px) {
+  .sub_wrap {padding: 0 5%;}
+}
+
 /*768px*/
 @media screen and (max-width: 768px) {
     .sub_wrap {padding: 0 0%;}
