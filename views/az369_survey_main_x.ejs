@@ -19,7 +19,115 @@
 
 <body>
 
+<<<<<<< HEAD
 	<div class="wrap">
+=======
+    <div class="wrap">
+
+        <!--상단 타이틀: 소개부분-->
+        <h1>임대보증금 보증보험 대체 의향서</h1>
+        <div class="sub_wrap">
+        <div class="main_title">
+            <!--<h6><span>01. 개인정보입력 </span> > 02. 의향서 작성 > 03. 제출완료</h6>-->
+
+            <h2><span>이 의향서는</span> 가로수길 센트롤돔 활성화 방안의 일환으로 임대인의 임대조건을 조사하여 임차인과 임대인의 매칭을 위한 기준을 만들고자 작성되었습니다. 본 의향서는 언제든지 재작성 가능하오니 많은 참여 바랍니다.</h2>
+        </div>
+
+        <div class="intro_btn"><a href="az369_survey_intro" target="_blank">보증보험이란?</a></div>
+
+         <div class="bar"></div>
+
+        <div class="main_button">
+
+        <p>의향서 작성을 위해서는 <span>로그인</span>이 필요합니다.</p>
+        	<ul>
+        		<li class="login">
+        			<a href="c2">로그인</a>
+        		</li>
+        		<li class="join">
+        			<a href="c3">회원가입</a>
+        		</li>
+        	</ul>
+        </div>
+        </div>
+    </div>
+
+
+
+
+    <!--input maxlength-->
+    <script>
+        var mySession = JSON.parse(sessionStorage.getItem("mySession"));
+        if(mySession != undefined){
+            location.href="/c4"
+        }
+        $(document).ready(()=>{
+            //본인인증
+            $("button.check_btn").click((e) => {
+                e.preventDefault();
+                sendSmsButton();
+                return false;
+            });
+
+            $("#phone_check").keyup( checkPhoneNumber );
+
+        });
+
+        function numberMaxLength(e) {
+            if (e.value.length > e.maxLength) {
+                e.value = e.value.slice(0, e.maxLength);
+            }
+        }
+
+        function sendSmsButton(){
+            let phone_number = $("#phone").val();
+            phone_number = phone_number.replace(/-/g, "");
+
+            $.ajax({
+                dataType: "json",
+                url : "/api/auth/phone",
+                method : "post",
+                data : {
+                    phone_number : phone_number
+                }
+            }).done((res) => {
+                $("#alert_msg_success").removeClass('active');
+                $("#alert_msg").addClass('active');
+            })
+        }
+
+        function checkPhoneNumber(e){
+            let ele_phone_check = $("#phone_check");
+            // let auth_number = ele_phone_check.val();
+            let auth_number = e.target.value;
+
+            let phone_number = $("#phone").val();
+            phone_number.replace(/-/g, "");
+
+            if( auth_number.length >= 4){
+
+                $.ajax({
+                    dataType: "json",
+                    url : "/api/auth/phone",
+                    method : "get",
+                    data : {
+                        phone_number : phone_number,
+                        auth_number : auth_number
+                    }
+                }).done((res) => {
+                    console.log("checkPhoneNumber !! ");
+                    console.log(res);
+                    if( res.status_code == 200 ){
+                        ele_phone_check.data("is_confirm", true);
+
+                        $("#alert_msg").removeClass('active');
+                        $("#alert_msg_fail").removeClass('active');
+                        $("#alert_msg_success").addClass('active');
+                    } else if ( res.status_code == 400 ){
+                        ele_phone_check.data("is_confirm", false);
+                        $("#alert_msg").removeClass('active');
+                        $("#alert_msg_success").removeClass('active');
+>>>>>>> origin/test
 
 		<!--상단 타이틀: 소개부분-->
 		<h1>임대보증금 보증보험 대체 의향서</h1>

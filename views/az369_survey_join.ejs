@@ -26,53 +26,56 @@
 
         <h1>임대보증금 보증보험 대체 의향서</h1>
 
-        <!--폼 전체-->
-        <div class="survey_form">
-            <h3><span>회원가입</span> 후 <br> 의향서 작성이 가능합니다.</h3>
-            <div class="bar"></div>
+        <div class="sub_wrap">
+        	<!--폼 전체-->
+        	<div class="survey_form">
+        	    <h3><span>회원가입</span> 후 <br> 의향서 작성이 가능합니다.</h3>
+        	    <div class="bar"></div>
 
-        <!--폼 리스트-->
-            <form name="personal_info">
+        	<!--폼 리스트-->
+        	    <form name="personal_info">
 
-                <h4>상가호수</h4>
-                <input require=true type="number" id="addr" name="addr">
+        	        <h4>상가호수</h4>
+        	        <input require=true type="text" id="addr" name="addr">
 
-                <h4>이름</h4>
-                <input require=true type="text" id="name" name="name">
+        	        <h4>이름</h4>
+        	        <input require=true type="text" id="name" name="name">
 
-                <h4>휴대전화번호 ('-' 생략)</h4>
-                <input type="number" id="phone" name="phone">
-                <button class="check_btn" onclick="myFunction(event)">인증번호 받기</button>
-                <div id="phone_check_box">
-                    <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);" />
-                </div>
-                <div class="text-alert" id="alert_msg">인증번호의 유효시간은 <span>30분</span>입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
-                <div class="text-alert" id="alert_msg_fail"></div>
-                <div class="text-alert" id="alert_msg_success">인증번호가 확인되었습니다.</div>
+        	        <h4>휴대전화번호 ('-' 생략)</h4>
+        	        <input type="number" id="phone" name="phone">
+        	        <button class="check_btn" onclick="myFunction(event)">인증번호 받기</button>
+        	        <div id="phone_check_box">
+        	            <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);" />
+        	        </div>
+        	        <div class="text-alert" id="alert_msg">인증번호의 유효시간은 <span>30분</span>입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+        	        <div class="text-alert" id="alert_msg_fail"></div>
+        	        <div class="text-alert" id="alert_msg_success">인증번호가 확인되었습니다.</div>
 
-                <h4>비밀번호</h4>
-                <input type="password" id="pw" name="pw">
-                 <h4>비밀번호 재확인</h4>
-                <input require=true type="password" id="pw" name="pw">
+        	        <h4>비밀번호</h4>
+        	        <input type="password" id="password" placeholder="숫자+영문+특수문자 8자 이상"><br>
+        	        <h4>비밀번호 재확인</h4>
+        	        <input type="password" id="password2" placeholder="비밀번호 재확인">
+        	        <div id="alert-success" style="font-size: 13px; color: green; display: none;">비밀번호가 일치합니다.</div>
+        	        <div id="alert-danger" style="font-size: 13px; color: red; display: none;">비밀번호가 일치하지 않습니다.</div>
 
+        	        <!--체크박스-->
+        	        <!--<div class="select_check">
+        	            <h4>소유하신 상가의 임대차 계약이 완료되었나요?</h4>
 
-                <!--체크박스-->
-                <!--<div class="select_check">
-                    <h4>소유하신 상가의 임대차 계약이 완료되었나요?</h4>
+        	            <div class="checks etrans">
+        	                <input require=true type="radio" id="r1" name="cur_has_contract" value="y" class="ab" />
+        	                <label for="r1"><span></span>계약완료</label>
+        	            </div>
 
-                    <div class="checks etrans">
-                        <input require=true type="radio" id="r1" name="cur_has_contract" value="y" class="ab" />
-                        <label for="r1"><span></span>계약완료</label>
-                    </div>
+        	            <div class="checks etrans">
+        	                <input require=true type="radio" id="r2" name="cur_has_contract" value="n" class="ab" />
+        	                <label for="r2"><span></span>공실</label>
+        	            </div>
+        	        </div>-->
 
-                    <div class="checks etrans">
-                        <input require=true type="radio" id="r2" name="cur_has_contract" value="n" class="ab" />
-                        <label for="r2"><span></span>공실</label>
-                    </div>
-                </div>-->
-
-                <a onclick="next()" class="join">가입하기</a>
-            </form>
+        	        <a onclick="next()" class="join">가입하기</a>
+        	    </form>
+        	</div>
         </div>
     </div>
 
@@ -81,6 +84,51 @@
 
     <!--input maxlength-->
     <script>
+
+        var mySession = JSON.parse(sessionStorage.getItem("mySession"));
+        if(mySession != undefined){
+            location.href="/c4"
+        }
+
+        //비밀번호 정규식
+        $("#password").change(function(){
+            checkPassword($('#password').val());
+        });
+        function checkPassword(password){
+            if( !(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)) ){
+                alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
+                $('#password').val('').focus();
+                return false;
+            }
+            var checkNumber = password.search(/[0-9]/g);
+            var checkEnglish = password.search(/[a-z]/ig);
+            if(checkNumber <0 || checkEnglish <0){
+                alert("숫자와 영문자를 혼용하여야 합니다.");
+                $('#password').val('').focus();
+                return false;
+            }
+        }
+
+        //비밀번호 확인
+         $(function(){
+            $("input").keyup(function(){
+                var pwd1=$("#password").val();
+                var pwd2=$("#password2").val();
+                if(pwd1 != "" || pwd2 != ""){
+                    if(pwd1 == pwd2){
+                        $("#alert-success").css('display', 'block')
+                        $("#alert-danger").css('display', 'none')
+                        $("#submit").removeAttr("disabled");
+                    }else{
+                        $("#alert-success").css('display', 'none')
+                        $("#alert-danger").css('display', 'block')
+                        $("#submit").attr("disabled", "disabled");
+                    }
+                }
+            });
+        });
+
+
         $(document).ready(()=>{
             //본인인증
             $("button.check_btn").click((e) => {
@@ -163,14 +211,23 @@
                 alert('휴대전화번호 본인인증이 필요합니다.');
                 return false;
             }
-            survey_result.addr = $("#addr").val();
-            survey_result.name = $("#name").val();
-            survey_result.phone = $("#phone").val();
-            survey_result.cur_has_contract = $("[name=cur_has_contract]:checked").val();
-
-            sessionStorage.setItem("survey_result", JSON.stringify(survey_result));
-
-            location.href +='?ctrt='+$("[name=cur_has_contract]:checked").val();
+            $.ajax({
+                url: '/c3/action',
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    'addr' : $('#addr').val(), 'name' : $('#name').val(),
+                    'phone' : $('#phone').val(), 'password' : $('#password').val()
+                },
+                success : function(res){
+                    if(res.data == '회원가입'){
+                        var mySession = [{name:"name", value:$('#name').val()}, {name:"store", value:$('#addr').val()}, {name:'phone', value:$('#phone').val()}];
+                        sessionStorage.setItem("mySession",JSON.stringify(mySession));
+                        //console.log(sessionStorage.getItem('mySession'))
+                        location.href = '/c4'
+                    }
+                }
+            })
         }
     </script>
 
