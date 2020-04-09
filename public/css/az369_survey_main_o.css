@@ -29,25 +29,24 @@ p {text-align: justify; font-size: 16px;}
     /*main_title*/
     .wrap h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; font-weight: 400; padding: 20px; text-align: center; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
 
-    .main_title {width: 90%; margin: 0 auto; text-align: justify; padding: 25px; background: #fff; border: 1px solid #cec6b5; margin-top: 20px;}
+    .main_title { margin: 0 auto; text-align: justify; padding:20px 25px; background: #fff; border: 1px solid #cec6b5; margin-top: 20px; line-height: 1.6;}
 
     .main_title h2 { font-size: 18px; margin: 0 auto; font-weight: 300; color: #222;}
 
-    .main_title h2 span {font-weight: 500; font-size: 20px;}
 
 /* 상단 버튼 두개 */
-.title_btn {width: 40%; margin: 0 auto; /*height: 40px; line-height: 40px;*/ margin-top: 20px; overflow: hidden; font-size: 18px;}
+.title_btn {width: 40%; margin: 0 auto; margin-top: 20px; overflow: hidden; font-size: 18px;}
 .title_btn ul li {float: left; text-align: center; width: 49%; margin-right: 1%; font-size: 18px; color: #222;}
 .title_btn ul li:nth-child(2) {margin-right: 0;}
-/* .intro a {border-bottom: 3px solid #666; display: inline-block; padding: 5px;} */
-/* .survey a {border-bottom: 3px solid #c3a164; display: inline-block; padding: 5px; color: #c3a164; font-weight: 500;} */
 .title_btn a {font-weight: 500;height: 40px; line-height: 40px;}
 .survey a {color: #c3a164;}
 
-    .survey_select {width: 90%; margin: 0 auto; margin-top: 40px; overflow: hidden; }
-    .survey_select h3 {font-size: 28px; font-weight: 300; letter-spacing: -0.75px; line-height: 1.6;}
+
+
+    .survey_select {margin: 0 auto; margin-top: 30px; overflow: hidden; }
+    .survey_select h3 {font-size: 28px; font-weight: 300; letter-spacing: -0.75px; line-height: 1.6; margin-bottom: 30px;}
   .survey_select h3 span {font-weight: 200;}
-    .bar {width: 100%; height: 2px; background: #eee; margin: 25px 0 40px;}
+    .bar {width: 100%; height: 1px; background: #eee; margin: 10px 0;}
     .survey_select h4 {font-size: 16px; font-weight: 400;  margin: 15px 0 10px;}
 
     input {
@@ -190,6 +189,7 @@ p {text-align: justify; font-size: 16px;}
 
 .modal_header {width: 100%; position: relative; height: 50px;}
 
+/*
 .survey_select_btn {width: 100%; margin-top: 30px;}
 .survey_select_btn button {width: 100%; height: 100%; display: block;  border: none; font-size: 18px; font-weight: 400;}
 .survey_select_btn ul li {float: left; text-align: center; height: 56px; line-height: 56px; font-weight: 400; font-size: 18px; margin-right: 1%;}
@@ -198,32 +198,43 @@ p {text-align: justify; font-size: 16px;}
 .survey_select_btn ul li:nth-child(3) {width: 58%; background: #c3a164; color: #fff; margin-right: 0%;}
 .all_pick {background: #fff;}
 .no_pick {background: #eee;}
+*/
 
 
+/*하단 버튼*/
+.survey_select_btn {width: 30%; margin: 0 auto; padding-bottom: 10px; overflow: hidden;}
+.survey_select_btn ul li {float: left; width: 48%; margin-right: 2%; height: 50px; line-height: 50px;}
+.survey_select_btn ul li button {width: 100%; height: 100%;  border: none; font-size: 20px; font-weight: 500; background: none;}
+.survey_select_btn ul li .no_pick { font-weight: 400; color: #444;}
+
+/*조회하기 버튼*/
+#myBtn {width: 100%; overflow: hidden; text-align: center; height: 56px; line-height: 56px; background: #c3a164; font-size: 18px; color: #fff; font-weight: 400; margin-top: 50px;}
+
+
+/*초회하기 팝업 모달*/
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none;
+  position: fixed;
+  z-index: 1; 
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%; 
+  height: 100%; 
+  overflow: auto;
+	background: #f9f9f9;
 }
 
-/* Modal Content/Box */
+/*팝업 내부*/
 .modal-content {
-  background-color: #f8f8f8;
-  margin: 0 auto; /* 15% from the top and centered */
-  padding: 0 20px 20px;
+  background-color: #f9f9f9;
+  margin: 0 auto; 
   border: 1px solid #888;
-  width: 100%; /* Could be more or less, depending on screen size */
+  width: 100%;
   height: 100%;
   overflow: scroll;                       
 }
-/* The Close Button */
+
+/*내부 닫기버튼*/
 .close {
   color: #aaa;
   float: right;
@@ -237,6 +248,10 @@ p {text-align: justify; font-size: 16px;}
   text-decoration: none;
   cursor: pointer;
 }
+
+.modal_inner {width: 95%; margin: 0 auto; padding-bottom: 30px;}
+
+.modal_inner .bar {margin-top: 15px; margin-bottom: 25px;}
 .modal-content h4 {font-size: 22px; font-weight: 300;}
 .modal-content h4 span {font-weight: 500;}
 .modal-content canvas {background: #fff; height: 400px;}
@@ -244,18 +259,23 @@ p {text-align: justify; font-size: 16px;}
 #chart01 {margin-bottom: 40px;}
 
 
-.pick:focus { outline: 0 none; }
-
 /*반응형*/
 /*1200px*/
 @media screen and (max-width: 1200px) {
-  .sub_wrap {padding: 0 60px;}
+  .sub_wrap {padding: 0 13%;}
+}
+
+/*1200px*/
+@media screen and (max-width: 1024px) {
+  .sub_wrap {padding: 0 5%;}
 }
 
 /*768px*/
 @media screen and (max-width: 768px) {
-  .sub_wrap {padding: 0 0%;}
+  .sub_wrap {padding: 0 0%; width: 90%; margin: 0 auto;}
   .wrap h1 {padding: 15px;}
+	.title_btn {width: 50%;}
+	.tabcontent svg {margin-bottom: 20px;}
 }
 
 
@@ -263,20 +283,29 @@ p {text-align: justify; font-size: 16px;}
 @media screen and (max-width: 414px) {
   .wrap h1 {font-size: 20px; padding: 13px;}
   .main_title h2 { font-size: 16px;}
+	.title_btn {width: 95%;}
+	
+	.survey_select {margin-top: 40px;}
   .survey_select h3 {font-size: 26px;}
+	
+	.tabcontent svg {margin-bottom: 13px;}
 
-  .tabcontent {
-    padding: 5px;
-  }
+  .tabcontent {padding: 10px;}
+	
+	.survey_select_btn {width: 60%;}
+	.survey_select_btn ul li button {font-size: 16px;}
+	
+	#myBtn {height: 50px; line-height: 50px; margin-top: 40px;}
 }
 
 
 /*320px*/
 @media screen and (max-width: 320px) {
-    .wrap h1 {font-size: 17px;}
-    .main_title h2 {width: 90%; font-size: 15px; margin: 7% auto;}
-    .main_title h6 { font-size: 12px;}
-    .main_title h6 span {font-size: 13px;}
+    .wrap h1 {font-size: 18px;}
+	
+	.title_btn {width: 100%;}
+	.title_btn ul li {font-size: 16px;}
+    
     .survey_form h3 {font-size: 18px;}
     .survey_form h4 { margin-top: 20px;}
 
