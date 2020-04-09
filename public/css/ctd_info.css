@@ -1,4 +1,5 @@
-@charset "UTF-8";
+@charset "UFT-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; font-weight: normal;}
@@ -31,10 +32,12 @@ section.main {
 .main_bg { background: url(../img/sub_main_bg/sub01_main_bg.jpg) no-repeat; background-position: bottom; background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 
 @keyframes bg {
-    0% {transform: scale(1.05);
+	0% {transform: scale(1.05);}
     100% {transform: scale(1);}
-    }
 }
+
+.tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); }
+.tnb ul li {float: left; width: 33.33%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; transition: all 0.2s; font-weight: 400;}
 
 /*section.main 완료*/
 /*section.sub_wrap 시작*/
@@ -42,36 +45,37 @@ section.main {
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 6.5%;
+    margin-bottom: 90px;
     color: #333;
+	overflow: hidden;
 }
-
-.tnb {position: relative; width: 1200px; margin: 0 auto;  margin-top: -5%;}
-.tnb ul li {float: left; width: 33.33%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; color: #444; transition: all 0.2s;z-index: 10000;}
-/*.tnb ul li:hover {cursor: pointer; background: rgba(0,0,0,0.4); color: #fff;}*/
-
 
 section.sub_wrap .bar {
-    border-bottom: 2px solid #624000; 
-    width: 35px; 
+    border-bottom: 2px solid #c3a164; 
+    width: 30px; 
     margin: 0 auto;
-    margin-top: 2%;
-    margin-bottom: 4%;
+    margin-top: 30px;
+    margin-bottom: 40px;
 }
 
-section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 13%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+
+section.sub_wrap h6 {text-align: center; color: #a0772b; margin-top:100px; font-weight: 600; font-size: 16px;}
 
 section.sub_wrap h1 {
     text-align: center;
-    font-size: 2.8rem;
+    font-size: 45px;
     margin-top: -1%;
+	font-family: 'PT Serif', serif;
+	font-weight: normal;
 }
 
-section.sub_wrap h2 {font-size: 30px; text-align: center; margin-bottom: 5%; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif;}
+section.sub_wrap h2 br {display: none;}
+section.sub_wrap h2 {font-size: 28px; text-align: center; margin-bottom: 70px; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif; color: #555; font-weight: 400;}
+section.sub_wrap h2 span {color: #000;}
 
-section.sub_wrap h5 {color: #777; font-size:20px; text-align:center; font-family: 'Noto Sans KR', sans-serif;}
+section.sub_wrap h5 {color: #555; font-size: 20px; font-weight: 300; text-align:center;}
 section.sub_wrap h5 br {display: none;}
-section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow: inset 0 -15px 0 #fcf3dc;}
+section.sub_wrap h5 span {font-weight: 400;}
 
 .mySlides {
 	display: none;
@@ -141,21 +145,37 @@ section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow
 }
 
 /*sub_info*/
-.sub_info {width: 100%; text-align: center; margin-top: 5%;}
+.sub_info {width: 100%; text-align: center; margin-top: 70px; overflow: hidden;}
 
-.sub_info em {font-size: 1.2rem; color: #a0772b;}
-.sub_info h3 {font-size: 1.6rem; margin: 0; margin-bottom: 4%; font-family: 'Noto Sans KR', sans-serif;}
+.sub_info h4 {font-size: 20px; font-weight: 300; color: #ad863c;}
+.sub_info h4 br {display: none;}
+.sub_info h4 span {font-weight: 500;}
+.sub_info h3 {font-size: 26px; margin: 0; margin-bottom: 50px; font-weight: 400;}
+.sub_info h3 br {display: none;}
 
-.sub_info h4 {font-size: 20px;  font-family: 'Noto Sans KR', sans-serif; margin: 0; color: #333;} 
-.sub_info p {width: 80%; margin: 0 auto; margin-bottom: 4.5%; line-height: 1.8; text-align: center; color: #888;}
-.sub_info em br {display: none;}        
+.sub_info em {font-size: 20px;}
+.sub_info p {text-align: justify; margin: 0 auto; line-height: 1.8;color: #333; font-weight: 300;}
+
+.sub_info p br {display: none;}
+
+
+.ctd_btn {width: 100%; overflow: hidden;}
+
+
+.sub_info_list {width: 100%; overflow: hidden; padding-top: 40px; padding-bottom: 40px; border-bottom: 1px solid #eee;}
+.sub_info_list.sub_info_list01{border-top: 1px solid #aaa;}
+.sub_info_list.sub_info_list03 {border-bottom: 1px solid #aaa; margin-bottom: 50px;}
+.list_title {float: left; width: 30%; text-align: justify; font-size: 22px; font-weight: 400; line-height: 1.6;}
+
+.list_txt {float: left; width: 70%; text-align: justify;}
       
-.ctd_btn { text-align: center;  margin: 0 auto;  overflow: hidden;  transition: all 0.3s;  margin: 0 auto;}
-.ctd_btn a {display: block; text-align: center; padding: 1.3% 6%; border: 1px solid #bbb; display: inline-block; font-size: 1.1rem; color: #a0772b; transition: all 0.3s;}
+.ctd_btn { text-align: center;  margin: 0 auto;  overflow: hidden;  transition: all 0.3s;  margin: 0 auto;  width: 200px; height: 50px; line-height: 50px;  font-size: 16px; color: #333; transition: all 0.3s; border: 1px solid #ddd; }
+.ctd_btn a {display: block;}
 
-.ctd_btn a:hover {background: #a7813c; color: #fff; border: 1px solid #be974f;}
+.ctd_btn a:hover {background: #c3a164; color: #fff; border: 1px solid #c3a164; transition: all 0.3s; }        
 
-/*section.sub_wrap 완료*/
+
+
 
 /*모바일 메뉴*/
 header .open {
@@ -186,15 +206,17 @@ header .open {
     section.main {width: 100%;}
     section.main .inner_main {width: 100%;}
     
-    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     section.sub_wrap .inner_sub_wrap {width: 100%;}
-    section.sub_wrap h6 {padding-top: 8%;}
     
-    .tnb {padding-bottom: 5%; width: 100%; margin-top: -5%;}
+    .tnb {width: 100%;}
     
     .slideshow-container {width: 95%; margin: 0 auto;}
+	
+	.sub_info_list {width: 95%; margin: 0 auto;}
+	.list_txt {padding: 0 15px;}
+	.list_title {padding: 0 15px;}
 }
     
 
@@ -204,45 +226,34 @@ header .open {
     /*main*/
     section.main {width: 100%;}
     
-    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     section.sub_wrap {padding-top: -10%;}
-    
-    .tnb {padding-bottom: 6%; margin-top: -5.9%;}
-    
-    .sub_info p {width: 90%;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 
 /*768px*/
 @media screen and (max-width: 768px) {
     
-
     /*main*/
     section.main {width: 100%;}
-    
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     
-    section.sub_wrap h1 {font-size: 2.2rem;}
-    section.sub_wrap h6 {padding-top: 10%;}
+	section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
+	
+    section.sub_wrap h1 {font-size: 35px;}
     section.sub_wrap h5 {font-size: 20px;}
     section.sub_wrap h2 {font-size: 28px;}
-    .tnb { margin-top:-7.6%;}
     
     .sub_info {margin: 0 auto; padding-top: 6%;}
     .sub_info ul {width: 80%;}
     .sub_info h3 {font-size: 1.5rem;}
     .sub_info p br {display: none; text-align: justify;}
+	
+	.sub_info_list {padding-top: 25px; padding-bottom: 25px;}
+	.list_title {font-size: 18px; margin-top: 10px;}
     
     /*footer*/
     footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
@@ -255,46 +266,30 @@ header .open {
 /*414px*/
 @media screen and (max-width: 414px) {
     
-    
     /*main*/
     section.main {width: 100%;}
     
     /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h1 {font-size: 2rem;}
-    section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-    section.sub_wrap h2 {font-size: 24px; padding-bottom: 7%; line-height: 1.5;}
+    section.sub_wrap {width:100%;}
+    section.sub_wrap h1 {font-size: 30px;}
+    section.sub_wrap h2 {font-size: 22px;line-height: 1.5; margin-bottom: 40px;}
     section.sub_wrap h2 br {display: block;}
-    section.sub_wrap h5{font-size: 18px;; margin-bottom: -1%;}
-    section.sub_wrap h6 {padding-top: 22%;}
+    section.sub_wrap h5{font-size: 18px; margin-bottom: -1%;}
+    section.sub_wrap h6 {margin-top: 60px;}
     
     
-    .tnb {margin-top: -12%;}
     .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
     
-    .sub_info {margin-top: 5%;}
-    .sub_info em {font-size: 1.05rem;}
-    .sub_info em br {display: block;}
-    .sub_info h3 {font-size: 1.2rem; width:100%; margin: 0 auto; margin-bottom: 4%;}
+	.sub_info h4 {font-size: 16px;}
+	.sub_info h4 br {display: block;}
+    .sub_info h3 {font-size: 20px; width:100%; margin: 0 auto; margin-bottom: 4%;}
     
-    .sub_info h4 {margin-top: 7%;}
-    
-    .sub_info p {width: 95%; margin: 0 auto;}
-    
-    .ctd_btn {margin-top: 5%;}
-    .ctd_btn a {width: 95%; padding: 2%;}
-
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
-}
-
-/*375px*/
-@media screen and (max-width: 375px) {
-    .tnb {margin-top: -13%;}
+	.sub_info_list01 {margin-top: 30px;}
+	.list_title {float: none; width: 100%; text-align: center; margin-bottom: 15px; font-size: 18px;}
+	.list_title br {display: none;}
+	.list_txt {float: none; width: 100%;}
+	
+    .ctd_btn {width: 95%; margin: 0 auto; }
 }
 
 /*320px*/
@@ -305,19 +300,13 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap h1 {font-size: 24px;}
-    section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-    section.sub_wrap h2 {font-size: 20px; padding-bottom: 7%; line-height: 1.5;}
-    section.sub_wrap h5{font-size: 14px; margin-bottom: -1%;}
-    section.sub_wrap h6 {padding-top: 22%; font-size: 14px;}
-    
-    
-    .tnb {margin-top: -15.5%;}
-    
+    section.sub_wrap h2 {font-size: 20px; line-height: 1.5; margin-bottom: 40px;}
+    section.sub_wrap h5{font-size: 16px; margin-bottom: 5px;}
+	section.sub_wrap h5 br {display: block; font-synthesis: 16px;}
+        
     .sub_info {margin-top: 0%;}
-    .sub_info em {font-size: 15px;}
-    .sub_info h3 {font-size: 17px; }
-    
-    .sub_info h4 {margin-top: 7%; font-size: 18px;}
+    .sub_info h4 {font-size: 15px;}
+    .sub_info h3 {font-size: 17px;}
     
     .sub_info p {font-size: 15px;}
     

@@ -7,14 +7,6 @@ const auth = require('../config/passport');
 const connection = mysql.createConnection(dbconf);
 const config = require('../config');
 const CryptoJS = require('crypto-js');
-var async = require('async');
-let{
-    Editor,
-    Field,
-    Validate,
-    Format,
-    Options
-} = require('datatables.net-editor-server');
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;

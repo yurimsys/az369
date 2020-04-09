@@ -43,6 +43,10 @@
 
 					<h4>비밀번호</h4>
 					<input type="password" id="pw" name="pw">
+					
+					<p>비밀번호를 잊으셨나요? <a href="" class="find_btn">비밀번호 재설정</a></p>
+					
+					
 
 					<a onclick="next()" class="login">로그인</a>
 				</form>
@@ -51,112 +55,137 @@
 	</div>
 
 
+    <!--input maxlength-->
+    <script>
 
+        var mySession = JSON.parse(sessionStorage.getItem("mySession"));
+        console.log(mySession);
+        if(mySession != undefined){
+            location.href="/c4"
+        }
 
-	<!--input maxlength-->
-	<script>
-		$(document).ready(() => {
-			//본인인증
-			$("button.check_btn").click((e) => {
-				e.preventDefault();
-				sendSmsButton();
-				return false;
-			});
+        $(document).ready(()=>{
+            //본인인증
+            $("button.check_btn").click((e) => {
+                e.preventDefault();
+                sendSmsButton();
+                return false;
+            });
 
-			$("#phone_check").keyup(checkPhoneNumber);
+            $("#phone_check").keyup( checkPhoneNumber );
 
-		});
+        });
 
-		function numberMaxLength(e) {
-			if (e.value.length > e.maxLength) {
-				e.value = e.value.slice(0, e.maxLength);
-			}
-		}
+        function numberMaxLength(e) {
+            if (e.value.length > e.maxLength) {
+                e.value = e.value.slice(0, e.maxLength);
+            }
+        }
 
-		function sendSmsButton() {
-			let phone_number = $("#phone").val();
-			phone_number = phone_number.replace(/-/g, "");
+        function sendSmsButton(){
+            let phone_number = $("#phone").val();
+            phone_number = phone_number.replace(/-/g, "");
 
-			$.ajax({
-				dataType: "json",
-				url: "/api/auth/phone",
-				method: "post",
-				data: {
-					phone_number: phone_number
-				}
-			}).done((res) => {
-				$("#alert_msg_success").removeClass('active');
-				$("#alert_msg").addClass('active');
-			})
-		}
+            $.ajax({
+                dataType: "json",
+                url : "/api/auth/phone",
+                method : "post",
+                data : {
+                    phone_number : phone_number
+                }
+            }).done((res) => {
+                $("#alert_msg_success").removeClass('active');
+                $("#alert_msg").addClass('active');
+            })
+        }
 
-		function checkPhoneNumber(e) {
-			let ele_phone_check = $("#phone_check");
-			// let auth_number = ele_phone_check.val();
-			let auth_number = e.target.value;
+        function checkPhoneNumber(e){
+            let ele_phone_check = $("#phone_check");
+            // let auth_number = ele_phone_check.val();
+            let auth_number = e.target.value;
 
-			let phone_number = $("#phone").val();
-			phone_number.replace(/-/g, "");
+            let phone_number = $("#phone").val();
+            phone_number.replace(/-/g, "");
 
-			if (auth_number.length >= 4) {
+            if( auth_number.length >= 4){
 
-				$.ajax({
-					dataType: "json",
-					url: "/api/auth/phone",
-					method: "get",
-					data: {
-						phone_number: phone_number,
-						auth_number: auth_number
-					}
-				}).done((res) => {
-					console.log("checkPhoneNumber !! ");
-					console.log(res);
-					if (res.status_code == 200) {
-						ele_phone_check.data("is_confirm", true);
+                $.ajax({
+                    dataType: "json",
+                    url : "/api/auth/phone",
+                    method : "get",
+                    data : {
+                        phone_number : phone_number,
+                        auth_number : auth_number
+                    }
+                }).done((res) => {
+                    console.log("checkPhoneNumber !! ");
+                    console.log(res);
+                    if( res.status_code == 200 ){
+                        ele_phone_check.data("is_confirm", true);
 
-						$("#alert_msg").removeClass('active');
-						$("#alert_msg_fail").removeClass('active');
-						$("#alert_msg_success").addClass('active');
-					} else if (res.status_code == 400) {
-						ele_phone_check.data("is_confirm", false);
-						$("#alert_msg").removeClass('active');
-						$("#alert_msg_success").removeClass('active');
+                        $("#alert_msg").removeClass('active');
+                        $("#alert_msg_fail").removeClass('active');
+                        $("#alert_msg_success").addClass('active');
+                    } else if ( res.status_code == 400 ){
+                        ele_phone_check.data("is_confirm", false);
+                        $("#alert_msg").removeClass('active');
+                        $("#alert_msg_success").removeClass('active');
 
-						let ele_alert_fail = $("#alert_msg_fail");
-						ele_alert_fail.text(res.msg);
-						ele_alert_fail.addClass('active');
-					}
-				});
-			}
+                        let ele_alert_fail = $("#alert_msg_fail");
+                        ele_alert_fail.text(res.msg);
+                        ele_alert_fail.addClass('active');
+                    }
+                });
+            }
 
-		}
+        }
 
-		function next() {
-			let survey_result = {};
-			let phone_check = $("#phone_check").data("is_confirm") || false;
-			if (!phone_check) {
-				alert('휴대전화번호 본인인증이 필요합니다.');
-				return false;
-			}
-			survey_result.addr = $("#addr").val();
-			survey_result.name = $("#name").val();
-			survey_result.phone = $("#phone").val();
-			survey_result.cur_has_contract = $("[name=cur_has_contract]:checked").val();
+        function next(){
+            $.ajax({
+                url:'/c2/action',
+                method: 'post',
+                dataType: 'json',
+                data:{
+                    'phone' : $('#phone').val(),
+                    'password' : $('#pw').val()
+                },
+                success: function(res){
+                    console.log(res.data)
+                    console.log(res.data[0].Name)
+                    var mySession = [{name:"name", value:res.data[0].Name}, {name:"store", value:res.data[0].StoreNumber}, {name:'phone', value:res.data[0].Phone}];
+                    sessionStorage.setItem("mySession",JSON.stringify(mySession));
+                    location.href = '/c4'
+                    
+                }
+            })
 
-			sessionStorage.setItem("survey_result", JSON.stringify(survey_result));
+        }
 
-			location.href += '?ctrt=' + $("[name=cur_has_contract]:checked").val();
-		}
-	</script>
+        // function next(){
+        //     let survey_result = {};
+        //     let phone_check = $("#phone_check").data("is_confirm") || false;
+        //     if(!phone_check) {
+        //         alert('휴대전화번호 본인인증이 필요합니다.');
+        //         return false;
+        //     }
+        //     survey_result.addr = $("#addr").val();
+        //     survey_result.name = $("#name").val();
+        //     survey_result.phone = $("#phone").val();
+        //     survey_result.cur_has_contract = $("[name=cur_has_contract]:checked").val();
 
-	<!--인증번호받기 js-->
-	<script>
-		function myFunction(e) {
-			e.preventDefault();
-			document.getElementById("phone_check_box").style.display = "block";
-		}
-	</script>
+        //     sessionStorage.setItem("survey_result", JSON.stringify(survey_result));
 
+        //     location.href +='?ctrt='+$("[name=cur_has_contract]:checked").val();
+        // }
+    </script>
+
+    <!--인증번호받기 js-->
+    <script>
+        function myFunction(e) {
+            e.preventDefault();
+            document.getElementById("phone_check_box").style.display = "block";
+        }
+    </script>
 
 
 </body>

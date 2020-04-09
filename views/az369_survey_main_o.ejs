@@ -35,7 +35,6 @@
 				<h2>이 의향서는 가로수길 센트롤돔 활성화 방안의 일환으로 임대인의 임대조건을 조사하여 임차인과 임대인의 매칭을 위한 기준을 만들고자 작성되었습니다. 본 의향서는 언제든지 재작성
 					가능하오니 많은 참여 바랍니다.</h2>
 
-
 				<div class="title_btn">
 					<ul>
 						<li class="intro">
@@ -43,12 +42,10 @@
 						</li>
 
 						<li class="survey">
-							<a href="az369_survey_survey">의향서 작성하기</a>
+							<a href="/c5">의향서 작성하기</a>
 						</li>
 					</ul>
 				</div>
-			</div>
-
 
 
 
@@ -76,6 +73,8 @@
 
 						<!-- 거리영역 : 선택불가 -->
 						<polygon class="street" points="348.55,68.72 289.94,86.6 290.81,109.65 342.55,95.72 439.55,204.72 441.54,244.59 465.53,250.05 
+						<g id="1F" >
+							<polygon class="street" points="348.55,68.72 289.94,86.6 290.81,109.65 342.55,95.72 439.55,204.72 441.54,244.59 465.53,250.05 
 		463.55,192.72 	" />
 						<path class="street" d="M446.55,333.72c-2,12-13,14-13,14l-162.64-12.97l-5.6,24.01l205.24,9.96l-3.96-84.12l-23.01-5.24
 		L446.55,333.72z" />
@@ -149,6 +148,7 @@
 
 
 						<!-- 거리영역 : 선택불가 -->
+						<g id="2F" ></g>
 						<polygon class="street" points="348.55,68.72 289.94,86.6 290.81,109.65 342.55,95.72 439.55,204.72 441.54,244.59 465.53,250.05 
 		463.55,192.72 	" />
 						<path class="street" d="M446.55,333.72c-2,12-13,14-13,14l-162.64-12.97l-5.6,24.01l205.24,9.96l-3.96-84.12l-23.01-5.24
@@ -334,8 +334,141 @@
 		</div>
 	</div>
 
+	<script>
+		
+		var mySession = JSON.parse(sessionStorage.getItem("mySession"));
+        if(mySession == undefined){
+			alert("로그인 후 이용해주세요.")
+            location.href="/c1"
+        }
+		//console.log(mySession);
+		//console.log(sessionStorage.getItem('mySession'))
+		// console.log(MySession[1].value);
+		// console.log(MySession[2].value);
+
+		
+
+		// first we get all the path elements and put them in an array
+		let paths = document.getElementsByClassName('pick')
 
 
+		// In the function toggleClass we can toggle the 'clicked' class.
+		//@@@@@@@@@@@@ 조회하기 액션
+		//각 층
+		var floor1 = []; 
+		var floor2 = [];
+		var floor3 = [];
+
+		//각 구역
+		var sector1 = [];
+		var sector2 = [];
+		var sector3 = [];
+
+		//중복제거
+		var dataSector1 = [];
+		var dataFloor1 = [];
+		var dataSector2 = [];
+		var dataFloor2 = [];
+		var dataSector3 = [];
+		var dataFloor3 = [];
+
+		function toggleClass() {
+			//배열 초기화
+			floor1 = []; 
+			floor2 = [];
+			floor3 = [];
+			sector1 = [];
+			sector2 = [];
+			sector3 = [];
+			dataSector1 = [];
+			dataFloor1 = [];
+			dataSector2 = [];
+			dataFloor2 = [];
+			dataSector3 = [];
+			dataFloor3 = [];
+			this.classList.toggle('clicked')
+			var now = this
+			$('#myBtn').on('click', function(){			
+
+				//1층 호수 층수
+				if(now.parentElement.id == '1F' && now.className.animVal.substring(12) == 'clicked'){
+					$('#1F').children().each(function(item){
+						floor1.push('1F')
+						sector1.push(now.className.animVal.substring(4, 6))
+					})
+				}
+
+				//2층 호수 층수
+				if(now.parentElement.id == '2F' && now.className.animVal.substring(12) == 'clicked'){
+					$('#2F').children().each(function(item){
+						floor2.push('2F')
+						sector2.push(now.className.animVal.substring(4, 6))
+					})
+				}
+
+				//3층 호수 층수
+				if(now.parentElement.id == '3F' && now.className.animVal.substring(12) == 'clicked'){
+					$('#3F').children().each(function(item){
+						floor3.push('3F')
+						sector3.push(now.className.animVal.substring(4, 6))
+					})
+				}
+
+				// console.log('층수', arr1F)
+				// console.log('호수', sec1)
+
+				//배열 중복제거
+				$.each(floor1,function(i,value){
+					if(dataFloor1.indexOf(value) == -1 ) dataFloor1.push(value);
+				});
+				$.each(sector1,function(i,value){
+					if(dataSector1.indexOf(value) == -1 ) dataSector1.push(value);
+				});
+
+				//배열 중복제거
+				$.each(floor2,function(i,value){
+					if(dataFloor2.indexOf(value) == -1 ) dataFloor2.push(value);
+				});
+				$.each(sector2,function(i,value){
+					if(dataSector2.indexOf(value) == -1 ) dataSector2.push(value);
+				});
+
+				//배열 중복제거
+				$.each(floor3,function(i,value){
+				if(dataFloor3.indexOf(value) == -1 ) dataFloor3.push(value);
+				});
+				$.each(sector3,function(i,value){
+					if(dataSector3.indexOf(value) == -1 ) dataSector3.push(value);
+				});
+
+				//console.log('호수야', storeNum)
+				console.log('1층', dataFloor1)
+				console.log('1층 호수', dataSector1);
+				console.log('2층', dataFloor2)
+				console.log('2층 호수', dataSector2);
+				console.log('3층', dataFloor3)
+				console.log('3층 호수', dataSector3);
+				var chartData = {
+					'sector1' : dataSector1,
+					'floor1' : dataFloor1,
+					'sector2' : dataSector2,
+					'floor2' : dataFloor2,
+					'sector3' : dataSector3,
+					'floor3' : dataFloor3,
+				}
+				$.ajax({
+					url: '/c4/chart',
+					method: 'post',
+					dataType: 'json',
+					data: chartData,
+					success: function(res){
+						//console.log('넘겨받은 값 ::', res.data)
+					}
+				})
+				
+			})
+		}
+	</script>
 
 	<!-- 센트럴돔 입점지역 탭 -->
 	<script>
