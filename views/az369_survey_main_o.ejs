@@ -319,11 +319,11 @@
 	</div>
 
 	<script>
-		var mySession = JSON.parse(sessionStorage.getItem("mySession"));
-        if(mySession == undefined){
-			alert("로그인 후 이용해주세요.")
-            location.href="/c1"
-        }
+		// var mySession = JSON.parse(sessionStorage.getItem("mySession"));
+        // if(mySession == undefined){
+		// 	alert("로그인 후 이용해주세요.")
+        //     location.href="/c1"
+        // }
 		// first we get all the path elements and put them in an array
 		let paths = document.getElementsByClassName('pick')
 		for (let i = 0; i < paths.length; i++) {
@@ -582,7 +582,13 @@
 							maxTicksLimit: 10
 						}
 					}]
-				}
+				},
+
+				elements: {
+                    point:{
+                        radius: 0
+                    }
+                }
 			}
 		};
 
@@ -601,51 +607,51 @@
 				datasets: [{
 					label: "최저의 평균",
 					type: "line",
-					borderColor: 'rgba(140, 140, 140, 0.7)',
+					borderColor: 'rgba(95, 88, 34, 0.7)',
 					pointBackgroundColor: 'rgb(140, 140, 140)',
 					borderWidth: 1,
 					lineTension: 0,
 					/*곡선제거*/
-					data: [20, 30, 35, 30, 25, 35],
+					data: [20, 20, 20, 20, 20, 20],
 					scaleBeginAtZero: true,
 					fill: false
 				}, {
 					label: "최대의 평균",
 					type: "line",
-					borderColor: 'rgba(110,110, 110, 0.7)',
+					borderColor: 'rgba(39, 65, 88, 0.7)',
 					pointBackgroundColor: 'rgb(80, 80, 80)',
 					borderWidth: 1,
 					lineTension: 0,
-					data: [40, 50, 45, 40, 45, 50],
+					data: [40, 40, 40, 40, 40, 40],
 					fill: false
 				}, {
 					label: "평균의 평균",
 					type: "line",
 					borderWidth: 1,
 					lineTension: 0,
-					borderColor: 'rgba(195, 161, 100, 1)',
+					borderColor: 'rgba(214, 157, 18, 1)',
 					pointBackgroundColor: 'rgb(195, 161, 100)',
-					data: [30, 35, 25, 30, 35, 30],
+					data: [30, 30, 30, 30, 30, 30],
 					fill: false
 				}, {
 					label: "최저",
 					type: "bar",
 					scaleBeginAtZero: true,
-					backgroundColor: 'rgba(40, 114, 123, 0.2)',
+					backgroundColor: 'rgba(95, 88, 34, 0.4)',
 					backgroundColorHover: 'rgba(54, 162, 235, 0.5)',
 					data: [5, 10, 10, 5, 10, 15],
 				}, {
 					label: "최대",
 					type: "bar",
 					scaleBeginAtZero: true,
-					backgroundColor: 'rgba(165, 59, 63, 0.4)',
+					backgroundColor: 'rgba(39, 65, 88, 0.4)',
 					backgroundColorHover: 'rgba(234, 76, 110, 0.5)',
 					data: [30, 35, 45, 40, 45, 50]
 				}, {
 					label: "평균",
 					type: "bar",
 					scaleBeginAtZero: true,
-					backgroundColor: 'rgba(234, 161, 48, 0.4)',
+					backgroundColor: 'rgba(214, 157, 18, 0.4)',
 					backgroundColorHover: 'rgba(195, 161, 100, 0.8)',
 					data: [20, 30, 25, 30, 20, 30]
 				}]
@@ -685,7 +691,12 @@
 							maxTicksLimit: 10
 						}
 					}]
-				}
+				},
+				elements: {
+                    point:{
+                        radius: 0
+                    }
+                }
 			}
 		};
 
