@@ -262,58 +262,12 @@
 	</div>
 
 	<script>
-		// var arrTest = [];
-		// var test12 = 0;
-		// function layer1(event){
-		// 	//console.log(event.target.className.animVal.substring(12))
-		// 	//console.log(event.target.className.animVal.substring(4, 6))
-		// 		if(event.target.className.animVal.substring(12) == 'clicked'){
-		// 			test12 = 1;
-		// 		}
-		// 		if(event.target.className.animVal.substring(12) == 'clicked' && test12 == 1){
-		// 			arrTest.push(event.target.className.animVal.substring(4, 6))
-		// 			test12 = 0;
-		// 		}
-		// 	//console.log('ddd', arrTest)
-		// }
-		// function layer2(event){
-		// 	//console.log(event.target.className.animVal.substring(12))
-		// 	//console.log(event.target.className.animVal.substring(4, 6))
-		// 	//for(let i=0; i<8; i++){
-		// 		if(event.target.className.animVal.substring(12) == 'clicked'){
-		// 			test12 += 1;
-		// 			arrTest.push(event.target.className.animVal.substring(4, 6))
-		// 		}
-				
-		// 	//}
-		// 	//console.log('ddd', arrTest)
-		// }
-		// function layer3(event){
-		// 	//console.log(event.target.className.animVal.substring(12))
-		// 	//console.log(event.target.className.animVal.substring(4, 6))
-		// 	//for(let i=0; i<8; i++){
-		// 		if(event.target.className.animVal.substring(12) == 'clicked'){
-		// 			test12 += 1;
-		// 			arrTest.push(event.target.className.animVal.substring(4, 6))
-		// 		}
-				
-		// 	//}
-		// 	//console.log('ddd', arrTest)
-		// }
-		
 
 		var mySession = JSON.parse(sessionStorage.getItem("mySession"));
         if(mySession == undefined){
 			alert("로그인 후 이용해주세요.")
             location.href="/c1"
         }
-		//console.log(mySession);
-		//console.log(sessionStorage.getItem('mySession'))
-		// console.log(MySession[1].value);
-		// console.log(MySession[2].value);
-
-		
-
 		// first we get all the path elements and put them in an array
 		let paths = document.getElementsByClassName('pick')
 
@@ -342,7 +296,10 @@
 		var dataFloor2 = [];
 		var dataSector3 = [];
 		var dataFloor3 = [];
-
+		
+		
+		let testRes= 0
+		//var testRes;
 		function toggleClass() {
 			//배열 초기화
 			floor1 = []; 
@@ -385,9 +342,6 @@
 					})
 				}
 
-				// console.log('층수', arr1F)
-				// console.log('호수', sec1)
-
 				//배열 중복제거
 				$.each(floor1,function(i,value){
 					if(dataFloor1.indexOf(value) == -1 ) dataFloor1.push(value);
@@ -396,7 +350,6 @@
 					if(dataSector1.indexOf(value) == -1 ) dataSector1.push(value);
 				});
 
-				//배열 중복제거
 				$.each(floor2,function(i,value){
 					if(dataFloor2.indexOf(value) == -1 ) dataFloor2.push(value);
 				});
@@ -404,7 +357,6 @@
 					if(dataSector2.indexOf(value) == -1 ) dataSector2.push(value);
 				});
 
-				//배열 중복제거
 				$.each(floor3,function(i,value){
 				if(dataFloor3.indexOf(value) == -1 ) dataFloor3.push(value);
 				});
@@ -412,33 +364,36 @@
 					if(dataSector3.indexOf(value) == -1 ) dataSector3.push(value);
 				});
 
-				//console.log('호수야', storeNum)
-				console.log('1층', dataFloor1)
-				console.log('1층 호수', dataSector1);
-				console.log('2층', dataFloor2)
-				console.log('2층 호수', dataSector2);
-				console.log('3층', dataFloor3)
-				console.log('3층 호수', dataSector3);
+
+				// console.log('1층', dataFloor1)
+				// console.log('1층 호수', dataSector1);
+				// console.log('2층', dataFloor2)
+				// console.log('2층 호수', dataSector2);
+				// console.log('3층', dataFloor3)
+				// console.log('3층 호수', dataSector3);
+
 				var chartData = {
-					'sector1' : dataSector1,
-					'floor1' : dataFloor1,
-					'sector2' : dataSector2,
-					'floor2' : dataFloor2,
-					'sector3' : dataSector3,
-					'floor3' : dataFloor3,
+					'1F' : dataSector1,
+					'2F' : dataSector2,
+					'3F' : dataSector3
 				}
+				
 				$.ajax({
 					url: '/c4/chart',
 					method: 'post',
 					dataType: 'json',
+					async: false,
 					data: chartData,
 					success: function(res){
-						//console.log('넘겨받은 값 ::', res.data)
+						console.log('넘겨받은 값 ::', res.data)
+						//testRes = res.data[0].id
+						//console.log('rroro', res.data[0].id)
+						//console.log('dsfsdf' , res.data[0].dt)
 					}
-				})
-				
-			})
+				})			
+			})			
 		}
+		console.log('resres@@@@@@@@@@ :', testRes)	
 	</script>
 
 	<script>
@@ -485,6 +440,7 @@
 
 	<script>
 
+	
 	var testCha = new Array();
 		$.ajax({
 			url: '/testchart',
@@ -497,8 +453,9 @@
 				testCha[2] = res.data[0].max				
 			}
 		})
-		//console.log('배열2',testCha)
+		console.log('배열2',testCha)
 
+		console.log('resres :', testRes)
 var options = {
 	type: 'bar',
 	data: {
@@ -506,7 +463,8 @@ var options = {
 		datasets: [
 		{
 		label: '최저',
-		data: testCha, //ajax 데이터 각 
+		//data: testCha, //ajax 데이터 각 
+		data: [5, 7, 3, 6, 2, 6],
 		backgroundColor: [
 			'rgb(204, 204, 204)',
 			'rgb(204, 204, 204)',  
@@ -516,11 +474,10 @@ var options = {
 			'rgb(204, 204, 204)'
 		],
 		borderWidth: 1
-		}
-		,	
+		},	
 		{
 		label: '최대',
-		data: [7, 11, 5, 8, 3, 7], //ajax 데이터
+		data: [7, 5, 5, 2, 3, 7], //ajax 데이터
 		backgroundColor: [
 			'rgb(102, 102, 102)',
 			'rgb(102, 102, 102)',
@@ -533,7 +490,7 @@ var options = {
 		},
 		{
 		label: '평균',
-		data: [7, 11, 5, 8, 3, 7], //ajax 데이터
+		data: [7, 3, 4, 5, 6, 7], //ajax 데이터
 		backgroundColor: [
 			'rgb(195, 161, 100)',
 			'rgb(195, 161, 100)',
@@ -550,7 +507,7 @@ var options = {
   	scales: {
     	yAxes: [{
         ticks: {
-					reverse: false
+			reverse: false
         }
       }]
     }
@@ -613,7 +570,7 @@ options: {
   scales: {
 	yAxes: [{
 	ticks: {
-				reverse: false
+		reverse: false
 	}
   }]
 }
