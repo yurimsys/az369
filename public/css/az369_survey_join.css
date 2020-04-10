@@ -96,7 +96,7 @@ width: 100%;
     .sub_wrap {padding: 0 13%;}
 }
 
-/*1200px*/
+/*1024px*/
 @media screen and (max-width: 1024px) {
   .sub_wrap {padding: 0 5%;}
 }
