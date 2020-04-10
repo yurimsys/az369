@@ -102,22 +102,41 @@
 										<button id='hide'>다음</button>
 									</li>
 								</ul>
-
-						<!--modal_01 하단 버튼-->
-							<ul>
-								<li>
-									<button class="close" id="close">닫기</button>
-								</li>
-								<li>
-									<button id='hide'>다음</button>
-								</li>
-							</ul>
 						</div>
 
 						</div>
 
 				</div>
 			</div>
+
+			<script>
+				/*JQ 적용완료*/
+				$('#find_btn').click(function (){
+					$('#myModal').show();
+					$('.form_inner').hide();
+				});
+				$('.close').click(function() {
+					$('#myModal').hide();
+					$('.form_inner').show();
+				});
+				$('#step_01 input').focus(function() {
+					$('.form_inner').hide();
+					$('#step_02').hide();
+					$('#step_01').css('height',500);
+				});
+				$('#step_02 input').focus(function() {
+					$('.form_inner').hide();
+					$('#step_01').hide();
+					$('#step_02').css('height', 500);
+				});
+				$('#hide').click(function() {
+					$('#step_01').hide();
+					$('#step_02').show();
+				});
+				$('.check_btn').click(function() {
+					$('#step_01 ul').css('margin-top', -10)
+				});
+			</script>
 
 
 			<!-- 조회하기 팝업 모달 -->
@@ -141,7 +160,7 @@
 						return false;
 					}else{
 						$("#step_01").hide();
-						//console.log(sessionStorage.getItem('phoneNumber'))
+						console.log(sessionStorage.getItem('phoneNumber'))
 					}
 				});
 				function modifyPw(){
