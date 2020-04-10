@@ -374,7 +374,7 @@
 			$("#"+tab_id+" .pick").addClass('clicked');
 			if(tab_id == 01){
 				sector1.push('a1','a2','b1','b2','c1','c2','d1','d2')
-				console.log(sector1)
+				//console.log(sector1)
 			}else if(tab_id == 02){
 				sector2.push('a1','a2','b1','b2','c1','c2','d1','d2')
 			}else{
@@ -388,7 +388,7 @@
 			$("#"+tab_id+" .pick").removeClass('clicked');
 			if(tab_id == 01){
 				sector1 = [];
-				console.log(sector1)
+				//console.log(sector1)
 			}else if(tab_id == 02){
 				sector2 = [];
 			}else{
@@ -421,8 +421,12 @@
 
 			let rentalMin3 = [];
 			let rentalMin4 = [];
+			let rentalMin5 = [];
+			let rentalMin6 = [];
 			let rentalMax3 = [];
 			let rentalMax4 = [];
+			let rentalMax5 = [];
+			let rentalMax6 = [];
 			let rentalDay = [];
 			let chartDay = [];
 			let rentalTotal3 = [];
@@ -437,25 +441,32 @@
 					for(let i=0; i<res.data.length; i++){
 						if(res.data[i].day == '03월'){
 							rentalMin3.push(res.data[i].wt_rental_fee_min)
-							rentalTotal3.push(res.data[i].wt_rental_fee_min,res.data[i].wt_rental_fee_max)
 						}else if(res.data[i].day == '04월'){
 							rentalMin4.push(res.data[i].wt_rental_fee_min)
-							rentalTotal4.push(res.data[i].wt_rental_fee_min,res.data[i].wt_rental_fee_max)
+						}else if(res.data[i].day == '05월'){
+							rentalMin5.push(res.data[i].wt_rental_fee_min)
+						}else if(res.data[i].day == '06월'){
+							rentalMin6.push(res.data[i].wt_rental_fee_min)
 						}
+
 						if(res.data[i].day == '03월'){
-							rentalMax3.push(res.data[i].wt_rental_fee_max)
+							rentalMax3.push(res.data[i].wt_rental_fee_max) //3월 적정임대료
 						}else if(res.data[i].day == '04월'){
-							rentalMax4.push(res.data[i].wt_rental_fee_max)
+							rentalMax4.push(res.data[i].wt_rental_fee_max) //4월 적정임대료
+						}else if(res.data[i].day == '05월'){
+							rentalMax5.push(res.data[i].wt_rental_fee_max) //4월 적정임대료
+						}else if(res.data[i].day == '06월'){
+							rentalMax6.push(res.data[i].wt_rental_fee_max) //4월 적정임대료
 						}
+
 						rentalDay.push(res.data[i].day)
 					}
 
-
+					console.log('렌탈데이',rentalDay)
 					//날짜 중복 제거
 					$.each(rentalDay,function(i,value){
 						if(chartDay.indexOf(value) == -1 ) chartDay.push(value);
 					});
-					
 
 					//평균값
 					function average(list){
@@ -467,29 +478,82 @@
 						return sum/list.length;
 					}
 
+					//최소값
 					function min(min){
 						return Math.min.apply(null, min)
 					}
 
+					//최대값
 					function max(max){
-						return Math.min.apply(null, max)
+						return Math.max.apply(null, max)
 					}
 
+					console.log('5월 적정', rentalMax5)
 
-					console.log('최대',max(rentalMax3))
-					console.log('최대2',max(rentalMax4))
-					console.log('평균',average(rentalMin3))
-					console.log('평균2', average(rentalMin4))
+					//적정임대료 3월
+					let maxMaxArr3 = [max(rentalMax3)] //적정최대값들
+					let maxMinArr3 = [min(rentalMax3)] //적정최소값들
+					let maxAvgArr3 = [average(rentalMax3)] //적정평균
 
-					let minAvg = [average(rentalMin3), average(rentalMin4)] //최저평균
-					let maxAvg = [average(rentalMax3), average(rentalMax4)] //최대평균
-					let minArr = [min(rentalMin3), min(rentalMin4)] //최소값
-					let maxArr = [max(rentalMax3), max(rentalMax4)] //최대값
-					let rentalAvg = [average(rentalTotal3),average(rentalTotal4)] //전체평균
-					let totalAvg = [average(rentalAvg)] //평균평균
-					console.log('평균', rentalAvg)
-					console.log('평평균', totalAvg)
-					console.log('ffdfd',totalAvg)
+					//적정임대료 4월
+					let maxMaxArr4 = [max(rentalMax4)] //적정최대값들
+					let maxMinArr4 = [min(rentalMax4)] //적정최소값들
+					let maxAvgArr4 = [average(rentalMax4)] //적정평균
+
+					//적정임대료 5월
+					let maxMaxArr5 = [max(rentalMax5)] //적정최대값들
+					let maxMinArr5 = [min(rentalMax5)] //적정최소값들
+					let maxAvgArr5 = [average(rentalMax5)] //적정평균
+
+					//적정임대료 6월
+					let maxMaxArr6 = [max(rentalMax6)] //적정최대값들
+					let maxMinArr6 = [min(rentalMax6)] //적정최소값들
+					let maxAvgArr6 = [average(rentalMax6)] //적정평균
+
+					//전체 배열
+					let maxMaxArr = [max(rentalMax3), max(rentalMax4),max(rentalMax5), max(rentalMax6)] //전체 최대값
+					let maxMinArr = [min(rentalMax3), min(rentalMax4), min(rentalMax5), min(rentalMax6)] //전체 최소값
+					let maxAvgArr = [average(rentalMax3), average(rentalMax4), average(rentalMax5), average(rentalMax6)] //전체 평균값
+
+					//평균들의 값
+					let maxMinAvg = [average(maxMinArr),average(maxMinArr), average(maxMinArr),average(maxMinArr)] // 적정최저의 평균
+					let maxMaxAvg = [average(maxMaxArr),average(maxMaxArr), average(maxMaxArr),average(maxMaxArr)] // 적정최대의 평균
+					let maxAvgAvg = [average(maxAvgArr),average(maxAvgArr), average(maxAvgArr),average(maxAvgArr)] //평균의 평균
+
+
+
+					//최저임대료 3월
+					let minMaxArr3 = [max(rentalMin3)] //적정최대값들
+					let minMinArr3 = [min(rentalMin3)] //적정최소값들
+					let minAvgArr3 = [average(rentalMin3)] //적정평균
+
+					//최저임대료 4월
+					let minMaxArr4 = [max(rentalMin4)] //적정최대값들
+					let minMinArr4 = [min(rentalMin4)] //적정최소값들
+					let minAvgArr4 = [average(rentalMin4)] //적정평균
+
+					//최저임대료 5월
+					let minMaxArr5 = [max(rentalMin5)] //적정최대값들
+					let minMinArr5 = [min(rentalMin5)] //적정최소값들
+					let minAvgArr5 = [average(rentalMin5)] //적정평균
+
+					//최저임대료 6월
+					let minMaxArr6 = [max(rentalMin6)] //적정최대값들
+					let minMinArr6 = [min(rentalMin6)] //적정최소값들
+					let minAvgArr6 = [average(rentalMin6)] //적정평균
+
+					//전체 배열
+					let minMaxArr = [max(rentalMin3), max(rentalMin4), max(rentalMin5), max(rentalMin6)] //전체 최대값
+					let minMinArr = [min(rentalMin3), min(rentalMin4), min(rentalMin5), min(rentalMin6)] //전체 최소값
+					let minAvgArr = [average(rentalMin3), average(rentalMin4), average(rentalMin5), average(rentalMin6)] //전체 평균값
+
+					//평균들의 값
+					let minMinAvg = [average(minMinArr),average(minMinArr), average(minMinArr),average(minMinArr)] // 적정최저의 평균
+					let minMaxAvg = [average(minMaxArr),average(minMaxArr), average(minMaxArr),average(minMaxArr)] // 적정최대의 평균
+					let minAvgAvg = [average(minAvgArr),average(minAvgArr), average(minAvgArr),average(minAvgArr)] //평균의 평균
+
+
+					console.log(chartDay)
 					var options = {
 						type: 'bar',
 						data: {
@@ -502,7 +566,7 @@
 								borderWidth: 1,
 								lineTension: 0,
 								/*곡선제거*/
-								data: minAvg,
+								data: maxMinAvg,
 								scaleBeginAtZero: true,
 								fill: false
 							}, {
@@ -512,7 +576,7 @@
 								pointBackgroundColor: 'rgb(80, 80, 80)',
 								borderWidth: 1,
 								lineTension: 0,
-								data: maxAvg,
+								data: maxMaxAvg,
 								fill: false
 							}, {
 								label: "평균의 평균",
@@ -521,7 +585,7 @@
 								lineTension: 0,
 								borderColor: 'rgba(214, 157, 18, 1)',
 								pointBackgroundColor: 'rgb(195, 161, 100)',
-								data: totalAvg,
+								data: maxAvgAvg,
 								fill: false
 							}, {
 								label: "최저",
@@ -529,21 +593,21 @@
 								scaleBeginAtZero: true,
 								backgroundColor: 'rgba(95, 88, 34, 0.4)',
 								backgroundColorHover: 'rgba(54, 162, 235, 0.5)',
-								data: minArr
+								data: maxMinArr
 							}, {
 								label: "최대",
 								type: "bar",
 								scaleBeginAtZero: true,
 								backgroundColor: 'rgba(39, 65, 88, 0.4)',
 								backgroundColorHover: 'rgba(234, 76, 110, 0.5)',
-								data: maxArr
+								data: maxMaxArr
 							}, {
 								label: "평균",
 								type: "bar",
 								scaleBeginAtZero: true,
 								backgroundColor: 'rgba(214, 157, 18, 0.4)',
 								backgroundColorHover: 'rgba(195, 161, 100, 0.8)',
-								data: rentalAvg
+								data: maxAvgArr
 							}]
 						},
 						options: {
@@ -589,6 +653,109 @@
 						}
 					};
 					var ctx = document.getElementById('chart01').getContext('2d');
+					new Chart(ctx, options);
+
+					var options = {
+						type: 'bar',
+						data: {
+							labels: chartDay,
+							datasets: [{
+								label: "최저의 평균",
+								type: "line",
+								borderColor: 'rgba(95, 88, 34, 0.7)',
+								pointBackgroundColor: 'rgb(140, 140, 140)',
+								borderWidth: 1,
+								lineTension: 0,
+								/*곡선제거*/
+								data: minMinAvg,
+								scaleBeginAtZero: true,
+								fill: false
+							}, {
+								label: "최대의 평균",
+								type: "line",
+								borderColor: 'rgba(39, 65, 88, 0.7)',
+								pointBackgroundColor: 'rgb(80, 80, 80)',
+								borderWidth: 1,
+								lineTension: 0,
+								data: minMaxAvg,
+								fill: false
+							}, {
+								label: "평균의 평균",
+								type: "line",
+								borderWidth: 1,
+								lineTension: 0,
+								borderColor: 'rgba(214, 157, 18, 1)',
+								pointBackgroundColor: 'rgb(195, 161, 100)',
+								data: minAvgAvg,
+								fill: false
+							}, {
+								label: "최저",
+								type: "bar",
+								scaleBeginAtZero: true,
+								backgroundColor: 'rgba(95, 88, 34, 0.4)',
+								backgroundColorHover: 'rgba(54, 162, 235, 0.5)',
+								data: minMinArr
+							}, {
+								label: "최대",
+								type: "bar",
+								scaleBeginAtZero: true,
+								backgroundColor: 'rgba(39, 65, 88, 0.4)',
+								backgroundColorHover: 'rgba(234, 76, 110, 0.5)',
+								data: minMaxArr
+							}, {
+								label: "평균",
+								type: "bar",
+								scaleBeginAtZero: true,
+								backgroundColor: 'rgba(214, 157, 18, 0.4)',
+								backgroundColorHover: 'rgba(195, 161, 100, 0.8)',
+								data: minAvgArr
+							}]
+						},
+						options: {
+							responsive: true,
+							legend: {
+								labels: {
+									boxWidth: 12,
+									padding: 15
+								}
+							},
+							tooltips: {
+								mode: 'index',
+								intersect: false,
+								titleFontSize: 18,
+								titleFontStyle: 500,
+								titleMarginBottom: 8,
+								bodyFontSize: 15,
+								bodyFontStyle: 300,
+								xPadding: 10,
+								yPadding: 10
+							},
+							hover: {
+								mode: 'nearest',
+								intersect: true
+							},
+
+							scales: {
+								yAxes: [{
+									ticks: {
+										reverse: false,
+										suggestedMin: 0,
+										/*y축 0부터 시작*/
+										suggestedMax: 60,
+										/*y축 맥스값*/
+										maxTicksLimit: 10
+									}
+								}]
+							},
+							elements: {
+								point:{
+									radius: 0
+								}
+							}
+						}
+					};
+
+					var ctx = document.getElementById('chart02').getContext('2d');
 					new Chart(ctx, options);
 					
 				}
@@ -650,110 +817,10 @@
 	</script>
 
 
+
 	<!-- 두번째 차트 : 최저 임대료 -->
 	<script>
-		var options = {
-			type: 'bar',
-			data: {
-				labels: ["1월", "2월", "3월", "4월", "5월", "6월"],
-				datasets: [{
-					label: "최저의 평균",
-					type: "line",
-					borderColor: 'rgba(95, 88, 34, 0.7)',
-					pointBackgroundColor: 'rgb(140, 140, 140)',
-					borderWidth: 1,
-					lineTension: 0,
-					/*곡선제거*/
-					data: [20, 20, 20, 20, 20, 20],
-					scaleBeginAtZero: true,
-					fill: false
-				}, {
-					label: "최대의 평균",
-					type: "line",
-					borderColor: 'rgba(39, 65, 88, 0.7)',
-					pointBackgroundColor: 'rgb(80, 80, 80)',
-					borderWidth: 1,
-					lineTension: 0,
-					data: [40, 40, 40, 40, 40, 40],
-					fill: false
-				}, {
-					label: "평균의 평균",
-					type: "line",
-					borderWidth: 1,
-					lineTension: 0,
-					borderColor: 'rgba(214, 157, 18, 1)',
-					pointBackgroundColor: 'rgb(195, 161, 100)',
-					data: [30, 30, 30, 30, 30, 30],
-					fill: false
-				}, {
-					label: "최저",
-					type: "bar",
-					scaleBeginAtZero: true,
-					backgroundColor: 'rgba(95, 88, 34, 0.4)',
-					backgroundColorHover: 'rgba(54, 162, 235, 0.5)',
-					data: [5, 10, 10, 5, 10, 15],
-				}, {
-					label: "최대",
-					type: "bar",
-					scaleBeginAtZero: true,
-					backgroundColor: 'rgba(39, 65, 88, 0.4)',
-					backgroundColorHover: 'rgba(234, 76, 110, 0.5)',
-					data: [30, 35, 45, 40, 45, 50]
-				}, {
-					label: "평균",
-					type: "bar",
-					scaleBeginAtZero: true,
-					backgroundColor: 'rgba(214, 157, 18, 0.4)',
-					backgroundColorHover: 'rgba(195, 161, 100, 0.8)',
-					data: [20, 30, 25, 30, 20, 30]
-				}]
-			},
-			options: {
-				responsive: true,
-				legend: {
-					labels: {
-						boxWidth: 12,
-						padding: 15
-					}
-				},
-				tooltips: {
-					mode: 'index',
-					intersect: false,
-					titleFontSize: 18,
-					titleFontStyle: 500,
-					titleMarginBottom: 8,
-					bodyFontSize: 15,
-					bodyFontStyle: 300,
-					xPadding: 10,
-					yPadding: 10
-				},
-				hover: {
-					mode: 'nearest',
-					intersect: true
-				},
 
-				scales: {
-					yAxes: [{
-						ticks: {
-							reverse: false,
-							suggestedMin: 0,
-							/*y축 0부터 시작*/
-							suggestedMax: 60,
-							/*y축 맥스값*/
-							maxTicksLimit: 10
-						}
-					}]
-				},
-				elements: {
-                    point:{
-                        radius: 0
-                    }
-                }
-			}
-		};
-
-		var ctx = document.getElementById('chart02').getContext('2d');
-		new Chart(ctx, options);
 
 	</script>
 </body>

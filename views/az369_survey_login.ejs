@@ -27,6 +27,9 @@
 			<!--폼 전체-->
 			<div class="survey_form">
 
+				<!--로그인 input-->
+				<h4>휴대전화번호 ('-' 생략)</h4>
+				<input type="number" id="myPhone" name="phone">
 
 				<div class="form_inner">
 					<h3><span>로그인</span> 후 <br>
@@ -64,10 +67,13 @@
 								<div class="modal_inner">
 								<p><span>새 비밀번호</span>를<br> 입력하세요.</p>
 								<h4>새 비밀번호</h4>
-								<input type="password" id="new_pw" name="pw" placeholder="숫자+영문+특수문자 8자 이상" class="m_input">
+								<input type="password" id="password" placeholder="숫자+영문+특수문자 8자 이상"><br>
 								<h4>새 비밀번호 확인</h4>
-								<input type="password" id="new_pw" name="pw" class="m_input">
-								<button class="close step_02_close">비밀번호 변경</button>
+								<input type="password" id="password2" placeholder="비밀번호 재확인">
+								<div id="alert-success" style="font-size: 13px; color: green; display: none;">비밀번호가 일치합니다.</div>
+								<div id="alert-danger" style="font-size: 13px; color: red; display: none;">비밀번호가 일치하지 않습니다.</div>
+
+								<button class="close step_02_close" onclick="modifyPw()">비밀번호 변경</button>
 							</div>
 						</div>
 						<!--step 01 본인인증-->
@@ -87,6 +93,7 @@
 								<div class="text-alert" id="alert_msg_success">인증번호가 확인되었습니다.</div>
 
 
+<<<<<<< HEAD
 								<!--step_01 하단 버튼-->
 								<div class="modal_btn">
 									<ul>
@@ -100,6 +107,17 @@
 								</div>
 
 							</div>
+=======
+								<!--modal_01 하단 버튼-->
+								<ul>
+									<li>
+										<button class="close">닫기</button>
+									</li>
+									<li>
+										<button id='hide'>다음</button>
+									</li>
+								</ul>
+>>>>>>> origin/test
 						</div>
 
 						</div>
@@ -107,91 +125,124 @@
 				</div>
 			</div>
 
-
-			<!-- 조회하기 팝업 모달 -->
-			<!-- <script>
-				// Get the modal
-				var modal = document.getElementById('myModal');
-				var btn = document.getElementById("find_btn");
-				let hide = document.getElementById('hide');
-				let button = document.getElementsByClassName("close")[0];
-
-				btn.onclick = function() {
-					modal.style.display = "block";
-				}
-
-				button.onclick = function() {
-					modal.style.display = "none";
-				}
-				 /*let step01 = document.getElementById('step_01');
-
-				 let step01_input = document.getElementById('m_phone');
-
-				 let step02 = document.getElementById('step_02');
-
-				 let step02_input = document.getElementById('step_02 input');
-
-				 let input =document.getElementsByClassName('m_input');
-
-				 let form_inner = document.getElementByClassName('form_inner');
-
-				let form = document.getElementById('step_02');*/
-
-
-
-
-
-				/*=> 는 js의 function() = {}과 같다*/
-
-			</script> -->
-
-
-				<script>
+			<script>
 				/*JQ 적용완료*/
 				$('#find_btn').click(function (){
 					$('#myModal').show();
 					$('.form_inner').hide();
 				});
-
 				$('.close').click(function() {
 					$('#myModal').hide();
 					$('.form_inner').show();
 				});
-
 				$('#step_01 input').focus(function() {
 					$('.form_inner').hide();
 					$('#step_02').hide();
 					$('#step_01').css('height',500);
 				});
-
 				$('#step_02 input').focus(function() {
 					$('.form_inner').hide();
 					$('#step_01').hide();
 					$('#step_02').css('height', 500);
 				});
-
 				$('#hide').click(function() {
 					$('#step_01').hide();
 					$('#step_02').show();
 				});
-
 				$('.check_btn').click(function() {
 					$('#step_01 ul').css('margin-top', -10)
 				});
-
 			</script>
 
 
-
-			<!--input maxlength-->
+			<!-- 조회하기 팝업 모달 -->
 			<script>
+				// Get the modal
+				var modal = document.getElementById('myModal');
+				var btn = document.getElementById("find_btn");
+
+				$('#step_01 .close').click(()=>{
+					modal.style.display = "none";
+				});
+
+				btn.onclick = function() {
+					modal.style.display = "block";
+				}
+
+				$("#hide").click(function() {
+					let phone_check = $("#phone_check").data("is_confirm") || false;
+					if(!phone_check) {
+						alert('휴대전화번호 본인인증이 필요합니다.');
+						return false;
+					}else{
+						$("#step_01").hide();
+						console.log(sessionStorage.getItem('phoneNumber'))
+					}
+				});
+				function modifyPw(){
+					$.ajax({
+						url: '/c2/modify',
+						method: 'post',
+						dataType: 'json',
+						data: {'phoneNumber' : sessionStorage.getItem('phoneNumber'),
+							   'password' : $('#password').val()},
+						success: function(res){
+							if(res.data == '변경'){
+								location.href = '/c2'
+							}
+						}
+					})
+				}
+
+			</script>
+
+			<script>
+
+				//비밀번호 정규식
+				$("#password").change(function(){
+					checkPassword($('#password').val());
+				});
+				function checkPassword(password){
+					if( !(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)) ){
+						alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
+						$('#password').val('').focus();
+						return false;
+					}
+					var checkNumber = password.search(/[0-9]/g);
+					var checkEnglish = password.search(/[a-z]/ig);
+					if(checkNumber <0 || checkEnglish <0){
+						alert("숫자와 영문자를 혼용하여야 합니다.");
+						$('#password').val('').focus();
+						return false;
+					}
+				}
+
+				//비밀번호 확인
+				$(function(){
+					$("input").keyup(function(){
+						var pwd1=$("#password").val();
+						var pwd2=$("#password2").val();
+						if(pwd1 != "" || pwd2 != ""){
+							if(pwd1 == pwd2){
+								$("#alert-success").css('display', 'block')
+								$("#alert-danger").css('display', 'none')
+								$("#submit").removeAttr("disabled");
+							}else{
+								$("#alert-success").css('display', 'none')
+								$("#alert-danger").css('display', 'block')
+								$("#submit").attr("disabled", "disabled");
+							}
+						}
+					});
+				});
+
 				var mySession = JSON.parse(sessionStorage.getItem("mySession"));
 				console.log(mySession);
 				if (mySession != undefined) {
 					location.href = "/c4"
 				}
 
-				$(document).ready(() => {
+				$(document).ready(()=>{
 					//본인인증
 					$("button.check_btn").click((e) => {
 						e.preventDefault();
@@ -199,7 +250,7 @@
 						return false;
 					});
 
-					$("#phone_check").keyup(checkPhoneNumber);
+					$("#phone_check").keyup( checkPhoneNumber );
 
 				});
 
@@ -209,16 +260,16 @@
 					}
 				}
 
-				function sendSmsButton() {
-					let phone_number = $("#phone").val();
+				function sendSmsButton(){
+					let phone_number = $("#m_phone").val();
 					phone_number = phone_number.replace(/-/g, "");
 
 					$.ajax({
 						dataType: "json",
-						url: "/api/auth/phone",
-						method: "post",
-						data: {
-							phone_number: phone_number
+						url : "/api/auth/phone",
+						method : "post",
+						data : {
+							phone_number : phone_number
 						}
 					}).done((res) => {
 						$("#alert_msg_success").removeClass('active');
@@ -226,34 +277,35 @@
 					})
 				}
 
-				function checkPhoneNumber(e) {
+				function checkPhoneNumber(e){
 					let ele_phone_check = $("#phone_check");
 					// let auth_number = ele_phone_check.val();
 					let auth_number = e.target.value;
 
-					let phone_number = $("#phone").val();
+					let phone_number = $("#m_phone").val();
 					phone_number.replace(/-/g, "");
 
-					if (auth_number.length >= 4) {
+					if( auth_number.length >= 4){
 
 						$.ajax({
 							dataType: "json",
-							url: "/api/auth/phone",
-							method: "get",
-							data: {
-								phone_number: phone_number,
-								auth_number: auth_number
+							url : "/api/auth/phone",
+							method : "get",
+							data : {
+								phone_number : phone_number,
+								auth_number : auth_number
 							}
 						}).done((res) => {
 							console.log("checkPhoneNumber !! ");
 							console.log(res);
-							if (res.status_code == 200) {
+							if( res.status_code == 200 ){
 								ele_phone_check.data("is_confirm", true);
 
 								$("#alert_msg").removeClass('active');
 								$("#alert_msg_fail").removeClass('active');
 								$("#alert_msg_success").addClass('active');
-							} else if (res.status_code == 400) {
+								sessionStorage.setItem('phoneNumber', $('#m_phone').val())
+							} else if ( res.status_code == 400 ){
 								ele_phone_check.data("is_confirm", false);
 								$("#alert_msg").removeClass('active');
 								$("#alert_msg_success").removeClass('active');
@@ -264,7 +316,6 @@
 							}
 						});
 					}
-
 				}
 
 				function next() {
@@ -273,7 +324,7 @@
 						method: 'post',
 						dataType: 'json',
 						data: {
-							'phone': $('#phone').val(),
+							'phone': $('#myPhone').val(),
 							'password': $('#pw').val()
 						},
 						success: function(res) {
@@ -294,39 +345,16 @@
 
 						}
 					})
-
 				}
 
-				// function next(){
-				//     let survey_result = {};
-				//     let phone_check = $("#phone_check").data("is_confirm") || false;
-				//     if(!phone_check) {
-				//         alert('휴대전화번호 본인인증이 필요합니다.');
-				//         return false;
-				//     }
-				//     survey_result.addr = $("#addr").val();
-				//     survey_result.name = $("#name").val();
-				//     survey_result.phone = $("#phone").val();
-				//     survey_result.cur_has_contract = $("[name=cur_has_contract]:checked").val();
 
-				//     sessionStorage.setItem("survey_result", JSON.stringify(survey_result));
-
-				//     location.href +='?ctrt='+$("[name=cur_has_contract]:checked").val();
-				// }
-			</script>
-
-			<!--인증번호받기 js-->
-			<script>
-				function myFunction(e) {
-					e.preventDefault();
-					document.getElementById("phone_check_box").style.display = "block";
-				}
-			</script>
-
-
-
-
-
+		</script>
+		<script>
+			function myFunction(e) {
+				e.preventDefault();
+				document.getElementById("phone_check_box").style.display = "block";
+			}
+		</script>
 </body>
 
 </html>

@@ -115,7 +115,21 @@ router.post('/c2/action', function(req,res,done){
         });  
 })
 
-
+//의향서 c2 비밀번호 찾기 변경
+router.post('/c2/modify', function(req,res,done){
+    let query = 'update admin_survey_user set PassWord = :hash_pw where Phone = :phoneNumber'
+    let password = req.body.password;
+    let phoneNumber = req.body.phoneNumber;
+    let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString()
+    connection.query(query,
+        {
+            phoneNumber, hash_pw
+        },
+        function(err, rows) {
+            if (err) {return done(err);}
+            res.json({data : '변경'})
+        });
+})
 //의향서 c3 회원가입 액션
 router.post('/c3/action', function(req,res){
     let query = 'insert into admin_survey_user(StoreNumber, Name, Phone, PassWord) values(:addr, :name, :phone, :hash_pw) '
@@ -194,17 +208,17 @@ router.post('/c5/action', async function(req,res){
 
 //c4 차트
 router.post('/c4/chart', function(req,res){
-
+// and create_dt between date_add(now(), interval -6 month) and now()
+// where date_format(create_dt , '%Y-%m') IN(select date_format(create_dt, '%Y-%m') as tes from admin_survey_test group by tes)
     let query = `select Addr, Name, wt_rental_fee_min , wt_rental_fee_max, wt_deposit_min, wt_deposit_max ,create_dt, concat(date_format(create_dt,'%m'), '월') as day
-                        from admin_survey 
-                        where date_format(create_dt , '%Y-%m') IN(select date_format(create_dt, '%Y-%m') as tes from admin_survey group by tes)
-                        group by Name 
+                        from admin_survey_test
+                        group by Addr
                         having Addr in ( select StoreNumber from admin_survey_store where Floor = :floor1 and Sector in (:dataSector1)
                         union
                         select StoreNumber  from admin_survey_store where Floor = :floor2 and Sector in (:dataSector2)
                         union
                         select StoreNumber  from admin_survey_store where Floor = :floor3 and Sector in (:dataSector3) )
-                    order by id desc;`
+                    order by day asc;`
 
     let dataSector1 = req.body['1F']
     let dataSector2 = req.body['2F']
