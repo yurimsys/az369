@@ -127,9 +127,12 @@ input::placeholder {font-weight: 300; color: #767676; font-size: 14px;}
 
 /*step_01 하단 버튼*/
 <<<<<<< HEAD
+<<<<<<< HEAD
 .modal_btn {width: 100%; margin: 0 auto; top: 40px; position: relative;}
 #step_01 ul li {float: left; width: 49.5%; margin-right: 1%;  height: 56px;}
 =======
+=======
+>>>>>>> origin/test
 #step_01 ul {position: absolute; width: 100%; margin: 0 auto; margin-top: 100px;}
 #step_01 ul li {float: left; width: 49%; margin-right: 1%;  height: 50px;}
 #step_01 ul li {float: left; width: 49.5%; margin-right: 1%;  height: 50px;}
