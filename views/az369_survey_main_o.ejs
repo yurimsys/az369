@@ -421,8 +421,12 @@
 
 			let rentalMin3 = [];
 			let rentalMin4 = [];
+			let rentalMin5 = [];
+			let rentalMin6 = [];
 			let rentalMax3 = [];
 			let rentalMax4 = [];
+			let rentalMax5 = [];
+			let rentalMax6 = [];
 			let rentalDay = [];
 			let chartDay = [];
 			let rentalTotal3 = [];
@@ -439,17 +443,26 @@
 							rentalMin3.push(res.data[i].wt_rental_fee_min)	
 						}else if(res.data[i].day == '04월'){
 							rentalMin4.push(res.data[i].wt_rental_fee_min)		
+						}else if(res.data[i].day == '05월'){
+							rentalMin5.push(res.data[i].wt_rental_fee_min)		
+						}else if(res.data[i].day == '06월'){
+							rentalMin6.push(res.data[i].wt_rental_fee_min)		
 						}
-
+						
 						if(res.data[i].day == '03월'){
 							rentalMax3.push(res.data[i].wt_rental_fee_max) //3월 적정임대료
 						}else if(res.data[i].day == '04월'){
 							rentalMax4.push(res.data[i].wt_rental_fee_max) //4월 적정임대료
+						}else if(res.data[i].day == '05월'){
+							rentalMax5.push(res.data[i].wt_rental_fee_max) //4월 적정임대료
+						}else if(res.data[i].day == '06월'){
+							rentalMax6.push(res.data[i].wt_rental_fee_max) //4월 적정임대료
 						}
+						
 						rentalDay.push(res.data[i].day)
 					}
 
-					console.log(rentalDay)
+					console.log('렌탈데이',rentalDay)
 					//날짜 중복 제거
 					$.each(rentalDay,function(i,value){
 						if(chartDay.indexOf(value) == -1 ) chartDay.push(value);
@@ -475,6 +488,8 @@
 						return Math.max.apply(null, max)
 					}
 
+					console.log('5월 적정', rentalMax5)
+
 					//적정임대료 3월
 					let maxMaxArr3 = [max(rentalMax3)] //적정최대값들
 					let maxMinArr3 = [min(rentalMax3)] //적정최소값들
@@ -485,15 +500,25 @@
 					let maxMinArr4 = [min(rentalMax4)] //적정최소값들
 					let maxAvgArr4 = [average(rentalMax4)] //적정평균
 
+					//적정임대료 5월
+					let maxMaxArr5 = [max(rentalMax5)] //적정최대값들
+					let maxMinArr5 = [min(rentalMax5)] //적정최소값들
+					let maxAvgArr5 = [average(rentalMax5)] //적정평균
+
+					//적정임대료 6월
+					let maxMaxArr6 = [max(rentalMax6)] //적정최대값들
+					let maxMinArr6 = [min(rentalMax6)] //적정최소값들
+					let maxAvgArr6 = [average(rentalMax6)] //적정평균
+
 					//전체 배열
-					let maxMaxArr = [max(rentalMax3), max(rentalMax4)] //전체 최대값
-					let maxMinArr = [min(rentalMax3), min(rentalMax4)] //전체 최소값
-					let maxAvgArr = [average(rentalMax3), average(rentalMax4)] //전체 평균값
+					let maxMaxArr = [max(rentalMax3), max(rentalMax4),max(rentalMax5), max(rentalMax6)] //전체 최대값
+					let maxMinArr = [min(rentalMax3), min(rentalMax4), min(rentalMax5), min(rentalMax6)] //전체 최소값
+					let maxAvgArr = [average(rentalMax3), average(rentalMax4), average(rentalMax5), average(rentalMax6)] //전체 평균값
 
 					//평균들의 값
-					let maxMinAvg = [average(maxMinArr),average(maxMinArr)] // 적정최저의 평균
-					let maxMaxAvg = [average(maxMaxArr),average(maxMaxArr)] // 적정최대의 평균
-					let maxAvgAvg = [average(maxAvgArr),average(maxAvgArr)] //평균의 평균
+					let maxMinAvg = [average(maxMinArr),average(maxMinArr), average(maxMinArr),average(maxMinArr)] // 적정최저의 평균
+					let maxMaxAvg = [average(maxMaxArr),average(maxMaxArr), average(maxMaxArr),average(maxMaxArr)] // 적정최대의 평균
+					let maxAvgAvg = [average(maxAvgArr),average(maxAvgArr), average(maxAvgArr),average(maxAvgArr)] //평균의 평균
 
 
 
@@ -507,15 +532,25 @@
 					let minMinArr4 = [min(rentalMin4)] //적정최소값들
 					let minAvgArr4 = [average(rentalMin4)] //적정평균
 
+					//최저임대료 5월
+					let minMaxArr5 = [max(rentalMin5)] //적정최대값들
+					let minMinArr5 = [min(rentalMin5)] //적정최소값들
+					let minAvgArr5 = [average(rentalMin5)] //적정평균
+
+					//최저임대료 6월
+					let minMaxArr6 = [max(rentalMin6)] //적정최대값들
+					let minMinArr6 = [min(rentalMin6)] //적정최소값들
+					let minAvgArr6 = [average(rentalMin6)] //적정평균
+
 					//전체 배열
-					let minMaxArr = [max(rentalMin3), max(rentalMin4)] //전체 최대값
-					let minMinArr = [min(rentalMin3), min(rentalMin4)] //전체 최소값
-					let minAvgArr = [average(rentalMin3), average(rentalMin4)] //전체 평균값
+					let minMaxArr = [max(rentalMin3), max(rentalMin4), max(rentalMin5), max(rentalMin6)] //전체 최대값
+					let minMinArr = [min(rentalMin3), min(rentalMin4), min(rentalMin5), min(rentalMin6)] //전체 최소값
+					let minAvgArr = [average(rentalMin3), average(rentalMin4), average(rentalMin5), average(rentalMin6)] //전체 평균값
 
 					//평균들의 값
-					let minMinAvg = [average(minMinArr),average(minMinArr)] // 적정최저의 평균
-					let minMaxAvg = [average(minMaxArr),average(minMaxArr)] // 적정최대의 평균
-					let minAvgAvg = [average(minAvgArr),average(minAvgArr)] //평균의 평균
+					let minMinAvg = [average(minMinArr),average(minMinArr), average(minMinArr),average(minMinArr)] // 적정최저의 평균
+					let minMaxAvg = [average(minMaxArr),average(minMaxArr), average(minMaxArr),average(minMaxArr)] // 적정최대의 평균
+					let minAvgAvg = [average(minAvgArr),average(minAvgArr), average(minAvgArr),average(minAvgArr)] //평균의 평균
 
 
 					console.log(chartDay)
