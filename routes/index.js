@@ -115,7 +115,21 @@ router.post('/c2/action', function(req,res,done){
         });  
 })
 
-
+//의향서 c2 비밀번호 찾기 변경
+router.post('/c2/modify', function(req,res,done){
+    let query = 'update admin_survey_user set PassWord = :hash_pw where Phone = :phoneNumber'
+    let password = req.body.password;
+    let phoneNumber = req.body.phoneNumber;
+    let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString()
+    connection.query(query, 
+        {          
+            phoneNumber, hash_pw
+        },
+        function(err, rows) {
+            if (err) {return done(err);}        
+            res.json({data : '변경'})
+        });  
+})
 //의향서 c3 회원가입 액션
 router.post('/c3/action', function(req,res){
     let query = 'insert into admin_survey_user(StoreNumber, Name, Phone, PassWord) values(:addr, :name, :phone, :hash_pw) '
@@ -204,7 +218,7 @@ router.post('/c4/chart', function(req,res){
                         select StoreNumber  from admin_survey_store where Floor = :floor2 and Sector in (:dataSector2)
                         union
                         select StoreNumber  from admin_survey_store where Floor = :floor3 and Sector in (:dataSector3) )
-                    order by id desc;`
+                    order by day asc;`
 
     let dataSector1 = req.body['1F']
     let dataSector2 = req.body['2F']

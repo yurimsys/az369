@@ -374,7 +374,7 @@
 			$("#"+tab_id+" .pick").addClass('clicked');
 			if(tab_id == 01){
 				sector1.push('a1','a2','b1','b2','c1','c2','d1','d2')
-				console.log(sector1)
+				//console.log(sector1)
 			}else if(tab_id == 02){
 				sector2.push('a1','a2','b1','b2','c1','c2','d1','d2')
 			}else{
@@ -388,7 +388,7 @@
 			$("#"+tab_id+" .pick").removeClass('clicked');
 			if(tab_id == 01){
 				sector1 = [];
-				console.log(sector1)
+				//console.log(sector1)
 			}else if(tab_id == 02){
 				sector2 = [];
 			}else{
@@ -449,7 +449,7 @@
 						rentalDay.push(res.data[i].day)
 					}
 
-
+					console.log(rentalDay)
 					//날짜 중복 제거
 					$.each(rentalDay,function(i,value){
 						if(chartDay.indexOf(value) == -1 ) chartDay.push(value);
@@ -517,6 +517,8 @@
 					let minMaxAvg = [average(minMaxArr),average(minMaxArr)] // 적정최대의 평균
 					let minAvgAvg = [average(minAvgArr),average(minAvgArr)] //평균의 평균
 
+
+					console.log(chartDay)
 					var options = {
 						type: 'bar',
 						data: {
