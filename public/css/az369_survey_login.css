@@ -46,6 +46,7 @@ p {text-align: justify; font-size: 16px;}
 .survey_form {
 	margin: 0 auto;
 	margin-top: 30px;
+	width: 100%; height: 100%;
 }
 
 .survey_form h3 {
@@ -83,6 +84,9 @@ input {
 input:focus {border: 1px solid #C3A164;}
 input::placeholder {font-weight: 300; color: #767676; font-size: 14px;}
 
+
+.form_inner {width: 100%; height: 100%; position: relative;}
+
 /*비밀번호 재설정 영역 ----------------------------------*/
 
 /*외부영역*/
@@ -94,7 +98,7 @@ input::placeholder {font-weight: 300; color: #767676; font-size: 14px;}
 	color: #767676;
 }
 /*비밀번호 재설정 버튼*/
-#find_btn {padding-left: 7px; background: transparent; border: none; color: #C3A164; font-size: 15px; font-weight: 400;}
+#find_btn {padding-left: 7px; background: transparent; border: none; color: #C3A164; font-size: 15px; font-weight: 500;}
 
 
 /*내부영역*/
@@ -121,9 +125,11 @@ input::placeholder {font-weight: 300; color: #767676; font-size: 14px;}
 #step_01 {Width: 100%; height: 100%;position: absolute;  z-index:1000; left:0; top:0;  background: #f9f9f9;}
 
 /*step_01 하단 버튼*/
-#step_01 ul {position: absolute; width: 90%; margin: 0 auto; margin-left: 50%; transform: translatex(-50%); margin-top: 40px; }
+#step_01 ul {position: absolute; width: 100%; margin: 0 auto;}
 #step_01 ul li {float: left; width: 49%; margin-right: 1%;  height: 50px;}
+#step_01 ul li {float: left; width: 49.5%; margin-right: 1%;  height: 50px;}
 #step_01 ul li button {width: 100%; height: 100%; font-size: 18px; font-weight: 400;}
+#step_01 ul li:nth-child(2) {margin-right: 0;}
 .close {background: #fff;  border: 1px solid #aaa;}
 #hide {background: #C3A164; color: #fff;  border: 1px solid #C3A164;}
 
@@ -162,6 +168,7 @@ input::placeholder {font-weight: 300; color: #767676; font-size: 14px;}
 	font-weight: bold;
 	display: none;
 	font-weight: 400;
+	visibility: hidden
 }
 
 .text-alert span {
@@ -184,8 +191,6 @@ input::placeholder {font-weight: 300; color: #767676; font-size: 14px;}
 }
 /*------------------------------------------------*/
 
-
-
 .login {
 	display: block;
 	overflow: hidden;
@@ -199,7 +204,7 @@ input::placeholder {font-weight: 300; color: #767676; font-size: 14px;}
 	border: none;
 	cursor: pointer;
 	transition: all 0.3s;
-	margin-top: 40px;
+	margin-top: 50px;
 	font-size: 18px;
 	font-weight: 400;
 }
@@ -221,6 +226,8 @@ input::placeholder {font-weight: 300; color: #767676; font-size: 14px;}
     .sub_wrap {padding: 0 0%;}
 	.survey_form {width: 95%;}
     .wrap h1 {padding: 15px;}
+
+	#step_01 ul {width: 90%;}
 }
 
 
@@ -230,6 +237,9 @@ input::placeholder {font-weight: 300; color: #767676; font-size: 14px;}
     .survey_form h3 {font-size: 26px;}
 	.bar {margin-bottom: 30px;}
 	
+	#m_phone {width: 60%;}
+    .check_btn {width: 39%;}
+
 	.login {height: 50px; line-height: 50px;}
 }
 

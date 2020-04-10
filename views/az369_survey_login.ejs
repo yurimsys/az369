@@ -26,19 +26,29 @@
 
 			<!--폼 전체-->
 			<div class="survey_form">
-				<h3><span>로그인</span> 후 <br>
-					의향서 작성 및 수정, <br>
-					결과조회가 가능합니다.</h3>
-				<div class="bar"></div>
 
-				<!--로그인 input-->
-				<h4>휴대전화번호 ('-' 생략)</h4>
-				<input type="number" id="phone" name="phone">
 
-				<h4>비밀번호</h4>
-				<input type="password" id="pw" name="pw">
+				<div class="form_inner">
+					<h3><span>로그인</span> 후 <br>
+						의향서 작성 및 수정, <br>
+						결과조회가 가능합니다.</h3>
+					<div class="bar"></div>
 
-				<p>비밀번호를 잊으셨나요? <button id="find_btn">비밀번호 재설정</button></p>
+					<!--로그인 input-->
+					<h4>휴대전화번호 ('-' 생략)</h4>
+					<input type="number" id="phone" name="phone">
+
+					<h4>비밀번호</h4>
+					<input type="password" id="pw" name="pw">
+
+					<p>비밀번호를 잊으셨나요? <button id="find_btn">비밀번호 재설정</button></p>
+
+					<!--로그인 버튼-->
+					<a onclick="next()" class="login">로그인</a>
+				</div>
+
+
+
 
 
 				<!-- 비밀번호 재설정 팝업 -->
@@ -49,15 +59,14 @@
 
 					<!--step 02 비밀번호 재설정-->
 						<div id='step_02'>
-
 								<h1>비밀번호 재설정</h1>
 
 								<div class="modal_inner">
 								<p><span>새 비밀번호</span>를<br> 입력하세요.</p>
 								<h4>새 비밀번호</h4>
-								<input type="new_password" id="pw" name="pw" placeholder="숫자+영문+특수문자 8자 이상">
+								<input type="password" id="new_pw" name="pw" placeholder="숫자+영문+특수문자 8자 이상" class="m_input">
 								<h4>새 비밀번호 확인</h4>
-								<input type="new_password" id="pw" name="pw">
+								<input type="password" id="new_pw" name="pw" class="m_input">
 								<button class="close step_02_close">비밀번호 변경</button>
 							</div>
 						</div>
@@ -66,9 +75,9 @@
 							<h1>비밀번호 재설정</h1>
 
 							<div class="modal_inner">
-							<p>비밀번호를 재설정하기 위해서는<br> <span>본인인증</span>이 필요합니다.</p>
+								<p>비밀번호 재설정을 위해<br> <span>본인인증</span>이 필요합니다.</p>
 								<h4>휴대전화번호 ('-' 생략)</h4>
-								<input type="number" id="m_phone" name="m_phone">
+								<input type="number" id="m_phone" name="m_phone" class="m_input">
 								<button class="check_btn" onclick="myFunction(event)">인증번호 받기</button>
 								<div id="phone_check_box">
 									<input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);" />
@@ -76,37 +85,34 @@
 								<div class="text-alert" id="alert_msg">인증번호의 유효시간은 <span>30분</span>입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
 								<div class="text-alert" id="alert_msg_fail"></div>
 								<div class="text-alert" id="alert_msg_success">인증번호가 확인되었습니다.</div>
+
+
+								<!--modal_01 하단 버튼-->
+								<ul>
+									<li>
+										<button class="close" >닫기</button>
+									</li>
+									<li>
+										<button id='hide'>다음</button>
+									</li>
+								</ul>
+
 							</div>
-
-
-
-						<!--modal_01 하단 버튼-->
-							<ul>
-								<li>
-									<button class="close">닫기</button>
-								</li>
-								<li>
-									<button id='hide'>다음</button>
-								</li>
-							</ul>
 						</div>
 
 						</div>
-
 
 				</div>
-				<a onclick="next()" class="login">로그인</a>
 			</div>
 
 
 			<!-- 조회하기 팝업 모달 -->
-			<script>
+			<!-- <script>
 				// Get the modal
 				var modal = document.getElementById('myModal');
-
 				var btn = document.getElementById("find_btn");
-
-				var button = document.getElementsByClassName("close")[0];
+				let hide = document.getElementById('hide');
+				let button = document.getElementsByClassName("close")[0];
 
 				btn.onclick = function() {
 					modal.style.display = "block";
@@ -115,18 +121,64 @@
 				button.onclick = function() {
 					modal.style.display = "none";
 				}
+				 /*let step01 = document.getElementById('step_01');
+
+				 let step01_input = document.getElementById('m_phone');
+
+				 let step02 = document.getElementById('step_02');
+
+				 let step02_input = document.getElementById('step_02 input');
+
+				 let input =document.getElementsByClassName('m_input');
+
+				 let form_inner = document.getElementByClassName('form_inner');
+
+				let form = document.getElementById('step_02');*/
+
+
+
+
+
+				/*=> 는 js의 function() = {}과 같다*/
+
+			</script> -->
+
+
+				<script>
+				/*JQ 적용완료*/
+				$('#find_btn').click(function (){
+					$('#myModal').show();
+					$('.form_inner').hide();
+				});
+
+				$('.close').click(function() {
+					$('#myModal').hide();
+					$('.form_inner').show();
+				});
+
+				$('#step_01 input').focus(function() {
+					$('.form_inner').hide();
+					$('#step_02').hide();
+					$('#step_01').css('height',500);
+				});
+
+				$('#step_02 input').focus(function() {
+					$('.form_inner').hide();
+					$('#step_01').hide();
+					$('#step_02').css('height', 500);
+				});
+
+				$('#hide').click(function() {
+					$('#step_01').hide();
+					$('#step_02').show();
+				});
+
+				$('.check_btn').click(function() {
+					$('#step_01 ul').css('margin-top', -10)
+				});
+
 			</script>
 
-			<script>
-				$(document).ready(function() {
-					$("#hide").click(function() {
-						$("#step_01").hide();
-					});
-					/*$("#show").click(function() {
-						$("modal_02").show();
-					});*/
-				});
-			</script>
 
 
 			<!--input maxlength-->
