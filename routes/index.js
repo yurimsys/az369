@@ -92,6 +92,9 @@ router.get('/c4', function(req, res){
 router.get('/c5', function(req, res){
     res.render('az369_survey_survey');
 });
+router.get('/d1', function(req, res){
+    res.render('summary');
+});
 
 //의향서 c2 로그인 액션
 router.post('/c2/action', function(req,res,done){
