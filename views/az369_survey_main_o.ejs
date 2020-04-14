@@ -282,7 +282,6 @@
 					</ul>
 				</div>
 
-				<div class="bar"></div>
 
 				<div id="myBtn">조회하기</div>
 
@@ -299,11 +298,15 @@
 						<div class="bar"></div>
 
 
+						<div class="chart">
 						<h4><span>적정</span> 임대료</h4>
-						<canvas id="chart01" width="100%" height="100%"></canvas>
+						<canvas id="chart01"  width="100%" height="100%"></canvas>
+					</div>
 
+					<div class="chart chart02">
 						<h4><span>최저</span> 임대료</h4>
-						<canvas id="chart02" width="100%" height="100%"></canvas>
+						<canvas id="chart02"  width="100%" height="100%"></canvas>
+					
 					</div>
 
 					</div>
@@ -612,6 +615,7 @@
 						},
 						options: {
 							responsive: true,
+							maintainAspectRatio: false,
 							legend: {
 								labels: {
 									boxWidth: 12,
@@ -634,6 +638,11 @@
 								intersect: true
 							},
 							scales: {
+								xAxes: [{
+									gridLines: {
+										color: "rgba(150, 150, 150, 0.1)",
+									}
+								}],
 								yAxes: [{
 									ticks: {
 										reverse: false,
@@ -642,11 +651,14 @@
 										suggestedMax: 60,
 										/*y축 맥스값*/
 										maxTicksLimit: 10
+									},
+									gridLines: {
+										color: "rgba(150, 150, 150, 0.1)",
 									}
 								}]
 							},
 							elements: {
-								point:{
+								point: {
 									radius: 0
 								}
 							}
@@ -713,6 +725,7 @@
 						},
 						options: {
 							responsive: true,
+							maintainAspectRatio: false,
 							legend: {
 								labels: {
 									boxWidth: 12,
@@ -736,6 +749,11 @@
 							},
 
 							scales: {
+								xAxes: [{
+									gridLines: {
+										color: "rgba(150, 150, 150, 0.1)",
+									}
+								}],
 								yAxes: [{
 									ticks: {
 										reverse: false,
@@ -744,6 +762,9 @@
 										suggestedMax: 60,
 										/*y축 맥스값*/
 										maxTicksLimit: 10
+									},
+									gridLines: {
+										color: "rgba(150, 150, 150, 0.1)",
 									}
 								}]
 							},

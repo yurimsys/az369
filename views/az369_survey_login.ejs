@@ -27,10 +27,6 @@
 			<!--폼 전체-->
 			<div class="survey_form">
 
-				<!--로그인 input-->
-				<h4>휴대전화번호 ('-' 생략)</h4>
-				<input type="number" id="myPhone" name="phone">
-
 				<div class="form_inner">
 					<h3><span>로그인</span> 후 <br>
 						의향서 작성 및 수정, <br>
@@ -39,7 +35,7 @@
 
 					<!--로그인 input-->
 					<h4>휴대전화번호 ('-' 생략)</h4>
-					<input type="number" id="phone" name="phone">
+					<input type="number" id="myPhone" name="phone">
 
 					<h4>비밀번호</h4>
 					<input type="password" id="pw" name="pw">
@@ -66,6 +62,7 @@
 
 								<div class="modal_inner">
 								<p><span>새 비밀번호</span>를<br> 입력하세요.</p>
+								<div class="step_bar"></div>
 								<h4>새 비밀번호</h4>
 								<input type="password" id="password" placeholder="숫자+영문+특수문자 8자 이상"><br>
 								<h4>새 비밀번호 확인</h4>
@@ -79,9 +76,12 @@
 						<!--step 01 본인인증-->
 						<div id='step_01'>
 							<h1>비밀번호 재설정</h1>
+							 
+							
 
 							<div class="modal_inner">
 								<p>비밀번호 재설정을 위해<br> <span>본인인증</span>이 필요합니다.</p>
+								<div class="step_bar"></div>
 								<h4>휴대전화번호 ('-' 생략)</h4>
 								<input type="number" id="m_phone" name="m_phone" class="m_input">
 								<button class="check_btn" onclick="myFunction(event)">인증번호 받기</button>
