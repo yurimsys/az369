@@ -27,7 +27,7 @@
                 <div class="tnb">
                     <ul>
                         <a href="login">
-                            <li style="background: #ad8743; color: #fff">로그인</li>
+                            <li>로그인</li>
                         </a>
                         <a href="join">
                             <li>회원가입</li>
@@ -53,17 +53,16 @@
                     <div class="tab">
                         <ul>
                             <a href="findId">
-                                <li style="border-bottom: 1px solid #ad863c; background: #f1f1f1; color: #777; ">아이디 찾기</li>
-                            </a>
-                            <a href="findPw">
-                                <li style="border-top: 1px solid #ad863c; border-left: 1px solid #ad863c; border-right: 1px solid #ad863c; ">비밀번호 찾기</li>
-                            </a>
+                                <li style="border-bottom: 1px solid #ad863c; background: #f8f8f8; color: #767676; font-weight: 400;">아이디 찾기</li></a>
+                            
+                           
+                                <a href="findPw"> <li style="border: 1px solid #C3A164; border-bottom: none; background: #fff; color: #222; font-weight: 500;"> 비밀번호 찾기</li></a>
+                            
                         </ul>
                     </div>
 
                     <div class="find_box_inner">
-                        <h2>비밀번호 찾기</h2>
-                        <p>비밀번호를 <strong>재설정</strong>해주세요.</p>
+                        <p>회원님의 비밀번호를 <span>재설정</span>해주세요.</p>
                         <h3><span id="yourName"></span>의 아이디: <strong id="yourId"></strong></h3>
                         <form action="/action_page.php">
 
@@ -77,14 +76,14 @@
 
                                     
                                     <label for="password"></label>
-                                    <input type="password" id="password" name="패스워드" placeholder="새 비밀번호(영문 + 숫자 + 특문 포함 8글자 이상)">                               
+                                    <input type="password" id="password" name="패스워드" placeholder="새 비밀번호">                               
                                     <label for="password2"></label>
                                     <input type="password" id="password2" name="패스워드" placeholder="새 비밀번호 확인">
                                     <div class="alert alert-success" id="alert-success" style="font-size: 13px; color: green; display: none;">비밀번호가 일치합니다.</div>
 								<div class="alert alert-danger" id="alert-danger" style="font-size: 13px; color: red; display: none;">비밀번호가 일치하지 않습니다.</div>
                                
                                 
-                                <p>(영문 + 숫자 + 특문 포함 10글자 이상)</p>
+                                <p>(비밀번호는 영문 + 숫자 + 특문 포함 8글자 이상이어야 합니다.)</p>
                             </div>
 
                             <div class="find_pw_btn">
@@ -96,7 +95,7 @@
                                     </li>
                                     <li>
                                         <a onclick="modifyPw()">
-                                            <div class="next_btn ">변경</div>
+                                            <div class="next_btn ">비밀번호 변경</div>
                                         </a>
                                     </li>
                                 </ul>
