@@ -284,7 +284,6 @@
 					</ul>
 				</div>
 
-				<div class="bar"></div>
 
 				<div id="lookUp">조회하기</div>
 
@@ -299,11 +298,16 @@
 							<span>(조회일로부터 <br> 6개월까지 조회가능)</span></h3>
 						<div class="bar"></div>
 
-						<h4><span>적정</span> 임대료</h4>
-						<canvas id="chart01" width="100%" height="100%"></canvas>
 
+						<div class="chart">
+						<h4><span>적정</span> 임대료</h4>
+						<canvas id="chart01"  width="100%" height="100%"></canvas>
+					</div>
+
+					<div class="chart chart02">
 						<h4><span>최저</span> 임대료</h4>
-						<canvas id="chart02" width="100%" height="100%"></canvas>
+						<canvas id="chart02"  width="100%" height="100%"></canvas>
+					
 					</div>
 
 					</div>
@@ -451,7 +455,7 @@
 						}else if(res.data[i].day == '06월'){
 							rentalMin6.push(res.data[i].LSV_wRentalFeeMin)		
 						}
-						
+
 						if(res.data[i].day == '03월'){
 							rentalMax3.push(res.data[i].LSV_wRentalFeeMax) //3월 적정임대료
 						}else if(res.data[i].day == '04월'){
@@ -461,7 +465,7 @@
 						}else if(res.data[i].day == '06월'){
 							rentalMax6.push(res.data[i].LSV_wRentalFeeMax) //4월 적정임대료
 						}
-						
+
 						rentalDay.push(res.data[i].day)
 					}
 
@@ -523,8 +527,8 @@
 							datasets: [{
 								label: "최저의 평균",
 								type: "line",
-								borderColor: 'rgba(95, 88, 34, 0.7)',
-								pointBackgroundColor: 'rgb(140, 140, 140)',
+								borderColor: 'rgba(69, 78, 92, 0.7)',
+								pointBackgroundColor: 'rgba(69, 78, 92, 1)',
 								borderWidth: 1,
 								lineTension: 0,
 								/*곡선제거*/
@@ -534,8 +538,8 @@
 							}, {
 								label: "최대의 평균",
 								type: "line",
-								borderColor: 'rgba(39, 65, 88, 0.7)',
-								pointBackgroundColor: 'rgb(80, 80, 80)',
+								borderColor: 'rgba(38, 159, 175, 0.7)',
+								pointBackgroundColor: 'rgba(38, 159, 175, 1)',
 								borderWidth: 1,
 								lineTension: 0,
 								data: maxMaxAvg,
@@ -545,35 +549,36 @@
 								type: "line",
 								borderWidth: 1,
 								lineTension: 0,
-								borderColor: 'rgba(214, 157, 18, 1)',
-								pointBackgroundColor: 'rgb(195, 161, 100)',
+								borderColor: 'rgba(214, 157, 18, 0.7)',
+								pointBackgroundColor: 'rgba(214, 157, 18, 1)',
 								data: maxAvgAvg,
 								fill: false
 							}, {
 								label: "최저",
 								type: "bar",
 								scaleBeginAtZero: true,
-								backgroundColor: 'rgba(95, 88, 34, 0.4)',
-								backgroundColorHover: 'rgba(54, 162, 235, 0.5)',
+								backgroundColor: 'rgba(69, 78, 92, 0.3)',
+								backgroundColorHover: 'rgba(69, 78, 92, 0.5)',
 								data: maxMinArr
 							}, {
 								label: "최대",
 								type: "bar",
 								scaleBeginAtZero: true,
-								backgroundColor: 'rgba(39, 65, 88, 0.4)',
-								backgroundColorHover: 'rgba(234, 76, 110, 0.5)',
+								backgroundColor: 'rgba(38, 159, 175, 0.3)',
+								backgroundColorHover: 'rgba(38, 159, 175, 0.5)',
 								data: maxMaxArr
 							}, {
 								label: "평균",
 								type: "bar",
 								scaleBeginAtZero: true,
-								backgroundColor: 'rgba(214, 157, 18, 0.4)',
-								backgroundColorHover: 'rgba(195, 161, 100, 0.8)',
+								backgroundColor: 'rgba(214, 157, 18, 0.3)',
+								backgroundColorHover: 'rgba(214, 157, 18, 0.5)',
 								data: maxAvgArr
 							}]
 						},
 						options: {
 							responsive: true,
+							maintainAspectRatio: false,
 							legend: {
 								labels: {
 									boxWidth: 12,
@@ -596,6 +601,11 @@
 								intersect: true
 							},
 							scales: {
+								xAxes: [{
+									gridLines: {
+										color: "rgba(150, 150, 150, 0.1)",
+									}
+								}],
 								yAxes: [{
 									ticks: {
 										reverse: false,
@@ -604,11 +614,14 @@
 										suggestedMax: 60,
 										/*y축 맥스값*/
 										maxTicksLimit: 10
+									},
+									gridLines: {
+										color: "rgba(150, 150, 150, 0.1)",
 									}
 								}]
 							},
 							elements: {
-								point:{
+								point: {
 									radius: 0
 								}
 							}
@@ -626,8 +639,8 @@
 							datasets: [{
 								label: "최저의 평균",
 								type: "line",
-								borderColor: 'rgba(95, 88, 34, 0.7)',
-								pointBackgroundColor: 'rgb(140, 140, 140)',
+								borderColor: 'rgba(69, 78, 92, 0.7)',
+								pointBackgroundColor: 'rgba(69, 78, 92, 1)',
 								borderWidth: 1,
 								lineTension: 0,
 								/*곡선제거*/
@@ -637,8 +650,8 @@
 							}, {
 								label: "최대의 평균",
 								type: "line",
-								borderColor: 'rgba(39, 65, 88, 0.7)',
-								pointBackgroundColor: 'rgb(80, 80, 80)',
+								borderColor: 'rgba(38, 159, 175, 0.7)',
+								pointBackgroundColor: 'rgba(38, 159, 175, 1)',
 								borderWidth: 1,
 								lineTension: 0,
 								data: minMaxAvg,
@@ -648,35 +661,36 @@
 								type: "line",
 								borderWidth: 1,
 								lineTension: 0,
-								borderColor: 'rgba(214, 157, 18, 1)',
-								pointBackgroundColor: 'rgb(195, 161, 100)',
+								borderColor: 'rgba(214, 157, 18, 0.7)',
+								pointBackgroundColor: 'rgba(214, 157, 18, 1)',
 								data: minAvgAvg,
 								fill: false
 							}, {
 								label: "최저",
 								type: "bar",
 								scaleBeginAtZero: true,
-								backgroundColor: 'rgba(95, 88, 34, 0.4)',
-								backgroundColorHover: 'rgba(54, 162, 235, 0.5)',
+								backgroundColor: 'rgba(69, 78, 92, 0.3)',
+								backgroundColorHover: 'rgba(69, 78, 92, 0.5)',
 								data: minMinArr
 							}, {
 								label: "최대",
 								type: "bar",
 								scaleBeginAtZero: true,
-								backgroundColor: 'rgba(39, 65, 88, 0.4)',
-								backgroundColorHover: 'rgba(234, 76, 110, 0.5)',
+								backgroundColor: 'rgba(38, 159, 175, 0.3)',
+								backgroundColorHover: 'rgba(38, 159, 175, 0.5)',
 								data: minMaxArr
 							}, {
 								label: "평균",
 								type: "bar",
 								scaleBeginAtZero: true,
-								backgroundColor: 'rgba(214, 157, 18, 0.4)',
-								backgroundColorHover: 'rgba(195, 161, 100, 0.8)',
+								backgroundColor: 'rgba(214, 157, 18, 0.3)',
+								backgroundColorHover: 'rgba(214, 157, 18, 0.5)',
 								data: minAvgArr
 							}]
 						},
 						options: {
 							responsive: true,
+							maintainAspectRatio: false,
 							legend: {
 								labels: {
 									boxWidth: 12,
@@ -700,6 +714,11 @@
 							},
 
 							scales: {
+								xAxes: [{
+									gridLines: {
+										color: "rgba(150, 150, 150, 0.1)",
+									}
+								}],
 								yAxes: [{
 									ticks: {
 										reverse: false,
@@ -708,6 +727,9 @@
 										suggestedMax: 60,
 										/*y축 맥스값*/
 										maxTicksLimit: 10
+									},
+									gridLines: {
+										color: "rgba(150, 150, 150, 0.1)",
 									}
 								}]
 							},

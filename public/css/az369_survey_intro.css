@@ -1,11 +1,11 @@
 @charset "UTF-8";
-
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap');
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;   font-family: 'Noto Sans KR', ; background: #f9f9f9;}
-h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0; font-family: 'Noto Sans KR', ;}
+* {margin: 0;padding: 0; box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif;}
+body {margin: 0; font-size: 16px; line-height: 1.6; color: #222; }
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit; cursor: pointer;}
 img {vertical-align: middle;}
 a img {border: none;}
@@ -23,26 +23,25 @@ p {text-align: justify; font-size: 16px;}
         padding-bottom: 4%;
         background: #f9f9f9;
 }
-
-
+   
 /*폰트공통*/
 .wrap h1, .wrap h2, .wrap h3, .wrap h4, .wrap h5, .wrap h6, .wrap p { font-weight: normal;  font-family: 'Noto Sans KR', sans-serif;}
 
-.wrap p {color: #444;}
 
 
 .sub_wrap {padding: 0 20%;}
-.wrap h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; padding: 20px; text-align: center; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
+.wrap h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; font-weight: 400; padding: 20px; text-align: center; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
 
 
 .intro_img {padding: 2%; background: #fff; border-radius: 15px; box-shadow: 0 0 8px rgba(0,0,0,0.1);}
 .intro_img img {width: 100%;}
 
-.sub_wrap h2 {margin-top: 2%;}
-.sub_wrap h2 span {color: #ad863c;}
+.sub_wrap h2 {font-size: 28px; font-weight: 300; letter-spacing: -0.75px; margin-bottom: 7px; margin-top: 30px;}
+.sub_wrap h2 span {color: #222; font-weight: 500;}
+.sub_wrap p {font-weight: 300; font-size: 18px; color: #444;}
 
-.txt_top { margin-bottom: 4%; margin-top: 4%;}
-.txt_bottom {margin-top: 3%;}
+.txt_top {margin-bottom: 30px;}
+.txt_bottom h2 span {color: #C3A164;}
 
 
 /*반응형*/
@@ -51,29 +50,31 @@ p {text-align: justify; font-size: 16px;}
     .sub_wrap {padding: 0 13%;}
 }
 
+/*1024px*/
+@media screen and (max-width: 1024px) {
+    .sub_wrap {padding: 0 5%;}
+  }
 
 /*768px*/
 @media screen and (max-width: 768px) {
     .sub_wrap {padding: 0 0%; width: 90%; margin: 0 auto;}
-    .wrap h1 {padding: 2.1%;}
-    .sub_wrap h2 {font-size: 26px; margin-top: 3%;}
- }
+    .wrap h1 {padding: 15px;}
+    .sub_wrap p {font-size: 16px;}
+ }  
 
 /*414px*/
 @media screen and (max-width: 414px) {
-    .wrap h1 {font-size: 22px; padding: 2.5% 0;}
-    .sub_wrap h2 {font-size: 24px; margin-top: 6%;}
-
+    .wrap h1 {font-size: 20px; padding: 13px;}
+    .sub_wrap h2 {font-size: 26px; margin-top: 25px; margin-bottom: 10px;}
+	.txt_bottom {margin-top: 0;}
+     
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
-    .wrap h1 {font-size: 17px;}
-
-    .sub_wrap h2 {font-size: 20px; margin-top: 5%;}
-    .sub_wrap p {font-size: 15px;}
-    .txt_top {margin: 6% 0 10%;}
+    .wrap h1 {font-size: 18px;}
     .txt_top p br {display: none;}
-    .txt_bottom {margin-top: 8%;}
+    .sub_wrap h2 {font-size: 22px;}
+    
 }
 

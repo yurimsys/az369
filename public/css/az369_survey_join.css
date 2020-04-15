@@ -45,6 +45,7 @@ p {text-align: justify; font-size: 16px;}
         display: inline-block;
         border: 1px solid #eee;
         box-sizing: border-box;
+        border-radius: 5px;
 }
 
 input:focus {border: 1px solid #C3A164;}
@@ -52,7 +53,7 @@ input::placeholder {font-weight: 300; color: #767676; font-size: 14px;}
 
     /*휴대전화 본인인증*/
     #phone {width: 70%; float: left;}
-    .check_btn {width: 29%; margin-left: 1%; height: 50px; float: left; border: 1px solid #aaa; background: #fff; color: #222; font-size: 16px; font-weight: 400; margin-bottom: 10px;}
+    .check_btn {width: 29%; margin-left: 1%; height: 50px; float: left; border: 1px solid #aaa; background: #fff; color: #222; font-size: 16px; font-weight: 400; margin-bottom: 20px;  border-radius: 5px;}
 
     .text-alert { font-size: 14px; padding-left: 5px; color: #c3a164; font-weight: bold; display: none; font-weight: 400;}
 	.text-alert span {font-weight: 600;}
@@ -86,7 +87,8 @@ width: 100%;
         transition: all 0.3s;
         margin-top: 40px;
 		font-size: 18px;
-		font-weight: 400;
+        font-weight: 400;
+        border-radius: 5px;
     }
 
 
@@ -96,7 +98,7 @@ width: 100%;
     .sub_wrap {padding: 0 13%;}
 }
 
-/*1200px*/
+/*1024px*/
 @media screen and (max-width: 1024px) {
   .sub_wrap {padding: 0 5%;}
 }

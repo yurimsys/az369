@@ -27,10 +27,6 @@
 			<!--폼 전체-->
 			<div class="survey_form">
 
-				<!--로그인 input-->
-				<h4>휴대전화번호 ('-' 생략)</h4>
-				<input type="number" id="myPhone" name="phone">
-
 				<div class="form_inner">
 					<h3><span>로그인</span> 후 <br>
 						의향서 작성 및 수정, <br>
@@ -39,7 +35,7 @@
 
 					<!--로그인 input-->
 					<h4>휴대전화번호 ('-' 생략)</h4>
-					<input type="number" id="phone" name="phone">
+					<input type="number" id="myPhone" name="phone">
 
 					<h4>비밀번호</h4>
 					<input type="password" id="pw" name="pw">
@@ -66,22 +62,26 @@
 
 								<div class="modal_inner">
 								<p><span>새 비밀번호</span>를<br> 입력하세요.</p>
+								<div class="step_bar"></div>
 								<h4>새 비밀번호</h4>
 								<input type="password" id="password" placeholder="숫자+영문+특수문자 8자 이상"><br>
 								<h4>새 비밀번호 확인</h4>
 								<input type="password" id="password2" placeholder="비밀번호 재확인">
 								<div id="alert-success" style="font-size: 13px; color: green; display: none;">비밀번호가 일치합니다.</div>
 								<div id="alert-danger" style="font-size: 13px; color: red; display: none;">비밀번호가 일치하지 않습니다.</div>
-			
+
 								<button class="close step_02_close" onclick="modifyPw()">비밀번호 변경</button>
 							</div>
 						</div>
 						<!--step 01 본인인증-->
 						<div id='step_01'>
 							<h1>비밀번호 재설정</h1>
+							 
+							
 
 							<div class="modal_inner">
 								<p>비밀번호 재설정을 위해<br> <span>본인인증</span>이 필요합니다.</p>
+								<div class="step_bar"></div>
 								<h4>휴대전화번호 ('-' 생략)</h4>
 								<input type="number" id="m_phone" name="m_phone" class="m_input">
 								<button class="check_btn" onclick="myFunction(event)">인증번호 받기</button>
@@ -93,6 +93,21 @@
 								<div class="text-alert" id="alert_msg_success">인증번호가 확인되었습니다.</div>
 
 
+<<<<<<< HEAD
+								<!--step_01 하단 버튼-->
+								<div class="modal_btn">
+									<ul>
+										<li>
+											<button class="close">닫기</button>
+										</li>
+										<li>
+											<button id='hide'>다음</button>
+										</li>
+									</ul>
+								</div>
+
+							</div>
+=======
 								<!--modal_01 하단 버튼-->
 								<ul>
 									<li>
@@ -102,6 +117,7 @@
 										<button id='hide'>다음</button>
 									</li>
 								</ul>
+>>>>>>> origin/test
 						</div>
 
 						</div>
@@ -148,7 +164,7 @@
 				$('#step_01 .close').click(()=>{
 					modal.style.display = "none";
 				});
-				
+
 				btn.onclick = function() {
 					modal.style.display = "block";
 				}
@@ -186,38 +202,38 @@
 				$("#password").change(function(){
 					checkPassword($('#password').val());
 				});
-				function checkPassword(password){    
+				function checkPassword(password){
 					if( !(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)) ){
 						alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
 						$('#password').val('').focus();
 						return false;
-					}    
+					}
 					var checkNumber = password.search(/[0-9]/g);
 					var checkEnglish = password.search(/[a-z]/ig);
 					if(checkNumber <0 || checkEnglish <0){
 						alert("숫자와 영문자를 혼용하여야 합니다.");
 						$('#password').val('').focus();
 						return false;
-					}                                
+					}
 				}
 
 				//비밀번호 확인
 				$(function(){
-					$("input").keyup(function(){ 
-						var pwd1=$("#password").val(); 
+					$("input").keyup(function(){
+						var pwd1=$("#password").val();
 						var pwd2=$("#password2").val();
-						if(pwd1 != "" || pwd2 != ""){ 
-							if(pwd1 == pwd2){ 
+						if(pwd1 != "" || pwd2 != ""){
+							if(pwd1 == pwd2){
 								$("#alert-success").css('display', 'block')
 								$("#alert-danger").css('display', 'none')
-								$("#submit").removeAttr("disabled"); 
+								$("#submit").removeAttr("disabled");
 							}else{
 								$("#alert-success").css('display', 'none')
 								$("#alert-danger").css('display', 'block')
 								$("#submit").attr("disabled", "disabled");
-							} 
-						} 
-					}); 
+							}
+						}
+					});
 				});
 
 				var mySession = JSON.parse(sessionStorage.getItem("mySession"));
@@ -330,7 +346,7 @@
 						}
 					})
 				}
-				
+
 
 		</script>
 		<script>

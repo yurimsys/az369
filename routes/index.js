@@ -92,6 +92,9 @@ router.get('/c4', function(req, res){
 router.get('/c5', function(req, res){
     res.render('az369_survey_survey');
 });
+router.get('/d1', function(req, res){
+    res.render('summary');
+});
 
 //의향서 c2 로그인 액션
 router.post('/c2/action', function(req,res,done){
@@ -121,14 +124,14 @@ router.post('/c2/modify', function(req,res,done){
     let password = req.body.password;
     let phoneNumber = req.body.phoneNumber;
     let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString()
-    connection.query(query, 
-        {          
+    connection.query(query,
+        {
             phoneNumber, hash_pw
         },
         function(err, rows) {
-            if (err) {return done(err);}        
+            if (err) {return done(err);}
             res.json({data : '변경'})
-        });  
+        });
 })
 //의향서 c3 회원가입 액션
 router.post('/c3/action', function(req,res){
