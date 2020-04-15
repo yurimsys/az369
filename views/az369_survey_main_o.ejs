@@ -542,13 +542,15 @@
 					
 					chartDay = ['1월','2월','3월','4월','5월','6월']
 					//평균값
+					
 					function average(list){
-						var sum=0;
+						var sum=0, length=0;
 						for(var i=0;i<list.length;i++)
 						{
 						sum = sum + list[i];
+						if(list[i] > 0) length++;
 						}
-						return sum/list.length;
+						return sum/((length == 0)?length+1:length);
 					}
 
 					//최소값
@@ -644,6 +646,8 @@
 					let maxMinArr = [min(rentalMax1), min(rentalMax2), min(rentalMax3), min(rentalMax4), min(rentalMax5), min(rentalMax6)] //전체 최소값
 					let maxAvgArr = [average(rentalMax1), average(rentalMax2),average(rentalMax3), average(rentalMax4),average(rentalMax5), average(rentalMax6)] //전체 평균값
 					//평균들의 값
+					console.log(maxMaxArr)
+					console.log(average(maxMaxArr));
 					let maxMinAvg = [average(maxMinArr),average(maxMinArr), average(maxMinArr),average(maxMinArr), average(maxMinArr),average(maxMinArr)] // 적정최저의 평균
 					let maxMaxAvg = [average(maxMaxArr),average(maxMaxArr), average(maxMaxArr),average(maxMaxArr), average(maxMaxArr),average(maxMaxArr)] // 적정최대의 평균
 					let maxAvgAvg = [average(maxAvgArr),average(maxAvgArr), average(maxAvgArr),average(maxAvgArr), average(maxAvgArr),average(maxAvgArr)] //평균의 평균
