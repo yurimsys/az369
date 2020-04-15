@@ -206,70 +206,133 @@ router.post('/c5/action', async function(req,res){
     )
 })
 
+// //c4 차트
+// router.post('/c4/chart', function(req,res){
+// // and create_dt between date_add(now(), interval -6 month) and now()
+// // where date_format(create_dt , '%Y-%m') IN(select date_format(create_dt, '%Y-%m') as tes from admin_survey_test group by tes)
+//     let query = `select Addr, wt_rental_fee_min , wt_rental_fee_max, create_dt, concat(date_format(create_dt,'%m'), '월') as day
+//                         from admin_survey_test 
+//                         having Addr in ( select LS_Number from tLS where LS_Floor = :floor1 and LS_Sector in (:dataSector1)
+//                         union all
+//                         select LS_Number from tLS where LS_Floor = :floor2 and LS_Sector in (:dataSector2)
+//                         union all
+//                         select LS_Number from tLS where LS_Floor = :floor3 and LS_Sector in (:dataSector3) )
+//                     order by day asc;`
+
+//     let dataSector1 = req.body['1F']
+//     let dataSector2 = req.body['2F']
+//     let dataSector3 = req.body['3F']
+//     let floor1 = "";
+//     let floor2 = ""; 
+//     let floor3 = "";
+
+//     if(dataSector1 == "" || dataSector1 == undefined){
+//         dataSector1 = ""
+//     }else{
+//         floor1 = '1F'
+//     }
+
+//     if(dataSector2 == "" || dataSector2 == undefined){
+//         dataSector2 = ""
+//     }else{
+//         floor2 = '2F'
+//     }
+
+//     if(dataSector3 == "" || dataSector3 == undefined){
+//         dataSector3 = ""
+//     }else{
+//         floor3 = '3F'
+//     }
+
+//     console.log('===========')
+//     console.log('1층 지역', dataSector1)
+//     console.log('===========')
+//     console.log('2층 지역', dataSector2)
+//     console.log('===========')
+//     console.log('3층 지역', dataSector3)
+//     console.log('===========')
+//     console.log('층', floor1)
+//     console.log('층', floor2)
+//     console.log('층', floor3)
+//     connection.query(query,
+//         {
+//             dataSector1,
+//             dataSector2,
+//             dataSector3,
+//             floor1,
+//             floor2,
+//             floor3
+//         },function(err, rows){
+//             if(err) throw err;
+//             res.json({data : rows})
+//             console.log('값', rows)
+//         }
+//     )
+// })
+
 //c4 차트
 router.post('/c4/chart', function(req,res){
-// and create_dt between date_add(now(), interval -6 month) and now()
-// where date_format(create_dt , '%Y-%m') IN(select date_format(create_dt, '%Y-%m') as tes from admin_survey_test group by tes)
-    let query = `select LSV_Store, LSV_wRentalFeeMin , LSV_wRentalFeeMax, LSV_cDt, concat(date_format(LSV_cDt,'%m'), '월') as day
-                        from tLSV 
-                        having LSV_Store in ( select LS_Number from tLS where LS_Floor = :floor1 and LS_Sector in (:dataSector1)
-                        union all
-                        select LS_Number from tLS where LS_Floor = :floor2 and LS_Sector in (:dataSector2)
-                        union all
-                        select LS_Number from tLS where LS_Floor = :floor3 and LS_Sector in (:dataSector3) )
-                    order by day asc;`
-
-    let dataSector1 = req.body['1F']
-    let dataSector2 = req.body['2F']
-    let dataSector3 = req.body['3F']
-    let floor1 = "";
-    let floor2 = ""; 
-    let floor3 = "";
-
-    if(dataSector1 == "" || dataSector1 == undefined){
-        dataSector1 = ""
-    }else{
-        floor1 = '1F'
-    }
-
-    if(dataSector2 == "" || dataSector2 == undefined){
-        dataSector2 = ""
-    }else{
-        floor2 = '2F'
-    }
-
-    if(dataSector3 == "" || dataSector3 == undefined){
-        dataSector3 = ""
-    }else{
-        floor3 = '3F'
-    }
-
-    console.log('===========')
-    console.log('1층 지역', dataSector1)
-    console.log('===========')
-    console.log('2층 지역', dataSector2)
-    console.log('===========')
-    console.log('3층 지역', dataSector3)
-    console.log('===========')
-    console.log('층', floor1)
-    console.log('층', floor2)
-    console.log('층', floor3)
-    connection.query(query,
-        {
-            dataSector1,
-            dataSector2,
-            dataSector3,
-            floor1,
-            floor2,
-            floor3
-        },function(err, rows){
-            if(err) throw err;
-            res.json({data : rows})
-            console.log('값', rows)
+    // and create_dt between date_add(now(), interval -6 month) and now()
+    // where date_format(create_dt , '%Y-%m') IN(select date_format(create_dt, '%Y-%m') as tes from admin_survey_test group by tes)
+        let query = `select LSV_Store, LSV_wRentalFeeMin , LSV_wRentalFeeMax, LSV_cDt, concat(date_format(LSV_cDt,'%m'), '월') as day
+                            from tLSV 
+                            having LSV_Store in ( select LS_Number from tLS where LS_Floor = :floor1 and LS_Sector in (:dataSector1)
+                            union all
+                            select LS_Number from tLS where LS_Floor = :floor2 and LS_Sector in (:dataSector2)
+                            union all
+                            select LS_Number from tLS where LS_Floor = :floor3 and LS_Sector in (:dataSector3) )
+                        order by day asc;`
+    
+        let dataSector1 = req.body['1F']
+        let dataSector2 = req.body['2F']
+        let dataSector3 = req.body['3F']
+        let floor1 = "";
+        let floor2 = ""; 
+        let floor3 = "";
+    
+        if(dataSector1 == "" || dataSector1 == undefined){
+            dataSector1 = ""
+        }else{
+            floor1 = '1F'
         }
-    )
-})
-
+    
+        if(dataSector2 == "" || dataSector2 == undefined){
+            dataSector2 = ""
+        }else{
+            floor2 = '2F'
+        }
+    
+        if(dataSector3 == "" || dataSector3 == undefined){
+            dataSector3 = ""
+        }else{
+            floor3 = '3F'
+        }
+    
+        console.log('===========')
+        console.log('1층 지역', dataSector1)
+        console.log('===========')
+        console.log('2층 지역', dataSector2)
+        console.log('===========')
+        console.log('3층 지역', dataSector3)
+        console.log('===========')
+        console.log('층', floor1)
+        console.log('층', floor2)
+        console.log('층', floor3)
+        connection.query(query,
+            {
+                dataSector1,
+                dataSector2,
+                dataSector3,
+                floor1,
+                floor2,
+                floor3
+            },function(err, rows){
+                if(err) throw err;
+                res.json({data : rows})
+                console.log('값', rows)
+            }
+        )
+    })
 
 router.post('/b', function(req, res){
     

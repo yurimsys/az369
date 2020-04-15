@@ -438,7 +438,11 @@
 				data: chartData,
 				success: function(res){
 					for(let i=0; i<res.data.length; i++){
-						if(res.data[i].day == '03월'){
+						if(res.data[i].day == '01월'){
+							rentalMin3.push(res.data[i].LSV_wRentalFeeMin)	
+						}else if(res.data[i].day == '02월'){
+							rentalMin3.push(res.data[i].LSV_wRentalFeeMin)	
+						}else if(res.data[i].day == '03월'){
 							rentalMin3.push(res.data[i].LSV_wRentalFeeMin)	
 						}else if(res.data[i].day == '04월'){
 							rentalMin4.push(res.data[i].LSV_wRentalFeeMin)		
@@ -461,11 +465,12 @@
 						rentalDay.push(res.data[i].day)
 					}
 
-					//날짜 중복 제거
-					$.each(rentalDay,function(i,value){
-						if(chartDay.indexOf(value) == -1 ) chartDay.push(value);
-					});
+					// //날짜 중복 제거
+					// $.each(rentalDay,function(i,value){
+					// 	if(chartDay.indexOf(value) == -1 ) chartDay.push(value);
+					// });
 					
+					chartDay = ['1월','2월','3월','4월','5월','6월']
 					//평균값
 					function average(list){
 						var sum=0;
@@ -486,12 +491,12 @@
 						return Math.max.apply(null, max)
 					}
 
-
+					console.log(rentalMax5)
 					//적정 임대료
 					//전체 배열
-					let maxMaxArr = [max(rentalMax3), max(rentalMax4),max(rentalMax5), max(rentalMax6)] //전체 최대값
-					let maxMinArr = [min(rentalMax3), min(rentalMax4), min(rentalMax5), min(rentalMax6)] //전체 최소값
-					let maxAvgArr = [average(rentalMax3), average(rentalMax4), average(rentalMax5), average(rentalMax6)] //전체 평균값
+					let maxMaxArr = [max(rentalMax1), max(rentalMax2), max(rentalMax3), max(rentalMax4), max(rentalMax5), max(rentalMax6)] //전체 최대값
+					let maxMinArr = [min(rentalMax3), min(rentalMax4)] //전체 최소값
+					let maxAvgArr = [average(rentalMax3), average(rentalMax4)] //전체 평균값
 					//평균들의 값
 					let maxMinAvg = [average(maxMinArr),average(maxMinArr), average(maxMinArr),average(maxMinArr)] // 적정최저의 평균
 					let maxMaxAvg = [average(maxMaxArr),average(maxMaxArr), average(maxMaxArr),average(maxMaxArr)] // 적정최대의 평균
@@ -509,7 +514,7 @@
 					let minMinAvg = [average(minMinArr),average(minMinArr), average(minMinArr),average(minMinArr)] // 적정최저의 평균
 					let minMaxAvg = [average(minMaxArr),average(minMaxArr), average(minMaxArr),average(minMaxArr)] // 적정최대의 평균
 					let minAvgAvg = [average(minAvgArr),average(minAvgArr), average(minAvgArr),average(minAvgArr)] //평균의 평균
-					
+
 
 					var options = {
 						type: 'bar',
