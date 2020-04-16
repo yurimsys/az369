@@ -225,8 +225,8 @@
                     auth_number : auth_number
                 }
             }).done((res) => {
-                console.log("checkPhoneNumber !! ");
-                console.log(res);
+                //console.log("checkPhoneNumber !! ");
+                //console.log(res);
                 if( res.status_code == 200 ){
                     ele_phone_check.data("is_confirm", true);
                     chkCnt = 1;
@@ -290,7 +290,7 @@
  
         //정보 수정
         function modifyInfo(){
-            console.log("체크카운트 :", chkCnt);
+            //console.log("체크카운트 :", chkCnt);
             if($("#phone").val() != "" && chkCnt == 0){
                 alert("본인인증을 해주세요.");
                 return;
@@ -319,7 +319,7 @@
                 dataType: "json",
                 method: "post",
                 success: function(res){
-                    console.log(res.data.length);
+                    //console.log(res.data.length);
                     if(res.data.length != 0){
                         location.href="#withdrawal2";
                     } else if(res.data.length === 0){
@@ -344,8 +344,8 @@
                     'pw' : $("#password3").val()
                 },
                 success: function(res){
-                    console.log("res :",res);
-                    console.log("res.data :", res.data);
+                    //console.log("res :",res);
+                    //console.log("res.data :", res.data);
                     if(res.data === '실패'){
                         alert("입력된 비밀번호가 틀립니다.");
                         location.href="modify2";

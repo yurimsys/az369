@@ -563,7 +563,7 @@
 						return Math.max.apply(null, max)
 					}
 
-					console.log(rentalMin1)
+					//console.log(rentalMin1)
 					if(rentalMin1.length == 0){
 						rentalMin1 = [0];
 					}
@@ -641,13 +641,13 @@
 
 					//적정 임대료
 					//전체 배열
-					console.log(max(rentalMax1))
+					//console.log(max(rentalMax1))
 					let maxMaxArr = [max(rentalMax1), max(rentalMax2), max(rentalMax3), max(rentalMax4), max(rentalMax5), max(rentalMax6)] //전체 최대값
 					let maxMinArr = [min(rentalMax1), min(rentalMax2), min(rentalMax3), min(rentalMax4), min(rentalMax5), min(rentalMax6)] //전체 최소값
 					let maxAvgArr = [average(rentalMax1), average(rentalMax2),average(rentalMax3), average(rentalMax4),average(rentalMax5), average(rentalMax6)] //전체 평균값
 					//평균들의 값
-					console.log(maxMaxArr)
-					console.log(average(maxMaxArr));
+					//console.log(maxMaxArr)
+					//console.log(average(maxMaxArr));
 					let maxMinAvg = [average(maxMinArr),average(maxMinArr), average(maxMinArr),average(maxMinArr), average(maxMinArr),average(maxMinArr)] // 적정최저의 평균
 					let maxMaxAvg = [average(maxMaxArr),average(maxMaxArr), average(maxMaxArr),average(maxMaxArr), average(maxMaxArr),average(maxMaxArr)] // 적정최대의 평균
 					let maxAvgAvg = [average(maxAvgArr),average(maxAvgArr), average(maxAvgArr),average(maxAvgArr), average(maxAvgArr),average(maxAvgArr)] //평균의 평균

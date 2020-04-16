@@ -175,8 +175,8 @@ $(document).ready(()=>{
                     auth_number : auth_number
                 }
             }).done((res) => {
-                console.log("checkPhoneNumber !! ");
-                console.log(res);
+                //console.log("checkPhoneNumber !! ");
+                //console.log(res);
                 if( res.status_code == 200 ){
                     ele_phone_check.data("is_confirm", true);
                     chkCnt = 1;
@@ -217,13 +217,13 @@ $(document).ready(()=>{
                dataType : "json",
                data : {id : $("#id").val(), phone : $("#phone").val()},
                success : function(res){
-                    console.log(res);
+                    //console.log(res);
 
                     if(res.data === undefined){
                         alert("등록된 회원이 아닙니다.");
                         location.reload();
                     } else if(res.data.U_uId != ""){
-                        console.log("로그2 :", res.data.U_Name)
+                        //console.log("로그2 :", res.data.U_Name)
                         var orderDetail = [ {name:"findId", value:res.id}, {name:"name", value:res.data.U_Name}];
                         sessionStorage.setItem("orderDetail",JSON.stringify(orderDetail));
                         location.href = "findPw2";

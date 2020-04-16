@@ -180,8 +180,8 @@ $(document).ready(()=>{
                     auth_number : auth_number
                 }
             }).done((res) => {
-                console.log("checkPhoneNumber !! ");
-                console.log(res);
+                //console.log("checkPhoneNumber !! ");
+                //console.log(res);
                 if( res.status_code == 200 ){
                     ele_phone_check.data("is_confirm", true);
                     chkCnt = 1;
@@ -221,7 +221,7 @@ $(document).ready(()=>{
                     phone: $("#phone").val()
                 },
                 success: function(res) {
-                    console.log(res);
+                    //console.log(res);
                     //console.log(res.data);
 
                     if (res.data === undefined) {

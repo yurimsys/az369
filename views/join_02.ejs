@@ -268,8 +268,8 @@
                     auth_number : auth_number
                 }
             }).done((res) => {
-                console.log("checkPhoneNumber !! ");
-                console.log(res);
+                //console.log("checkPhoneNumber !! ");
+                //console.log(res);
                 if( res.status_code == 200 ){
                     ele_phone_check.data("is_confirm", true);
                     chkCnt = 1;
@@ -341,7 +341,7 @@
                     data: {'id' : id},
                     url: 'api/user/checkId',
                     success: function (res) {
-                        console.log("res :::",res.data.length)
+                        //console.log("res :::",res.data.length)
                         if(res.data.length == 0){
                             chkId = 1;
                             $("#overId").css("display", "block");
@@ -396,7 +396,7 @@
                     detailAddress : $("#detailAddress").val()
                 },
                 success: function(res){
-                    console.log("회원가입 시 :::", res.data.insertId);
+                    //console.log("회원가입 시 :::", res.data.insertId);
                     joinId = res.data.insertId;
                     var orderDetail = [{name:"findId", value:res.name }, {name:"findName", value:res.id}];
                     sessionStorage.setItem("orderDetail",JSON.stringify(orderDetail));
@@ -412,14 +412,14 @@
                         }
                     }
                     var sendJson = JSON.stringify(send_array);
-                    console.log('sendjson :',sendJson); 
+                    //console.log('sendjson :',sendJson); 
 
                     var seatArr = JSON.parse(sendJson);
-                    console.log('seatArr :', seatArr);  
+                    //console.log('seatArr :', seatArr);  
                     //선호 시간                                            
                     var sel = $("#select01 option:selected").val();
                     var sel2 = $('#select02 option:selected').val();     
-                    console.log("시간 :", sel, sel2);                        
+                    //console.log("시간 :", sel, sel2);                        
                     
                     $.ajax({
                         url: "api/user/carPool",

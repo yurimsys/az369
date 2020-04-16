@@ -176,7 +176,7 @@
 						return false;
 					}else{
 						$("#step_01").hide();
-						console.log(sessionStorage.getItem('phoneNumber'))
+						//console.log(sessionStorage.getItem('phoneNumber'))
 					}
 				});
 				function modifyPw(){
@@ -237,7 +237,7 @@
 				});
 
 				var mySession = JSON.parse(sessionStorage.getItem("mySession"));
-				console.log(mySession);
+				//console.log(mySession);
 				if (mySession != undefined) {
 					location.href = "/c4"
 				}
@@ -296,8 +296,8 @@
 								auth_number : auth_number
 							}
 						}).done((res) => {
-							console.log("checkPhoneNumber !! ");
-							console.log(res);
+							//console.log("checkPhoneNumber !! ");
+							//console.log(res);
 							if( res.status_code == 200 ){
 								ele_phone_check.data("is_confirm", true);
 
@@ -328,8 +328,8 @@
 							'password': $('#pw').val()
 						},
 						success: function(res) {
-							console.log(res.data)
-							console.log(res.data[0].Name)
+							//console.log(res.data)
+							//console.log(res.data[0].Name)
 							var mySession = [{
 								name: "name",
 								value: res.data[0].Name
