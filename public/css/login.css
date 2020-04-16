@@ -1,8 +1,10 @@
 @charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -17,60 +19,68 @@ p {text-align: justify; font-family: inherit; font-size: 16px;}
     height: auto;
 }
 
-
+ 
 /*section.sub_wrap 시작*/
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 6.5%;
-    color: #333;
-    overflow: hidden;
+    margin-bottom: 90px;
+  	overflow: hidden;
 }
 
 section.sub_wrap .bar {
-    border-bottom: 2px solid #ad863c; 
-    width: 35px; 
+    border-bottom: 2px solid #c3a164; 
+    width: 30px; 
     margin: 0 auto;
-    margin-top: 2%;
-    margin-bottom: 4%;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .box {position: relative; padding-top: 5%; overflow: hidden;}
 
-section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 5%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #C3A164;  padding-top: 60px; font-weight: 500;font-size: 16px;}
 
 section.sub_wrap h1 {
-    text-align: center; 
-    font-size: 2.8rem;
+    text-align: center;
+    font-size: 45px;
     margin-top: -1%;
-    font-weight: normal;
-    margin-bottom: 2%;
+	font-family: 'PT Serif', serif;
+	font-weight: normal;
 }
 
 
-/*폰트적용*/
-.inner_sub_wrap h1,
-.inner_sub_wrap h2 {font-family: 'Noto Sans KR', sans-serif; }
-
-.login_box {width: 100%; overflow: hidden; background: #fff; /*box-shadow: 0 0 5px rgba(0,0,0,0.1);*/ height: auto; border: 1px solid #eee; padding: 5% 22%; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
+.login_box {width: 100%; position: relative; background: #fff; height: auto; border: 1px solid #eee; padding: 5% 22%; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
 
 @keyframes box {
     0% {opacity: 0; transform: translateY(2%);}
     100% {opacity: 1; transform: translateY(0%);}
 }
 
-.login_box h2 {font-size: 22px; display: block; margin: 0; font-weight: normal;}
-.login_box p {color: #777;  margin-bottom: 2%;}
+.login_box h2 {font-size: 24px; display: block; margin: 0; font-weight:500;}
+.login_box p {color: #222;  margin-bottom: 20px; font-weight: 300; text-align: center;}
+.login_box p span {font-weight: 400;}
 .login_form input {width: 100%; height: 50px; padding: 2%; border: 1px solid #eee; margin-bottom: 1%;}
 .login_form input[type=password] {margin-bottom: 0%;}
 
-input[type=submit] {width: 100%; height: 50px; background: #ad863c; color: #fff; border: none; cursor: pointer;}
+input[type=submit] {width: 100%; height: 56px; background: #C3A164; color: #fff; border: none; cursor: pointer;}
 
-.form_bottom {width: 100%;}
-.form_bottom ul li { float: left; width: 50%;}
-.find_btn {margin-top: 6%; float: left; padding: 3.9% 0; font-size: 15px; color: #666;}
-.join_btn {margin-top: 6%; float: right; padding: 3.9% 25%; border: 1px solid #ccc; transition: all 0.3s;}
-.join_btn:hover {background: #f4f4f4;}
+input::placeholder {font-size: 14px; font-weight: 300; color: #767676;}
+
+/*하단버튼*/
+.form_bottom {width: 100%; margin-top: 15px;}
+.form_bottom ul li { float: left; width: 49.5%; margin-right: 1%; height: 50px; line-height: 50px; text-align: center; font-weight: 400;} 
+.form_bottom ul li:nth-child(2) {margin-right: 0;}
+.form_bottom ul li a {display: block;}
+.find_btn { float: right;}
+
+/* .join_btn {margin-top: 20px; float: right; padding: 12px 25%; border: 1px solid #ddd; transition: all 0.3s; font-size: 16px; color: #333; font-weight: 400;}
+.join_btn:hover {background: #f4f4f4;} */
+/* 
+.find_btn {border: 1px solid #eee;} */
+.join_btn {border: 1px solid #ddd; width: 100%; text-align: center; height: 50px; line-height: 50px; margin-top: 10px;}
+.join_btn a {display: block;}
+
+
 
 .etrans {margin: 4% 0;}
 .checks {position: relative;}
@@ -122,7 +132,7 @@ input[type=submit] {width: 100%; height: 50px; background: #ad863c; color: #fff;
 }
 
 .checks.etrans input[type="checkbox"] + label {
-  padding-left: 30px; color: #666; font-size: 15px;
+  padding-left: 30px; color: #444; font-size: 15px; font-weight: 400;
 }
 .checks.etrans input[type="checkbox"] + label:before {
   position: absolute;
@@ -170,6 +180,15 @@ input[type="submit"] {font-size: 18px;}
 /*section.sub_wrap 완료*/
 
 
+
+
+/*gnb 자바스크립트*/
+header.on {
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
+    height: 80px;
+}
+
+
 /*모바일 메뉴*/
 header .open {
     /*버거버튼 클래스*/
@@ -198,127 +217,6 @@ header .open {
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     .inner_sub_wrap {width: 95%; margin: 0 auto;}
-    .tnb {width: 1200px; margin-top: -5%;}
-    
-    
-  /*gnb_mo*/
-    /*header .open {
-        display: block;
-        width: 30px;
-        height: 30px;
-        position: absolute;
-        right: 30px;
-        top: 25px;
-        opacity: 1;
-        z-index: 1000000000;
-    }
-
-    header .open img {width: 100%; height: auto;}
-
-    .gnb_mo {
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100vh;
-        right: -1100px;
-        background: rgba(0, 0, 0, 0.6);
-        top: 0;
-        transition: all 0.3s;
-        overflow: hidden;
-        z-index: 1000;
-        opacity: 0;
-        color: #eee;
-    }
-
-    .gnb_mo.on {
-        right: 0;
-        transition: opacity 0.3s;
-        opacity: 1;
-    }
-
-    .gnb_mo .close {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        z-index: 200;
-        transform: rotate(360deg);
-        transition: all 0.3s;
-        width: 25px;
-        height: 25px;
-    }
-
-    .gnb_mo .close img {width: 100%;}
-
-    .gnb_mo.on .close {
-        right: 77%;
-        transform: rotate(0);
-        transition: all 0.5s;
-    }
-
-    .gnb_mo > ul {
-        position: absolute;
-        right: 0px;
-        background-color: #fff;
-        color: #242424;
-        width: 75%;
-        height: 100%;
-        transition: all 0.3s;
-        padding-top: 60px;
-    }
-
-    .gnb_mo.on > ul {
-        right: 0;
-        transition: all 0.5s;
-    }
-
-    .gnb_mo > ul > li {
-        font-size: 16px;
-        line-height: 50px;
-        text-indent: 20px;
-        border-bottom: 1px solid #ddd;
-    }
-    
-    .gnb_mo > ul > li:nth-child(1) {border-bottom: none;}
-
-    .gnb_mo > ul > li > a {
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: relative;
-    }
-
-    .gnb_mo > ul > li > a:after {
-        position: absolute;
-        content: '';
-        width: 21px;
-        height: 12px;
-        background: url(img/index_img/mob_gnb_arrow.png) no-repeat center/cover;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .gnb_mo > ul > li > a.on:after {
-        background: url(img/index_img/mob_gnb_arrow2.png) no-repeat center/cover;
-    }
-
-    .gnb_mo > ul > li .inner {
-        display: none;
-        background-color: #e3ddd2;
-    }
-
-    .gnb_mo > ul > li .inner.on {
-        background-color: #fff;
-        display: block;
-    }
-
-    .gnb_mo > ul > li .inner li {
-        border-bottom: 1px solid #ddd;
-        font-size: 14px;
-        color: #000;
-    }
-
-    .gnb_mo > ul > li .inner li:last-child {border-bottom: none;}*/
 }
 
 
@@ -329,18 +227,10 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    .box {padding-top: 7%;}
-    
-    .video-slider {height:600px;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    .box {padding-top: 60px;}
+    .login_box {padding: 6% 10%;}
 }
-
+ 
 
 /*768px*/
 @media screen and (max-width: 768px) {
@@ -348,68 +238,41 @@ header .open {
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     section.sub_wrap .inner_sub_wrap {width: 95%;}
-    section.sub_wrap h1 {font-size: 2.2rem;}
+    section.sub_wrap h1 {font-size: 35px;}
     section.sub_wrap h2 {font-weight: normal;}
     
-    .box {padding-top: 9.5%;}
-    
     .login_box {padding: 5% 7%;}
-    .etrans {margin: 5% 0 9%;}
     .etrans label {font-size: 14px;}
-    
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
     
     /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h6 {padding-top: 6%;}
-    section.sub_wrap h1 {font-size: 28px; margin-bottom: 2%;}
+    section.sub_wrap {width:100%;}
+    section.sub_wrap h6 {padding-top: 30px; margin-bottom: -2.5%;}
+    section.sub_wrap h1 {font-size: 30px; margin-bottom: 3%;}
     section.sub_wrap .bar {display: none;}
-     section.sub_wrap h2 {font-size: 18px;  line-height: 1.5; text-align: center; color: #555;}
-    section.sub_wrap p {font-size: 14px; text-align: center; margin-bottom: 3%; color: #888;}
+    section.sub_wrap h2 {font-size: 20px; line-height: 1.5; text-align: center;}
+    section.sub_wrap p {font-size: 15px; text-align: center;}
     
-     .box {padding-top: 20%;}
-    
-    
-    .tnb {width: 414px;} 
-    .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
-    
-    
-    .login_box {padding: 7% 5%;}
-    .form_bottom ul li {float: none; width: 100%; text-align: center;}
-    .join_btn {padding: 0; width: 100%; height: 45px; line-height: 45px; margin-top: 0;}
-    .find_btn {float: right; margin: 5.5% 0; padding: 0; color: #666;}
-    .search_btn {padding: 0; float: right; font-size: 12px; color: #888;}
-    input[type="submit"] {font-size: 16px; height: 45px;}
-    .etrans {margin: 5% 0; font-size: 14px;}
-
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+     input[type=submit] {margin-top: 20px; height: 50px;}
+    .login_box {padding: 8% 3%;}
+    .join_btn {padding: 0; width: 100%; margin-top: 5px;}
+  	.find_btn span {display: none;}
+    .search_btn {padding: 0; float: right; font-size: 15px; color: #888;}
+    .etrans {margin: 5% 0; font-size: 15px;}
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
     
     /*section.sub_wrap*/
-    section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
-    section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
-    section.sub_wrap p {margin-bottom: 5%;}
+    section.sub_wrap h1 {font-size: 24px;}
+	
+	.login_box {padding: 6% 3%;}
 
-    .checks.etrans input[type="checkbox"] + label {font-size: 14px;}
-    .join_btn {font-size: 15px;}
-    input[type="submit"] {font-size: 15px;}
+    .checks.etrans input[type="checkbox"] + label {font-size: 15px;}
+    input[type="submit"], .join_btn {font-size: 16px;}
 }
 
