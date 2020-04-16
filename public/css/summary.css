@@ -27,7 +27,7 @@ section.main {
     overflow: hidden;
 }
 
-.main_bg { background: url(../img/sub_main_bg/sub01_main_bg.jpg) no-repeat; background-position: bottom; background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
+.main_bg { background: url(/img/sub_main_bg/sub01_main_bg.jpg) no-repeat; background-position: bottom; background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 
 @keyframes bg {
     0% {transform: scale(1.05);}
@@ -46,11 +46,10 @@ section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
     margin-bottom: 90px;
-    color: #333;
 	overflow: hidden;
 }
 
-section.sub_wrap h6 {text-align: center; color: #a0772b; margin-top:90px; font-weight: 500; font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #C3A164; margin-top:90px; font-weight: 500; font-size: 16px;}
 
 section.sub_wrap h1 {
     text-align: center;
@@ -69,10 +68,10 @@ section.sub_wrap .bar {
 }
 
 section.sub_wrap h2 br {display: none;}
-section.sub_wrap h2 {font-size: 30px;  text-align: center; margin-bottom: 60px; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif; color: #555; font-weight: 400;}
-section.sub_wrap h2 span {color: #000; font-weight: 600;}
+section.sub_wrap h2 {font-size: 30px;  text-align: center; margin-bottom: 60px; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif; font-weight: 400;}
+section.sub_wrap h2 span {font-weight: 600;}
 
-section.sub_wrap h5 {color: #444; font-size: 24px; font-weight: 300; text-align:center;}
+section.sub_wrap h5 {font-size: 24px; font-weight: 300; text-align:center; color: #444;}
 section.sub_wrap h5 span {font-weight: 400;}
 
 
@@ -211,10 +210,8 @@ header .open {
     section.main {width: 100%;}
     
     /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h6 {margin-top: 50px;}
+    section.sub_wrap {width:100%;}
     section.sub_wrap h1 {font-size: 26px;}
-    section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
     section.sub_wrap h2 {font-size: 20px; line-height: 1.5;}
     section.sub_wrap h2 br {display: block;}
     section.sub_wrap h5{font-size: 16px;}
@@ -223,7 +220,6 @@ header .open {
     .sub_bg {margin: 0 auto;}
     
     .sub_info {width: 90%; margin-top: 30px;}
-    .sub_info h3 {font-size: 18px;}
     
     .sub_info p {margin: 0 auto; }
     .sub_info p br{display: none;}

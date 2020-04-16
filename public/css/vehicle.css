@@ -1,4 +1,6 @@
 @charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; font-weight: normal;}
@@ -18,7 +20,6 @@ p {text-align: justify; font-family: inherit; font-size: 16px;}
     height: auto;
 }
 
-
 /*section.main*/
 section.main {
     position: relative;
@@ -28,7 +29,7 @@ section.main {
     overflow: hidden;
 }
 
-.main_bg {background: url(../img/vehicle/vehicle_main_bg2.png);
+.main_bg {background: url(/img/vehicle/vehicle_main_bg2.png);
     background-position: bottom;
     background-size: cover; 
     width: 100%;
@@ -41,10 +42,12 @@ section.main {
     object-position: center;}
 
 @keyframes bg {
-    0% {transform: scale(1.05);
+	0% {transform: scale(1.05);}
     100% {transform: scale(1);}
-    }
 }
+
+.tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); }
+.tnb ul li {float: left; width: 33.33%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; transition: all 0.2s; font-weight: 400;}
 
 /*section.main 완료*/
 /*section.sub_wrap 시작*/
@@ -52,63 +55,75 @@ section.main {
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 6.5%;
-    color: #333;
+    margin-bottom: 50px;
+	overflow: hidden;
 }
-
-.tnb {position: relative; width: 1200px; margin: 0 auto;  margin-top: -5%;}
-.tnb ul li {float: left; width: 33.3%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; color: #444; transition: all 0.2s;z-index: 10000;}
 
 section.sub_wrap .bar {
-    border-bottom: 2px solid #624000; 
-    width: 35px; 
+    border-bottom: 2px solid #c3a164; 
+    width: 30px; 
     margin: 0 auto;
-    margin-top: 2%;
-    margin-bottom: 4%;
+    margin-top: 30px;
+    margin-bottom: 40px;
 }
 
-section.sub_wrap h6 {text-align: center; color: #a0772b; padding-top: 13%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #a0772b; margin-top:90px; font-weight: 500; font-size: 16px;}
 
 section.sub_wrap h1 {
     text-align: center;
-    font-size: 2.8rem;
+    font-size: 45px;
     margin-top: -1%;
+	font-family: 'PT Serif', serif;
+	font-weight: normal;
 }
 
-section.sub_wrap h2 {font-size: 30px; text-align: center; margin-bottom: 5%; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif;}
 section.sub_wrap h2 br {display: none;}
+section.sub_wrap h2 {font-size: 30px; text-align: center; margin-bottom:50px; line-height: 1.4; font-weight: 400;}
+section.sub_wrap h2 span { font-weight: 600;}
 
-section.sub_wrap h5 {color: #777; font-size: 20px; text-align:center;}
-section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow: inset 0 -15px 0 #fcf3dc; color: #555;}
+section.sub_wrap h5 {font-size: 24px; font-weight: 300; text-align:center; color: #444;}
+section.sub_wrap h5 span {font-weight: 400;}
 
 .sub_bg {box-shadow: 0 0 10px rgba(0,0,0,0.2);}
 .sub_bg img {width: 100%;}
 
 
 /*sub_info*/
-.sub_info {width: 100%; text-align: center; margin-top: 5%;}
+.sub_info {width: 100%; text-align: center; margin-top: 50px;}
 
 .sub_info em {font-size: 18px; color: #a0772b;}
-.sub_info h3 {font-size: 1.6rem; margin: 0; margin-bottom: 4%; font-family: 'Noto Sans KR', sans-serif; color: #444;}
+.sub_info h3 {font-size: 24px; margin: 0; margin-bottom: 30px; font-family: 'Noto Sans KR', sans-serif; color: #444;}
 .sub_info h3 br {display: none;}
-.sub_info p {text-align: center; line-height: 1.8; margin-bottom: 3%; color: #666;}
+.sub_info p {text-align: center; line-height: 1.8; color: #666;}
 
-.info_notice {background: #f2f2f2;  display: inline-block; height: auto; padding: 2% 15%; margin-bottom: 3%; color: #222;}
-.info_notice p {margin-bottom: 0; color: #888;}
-.info_notice p span {font-size: 1.2rem; margin: 0;}
+.sub_info h4 {font-size: 20px; font-weight: 300; color: #ad863c;}
+.sub_info h4 span {font-weight: 400;}
+.sub_info h3 {font-size: 26px; margin: 0; margin-bottom: 30px; font-weight: 400;}
+.sub_info h3 span {font-weight: 600;}
+.sub_info h3 br {display: none;}
+.sub_info p {text-align: center; line-height: 2; color: #000; font-weight: 300; padding: 30px 0; background: #f8f8f8;}
+.sub_info p span {font-weight: 500;}
 
 
 .vehicle_location_img {width: 100%;}
 .vehicle_location_img img {width: 90%;}
 
-.vehicle_btn { text-align: center;  margin: 0 auto;  overflow: hidden;  transition: all 0.3s;  width: 50%;}
+.vehicle_btn { text-align: center;  margin: 0 auto;  overflow: hidden;  transition: all 0.3s;  width: 50%; margin-top: 40px;;}
 .vehicle_btn ul {width: 100%;}
-.vehicle_btn ul li {float: left; width: 49%; margin-right: 1%;}
+.vehicle_btn ul li {float: left; width: 49%; margin-right: 1%; height: 50px; line-height: 50px; text-align: center; border: 1px solid #ddd; transition: all 0.3s;}
 .vehicle_btn ul li:nth-child(2) {margin-right: 0;}
-.vehicle_btn ul li a {display: block; text-align: center; width: 100%; padding: 4% 0; border: 1px solid #ddd; color: #a0772b; transition: all 0.3s;}
-.vehicle_btn a:hover {background: #a7813c; color: #fff; border: 1px solid #be974f;}
+.vehicle_btn ul li a {display: block;}
+.vehicle_btn li:hover {background: #c3a164; color: #fff; border: 1px solid #c3a164;}
 
 /*section.sub_wrap 완료*/
+
+
+
+/*gnb 자바스크립트*/
+header.on {
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
+    height: 80px;
+}
 
 
 /*모바일 메뉴*/
@@ -136,142 +151,21 @@ header .open {
 /*1200px*/
 @media screen and (max-width: 1200px) {
     
-   
     /*main*/
     section.main {width: 100%;}
     section.main .inner_main {width: 100%;}
     
-    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     section.sub_wrap .inner_sub_wrap {width: 100%;}
-    section.sub_wrap h6 {padding-top: 8%;}
     .gnb2 {display: none;}
     
-    .tnb {padding-bottom: 5%; width: 100%; margin-top: -5%;}
+    .tnb {width: 100%;}
     
     .sub_bg {width: 95%; margin: 0 auto;}
     
     /*sub_contents*/
     .sub_contents {width: 95%;}
-    
-  /*gnb_mo*/
-    header .open {
-        display: block;
-        width: 30px;
-        height: 30px;
-        position: absolute;
-        right: 30px;
-        top: 25px;
-        opacity: 1;
-        z-index: 1000000000;
-    }
-
-    header .open img {width: 100%; height: auto;}
-
-    .gnb_mo {
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.6);
-        right: -1100px;
-        top: 0;
-        transition: all 0.3s;
-        overflow: hidden;
-        z-index: 1000;
-        opacity: 0;
-        color: #eee;
-    }
-
-    .gnb_mo.on {
-        right: 0;
-        transition: opacity 0.3s;
-        opacity: 1;
-    }
-
-    .gnb_mo .close {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        z-index: 200;
-        transform: rotate(360deg);
-        transition: all 0.3s;
-        width: 25px;
-        height: 25px;
-    }
-
-    .gnb_mo .close img {width: 100%;}
-
-    .gnb_mo.on .close {
-        right: 77%;
-        transform: rotate(0);
-        transition: all 0.5s;
-    }
-
-    .gnb_mo > ul {
-        position: absolute;
-        right: 0px;
-        top: 0;
-        background-color: #fff;
-        color: #242424;
-        width: 75%;
-        height: 100%;
-        transition: all 0.3s;
-        padding-top: 60px;
-    }
-
-    .gnb_mo.on > ul {
-        right: 0;
-        transition: all 0.5s;
-    }
-
-    .gnb_mo > ul > li {
-        font-size: 16px;
-        line-height: 50px;
-        text-indent: 20px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .gnb_mo > ul > li > a {
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: relative;
-    }
-
-    .gnb_mo > ul > li > a:after {
-        position: absolute;
-        content: '';
-        width: 21px;
-        height: 12px;
-        background: url(img/index_img/mob_gnb_arrow.png) no-repeat center/cover;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .gnb_mo > ul > li > a.on:after {
-        background: url(img/index_img/mob_gnb_arrow2.png) no-repeat center/cover;
-    }
-
-    .gnb_mo > ul > li .inner {
-        display: none;
-        background-color: #e3ddd2;
-    }
-
-    .gnb_mo > ul > li .inner.on {
-        background-color: #fff;
-        display: block;
-    }
-
-    .gnb_mo > ul > li .inner li {
-        border-bottom: 1px solid #ddd;
-        font-size: 14px;
-        color: #000;
-    }
-
-    .gnb_mo > ul > li .inner li:last-child {border-bottom: none;}
 }
 
 
@@ -283,19 +177,7 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap {padding-top: -10%;}
-    
-    
-    .tnb {padding-bottom: 6%; margin-top: -5.9%;}
-    
     .sub_bg {margin: 0 auto;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 
@@ -308,22 +190,19 @@ header .open {
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     
-    section.sub_wrap h1 {font-size: 2.2rem;}
-    section.sub_wrap h6 {padding-top: 10%;}
+    section.sub_wrap h1 {font-size: 35px;}
     section.sub_wrap h5 {font-size: 20px;}
-    section.sub_wrap h2 {margin-bottom: 6%; font-size: 28px;}
-    .tnb {margin-top:-7.6%;}
+    section.sub_wrap h2 {font-size: 28px;}
+	section.sub_wrap h3 {width: 95%; margin: 0 auto;font-size: 22px;}
+	section.sub_wrap h3 br {display: block;}
+	section.sub_wrap p {margin-top: 25px;}
     
     .sub_bg {margin: 0 auto;}
-    
-    
-    .sub_info {margin: 0 auto; padding-top: 6%;}
-    .sub_info ul {width: 80%;}
-    .sub_info h3 {font-size: 22px;}
-    
-    .vehicle_btn { width: 60%;}
-    .vehicle_btn ul {width: 100%;}
-    .vehicle_btn a {width: 100%;}
+
+    .vehicle_btn {width: 100%;}
+    .vehicle_btn ul li a {padding: 0; display: block; height: 100%;} 
+    .vehicle_location {border: 1px solid #ddd;}
+    .reservation {background: #c3a164; border: #c3a164; color: #fff;}
 }
 
 /*414px*/
@@ -332,7 +211,7 @@ header .open {
     /*main*/
     section.main {width: 100%;}
     .main_bg {
-        background: url(../img/vehicle/vehicle_main_bg2.png);
+        background: url(/img/vehicle/vehicle_main_bg2.png);
         background-size: cover;
         background-repeat: no-repeat;
         background-position: right;
@@ -340,35 +219,26 @@ header .open {
     }
     
     /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h1 {font-size: 2rem;}
-    section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-    section.sub_wrap h2 {font-size: 24px; padding-bottom: 7%; line-height: 1.5;}
-    section.sub_wrap h2 br {display: block;}
+    section.sub_wrap {width:100%;}
+	section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
+	section.sub_wrap h6 {margin-top: 50px;}
+    section.sub_wrap h1 {font-size: 30px;}
+    section.sub_wrap h2 {font-size: 24px; line-height: 1.5; width: 95%; margin: 0 auto; margin-bottom: 40px;}
+    section.sub_wrap h5 {font-size: 18px;}
     
-    section.sub_wrap h2 span {font-size: 18px;}
-    section.sub_wrap h6 {padding-top: 22%;}
-    
-    .tnb {margin-top: -12%;}
     .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
-    .sub_bg {margin: 0 auto; margin-bottom: 2%;}
     
-    .sub_info em {font-size: 16px;}
-    .sub_info {margin-top: 5%; width: 95%; margin: 0 auto;}
-    .sub_info h3 {font-size: 18px; width: 95%; margin: 0 auto; color: #555; }
+    .sub_info {margin-top: 40px;}
+    .sub_info h4 {font-size: 16px;}
+    section.sub_wrap h3 {font-size: 18px; width: 95%; margin: 0 auto;}
     
-    .sub_info p {width: 85%; margin: 0 auto; margin-top: 10%; font-size: 15px;}
-    .sub_info ul {width: 95%;}
+    .sub_info p {width: 95%; margin: 0 auto; font-size: 16px;}
+     
+    .vehicle_btn {width:95%; margin: 0 auto; margin-left: 50%; transform: translateX(-50%); padding-bottom: 4px;}
+    .vehicle_btn ul li {height: 50px; line-height: 50px; width: 49.5%;}
+   
+}   
 
-    .vehicle_btn {width:95%; margin: 0 auto;margin-top: 8%;padding-bottom:1%; margin-left: 5%;}
-    .vehicle_btn ul li {width: 49%; float: left; height: 50px; line-height: 50px;}
-    .vehicle_btn ul li a {padding: 0;}
-}
-
-/*375px*/
-@media screen and (max-width: 375px) {
-    .tnb {margin-top: -13%;}
-}
 
 /*320px*/
 @media screen and (max-width: 320px) {
@@ -378,24 +248,14 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h1 {font-size: 24px;}
-    section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-    section.sub_wrap h2 {font-size: 20px;; padding-bottom: 7%; line-height: 1.5;}
-    section.sub_wrap h2 br {display: block;}
-    section.sub_wrap h5{font-size: 15px;}
-    section.sub_wrap h6 {font-size: 14px;}
-    
-    
-    .tnb {margin-top: -15.5%;}
-    .tnb ul li {font-size: 15px;}
-    
-    .sub_info em {font-size: 14px;}
-    .sub_info h3 {font-size: 18px; width: 90%; margin: 0 auto; margin-top: 1%;}
-    
-    .sub_info p {width: 95%; margin: 0 auto; margin-top: 7%; font-size: 15px;}
-    .sub_info em {font-size: 1.05rem; }
+    section.sub_wrap h1 {font-size: 26px;}
+    section.sub_wrap h2 {font-size: 20px; line-height: 1.5; width: 90%;}
+    section.sub_wrap h5{font-size: 16px;}
 
-    .vehicle_btn {width: 100%; margin-left: 0;}
+	section.sub_wrap h3 br {display: none;}
+	section.sub_wrap p {font-size: 14px;}
+    
+	.vehicle_btn ul li {font-size: 15px;}
     .vehicle_btn ul {width: 100%;}
-    .vehicle_btn ul li a {font-size: 15px;}
+    
 }

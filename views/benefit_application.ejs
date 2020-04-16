@@ -22,12 +22,22 @@
             <% include templates/header.ejs %>
             <!--section.main 시작-->
 
-        <section class="main">
-            <div class="inner_main">
-                <div class="main_bg"></div>
-            </div>
-
-        </section>
+            <section class="main">
+                <div class="inner_main">
+                    <div class="main_bg"></div>
+                    <div class="tnb">
+                        <ul>
+                            <a href="benefit">
+                                <li>입점상가혜택</li>
+                            </a>
+                            <a href="benefit_application">
+                                <li style="background: #C3A164; color: #fff">입점상담신청</li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+    
+            </section>
 
         <!--//secton.main 완료-->
         <!--secton.sub_wrap 시작-->
@@ -35,23 +45,11 @@
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
-                <div class="tnb">
-                    <ul>
-                        <a href="benefit">
-                            <li>입점상가혜택</li>
-                        </a>
-                        <a href="benefit_application">
-                            <li style="background: #ad8743; color: #fff">입점상담신청</li>
-                        </a>
-                    </ul>
-                </div>
-
                 <h6>입점상담신청</h6>
                 <h1 style="font-family: 'PT Serif', serif;">APPLICATION</h1>
                 <div class="bar"></div>
-                <h5><strong>모이면 모일수록 더</strong> 커지는 혜택</h5>
-                <h2><em><strong>AZ369</strong>와 함께하실 <br>입점주분들을 환영합니다.</em></h2>
-
+                <h5><span>모이면 모일수록 <strong>더!</strong></span> 커지는 혜택</h5>
+                <h2><strong>AZ369</strong>와 함께하실 <br>입점주분들을 환영합니다.</h2>
 
             </div>
 
@@ -59,7 +57,7 @@
 
                 <div class="apply_form">
                     <h3>상담신청</h3>
-                    <p>상담신청 후 하단의 제출여부조회를 통해 꼭 <strong>제출 여부를 확인</strong>해주세요.</p>
+                    <p>상담신청 후 하단의 제출여부조회를 통해 꼭 <span>제출 여부를 확인</span>해주세요.</p>
 
                     <form>
                         <ul>
@@ -118,8 +116,7 @@
 
                     <div id="popup" class="layer">
                         <div class="popup_box">
-                               <div class="popup_header">제출여부 확인</div>
-                               <h5><span>문의날짜</span> <br><h5 id="applyDate"></h5></h5>
+                               <h5>문의날짜 <br><span></span><h5 id="applyDate"></h5></span></h5>
                                 <p>입점상담신청 문의가 성공적으로 보내졌습니다.<br>빠른시일 내에 연락드리겠습니다.</p>
 
                             <div class="popup_btn">

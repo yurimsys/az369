@@ -17,28 +17,6 @@
 <body>
     <div class="wrap">
         <% include templates/header.ejs %>
-        <!--section.main 시작-->
-
-        <!--<section class="main">
-            <div class="inner_main">
-                <div class="main_bg"></div>
-                <div class="tnb">
-                    <ul>
-                        <a href="login">
-                            <li style="background: #ad8743; color: #fff">로그인</li>
-                        </a>
-                        <a href="join">
-                            <li>회원가입</li>
-                        </a>
-
-                    </ul>
-                </div>
-            </div>
-        </section>-->
-
-        <!--//secton.main 완료-->
-        <!--secton.sub_wrap 시작-->
-
 
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
@@ -49,8 +27,8 @@
                     <div class="bar"></div>
                     
                     <div class="login_box">
-                        <h2>회원 로그인</h2>
-                        <p>장차예매 페이지는 로그인 후 이용가능합니다.</p>
+                        <!-- <h2>회원 로그인</h2> -->
+                        <p>장차예매 페이지는 <Span>로그인</Span> 후 이용가능합니다.</p>
                     
                         <form action="/login" method="POST">
                             <ul>
@@ -64,24 +42,16 @@
                                 <div class="checks etrans">
                                     <input type="checkbox" id="ex_chk3">
                                     <label for="ex_chk3">아이디 저장</label>
+                                    <div class="find_btn"><a href="findId">아이디 / 비밀번호 찾기</a></div>
                                 </div>
                     
                                 <input type="submit" value="로그인" id="loginBtn">
                             </ul>
                         </form>
                     
-                        <div class="form_bottom">
-                            <ul>
-                                <li>
-                                    <div class="find_btn"><a href="findId">아이디/비밀번호 찾기 ></a></div>
-                                </li>
-                                <li>
-                                    <a href="join">
-                                        <div class="join_btn">회원가입</div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                                   
+                                        <div class="join_btn"> <a href="join">회원가입</a></div>
+    
                     
                     </div>
                 </div>

@@ -19,7 +19,6 @@ p {text-align: justify; font-size: 16px;}
         width: 100%;
         margin: 0 auto;
         height: auto;
-        color: #222;
         padding-bottom: 4%;
         background: #f9f9f9;
 }
@@ -133,13 +132,14 @@ p {text-align: justify; font-size: 16px;}
 .modal_header {width: 100%; position: relative; height: 50px;}
 
 /*하단 버튼*/
-.survey_select_btn {width:50%; margin: 0 auto; padding-bottom: 10px; overflow: hidden;}
-.survey_select_btn ul li {float: left; width: 49.5%; height: 50px; line-height: 50px; margin-right: 1%;}
+.survey_select_btn {width:30%; margin: 0 auto; padding-bottom: 10px; overflow: hidden;}
+.survey_select_btn ul li {float: left; width: 47.5%; height: 56px; line-height: 56px; margin-right: 5%;}
 .survey_select_btn ul li:nth-child(2) {margin-right: 0;}
 
-.survey_select_btn ul li button {width: 100%; height: 100%;  border: none; font-size: 16px; background: none; border: none; background: #fff; border: 1px solid #ddd; color: #444;  font-weight: 400; cursor: pointer; border-radius: 5px;}
-/* .survey_select_btn ul li .all_pick {border-right: none; border-top-left-radius: 20px; border-bottom-left-radius: 20px;}
-.survey_select_btn ul li .no_pick {border-top-right-radius: 20px; border-bottom-right-radius: 20px;} */
+.survey_select_btn ul li button {width: 100%; height: 100%;  border: none; font-size: 16px; background: none; border: none; background: #fff; border: 2px solid #ccc;  font-weight: 400; cursor: pointer; border-radius: 5px;}
+.survey_select_btn ul li button:focus {border: 2px solid #c3a164;}
+
+/* .survey_select_btn ul li .no_pick {border: 2px solid #ddd;} */
 
 /*조회하기 버튼*/
 #lookUp {width: 100%; overflow: hidden; text-align: center; height: 56px; line-height: 56px; background: #c3a164; font-size: 18px; color: #fff; font-weight: 400; margin-top: 50px; border-radius: 5px; cursor: pointer;}
@@ -165,9 +165,8 @@ p {text-align: justify; font-size: 16px;}
   left: 0;
   top: 0;
   width: 100%; 
-  height: 100%; 
+  height:100%; 
   overflow: auto;
-	background: #f9f9f9;
 }
 
 /*팝업 내부*/
@@ -177,7 +176,8 @@ p {text-align: justify; font-size: 16px;}
   border: 1px solid #888;
   width: 100%;
   height: 100%;
-  overflow: scroll;                       
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 /*내부 상단 닫기버튼*/
@@ -203,24 +203,79 @@ p {text-align: justify; font-size: 16px;}
 .modal-content h4 span {font-weight: 500;}
 
 
-/* 차트영역 */
+.period {width: 100%; height: 50px;}
+.period ul li {float: left;}
+.period ul li:nth-child(1) {width: 50%;}
+.period ul li:nth-child(2) {width: 45%; float: right;}
 
-.modal-content canvas {background: #fff; padding: 10px 20px 20px; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
+/*팝업 내부 버튼*/
+/* 상반기, 하반기 */
+.period_btn {width: 100%; overflow: hidden; margin-bottom: 30px; position: relative;}
+.period_btn ul > li {float: left; position: relative; width: 50% !important; height: 50px;}
+.period_btn button {width: 100%; height: 100%; background: #eee; color: #767676; border: none; font-size: 16px; cursor: pointer; font-weight: 400;} 
+button.selected {background-color: #c3a164;
+	font-weight: 400; color: #fff;}
+
+/* 연도 선택 */
+  .custom-select {position: relative; width: 100%; border: 2p x solid #767676; height: 50px; box-shadow: 0 0 15px rgba(0,0,0,0.1); z-index: 100;} 
+  .custom-select select {display: none;}
+  .select-selected {background-color:#fff; height: 100%; border: none;}
+  .select-selected:after {
+    position: absolute;
+    content: "";
+    right: 20px;
+    top: 20px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #c3a164 transparent transparent transparent;
+  }
+  
+  .select-selected.select-arrow-active:after {
+    border-color: transparent transparent #c3a164 transparent;
+    top: 15px;
+  }
+  
+  .select-items div,.select-selected {
+    color: #222;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .select-items {
+    position: absolute;
+    background-color:#eee;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+  }
+  
+  .select-hide {
+    display: none;
+  }
+  
+  .select-items div:hover{
+    background-color: #eee;
+  }
+
+
+/* 차트영역 */
+.modal-content canvas {background: #fff; padding: 10px 20px 20px; box-shadow: 0 0 15px rgba(0,0,0,0.1); margin: 0;}
+
+.chart_list {width: 100%; overflow: hidden; height: 100%; margin-bottom: 40px;}
 
 .chart {
   width: 100%;
   height: 600px;
   position: relative;
-  margin-bottom: 40px;
 }
 
-.chart canvas {overflow: hidden;}
+.chart h4 {width: 100%; overflow: hidden;}
 
-.chart02 h4 {margin-top:80px;}
-
-#legend {
-  float: right;
-}
+#legend {float: right;}
 
 [class$="-legend"] {
   list-style: none;
@@ -273,6 +328,7 @@ p {text-align: justify; font-size: 16px;}
   .tabcontent svg {margin-bottom: 20px;}
   .chart {height: 500px;}
   .survey_select_btn {width:60%;}
+
 }
 
 
@@ -286,18 +342,28 @@ p {text-align: justify; font-size: 16px;}
 	
 	.survey_select {margin-top: 40px;}
   .survey_select h3 {font-size: 26px;}
+  .modal-content h4 {font-size: 20px;}
 	
 	.tabcontent svg {margin-bottom: 13px;}
-
   .tabcontent {padding: 10px;}
 	
-	.survey_select_btn {width: 100%; margin-top: 20px;}
-  .survey_select_btn ul li button {font-size: 16px;}
-	
-  #lookUp {height: 50px; line-height: 50px; margin-top: 10px;}
+  .survey_select_btn {width: 100%; margin-top: 20px;}
+  .survey_select_btn ul li {width: 49.5%; margin-right: 1%; height: 45px; line-height: 45px; font-size: 15px; margin-bottom: 20px;}
+  .survey_select_btn ul li button {border-width: 1px;}
+  #lookUp {height: 50px; line-height: 50px; margin-top: 0px;}
   
   .close {font-size: 35px;}
   .chart {height: 350px;}
+
+
+  .modal_inner {width: 95%;}
+  .period {width: 100%;}
+  .period ul li:nth-child(1) {width: 100%; margin-bottom: 10px;}
+  .period ul li:nth-child(2) {width: 100%;}
+  .period_btn ul {width: 100%;}
+
+  
+  
 }
 
 

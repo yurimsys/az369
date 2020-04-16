@@ -1,8 +1,10 @@
 @charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -17,85 +19,58 @@ p {text-align: justify; font-family: inherit; font-size: 16px;}
     height: auto;
 }
 
-/*section.main*/
-section.main {
-    position: relative;
-    width: 100%;
-    height: 240px;
-    overflow: hidden;
-}
-
-.main_bg {background: url(../img/login/login_main_bg.jpg);
-background-position: center;
-background-size: cover; width: 100%; height: 300px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
-
-@keyframes bg {
-    0% {transform: scale(1.05);
-    100% {transform: scale(1);}
-    }
-}
-
-/*section.main 완료*/
 /*section.sub_wrap 시작*/
-
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 6.5%;
-    color: #333;
-    overflow: hidden;
+    margin-bottom: 50px;
+	overflow: hidden;
 }
-
-.box {position: relative; padding-top: 5%; overflow: hidden;}
 
 section.sub_wrap .bar {
-    border-bottom: 2px solid #ad863c; 
-    width: 35px; 
+    border-bottom: 2px solid #c3a164; 
+    width: 30px; 
     margin: 0 auto;
-    margin-top: 2%;
-    margin-bottom: 4%;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
-section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 5%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+.box {position: relative; padding-top: 120px; overflow: hidden;}
+
+section.sub_wrap h6 {text-align: center; color: #C3A164;font-weight: 500;  font-size: 16px;}
 
 section.sub_wrap h1 {
     text-align: center; 
-    font-size: 2.8rem;
+    font-size: 45px;
     margin-top: -1%;
     font-weight: normal;
 }
 
-.join_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; padding: 5%;}
+/*회원가입과정*/
+.join_box .join_process {text-align: center; color: #666; font-weight: 300; font-size: 16px; margin-bottom: 5px;}
+.join_box .join_process span {color: #c3a164; font-weight: 500;}
 
-.join_box form {padding-top: 4%; width: 60%; margin: 0 auto;}
-.join_box input {width: 100%; height: 50px; padding: 2%; margin: 0.5%; border: 1px solid #eee;}
+/*박스 내부*/
+.join_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; padding: 4% 5%;}
 
-.join_box form ul li:nth-child(1) {width: 70%; margin-right: 2.5%; float: left;}
-.join_box form ul li button {height: 50px; width: 27.5%; border: 1px solid #888; background: none; cursor: pointer; transition: all 0.3s;}
-.join_box form ul li button:hover {background: #eee; /*border: 1px solid #eee;*/}
-.join_box form ul li:nth-child(7) {width: 70%; margin-right: 2.5%; float: left;}
+.check_img { margin-left: 50%; transform: translateX(-50%); text-align: center; padding: 10px 0 20px;}
+.check_img img {width: 30%;}
 
-.join_box .join_process {text-align: center; color: #888;}
-.join_box .join_process span {color: #ad863c; font-weight: bold;}
-.join_box h2 {text-align: center; font-size: 26px;}
+.join_box h2 {text-align: center; font-size: 24px; margin-bottom: 3%; font-weight: 500;}
 
 .join_txt {text-align: center;}
 .join_txt span {color: #ad863c; font-weight: bold;}
-.join_box h3 {font-size: 26px; font-weight: bold; margin: 0;}
-.join_box h4 {font-size: 20px; margin-bottom: 1.5%; font-weight: normal; color: #444;}
-.join_box p {color: #777; text-align: center; }
+.join_box h3 {font-size: 30px; font-weight: 500;}
+.join_box h3 span {color: #ad863c;}
+.join_box h4 {font-size: 24px; margin-bottom: 30px; font-weight: 400; }
+.join_box p {color: #767676; text-align: center; font-weight: 300;}
 
 .join_txt h3 br,
 .join_txt h4 br {display: none;}
 
-
-.check_img { margin-left: 50%; transform: translateX(-50%); text-align: center; padding: 2% 0 4%;}
-.check_img img {width: 30%;}
-
- 
-.login_btn {width: 230px; margin: 0 auto; text-align: center; height: 50px; line-height: 50px; color: #fff; background: #ad863c; border: 1px solid #aaa; margin-top: 4%;}
-
+.login_btn {width: 40%; margin: 0 auto; text-align: center; height: 50px; line-height: 50px; color: #fff; background: #C3A164; border: 1px solid #aaa; margin-top: 20px; font-size: 18px;}
 /*section.sub_wrap 완료*/
+
 
 
 /*모바일 메뉴*/
@@ -122,15 +97,10 @@ header .open {
 
 /*1200px*/
 @media screen and (max-width: 1200px) {
-    
-    /*main*/
-    section.main {width: 100%;}
-    section.main .inner_main {width: 1200px;}
 
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     .inner_sub_wrap {width: 95%; margin: 0 auto;}
-    .tnb {width: 1200px;}
     
 }
 
@@ -140,9 +110,9 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    .box {padding-top: 7%;}
     
-    .login_btn {margin-top: 6%;}
+    .box {padding-top: 100px;}
+    .login_btn {margin-top: 40px;}
     section.sub_wrap h4 {margin-bottom: 2%;}
 }
 
@@ -150,35 +120,28 @@ header .open {
 /*768px*/
 @media screen and (max-width: 768px) {
     
-    .box {padding-top: 9.5%;}
-    
-    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     section.sub_wrap .inner_sub_wrap {width: 95%;}
-    section.sub_wrap h1 {font-size: 2.2rem;}
+    section.sub_wrap h1 {font-size: 35px;}
+    .login_btn {width: 100%;}
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
-    
-    .box {padding-top: 20%;}
-    
+
+    .box {padding-top: 80px;}
+
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h6 {padding-top: 6%;}
-    section.sub_wrap h1 {font-size: 28px; margin-bottom: 2%;}
+    section.sub_wrap h6 {margin-bottom: -5px;}
+    section.sub_wrap h1 {font-size: 30px; margin-bottom: 3%;}
     section.sub_wrap .bar {display: none;}
-     section.sub_wrap h2 {font-size: 21px;  line-height: 1.5; text-align: center; color: #555; margin-bottom: 10%; font-weight: normal;}
-    section.sub_wrap p {font-size: 14px; text-align: center; margin-bottom: 3%;}
+    section.sub_wrap h2 {font-size: 20px;  line-height: 1.5; text-align: center;}
+    section.sub_wrap p {font-size: 15px; text-align: center; margin-bottom: 3%;}
     
     .join_box .join_process {font-size: 14px;}
     
-    .join_box p {font-size: 13px; color: #666; margin-bottom: 4%;}
-    .join_box form ul li button, 
-    .btn-primary {font-size: 14px; color: #555;}
-    
-   /* .join_txt {width: 85%; margin: 0 auto;}*/
     .join_txt h3 {font-size: 24px; width: 85%; margin: 0 auto; line-height: 1.5;}
     .join_txt h3 br {display: block;}
     .join_txt h4 br {display: block;}
@@ -186,19 +149,12 @@ header .open {
     .join_txt p {display: none;}
     .login_btn {width: 100%; margin-top: 8%; height: 40px; line-height: 40px;}
     .check_img img {width: 70%; margin: 2% 0 4%;}
-
+    
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
     
     /*section.sub_wrap*/
-    section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
-    section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
-    section.sub_wrap p {margin-bottom: 5%;}
-    .survey_box h3 {font-size: 15px;}
-    .join_agreement strong {font-size: 14px;}
-    .check_all_btn {padding: 4% 8;}
-
-    .join_box {padding-bottom: 10%;}
+    section.sub_wrap h1 {font-size: 24px;}
 }

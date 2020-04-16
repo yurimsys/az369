@@ -1,8 +1,11 @@
 @charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
+
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -17,78 +20,57 @@ p {text-align: justify; font-family: inherit; font-size: 16px;}
     height: auto;
 }
 
-
-/*section.main*/
-section.main {
-    position: relative;
-    width: 100%;
-    height: 240px;
-    overflow: hidden;
-}
-
-.main_bg {background: url(../img/login/find_main_bg02.jpg);
-background-position: center;
-background-size: cover; width: 100%; height: 300px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
-
-@keyframes bg {
-    0% {transform: scale(1.05);
-    100% {transform: scale(1);}
-    }
-}
-
-.tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); }
-.tnb ul li {float: left; width: 50%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; color: #444; transition: all 0.2s;}
-
-
 /*section.sub_wrap 시작*/
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 6.5%;
-    color: #333;
-    overflow: hidden;
+    margin-bottom: 90px;
+	overflow: hidden;
+}
+
+section.sub_wrap .bar {
+    border-bottom: 2px solid #c3a164; 
+    width: 30px; 
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .box {position: relative; padding-top: 5%; overflow: hidden;}
 
-section.sub_wrap .bar {
-    border-bottom: 2px solid #ad863c; 
-    width: 35px; 
-    margin: 0 auto;
-    margin-top: 2%;
-    margin-bottom: 4%;
-}
-
-section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 5%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #C3A164;  padding-top: 5%; font-weight: 500; font-size: 16px;}
 
 section.sub_wrap h1 {
-    text-align: center; 
-    font-size: 2.8rem;
+    text-align: center;
+    font-size: 45px;
     margin-top: -1%;
-    font-weight: normal;
+	font-family: 'PT Serif', serif;
+	font-weight: normal;
 }
 
-
 .find_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee;}
-.find_box_inner p {text-align: center; color: #777;margin-bottom: 5%;}
-.find_box_inner h2 {font-size: 24px;}
-.find_box_inner strong {color: #555;}
+
+
+.find_box_inner p span {font-weight: 500;}
+
 
 .find_box .tab {width: 100%;}
 .find_box .tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: bold;}
 
-.find_box_inner {width: 100%; padding: 8% 20%; margin: 0 auto; text-align: center; overflow: hidden; }
-.find_box_inner h3 {font-size: 24px; margin-top: 3%;}
-.find_box_inner h3 span {color:#ad863c;}
+.find_box_inner {width: 100%; padding: 6% 20%; margin: 0 auto; text-align: center; overflow: hidden; }
+.find_box_inner h3 {font-size: 26px; margin-top: 3%; font-weight: 600;}
+.find_box_inner h3 span {color:#C3A164;}
 .find_box_inner h3 br {display: none;}
+.find_box_inner p {text-align: center; font-weight: 300; font-size: 18px;}
 
-.find_pw_btn {width: 65%; margin: 0 auto; margin-top: 5.5%;}
-.find_pw_btn ul li a {float:left; width: 49%; margin-right: 1%; height: 50px; line-height: 50px; text-align: center; }
-.login_btn {width: 32.5%; margin: 0 auto; margin-top: 5.5%; border: 1px solid #aaa; height: 50px; color: #fff; line-height: 50px; background: #ad863c;}
+.login_btn {width: 100%; margin: 0 auto; margin-top: 40px; border: 1px solid #aaa; height: 50px; color: #fff; line-height: 50px; background: #C3A164;}
 
 .find_img img {width: 12%; margin: 3% 0 2%;}
 
+
+
 /*section.sub_wrap 완료*/
+
 
 
 /*모바일 메뉴*/
@@ -119,7 +101,7 @@ header .open {
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     .inner_sub_wrap {width: 95%; margin: 0 auto;}
-    .tnb {width: 1200px;}
+    .tnb {width: 100%;}
 }
 
 
@@ -129,14 +111,6 @@ header .open {
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     .box {padding-top: 7%;}
-    
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 
@@ -147,25 +121,15 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    .tnb {width: 768px;}
-    section.sub_wrap h1 {font-size: 2.2rem;}
+    section.sub_wrap h1 {font-size: 35px;}
     section.sub_warp .bar {display: none;}
     
     .find_box_inner {margin: 0 auto; padding: 5% 12%;}
     .find_pw_btn {width: 100%;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
-
 
 /*414px*/
 @media screen and (max-width: 414px) {
-    
     
     .box {padding-top: 20%;}
     
@@ -173,8 +137,8 @@ header .open {
 
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h6 {padding-top: 6%;}
-    section.sub_wrap h1 {font-size: 28px; margin-bottom: 2%;}
+    section.sub_wrap h6 {padding-top: 35px; margin-bottom: -2.5%;}
+    section.sub_wrap h1 {font-size: 30px; margin-bottom: 2%;}
     section.sub_wrap .bar {display: none;}
     .find_pw_btn {width: 100%; margin-top: 10%; font-size: 16px;}
     .find_box_inner {margin: 0 auto; padding: 10% 5%;}
@@ -183,18 +147,10 @@ header .open {
 	.find_box_inner h3 br {display: block;}
     .find_box p {font-size: 15px; margin-top: 4px;}
     .find_box .tnb ul li {font-size: 16px; color: #555;}
+	
+	.find_img img {width: 14%;}
     
-    .find_img img {width: 14%;}
-
     .login_btn {width: 100%; height: 40px; line-height: 40px; margin-top: 8%;}
-    
-
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*320px*/
@@ -203,11 +159,12 @@ header .open {
     .find_box .tab ul li {height: 40px; font-size: 15px; line-height: 40px;}
     
     /*section.sub_wrap*/
-    section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
-    section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
-
+    
+    section.sub_wrap h1 {font-size: 24px; margin-bottom: 5%;}
+	
     .find_box .tnb ul li {font-size: 15px;}
 	.find_box_inner h3 {font-size: 18px;}
+	.find_box_inner p {font-size: 15px; line-height: 1.6; margin-top: 10px;}
     
     .login_btn { font-size: 15px; margin-top: 10%;}
 

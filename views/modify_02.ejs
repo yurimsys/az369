@@ -35,13 +35,11 @@
                     <div class="modify_box">
 
                         <form>
-                            <div class="modify_process">본인인증 > <span>내정보 수정</span></div>
+                            <div class="modify_process">본인인증 ·  <span>내정보수정</span></div>
 
-                            <h2><%=sessionUser.U_Name%>님 (<%=sessionUser.U_uId%>)</h2>
+                            <h2><%=sessionUser.U_Name%>님 <span>(<%=sessionUser.U_uId%>)</span></h2>
                             <!--<div class="bar"></div>-->
                             <ul>
-                                <!--<h3>수정할 정보를 입력해주세요.</h3>-->
-
                                 <!--새 비밀번호-->
                                 <li>
                                     <label for="password2"></label>
@@ -68,7 +66,7 @@
                                     <div id="phone_check_box">
                                         <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);" />
                                     </div>
-                                    <div class="text-alert" id="alert_msg" style="font-size: 13px; display: none; color: #AD863C; font-weight: bold;">인증번호의 유효시간은 30분입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+                                    <div class="text-alert" id="alert_msg" style="font-size: 13px; display: none; color: #c3a164; font-weight: 500; margin-bottom: 10px;">인증번호의 유효시간은 30분입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
                                     <div class="text-alert" id="alert_msg_fail" style="font-size: 13px; color: red; display: none;"></div>
                                     <div class="text-alert" id="alert_msg_success" style="font-size: 13px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
                                 </li>
@@ -103,30 +101,27 @@
                                 <div id="withdrawal" class="layer">
                                     <!--popup PC-->
                                     <div class="withdrawal_box">
-
+                                    
                                         <div class="withdrawal_tit">
-                                            회원탈퇴
+                                        회원탈퇴
                                         </div>
+                                        
                                         <div class="withdrawal_box_txt">
-                                            <p>탈퇴 시 모든 데이터가 삭제되며 장차이용이 불가합니다. <br>
+                                            <p>하단의 비밀번호를 입력 후 탈퇴하기 버튼을 클릭하시면 탈퇴가 가능하며, <br>
+                                                탈퇴 시 모든 데이터가 삭제되므로 장차이용이 불가합니다. <br>
                                                 예약중인 장차가 있으실 경우 <strong><u>환불 이후에 탈퇴가 가능</u></strong>합니다. <br>
-                                                하단에 비밀번호를 입력하시면 탈퇴됩니다. <br>
                                                 AZ369를 탈퇴하시겠습니까?</p>
 
-                                            <input type="password" id="password3" name="password3" placeholder="회원가입시 등록된 비밀번호를 입력하세요.">
+                                            <input type="password" id="password3" name="password3" placeholder="가입 시 등록한 비밀번호를 입력하세요.">
 
                                         </div>
 
                                         <ul class="withdrawal_btn">
                                             <li>
-                                                <a href="modify2" class="withdrawal_close1 withdrawal_close">취소</a>
-                                            </li>
+                                                <a href="modify2" class="withdrawal_close">취소</a></li>
 
-                                            <li>
-                                                <a onclick="delUser()" class="withdrawal_close2 withdrawal_close">회원탈퇴</a>
-                                            </li>
+                                           <li><a onclick="delUser()" class="withdrawal_close2">탈퇴하기</a></li>
                                         </ul>
-
                                     </div>
                                 </div>
                     <!-- 예약이 있음!!@@@@@@@@@@@@@@ -->
@@ -135,10 +130,12 @@
                                     <div class="withdrawal_box">
 
                                         <div class="withdrawal_tit">
-                                            회원탈퇴
+                                            <p>회원탈퇴</p>
                                         </div>
+
                                         <div class="withdrawal_box_txt">
-                                            <p>탈퇴 시 모든 데이터가 삭제되며 장차이용이 불가합니다. <br>
+                                            <p>하단의 비밀번호를 입력 후 탈퇴하기 버튼을 클릭하시면 탈퇴가 가능하며, <br>
+                                                탈퇴 시 모든 데이터가 삭제되므로 장차이용이 불가합니다.<br>
                                                 예약중인 장차가 있으실 경우 <strong><u>환불 이후에 탈퇴가 가능</u></strong>합니다. <br>
                                                 헌재 아직 남아있는 장차예매가 있습니다. <br>
                                                 환불이 완료된 후 다시 시도해주세요.</p>
@@ -146,12 +143,9 @@
 
                                         <ul class="withdrawal_btn">
                                             <li>
-                                                <a href="modify2" class="withdrawal_close1 withdrawal_close">취소</a>
-                                            </li>
-
+                                                <a href="modify2" class="withdrawal_close">취소</a></li>
                                             <li>
-                                                <a href="mypage" class="withdrawal_close2 withdrawal_close">예약현황</a>
-                                            </li>
+                                            <a href="mypage" class="withdrawal_close2">예약현황</a></li>
                                         </ul>
 
                                     </div>
