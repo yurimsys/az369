@@ -77,7 +77,7 @@ router.get('/b', function(req, res){
     res.render('az369_survey_01');
 });
 
-router.get('/c1', function(req, res){
+router.get('/c', function(req, res){
     res.render('az369_survey_main_x');
 });
 router.get('/c2', function(req, res){
@@ -120,13 +120,13 @@ router.post('/c2/action', function(req,res,done){
 
 //의향서 c2 비밀번호 찾기 변경
 router.post('/c2/modify', function(req,res,done){
-    let query = 'update tL set L_PW = :hash_pw where L_Phone = :phoneNumber'
+    let query = 'update tL set L_PW = :hash_pw where L_Phone = :storeNumber'
     let password = req.body.password;
-    let phoneNumber = req.body.phoneNumber;
+    let storeNumber = req.body.storeNumber;
     let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString()
     connection.query(query,
         {
-            phoneNumber, hash_pw
+            storeNumber, hash_pw
         },
         function(err, rows) {
             if (err) {return done(err);}

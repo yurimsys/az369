@@ -324,7 +324,7 @@
                                 <ul>
                                     <li>
                                         <div class="custom-select">
-                                            <select id="custom-select" onchange="test()">
+                                            <select id="custom-select">
                                                 <option value="2020" selected>2020</option>
                                                 <option value="2020">2020</option>
                                             </select>
@@ -729,11 +729,11 @@
             }
             var sc;
             $(document).ready(() => {
-                // var mySession = JSON.parse(sessionStorage.getItem("mySession"));
-                // if(mySession == undefined){
-                // 	alert("로그인 후 이용해주세요.")
-                //     location.href="/c1"
-                // }
+                var mySession = JSON.parse(sessionStorage.getItem("mySession"));
+                if(mySession == undefined){
+                	alert("로그인 후 이용해주세요.")
+                    location.href="/c1"
+                }
 
                 init();
                 addListener();

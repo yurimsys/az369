@@ -19,9 +19,7 @@
 <body>
 
 	<div class="wrap">
-
 		<h1>임대보증금 보증보험 대체 의향서</h1>
-
 		<div class="sub_wrap">
 
 			<!--폼 전체-->
@@ -34,8 +32,8 @@
 					<div class="bar"></div>
 
 					<!--로그인 input-->
-					<h4>휴대전화번호 ('-' 생략)</h4>
-					<input type="number" id="myPhone" name="phone">
+					<h4>상가호수</h4>
+					<input type="number" id="storeNumber" name="storeNumber">
 
 					<h4>비밀번호</h4>
 					<input type="password" id="pw" name="pw">
@@ -45,10 +43,6 @@
 					<!--로그인 버튼-->
 					<a onclick="next()" class="login">로그인</a>
 				</div>
-
-
-
-
 
 				<!-- 비밀번호 재설정 팝업 -->
 				<div id="myModal" class="modal" style="display: none;">
@@ -79,8 +73,6 @@
 						<div id='step_01'>
 							<h1>비밀번호 재설정</h1>
 
-
-
 							<div class="modal_inner">
 								<p>비밀번호 재설정을 위해<br> <span>본인인증</span>이 필요합니다.</p>
 								<div class="step_bar"></div>
@@ -97,31 +89,19 @@
 								<div class="text-alert" id="alert_msg_fail"></div>
 								<div class="text-alert" id="alert_msg_success">인증번호가 확인되었습니다.</div>
 
-
-								<<<<<<< HEAD <!--step_01 하단 버튼-->
-									<div class="modal_btn">
-										<ul>
-											<li>
-												<button class="close">닫기</button>
-											</li>
-											<li>
-												<button id='hide'>다음</button>
-											</li>
-										</ul>
-									</div>
+								<!--step_01 하단 버튼-->
+								<div class="modal_btn">
+									<ul>
+										<li>
+											<button class="close">닫기</button>
+										</li>
+										<li>
+											<button id='hide'>다음</button>
+										</li>
+									</ul>
+								</div>
 
 							</div>
-							=======
-							<!--modal_01 하단 버튼-->
-							<ul>
-								<li>
-									<button class="close">닫기</button>
-								</li>
-								<li>
-									<button id='hide'>다음</button>
-								</li>
-							</ul>
-							>>>>>>> origin/test
 						</div>
 
 					</div>
@@ -189,7 +169,7 @@
 						method: 'post',
 						dataType: 'json',
 						data: {
-							'phoneNumber': sessionStorage.getItem('phoneNumber'),
+							'storeNumber': sessionStorage.getItem('storeNumber'),
 							'password': $('#password').val()
 						},
 						success: function (res) {

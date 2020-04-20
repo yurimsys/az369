@@ -206,7 +206,7 @@
                 },
                 success: function (res) {
                     if (res.data == '회원가입') {
-                        var mySession = [{ name: "name", value: $('#name').val() }, { name: "store", value: $('#addr').val() }, { name: 'phone', value: $('#phone').val() }];
+                        var mySession = { name: $('#name').val(), store: $('#addr').val(), phone: $('#phone').val() };
                         sessionStorage.setItem("mySession", JSON.stringify(mySession));
                         //console.log(sessionStorage.getItem('mySession'))
                         location.href = '/c4'
