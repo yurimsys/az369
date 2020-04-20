@@ -56,19 +56,21 @@
 					<!-- 팝업 내부 -->
 					<div class="modal_contents">
 
-					<!--step 02 비밀번호 재설정-->
+						<!--step 02 비밀번호 재설정-->
 						<div id='step_02'>
-								<h1>비밀번호 재설정</h1>
+							<h1>비밀번호 재설정</h1>
 
-								<div class="modal_inner">
+							<div class="modal_inner">
 								<p><span>새 비밀번호</span>를<br> 입력하세요.</p>
 								<div class="step_bar"></div>
 								<h4>새 비밀번호</h4>
 								<input type="password" id="password" placeholder="숫자+영문+특수문자 8자 이상"><br>
 								<h4>새 비밀번호 확인</h4>
 								<input type="password" id="password2" placeholder="비밀번호 재확인">
-								<div id="alert-success" style="font-size: 13px; color: green; display: none;">비밀번호가 일치합니다.</div>
-								<div id="alert-danger" style="font-size: 13px; color: red; display: none;">비밀번호가 일치하지 않습니다.</div>
+								<div id="alert-success" style="font-size: 13px; color: green; display: none;">비밀번호가
+									일치합니다.</div>
+								<div id="alert-danger" style="font-size: 13px; color: red; display: none;">비밀번호가 일치하지
+									않습니다.</div>
 
 								<button class="close step_02_close" onclick="modifyPw()">비밀번호 변경</button>
 							</div>
@@ -76,8 +78,8 @@
 						<!--step 01 본인인증-->
 						<div id='step_01'>
 							<h1>비밀번호 재설정</h1>
-							 
-							
+
+
 
 							<div class="modal_inner">
 								<p>비밀번호 재설정을 위해<br> <span>본인인증</span>이 필요합니다.</p>
@@ -86,70 +88,72 @@
 								<input type="number" id="m_phone" name="m_phone" class="m_input">
 								<button class="check_btn" onclick="myFunction(event)">인증번호 받기</button>
 								<div id="phone_check_box">
-									<input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);" />
+									<input type="text" id="phone_check" name="phone_check"
+										placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4"
+										oninput="numberMaxLength(this);" />
 								</div>
-								<div class="text-alert" id="alert_msg">인증번호의 유효시간은 <span>30분</span>입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+								<div class="text-alert" id="alert_msg">인증번호의 유효시간은 <span>30분</span>입니다. <br> 인증번호가 전송이
+									안된 경우 입력하신 번호를 확인해주세요.</div>
 								<div class="text-alert" id="alert_msg_fail"></div>
 								<div class="text-alert" id="alert_msg_success">인증번호가 확인되었습니다.</div>
 
 
-<<<<<<< HEAD
-								<!--step_01 하단 버튼-->
-								<div class="modal_btn">
-									<ul>
-										<li>
-											<button class="close">닫기</button>
-										</li>
-										<li>
-											<button id='hide'>다음</button>
-										</li>
-									</ul>
-								</div>
+								<<<<<<< HEAD <!--step_01 하단 버튼-->
+									<div class="modal_btn">
+										<ul>
+											<li>
+												<button class="close">닫기</button>
+											</li>
+											<li>
+												<button id='hide'>다음</button>
+											</li>
+										</ul>
+									</div>
 
 							</div>
-=======
-								<!--modal_01 하단 버튼-->
-								<ul>
-									<li>
-										<button class="close">닫기</button>
-									</li>
-									<li>
-										<button id='hide'>다음</button>
-									</li>
-								</ul>
->>>>>>> origin/test
+							=======
+							<!--modal_01 하단 버튼-->
+							<ul>
+								<li>
+									<button class="close">닫기</button>
+								</li>
+								<li>
+									<button id='hide'>다음</button>
+								</li>
+							</ul>
+							>>>>>>> origin/test
 						</div>
 
-						</div>
+					</div>
 
 				</div>
 			</div>
 
 			<script>
 				/*JQ 적용완료*/
-				$('#find_btn').click(function (){
+				$('#find_btn').click(function () {
 					$('#myModal').show();
 					$('.form_inner').hide();
 				});
-				$('.close').click(function() {
+				$('.close').click(function () {
 					$('#myModal').hide();
 					$('.form_inner').show();
 				});
-				$('#step_01 input').focus(function() {
+				$('#step_01 input').focus(function () {
 					$('.form_inner').hide();
 					$('#step_02').hide();
-					$('#step_01').css('height',500);
+					$('#step_01').css('height', 500);
 				});
-				$('#step_02 input').focus(function() {
+				$('#step_02 input').focus(function () {
 					$('.form_inner').hide();
 					$('#step_01').hide();
 					$('#step_02').css('height', 500);
 				});
-				$('#hide').click(function() {
+				$('#hide').click(function () {
 					$('#step_01').hide();
 					$('#step_02').show();
 				});
-				$('.check_btn').click(function() {
+				$('.check_btn').click(function () {
 					$('#step_01 ul').css('margin-top', -10)
 				});
 			</script>
@@ -161,33 +165,35 @@
 				var modal = document.getElementById('myModal');
 				var btn = document.getElementById("find_btn");
 
-				$('#step_01 .close').click(()=>{
+				$('#step_01 .close').click(() => {
 					modal.style.display = "none";
 				});
 
-				btn.onclick = function() {
+				btn.onclick = function () {
 					modal.style.display = "block";
 				}
 
-				$("#hide").click(function() {
+				$("#hide").click(function () {
 					let phone_check = $("#phone_check").data("is_confirm") || false;
-					if(!phone_check) {
+					if (!phone_check) {
 						alert('휴대전화번호 본인인증이 필요합니다.');
 						return false;
-					}else{
+					} else {
 						$("#step_01").hide();
 						//console.log(sessionStorage.getItem('phoneNumber'))
 					}
 				});
-				function modifyPw(){
+				function modifyPw() {
 					$.ajax({
 						url: '/c2/modify',
 						method: 'post',
 						dataType: 'json',
-						data: {'phoneNumber' : sessionStorage.getItem('phoneNumber'),
-							   'password' : $('#password').val()},
-						success: function(res){
-							if(res.data == '변경'){
+						data: {
+							'phoneNumber': sessionStorage.getItem('phoneNumber'),
+							'password': $('#password').val()
+						},
+						success: function (res) {
+							if (res.data == '변경') {
 								location.href = '/c2'
 							}
 						}
@@ -199,18 +205,18 @@
 			<script>
 
 				//비밀번호 정규식
-				$("#password").change(function(){
+				$("#password").change(function () {
 					checkPassword($('#password').val());
 				});
-				function checkPassword(password){
-					if( !(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)) ){
+				function checkPassword(password) {
+					if (!(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password))) {
 						alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
 						$('#password').val('').focus();
 						return false;
 					}
 					var checkNumber = password.search(/[0-9]/g);
 					var checkEnglish = password.search(/[a-z]/ig);
-					if(checkNumber <0 || checkEnglish <0){
+					if (checkNumber < 0 || checkEnglish < 0) {
 						alert("숫자와 영문자를 혼용하여야 합니다.");
 						$('#password').val('').focus();
 						return false;
@@ -218,16 +224,16 @@
 				}
 
 				//비밀번호 확인
-				$(function(){
-					$("input").keyup(function(){
-						var pwd1=$("#password").val();
-						var pwd2=$("#password2").val();
-						if(pwd1 != "" || pwd2 != ""){
-							if(pwd1 == pwd2){
+				$(function () {
+					$("input").keyup(function () {
+						var pwd1 = $("#password").val();
+						var pwd2 = $("#password2").val();
+						if (pwd1 != "" || pwd2 != "") {
+							if (pwd1 == pwd2) {
 								$("#alert-success").css('display', 'block')
 								$("#alert-danger").css('display', 'none')
 								$("#submit").removeAttr("disabled");
-							}else{
+							} else {
 								$("#alert-success").css('display', 'none')
 								$("#alert-danger").css('display', 'block')
 								$("#submit").attr("disabled", "disabled");
@@ -242,7 +248,7 @@
 					location.href = "/c4"
 				}
 
-				$(document).ready(()=>{
+				$(document).ready(() => {
 					//본인인증
 					$("button.check_btn").click((e) => {
 						e.preventDefault();
@@ -250,7 +256,7 @@
 						return false;
 					});
 
-					$("#phone_check").keyup( checkPhoneNumber );
+					$("#phone_check").keyup(checkPhoneNumber);
 
 				});
 
@@ -260,16 +266,16 @@
 					}
 				}
 
-				function sendSmsButton(){
+				function sendSmsButton() {
 					let phone_number = $("#m_phone").val();
 					phone_number = phone_number.replace(/-/g, "");
 
 					$.ajax({
 						dataType: "json",
-						url : "/api/auth/phone",
-						method : "post",
-						data : {
-							phone_number : phone_number
+						url: "/api/auth/phone",
+						method: "post",
+						data: {
+							phone_number: phone_number
 						}
 					}).done((res) => {
 						$("#alert_msg_success").removeClass('active');
@@ -277,7 +283,7 @@
 					})
 				}
 
-				function checkPhoneNumber(e){
+				function checkPhoneNumber(e) {
 					let ele_phone_check = $("#phone_check");
 					// let auth_number = ele_phone_check.val();
 					let auth_number = e.target.value;
@@ -285,27 +291,27 @@
 					let phone_number = $("#m_phone").val();
 					phone_number.replace(/-/g, "");
 
-					if( auth_number.length >= 4){
+					if (auth_number.length >= 4) {
 
 						$.ajax({
 							dataType: "json",
-							url : "/api/auth/phone",
-							method : "get",
-							data : {
-								phone_number : phone_number,
-								auth_number : auth_number
+							url: "/api/auth/phone",
+							method: "get",
+							data: {
+								phone_number: phone_number,
+								auth_number: auth_number
 							}
 						}).done((res) => {
 							//console.log("checkPhoneNumber !! ");
 							//console.log(res);
-							if( res.status_code == 200 ){
+							if (res.status_code == 200) {
 								ele_phone_check.data("is_confirm", true);
 
 								$("#alert_msg").removeClass('active');
 								$("#alert_msg_fail").removeClass('active');
 								$("#alert_msg_success").addClass('active');
 								sessionStorage.setItem('phoneNumber', $('#m_phone').val())
-							} else if ( res.status_code == 400 ){
+							} else if (res.status_code == 400) {
 								ele_phone_check.data("is_confirm", false);
 								$("#alert_msg").removeClass('active');
 								$("#alert_msg_success").removeClass('active');
@@ -327,7 +333,7 @@
 							'phone': $('#myPhone').val(),
 							'password': $('#pw').val()
 						},
-						success: function(res) {
+						success: function (res) {
 							//console.log(res.data)
 							//console.log(res.data[0].Name)
 							var mySession = [{
@@ -348,13 +354,13 @@
 				}
 
 
-		</script>
-		<script>
-			function myFunction(e) {
-				e.preventDefault();
-				document.getElementById("phone_check_box").style.display = "block";
-			}
-		</script>
+			</script>
+			<script>
+				function myFunction(e) {
+					e.preventDefault();
+					document.getElementById("phone_check_box").style.display = "block";
+				}
+			</script>
 </body>
 
 </html>

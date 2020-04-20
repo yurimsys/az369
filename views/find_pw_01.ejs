@@ -11,7 +11,8 @@
     <meta name="title" content="AZ369 - 비밀번호 찾기">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
 
 </head>
 
@@ -53,41 +54,54 @@
                     <div class="tab">
                         <ul>
                             <a href="findId">
-                                <li style="border-bottom: 1px solid #ad863c; background: #f8f8f8; color: #767676; font-weight: 400;">아이디 찾기</li></a>
-                            
-                           
-                                <a href="findPw"> <li style="border: 1px solid #C3A164; border-bottom: none; background: #fff; color: #222; font-weight: 500;"> 비밀번호 찾기</li></a>
-                            
+                                <li
+                                    style="border-bottom: 1px solid #ad863c; background: #f8f8f8; color: #767676; font-weight: 400;">
+                                    아이디 찾기</li>
+                            </a>
+
+
+                            <a href="findPw">
+                                <li
+                                    style="border: 1px solid #C3A164; border-bottom: none; background: #fff; color: #222; font-weight: 500;">
+                                    비밀번호 찾기</li>
+                            </a>
+
                         </ul>
                     </div>
 
                     <div class="find_box_inner">
-                            <p>가입 시 등록한 <span>아이디</span>와 <span>전화번호</span>를 입력해주세요.</p>
-                            <form>
+                        <p>가입 시 등록한 <span>아이디</span>와 <span>전화번호</span>를 입력해주세요.</p>
+                        <form>
 
-                                <div class="find_form">
-                                    <label for="id"></label>
-                                    <input type="text" id="id" name="id" placeholder="아이디">
+                            <div class="find_form">
+                                <label for="id"></label>
+                                <input type="text" id="id" name="id" placeholder="아이디">
 
-                                    <ul>
-                                        <li>
-                                            <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
-                                        </li>
-                                        
-                                        <li>
-                                            <div class="check_btn" onclick="myFunction()">인증번호 받기</div>
-                                        </li>
-                                    
-                                        <li>
-                                            <div id="phone_check_box">
-                                                <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);" />
-                                            </div>
-                                            <div class="text-alert" id="alert_msg" style="font-size: 13px; display: none; color: #AD863C; font-weight: bold;">인증번호의 유효시간은 30분입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
-                                            <div class="text-alert" id="alert_msg_fail" style="font-size: 13px; color: red; display: none;"></div>
-                                            <div class="text-alert" id="alert_msg_success" style="font-size: 13px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <ul>
+                                    <li>
+                                        <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
+                                    </li>
+
+                                    <li>
+                                        <div class="check_btn" onclick="myFunction()">인증번호 받기</div>
+                                    </li>
+
+                                    <li>
+                                        <div id="phone_check_box">
+                                            <input type="text" id="phone_check" name="phone_check"
+                                                placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4"
+                                                oninput="numberMaxLength(this);" />
+                                        </div>
+                                        <div class="text-alert" id="alert_msg"
+                                            style="font-size: 13px; display: none; color: #AD863C; font-weight: bold;">
+                                            인증번호의 유효시간은 30분입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+                                        <div class="text-alert" id="alert_msg_fail"
+                                            style="font-size: 13px; color: red; display: none;"></div>
+                                        <div class="text-alert" id="alert_msg_success"
+                                            style="font-size: 13px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
+                                    </li>
+                                </ul>
+                            </div>
 
                             <div class="find_pw_btn">
                                 <ul>
@@ -121,135 +135,137 @@
 
     <script>
 
-$(document).ready(()=>{
-        //본인인증
-        $("div.check_btn").click((e) => {
-            if($('#phone').val() == ""){
-                alert("휴대전화 번호를 입력해 주세요.");
-                return;
-            }
-            e.preventDefault();
-            sendSmsButton();
-            return false;
+        $(document).ready(() => {
+            //본인인증
+            $("div.check_btn").click((e) => {
+                if ($('#phone').val() == "") {
+                    alert("휴대전화 번호를 입력해 주세요.");
+                    return;
+                }
+                e.preventDefault();
+                sendSmsButton();
+                return false;
+            });
+
+            $("#phone_check").keyup(checkPhoneNumber);
+
         });
- 
-        $("#phone_check").keyup( checkPhoneNumber );
 
-    });
+        function sendSmsButton() {
+            let phone_number = $("#phone").val();
+            phone_number = phone_number.replace(/-/g, "");
 
-    function sendSmsButton(){
-        let phone_number = $("#phone").val();
-        phone_number = phone_number.replace(/-/g, "");
-
-        $.ajax({
-            dataType: "json",
-            url : "/api/auth/phone",
-            method : "post",
-            data : {
-                phone_number : phone_number
-            }
-        }).done((res) => {
-            $("#alert_msg").css('display','block');
-            $("#alert_msg_success").css('display','none');
-        })
-    }
-    chkCnt = 0;
-    function checkPhoneNumber(e){
-        let ele_phone_check = $("#phone_check");
-        // let auth_number = ele_phone_check.val();
-        let auth_number = e.target.value;
-
-        let phone_number = $("#phone").val();
-        phone_number.replace(/-/g, "");
-
-        if(window.timer !== undefined) clearTimeout(window.timer);
-        
-        window.timer = setTimeout( () => {
             $.ajax({
                 dataType: "json",
-                url : "/api/auth/phone",
-                method : "get",
-                data : {
-                    phone_number : phone_number,
-                    auth_number : auth_number
+                url: "/api/auth/phone",
+                method: "post",
+                data: {
+                    phone_number: phone_number
                 }
             }).done((res) => {
-                //console.log("checkPhoneNumber !! ");
-                //console.log(res);
-                if( res.status_code == 200 ){
-                    ele_phone_check.data("is_confirm", true);
-                    chkCnt = 1;
-                    $("#alert_msg").css('display','none');
-                    $("#alert_msg_success").css('display','block');
-                    $("#alert_msg_fail").css('display','none');
-                } else if ( res.status_code == 400 ){
-                    ele_phone_check.data("is_confirm", false);
-                    $("#alert_msg").css('display','block');
-                    $("#alert_msg_success").css('display','none');
-                    
-                    let ele_alert_fail = $("#alert_msg_fail");
-                    ele_alert_fail.text(res.msg);
-                    ele_alert_fail.css('display','block');
-                }
+                $("#alert_msg").css('display', 'block');
+                $("#alert_msg_success").css('display', 'none');
             })
-        }, 1000 );
-        
-    }
+        }
+        chkCnt = 0;
+        function checkPhoneNumber(e) {
+            let ele_phone_check = $("#phone_check");
+            // let auth_number = ele_phone_check.val();
+            let auth_number = e.target.value;
+
+            let phone_number = $("#phone").val();
+            phone_number.replace(/-/g, "");
+
+            if (window.timer !== undefined) clearTimeout(window.timer);
+
+            window.timer = setTimeout(() => {
+                $.ajax({
+                    dataType: "json",
+                    url: "/api/auth/phone",
+                    method: "get",
+                    data: {
+                        phone_number: phone_number,
+                        auth_number: auth_number
+                    }
+                }).done((res) => {
+                    //console.log("checkPhoneNumber !! ");
+                    //console.log(res);
+                    if (res.status_code == 200) {
+                        ele_phone_check.data("is_confirm", true);
+                        chkCnt = 1;
+                        $("#alert_msg").css('display', 'none');
+                        $("#alert_msg_success").css('display', 'block');
+                        $("#alert_msg_fail").css('display', 'none');
+                    } else if (res.status_code == 400) {
+                        ele_phone_check.data("is_confirm", false);
+                        $("#alert_msg").css('display', 'block');
+                        $("#alert_msg_success").css('display', 'none');
+
+                        let ele_alert_fail = $("#alert_msg_fail");
+                        ele_alert_fail.text(res.msg);
+                        ele_alert_fail.css('display', 'block');
+                    }
+                })
+            }, 1000);
+
+        }
 
 
 
-        function findPw(){
-            if($("#id").val() == "" || $("#phone").val() == ""){
+        function findPw() {
+            if ($("#id").val() == "" || $("#phone").val() == "") {
                 alert("아이디 혹은 전화번호를 입력해주세요.");
                 return;
             }
-            if(chkCnt == 0){
+            if (chkCnt == 0) {
                 alert("본인인증을 해주세요");
                 return;
             }
-            if($("#id").val == "" || $("#name").val() == ""){
+            if ($("#id").val == "" || $("#name").val() == "") {
                 alert("빈칸을 입력해주세요.");
             }
             $.ajax({
-               url : "api/user/findPw",
-               method : "post",
-               dataType : "json",
-               data : {id : $("#id").val(), phone : $("#phone").val()},
-               success : function(res){
+                url: "api/user/findPw",
+                method: "post",
+                dataType: "json",
+                data: { id: $("#id").val(), phone: $("#phone").val() },
+                success: function (res) {
                     //console.log(res);
 
-                    if(res.data === undefined){
+                    if (res.data === undefined) {
                         alert("등록된 회원이 아닙니다.");
                         location.reload();
-                    } else if(res.data.U_uId != ""){
+                    } else if (res.data.U_uId != "") {
                         //console.log("로그2 :", res.data.U_Name)
-                        var orderDetail = [ {name:"findId", value:res.id}, {name:"name", value:res.data.U_Name}];
-                        sessionStorage.setItem("orderDetail",JSON.stringify(orderDetail));
+                        var orderDetail = [{ name: "findId", value: res.id }, { name: "name", value: res.data.U_Name }];
+                        sessionStorage.setItem("orderDetail", JSON.stringify(orderDetail));
                         location.href = "findPw2";
-                        
+
                     }
-               }
+                }
             });
         }
     </script>
 
     <!--input maxlength-->
     <script>
-    function numberMaxLength(e){
-        if(e.value.length > e.maxLength){
-            e.value = e.value.slice(0, e.maxLength);
+        function numberMaxLength(e) {
+            if (e.value.length > e.maxLength) {
+                e.value = e.value.slice(0, e.maxLength);
+            }
         }
-    }
     </script>
 
     <!--인증번호받기 js-->
     <script>
         function myFunction() {
-            if($('#phone').val() == ""){
+            if ($('#phone').val() == "") {
                 return;
             }
             document.getElementById("phone_check_box").style.display = "block";
         }
     </script>
 
-</body></html>
+</body>
+
+</html>

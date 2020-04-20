@@ -11,7 +11,8 @@
     <meta name="title" content="AZ369 - 내정보수정">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
 </head>
@@ -35,7 +36,7 @@
                     <div class="modify_box">
 
                         <form>
-                            <div class="modify_process">본인인증 ·  <span>내정보수정</span></div>
+                            <div class="modify_process">본인인증 · <span>내정보수정</span></div>
 
                             <h2><%=sessionUser.U_Name%>님 <span>(<%=sessionUser.U_uId%>)</span></h2>
                             <!--<div class="bar"></div>-->
@@ -43,17 +44,20 @@
                                 <!--새 비밀번호-->
                                 <li>
                                     <label for="password2"></label>
-                                    <input type="password" id="password" class="password" name="password" placeholder="새 비밀번호 (영문 + 숫자 + 특문 포함 10글자 이상)">
+                                    <input type="password" id="password" class="password" name="password"
+                                        placeholder="새 비밀번호 (영문 + 숫자 + 특문 포함 10글자 이상)">
                                 </li>
                                 <li>
                                     <label for="password2"></label>
                                     <input type="password" id="password2" name="password2" placeholder="비밀번호 확인">
-                                    <div class="alert alert-success" id="alert-success" style="font-size: 13px; color: green; display: none;">*비밀번호가 일치합니다.</div>
-								    <div class="alert alert-danger" id="alert-danger" style="font-size: 13px; color: red; display: none;">비밀번호가 일치하지 않습니다.</div>
+                                    <div class="alert alert-success" id="alert-success"
+                                        style="font-size: 13px; color: green; display: none;">*비밀번호가 일치합니다.</div>
+                                    <div class="alert alert-danger" id="alert-danger"
+                                        style="font-size: 13px; color: red; display: none;">비밀번호가 일치하지 않습니다.</div>
                                 </li>
 
                                 <!--새 휴대전화번호-->
-                                
+
                                 <li>
                                     <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
                                 </li>
@@ -64,28 +68,40 @@
 
                                 <li>
                                     <div id="phone_check_box">
-                                        <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);" />
+                                        <input type="text" id="phone_check" name="phone_check"
+                                            placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4"
+                                            oninput="numberMaxLength(this);" />
                                     </div>
-                                    <div class="text-alert" id="alert_msg" style="font-size: 13px; display: none; color: #c3a164; font-weight: 500; margin-bottom: 10px;">인증번호의 유효시간은 30분입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
-                                    <div class="text-alert" id="alert_msg_fail" style="font-size: 13px; color: red; display: none;"></div>
-                                    <div class="text-alert" id="alert_msg_success" style="font-size: 13px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
+                                    <div class="text-alert" id="alert_msg"
+                                        style="font-size: 13px; display: none; color: #c3a164; font-weight: 500; margin-bottom: 10px;">
+                                        인증번호의 유효시간은 30분입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+                                    <div class="text-alert" id="alert_msg_fail"
+                                        style="font-size: 13px; color: red; display: none;"></div>
+                                    <div class="text-alert" id="alert_msg_success"
+                                        style="font-size: 13px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
                                 </li>
-                            
+
 
                                 <!--새 브랜드명-->
                                 <li>
                                     <label for="brand"></label>
-                                    <input type="text" id="brand" name="brand" value='<%= sessionUser.U_Brand%>' placeholder="새 브랜드명">
+                                    <input type="text" id="brand" name="brand" value='<%= sessionUser.U_Brand%>'
+                                        placeholder="새 브랜드명">
                                 </li>
 
                                 <!--새 매장주소-->
                                 <li>
                                     <div class="address_form">
-                                        <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" value='<%= sessionUser.U_Zip%>'  style="background: #f8f8f8;">
-                                        <button type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn-primary round">우편번호찾기</button><br>
-                                        <input type="text" id="address" name="address" placeholder="매장주소" value='<%= sessionUser.U_Addr1%>' style="background: #f8f8f8;"><br>
-                                        <input type="text" id="detailAddress" name="detailAddress" value='<%= sessionUser.U_Addr2%>' placeholder="매장상세주소">
-                                        <input type="text" id="extraAddress" name="extraAddress" hidden=""> <!-- 기본정보  -->
+                                        <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호"
+                                            value='<%= sessionUser.U_Zip%>' style="background: #f8f8f8;">
+                                        <button type="button" onclick="execDaumPostcode()" value="우편번호 찾기"
+                                            class="btn-primary round">우편번호찾기</button><br>
+                                        <input type="text" id="address" name="address" placeholder="매장주소"
+                                            value='<%= sessionUser.U_Addr1%>' style="background: #f8f8f8;"><br>
+                                        <input type="text" id="detailAddress" name="detailAddress"
+                                            value='<%= sessionUser.U_Addr2%>' placeholder="매장상세주소">
+                                        <input type="text" id="extraAddress" name="extraAddress" hidden="">
+                                        <!-- 기본정보  -->
                                         <input type="text" id="roadAddress" name="roadAddress" hidden="">
                                         <input type="text" id="jibunAddress" name="jibunAddress" hidden="">
                                     </div>
@@ -97,22 +113,23 @@
                                 <a onclick="selDelBtn()" class="withdrawal_open"><u>회원탈퇴</u></a>
 
 
-                        <!-- 예약이 없음!!@@@@@@@@@@@@@@ -->
+                                <!-- 예약이 없음!!@@@@@@@@@@@@@@ -->
                                 <div id="withdrawal" class="layer">
                                     <!--popup PC-->
                                     <div class="withdrawal_box">
-                                    
+
                                         <div class="withdrawal_tit">
-                                        회원탈퇴
+                                            회원탈퇴
                                         </div>
-                                        
+
                                         <div class="withdrawal_box_txt">
                                             <p>하단의 비밀번호를 입력 후 탈퇴하기 버튼을 클릭하시면 탈퇴가 가능하며, <br>
                                                 탈퇴 시 모든 데이터가 삭제되므로 장차이용이 불가합니다. <br>
                                                 예약중인 장차가 있으실 경우 <strong><u>환불 이후에 탈퇴가 가능</u></strong>합니다. <br>
                                                 AZ369를 탈퇴하시겠습니까?</p>
 
-                                            <input type="password" id="password3" name="password3" placeholder="가입 시 등록한 비밀번호를 입력하세요.">
+                                            <input type="password" id="password3" name="password3"
+                                                placeholder="가입 시 등록한 비밀번호를 입력하세요.">
 
                                         </div>
 
@@ -120,11 +137,11 @@
                                             <li>
                                                 <a href="modify2" class="withdrawal_close">취소</a></li>
 
-                                           <li><a onclick="delUser()" class="withdrawal_close2">탈퇴하기</a></li>
+                                            <li><a onclick="delUser()" class="withdrawal_close2">탈퇴하기</a></li>
                                         </ul>
                                     </div>
                                 </div>
-                    <!-- 예약이 있음!!@@@@@@@@@@@@@@ -->
+                                <!-- 예약이 있음!!@@@@@@@@@@@@@@ -->
                                 <div id="withdrawal2" class="layer">
                                     <!--popup PC-->
                                     <div class="withdrawal_box">
@@ -145,7 +162,7 @@
                                             <li>
                                                 <a href="modify2" class="withdrawal_close">취소</a></li>
                                             <li>
-                                            <a href="mypage" class="withdrawal_close2">예약현황</a></li>
+                                                <a href="mypage" class="withdrawal_close2">예약현황</a></li>
                                         </ul>
 
                                     </div>
@@ -170,136 +187,136 @@
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <script>
-        $(document).ready(()=>{
-        //본인인증
-        $("div.check_btn").click((e) => {
-            e.preventDefault();
-            sendSmsButton();
-            return false;
+        $(document).ready(() => {
+            //본인인증
+            $("div.check_btn").click((e) => {
+                e.preventDefault();
+                sendSmsButton();
+                return false;
+            });
+
+            $("#phone_check").keyup(checkPhoneNumber);
+
         });
- 
-        $("#phone_check").keyup( checkPhoneNumber );
 
-    });
+        function sendSmsButton() {
+            let phone_number = $("#phone").val();
+            phone_number = phone_number.replace(/-/g, "");
 
-    function sendSmsButton(){
-        let phone_number = $("#phone").val();
-        phone_number = phone_number.replace(/-/g, "");
-
-        $.ajax({
-            dataType: "json",
-            url : "/api/auth/phone",
-            method : "post",
-            data : {
-                phone_number : phone_number
-            }
-        }).done((res) => {
-            $("#alert_msg").css('display','block');
-            $("#alert_msg_success").css('display','none');
-        })
-    }
-    chkCnt = 0;
-    function checkPhoneNumber(e){
-        let ele_phone_check = $("#phone_check");
-        // let auth_number = ele_phone_check.val();
-        let auth_number = e.target.value;
-
-        let phone_number = $("#phone").val();
-        phone_number.replace(/-/g, "");
-
-        if(window.timer !== undefined) clearTimeout(window.timer);
-        
-        window.timer = setTimeout( () => {
             $.ajax({
                 dataType: "json",
-                url : "/api/auth/phone",
-                method : "get",
-                data : {
-                    phone_number : phone_number,
-                    auth_number : auth_number
+                url: "/api/auth/phone",
+                method: "post",
+                data: {
+                    phone_number: phone_number
                 }
             }).done((res) => {
-                //console.log("checkPhoneNumber !! ");
-                //console.log(res);
-                if( res.status_code == 200 ){
-                    ele_phone_check.data("is_confirm", true);
-                    chkCnt = 1;
-                    $("#alert_msg").css('display','none');
-                    $("#alert_msg_success").css('display','block');
-                    $("#alert_msg_fail").css('display','none');
-                } else if ( res.status_code == 400 ){
-                    ele_phone_check.data("is_confirm", false);
-                    $("#alert_msg").css('display','block');
-                    $("#alert_msg_success").css('display','none');
-                    
-                    let ele_alert_fail = $("#alert_msg_fail");
-                    ele_alert_fail.text(res.msg);
-                    ele_alert_fail.css('display','block');
-                }
+                $("#alert_msg").css('display', 'block');
+                $("#alert_msg_success").css('display', 'none');
             })
-        }, 2000 );
-        
-    }
+        }
+        chkCnt = 0;
+        function checkPhoneNumber(e) {
+            let ele_phone_check = $("#phone_check");
+            // let auth_number = ele_phone_check.val();
+            let auth_number = e.target.value;
+
+            let phone_number = $("#phone").val();
+            phone_number.replace(/-/g, "");
+
+            if (window.timer !== undefined) clearTimeout(window.timer);
+
+            window.timer = setTimeout(() => {
+                $.ajax({
+                    dataType: "json",
+                    url: "/api/auth/phone",
+                    method: "get",
+                    data: {
+                        phone_number: phone_number,
+                        auth_number: auth_number
+                    }
+                }).done((res) => {
+                    //console.log("checkPhoneNumber !! ");
+                    //console.log(res);
+                    if (res.status_code == 200) {
+                        ele_phone_check.data("is_confirm", true);
+                        chkCnt = 1;
+                        $("#alert_msg").css('display', 'none');
+                        $("#alert_msg_success").css('display', 'block');
+                        $("#alert_msg_fail").css('display', 'none');
+                    } else if (res.status_code == 400) {
+                        ele_phone_check.data("is_confirm", false);
+                        $("#alert_msg").css('display', 'block');
+                        $("#alert_msg_success").css('display', 'none');
+
+                        let ele_alert_fail = $("#alert_msg_fail");
+                        ele_alert_fail.text(res.msg);
+                        ele_alert_fail.css('display', 'block');
+                    }
+                })
+            }, 2000);
+
+        }
 
 
-         //비밀번호 정규식
-         $("#password").change(function(){
-             checkPassword($('#password').val());
-         });
-         function checkPassword(password){
-             
-             if( !(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)) ){            
-                 alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
-                 $('#password').val('').focus();
-                 return false;
-             }    
-             var checkNumber = password.search(/[0-9]/g);
-             var checkEnglish = password.search(/[a-z]/ig);
-             if(checkNumber <0 || checkEnglish <0){
-                 alert("숫자와 영문자를 혼용하여야 합니다.");
-                 $('#password').val('').focus();
-                 return false;
-             }                                
-         }
-         
+        //비밀번호 정규식
+        $("#password").change(function () {
+            checkPassword($('#password').val());
+        });
+        function checkPassword(password) {
+
+            if (!(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password))) {
+                alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
+                $('#password').val('').focus();
+                return false;
+            }
+            var checkNumber = password.search(/[0-9]/g);
+            var checkEnglish = password.search(/[a-z]/ig);
+            if (checkNumber < 0 || checkEnglish < 0) {
+                alert("숫자와 영문자를 혼용하여야 합니다.");
+                $('#password').val('').focus();
+                return false;
+            }
+        }
+
         //비밀번호 확인
         $("#alert-success").hide();
         $("#alert-danger").hide();
-        $("input").keyup(function(){ 
-            var pwd1=$("#password").val(); 
-            var pwd2=$("#password2").val();
-            if(pwd1 != "" || pwd2 != ""){ 
-                if(pwd1 == pwd2){ 
+        $("input").keyup(function () {
+            var pwd1 = $("#password").val();
+            var pwd2 = $("#password2").val();
+            if (pwd1 != "" || pwd2 != "") {
+                if (pwd1 == pwd2) {
                     $("#alert-success").show();
-                    $("#alert-danger").hide(); 
-                    $("#submit").removeAttr("disabled"); 
-                }else{
+                    $("#alert-danger").hide();
+                    $("#submit").removeAttr("disabled");
+                } else {
                     $("#alert-success").hide();
-                    $("#alert-danger").show(); 
+                    $("#alert-danger").show();
                     $("#submit").attr("disabled", "disabled");
-                } 
-            } 
-        }); 
-        
- 
+                }
+            }
+        });
+
+
         //정보 수정
-        function modifyInfo(){
+        function modifyInfo() {
             //console.log("체크카운트 :", chkCnt);
-            if($("#phone").val() != "" && chkCnt == 0){
+            if ($("#phone").val() != "" && chkCnt == 0) {
                 alert("본인인증을 해주세요.");
                 return;
-                
+
             }
             $.ajax({
                 url: "api/user/modifyInfo",
                 method: "post",
                 dataType: "json",
                 data: {
-                    pw : $("#password").val(), phone : $("#phone").val(),
-                    brand : $("#brand").val(), postcode : $("#postcode").val(),
-                    address : $("#address").val(), detailAddress : $("#detailAddress").val()
+                    pw: $("#password").val(), phone: $("#phone").val(),
+                    brand: $("#brand").val(), postcode: $("#postcode").val(),
+                    address: $("#address").val(), detailAddress: $("#detailAddress").val()
                 },
-                success: function(res){
+                success: function (res) {
                     //console.log("콘솔 :",res.data)
                     alert("수정이 완료되었습니다.");
                     location.href = "mypage";
@@ -307,25 +324,25 @@
             })
         }
         //회원 탈퇴 분기점
-        function selDelBtn(){
+        function selDelBtn() {
             $.ajax({
                 url: "api/user/delchoice",
                 dataType: "json",
                 method: "post",
-                success: function(res){
+                success: function (res) {
                     //console.log(res.data.length);
-                    if(res.data.length != 0){
-                        location.href="#withdrawal2";
-                    } else if(res.data.length === 0){
+                    if (res.data.length != 0) {
+                        location.href = "#withdrawal2";
+                    } else if (res.data.length === 0) {
                         location.href = "#withdrawal";
                     }
                 }
             })
         }
- 
+
         //회원 탈퇴
-        function delUser(){
-            if($("#password3").val() == ""){
+        function delUser() {
+            if ($("#password3").val() == "") {
                 alert("비밀번호를 입력해주세요.");
                 return;
             }
@@ -335,21 +352,21 @@
                 dataType: "json",
                 async: false,
                 data: {
-                    'pw' : $("#password3").val()
+                    'pw': $("#password3").val()
                 },
-                success: function(res){
+                success: function (res) {
                     //console.log("res :",res);
                     //console.log("res.data :", res.data);
-                    if(res.data === '실패'){
+                    if (res.data === '실패') {
                         alert("입력된 비밀번호가 틀립니다.");
-                        location.href="modify2";
+                        location.href = "modify2";
                         //location.href = '/logout';
-                    } else if(res.data === "성공"){
+                    } else if (res.data === "성공") {
                         alert("탈퇴가 완료되었습니다.");
-                        location.href="/";
+                        location.href = "/";
                     }
-                    
-                    
+
+
                 }
             })
         }
@@ -358,20 +375,22 @@
     </script>
 
 
-     <!--input maxlength-->
+    <!--input maxlength-->
     <script>
-    function numberMaxLength(e){
-        if(e.value.length > e.maxLength){
-            e.value = e.value.slice(0, e.maxLength);
+        function numberMaxLength(e) {
+            if (e.value.length > e.maxLength) {
+                e.value = e.value.slice(0, e.maxLength);
+            }
         }
-    }
     </script>
 
-     <!--인증번호받기 js-->
+    <!--인증번호받기 js-->
     <script>
         function myFunction() {
             document.getElementById("phone_check_box").style.display = "block";
         }
     </script>
 
-</body></html>
+</body>
+
+</html>

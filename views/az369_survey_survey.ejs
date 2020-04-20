@@ -37,12 +37,14 @@
 						<ul>
 							<li>
 								<h5>임대보증금</h5>
-								<input class="text-input deposit" required=true type="number" id="cur_deposit" name="cur_deposit">
+								<input class="text-input deposit" required=true type="number" id="cur_deposit"
+									name="cur_deposit">
 							</li>
 
 							<li>
 								<h5>임대료</h5>
-								<input class="text-input rent" required=true type="number" id="cur_rental_fee" name="cur_rental_fee">
+								<input class="text-input rent" required=true type="number" id="cur_rental_fee"
+									name="cur_rental_fee">
 							</li>
 						</ul>
 
@@ -79,7 +81,9 @@
 						<ul>
 							<h4 class="rent_h4">임대료</h4>
 							<li>
-								<input required=true class="range" type="number" id="wt_rental_fee_min" name="wt_rental_fee_min" type="number" id="minimum" name="minimum" placeholder="최저 금액" maxlength="6" oninput="numberMaxLength(this);" />
+								<input required=true class="range" type="number" id="wt_rental_fee_min"
+									name="wt_rental_fee_min" type="number" id="minimum" name="minimum"
+									placeholder="최저 금액" maxlength="6" oninput="numberMaxLength(this);" />
 							</li>
 
 							<li>
@@ -87,14 +91,18 @@
 							</li>
 
 							<li>
-								<input required=true class="range" type="number" id="wt_rental_fee_max" name="wt_rental_fee_max" placeholder="적정 금액" maxlength="6" oninput="numberMaxLength(this);" />
+								<input required=true class="range" type="number" id="wt_rental_fee_max"
+									name="wt_rental_fee_max" placeholder="적정 금액" maxlength="6"
+									oninput="numberMaxLength(this);" />
 							</li>
 						</ul>
 
 						<ul class="form_bottom_list">
 							<h4>임대보증금액</h4>
 							<li>
-								<input required=true class="range" type="number" id="wt_deposit_min" name="wt_deposit_min" placeholder="최저 금액" maxlength="6" oninput="numberMaxLength(this);" />
+								<input required=true class="range" type="number" id="wt_deposit_min"
+									name="wt_deposit_min" placeholder="최저 금액" maxlength="6"
+									oninput="numberMaxLength(this);" />
 							</li>
 
 							<li>
@@ -102,7 +110,9 @@
 							</li>
 
 							<li>
-								<input required=true class="range" type="number" id="wt_deposit_max" name="wt_deposit_max" placeholder="적정 금액" maxlength="6" oninput="numberMaxLength(this);" />
+								<input required=true class="range" type="number" id="wt_deposit_max"
+									name="wt_deposit_max" placeholder="적정 금액" maxlength="6"
+									oninput="numberMaxLength(this);" />
 							</li>
 						</ul>
 						<div class="select_check">
@@ -110,12 +120,14 @@
 								<br> <span>( '예' 를 선택하신 분께는 매칭이 우선적으로 진행됩니다. )</span></p>
 
 							<div class="checks etrans">
-								<input required=true type="radio" id="r3" name="wt_insurance_type" value="y" class="ab" />
+								<input required=true type="radio" id="r3" name="wt_insurance_type" value="y"
+									class="ab" />
 								<label for="r3"><span>예</span></label>
 							</div>
 
 							<div class="checks etrans">
-								<input required=true type="radio" id="r4" name="wt_insurance_type" value="n" class="ab" />
+								<input required=true type="radio" id="r4" name="wt_insurance_type" value="n"
+									class="ab" />
 								<label for="r4"><span>아니오</span></label>
 							</div>
 						</div>
@@ -144,32 +156,32 @@
 
 
 	<script>
-/*		var mySession = JSON.parse(sessionStorage.getItem("mySession"));
-        if(mySession == undefined){
-			alert("로그인 후 이용해주세요.")
-            location.href="/c1"
-		}*/
-		
+		/*		var mySession = JSON.parse(sessionStorage.getItem("mySession"));
+				if(mySession == undefined){
+					alert("로그인 후 이용해주세요.")
+					location.href="/c1"
+				}*/
+
 		var myName = mySession[0].value
 		var myStore = mySession[1].value
 		var myPhone = mySession[2].value
 
-		$('#goBtn').on('click', function(){
+		$('#goBtn').on('click', function () {
 			alert($('input:radio[name="wt_modify"]:checked').val())
 			$.ajax({
 				url: '/c5/action',
 				method: 'post',
 				dataType: 'json',
 				data: {
-					'cur_deposit' : $('#cur_deposit').val(), 'cur_rental_fee' : $('#cur_rental_fee').val(),
-					'wt_modify' : $('input:radio[name="wt_modify"]:checked').val(), 'wt_contact_period' : $('#wt_contact_period').val(),
-					'wt_rental_fee_min' : $('#wt_rental_fee_min').val(), 'wt_rental_fee_max' : $('#wt_rental_fee_max').val(),
-					'wt_deposit_min' : $('#wt_deposit_min').val(), 'wt_deposit_max' : $('#wt_deposit_max').val(), 
-					'wt_insurance_type' : $('input:radio[name="wt_insurance_type"]:checked').val(), 'opinion' : $('#opinion').val(),
-					'name' : myName, 'store' : myStore, 'phone' : myPhone
+					'cur_deposit': $('#cur_deposit').val(), 'cur_rental_fee': $('#cur_rental_fee').val(),
+					'wt_modify': $('input:radio[name="wt_modify"]:checked').val(), 'wt_contact_period': $('#wt_contact_period').val(),
+					'wt_rental_fee_min': $('#wt_rental_fee_min').val(), 'wt_rental_fee_max': $('#wt_rental_fee_max').val(),
+					'wt_deposit_min': $('#wt_deposit_min').val(), 'wt_deposit_max': $('#wt_deposit_max').val(),
+					'wt_insurance_type': $('input:radio[name="wt_insurance_type"]:checked').val(), 'opinion': $('#opinion').val(),
+					'name': myName, 'store': myStore, 'phone': myPhone
 				},
-				success: function(res){
-					if(res.data == '등록'){
+				success: function (res) {
+					if (res.data == '등록') {
 						alert('등록완료');
 						location.href = '/c4'
 					}
@@ -196,7 +208,7 @@
 				create a new DIV that will act as an option item:*/
 				c = document.createElement("DIV");
 				c.innerHTML = selElmnt.options[j].innerHTML;
-				c.addEventListener("click", function(e) {
+				c.addEventListener("click", function (e) {
 					/*when an item is clicked, update the original select box,
 					and the selected item:*/
 					var y, i, k, s, h;
@@ -219,7 +231,7 @@
 				b.appendChild(c);
 			}
 			x[i].appendChild(b);
-			a.addEventListener("click", function(e) {
+			a.addEventListener("click", function (e) {
 				/*when the select box is clicked, close any other select boxes,
 				and open/close the current select box:*/
 				e.stopPropagation();

@@ -1,43 +1,45 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<% include templates/admin_head.ejs %>
 </head>
+
 <body id="top">
 
-<!-- Preloader -->
-<!-- <div id="preloader">
+	<!-- Preloader -->
+	<!-- <div id="preloader">
 	<div id="status">
 		<div class="loader"></div>
 	</div>
 </div> -->
-<!-- /Preloader -->
+	<!-- /Preloader -->
 
-<div id="body-wrapper" class="body-container">
+	<div id="body-wrapper" class="body-container">
 
-	<!-- Header begins -->
-	<header class="main-nav clearfix">
-		<% include templates/admin_header.ejs %>
-	</header>
-	<!-- /Header ends -->
+		<!-- Header begins -->
+		<header class="main-nav clearfix">
+			<% include templates/admin_header.ejs %>
+		</header>
+		<!-- /Header ends -->
 
-	<!-- 네비게이션!@!@-->
-	<aside class="menu">
-		<div class="left-aside-container">			
-			<% include templates/admin_sidebar.ejs %>
-			<!-- /User profile -->
-			<!-- Main menu -->
-			<div class="menu-container">
-				
+		<!-- 네비게이션!@!@-->
+		<aside class="menu">
+			<div class="left-aside-container">
+				<% include templates/admin_sidebar.ejs %>
+				<!-- /User profile -->
+				<!-- Main menu -->
+				<div class="menu-container">
+
+				</div>
+				<!-- /Main menu -->
 			</div>
-			<!-- /Main menu -->
-		</div>
-	</aside>
-	<!-- /Sidebar -->
+		</aside>
+		<!-- /Sidebar -->
 
-	<!-- Page container begins -->
-	<section class="main-container">
-		<h1 style="display:none">Empty Heading</h1>
+		<!-- Page container begins -->
+		<section class="main-container">
+			<h1 style="display:none">Empty Heading</h1>
 
 			<!--Page Header-->
 			<div class="header">
@@ -60,12 +62,14 @@
 								<th>상태</th>
 								<td>
 									<label class="radio-inline">
-										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="y"></span></div>
+										<div class="choice"><span class=""><input type="radio" name="radio-inline-left"
+													class="styled" value="y"></span></div>
 										&emsp;&emsp;예매취소
 									</label>
-									
+
 									<label class="radio-inline">
-										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="n"></span></div>
+										<div class="choice"><span class=""><input type="radio" name="radio-inline-left"
+													class="styled" value="n"></span></div>
 										&emsp;&emsp;예매
 									</label>
 								</td>
@@ -74,16 +78,21 @@
 								<th>결제일시</th>
 								<td>
 									<div class="input-group" style="height: 30px;">
-										<span class="input-group-addon"><i class="icon-calendar2" style="margin-top: 8px;"></i></span>
-										<input type="text" class="form-control2 datepicker-here" id="dept" style="width: 290px; height: 30px;">
-										&emsp14; ~ &emsp14; 
-										<span class="input-group-addon"><i class="icon-calendar2" style="margin-top: 8px;"></i></span>
-										<input type="text" class="form-control2 datepicker-here" id="end" style="width: 290px;">
+										<span class="input-group-addon"><i class="icon-calendar2"
+												style="margin-top: 8px;"></i></span>
+										<input type="text" class="form-control2 datepicker-here" id="dept"
+											style="width: 290px; height: 30px;">
+										&emsp14; ~ &emsp14;
+										<span class="input-group-addon"><i class="icon-calendar2"
+												style="margin-top: 8px;"></i></span>
+										<input type="text" class="form-control2 datepicker-here" id="end"
+											style="width: 290px;">
 									</div>
 								</td>
 							</tr>
-						</table> 
-						<button type="button" onclick="searchGo()" class="btn btn-primary" style=" width: 200px; margin-left: 40%">검색</button>
+						</table>
+						<button type="button" onclick="searchGo()" class="btn btn-primary"
+							style=" width: 200px; margin-left: 40%">검색</button>
 					</div>
 				</div>
 			</div>
@@ -102,13 +111,13 @@
 									<th>회원이름</th>
 									<th>회원전화번호</th>
 									<th>운송사</th>
-									<th>버스규모</th>									
+									<th>버스규모</th>
 									<th>예매좌석</th>
 									<th>결제수단</th>
 									<th>결제금액</th>
 									<th>취소여부</th>
 									<th>결제일시</th>
-									<th>취소일시</th>                        
+									<th>취소일시</th>
 								</tr>
 							</thead>
 						</table>
@@ -131,7 +140,7 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								
+
 							</div>
 						</div>
 					</div>
@@ -147,257 +156,259 @@
 	</div>
 	<script>
 
-$(document).ready(function(){
-	let table =$('#tList').DataTable({
-		language: {
-				"lengthMenu":'<select>'+
-				'<option value="5">5</option>'+
-				'<option value="15">15</option>'+
-				'<option value="30">30</option>'+
-				'<option value="50">50</option>'+
-				'<option value="-1">All</option>'+
-				'</select>'
-		},
-		dom: 'l<"toolbar">frtip',
-		ajax : '/admin/userRes/List',
-		deferRender: true,
-		columnDefs : [
-			{
-				targets:0,
-				className : 'dt-body-center'
-			},
-			{
-				targets: 6,
-				render: function(data, type, row){
-					//console.log(row.CR_SeatNum.data)
-					// var arrayBuffer = new Uint8Array(row.CR_SeatNum.data);
-
-					// console.log("dddd", arrayBuffer)
-					var seatNum = String.fromCharCode.apply(null, row.CR_SeatNum.data);
-					//console.log(seatNum)
-					decodeURIComponent(seatNum);
-					//console.log(String.fromCharCode(235, 178, 136))
-					//console.log(decodeURIComponent(seatNum))
-					return '<a id='+row.U_ID+' name="'+row.CR_cDt+'"  data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)" style="color:darkblue; ">'+decodeURIComponent(seatNum)+'</a>';
-										
-				}
-			},
-			{
-				targets: 9,
-				render: function(data, type, row){
-					let cancelType = row.CR_Cancel
-					if(row.CR_Cancel == 'Y'){
-						cancelType = '결제취소'
-					}else{
-						cancelType = '결제완료'
-					}
-
-					return cancelType;
-										
-				}
-			},
-			{
-				targets: 10,
-				render: function(data, type, row){
-					var test = row.CR_cDt;
-					var test2 = test.split(' ',1)
-					return test2;
-										
-				}
-			},
-			{
-				targets: 11,
-				render: function(data, type, row){
-					var test = row.CR_uDt;
-					var test2 = test.split(' ',1)
-					return test2;
-										
-				}
-			}
-		],
-		rowId : "U_ID",
-		columns : [
-			{ 
-				"data": null, 
-				"render": function (data, type, full, meta) {
-					return meta.row + 1
-				}
-			},
-			{ "data": "U_uId" },
-			{ "data": "U_Name" },
-			{ "data": "U_Phone" },
-			{ "data": "B_Name" },
-			{ "data": "CY_Ty" },
-			{ "data": "CR_SeatNum"},
-			{ "data": "PH_Type" },
-			{ "data": "PH_Price" },
-			{ "data": "CR_Cancel"},
-			{ "data": "CR_cDt"},
-			{ "data": "CR_uDt"}
-		]
-	});
-
-	$('.dataTables_length select').addClass('form-control')
-	$(".dataTables_filter input").addClass("form-control")
-
-})
-
-	function searchGo(){
-
-		$('#tList').DataTable().clear().destroy();
-		$('#tList').DataTable({
-			language: {
-				"lengthMenu":'<select>'+
-				'<option value="5">5</option>'+
-				'<option value="15">15</option>'+
-				'<option value="30">30</option>'+
-				'<option value="50">50</option>'+
-				'<option value="-1">All</option>'+
-				'</select>'
-			},
-			dom: 'l<"toolbar">frtip',
-			processing: true,
-			ajax : {
-				url : '/admin/userRes/search',
-				method: 'post',
-				data : {
-					'selectName' : $('#choi option:selected').val(), 'chkRad' : $("input:radio[name='radio-inline-left']:checked").val(),
-					'selResult' : $('#selResult').val(), 'dept' : $('#dept').val(), 'end' : $('#end').val()
-				}
-			},
-			deferRender: true,
-			columnDefs : [
-			{
-				targets:0,
-				className : 'dt-body-center'
-			},
-			{
-				targets: 6,
-				render: function(data, type, row){
-					//console.log(row.CR_SeatNum.data)
-					// var arrayBuffer = new Uint8Array(row.CR_SeatNum.data);
-
-					// console.log("dddd", arrayBuffer)
-					var seatNum = String.fromCharCode.apply(null, row.CR_SeatNum.data);
-					//console.log(seatNum)
-					decodeURIComponent(seatNum);
-					//console.log(String.fromCharCode(235, 178, 136))
-					//console.log(decodeURIComponent(seatNum))
-					return '<a id='+row.U_ID+' name="'+row.CR_cDt+'"  data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)" style="color:darkblue; ">'+decodeURIComponent(seatNum)+'</a>';
-										
-				}
-			},
-			{
-				targets: 9,
-				render: function(data, type, row){
-					let cancelType = row.CR_Cancel
-					if(row.CR_Cancel == 'Y'){
-						cancelType = '결제취소'
-					}else{
-						cancelType = '결제완료'
-					}
-
-					return cancelType;
-										
-				}
-			},
-			{
-				targets: 10,
-				render: function(data, type, row){
-					var test = row.CR_cDt;
-					var test2 = test.split(' ',1)
-					return test2;
-										
-				}
-			},
-			{
-				targets: 11,
-				render: function(data, type, row){
-					var test = row.CR_uDt;
-					var test2 = test.split(' ',1)
-					return test2;
-										
-				}
-			}
-			],
-			rowId : "CT_ID",
-			columns : [
-				{ 
-					"data": null, 
-					"render": function (data, type, full, meta) {
-						return meta.row + 1
-					}
+		$(document).ready(function () {
+			let table = $('#tList').DataTable({
+				language: {
+					"lengthMenu": '<select>' +
+						'<option value="5">5</option>' +
+						'<option value="15">15</option>' +
+						'<option value="30">30</option>' +
+						'<option value="50">50</option>' +
+						'<option value="-1">All</option>' +
+						'</select>'
 				},
-				{ "data": "U_uId" },
-				{ "data": "U_Name" },
-				{ "data": "U_Phone" },
-				{ "data": "B_Name" },
-				{ "data": "CY_Ty" },
-				{ "data": "CR_SeatNum"},
-				{ "data": "PH_Type" },
-				{ "data": "PH_Price" },
-				{ "data": "CR_Cancel"},
-				{ "data": "CR_cDt"},
-				{ "data": "CR_uDt"}		
-			],
-		});
-		$('.dataTables_length select').addClass('form-control')
-		$(".dataTables_filter input").addClass("form-control")
+				dom: 'l<"toolbar">frtip',
+				ajax: '/admin/userRes/List',
+				deferRender: true,
+				columnDefs: [
+					{
+						targets: 0,
+						className: 'dt-body-center'
+					},
+					{
+						targets: 6,
+						render: function (data, type, row) {
+							//console.log(row.CR_SeatNum.data)
+							// var arrayBuffer = new Uint8Array(row.CR_SeatNum.data);
 
-	}	
+							// console.log("dddd", arrayBuffer)
+							var seatNum = String.fromCharCode.apply(null, row.CR_SeatNum.data);
+							//console.log(seatNum)
+							decodeURIComponent(seatNum);
+							//console.log(String.fromCharCode(235, 178, 136))
+							//console.log(decodeURIComponent(seatNum))
+							return '<a id=' + row.U_ID + ' name="' + row.CR_cDt + '"  data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)" style="color:darkblue; ">' + decodeURIComponent(seatNum) + '</a>';
 
+						}
+					},
+					{
+						targets: 9,
+						render: function (data, type, row) {
+							let cancelType = row.CR_Cancel
+							if (row.CR_Cancel == 'Y') {
+								cancelType = '결제취소'
+							} else {
+								cancelType = '결제완료'
+							}
 
+							return cancelType;
 
-	//좌석예약표
-	function seatnow(e){	
-		$('#seatList').empty();	
-		$('#modal_large').css('display','block')
-		$.ajax({
-			url: '/admin/userResList',
-			method: 'post',
-			dataType: 'json',
-			data: {'uId' : e.id,
-				   'cDt' : e.name	
-				},
-			success: function(res){
-				//console.log("dadadadada",res.data)
-				//좌석생성
-				for(let k=0; k<10; k++){
-					let html = "<tr>"
-					for(let j=0; j<4; j++){
-						html += "<td><img></td>"
-						if(j == 1){
-							html += "<td></td>"
-						}						
-					}	
-					html += "</tr>"
-					$('#seatList').append(html)
-				}
-				for(let k=0; k<1; k++){
-					let html ="<tr>";
-					for(let l=0; l<5; l++){
-						html += "<td><img></td>"
-					}
-					html += "</tr>"
-					$("#seatList").append(html);
-				}
-				$('#seatList img').attr('src','/img/reservation/seat_img.png');
-				//이미지 아이디값 부여
-				$('#seatList img').each(function(item,index){	
-					this.setAttribute("id", item+1);
-					for(let i=0; i<res.data.length; i++){
-					//console.log("222",res.data[i].CR_SeatNum)
-						if(this.id == res.data[i].CR_SeatNum){
-							//console.log("data.CR_SeatNUm::", res.data[i].CR_SeatNum)
-							$(this).attr('src','/img/reservation/seat_img_select.png')
-							//$('#'+this.id).attr('src','/img/reservation/seat_img_select.png')							
+						}
+					},
+					{
+						targets: 10,
+						render: function (data, type, row) {
+							var test = row.CR_cDt;
+							var test2 = test.split(' ', 1)
+							return test2;
+
+						}
+					},
+					{
+						targets: 11,
+						render: function (data, type, row) {
+							var test = row.CR_uDt;
+							var test2 = test.split(' ', 1)
+							return test2;
+
 						}
 					}
-				})					
-			}
+				],
+				rowId: "U_ID",
+				columns: [
+					{
+						"data": null,
+						"render": function (data, type, full, meta) {
+							return meta.row + 1
+						}
+					},
+					{ "data": "U_uId" },
+					{ "data": "U_Name" },
+					{ "data": "U_Phone" },
+					{ "data": "B_Name" },
+					{ "data": "CY_Ty" },
+					{ "data": "CR_SeatNum" },
+					{ "data": "PH_Type" },
+					{ "data": "PH_Price" },
+					{ "data": "CR_Cancel" },
+					{ "data": "CR_cDt" },
+					{ "data": "CR_uDt" }
+				]
+			});
+
+			$('.dataTables_length select').addClass('form-control')
+			$(".dataTables_filter input").addClass("form-control")
+
 		})
-	}
+
+		function searchGo() {
+
+			$('#tList').DataTable().clear().destroy();
+			$('#tList').DataTable({
+				language: {
+					"lengthMenu": '<select>' +
+						'<option value="5">5</option>' +
+						'<option value="15">15</option>' +
+						'<option value="30">30</option>' +
+						'<option value="50">50</option>' +
+						'<option value="-1">All</option>' +
+						'</select>'
+				},
+				dom: 'l<"toolbar">frtip',
+				processing: true,
+				ajax: {
+					url: '/admin/userRes/search',
+					method: 'post',
+					data: {
+						'selectName': $('#choi option:selected').val(), 'chkRad': $("input:radio[name='radio-inline-left']:checked").val(),
+						'selResult': $('#selResult').val(), 'dept': $('#dept').val(), 'end': $('#end').val()
+					}
+				},
+				deferRender: true,
+				columnDefs: [
+					{
+						targets: 0,
+						className: 'dt-body-center'
+					},
+					{
+						targets: 6,
+						render: function (data, type, row) {
+							//console.log(row.CR_SeatNum.data)
+							// var arrayBuffer = new Uint8Array(row.CR_SeatNum.data);
+
+							// console.log("dddd", arrayBuffer)
+							var seatNum = String.fromCharCode.apply(null, row.CR_SeatNum.data);
+							//console.log(seatNum)
+							decodeURIComponent(seatNum);
+							//console.log(String.fromCharCode(235, 178, 136))
+							//console.log(decodeURIComponent(seatNum))
+							return '<a id=' + row.U_ID + ' name="' + row.CR_cDt + '"  data-toggle="modal" data-target="#modal_large" onclick="seatnow(this)" style="color:darkblue; ">' + decodeURIComponent(seatNum) + '</a>';
+
+						}
+					},
+					{
+						targets: 9,
+						render: function (data, type, row) {
+							let cancelType = row.CR_Cancel
+							if (row.CR_Cancel == 'Y') {
+								cancelType = '결제취소'
+							} else {
+								cancelType = '결제완료'
+							}
+
+							return cancelType;
+
+						}
+					},
+					{
+						targets: 10,
+						render: function (data, type, row) {
+							var test = row.CR_cDt;
+							var test2 = test.split(' ', 1)
+							return test2;
+
+						}
+					},
+					{
+						targets: 11,
+						render: function (data, type, row) {
+							var test = row.CR_uDt;
+							var test2 = test.split(' ', 1)
+							return test2;
+
+						}
+					}
+				],
+				rowId: "CT_ID",
+				columns: [
+					{
+						"data": null,
+						"render": function (data, type, full, meta) {
+							return meta.row + 1
+						}
+					},
+					{ "data": "U_uId" },
+					{ "data": "U_Name" },
+					{ "data": "U_Phone" },
+					{ "data": "B_Name" },
+					{ "data": "CY_Ty" },
+					{ "data": "CR_SeatNum" },
+					{ "data": "PH_Type" },
+					{ "data": "PH_Price" },
+					{ "data": "CR_Cancel" },
+					{ "data": "CR_cDt" },
+					{ "data": "CR_uDt" }
+				],
+			});
+			$('.dataTables_length select').addClass('form-control')
+			$(".dataTables_filter input").addClass("form-control")
+
+		}
+
+
+
+		//좌석예약표
+		function seatnow(e) {
+			$('#seatList').empty();
+			$('#modal_large').css('display', 'block')
+			$.ajax({
+				url: '/admin/userResList',
+				method: 'post',
+				dataType: 'json',
+				data: {
+					'uId': e.id,
+					'cDt': e.name
+				},
+				success: function (res) {
+					//console.log("dadadadada",res.data)
+					//좌석생성
+					for (let k = 0; k < 10; k++) {
+						let html = "<tr>"
+						for (let j = 0; j < 4; j++) {
+							html += "<td><img></td>"
+							if (j == 1) {
+								html += "<td></td>"
+							}
+						}
+						html += "</tr>"
+						$('#seatList').append(html)
+					}
+					for (let k = 0; k < 1; k++) {
+						let html = "<tr>";
+						for (let l = 0; l < 5; l++) {
+							html += "<td><img></td>"
+						}
+						html += "</tr>"
+						$("#seatList").append(html);
+					}
+					$('#seatList img').attr('src', '/img/reservation/seat_img.png');
+					//이미지 아이디값 부여
+					$('#seatList img').each(function (item, index) {
+						this.setAttribute("id", item + 1);
+						for (let i = 0; i < res.data.length; i++) {
+							//console.log("222",res.data[i].CR_SeatNum)
+							if (this.id == res.data[i].CR_SeatNum) {
+								//console.log("data.CR_SeatNUm::", res.data[i].CR_SeatNum)
+								$(this).attr('src', '/img/reservation/seat_img_select.png')
+								//$('#'+this.id).attr('src','/img/reservation/seat_img_select.png')							
+							}
+						}
+					})
+				}
+			})
+		}
 
 	</script>
 </body>
+
 </html>

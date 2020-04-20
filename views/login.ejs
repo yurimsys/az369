@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <% include templates/head.ejs %>
     <link rel="stylesheet" href="/css/login.css">
@@ -10,10 +11,12 @@
     <meta name="title" content="AZ369 - 로그인">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
 </head>
+
 <body>
     <div class="wrap">
         <% include templates/header.ejs %>
@@ -25,17 +28,17 @@
                     <h6>로그인</h6>
                     <h1 style="font-family: 'PT Serif', serif;">LOGIN</h1>
                     <div class="bar"></div>
-                    
+
                     <div class="login_box">
                         <!-- <h2>회원 로그인</h2> -->
                         <p>장차예매 페이지는 <Span>로그인</Span> 후 이용가능합니다.</p>
-                    
+
                         <form action="/login" method="POST">
                             <ul>
                                 <div class="login_form">
                                     <label for="id"></label>
                                     <input type="text" id="id" name="id" placeholder="아이디" value="">
-                    
+
                                     <label for="password"></label>
                                     <input type="password" id="password" name="password" placeholder="비밀번호">
                                 </div>
@@ -44,15 +47,15 @@
                                     <label for="ex_chk3">아이디 저장</label>
                                     <div class="find_btn"><a href="findId">아이디 / 비밀번호 찾기</a></div>
                                 </div>
-                    
+
                                 <input type="submit" value="로그인" id="loginBtn">
                             </ul>
                         </form>
-                    
-                                   
-                                        <div class="join_btn"> <a href="join">회원가입</a></div>
-    
-                    
+
+
+                        <div class="join_btn"> <a href="join">회원가입</a></div>
+
+
                     </div>
                 </div>
 
@@ -66,26 +69,28 @@
     </div>
     <script>
         //아이디 저장
-        localStorage.getItem("myId");    
+        localStorage.getItem("myId");
         $("#id").val(localStorage.getItem("myId"));
 
         //아이디 저장 체크시 로컬호스트에 저장
-        $("#loginBtn").on('click',function(){
-            if($("#ex_chk3").is(":checked") === true){                                    
-                localStorage.setItem("myId",$("#id").val());                           
-            }else if($("#ex_chk3").is(":checked") === false){
-                localStorage.clear(); 
-            }   
-        })                          
-        if( $("#id").val() != ""){
+        $("#loginBtn").on('click', function () {
+            if ($("#ex_chk3").is(":checked") === true) {
+                localStorage.setItem("myId", $("#id").val());
+            } else if ($("#ex_chk3").is(":checked") === false) {
+                localStorage.clear();
+            }
+        })
+        if ($("#id").val() != "") {
             $("#ex_chk3").prop('checked', true);
-        }             
+        }
 
     </script>
 
     <% if( loginFailMsg ) { %>
-        <script>
-            alert( "<%= loginFailMsg %>")
-        </script>
+    <script>
+        alert("<%= loginFailMsg %>")
+    </script>
     <% }%>
-</body></html>
+</body>
+
+</html>

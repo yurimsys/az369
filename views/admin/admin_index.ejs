@@ -1,55 +1,57 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<% include templates/admin_head.ejs %>
-	<style>        
-        table#tList tbody tr:hover > .sorting_1 {
-        	background-color:white;
-        }
-        #tList:hover tbody tr:hover td {
-            background: #eee;
-            cursor: pointer;
-            color: black;
-        }
-   
-    </style>
+	<style>
+		table#tList tbody tr:hover>.sorting_1 {
+			background-color: white;
+		}
+
+		#tList:hover tbody tr:hover td {
+			background: #eee;
+			cursor: pointer;
+			color: black;
+		}
+	</style>
 
 </head>
+
 <body id="top">
 
-<!-- Preloader -->
-<!-- <div id="preloader">
+	<!-- Preloader -->
+	<!-- <div id="preloader">
 	<div id="status">
 		<div class="loader"></div>
 	</div>
 </div> -->
-<!-- /Preloader -->
+	<!-- /Preloader -->
 
-<div id="body-wrapper" class="body-container">
+	<div id="body-wrapper" class="body-container">
 
-	<!-- Header begins -->
-	<header class="main-nav clearfix">
-		<% include templates/admin_header.ejs %>
-	</header>
-	<!-- /Header ends -->
+		<!-- Header begins -->
+		<header class="main-nav clearfix">
+			<% include templates/admin_header.ejs %>
+		</header>
+		<!-- /Header ends -->
 
-	<!-- 네비게이션!@!@-->
-	<aside class="menu">
-		<div class="left-aside-container">			
-			<% include templates/admin_sidebar.ejs %>
-			<!-- /User profile -->
-			<!-- Main menu -->
-			<div class="menu-container">
-				
+		<!-- 네비게이션!@!@-->
+		<aside class="menu">
+			<div class="left-aside-container">
+				<% include templates/admin_sidebar.ejs %>
+				<!-- /User profile -->
+				<!-- Main menu -->
+				<div class="menu-container">
+
+				</div>
+				<!-- /Main menu -->
 			</div>
-			<!-- /Main menu -->
-		</div>
-	</aside>
-	<!-- /Sidebar -->
+		</aside>
+		<!-- /Sidebar -->
 
-	<!-- Page container begins -->
-	<section class="main-container">
-		<h1 style="display:none">Empty Heading</h1>
+		<!-- Page container begins -->
+		<section class="main-container">
+			<h1 style="display:none">Empty Heading</h1>
 			<!--Page Header-->
 			<div class="header">
 				<div class="header-content">
@@ -74,4 +76,5 @@
 		<% include templates/admin_footer.ejs %>
 	</div>
 </body>
+
 </html>
