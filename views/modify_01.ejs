@@ -11,11 +11,12 @@
     <meta name="title" content="AZ369 - 내정보수정">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
 
-</head> 
+</head>
 
 <body>
     <div class="wrap">
@@ -27,23 +28,23 @@
 
                 <div class="box">
                     <h6>내정보 수정</h6>
-                <h1 style="font-family: 'PT Serif', serif;">MODIFY</h1>
-                <div class="bar"></div>
-                    
-                    
+                    <h1 style="font-family: 'PT Serif', serif;">MODIFY</h1>
+                    <div class="bar"></div>
+
+
                     <div class="modify_box">
-                        
+
                         <form>
-                           <div class="modify_process"> <span>본인인증</span>  · 내정보수정</div>
-                    
-                        <h2>01. 본인인증</h2>                        
-                        <p>비밀번호를 입력하시면 내정보 수정이 가능합니다.</p>
+                            <div class="modify_process"> <span>본인인증</span> · 내정보수정</div>
+
+                            <h2>01. 본인인증</h2>
+                            <p>비밀번호를 입력하시면 내정보 수정이 가능합니다.</p>
                             <ul>
                                 <li>
                                     <label for="pw"></label>
                                     <input type="password" id="pw" name="pw" placeholder="비밀번호">
                                 </li>
-                    
+
                                 <!--<li>
                                     <button onclick="phone_check" class="phone_check_btn">본인인증</button>
                                 </li>
@@ -52,22 +53,22 @@
                                     <label for="phone2"></label>
                                     <input type="text" id="phone2" name="휴대전화" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;">
                                 </li>-->
-                    
+
                             </ul>
                         </form>
-                        
+
                         <div class="modify_btn">
-                                <ul>
-                                    <li class="back"><a href="mypage">취소</a></li>
-                                   <li class="next"> <a onclick="confirmPw()">다음</a></li>
-                                </ul>
-                            </div>
-                    
-                        
+                            <ul>
+                                <li class="back"><a href="mypage">취소</a></li>
+                                <li class="next"> <a onclick="confirmPw()">다음</a></li>
+                            </ul>
+                        </div>
+
+
                     </div>
 
                 </div>
-                
+
 
             </div>
         </section>
@@ -79,25 +80,25 @@
     </div>
 
     <script>
-    
-    //console.log("myId :", myId);
+
+        //console.log("myId :", myId);
         //비밀번호 확인 
-        function confirmPw(){
+        function confirmPw() {
             $.ajax({
                 url: "api/user/confirm",
                 method: "post",
                 dataType: "json",
-                data: {pw : $("#pw").val()},
-                success: function(res){
+                data: { pw: $("#pw").val() },
+                success: function (res) {
                     //console.log(res);                   
-                    if(res.data === "실패"){ 
-                        alert ( "비밀번호 오류입니다.");  
+                    if (res.data === "실패") {
+                        alert("비밀번호 오류입니다.");
                         location.reload();
-                        
-                    } else if(res.data === "성공"){
+
+                    } else if (res.data === "성공") {
                         location.href = "modify2"
-                        
-                    }                    
+
+                    }
                 }
             })
         }
@@ -119,4 +120,6 @@
             evt.currentTarget.className += " active";
         }
     </script>
-</body></html>
+</body>
+
+</html>

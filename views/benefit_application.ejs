@@ -11,7 +11,8 @@
     <meta name="title" content="AZ369 - 입점상담신청">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
 
@@ -19,25 +20,25 @@
 
 <body>
     <div class="wrap">
-            <% include templates/header.ejs %>
-            <!--section.main 시작-->
+        <% include templates/header.ejs %>
+        <!--section.main 시작-->
 
-            <section class="main">
-                <div class="inner_main">
-                    <div class="main_bg"></div>
-                    <div class="tnb">
-                        <ul>
-                            <a href="benefit">
-                                <li>입점상가혜택</li>
-                            </a>
-                            <a href="benefit_application">
-                                <li style="background: #C3A164; color: #fff">입점상담신청</li>
-                            </a>
-                        </ul>
-                    </div>
+        <section class="main">
+            <div class="inner_main">
+                <div class="main_bg"></div>
+                <div class="tnb">
+                    <ul>
+                        <a href="benefit">
+                            <li>입점상가혜택</li>
+                        </a>
+                        <a href="benefit_application">
+                            <li style="background: #C3A164; color: #fff">입점상담신청</li>
+                        </a>
+                    </ul>
                 </div>
-    
-            </section>
+            </div>
+
+        </section>
 
         <!--//secton.main 완료-->
         <!--secton.sub_wrap 시작-->
@@ -83,7 +84,8 @@
 
                             <li>
                                 <label for="address">문의사항</label>
-                                <textarea name="memo" id="memo" cols="30" rows="5" placeholder="문의하실 내용을 간략히 입력해주세요."></textarea>
+                                <textarea name="memo" id="memo" cols="30" rows="5"
+                                    placeholder="문의하실 내용을 간략히 입력해주세요."></textarea>
                             </li>
                         </ul>
 
@@ -116,8 +118,10 @@
 
                     <div id="popup" class="layer">
                         <div class="popup_box">
-                               <h5>문의날짜 <br><span></span><h5 id="applyDate"></h5></span></h5>
-                                <p>입점상담신청 문의가 성공적으로 보내졌습니다.<br>빠른시일 내에 연락드리겠습니다.</p>
+                            <h5>문의날짜 <br><span></span>
+                                <h5 id="applyDate"></h5></span>
+                            </h5>
+                            <p>입점상담신청 문의가 성공적으로 보내졌습니다.<br>빠른시일 내에 연락드리겠습니다.</p>
 
                             <div class="popup_btn">
                                 <a href="benefit_application" class="popup_close">닫기</a>
@@ -128,12 +132,12 @@
             </div>
         </section>
 
-            <script>
-    
-                //입점상담신청
-               function applyCon(e){
+        <script>
+
+            //입점상담신청
+            function applyCon(e) {
                 e.preventDefault(); //다음 이벤트 제거
-                if($('#name').val() == "" || $('#phone').val()=='' || $('#brand').val()=='' || $('#address').val()=='' || $('#memo').val()==''){
+                if ($('#name').val() == "" || $('#phone').val() == '' || $('#brand').val() == '' || $('#address').val() == '' || $('#memo').val() == '') {
                     alert("빈칸을 입력해 주세요");
                     return false;
                 }
@@ -142,54 +146,54 @@
                     dataType: "json",
                     method: "post",
                     data: {
-                        name : $("#name").val(),
-                        phone : $("#phone").val(),
-                        brand : $("#brand").val(),
-                        address : $("#address").val(),
-                        memo : $("#memo").val()
+                        name: $("#name").val(),
+                        phone: $("#phone").val(),
+                        brand: $("#brand").val(),
+                        address: $("#address").val(),
+                        memo: $("#memo").val()
                     }
-                }).done(()=>{
+                }).done(() => {
                     alert("신청이 완료되었습니다. \n빠른시일내 연락드리겠습니다.");
                     location.href = '/benefit_application'
                 })
-               }
+            }
 
-               //제출여부조회
-               function lookUp(){
-                    if($('#name2').val() == "" || $('#phone2').val()==''){
-                        $(".layer").hide();
-                        alert("빈칸을 입력해 주세요");
-                        //return;    
-                        location.reload();                                   
-                    }
-    
-                    $.ajax({
-                       url: "api/user/lookUp",
-                       method: "post",
-                       dataType: "json",
-                       data: {
-                           name: $("#name2").val(),
-                           phone: $("#phone2").val()
-                       },
-                       success: function(res){
+            //제출여부조회
+            function lookUp() {
+                if ($('#name2').val() == "" || $('#phone2').val() == '') {
+                    $(".layer").hide();
+                    alert("빈칸을 입력해 주세요");
+                    //return;    
+                    location.reload();
+                }
 
-                        if(res.data === undefined){
+                $.ajax({
+                    url: "api/user/lookUp",
+                    method: "post",
+                    dataType: "json",
+                    data: {
+                        name: $("#name2").val(),
+                        phone: $("#phone2").val()
+                    },
+                    success: function (res) {
+
+                        if (res.data === undefined) {
                             alert("이름 혹은 휴대전화가 틀리거나 제출하시지 않으셨습니다.");
-                            location.reload();                                                                       
-                        }else if(res.data.SI_cDt != ""){  
-                            $("#applyDate").append(res.data.SI_cDt);                          
-                            location.href="#popup";                            
-                        }                                                                                                           
-                       }
-                    });
-               }
-       
-            </script>
-       
+                            location.reload();
+                        } else if (res.data.SI_cDt != "") {
+                            $("#applyDate").append(res.data.SI_cDt);
+                            location.href = "#popup";
+                        }
+                    }
+                });
+            }
+
+        </script>
+
         <!--//secton.about 완료-->
 
         <script>
-            $('.btn-example').click(function() {
+            $('.btn-example').click(function () {
                 var $href = $(this).attr('href');
                 layer_popup($href);
             });
@@ -219,12 +223,12 @@
                     });
                 }
 
-                $el.find('a.btn-layerClose').click(function() {
+                $el.find('a.btn-layerClose').click(function () {
                     isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
                     return false;
                 });
 
-                $('.layer .dimBg').click(function() {
+                $('.layer .dimBg').click(function () {
                     $('.dim-layer').fadeOut();
                     return false;
                 });
@@ -235,4 +239,6 @@
     </div>
 
 
-</body></html>
+</body>
+
+</html>

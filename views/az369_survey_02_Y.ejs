@@ -34,10 +34,12 @@
                 <form name="survey_form" method="post" onsubmit="surveySubmit()">
                     <div class="form_01">
                         <h5>임대보증금</h5>
-                        <input class="text-input deposit" required=true type="number" id="cur_deposit" name="cur_deposit">
+                        <input class="text-input deposit" required=true type="number" id="cur_deposit"
+                            name="cur_deposit">
 
                         <h5 class="form_h5">임대료</h5>
-                        <input class="text-input rent" required=true type="number" id="cur_rental_fee" name="cur_rental_fee">
+                        <input class="text-input rent" required=true type="number" id="cur_rental_fee"
+                            name="cur_rental_fee">
                     </div>
 
                     <div class="select_check select_check01">
@@ -69,7 +71,9 @@
                     <ul>
                         <h4 class="rent_h4">임대료</h4>
                         <li>
-                            <input required=true class="range" type="number" id="wt_rental_fee_min" name="wt_rental_fee_min" type="number" id="minimum" name="minimum" placeholder="최저 금액" maxlength="6" oninput="numberMaxLength(this);" />
+                            <input required=true class="range" type="number" id="wt_rental_fee_min"
+                                name="wt_rental_fee_min" type="number" id="minimum" name="minimum" placeholder="최저 금액"
+                                maxlength="6" oninput="numberMaxLength(this);" />
                         </li>
 
                         <li>
@@ -77,28 +81,32 @@
                         </li>
 
                         <li>
-                            <input required=true class="range" type="number" id="wt_rental_fee_max" name="wt_rental_fee_max" placeholder="적정 금액" maxlength="6" oninput="numberMaxLength(this);" />
+                            <input required=true class="range" type="number" id="wt_rental_fee_max"
+                                name="wt_rental_fee_max" placeholder="적정 금액" maxlength="6"
+                                oninput="numberMaxLength(this);" />
                         </li>
                     </ul>
 
                     <ul class="form_list">
                         <h4>임대보증금액</h4>
                         <li>
-                            <input required = true class="range" type="number" id="wt_deposit_min" name="wt_deposit_min" placeholder="최저 금액" maxlength="6" oninput="numberMaxLength(this);" />
+                            <input required=true class="range" type="number" id="wt_deposit_min" name="wt_deposit_min"
+                                placeholder="최저 금액" maxlength="6" oninput="numberMaxLength(this);" />
                         </li>
-    
+
                         <li>
                             <div class="icon">~</div>
                         </li>
-    
+
                         <li>
-                            <input required = true class="range" type="number" id="wt_deposit_max" name="wt_deposit_max" placeholder="적정 금액" maxlength="6" oninput="numberMaxLength(this);" />
+                            <input required=true class="range" type="number" id="wt_deposit_max" name="wt_deposit_max"
+                                placeholder="적정 금액" maxlength="6" oninput="numberMaxLength(this);" />
                         </li>
                     </ul>
                     <div class="select_check">
                         <h4 class="check_h4">위 작성하신 금액을 기준으로 매칭되는 세입자와 보증보험을 통해 계약할 의향이 있으신가요?
                             <br> <span>( '예' 를 선택하신 분께는 매칭이 우선적으로 진행됩니다. )</span></h4>
-                        
+
                         <div class="checks etrans">
                             <input required=true type="radio" id="r3" name="wt_insurance_type" value="y" class="ab" />
                             <label for="r3"><span>예</span></label>
@@ -128,12 +136,12 @@
             </div>
         </div>
     </div>
-    
+
 
     <script>
-        
-        function surveySubmit(){
-            let survey_result = JSON.parse( sessionStorage.getItem("survey_result") );
+
+        function surveySubmit() {
+            let survey_result = JSON.parse(sessionStorage.getItem("survey_result"));
             let sub_html = "";
             for (let key in survey_result) {
 
@@ -164,7 +172,7 @@
                 create a new DIV that will act as an option item:*/
                 c = document.createElement("DIV");
                 c.innerHTML = selElmnt.options[j].innerHTML;
-                c.addEventListener("click", function(e) {
+                c.addEventListener("click", function (e) {
                     /*when an item is clicked, update the original select box,
                     and the selected item:*/
                     var y, i, k, s, h;
@@ -187,7 +195,7 @@
                 b.appendChild(c);
             }
             x[i].appendChild(b);
-            a.addEventListener("click", function(e) {
+            a.addEventListener("click", function (e) {
                 /*when the select box is clicked, close any other select boxes,
                 and open/close the current select box:*/
                 e.stopPropagation();
@@ -219,7 +227,7 @@
         /*if the user clicks anywhere outside the select box,
         then close all select boxes:*/
         document.addEventListener("click", closeAllSelect);
-    
+
         function numberMaxLength(e) {
             if (e.value.length > e.maxLength) {
                 e.value = e.value.slice(0, e.maxLength);
@@ -228,4 +236,6 @@
     </script>
 
 
-</body></html>
+</body>
+
+</html>

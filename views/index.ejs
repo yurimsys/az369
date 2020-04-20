@@ -4,7 +4,7 @@
 <head prefix="og: http://ogp.me/ns#">
     <% include templates/head.ejs %>
     <link rel="stylesheet" href="/css/style.css">
-    
+
     <!--slick-->
     <link rel="stylesheet" type="text/css" href="/slick/slick.css">
     <link rel="stylesheet" type="text/css" href="/slick/slick-theme.css">
@@ -13,15 +13,17 @@
     <!-- 구글 소유권 -->
     <meta name="google-site-verification" content="0RJNe69KR1Kxwfdzkr0ncsxrh8G_pjdvxv6QPDLO1uI" />
     <!-- 네이버 소유권 -->
-    <meta name="naver-site-verification" content="629b23f80ef028493e12726aaf45962a20c46f74"/>
+    <meta name="naver-site-verification" content="629b23f80ef028493e12726aaf45962a20c46f74" />
     <!--문자인코딩-->
     <meta name="og:title" content="AZ369 보세의류쇼핑몰">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
 </head>
+
 <body>
     <div class="wrap">
         <% include templates/header.ejs %>
@@ -172,7 +174,7 @@
                 <ul>
                     <li>
                         <div class="about_img">
-                        <img src="/img/main/about_img.png" alt="">
+                            <img src="/img/main/about_img.png" alt="">
                         </div>
                     </li>
 
@@ -284,96 +286,98 @@
     </div>
 
     <!--gallery 슬라이드-->
-                <script>
-                    $('.gallery_slider').each(function() {
-                        var $this = $(this);
-                        var $group = $this.find('.gallery_slide_group');
-                        var $slides = $this.find('.gallery_slide');
-                        var bulletArray = [];
-                        var currentIndex = 0;
-                        var timeout;
+    <script>
+        $('.gallery_slider').each(function () {
+            var $this = $(this);
+            var $group = $this.find('.gallery_slide_group');
+            var $slides = $this.find('.gallery_slide');
+            var bulletArray = [];
+            var currentIndex = 0;
+            var timeout;
 
-                        function move(newIndex) {
-                            var animateLeft, slideLeft;
+            function move(newIndex) {
+                var animateLeft, slideLeft;
 
-                            advance();
+                advance();
 
-                            if ($group.is(':animated') || currentIndex === newIndex) {
-                                return;
-                            }
+                if ($group.is(':animated') || currentIndex === newIndex) {
+                    return;
+                }
 
-                            bulletArray[currentIndex].removeClass('active');
-                            bulletArray[newIndex].addClass('active');
+                bulletArray[currentIndex].removeClass('active');
+                bulletArray[newIndex].addClass('active');
 
-                            if (newIndex > currentIndex) {
-                                slideLeft = '100%';
-                                animateLeft = '-100%';
-                            } else {
-                                slideLeft = '-100%';
-                                animateLeft = '100%';
-                            }
+                if (newIndex > currentIndex) {
+                    slideLeft = '100%';
+                    animateLeft = '-100%';
+                } else {
+                    slideLeft = '-100%';
+                    animateLeft = '100%';
+                }
 
-                            $slides.eq(newIndex).css({
-                                display: 'block',
-                                left: slideLeft
-                            });
-                            $group.animate({
-                                left: animateLeft
-                            }, function() {
-                                $slides.eq(currentIndex).css({
-                                    display: 'none'
-                                });
-                                $slides.eq(newIndex).css({
-                                    left: 0
-                                });
-                                $group.css({
-                                    left: 0
-                                });
-                                currentIndex = newIndex;
-                            });
-                        }
-
-                        function advance() {
-                            clearTimeout(timeout);
-                            timeout = setTimeout(function() {
-                                if (currentIndex < ($slides.length - 1)) {
-                                    move(currentIndex + 1);
-                                } else {
-                                    move(0);
-                                }
-                            }, 4000);
-                        }
-
-                        $('.next_btn').on('click', function() {
-                            if (currentIndex < ($slides.length - 1)) {
-                                move(currentIndex + 1);
-                            } else {
-                                move(0);
-                            }
-                        });
-
-                        $('.previous_btn').on('click', function() {
-                            if (currentIndex !== 0) {
-                                move(currentIndex - 1);
-                            } else {
-                                move(3);
-                            }
-                        });
-
-                        $.each($slides, function(index) {
-                            var $button = $('<a class="slide_btn">&bull;</a>');
-
-                            if (index === currentIndex) {
-                                $button.addClass('active');
-                            }
-                            $button.on('click', function() {
-                                move(index);
-                            }).appendTo('.gallery_slide_buttons');
-                            bulletArray.push($button);
-                        });
-
-                        advance();
+                $slides.eq(newIndex).css({
+                    display: 'block',
+                    left: slideLeft
+                });
+                $group.animate({
+                    left: animateLeft
+                }, function () {
+                    $slides.eq(currentIndex).css({
+                        display: 'none'
                     });
-                </script>
-    
-</body></html>
+                    $slides.eq(newIndex).css({
+                        left: 0
+                    });
+                    $group.css({
+                        left: 0
+                    });
+                    currentIndex = newIndex;
+                });
+            }
+
+            function advance() {
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                    if (currentIndex < ($slides.length - 1)) {
+                        move(currentIndex + 1);
+                    } else {
+                        move(0);
+                    }
+                }, 4000);
+            }
+
+            $('.next_btn').on('click', function () {
+                if (currentIndex < ($slides.length - 1)) {
+                    move(currentIndex + 1);
+                } else {
+                    move(0);
+                }
+            });
+
+            $('.previous_btn').on('click', function () {
+                if (currentIndex !== 0) {
+                    move(currentIndex - 1);
+                } else {
+                    move(3);
+                }
+            });
+
+            $.each($slides, function (index) {
+                var $button = $('<a class="slide_btn">&bull;</a>');
+
+                if (index === currentIndex) {
+                    $button.addClass('active');
+                }
+                $button.on('click', function () {
+                    move(index);
+                }).appendTo('.gallery_slide_buttons');
+                bulletArray.push($button);
+            });
+
+            advance();
+        });
+    </script>
+
+</body>
+
+</html>

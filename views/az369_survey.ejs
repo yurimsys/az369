@@ -41,7 +41,8 @@
 
                     <h2>
                         <!-- 가로수길 센트롤돔 활성화 방안의 일환으로 임대인의 임대조건을 조사하여 임차인과 임대인의 매칭을 위한 기준을 만들고자 하오니 신중히 검토하시어 작성 부탁드립니다. -->
-                        가로수길 센트롤돔 활성화 방안의 일환으로 임대인의 임대조건을 조사하여 임차인과 임대인의 매칭을 위한 기준을 만들고자 작성되었습니다. 본 의향서는 언제든지 재작성 가능하오니 많은 참여 바랍니다.
+                        가로수길 센트롤돔 활성화 방안의 일환으로 임대인의 임대조건을 조사하여 임차인과 임대인의 매칭을 위한 기준을 만들고자 작성되었습니다. 본 의향서는 언제든지 재작성 가능하오니
+                        많은 참여 바랍니다.
                     </h2>
 
                     <div class="intro_btn"><a href="/img/survey_img.png" target="_blank">임대보증보험이란?</a></div>
@@ -63,19 +64,24 @@
 
                                 <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( '-' 생략 )">
                                 <button class="check_btn">본인인증</button>
-                                <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 6자리를 입력하세요." maxlength="6" style="background: #eee;">
-                                <div class="text-alert" id="alert_msg">인증번호의 유효시간은 30분입니다.  <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+                                <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 6자리를 입력하세요."
+                                    maxlength="6" style="background: #eee;">
+                                <div class="text-alert" id="alert_msg">인증번호의 유효시간은 30분입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를
+                                    확인해주세요.</div>
                                 <div class="text-alert" id="alert_msg_fail"></div>
                                 <div class="text-alert" id="alert_msg_success">인증번호가 확인되었습니다.</div>
                                 <input type="text" id="addr" name="addr" placeholder="상가 호수">
 
-                                <input type="text" id="wt_contact_period" name="wt_contact_period" placeholder="희망 계약기간 (연 단위)">
+                                <input type="text" id="wt_contact_period" name="wt_contact_period"
+                                    placeholder="희망 계약기간 (연 단위)">
 
                                 <h4><strong>희망 임대료</strong>를 기재해주세요 </h4>
 
-                                <input type="text" id="wt_rental_fee_min" name="wt_rental_fee_min" placeholder="최저 (만원 단위)">
+                                <input type="text" id="wt_rental_fee_min" name="wt_rental_fee_min"
+                                    placeholder="최저 (만원 단위)">
 
-                                <input type="text" id="wt_rental_fee_max" name="wt_rental_fee_max" placeholder="적정 (만원 단위)">
+                                <input type="text" id="wt_rental_fee_max" name="wt_rental_fee_max"
+                                    placeholder="적정 (만원 단위)">
 
                                 <h4><strong>희망 보증금액</strong>을 기재해주세요</h4>
 
@@ -106,21 +112,21 @@
                                 <p>현재 계약된 보증금, 임대료를 의향서에 따라 조정 의향이 있으신가요?</p>
 
                                 <div class="select_agree">
-                                        <ul>
-                                            <li>
-                                                <label>
-                                                    <input type="radio" name="wt_modify" value="yes">
-                                                    <span>네</span>
-                                                </label>
-                                            </li>
+                                    <ul>
+                                        <li>
+                                            <label>
+                                                <input type="radio" name="wt_modify" value="yes">
+                                                <span>네</span>
+                                            </label>
+                                        </li>
 
-                                            <li>
-                                                <label>
-                                                    <input type="radio" name="wt_modify" value="no">
-                                                    <span>아니오</span>
-                                                </label>
-                                            </li>
-                                        </ul>
+                                        <li>
+                                            <label>
+                                                <input type="radio" name="wt_modify" value="no">
+                                                <span>아니오</span>
+                                            </label>
+                                        </li>
+                                    </ul>
                                 </div>
 
 
@@ -139,21 +145,21 @@
     </div>
 </body>
 <script>
-    $(document).ready(()=>{
+    $(document).ready(() => {
         //본인인증
         $("button.check_btn").click((e) => {
             e.preventDefault();
             sendSmsButton();
             return false;
         });
- 
-        $("#phone_check").keyup( checkPhoneNumber );
+
+        $("#phone_check").keyup(checkPhoneNumber);
 
     });
 
-    function surveySubmit(){
+    function surveySubmit() {
         let is_phone_check = $("#phone_check").data('is_confirm') || false;
-        if( !is_phone_check ){
+        if (!is_phone_check) {
             return false;
         } else {
 
@@ -161,16 +167,16 @@
         }
     }
 
-    function sendSmsButton(){
+    function sendSmsButton() {
         let phone_number = $("#phone").val();
         phone_number = phone_number.replace(/-/g, "");
 
         $.ajax({
             dataType: "json",
-            url : "/api/auth/phone",
-            method : "post",
-            data : {
-                phone_number : phone_number
+            url: "/api/auth/phone",
+            method: "post",
+            data: {
+                phone_number: phone_number
             }
         }).done((res) => {
             $("#alert_msg_success").removeClass('active');
@@ -178,7 +184,7 @@
         })
     }
 
-    function checkPhoneNumber(e){
+    function checkPhoneNumber(e) {
         let ele_phone_check = $("#phone_check");
         // let auth_number = ele_phone_check.val();
         let auth_number = e.target.value;
@@ -186,35 +192,36 @@
         let phone_number = $("#phone").val();
         phone_number.replace(/-/g, "");
 
-        if( auth_number.length >= 4 ){  
+        if (auth_number.length >= 4) {
             $.ajax({
                 dataType: "json",
-                url : "/api/auth/phone",
-                method : "get",
-                data : {
-                    phone_number : phone_number,
-                    auth_number : auth_number
+                url: "/api/auth/phone",
+                method: "get",
+                data: {
+                    phone_number: phone_number,
+                    auth_number: auth_number
                 }
             }).done((res) => {
-                if( res.status_code == 200 ){
+                if (res.status_code == 200) {
                     ele_phone_check.data("is_confirm", true);
-    
+
                     $("#alert_msg").removeClass('active');
                     $("#alert_msg_fail").removeClass('active');
                     $("#alert_msg_success").addClass('active');
-                } else if ( res.status_code == 400 ){
+                } else if (res.status_code == 400) {
                     ele_phone_check.data("is_confirm", false);
                     $("#alert_msg").removeClass('active');
                     $("#alert_msg_success").removeClass('active');
-                    
+
                     let ele_alert_fail = $("#alert_msg_fail");
                     ele_alert_fail.text(res.msg);
                     ele_alert_fail.addClass('active');
                 }
             })
         }
-        
+
     }
 
 </script>
+
 </html>

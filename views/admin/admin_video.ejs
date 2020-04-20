@@ -1,43 +1,45 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<% include templates/admin_head.ejs %>
 </head>
+
 <body id="top">
 
-<!-- Preloader -->
-<!-- <div id="preloader">
+	<!-- Preloader -->
+	<!-- <div id="preloader">
 	<div id="status">
 		<div class="loader"></div>
 	</div>
 </div> -->
-<!-- /Preloader -->
+	<!-- /Preloader -->
 
-<div id="body-wrapper" class="body-container">
+	<div id="body-wrapper" class="body-container">
 
-	<!-- Header begins -->
-	<header class="main-nav clearfix">
-		<% include templates/admin_header.ejs %>
-	</header>
-	<!-- /Header ends -->
+		<!-- Header begins -->
+		<header class="main-nav clearfix">
+			<% include templates/admin_header.ejs %>
+		</header>
+		<!-- /Header ends -->
 
-	<!-- 네비게이션!@!@-->
-	<aside class="menu">
-		<div class="left-aside-container">			
-			<% include templates/admin_sidebar.ejs %>
-			<!-- /User profile -->
-			<!-- Main menu -->
-			<div class="menu-container">
-				
+		<!-- 네비게이션!@!@-->
+		<aside class="menu">
+			<div class="left-aside-container">
+				<% include templates/admin_sidebar.ejs %>
+				<!-- /User profile -->
+				<!-- Main menu -->
+				<div class="menu-container">
+
+				</div>
+				<!-- /Main menu -->
 			</div>
-			<!-- /Main menu -->
-		</div>
-	</aside>
-	<!-- /Sidebar -->
+		</aside>
+		<!-- /Sidebar -->
 
-	<!-- Page container begins -->
-	<section class="main-container">
-		<h1 style="display:none">Empty Heading</h1>
+		<!-- Page container begins -->
+		<section class="main-container">
+			<h1 style="display:none">Empty Heading</h1>
 
 			<!--Page Header-->
 			<div class="header">
@@ -48,36 +50,41 @@
 								<i class="icon-table2 position-left"></i>영상 관리
 							</div>
 							<div class="col-6">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" style="height: 40px; float: right;" onclick="insert()">영상 추가</button>
+								<button type="button" class="btn btn-primary" data-toggle="modal"
+									data-target="#modal_primary_header" style="height: 40px; float: right;"
+									onclick="insert()">영상 추가</button>
 							</div>
 						</div>
 					</div>
-						<table class="table table-cols">
-							<tr>
-								<th style="width: 10%;">검색어</th>
-								<td>
-									<select id="choi">										
-                                        <option value="YL_ch_name">채널명</option>
-                                        <option value="YL_title">타이틀</option>
-									</select>
-									<input type="text" id="selResult" class="form-control2" style="width: 15%;">
-								</td>
-							</tr>
-							<tr>
-								<th>생성일</th>
-								<td>
-									<div class="input-group" style="height: 30px;">
-										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" id="dept" style="width: 290px; height: 30px;">
-										&emsp14; ~ &emsp14;
-										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" id="end" style="width: 290px;">
-									</div>
-								</td>
-							</tr>
-						</table>
-						<button type="button" onclick="searchGo()" class="btn btn-primary" style=" width: 200px; margin-left: 40%">검색</button>
-					
+					<table class="table table-cols">
+						<tr>
+							<th style="width: 10%;">검색어</th>
+							<td>
+								<select id="choi">
+									<option value="YL_ch_name">채널명</option>
+									<option value="YL_title">타이틀</option>
+								</select>
+								<input type="text" id="selResult" class="form-control2" style="width: 15%;">
+							</td>
+						</tr>
+						<tr>
+							<th>생성일</th>
+							<td>
+								<div class="input-group" style="height: 30px;">
+									<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+									<input type="text" class="form-control2 datepicker-here" id="dept"
+										style="width: 290px; height: 30px;">
+									&emsp14; ~ &emsp14;
+									<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+									<input type="text" class="form-control2 datepicker-here" id="end"
+										style="width: 290px;">
+								</div>
+							</td>
+						</tr>
+					</table>
+					<button type="button" onclick="searchGo()" class="btn btn-primary"
+						style=" width: 200px; margin-left: 40%">검색</button>
+
 				</div>
 			</div>
 			<!--/Page Header-->
@@ -91,7 +98,7 @@
 						<table id="tList" class="table table-border table-striped">
 							<thead>
 								<tr>
-                                    <th></th>
+									<th></th>
 									<th>URL</th>
 									<th>타이틀</th>
 									<th>상세내용</th>
@@ -112,10 +119,11 @@
 								<div class="modal-title">영상 수정</div>
 							</div>
 							<div class="modal-body" id="moList">
-								
+
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal" id="delete">Delete</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal"
+									id="delete">Delete</button>
 								<button type="button" class="btn btn-info" id="update">Modify</button>
 							</div>
 						</div>
@@ -150,19 +158,20 @@
 								<div class="modal-title">영상 등록</div>
 							</div>
 							<div class="modal-body" id="insertList">
-								<label>타이틀</label><input type='text' class='form-control'id='ylTitle'>						
+								<label>타이틀</label><input type='text' class='form-control' id='ylTitle'>
 								<label>채널명</label><input type='text' class='form-control' id='ylChName'>
 								<label>url</label><input type='text' class='form-control' id='ylUrl'>
-                                <label>추천영상여부</label><input type='text' class='form-control' id='ylOrder'>
-                                <label>상세내용</label><textarea cols="85" rows="10" class='form-control' id='ylContent'></textarea>
+								<label>추천영상여부</label><input type='text' class='form-control' id='ylOrder'>
+								<label>상세내용</label><textarea cols="85" rows="10" class='form-control'
+									id='ylContent'></textarea>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								<button type="button" class="btn btn-primary" onclick="insertMember()">추가</button>
 							</div>
 						</div>
-                    </div>
-                    
+					</div>
+
 				</div>
 
 			</div>
@@ -177,199 +186,200 @@
 
 	<script>
 
-	$(document).ready(function(){
-		
-		let table =$('#tList').DataTable({
-			language: {
-				"lengthMenu":'<select>'+
-				'<option value="5">5</option>'+
-				'<option value="15">15</option>'+
-				'<option value="30">30</option>'+
-				'<option value="50">50</option>'+
-				'<option value="-1">All</option>'+
-				'</select>'
-			},
-			dom: 'l<"toolbar">frtip',
-			ajax : '/admin/video/List',
-			deferRender: true,
-			columnDefs : [
-				{
-					targets:0,
-					className : 'dt-body-center'
-                },
-                {
-					targets: 6,
-					render: function(data, type, row){
-						var test = row.YL_dDt;
-						var test2 = test.split(' ',1)
-						return test2;
-											
-					}
-				},
-			],
-			// start: 0,
-			// pageLength: 10,
-			rowId : "YL_id",
-			columns : [
-				{ 
-					"data": null, 
-					"render": function (data, type, full, meta) {
-						return meta.row + 1
-					}
-				},
-				{ "data": "YL_url" },
-				{ "data": "YL_title" },
-                { "data": "YL_description" },
-                { "data": "YL_ch_name" },
-				{ "data": "YL_d_order" },
-				{ "data": "YL_dDt" },
-			]
-		});
+		$(document).ready(function () {
 
-		$('.dataTables_length select').addClass('form-control')
-		$(".dataTables_filter input").addClass("form-control")
+			let table = $('#tList').DataTable({
+				language: {
+					"lengthMenu": '<select>' +
+						'<option value="5">5</option>' +
+						'<option value="15">15</option>' +
+						'<option value="30">30</option>' +
+						'<option value="50">50</option>' +
+						'<option value="-1">All</option>' +
+						'</select>'
+				},
+				dom: 'l<"toolbar">frtip',
+				ajax: '/admin/video/List',
+				deferRender: true,
+				columnDefs: [
+					{
+						targets: 0,
+						className: 'dt-body-center'
+					},
+					{
+						targets: 6,
+						render: function (data, type, row) {
+							var test = row.YL_dDt;
+							var test2 = test.split(' ', 1)
+							return test2;
 
-		//수정                    					
-		$('#tList tbody').on('click', 'tr', function(e){
-			$('#moList').empty();
-			localStorage.setItem('nowId', e.currentTarget.id)
+						}
+					},
+				],
+				// start: 0,
+				// pageLength: 10,
+				rowId: "YL_id",
+				columns: [
+					{
+						"data": null,
+						"render": function (data, type, full, meta) {
+							return meta.row + 1
+						}
+					},
+					{ "data": "YL_url" },
+					{ "data": "YL_title" },
+					{ "data": "YL_description" },
+					{ "data": "YL_ch_name" },
+					{ "data": "YL_d_order" },
+					{ "data": "YL_dDt" },
+				]
+			});
+
+			$('.dataTables_length select').addClass('form-control')
+			$(".dataTables_filter input").addClass("form-control")
+
+			//수정                    					
+			$('#tList tbody').on('click', 'tr', function (e) {
+				$('#moList').empty();
+				localStorage.setItem('nowId', e.currentTarget.id)
+				$.ajax({
+					url: '/admin/videoModify',
+					method: 'post',
+					dataType: 'json',
+					data: { 'ylId': e.currentTarget.id },
+					success: function (res) {
+						let html = "<input type='text' class='form-control' id='ylId2' value=" + res.data.YL_id + " style='display: none;'>";
+						html += "<label>타이틀 :</label><input type='text' class='form-control' id='ylTitle2' value=" + res.data.YL_title + ">";
+						html += "<label>채널명 :</label><input type='text' class='form-control' id='ylChName2' value=" + res.data.YL_ch_name + "> ";
+						html += "<label>url :</label><input type='text' class='form-control' id='ylUrl2' value=" + res.data.YL_url + ">";
+						html += "<label>추천영상여부 :</label><input type='text' class='form-control' id='ylOrder2' value=" + res.data.YL_d_order + ">";
+						html += "<label>상세내용 :</label><textarea cols='85' rows='10' class='form-control' id='ylContent2'>" + res.data.YL_description + "</textarea>";
+						$('#moList').append(html);
+					}
+				})
+				$('#modal_info_header').modal()
+			})
+		})
+
+
+		$('#update').on('click', function () {
 			$.ajax({
-				url: '/admin/videoModify',
+				url: "/admin/video/modify",
 				method: 'post',
 				dataType: 'json',
-				data: {'ylId' : e.currentTarget.id},
-				success: function(res){
-					let	html ="<input type='text' class='form-control' id='ylId2' value="+res.data.YL_id+" style='display: none;'>";
-						html += "<label>타이틀 :</label><input type='text' class='form-control' id='ylTitle2' value="+res.data.YL_title+">";
-						html += "<label>채널명 :</label><input type='text' class='form-control' id='ylChName2' value="+res.data.YL_ch_name+"> ";
-						html += "<label>url :</label><input type='text' class='form-control' id='ylUrl2' value="+res.data.YL_url+">";
-						html += "<label>추천영상여부 :</label><input type='text' class='form-control' id='ylOrder2' value="+res.data.YL_d_order+">";	
-                        html += "<label>상세내용 :</label><textarea cols='85' rows='10' class='form-control' id='ylContent2'>"+res.data.YL_description+"</textarea>";                        	
-					$('#moList').append(html);	
+				data: {
+					'ylTitle': $("#ylTitle2").val(), 'ylContent': $("#ylContent2").val(),
+					'ylChName': $("#ylChName2").val(), 'ylUrl': $("#ylUrl2").val(),
+					'ylOrder': $("#ylOrder2").val(), 'ylId': $('#ylId2').val()
+				},
+				success: function (res) {
+					if (res.data == "수정") {
+						location.reload();
+					}
 				}
 			})
-			$('#modal_info_header').modal()
 		})
-    })
-    
-    
-	$('#update').on('click', function(){
-		$.ajax({
-			url: "/admin/video/modify",
-			method: 'post',
-			dataType: 'json',
-			data: {
-                'ylTitle' : $("#ylTitle2").val(), 'ylContent' : $("#ylContent2").val(), 
-                'ylChName' : $("#ylChName2").val(), 'ylUrl' : $("#ylUrl2").val(),
-                'ylOrder' : $("#ylOrder2").val(), 'ylId' : $('#ylId2').val()
-				},
-            success: function(res){
-            	if(res.data == "수정"){
-                	location.reload();
-				}
-            }
-     	})
-	})
 
-	function searchGo(){
-		if($('#dept').val() != "" && $('#end').val() == ""){
-			alert("기간을 입력하세요.");
-			return;
-		}else if($('#dept').val() == "" && $('#end').val() != ""){
-			alert("기간을 입력하세요.");
-			return;
+		function searchGo() {
+			if ($('#dept').val() != "" && $('#end').val() == "") {
+				alert("기간을 입력하세요.");
+				return;
+			} else if ($('#dept').val() == "" && $('#end').val() != "") {
+				alert("기간을 입력하세요.");
+				return;
+			}
+			$('#tList').DataTable().clear().destroy();
+			$('#tList').DataTable({
+				language: {
+					"lengthMenu": '<select>' +
+						'<option value="5">5</option>' +
+						'<option value="15">15</option>' +
+						'<option value="30">30</option>' +
+						'<option value="50">50</option>' +
+						'<option value="-1">All</option>' +
+						'</select>'
+				},
+				dom: 'l<"toolbar">frtip',
+				processing: true,
+				ajax: {
+					url: '/admin/video/search',
+					method: 'post',
+					data: {
+						'selectName': $('#choi option:selected').val(), 'selResult': $('#selResult').val(),
+						'dept': $('#dept').val(), 'end': $('#end').val()
+					}
+				},
+				deferRender: true,
+				columnDefs: [
+					{
+						targets: 0,
+						className: 'dt-body-center'
+					},
+					{
+						targets: 6,
+						render: function (data, type, row) {
+							var test = row.YL_dDt;
+							var test2 = test.split(' ', 1)
+							return test2;
+						}
+					}
+				],
+				rowId: "YL_id",
+				columns: [
+					{
+						"data": null,
+						"render": function (data, type, full, meta) {
+							return meta.row + 1
+						}
+					},
+					{ "data": "YL_url" },
+					{ "data": "YL_title" },
+					{ "data": "YL_description" },
+					{ "data": "YL_ch_name" },
+					{ "data": "YL_d_order" },
+					{ "data": "YL_dDt" },
+				],
+			});
+			$('.dataTables_length select').addClass('form-control')
+			$(".dataTables_filter input").addClass("form-control")
 		}
-		$('#tList').DataTable().clear().destroy();
-		$('#tList').DataTable({
-			language: {
-				"lengthMenu":'<select>'+
-				'<option value="5">5</option>'+
-				'<option value="15">15</option>'+
-				'<option value="30">30</option>'+
-				'<option value="50">50</option>'+
-				'<option value="-1">All</option>'+
-				'</select>'
-			},
-			dom: 'l<"toolbar">frtip',
-			processing: true,
-			ajax : {
-				url : '/admin/video/search',
-				method: 'post',
-				data : {
-                    'selectName' : $('#choi option:selected').val(),'selResult' : $('#selResult').val(), 
-                    'dept' : $('#dept').val(), 'end' : $('#end').val()
-				}
-			},
-			deferRender: true,
-			columnDefs : [
-				{
-					targets:0,
-					className : 'dt-body-center'
-                },
-                {
-					targets: 6,
-					render: function(data, type, row){
-						var test = row.YL_dDt;
-						var test2 = test.split(' ',1)
-						return test2;											
-					}
-				}
-			],
-			rowId : "YL_id",
-			columns : [
-				{ 
-					"data": null, 
-					"render": function (data, type, full, meta) {
-						return meta.row + 1
-					}
-				},
-				{ "data": "YL_url" },
-				{ "data": "YL_title" },
-                { "data": "YL_description" },
-                { "data": "YL_ch_name" },
-				{ "data": "YL_d_order" },
-				{ "data": "YL_dDt" },
-			],
-		});
-		$('.dataTables_length select').addClass('form-control')
-		$(".dataTables_filter input").addClass("form-control")
-	}
 
 
-    
-	function insertMember(){
-		$.ajax({
-            url: "/admin/video/insert",
-            method: 'post',
-            dataType: 'json',
-            data: {
-                'ylTitle' : $("#ylTitle").val(), 'ylContent' : $("#ylContent").val(), 
-                'ylChName' : $("#ylChName").val(), 'ylUrl' : $("#ylUrl").val(),
-                'ylOrder' : $("#ylOrder").val()
-                },
-            success: function(res){
-                if(res.data == "추가"){
-                location.reload();
-                }
-            }
-        })
-	}
-	
-	$('#delete').on('click',function(){
-		$('#modal_danger_header').modal()	
-		$('#delAction').on('click',function(){
+
+		function insertMember() {
 			$.ajax({
-				url: '/admin/videoDelete',
+				url: "/admin/video/insert",
 				method: 'post',
 				dataType: 'json',
-				data: {'ylId' : localStorage.getItem('nowId')},
-				success: function(res){
-					location.reload()
+				data: {
+					'ylTitle': $("#ylTitle").val(), 'ylContent': $("#ylContent").val(),
+					'ylChName': $("#ylChName").val(), 'ylUrl': $("#ylUrl").val(),
+					'ylOrder': $("#ylOrder").val()
+				},
+				success: function (res) {
+					if (res.data == "추가") {
+						location.reload();
+					}
 				}
 			})
+		}
+
+		$('#delete').on('click', function () {
+			$('#modal_danger_header').modal()
+			$('#delAction').on('click', function () {
+				$.ajax({
+					url: '/admin/videoDelete',
+					method: 'post',
+					dataType: 'json',
+					data: { 'ylId': localStorage.getItem('nowId') },
+					success: function (res) {
+						location.reload()
+					}
+				})
+			})
 		})
-	})
 
 	</script>
 </body>
+
 </html>

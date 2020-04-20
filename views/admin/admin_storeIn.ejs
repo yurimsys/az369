@@ -1,43 +1,45 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<% include templates/admin_head.ejs %>
 </head>
+
 <body id="top">
 
-<!-- Preloader -->
-<!-- <div id="preloader">
+	<!-- Preloader -->
+	<!-- <div id="preloader">
 	<div id="status">
 		<div class="loader"></div>
 	</div>
 </div> -->
-<!-- /Preloader -->
+	<!-- /Preloader -->
 
-<div id="body-wrapper" class="body-container">
+	<div id="body-wrapper" class="body-container">
 
-	<!-- Header begins -->
-	<header class="main-nav clearfix">
-		<% include templates/admin_header.ejs %>
-	</header>
-	<!-- /Header ends -->
+		<!-- Header begins -->
+		<header class="main-nav clearfix">
+			<% include templates/admin_header.ejs %>
+		</header>
+		<!-- /Header ends -->
 
-	<!-- 네비게이션!@!@-->
-	<aside class="menu">
-		<div class="left-aside-container">			
-			<% include templates/admin_sidebar.ejs %>
-			<!-- /User profile -->
-			<!-- Main menu -->
-			<div class="menu-container">
-				
+		<!-- 네비게이션!@!@-->
+		<aside class="menu">
+			<div class="left-aside-container">
+				<% include templates/admin_sidebar.ejs %>
+				<!-- /User profile -->
+				<!-- Main menu -->
+				<div class="menu-container">
+
+				</div>
+				<!-- /Main menu -->
 			</div>
-			<!-- /Main menu -->
-		</div>
-	</aside>
-	<!-- /Sidebar -->
+		</aside>
+		<!-- /Sidebar -->
 
-	<!-- Page container begins -->
-	<section class="main-container">
-		<h1 style="display:none">Empty Heading</h1>
+		<!-- Page container begins -->
+		<section class="main-container">
+			<h1 style="display:none">Empty Heading</h1>
 
 			<!--Page Header-->
 			<div class="header">
@@ -61,12 +63,14 @@
 								<th>구분</th>
 								<td>
 									<label class="radio-inline">
-										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="y"></span></div>
+										<div class="choice"><span class=""><input type="radio" name="radio-inline-left"
+													class="styled" value="y"></span></div>
 										&emsp;&emsp;읽음
 									</label>
-									
+
 									<label class="radio-inline">
-										<div class="choice"><span class=""><input type="radio" name="radio-inline-left" class="styled" value="n"></span></div>
+										<div class="choice"><span class=""><input type="radio" name="radio-inline-left"
+													class="styled" value="n"></span></div>
 										&emsp;&emsp;읽지않음
 									</label>
 								</td>
@@ -76,15 +80,18 @@
 								<td>
 									<div class="input-group" style="height: 30px;">
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" id="dept" style="width: 290px; height: 30px;">
+										<input type="text" class="form-control2 datepicker-here" id="dept"
+											style="width: 290px; height: 30px;">
 										&emsp;&emsp;
 										<span class="input-group-addon"><i class="icon-calendar2"></i></span>
-										<input type="text" class="form-control2 datepicker-here" id="end" style="width: 290px;">
+										<input type="text" class="form-control2 datepicker-here" id="end"
+											style="width: 290px;">
 									</div>
 								</td>
 							</tr>
 						</table>
-						<button type="button" onclick="searchGo()" class="btn btn-primary" style=" width: 200px; margin-left: 40%">검색</button>
+						<button type="button" onclick="searchGo()" class="btn btn-primary"
+							style=" width: 200px; margin-left: 40%">검색</button>
 					</div>
 				</div>
 			</div>
@@ -121,7 +128,7 @@
 							</div>
 
 							<div class="modal-body card card-block text-center" id="insertList">
-					
+
 							</div>
 
 							<div class="modal-footer">
@@ -140,194 +147,195 @@
 
 	<script>
 
-$(document).ready(function(){
-	let table =$('#tList').DataTable({
-		language: {
-				"lengthMenu":'<select>'+
-				'<option value="5">5</option>'+
-				'<option value="15">15</option>'+
-				'<option value="30">30</option>'+
-				'<option value="50">50</option>'+
-				'<option value="-1">All</option>'+
-				'</select>'
-		},
-		dom: 'l<"toolbar">frtip',
-		ajax : '/admin/storeIn/List',
-		deferRender: true,
-		columnDefs : [
-			{
-				targets:0,
-				className : 'dt-body-center'
-			},
-			{
-				targets: 6,
-				render: function(data, type, row){
-					var test = row.SI_cDt;
-					var test2 = test.split(' ',1)
-					return test2;
-										
-				}
-			},
-			{
-				targets: 7,
-				render: function(data, type, row){
-					let readType = row.SI_Read
-					if(row.SI_Read == 'y'){
-						readType ='읽음'
-					}else{
-						readType = '읽지않음'
-					}
-					return readType;
-										
-				}
-			}
-		],
-		rowId : "SI_ID",
-		columns : [
-			{ 
-				"data": null, 
-				"render": function (data, type, full, meta) {
-					return meta.row + 1
-				}
-			},
-			{ "data": "SI_Name" },
-			{ "data": "SI_Phone" },
-			{ "data": "SI_Brand" },
-			{ "data": "SI_Addr1" },
-			{ "data": "SI_Content" },
-			{ "data": "SI_cDt"},
-			{ "data": "SI_Read"}
-		]
-	});
-	
-	$('.dataTables_length select').addClass('form-control')
-	$(".dataTables_filter input").addClass("form-control")
-
-	$('#tList tbody').on('click', 'tr', function(e){
-		$('#insertList').empty();
-		$.ajax({
-			url: '/admin/storeInDetail',
-			method: 'post',
-			dataType: 'json',
-			data: {
-				'siId' : e.currentTarget.id
-			},
-			success: function(res){
-				let html = "<label class='detailId' id="+res.data.SI_ID+" >고객 이름 :</label>";
-					html += "<input type='text' class='form-control' value="+res.data.SI_Name+" readonly = 'readonly' style='font-size: 20px; color: black;'>"
-					html += "<label>휴대전화 :</label>"
-					html += "<input type='text' class='form-control' value="+res.data.SI_Phone+" readonly = 'readonly' style='font-size: 20px; color: black;'>"
-					html += '<label>브랜드명 :</label>'
-					html += "<input type='text' class='form-control' value="+res.data.SI_Brand+" readonly = 'readonly' style='font-size: 20px; color: black;''>"
-					html += "<label>주소 :</label>"
-					html += "<input type='text' class='form-control' value="+res.data.SI_Addr1+" readonly = 'readonly' style='font-size: 20px; color: black;'>"
-					html += "<label>문의날짜 :</label>"
-					html += "<input type='text' class='form-control' value="+res.data.SI_cDt+" readonly = 'readonly' style='font-size: 20px; color: black;''>"
-					html += "<label>문의사항 :</label>"
-					html += "<textarea class='form-control' cols='40' rows='10' value="+res.data.SI_Content+" readonly = 'readonly' style='font-size: 20px; color: black;''>"+res.data.SI_Content+"</textarea>";
-					$('#insertList').append(html);
-			}
-
-		})
-		$('#modal_primary_header').modal()
-	})
-
-})
-
-	function searchGo(){
-		if($('#dept').val() != "" && $('#end').val() == ""){
-			alert("기간을 입력하세요.");
-			return;
-		}
-		if($('#dept').val() == "" && $('#end').val() != ""){
-			alert("기간을 입력하세요.");
-			return;
-		}
-		$('#tList').DataTable().clear().destroy();
-		$('#tList').DataTable({
-			language: {
-				"lengthMenu":'<select>'+
-				'<option value="5">5</option>'+
-				'<option value="15">15</option>'+
-				'<option value="30">30</option>'+
-				'<option value="50">50</option>'+
-				'<option value="-1">All</option>'+
-				'</select>'
-			},
-			dom: 'l<"toolbar">frtip',
-			processing: true,
-			ajax : {
-				url : '/admin/storeIn/search',
-				method: 'post',
-				data : {
-					'selectName' : $('#choi option:selected').val(), 'chkRad' : $("input:radio[name='radio-inline-left']:checked").val(),
-					'selResult' : $('#selResult').val(), 'dept' : $('#dept').val(), 'end' : $('#end').val()
-				}
-			},
-			deferRender: true,
-			columnDefs : [
-				{
-					targets:0,
-					className : 'dt-body-center'
+		$(document).ready(function () {
+			let table = $('#tList').DataTable({
+				language: {
+					"lengthMenu": '<select>' +
+						'<option value="5">5</option>' +
+						'<option value="15">15</option>' +
+						'<option value="30">30</option>' +
+						'<option value="50">50</option>' +
+						'<option value="-1">All</option>' +
+						'</select>'
 				},
-				{
-					targets: 6,
-					render: function(data, type, row){
-						var test = row.SI_cDt;
-						var test2 = test.split(' ',1)
-						return test2;
-											
-					}
-				},
-				{
-					targets: 7,
-					render: function(data, type, row){
-						let readType = row.SI_Read
-						if(row.SI_Read == 'y'){
-							readType ='읽음'
-						}else{
-							readType = '읽지않음'
+				dom: 'l<"toolbar">frtip',
+				ajax: '/admin/storeIn/List',
+				deferRender: true,
+				columnDefs: [
+					{
+						targets: 0,
+						className: 'dt-body-center'
+					},
+					{
+						targets: 6,
+						render: function (data, type, row) {
+							var test = row.SI_cDt;
+							var test2 = test.split(' ', 1)
+							return test2;
+
 						}
-						return readType;
-											
+					},
+					{
+						targets: 7,
+						render: function (data, type, row) {
+							let readType = row.SI_Read
+							if (row.SI_Read == 'y') {
+								readType = '읽음'
+							} else {
+								readType = '읽지않음'
+							}
+							return readType;
+
+						}
 					}
-				}
-			],
-			rowId : "SI_ID",
-			columns : [
-				{ 
-					"data": null, 
-					"render": function (data, type, full, meta) {
-						return meta.row + 1
+				],
+				rowId: "SI_ID",
+				columns: [
+					{
+						"data": null,
+						"render": function (data, type, full, meta) {
+							return meta.row + 1
+						}
+					},
+					{ "data": "SI_Name" },
+					{ "data": "SI_Phone" },
+					{ "data": "SI_Brand" },
+					{ "data": "SI_Addr1" },
+					{ "data": "SI_Content" },
+					{ "data": "SI_cDt" },
+					{ "data": "SI_Read" }
+				]
+			});
+
+			$('.dataTables_length select').addClass('form-control')
+			$(".dataTables_filter input").addClass("form-control")
+
+			$('#tList tbody').on('click', 'tr', function (e) {
+				$('#insertList').empty();
+				$.ajax({
+					url: '/admin/storeInDetail',
+					method: 'post',
+					dataType: 'json',
+					data: {
+						'siId': e.currentTarget.id
+					},
+					success: function (res) {
+						let html = "<label class='detailId' id=" + res.data.SI_ID + " >고객 이름 :</label>";
+						html += "<input type='text' class='form-control' value=" + res.data.SI_Name + " readonly = 'readonly' style='font-size: 20px; color: black;'>"
+						html += "<label>휴대전화 :</label>"
+						html += "<input type='text' class='form-control' value=" + res.data.SI_Phone + " readonly = 'readonly' style='font-size: 20px; color: black;'>"
+						html += '<label>브랜드명 :</label>'
+						html += "<input type='text' class='form-control' value=" + res.data.SI_Brand + " readonly = 'readonly' style='font-size: 20px; color: black;''>"
+						html += "<label>주소 :</label>"
+						html += "<input type='text' class='form-control' value=" + res.data.SI_Addr1 + " readonly = 'readonly' style='font-size: 20px; color: black;'>"
+						html += "<label>문의날짜 :</label>"
+						html += "<input type='text' class='form-control' value=" + res.data.SI_cDt + " readonly = 'readonly' style='font-size: 20px; color: black;''>"
+						html += "<label>문의사항 :</label>"
+						html += "<textarea class='form-control' cols='40' rows='10' value=" + res.data.SI_Content + " readonly = 'readonly' style='font-size: 20px; color: black;''>" + res.data.SI_Content + "</textarea>";
+						$('#insertList').append(html);
+					}
+
+				})
+				$('#modal_primary_header').modal()
+			})
+
+		})
+
+		function searchGo() {
+			if ($('#dept').val() != "" && $('#end').val() == "") {
+				alert("기간을 입력하세요.");
+				return;
+			}
+			if ($('#dept').val() == "" && $('#end').val() != "") {
+				alert("기간을 입력하세요.");
+				return;
+			}
+			$('#tList').DataTable().clear().destroy();
+			$('#tList').DataTable({
+				language: {
+					"lengthMenu": '<select>' +
+						'<option value="5">5</option>' +
+						'<option value="15">15</option>' +
+						'<option value="30">30</option>' +
+						'<option value="50">50</option>' +
+						'<option value="-1">All</option>' +
+						'</select>'
+				},
+				dom: 'l<"toolbar">frtip',
+				processing: true,
+				ajax: {
+					url: '/admin/storeIn/search',
+					method: 'post',
+					data: {
+						'selectName': $('#choi option:selected').val(), 'chkRad': $("input:radio[name='radio-inline-left']:checked").val(),
+						'selResult': $('#selResult').val(), 'dept': $('#dept').val(), 'end': $('#end').val()
 					}
 				},
-				{ "data": "SI_Name" },
-				{ "data": "SI_Phone" },
-				{ "data": "SI_Brand" },
-				{ "data": "SI_Addr1" },
-				{ "data": "SI_Content" },
-				{ "data": "SI_cDt"},
-				{ "data": "SI_Read" }
-			],
-		});
-		$('.dataTables_length select').addClass('form-control')
-		$(".dataTables_filter input").addClass("form-control")
+				deferRender: true,
+				columnDefs: [
+					{
+						targets: 0,
+						className: 'dt-body-center'
+					},
+					{
+						targets: 6,
+						render: function (data, type, row) {
+							var test = row.SI_cDt;
+							var test2 = test.split(' ', 1)
+							return test2;
 
-	}	
+						}
+					},
+					{
+						targets: 7,
+						render: function (data, type, row) {
+							let readType = row.SI_Read
+							if (row.SI_Read == 'y') {
+								readType = '읽음'
+							} else {
+								readType = '읽지않음'
+							}
+							return readType;
 
-	function checkIn(){
-		$.ajax({
-			url: '/admin/storeIn/check',
-			method: 'post',
-			dataType: 'json',
-			data: {'siId' : $('.detailId').attr('id')},
-			success: function(res){
-                location.reload();
-                
-			}
-		})
-	}
+						}
+					}
+				],
+				rowId: "SI_ID",
+				columns: [
+					{
+						"data": null,
+						"render": function (data, type, full, meta) {
+							return meta.row + 1
+						}
+					},
+					{ "data": "SI_Name" },
+					{ "data": "SI_Phone" },
+					{ "data": "SI_Brand" },
+					{ "data": "SI_Addr1" },
+					{ "data": "SI_Content" },
+					{ "data": "SI_cDt" },
+					{ "data": "SI_Read" }
+				],
+			});
+			$('.dataTables_length select').addClass('form-control')
+			$(".dataTables_filter input").addClass("form-control")
+
+		}
+
+		function checkIn() {
+			$.ajax({
+				url: '/admin/storeIn/check',
+				method: 'post',
+				dataType: 'json',
+				data: { 'siId': $('.detailId').attr('id') },
+				success: function (res) {
+					location.reload();
+
+				}
+			})
+		}
 
 	</script>
 </body>
+
 </html>

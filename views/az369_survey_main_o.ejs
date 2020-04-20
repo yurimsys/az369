@@ -380,7 +380,7 @@
         <script>
             //평균값
             function average(list) {
-                if( list.length == 0) list = [0];
+                if (list.length == 0) list = [0];
                 var sum = 0, length = 0;
                 for (var i = 0; i < list.length; i++) {
                     sum = sum + list[i];
@@ -391,61 +391,61 @@
 
             //최소값
             function min(list) {
-                if( list.length == 0 ) list = [0];
+                if (list.length == 0) list = [0];
                 return Math.min.apply(null, list)
             }
 
             //최대값
             function max(list) {
-                if( list.length == 0 ) list = [0];
+                if (list.length == 0) list = [0];
                 return Math.max.apply(null, list)
             }
 
-            var SurveyChart = function (){
+            var SurveyChart = function () {
                 this.max_instance = '', // Max Chart Instance
-                this.min_instance = '', // Min Chart Instance
-                this.data = {
-                    first_half : {
-                        label : ['1월', '2월', '3월', '4월', '5월', '6월'],
-                        max : {
-                            min : [],
-                            avg : [],
-                            max : [],
-                            min_avg : [],
-                            avg_avg : [],
-                            max_avg : []
+                    this.min_instance = '', // Min Chart Instance
+                    this.data = {
+                        first_half: {
+                            label: ['1월', '2월', '3월', '4월', '5월', '6월'],
+                            max: {
+                                min: [],
+                                avg: [],
+                                max: [],
+                                min_avg: [],
+                                avg_avg: [],
+                                max_avg: []
+                            },
+                            min: {
+                                min: [],
+                                avg: [],
+                                max: [],
+                                min_avg: [],
+                                avg_avg: [],
+                                max_avg: []
+                            }
                         },
-                        min : {
-                            min : [],
-                            avg : [],
-                            max : [],
-                            min_avg : [],
-                            avg_avg : [],
-                            max_avg : []
+                        second_half: {
+                            label: ['7월', '8월', '9월', '10월', '11월', '12월'],
+                            max: {
+                                min: [],
+                                avg: [],
+                                max: [],
+                                min_avg: [],
+                                avg_avg: [],
+                                max_avg: []
+                            },
+                            min: {
+                                min: [],
+                                avg: [],
+                                max: [],
+                                min_avg: [],
+                                avg_avg: [],
+                                max_avg: []
+                            }
                         }
                     },
-                    second_half : {
-                        label : ['7월', '8월', '9월', '10월', '11월', '12월'],
-                        max : {
-                            min : [],
-                            avg : [],
-                            max : [],
-                            min_avg : [],
-                            avg_avg : [],
-                            max_avg : []
-                        },
-                        min : {
-                            min : [],
-                            avg : [],
-                            max : [],
-                            min_avg : [],
-                            avg_avg : [],
-                            max_avg : []
-                        }
-                    }
-                },
-                this.getOptions = function (half_type = 'first_half', chart_type = 'max') {
-                    return {
+                    this.getOptions = function (half_type = 'first_half', chart_type = 'max') {
+                        return {
                             type: 'bar',
                             data: {
                                 labels: this.data.first_half.label,
@@ -556,137 +556,137 @@
                                     }
                                 }
                             }
-                    }
-                },
-                this.getData = function () {
-                    let rentalMin1 = [];
-                    let rentalMin2 = [];
-                    let rentalMin3 = [];
-                    let rentalMin4 = [];
-                    let rentalMin5 = [];
-                    let rentalMin6 = [];
-                    let rentalMin7 = [];
-                    let rentalMin8 = [];
-                    let rentalMin9 = [];
-                    let rentalMin10 = [];
-                    let rentalMin11 = [];
-                    let rentalMin12 = [];
+                        }
+                    },
+                    this.getData = function () {
+                        let rentalMin1 = [];
+                        let rentalMin2 = [];
+                        let rentalMin3 = [];
+                        let rentalMin4 = [];
+                        let rentalMin5 = [];
+                        let rentalMin6 = [];
+                        let rentalMin7 = [];
+                        let rentalMin8 = [];
+                        let rentalMin9 = [];
+                        let rentalMin10 = [];
+                        let rentalMin11 = [];
+                        let rentalMin12 = [];
 
-                    let rentalMax1 = [];
-                    let rentalMax2 = [];
-                    let rentalMax3 = [];
-                    let rentalMax4 = [];
-                    let rentalMax5 = [];
-                    let rentalMax6 = [];
-                    let rentalMax7 = [];
-                    let rentalMax8 = [];
-                    let rentalMax9 = [];
-                    let rentalMax10 = [];
-                    let rentalMax11 = [];
-                    let rentalMax12 = [];
+                        let rentalMax1 = [];
+                        let rentalMax2 = [];
+                        let rentalMax3 = [];
+                        let rentalMax4 = [];
+                        let rentalMax5 = [];
+                        let rentalMax6 = [];
+                        let rentalMax7 = [];
+                        let rentalMax8 = [];
+                        let rentalMax9 = [];
+                        let rentalMax10 = [];
+                        let rentalMax11 = [];
+                        let rentalMax12 = [];
 
-                    let chartData = {
-                        '1F': $('#1F .clicked').map((i, data) => data.dataset['1f']).toArray(),
-                        '2F': $('#2F .clicked').map((i, data) => data.dataset['2f']).toArray(),
-                        '3F': $('#3F .clicked').map((i, data) => data.dataset['3f']).toArray()
-                    }
+                        let chartData = {
+                            '1F': $('#1F .clicked').map((i, data) => data.dataset['1f']).toArray(),
+                            '2F': $('#2F .clicked').map((i, data) => data.dataset['2f']).toArray(),
+                            '3F': $('#3F .clicked').map((i, data) => data.dataset['3f']).toArray()
+                        }
 
-                    let half = $.ajax({
-                        url: '/c4/chart',
-                        method: 'post',
-                        dataType: 'json',
-                        async: false,
-                        data: chartData,
-                        success: function (res) {
-                            for (let i = 0; i < res.data.length; i++) {
-                                if (res.data[i].day == '01월') {
-                                    rentalMin1.push(res.data[i].LSV_wRentalFeeMin)
-                                    rentalMax1.push(res.data[i].LSV_wRentalFeeMax)
-                                } else if (res.data[i].day == '02월') {
-                                    rentalMin2.push(res.data[i].LSV_wRentalFeeMin)
-                                    rentalMax2.push(res.data[i].LSV_wRentalFeeMax)
-                                } else if (res.data[i].day == '03월') {
-                                    rentalMin3.push(res.data[i].LSV_wRentalFeeMin)
-                                    rentalMax3.push(res.data[i].LSV_wRentalFeeMax)
-                                } else if (res.data[i].day == '04월') {
-                                    rentalMin4.push(res.data[i].LSV_wRentalFeeMin)
-                                    rentalMax4.push(res.data[i].LSV_wRentalFeeMax)
-                                } else if (res.data[i].day == '05월') {
-                                    rentalMin5.push(res.data[i].LSV_wRentalFeeMin)
-                                    rentalMax5.push(res.data[i].LSV_wRentalFeeMax)
-                                } else if (res.data[i].day == '06월') {
-                                    rentalMin6.push(res.data[i].LSV_wRentalFeeMin)
-                                    rentalMax6.push(res.data[i].LSV_wRentalFeeMax)
-                                } else if (res.data[i].day == '07월') {
-                                    rentalMin7.push(res.data[i].LSV_wRentalFeeMin)
-                                    rentalMax7.push(res.data[i].LSV_wRentalFeeMax)
-                                } else if (res.data[i].day == '08월') {
-                                    rentalMin8.push(res.data[i].LSV_wRentalFeeMin)
-                                    rentalMax8.push(res.data[i].LSV_wRentalFeeMax)
-                                } else if (res.data[i].day == '09월') {
-                                    rentalMin9.push(res.data[i].LSV_wRentalFeeMin)
-                                    rentalMax9.push(res.data[i].LSV_wRentalFeeMax)
-                                } else if (res.data[i].day == '10월') {
-                                    rentalMin10.push(res.data[i].LSV_wRentalFeeMin)
-                                    rentalMax10.push(res.data[i].LSV_wRentalFeeMax)
-                                } else if (res.data[i].day == '11월') {
-                                    rentalMin11.push(res.data[i].LSV_wRentalFeeMin)
-                                    rentalMax11.push(res.data[i].LSV_wRentalFeeMax)
-                                } else if (res.data[i].day == '12월') {
-                                    rentalMin12.push(res.data[i].LSV_wRentalFeeMin)
-                                    rentalMax12.push(res.data[i].LSV_wRentalFeeMax)
+                        let half = $.ajax({
+                            url: '/c4/chart',
+                            method: 'post',
+                            dataType: 'json',
+                            async: false,
+                            data: chartData,
+                            success: function (res) {
+                                for (let i = 0; i < res.data.length; i++) {
+                                    if (res.data[i].day == '01월') {
+                                        rentalMin1.push(res.data[i].LSV_wRentalFeeMin)
+                                        rentalMax1.push(res.data[i].LSV_wRentalFeeMax)
+                                    } else if (res.data[i].day == '02월') {
+                                        rentalMin2.push(res.data[i].LSV_wRentalFeeMin)
+                                        rentalMax2.push(res.data[i].LSV_wRentalFeeMax)
+                                    } else if (res.data[i].day == '03월') {
+                                        rentalMin3.push(res.data[i].LSV_wRentalFeeMin)
+                                        rentalMax3.push(res.data[i].LSV_wRentalFeeMax)
+                                    } else if (res.data[i].day == '04월') {
+                                        rentalMin4.push(res.data[i].LSV_wRentalFeeMin)
+                                        rentalMax4.push(res.data[i].LSV_wRentalFeeMax)
+                                    } else if (res.data[i].day == '05월') {
+                                        rentalMin5.push(res.data[i].LSV_wRentalFeeMin)
+                                        rentalMax5.push(res.data[i].LSV_wRentalFeeMax)
+                                    } else if (res.data[i].day == '06월') {
+                                        rentalMin6.push(res.data[i].LSV_wRentalFeeMin)
+                                        rentalMax6.push(res.data[i].LSV_wRentalFeeMax)
+                                    } else if (res.data[i].day == '07월') {
+                                        rentalMin7.push(res.data[i].LSV_wRentalFeeMin)
+                                        rentalMax7.push(res.data[i].LSV_wRentalFeeMax)
+                                    } else if (res.data[i].day == '08월') {
+                                        rentalMin8.push(res.data[i].LSV_wRentalFeeMin)
+                                        rentalMax8.push(res.data[i].LSV_wRentalFeeMax)
+                                    } else if (res.data[i].day == '09월') {
+                                        rentalMin9.push(res.data[i].LSV_wRentalFeeMin)
+                                        rentalMax9.push(res.data[i].LSV_wRentalFeeMax)
+                                    } else if (res.data[i].day == '10월') {
+                                        rentalMin10.push(res.data[i].LSV_wRentalFeeMin)
+                                        rentalMax10.push(res.data[i].LSV_wRentalFeeMax)
+                                    } else if (res.data[i].day == '11월') {
+                                        rentalMin11.push(res.data[i].LSV_wRentalFeeMin)
+                                        rentalMax11.push(res.data[i].LSV_wRentalFeeMax)
+                                    } else if (res.data[i].day == '12월') {
+                                        rentalMin12.push(res.data[i].LSV_wRentalFeeMin)
+                                        rentalMax12.push(res.data[i].LSV_wRentalFeeMax)
+                                    }
                                 }
                             }
-                        }
-                    });
-                    let temp_array = Array(6);
-                    // 적정 임대료
-                    // 상반기 월별 데이터
-                    this.data.first_half.max.max = [max(rentalMax1), max(rentalMax2), max(rentalMax3), max(rentalMax4), max(rentalMax5), max(rentalMax6)] //전체 최대값
-                    this.data.first_half.max.min = [min(rentalMax1), min(rentalMax2), min(rentalMax3), min(rentalMax4), min(rentalMax5), min(rentalMax6)] //전체 최소값
-                    this.data.first_half.max.avg = [average(rentalMax1), average(rentalMax2), average(rentalMax3), average(rentalMax4), average(rentalMax5), average(rentalMax6)] //전체 평균값
-                    
-                    // 상반기 평균 값
-                    this.data.first_half.max.max_avg = temp_array.fill(average(this.data.first_half.max.max)).concat();
-                    this.data.first_half.max.min_avg = temp_array.fill(average(this.data.first_half.max.min)).concat();
-                    this.data.first_half.max.avg_avg = temp_array.fill(average(this.data.first_half.max.avg)).concat();
+                        });
+                        let temp_array = Array(6);
+                        // 적정 임대료
+                        // 상반기 월별 데이터
+                        this.data.first_half.max.max = [max(rentalMax1), max(rentalMax2), max(rentalMax3), max(rentalMax4), max(rentalMax5), max(rentalMax6)] //전체 최대값
+                        this.data.first_half.max.min = [min(rentalMax1), min(rentalMax2), min(rentalMax3), min(rentalMax4), min(rentalMax5), min(rentalMax6)] //전체 최소값
+                        this.data.first_half.max.avg = [average(rentalMax1), average(rentalMax2), average(rentalMax3), average(rentalMax4), average(rentalMax5), average(rentalMax6)] //전체 평균값
 
-                    // 하반기 월별 데이터
-                    this.data.second_half.max.max = [max(rentalMax7), max(rentalMax8), max(rentalMax9), max(rentalMax10), max(rentalMax11), max(rentalMax12)] //전체 최대값
-                    this.data.second_half.max.min = [min(rentalMax7), min(rentalMax8), min(rentalMax9), min(rentalMax10), min(rentalMax11), min(rentalMax12)] //전체 최소값
-                    this.data.second_half.max.avg = [average(rentalMax7), average(rentalMax8), average(rentalMax9), average(rentalMax10), average(rentalMax11), average(rentalMax12)] //전체 평균값
-                    // 하반기 평균 값
-                    this.data.second_half.max.max_avg = temp_array.fill(average(this.data.second_half.max.max)).concat();
-                    this.data.second_half.max.min_avg = temp_array.fill(average(this.data.second_half.max.min)).concat();
-                    this.data.second_half.max.avg_avg = temp_array.fill(average(this.data.second_half.max.avg)).concat();
+                        // 상반기 평균 값
+                        this.data.first_half.max.max_avg = temp_array.fill(average(this.data.first_half.max.max)).concat();
+                        this.data.first_half.max.min_avg = temp_array.fill(average(this.data.first_half.max.min)).concat();
+                        this.data.first_half.max.avg_avg = temp_array.fill(average(this.data.first_half.max.avg)).concat();
 
-                    //최저 임대료
-                    // 상반기 월별 데이터
-                    this.data.first_half.min.max = [max(rentalMin1), max(rentalMin2), max(rentalMin3), max(rentalMin4), max(rentalMin5), max(rentalMin6)] //전체 최대값
-                    this.data.first_half.min.min = [min(rentalMin1), min(rentalMin2), min(rentalMin3), min(rentalMin4), min(rentalMin5), min(rentalMin6)] //전체 최소값
-                    this.data.first_half.min.avg = [average(rentalMin1), average(rentalMin2), average(rentalMin3), average(rentalMin4), average(rentalMin5), average(rentalMin6)] //전체 평균값
-                    // 상반기 평균 값
-                    this.data.first_half.min.max_avg = temp_array.fill(average(this.data.first_half.min.max)).concat();
-                    this.data.first_half.min.min_avg = temp_array.fill(average(this.data.first_half.min.min)).concat();
-                    this.data.first_half.min.avg_avg = temp_array.fill(average(this.data.first_half.min.avg)).concat();
+                        // 하반기 월별 데이터
+                        this.data.second_half.max.max = [max(rentalMax7), max(rentalMax8), max(rentalMax9), max(rentalMax10), max(rentalMax11), max(rentalMax12)] //전체 최대값
+                        this.data.second_half.max.min = [min(rentalMax7), min(rentalMax8), min(rentalMax9), min(rentalMax10), min(rentalMax11), min(rentalMax12)] //전체 최소값
+                        this.data.second_half.max.avg = [average(rentalMax7), average(rentalMax8), average(rentalMax9), average(rentalMax10), average(rentalMax11), average(rentalMax12)] //전체 평균값
+                        // 하반기 평균 값
+                        this.data.second_half.max.max_avg = temp_array.fill(average(this.data.second_half.max.max)).concat();
+                        this.data.second_half.max.min_avg = temp_array.fill(average(this.data.second_half.max.min)).concat();
+                        this.data.second_half.max.avg_avg = temp_array.fill(average(this.data.second_half.max.avg)).concat();
 
-                    // 하반기 월별 데이터
-                    this.data.second_half.min.max = [max(rentalMin7), max(rentalMin8), max(rentalMin9), max(rentalMin10), max(rentalMin11), max(rentalMin12)] //전체 최대값
-                    this.data.second_half.min.min = [min(rentalMin7), min(rentalMin8), min(rentalMin9), min(rentalMin10), min(rentalMin11), min(rentalMin12)] //전체 최소값
-                    this.data.second_half.min.avg = [average(rentalMin7), average(rentalMin8), average(rentalMin9), average(rentalMin10), average(rentalMin11), average(rentalMin12)] //전체 평균값
-                    // 하반기 평균 값
-                    this.data.second_half.min.max_avg = temp_array.fill(average(this.data.second_half.min.max)).concat();
-                    this.data.second_half.min.min_avg = temp_array.fill(average(this.data.second_half.min.min)).concat();
-                    this.data.second_half.min.avg_avg = temp_array.fill(average(this.data.second_half.min.avg)).concat();
-                },
-                this.render = function (half_type = 'first_half') {
-                    if(this.max_instance.destroy) this.max_instance.destroy();
-                    if(this.min_instance.destroy) this.min_instance.destroy();
-                    var ctx1 = document.getElementById('chart01').getContext('2d');
-                    var ctx2 = document.getElementById('chart02').getContext('2d');
-                    this.max_instance = new Chart(ctx1, this.getOptions(half_type, 'max'));
-                    this.min_instance = new Chart(ctx2, this.getOptions(half_type, 'min'));
-                }
+                        //최저 임대료
+                        // 상반기 월별 데이터
+                        this.data.first_half.min.max = [max(rentalMin1), max(rentalMin2), max(rentalMin3), max(rentalMin4), max(rentalMin5), max(rentalMin6)] //전체 최대값
+                        this.data.first_half.min.min = [min(rentalMin1), min(rentalMin2), min(rentalMin3), min(rentalMin4), min(rentalMin5), min(rentalMin6)] //전체 최소값
+                        this.data.first_half.min.avg = [average(rentalMin1), average(rentalMin2), average(rentalMin3), average(rentalMin4), average(rentalMin5), average(rentalMin6)] //전체 평균값
+                        // 상반기 평균 값
+                        this.data.first_half.min.max_avg = temp_array.fill(average(this.data.first_half.min.max)).concat();
+                        this.data.first_half.min.min_avg = temp_array.fill(average(this.data.first_half.min.min)).concat();
+                        this.data.first_half.min.avg_avg = temp_array.fill(average(this.data.first_half.min.avg)).concat();
+
+                        // 하반기 월별 데이터
+                        this.data.second_half.min.max = [max(rentalMin7), max(rentalMin8), max(rentalMin9), max(rentalMin10), max(rentalMin11), max(rentalMin12)] //전체 최대값
+                        this.data.second_half.min.min = [min(rentalMin7), min(rentalMin8), min(rentalMin9), min(rentalMin10), min(rentalMin11), min(rentalMin12)] //전체 최소값
+                        this.data.second_half.min.avg = [average(rentalMin7), average(rentalMin8), average(rentalMin9), average(rentalMin10), average(rentalMin11), average(rentalMin12)] //전체 평균값
+                        // 하반기 평균 값
+                        this.data.second_half.min.max_avg = temp_array.fill(average(this.data.second_half.min.max)).concat();
+                        this.data.second_half.min.min_avg = temp_array.fill(average(this.data.second_half.min.min)).concat();
+                        this.data.second_half.min.avg_avg = temp_array.fill(average(this.data.second_half.min.avg)).concat();
+                    },
+                    this.render = function (half_type = 'first_half') {
+                        if (this.max_instance.destroy) this.max_instance.destroy();
+                        if (this.min_instance.destroy) this.min_instance.destroy();
+                        var ctx1 = document.getElementById('chart01').getContext('2d');
+                        var ctx2 = document.getElementById('chart02').getContext('2d');
+                        this.max_instance = new Chart(ctx1, this.getOptions(half_type, 'max'));
+                        this.min_instance = new Chart(ctx2, this.getOptions(half_type, 'min'));
+                    }
             }
             var sc;
             $(document).ready(() => {
@@ -703,7 +703,7 @@
             function init() {
                 // 문서를 맨처음 실행할 때 실행하는 스크립트의 모임
             }
-            
+
             function addListener() {
                 // 상,하반기 버튼 선택
                 $('.period_btn button').click((e) => {
@@ -777,7 +777,7 @@
                 }
 
             }
-            
+
             function toggleClass() {
                 if (this.tagName == 'text' && this.className.animVal.substring(8) != 'select') {
                     this.classList.toggle('select')

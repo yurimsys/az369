@@ -1,6 +1,6 @@
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KDHHLZT"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KDHHLZT" height="0" width="0"
+        style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <link rel="stylesheet" href="/css/header.css">
@@ -37,42 +37,44 @@
                 <li><a href="/video" class="gnb_link">소개영상</a></li>
             </ul>
         </nav>
-        
+
         <nav class="gnb2">
-           <ul>
+            <ul>
                 <% if( sessionUser ) { %>
-                    <li><a href="/mypage" style="font-weight:bold"><%= sessionUser.U_Name %> 님</a></li>
-                    <li><a href="/logout">로그아웃</a></li>
+                <li><a href="/mypage" style="font-weight:bold"><%= sessionUser.U_Name %> 님</a></li>
+                <li><a href="/logout">로그아웃</a></li>
                 <% } else { %>
-                    <li><a href="/login">로그인</a></li>
-                    <li><a href="/join">회원가입</a></li>
+                <li><a href="/login">로그인</a></li>
+                <li><a href="/join">회원가입</a></li>
                 <% } %>
                 <li>
                     <div class="tooltip">전화문의
-                    <span class="tooltiptext">031 - 668 - 0116</span>
-                </div>
-          </li>
-           </ul>
+                        <span class="tooltiptext">031 - 668 - 0116</span>
+                    </div>
+                </li>
+            </ul>
         </nav>
         <!--<div class="call">
             문의 <span>031 - 668 - 0116</span>
         </div>-->
-        
+
     </div>
 
     <!--모바일 메뉴-->
     <nav class="gnb_mo">
         <a href="#" class="close"><img src="/img/btn_gnb_close.png" alt="메뉴닫기"></a>
-        
+
         <ul>
-           <li class="gnb_mo_login">
+            <li class="gnb_mo_login">
                 <% if( sessionUser ){ %>
-                    <ul>
-                        <li><a href="/mypage"><strong style="font-weight: bold; font-size: 18px;"><u><%= sessionUser.U_Name %> 님</u></strong></a></li>
-                        <li><a href="/logout">로그아웃</a></li>
-                    </ul>
+                <ul>
+                    <li><a href="/mypage"><strong
+                                style="font-weight: bold; font-size: 18px;"><u><%= sessionUser.U_Name %>
+                                    님</u></strong></a></li>
+                    <li><a href="/logout">로그아웃</a></li>
+                </ul>
                 <% } else { %>
-                    <a href="/login">장차예매 시 <u>로그인</u>이 필요합니다.</a>
+                <a href="/login">장차예매 시 <u>로그인</u>이 필요합니다.</a>
                 <% } %>
             </li>
             <li>
@@ -118,7 +120,7 @@
     fixHeader();
 
     //윈도우창 조절시에 이벤트
-    $(window).on('scroll resize', function() {
+    $(window).on('scroll resize', function () {
         scrollTop = $(document).scrollTop();
         fixHeader();
 
@@ -139,10 +141,10 @@
     setGnbMo();
 
     function setGnbMo() {
-        $('header .open').on('click', function() {
+        $('header .open').on('click', function () {
             $('.gnb_mo').addClass('on');
         }); //햄버거버튼
-        $('.gnb_mo .close').on('click', function() {
+        $('.gnb_mo .close').on('click', function () {
             $('.gnb_mo').removeClass('on');
             $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
             $('.gnb_mo > ul > li > a').removeClass('on')
@@ -151,7 +153,7 @@
 
         //inner메뉴 열기
 
-        $('.gnb_mo > ul > li > a').on('click', function() {
+        $('.gnb_mo > ul > li > a').on('click', function () {
             $(this).next().slideToggle();
             $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
         });
@@ -159,20 +161,20 @@
 
 
     //scroll 애니
-    $(function() {
+    $(function () {
         var scrollAni = 0;
         //스크롤했을때 이벤트 적용
         scrollAni = $(document).scrollTop();
         ani('.menu_list, .int_slide, .owner_img, .insta_list'); //각 클래스 적용
         //윈도우창사이즈 조절시 동일하게 이벤트 적용
-        $(window).on('scroll resize', function() {
+        $(window).on('scroll resize', function () {
             scrollAni = $(document).scrollTop();
             ani('.menu_list, .int_slide, .owner_img, .insta_list');
         });
 
         //함수선언 ani-함수명/(selector)-선택자
         function ani(selector) {
-            $(selector).each(function() {
+            $(selector).each(function () {
 
                 var $selector = $(this);
                 var minShow = $selector.offset().top - $(window).height();
