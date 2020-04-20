@@ -19,7 +19,6 @@
     <script src="/js/scrolla.jquery.min.js"></script>
 
     <!-- 차트 js -->
-    <script src="/js/Chart.js"></script>
     <script src="/js/chart.min.js"></script>
 
 
@@ -325,10 +324,9 @@
                                 <ul>
                                     <li>
                                         <div class="custom-select">
-                                            <select id="custom-select">
+                                            <select id="custom-select" onchange="test()">
                                                 <option value="2020" selected>2020</option>
                                                 <option value="2020">2020</option>
-                                                <option value="2019">2019</option>
                                             </select>
                                         </div>
                                     </li>
@@ -345,23 +343,23 @@
 
                             <div class="chart_list">
                                 <h4><span>적정</span> 임대료</h4>
-                                <span class="head_label" style="color: #269FAF;">전체최대의 평균 : </span><span
+                                <!-- <span class="head_label" style="color: #269FAF;">전체최대의 평균 : </span><span
                                     id='maxMaxAvg'></span>
                                 <span class="head_label" style="color: #454E5C;">전체최소의 평균 : </span><span
                                     id='maxMinAvg'></span>
                                 <span class="head_label" style="color: #D69D12;">전체평균의 평균 : </span><span
-                                    id='maxAvgAvg'></span>
+                                    id='maxAvgAvg'></span> -->
                                 <div class="chart">
                                     <canvas id="chart01" width="100%" height="100%" chart-click='ctrl.onClick'></canvas>
                                 </div>
 
                                 <h4><span>최저</span> 임대료</h4>
-                                <span class="head_label" style="color: #269FAF;">전체최대의 평균 : </span><span
+                                <!-- <span class="head_label" style="color: #269FAF;">전체최대의 평균 : </span><span
                                     id='minMaxAvg'></span>
                                 <span class="head_label" style="color: #454E5C;">전체최소의 평균 : </span><span
                                     id='minMinAvg'></span>
                                 <span class="head_label" style="color: #D69D12;">전체평균의 평균 : </span><span
-                                    id='minAvgAvg'></span>
+                                    id='minAvgAvg'></span> -->
                                 <div class="chart">
                                     <canvas id="chart02" width="100%" height="100%"></canvas>
                                 </div>
@@ -386,7 +384,11 @@
                     sum = sum + list[i];
                     if (list[i] > 0) length++;
                 }
-                return sum / ((length == 0) ? length + 1 : length);
+                // 소수점 1자리 반올림 및
+                let result = (sum / ((length == 0) ? length + 1 : length));
+                result = result.toFixed(1);
+                result = (result.substr(-1) == "0") ? result.split(".")[0] : result;
+                return Number(result);
             }
 
             //최소값
@@ -456,6 +458,8 @@
                                     pointBackgroundColor: 'rgba(69, 78, 92, 1)',
                                     borderWidth: 2,
                                     lineTension: 0,
+                                    fillText : true,
+                                    fillTextLocation : 5,
                                     /*곡선제거*/
                                     data: this.data[half_type][chart_type].min_avg,
                                     scaleBeginAtZero: true,
@@ -466,6 +470,8 @@
                                     borderColor: 'rgba(38, 159, 175, 0.7)',
                                     pointBackgroundColor: 'rgba(38, 159, 175, 1)',
                                     borderWidth: 2,
+                                    fillText : true,
+                                    fillTextLocation : 5,
                                     lineTension: 0,
                                     data: this.data[half_type][chart_type].max_avg,
                                     fill: false
@@ -474,6 +480,8 @@
                                     type: "line",
                                     borderWidth: 2,
                                     lineTension: 0,
+                                    fillText : true,
+                                    fillTextLocation : 5,
                                     borderColor: 'rgba(214, 157, 18, 0.7)',
                                     pointBackgroundColor: 'rgba(214, 157, 18, 1)',
                                     data: this.data[half_type][chart_type].avg_avg,
@@ -510,18 +518,23 @@
                                 legend: {
                                     labels: {
                                         boxWidth: 12,
-                                        padding: 15
+                                        padding: 15,
                                     }
                                 },
                                 tooltips: {
-                                    enabled: false,
+                                    
                                     callbacks: {
-                                        label: function (tooltipItem) {
-                                            return tooltipItem.yLabel;
+                                        label: function (tooltipItem, data) {
+                                            let label = data.datasets[tooltipItem.datasetIndex].label;
+                                            return label+": "+tooltipItem.yLabel;
                                         }
                                     },
+                                    filter : function (tooltipItem) {
+                                        // 3,4,5 번째 dataset 만 tootip에 노출
+                                        return [3,4,5].includes(tooltipItem.datasetIndex);
+                                    },
                                     mode: 'index',
-                                    intersect: false,
+                                    intersect: true,
                                     titleFontSize: 18,
                                     titleFontStyle: 500,
                                     titleMarginBottom: 8,
@@ -553,6 +566,32 @@
                                 elements: {
                                     point: {
                                         radius: 0
+                                    }
+                                },
+                                animation: {
+                                    duration : 500,
+                                    onComplete : function () {
+                                        var chartInstance = this.chart,
+                                            ctx = chartInstance.ctx;
+                                        // ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                                        // ctx.textAlign = 'center';
+                                        // ctx.textBaseline = 'bottom';
+
+                                        this.data.datasets.forEach(function (dataset, i) {
+                                            if( dataset.fillText ){
+                                                let meta = chartInstance.controller.getDatasetMeta(i);
+                                                if( dataset.fillTextLocation !== undefined && dataset.fillTextLocation != NaN ){
+                                                    let data = dataset.data[dataset.fillTextLocation];
+                                                    let chartNode = meta.data[dataset.fillTextLocation];
+                                                    ctx.fillText(data, chartNode._model.x - 10, chartNode._model.y - 10);
+                                                } else {
+                                                    meta.data.forEach(function (chartNode, index) {
+                                                        var data = dataset.data[index];
+                                                        ctx.fillText(data, chartNode._model.x, chartNode._model.y - 5);
+                                                    });
+                                                }
+                                            }
+                                        });
                                     }
                                 }
                             }
@@ -716,6 +755,7 @@
                     sc.render('first_half');
                 })
                 $("#custom-select").click((e) => {
+                    
                     sc.getData();
                     // getData에서 년도 받아오고 Query에서도 년도 처리 해야함.
                 })
@@ -791,6 +831,11 @@
                 if (this.tagName != 'text') {
                     this.classList.toggle('clicked')
                 }
+            }
+
+            function test(){
+                console.log("aaa'");
+
             }
         </script>
 
