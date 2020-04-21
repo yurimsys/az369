@@ -72,7 +72,6 @@
 						<!--step 01 본인인증-->
 						<div id='step_01'>
 							<h1>비밀번호 재설정</h1>
-
 							<div class="modal_inner">
 								<p>비밀번호 재설정을 위해<br> <span>본인인증</span>이 필요합니다.</p>
 								<div class="step_bar"></div>
@@ -129,15 +128,15 @@
 					$('#step_01').hide();
 					$('#step_02').css('height', 500);
 				});
-				$('#hide').click(function () {
-					$('#step_01').hide();
-					$('#step_02').show();
-				});
+				//회원 존재 여부 확인
+				// $('#hide').click(function () {
+				// 	$('#step_01').hide();
+				// 	$('#step_02').show();
+				// });
 				$('.check_btn').click(function () {
 					$('#step_01 ul').css('margin-top', -10)
 				});
 			</script>
-
 
 			<!-- 조회하기 팝업 모달 -->
 			<script>
@@ -153,14 +152,29 @@
 					modal.style.display = "block";
 				}
 
+				//회원 존재여부 확인
 				$("#hide").click(function () {
 					let phone_check = $("#phone_check").data("is_confirm") || false;
 					if (!phone_check) {
 						alert('휴대전화번호 본인인증이 필요합니다.');
 						return false;
-					} else {
-						$("#step_01").hide();
-						//console.log(sessionStorage.getItem('phoneNumber'))
+					}else if(phone_check){
+						var phoneChk;
+						$.ajax({
+							url: '/c2/phoneChk',
+							method: 'post',
+							dataType: 'json',
+							data: {'phone' : $('#m_phone').val()},
+							success: function(res){
+								if(res.data.length == 0){
+									alert('등록된 회원이 아닙니다. \n 전화번호를 확인해 주세요.')
+									return;
+								}else{
+									$("#step_01").hide();
+									$('#step_02').show();
+								}
+							}
+						})
 					}
 				});
 				function modifyPw() {
@@ -169,7 +183,7 @@
 						method: 'post',
 						dataType: 'json',
 						data: {
-							'storeNumber': sessionStorage.getItem('storeNumber'),
+							'phone': $('#m_phone').val(),
 							'password': $('#password').val()
 						},
 						success: function (res) {
@@ -183,25 +197,6 @@
 			</script>
 
 			<script>
-
-				//비밀번호 정규식
-				$("#password").change(function () {
-					checkPassword($('#password').val());
-				});
-				function checkPassword(password) {
-					if (!(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password))) {
-						alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
-						$('#password').val('').focus();
-						return false;
-					}
-					var checkNumber = password.search(/[0-9]/g);
-					var checkEnglish = password.search(/[a-z]/ig);
-					if (checkNumber < 0 || checkEnglish < 0) {
-						alert("숫자와 영문자를 혼용하여야 합니다.");
-						$('#password').val('').focus();
-						return false;
-					}
-				}
 
 				//비밀번호 확인
 				$(function () {
@@ -223,7 +218,6 @@
 				});
 
 				var mySession = JSON.parse(sessionStorage.getItem("mySession"));
-				//console.log(mySession);
 				if (mySession != undefined) {
 					location.href = "/c4"
 				}
@@ -235,9 +229,7 @@
 						sendSmsButton();
 						return false;
 					});
-
 					$("#phone_check").keyup(checkPhoneNumber);
-
 				});
 
 				function numberMaxLength(e) {
@@ -260,6 +252,8 @@
 					}).done((res) => {
 						$("#alert_msg_success").removeClass('active');
 						$("#alert_msg").addClass('active');
+						
+						$("#alert_msg").css('visibility','visible')
 					})
 				}
 
@@ -272,7 +266,6 @@
 					phone_number.replace(/-/g, "");
 
 					if (auth_number.length >= 4) {
-
 						$.ajax({
 							dataType: "json",
 							url: "/api/auth/phone",
@@ -290,7 +283,7 @@
 								$("#alert_msg").removeClass('active');
 								$("#alert_msg_fail").removeClass('active');
 								$("#alert_msg_success").addClass('active');
-								sessionStorage.setItem('phoneNumber', $('#m_phone').val())
+								$("#alert_msg_success").css('visibility','visible');
 							} else if (res.status_code == 400) {
 								ele_phone_check.data("is_confirm", false);
 								$("#alert_msg").removeClass('active');
@@ -299,47 +292,44 @@
 								let ele_alert_fail = $("#alert_msg_fail");
 								ele_alert_fail.text(res.msg);
 								ele_alert_fail.addClass('active');
+								ele_alert_fail.css('visibility','visible');
 							}
 						});
 					}
 				}
 
 				function next() {
+					if($('#storeNumber').val() == "" || $('#pw').val() == ""){
+						alert('빈칸을 입력해 주세요.');
+						return;
+					}
 					$.ajax({
 						url: '/c2/action',
 						method: 'post',
 						dataType: 'json',
 						data: {
-							'phone': $('#myPhone').val(),
+							'storeNumber': $('#storeNumber').val(),
 							'password': $('#pw').val()
 						},
 						success: function (res) {
-							//console.log(res.data)
-							//console.log(res.data[0].Name)
-							var mySession = [{
-								name: "name",
-								value: res.data[0].Name
-							}, {
-								name: "store",
-								value: res.data[0].StoreNumber
-							}, {
-								name: 'phone',
-								value: res.data[0].Phone
-							}];
-							sessionStorage.setItem("mySession", JSON.stringify(mySession));
-							location.href = '/c4'
+							if(res.data.length == 1){
+								var mySession = { name: res.data[0].L_Name, store: res.data[0].L_LS_Number, phone : res.data[0].L_Phone };
+								sessionStorage.setItem("mySession", JSON.stringify(mySession));
+								location.href = '/c4'
+							}else if(res.data == '실패'){
+								alert('상가호수 혹은 비밀번호를 확인해주세요.')
+							}
 
 						}
 					})
 				}
 
-
 			</script>
 			<script>
-				function myFunction(e) {
-					e.preventDefault();
-					document.getElementById("phone_check_box").style.display = "block";
-				}
+			function myFunction(e) {
+				e.preventDefault();
+				document.getElementById("phone_check_box").style.display = "block";
+			}
 			</script>
 </body>
 

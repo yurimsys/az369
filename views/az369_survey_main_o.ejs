@@ -732,13 +732,13 @@
                 var mySession = JSON.parse(sessionStorage.getItem("mySession"));
                 if(mySession == undefined){
                 	alert("로그인 후 이용해주세요.")
-                    location.href="/c1"
+                    location.href="/c"
                 }
-
                 init();
                 addListener();
             });
-
+            // console.log(sessionStorage.mySession)
+            // console.log(JSON.parse(sessionStorage.getItem("mySession")).name)
             function init() {
                 // 문서를 맨처음 실행할 때 실행하는 스크립트의 모임
             }
@@ -833,10 +833,6 @@
                 }
             }
 
-            function test(){
-                console.log("aaa'");
-
-            }
         </script>
 
         <script>

@@ -98,16 +98,17 @@ router.get('/d1', function(req, res){
 
 //의향서 c2 로그인 액션
 router.post('/c2/action', function(req,res,done){
-    let query = 'select * from tL where L_Phone = :phone'
+    let query = 'select * from tL where L_LS_Number = :storeNumber'
     let password = req.body.password;
+    let storeNumber = req.body.storeNumber;
     //let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString()
     connection.query(query, 
         {          
-            phone : req.body.phone        
+            storeNumber      
         },
         function(err, rows) {
             if (err) {return done(err);}
-            if(CryptoJS.AES.decrypt(rows[0].PassWord, config.enc_salt).toString(CryptoJS.enc.Utf8) !== password ){
+            if(CryptoJS.AES.decrypt(rows[0].L_PW, config.enc_salt).toString(CryptoJS.enc.Utf8) !== password ){
                 res.json({data: "실패"});
                 return done( null, false, {message: "ID와 Password를 확인해주세요"} );
             } else {
@@ -118,15 +119,30 @@ router.post('/c2/action', function(req,res,done){
         });  
 })
 
+//의향서 c2 비밀번호 휴대전화 인증
+router.post('/c2/phoneChk', function(req,res,done){
+    let query = 'select * from tL where L_Phone = :phone'
+    let phone = req.body.phone;
+    //let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString()
+    connection.query(query,
+        {
+            phone
+        },
+        function(err, rows) {
+            if (err) {return done(err);}
+            res.json({data : rows})
+        });
+})
+
 //의향서 c2 비밀번호 찾기 변경
 router.post('/c2/modify', function(req,res,done){
-    let query = 'update tL set L_PW = :hash_pw where L_Phone = :storeNumber'
+    let query = 'update tL set L_PW = :hash_pw where L_Phone = :phone'
+    let phone = req.body.phone;
     let password = req.body.password;
-    let storeNumber = req.body.storeNumber;
     let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString()
     connection.query(query,
         {
-            storeNumber, hash_pw
+            phone, hash_pw
         },
         function(err, rows) {
             if (err) {return done(err);}
@@ -146,7 +162,6 @@ router.post('/c3/action', function(req,res){
             hash_pw
         },function(err, rows){
             if(err) throw err;
-
             res.json({data : '회원가입'})
         }
     )
