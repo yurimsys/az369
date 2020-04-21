@@ -37,6 +37,8 @@
 
                     <h4>상가호수</h4>
                     <input require=true type="text" id="addr" name="addr">
+                    <div id="addrChk1" style="font-size: 13px; color: green; display: none;">동일한 상가호수가 존재합니다.</div>
+                    <div id="addrChk2" style="font-size: 13px; color: red; display: none;">사용 가능합니다.</div>
 
                     <h4>이름</h4>
                     <input require=true type="text" id="name" name="name">
@@ -168,10 +170,46 @@
                 });
             }
         }
+
+        //상가호수 중복확인
+        var timeout = null;
+        let chkAddr = 0;
+        $('#addr').keyup(function () {
+            clearTimeout(timeout);
+            timeout = setTimeout(function () {
+                var addr = $("#addr").val();
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    data: { 'addr': addr },
+                    url: '/c3/checkAddr',
+                    success: function (res) {
+                        console.log("res :::",res.data.length)
+                        if (res.data.length == 1) {
+                            $("#addrChk1").css("display", "block");
+                            $("#addrChk2").css("display", "none");
+                        } else {
+                            chkAddr = 1;
+                            $("#addrChk1").css("display", "none");
+                            $("#addrChk2").css("display", "block");
+                        }
+                        if ($('#addr').val() == "") {
+                            $("#addrChk1").css("display", "none");
+                            $("#addrChk2").css("display", "none");
+                        }
+                    },
+                });
+            }, 800);
+        });
+
         function next() {
             let phone_check = $("#phone_check").data("is_confirm") || false;
             if (!phone_check) {
                 alert('휴대전화번호 본인인증이 필요합니다.');
+                return false;
+            }
+            if(chkAddr == 0){
+                alert('상가호수가 중복입니다.')
                 return false;
             }
             $.ajax({

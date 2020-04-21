@@ -108,13 +108,19 @@ router.post('/c2/action', function(req,res,done){
         },
         function(err, rows) {
             if (err) {return done(err);}
-            if(CryptoJS.AES.decrypt(rows[0].L_PW, config.enc_salt).toString(CryptoJS.enc.Utf8) !== password ){
-                res.json({data: "실패"});
-                return done( null, false, {message: "ID와 Password를 확인해주세요"} );
-            } else {
-                console.log("성공")
-                res.json( {  data : rows});
-            }           
+            if(rows.length == 0){
+                res.json( {  data : '실패'});
+            }else{
+                if(CryptoJS.AES.decrypt(rows[0].L_PW, config.enc_salt).toString(CryptoJS.enc.Utf8) !== password ){
+                    res.json({data: "실패"});
+                    return done( null, false, {message: "ID와 Password를 확인해주세요"} );
+                } else {
+                    //console.log("성공")
+                    res.json( {  data : rows});
+                }    
+            }
+           
+       
             
         });  
 })
@@ -149,6 +155,22 @@ router.post('/c2/modify', function(req,res,done){
             res.json({data : '변경'})
         });
 })
+
+//상가호수 중복확인
+router.post('/c3/checkAddr', (req, res, next) =>{
+    let query = "select L_LS_Number from tL where L_LS_Number = :addr limit 1";
+    let addr = req.body.addr;
+    connection.query(query, 
+        {
+            addr                     
+        },
+        function(err, rows, fields) {
+            if (err) throw err;           
+            res.json( { data : rows });
+        });
+        
+});
+
 //의향서 c3 회원가입 액션
 router.post('/c3/action', function(req,res){
     let query = 'insert into tL(L_LS_Number, L_Name, L_Phone, L_PW) values(:addr, :name, :phone, :hash_pw) '
