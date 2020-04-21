@@ -156,18 +156,17 @@
 
 
 	<script>
-		/*		var mySession = JSON.parse(sessionStorage.getItem("mySession"));
-				if(mySession == undefined){
-					alert("로그인 후 이용해주세요.")
-					location.href="/c1"
-				}*/
+		var mySession = JSON.parse(sessionStorage.getItem("mySession"));
+		if(mySession == undefined){
+			alert("로그인 후 이용해주세요.")
+			location.href="/c1"
+		}
 
-		var myName = mySession[0].value
-		var myStore = mySession[1].value
-		var myPhone = mySession[2].value
+		var myName = JSON.parse(sessionStorage.getItem("mySession")).name
+		var myStore = JSON.parse(sessionStorage.getItem("mySession")).store
+		var myPhone = JSON.parse(sessionStorage.getItem("mySession")).phone
 
 		$('#goBtn').on('click', function () {
-			alert($('input:radio[name="wt_modify"]:checked').val())
 			$.ajax({
 				url: '/c5/action',
 				method: 'post',
