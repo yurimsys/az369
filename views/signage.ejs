@@ -67,8 +67,8 @@
                         </div>
                     </li>
                     <li>
-                        <span style="font-weight: bold; font-size: xx-large;" id='nowPage'>1</span>
-                        <span style="font-size: xx-large;">/ 2</span>
+                        <span style="font-weight: bold; font-size: x-large;" id='nowPage'>1</span>
+                        <span style="font-size: x-large;">/ 2</span>
                     </li>
                     <li>
                         <div class='categoryPrev clickBtn' id='next'>
@@ -84,15 +84,16 @@
 
         <!-- svg 파일 -->
         <div id='box-center'>
+            <!-- <button id="myBtn">Open Modal</button> -->
             <div>
                 <div class='mapNav'></div>
                 <div class='plusBtn'>+</div>
                 <div class='resetBtn'>┏ ┓ ┗ ┛</div>
-                <div class='minusBtn'>-</div>
+                <div class='minusBtn'>ㅡ</div>
             </div>
             <ul class='floorBtn'>
                 <li>
-                    <div class="floorIcon floorSelcet" id='floor1Btn'>1F</div>
+                    <div class="floorIcon floorSelcet floorBack" id='floor1Btn'>1F</div>
                 </li>
                 <li>
                     <div class="floorIcon" id='floor2Btn'>2F</div>
@@ -111,10 +112,7 @@
                     <li><div class='center-footer-box'><h2 class='center-footer-name'>비상구</h2></div></li>
                 </ul>
             </div>
-
         </div>
-
-
         <!-- 우측메뉴 -->
         <div id='box-right'>
             <h2 class='central'>CENTRAL</h2>
@@ -122,7 +120,7 @@
             
             <ul class='rightNav'>
                 <li><img src='img/pic03.png' style="opacity: 0.3;"><div class='rightNavBox'></div><div class='rightNavName'>메인</div></li>
-                <li><img src='img/pic03.png' style="opacity: 0.2;"><div class='rightNavBox'></div><div class='rightNavName'>검색</div></li>
+                <li><img src='img/pic03.png' style="opacity: 0.2;" class='search'><div class='rightNavBox search'></div><div class='rightNavName search'>검색</div></li>
                 <li><img src='img/pic03.png' style="opacity: 0.4;"><div class='rightNavBox'></div><div class='rightNavName'>이벤트</div></li>
                 <li><img src='img/pic03.png' style="opacity: 0.5;"><div class='rightNavBox'></div><div class='rightNavName'>이용안내</div></li>
             </ul> 
@@ -149,8 +147,43 @@
 
             <div class='rightAd'><img src='img/ad2.png'></div>
     </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        
+        <div class="modal-content">
+            <div class="searchClose">닫기 X</div>      
+            <ul class='searchList'>
+                <li><div class='searchColums searchChoose'>브랜드 검색</div></li>
+                <li><div class='searchColums'>카테고리 검색</div></li>
+            </ul>                               
+            <ul class='searchList'>
+                <li>
+                    <!-- <div class='search-left'>dd</div> -->
+            
+                </li>
+
+                <!-- <li><img src='img/modalAd.png' style="float: right;"></li> -->
+            </ul>
+        </div>
+        </div>
     <script>
 
+
+    //검색 모달
+    let searchModal = $('#myModal')[0]
+    let searchClose = $('.searchClose')[0];                                          
+    searchClose.onclick = function() {
+        searchModal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == searchModal) {
+            searchModal.style.display = "none";
+        }
+    }
+    $('.search').on('click',function(){
+        searchModal.style.display = "block";
+    })
 
     //언어선택
     $('#kor').on('click',function(){
@@ -168,7 +201,7 @@
 
     //카테고리 클릭
     $('.categoryList div').on('click',function(e){
-        let categoryId = e.target.id
+        let categoryId = e.currentTarget.id
         if(this.className.substring(25,40) != 'selected'){
             $('#'+categoryId).addClass('selected')
         }else if(this.className.substring(25,40) == 'selected'){
@@ -176,7 +209,7 @@
         }
     })
     $('.categoryList2 div').on('click',function(e){
-        let categoryId = e.target.id
+        let categoryId = e.currentTarget.id
         if(this.className.substring(25,40) != 'selected'){
             $('#'+categoryId).addClass('selected')
         }else if(this.className.substring(25,40) == 'selected'){
