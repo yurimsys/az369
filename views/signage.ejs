@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>센트럴돔 사이니지</title>
+	<!--자바스크립트-->
+	<script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/scrolla.jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/css/signage.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
+<style>
+
+
+</style>
+</head>
+
+<body class='full'>
+    <div class='container'>
+        <!-- 좌측메뉴 -->
+        <div id='box-left'>
+
+            <h3 class='floorFont'><span id='nowFloor'>1F</span></h3>
+            <ul class='categoryList'>
+                <li>
+                    <div class="categoryBtn categoryFont" id='category1'><div id='categoryIcon1'></div><span class="categoryName">패션의류</span></div>
+                </li>
+                <li>
+                    <div class="categoryBtn categoryFont" id='category2'><div id='categoryIcon2'></div><span class="categoryName">패션잡화</span></div>
+                </li>
+                <li>
+                    <div class="categoryBtn categoryFont" id='category3'><div id='categoryIcon3'></div><span class="categoryName">화장품 · 뷰티</span></div>
+                </li>
+                <li>
+                    <div class="categoryBtn categoryFont" id='category4'><div id='categoryIcon4'></div><span class="categoryName">음식점</span></div>
+                </li>
+                <li>
+                    <div class="categoryBtn categoryFont" id='category5'><div id='categoryIcon5'></div><span class="categoryName">식 · 음료</span></div>
+                </li>
+                <li>
+                    <div class="categoryBtn categoryFont" id='category6'><div id='categoryIcon6'></div><span class="categoryName">생활 · 가전</span></div>
+                </li>
+                <li>
+                    <div class="categoryBtn categoryFont" id='category7'><div id='categoryIcon7'></div><span class="categoryName">키즈 · 애견</span></div>
+                </li>
+            </ul>
+            <ul class='categoryList2'>
+                <li>
+                    <div class="categoryBtn categoryFont" id='category8'><div id='categoryIcon8'></div><span class="categoryName"></span>스포츠·자동차</span></div>
+                </li>
+                <li>
+                    <div class="categoryBtn categoryFont" id='category9'><div id='categoryIcon9'></div><span class="categoryName"></span>편의·의료·교육</span></div>
+                </li>
+                <li>
+                    <div class="categoryBtn categoryFont" id='category10'><div id='categoryIcon10'></div><span class="categoryName"></span>금융·일반</span></div>
+                </li>
+            </ul>
+            <!-- 카테고리 버튼 -->
+            <div>
+                <ul class='categoryNav'>
+                    <li>
+                        <div class='categoryPrev' id='prev'>
+                            ᐸ
+                        </div>
+                    </li>
+                    <li>
+                        <span style="font-weight: bold; font-size: xx-large;" id='nowPage'>1</span>
+                        <span style="font-size: xx-large;">/ 2</span>
+                    </li>
+                    <li>
+                        <div class='categoryPrev clickBtn' id='next'>
+                            ᐳ
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class='leftAd'>
+                <img src='img/ad1.png'>
+            </div>
+        </div>
+
+        <!-- svg 파일 -->
+        <div id='box-center'>
+            <div>
+                <div class='mapNav'></div>
+                <div class='plusBtn'>+</div>
+                <div class='resetBtn'>┏ ┓ ┗ ┛</div>
+                <div class='minusBtn'>-</div>
+            </div>
+            <ul class='floorBtn'>
+                <li>
+                    <div class="floorIcon floorSelcet" id='floor1Btn'>1F</div>
+                </li>
+                <li>
+                    <div class="floorIcon" id='floor2Btn'>2F</div>
+                </li>
+                <li>
+                    <div class="floorIcon" id='floor3Btn'>3F</div>
+                </li>
+            </ul>
+            <div class='center-footer'>
+                <ul class='center-footer-list'>
+                    <li><div class='center-footer-box'><h2 class='center-footer-name'>화장실</h2></div></li>
+                    <li><div class='center-footer-box'><h2 class='center-footer-name'>엘리베이터</h2></div></li>
+                    <li><div class='center-footer-box'><h2 class='center-footer-name'>에스컬레이터</h2></div></li>
+                    <li><div class='center-footer-box'><h2 class='center-footer-name'>ATM</h2></div></li>
+                    <li><div class='center-footer-box'><h2 class='center-footer-name'>물품보관소</h2></div></li>
+                    <li><div class='center-footer-box'><h2 class='center-footer-name'>비상구</h2></div></li>
+                </ul>
+            </div>
+
+        </div>
+
+
+        <!-- 우측메뉴 -->
+        <div id='box-right'>
+            <h2 class='central'>CENTRAL</h2>
+            <h2 class='dome'>DOME</h2>
+            
+            <ul class='rightNav'>
+                <li><img src='img/pic03.png' style="opacity: 0.3;"><div class='rightNavBox'></div><div class='rightNavName'>메인</div></li>
+                <li><img src='img/pic03.png' style="opacity: 0.2;"><div class='rightNavBox'></div><div class='rightNavName'>검색</div></li>
+                <li><img src='img/pic03.png' style="opacity: 0.4;"><div class='rightNavBox'></div><div class='rightNavName'>이벤트</div></li>
+                <li><img src='img/pic03.png' style="opacity: 0.5;"><div class='rightNavBox'></div><div class='rightNavName'>이용안내</div></li>
+            </ul> 
+            
+            <ul class='languageList'>
+                <div class='language'>LANGUAGE</div>
+                <li><div class='languageSelect choose' id='kor'>가</div></li>
+                <li><div class='languageSelect' id='eng'>A</div></li>
+            </ul>
+
+            <ul class='whetherList'>
+                <li>
+                    <div class='whether'></div>
+                </li>
+                <li>
+                    <div class='temperature'><span>0°</span></div>
+                </li>
+            </ul>
+            <div>
+                <h3 class="dayCount" id='dayCount'></h3>
+                <h2 class="timeCount" id='timeCount'></h2><br>
+                <h2 class="dustCount">미세먼지농도&nbsp;<span style="color: #53ec5d; font-size: 25px;">좋음</span></h2>
+            </div>
+
+            <div class='rightAd'><img src='img/ad2.png'></div>
+    </div>
+    <script>
+
+
+    //언어선택
+    $('#kor').on('click',function(){
+        if($('#kor').attr('class') == 'languageSelect'){
+            $('#kor').addClass('choose')
+            $('#eng').removeClass('choose')
+        }
+    })
+    $('#eng').on('click',function(){
+        if($('#eng').attr('class') == 'languageSelect'){
+            $('#kor').removeClass('choose')
+            $('#eng').addClass('choose')            
+        }
+    })
+
+    //카테고리 클릭
+    $('.categoryList div').on('click',function(e){
+        let categoryId = e.target.id
+        if(this.className.substring(25,40) != 'selected'){
+            $('#'+categoryId).addClass('selected')
+        }else if(this.className.substring(25,40) == 'selected'){
+            $('#'+categoryId).removeClass('selected')
+        }
+    })
+    $('.categoryList2 div').on('click',function(e){
+        let categoryId = e.target.id
+        if(this.className.substring(25,40) != 'selected'){
+            $('#'+categoryId).addClass('selected')
+        }else if(this.className.substring(25,40) == 'selected'){
+            $('#'+categoryId).removeClass('selected')
+        }
+    })
+    //카테고리 이전 다음버튼
+    $('#next').on('click',function(e){
+        if($('#nowPage').text()==1){
+            $('#nowPage').text('2')
+            $('.categoryList').css('display','none')
+            $('.categoryList2').css('display','block')
+            $('#prev').addClass('clickBtn')
+            $('#next').removeClass('clickBtn')
+        }
+    })
+
+    $('#prev').on('click',function(){
+        if($('#nowPage').text()==2){
+            $('#nowPage').text('1')
+            $('.categoryList').css('display','block')
+            $('.categoryList2').css('display','none')
+            $('#next').addClass('clickBtn')
+            $('#prev').removeClass('clickBtn')
+        }
+    })
+    
+    //층수 클릭
+    $('.floorBtn div').on('click',function(e){
+        let nowFloor = e.target.id
+        $('.floorBtn div').removeClass('floorSelcet')
+        $('#'+nowFloor).addClass('floorSelcet')
+    })    
+
+    //날짜 함수
+    function dayCount(){
+        this.day = new Date(),
+        nowYear = String(day.getFullYear()),
+        nowMon = String(day.getMonth() + 1),
+        nowDay = String(day.getDate());
+        if (nowMon.length == 1) {
+        nowMon = "0" + nowMon
+        }
+        let NowToday = nowYear+'.'+ nowMon+'.'+ nowDay;
+        $('#dayCount').text(NowToday)
+    }
+    dayCount();
+    //날짜 인터벌
+    setInterval(function(){
+        test = this;
+        test.dayCount()
+    },43200)
+    //시간 함수
+    this.timeCount = function(){
+        let time = new Date();
+        let nowHour = time.getHours();
+        let nowMt = time.getMinutes();
+        let nowTime;
+        if ( nowHour < 12  &&  nowHour  >= 0 ) {
+            if(nowMt <10){
+                nowMt = '0'+nowMt
+            }   
+            if(nowHour<10){
+                nowTime = 'AM 0'+nowHour+':'+nowMt;
+            }else{
+                nowTime = 'AM '+nowHour+':'+nowMt;
+            }
+
+        } else if (  nowHour >= 12  &&  nowHour  < 24  ) {
+            if(nowMt <10){
+                nowMt = '0'+nowMt
+            }   
+            if(nowHour >12){
+                nowTime = 'PM 0'+(Number(nowHour)-12)+':'+nowMt;
+            }else if(nowHour > 21){
+                nowTime = 'PM '+(Number(nowHour)-12)+':'+nowMt;
+                //nowTime = 'PM '+nowHour+':'+nowMt;
+            }
+        }
+        $('#timeCount').text(nowTime)
+    }
+    //시간 인터벌
+    setInterval(function(){
+        test = this;
+        test.timeCount()
+    },30000)
+    timeCount();
+
+    </script>
+</body>
+</html>

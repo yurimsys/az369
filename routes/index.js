@@ -607,4 +607,12 @@ router.get('/video/:currentPage', function(req, res, next) {
           console.log("user",rows);
       });
 });
+
+
+
+//사이니지
+router.get('/sign', function(req, res, next) {
+    res.render('signage');
+});
+
 module.exports = router;

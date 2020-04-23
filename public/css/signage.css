@@ -1,0 +1,506 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+body,html{
+    height: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+/* 페이지 3분할 */
+.container{
+    display: flex;
+    height: 100%;
+}
+#box-left {
+    flex-basis: 14%;
+    background-color: #f2f2f2;
+}
+#box-center {
+    flex-basis: 72%;
+    text-align: center;
+    background-color: #8c929a;
+}
+#box-right {
+    flex-basis: 14%;
+    /* text-align: right; */
+    box-shadow: -10px 0 15px 0 rgba(0, 0, 0, 0.1);
+    background-color: #340a27;
+    height: 100%;
+}
+/* 센트럴돔 문자 */
+.central {
+    width: 148px;
+    height: 39px;
+    font-size: 50px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.0;
+    letter-spacing: normal;
+    text-align: center;
+    margin-left: 22%;
+    color: #d9d9d9;
+}
+.dome {
+    width: 161px;
+    height: 59px;
+    font-size: 80px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    margin-left: 20%;
+    margin-top: 6%;
+    text-align: center;
+    color: #f4f4f4;
+}
+/* 좌측 상단 층표시 */
+.floorFont {
+    width: 102px;
+    height: 133px;
+    font-size: 100px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2;
+    letter-spacing: normal;
+    text-align: center;
+    margin-left: 33%;
+    margin-bottom: 20%;
+    color: #a91179;
+}
+/* 카테고리 css */
+.categoryBtn {
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    margin-left: 10%;
+}
+.selected{
+    background-color: #340a27;
+}
+.categoryFont{         
+    width: 300px;
+    height: 70px;
+    font-size: x-large;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.8;
+    letter-spacing: normal;
+    text-align: left;
+    color: #444444;
+    margin-top: 7%;
+}
+.categoryName{
+    margin-left: 5%;
+}
+/* 카테고리 리스트 */
+.categoryList li ul{
+    list-style:none;
+    float: left;
+    margin-left: 20px;
+    line-height: 12px;
+}
+.categoryList2{
+    list-style:none;
+    float: left;
+    margin-left: 2%;
+    line-height: 12px;
+    display: none;
+}
+
+/* 층별 아이콘 */
+.floorBtn{
+    list-style: none;
+    margin-top: 3%;
+}
+/* .floorIcon1{
+    width: 75px;
+    height: 75px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.16);
+    background-color: #a91179;
+    margin-top: 4%;
+    margin-left: 94.5%;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: 3.7;
+    color: #ffffff;
+} */
+.floorIcon{
+    width: 75px;
+    height: 75px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.16);
+    background-color: #f4f4f4;
+    margin-top: 1%;
+    margin-left: 94.5%;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: 3.7;
+    color: #999999;
+}
+.floorSelcet{
+    background-color: #a91179;
+    color: #ffffff;
+}
+/* 카테고리 이전 다음 버튼 */
+.categoryNav{
+    list-style:none;
+    margin-top: -5%;
+    margin-top: 5%;
+}
+.categoryNav li{
+    list-style:none;
+    margin:8%;
+    display: inline-block;
+}
+.categoryPrev{
+    list-style:none;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    font-size: xxx-large;
+    line-height: 1.1;
+    text-align: center;
+    color: #aaaaaa;
+}
+.clickBtn{
+    color: #a91179;
+}
+/* 좌측 하단 광고 */
+.leftAd{
+    width: 14%;
+    position: fixed;
+    bottom: 0;
+}
+.leftAd img{
+    width: 100%;
+}
+/* 우측 메뉴 */
+.rightNav li{
+    width: 100%; 
+    margin-left: 0;
+    margin-top: -1%;
+}
+.rightNav li img{
+    width: 100%;
+    height: 100%;
+}
+.rightNav{
+    list-style:none;
+    position: relative;
+    margin-top: 20%;
+}
+.rightNavBox{
+    width: 45px;
+    height: 50px;
+    padding: 5px 10px;
+    left: 20%;
+    position: absolute;
+    text-align: center;
+    margin-top: -27%;
+    background-color: #eeeeee;
+}
+.rightNavName{
+    font-size: 30px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    position: absolute;
+    margin-top: -25%;
+    left: 45%;
+}
+/* 우측 언어 메뉴 */
+.languageList{
+    margin-top: 5%;
+}
+.languageList li{
+    list-style: none;
+    display: inline-block;
+    margin-top: 8%;
+}
+.language {
+    width: 94px;
+    height: 20px;
+    font-size: xx-large;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.11;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ac729a;
+    margin-left: 30%;
+
+}
+.languageSelect{
+    width: 65px;
+    height: 65px;
+    border-radius: 12px;
+    opacity: 0.5;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
+    font-size: xx-large;
+    text-align: center;
+    line-height: 2;
+    margin-left: 200%;
+    color: black;
+}
+.choose{
+    background-color: #a91179;
+    color: white;
+    opacity: 1;
+}
+/* 날씨상태 */
+.whetherList li{
+    display: inline-block;
+    list-style: none;
+    margin-left: 3%;
+    margin-top: 6%;
+}
+.whether{
+    width: 50px;
+    height: 50px;
+    margin-left: 130px;
+    background-color: #eeeeee;
+}
+.temperature {
+    width: 28px;
+    height: 45px;
+    font-size: 50px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: center;
+    color: #a91179;
+}
+/* 날짜 및 시간 */
+.dayCount {
+    width: 76px;
+    height: 24px;
+    font-size: 25px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    margin-top: 1%;
+    margin-left: 35%;
+    color: #dcdcdc;
+}
+.timeCount{
+    font-size: 30px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    margin-left: 34%;
+    display: inline;
+    color: #f2f2f2;
+}
+/* 미세먼지 농도 */
+.dustCount {
+    font-size: 20px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.19;
+    letter-spacing: normal;
+    display: inline;
+    text-align: left;
+    color: #dcdcdc;
+    margin-left: 30%;
+}
+/* 우측 하단 광고 */
+.rightAd{
+    position: fixed;
+    bottom: 0;
+}
+    .rightAd img{
+    width: 100%;
+}
+/* 카테고리 박스 아이콘 */
+#categoryIcon1 {
+    width: 7%;
+    height: 28%;
+    float: left;
+    margin-top: 8%;
+    margin-left: 7%;
+    background-color: #a91179;
+}
+#categoryIcon2 {
+    width: 7%;
+    height: 28%;
+    float: left;
+    margin-top: 8%;
+    margin-left: 7%;
+    background-color: #ffb96d;
+}
+#categoryIcon3 {
+    width: 7%;
+    height: 28%;
+    float: left;
+    margin-top: 8%;
+    margin-left: 7%;
+    background-color: #ffb7cf;
+}
+#categoryIcon4 {
+    width: 7%;
+    height: 28%;
+    float: left;
+    margin-top: 8%;
+    margin-left: 7%;
+    background-color: #f6ed86;
+}
+#categoryIcon5 {
+    width: 7%;
+    height: 28%;
+    float: left;
+    margin-top: 8%;
+    margin-left: 7%;
+    background-color: #c440f3;
+}
+#categoryIcon6 {
+    width: 7%;
+    height: 28%;
+    float: left;
+    margin-top: 8%;
+    margin-left: 7%;
+    background-color: #de4343;
+}
+#categoryIcon7 {
+    width: 7%;
+    height: 28%;
+    float: left;
+    margin-top: 8%;
+    margin-left: 7%;
+    background-color: #c69c12;
+}
+#categoryIcon8 {
+    width: 7%;
+    height: 28%;
+    float: left;
+    margin-top: 8%;
+    margin-left: 7%;
+    background-color: #3786e1;
+}
+#categoryIcon9 {
+    width: 7%;
+    height: 28%;
+    float: left;
+    margin-top: 8%;
+    margin-left: 7%;
+    background-color: #98ef5c;
+}
+#categoryIcon10 {
+    width: 7%;
+    height: 28%;
+    float: left;
+    margin-top: 8%;
+    margin-left: 7%;
+    background-color: #4e43a1;
+}
+#categoryIcon11 {
+    width: 210px;
+    height: 50px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.2);
+    background-color: #a91179;
+    margin-top: 12px;
+    margin-left: 15%;
+}
+/* 지도 네비 */
+.mapNav{     
+    width: 90px;
+    height: 245px;
+    border-radius: 50px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    margin-left: 94%;
+    margin-top: 1%;
+    background-color: #f8f8f8;
+}
+.plusBtn{
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    margin-left: 95%;
+    margin-top: -11%;
+    font-size: xx-large;
+    background-color: white;
+}
+.resetBtn{
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    margin-left: 95%;
+    margin-top: 1%;
+    background-color: white;
+}
+.minusBtn{
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    margin-left: 95%;
+    margin-top: 1%;
+    font-size: xx-large;
+    background-color: white;
+}
+/* 중앙 하단 레이어 */
+.center-footer{
+    width: 100%;
+    height: 8%;
+    bottom: 0;
+    position: fixed;
+    background-color: #70757B;
+}
+.center-footer-list li{
+    list-style:none;
+    float: left;
+    margin-left: 8%;
+    margin-top: 1%;
+}
+.center-footer-box{
+    width: 50px;
+    height: 50px;
+    background-color: #dbdbdb;
+    
+}
+.center-footer-name{
+    width: 110px;
+    height: 20px;
+    font-size: 18px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.5;
+    letter-spacing: normal;
+    margin-left: 100%;
+    color: #ffffff;
+}
