@@ -615,4 +615,24 @@ router.get('/sign', function(req, res, next) {
     res.render('signage');
 });
 
+
+//test
+router.get('/dust', function(req, res, next) {
+    res.render('dust');
+});
+
+
+//미세먼지
+router.get(`http://openapi.airkorea.or.kr/
+openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty
+?stationName=수내동&dataTerm=month&pageNo=1&numOfRows=10&ServiceKey=uXHIcJ%2BlhKm9JBsvIqRvv2xwCOc%2BMBWKghuKd%2FMm00rAJ%2BdNhjd87qm%2F3t1lWQ57vodJKj%2BkC7xt8QdKCNHH9Q%3D%3D%0A
+&ver=1.3`
+, function(req, res, next) {
+    if (err) throw err;
+    res.json({ data : result});
+    console.log("user");
+});
 module.exports = router;
+//9%2FnX9SOa0SMWlpsA7NZCUezCigC36YRnyDYP2n47qUcq1Z2k%2B9Enmq7scvkknZ0Jr09Nb56jweP9uR6k7kwv4Q%3D%3D
+
+//http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=비전동&dataTerm=month&pageNo=1&numOfRows=10&ServiceKey=9%2FnX9SOa0SMWlpsA7NZCUezCigC36YRnyDYP2n47qUcq1Z2k%2B9Enmq7scvkknZ0Jr09Nb56jweP9uR6k7kwv4Q%3D%3D&ver=1.3

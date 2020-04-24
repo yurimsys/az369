@@ -63,7 +63,7 @@
                 <ul class='categoryNav'>
                     <li>
                         <div class='categoryPrev' id='prev'>
-                            ᐸ
+                            <
                         </div>
                     </li>
                     <li>
@@ -72,7 +72,7 @@
                     </li>
                     <li>
                         <div class='categoryPrev clickBtn' id='next'>
-                            ᐳ
+                            >
                         </div>
                     </li>
                 </ul>
@@ -81,27 +81,31 @@
                 <img src='img/ad1.png'>
             </div>
         </div>
-
+        <!-- class='mapImg' -->
         <!-- svg 파일 -->
         <div id='box-center'>
-            <!-- <button id="myBtn">Open Modal</button> -->
-            <div>
-                <div class='mapNav'></div>
-                <div class='plusBtn'>+</div>
-                <div class='resetBtn'>┏ ┓ ┗ ┛</div>
-                <div class='minusBtn'>ㅡ</div>
+            <div class='center-left'>
+                <img src='img/centralMap.png'onmousedown="startDrag(event, this)">
+            </div>    
+            <div class='center-right'>
+                    <ul class='mapBtnList'>
+                        <li><div class='mapNav'></div></li>
+                        <li><div class='plusBtn' id='zoomIn'>+</div></li>
+                        <li><div class='resetBtn' id='zoomReset'>┏ ┓ ┗ ┛</div></li>
+                        <li><div class='minusBtn' id='zoomOut'>ㅡ</div></li>
+                    </ul>        
+                <ul class='floorBtn'>
+                    <li>
+                        <div class="floorIcon floorSelcet floorBack" id='floor1Btn'>1F</div>
+                    </li>
+                    <li>
+                        <div class="floorIcon" id='floor2Btn'>2F</div>
+                    </li>
+                    <li>
+                        <div class="floorIcon" id='floor3Btn'>3F</div>
+                    </li>
+                </ul>
             </div>
-            <ul class='floorBtn'>
-                <li>
-                    <div class="floorIcon floorSelcet floorBack" id='floor1Btn'>1F</div>
-                </li>
-                <li>
-                    <div class="floorIcon" id='floor2Btn'>2F</div>
-                </li>
-                <li>
-                    <div class="floorIcon" id='floor3Btn'>3F</div>
-                </li>
-            </ul>
             <div class='center-footer'>
                 <ul class='center-footer-list'>
                     <li><div class='center-footer-box'><h2 class='center-footer-name'>화장실</h2></div></li>
@@ -136,13 +140,13 @@
                     <div class='whether'></div>
                 </li>
                 <li>
-                    <div class='temperature'><span>0°</span></div>
+                    <div class='temperature'><span id='temp'></span></div>
                 </li>
             </ul>
             <div>
                 <h3 class="dayCount" id='dayCount'></h3>
                 <h2 class="timeCount" id='timeCount'></h2><br>
-                <h2 class="dustCount">미세먼지농도&nbsp;<span style="color: #53ec5d; font-size: 25px;">좋음</span></h2>
+                <h2 class="dustCount">미세먼지농도&nbsp;<span style="color: #53ec5d; font-size: 20px;" id='dust'></span></h2>
             </div>
 
             <div class='rightAd'><img src='img/ad2.png'></div>
@@ -168,7 +172,137 @@
         </div>
         </div>
     <script>
+    
 
+var img_L = 0;
+var img_T = 0;
+var targetObj;
+
+function getLeft(o){
+     return parseInt(o.style.left.replace('px', ''));
+}
+function getTop(o){
+     return parseInt(o.style.top.replace('px', ''));
+}
+// 이미지 움직이기
+function moveDrag(e){
+     var e_obj = window.event? window.event : e;
+     var dmvx = parseInt(e_obj.clientX + img_L);
+     var dmvy = parseInt(e_obj.clientY + img_T);
+     targetObj.style.left = dmvx +"px";
+     targetObj.style.top = dmvy +"px";
+     return false;
+}
+
+// 드래그 시작
+function startDrag(e, obj){
+     targetObj = obj;
+     var e_obj = window.event? window.event : e;
+     img_L = getLeft(obj) - e_obj.clientX;
+     img_T = getTop(obj) - e_obj.clientY;
+
+     document.onmousemove = moveDrag;
+     document.onmouseup = stopDrag;
+     if(e_obj.preventDefault)e_obj.preventDefault();
+}
+
+// 드래그 멈추기
+function stopDrag(){
+     document.onmousemove = null;
+     document.onmouseup = null;
+}
+
+    //줌인 줌아웃 리셋
+    $('#zoomIn').on('click',function(){
+        if($('#zoomIn').attr('class') == 'plusBtn'){
+            //이미지 커서 이동 css
+            $('.center-left img').css('left','0px')
+            $('.center-left img').css('top','0px')
+
+            $('.center-left img').addClass('oneX')
+            $('#zoomIn').addClass('twoZoom')
+        }else if($('#zoomIn').attr('class') == 'plusBtn twoZoom'){
+            $('.center-left img').addClass('twoX')
+        }
+    })
+
+    $('#zoomOut').on('click',function(){
+        if($('#zoomIn').attr('class') == 'plusBtn twoZoom'){
+            $('.center-left img').removeClass('twoX')
+            $('#zoomIn').removeClass('twoZoom')
+        }else if($('#zoomIn').attr('class') == 'plusBtn'){
+            //이미지 커서 이동 css
+            $('.center-left img').css('left','')
+            $('.center-left img').css('top','')
+            $('.center-left img').removeClass('oneX')
+        }
+    })
+
+    $('#zoomReset').on('click',function(){
+        //이미지 커서 이동 css
+        $('.center-left img').css('left','')
+        $('.center-left img').css('top','')
+        $('#zoomIn').removeClass('twoZoom')
+        $('.center-left img').removeClass('oneX')
+        $('.center-left img').removeClass('twoX')
+    })
+
+    //현재 기상상황
+    function skyState(){
+        $.ajax({
+            url: 'http://api.openweathermap.org/data/2.5/weather?q=Pyeongtaek,%20KR&appid=47e6ad3f944264b19fae6989cd782a07',
+            dataType: 'json',
+            success: function(json){
+                let skyState = json.weather[0].main;
+            }
+        })
+    } 
+    skyState();
+    setInterval(function(){
+        test = this;
+        test.skyState()
+    },3600000)
+
+
+    //현재 미세먼지 상황
+    function dustState(){
+        //console.log('여기')
+        $.ajax({
+            url:'https://api.waqi.info/feed/Suwon/?token=1e20d40a5d021e3c440d37f1e04d7002f5b08c30',
+            dataType:'json',
+            success: function(json){
+                //console.log(json.data.iaqi)
+                let nowTemp = json.data.iaqi.t.v
+                let nowDust = json.data.iaqi.pm10.v
+                //현재 온도
+                $('#temp').text(Math.round(nowTemp)+'°')
+                if(nowDust < 30){
+                    nowDust = '좋음'
+                    $('#dust').css('color','blue')
+                    $('#dust').text(nowDust)
+                }else if(nowDust < 80){
+                    nowDust = '보통'
+                    $('#dust').css('color','#53ec5d')
+                    $('#dust').text(nowDust)
+                }else if(nowDust < 150){
+                    nowDust = '나쁨'
+                    $('#dust').css('color','orange')
+                    $('#dust').text(nowDust)
+                }else if(nowDust > 150){
+                    nowDust = '매우나쁨'
+                    $('#dust').css('color','red')
+                    $('#dust').text(nowDust)
+                }
+            }
+        })
+        return;
+    }
+    //미세먼지 1시간 마다 갱신
+    dustState();
+    setInterval(function(){
+        test = this;
+        test.dustState()
+    },3600000)  
 
     //검색 모달
     let searchModal = $('#myModal')[0]
@@ -261,7 +395,7 @@
     setInterval(function(){
         test = this;
         test.dayCount()
-    },43200)
+    },43200000)
     //시간 함수
     this.timeCount = function(){
         let time = new Date();

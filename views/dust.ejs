@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>센트럴돔 사이니지</title>
+	<!--자바스크립트-->
+	<script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/scrolla.jquery.min.js"></script>
+<style>
+        .shadow{
+            width: 700px;
+            height:500px;
+            margin:10px auto;
+            overflow:hidden;
+            border:1px solid black;
+        }
+         
+        .shadow img{
+            width:500px;
+            height:500px;
+            transition: transform .35s;
+            cursor:pointer;
+            position: relative;
+        }
+        .oneX {
+            transform:scale(2.1);
+            transition: transform .35s;
+        }
+        .twoX {
+            transform:scale(4.1);
+            transition: transform .35s;
+        }
+        .backX{
+            transform:scale(1.1);
+            transition: transform .35s;
+        }
+
+</style>
+</head>
+
+<body>
+    <button type="button" class='plus' id='plus'>확대</button>
+    <button type="button" class='minus' id='minus'>축소</button>
+    <div class="shadow">
+        <img src="img/centralMap.png" style="left:0px; top:0px;" onmousedown="startDrag(event, this)">
+    </div>
+    <div class="shadow2">
+        <img src="img/centralMap.png">
+    </div>
+    <div class="shadow3">
+        <img src="img/centralMap.png">
+    </div>
+
+
+<!-- 
+    <div style='position:absolute; left:0px; top:0px; cursor:pointer; cursor:hand' onmousedown='startDrag(event, this)'>
+        <table bgcolor="#0000FF"><tr><td>
+            <font color="#FFFFFF">하하하</font>
+        </td></tr></table>
+    </div> -->
+    <!-- <img src="img/centralMap.png" width="150" style="position:absolute; left:0px; top:50px; cursor:pointer;" onmousedown="startDrag(event, this)" border="0"> -->
+    
+</body>
+<script>
+
+var img_L = 0;
+var img_T = 0;
+var targetObj;
+
+function getLeft(o){
+     return parseInt(o.style.left.replace('px', ''));
+}
+function getTop(o){
+     return parseInt(o.style.top.replace('px', ''));
+}
+
+// 이미지 움직이기
+function moveDrag(e){
+     var e_obj = window.event? window.event : e;
+     var dmvx = parseInt(e_obj.clientX + img_L);
+     var dmvy = parseInt(e_obj.clientY + img_T);
+     targetObj.style.left = dmvx +"px";
+     targetObj.style.top = dmvy +"px";
+     return false;
+}
+
+// 드래그 시작
+function startDrag(e, obj){
+     targetObj = obj;
+     var e_obj = window.event? window.event : e;
+     img_L = getLeft(obj) - e_obj.clientX;
+     img_T = getTop(obj) - e_obj.clientY;
+
+     document.onmousemove = moveDrag;
+     document.onmouseup = stopDrag;
+     if(e_obj.preventDefault)e_obj.preventDefault();
+}
+
+// 드래그 멈추기
+function stopDrag(){
+     document.onmousemove = null;
+     document.onmouseup = null;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+    $('#plus').on('click',function(){
+        if($('#plus').attr('class') == 'plus'){
+            $('.shadow img').addClass('oneX')
+            $('.plus').addClass('twoZoom')
+        }else if($('#plus').attr('class') == 'plus twoZoom'){
+            $('.shadow img').addClass('twoX')
+        }
+    })
+
+    $('#minus').on('click',function(){
+        if($('#plus').attr('class') == 'plus twoZoom'){
+            $('.shadow img').removeClass('twoX')
+            $('.plus').removeClass('twoZoom')
+        }else if($('#plus').attr('class') == 'plus'){
+            $('.shadow img').removeClass('oneX')
+        }
+    })
+
+    // $('.minus').on('click',function(){
+    //     $('.shadow img').addClass('backX')
+    //     $('.shadow img').removeClass('oneX')
+    //     $('.shadow img').removeClass('backX')
+    // })
+</script>
+</html>
