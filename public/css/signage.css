@@ -60,13 +60,13 @@ body,html{
 }
 /* 좌측 상단 층표시 */
 .floorFont {
-    width: 102px;
-    height: 133px;
-    font-size: 100px;
+    width: 90px;
+    height: 96px;
+    font-size: 80px;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
-    line-height: 2;
+    line-height: 2.5;
     letter-spacing: normal;
     text-align: center;
     margin-left: 33%;
@@ -78,15 +78,15 @@ body,html{
     border-radius: 12px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
-    margin-left: 10%;
+    margin-left: 12%;
 }
 .selected{
     background-color: #340a27;
 }
 .categoryFont{         
-    width: 220px;
+    width: 210px;
     height: 50px;
-    font-size: x-large;
+    font-size: 18px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -106,9 +106,13 @@ body,html{
     background-color: #000000;
   }
 .categoryName{
-    margin-left: 5%;
+    margin-left: 7%;
+    line-height: 2.7;
 }
 /* 카테고리 리스트 */
+.categoryList{
+    margin-top: 40%;
+}
 .categoryList li ul{
     list-style:none;
     float: left;
@@ -211,14 +215,14 @@ body,html{
     margin-left: 0;
     margin-top: -2%;
 }
-.rightNav li img{
-    width: 100%;
-    height: 100%;
-}
 .rightNav{
     list-style:none;
     position: relative;
     margin-top: 15%;
+}
+.menuIcon{
+    width: 40px;
+    height: 40px;
 }
 .rightNavBox{
     width: 25px;
@@ -228,14 +232,13 @@ body,html{
     position: absolute;
     text-align: center;
     margin-top: -27%;
-    background-color: #eeeeee;
 }
 .rightNavName{
     font-size: 25px;
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1;
+    line-height: 1.2;
     letter-spacing: normal;
     text-align: center;
     color: #ffffff;
@@ -359,83 +362,83 @@ body,html{
 }
 /* 카테고리 박스 아이콘 */
 #categoryIcon1 {
-    width: 7%;
-    height: 28%;
+    width: 12px;
+    height: 12px;
     float: left;
-    margin-top: 8%;
-    margin-left: 7%;
+    margin-top: 9%;
+    margin-left: 8%;
     background-color: #a91179;
 }
 #categoryIcon2 {
-    width: 7%;
-    height: 28%;
+    width: 12px;
+    height: 12px;
     float: left;
-    margin-top: 8%;
-    margin-left: 7%;
+    margin-top: 9%;
+    margin-left: 8%;
     background-color: #ffb96d;
 }
 #categoryIcon3 {
-    width: 7%;
-    height: 28%;
+    width: 12px;
+    height: 12px;
     float: left;
-    margin-top: 8%;
-    margin-left: 7%;
+    margin-top: 9%;
+    margin-left: 8%;
     background-color: #ffb7cf;
 }
 #categoryIcon4 {
-    width: 7%;
-    height: 28%;
+    width: 12px;
+    height: 12px;
     float: left;
-    margin-top: 8%;
-    margin-left: 7%;
+    margin-top: 9%;
+    margin-left: 8%;
     background-color: #f6ed86;
 }
 #categoryIcon5 {
-    width: 7%;
-    height: 28%;
+    width: 12px;
+    height: 12px;
     float: left;
-    margin-top: 8%;
-    margin-left: 7%;
+    margin-top: 9%;
+    margin-left: 8%;
     background-color: #c440f3;
 }
 #categoryIcon6 {
-    width: 7%;
-    height: 28%;
+    width: 12px;
+    height: 12px;
     float: left;
-    margin-top: 8%;
-    margin-left: 7%;
+    margin-top: 9%;
+    margin-left: 8%;
     background-color: #de4343;
 }
 #categoryIcon7 {
-    width: 7%;
-    height: 28%;
+    width: 12px;
+    height: 12px;
     float: left;
-    margin-top: 8%;
-    margin-left: 7%;
+    margin-top: 9%;
+    margin-left: 8%;
     background-color: #c69c12;
 }
 #categoryIcon8 {
-    width: 7%;
-    height: 28%;
+    width: 12px;
+    height: 12px;
     float: left;
-    margin-top: 8%;
-    margin-left: 7%;
+    margin-top: 9%;
+    margin-left: 8%;
     background-color: #3786e1;
 }
 #categoryIcon9 {
-    width: 7%;
-    height: 28%;
+    width: 12px;
+    height: 12px;
     float: left;
-    margin-top: 8%;
-    margin-left: 7%;
+    margin-top: 9%;
+    margin-left: 8%;
     background-color: #98ef5c;
 }
 #categoryIcon10 {
-    width: 7%;
-    height: 28%;
+    width: 12px;
+    height: 12px;
     float: left;
-    margin-top: 8%;
-    margin-left: 7%;
+    margin-top: 9%;
+    margin-left: 8%;
     background-color: #4e43a1;
 }
 #categoryIcon11 {
@@ -468,9 +471,8 @@ body,html{
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
     margin-left: 93%;
     margin-top: -14%;
-    font-size: xxx-large;
     background-color: white;
-    line-height: 1;
+    line-height: 4.4;
     position: relative;
 }
 .resetBtn{
@@ -480,7 +482,7 @@ body,html{
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
     margin-left: 93%;
     margin-top: 1.2%;
-    line-height: 1.5;
+    line-height: 4.3;
     font-weight: bold;
     background-color: white;
     position: relative;
@@ -492,8 +494,7 @@ body,html{
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
     margin-left: 93%;
     margin-top: 1.3%;
-    line-height: 1.5;
-    font-size: xx-large;
+    line-height: 4.5;
     background-color: white;
     position: relative;
 }
@@ -524,10 +525,16 @@ body,html{
     font-weight: 300;
     font-stretch: normal;
     font-style: normal;
-    line-height: 2.5;
+    margin-top: -85%;
     letter-spacing: normal;
     margin-left: 100%;
     color: #ffffff;
+}
+.center-footer-box{
+    
+}
+.center-footer-box img{
+    margin-top: 10%;
 }
 /* 모달 */
 .modal {
@@ -541,77 +548,336 @@ body,html{
     overflow: auto; /* Enable scroll if needed */
     background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
 }
-.searchClose{
-    width: 150px;
+.searchTop{
+    width: 90%;
     height: 60px;
-    background-color: #222222;
+    background-color: #a91179;
     color: white;
     font-size: xx-large;
     margin-top: -4.1%;
-    margin-left: 90%;
+    text-align: left;
+    line-height: 1.7;    
+}
+.searchTopName{
+    font-size: 24px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    margin-left: 3%;
+    color: #ffffff;
+  }
+.searchClose{
+    width: 153px;
+    height: 60px;
+    background-color: #222222;
+    color: white;
+    font-size: 20px;
+    margin-top: -4.1%;
+    margin-left: 89.7%;
     text-align: center;
     line-height: 1.7;
 }
+.searchCloseName{
+    width: 37px;
+    height: 29px;
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 3;
+    letter-spacing: normal;
+    text-align: left;
+    color: #eeeeee;
+}
+.searchTotal{
+    width: 190px;
+    height: 38px;
+    font-size: 32px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 3;
+    letter-spacing: -0.96px;
+    text-align: center;
+    color: #a91179;
+    margin-left: 20%;
+    margin-top: 5%;
+
+}
 /* Modal Content/Box */
 .modal-content {
-    background-color: white;
+    background-color: #eeeeee;
     margin-left: 14%;
     margin-top: 5%;
     border: 1px solid #888;
     width: 72%;
     height: 85%;
 }
-.search-left {
-    width: 50%;
-    background-color: black;
+.searchList{
+    margin-top: 30%;
+    margin-left: 10%;
 }
-.search-right {
-    width: 50%;
-    background-color: red;
-}
-
 .searchList li{
     list-style: none;
+    margin-top: 1%;
+    margin-left: -9%;
+}
+.searchList2{
+    display: none;
+    margin-top: 30%;
+    margin-left: 10%;
+}
+.searchList2 li{
+    list-style: none;
+    margin-top: 1%;
+    margin-left: -9%;
+}
+
+.searchCategory {
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    margin-left: 10%;
+}
+.searchSelect{
+    width: 220px;
+    height: 50px;
+    border-radius: 12px;
+    border: solid 1.5px #a91179;
+    background-image: linear-gradient(278deg, #ffffff 98%, #f2f2f2 8%);
+    font-weight: bold;
+    color: #a91179;
+}
+  
+.searchCategoryFont{         
+    width: 220px;
+    height: 50px;
+    font-size: 18px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.6;
+    letter-spacing: normal;
+    text-align: center;
+    margin-top: 6%;
+}
+.categoryChange{
+    display: none;
+    width: 220px;
+    height: 50px;
+    opacity: 0.9;
+    border-radius: 12px;
+    border: solid 1.5px #767676;
+    background-color: #333333;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 3;
+    letter-spacing: normal;
+    text-align: center;
+    margin-left: 11%;
+    color: #eeeeee;
+  }
+.searchNav{
+    list-style:none;
+    margin-left: 0.5%;
+    margin-top: 5%;
+}
+.searchNav li{
+    list-style:none;
+    margin-top: 1%;
+    margin: 1.3%;
     display: inline-block;
 }
-/* .searchList img{
-    margin-left: 173%;
-    width: 400px;
-    height: 1310px;
-    margin-top: -4%;
-} */
-.searchColums{
-    width: 350px;
-    height: 70px;
+.searchNavPrev{
+    list-style:none;
+    width: 50px;
+    height: 50px;
     border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    font-size: xxx-large;
+    line-height: 1;
     text-align: center;
-    font-size: xx-large;
-    line-height: 2;
-    background-color: #eeeeee;
-    border: solid 1.5px #eeeeee;
+    margin-left: 11%;
+    margin-top: 10%;
+    color: #aaaaaa;
+}
+.searchNavNext{
+    list-style:none;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    font-size: xxx-large;
+    line-height: 1;
+    text-align: center;
+    margin-left: 89%;
+    margin-top: -39px;
+    color: #aaaaaa;
+}
+.searchState{
+    margin-left: 53%;
+    margin-top: -40px;
+}
+.searchInfo{
+    color: #444444;
+    margin-left: 17%;
+    margin-top: 35%;
+    width: 210px;
+}
+.searchClick{
+    color: #a91179;
+}
+.searchBox{
+    width: 746px;
+    height: 60px;
+    border-radius: 12px;
+    border: solid 2px #a91179;
+    background-color: #ffffff;
+    margin-top: 5%;
+    text-align: center;
+}
+.searchContent{
+    display: flex;
+}
+.searchLeft{
+    width: 305px;
+    height: 100%;
+    margin-right: 4%;
+}
+.searchRadio{
+    display: none;
+}
+.searchCenter{
+    width: 764px;
+    height: 100%;
+    margin-top: -10px;
+}
+.searchRight{
+
+}
+.searchResult{
+    list-style: none;
+    display: inline-block;
+    width: 746px;
+    height: 750px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    margin-top: 3%;
+    overflow: hidden scroll;
+}
+.searchResult::-webkit-scrollbar{width: 10px;}
+.searchResult::-webkit-scrollbar-track{background-color: #cccccc;}
+.searchResult::-webkit-scrollbar-thumb{border-radius: 5px; background-color: #a91179; height: 10px;}
+
+.searchResult li{
+    margin-top: -8%;
+    margin-left: 20%;
+}
+.searchLine{
+    width: 686px;
+    height: 0;
+    margin-top: 4%;
+    margin-left: 4%;
+    border: solid 1px #eeeeee;
+}
+.searchBrand{
+    height: 29px;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #222222;
+}
+.searchLocation{
+    width: 190px;
+    height: 22px;
+    font-size: 15px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.5;
+    letter-spacing: normal;
+    text-align: left;
     color: #767676;
-    margin: 20px;
 }
-.searchChoose{
-    background-color:#a91179;
-    color: white;
-    
+.searchEvent{
+    width: 80px;
+    height: 22px;
+    border-radius: 12px;
+    background-color: #f3aa00;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.8;
+    letter-spacing: normal;
+    text-align: center;
+    margin-top: -6%;
+    margin-left: 55%;
+    color: #eeeeee;
 }
-.center-left{
+.searchTime{
+    width: 149px;
+    height: 22px;
+    font-size: 15px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    margin-left: 55%;
+    margin-top: -2.5%;
+    color: #767676;
+  }
+.categoryImg{
+    width: 85px;
+    height: 86px;
+    border-radius: 43px;
+    margin-top: 3%;
+    margin-left: 5%;
+    background-color: #e6e6e6;
+      
+}
+.searchAd{
+    width: 94%;
+    height: 102%;
+    margin-left: 6%;
+}
+
+
+
+
+/* svg파일 */
+.centerLeft{
     width: 88%;
     height: 92%;
     overflow:hidden;
 }
-.center-left img{
-    width: 100%;
-    height: 100%;
+.centerLeft img{
+    width: 85%;
+    height: 90%;
+    margin-top: 5%;
     transition: transform .35s;
     cursor:pointer;
     position: relative;
+    touch-action: manipulation;
 }
-.center-right{
+.centerRight{
     width: 100%;
-    margin-top: -64%;
+    margin-top: -70%;
 }
 .mapImg{
     width: 100%;

@@ -84,15 +84,15 @@
         <!-- class='mapImg' -->
         <!-- svg 파일 -->
         <div id='box-center'>
-            <div class='center-left'>
-                <img src='img/centralMap.png'onmousedown="startDrag(event, this)">
+            <div class='centerLeft'>
+                <img src='img/centralMap.png' onmousedown="startDrag(event, this)" style="touch-action: manipulation;">
             </div>    
-            <div class='center-right'>
+            <div class='centerRight'>
                     <ul class='mapBtnList'>
                         <li><div class='mapNav'></div></li>
-                        <li><div class='plusBtn' id='zoomIn'>+</div></li>
-                        <li><div class='resetBtn' id='zoomReset'>┏ ┓ ┗ ┛</div></li>
-                        <li><div class='minusBtn' id='zoomOut'>ㅡ</div></li>
+                        <li><div class='plusBtn' id='zoomIn'><img src='img/zoom_in_icon.png'></div></li>
+                        <li><div class='resetBtn' id='zoomReset'><img src='img/full_icon.png'></div></li>
+                        <li><div class='minusBtn' id='zoomOut'><img src='img/zoom_out_icon.png'></div></li>
                     </ul>        
                 <ul class='floorBtn'>
                     <li>
@@ -108,12 +108,12 @@
             </div>
             <div class='center-footer'>
                 <ul class='center-footer-list'>
-                    <li><div class='center-footer-box'><h2 class='center-footer-name'>화장실</h2></div></li>
-                    <li><div class='center-footer-box'><h2 class='center-footer-name'>엘리베이터</h2></div></li>
-                    <li><div class='center-footer-box'><h2 class='center-footer-name'>에스컬레이터</h2></div></li>
-                    <li><div class='center-footer-box'><h2 class='center-footer-name'>ATM</h2></div></li>
-                    <li><div class='center-footer-box'><h2 class='center-footer-name'>물품보관소</h2></div></li>
-                    <li><div class='center-footer-box'><h2 class='center-footer-name'>비상구</h2></div></li>
+                    <li><div class='center-footer-box'><img src='img/toilet_icon.png'><h2 class='center-footer-name'>화장실</h2></div></li>
+                    <li><div class='center-footer-box'><img src='img/elevator_icon.png'><h2 class='center-footer-name'>엘리베이터</h2></div></li>
+                    <li><div class='center-footer-box'><img src='img/escalator_icon.png'><h2 class='center-footer-name'>에스컬레이터</h2></div></li>
+                    <li><div class='center-footer-box'><img src='img/atm_icon.png'><h2 class='center-footer-name'>ATM</h2></div></li>
+                    <li><div class='center-footer-box'><img src='img/locker_icon.png'><h2 class='center-footer-name'>물품보관소</h2></div></li>
+                    <li><div class='center-footer-box'><img src='img/exit _icon.png'><h2 class='center-footer-name'>비상구</h2></div></li>
                 </ul>
             </div>
         </div>
@@ -123,10 +123,10 @@
             <h2 class='dome'>DOME</h2>
             
             <ul class='rightNav'>
-                <li><img src='img/pic03.png' style="opacity: 0.3;"><div class='rightNavBox'></div><div class='rightNavName'>메인</div></li>
-                <li><img src='img/pic03.png' style="opacity: 0.2;" class='search'><div class='rightNavBox search'></div><div class='rightNavName search'>검색</div></li>
-                <li><img src='img/pic03.png' style="opacity: 0.4;"><div class='rightNavBox'></div><div class='rightNavName'>이벤트</div></li>
-                <li><img src='img/pic03.png' style="opacity: 0.5;"><div class='rightNavBox'></div><div class='rightNavName'>이용안내</div></li>
+                <li><img src='img/pic03.png' style="opacity: 0.3;"><div class='rightNavBox'><img src='img/main_icon.png' class='menuIcon'></div><div class='rightNavName'>메인</div></li>
+                <li onclick="searchCategoryMenu()"><img src='img/pic03.png' style="opacity: 0.2;" class='search'><div class='rightNavBox search'><img src='img/find_icon.png' class='menuIcon'></div><div class='rightNavName search'>검색</div></li>
+                <li><img src='img/pic03.png' style="opacity: 0.4;"><div class='rightNavBox'><img src='img/event_icon.png' class='menuIcon'></div><div class='rightNavName'>이벤트</div></li>
+                <li><img src='img/pic03.png' style="opacity: 0.5;"><div class='rightNavBox'><img src='img/guide_icon.png' class='menuIcon'></div><div class='rightNavName'>이용안내</div></li>
             </ul> 
             
             <ul class='languageList'>
@@ -151,100 +151,294 @@
 
             <div class='rightAd'><img src='img/ad2.png'></div>
     </div>
-    <!-- The Modal -->
+    <!-- 검색모달 -->
     <div id="myModal" class="modal">
-        <!-- Modal content -->
         
         <div class="modal-content">
-            <div class="searchClose">닫기 X</div>      
-            <ul class='searchList'>
-                <li><div class='searchColums searchChoose'>브랜드 검색</div></li>
-                <li><div class='searchColums'>카테고리 검색</div></li>
-            </ul>                               
-            <ul class='searchList'>
-                <li>
-                    <!-- <div class='search-left'>dd</div> -->
-            
-                </li>
+            <div class='searchTop'><span class='searchTopName'>검색</span></div>        
+            <div class="searchClose"><span class='searchCloseName'>닫기</span><span class='searchCloseX'> X</span></div>
+            <!-- 검색좌측 카테고리 -->
+            <div class='searchContent'>
+                <div class='searchLeft'>
+                    <h4 class='searchTotal'><span id='chooseCategory'></span></h4>                
+                    <ul class="searchList">
+                        <!-- 이후 모달오픈시 ajax로 통해 카테고리 가져옴 -->
+                        <li>
+                            <label>
+                                <input type="checkbox" name='searchCategoryList' class='searchRadio'>
+                                <div class="searchCategory searchCategoryFont" id='search01'>패션의류</div>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox" name='searchCategoryList' class='searchRadio'>
+                                <div class="searchCategory searchCategoryFont" id='search02'>패션잡화</div>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox" name='searchCategoryList' class='searchRadio'>
+                                <div class="searchCategory searchCategoryFont" id='search03'>화장품 · 뷰티</div>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox" name='searchCategoryList' class='searchRadio'>
+                                <div class="searchCategory searchCategoryFont" id='search04'>음식점</div>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox" name='searchCategoryList' class='searchRadio'>
+                                <div class="searchCategory searchCategoryFont" id='search05'>식 · 음료</div>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox" name='searchCategoryList' class='searchRadio'>
+                                <div class="searchCategory searchCategoryFont" id='search06'>생활 · 가전</div>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox" name='searchCategoryList' class='searchRadio'>
+                                <div class="searchCategory searchCategoryFont" id='search07'>키즈 · 애견</div>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox" name='searchCategoryList' class='searchRadio'>
+                                <div class="searchCategory searchCategoryFont" id='search08'>스포츠·자동차</div>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox" name='searchCategoryList' class='searchRadio'>
+                                <div class="searchCategory searchCategoryFont" id='search09'>편의·의료·교육</div>
+                            </label>
+                        </li>
+                    </ul>
+                    <ul class='searchList2'>
+                        <li>
+                            <label>
+                                <input type="checkbox" name='searchCategoryList' class='searchRadio'>
+                                <div class="searchCategory searchCategoryFont" id='search10'>금융·일반</div>
+                            </label>
+                        </li>
+                    </ul>
+                    <!-- 카테고리 버튼 -->
+                    <div>
+                        <div class='searchNavPrev' id='searchPrev'><</div>
+                            <div class='searchState'>
+                                <span style="font-size: 20px; color: #222222;" id='searchPage'>1</span>
+                                <span style="font-size: 20px; color: #999999;">/ 2</span>
+                            </div>
+                        <div class='searchNavNext searchClick' id='searchNext'>></div>         
+                    </div>    
+                        <label onclick="changeCategory()">
+                            <input type="checkbox" name='searchCategoryList' class='searchRadio'>
+                            <div class="categoryChange searchCategoryFont">카테고리 변경하기</div>
+                        </label>
+                        <div class='searchInfo'>위의<span style="color: #222222; font-weight: 500;"> 카테고리를 선택</span>하세요.</div> 
 
-                <!-- <li><img src='img/modalAd.png' style="float: right;"></li> -->
-            </ul>
+                    </div>   
+
+                    
+                    <!-- 중앙  -->
+                    <div class='searchCenter'>
+                        <input type="text" placeholder="이곳을 클릭하여 찾으시는 브랜드명을 검색하세요." class='searchBox' id='searchBrandName'>
+                        
+                        <div class='searchResult' id='searchResult'>
+                            
+                        </div>
+                        
+                    </div> 
+                    <!-- 광고 -->
+                    <div>                                                    
+                        <img src='img/test1.png' class='searchAd'>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        </div>
-    <script>
-    
+    </div>
 
-var img_L = 0;
-var img_T = 0;
-var targetObj;
+<script>
+    //검색 모달
+    let searchModal = $('#myModal')[0]
+    let searchClose = $('.searchClose')[0];                                          
+    searchClose.onclick = function() {
+        searchModal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == searchModal) {
+            searchModal.style.display = "none";
+        }
+    }
+    //검색모달 클릭시
+    function searchCategoryMenu(){
+        $('.searchRadio').attr('checked',false)
+        $('.searchList label div').removeClass('searchSelect')
+        $('#searchResult').empty();
+        $('.categoryChange').css('display','none')
+        $('.searchInfo').css('display','block')
+        $('#chooseCategory').text('TOTAL')
 
-function getLeft(o){
-     return parseInt(o.style.left.replace('px', ''));
-}
-function getTop(o){
-     return parseInt(o.style.top.replace('px', ''));
-}
-// 이미지 움직이기
-function moveDrag(e){
-     var e_obj = window.event? window.event : e;
-     var dmvx = parseInt(e_obj.clientX + img_L);
-     var dmvy = parseInt(e_obj.clientY + img_T);
-     targetObj.style.left = dmvx +"px";
-     targetObj.style.top = dmvy +"px";
-     return false;
-}
+        //테스트 코드
+        //현재 브랜드가 이벤트 중이면 <div class='searchEvent'>EVENT</div> 보여줌 
+        for(let i=0; i<10; i++){
+            let html = "<label><div class='categoryImg'></div>";
+                html += "<span><li><h4 class='searchBrand'>여성보세의류샵</h4><div class='searchEvent'>EVENT</div>";
+                html += "<h4 class='searchLocation'>1F.여성의류 쇼핑몰 (패션의류)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li>";
+                html += "</span><hr class='searchLine'></label>"
+            $('#searchResult').append(html)
+        }
+        // $.ajax({
+        //     url: 'searchBrandList',
+        //     method: 'get',
+        //     dataType: 'json',
+        //     success: function(res){
+        //         //$('#searchResult').append(html)
+        //         //랜덤 브랜드 리스트
+        //     }
+        // })
+        searchModal.style.display = "block";
+    }
 
-// 드래그 시작
-function startDrag(e, obj){
-     targetObj = obj;
-     var e_obj = window.event? window.event : e;
-     img_L = getLeft(obj) - e_obj.clientX;
-     img_T = getTop(obj) - e_obj.clientY;
+    //카테고리 변경
+    function changeCategory(){
+        $('.searchRadio').attr('checked',false)
+        $('.searchList label div').removeClass('searchSelect')
+        searchCategoryMenu();
+    }
 
-     document.onmousemove = moveDrag;
-     document.onmouseup = stopDrag;
-     if(e_obj.preventDefault)e_obj.preventDefault();
-}
+    //카테고리 검색
+    $('.searchCategory').on('click',function(e){
+        let selectCategoryId = e.target.id
+        let chooseCatName = $("#"+selectCategoryId).text();
+        console.log($("#"+selectCategoryId).text())
+        if($("#"+selectCategoryId).attr('class') != 'searchCategory searchCategoryFont searchSelect'){
+            $('.searchList label div').removeClass('searchSelect')
+            $("#"+selectCategoryId).addClass('searchSelect')
+            chkid = selectCategoryId;
+        }else if($("#"+selectCategoryId).attr('class') == 'searchCategory searchCategoryFont searchSelect'){
+            $('.searchList label div').removeClass('searchSelect')
+            chkid = 0;
+            searchCategoryMenu();
+        }
+        $('#chooseCategory').text(chooseCatName)
+        $('.categoryChange').css('display','block')
+        $('.searchInfo').css('display','none')
+        // $.ajax({
+        //     url: '/searchCategoryList',
+        //     method: 'post',
+        //     dataType: 'json',
+        //     data: {'categoryName' : selectCategoryId},
+        //     success: function(res){
+        //         console.log('요요')
+        //     }
+        // })
+        $('#searchResult').empty();
+        for(let i=0; i<10; i++){
+            let html = "<label><div class='categoryImg'></div>";
+                html += "<span><li><h4 class='searchBrand'>김밥천국</h4><div class='searchEvent'>EVENT</div>";
+                html += "<h4 class='searchLocation'>1F.분식 (음식점)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li>";
+                html += "</span><hr class='searchLine'></label>"
+            $('#searchResult').append(html)
+        }
+    })
+   
+    //카테고리 이전 다음버튼
+    $('#searchNext').on('click',function(){
+        if($('#searchPage').text()==1){
+            $('#searchPage').text('2')
+            $('.searchList').css('display','none')
+            $('.searchList2').css('display','block')
+            $('#searchPrev').addClass('searchClick')
+            $('#searchNext').removeClass('searchClick')
+        }
+    })
+    $('#searchPrev').on('click',function(){
+        if($('#searchPage').text()==2){
+            $('#searchPage').text('1')
+            $('.searchList').css('display','block')
+            $('.searchList2').css('display','none')
+            $('#searchNext').addClass('searchClick')
+            $('#searchPrev').removeClass('searchClick')
+        }
+    })
 
-// 드래그 멈추기
-function stopDrag(){
-     document.onmousemove = null;
-     document.onmouseup = null;
-}
+    //이미지 확대
+    let img_L = 0;
+    let img_T = 0;
+    let targetObj;
+
+    function getLeft(o){
+        return parseInt(o.style.left.replace('px', ''));
+    }
+    function getTop(o){
+        return parseInt(o.style.top.replace('px', ''));
+    }
+    // 이미지 움직이기
+    function moveDrag(e){
+        let e_obj = window.event? window.event : e;
+        let dmvx = parseInt(e_obj.clientX + img_L);
+        let dmvy = parseInt(e_obj.clientY + img_T);
+        targetObj.style.left = dmvx +"px";
+        targetObj.style.top = dmvy +"px";
+        return false;
+    }
+
+    // 드래그 시작
+    function startDrag(e, obj){
+        targetObj = obj;
+        let e_obj = window.event? window.event : e;
+        img_L = getLeft(obj) - e_obj.clientX;
+        img_T = getTop(obj) - e_obj.clientY;
+
+        document.onmousemove = moveDrag;
+        document.onmouseup = stopDrag;
+        if(e_obj.preventDefault)e_obj.preventDefault();
+    }
+
+    // 드래그 멈추기
+    function stopDrag(){
+        document.onmousemove = null;
+        document.onmouseup = null;
+    }
 
     //줌인 줌아웃 리셋
     $('#zoomIn').on('click',function(){
         if($('#zoomIn').attr('class') == 'plusBtn'){
             //이미지 커서 이동 css
-            $('.center-left img').css('left','0px')
-            $('.center-left img').css('top','0px')
-
-            $('.center-left img').addClass('oneX')
+            $('.centerLeft img').css('left','0px')
+            $('.centerLeft img').css('top','0px')
+            $('.centerLeft img').addClass('oneX')
             $('#zoomIn').addClass('twoZoom')
         }else if($('#zoomIn').attr('class') == 'plusBtn twoZoom'){
-            $('.center-left img').addClass('twoX')
+            $('.centerLeft img').addClass('twoX')
         }
     })
 
     $('#zoomOut').on('click',function(){
         if($('#zoomIn').attr('class') == 'plusBtn twoZoom'){
-            $('.center-left img').removeClass('twoX')
+            $('.centerLeft img').removeClass('twoX')
             $('#zoomIn').removeClass('twoZoom')
         }else if($('#zoomIn').attr('class') == 'plusBtn'){
             //이미지 커서 이동 css
-            $('.center-left img').css('left','')
-            $('.center-left img').css('top','')
-            $('.center-left img').removeClass('oneX')
+            $('.centerLeft img').css('left','')
+            $('.centerLeft img').css('top','')
+            $('.centerLeft img').removeClass('oneX')
         }
     })
 
     $('#zoomReset').on('click',function(){
         //이미지 커서 이동 css
-        $('.center-left img').css('left','')
-        $('.center-left img').css('top','')
+        $('.centerLeft img').css('left','')
+        $('.centerLeft img').css('top','')
         $('#zoomIn').removeClass('twoZoom')
-        $('.center-left img').removeClass('oneX')
-        $('.center-left img').removeClass('twoX')
+        $('.centerLeft img').removeClass('oneX')
+        $('.centerLeft img').removeClass('twoX')
     })
 
     //현재 기상상황
@@ -262,7 +456,6 @@ function stopDrag(){
         test = this;
         test.skyState()
     },3600000)
-
 
     //현재 미세먼지 상황
     function dustState(){
@@ -303,21 +496,6 @@ function stopDrag(){
         test = this;
         test.dustState()
     },3600000)  
-
-    //검색 모달
-    let searchModal = $('#myModal')[0]
-    let searchClose = $('.searchClose')[0];                                          
-    searchClose.onclick = function() {
-        searchModal.style.display = "none";
-    }
-    window.onclick = function(event) {
-        if (event.target == searchModal) {
-            searchModal.style.display = "none";
-        }
-    }
-    $('.search').on('click',function(){
-        searchModal.style.display = "block";
-    })
 
     //언어선택
     $('#kor').on('click',function(){
@@ -408,21 +586,24 @@ function stopDrag(){
             }   
             if(nowHour<10){
                 nowTime = 'AM 0'+nowHour+':'+nowMt;
+               
             }else{
                 nowTime = 'AM '+nowHour+':'+nowMt;
             }
-
+        
         } else if (  nowHour >= 12  &&  nowHour  < 24  ) {
             if(nowMt <10){
                 nowMt = '0'+nowMt
             }   
-            if(nowHour >12){
+            if(nowHour >=12){
+                //console.log(nowTime)
                 nowTime = 'PM 0'+(Number(nowHour)-12)+':'+nowMt;
             }else if(nowHour > 21){
                 nowTime = 'PM '+(Number(nowHour)-12)+':'+nowMt;
                 //nowTime = 'PM '+nowHour+':'+nowMt;
             }
         }
+        
         $('#timeCount').text(nowTime)
     }
     //시간 인터벌
