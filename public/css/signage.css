@@ -791,6 +791,21 @@ body,html{
     background-color: #ffffff;
     text-align: center;
 }
+.searchBox::placeholder{
+    width: 327px;
+    height: 24px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    text-align: left;
+    letter-spacing: normal;
+    color: #999999;
+    padding-left: 30px;
+    /* margin-left: 15%; */
+  }
 .searchContent{
     height: 100%;
     width: 100%;
