@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const mysql = require('mysql');
+const mssql = require('mssql');
 const config = require('../config');
 const auth = require('../config/passport');
 const dbconf = require('../config/database');
-const connection = mysql.createConnection(dbconf);
+const connection = mysql.createConnection(dbconf.mysql);
+const conn_ms = mssql.connect(dbconf.mssql);
 const CryptoJS = require('crypto-js');
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
