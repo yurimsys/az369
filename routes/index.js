@@ -20,6 +20,21 @@ connection.config.queryFormat = function (query, values) {
     }.bind(this));
 };
 
+router.get('/sign', async function(req, res, next){
+    await conn_ms
+    let sql = 'select 1 as t'
+      try {
+        const request = conn_ms.request(); 
+        const result = await request.query(sql)
+        console.dir(result)
+        return result;
+    } catch (err) {
+        console.error('SQL error', err);
+    }
+    res.send({data:result})
+    // res.render('signage');
+})
+
 
 router.get('/opentest', function(req, res, next) {
     res.render('opentest');
@@ -613,9 +628,9 @@ router.get('/video/:currentPage', function(req, res, next) {
 
 
 //사이니지
-router.get('/sign', function(req, res, next) {
-    res.render('signage');
-});
+// router.get('/sign', function(req, res, next) {
+//     res.render('signage');
+// });
 
 
 //test
