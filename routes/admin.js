@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
+const mssql = require('mssql');
 const dbconf = require('../config/database');
 const passport = require('passport');
 const auth = require('../config/passport');
-const connection = mysql.createConnection(dbconf);
+const connection = mysql.createConnection(dbconf.mysql);
+const conn_ms = mssql.connect(dbconf.mssql);
 const config = require('../config');
 const CryptoJS = require('crypto-js');
 

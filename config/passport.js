@@ -1,9 +1,14 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mysql = require('mysql');
+const mssql = require('mssql');
 const CryptoJS = require('crypto-js');
 const dbconf = require('../config/database');
-const connection = mysql.createConnection(dbconf);
+const connection = mysql.createConnection(dbconf.mysql);
+const conn_ms = mssql.connect(dbconf.mssql, function (err){
+    if(err) throw err;
+    console.log("connection mssql ok")
+});
 const config = require('../config');
 
 connection.config.queryFormat = function (query, values) {

@@ -1,10 +1,13 @@
 const sms = require('./sms');
 const config = require('../config');
 const mysql = require('mysql');
+const mssql = require('mssql');
 const dbconf = require('../config/database');
-const connection = mysql.createConnection(dbconf);
+const conn_my = mysql.createConnection(dbconf.mysql);
+const conn_ms = mssql.connect(dbconf.mssql);
 
-connection.config.queryFormat = function (query, values) {
+
+conn_my.config.queryFormat = function (query, values) {
     if (!values) return query;
     
     return query.replace(/\:(\w+)/g, function (txt, key) {
@@ -34,7 +37,7 @@ const saveNumber = ( phone_number ) => {
     let query = `insert into tBPA values( ${phone_number}, ${auth_number}, date_add(now(), interval 30 minute))`;
     
     return new Promise( function (resolve, reject) {
-        connection.query( query, null, (err, result) => {
+        conn_my.query( query, null, (err, result) => {
             if(err) reject(err);
             
             result.auth_number = auth_number;
@@ -55,7 +58,7 @@ const checkNubmer = ( phone_number, auth_number ) => {
         limit 1`;
     return new Promise( function (resolve, reject) {
 
-        connection.query( query, { phone_number : phone_number }, (err, result) => {
+        conn_my.query( query, { phone_number : phone_number }, (err, result) => {
             if(err) reject( err );
             
             console.log(result);

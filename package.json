@@ -28,6 +28,7 @@
     "http-errors": "~1.6.3",
     "livereload": "^0.9.1",
     "morgan": "~1.9.1",
+    "mssql": "^6.2.0",
     "mysql": "^2.18.1",
     "node-fetch": "^2.6.0",
     "nodemailer": "^6.4.4",
