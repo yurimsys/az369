@@ -28,6 +28,8 @@
         .oneX {
             transform:scale(2.1);
             transition: transform .35s;
+            left:0px;
+            top:0px;
         }
         .twoX {
             transform:scale(4.1);
@@ -47,22 +49,6 @@
     <div class="shadow">
         <img src="img/centralMap.png" style="left:0px; top:0px;" onmousedown="startDrag(event, this)">
     </div>
-    <div class="shadow2">
-        <img src="img/centralMap.png">
-    </div>
-    <div class="shadow3">
-        <img src="img/centralMap.png">
-    </div>
-
-
-<!-- 
-    <div style='position:absolute; left:0px; top:0px; cursor:pointer; cursor:hand' onmousedown='startDrag(event, this)'>
-        <table bgcolor="#0000FF"><tr><td>
-            <font color="#FFFFFF">하하하</font>
-        </td></tr></table>
-    </div> -->
-    <!-- <img src="img/centralMap.png" width="150" style="position:absolute; left:0px; top:50px; cursor:pointer;" onmousedown="startDrag(event, this)" border="0"> -->
-    
 </body>
 <script>
 

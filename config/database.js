@@ -21,5 +21,4 @@ const database_json =
 }
 
 const env = process.env.NODE_ENV || "production";
-
 module.exports = database_json[env];

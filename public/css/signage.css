@@ -21,7 +21,7 @@ body,html{
 #box-center {
     flex-basis: 72%;
     text-align: center;
-    background-color: #8c929a;
+    background-color: #7c818f;
 }
 #box-right {
     flex-basis: 14%;
@@ -111,7 +111,8 @@ body,html{
 }
 /* 카테고리 리스트 */
 .categoryList{
-    margin-top: 40%;
+    margin-top: 30%;
+    overflow: hidden;
 }
 .categoryList li ul{
     list-style:none;
@@ -122,40 +123,32 @@ body,html{
 .categoryList2{
     list-style:none;
     float: left;
-    margin-left: 2%;
+    margin-top: 15%;
+    margin-left: -1%;
     line-height: 12px;
+    overflow: hidden;
+    width: 100%;
     display: none;
 }
 
 /* 층별 아이콘 */
 .floorBtn{
     list-style: none;
-    margin-top: 3%;
+    margin-top: 20%;
 }
-/* .floorIcon1{
-    width: 75px;
-    height: 75px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.16);
-    background-color: #a91179;
-    margin-top: 4%;
-    margin-left: 94.5%;
-    font-size: 20px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: normal;
-    line-height: 3.7;
-    color: #ffffff;
-} */
+.floorBtn ul li{
+    list-style: none;
+
+}
 .floorIcon{
     width: 60px;
     height: 60px;
     border-radius: 12px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.16);
     background-color: #f4f4f4;
-    margin-top: 1%;
-    margin-left: 92.7%;
+    position: relative;
+    margin-top: 10%;
+    margin-left: 7%;
     font-size: 20px;
     font-weight: 500;
     font-stretch: normal;
@@ -176,15 +169,14 @@ body,html{
 }
 /* 카테고리 이전 다음 버튼 */
 .categoryNav{
-    list-style:none;
-}
-.categoryNav li{
-    list-style:none;
-    margin-top: 10%;
-    margin-left: 10%;
-    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
 }
 .categoryPrev{
+    background-image: url(/img/left_arrow_icon.png);
+    background-repeat: no-repeat;
+    background-position: 48% 47%;
     list-style:none;
     width: 50px;
     height: 50px;
@@ -195,10 +187,41 @@ body,html{
     font-size: xxx-large;
     line-height: 1;
     text-align: center;
+    margin-left: 11%;
+    margin-top: 10%;
     color: #aaaaaa;
 }
-.clickBtn{
-    color: #a91179;
+.categoryNext{
+    background-image: url(/img/right_arrow_icon.png);
+    background-repeat: no-repeat;
+    background-position: 48% 47%;
+    list-style:none;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    font-size: xxx-large;
+    line-height: 1;
+    text-align: center;
+    margin-left: 66%;
+    margin-top: -14.2%;
+    color: #aaaaaa;
+}
+.categoryState{
+    margin-left: 41%;
+    margin-top: -14%;
+}
+.clickPrevBtn{
+    background-image: url(/img/left_arrow_active_icon.png);
+    background-repeat: no-repeat;
+    background-position: 48% 47%;
+}
+.clickNextBtn{
+    background-image: url(/img/right_arrow_active_icon.png);
+    background-repeat: no-repeat;
+    background-position: 48% 47%;
 }
 /* 좌측 하단 광고 */
 .leftAd{
@@ -455,13 +478,16 @@ body,html{
     width: 80px;
     height: 220px;
     border-radius: 50px;
-    opacity: 0.3;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    margin-left: 92%;
-    margin-top: 2%;
-    background-color: #f8f8f8;
+    background-color: #8c929a;
+    background-color: rgba( 140, 146, 154, 0.3);
 }
-.mapBtnList{
+.mapNav ul li{
+    float: left;
+    margin-top: 22%;
+    margin-left: 19%;
+}
+.mapNav li{
     list-style: none;
 }
 .plusBtn{
@@ -469,8 +495,6 @@ body,html{
     height: 50px;
     border-radius: 30px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    margin-left: 93%;
-    margin-top: -14%;
     background-color: white;
     line-height: 4.4;
     position: relative;
@@ -480,8 +504,6 @@ body,html{
     height: 50px;
     border-radius: 30px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    margin-left: 93%;
-    margin-top: 1.2%;
     line-height: 4.3;
     font-weight: bold;
     background-color: white;
@@ -492,19 +514,38 @@ body,html{
     height: 50px;
     border-radius: 30px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    margin-left: 93%;
-    margin-top: 1.3%;
     line-height: 4.5;
     background-color: white;
     position: relative;
+}
+.mapScroll{
+    margin-top: 10%;
+    margin-left: 25%;
+    width: 10px;
+    height: 400px;
+    position: relative;
+    /* overflow:hidden; */
+    text-align: center;
+    background-color: #a91179;
+}
+.mapScrollBtn{
+    /* transition: transform .35s; */
+    cursor:pointer;
+    position: relative;
+    touch-action: manipulation;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background-color: red;
 }
 /* 중앙 하단 레이어 */
 .center-footer{
     width: 100%;
     height: 8%;
     bottom: 0;
+    opacity: 0.7;
     position: fixed;
-    background-color: #70757B;
+    background-color: rgba( 112, 117, 123, 0.7);
 }
 .center-footer-list li{
     list-style:none;
@@ -515,27 +556,25 @@ body,html{
 .center-footer-box{
     width: 50px;
     height: 50px;
+    float: left;
+    margin-top: 1%;
+    margin-left: 8%;
     background-color: #dbdbdb;
     
 }
 .center-footer-name{
-    width: 110px;
-    height: 20px;
+    width: 100px;
     font-size: 18px;
     font-weight: 300;
-    font-stretch: normal;
-    font-style: normal;
     margin-top: -85%;
-    letter-spacing: normal;
-    margin-left: 100%;
+    margin-left: 140%;
+    text-align: left;
     color: #ffffff;
-}
-.center-footer-box{
-    
 }
 .center-footer-box img{
     margin-top: 10%;
 }
+
 /* 모달 */
 .modal {
     display: none; /* Hidden by default */
@@ -554,7 +593,7 @@ body,html{
     background-color: #a91179;
     color: white;
     font-size: xx-large;
-    margin-top: -4.1%;
+    margin-top: -3.7%;
     text-align: left;
     line-height: 1.7;    
 }
@@ -570,13 +609,16 @@ body,html{
     color: #ffffff;
   }
 .searchClose{
-    width: 153px;
+    background-image: url("/img/find_title_cancel_icon.png");
+    background-position: 80% 50%;
+    background-repeat: no-repeat;
+    width: 166px;
     height: 60px;
     background-color: #222222;
     color: white;
     font-size: 20px;
-    margin-top: -4.1%;
-    margin-left: 89.7%;
+    margin-top: -3.6%;
+    margin-left: 90%;
     text-align: center;
     line-height: 1.7;
 }
@@ -590,57 +632,49 @@ body,html{
     line-height: 3;
     letter-spacing: normal;
     text-align: left;
+    margin-right: 30%;
     color: #eeeeee;
 }
 .searchTotal{
-    width: 190px;
+    width: 100%;
     height: 38px;
     font-size: 32px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
-    line-height: 3;
     letter-spacing: -0.96px;
     text-align: center;
     color: #a91179;
-    margin-left: 20%;
-    margin-top: 5%;
-
 }
 /* Modal Content/Box */
 .modal-content {
     background-color: #eeeeee;
-    margin-left: 14%;
+    margin-left: 9%;
     margin-top: 5%;
     border: 1px solid #888;
-    width: 72%;
+    width: 81%;
     height: 85%;
 }
 .searchList{
-    margin-top: 30%;
-    margin-left: 10%;
+    width: 100%;
+    margin-top: 50px;
 }
 .searchList li{
     list-style: none;
-    margin-top: 1%;
-    margin-left: -9%;
 }
 .searchList2{
     display: none;
-    margin-top: 30%;
-    margin-left: 10%;
+    margin-top: 50px;
+    width: 100%;
 }
 .searchList2 li{
     list-style: none;
-    margin-top: 1%;
-    margin-left: -9%;
 }
 
 .searchCategory {
     border-radius: 12px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
-    margin-left: 10%;
 }
 .searchSelect{
     width: 220px;
@@ -653,19 +687,19 @@ body,html{
 }
   
 .searchCategoryFont{         
-    width: 220px;
+    width: 100%;
     height: 50px;
     font-size: 18px;
     font-stretch: normal;
     font-style: normal;
-    line-height: 2.6;
+    line-height: 50px;
     letter-spacing: normal;
     text-align: center;
-    margin-top: 6%;
+    margin-top: 15px;
 }
 .categoryChange{
     display: none;
-    width: 220px;
+    width: 100%;
     height: 50px;
     opacity: 0.9;
     border-radius: 12px;
@@ -677,8 +711,8 @@ body,html{
     font-style: normal;
     line-height: 3;
     letter-spacing: normal;
+    margin-top: 50px;
     text-align: center;
-    margin-left: 11%;
     color: #eeeeee;
   }
 .searchNav{
@@ -693,6 +727,9 @@ body,html{
     display: inline-block;
 }
 .searchNavPrev{
+    background-image: url("/img/left_arrow_icon.png");
+    background-repeat: no-repeat;
+    background-position: 48% 47%;
     list-style:none;
     width: 50px;
     height: 50px;
@@ -700,14 +737,15 @@ body,html{
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
     border: solid 1px #eeeeee;
     background-color: #ffffff;
-    font-size: xxx-large;
     line-height: 1;
     text-align: center;
-    margin-left: 11%;
-    margin-top: 10%;
+    margin-top: 28px;
     color: #aaaaaa;
 }
 .searchNavNext{
+    background-image: url('/img/right_arrow_icon.png');
+    background-repeat: no-repeat;
+    background-position: 48% 47%;
     list-style:none;
     width: 50px;
     height: 50px;
@@ -715,63 +753,84 @@ body,html{
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
     border: solid 1px #eeeeee;
     background-color: #ffffff;
-    font-size: xxx-large;
     line-height: 1;
     text-align: center;
-    margin-left: 89%;
-    margin-top: -39px;
+    margin-left: 79%;
+    margin-top: -18%;
     color: #aaaaaa;
 }
 .searchState{
-    margin-left: 53%;
+    margin-left: 41%;
     margin-top: -40px;
 }
 .searchInfo{
     color: #444444;
-    margin-left: 17%;
     margin-top: 35%;
-    width: 210px;
+    width: 100%;
+    text-align: center;
 }
-.searchClick{
-    color: #a91179;
+.searchPrevClick{
+    background-image: url('/img/left_arrow_active_icon.png');
+    background-repeat: no-repeat;
+    background-position: 48% 47%;
+}
+
+.searchNextClick{
+    background-image: url('/img/right_arrow_active_icon.png');
+    background-repeat: no-repeat;
+    background-position: 48% 47%;
 }
 .searchBox{
-    width: 746px;
+    background-image: url('/img/find_bar_icon.png');
+    background-position: 95% 45%;
+    background-repeat: no-repeat;
+    width: 100%;
     height: 60px;
     border-radius: 12px;
     border: solid 2px #a91179;
     background-color: #ffffff;
-    margin-top: 5%;
     text-align: center;
 }
 .searchContent{
-    display: flex;
+    height: 100%;
+    width: 100%;
+    margin: 0;
 }
 .searchLeft{
-    width: 305px;
+    width: 15%;
     height: 100%;
-    margin-right: 4%;
+    padding: 25px;
+    margin: 0;
+    float: left;
 }
-.searchRadio{
+.searchRight{
+    width: 30%;
+    float: right;
+    height: 100%;
+}
+.searchRight img{
+    width: 100%;
+    height: 100%;
+}
+.searchCheck{
     display: none;
 }
 .searchCenter{
-    width: 764px;
+    width: 48%;
     height: 100%;
-    margin-top: -10px;
+    float: left;
+    padding: 25px;
 }
-.searchRight{
 
-}
 .searchResult{
     list-style: none;
     display: inline-block;
-    width: 746px;
+    width: 100%;
     height: 750px;
     border-radius: 12px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #f9f9f9;
-    margin-top: 3%;
+    margin-top: 25px;
     overflow: hidden scroll;
 }
 .searchResult::-webkit-scrollbar{width: 10px;}
@@ -779,13 +838,17 @@ body,html{
 .searchResult::-webkit-scrollbar-thumb{border-radius: 5px; background-color: #a91179; height: 10px;}
 
 .searchResult li{
+    list-style: none;
     margin-top: -8%;
     margin-left: 20%;
+}
+.brandList{
+    padding: 5px 0%;
 }
 .searchLine{
     width: 686px;
     height: 0;
-    margin-top: 4%;
+    margin-top: 3%;
     margin-left: 4%;
     border: solid 1px #eeeeee;
 }
@@ -824,7 +887,7 @@ body,html{
     line-height: 1.8;
     letter-spacing: normal;
     text-align: center;
-    margin-top: -6%;
+    margin-top: -2%;
     margin-left: 55%;
     color: #eeeeee;
 }
@@ -846,7 +909,6 @@ body,html{
     width: 85px;
     height: 86px;
     border-radius: 43px;
-    margin-top: 3%;
     margin-left: 5%;
     background-color: #e6e6e6;
       
@@ -862,41 +924,52 @@ body,html{
 
 /* svg파일 */
 .centerLeft{
-    width: 88%;
-    height: 92%;
+    width: 100%;
+    height: 100%;
     overflow:hidden;
 }
-.centerLeft img{
+.centralMap{
+    width: 90%;
+    height: 100%;
+    float: left;
+}
+.centralMap img{
     width: 85%;
-    height: 90%;
-    margin-top: 5%;
+    height: 85%;
+    margin-top: 3%;
     transition: transform .35s;
     cursor:pointer;
     position: relative;
     touch-action: manipulation;
 }
-.centerRight{
-    width: 100%;
-    margin-top: -70%;
+.centralSvg{
+    width: 85%;
+    height: 85%;
+    margin-top: 3%;
+    transition: transform .50s;
+    cursor:pointer;
+    position: relative;
+    touch-action: manipulation;
 }
-.mapImg{
-    width: 100%;
-    height: 100%;
-    transition: transform .35s;
+.centerRight{
+    width: 10%;
+    margin-top: 2%;
+    float: right;
 }
 
 
 /* 테스트 줌 */
+.zoom{
+    /* transition: transform .35s; */
+    left: 0px;
+    top: 0px;
+}
 
 .oneX {
-    transform:scale(1.5);
+    transform:scale(1.0064102564102564);
     transition: transform .35s;
 }
 .twoX {
-    transform:scale(3);
-    transition: transform .35s;
-}
-.backX{
-    transform:scale(1.1);
+    transform:scale(2.5);
     transition: transform .35s;
 }
