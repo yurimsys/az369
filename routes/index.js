@@ -35,6 +35,10 @@ router.get('/sign', async function(req, res, next){
     // res.render('signage');
 })
 
+router.get('/sign', function(req, res, next) {
+    res.render('signage', { sessionUser : req.user });
+});
+
 
 router.get('/opentest', function(req, res, next) {
     res.render('opentest');
