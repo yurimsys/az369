@@ -47,7 +47,7 @@
     <button type="button" class='plus' id='plus'>확대</button>
     <button type="button" class='minus' id='minus'>축소</button>
     <div class="shadow">
-        <img src="img/centralMap.png" style="left:0px; top:0px;" onmousedown="startDrag(event, this)">
+        <img src="img/centralMap.png" onmousedown="startDrag(event, this)">
     </div>
 </body>
 <script>
@@ -92,18 +92,10 @@ function stopDrag(){
 }
 
 
-
-
-
-
-
-
-
-
-
-
     $('#plus').on('click',function(){
         if($('#plus').attr('class') == 'plus'){
+            $('.shadow img').css('left','0px')
+            $('.shadow img').css('top','0px')
             $('.shadow img').addClass('oneX')
             $('.plus').addClass('twoZoom')
         }else if($('#plus').attr('class') == 'plus twoZoom'){
@@ -117,6 +109,8 @@ function stopDrag(){
             $('.plus').removeClass('twoZoom')
         }else if($('#plus').attr('class') == 'plus'){
             $('.shadow img').removeClass('oneX')
+            $('.shadow img').css('left','')
+            $('.shadow img').css('top','')
         }
     })
 

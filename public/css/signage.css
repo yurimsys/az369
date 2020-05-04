@@ -980,11 +980,22 @@ body,html{
     top: 0px;
 }
 
-.oneX {
+/* .oneX {
     transform:scale(1.0064102564102564);
     transition: transform .35s;
 }
 .twoX {
+    transform:scale(2.5);
+    transition: transform .35s;
+} */
+
+.fullOne{
+    transform:scale(1.5);
+    transition: transform .35s;
+    left:0px;
+    top:0px;
+}
+.fullTwo{
     transform:scale(2.5);
     transition: transform .35s;
 }

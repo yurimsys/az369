@@ -20,23 +20,21 @@ connection.config.queryFormat = function (query, values) {
     }.bind(this));
 };
 
-router.get('/sign', async function(req, res, next){
-    await conn_ms
-    let sql = 'select 1 as t'
-      try {
-        const request = conn_ms.request(); 
-        const result = await request.query(sql)
-        console.dir(result)
-        return result;
-    } catch (err) {
-        console.error('SQL error', err);
-    }
-    res.send({data:result})
-    // res.render('signage');
-})
 
 router.get('/sign', function(req, res, next) {
-    res.render('signage', { sessionUser : req.user });
+    mssql.connect(dbconf.mssql, function (err, result){
+        if(err) throw err;
+        console.log("connection mssql ok")
+        new mssql.Request().query('select * from tLS', (err, result) => {
+            // console.log('==================')
+            // console.log(result);
+            // console.log('==================')
+            res.render('signage', { data : result.recordset });
+            //console.log('datadata',data)
+            console.log('resrse', result.recordset)
+        })
+
+    });
 });
 
 
