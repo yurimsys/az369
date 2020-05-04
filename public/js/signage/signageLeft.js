@@ -1,12 +1,18 @@
 //*** 메인 좌측 카테고리 선택 스크립트 ***
 
+// catPas
     //카테고리 클릭
     $('.categoryList div').on('click',function(e){
         let categoryId = e.currentTarget.id
+        
         if(this.className.substring(25,40) != 'selected'){
             $('#'+categoryId).addClass('selected')
+            $('.catPas').css('fill','white')
+            
         }else if(this.className.substring(25,40) == 'selected'){
             $('#'+categoryId).removeClass('selected')
+            $('.catPas').css('fill','#d0a3db')
+            
         }
     })
     $('.categoryList2 div').on('click',function(e){

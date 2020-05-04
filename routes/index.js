@@ -26,14 +26,9 @@ router.get('/sign', function(req, res, next) {
         if(err) throw err;
         console.log("connection mssql ok")
         new mssql.Request().query('select * from tLS', (err, result) => {
-            // console.log('==================')
-            // console.log(result);
-            // console.log('==================')
             res.render('signage', { data : result.recordset });
-            //console.log('datadata',data)
             console.log('resrse', result.recordset)
         })
-
     });
 });
 

@@ -10,66 +10,94 @@
             searchModal.style.display = "none";
         }
     }
-    //검색모달 클릭시
+    
+    //검색모달 오픈
     function searchCategoryMenu(){
-        //$('.searchList').empty()
-        //$('.searchList2').empty()
-        $('.searchCheck').attr('checked',false)
-        $('.searchList label div').removeClass('searchSelect')
-        //$('#searchResult').empty();
-        $('.categoryChange').css('display','none')
+        // $('.searchCheck').attr('checked',false)
+        $('.searchResult').empty();
+        $('.searchRight').css('display','block')
         $('.searchInfo').css('display','block')
+        $('.categoryChange').css('display','none')
+        $('.searchRightDetail').css('display','none')
+        $('.searchRightAd').css('display','none');
         $('#chooseCategory').text('TOTAL')
 
-        // //카테고리 리스트
-        // $.ajax({
-        //     url: '/searchCategoryList',
-        //     method: 'get',
-        //     dataType: 'json',
-        //     success: function(res){
-                //카테고리 리스트
-                // for(let i=0; i<3; i++){
-                //     if(i < 9){
-                //         let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                //         html += "<div class='searchCategory searchCategoryFont' id='search0"+i+"'>패션의류</div>";
-                //         html += "</label></li>"
-                //     $('.searchList').append(html)
-                //     }
-                //     if(i > 8){
-                //         html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                //         html += "<div class='searchCategory searchCategoryFont' id='search0"+i+"'>금융·일반</div>";
-                //         html += "</label></li>"
-                //         $('.searchList2').append(html)
-                //     }
-                // }
-        //     }
-        // })
-
-        // //브랜드 리스트
-        // $.ajax({
-        //     url: '/searchBrandList',
-        //     method: 'get',
-        //     dataType: 'json',
-        //     async: false,
-        //     success: function(res){
-        //         //현재 브랜드가 이벤트 중이면 <div class='searchEvent'>EVENT</div> 보여줌 
-                for(let i=0; i<10; i++){
-                    let html = "<div class='brandList' id='brand01'><div class='categoryImg'></div>";
-                        html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
-                        html += "<ul><li><div class='searchBrand'>여성보세의류샵</div>";
-                        html += "<h4 class='searchLocation'>1F.여성의류 쇼핑몰 (패션의류)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
-                        html += "<hr class='searchLine'></div>"
-                    if(i==2 || i==4){
-                        html = "<div class='brandList'><div class='categoryImg'></div>";
-                        html += "<ul><li><div class='searchBrand'>여성보세의류샵<h4 class='searchEvent'>EVENT</h4></div>";
-                        html += "<h4 class='searchLocation'>1F.여성의류 쇼핑몰 (패션의류)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
-                        html += "<hr class='searchLine'></div>"
-                    }
-                    $('#searchResult').append(html)
-                }
-        //     }
-        // })
+        for(let i=0; i<10; i++){
+            let html = "<div class='brandList' id='brand01' onclick='catTest(this)'><div class='categoryImg'></div>";
+                html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
+                html += "<ul><li><div class='searchBrand'>여성보세의류샵</div>";
+                html += "<h4 class='searchLocation'>1F.여성의류 쇼핑몰 (패션의류)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
+                html += "<hr class='searchLine'></div>"
+            if(i==2 || i==4){
+                html = "<div class='brandList' id='brand02' onclick='catTest(this)'><div class='categoryImg'></div>";
+                html += "<ul><li><div class='searchBrand'>여성보세의류샵<h4 class='searchEvent'>EVENT</h4></div>";
+                html += "<h4 class='searchLocation'>1F.여성의류 쇼핑몰 (패션의류)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
+                html += "<hr class='searchLine'></div>"
+            }
+            $('#searchResult').append(html)
+        }
         searchModal.style.display = "block";
+    }
+
+    let catChk = 0;
+    //카테고리 클릭
+    $('.searchCategory').on('click',function(e){
+        
+        //선택된 카테고리 아이디
+        let selectCategoryId = e.target.id
+        //상단 선택된 카테고리 명
+        if(catChk == 0){
+            let chooseCatName = $("#"+selectCategoryId).text();
+            $('#chooseCategory').text(chooseCatName)
+        }
+        catChk = 1;
+        //카테고리변경 버튼 생성
+        $('.categoryChange').css('display','block')
+        $('.searchInfo').css('display','none')
+        $('.searchRightDetail').css('display','none')
+        $('.searchList').empty();
+        $('.searchList2').empty();
+        for(let i=0; i<12; i++){
+            if(i <9){
+                let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                    html += "<div class='searchCategory searchCategoryFont' onclick='midClass(this)' id='search0'>패션의류</div></label></li>"
+                $('.searchList').append(html);
+            }
+            
+            if(i > 8){
+                let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                    html += "<div class='searchCategory searchCategoryFont' onclick='midClass(this)' id='search01'>패션잡화</div></label></li>"
+                $('.searchList2').append(html)
+            }
+        }
+        console.log(e.target)
+        $('#searchResult').empty();
+        for(let i=0; i<10; i++){
+            let html = "<div class='brandList' id='brand03' onclick='catTest(this)'><div><div class='categoryImg'></div></div>";
+                html += "<ul><li><div class='searchBrand'>김밥천국</div>";
+                html += "<h4 class='searchLocation'>1F.분식 (음식점)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
+                html += "<hr class='searchLine'></div>"
+            $('#searchResult').append(html)
+        }
+        $('.searchRight').css('display','none')
+        $('.searchRightAd').css('display','block');
+    })
+
+    function midClass(e){
+        console.log(e)
+        let gg = e
+        $(gg).addClass('selected')
+    }
+
+    //브랜드 리스트 클릭시
+    function catTest(e){
+        console.log(e.id)
+        // background-color: #f9eff6;
+        $('#'+e.id).css('background-color','#f9eff6');
+
+        $('.searchRight').css('display','none')
+        $('.searchRightAd').css('display','none');
+        $('.searchRightDetail').css('display','block')
     }
 
     //카테고리 변경하기 클릭
@@ -77,62 +105,17 @@
         $('#searchResult').empty();
         $('.searchCheck').attr('checked',false)
         $('.searchList label div').removeClass('searchSelect')
+        $('.searchRight').css('display','block')
+        $('.searchRightAd').css('display','none');
+        $('.searchRightDetail').css('display','none')
         searchCategoryMenu();
+        catChk = 0;
     }
 
-    //카테고리 클릭시 검색
-    $('.searchCategory').on('click',function(e){
-        //$('.searchList').empty();
-        //선택된 카테고리 아이디
-        let selectCategoryId = e.target.id
-        //상단 선택된 카테고리 명
-        let chooseCatName = $("#"+selectCategoryId).text();
-        $('#chooseCategory').text(chooseCatName)
-        // if($("#"+selectCategoryId).attr('class') != 'searchCategory searchCategoryFont searchSelect'){
-        //     $('.searchList label div').removeClass('searchSelect')
-        //     $("#"+selectCategoryId).addClass('searchSelect')
-        //     chkid = selectCategoryId;
-        // }else if($("#"+selectCategoryId).attr('class') == 'searchCategory searchCategoryFont searchSelect'){
-        //     $('.searchList label div').removeClass('searchSelect')
-        //     chkid = 0;
-        //     searchCategoryMenu();
-        // }
-        //카테고리변경 버튼 생성
-        $('.categoryChange').css('display','block')
-        $('.searchInfo').css('display','none')
 
-        // $.ajax({
-        //     url: '/searchCategoryList',
-        //     method: 'post',
-        //     dataType: 'json',
-        //     data: {'categoryName' : selectCategoryId},
-        //     success: function(res){
-                // for(let i=0; i<12; i++){
-                //     if(i <9){
-                //         let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                //             html += "<div class='searchCategory searchCategoryFont' id='search0'+"+i+">패션의류</div></label></li>"
-                //         $('.searchList').append(html);
-                //     }
-                    
-                //     if(i > 8){
-                //         let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                //             html += "<div class='searchCategory searchCategoryFont' id='search01'>패션잡화</div></label></li>"
-                //         $('.searchList2').append(html)
-                //     }
-                // }
-        //         
-        //     }
-        // })
-        $('#searchResult').empty();
-        for(let i=0; i<10; i++){
-            let html = "<div class='brandList'><div><div class='categoryImg'></div></div>";
-                html += "<ul><li><div class='searchBrand'>김밥천국</div>";
-                html += "<h4 class='searchLocation'>1F.분식 (음식점)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
-                html += "<hr class='searchLine'></div>"
-            $('#searchResult').append(html)
-        }
-    })
-   
+    // $('#searchResult div').on('click',function(e){
+    //     console.log(this)
+    // })
     //카테고리 이전 다음버튼
     $('#searchNext').on('click',function(){
         if($('#searchPage').text()==1){
@@ -221,6 +204,9 @@
         nowDay = String(day.getDate());
         if (nowMon.length == 1) {
             nowMon = "0" + nowMon
+        }
+        if(nowDay <10){
+            nowDay = '0'+nowDay
         }
         let NowToday = nowYear+'.'+ nowMon+'.'+ nowDay;
         $('#dayCount').text(NowToday)

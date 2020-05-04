@@ -80,9 +80,9 @@ body,html{
     background-color: #ffffff;
     margin-left: 12%;
 }
-.selected{
+/* .selected{
     background-color: #340a27;
-}
+} */
 .categoryFont{         
     width: 210px;
     height: 50px;
@@ -676,8 +676,8 @@ body,html{
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
 }
-.searchSelect{
-    width: 220px;
+.selected{
+    width: 210px;
     height: 50px;
     border-radius: 12px;
     border: solid 1.5px #a91179;
@@ -827,6 +827,15 @@ body,html{
     width: 100%;
     height: 100%;
 }
+.searchRightAd{
+    display: none;
+    width: 30%;
+    float: right;
+    height: 100%;
+}
+.searchRightAd img{
+    width: 100%;
+}
 .searchCheck{
     display: none;
 }
@@ -971,23 +980,68 @@ body,html{
     margin-top: 2%;
     float: right;
 }
-
-
+/* 모달 카테고리 클릭 후 */
+.searchRightDetail{
+    display: none;
+    width: 30%;
+    float: right;
+    height: 100%;
+}
+.searchRightDetail img{
+    width: 100%;
+}
+.brandDetail{
+    width: 100%;
+    height: 546px;
+    margin-bottom: 5%;
+    background-color: #ffffff;
+}
+.brandDetail ul li{
+    list-style: none;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+.brandName{
+    height: 38px;
+    font-family: NotoSansCJKkr;
+    font-size: 26px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2;
+    letter-spacing: -0.91px;
+    text-align: left;
+    color: #222222;
+}
+.brandInfo{
+    width: 410px;
+    height: 81px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    margin-top: 5%;
+    color: #444444;
+}
 /* 테스트 줌 */
-.zoom{
-    /* transition: transform .35s; */
+/* .zoom{
+    transition: transform .35s;
     left: 0px;
     top: 0px;
 }
 
-/* .oneX {
+.oneX {
     transform:scale(1.0064102564102564);
     transition: transform .35s;
 }
 .twoX {
     transform:scale(2.5);
     transition: transform .35s;
-} */
+}
 
 .fullOne{
     transform:scale(1.5);
@@ -998,4 +1052,4 @@ body,html{
 .fullTwo{
     transform:scale(2.5);
     transition: transform .35s;
-}
+} */
