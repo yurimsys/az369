@@ -1,61 +1,59 @@
 //*** 메인 좌측 카테고리 선택 스크립트 ***
 
 // catPas
+//좌측 카테고리 불러오기
+    $.ajax({
+        url: '/category',
+        method: 'get',
+        dataType: 'json',
+        success: function(res){
+            //카테고리 저장
+            localStorage.setItem('category',JSON.stringify(res.data))
+            for(let i=0; i<res.data.length; i++){
+                if(i <7){
+                    let html = "<li>";
+                        html += '<div class="categoryBtn categoryFont" id='+res.data[i].BC_NameEng+' onclick="selectCat(this)"><span id="categoryIcon'+i+'"></span><span class="categoryName">'+res.data[i].BC_NameKor+'</span></div>'
+                        html += "</li>";
+                    $('.categoryList').append(html);
+                }
+                if(i > 6){
+                    let html2 = "<li>";
+                        html2 += '<div class="categoryBtn categoryFont" id='+res.data[i].BC_NameEng+' onclick="selectCat(this)"><span id="categoryIcon'+i+'"></span><span class="categoryName">'+res.data[i].BC_NameKor+'</span></div>'
+                        html2 += "</li>"
+                    $('.categoryList2').append(html2)
+                }
+            }
+        }
+    })
+
+
+
     let count = 0;
     function selectCat(e){
         let catId = e.id;
+        //클릭시 전체 색상 초기화
         if(count == 0){
             $('.svgCat').css('fill','#e2e2e2');   
             count = 1;
-            console.log('초기화')
         }
-             
-        console.log('1번')
         
+        //클릭한 것만 색상표시
         if($('#'+catId).hasClass('selected') == false ){
             $(e).addClass('selected')
             $('.'+catId).css('fill','')
-            console.log('2번')
-            // $('.'+catId).removeClass(catId)
-            // $('.'+catId).attr('class',catId)
         }
         else if($('#'+catId).hasClass('selected') == true ){
             $(e).removeClass('selected')
             $('.'+catId).css('fill','#e2e2e2')
-            console.log('3번')
             if($('.categoryList div').hasClass('selected') == false && $('.categoryList2 div').hasClass('selected') == false){
-                console.log('4번')
                 $('.svgCat').css('fill',''); 
                 count = 0;
-                return;
+                return count;
             }
         }
 
     }
 
-    //카테고리 클릭
-    // $('.categoryList div').on('click',function(e){
-    //     console.log(e.target.id)
-    //     let categoryId = e.currentTarget.id
-        
-    //     if(this.className.substring(25,40) != 'selected'){
-    //         $('#'+categoryId).addClass('selected')
-    //         $('.catPas').css('fill','white')
-            
-    //     }else if(this.className.substring(25,40) == 'selected'){
-    //         $('#'+categoryId).removeClass('selected')
-    //         $('.catPas').css('fill','#d0a3db')
-            
-    //     }
-    // })
-    // $('.categoryList2 div').on('click',function(e){
-    //     let categoryId = e.currentTarget.id
-    //     if(this.className.substring(25,40) != 'selected'){
-    //         $('#'+categoryId).addClass('selected')
-    //     }else if(this.className.substring(25,40) == 'selected'){
-    //         $('#'+categoryId).removeClass('selected')
-    //     }
-    // })
     //카테고리 이전 다음버튼
     $('#next').on('click',function(e){
         if($('#nowPage').text()==1){

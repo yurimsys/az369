@@ -35,27 +35,33 @@
         document.onmousemove = null;
         document.onmouseup = null;
     }
-
+    $('#store_name text').hide()
     //줌인 줌아웃 리셋
     $('#zoomIn').on('click',function(){
+        $('#store').css('cursor','pointer');
         if($('#zoomIn').attr('class') == 'plusBtn'){
             //이미지 커서 이동 css
             $('.centralSvg').css('left','0px')
             $('.centralSvg').css('top','0px')
             $(this).attr('class','plusBtn 1X')
             $('.centralSvg').css('transform','scale(1.375)')
+            $('#store_name text').show()
+            $('#store_name text').css('font-size','13')
         }
         else if($('#zoomIn').attr('class') == 'plusBtn 1X'){
             $(this).attr('class','plusBtn 2X')
             $('.centralSvg').css('transform','scale(1.75)')
+            $('#store_name text').css('font-size','14')
         }
         else if($('#zoomIn').attr('class') == 'plusBtn 2X'){
             $(this).attr('class','plusBtn 3X')
             $('.centralSvg').css('transform','scale(2.125)')
+            $('#store_name text').css('font-size','15')
         }
         else if($('#zoomIn').attr('class') == 'plusBtn 3X'){
             $(this).attr('class','plusBtn 4X')
             $('.centralSvg').css('transform','scale(2.5)')
+            $('#store_name text').css('font-size','16')
         }
     })
 
@@ -66,18 +72,23 @@
             $('#zoomIn').attr('class', 'plusBtn')
             $('.centralSvg').css('left','')
             $('.centralSvg').css('top','')
+            $('#store_name text').hide()
+            // $('#store_name text').css('font-size','16')
         }
         else if($('#zoomIn').attr('class') == 'plusBtn 2X'){
             $('#zoomIn').attr('class', 'plusBtn 1X')
             $('.centralSvg').css('transform','scale(1.375)')
+            $('#store_name text').css('font-size','13')
         }
         else if($('#zoomIn').attr('class') == 'plusBtn 3X'){
             $('#zoomIn').attr('class', 'plusBtn 2X')
             $('.centralSvg').css('transform','scale(1.75)')
+            $('#store_name text').css('font-size','14')
         }
         else if($('#zoomIn').attr('class') == 'plusBtn 4X'){
             $('#zoomIn').attr('class', 'plusBtn 3X')
             $('.centralSvg').css('transform','scale(2.125)')
+            $('#store_name text').css('font-size','15')
         }
     })
 
@@ -86,6 +97,8 @@
         $('.centralSvg').css('left','')
         $('.centralSvg').css('top','')
         $('#zoomIn').attr('class', 'plusBtn')
+        $('#store_name text').hide()
+        $('#store_name text').css('font-size','16')
     })
 
     //층수 클릭
@@ -110,4 +123,6 @@
             $('#nowFloor').text('3F')
         }
     })    
+
+    
 //*** 중앙 svg 스크립트 종료 ***

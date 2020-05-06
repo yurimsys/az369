@@ -1,3 +1,4 @@
+
 //*** 검색 모달 스크립트 ***
     //검색 모달
     let searchModal = $('#myModal')[0]
@@ -13,16 +14,38 @@
     
     //검색모달 오픈
     function searchCategoryMenu(){
-        // $('.searchCheck').attr('checked',false)
-        $('.searchResult').empty();
+        ////여기부터
+        $('.searchList').empty()
+        $('.searchList2').empty()
+        $('.searchResult').empty()
+        //여기까지
+        //$('.searchResult').empty();
         $('.searchRight').css('display','block')
         $('.searchInfo').css('display','block')
         $('.categoryChange').css('display','none')
         $('.searchRightDetail').css('display','none')
         $('.searchRightAd').css('display','none');
         $('#chooseCategory').text('TOTAL')
+        
+        let jsonCat = JSON.parse(localStorage.getItem('category'))
+        for(let i=0; i<jsonCat.length; i++){
+            if(i < 9){
+                let html = "<li><label>"
+                    html += "<input type='checkbox' name='searchCategoryList' onclick='modalCat(this)' id='search"+i+"' class='searchCheck' value='"+jsonCat[i].BC_NameKor+"'>"
+                    html += "<div class='searchCategory searchCategoryFont'>"+jsonCat[i].BC_NameKor+"</div>"
+                    html += "</label></li>"
+                $('.searchList').append(html)
+            }
+            if(i > 8){
+                let html = "<li><label>"
+                    html += "<input type='checkbox' name='searchCategoryList' onclick='modalCat(this)' id='search"+i+"' class='searchCheck' value='"+jsonCat[i].BC_NameKor+"'>"
+                    html += "<div class='searchCategory searchCategoryFont'>"+jsonCat[i].BC_NameKor+"</div>"
+                    html += "</label></li>"
+                $('.searchList2').append(html)
+            }
+        }
 
-        for(let i=0; i<10; i++){
+        for(let i=0; i<jsonCat.length; i++){
             let html = "<div class='brandList' id='brand01' onclick='catTest(this)'><div class='categoryImg'></div>";
                 html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
                 html += "<ul><li><div class='searchBrand'>여성보세의류샵</div>";
@@ -34,20 +57,24 @@
                 html += "<h4 class='searchLocation'>1F.여성의류 쇼핑몰 (패션의류)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
                 html += "<hr class='searchLine'></div>"
             }
-            $('#searchResult').append(html)
+            $('.searchResult').append(html)
         }
         searchModal.style.display = "block";
     }
 
-    let catChk = 0;
     //카테고리 클릭
-    $('.searchCategory').on('click',function(e){
-        
+    let catChk = 0;
+    function modalCat(e){
+        $('.searchList').empty()
+        $('.searchList2').empty()
+        $('.searchResult').empty()
         //선택된 카테고리 아이디
-        let selectCategoryId = e.target.id
+        let selectCategoryId = e.id
         //상단 선택된 카테고리 명
         if(catChk == 0){
-            let chooseCatName = $("#"+selectCategoryId).text();
+            console.log($("#"+selectCategoryId).val())
+            console.log(e.id)
+            let chooseCatName = $("#"+selectCategoryId).val();
             $('#chooseCategory').text(chooseCatName)
         }
         catChk = 1;
@@ -55,9 +82,8 @@
         $('.categoryChange').css('display','block')
         $('.searchInfo').css('display','none')
         $('.searchRightDetail').css('display','none')
-        // $('.searchList').empty();
-        // $('.searchList2').empty();
-        $('.test123').css('display','none')
+
+        //중분류 카테고리
         for(let i=0; i<12; i++){
             if(i <9){
                 let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
@@ -71,30 +97,39 @@
                 $('.searchList2').append(html)
             }
         }
-        console.log(e.target)
-        $('#searchResult').empty();
-        for(let i=0; i<10; i++){
-            let html = "<div class='brandList' id='brand03' onclick='catTest(this)'><div><div class='categoryImg'></div></div>";
-                html += "<ul><li><div class='searchBrand'>김밥천국</div>";
-                html += "<h4 class='searchLocation'>1F.분식 (음식점)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
-                html += "<hr class='searchLine'></div>"
-            $('#searchResult').append(html)
-        }
-        $('.searchRight').css('display','none')
-        $('.searchRightAd').css('display','block');
-    })
 
+        // //대분류 브랜드 리스트
+        // for(let i=0; i<10; i++){
+        //     let html = "<div class='brandList' id='brand0"+i+"' onclick='catTest(this)'><div><div class='categoryImg'></div></div>";
+        //         html += "<ul><li><div class='searchBrand'>김밥천국</div>";
+        //         html += "<h4 class='searchLocation'>1F.분식 (음식점)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
+        //         html += "<hr class='searchLine'></div>"
+        //     $('#searchResult').append(html)
+        // }
+        // $('.searchRight').css('display','none')
+        // $('.searchRightAd').css('display','block');
+    }
+
+    //중분류 클릭
     function midClass(e){
-        console.log(e)
-        $(e).addClass('selected')
+        console.log(e.id)
+        // $(e).addClass('selected')
+        if($('.searchCheck').attr('checked',false)){
+            $('.searchCategory').removeClass('selected')
+        }
+        if($(e).attr('checked',true)){
+            $(e).addClass('selected')
+        }
+        
+        
     }
 
     //브랜드 리스트 클릭시
     function catTest(e){
-        console.log(e.id)
-        // background-color: #f9eff6;
+        // console.log(e.id)
+        $('.searchResult div').css('background-color','')
         $('#'+e.id).css('background-color','#f9eff6');
-
+        
         $('.searchRight').css('display','none')
         $('.searchRightAd').css('display','none');
         $('.searchRightDetail').css('display','block')

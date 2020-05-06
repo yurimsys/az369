@@ -22,16 +22,19 @@ connection.config.queryFormat = function (query, values) {
 
 
 router.get('/sign', function(req, res, next) {
+    res.render('signage');
+});
+
+router.get('/category', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
         console.log("connection mssql ok")
-        new mssql.Request().query('select * from tLS', (err, result) => {
-            res.render('signage', { data : result.recordset });
-            console.log('resrse', result.recordset)
+        new mssql.Request().query('select * from tBC', (err, result) => {
+            res.json({ data : result.recordset });
+            console.log('===========================')
         })
     });
 });
-
 
 router.get('/opentest', function(req, res, next) {
     res.render('opentest');
