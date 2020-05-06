@@ -93,5 +93,21 @@
         let nowFloor = e.target.id
         $('.floorBtn div').removeClass('floorSelcet')
         $('#'+nowFloor).addClass('floorSelcet')
+        if(nowFloor == 'floor1Btn'){
+            $('.centralSvg1F').css('display','block');
+            $('.centralSvg2F').css('display','none');
+            $('.centralSvg3F').css('display','none');
+            $('#nowFloor').text('1F')
+        }else if(nowFloor == 'floor2Btn'){
+            $('.centralSvg1F').css('display','none');
+            $('.centralSvg2F').css('display','block');
+            $('.centralSvg3F').css('display','none');
+            $('#nowFloor').text('2F')
+        }else if(nowFloor == 'floor3Btn'){
+            $('.centralSvg1F').css('display','none');
+            $('.centralSvg2F').css('display','none');
+            $('.centralSvg3F').css('display','block');
+            $('#nowFloor').text('3F')
+        }
     })    
 //*** 중앙 svg 스크립트 종료 ***

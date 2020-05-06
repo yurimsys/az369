@@ -55,8 +55,9 @@
         $('.categoryChange').css('display','block')
         $('.searchInfo').css('display','none')
         $('.searchRightDetail').css('display','none')
-        $('.searchList').empty();
-        $('.searchList2').empty();
+        // $('.searchList').empty();
+        // $('.searchList2').empty();
+        $('.test123').css('display','none')
         for(let i=0; i<12; i++){
             if(i <9){
                 let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
@@ -85,8 +86,7 @@
 
     function midClass(e){
         console.log(e)
-        let gg = e
-        $(gg).addClass('selected')
+        $(e).addClass('selected')
     }
 
     //브랜드 리스트 클릭시
@@ -102,12 +102,13 @@
 
     //카테고리 변경하기 클릭
     function changeCategory(){
-        $('#searchResult').empty();
-        $('.searchCheck').attr('checked',false)
-        $('.searchList label div').removeClass('searchSelect')
-        $('.searchRight').css('display','block')
-        $('.searchRightAd').css('display','none');
-        $('.searchRightDetail').css('display','none')
+        
+        // $('#searchResult').empty();
+        // $('.searchCheck').attr('checked',false)
+        // $('.searchList label div').removeClass('searchSelect')
+        // $('.searchRight').css('display','block')
+        // $('.searchRightAd').css('display','none');
+        // $('.searchRightDetail').css('display','none')
         searchCategoryMenu();
         catChk = 0;
     }

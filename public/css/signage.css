@@ -390,7 +390,7 @@ body,html{
     float: left;
     margin-top: 9%;
     margin-left: 8%;
-    background-color: #a91179;
+    background-color: #92477D;
 }
 #categoryIcon2 {
     width: 12px;
@@ -398,7 +398,7 @@ body,html{
     float: left;
     margin-top: 9%;
     margin-left: 8%;
-    background-color: #ffb96d;
+    background-color: #C26B8F;
 }
 #categoryIcon3 {
     width: 12px;
@@ -406,7 +406,7 @@ body,html{
     float: left;
     margin-top: 9%;
     margin-left: 8%;
-    background-color: #ffb7cf;
+    background-color: #DE9A9A;
 }
 #categoryIcon4 {
     width: 12px;
@@ -414,7 +414,7 @@ body,html{
     float: left;
     margin-top: 9%;
     margin-left: 8%;
-    background-color: #f6ed86;
+    background-color: #EBB121;
 }
 #categoryIcon5 {
     width: 12px;
@@ -422,7 +422,7 @@ body,html{
     float: left;
     margin-top: 9%;
     margin-left: 8%;
-    background-color: #c440f3;
+    background-color: #EBD048;
 }
 #categoryIcon6 {
     width: 12px;
@@ -430,7 +430,7 @@ body,html{
     float: left;
     margin-top: 9%;
     margin-left: 8%;
-    background-color: #de4343;
+    background-color: #746E9F;
 }
 #categoryIcon7 {
     width: 12px;
@@ -438,7 +438,7 @@ body,html{
     float: left;
     margin-top: 9%;
     margin-left: 8%;
-    background-color: #c69c12;
+    background-color: #A2D2F2;
 }
 #categoryIcon8 {
     width: 12px;
@@ -446,7 +446,7 @@ body,html{
     float: left;
     margin-top: 9%;
     margin-left: 8%;
-    background-color: #3786e1;
+    background-color: #5275B1
 }
 #categoryIcon9 {
     width: 12px;
@@ -454,7 +454,7 @@ body,html{
     float: left;
     margin-top: 9%;
     margin-left: 8%;
-    background-color: #98ef5c;
+    background-color: #9BB259;
 }
 #categoryIcon10 {
     width: 12px;
@@ -679,9 +679,9 @@ body,html{
 .selected{
     width: 210px;
     height: 50px;
-    border-radius: 12px;
+    /* border-radius: 12px; */
     border: solid 1.5px #a91179;
-    background-image: linear-gradient(278deg, #ffffff 98%, #f2f2f2 8%);
+    /* background-image: linear-gradient(278deg, #ffffff 98%, #f2f2f2 8%); */
     font-weight: bold;
     color: #a91179;
 }
@@ -944,8 +944,6 @@ body,html{
 }
 
 
-
-
 /* svg파일 */
 .centerLeft{
     width: 100%;
@@ -967,7 +965,7 @@ body,html{
     touch-action: manipulation;
 }
 .centralSvg{
-    width: 85%;
+    width: 100%;
     height: 85%;
     margin-top: 3%;
     transition: transform .50s;
@@ -975,10 +973,27 @@ body,html{
     position: relative;
     touch-action: manipulation;
 }
+.centralSvg1F{
+    display: none;
+}
+.centralSvg2F{
+    display: none;
+
+}
+.centralSvg3F{
+    display: none;
+}
 .centerRight{
     width: 10%;
     margin-top: 2%;
     float: right;
+}
+/* svg 카테고리 색상 */
+.normal{
+    fill:#4e43a1;
+}
+.fashionClothing{
+    fill: #92477D;
 }
 /* 모달 카테고리 클릭 후 */
 .searchRightDetail{
