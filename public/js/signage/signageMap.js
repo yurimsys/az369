@@ -35,7 +35,7 @@
         document.onmousemove = null;
         document.onmouseup = null;
     }
-    $('#store_name text').hide()
+    // $('#store_name text').hide()
     //줌인 줌아웃 리셋
     $('#zoomIn').on('click',function(){
         $('#store').css('cursor','pointer');

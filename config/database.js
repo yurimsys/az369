@@ -16,6 +16,7 @@ const database_json =
             "port"      : 14331,
             "database"  : "YR_SIGNAGE",
             "options"   : {
+                "useUTC" : false,
                 "encrypt" : false
             }
         }

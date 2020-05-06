@@ -9,6 +9,7 @@
         success: function(res){
             //카테고리 저장
             localStorage.setItem('category',JSON.stringify(res.data))
+            console.log(res.data)
             for(let i=0; i<res.data.length; i++){
                 if(i <7){
                     let html = "<li>";

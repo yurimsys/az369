@@ -1,4 +1,16 @@
 
+//브랜드 리스트
+$.ajax({
+    url: '/brandList',
+    method: 'get',
+    dataType: 'json',
+    success: function(res){
+        localStorage.setItem('brandList',JSON.stringify(res.data))
+
+    }
+})
+
+
 //*** 검색 모달 스크립트 ***
     //검색 모달
     let searchModal = $('#myModal')[0]
@@ -19,7 +31,6 @@
         $('.searchList2').empty()
         $('.searchResult').empty()
         //여기까지
-        //$('.searchResult').empty();
         $('.searchRight').css('display','block')
         $('.searchInfo').css('display','block')
         $('.categoryChange').css('display','none')
@@ -27,37 +38,40 @@
         $('.searchRightAd').css('display','none');
         $('#chooseCategory').text('TOTAL')
         
+        //로컬에 저장된 카테고리를 사용
         let jsonCat = JSON.parse(localStorage.getItem('category'))
         for(let i=0; i<jsonCat.length; i++){
             if(i < 9){
                 let html = "<li><label>"
-                    html += "<input type='checkbox' name='searchCategoryList' onclick='modalCat(this)' id='search"+i+"' class='searchCheck' value='"+jsonCat[i].BC_NameKor+"'>"
+                    html += "<input type='checkbox' name='searchCategoryList' data-catnum ="+Number(i+1)+" onclick='modalCat(this)' id='search"+i+"' class='searchCheck' value='"+jsonCat[i].BC_NameKor+"'>"
                     html += "<div class='searchCategory searchCategoryFont'>"+jsonCat[i].BC_NameKor+"</div>"
                     html += "</label></li>"
                 $('.searchList').append(html)
             }
             if(i > 8){
                 let html = "<li><label>"
-                    html += "<input type='checkbox' name='searchCategoryList' onclick='modalCat(this)' id='search"+i+"' class='searchCheck' value='"+jsonCat[i].BC_NameKor+"'>"
+                    html += "<input type='checkbox' name='searchCategoryList' data-catnum ="+Number(i+1)+"  onclick='modalCat(this)' id='search"+i+"' class='searchCheck' value='"+jsonCat[i].BC_NameKor+"'>"
                     html += "<div class='searchCategory searchCategoryFont'>"+jsonCat[i].BC_NameKor+"</div>"
                     html += "</label></li>"
                 $('.searchList2').append(html)
             }
         }
-
-        for(let i=0; i<jsonCat.length; i++){
+        //브랜드 리스트
+        let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
+        console.log(jsonBrand)
+        for(let i=0; i<jsonBrand.length; i++){
             let html = "<div class='brandList' id='brand01' onclick='catTest(this)'><div class='categoryImg'></div>";
                 html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
-                html += "<ul><li><div class='searchBrand'>여성보세의류샵</div>";
-                html += "<h4 class='searchLocation'>1F.여성의류 쇼핑몰 (패션의류)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
+                html += "<ul><li><div class='searchBrand'>"+jsonBrand[i].BS_NameKor+"</div>";
+                html += "<h4 class='searchLocation'>테이블 넣어야 함</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
                 html += "<hr class='searchLine'></div>"
-            if(i==2 || i==4){
-                html = "<div class='brandList' id='brand02' onclick='catTest(this)'><div class='categoryImg'></div>";
-                html += "<ul><li><div class='searchBrand'>여성보세의류샵<h4 class='searchEvent'>EVENT</h4></div>";
-                html += "<h4 class='searchLocation'>1F.여성의류 쇼핑몰 (패션의류)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
-                html += "<hr class='searchLine'></div>"
-            }
-            $('.searchResult').append(html)
+            // if(i==2 || i==4){
+            //     html = "<div class='brandList' id='brand02' onclick='catTest(this)'><div class='categoryImg'></div>";
+            //     html += "<ul><li><div class='searchBrand'>여성보세의류샵<h4 class='searchEvent'>EVENT</h4></div>";
+            //     html += "<h4 class='searchLocation'>1F.여성의류 쇼핑몰 (패션의류)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
+            //     html += "<hr class='searchLine'></div>"
+            // }
+            //$('.searchResult').append(html)
         }
         searchModal.style.display = "block";
     }
@@ -65,49 +79,63 @@
     //카테고리 클릭
     let catChk = 0;
     function modalCat(e){
-        $('.searchList').empty()
-        $('.searchList2').empty()
-        $('.searchResult').empty()
         //선택된 카테고리 아이디
         let selectCategoryId = e.id
         //상단 선택된 카테고리 명
         if(catChk == 0){
-            console.log($("#"+selectCategoryId).val())
-            console.log(e.id)
             let chooseCatName = $("#"+selectCategoryId).val();
             $('#chooseCategory').text(chooseCatName)
         }
-        catChk = 1;
-        //카테고리변경 버튼 생성
+        // console.log( $('#'+selectCategoryId).data('catnum'))
+        //카테고리, 브랜드 리스트 초기화
+        $('.searchResult').empty()
+
+        $.ajax({
+            url: '/categoryLV2',
+            method: 'post',
+            dataType: 'json',
+            data: {'catNum' : $('#'+selectCategoryId).data('catnum')},
+            success: function(res){
+                $('.searchList').empty()
+                $('.searchList2').empty()
+                //중분류 카테고리
+                for(let i=0; i<res.data.length; i++){
+                    if(i < 9){
+                        let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                            html += "<div class='searchCategory searchCategoryFont' onclick='midClass(this)' id='search0'>"+res.data[i].BC_NameKor+"</div></label></li>"
+                        $('.searchList').append(html);
+                    }
+                    if( i > 8){
+                        let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                            html += "<div class='searchCategory searchCategoryFont' onclick='midClass(this)' id='search0'>"+res.data[i].BC_NameKor+"</div></label></li>"
+                        $('.searchList2').append(html);
+                    }
+                }
+            }
+        })
+
+        // catChk = 1;
+        //대분류 브랜드 리스트
+        for(let i=0; i<10; i++){
+            console.log('sad')
+            let html = "<div class='brandList' id='brand0"+i+"' onclick='catTest(this)'><div><div class='categoryImg'></div></div>";
+                html += "<ul><li><div class='searchBrand'>김밥천국</div>";
+                html += "<h4 class='searchLocation'>1F.분식 (음식점)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
+                html += "<hr class='searchLine'></div>"
+            $('.searchResult').append(html)
+        }
+
+        //카테고리 변경 버튼
+        createCatBtn();
+    }
+
+    //카테고리변경 버튼 생성
+    function createCatBtn(){
         $('.categoryChange').css('display','block')
         $('.searchInfo').css('display','none')
         $('.searchRightDetail').css('display','none')
-
-        //중분류 카테고리
-        for(let i=0; i<12; i++){
-            if(i <9){
-                let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                    html += "<div class='searchCategory searchCategoryFont' onclick='midClass(this)' id='search0'>패션의류</div></label></li>"
-                $('.searchList').append(html);
-            }
-            
-            if(i > 8){
-                let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                    html += "<div class='searchCategory searchCategoryFont' onclick='midClass(this)' id='search01'>패션잡화</div></label></li>"
-                $('.searchList2').append(html)
-            }
-        }
-
-        // //대분류 브랜드 리스트
-        // for(let i=0; i<10; i++){
-        //     let html = "<div class='brandList' id='brand0"+i+"' onclick='catTest(this)'><div><div class='categoryImg'></div></div>";
-        //         html += "<ul><li><div class='searchBrand'>김밥천국</div>";
-        //         html += "<h4 class='searchLocation'>1F.분식 (음식점)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
-        //         html += "<hr class='searchLine'></div>"
-        //     $('#searchResult').append(html)
-        // }
-        // $('.searchRight').css('display','none')
-        // $('.searchRightAd').css('display','block');
+        $('.searchRight').css('display','none')
+        $('.searchRightAd').css('display','block');
     }
 
     //중분류 클릭
@@ -137,32 +165,12 @@
 
     //카테고리 변경하기 클릭
     function changeCategory(){
-        
-        // $('#searchResult').empty();
-        // $('.searchCheck').attr('checked',false)
-        // $('.searchList label div').removeClass('searchSelect')
-        // $('.searchRight').css('display','block')
-        // $('.searchRightAd').css('display','none');
-        // $('.searchRightDetail').css('display','none')
         searchCategoryMenu();
         catChk = 0;
     }
 
-
-    // $('#searchResult div').on('click',function(e){
-    //     console.log(this)
-    // })
     //카테고리 이전 다음버튼
-    $('#searchNext').on('click',function(){
-        if($('#searchPage').text()==1){
-            $('#searchPage').text('2')
-            $('.searchList').css('display','none')
-            $('.searchList2').css('display','block')
-            $('#searchPrev').addClass('searchPrevClick')
-            $('#searchNext').removeClass('searchNextClick')
-        }
-    })
-    $('#searchPrev').on('click',function(){
+    function searchPrev(){
         if($('#searchPage').text()==2){
             $('#searchPage').text('1')
             $('.searchList').css('display','block')
@@ -170,7 +178,18 @@
             $('#searchPrev').removeClass('searchPrevClick')
             $('#searchNext').addClass('searchNextClick')
         }
-    })
+    }
+
+    function searchNext(){
+        if($('#searchPage').text()==1){
+            $('#searchPage').text('2')
+            $('.searchList').css('display','none')
+            $('.searchList2').css('display','block')
+            $('#searchPrev').addClass('searchPrevClick')
+            $('#searchNext').removeClass('searchNextClick')
+        }
+    }
+
 //*** 검색 모달 스크립트 종료 ***
 
 
