@@ -992,6 +992,11 @@ body,html{
 .centralSvg3F{
     display: none;
 }
+.storeName text {
+    fill:#fff; 
+    font-size:16px; 
+    font-family:NotoSansCJKkr-Regular, Noto Sans CJK KR;
+}
 .centerRight{
     width: 10%;
     margin-top: 2%;

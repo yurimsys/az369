@@ -32,12 +32,12 @@
             </ul>
         <!-- 카테고리 버튼 -->
             <div class='categoryNav'>
-                <div class='categoryPrev' id='prev'></div>
+                <div class='categoryPrev' id='prev' onclick="mainPrev()"></div>
                     <div class='categoryState'>
                         <span style="font-size: 20px; color: #222222;" id='nowPage'>1</span>
                         <span style="font-size: 20px; color: #999999;">/ 2</span>
                     </div>
-                <div class='categoryNext clickNextBtn' id='next'></div>
+                <div class='categoryNext clickNextBtn' id='next' onclick="mainNext()"></div>
             </div>
         <!-- 좌측 하단 광고 -->
             <div class='leftAd'>
@@ -138,69 +138,8 @@
                 <div class='searchLeft'>
                 <h4 class='searchTotal'><span id='chooseCategory'></span></h4>                
                 <ul class="searchList" id='searchList'>
-                    <!-- 이후 모달오픈시 ajax로 통해 카테고리 가져옴 -->
-                    <!-- <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search01'>패션의류</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search02'>패션잡화</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search03'>화장품 · 뷰티</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search04'>음식점</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search05'>식 · 음료</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search06'>생활 · 가전</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search07'>키즈 · 애견</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search08'>스포츠 · 자동차</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search09'>편의 · 의료 · 교육</div>
-                        </label>
-                    </li> -->
                 </ul>
                 <ul class='searchList2'>
-                    <!-- <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search10'>금융 · 일반</div>
-                        </label>
-                    </li> -->
                 </ul>
             <!-- 카테고리 버튼 -->
                 <div>

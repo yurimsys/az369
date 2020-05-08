@@ -15,8 +15,9 @@ const database_json =
             "server"    : "yurimsys.iptime.org",
             "port"      : 14331,
             "database"  : "YR_SIGNAGE",
+            "timezone"  : 'utc',
             "options"   : {
-                "useUTC" : false,
+                //useUTC : false,
                 "encrypt" : false
             }
         }

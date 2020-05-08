@@ -25,36 +25,58 @@ router.get('/sign', function(req, res, next) {
     res.render('signage');
 });
 
-router.get('/category', function(req, res, next) {
+//대분류 카테고리
+router.get('/categoryLV1', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
-        new mssql.Request().query('select * from tBC where BC_ID NOT IN(select BC_ID from tBC inner join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID )', (err, result) => {
+        new mssql.Request().query('select distinct(BCR_LV1_BC_ID), BC_NameEng, BC_NameKor from tBCR inner join tBC on tBCR.BCR_LV1_BC_ID = tBC.BC_ID', (err, result) => {
             res.json({ data : result.recordset });
         })
     });
 });
-//브랜드 리스트
+
+//중분류 카테고리
+router.get('/categoryLV2', function(req, res, next) {
+    mssql.connect(dbconf.mssql, function (err, result){
+        if(err) throw err;
+        new mssql.Request().query('select * from tBC inner join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID', (err, result) => {
+            res.json({ data : result.recordset });
+        })
+    });
+});
+//전체 브랜드 리스트
 router.get('/brandList', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
-        new mssql.Request().query('select * from tBS', (err, result) => {
+        new mssql.Request().query(`select distinct(BS_NameKor), BS_NameEng, tBCR.BCR_ID, BCR_LV1_BC_ID, BCR_LV2_BC_ID, BCR_LV3_BC_ID, tBS.BS_ID, BS_BC_ID, 
+                                          BS_LoginID, BS_LoginPW, BS_CEO, convert(varchar, BS_SubDtF, 108) as BS_SubDtF,convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
+                                          convert(varchar, BS_MainDtf, 108) as BS_MainDtF, convert(varchar, BS_SubDtF, 108) as BS_SubDtF, BC_NameKor, BC_NameEng,
+                                          convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
+                                          
+                                          convert(varchar, BS_PersonalDay, 108) as BS_PersonalDay, BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
+                                    from tBCR inner join tBSxBCR on tBCR.BCR_ID = tBSxBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxBCR.BS_ID
+                                         inner join tBSxLS on tBSxLS.BS_ID = tBS.BS_ID inner join tLS on tLS.LS_Number = tBSxLS.LS_Number
+                                         inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
+        (err, result) => {
             res.json({ data : result.recordset });
         })
     });
 });
-//`select * from tBC inner join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID where tBCR.BCR_LV1_BC_ID = ${catNum}
-router.post('/categoryLV2', async function(req, res, next) {
-    try {
-        let pool = await mssql.connect(dbconf.mssql)
-        let result = await pool.request()
-            .input('catNum', mssql.Int, req.body.catNum)
-            .query(`select * from tBC inner join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID where tBCR.BCR_LV1_BC_ID = @catNum`)
-        console.log(result)
-        res.json({data : result.recordset})
+
+
+
+// //중분류 카테고리
+// router.post('/categoryLV1', async function(req, res, next) {
+//     try {
+//         let pool = await mssql.connect(dbconf.mssql)
+//         let result = await pool.request()
+//             .input('lv1cat', mssql.Int, req.body.lv1cat)
+//             .query(`select * from tBC inner join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID where tBCR.BCR_LV1_BC_ID = @lv1cat`)
+//         res.json({data : result.recordset})
         
-    } catch (err) {
-    }
-});
+//     } catch (err) {
+//     }
+// });
 router.get('/opentest', function(req, res, next) {
     res.render('opentest');
 });
