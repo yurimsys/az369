@@ -40,6 +40,23 @@ router.get('/index', function(req, res, next) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////비지니스 테이블 
 
+// Signage
+router.get('/ad', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        res.render('advertisement');
+    }
+});
+
+router.get('/api/adlist', function(req, res, next) {
+    let table_data = {
+        
+    }
+
+    res.render('advertisement');    
+});
+
 //비지니스 테이블
 router.get('/business', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){

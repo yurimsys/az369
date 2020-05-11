@@ -25,23 +25,6 @@ router.get('/sign', function(req, res, next) {
     res.render('signage');
 });
 
-router.get('/category', function(req, res, next) {
-    mssql.connect(dbconf.mssql, function (err, result){
-        if(err) throw err;
-        new mssql.Request().query('select * from tBC where BC_ID NOT IN(select BC_ID from tBC inner join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID )', (err, result) => {
-            res.json({ data : result.recordset });
-        })
-    });
-});
-//브랜드 리스트
-router.get('/brandList', function(req, res, next) {
-    mssql.connect(dbconf.mssql, function (err, result){
-        if(err) throw err;
-        new mssql.Request().query('select * from tBS', (err, result) => {
-            res.json({ data : result.recordset });
-        })
-    });
-});
 //`select * from tBC inner join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID where tBCR.BCR_LV1_BC_ID = ${catNum}
 router.post('/categoryLV2', async function(req, res, next) {
     try {

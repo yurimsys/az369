@@ -29,6 +29,102 @@ connection.on('error', function(err) {
     console.log(err);
 });
 
+/**
+ * SiGNAGE API Start
+ */
+
+ // 광고 타입 
+router.get('/adtype', function(req, res, next) {
+    mssql.connect(dbconf.mssql, function (err, result){
+        if(err) throw err;
+        new mssql.Request().query('select * from tADY', (err, result) => {
+            res.json({ data : result.recordset });
+        })
+    });
+    
+});
+
+// 매장 업종 조회
+router.get('/category', function(req, res, next) {
+    mssql.connect(dbconf.mssql, function (err, result){
+        if(err) throw err;
+        new mssql.Request().query('select * from tBC where BC_ID NOT IN(select BC_ID from tBC inner join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID )', (err, result) => {
+            res.json({ data : result.recordset });
+        })
+    });
+});
+
+//브랜드 리스트
+router.get('/brandList', function(req, res, next) {
+    mssql.connect(dbconf.mssql, function (err, result){
+        if(err) throw err;
+        new mssql.Request().query('select * from tBS', (err, result) => {
+            res.json({ data : result.recordset });
+        })
+    });
+});
+
+// 광고 리스트
+router.get('/ad', function(req, res, next) {
+    mssql.connect(dbconf.mssql, function (err, result){
+        if(err) throw err;
+        let query = `
+            SELECT AD_ID, BS_NameKor, ADY_Location, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL 
+            FROM tAD
+                INNER JOIN tADY on AD_ADY_ID = ADY_ID 
+                LEFT JOIN tBS on AD_BS_ID = BS_ID
+                LEFT JOIN tBC on AD_BC_ID = BC_ID`;
+        new mssql.Request().query(query, (err, result) => {
+            res.json({ data : result.recordset });
+        })
+    });
+});
+
+router.post('/ad', async function(req, res){
+    let pool = await mssql.connect(dbconf.mssql)
+    
+    /**
+     * TODO : 결제 추가 시 작성.
+     */
+    let PaymentStatus = null;
+
+    // TEST
+    
+    req.body.BS_ID = '1';
+    req.body.ADY_ID = '2';
+    req.body.BC_ID = null;
+    PaymentStatus = '결제완료';
+    req.body.Title = '테스트 제목121';
+    req.body.DtS = '2020-05-10 10:00:00';
+    req.body.DtF = '2020-06-10 10:00:00';
+    req.body.ContentURL = 'image/a.jpg';
+    req.body.ContentTy = 'Image';
+    
+
+    let result = await pool.request()
+        .input('BS_ID',         req.body.BS_ID)
+        .input('ADY_ID',        req.body.ADY_ID)
+        .input('BC_ID',         req.body.BC_ID)
+        .input('PaymentStatus', PaymentStatus)
+        .input('Title',         req.body.Title)
+        .input('DtS',           req.body.DtS)
+        .input('DtF',           req.body.DtF)
+        .input('ContentURL',    req.body.ContentURL)
+        .input('ContentTy',     req.body.ContentTy)
+        .query(`
+            INSERT INTO tAD (AD_BS_ID, AD_ADY_ID, AD_BC_ID, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL, AD_ContentTy)
+            VALUES (@BS_ID, @ADY_ID, @BC_ID, @PaymentStatus, @Title, @DtS, @DtF, @ContentURL, @ContentTy)
+        `)
+    console.log(result)
+    res.json({data : result.rowsAffected})
+    
+});
+ 
+// SIGNAGE API END
+ 
+
+
+
 router.post('/user/phone', (req, res, next) => {
   
     let query  = "update tU set u_phone = :newPhone where u_name = :name";
