@@ -87,24 +87,27 @@
         }
     }
 
-    //카테고리 이전 다음버튼
+    //카테고리 다음버튼
     function mainNext(e){
         if($('#nowPage').text()==1){
             $('#nowPage').text('2')
             $('.categoryList').css('display','none')
             $('.categoryList2').css('display','block')
-            $('#prev').addClass('clickPrevBtn')
-            $('#next').removeClass('clickNextBtn')
+            $('.categoryPrev img').attr('src','/img/left_arrow_active_icon.png')
+            $('.categoryNext img').attr('src','/img/right_arrow_icon.png')
+            // $('#prev').addClass('clickPrevBtn')
+            // $('#next').removeClass('clickNextBtn')
+
         }
     }
-
+    //카테고리 이전버튼
     function mainPrev(){
         if($('#nowPage').text()==2){
             $('#nowPage').text('1')
             $('.categoryList').css('display','block')
             $('.categoryList2').css('display','none')
-            $('#next').addClass('clickNextBtn')
-            $('#prev').removeClass('clickPrevBtn')
+            $('.categoryNext img').attr('src','/img/right_arrow_active_icon.png')
+            $('.categoryPrev img').attr('src','/img/left_arrow_icon.png')
         }
     }
 //*** 메인 좌측 카테고리 선택 스크립트 종료 ***
