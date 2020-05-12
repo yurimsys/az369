@@ -37,10 +37,8 @@
             <h3 class='floorFont'><span id='nowFloor'>1F</span></h3>
         <!-- 좌측 카테고리 -->
             <ul class='categoryList'>
-
             </ul>
             <ul class='categoryList2'>
-
             </ul>
         <!-- 카테고리 버튼 -->
             <div class='categoryNav'>
@@ -134,55 +132,64 @@
         </div>
     <!-- 우측메뉴 -->
         <div id='box-right'>
-            <div style="padding: 5px;">
-                <h2 class='central'>CENTRAL</h2>
-                <h2 class='dome'>DOME</h2>
-            </div>
+            <h1 class="logo">
+                CENTRAL <br> <span>DOME</span>
+            </h1>
         <!-- 우측 메뉴 리스트 -->
             <ul class='rightNav'>
-
                 <li>
                     <div class="rightNav_list">
-                    <div class="rightNav_img"><img src='img/main_icon.png' class="rightNav_img"></div>
+                    <div class="rightNav_img"><img src='/img/signage/mainNav/rightNav_icon_01.png' ></div>
                     <h2 id='mainHome'>메인</h2>
                 </div>
                 </li>
-
                 <li onclick="searchCategoryMenu()" class="search">
-                    <img src='img/find_icon.png' >
+                    <div class="rightNav_list">
+                    <div class="rightNav_img"><img src='/img/signage/mainNav/rightNav_icon_02.png' ></div>
                     <h2 id='mainSearch'>검색</h2>
+                </div>
                 </li>
-
                 <li>
-                    <img src='img/event_icon.png' >
+                    <div class="rightNav_list">
+                        <div class="rightNav_img"><img src='/img/signage/mainNav/rightNav_icon_03.png' ></div>
                     <h2 id='mainEvent'>이벤트</h2>
+                    </div>
                 </li>
-
                 <li>
-                    <img src='img/guide_icon.png' >
+                    <div class="rightNav_list">
+                        <div class="rightNav_img"><img src='/img/signage/mainNav/rightNav_icon_04.png' ></div>
                    <h2 id='mainGuide'>이용안내</h2>
+                </div>
                 </li>
             </ul> 
         <!-- 언어 정보 -->
-            <ul class='languageList'>
+            <div class='languageList'>
+                <u>
                 <div class='language'>LANGUAGE</div>
                 <li><div class='languageSelect choose' id='kor' onclick="languageKor()">가</div></li>
                 <li><div class='languageSelect' id='eng' onclick="languageEng()">A</div></li>
-            </ul>
+            </u>
+            </div>
         <!-- 날씨 정보 -->
-            <ul class='whetherList'>
+            <div class='whetherList'>
+                <ul>
                 <li>
                     <div class='whether'></div>
                 </li>
                 <li>
                     <div class='temperature'><span id='temp'></span></div>
-                    <h2 class="dustCount" id='dustCount'>미세먼지농도&nbsp;</h2><span style="color: #53ec5d; font-size: 20px;" id='dust'></span>
                 </li>
             </ul>
+            </div>
             <div>
+                <div class="date">
                 <h3 class="dayCount" id='dayCount'></h3>
-                <h2 class="timeCount" id='timeCount'></h2><br>
-                
+                <h2 class="timeCount" id='timeCount'></h2>
+            </div>
+            <div class="dustList">
+                    <h2 class="dustCount" id='dustCount'>미세먼지농도&nbsp;</h2><span style="color: #53ec5d; font-size: 18px;" id='dust'></span>
+                </div>
+            
             </div>
             <!-- 우측 하단 광고 -->
             <div class="ad main_right slideshow-container">
