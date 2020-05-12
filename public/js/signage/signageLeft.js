@@ -46,13 +46,13 @@
         for(let i=0; i<categoryList.length; i++){
             if(i <7){
                 let html = "<li>";
-                    html += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>'
+                    html += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"class="categoryIconBox categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>'
                     html += "</li>";
                 $('.categoryList').append(html);
             }
             if(i > 6){
                 let html2 = "<li>";
-                    html2 += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>'
+                    html2 += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"class="categoryIconBox categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>'
                     html2 += "</li>"
                 $('.categoryList2').append(html2)
             }
