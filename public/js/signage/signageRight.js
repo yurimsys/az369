@@ -412,6 +412,10 @@ function searchCategoryListLV2(lv2CatNum){
 function storeInfo(e){
     console.log(e.id)
     $(e).text('상세보기 닫기상세보기 닫기')
+    $('.searchLeft').css('display','none');
+    $('.brandInfoLeft').css('display','block')
+    $('.searchCenter').css('display','none');
+    $('.brandInfoCenter').css('display','block')
 }
 
 //*** 검색 모달 스크립트 종료 ***
@@ -561,6 +565,7 @@ function storeInfo(e){
         if($('#kor').attr('class') == 'languageSelect'){
             $('#kor').addClass('choose')
             $('#eng').removeClass('choose')
+            $('.rightNav_list').css('width','50%')    
         }
         $('[data-kor]').each(function(){
             $(this).html($(this).data('kor'))
@@ -573,7 +578,8 @@ function storeInfo(e){
         
         if($('#eng').attr('class') == 'languageSelect'){
             $('#kor').removeClass('choose')
-            $('#eng').addClass('choose')            
+            $('#eng').addClass('choose')        
+            $('.rightNav_list').css('width','62%')    
         }
         $('[data-eng]').each(function(){
             $(this).html($(this).data('eng'))
