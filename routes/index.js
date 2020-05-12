@@ -56,7 +56,7 @@ router.get('/api/brandList', function(req, res, next) {
                 BS_ContentsKor, BS_ContentsEng, BS_ThumbnailUrl,
                 convert(varchar, BS_PersonalDay, 108) as BS_PersonalDay, BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
         from tBCR inner join tBSxBCR on tBCR.BCR_ID = tBSxBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxBCR.BS_ID
-                inner join tBSxLS on tBSxLS.BS_ID = tBS.BS_ID inner join tLS on tLS.LS_Number = tBSxLS.LS_Number
+                inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
         inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
         (err, result) => {
             res.json({ data : result.recordset });
@@ -79,12 +79,22 @@ router.get('/api/storeInfo', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
         new mssql.Request().query(`SELECT LS_Number, tBS.BS_ID, BS_BC_ID, BS_NameKor, BS_NameEng,BC_NameKor, BC_NameEng 
-                                          FROM tBSxLS inner join tBS on tBSxLS.BS_ID = tBS.BS_ID inner join tBC on tBC.BC_ID = tBS.BS_BC_ID`, (err, result) => {
+                                          FROM tBSxtLS inner join tBS on tBSxtLS.BS_ID = tBS.BS_ID inner join tBC on tBC.BC_ID = tBS.BS_BC_ID`, (err, result) => {
             res.json({ data : result.recordset });
         })
     });
 });
-
+// /api/lv2cat:
+// //카테고리 2
+// router.get('/api/storeInfo', function(req, res, next) {
+//     mssql.connect(dbconf.mssql, function (err, result){
+//         if(err) throw err;
+//         new mssql.Request().query(`SELECT LS_Number, tBS.BS_ID, BS_BC_ID, BS_NameKor, BS_NameEng,BC_NameKor, BC_NameEng 
+//                                           FROM tBSxtLS inner join tBS on tBSxtLS.BS_ID = tBS.BS_ID inner join tBC on tBC.BC_ID = tBS.BS_BC_ID`, (err, result) => {
+//             res.json({ data : result.recordset });
+//         })
+//     });
+// });
 // //중분류 카테고리
 // router.post('/categoryLV1', async function(req, res, next) {
 //     try {
@@ -104,6 +114,85 @@ router.get('/opentest', function(req, res, next) {
 
 router.get('/', function(req, res, next) {
     res.render('index', { sessionUser : req.user });
+});
+
+//매장관리
+router.get('/list', function(req, res, next) {
+
+    res.render('signageBList');
+});
+router.get('/lists', function(req, res, next) {
+    mssql.connect(dbconf.mssql, function (err, result){
+        if(err) throw err;
+        new mssql.Request().query('select * from tBS', (err, result) => {
+            res.json({ data : result.recordset });
+        })
+    });
+});
+
+//매장등록
+router.get('/addList', function(req, res, next) {
+
+    res.render('signageAdd');
+});
+
+//층수
+router.get('/api/floor', function(req, res, next) {
+    mssql.connect(dbconf.mssql, function (err, result){
+        if(err) throw err;
+        new mssql.Request().query('select * from tLS', (err, result) => {
+            res.json({ data : result.recordset });
+        })
+    });
+});
+
+
+//매장 등록 
+router.post('/api/addBusiness', async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        //매장입력
+        let result0 = await pool.request()
+            .input('BCRLV1', mssql.Int, req.body.BCR_LV1_BC_ID)
+            .input('BCRLV2', mssql.Int, req.body.BCR_LV2_BC_ID)
+            .query('insert into tBS values(@BS_BC_ID, @BS_LoginID, @BS_LoginPW)')
+
+
+        //제일 최근에 입력된 BS_ID를 구함
+        let result = await pool.request()
+            .query('select top 1 * from tBS order by BS_ID desc')
+        
+        //카테고리 업종 입력 BCR_ID 구하기
+        let result1 = await pool.request()
+            .input('BCRLV1', mssql.Int, req.body.BCR_LV1_BC_ID)
+            .input('BCRLV2', mssql.Int, req.body.BCR_LV2_BC_ID)
+            .query('select BCR_ID from tBCR where BCR_LV1_BC_ID = @BCRLV1 AND BCR_LV2_BC_ID = @BCRLV2')
+
+        console.log('첫번쨰 값');
+        console.log(result.recordset[0].BS_ID)
+        console.log('두번째 값');
+        console.dir(result1.recordset[0].BCR_ID)
+
+        //업종 입력
+        let result2 = await pool.request()
+            .input('BS_ID', mssql.Int, result.recordset[0].BS_ID)
+            .input('BCR_ID', mssql.Int, result1.recordset[0].BCR_ID)
+            .query('insert into tBSxBCR values(@BS_ID, @BCR_ID)')
+
+        //층수 입력
+        let result3 = await pool.request()
+            .input('BS_ID', mssql.Int, result.recordset[0].BS_ID)
+            .input('LS_Number', mssql.Int, req.body.LS_Number)
+            .query('insert into tBSxtLS values(@BS_ID, @LS_Number)')
+
+        
+        // console.log('result2');
+        // console.dir(result2)
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
 });
 
 

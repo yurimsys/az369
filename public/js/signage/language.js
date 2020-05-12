@@ -24,9 +24,9 @@ function language(){
     //에스컬레이터
     $('#footEscalator').attr('data-Kor',JSON.parse(localStorage.getItem('language'))[6].ME_Kor)
     $('#footEscalator').attr('data-Eng',JSON.parse(localStorage.getItem('language'))[6].ME_Eng)
-    //ATM
-    $('#footATM').attr('data-Kor',JSON.parse(localStorage.getItem('language'))[7].ME_Kor)
-    $('#footATM').attr('data-Eng',JSON.parse(localStorage.getItem('language'))[7].ME_Eng)
+    //비상구
+    $('#footExit').attr('data-Kor',JSON.parse(localStorage.getItem('language'))[7].ME_Kor)
+    $('#footExit').attr('data-Eng',JSON.parse(localStorage.getItem('language'))[7].ME_Eng)
     //물품보관소
     $('#footStockroom').attr('data-Kor',JSON.parse(localStorage.getItem('language'))[8].ME_Kor)
     $('#footStockroom').attr('data-Eng',JSON.parse(localStorage.getItem('language'))[8].ME_Eng)

@@ -245,6 +245,7 @@ function searchCategoryListLV2(lv2CatNum){
             $('.searchTopName').text('Search')
         }else{
             let html = "위의<span style='color: #222222; font-weight: 500;'> 카테고리를 선택</span>하세요."
+            $('#searchBrandName').attr('placeholder','이곳을 클릭하여 찾으시는 브랜드명을 검색하세요.')
             $('.searchInfo').append(html);
             $('#chagneCategory').text('카테고리 변경하기')
             $('.searchCloseName').text('닫기')
@@ -253,43 +254,41 @@ function searchCategoryListLV2(lv2CatNum){
     }
 
 //브랜드 리스트 클릭시
-function brandClick(e){
-    $('.brandDetail').empty();
-    $('.searchResult div').css('background-color','')
-    $('#'+e.id).css('background-color','#f9eff6');
-    $('.searchRight').css('display','none')
-    $('.searchRightAd').css('display','none');
-    $('.searchRightDetail').css('display','block')
+    function brandClick(e){
+        //$('.brandDetail').empty();
+        $('.searchResult div').css('background-color','')
+        $('#'+e.id).css('background-color','#f9eff6');
+        $('.searchRight').css('display','none')
+        $('.searchRightAd').css('display','none');
+        $('.searchRightDetail').css('display','block')
 
-    let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
-    //BCR_LV1_BC_ID에 검색 
-    for(let i=0; i<jsonBrand.length; i++){
-        //검색내용이 있으면 리스트를 그려줌
-        if(jsonBrand[i].BS_ID == e.id){            
-            let selectBrand = []
-                selectBrand.push(jsonBrand[i])
-            if($('#kor').hasClass('choose')){
-                let html = "<div class='brandDetail'><img src="+selectBrand[0].BS_ImageUrl+"><ul>";
-                    html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameKor+"</h2></li>"
-                    html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameKor+"</h4></li>"
-                    html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsKor+"</div></li>"
-                    html += "</ul></div>"
-                    html += "<div><img src='img/searchad3.png'></div>"
-                $('.brandDetail').append(html)
-            }else{
-                let html = "<div class='brandDetail'><img src="+selectBrand[0].BS_ImageUrl+"><ul>";
-                    html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameEng+"</h2></li>"
-                    html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameEng+"</h4></li>"
-                    html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsEng+"</div></li>"
-                    html += "</ul></div>"
-                    html += "<div><img src='img/searchad3.png'></div>"
-                $('.brandDetail').append(html)
-            }
-
-        }
+        let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
+        //BCR_LV1_BC_ID에 검색 
+        // for(let i=0; i<jsonBrand.length; i++){
+        //     //검색내용이 있으면 리스트를 그려줌
+        //     if(jsonBrand[i].BS_ID == e.id){            
+        //         let selectBrand = []
+        //             selectBrand.push(jsonBrand[i])
+        //         if($('#kor').hasClass('choose')){
+        //             let html = "<img src="+selectBrand[0].BS_ImageUrl+"><ul>";
+        //                 html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameKor+"</h2></li>"
+        //                 html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameKor+"</h4></li>"
+        //                 html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsKor+"</div></li>"
+        //                 html += "</ul>"
+        //                 // html += "<div><img src='img/searchad3.png'></div>"
+        //             $('.brandDetail').append(html)
+        //         }else{
+        //             let html = "<img src="+selectBrand[0].BS_ImageUrl+"><ul>";
+        //                 html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameEng+"</h2></li>"
+        //                 html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameEng+"</h4></li>"
+        //                 html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsEng+"</div></li>"
+        //                 html += "</ul>"
+        //                 // html += "<div><img src='img/searchad3.png'></div>"
+        //             $('.brandDetail').append(html)
+        //         }
+        //     }
+        // }
     }
-
-}
 
 //대분류 카테고리 클릭
     let catChk = 0;

@@ -96,22 +96,22 @@
                     <!-- <div style='display: inline;'> -->
                         <ul>
                             <li>
-                                <img src='/img/signage/footer_icon/toilet_icon.png'>화장실
+                                <img src='/img/signage/footer_icon/toilet_icon.png'><span id='footToilet'>화장실</span>
                             </li>
                             <li>
-                                <img src='/img/signage/footer_icon/escalator_icon.png'>에스컬레이터
+                                <img src='/img/signage/footer_icon/escalator_icon.png'><span id='footEscalator'>에스컬레이터</span>
                             </li>
                             <li>
-                                <img src='/img/signage/footer_icon/elevator_icon.png'>엘리베이터
+                                <img src='/img/signage/footer_icon/elevator_icon.png'><span id='footElevator'>엘리베이터</span>
                             </li>
                             <li>
-                                <img src='/img/signage/footer_icon/stairs_icon.png'>계단
+                                <img src='/img/signage/footer_icon/stairs_icon.png'><span id='footStairs'>계단</span>
                             </li>
                             <li>
-                                 <img src='/img/signage/footer_icon/locker_icon.png.png'>물품보관소
+                                 <img src='/img/signage/footer_icon/locker_icon.png.png'><span id='footStockroom'>물품보관소</span>
                             </li>
                             <li>
-                                <img src='/img/signage/footer_icon/exit_icon.png'> 비상구
+                                <img src='/img/signage/footer_icon/exit_icon.png'><span id='footExit'>비상구</span>
                             </li>
                 
                         </ul>
@@ -130,24 +130,24 @@
 
                 <li>
                     <div class="rightNav_list">
-                    <img src='img/main_icon.png'  class="rightNav_img">
-                    <h2>메인</h2>
+                    <img src='img/main_icon.png' class="rightNav_img">
+                    <h2 id='mainHome'>메인</h2>
                 </div>
                 </li>
 
                 <li onclick="searchCategoryMenu()" class="search">
                     <img src='img/find_icon.png' >
-                    <h2>검색</h2>
+                    <h2 id='mainSearch'>검색</h2>
                 </li>
 
                 <li>
                     <img src='img/event_icon.png' >
-                    <h2>이벤트</h2>
+                    <h2 id='mainEvent'>이벤트</h2>
                 </li>
 
                 <li>
                     <img src='img/guide_icon.png' >
-                   <h2>이용안내</h2>
+                   <h2 id='mainGuide'>이용안내</h2>
                 </li>
             </ul> 
         <!-- 언어 정보 -->
@@ -163,7 +163,7 @@
                 </li>
                 <li>
                     <div class='temperature'><span id='temp'></span></div>
-                    <h2 class="dustCount">미세먼지농도&nbsp;<span style="color: #53ec5d; font-size: 20px;" id='dust'></span></h2>
+                    <h2 class="dustCount" id='dustCount'>미세먼지농도&nbsp;</h2><span style="color: #53ec5d; font-size: 20px;" id='dust'></span>
                 </li>
             </ul>
             <div>
@@ -182,7 +182,7 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <div class='searchTop'><span class='searchTopName'>검색</span></div>        
-            <div class="searchClose"><span class='searchCloseName'>닫기<img src="/img/signage/modal/find_title_cancel_icon.png" alt=""></span></div>
+            <div class="searchClose"><span class='searchCloseName'>닫기</span><img src="/img/signage/modal/find_title_cancel_icon.png"></div>
             <div class='searchContent'>
             <!-- 좌측 검색 카테고리 -->
                 <div class='searchLeft'>
@@ -237,6 +237,12 @@
                             <li><h4 class='searchLocation'>1F.중식 (음식점)</h4></li>
                             <li><div class='brandInfo'>브랜드소개 브랜드소개 브랜드소개브랜드소개 브랜드소개 브랜드소개</div></li>
                         </ul>
+                        <ul class='detailInfo'>
+                            <li><div><img src='/img/signage/mainNav/mainNav_bg_044.png'><h3>상세 보기</h3></div></li>
+                            <li><img src='/img/signage/mainNav/mainNav_bg_044.png'><h3>위치 보기</h3></li>
+                        </ul>
+                        
+                        
                     </div>
                     <div><img src='img/searchad3.png'></div>
                 </div>

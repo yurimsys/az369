@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/scrolla.jquery.min.js"></script>
+</head>
+
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>BS_ID</th>
+                <th>BS_BC_ID</th>
+                <th>BS_LoginID</th>
+                <th>BS_LoginPW</th>
+                <th>BS_CEO</th>
+                <th>BS_NameKor</th>
+                <th>BS_NameEng</th>
+                <th>BS_ContentsKor</th>
+                <th>BS_ContentsEng</th>
+                <th>BS_MainDtS</th>
+                <th>BS_MainDtF</th>
+                <!-- <th>BS_SubDtS</th>
+                <th>BS_SubDtF</th>
+                <th>BS_BreakDtS</th>
+                <th>BS_BreakDtF</th> -->
+                <th>BS_PersonalDay</th>
+                <th>BS_ThumbnailUrl</th>
+                <th>BS_ImageUrl</th>
+                <th>BS_cDt</th>
+                <th>수정</th>
+            </tr>
+            
+        </thead>
+        <tbody id='list'>
+
+        </tbody>
+
+    </table>
+    <button type='button' onclick="addBusiness()">매장등록</button>
+</body>
+<script>
+    $.ajax({
+        url: '/lists',
+        method: 'get',
+        dataType: 'json',
+        success: function(res){
+            console.log(res.data)
+            for(let i=0; i<res.data.length; i++){
+                let html = '<tr><td>'+res.data[i].BS_ID+'</td>'
+                    html += '<td>'+res.data[i].BS_BC_ID+'</td>'
+                    html += '<td>'+res.data[i].BS_LoginID+'</td>'
+                    html += '<td>'+res.data[i].BS_LoginPW+'</td>'
+                    html += '<td>'+res.data[i].BS_CEO+'</td>'
+                    html += '<td>'+res.data[i].BS_NameKor+'</td>'
+                    html += '<td>'+res.data[i].BS_NameEng+'</td>'
+                    html += '<td>'+res.data[i].BS_ContentsKor+'</td>'
+                    html += '<td>'+res.data[i].BS_ContentsEng+'</td>'
+                    html += '<td>'+res.data[i].BS_MainDtS+'</td>'
+                    html += '<td>'+res.data[i].BS_MainDtF+'</td>'
+                    // html += '<td>'+res.data[0].BS_SubDtS+'</td>'
+                    // html += '<td>'+res.data[0].BS_SubDtF+'</td>'
+                    // html += '<td>'+res.data[0].BS_BreakDtS+'</td>'
+                    // html += '<td>'+res.data[0].BS_BreakDtF+'</td>'
+                    html += '<td>'+res.data[i].BS_PersonalDay+'</td>'
+                    html += '<td>'+res.data[i].BS_ThumbnailUrl+'</td>'
+                    html += '<td>'+res.data[i].BS_ImageUrl+'</td>'
+                    html += '<td>'+res.data[i].BS_cDt+'</td>'
+                    html += '<td><button type="button" id='+res.data[i].BS_ID+'>수정</button></td></tr>'
+                $('#list').append(html) 
+
+            }
+        }
+    })
+
+    function addBusiness(){
+        location.href='/signAdd'
+    }
+</script>
+
+</html>

@@ -45,11 +45,13 @@ $.ajax({
         document.onmousemove = null;
         document.onmouseup = null;
     }
+    $('#1Fstore_name text').hide()
     $('#2Fstore_name text').hide()
     $('#3Fstore_name text').hide()
     // $('#3Fstore_name text').hide()
     //줌인 줌아웃 리셋 
     $('#zoomIn').on('click',function(){
+        $('#1Fstore').css('cursor','pointer');
         $('#2Fstore').css('cursor','pointer');
         $('#3Fstore').css('cursor','pointer');
         if($('#zoomIn').attr('class') == 'plusBtn'){
@@ -58,12 +60,14 @@ $.ajax({
             $('.centralSvg').css('top','0px')
             $(this).attr('class','plusBtn 1X')
             $('.centralSvg').css('transform','scale(1.375)')
+            $('#1Fstore_name text').show()
             $('#2Fstore_name text').show()
             $('#3Fstore_name text').show()
         }
         else if($('#zoomIn').attr('class') == 'plusBtn 1X'){
             $(this).attr('class','plusBtn 2X')
             $('.centralSvg').css('transform','scale(1.75)')
+            $('#1Fstore_name text').css('font-size','14')
             $('#2Fstore_name text').css('font-size','14')
             $('#3Fstore_name text').css('font-size','14')
             $('#store_name text').css('font-size','14')
@@ -71,6 +75,7 @@ $.ajax({
         else if($('#zoomIn').attr('class') == 'plusBtn 2X'){
             $(this).attr('class','plusBtn 3X')
             $('.centralSvg').css('transform','scale(2.125)')
+            $('#1Fstore_name text').css('font-size','15')
             $('#2Fstore_name text').css('font-size','15')
             $('#3Fstore_name text').css('font-size','15')
             $('#store_name text').css('font-size','15')
@@ -79,6 +84,7 @@ $.ajax({
             $(this).attr('class','plusBtn 4X')
             $('.centralSvg').css('transform','scale(2.5)')
             $('#store_name text').css('font-size','16')
+            $('#1Fstore_name text').css('font-size','16')
             $('#2Fstore_name text').css('font-size','16')
             $('#3Fstore_name text').css('font-size','16')
         }
@@ -92,6 +98,7 @@ $.ajax({
             $('.centralSvg').css('left','')
             $('.centralSvg').css('top','')
             $('#store_name text').hide()
+            $('#1Fstore_name text').hide()
             $('#2Fstore_name text').hide()
             $('#3Fstore_name text').hide()
             // $('#store_name text').css('font-size','16')
@@ -100,6 +107,7 @@ $.ajax({
             $('#zoomIn').attr('class', 'plusBtn 1X')
             $('.centralSvg').css('transform','scale(1.375)')
             $('#store_name text').css('font-size','13')
+            $('#1Fstore_name text').css('font-size','13')
             $('#2Fstore_name text').css('font-size','13')
             $('#3Fstore_name text').css('font-size','13')
         }
@@ -107,6 +115,7 @@ $.ajax({
             $('#zoomIn').attr('class', 'plusBtn 2X')
             $('.centralSvg').css('transform','scale(1.75)')
             $('#store_name text').css('font-size','14')
+            $('#1Fstore_name text').css('font-size','14')
             $('#2Fstore_name text').css('font-size','14')
             $('#3Fstore_name text').css('font-size','14')
         }
@@ -114,6 +123,7 @@ $.ajax({
             $('#zoomIn').attr('class', 'plusBtn 3X')
             $('.centralSvg').css('transform','scale(2.125)')
             $('#store_name text').css('font-size','15')
+            $('#1Fstore_name text').css('font-size','15')
             $('#2Fstore_name text').css('font-size','15')
             $('#3Fstore_name text').css('font-size','15')
         }
@@ -125,6 +135,7 @@ $.ajax({
         $('.centralSvg').css('top','')
         $('#zoomIn').attr('class', 'plusBtn')
         $('#store_name text').hide()
+        $('#1Fstore_name text').hide()
         $('#2Fstore_name text').hide()
         $('#3Fstore_name text').hide()
     })
@@ -155,6 +166,28 @@ $.ajax({
     //svg파일 클래스,텍스트 매칭
     function svgLocation(){
         let storeList = JSON.parse(localStorage.getItem('storeInfo'))
+        $('#1Fstore path').each(function(){
+            let svg3FStore = $(this).attr('id').replace('h','')
+            for(let i=0; i<storeList.length; i++){
+                if(storeList[i].LS_Number == svg3FStore){
+                    $(this).addClass('svgCat '+storeList[i].BC_NameEng.replace(/ /g, ''))
+                }
+            }
+        })
+        $('#1Fstore_name text').each(function(){
+            let svg3FStoreName = $(this).attr('id').replace('h','').replace('-2','')
+            //console.log(storeList)
+            for(let i=0; i<storeList.length; i++){
+                if(storeList[i].LS_Number == svg3FStoreName){
+                    if($('#kor').hasClass('choose')){
+                        $(this).children('tspan').text(storeList[i].BS_NameKor)
+                    }else{
+                        $(this).children('tspan').text(storeList[i].BS_NameEng)
+                    }
+                    
+                }
+            }
+        })
         $('#2Fstore path').each(function(){
             let svg3FStore = $(this).attr('id').replace('h','')
             for(let i=0; i<storeList.length; i++){

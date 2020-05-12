@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/scrolla.jquery.min.js"></script>
+</head>
+
+<body>
+    
+<div class='main01' style="display: block;">
+    <form>
+        <div>
+            <label>아이디</label>
+            <input type='text'>
+        </div>
+        <div>
+            <label>비밀번호</label>
+            <input type='text'>
+        </div> 
+        <div>
+            <label>대표자명</label>
+            <input type='text'>
+        </div> 
+        <div>
+            <label>매장명(한글)</label>
+            <input type='text'>
+        </div> 
+        <div>
+            <label>매장명(영문)</label>
+            <input type='text'>
+        </div> 
+        <div>
+            <label>평일오픈시간</label>
+            <input type='text'>
+        </div> 
+        <div>
+            <label>평일종료시간</label>
+            <input type='text'>
+        </div> 
+        <div>
+            <label>주말오픈시간</label>
+            <input type='text'>
+        </div> 
+        <div>
+            <label>주말종료시간</label>
+            <input type='text'>
+        </div> 
+        <div>
+            <label>휴식시간</label>
+            <input type='text'>
+        </div> 
+        <div>
+            <label>휴식시간종료</label>
+            <input type='text'>
+        </div> 
+        <div>
+            <label>휴무일</label>
+            <input type='text'>
+        </div>        
+         <div>
+            <label>썸네일 사진</label>
+            <input type='text'>
+        </div>     
+        <div>
+            <label>대표이미지</label>
+            <input type='text'>
+        </div> 
+    </form>
+    <button type='button' onclick="mainOne()">다음</button>
+</div>
+<!-- 카테고리 -->
+<div class='main02' style="display: none;">
+    <div style="width: 300px; height: 300px; overflow: hidden scroll; float: left;" id='LV1Cat'>
+
+    </div>
+    
+    <div style="width: 300px; height: 300px; overflow: hidden scroll;" id='LV2Cat'>
+
+    </div>
+    <button type='button' onclick="mainBack()">이전</button>
+    <button type='button' onclick="mainTwo()">다음</button>
+</div>
+<!-- 층수 -->
+<div class='main03' style="display: none;">
+    <div style="width: 300px; height: 300px; overflow: hidden scroll; float: left;" id='floor'>
+        <div onclick='selectFloor(this)'>
+            <input type='radio' id="1F" name='floor'>
+            <label for="1F">1층</label>
+        </div>
+        <div onclick='selectFloor(this)'>
+            <input type='radio' id="2F" name='floor'>
+            <label for="2F">2층</label>
+        </div>
+        <div onclick='selectFloor(this)'>
+            <input type='radio' id="3F" name='floor'>
+            <label for="3F">3층</label>
+        </div>
+    </div>
+    <div style="width: 300px; height: 300px; overflow: hidden scroll;" id='storeNum'>
+    </div>
+    <div>
+        <input type="text" placeholder="직접입력">
+    </div>
+    <button type='button' onclick="mainBack2()">이전</button>
+    <button type='button' onclick="mainThree()">등록</button>
+</div>
+</body>
+<script>
+$(document).ready(function(){
+    $.ajax({
+        url: '/api/categoryLV1',
+        method: 'get',
+        dataType: 'json',
+        success: function(res){
+            for(let i=0; i<res.data.length; i++){
+                let html = "<div onclick='LV1Cat(this)' >";
+                    html += "<input type='radio' id="+res.data[i].BCR_LV1_BC_ID+" name='catLv1'>"
+                    html += "<label for="+res.data[i].BCR_LV1_BC_ID+">"+res.data[i].BC_NameKor+"</label>"
+                    html += "</div>"
+                $('#LV1Cat').append(html)
+            }
+        }
+    })
+    //중분류
+    $.ajax({
+        url: '/api/categoryLV2',
+        method: 'get',
+        dataType: 'json',
+        success: function(res){
+            //카테고리 저장
+            localStorage.setItem('catLV2',JSON.stringify(res.data))
+        }
+    })
+    //층수
+    $.ajax({
+        url: '/api/floor',
+        method: 'get',
+        dataType: 'json',
+        success: function(res){
+            //카테고리 저장
+            localStorage.setItem('floor',JSON.stringify(res.data))
+        }
+    })
+})
+
+    function mainOne(){
+        $('.main01').css('display','none')
+        $('.main02').css('display','block')
+    }
+    function mainTwo(){
+        $('.main03').css('display','block')
+        $('.main02').css('display','none')
+    }
+
+    function mainBack2(){
+        $('.main03').css('display','none')
+        $('.main02').css('display','block')
+    }
+    
+    function mainBack(){
+        $('.main01').css('display','block')
+        $('.main02').css('display','none')
+    }
+
+
+    function LV1Cat(e){
+        let searchCatLV2 = JSON.parse(localStorage.getItem('catLV2'))    
+        $('#LV2Cat').empty()
+        for(let i=0; i<searchCatLV2.length; i++){
+            // console.log(searchCatLV2)
+            if(searchCatLV2[i].BCR_LV1_BC_ID == $(e).children('input').attr('id')){
+                let resultCatLV2 = new Array();
+                let jsonCatLV2 = new Object();
+                jsonCatLV2 = searchCatLV2[i]
+                resultCatLV2.push(jsonCatLV2)
+                for(let j=0; j<resultCatLV2.length; j++){
+                    let html = "<div onclick='LV2Cat(this)'>";
+                        html += "<input type='radio' id="+resultCatLV2[j].BC_ID+" name='catLv2'>"
+                        html += "<label for="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</label>"
+                        html += "</div>"
+                    $('#LV2Cat').append(html);
+                }
+            }
+        }
+    }
+
+    function LV2Cat(e){
+        console.log($('input[name="catLv1"]:checked').attr('id'))
+    }
+
+    function selectFloor(e){
+        $('#storeNum').empty();
+        let floorStatus = JSON.parse(localStorage.getItem('floor'))
+        console.log($(e).children('input').attr('id'))
+        for(let i=0; i<floorStatus.length; i++){
+            if(floorStatus[i].LS_Floor == $(e).children('input').attr('id')){
+                let html = "<div onclick='selectStoreNumber(this)'>";
+                    html += "<input type='radio' id="+floorStatus[i].LS_Number+" name='storeNumber'>"
+                    html += "<label for="+floorStatus[i].LS_Number+">"+floorStatus[i].LS_Number+"</label>"
+                    html += "</div>"
+                $('#storeNum').append(html)
+            }
+        }
+    }
+    
+    function selectStoreNumber(e){
+        console.log($('input[name="storeNumber"]:checked').attr('id'))
+    }
+
+    function mainThree(){
+        //대분류 BS_BC_ID , BCR_LV1_BC_ID
+        console.log($('input[name="catLv1"]:checked').attr('id'))
+        //중분류  BCR_LV2_BC_ID select BCR_ID from tBCR where BCR_LV1_BC_ID = 대분류 AND BCR_LV2_BC_ID = 중분류
+        //이 후 insert into tBSxBCR values(맨 마지막 BS_ID, 위에서 구한 BCR_ID)
+        console.log($('input[name="catLv2"]:checked').attr('id'))
+        //층수
+        console.log($('input[name="floor"]:checked').attr('id'))
+        //호실 BS_ID, LS_Number
+        console.log($('input[name="storeNumber"]:checked').attr('id'))
+        $.ajax({
+            url: '/api/addBusiness',
+            method: 'post',
+            dataType: 'json',
+            data: {'BCR_LV1_BC_ID' : $('input[name="catLv1"]:checked').attr('id'),
+                    'BCR_LV2_BC_ID' :     $('input[name="catLv2"]:checked').attr('id'),
+                    'LS_Number' : $('input[name="storeNumber"]:checked').attr('id')
+                },
+            success: function(res){
+
+            }
+        })
+    }
+</script>
+
+</html>
