@@ -965,10 +965,10 @@ font-weight: 100; text-emphasis: center;
     height: 546px;
     margin-bottom: 5%;
     background-color: #ffffff;
+    position: relative;
 }
 .brandDetail ul li{
     list-style: none;
-    margin-left: 5%;
     margin-top: 2%;
 }
 
@@ -981,6 +981,18 @@ font-weight: 100; text-emphasis: center;
 }
 .detailInfo{
     width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding: 15px;
+}
+.infoImgNav{
+    background-image: url('/img/signage/mainNav/mainNav_bg_044.png');
+    border-radius: 15px;
+
+    height: 50px;
+}
+.brandContents{
+    padding: 15px;
 }
 .detailInfo img{
     width: 200px;
