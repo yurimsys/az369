@@ -11,8 +11,7 @@ address, em, i {font-style: normal;}
 body,html{
     height: 100%;
 }
-/* 페이지 3분할-------------------------------*/
-/* 전체 */
+/* 페이지 3분할 14 / 71/ 15 -------------------------------*/
 .container{
     position: relative;
     width: 100%;
@@ -20,7 +19,6 @@ body,html{
     overflow: hidden;
     
 }
-/* 왼쪽 영역 */
 #box-left {
     width: 14%;
     background-color: #f2f2f2;
@@ -29,7 +27,6 @@ body,html{
     height: 100%;
     overflow: hidden;
 }
-/* 가운데 영역 */
 #box-center {
     width: 71%;
     float: left;
@@ -39,7 +36,6 @@ body,html{
     background-color: #7c818f;
     overflow: hidden;
 }
-/* 오른쪽 영역 */
 #box-right {
     width: 15%;
     float: left;
@@ -47,28 +43,10 @@ body,html{
     background-color: #1E1A1D;
     height: 100%;
 }
-/* 오른쪽 영역 타이틀 */
-.central {
-    font-size: 35px;
-    font-weight: 100;
-    text-align: center;
-    color: #d9d9d9;
-}
-.dome {
-    width: 161px;
-    height: 60px;
-    font-size: 52px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.14;
-    letter-spacing: normal;
-    margin-left: 22%;
-    margin-top: 6%;
-    text-align: center;
-    color: #f4f4f4;
-}
-/* 좌측 상단 층표시 */
+
+/* 왼쪽 영역  --------------------------------------------- */
+
+/* 왼쪽 상단 층 표시 */
 .floorFont {
     width: 100%;
     font-size: 75px;
@@ -78,39 +56,11 @@ body,html{
     color: #a91179;
     font-family: 'Roboto', sans-serif;
 }
-/* 카테고리 css */
-.categoryBtn {
-    width:100%; height: 50px;
-    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); border: solid 1.5px rgba(255,255,255,0.5); background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
-}
-/* .selected{
-    background-color: #340a27;
-} */
-.categoryFont{         
-    font-size: 18px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 2;
-    letter-spacing: normal;
-    text-align: left;
-    margin-top: 15px;
-}
-.categoryBack{
-    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); 
-    border: solid 1.5px rgba(255,255,255,0.5);
-    background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
-}
 
-.categoryName{
-    margin-left: 14px;
-    line-height: 50px;
-}
 /* 카테고리 리스트 */
 .categoryList{
     width: 100%;
     padding: 0 25px;
-    /* overflow: hidden; */
 }
 .categoryList li ul{
     list-style:none;
@@ -124,8 +74,25 @@ body,html{
     display: none;
 }
 
+/* 카테고리 버튼 */
+.categoryBtn {
+    width:100%; height: 50px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); border: solid 1.5px rgba(255,255,255,0.5); background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
+}
 
-/* 카테고리 이전 다음 버튼 */
+/* 카테고리 폰트 */
+.categoryFont{         
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 2;
+    margin-top: 15px;
+}
+.categoryName{
+    margin-left: 14px;
+    line-height: 50px;
+}
+
+/* 카테고리 리스트 하단 버튼 */
 .categoryNav{
     position: relative;
     width: 100%;
@@ -135,6 +102,7 @@ body,html{
     margin-top: 30px;
 }
 
+/* 카테고리 이전 다음 버튼 */
 .categoryNav ul {width: 100%;}
 .categoryNav ul li {float: left; width: 33.333%;}
 .categoryPrev{
@@ -147,8 +115,6 @@ body,html{
     box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); 
     border: solid 1.5px rgba(255,255,255,0.5);
     color: red;
-
-    
 }
 .categoryNext{
     width: 50px;
@@ -157,23 +123,12 @@ body,html{
     border-radius: 12px;
     box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); 
     border: solid 1.5px rgba(255,255,255,0.5);
-    /* background-image: linear-gradiient(279deg, #ffffff, #f2f2f2); border-radius: 12px; */
+    background-image: linear-gradiient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
     float: right;
-    
 }
-.categoryState{
-   line-height: 50px; 
-}
-.clickPrevBtn{
-    background-image: url(/img/left_arrow_active_icon.png);
-    background-repeat: no-repeat;
-}
-.clickNextBtn{
-    background-image: url(/img/right_arrow_active_icon.png);
-    background-repeat: no-repeat;
-    background-position: 48% 47%;
-}
-/* 좌측 하단 광고 */
+.categoryState {line-height: 50px;}
+
+/* 왼쪽 하단 광고 */
 .leftAd{
     width: 14%;
     position: fixed;
@@ -182,111 +137,26 @@ body,html{
 .leftAd img{
     width: 100%;
 }
-/* 카테고리 박스 아이콘 */
-#categoryIcon0 {
-    width: 12px;
-    height: 12px;
-    float: left;
-    margin-top: 9%;
-    margin-left: 8%;
-    background-color: #a91179;
-}
 
-#categoryIcon1 {
-    width: 12px;
-    height: 12px;
-    float: left;
-    margin-top: 9%;
-    margin-left: 8%;
-    background-color: #92477D;
-}
-#categoryIcon2 {
-    width: 12px;
-    height: 12px;
-    float: left;
-    margin-top: 9%;
-    margin-left: 8%;
-    background-color: #C26B8F;
-}
-#categoryIcon3 {
-    width: 12px;
-    height: 12px;
-    float: left;
-    margin-top: 9%;
-    margin-left: 8%;
-    background-color: #DE9A9A;
-}
-#categoryIcon4 {
-    width: 12px;
-    height: 12px;
-    float: left;
-    margin-top: 9%;
-    margin-left: 8%;
-    background-color: #EBB121;
-}
-#categoryIcon5 {
-    width: 12px;
-    height: 12px;
-    float: left;
-    margin-top: 9%;
-    margin-left: 8%;
-    background-color: #EBD048;
-}
-#categoryIcon6 {
-    width: 12px;
-    height: 12px;
-    float: left;
-    margin-top: 9%;
-    margin-left: 8%;
-    background-color: #746E9F;
-}
-#categoryIcon7 {
-    width: 12px;
-    height: 12px;
-    float: left;
-    margin-top: 9%;
-    margin-left: 8%;
-    background-color: #A2D2F2;
-}
-#categoryIcon8 {
-    width: 12px;
-    height: 12px;
-    float: left;
-    margin-top: 9%;
-    margin-left: 8%;
-    background-color: #5275B1
-}
-#categoryIcon9 {
-    width: 12px;
-    height: 12px;
-    float: left;
-    margin-top: 9%;
-    margin-left: 8%;
-    background-color: #9BB259;
-}
-#categoryIcon10 {
-    width: 12px;
-    height: 12px;
-    float: left;
-    margin-top: 9%;
-    margin-left: 8%;
-    background-color: #4e43a1;
-}
-#categoryIcon11 {
-    width: 210px;
-    height: 50px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.2);
-    background-color: #a91179;
-    margin-top: 12px;
-    margin-left: 15%;
-}
+/* 카테고리별 박스 아이콘 */
+.categoryIconBox { width: 12px; height: 12px; float: left; margin-top: 9%;margin-left: 8%;}
+
+#categoryIcon0 {background-color: #a91179;}
+#categoryIcon1 {background-color: #92477D;}
+#categoryIcon2 {background-color: #C26B8F;}
+#categoryIcon3 {background-color: #DE9A9A;}
+#categoryIcon4 {background-color: #EBB121;}
+#categoryIcon5 {background-color: #EBD048;}
+#categoryIcon6 {background-color: #746E9F;}
+#categoryIcon7 {background-color: #A2D2F2;}
+#categoryIcon8 {background-color: #5275B1}
+#categoryIcon9 {background-color: #9BB259;}
+#categoryIcon10 {background-color: #4e43a1;}
 
 
 
 
-
-/* 가운데 오른쪽 nav ----------------------------------------------- */
+/* 가운데 영역 오른쪽 nav ----------------------------------------------- */
 .centerRight{
     width: 80px;
     margin: 0 auto;
@@ -294,12 +164,10 @@ body,html{
     margin-right: 25px;
     float: right;
 }
-
 /* 층 nav*/
 .floorBtn  {width: 100%; margin: 0 auto;}
 .floorBtn ul li {margin-bottom: 14px; padding: 0 10px;}
 .floorBtn ul li:nth-child(3) {margin-bottom: 0;}
-
 .floorIcon{
     width: 60px;
     height: 60px;
@@ -311,9 +179,9 @@ body,html{
     position: relative;
     font-size: 20px;
     color: #999999;
+    cursor: pointer;
 }
 .floorSelcet{
-    /* background-color: #a91179; */
     background-image: linear-gradient(280deg, #A91179, #561340);
     border: solid 1.5px rgba(199,17,121,0.5);
     color: #ffffff;
@@ -327,8 +195,6 @@ body,html{
 
 /* 지도 네비 */
 .mapNav{ 
-    /* margin-top: 30px;
-    width: auto; background: green; vertical-align: middle; padding: 15px;   */
     width: 80px;
     height: auto;
     padding: 20px;
@@ -338,30 +204,9 @@ body,html{
     background-color: rgba( 255, 255, 255, 0.7);
 }
 .mapNav ul {width: 50px; margin-left: 50%; transform: translateX(-50%);}
-.mapNav ul li{margin-top: 16px; line-height: 45px; position: relative;}
+.mapNav ul li{margin-top: 16px; line-height: 45px; position: relative; cursor: pointer;}
 .mapNav ul li:nth-child(1) {margin-top: 0;}
 .mapNav ul li div {width: 50px; height: 50px;border-radius: 50%; box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); border: solid 1.5px rgba(255,255,255,0.5); background-image: linear-gradient(280deg, #ffffff, #f2f2f2);}
-
-
-
-/* .mapScroll{
-    margin-top: 10%;
-    margin-left: 25%;
-    width: 10px;
-    height: 400px;
-    position: relative;
-    text-align: center;
-    background-color: #a91179;
-}
-.mapScrollBtn{
-    cursor:pointer;
-    position: relative;
-    touch-action: manipulation;
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
-    background-color: red;
-} */
 
 /* 중앙 하단 레이어 */
 .center-footer{
@@ -372,45 +217,43 @@ body,html{
     background-color: rgba( 0, 0, 0, 0.2);
     color: #fff; font-size: 18px; font-weight: 300; text-align: justify;
 }
-
 .center-footer ul {width: 100%; height: 90px; text-align: center;}
 .center-footer ul li {float: left; width: 16.666%; line-height: 90px;}
 .center-footer ul li img {margin-right: 14px;}
 
 
-/* 우측 메뉴 */
-.rightNav{
-    list-style:none;
-    position: relative;
-} 
+
+
+
+/* 오른쪽 영역 ----------------------------------------------- */
+/* 오른쪽 상단 로고 */
+h1.logo {
+    font-size: 26px;
+    color: #fff;
+    font-weight: 200;
+    text-align: center;
+    line-height: 1.15; 
+    margin: 40px 0 ;
+}
+h1 span {font-size: 40px; font-weight: 400;}
+
+/* 오른쪽 nav */
+.rightNav{position: relative;} 
 .rightNav li{width: 100%; height: 90px;  position: relative;}
+.rightNav_list {width:50%; margin: 0 auto; height: 100%;}
+.rightNav_img {float:left; width:40px; height: 90px; line-height: 85px; margin-right: 20px;}
+.rightNav_list h2 {float: left; color: #f2f2f2; font-size: 20px; font-weight: 400; z-index: 100;  line-height: 90px;}
 
-.rightNav li img{float: left;background: yellow; margin-right: 20px;}
-.rightNav h2 {float: left; color: #fff; font-size: 20px; font-weight: 400; z-index: 100;  line-height: 90px;}
-
-.rightNav_list {height: 90px; float: left;}
-
-.drightNav_img {height: 40px; vertical-align: middle;}
-
+/* 오른쪽 nav 아이콘 */
+.rightNav li {background-repeat: no-repeat;}
 .rightNav li:nth-child(1) {background: url('/img/signage/mainNav/mainNav_bg_01.png');}
 .rightNav li:nth-child(2) {background: url('/img/signage/mainNav/mainNav_bg_02.png');}
 .rightNav li:nth-child(3) {background: url('/img/signage/mainNav/mainNav_bg_03.png');}
 .rightNav li:nth-child(4) {background: url('/img/signage/mainNav/mainNav_bg_04.png');}
 
-.rightNavBox{
-    width: 25px;
-    height: 30px;
-    padding: 5px 10px;
-    left: 20%;
-    position: absolute;
-    text-align: center;
-    margin-top: -27%;
-    
-}
-
-/* 우측 언어 메뉴 */
+/* 오른쪽 언어 선택 */
 .languageList{
-    margin-top: 30px;
+    margin-top: 25px;
     text-align: center;
 }
 .languageList li{
@@ -419,93 +262,100 @@ body,html{
     margin-top: 12px;
 }
 .language {
-color: rgba(255,255,255,0.7);
+color: #ccc;
 font-weight: 100; text-emphasis: center;
-
 }
 .languageSelect{
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
     border-radius: 12px;
-    background-color: rgba(255,255,255,0.3);
+    background-color:#6A114D;
+    opacity: 0.4;
     font-size: 18px;
     text-align: center;
-    color: #ddd;
+    color: #eee;
     font-weight: 200;
 }
 .choose{
     background-color: #6A114D;
     color: white;
-    font-weight: 400;
+    font-weight: 300;
     opacity: 1;
 }
-/* 날씨상태 */
-.whetherList {width: 100%;}
-.whetherList li{
-    width: 100%;
-    display: inline-block;
-    list-style: none;
-    margin-top: 30px;
-}
-.whether{
-    width: 40px;
-    height: 40px;
-    margin-left: 90px;
-    background-color: #eeeeee;
-}
+
+/* 날씨, 온도 */
+.whetherList {width:100%; overflow: hidden;}
+.whetherList ul {width: 30%; margin: 0 auto; margin-top: 40px; height: auto;}
+.whetherList li{width:50%; float: left;  text-align: center;}
+.whetherList li:nth-child(2) {margin-right: 0;}
+.whether{width: 40px;height: 40px; background-color: #666;}
 .temperature {
-    font-size: 20px;
+    font-size: 26px;
     line-height: 40px;
-    color: #eee;
-    float: right;
+    font-weight: 400;
+    color: #ddd;
 }
 
+
 /* 날짜 및 시간 */
+.date {margin-top: 16px; line-height: 1.4;}
 .dayCount {
-    font-size: 16px;
-    font-weight: 300;
+    font-size: 18px;
+    font-weight: 00;
     text-align: center;
-    color: #eee;
+    color: #ddd;
+    font-weight: 300;
+    
 }
 .timeCount{
-    font-size: 30px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
+    width: 100%;
+    font-size: 24px;
     text-align: center;
-    margin-left: 30%;
-    display: inline;
-    color: #f2f2f2;
+    font-weight: 400;
+    color: #eee;
 }
+
 /* 미세먼지 농도 */
+.dustList {width: 100%; text-align: center; margin-top:8px;}
 .dustCount {
     font-size: 16px;
     font-weight: 300;
-    font-stretch: normal;
-    font-style: normal;
     line-height: 1.19;
-    letter-spacing: normal;
     display: inline;
-    text-align: left;
-    color: #dcdcdc;
-    margin-left: 28%;
+    width: 100%;
+    color: #ccc;
 }
+
+
 /* 우측 하단 광고 */
 .rightAd{
     position: fixed;
     bottom: 0;
 }
-    .rightAd img{
-    width: 100%;
-}
+.rightAd img{width: 100%;}
 
 
 
 
-/* 모달 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 검색 모달 팝업 ----------------------------------------------- */
 .modal {
     display: none;
     position: fixed;
