@@ -255,7 +255,7 @@ function searchCategoryListLV2(lv2CatNum){
 
 //브랜드 리스트 클릭시
     function brandClick(e){
-        //$('.brandDetail').empty();
+        $('.brandDetail').empty();
         $('.searchResult div').css('background-color','')
         $('#'+e.id).css('background-color','#f9eff6');
         $('.searchRight').css('display','none')
@@ -264,30 +264,35 @@ function searchCategoryListLV2(lv2CatNum){
 
         let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
         //BCR_LV1_BC_ID에 검색 
-        // for(let i=0; i<jsonBrand.length; i++){
-        //     //검색내용이 있으면 리스트를 그려줌
-        //     if(jsonBrand[i].BS_ID == e.id){            
-        //         let selectBrand = []
-        //             selectBrand.push(jsonBrand[i])
-        //         if($('#kor').hasClass('choose')){
-        //             let html = "<img src="+selectBrand[0].BS_ImageUrl+"><ul>";
-        //                 html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameKor+"</h2></li>"
-        //                 html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameKor+"</h4></li>"
-        //                 html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsKor+"</div></li>"
-        //                 html += "</ul>"
-        //                 // html += "<div><img src='img/searchad3.png'></div>"
-        //             $('.brandDetail').append(html)
-        //         }else{
-        //             let html = "<img src="+selectBrand[0].BS_ImageUrl+"><ul>";
-        //                 html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameEng+"</h2></li>"
-        //                 html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameEng+"</h4></li>"
-        //                 html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsEng+"</div></li>"
-        //                 html += "</ul>"
-        //                 // html += "<div><img src='img/searchad3.png'></div>"
-        //             $('.brandDetail').append(html)
-        //         }
-        //     }
-        // }
+        for(let i=0; i<jsonBrand.length; i++){
+            //검색내용이 있으면 리스트를 그려줌
+            if(jsonBrand[i].BS_ID == e.id){            
+                let selectBrand = []
+                    selectBrand.push(jsonBrand[i])
+                if($('#kor').hasClass('choose')){
+                    let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"></div><div class='brandContents'><ul>";
+                        html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameKor+"</h2></li>"
+                        html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameKor+"</h4></li>"
+                        html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsKor+"</div></li>"
+                        html += "</ul><div>"
+                        html += "<ul class='detailInfo'>"
+                        html += "<li><div class='infoImgNav>상세 보기</div></li>"
+                        html += "<li><div class='infoImgNav>위치 보기</div></li></ul>"
+                    $('.brandDetail').append(html)
+                }else{
+                    let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"><ul></div><div class='brandContents'><ul>";
+                        html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameEng+"</h2></li>"
+                        html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameEng+"</h4></li>"
+                        html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsEng+"</div></li>"
+                        html += "</ul><div>"
+                        html += "<ul class='detailInfo'>"
+                        html += "<li><div class='infoImgNav>Detail</div></li>"
+                        html += "<li><div class='infoImgNav>Location</div></li></ul>"
+                        // html += "<div><img src='img/searchad3.png'></div>"
+                    $('.brandDetail').append(html)
+                }
+            }
+        }
     }
 
 //대분류 카테고리 클릭

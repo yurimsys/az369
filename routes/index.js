@@ -25,88 +25,6 @@ router.get('/sign', function(req, res, next) {
     res.render('signage');
 });
 
-//대분류 카테고리
-router.get('/api/categoryLV1', function(req, res, next) {
-    mssql.connect(dbconf.mssql, function (err, result){
-        if(err) throw err;
-        new mssql.Request().query('select distinct(BCR_LV1_BC_ID), BC_NameEng, BC_NameKor from tBCR inner join tBC on tBCR.BCR_LV1_BC_ID = tBC.BC_ID', (err, result) => {
-            res.json({ data : result.recordset });
-        })
-    });
-});
-
-//중분류 카테고리
-router.get('/api/categoryLV2', function(req, res, next) {
-    mssql.connect(dbconf.mssql, function (err, result){
-        if(err) throw err;
-        new mssql.Request().query('select * from tBC inner join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID', (err, result) => {
-            res.json({ data : result.recordset });
-        })
-    });
-});
-//전체 브랜드 리스트
-router.get('/api/brandList', function(req, res, next) {
-    mssql.connect(dbconf.mssql, function (err, result){
-        if(err) throw err;
-        new mssql.Request().query(`
-        select BS_NameKor, BS_NameEng, tBCR.BCR_ID, BCR_LV1_BC_ID, BCR_LV2_BC_ID, BCR_LV3_BC_ID, tBS.BS_ID, BS_BC_ID, 
-                BS_LoginID, BS_LoginPW, BS_CEO, convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
-                convert(varchar, BS_MainDtf, 108) as BS_MainDtF, convert(varchar, BS_SubDtF, 108) as BS_SubDtF, BC_NameKor, BC_NameEng,
-                convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
-                BS_ContentsKor, BS_ContentsEng, BS_ThumbnailUrl,
-                convert(varchar, BS_PersonalDay, 108) as BS_PersonalDay, BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
-        from tBCR inner join tBSxBCR on tBCR.BCR_ID = tBSxBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxBCR.BS_ID
-                inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
-        inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
-        (err, result) => {
-            res.json({ data : result.recordset });
-        })
-    });
-});
-
-//언어선택
-router.get('/api/language', function(req, res, next) {
-    mssql.connect(dbconf.mssql, function (err, result){
-        if(err) throw err;
-        new mssql.Request().query('select * from tME', (err, result) => {
-            res.json({ data : result.recordset });
-        })
-    });
-});
-//
-//svg파일 호수 맵핑
-router.get('/api/storeInfo', function(req, res, next) {
-    mssql.connect(dbconf.mssql, function (err, result){
-        if(err) throw err;
-        new mssql.Request().query(`SELECT LS_Number, tBS.BS_ID, BS_BC_ID, BS_NameKor, BS_NameEng,BC_NameKor, BC_NameEng 
-                                          FROM tBSxtLS inner join tBS on tBSxtLS.BS_ID = tBS.BS_ID inner join tBC on tBC.BC_ID = tBS.BS_BC_ID`, (err, result) => {
-            res.json({ data : result.recordset });
-        })
-    });
-});
-// /api/lv2cat:
-// //카테고리 2
-// router.get('/api/storeInfo', function(req, res, next) {
-//     mssql.connect(dbconf.mssql, function (err, result){
-//         if(err) throw err;
-//         new mssql.Request().query(`SELECT LS_Number, tBS.BS_ID, BS_BC_ID, BS_NameKor, BS_NameEng,BC_NameKor, BC_NameEng 
-//                                           FROM tBSxtLS inner join tBS on tBSxtLS.BS_ID = tBS.BS_ID inner join tBC on tBC.BC_ID = tBS.BS_BC_ID`, (err, result) => {
-//             res.json({ data : result.recordset });
-//         })
-//     });
-// });
-// //중분류 카테고리
-// router.post('/categoryLV1', async function(req, res, next) {
-//     try {
-//         let pool = await mssql.connect(dbconf.mssql)
-//         let result = await pool.request()
-//             .input('lv1cat', mssql.Int, req.body.lv1cat)
-//             .query(`select * from tBC inner join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID where tBCR.BCR_LV1_BC_ID = @lv1cat`)
-//         res.json({data : result.recordset})
-        
-//     } catch (err) {
-//     }
-// });
 router.get('/opentest', function(req, res, next) {
     res.render('opentest');
 });
@@ -116,7 +34,11 @@ router.get('/', function(req, res, next) {
     res.render('index', { sessionUser : req.user });
 });
 
-//매장관리
+
+
+
+
+//매장관리자 페이지
 router.get('/list', function(req, res, next) {
 
     res.render('signageBList');
@@ -147,7 +69,7 @@ router.get('/api/floor', function(req, res, next) {
 });
 
 
-//매장 등록 
+//매장 등록 테스트
 router.post('/api/addBusiness', async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
