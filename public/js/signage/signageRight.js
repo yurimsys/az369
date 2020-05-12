@@ -279,7 +279,7 @@ function searchCategoryListLV2(lv2CatNum){
                         html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsKor+"</div></li>"
                         html += "</ul></div>"
                         html += "<ul class='detailInfo'>"
-                        html += "<li><div class='infoImgNav'>상세 보기</div></li>"
+                        html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeInfo(this)'>상세 보기</div></li>"
                         html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>위치 보기</div></li></ul>"
                     $('.brandDetail').append(html)
                 }else{
@@ -407,6 +407,12 @@ function searchCategoryListLV2(lv2CatNum){
             $('#floor3Btn').addClass('floorSelcet')
         }
     }
+
+//브랜드 상세보기
+function storeInfo(e){
+    console.log(e.id)
+    $(e).text('상세보기 닫기상세보기 닫기')
+}
 
 //*** 검색 모달 스크립트 종료 ***
 
