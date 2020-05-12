@@ -1,33 +1,44 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
-@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    
-}
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|Roboto&display=swap');
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
+a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
+img {vertical-align: middle;}
+a img {border: none;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
 body,html{
     height: 100%;
-    font-family: 'Noto Sans KR', sans-serif;
 }
 /* 페이지 3분할 */
 .container{
-    display: flex;
+    /* display: flex; */
+    width: 100%;
+    position: relative;
     height: 100%;
+    
 }
 #box-left {
-    flex-basis: 14%;
+    width: 14%;
     background-color: #f2f2f2;
+    float: left;
 }
 #box-center {
-    flex-basis: 72%;
+    width: 71%;
+    float: left;
+    position: relative;
+    height: 100%;
     text-align: center;
     background-color: #7c818f;
+    overflow: hidden;
 }
 #box-right {
-    flex-basis: 14%;
+    width: 15%;
+    float: left;
     /* text-align: right; */
     box-shadow: -10px 0 15px 0 rgba(0, 0, 0, 0.1);
-    background-color: #340a27;
+    background-color: #1E1A1D;
     height: 100%;
 }
 /* 센트럴돔 문자 */
@@ -60,41 +71,31 @@ body,html{
 }
 /* 좌측 상단 층표시 */
 .floorFont {
-    width: 90px;
-    height: 96px;
-    font-size: 80px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 2.5;
-    letter-spacing: normal;
+    width: 100%;
+    font-size: 75px;
+    font-weight: 600;
     text-align: center;
-    margin-left: 33%;
-    margin-bottom: 20%;
+    margin: 40px 0 20px;
     color: #a91179;
+    font-family: 'Roboto', sans-serif;
 }
 /* 카테고리 css */
 .categoryBtn {
-    border-radius: 12px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-    margin-left: 12%;
+    width:100%; height: 50px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); border: solid 1.5px rgba(255,255,255,0.5); background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
 }
 /* .selected{
     background-color: #340a27;
 } */
 .categoryFont{         
-    width: 210px;
-    height: 50px;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: 2;
     letter-spacing: normal;
     text-align: left;
-    color: #444444;
-    margin-top: 5%;
+    margin-top: 15px;
 }
 .cateTest{
     width: 220px;
@@ -111,8 +112,9 @@ body,html{
 }
 /* 카테고리 리스트 */
 .categoryList{
-    margin-top: 30%;
-    overflow: hidden;
+    width: 100%;
+    padding: 0 25px;
+    /* overflow: hidden; */
 }
 .categoryList li ul{
     list-style:none;
@@ -121,102 +123,58 @@ body,html{
     line-height: 12px;
 }
 .categoryList2{
-    list-style:none;
-    float: left;
-    margin-top: 15%;
-    margin-left: -1%;
-    line-height: 12px;
-    overflow: hidden;
     width: 100%;
+    padding: 0 25px;
     display: none;
 }
 
-/* 층별 아이콘 */
-.floorBtn{
-    list-style: none;
-    margin-top: 20%;
-}
-.floorBtn ul li{
-    list-style: none;
 
-}
-.floorIcon{
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.16);
-    background-color: #f4f4f4;
-    position: relative;
-    margin-top: 10%;
-    margin-left: 7%;
-    font-size: 20px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: normal;
-    line-height: 3;
-    color: #999999;
-}
-.floorSelcet{
-    background-color: #a91179;
-    color: #ffffff;    
-}
-.floorBack{
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    filter: blur(2px);
-}
 /* 카테고리 이전 다음 버튼 */
 .categoryNav{
     position: relative;
-    overflow: hidden;
     width: 100%;
+    height: 60px;
+    padding: 0 25px;
+    text-align: center;
+    margin-top: 30px;
 }
+
+.categoryNav ul {width: 100%;}
+.categoryNav ul li {float: left; width: 33.333%;}
 .categoryPrev{
-    background-image: url(/img/left_arrow_icon.png);
+    /* background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px; */
+    background-image: url(/img/left_arrow_icon.png) no-repeat;
     background-repeat: no-repeat;
-    background-position: 48% 47%;
     list-style:none;
     width: 50px;
     height: 50px;
+    line-height: 45px;
     border-radius: 12px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    border: solid 1px #eeeeee;
-    background-color: #ffffff;
-    font-size: xxx-large;
-    line-height: 1;
-    text-align: center;
-    margin-left: 11%;
-    margin-top: 10%;
-    color: #aaaaaa;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); 
+    border: solid 1.5px rgba(255,255,255,0.5);
+    color: red;
+
+    
 }
 .categoryNext{
     background-image: url(/img/right_arrow_icon.png);
     background-repeat: no-repeat;
-    background-position: 48% 47%;
-    list-style:none;
     width: 50px;
     height: 50px;
+    line-height: 45px;
     border-radius: 12px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    border: solid 1px #eeeeee;
-    background-color: #ffffff;
-    font-size: xxx-large;
-    line-height: 1;
-    text-align: center;
-    margin-left: 66%;
-    margin-top: -14.2%;
-    color: #aaaaaa;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); 
+    border: solid 1.5px rgba(255,255,255,0.5);
+    /* background-image: linear-gradiient(279deg, #ffffff, #f2f2f2); border-radius: 12px; */
+    float: right;
+    
 }
 .categoryState{
-    margin-left: 41%;
-    margin-top: -14%;
+   line-height: 50px; 
 }
 .clickPrevBtn{
     background-image: url(/img/left_arrow_active_icon.png);
     background-repeat: no-repeat;
-    background-position: 48% 47%;
 }
 .clickNextBtn{
     background-image: url(/img/right_arrow_active_icon.png);
@@ -232,157 +190,7 @@ body,html{
 .leftAd img{
     width: 100%;
 }
-/* 우측 메뉴 */
-.rightNav li{
-    width: 100%; 
-    margin-left: 0;
-    margin-top: -2%;
-}
-.rightNav{
-    list-style:none;
-    position: relative;
-    margin-top: 15%;
-}
-.menuIcon{
-    width: 40px;
-    height: 40px;
-}
-.rightNavBox{
-    width: 25px;
-    height: 30px;
-    padding: 5px 10px;
-    left: 20%;
-    position: absolute;
-    text-align: center;
-    margin-top: -27%;
-}
-.rightNavName{
-    font-size: 25px;
-    font-weight: 300;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.2;
-    letter-spacing: normal;
-    text-align: center;
-    color: #ffffff;
-    position: absolute;
-    margin-top: -24%;
-    left: 45%;
-}
-/* 우측 언어 메뉴 */
-.languageList{
-    margin-top: 5%;
-}
-.languageList li{
-    list-style: none;
-    display: inline-block;
-    margin-top: 4%;
-}
-.language {
-    width: 94px;
-    height: 20px;
-    font-size: larger;
-    font-weight: 300;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.11;
-    letter-spacing: normal;
-    text-align: left;
-    color: #ac729a;
-    margin-left: 35%;
 
-}
-.languageSelect{
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    opacity: 0.5;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
-    background-color: #ffffff;
-    font-size: xx-large;
-    text-align: center;
-    line-height: 1.5;
-    margin-left: 195%;
-    color: black;
-}
-.choose{
-    background-color: #a91179;
-    color: white;
-    opacity: 1;
-}
-/* 날씨상태 */
-.whetherList li{
-    display: inline-block;
-    list-style: none;
-    margin-left: 3%;
-    margin-top: 6%;
-}
-.whether{
-    width: 40px;
-    height: 40px;
-    margin-left: 90px;
-    background-color: #eeeeee;
-}
-.temperature {
-    width: 28px;
-    height: 45px;
-    font-size: 40px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: normal;
-    text-align: center;
-    color: #a91179;
-}
-/* 날짜 및 시간 */
-.dayCount {
-    width: 76px;
-    height: 24px;
-    font-size: 20px;
-    font-weight: 300;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
-    text-align: center;
-    margin-top: 1%;
-    margin-left: 35%;
-    color: #dcdcdc;
-}
-.timeCount{
-    font-size: 30px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
-    text-align: center;
-    margin-left: 30%;
-    display: inline;
-    color: #f2f2f2;
-}
-/* 미세먼지 농도 */
-.dustCount {
-    font-size: 16px;
-    font-weight: 300;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.19;
-    letter-spacing: normal;
-    display: inline;
-    text-align: left;
-    color: #dcdcdc;
-    margin-left: 28%;
-}
-/* 우측 하단 광고 */
-.rightAd{
-    position: fixed;
-    bottom: 0;
-}
-    .rightAd img{
-    width: 100%;
-}
 /* 카테고리 박스 아이콘 */
 #categoryIcon0 {
     width: 12px;
@@ -482,63 +290,70 @@ body,html{
     margin-top: 12px;
     margin-left: 15%;
 }
+
+/* 지도 네비게이션 및 층 */
+.centerRight{
+    width: auto;
+    margin-top: 40px;
+    margin-right: 25px;
+    float: right;
+}
+
+/* 층별 아이콘 */
+.floorBtn {padding: 0  25px; }
+
+.floorBtn ul li {margin-top: 14px;}
+
+.floorIcon{
+    width: 60px;
+    height: 60px;
+    line-height: 55px;
+    border-radius: 12px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); border: solid 1.5px rgba(255,255,255,0.5); background-image: linear-gradient(280deg, #ffffff, #eee); border-radius: 12px;
+    position: relative;
+    font-size: 20px;
+    color: #999999;
+}
+.floorSelcet{
+    /* background-color: #a91179; */
+    background-image: linear-gradient(280deg, #A91179, #561340);
+    border: solid 1.5px rgba(199,17,121,0.5);
+    color: #ffffff;
+    font-weight: 500;
+}
+.floorBack{
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+}
+
 /* 지도 네비 */
-.mapNav{     
-    width: 80px;
-    height: 220px;
+.mapNav{ 
+    margin-top: 30px;
+    width: auto; background: green; vertical-align: middle; padding: 15px;  
+    /* width: 100%;
+    overflow: hidden;
+    margin-top: 30px;;
     border-radius: 50px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #8c929a;
-    background-color: rgba( 140, 146, 154, 0.3);
+    background-color: rgba( 255, 255, 255, 0.6); */
 }
-.mapNav ul li{
-    float: left;
-    margin-top: 22%;
-    margin-left: 19%;
-}
-.mapNav li{
-    list-style: none;
-}
-.plusBtn{
-    width: 50px;
-    height: 50px;
-    border-radius: 30px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    background-color: white;
-    line-height: 4.4;
-    position: relative;
-}
-.resetBtn{
-    width: 50px;
-    height: 50px;
-    border-radius: 30px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    line-height: 4.3;
-    font-weight: bold;
-    background-color: white;
-    position: relative;
-}
-.minusBtn{
-    width: 50px;
-    height: 50px;
-    border-radius: 30px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    line-height: 4.5;
-    background-color: white;
-    position: relative;
-}
-.mapScroll{
+.mapNav ul {width: 50px; background: red; margin-left: 50%; transform: translateX(-50%);}
+.mapNav ul li{margin-top: 16px; line-height: 45px; position: relative;}
+.mapNav ul li:nth-child(1) {margin-top: 0;}
+.mapNav ul li div {width: 50px; height: 50px;border-radius: 50%; box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); border: solid 1.5px rgba(255,255,255,0.5); background-image: linear-gradient(280deg, #ffffff, #f2f2f2);}
+
+/* .mapScroll{
     margin-top: 10%;
     margin-left: 25%;
     width: 10px;
     height: 400px;
     position: relative;
-    /* overflow:hidden; */
     text-align: center;
     background-color: #a91179;
 }
 .mapScrollBtn{
-    /* transition: transform .35s; */
     cursor:pointer;
     position: relative;
     touch-action: manipulation;
@@ -546,65 +361,172 @@ body,html{
     height: 40px;
     border-radius: 12px;
     background-color: red;
-}
+} */
+
 /* 중앙 하단 레이어 */
 .center-footer{
+    position: absolute;
     width: 100%;
-    height: 8%;
+    height: 90px;
     bottom: 0;
-    opacity: 0.7;
-    position: fixed;
-    background-color: rgba( 112, 117, 123, 0.7);
+    background-color: rgba( 0, 0, 0, 0.2);
+    color: #fff; font-size: 18px; font-weight: 300; text-align: justify;
 }
-.center-footer-list li{
+
+.center-footer ul {width: 100%; height: 90px; text-align: center;}
+.center-footer ul li {float: left; width: 16.666%; line-height: 90px;}
+.center-footer ul li img {margin-right: 14px;}
+
+
+/* 우측 메뉴 */
+.rightNav{
     list-style:none;
-    float: left;
-    margin-left: 8%;
-    margin-top: 1%;
-}
-.center-footer-box{
-    width: 50px;
-    height: 50px;
-    float: left;
-    margin-top: 1%;
-    margin-left: 8%;
-    background-color: #dbdbdb;
+    position: relative;
+} 
+.rightNav li{width: 100%; height: 90px;  position: relative;}
+
+.rightNav li img{float: left;background: yellow; margin-right: 20px;}
+.rightNav h2 {float: left; color: #fff; font-size: 20px; font-weight: 400; z-index: 100;  line-height: 90px;}
+
+.rightNav_list {height: 90px; float: left;}
+
+.drightNav_img {height: 40px; vertical-align: middle;}
+
+.rightNav li:nth-child(1) {background: url('/img/signage/mainNav/mainNav_bg_01.png');}
+.rightNav li:nth-child(2) {background: url('/img/signage/mainNav/mainNav_bg_02.png');}
+.rightNav li:nth-child(3) {background: url('/img/signage/mainNav/mainNav_bg_03.png');}
+.rightNav li:nth-child(4) {background: url('/img/signage/mainNav/mainNav_bg_04.png');}
+
+.rightNavBox{
+    width: 25px;
+    height: 30px;
+    padding: 5px 10px;
+    left: 20%;
+    position: absolute;
+    text-align: center;
+    margin-top: -27%;
     
 }
-.center-footer-name{
-    width: 100px;
+
+/* 우측 언어 메뉴 */
+.languageList{
+    margin-top: 30px;
+    text-align: center;
+}
+.languageList li{
+    list-style: none;
+    display: inline-block;
+    margin-top: 12px;
+}
+.language {
+color: rgba(255,255,255,0.7);
+font-weight: 100; text-emphasis: center;
+
+}
+.languageSelect{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 12px;
+    background-color: rgba(255,255,255,0.3);
     font-size: 18px;
+    text-align: center;
+    color: #ddd;
+    font-weight: 200;
+}
+.choose{
+    background-color: #6A114D;
+    color: white;
+    font-weight: 400;
+    opacity: 1;
+}
+/* 날씨상태 */
+.whetherList {width: 100%;}
+.whetherList li{
+    width: 100%;
+    display: inline-block;
+    list-style: none;
+    margin-top: 30px;
+}
+.whether{
+    width: 40px;
+    height: 40px;
+    margin-left: 90px;
+    background-color: #eeeeee;
+}
+.temperature {
+    font-size: 20px;
+    line-height: 40px;
+    color: #eee;
+    float: right;
+}
+
+/* 날짜 및 시간 */
+.dayCount {
+    font-size: 16px;
     font-weight: 300;
-    margin-top: -85%;
-    margin-left: 140%;
+    text-align: center;
+    color: #eee;
+}
+.timeCount{
+    font-size: 30px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    margin-left: 30%;
+    display: inline;
+    color: #f2f2f2;
+}
+/* 미세먼지 농도 */
+.dustCount {
+    font-size: 16px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.19;
+    letter-spacing: normal;
+    display: inline;
     text-align: left;
-    color: #ffffff;
+    color: #dcdcdc;
+    margin-left: 28%;
 }
-.center-footer-box img{
-    margin-top: 10%;
+/* 우측 하단 광고 */
+.rightAd{
+    position: fixed;
+    bottom: 0;
 }
+    .rightAd img{
+    width: 100%;
+}
+
+
+
 
 /* 모달 */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
 }
 .searchTop{
     width: 90%;
+    float: left;
     height: 60px;
-    background-color: #a91179;
+    line-height: 60px;
+    font-size: 20px;
+    background: url('/img/signage/modal/find_title_bg.png');
     color: white;
-    font-size: xx-large;
-    margin-top: -3.7%;
+    font-weight: 400;
     text-align: left;
-    line-height: 1.7;    
 }
 .searchTopName{
     font-size: 24px;
@@ -618,32 +540,19 @@ body,html{
     color: #ffffff;
   }
 .searchClose{
-    background-image: url("/img/find_title_cancel_icon.png");
-    background-position: 80% 50%;
-    background-repeat: no-repeat;
-    width: 166px;
+    width: 10%;
     height: 60px;
-    background-color: #222222;
-    color: white;
-    font-size: 20px;
-    margin-top: -3.6%;
-    margin-left: 90%;
+    background-color: #222;
+    float: left;
     text-align: center;
-    line-height: 1.7;
 }
 .searchCloseName{
-    width: 37px;
-    height: 29px;
     font-size: 20px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 3;
-    letter-spacing: normal;
-    text-align: left;
-    margin-right: 30%;
-    color: #eeeeee;
+    font-weight: 300;
+    color: #eee;
+    line-height: 60px;
 }
+.searchClose img {margin-left: 20px;}
 .searchTotal{
     width: 100%;
     height: 38px;
@@ -686,11 +595,8 @@ body,html{
     background-color: #ffffff;
 }
 .selected{
-    width: 210px;
     height: 50px;
-    /* border-radius: 12px; */
     border: solid 1.5px #a91179;
-    /* background-image: linear-gradient(278deg, #ffffff 98%, #f2f2f2 8%); */
     font-weight: bold;
     color: #a91179;
 }
@@ -995,13 +901,8 @@ body,html{
 .storeName text {
     fill:#fff; 
     font-size:16px; 
-    font-family:NotoSansCJKkr-Regular, Noto Sans CJK KR;
 }
-.centerRight{
-    width: 10%;
-    margin-top: 2%;
-    float: right;
-}
+
 /* svg 카테고리 색상 */
 .food{
     fill:#a91179;
@@ -1058,7 +959,6 @@ body,html{
 }
 .brandName{
     height: 38px;
-    font-family: NotoSansCJKkr;
     font-size: 26px;
     font-weight: bold;
     font-stretch: normal;
@@ -1071,7 +971,6 @@ body,html{
 .brandInfo{
     width: 410px;
     height: 81px;
-    font-family: NotoSansCJKkr;
     font-size: 16px;
     font-weight: 300;
     font-stretch: normal;
