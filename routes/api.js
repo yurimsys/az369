@@ -54,16 +54,6 @@ router.get('/category', function(req, res, next) {
     });
 });
 
-//브랜드 리스트
-router.get('/brandList', function(req, res, next) {
-    mssql.connect(dbconf.mssql, function (err, result){
-        if(err) throw err;
-        new mssql.Request().query('select * from tBS', (err, result) => {
-            res.json({ data : result.recordset });
-        })
-    });
-});
-
 // 광고 리스트
 router.get('/ad', function(req, res, next) {
     let req_type = req.query.type;
