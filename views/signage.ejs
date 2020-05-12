@@ -11,7 +11,7 @@
     <script src="/js/scrolla.jquery.min.js"></script>
 
     <link rel="stylesheet" href="/css/signage.css">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|Roboto&display=swap" rel="stylesheet">
 <style>
 
 .main_full {
@@ -43,12 +43,25 @@
             </ul>
         <!-- 카테고리 버튼 -->
             <div class='categoryNav'>
-                <div class='categoryPrev' id='prev'></div>
+                <ul>
+                    <li>
+                <div class='categoryPrev' id='prev' onclick="mainPrev()">
+                    <img src='/img/left_arrow_icon.png'>
+                </div>
+            </li>
+            <li>
                     <div class='categoryState'>
-                        <span style="font-size: 20px; color: #222222;" id='nowPage'>1</span>
-                        <span style="font-size: 20px; color: #999999;">/ 2</span>
+                        <span style="font-size: 20px; color: #222222; font-weight: 400;" id='nowPage'>1</span>
+                        <span style="font-size: 20px; color: #999999; font-weight: 300;">/ 2</span>
                     </div>
-                <div class='categoryNext clickNextBtn' id='next'></div>
+                </li>
+                <li>
+                    <!-- clickNextBtn -->
+                <div class='categoryNext' id='next' onclick="mainNext()">
+                    <img src='/img/right_arrow_active_icon.png'>
+                </div>
+            </li>
+            </ul>
             </div>
         <!-- 좌측 하단 광고 -->
             <div class="ad main_left slideshow-container">
@@ -61,19 +74,13 @@
         <div id='box-center'>
             <div class='centerLeft'>
                 <div class='centralMap'>
-                      <!-- <% include central2D.ejs%> -->
+                      <% include central1F.ejs%>
                       <% include central2F.ejs%>
                       <% include central3F.ejs%>
                 </div>
             <!-- 지도 네비게이션 및 층  -->
                 <div class='centerRight'>
-                    <div class='mapNav'>
-                        <ul>
-                            <li><div class='plusBtn' id='zoomIn'><img src='img/zoom_in_icon.png'></div></li>
-                            <li><div class='resetBtn' id='zoomReset'><img src='img/full_icon.png'></div></li>
-                            <li><div class='minusBtn' id='zoomOut'><img src='img/zoom_out_icon.png'></div></li>
-                        </ul>  
-                    </div>   
+                    <div class="centerRight_inner">
                     <div class='floorBtn'>
                         <ul>
                             <li>
@@ -87,17 +94,41 @@
                             </li>
                         </ul>
                     </div>
+
+                    <div class='mapNav'>
+                        <ul>
+                            <li><div class='plusBtn' id='zoomIn'><img src='/img/signage/mapNav_icon/zoom_in_icon.png'></div></li>
+                            <li><div class='minusBtn' id='zoomOut'><img src='/img/signage/mapNav_icon/zoom_out_icon.png'></div></li>
+                            <li><div class='resetBtn' id='zoomReset'><img src='/img/signage/mapNav_icon/zoom_back_icon.png'></div></li>
+                        </ul>  
+                    </div>   
+                </div>
                 </div>
             <!-- 하단 이용시설 -->
                 <div class='center-footer'>
-                    <div style='display: inline;'>
-                        <div class='center-footer-box'><img src='img/toilet_icon.png'><h2 class='center-footer-name'>화장실</h2></div>
-                        <div class='center-footer-box'><img src='img/elevator_icon.png'><h2 class='center-footer-name'>엘리베이터</h2></div>
-                        <div class='center-footer-box'><img src='img/escalator_icon.png'><h2 class='center-footer-name'>에스컬레이터</h2></div>
-                        <div class='center-footer-box'><img src='img/atm_icon.png'><h2 class='center-footer-name'>ATM</h2></div>
-                        <div class='center-footer-box'><img src='img/locker_icon.png'><h2 class='center-footer-name'>물품보관소</h2></div>
-                        <div class='center-footer-box'><img src='img/exit _icon.png'><h2 class='center-footer-name'>비상구</h2></div>
-                    </div>
+                    <!-- <div style='display: inline;'> -->
+                        <ul>
+                            <li>
+                                <img src='/img/signage/footer_icon/toilet_icon.png'><span id='footToilet'>화장실</span>
+                            </li>
+                            <li>
+                                <img src='/img/signage/footer_icon/escalator_icon.png'><span id='footEscalator'>에스컬레이터</span>
+                            </li>
+                            <li>
+                                <img src='/img/signage/footer_icon/elevator_icon.png'><span id='footElevator'>엘리베이터</span>
+                            </li>
+                            <li>
+                                <img src='/img/signage/footer_icon/stairs_icon.png'><span id='footStairs'>계단</span>
+                            </li>
+                            <li>
+                                 <img src='/img/signage/footer_icon/locker_icon.png.png'><span id='footStockroom'>물품보관소</span>
+                            </li>
+                            <li>
+                                <img src='/img/signage/footer_icon/exit_icon.png'><span id='footExit'>비상구</span>
+                            </li>
+                
+                        </ul>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
@@ -109,16 +140,34 @@
             </div>
         <!-- 우측 메뉴 리스트 -->
             <ul class='rightNav'>
-                <li><img src='img/pic03.png' style="opacity: 0.3;"><div class='rightNavBox'><img src='img/main_icon.png' class='menuIcon'></div><div class='rightNavName'>메인</div></li>
-                <li onclick="searchCategoryMenu()"><img src='img/pic03.png' style="opacity: 0.2;" class='search'><div class='rightNavBox search'><img src='img/find_icon.png' class='menuIcon'></div><div class='rightNavName search'>검색</div></li>
-                <li><img src='img/pic03.png' style="opacity: 0.4;"><div class='rightNavBox'><img src='img/event_icon.png' class='menuIcon'></div><div class='rightNavName'>이벤트</div></li>
-                <li><img src='img/pic03.png' style="opacity: 0.5;"><div class='rightNavBox'><img src='img/guide_icon.png' class='menuIcon'></div><div class='rightNavName'>이용안내</div></li>
+
+                <li>
+                    <div class="rightNav_list">
+                    <img src='img/main_icon.png' class="rightNav_img">
+                    <h2 id='mainHome'>메인</h2>
+                </div>
+                </li>
+
+                <li onclick="searchCategoryMenu()" class="search">
+                    <img src='img/find_icon.png' >
+                    <h2 id='mainSearch'>검색</h2>
+                </li>
+
+                <li>
+                    <img src='img/event_icon.png' >
+                    <h2 id='mainEvent'>이벤트</h2>
+                </li>
+
+                <li>
+                    <img src='img/guide_icon.png' >
+                   <h2 id='mainGuide'>이용안내</h2>
+                </li>
             </ul> 
         <!-- 언어 정보 -->
             <ul class='languageList'>
                 <div class='language'>LANGUAGE</div>
-                <li><div class='languageSelect choose' id='kor'>가</div></li>
-                <li><div class='languageSelect' id='eng'>A</div></li>
+                <li><div class='languageSelect choose' id='kor' onclick="languageKor()">가</div></li>
+                <li><div class='languageSelect' id='eng' onclick="languageEng()">A</div></li>
             </ul>
         <!-- 날씨 정보 -->
             <ul class='whetherList'>
@@ -127,12 +176,13 @@
                 </li>
                 <li>
                     <div class='temperature'><span id='temp'></span></div>
+                    <h2 class="dustCount" id='dustCount'>미세먼지농도&nbsp;</h2><span style="color: #53ec5d; font-size: 20px;" id='dust'></span>
                 </li>
             </ul>
             <div>
                 <h3 class="dayCount" id='dayCount'></h3>
                 <h2 class="timeCount" id='timeCount'></h2><br>
-                <h2 class="dustCount">미세먼지농도&nbsp;<span style="color: #53ec5d; font-size: 20px;" id='dust'></span></h2>
+                
             </div>
             <!-- 우측 하단 광고 -->
             <div class="ad main_right slideshow-container">
@@ -154,75 +204,14 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <div class='searchTop'><span class='searchTopName'>검색</span></div>        
-            <div class="searchClose"><span class='searchCloseName'>닫기</span></div>
+            <div class="searchClose"><span class='searchCloseName'>닫기</span><img src="/img/signage/modal/find_title_cancel_icon.png"></div>
             <div class='searchContent'>
             <!-- 좌측 검색 카테고리 -->
                 <div class='searchLeft'>
                 <h4 class='searchTotal'><span id='chooseCategory'></span></h4>                
                 <ul class="searchList" id='searchList'>
-                    <!-- 이후 모달오픈시 ajax로 통해 카테고리 가져옴 -->
-                    <!-- <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search01'>패션의류</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search02'>패션잡화</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search03'>화장품 · 뷰티</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search04'>음식점</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search05'>식 · 음료</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search06'>생활 · 가전</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search07'>키즈 · 애견</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search08'>스포츠 · 자동차</div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search09'>편의 · 의료 · 교육</div>
-                        </label>
-                    </li> -->
                 </ul>
                 <ul class='searchList2'>
-                    <!-- <li>
-                        <label>
-                            <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                            <div class="searchCategory searchCategoryFont" id='search10'>금융 · 일반</div>
-                        </label>
-                    </li> -->
                 </ul>
             <!-- 카테고리 버튼 -->
                 <div>
@@ -235,9 +224,9 @@
                 </div>    
                     <label onclick="changeCategory()">
                         <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                        <div class="categoryChange searchCategoryFont">카테고리 변경하기</div>
+                        <div class="categoryChange searchCategoryFont" id='chagneCategory'></div>
                     </label>
-                    <div class='searchInfo'>위의<span style="color: #222222; font-weight: 500;"> 카테고리를 선택</span>하세요.</div> 
+                    <div class='searchInfo'></div> 
 
                 </div>   
             <!-- 중앙 브랜드 검색 및 리스트  -->
@@ -277,6 +266,12 @@
                             <li><h4 class='searchLocation'>1F.중식 (음식점)</h4></li>
                             <li><div class='brandInfo'>브랜드소개 브랜드소개 브랜드소개브랜드소개 브랜드소개 브랜드소개</div></li>
                         </ul>
+                        <ul class='detailInfo'>
+                            <li><div><img src='/img/signage/mainNav/mainNav_bg_044.png'><h3>상세 보기</h3></div></li>
+                            <li><img src='/img/signage/mainNav/mainNav_bg_044.png'><h3>위치 보기</h3></li>
+                        </ul>
+                        
+                        
                     </div>
                     <div><img src='img/searchad3.png'></div>
                 </div>
@@ -288,16 +283,11 @@
 <!-- 스크립트 -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/sha256.min.js"></script>
+<script src="js/signage/language.js"></script>
 <script src="js/signage/signageRight.js"></script>
 <script src="js/signage/signageMap.js"></script>
 <script src="js/signage/signageLeft.js"></script>
 <script src="js/signage/advertisement.js"></script>
-<script>
-    // $(document).ready(function(){
-    //     //카테고리
-    //     let categoryLi = [{categoryId : 'cat1', categoryName : '패션의류'}, {categoryId : 'cat2', categoryName : '패션의류'}];
-    // })
-    
-    </script>
+
 </body>
 </html>
