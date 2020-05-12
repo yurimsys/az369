@@ -916,22 +916,22 @@ font-weight: 100; text-emphasis: center;
 
 /* svg 카테고리 색상 */
 .Food{
-    fill:#a91179;
+    fill:#EBD048;
 }
 .Living{
-    fill:#9BB259;
+    fill:#746E9F;
 }
 .Beauty{
-    fill:#C26B8F;
-}
-.Convenience{
     fill:#DE9A9A;
 }
+.Convenience{
+    fill:#9BB259;
+}
 .Restaurant{
-    fill: #EBD048;
+    fill: #EBB121;
 }
 .FashionGoods{
-    fill: #746E9F;
+    fill: #C26B8F;
 }
 .Kids·Pet{
     fill: #A2D2F2;
