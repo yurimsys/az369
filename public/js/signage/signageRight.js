@@ -198,7 +198,7 @@ function searchCategoryListLV2(lv2CatNum){
 //검색 모달
     function searchModal(){
         let searchModal = $('#myModal')[0]
-        let searchClose = $('.searchClose')[0];                                          
+        let searchClose = $('.searchClose')[0];                                
         searchClose.onclick = function() {
             searchModal.style.display = "none";
         }
@@ -213,6 +213,7 @@ function searchCategoryListLV2(lv2CatNum){
 
 //검색모달 오픈
     function searchCategoryMenu(){
+        console.log('검색')
         $('.searchRight').css('display','block')
         $('.searchInfo').css('display','block')
         $('.categoryChange').css('display','none')
@@ -269,27 +270,30 @@ function searchCategoryListLV2(lv2CatNum){
             if(jsonBrand[i].BS_ID == e.id){            
                 let selectBrand = []
                     selectBrand.push(jsonBrand[i])
+                    console.log(selectBrand)
                 if($('#kor').hasClass('choose')){
-                    let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"></div><div class='brandContents'><ul>";
+                    let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"></div>";
+                        html += "<div class='brandContents'><ul>";
                         html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameKor+"</h2></li>"
                         html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameKor+"</h4></li>"
                         html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsKor+"</div></li>"
-                        html += "</ul><div>"
+                        html += "</ul></div>"
                         html += "<ul class='detailInfo'>"
-                        html += "<li><div class='infoImgNav>상세 보기</div></li>"
-                        html += "<li><div class='infoImgNav>위치 보기</div></li></ul>"
+                        html += "<li><div class='infoImgNav'>상세 보기</div></li>"
+                        html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>위치 보기</div></li></ul>"
                     $('.brandDetail').append(html)
                 }else{
-                    let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"><ul></div><div class='brandContents'><ul>";
+                    let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"></div>";
+                        html += "<div class='brandContents'><ul>";
                         html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameEng+"</h2></li>"
                         html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameEng+"</h4></li>"
                         html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsEng+"</div></li>"
-                        html += "</ul><div>"
+                        html += "</ul></div>"
                         html += "<ul class='detailInfo'>"
-                        html += "<li><div class='infoImgNav>Detail</div></li>"
-                        html += "<li><div class='infoImgNav>Location</div></li></ul>"
-                        // html += "<div><img src='img/searchad3.png'></div>"
+                        html += "<li><div class='infoImgNav'>Detail</div></li>"
+                        html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>Location</div></li></ul>"
                     $('.brandDetail').append(html)
+                        // html += "<div><img src='img/searchad3.png'></div>"
                 }
             }
         }
@@ -364,6 +368,43 @@ function searchCategoryListLV2(lv2CatNum){
             $('.searchList2').css('display','block')
             $('#searchPrev').addClass('searchPrevClick')
             $('#searchNext').removeClass('searchNextClick')
+        }
+    }
+
+//브랜드 위치보기
+    function storeLocation(e){
+        if(e.id >1000 && e.id < 1231){
+            console.log('1층')
+            $('#1Fstore path').css('fill','#E2E2E2')
+            $('#h'+e.id).css('fill','#a91179')
+            $('#myModal').css('display','none')
+            $('.centralSvg1F').css('display','block');
+            $('.centralSvg2F').css('display','none');
+            $('.centralSvg3F').css('display','none');
+            $('.floorBtn div').removeClass('floorSelcet')
+            $('#floor1Btn').addClass('floorSelcet')
+        }
+        else if(e.id > 2000 && e.id < 2103){
+            console.log('2층')
+            $('#2Fstore path').css('fill','#E2E2E2')
+            $('#h'+e.id).css('fill','#a91179')
+            $('#myModal').css('display','none')
+            $('.centralSvg1F').css('display','none');
+            $('.centralSvg2F').css('display','block');
+            $('.centralSvg3F').css('display','none');
+            $('.floorBtn div').removeClass('floorSelcet')
+            $('#floor2Btn').addClass('floorSelcet')
+        }
+        else if(e.id>3000 && e.id < 3107){
+            console.log('3층')
+            $('#3Fstore path').css('fill','#E2E2E2')
+            $('#h'+e.id).css('fill','#a91179')
+            $('#myModal').css('display','none')
+            $('.centralSvg1F').css('display','none');
+            $('.centralSvg2F').css('display','none');
+            $('.centralSvg3F').css('display','block');
+            $('.floorBtn div').removeClass('floorSelcet')
+            $('#floor3Btn').addClass('floorSelcet')
         }
     }
 
