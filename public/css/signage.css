@@ -1107,9 +1107,9 @@ body,html{
 /* Advertisement CSS */
 /* Slideshow container */
 .slideshow-container {
-    max-width: 1000px;
     position: relative;
     margin: auto;
+    overflow-y: hidden;
 }
 
 /* Hide the images by default */
