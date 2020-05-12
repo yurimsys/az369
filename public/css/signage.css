@@ -1103,3 +1103,33 @@ body,html{
     transform:scale(2.5);
     transition: transform .35s;
 } */
+
+/* Advertisement CSS */
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+/* Fading animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  
+@-webkit-keyframes fade {
+    from {opacity: 1}
+    to {opacity: 1}
+}
+
+@keyframes fade {
+    from {opacity: 1}
+    to {opacity: 1}
+}

@@ -1,7 +1,7 @@
 
 //브랜드 리스트
 $.ajax({
-    url: '/brandList',
+    url: '/api/brandList',
     method: 'get',
     dataType: 'json',
     success: function(res){

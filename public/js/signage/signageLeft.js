@@ -3,7 +3,7 @@
 // catPas
 //좌측 카테고리 불러오기
     $.ajax({
-        url: '/category',
+        url: '/api/category',
         method: 'get',
         dataType: 'json',
         success: function(res){
