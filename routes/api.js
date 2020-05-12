@@ -1196,7 +1196,7 @@ router.post('/video/best', function(req, res, next) {
 
 
 //대분류 카테고리
-router.get('/api/categoryLV1', function(req, res, next) {
+router.get('/categoryLV1', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
         new mssql.Request().query('select distinct(BCR_LV1_BC_ID), BC_NameEng, BC_NameKor from tBCR inner join tBC on tBCR.BCR_LV1_BC_ID = tBC.BC_ID', (err, result) => {
@@ -1206,7 +1206,7 @@ router.get('/api/categoryLV1', function(req, res, next) {
 });
 
 //중분류 카테고리
-router.get('/api/categoryLV2', function(req, res, next) {
+router.get('/categoryLV2', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
         new mssql.Request().query('select * from tBC inner join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID', (err, result) => {
@@ -1215,7 +1215,7 @@ router.get('/api/categoryLV2', function(req, res, next) {
     });
 });
 //전체 브랜드 리스트
-router.get('/api/brandList', function(req, res, next) {
+router.get('/brandList', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
         new mssql.Request().query(`
@@ -1235,7 +1235,7 @@ router.get('/api/brandList', function(req, res, next) {
 });
 
 //언어선택
-router.get('/api/language', function(req, res, next) {
+router.get('/language', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
         new mssql.Request().query('select * from tME', (err, result) => {
@@ -1245,7 +1245,7 @@ router.get('/api/language', function(req, res, next) {
 });
 //
 //svg파일 호수 맵핑
-router.get('/api/storeInfo', function(req, res, next) {
+router.get('/storeInfo', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
         new mssql.Request().query(`SELECT LS_Number, tBS.BS_ID, BS_BC_ID, BS_NameKor, BS_NameEng,BC_NameKor, BC_NameEng 
