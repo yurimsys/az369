@@ -1,18 +1,16 @@
 //*** 메인 좌측 카테고리 선택 스크립트 ***
-
 //브랜드 리스트
     $.ajax({
-        url: '/brandList',
+        url: '/api/brandList',
         method: 'get',
         dataType: 'json',
         success: function(res){
             localStorage.setItem('brandList',JSON.stringify(res.data))
-            console.log(res.data)
         }
     })
 //대분류 카테고리 
     $.ajax({
-        url: '/categoryLV1',
+        url: '/api/categoryLV1',
         method: 'get',
         dataType: 'json',
         success: function(res){
@@ -22,7 +20,7 @@
     })
 //중분류 카테고리 
     $.ajax({
-        url: '/categoryLV2',
+        url: '/api/categoryLV2',
         method: 'get',
         dataType: 'json',
         success: function(res){
@@ -30,29 +28,42 @@
             localStorage.setItem('categoryLV2',JSON.stringify(res.data))
         }
     })
+//일반 영문
+    $.ajax({
+        url: '/api/language',
+        method: 'get',
+        dataType: 'json',
+        success: function(res){
+            //번역 저장
+            localStorage.setItem('language',JSON.stringify(res.data))
+        }
+    })
+
+    
     //카테고리 리스트
     function LV1CatList(){
         let categoryList = JSON.parse(localStorage.getItem('categoryLV1'))
         for(let i=0; i<categoryList.length; i++){
             if(i <7){
                 let html = "<li>";
-                    html += '<div class="categoryBtn categoryFont" id='+categoryList[i].BC_NameEng+' onclick="selectCat(this)"><span id="categoryIcon'+i+'"></span><span class="categoryName">'+categoryList[i].BC_NameKor+'</span></div>'
+                    html += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>'
                     html += "</li>";
                 $('.categoryList').append(html);
             }
             if(i > 6){
                 let html2 = "<li>";
-                    html2 += '<div class="categoryBtn categoryFont" id='+categoryList[i].BC_NameEng+' onclick="selectCat(this)"><span id="categoryIcon'+i+'"></span><span class="categoryName">'+categoryList[i].BC_NameKor+'</span></div>'
+                    html2 += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>'
                     html2 += "</li>"
                 $('.categoryList2').append(html2)
             }
         }
     }
     LV1CatList();
-
     let count = 0;
     function selectCat(e){
         let catId = e.id;
+        let svgClass = $('#'+catId).data('catclass').replace(/ /g, '')
+        console.log(svgClass)
         //클릭시 전체 색상 초기화
         if(count == 0){
             $('.svgCat').css('fill','#e2e2e2');   
@@ -61,13 +72,15 @@
         //클릭한 것만 색상표시
         if($('#'+catId).hasClass('selected') == false ){
             $(e).addClass('selected')
-            $('.'+catId).css('fill','')
+            //svg클래스
+            $('.'+svgClass).css('fill','')
         }
         else if($('#'+catId).hasClass('selected') == true ){
             $(e).removeClass('selected')
-            $('.'+catId).css('fill','#e2e2e2')
+            $('.'+svgClass).css('fill','#e2e2e2')
             if($('.categoryList div').hasClass('selected') == false && $('.categoryList2 div').hasClass('selected') == false){
                 $('.svgCat').css('fill',''); 
+                
                 count = 0;
                 return count;
             }

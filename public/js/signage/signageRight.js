@@ -5,17 +5,28 @@
         $('.searchResult').empty()
         let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
         for(let i=0; i<jsonBrand.length; i++){
+            // console.log(jsonBrand)
             let opTime = jsonBrand[i].BS_MainDtS
                 openTime = opTime.slice(-8,-3)
-                console.log(opTime)
-                console.log(openTime)
             let edTime = jsonBrand[i].BS_MainDtF
                 endTime = edTime.slice(-8, -3)
-            let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)'><div class='categoryImg'></div>";
-                html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
-                html += "<ul><li><div class='searchBrand'>"+jsonBrand[i].BS_NameKor+"</div>";
-                html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+"."+jsonBrand[i].BC_NameKor+"</h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
-                html += "<hr class='searchLine'></div>"
+                if($('#kor').hasClass('choose')){
+                    let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
+                        html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
+                        html += "<ul><li><div class='searchBrand'>"+jsonBrand[i].BS_NameKor+"</div>";
+                        html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation'>"+jsonBrand[i].BC_NameKor+"</span></h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
+                        html += "<hr class='searchLine'></div>"
+                    $('.searchResult').append(html)
+                }else{
+                    let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
+                        html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
+                        html += "<ul><li><div class='searchBrand'>"+jsonBrand[i].BS_NameEng+"</div>";
+                        html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation'>"+jsonBrand[i].BC_NameEng+"</span></h4><div class='searchTime'>OpenTime "+openTime+" ~ "+endTime+"</div></li></ul>";
+                        html += "<hr class='searchLine'></div>"
+                    $('.searchResult').append(html)
+                }
+
+
         //해당 브랜드에 이벤트가 있을시 이벤트 아이콘 추가
             // if(i==2 || i==4){
             //     html = "<div class='brandList' id='brand02' onclick='brandClick(this)'><div class='categoryImg'></div>";
@@ -23,7 +34,7 @@
             //     html += "<h4 class='searchLocation'>1F.여성의류 쇼핑몰 (패션의류)</h4><div class='searchTime'>영업시간 00:00 ~ 00:00</div></li></ul>";
             //     html += "<hr class='searchLine'></div>"
             // }
-            $('.searchResult').append(html)
+           
         }
     }
 
@@ -42,17 +53,26 @@
                         openTime = opTime.slice(-8,-3)
                     let edTime = lv1BrandList[j].BS_MainDtF
                         endTime = edTime.slice(-8, -3)
-                    let html = "<div class='brandList' id="+lv1BrandList[j].BS_ID+" onclick='brandClick(this)'><div><div class='categoryImg'></div></div>";
-                        html += "<ul><li><div class='searchBrand'>"+lv1BrandList[j].BS_NameKor+"</div>";
-                        html += "<h4 class='searchLocation'>"+lv1BrandList[j].LS_Floor+"."+lv1BrandList[j].BC_NameKor+"</h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
-                        html += "<hr class='searchLine'></div>"
-                    $('.searchResult').append(html)
+                    if($('#kor').hasClass('choose')){
+                        let html = "<div class='brandList' id="+lv1BrandList[j].BS_ID+" onclick='brandClick(this)'><div><div class='categoryImg'><img src="+lv1BrandList[j].BS_ThumbnailUrl+"></div></div>";
+                            html += "<ul><li><div class='searchBrand'>"+lv1BrandList[j].BS_NameKor+"</div>";
+                            html += "<h4 class='searchLocation'>"+lv1BrandList[j].LS_Floor+"."+lv1BrandList[j].BC_NameKor+"</h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
+                            html += "<hr class='searchLine'></div>"
+                        $('.searchResult').append(html)
+                    }else{
+                        let html = "<div class='brandList' id="+lv1BrandList[j].BS_ID+" onclick='brandClick(this)'><div><div class='categoryImg'><img src="+lv1BrandList[j].BS_ThumbnailUrl+"></div></div>";
+                            html += "<ul><li><div class='searchBrand'>"+lv1BrandList[j].BS_NameEng+"</div>";
+                            html += "<h4 class='searchLocation'>"+lv1BrandList[j].LS_Floor+"."+lv1BrandList[j].BC_NameEng+"</h4><div class='searchTime'>OpenTime "+openTime+" ~ "+endTime+"</div></li></ul>";
+                            html += "<hr class='searchLine'></div>"
+                        $('.searchResult').append(html)
+                    }
+
                 }
             }
         }
     }
 
-//중분류 브랜드 리스트 생성 
+//중분류 브랜드 리스트 생성
     function LV2BrandList(lv2CatNum){
         $('#searchResult').empty();
         let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
@@ -67,12 +87,20 @@
                         openTime = opTime.slice(-8,-3)
                     let edTime = lv2BrandList[j].BS_MainDtF
                         endTime = edTime.slice(-8, -3)
-                        
-                    let html = "<div class='brandList' id="+lv2BrandList[j].BS_ID+" onclick='brandClick(this)'><div><div class='categoryImg'></div></div>";
-                        html += "<ul><li><div class='searchBrand'>"+lv2BrandList[j].BS_NameKor+"</div>";
-                        html += "<h4 class='searchLocation'>1F.분식 (음식22점)</h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
-                        html += "<hr class='searchLine'></div>"
-                    $('.searchResult').append(html)
+                    if($('#kor').hasClass('choose')){
+                        let html = "<div class='brandList' id="+lv2BrandList[j].BS_ID+" onclick='brandClick(this)'><div><div class='categoryImg'><img src="+lv2BrandList[j].BS_ThumbnailUrl+"></div></div>";
+                            html += "<ul><li><div class='searchBrand'>"+lv2BrandList[j].BS_NameKor+"</div>";
+                            html += "<h4 class='searchLocation'> "+lv2BrandList[j].LS_Floor+"."+lv2BrandList[j].BC_NameKor+"</h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
+                            html += "<hr class='searchLine'></div>"
+                        $('.searchResult').append(html)
+                    }else{
+                        let html = "<div class='brandList' id="+lv2BrandList[j].BS_ID+" onclick='brandClick(this)'><div><div class='categoryImg'><img src="+lv2BrandList[j].BS_ThumbnailUrl+"></div></div>";
+                            html += "<ul><li><div class='searchBrand'>"+lv2BrandList[j].BS_NameEng+"</div>";
+                            html += "<h4 class='searchLocation'> "+lv2BrandList[j].LS_Floor+"."+lv2BrandList[j].BC_NameEng+"</h4><div class='searchTime'>Opentime "+openTime+" ~ "+endTime+"</div></li></ul>";
+                            html += "<hr class='searchLine'></div>"
+                        $('.searchResult').append(html) 
+                    }
+
                 }
             }
         }
@@ -85,48 +113,85 @@
         //로컬에 저장된 카테고리를 사용
         let searchCatLV1 = JSON.parse(localStorage.getItem('categoryLV1'))
         for(let i=0; i<searchCatLV1.length; i++){
-            if(i < 9){
-                let html = "<li><label>"
-                    html += "<input type='checkbox' name='searchCategoryList' data-lv1cat ="+Number(i+1)+" onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' class='searchCheck' value='"+searchCatLV1[i].BC_NameKor+"'>"
-                    html += "<div class='searchCategory searchCategoryFont'>"+searchCatLV1[i].BC_NameKor+"</div>"
-                    html += "</label></li>"
-                $('.searchList').append(html)
+            // console.log(searchCatLV1)
+            if($('#kor').hasClass('choose')){
+                if(i < 9){
+                    let html = "<li><label>"
+                        html += "<input type='checkbox' name='searchCategoryList' data-lv1cat ="+Number(i+1)+" onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' class='searchCheck' value='"+searchCatLV1[i].BC_NameKor+"'>"
+                        html += "<div class='searchCategory searchCategoryFont categoryBack'>"+searchCatLV1[i].BC_NameKor+"</div>"
+                        html += "</label></li>"
+                    $('.searchList').append(html)
+                }
+                if(i > 8){
+                    let html = "<li><label>"
+                        html += "<input type='checkbox' name='searchCategoryList' data-lv1cat ="+Number(i+1)+"  onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' class='searchCheck' value='"+searchCatLV1[i].BC_NameKor+"'>"
+                        html += "<div class='searchCategory searchCategoryFont categoryBack'>"+searchCatLV1[i].BC_NameKor+"</div>"
+                        html += "</label></li>"
+                    $('.searchList2').append(html)
+                }
+            }else if($('#eng').hasClass('choose')){
+                if(i < 9){
+                    let html = "<li><label>"
+                        html += "<input type='checkbox' name='searchCategoryList' data-lv1cat ="+Number(i+1)+" onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' class='searchCheck' value='"+searchCatLV1[i].BC_NameEng+"'>"
+                        html += "<div class='searchCategory searchCategoryFont categoryBack'>"+searchCatLV1[i].BC_NameEng+"</div>"
+                        html += "</label></li>"
+                    $('.searchList').append(html)
+                }
+                if(i > 8){
+                    let html = "<li><label>"
+                        html += "<input type='checkbox' name='searchCategoryList' data-lv1cat ="+Number(i+1)+"  onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' class='searchCheck' value='"+searchCatLV1[i].BC_NameEng+"'>"
+                        html += "<div class='searchCategory searchCategoryFont categoryBack'>"+searchCatLV1[i].BC_NameEng+"</div>"
+                        html += "</label></li>"
+                    $('.searchList2').append(html)
+                }
             }
-            if(i > 8){
-                let html = "<li><label>"
-                    html += "<input type='checkbox' name='searchCategoryList' data-lv1cat ="+Number(i+1)+"  onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' class='searchCheck' value='"+searchCatLV1[i].BC_NameKor+"'>"
-                    html += "<div class='searchCategory searchCategoryFont'>"+searchCatLV1[i].BC_NameKor+"</div>"
-                    html += "</label></li>"
-                $('.searchList2').append(html)
-            }
+
+
         }
     }
 
 //중분류 카테고리 리스트
-    function searchCategoryListLV2(lv2CatNum){
-        let searchCatLV2 = JSON.parse(localStorage.getItem('categoryLV2'))
-        $('.searchList').empty()
-        $('.searchList2').empty()
-        //중분류 카테고리
-        for(let i=0; i<searchCatLV2.length; i++){
-            if(searchCatLV2[i].BCR_LV1_BC_ID == lv2CatNum){
-                let resultCatLV2 = []
-                    resultCatLV2.push(searchCatLV2[i]);
-                for(let j=0; j<resultCatLV2.length; j++){
+function searchCategoryListLV2(lv2CatNum){
+    let searchCatLV2 = JSON.parse(localStorage.getItem('categoryLV2'))
+    $('.searchList').empty()
+    $('.searchList2').empty()
+    //중분류 카테고리
+    for(let i=0; i<searchCatLV2.length; i++){
+        if(searchCatLV2[i].BCR_LV1_BC_ID == lv2CatNum){
+            
+            let resultCatLV2 = new Array();
+            let jsonCatLV2 = new Object();
+            jsonCatLV2 = searchCatLV2[i]
+            resultCatLV2.push(jsonCatLV2)
+            for(let j=0; j<resultCatLV2.length; j++){
+                if($('#kor').hasClass('choose')){
                     if(j < 9){
                         let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                            html += "<div class='searchCategory searchCategoryFont' onclick='LV2Cat(this)' id='lv2Cateogry"+i+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</div></label></li>"
+                            html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+i+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</div></label></li>"
                         $('.searchList').append(html);
                     }
                     if( j > 8){
                         let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                            html += "<div class='searchCategory searchCategoryFont' onclick='LV2Cat(this)' id='lv2Cateogry"+i+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</div></label></li>"
+                            html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+i+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</div></label></li>"
+                        $('.searchList2').append(html);
+                    }
+                }else{
+                    if(j < 9){
+                        let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                            html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+i+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameEng+"</div></label></li>"
+                        $('.searchList').append(html);
+                    }
+                    if(j > 8){
+                        let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                            html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+i+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameEng+"</div></label></li>"
                         $('.searchList2').append(html);
                     }
                 }
+
             }
         }
     }
+}
 
 //*** 검색 모달 스크립트 ***
 
@@ -162,6 +227,29 @@
         searchBrandList();
         //검색 모달 생성
         searchModal();
+        //모달내용 번역
+        searchModalLanguage();
+
+    }    
+
+//검색모달 내용 번역
+    function searchModalLanguage(){
+        $('.searchInfo').empty();
+        if($('#eng').hasClass('choose')){
+            $('#searchBrandName').attr('placeholder','Click here to search for the brand name you are looking for')
+            //위의<span style="color: #222222; font-weight: 500;"> 카테고리를 선택</span>하세요.
+            let html = "Select a<span style='color: #222222; font-weight: 500;'> category </span>above."
+            $('.searchInfo').append(html);
+            $('#chagneCategory').text('Change Category')
+            $('.searchCloseName').text('Close')
+            $('.searchTopName').text('Search')
+        }else{
+            let html = "위의<span style='color: #222222; font-weight: 500;'> 카테고리를 선택</span>하세요."
+            $('.searchInfo').append(html);
+            $('#chagneCategory').text('카테고리 변경하기')
+            $('.searchCloseName').text('닫기')
+            $('.searchTopName').text('검색')
+        }
     }
 
 //브랜드 리스트 클릭시
@@ -180,14 +268,24 @@ function brandClick(e){
         if(jsonBrand[i].BS_ID == e.id){            
             let selectBrand = []
                 selectBrand.push(jsonBrand[i])
-                console.log(selectBrand)
-            let html = "<div class='brandDetail'><img src="+selectBrand[0].BS_ImageUrl+"><ul>";
-                html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameKor+"</h2></li>"
-                html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameKor+"</h4></li>"
-                html += "<li><div class='brandInfo'>브랜드소개 브랜드소개 브랜드소개브랜드소개 브랜드소개 브랜드소개</div></li>"
-                html += "</ul></div>"
-                html += "<div><img src='img/searchad3.png'></div>"
-            $('.brandDetail').append(html)
+            if($('#kor').hasClass('choose')){
+                let html = "<div class='brandDetail'><img src="+selectBrand[0].BS_ImageUrl+"><ul>";
+                    html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameKor+"</h2></li>"
+                    html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameKor+"</h4></li>"
+                    html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsKor+"</div></li>"
+                    html += "</ul></div>"
+                    html += "<div><img src='img/searchad3.png'></div>"
+                $('.brandDetail').append(html)
+            }else{
+                let html = "<div class='brandDetail'><img src="+selectBrand[0].BS_ImageUrl+"><ul>";
+                    html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameEng+"</h2></li>"
+                    html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameEng+"</h4></li>"
+                    html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsEng+"</div></li>"
+                    html += "</ul></div>"
+                    html += "<div><img src='img/searchad3.png'></div>"
+                $('.brandDetail').append(html)
+            }
+
         }
     }
 
@@ -298,23 +396,46 @@ function brandClick(e){
                 let nowDust = json.data.iaqi.pm10.v
                 //현재 온도
                 $('#temp').text(Math.round(nowTemp)+'°')
-                if(nowDust < 30){
-                    nowDust = '좋음'
-                    $('#dust').css('color','blue')
-                    $('#dust').text(nowDust)
-                }else if(nowDust < 80){
-                    nowDust = '보통'
-                    $('#dust').css('color','#53ec5d')
-                    $('#dust').text(nowDust)
-                }else if(nowDust < 150){
-                    nowDust = '나쁨'
-                    $('#dust').css('color','orange')
-                    $('#dust').text(nowDust)
-                }else if(nowDust > 150){
-                    nowDust = '매우나쁨'
-                    $('#dust').css('color','red')
-                    $('#dust').text(nowDust)
+                if($('#kor').hasClass('choose') == true){
+                    if(nowDust < 30){
+                        nowDust = '좋음'
+                        $('#dust').css('color','blue')
+                        $('#dust').text(nowDust)
+                    }else if(nowDust < 80){
+                        nowDust = '보통'
+                        $('#dust').css('color','#53ec5d')
+                        $('#dust').text(nowDust)
+                    }else if(nowDust < 150){
+                        nowDust = '나쁨'
+                        $('#dust').css('color','orange')
+                        $('#dust').text(nowDust)
+                    }else if(nowDust > 150){
+                        nowDust = '매우나쁨'
+                        $('#dust').css('color','red')
+                        $('#dust').text(nowDust)
+                    }
+
+                }else{
+                    if(nowDust < 30){
+                        nowDust = 'Good'
+                        $('#dust').css('color','blue')
+                        $('#dust').text(nowDust)
+                    }else if(nowDust < 80){
+                        nowDust = 'Usually'
+                        $('#dust').css('color','#53ec5d')
+                        $('#dust').text(nowDust)
+                    }else if(nowDust < 150){
+                        nowDust = 'Bad'
+                        $('#dust').css('color','orange')
+                        $('#dust').text(nowDust)
+                    }else if(nowDust > 150){
+                        nowDust = 'Wrong'
+                        $('#dust').css('color','red')
+                        $('#dust').text(nowDust)
+                    }
                 }
+
+
             }
         })
     }
@@ -385,16 +506,29 @@ function brandClick(e){
     timeCount();
 
 //언어선택
-    $('#kor').on('click',function(){
+    function languageKor(){
         if($('#kor').attr('class') == 'languageSelect'){
             $('#kor').addClass('choose')
             $('#eng').removeClass('choose')
         }
-    })
-    $('#eng').on('click',function(){
+        $('[data-kor]').each(function(){
+            $(this).html($(this).data('kor'))
+            dustState()
+            svgLocation();
+        })
+    }
+    function languageEng(){
+        //$("#svgTest").load(window.location.href + "#svgTest svg")
+        
         if($('#eng').attr('class') == 'languageSelect'){
             $('#kor').removeClass('choose')
             $('#eng').addClass('choose')            
         }
-    })
+        $('[data-eng]').each(function(){
+            $(this).html($(this).data('eng'))
+            // $('.modal-content').html()
+            dustState()
+            svgLocation();
+        })
+    }
 //*** 메인 우측 하단 날씨, 시간, 언어 선택 스크립트 종료 ***

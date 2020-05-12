@@ -27,7 +27,7 @@ body,html{
     flex-basis: 14%;
     /* text-align: right; */
     box-shadow: -10px 0 15px 0 rgba(0, 0, 0, 0.1);
-    background-color: #340a27;
+    background-color: #190d16;
     height: 100%;
 }
 /* 센트럴돔 문자 */
@@ -96,6 +96,11 @@ body,html{
     color: #444444;
     margin-top: 5%;
 }
+.categoryBack{
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); 
+    border: solid 1.5px rgba(255,255,255,0.5);
+    background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
+}
 .cateTest{
     width: 220px;
     height: 50px;
@@ -134,7 +139,6 @@ body,html{
 /* 층별 아이콘 */
 .floorBtn{
     list-style: none;
-    margin-top: 20%;
 }
 .floorBtn ul li{
     list-style: none;
@@ -243,6 +247,14 @@ body,html{
     position: relative;
     margin-top: 15%;
 }
+/* .rightNav img{
+    width: 100%;
+    height: 100%;
+} */
+.rightNavImg{
+    width: 286px;
+    height: 90px;
+}
 .menuIcon{
     width: 40px;
     height: 40px;
@@ -311,6 +323,9 @@ body,html{
     opacity: 1;
 }
 /* 날씨상태 */
+.whetherList{
+    /* margin-top: 25%; */
+}
 .whetherList li{
     display: inline-block;
     list-style: none;
@@ -487,9 +502,11 @@ body,html{
     width: 80px;
     height: 220px;
     border-radius: 50px;
+    margin-top: 25%;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    background-color: #8c929a;
-    background-color: rgba( 140, 146, 154, 0.3);
+    /* background-color: #ffffff;
+    background-color: #8c929a; */
+    background-color: rgba( 255, 255, 255, 0.7);
 }
 .mapNav ul li{
     float: left;
@@ -552,9 +569,8 @@ body,html{
     width: 100%;
     height: 8%;
     bottom: 0;
-    opacity: 0.7;
     position: fixed;
-    background-color: rgba( 112, 117, 123, 0.7);
+    background-color: rgba(0,0,0,0.2);
 }
 .center-footer-list li{
     list-style:none;
@@ -567,9 +583,7 @@ body,html{
     height: 50px;
     float: left;
     margin-top: 1%;
-    margin-left: 8%;
-    background-color: #dbdbdb;
-    
+    margin-left: 7.5%;
 }
 .center-footer-name{
     width: 100px;
@@ -582,6 +596,8 @@ body,html{
 }
 .center-footer-box img{
     margin-top: 10%;
+    width: 40px;
+    height: 40px;
 }
 
 /* 모달 */
@@ -599,12 +615,17 @@ body,html{
 .searchTop{
     width: 90%;
     height: 60px;
-    background-color: #a91179;
+    /* background-color: #a91179; */
     color: white;
     font-size: xx-large;
     margin-top: -3.7%;
     text-align: left;
     line-height: 1.7;    
+}
+.modalSearchImg{
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 .searchTopName{
     font-size: 24px;
@@ -614,7 +635,9 @@ body,html{
     line-height: 1.5;
     letter-spacing: normal;
     text-align: left;
-    margin-left: 3%;
+    position: absolute;
+    top: 5%;
+    left: 11%;
     color: #ffffff;
   }
 .searchClose{
@@ -925,7 +948,7 @@ body,html{
     color: #eeeeee;
 }
 .searchTime{
-    width: 149px;
+    width: 200px;
     height: 22px;
     font-size: 15px;
     font-weight: 300;
@@ -944,7 +967,11 @@ body,html{
     border-radius: 43px;
     margin-left: 5%;
     background-color: #e6e6e6;
-      
+}
+.categoryImg img{
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
 }
 .searchAd{
     width: 94%;
@@ -983,7 +1010,7 @@ body,html{
     touch-action: manipulation;
 }
 .centralSvg1F{
-    display: none;
+    display: block;
 }
 .centralSvg2F{
     display: none;
@@ -1003,34 +1030,34 @@ body,html{
     float: right;
 }
 /* svg 카테고리 색상 */
-.food{
+.Food{
     fill:#a91179;
 }
-.living{
-    fill:##9BB259;
+.Living{
+    fill:#9BB259;
 }
-.beauty{
+.Beauty{
     fill:#C26B8F;
 }
-.convenience{
+.Convenience{
     fill:#DE9A9A;
 }
-.restaurant{
+.Restaurant{
     fill: #EBD048;
 }
-.fashionGoods{
+.FashionGoods{
     fill: #746E9F;
 }
-.kidsPet{
+.Kids·Pet{
     fill: #A2D2F2;
 }
-.sports{
+.Sports·Car{
     fill: #5275B1;
 }
-.normal{
+.Normal{
     fill:#EBB121;
 }
-.fashionClothing{
+.FashionClothing{
     fill: #92477D;
 }
 
@@ -1044,6 +1071,7 @@ body,html{
 }
 .searchRightDetail img{
     width: 100%;
+    height: 20%;
 }
 .brandDetail{
     width: 100%;
