@@ -36,7 +36,6 @@
         success: function(res){
             //번역 저장
             localStorage.setItem('language',JSON.stringify(res.data))
-            console.log(res.data)
         }
     })
 
