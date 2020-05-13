@@ -41,14 +41,14 @@
             <ul class='categoryList2'>
             </ul>
         <!-- 카테고리 버튼 -->
-            <div class='categoryNav'>
-                <ul>
-                    <li>
-                <div class='categoryPrev' id='prev' onclick="mainPrev()">
-                    <img src='/img/left_arrow_icon.png'>
-                </div>
-            </li>
-            <li>
+        <div class='categoryNav'>
+            <ul>
+                <li>
+                    <div class='categoryPrev' id='prev' onclick="mainPrev()">
+                        <img src='/img/signage/left_arrow_icon.png'>
+                    </div>
+                </li>
+                <li>
                     <div class='categoryState'>
                         <span style="font-size: 20px; color: #222222; font-weight: 400;" id='nowPage'>1</span>
                         <span style="font-size: 20px; color: #999999; font-weight: 300;">/ 2</span>
@@ -56,12 +56,12 @@
                 </li>
                 <li>
                     <!-- clickNextBtn -->
-                <div class='categoryNext' id='next' onclick="mainNext()">
-                    <img src='/img/right_arrow_active_icon.png'>
-                </div>
-            </li>
+                    <div class='categoryNext' id='next' onclick="mainNext()">
+                        <img src='/img/signage/right_arrow_active_icon.png'>
+                    </div>
+                </li>
             </ul>
-            </div>
+        </div>
         <!-- 좌측 하단 광고 -->
             <div class="ad main_left slideshow-container">
             </div>
@@ -96,9 +96,9 @@
 
                     <div class='mapNav'>
                         <ul>
-                            <li><div class='plusBtn' id='zoomIn'><img src='/img/signage/mapNav_icon/zoom_in_icon.png'></div></li>
-                            <li><div class='minusBtn' id='zoomOut'><img src='/img/signage/mapNav_icon/zoom_out_icon.png'></div></li>
-                            <li><div class='resetBtn' id='zoomReset'><img src='/img/signage/mapNav_icon/zoom_back_icon.png'></div></li>
+                            <li><div class='plusBtn' id='zoomIn' onclick="zoomIn(this)"><img src='/img/signage/mapNav_icon/zoom_in_icon.png'></div></li>
+                            <li><div class='minusBtn' id='zoomOut' onclick="zoomOut(this)"><img src='/img/signage/mapNav_icon/zoom_out_icon.png'></div></li>
+                            <li><div class='resetBtn' id='zoomReset' onclick="zoomReset(this)"><img src='/img/signage/mapNav_icon/zoom_back_icon.png'></div></li>
                         </ul>  
                     </div>   
                 </div>
@@ -137,13 +137,13 @@
             </h1>
         <!-- 우측 메뉴 리스트 -->
             <ul class='rightNav'>
-                <li>
+                <li onclick="signageMain()">
                     <div class="rightNav_list">
                     <div class="rightNav_img"><img src='/img/signage/mainNav/rightNav_icon_01.png' ></div>
                     <h2 id='mainHome'>메인</h2>
                 </div>
                 </li>
-                <li onclick="searchCategoryMenu()" class="search">
+                <li onclick="signageSearch()" class="search">
                     <div class="rightNav_list">
                     <div class="rightNav_img"><img src='/img/signage/mainNav/rightNav_icon_02.png' ></div>
                     <h2 id='mainSearch'>검색</h2>
@@ -164,22 +164,26 @@
             </ul> 
         <!-- 언어 정보 -->
             <div class='languageList'>
-                <u>
                 <div class='language'>LANGUAGE</div>
-                <li><div class='languageSelect choose' id='kor' onclick="languageKor()">가</div></li>
-                <li><div class='languageSelect' id='eng' onclick="languageEng()">A</div></li>
-            </u>
-            </div>
-        <!-- 날씨 정보 -->
-            <div class='whetherList'>
                 <ul>
                 <li>
-                    <div class='whether'></div>
+                    <div class='languageSelect choose' id='kor' onclick="languageKor()">가</div>
                 </li>
                 <li>
-                    <div class='temperature'><span id='temp'></span></div>
+                    <div class='languageSelect' id='eng' onclick="languageEng()">A</div>
                 </li>
             </ul>
+            </div>
+        <!-- 날씨 정보 -->
+            <div class='weatherList'>
+                <ul>
+                    <li>
+                        <div class='weather'></div>
+                    </li>
+                    <li>
+                        <div class='temperature'><span id='temp'></span></div>
+                    </li>
+                </ul>
             </div>
             <div>
                 <div class="date">
@@ -206,34 +210,57 @@
         </div>
 <!--컨테이너 종료  -->
     </div>
+
+
+
+
+
+
 <!-- 검색모달 -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <div class='searchTop'><span class='searchTopName'>검색</span></div>        
-            <div class="searchClose"><span class='searchCloseName'>닫기</span><img src="/img/signage/modal/find_title_cancel_icon.png"></div>
+            <div class="searchClose"><span class='searchCloseName'>닫기</span><img src="/img/signage/modal/search_title_Close_icon.png"></div>
             <div class='searchContent'>
             <!-- 좌측 검색 카테고리 -->
                 <div class='searchLeft'>
+                    <div class="searchLeft_inner">
                     <h4 class='searchTotal'><span id='chooseCategory'></span></h4>                
                     <ul class="searchList" id='searchList'>
                     </ul>
                     <ul class='searchList2'>
                     </ul>
+                    
+                
             <!-- 카테고리 버튼 -->
-                <div>
-                    <div class='searchNavPrev' id='searchPrev' onclick="searchPrev()"></div>
+            <div class="searchNav">
+                <ul>
+                    <li>
+                        <div class='searchNavPrev' id='searchPrev' onclick="searchPrev()">
+                            <img src='/img/signage/left_arrow_icon.png'>
+                        </div>
+                    </li>
+                    <li>
                         <div class='searchState'>
                             <span style="font-size: 20px; color: #222222;" id='searchPage'>1</span>
                             <span style="font-size: 20px; color: #999999;">/ 2</span>
                         </div>
-                    <div class='searchNavNext searchNextClick' id='searchNext' onclick="searchNext()"></div>         
-                </div>    
-                    <label onclick="changeCategory()">
-                        <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                        <div class="categoryChange searchCategoryFont" id='chagneCategory'></div>
-                    </label>
-                    <div class='searchInfo'></div> 
-                </div>   
+                    </li>
+                    <li>
+                        <div class='searchNavNext searchNextClick' id='searchNext' onclick="searchNext()">
+                            <img
+                                src='/img/signage/right_arrow_active_icon.png'>
+                            </div>
+                    </li>
+                </ul>
+            </div>
+            <label onclick="changeCategory()">
+                <input type="checkbox" name='searchCategoryList' class='searchCheck'>
+                <div class="categoryChange searchCategoryFont" id='chagneCategory'></div>
+            </label>
+            <div class='searchInfo'></div>
+            </div>
+        </div>
 
             <!--@모달 브랜드 상세보기 좌측 메뉴바 -->
                 <div class='brandInfoLeft'>
@@ -249,15 +276,24 @@
                 </div>
 
             <!-- 중앙 브랜드 검색 및 리스트  -->
-                <div class='searchCenter'>
-                    <div>
-                        <input type="text" placeholder="이곳을 클릭하여 찾으시는 브랜드명을 검색하세요." class='searchBox' id='searchBrandName'>
-                        <button type='submit' onclick="testBtn()" style='display: none;'></button>
-                    </div>
-                    <!-- 브랜드 리스트 ajax 요청 -->
-                    <div class='searchResult' id='searchResult'>
-                    </div> 
+            <div class='searchCenter'>
+                <div class="searchCenter_top">
+                    <ul>
+                        <li>
+                            <input type="text" placeholder="이곳을 클릭하여 찾으시는 브랜드명을 검색하세요. (초성검색가능)" class='searchBox'
+                                id='searchBrandName'>
+                        </li>
+                        <li>
+                            <button type='submit' onclick="search()">검색</button>
+                        </li>
+                    </ul>
                 </div>
+            
+                <!-- 브랜드 리스트 ajax 요청 -->
+                <div class="searchCenter_bottom">
+                    <div class='searchResult' id='searchResult'></div>
+                </div>
+            </div>
 
             <!--@모달 중앙 브랜드 상세정보  -->
             <div class='brandInfoCenter'>
@@ -268,48 +304,50 @@
                     <div>
                         <h3>상세정보</h3>
                         <h4>단체석 예약, 포장 가능</h4>
-                        <hr class='searchLine'>
                     </div>
                     <div class="brandList">
-                        <div class="categoryImg"><img src="img/brandImg.png"></div>
                         <ul>
-                            <li><div class="searchBrand">스타벅스</div><h4 class="searchLocation">1F.<span class="searchLocation">카페</span></h4>
+                            <li><div style="display: inline;"><div class='brandInfoIcon'></div><span>영업시간</span></div>
                                 <div class="searchTime">영업시간 08:00 ~ 20:00</div>
+                                <div class='detailNameInfo'>매주 일요일 휴무</div>
                             </li>
                         </ul>
-                        <hr class="searchLine">
                     </div>
                 </div> 
             </div>
 
 
             <!-- 우측 광고 -->
-                <!-- 첫페이지 -->
-                <div class='ad search searchRight slideshow-container'>
+            <!-- 첫페이지 -->
+            <div class='ad search searchRight slideshow-container'>
                     <img src='img/test1.png'>
-                </div>
-                <!-- 카테고리 클릭 -->
-                <div class='searchRightAd'>
-                    <div class='ad category_top slideshow-container'>
-                        <img src='img/searchad1.png'>
-                    </div>
-                    <div class='ad category_mid slideshow-container'>
-                        <img src='img/searchad2.png'>
-                    </div>
-                    <div class='ad category_bottom slideshow-container'>
-                        <img src='img/searchad3.png'>
-                    </div>
+            </div>
+            <!-- 카테고리 클릭 -->
+            <div class='searchRight searchRightAd'>
+                <div class="searchRightAd_inner">
+                        <div class='ad category_top slideshow-container'>
+                            <!-- <img src='img/searchad1.png'> -->
+                        </div>
                     
-                </div>
+                        <div class='ad category_mid slideshow-container'>
+                            <!-- <img src='img/searchad2.png'> -->
+                        </div>
+                   
+                        <div class='ad category_bottom slideshow-container'>
+                            <!-- <img src='img/searchad3.png'> -->
+                        </div>
+                    </div>
+          
+            </div>
                 <!-- 브랜드 자세히 보기 -->
                 <div class='searchRightDetail'>
                     <div class='brandDetail'>
-                        <div>
-                            <img src='img/brandImg.png'>
+                        <div class="brandDetail_img">
+                            <!-- <img src='img/brandImg.png'> -->
                         </div>
                         <div class='brandContents'>
                             <ul>
-                                <li><h2 class='brandName'>딘 타이 펑</h2></li>
+                                <li><h2 class='brandName'>딘타이펑</h2></li>
                                 <li><h4 class='searchLocation'>1F.중식 (음식점)</h4></li>
                                 <li><div class='brandInfo'>브랜드소개 브랜드소개 브랜드소개브랜드소개 브랜드소개 브랜드소개</div></li>
                             </ul>
@@ -319,7 +357,8 @@
                             <li><div class='infoImgNav'>위치 보기</div></li>
                         </ul>
                     </div>
-                    <div><img src='img/searchad3.png'></div>
+                    <div class='ad_box'>
+                    </div>
                 </div>
             </div>
         </div>
@@ -329,11 +368,13 @@
 <!-- 스크립트 -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/sha256.min.js"></script>
+<script src="https://unpkg.com/hangul-js" type="text/javascript"></script>
 <script src="js/signage/language.js"></script>
 <script src="js/signage/signageRight.js"></script>
 <script src="js/signage/signageMap.js"></script>
 <script src="js/signage/signageLeft.js"></script>
 <script src="js/signage/advertisement.js"></script>
+<script src="js/signage/search.js"></script>
 
 </body>
 </html>
