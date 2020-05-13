@@ -610,7 +610,7 @@ font-weight: 100; text-emphasis: center;
     display: none;
 }
 .searchCenter{
-    width: 48%;
+    width: 54%;
     height: 100%;
     float: left;
     padding: 25px;
@@ -764,22 +764,22 @@ font-weight: 100; text-emphasis: center;
 
 /* svg 카테고리 색상 */
 .Food{
-    fill:#a91179;
+    fill:#EBD048;
 }
 .Living{
-    fill:#9BB259;
+    fill:#746E9F;
 }
 .Beauty{
-    fill:#C26B8F;
-}
-.Convenience{
     fill:#DE9A9A;
 }
+.Convenience{
+    fill:#9BB259;
+}
 .Restaurant{
-    fill: #EBD048;
+    fill: #EBB121;
 }
 .FashionGoods{
-    fill: #746E9F;
+    fill: #C26B8F;
 }
 .Kids·Pet{
     fill: #A2D2F2;
@@ -937,4 +937,55 @@ font-weight: 100; text-emphasis: center;
 @keyframes fade {
     from {opacity: 1}
     to {opacity: 1}
+}
+
+/* 브랜드 상세보기 */
+.brandInfoLeft{
+    display: none;
+    width: 15%;
+    height: 100%;
+    padding: 25px;
+    margin: 0;
+    float: left;
+}
+.brandInfoLeft ul{
+    margin-top: -8%;
+}
+.brandInfoLeft img{
+    width: 100%;
+    height: 100%;
+    margin-top: 20%;
+}
+.brandInfoCenter{
+    display: none;
+    width: 54%;
+    height: 100%;
+    float: left;
+    padding: 25px;
+}
+.brandInfoCenter img{
+    width: 100%;
+    height: 100%;
+}
+.brandInfoText{
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.5;
+    width: 230px;
+    letter-spacing: normal;
+    text-align: center;
+    color: var(--berry);
+}
+
+.brandInfoDetail{
+    list-style: none;
+    display: inline-block;
+    width: 100%;
+    height: 640px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    margin-top: 25px;
 }

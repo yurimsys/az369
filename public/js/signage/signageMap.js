@@ -166,6 +166,8 @@ $.ajax({
     //svg파일 클래스,텍스트 매칭
     function svgLocation(){
         let storeList = JSON.parse(localStorage.getItem('storeInfo'))
+        console.log('스토어리스트')
+        console.log(storeList)
         $('#1Fstore path').each(function(){
             let svg3FStore = $(this).attr('id').replace('h','')
             for(let i=0; i<storeList.length; i++){
