@@ -228,23 +228,23 @@ body,html{
 /* 오른쪽 영역 ----------------------------------------------- */
 /* 오른쪽 상단 로고 */
 h1.logo {
-    font-size: 26px;
-    color: #fff;
+    font-size: 24px;
+    color: rgb(161, 123, 150);
     font-weight: 200;
     text-align: center;
     line-height: 1.15; 
-    margin: 40px 0 ;
+    margin: 42px 0 ;
 }
-h1 span {font-size: 40px; font-weight: 400;}
+h1 span {font-size: 36px; font-weight: 400;}
 
 /* 오른쪽 nav */
 .rightNav{position: relative;} 
 .rightNav li{width: 100%; height: 90px;  position: relative;}
 .rightNav_list {width:50%; margin: 0 auto; height: 100%;}
-.rightNav_img {float:left; width:40px; height: 90px; line-height: 85px; margin-right: 20px;}
-.rightNav_list h2 {float: left; color: #f2f2f2; font-size: 20px; font-weight: 400; z-index: 100;  line-height: 90px;}
+.rightNav_img {float:left; width:40px; height: 90px; line-height: 85px; margin-right: 16px;}
+.rightNav_list h2 {float: left; color: #eee; font-size: 20px; font-weight: 400; z-index: 100;  line-height: 90px;}
 
-/* 오른쪽 nav 아이콘 */
+/* 오른쪽 nav bg*/
 .rightNav li {background-repeat: no-repeat;}
 .rightNav li:nth-child(1) {background: url('/img/signage/mainNav/mainNav_bg_01.png');}
 .rightNav li:nth-child(2) {background: url('/img/signage/mainNav/mainNav_bg_02.png');}
@@ -257,7 +257,6 @@ h1 span {font-size: 40px; font-weight: 400;}
     text-align: center;
 }
 .languageList li{
-    list-style: none;
     display: inline-block;
     margin-top: 12px;
 }
@@ -286,7 +285,7 @@ font-weight: 100; text-emphasis: center;
 
 /* 날씨, 온도 */
 .whetherList {width:100%; overflow: hidden;}
-.whetherList ul {width: 30%; margin: 0 auto; margin-top: 40px; height: auto;}
+.whetherList ul {width: 30%; margin: 0 auto; margin-top: 30px; height: auto;}
 .whetherList li{width:50%; float: left;  text-align: center;}
 .whetherList li:nth-child(2) {margin-right: 0;}
 .whether{width: 40px;height: 40px; background-color: #666;}
@@ -294,19 +293,18 @@ font-weight: 100; text-emphasis: center;
     font-size: 26px;
     line-height: 40px;
     font-weight: 400;
-    color: #ddd;
+    color: #ccc;
 }
 
 
 /* 날짜 및 시간 */
 .date {margin-top: 16px; line-height: 1.4;}
 .dayCount {
-    font-size: 18px;
-    font-weight: 00;
+    font-size: 16px;
+    font-weight: 200;
     text-align: center;
-    color: #ddd;
-    font-weight: 300;
-    
+    color: #eee;
+    font-weight: 200;
 }
 .timeCount{
     width: 100%;
@@ -317,7 +315,7 @@ font-weight: 100; text-emphasis: center;
 }
 
 /* 미세먼지 농도 */
-.dustList {width: 100%; text-align: center; margin-top:8px;}
+.dustList {width: 100%; text-align: center; margin-top: 10px;}
 .dustCount {
     font-size: 16px;
     font-weight: 300;
