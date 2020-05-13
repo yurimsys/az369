@@ -93,8 +93,8 @@
             $('#nowPage').text('2')
             $('.categoryList').css('display','none')
             $('.categoryList2').css('display','block')
-            $('.categoryPrev img').attr('src','/img/left_arrow_active_icon.png')
-            $('.categoryNext img').attr('src','/img/right_arrow_icon.png')
+            $('.categoryPrev img').attr('src','/img/signage/left_arrow_active_icon.png')
+            $('.categoryNext img').attr('src','/img/signage/right_arrow_icon.png')
             // $('#prev').addClass('clickPrevBtn')
             // $('#next').removeClass('clickNextBtn')
 
@@ -106,8 +106,8 @@
             $('#nowPage').text('1')
             $('.categoryList').css('display','block')
             $('.categoryList2').css('display','none')
-            $('.categoryNext img').attr('src','/img/right_arrow_active_icon.png')
-            $('.categoryPrev img').attr('src','/img/left_arrow_icon.png')
+            $('.categoryNext img').attr('src','/img/signage/right_arrow_active_icon.png')
+            $('.categoryPrev img').attr('src','/img/signage/left_arrow_icon.png')
         }
     }
 //*** 메인 좌측 카테고리 선택 스크립트 종료 ***
