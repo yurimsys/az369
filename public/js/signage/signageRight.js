@@ -646,7 +646,7 @@ function storeInfo(e){
     function urlParam(){
         var array = [], hash;
         var url_Address = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-
+        //?device_cd=2fa
         for (var i = 0; i < url_Address.length; i++) {
             hash = url_Address[i].split('=');
             array.push(hash[1]);

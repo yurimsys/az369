@@ -517,18 +517,6 @@ font-weight: 100; text-emphasis: center;
     font-size: 15px;
     position: absolute;
 }
-<<<<<<< HEAD
-.searchPrevClick{
-    background-image: url('/img/signage/left_arrow_active_icon.png');
-    background-repeat: no-repeat;
-    background-position: 48% 47%;
-}
-
-.searchNextClick{
-    background-image: url('/img/signage/right_arrow_active_icon.png');
-    background-repeat: no-repeat;
-    background-position: 48% 47%;
-=======
 
 .searchCheck{
     display: none;
@@ -542,7 +530,6 @@ font-weight: 100; text-emphasis: center;
     position: relative;
     float: left;
     padding: 25px;
->>>>>>> 8b745d00b15e02341b06062fa736dac217770341
 }
 /* 검색박스 + 검색버튼 */
 .searchCenter_top {width:100%; height: 10%; position: relative;}
@@ -551,12 +538,6 @@ font-weight: 100; text-emphasis: center;
 .searchCenter_top ul li:nth-child(2) {width: 22%;}
 .searchCenter_top ul li:nth-child(2) button {width: 100%; height: 60px; background-color: #6A114D; border: none; float: left; border-radius: 12px;font-size: 18px; color: #eee; font-weight: 400; cursor: pointer;}
 .searchBox{
-<<<<<<< HEAD
-    /* background-image: url('/img/search_bar_icon.png'); */
-    background-position: 95% 45%;
-    background-repeat: no-repeat;
-=======
->>>>>>> 8b745d00b15e02341b06062fa736dac217770341
     width: 100%;
     height: 60px;
     border-radius: 12px;
