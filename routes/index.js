@@ -704,6 +704,9 @@ router.get('/video/:currentPage', function(req, res, next) {
 //     res.render('signage');
 // });
 
+router.get('/ddd', function(req, res){
+    res.render('kbd');
+})
 
 //test
 router.get('/dust', function(req, res, next) {
