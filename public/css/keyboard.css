@@ -3,7 +3,7 @@
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
-    src: url(https://fonts.gstatic.com/s/materialicons/v50/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+    src: url('https://fonts.gstatic.com/s/materialicons/v50/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2') format('woff2');
 }
   
 .material-icons {
@@ -40,6 +40,7 @@
 
 .keyboard__keys {
     text-align: center;
+    display: none;
 }
 
 .keyboard__key {
@@ -93,4 +94,8 @@
 
 .keyboard__key--dark {
     background: rgba(0, 0, 0, 0.25);
+}
+
+.active {
+    display: block;
 }

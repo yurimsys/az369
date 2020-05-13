@@ -12,7 +12,7 @@ const Keyboard = {
     elements: {
         main: null,
         keysContainer: {},
-        keys: []
+        keys: {}
     },
     eventHandlers: {
         oninput: null,
@@ -27,17 +27,18 @@ const Keyboard = {
     init() {
         // Create main elements
         this.elements.main = document.createElement("div");
-        this.elements.keysContainer = document.createElement("div");
 
         // Setup main elements
         this.elements.main.classList.add("keyboard", "keyboard--hidden");
-        this.elements.keysContainer.classList.add("keyboard__keys");
-        this.elements.keysContainer.appendChild(this._createKeys());
+        this.elements.main.appendChild( this._createKeys() );
 
-        this.elements.keys = this.elements.keysContainer.querySelectorAll(".keyboard__key");
+        this.elements.keys.eng = this.elements.keysContainer.eng.querySelectorAll(".keyboard__key");
+        this.elements.keys.kor = this.elements.keysContainer.kor.querySelectorAll(".keyboard__key");
 
+        // Init Visiable Keyboard Type
+        this.elements.keysContainer[ this.properties.currentKeyboardType ].classList.add( 'active' )
+        
         // Add to DOM
-        this.elements.main.appendChild(this.elements.keysContainer);
         document.body.appendChild(this.elements.main);
 
         document.querySelectorAll(".use-virtual-keyboard").forEach(element => {
@@ -49,7 +50,16 @@ const Keyboard = {
         });
     },
     _createKeys() {
-        const fragment = document.createDocumentFragment();
+        this.elements.keysContainer.eng = document.createElement("div");
+        this.elements.keysContainer.eng.id = 'eng_keyboard';
+        this.elements.keysContainer.eng.classList.add("keyboard__keys");
+        
+        this.elements.keysContainer.kor = document.createElement("div");
+        this.elements.keysContainer.kor.id = 'kor_keyboard';
+        this.elements.keysContainer.kor.classList.add("keyboard__keys");
+        
+        const keyContainerFragment = document.createDocumentFragment();
+        const keyFragment = document.createDocumentFragment();
         const keyLayout = {
             // Eng Keyboard Layout
             eng: [
@@ -61,26 +71,26 @@ const Keyboard = {
             ],
 
             // Kor Keyboard Layout
-            // kor: [
-            //     "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
-            //     "ㅂ", "ㅈ", "ㄷ", "ㄱ", "ㅅ", "ㅛ", "ㅕ", "ㅑ", "ㅐ", "ㅔ",
-            //     "ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ", "done",
-            //     "caps", "ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ", "caps",
-            //     "A", "space"
-            // ]
+            kor: [
+                "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
+                "ㅂ|ㅃ", "ㅈ|ㅉ", "ㄷ|ㄸ", "ㄱ|ㄲ", "ㅅ|ㅆ", "ㅛ", "ㅕ", "ㅑ", "ㅐ|ㅒ", "ㅔ|ㅖ",
+                "ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ", "done",
+                "caps", "ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ",
+                "A", "space"
+            ]
         }
 
         // Creates HTML for an icon
         const createIconHTML = (icon_name) => {
             return `<i class="material-icons">${icon_name}</i>`;
-        };
+        }
 
         for (let type in keyLayout) {
             keyLayout[type].forEach(key => {
                 const keyElement = document.createElement("button");
 
                 // 줄넘김을 추가할 마지막 key
-                const insertLineBreak = ["backspace", "p", "done", "m", "ㅔ"].indexOf(key) !== -1;
+                const insertLineBreak = ["backspace", "p", "done", "m", "ㅔ|ㅖ", "ㅡ"].indexOf(key) !== -1;
 
                 // Add attributes/classes
                 keyElement.setAttribute("type", "button");
@@ -148,37 +158,46 @@ const Keyboard = {
 
                     case "가":
                     case "A":
-                        keyElement.textContent = key.toLowerCase();
+                        keyElement.textContent = key.toString();
+                        keyElement.addEventListener("click", () => {
+                            this._toggleLanguage(this.properties.currentKeyboardType);
+                        });
+
                         keyElement.classList.add("keyboard__key--wide");
                         break;
 
                     default:
-                        keyElement.textContent = key.toLowerCase();
+                        if( !key.includes('|') ){
+                            keyElement.textContent = key.toLowerCase();
+                        } else {
+                            let keySplit = key.split('|');
+                            keyElement.textContent = keySplit[0];
+                            keyElement.dataset.capsOff = keySplit[0];
+                            keyElement.dataset.capsOn = keySplit[1];
+                        }
 
                         keyElement.addEventListener("click", () => {
-                            // 대 소문자 구분 입력.
-                            // 한글, 영문 입력.
-                            // 한글 pair 입력.
-                            this.properties.bufferValue += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
+                            this.properties.bufferValue += keyElement.textContent;
                             this.properties.value = Hangul.a(this.properties.bufferValue);
 
-                            // 삭제예정.
-                            // this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
                             this._triggerEvent("oninput");
                         });
 
                         break;
                 }
 
-                fragment.appendChild(keyElement);
+                keyFragment.appendChild(keyElement);
 
                 if (insertLineBreak) {
-                    fragment.appendChild(document.createElement("br"));
+                    keyFragment.appendChild(document.createElement("br"));
                 }
             });
+
+            this.elements.keysContainer[type].appendChild( keyFragment );
+            keyContainerFragment.appendChild( this.elements.keysContainer[type] );
         }
 
-        return fragment;
+        return keyContainerFragment;
     },
 
     _triggerEvent(handlerName) {
@@ -190,25 +209,32 @@ const Keyboard = {
     _toggleCapsLock() {
         this.properties.capsLock = !this.properties.capsLock;
 
-        const koreanKeyPair = [
-            ["ㅂ", "ㅃ"],
-            ["ㅈ", "ㅉ"],
-            ["ㄷ", "ㄸ"],
-            ["ㄱ", "ㄲ"],
-            ["ㅅ", "ㅆ"],
-            ["ㅐ", "ㅒ"],
-            ["ㅔ", "ㅖ"],
-        ];
-        // 한글 caps lock 시 KeyPair 에 맞게 수정.
-        for (const key of this.elements.keys) {
-            if (key.childElementCount === 0) {
-                key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
-            }
+        switch( this.properties.currentKeyboardType ){
+            case "eng":
+                // 영문 키보드 토글
+                for (const key of this.elements.keys.eng) {
+                    if (key.childElementCount === 0) {
+                        key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
+                    }
+                }
+                break;
+            
+            case "kor":
+                    // 한글 키보드 토글
+                    for (const key of this.elements.keys.kor) {
+                        if (key.childElementCount === 0 && key.dataset.capsOn !== undefined) {
+                            key.textContent = this.properties.capsLock ? key.dataset.capsOn : key.dataset.capsOff;
+                        }
+                    }
+                break;
         }
+
     },
 
-    _toggleLanguage() {
-        // this.    
+    _toggleLanguage( currentKeyboardType ) {
+        this.properties.currentKeyboardType = (currentKeyboardType == "eng") ? "kor" : "eng";
+        this.elements.keysContainer[ currentKeyboardType ].classList.remove('active');
+        this.elements.keysContainer[ this.properties.currentKeyboardType ].classList.add('active');
     },
 
     open(initialValue, oninput, onclose) {
