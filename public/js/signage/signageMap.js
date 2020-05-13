@@ -48,9 +48,8 @@ $.ajax({
     $('#1Fstore_name text').hide()
     $('#2Fstore_name text').hide()
     $('#3Fstore_name text').hide()
-    // $('#3Fstore_name text').hide()
     //줌인 줌아웃 리셋 
-    $('#zoomIn').on('click',function(){
+    function zoomIn(e){
         $('#1Fstore').css('cursor','pointer');
         $('#2Fstore').css('cursor','pointer');
         $('#3Fstore').css('cursor','pointer');
@@ -58,14 +57,14 @@ $.ajax({
             //이미지 커서 이동 css
             $('.centralSvg').css('left','0px')
             $('.centralSvg').css('top','0px')
-            $(this).attr('class','plusBtn 1X')
+            $(e).attr('class','plusBtn 1X')
             $('.centralSvg').css('transform','scale(1.375)')
             $('#1Fstore_name text').show()
             $('#2Fstore_name text').show()
             $('#3Fstore_name text').show()
         }
         else if($('#zoomIn').attr('class') == 'plusBtn 1X'){
-            $(this).attr('class','plusBtn 2X')
+            $(e).attr('class','plusBtn 2X')
             $('.centralSvg').css('transform','scale(1.75)')
             $('#1Fstore_name text').css('font-size','14')
             $('#2Fstore_name text').css('font-size','14')
@@ -73,7 +72,7 @@ $.ajax({
             $('#store_name text').css('font-size','14')
         }
         else if($('#zoomIn').attr('class') == 'plusBtn 2X'){
-            $(this).attr('class','plusBtn 3X')
+            $(e).attr('class','plusBtn 3X')
             $('.centralSvg').css('transform','scale(2.125)')
             $('#1Fstore_name text').css('font-size','15')
             $('#2Fstore_name text').css('font-size','15')
@@ -81,16 +80,16 @@ $.ajax({
             $('#store_name text').css('font-size','15')
         }
         else if($('#zoomIn').attr('class') == 'plusBtn 3X'){
-            $(this).attr('class','plusBtn 4X')
+            $(e).attr('class','plusBtn 4X')
             $('.centralSvg').css('transform','scale(2.5)')
             $('#store_name text').css('font-size','16')
             $('#1Fstore_name text').css('font-size','16')
             $('#2Fstore_name text').css('font-size','16')
             $('#3Fstore_name text').css('font-size','16')
         }
-    })
+    }
 
-    $('#zoomOut').on('click',function(){
+    function zoomOut(){
         if($('#zoomIn').attr('class') == 'plusBtn 1X'){
             // $('.centralSvg').removeClass('fullOne')
             $('.centralSvg').css('transform','')
@@ -127,9 +126,9 @@ $.ajax({
             $('#2Fstore_name text').css('font-size','15')
             $('#3Fstore_name text').css('font-size','15')
         }
-    })
+    }
 
-    $('#zoomReset').on('click',function(){
+    function zoomReset(){
         $('.centralSvg').css('transform','')
         $('.centralSvg').css('left','')
         $('.centralSvg').css('top','')
@@ -138,7 +137,7 @@ $.ajax({
         $('#1Fstore_name text').hide()
         $('#2Fstore_name text').hide()
         $('#3Fstore_name text').hide()
-    })
+    }
 
     //층수 클릭
     $('.floorBtn div').on('click',function(e){
@@ -230,7 +229,6 @@ $.ajax({
                     }else{
                         $(this).children('tspan').text(storeList[i].BS_NameEng)
                     }
-                    
                 }
             }
         })

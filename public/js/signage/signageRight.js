@@ -3,7 +3,8 @@
     function searchBrandList(){
         //리스트 초기화
         $('.searchResult').empty()
-        let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
+        //let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
+        let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
         for(let i=0; i<jsonBrand.length; i++){
             // console.log(jsonBrand)
             let opTime = jsonBrand[i].BS_MainDtS
@@ -41,7 +42,8 @@
 //대분류 브랜드 리스트 생성 
     function LV1BrandList(lv1CatNum){
         //리스트 초기화
-        let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
+        // let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
+        let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
         for(let i=0; i<jsonBrand.length; i++){
             //검색내용이 있으면 리스트를 그려줌
             if(jsonBrand[i].BCR_LV1_BC_ID == lv1CatNum){
@@ -75,7 +77,8 @@
 //중분류 브랜드 리스트 생성
     function LV2BrandList(lv2CatNum){
         $('#searchResult').empty();
-        let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
+        // let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
+        let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
         //BCR_LV1_BC_ID에 검색 
         for(let i=0; i<jsonBrand.length; i++){
             //검색내용이 있으면 리스트를 그려줌
@@ -153,43 +156,42 @@
 //중분류 카테고리 리스트
 function searchCategoryListLV2(lv2CatNum){
     let searchCatLV2 = JSON.parse(localStorage.getItem('categoryLV2'))
+    let resultCatLV2 = new Array();
+    //console.log(searchCatLV2)
     $('.searchList').empty()
     $('.searchList2').empty()
     //중분류 카테고리
     for(let i=0; i<searchCatLV2.length; i++){
         if(searchCatLV2[i].BCR_LV1_BC_ID == lv2CatNum){
-            
-            let resultCatLV2 = new Array();
-            let jsonCatLV2 = new Object();
-            jsonCatLV2 = searchCatLV2[i]
-            resultCatLV2.push(jsonCatLV2)
-            for(let j=0; j<resultCatLV2.length; j++){
-                if($('#kor').hasClass('choose')){
-                    if(j < 9){
-                        let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                            html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+i+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</div></label></li>"
-                        $('.searchList').append(html);
-                    }
-                    if( j > 8){
-                        let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                            html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+i+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</div></label></li>"
-                        $('.searchList2').append(html);
-                    }
-                }else{
-                    if(j < 9){
-                        let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                            html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+i+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameEng+"</div></label></li>"
-                        $('.searchList').append(html);
-                    }
-                    if(j > 8){
-                        let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                            html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+i+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameEng+"</div></label></li>"
-                        $('.searchList2').append(html);
-                    }
-                }
-
+            let jsonTest = searchCatLV2[i]
+            resultCatLV2.push(jsonTest)
+        }
+    }
+    for(let j=0; j<resultCatLV2.length; j++){
+        if($('#kor').hasClass('choose')){
+            if(j < 9){
+                let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                    html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+j+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</div></label></li>"
+                $('.searchList').append(html);
+            }
+            if( j > 8){
+                let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                    html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+j+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</div></label></li>"
+                $('.searchList2').append(html);
+            }
+        }else{
+            if(j < 9){
+                let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                    html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+j+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameEng+"</div></label></li>"
+                $('.searchList').append(html);
+            }
+            if(j > 8){
+                let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                    html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+j+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameEng+"</div></label></li>"
+                $('.searchList2').append(html);
             }
         }
+
     }
 }
 
@@ -212,8 +214,7 @@ function searchCategoryListLV2(lv2CatNum){
 
 
 //검색모달 오픈
-    function searchCategoryMenu(){
-        console.log('검색')
+    function signageSearch(){
         $('.searchRight').css('display','block')
         $('.searchInfo').css('display','block')
         $('.categoryChange').css('display','none')
@@ -263,14 +264,13 @@ function searchCategoryListLV2(lv2CatNum){
         $('.searchRightAd').css('display','none');
         $('.searchRightDetail').css('display','block')
 
-        let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
+        // let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
+        let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
         //BCR_LV1_BC_ID에 검색 
         for(let i=0; i<jsonBrand.length; i++){
-            //검색내용이 있으면 리스트를 그려줌
             if(jsonBrand[i].BS_ID == e.id){            
                 let selectBrand = []
                     selectBrand.push(jsonBrand[i])
-                    console.log(selectBrand)
                 if($('#kor').hasClass('choose')){
                     let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"></div>";
                         html += "<div class='brandContents'><ul>";
@@ -293,7 +293,6 @@ function searchCategoryListLV2(lv2CatNum){
                         html += "<li><div class='infoImgNav'>Detail</div></li>"
                         html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>Location</div></li></ul>"
                     $('.brandDetail').append(html)
-                        // html += "<div><img src='img/searchad3.png'></div>"
                 }
             }
         }
@@ -346,7 +345,7 @@ function searchCategoryListLV2(lv2CatNum){
 
 //카테고리 변경하기 클릭
     function changeCategory(){
-        searchCategoryMenu();
+        signageSearch();
         catChk = 0;
     }
 
@@ -383,6 +382,7 @@ function searchCategoryListLV2(lv2CatNum){
             $('.centralSvg3F').css('display','none');
             $('.floorBtn div').removeClass('floorSelcet')
             $('#floor1Btn').addClass('floorSelcet')
+            $('#nowFloor').text('1F')
         }
         else if(e.id > 2000 && e.id < 2103){
             console.log('2층')
@@ -394,6 +394,7 @@ function searchCategoryListLV2(lv2CatNum){
             $('.centralSvg3F').css('display','none');
             $('.floorBtn div').removeClass('floorSelcet')
             $('#floor2Btn').addClass('floorSelcet')
+            $('#nowFloor').text('2F')
         }
         else if(e.id>3000 && e.id < 3107){
             console.log('3층')
@@ -405,6 +406,7 @@ function searchCategoryListLV2(lv2CatNum){
             $('.centralSvg3F').css('display','block');
             $('.floorBtn div').removeClass('floorSelcet')
             $('#floor3Btn').addClass('floorSelcet')
+            $('#nowFloor').text('3F')
         }
     }
 
@@ -430,7 +432,7 @@ function storeInfo(e){
             dataType: 'json',
             success: function(json){
                 let skyState = json.weather[0].main;
-                console.log(skyState, ' 기상 상태')
+                // console.log(skyState, ' 기상 상태')
                 // 
                 if(skyState == 'Clear'){
                     let html = "<img src='/img/signage/weather/weather_01m_icon.png'></img>"
@@ -609,5 +611,54 @@ function storeInfo(e){
             dustState()
             svgLocation();
         })
+    }
+
+//메인 돌아가기
+    function signageMain(){
+        zoomReset();
+        $('.categoryBtn ').removeClass('selected')
+        $('#1Fstore path').css('fill','')
+        $('#2Fstore path').css('fill','')
+        $('#3Fstore path').css('fill','')
+        $('.floorBtn div').removeClass('floorSelcet')
+        let deviceParam = urlParam();
+        if(deviceParam[0].substring('0','1') == 1){
+
+            $('.centralSvg1F').css('display','block');
+            $('.centralSvg2F').css('display','none');
+            $('.centralSvg3F').css('display','none');
+            $('#floor1Btn').addClass('floorSelcet')
+            $('#nowFloor').text('1F')
+        }        
+        else if(deviceParam[0].substring('0','1') == 2){
+            $('.centralSvg1F').css('display','none');
+            $('.centralSvg2F').css('display','block');
+            $('.centralSvg3F').css('display','none');
+            $('#floor2Btn').addClass('floorSelcet')
+            $('#nowFloor').text('2F')
+        }
+        else if(deviceParam[0].substring('0','1') == 3){
+            $('.centralSvg1F').css('display','none');
+            $('.centralSvg2F').css('display','none');
+            $('.centralSvg3F').css('display','block');
+            $('#floor3Btn').addClass('floorSelcet')
+            $('#nowFloor').text('3F')
+        }
+        
+    }
+
+//url 매개변수
+    function urlParam(){
+        var array = [], hash;
+        var url_Address = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+
+        for (var i = 0; i < url_Address.length; i++) {
+            hash = url_Address[i].split('=');
+            array.push(hash[1]);
+            // console.log(hash);
+            array[hash[0]] = hash[1];
+        }
+        // console.log(array)
+        return array;
     }
 //*** 메인 우측 하단 날씨, 시간, 언어 선택 스크립트 종료 ***

@@ -481,6 +481,9 @@ font-weight: 100; text-emphasis: center;
 }
 .searchNavPrev{
     background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
+    background-image: url('/img/signage/left_arrow_icon.png');
+    background-repeat: no-repeat;
+    background-position: 48% 47%;
     list-style:none;
     width: 50px;
     height: 50px;
@@ -491,13 +494,16 @@ font-weight: 100; text-emphasis: center;
     cursor: pointer;
 }
 .searchNavNext{
+    background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
+    background-image: url('/img/signage/right_arrow_icon.png');
+    background-repeat: no-repeat;
+    background-position: 48% 47%;
     width: 50px;
     height: 50px;
     line-height: 45px;
     border-radius: 12px;
     box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); 
     border: solid 1.5px rgba(255,255,255,0.5);
-    background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
     float: right;
     cursor: pointer;
 }
@@ -510,18 +516,18 @@ font-weight: 100; text-emphasis: center;
     text-align: center;
 }
 .searchPrevClick{
-    background-image: url('/img/left_arrow_active_icon.png');
+    background-image: url('/img/signage/left_arrow_active_icon.png');
     background-repeat: no-repeat;
     background-position: 48% 47%;
 }
 
 .searchNextClick{
-    background-image: url('/img/right_arrow_active_icon.png');
+    background-image: url('/img/signage/right_arrow_active_icon.png');
     background-repeat: no-repeat;
     background-position: 48% 47%;
 }
 .searchBox{
-    background-image: url('/img/search_bar_icon.png');
+    /* background-image: url('/img/search_bar_icon.png'); */
     background-position: 95% 45%;
     background-repeat: no-repeat;
     width: 100%;
