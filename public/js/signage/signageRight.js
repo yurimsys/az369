@@ -430,7 +430,25 @@ function storeInfo(e){
             dataType: 'json',
             success: function(json){
                 let skyState = json.weather[0].main;
-                //console.log(skyState, ' 기상 상태')
+                console.log(skyState, ' 기상 상태')
+                // 
+                if(skyState == 'Clear'){
+                    let html = "<img src='/img/signage/weather/weather_01m_icon.png'></img>"
+                    $('.weather').append(html)
+                }else if(skyState == 'Clouds'){
+                    let html = "<img src='/img/signage/weather/weather_03_icon.png'></img>"
+                    $('.weather').append(html)
+                }else if(skyState == 'Drizzle'){
+                    let html = "<img src='/img/signage/weather/weather_04_icon.png'></img>"
+                    $('.weather').append(html)
+                }else if(skyState == 'Mist'){
+                    let html = "<img src='/img/signage/weather/weather_03_icon.png'></img>"
+                    $('.weather').append(html)
+                }else if(skyState == 'Rain'){
+                    let html = "<img src='/img/signage/weather/weather_04_icon.png'></img>"
+                    $('.weather').append(html)
+                }
+
             }
         })
     }
@@ -454,7 +472,7 @@ function storeInfo(e){
                 if($('#kor').hasClass('choose') == true){
                     if(nowDust < 30){
                         nowDust = '좋음'
-                        $('#dust').css('color','blue')
+                        $('#dust').css('color','#0054FF')
                         $('#dust').text(nowDust)
                     }else if(nowDust < 80){
                         nowDust = '보통'
@@ -472,19 +490,19 @@ function storeInfo(e){
 
                 }else{
                     if(nowDust < 30){
-                        nowDust = 'Good'
+                        nowDust = ' Good'
                         $('#dust').css('color','blue')
                         $('#dust').text(nowDust)
                     }else if(nowDust < 80){
-                        nowDust = 'Usually'
+                        nowDust = ' Usually'
                         $('#dust').css('color','#53ec5d')
                         $('#dust').text(nowDust)
                     }else if(nowDust < 150){
-                        nowDust = 'Bad'
+                        nowDust = ' Bad'
                         $('#dust').css('color','orange')
                         $('#dust').text(nowDust)
                     }else if(nowDust > 150){
-                        nowDust = 'Wrong'
+                        nowDust = ' Wrong'
                         $('#dust').css('color','red')
                         $('#dust').text(nowDust)
                     }
@@ -566,6 +584,8 @@ function storeInfo(e){
             $('#kor').addClass('choose')
             $('#eng').removeClass('choose')
             $('.rightNav_list').css('width','50%')    
+            $('.searchTotal').css('height', '38px')
+            $('.searchTotal').css('letter-spacing', '-0.96px')
         }
         $('[data-kor]').each(function(){
             $(this).html($(this).data('kor'))
@@ -580,6 +600,8 @@ function storeInfo(e){
             $('#kor').removeClass('choose')
             $('#eng').addClass('choose')        
             $('.rightNav_list').css('width','62%')    
+            $('.searchTotal').css('height', '7%')
+            $('.searchTotal').css('letter-spacing', '-1.96px')
         }
         $('[data-eng]').each(function(){
             $(this).html($(this).data('eng'))

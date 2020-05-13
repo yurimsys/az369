@@ -131,7 +131,7 @@ $(document).ready(() => {
         AdSlide.ad_main_instance.removeClass('active');
         clearTimeout(usedTimeout);
         usedTimeout=setTimeout( AD.showMainAD, AD.ad_init_min * 1000 * 1000 );
-        console.log('usedTimeout : ',  usedTimeout);
+        // console.log('usedTimeout : ',  usedTimeout);
     });
 
 });
