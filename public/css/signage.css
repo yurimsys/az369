@@ -25,7 +25,6 @@ body,html{
     position: relative;
     float: left;
     height: 100%;
-    overflow: hidden;
 }
 #box-center {
     width: 71%;
