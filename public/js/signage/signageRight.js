@@ -12,18 +12,17 @@
             let edTime = jsonBrand[i].BS_MainDtF
                 endTime = edTime.slice(-8, -3)
                 if($('#kor').hasClass('choose')){
-                    let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
+                    let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)'><div class='categoryImg_wrap'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div></div>";
                         html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
                         html += "<ul><li><div class='searchBrand'>"+jsonBrand[i].BS_NameKor+"</div>";
                         html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation'>"+jsonBrand[i].BC_NameKor+"</span></h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
-                        html += "<hr class='searchLine'></div>"
+                       
                     $('.searchResult').append(html)
                 }else{
                     let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
                         html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
                         html += "<ul><li><div class='searchBrand'>"+jsonBrand[i].BS_NameEng+"</div>";
                         html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation'>"+jsonBrand[i].BC_NameEng+"</span></h4><div class='searchTime'>OpenTime "+openTime+" ~ "+endTime+"</div></li></ul>";
-                        html += "<hr class='searchLine'></div>"
                     $('.searchResult').append(html)
                 }
 
@@ -59,13 +58,11 @@
                         let html = "<div class='brandList' id="+lv1BrandList[j].BS_ID+" onclick='brandClick(this)'><div><div class='categoryImg'><img src="+lv1BrandList[j].BS_ThumbnailUrl+"></div></div>";
                             html += "<ul><li><div class='searchBrand'>"+lv1BrandList[j].BS_NameKor+"</div>";
                             html += "<h4 class='searchLocation'>"+lv1BrandList[j].LS_Floor+"."+lv1BrandList[j].BC_NameKor+"</h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
-                            html += "<hr class='searchLine'></div>"
                         $('.searchResult').append(html)
                     }else{
                         let html = "<div class='brandList' id="+lv1BrandList[j].BS_ID+" onclick='brandClick(this)'><div><div class='categoryImg'><img src="+lv1BrandList[j].BS_ThumbnailUrl+"></div></div>";
                             html += "<ul><li><div class='searchBrand'>"+lv1BrandList[j].BS_NameEng+"</div>";
                             html += "<h4 class='searchLocation'>"+lv1BrandList[j].LS_Floor+"."+lv1BrandList[j].BC_NameEng+"</h4><div class='searchTime'>OpenTime "+openTime+" ~ "+endTime+"</div></li></ul>";
-                            html += "<hr class='searchLine'></div>"
                         $('.searchResult').append(html)
                     }
 
@@ -94,13 +91,11 @@
                         let html = "<div class='brandList' id="+lv2BrandList[j].BS_ID+" onclick='brandClick(this)'><div><div class='categoryImg'><img src="+lv2BrandList[j].BS_ThumbnailUrl+"></div></div>";
                             html += "<ul><li><div class='searchBrand'>"+lv2BrandList[j].BS_NameKor+"</div>";
                             html += "<h4 class='searchLocation'> "+lv2BrandList[j].LS_Floor+"."+lv2BrandList[j].BC_NameKor+"</h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
-                            html += "<hr class='searchLine'></div>"
                         $('.searchResult').append(html)
                     }else{
                         let html = "<div class='brandList' id="+lv2BrandList[j].BS_ID+" onclick='brandClick(this)'><div><div class='categoryImg'><img src="+lv2BrandList[j].BS_ThumbnailUrl+"></div></div>";
                             html += "<ul><li><div class='searchBrand'>"+lv2BrandList[j].BS_NameEng+"</div>";
                             html += "<h4 class='searchLocation'> "+lv2BrandList[j].LS_Floor+"."+lv2BrandList[j].BC_NameEng+"</h4><div class='searchTime'>Opentime "+openTime+" ~ "+endTime+"</div></li></ul>";
-                            html += "<hr class='searchLine'></div>"
                         $('.searchResult').append(html) 
                     }
 

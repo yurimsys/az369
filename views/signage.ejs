@@ -224,16 +224,25 @@
             <div class='searchContent'>
             <!-- 좌측 검색 카테고리 -->
                 <div class='searchLeft'>
+                    <div class="searchLeft_inner">
                     <h4 class='searchTotal'><span id='chooseCategory'></span></h4>                
                     <ul class="searchList" id='searchList'>
                     </ul>
                     <ul class='searchList2'>
                     </ul>
+                    
+                
             <!-- 카테고리 버튼 -->
             <div class="searchNav">
                 <ul>
                     <li>
+<<<<<<< HEAD
                         <div class='searchNavPrev' id='searchPrev' onclick="searchPrev()"></div>
+=======
+                        <div class='searchNavPrev' id='searchPrev' onclick="searchPrev()">
+                            <img src='/img/signage/left_arrow_icon.png'>
+                        </div>
+>>>>>>> 8b745d00b15e02341b06062fa736dac217770341
                     </li>
                     <li>
                         <div class='searchState'>
@@ -242,7 +251,14 @@
                         </div>
                     </li>
                     <li>
+<<<<<<< HEAD
                         <div class='searchNavNext searchNextClick' id='searchNext' onclick="searchNext()"></div>
+=======
+                        <div class='searchNavNext searchNextClick' id='searchNext' onclick="searchNext()">
+                            <img
+                                src='/img/signage/right_arrow_icon.png'>
+                            </div>
+>>>>>>> 8b745d00b15e02341b06062fa736dac217770341
                     </li>
                 </ul>
             </div>
@@ -252,6 +268,7 @@
             </label>
             <div class='searchInfo'></div>
             </div>
+        </div>
 
             <!--@모달 브랜드 상세보기 좌측 메뉴바 -->
                 <div class='brandInfoLeft'>
@@ -267,15 +284,24 @@
                 </div>
 
             <!-- 중앙 브랜드 검색 및 리스트  -->
-                <div class='searchCenter'>
-                    <div>
-                        <input type="text" placeholder="이곳을 클릭하여 찾으시는 브랜드명을 검색하세요." class='searchBox' id='searchBrandName'>
-                        <button type='button' onclick="search(this)">테스트 검색</button>
-                    </div>
-                    <!-- 브랜드 리스트 ajax 요청 -->
-                    <div class='searchResult' id='searchResult'>
-                    </div> 
+            <div class='searchCenter'>
+                <div class="searchCenter_top">
+                    <ul>
+                        <li>
+                            <input type="text" placeholder="이곳을 클릭하여 찾으시는 브랜드명을 검색하세요. (초성검색가능)" class='searchBox'
+                                id='searchBrandName'>
+                        </li>
+                        <li>
+                            <button type='submit' onclick="testBtn()">검색</button>
+                        </li>
+                    </ul>
                 </div>
+            
+                <!-- 브랜드 리스트 ajax 요청 -->
+                <div class="searchCenter_bottom">
+                    <div class='searchResult' id='searchResult'></div>
+                </div>
+            </div>
 
             <!--@모달 중앙 브랜드 상세정보  -->
             <div class='brandInfoCenter'>
@@ -283,9 +309,9 @@
                     <img src="/img/ad/img_main_dintaifung01.png">
                 </div>
                 <div class='brandInfoDetail'>
-                    <div style="padding: 20px;">
-                        <h3 class='detailName'>상세정보<span class='detailNameInfo'>단체석 예약, 포장 가능</span></h3>
-                        <hr class='brandInfoDetailLine'>
+                    <div>
+                        <h3>상세정보</h3>
+                        <h4>단체석 예약, 포장 가능</h4>
                     </div>
                     <div class="brandList">
                         <ul>
@@ -294,39 +320,42 @@
                                 <div class='detailNameInfo'>매주 일요일 휴무</div>
                             </li>
                         </ul>
-                        <hr class="brandInfoDetailLine">
                     </div>
                 </div> 
             </div>
 
 
             <!-- 우측 광고 -->
-                <!-- 첫페이지 -->
-                <div class='ad search searchRight slideshow-container'>
+            <!-- 첫페이지 -->
+            <div class='ad search searchRight slideshow-container'>
                     <img src='img/test1.png'>
-                </div>
-                <!-- 카테고리 클릭 -->
-                <div class='searchRightAd'>
-                    <div class='ad category_top slideshow-container'>
-                        <img src='img/searchad1.png'>
-                    </div>
-                    <div class='ad category_mid slideshow-container'>
-                        <img src='img/searchad2.png'>
-                    </div>
-                    <div class='ad category_bottom slideshow-container'>
-                        <img src='img/searchad3.png'>
-                    </div>
+            </div>
+            <!-- 카테고리 클릭 -->
+            <div class='searchRight searchRightAd'>
+                <div class="searchRightAd_inner">
+                        <div class='ad category_top slideshow-container'>
+                            <!-- <img src='img/searchad1.png'> -->
+                        </div>
                     
-                </div>
+                        <div class='ad category_mid slideshow-container'>
+                            <!-- <img src='img/searchad2.png'> -->
+                        </div>
+                   
+                        <div class='ad category_bottom slideshow-container'>
+                            <!-- <img src='img/searchad3.png'> -->
+                        </div>
+                    </div>
+          
+            </div>
                 <!-- 브랜드 자세히 보기 -->
                 <div class='searchRightDetail'>
                     <div class='brandDetail'>
-                        <div>
-                            <img src='img/brandImg.png'>
+                        <div class="brandDetail_img">
+                            <!-- <img src='img/brandImg.png'> -->
                         </div>
                         <div class='brandContents'>
                             <ul>
-                                <li><h2 class='brandName'>딘 타이 펑</h2></li>
+                                <li><h2 class='brandName'>딘타이펑</h2></li>
                                 <li><h4 class='searchLocation'>1F.중식 (음식점)</h4></li>
                                 <li><div class='brandInfo'>브랜드소개 브랜드소개 브랜드소개브랜드소개 브랜드소개 브랜드소개</div></li>
                             </ul>
@@ -336,7 +365,8 @@
                             <li><div class='infoImgNav'>위치 보기</div></li>
                         </ul>
                     </div>
-                    <div><img src='img/searchad3.png'></div>
+                    <div class='ad_box'>
+                    </div>
                 </div>
             </div>
         </div>
