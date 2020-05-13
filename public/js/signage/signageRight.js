@@ -352,6 +352,8 @@ function searchCategoryListLV2(lv2CatNum){
             $('.searchList2').css('display','none')
             $('#searchPrev').removeClass('searchPrevClick')
             $('#searchNext').addClass('searchNextClick')
+            $('#searchNext img').attr('src','/img/signage/right_arrow_active_icon.png')
+            $('#searchPrev img').attr('src','/img/signage/left_arrow_icon.png')
         }
     }
 
@@ -362,6 +364,9 @@ function searchCategoryListLV2(lv2CatNum){
             $('.searchList2').css('display','block')
             $('#searchPrev').addClass('searchPrevClick')
             $('#searchNext').removeClass('searchNextClick')
+            $('#searchNext img').attr('src','/img/signage/right_arrow_icon.png')
+            $('#searchPrev img').attr('src','/img/signage/left_arrow_active_icon.png')
+            
         }
     }
 
