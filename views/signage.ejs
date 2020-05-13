@@ -41,14 +41,14 @@
             <ul class='categoryList2'>
             </ul>
         <!-- 카테고리 버튼 -->
-            <div class='categoryNav'>
-                <ul>
-                    <li>
-                <div class='categoryPrev' id='prev' onclick="mainPrev()">
-                    <img src='/img/left_arrow_icon.png'>
-                </div>
-            </li>
-            <li>
+        <div class='categoryNav'>
+            <ul>
+                <li>
+                    <div class='categoryPrev' id='prev' onclick="mainPrev()">
+                        <img src='/img/signage/left_arrow_icon.png'>
+                    </div>
+                </li>
+                <li>
                     <div class='categoryState'>
                         <span style="font-size: 20px; color: #222222; font-weight: 400;" id='nowPage'>1</span>
                         <span style="font-size: 20px; color: #999999; font-weight: 300;">/ 2</span>
@@ -56,12 +56,12 @@
                 </li>
                 <li>
                     <!-- clickNextBtn -->
-                <div class='categoryNext' id='next' onclick="mainNext()">
-                    <img src='/img/right_arrow_active_icon.png'>
-                </div>
-            </li>
+                    <div class='categoryNext' id='next' onclick="mainNext()">
+                        <img src='/img/signage/right_arrow_active_icon.png'>
+                    </div>
+                </li>
             </ul>
-            </div>
+        </div>
         <!-- 좌측 하단 광고 -->
             <div class="ad main_left slideshow-container">
             </div>
@@ -210,11 +210,17 @@
         </div>
 <!--컨테이너 종료  -->
     </div>
+
+
+
+
+
+
 <!-- 검색모달 -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <div class='searchTop'><span class='searchTopName'>검색</span></div>        
-            <div class="searchClose"><span class='searchCloseName'>닫기</span><img src="/img/signage/modal/find_title_cancel_icon.png"></div>
+            <div class="searchClose"><span class='searchCloseName'>닫기</span><img src="/img/signage/modal/search_title_Close_icon.png"></div>
             <div class='searchContent'>
             <!-- 좌측 검색 카테고리 -->
                 <div class='searchLeft'>
@@ -224,20 +230,30 @@
                     <ul class='searchList2'>
                     </ul>
             <!-- 카테고리 버튼 -->
-                <div>
-                    <div class='searchNavPrev' id='searchPrev' onclick="searchPrev()"></div>
+            <div class="searchNav">
+                <ul>
+                    <li>
+                        <div class='searchNavPrev' id='searchPrev' onclick="searchPrev()"><img
+                                src='/img/signage/left_arrow_icon.png'></div>
+                    </li>
+                    <li>
                         <div class='searchState'>
                             <span style="font-size: 20px; color: #222222;" id='searchPage'>1</span>
                             <span style="font-size: 20px; color: #999999;">/ 2</span>
                         </div>
-                    <div class='searchNavNext searchNextClick' id='searchNext' onclick="searchNext()"></div>         
-                </div>    
-                    <label onclick="changeCategory()">
-                        <input type="checkbox" name='searchCategoryList' class='searchCheck'>
-                        <div class="categoryChange searchCategoryFont" id='chagneCategory'></div>
-                    </label>
-                    <div class='searchInfo'></div> 
-                </div>   
+                    </li>
+                    <li>
+                        <div class='searchNavNext searchNextClick' id='searchNext' onclick="searchNext()"><img
+                                src='/img/signage/right_arrow_icon.png'></div>
+                    </li>
+                </ul>
+            </div>
+            <label onclick="changeCategory()">
+                <input type="checkbox" name='searchCategoryList' class='searchCheck'>
+                <div class="categoryChange searchCategoryFont" id='chagneCategory'></div>
+            </label>
+            <div class='searchInfo'></div>
+            </div>
 
             <!--@모달 브랜드 상세보기 좌측 메뉴바 -->
                 <div class='brandInfoLeft'>

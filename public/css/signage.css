@@ -45,7 +45,6 @@ body,html{
 }
 
 /* 왼쪽 영역  --------------------------------------------- */
-
 /* 왼쪽 상단 층 표시 */
 .floorFont {
     width: 100%;
@@ -77,14 +76,13 @@ body,html{
 /* 카테고리 버튼 */
 .categoryBtn {
     width:100%; height: 50px;
-    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); border: solid 1.5px rgba(255,255,255,0.5); background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); border: solid 1.5px rgba(255,255,255,0.5); background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px; cursor: pointer;
 }
 
 /* 카테고리 폰트 */
 .categoryFont{         
     font-size: 18px;
     font-weight: 400;
-    line-height: 2;
     margin-top: 15px;
 }
 .categoryName{
@@ -114,7 +112,7 @@ body,html{
     border-radius: 12px;
     box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); 
     border: solid 1.5px rgba(255,255,255,0.5);
-    color: red;
+    cursor: pointer;
 }
 .categoryNext{
     width: 50px;
@@ -123,8 +121,9 @@ body,html{
     border-radius: 12px;
     box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); 
     border: solid 1.5px rgba(255,255,255,0.5);
-    background-image: linear-gradiient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
+    background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
     float: right;
+    cursor: pointer;
 }
 .categoryState {line-height: 50px;}
 
@@ -222,9 +221,6 @@ body,html{
 .center-footer ul li img {margin-right: 14px;}
 
 
-
-
-
 /* 오른쪽 영역 ----------------------------------------------- */
 /* 오른쪽 상단 로고 */
 h1.logo {
@@ -239,7 +235,7 @@ h1 span {font-size: 36px; font-weight: 400;}
 
 /* 오른쪽 nav */
 .rightNav{position: relative;} 
-.rightNav li{width: 100%; height: 90px;  position: relative;}
+.rightNav li{width: 100%; height: 90px;  position: relative; cursor: pointer;}
 .rightNav_list {width:50%; margin: 0 auto; height: 100%;}
 .rightNav_img {float:left; width:40px; height: 90px; line-height: 85px; margin-right: 16px;}
 .rightNav_list h2 {float: left; color: #eee; font-size: 20px; font-weight: 400; z-index: 100;  line-height: 90px;}
@@ -259,6 +255,7 @@ h1 span {font-size: 36px; font-weight: 400;}
 .languageList li{
     display: inline-block;
     margin-top: 12px;
+    cursor: pointer;
 }
 .language {
 color: #ccc;
@@ -296,7 +293,6 @@ font-weight: 100; text-emphasis: center;
     color: #ccc;
 }
 
-
 /* 날짜 및 시간 */
 .date {margin-top: 16px; line-height: 1.4;}
 .dayCount {
@@ -325,25 +321,12 @@ font-weight: 100; text-emphasis: center;
     color: #ccc;
 }
 
-
 /* 우측 하단 광고 */
 .rightAd{
     position: fixed;
     bottom: 0;
 }
 .rightAd img{width: 100%;}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -363,15 +346,27 @@ font-weight: 100; text-emphasis: center;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.75);
 }
+.modal-content {
+    position: absolute;
+    background-color: #eee;
+    box-shadow: 0 0 30px rgba(0,0,0,0.2);
+    width: 80%;
+    height: 88%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+/* 팝업 내부 상단 타이틀 */
 .searchTop{
     width: 90%;
     float: left;
     height: 60px;
     line-height: 60px;
     font-size: 20px;
-    background: url('/img/signage/modal/find_title_bg.png');
+    background: url('/img/signage/modal/search_title_bg.png');
     color: white;
     font-weight: 400;
     text-align: left;
@@ -382,17 +377,11 @@ font-weight: 100; text-emphasis: center;
     position: relative;
 }
 .searchTopName{
-    font-size: 24px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
-    text-align: left;
-    position: absolute;
-    top: 5%;
-    left: 11%;
-    color: #ffffff;
+    font-size: 22px;
+    font-weight:500;
+    line-height:60px;
+    color: #Eee;
+    margin-left: 25px;
   }
 .searchClose{
     width: 10%;
@@ -400,6 +389,7 @@ font-weight: 100; text-emphasis: center;
     background-color: #222;
     float: left;
     text-align: center;
+    cursor: pointer;
 }
 .searchCloseName{
     font-size: 20px;
@@ -407,47 +397,47 @@ font-weight: 100; text-emphasis: center;
     color: #eee;
     line-height: 60px;
 }
-.searchClose img {margin-left: 20px;}
+.searchClose img {margin-left: 20px; width: 20px; margin-top: -5px;}
+
+/* 팝업 내부 왼쪽 - 카테고리영역 ------------------------- */
+.searchLeft{
+    width: 18%;
+    height: 100%;
+    padding: 25px;
+    float: left;
+}
 .searchTotal{
     width: 100%;
-    height: 38px;
-    font-size: 32px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: -0.96px;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.75px;
     text-align: center;
     color: #a91179;
-}
-/* Modal Content/Box */
-.modal-content {
-    background-color: #eeeeee;
-    margin-left: 9%;
-    margin-top: 5%;
-    border: 1px solid #888;
-    width: 81%;
-    height: 85%;
+    margin-bottom: 30px;
 }
 .searchList{
     width: 100%;
-    margin-top: 50px;
-}
-.searchList li{
-    list-style: none;
+    height: auto;
 }
 .searchList2{
     display: none;
-    margin-top: 50px;
     width: 100%;
 }
 .searchList2 li{
     list-style: none;
 }
-
+/* 카테고리 리스트 속성 */
 .searchCategory {
-    border-radius: 12px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); border: solid 1.5px rgba(255,255,255,0.5); background-image: linear-gradient(280deg, #ffffff, #eee); border-radius: 12px; cursor: pointer;
+}
+.searchCategoryFont{         
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 15px;
 }
 .selected{
     height: 50px;
@@ -456,17 +446,6 @@ font-weight: 100; text-emphasis: center;
     color: #a91179;
 }
   
-.searchCategoryFont{         
-    width: 100%;
-    height: 50px;
-    font-size: 18px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 50px;
-    letter-spacing: normal;
-    text-align: center;
-    margin-top: 15px;
-}
 .categoryChange{
     display: none;
     width: 100%;
@@ -486,56 +465,43 @@ font-weight: 100; text-emphasis: center;
     color: #eeeeee;
   }
 .searchNav{
-    list-style:none;
-    margin-left: 0.5%;
-    margin-top: 5%;
+    position: relative;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    margin-top: 30px;
 }
 .searchNav li{
-    list-style:none;
-    margin-top: 1%;
-    margin: 1.3%;
-    display: inline-block;
+    width: 33.333%;
+    float: left;
 }
 .searchNavPrev{
-    background-image: url("/img/left_arrow_icon.png");
-    background-repeat: no-repeat;
-    background-position: 48% 47%;
+    background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
     list-style:none;
     width: 50px;
     height: 50px;
+    line-height: 45px;
     border-radius: 12px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    border: solid 1px #eeeeee;
-    background-color: #ffffff;
-    line-height: 1;
-    text-align: center;
-    margin-top: 28px;
-    color: #aaaaaa;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); 
+    border: solid 1.5px rgba(255,255,255,0.5);
+    cursor: pointer;
 }
 .searchNavNext{
-    background-image: url('/img/right_arrow_icon.png');
-    background-repeat: no-repeat;
-    background-position: 48% 47%;
-    list-style:none;
     width: 50px;
     height: 50px;
+    line-height: 45px;
     border-radius: 12px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
-    border: solid 1px #eeeeee;
-    background-color: #ffffff;
-    line-height: 1;
-    text-align: center;
-    margin-left: 79%;
-    margin-top: -18%;
-    color: #aaaaaa;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); 
+    border: solid 1.5px rgba(255,255,255,0.5);
+    background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
+    float: right;
+    cursor: pointer;
 }
-.searchState{
-    margin-left: 41%;
-    margin-top: -40px;
-}
+.searchState{line-height: 50px;}
 .searchInfo{
     color: #444444;
-    margin-top: 35%;
+    position: absolute;
+    bottom: 0;
     width: 100%;
     text-align: center;
 }
@@ -551,7 +517,7 @@ font-weight: 100; text-emphasis: center;
     background-position: 48% 47%;
 }
 .searchBox{
-    background-image: url('/img/find_bar_icon.png');
+    background-image: url('/img/search_bar_icon.png');
     background-position: 95% 45%;
     background-repeat: no-repeat;
     width: 100%;
@@ -581,13 +547,7 @@ font-weight: 100; text-emphasis: center;
     width: 100%;
     margin: 0;
 }
-.searchLeft{
-    width: 15%;
-    height: 100%;
-    padding: 25px;
-    margin: 0;
-    float: left;
-}
+
 .searchRight{
     width: 30%;
     float: right;
@@ -610,7 +570,7 @@ font-weight: 100; text-emphasis: center;
     display: none;
 }
 .searchCenter{
-    width: 54%;
+    width: 52%;
     height: 100%;
     float: left;
     padding: 25px;
