@@ -566,6 +566,8 @@ function storeInfo(e){
             $('#kor').addClass('choose')
             $('#eng').removeClass('choose')
             $('.rightNav_list').css('width','50%')    
+            $('.searchTotal').css('height', '38px')
+            $('.searchTotal').css('letter-spacing', '-0.96px')
         }
         $('[data-kor]').each(function(){
             $(this).html($(this).data('kor'))
@@ -580,6 +582,8 @@ function storeInfo(e){
             $('#kor').removeClass('choose')
             $('#eng').addClass('choose')        
             $('.rightNav_list').css('width','62%')    
+            $('.searchTotal').css('height', '7%')
+            $('.searchTotal').css('letter-spacing', '-1.96px')
         }
         $('[data-eng]').each(function(){
             $(this).html($(this).data('eng'))

@@ -43,7 +43,6 @@
     //카테고리 리스트
     function LV1CatList(){
         let categoryList = JSON.parse(localStorage.getItem('categoryLV1'))
-        console.log(categoryList)
         for(let i=0; i<categoryList.length; i++){
             if(i <7){
                 let html = "<li>";
