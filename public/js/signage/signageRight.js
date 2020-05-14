@@ -414,12 +414,23 @@ function searchCategoryListLV2(lv2CatNum){
 
 //브랜드 상세보기
 function storeInfo(e){
-    console.log(e.id)
-    $(e).text('상세보기 닫기상세보기 닫기')
-    $('.searchLeft').css('display','none');
-    $('.brandInfoLeft').css('display','block')
-    $('.searchCenter').css('display','none');
-    $('.brandInfoCenter').css('display','block')
+    console.log($(e).text())
+    
+    if($(e).text() === '상세 보기'){
+        $(e).text('상세보기 닫기')
+        $('.searchLeft').css('display','none');
+        $('.brandInfoLeft').css('display','block')
+        $('.searchCenter').css('display','none');
+        $('.brandInfoCenter').css('display','block')
+        
+    }else{
+        $(e).text('상세 보기')
+        $('.searchLeft').css('display','block');
+        $('.brandInfoLeft').css('display','none')
+        $('.searchCenter').css('display','block');
+        $('.brandInfoCenter').css('display','none')
+    }
+
 }
 
 //*** 검색 모달 스크립트 종료 ***
