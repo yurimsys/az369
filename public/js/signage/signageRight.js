@@ -5,8 +5,6 @@
         $('.searchResult').empty()
         //let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
         let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
-        console.log('=====')
-        console.log(jsonBrand)
         for(let i=0; i<jsonBrand.length; i++){
             // console.log(jsonBrand)
             let opTime = jsonBrand[i].BS_MainDtS
@@ -381,14 +379,15 @@ function searchCategoryListLV2(lv2CatNum){
 
 //브랜드 위치보기
     function storeLocation(e){
+        $('#myModal').css('display','none')
+        $('.floorBtn div').removeClass('floorSelcet')
+    //1층    
+    console.log('상가호수',e.id)
         if(e.id >1000 && e.id < 1231){
             $('#1Fstore path').css('fill','#E2E2E2')
-            // $('#h'+e.id).css('fill','#a91179')
-            $('#myModal').css('display','none')
             $('.centralSvg1F').css('display','block');
             $('.centralSvg2F').css('display','none');
             $('.centralSvg3F').css('display','none');
-            $('.floorBtn div').removeClass('floorSelcet')
             $('#floor1Btn').addClass('floorSelcet')
             $('#nowFloor').text('1F')
             $('#1Fstore_name text').each(function(){
@@ -401,15 +400,49 @@ function searchCategoryListLV2(lv2CatNum){
                     $('#h'+storeNumber).css('fill','#a91179')
                 }
             })
+        //좌표이동
+            //1사 분면
+            if((e.id > 1000 && e.id < 1027) ||(e.id > 1132 && e.id < 1147) || (e.id > 1219 && e.id < 1227)){
+                console.log('상가호수',e.id)
+                console.log('1사분면')
+                $('.centralSvg1F').css('left','424px')
+                $('.centralSvg1F').css('top','250px')
+                storeMapSize(1,15,2.125)
+            }
+            //2사 분면
+            else if((e.id > 1026 && e.id < 1057) ||(e.id > 1147 && e.id < 1172)){
+                console.log('상가호수',e.id)
+                console.log('2사분면')
+                $('.centralSvg1F').css('left','-319px')
+                $('.centralSvg1F').css('top','273px')
+                storeMapSize(1,15,2.125)
+            }
+            //3사 분면
+            else if((e.id > 1056 && e.id < 1097) ||(e.id > 1171 && e.id < 1197) ||(e.id > 1226 && e.id < 1231)){
+                $('.centralSvg1F').css('left','-378px')
+                $('.centralSvg1F').css('top','-435px')
+                storeMapSize(1,15,2.125)
+                return false;
+            }
+            //4사 분면
+            else if((e.id > 1096 && e.id < 1133) ||(e.id > 1198 && e.id < 1220)){
+                console.log('상가호수',e.id)
+                console.log('4사분면')
+                $('.centralSvg1F').css('left','445px')
+                $('.centralSvg1F').css('top','-297px')
+                storeMapSize(1,15,2.125)
+                return false;
+            }
+
         }
+
+    //2층
         else if(e.id > 2000 && e.id < 2103){
             // console.log('2층')
             $('#2Fstore path').css('fill','#E2E2E2')
-            $('#myModal').css('display','none')
             $('.centralSvg1F').css('display','none');
             $('.centralSvg2F').css('display','block');
             $('.centralSvg3F').css('display','none');
-            $('.floorBtn div').removeClass('floorSelcet')
             $('#floor2Btn').addClass('floorSelcet')
             $('#nowFloor').text('2F')
             $('#2Fstore_name text').each(function(){
@@ -422,34 +455,88 @@ function searchCategoryListLV2(lv2CatNum){
                     $('#h'+storeNumber).css('fill','#a91179')
                 }
             })
+            //좌표이동
+            //1사 분면
+            if((e.id > 2000 && e.id < 2011) ||(e.id > 2063 && e.id < 2068) || (e.id == 2060 || e.id == 2101)){
+                $('.centralSvg2F').css('left','424px')
+                $('.centralSvg2F').css('top','250px')
+                storeMapSize(1,15,2.125)
+                return false;
+            }
+            //2사 분면
+            else if((e.id > 2010 && e.id < 2028) ||(e.id > 2067 && e.id < 2078) || e.id == 2061){
+                $('.centralSvg2F').css('left','-319px')
+                $('.centralSvg2F').css('top','273px')
+                storeMapSize(1,15,2.125)
+                return false;
+            }
+            //3사 분면
+            else if((e.id > 2027 && e.id < 2045) ||(e.id > 2077 && e.id < 2091) ||(e.id == 2062)){
+                $('.centralSvg2F').css('left','-378px')
+                $('.centralSvg2F').css('top','-435px')
+                storeMapSize(1,15,2.125)
+                return false;
+            }
+            //4사 분면
+            else if((e.id > 2044 && e.id < 2060) ||(e.id > 2090 && e.id < 2101) || e.id == 2063){
+                $('.centralSvg2F').css('left','445px')
+                $('.centralSvg2F').css('top','-297px')
+                storeMapSize(1,15,2.125)
+                return false;
+            }
         }
         else if(e.id>3000 && e.id < 3107){
             // console.log('3층')
             $('#3Fstore path').css('fill','#E2E2E2')
-            $('#myModal').css('display','none')
             $('.centralSvg1F').css('display','none');
             $('.centralSvg2F').css('display','none');
             $('.centralSvg3F').css('display','block');
-            $('.floorBtn div').removeClass('floorSelcet')
             $('#floor3Btn').addClass('floorSelcet')
             $('#nowFloor').text('3F')
             $('#3Fstore_name text').each(function(){
-                let storeName = $(this)
-                let storeNumber;
-                //svg텍스트가 선택한 브랜드 명과 같으면
-                if(storeName.text() == $('#h'+e.id+'-2').text()){
-                    //해당 아이디를 가져옴
-                    storeNumber = $(this).attr('id').substring('1','5')
-                    $('#h'+storeNumber).css('fill','#a91179')
-                }
+            let storeName = $(this)
+            let storeNumber;
+            //svg텍스트가 선택한 브랜드 명과 같으면
+            if(storeName.text() == $('#h'+e.id+'-2').text()){
+                //해당 아이디를 가져옴
+                storeNumber = $(this).attr('id').substring('1','5')
+                $('#h'+storeNumber).css('fill','#a91179')
+            }
+            //좌표이동
+            //1사 분면
+            if((e.id > 3000 && e.id < 3011) ||(e.id > 3059 && e.id < 3062) ||(e.id > 3067 && e.id < 3072) || (e.id == 3106)){
+                $('.centralSvg3F').css('left','424px')
+                $('.centralSvg3F').css('top','250px')
+                storeMapSize(1,15,2.125)
+                return false;
+            }
+            //2사 분면
+            else if((e.id > 3010 && e.id < 3028) ||(e.id > 3059 && e.id < 3062) ||(e.id > 3071 && e.id < 3082)){
+                $('.centralSvg3F').css('left','-319px')
+                $('.centralSvg3F').css('top','273px')
+                storeMapSize(1,15,2.125)
+                return false;
+            }
+            //3사 분면
+            else if((e.id > 3027 && e.id < 3045) ||(e.id > 3063 && e.id < 3066) ||(e.id > 3081 && e.id < 3095)){
+                $('.centralSvg3F').css('left','-378px')
+                $('.centralSvg3F').css('top','-435px')
+                storeMapSize(1,15,2.125)
+                return false;
+            }
+            //4사 분면
+            else if((e.id > 3044 && e.id < 3060) ||(e.id > 3065 && e.id < 3068) ||(e.id > 3095 && e.id < 3106)){
+                $('.centralSvg3F').css('left','445px')
+                $('.centralSvg3F').css('top','-297px')
+                storeMapSize(1,15,2.125)
+                return false;
+            }
             })
         }
     }
 
 //브랜드 상세보기
 function storeInfo(e){
-    console.log($(e).text())
-    
     if($(e).text() === '상세 보기'){
         $(e).text('상세보기 닫기')
         $('.searchLeft').css('display','none');
@@ -672,8 +759,7 @@ function storeInfo(e){
         $('#3Fstore path').css('fill','')
         $('.floorBtn div').removeClass('floorSelcet')
         let deviceParam = urlParam();
-
-        if(deviceParam[2] === undefined){
+        if(deviceParam.device_cd === undefined){
             $('.centralSvg1F').css('display','block');
             $('.centralSvg2F').css('display','none');
             $('.centralSvg3F').css('display','none');
@@ -681,29 +767,27 @@ function storeInfo(e){
             $('#nowFloor').text('1F')
             location.href='http://localhost:8001/sign?device_cd=1fa'
         }
-        else if(deviceParam[2].substring('0','1') == 1){
-
+        else if(deviceParam.device_cd == '1fa'){
             $('.centralSvg1F').css('display','block');
             $('.centralSvg2F').css('display','none');
             $('.centralSvg3F').css('display','none');
             $('#floor1Btn').addClass('floorSelcet')
             $('#nowFloor').text('1F')
         }        
-        else if(deviceParam[2].substring('0','1') == 2){
+        else if(deviceParam.device_cd == '2fa'){
             $('.centralSvg1F').css('display','none');
             $('.centralSvg2F').css('display','block');
             $('.centralSvg3F').css('display','none');
             $('#floor2Btn').addClass('floorSelcet')
             $('#nowFloor').text('2F')
         }
-        else if(deviceParam[2].substring('0','1') == 3){
+        else if(deviceParam.device_cd == '3fa'){
             $('.centralSvg1F').css('display','none');
             $('.centralSvg2F').css('display','none');
             $('.centralSvg3F').css('display','block');
             $('#floor3Btn').addClass('floorSelcet')
             $('#nowFloor').text('3F')
         }
-        
     }
 
 //url 매개변수
@@ -717,7 +801,6 @@ function storeInfo(e){
             // console.log(hash);
             array[hash[0]] = hash[1];
         }
-        console.log(array)
         return array;
     }
 //*** 메인 우측 하단 날씨, 시간, 언어 선택 스크립트 종료 ***

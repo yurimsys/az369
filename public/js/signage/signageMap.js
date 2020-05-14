@@ -48,96 +48,170 @@ $.ajax({
     $('#1Fstore_name text').hide()
     $('#2Fstore_name text').hide()
     $('#3Fstore_name text').hide()
-    //줌인 줌아웃 리셋 
-    function zoomIn(e){
-        $('#1Fstore').css('cursor','pointer');
-        $('#2Fstore').css('cursor','pointer');
-        $('#3Fstore').css('cursor','pointer');
-        if($('#zoomIn').attr('class') == 'plusBtn'){
-            //이미지 커서 이동 css
+
+
+    //줌인
+    function zoomIn(){
+        //이미지 커서 이동 css
+
+        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '12px'){
+            storeMapSize(1,13,1.375)
             $('.centralSvg').css('left','0px')
             $('.centralSvg').css('top','0px')
-            $(e).attr('class','plusBtn 1X')
-            $('.centralSvg').css('transform','scale(1.375)')
-            $('#1Fstore_name text').show()
-            $('#2Fstore_name text').show()
-            $('#3Fstore_name text').show()
+            return false;
         }
-        else if($('#zoomIn').attr('class') == 'plusBtn 1X'){
-            $(e).attr('class','plusBtn 2X')
-            $('.centralSvg').css('transform','scale(1.75)')
-            $('#1Fstore_name text').css('font-size','14')
-            $('#2Fstore_name text').css('font-size','14')
-            $('#3Fstore_name text').css('font-size','14')
-            $('#store_name text').css('font-size','14')
+        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '12px'){
+            storeMapSize(2,13,1.375)
+            $('.centralSvg').css('left','0px')
+            $('.centralSvg').css('top','0px')
+            return false;
         }
-        else if($('#zoomIn').attr('class') == 'plusBtn 2X'){
-            $(e).attr('class','plusBtn 3X')
-            $('.centralSvg').css('transform','scale(2.125)')
-            $('#1Fstore_name text').css('font-size','15')
-            $('#2Fstore_name text').css('font-size','15')
-            $('#3Fstore_name text').css('font-size','15')
-            $('#store_name text').css('font-size','15')
+        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '12px'){
+            storeMapSize(3,13,1.375)
+            $('.centralSvg').css('left','0px')
+            $('.centralSvg').css('top','0px')
+            return false;
         }
-        else if($('#zoomIn').attr('class') == 'plusBtn 3X'){
-            $(e).attr('class','plusBtn 4X')
-            $('.centralSvg').css('transform','scale(2.5)')
-            $('#store_name text').css('font-size','16')
-            $('#1Fstore_name text').css('font-size','16')
-            $('#2Fstore_name text').css('font-size','16')
-            $('#3Fstore_name text').css('font-size','16')
+        
+        //2줌
+        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '13px'){
+            storeMapSize(1,14,1.75)
+            return false;
         }
+        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '13px'){
+            storeMapSize(2,14,1.75)
+            return false;
+        }
+        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '13px'){
+            storeMapSize(3,14,1.75)
+            return false;
+        }
+        
+        //3줌
+        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '14px'){
+            storeMapSize(1,15,2.125)
+            return false;
+        }
+        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '14px'){
+            storeMapSize(2,15,2.125)
+            return false;
+        }
+        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '14px'){
+            storeMapSize(3,15,2.125)
+            return false;
+        }
+        
+
+        //4줌
+        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '15px'){
+            storeMapSize(1,16,2.5)
+            return false;
+        }
+        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '15px'){
+            storeMapSize(2,16,2.5)
+            return false;
+        }
+        else if($('.centralSvg3F').css('display') == 'block' && $('#3ㄹstore_name text').css('font-size') == '15px'){
+            storeMapSize(3,16,2.5)
+            return false;
+        }
+        
     }
 
+//줌 아웃
     function zoomOut(){
-        if($('#zoomIn').attr('class') == 'plusBtn 1X'){
-            // $('.centralSvg').removeClass('fullOne')
-            $('.centralSvg').css('transform','')
+        //1줌
+        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '13px'){
+            zoomReset();
+        }
+        else if($('.centralSvg1F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '13px'){
+            zoomReset();
+        }
+        else if($('.centralSvg1F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '13px'){
+            zoomReset();
+        }
+
+        //2줌
+        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '14px'){
+            storeMapSize(1,13,1.375)
+            return false;
+        }
+        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '14px'){
+            storeMapSize(2,13,1.375)
+            return false;
+        }
+        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '14px'){
+            storeMapSize(3,13,1.375)
+            return false;
+        }
+    
+        //3줌
+        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '15px'){
+            storeMapSize(1,14,1.75)
+            return false;
+        }
+        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '15px'){
+            storeMapSize(2,14,1.75)
+            return false;
+        }
+        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '15px'){
+            storeMapSize(3,14,1.75)
+            return false;
+        }
+    
+        //4줌
+        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '16px'){
+            storeMapSize(1,15,2.125)
+            return false;
+        }
+        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '16px'){
+            storeMapSize(2,15,2.125)
+            return false;
+        }
+        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '16px'){
+            storeMapSize(3,15,2.125)
+            return false;
+        }
+        
+    }
+
+    //지도 사이즈
+    function storeMapSize(floor,size,scale){
+        $('.centralSvg'+floor+'F').css('transform','scale('+scale+')')
+        $('#'+floor+'Fstore_name text').css('font-size',size)
+        $('#'+floor+'Fstore').css('cursor','pointer');
+        $('#'+floor+'Fstore_name text').show()
+    }
+
+//리셋
+    function zoomReset(){
+        if($('.centralSvg1F').css('display') == 'block'){
+            storeMapSize(1,12,1)
+            $('#1Fstore_name text').hide()
+            $('#1Fstore').css('cursor','');
             $('#zoomIn').attr('class', 'plusBtn')
             $('.centralSvg').css('left','')
             $('.centralSvg').css('top','')
-            $('#store_name text').hide()
-            $('#1Fstore_name text').hide()
+        }
+        else if($('.centralSvg2F').css('display') == 'block'){
+            storeMapSize(2,12,1)
             $('#2Fstore_name text').hide()
+            $('#2Fstore').css('cursor','');
+            $('#zoomIn').attr('class', 'plusBtn')
+            $('.centralSvg').css('left','')
+            $('.centralSvg').css('top','')
+        }
+        else if($('.centralSvg3F').css('display') == 'block'){
+            storeMapSize(3,12,1)
             $('#3Fstore_name text').hide()
-            // $('#store_name text').css('font-size','16')
-        }
-        else if($('#zoomIn').attr('class') == 'plusBtn 2X'){
-            $('#zoomIn').attr('class', 'plusBtn 1X')
-            $('.centralSvg').css('transform','scale(1.375)')
-            $('#store_name text').css('font-size','13')
-            $('#1Fstore_name text').css('font-size','13')
-            $('#2Fstore_name text').css('font-size','13')
-            $('#3Fstore_name text').css('font-size','13')
-        }
-        else if($('#zoomIn').attr('class') == 'plusBtn 3X'){
-            $('#zoomIn').attr('class', 'plusBtn 2X')
-            $('.centralSvg').css('transform','scale(1.75)')
-            $('#store_name text').css('font-size','14')
-            $('#1Fstore_name text').css('font-size','14')
-            $('#2Fstore_name text').css('font-size','14')
-            $('#3Fstore_name text').css('font-size','14')
-        }
-        else if($('#zoomIn').attr('class') == 'plusBtn 4X'){
-            $('#zoomIn').attr('class', 'plusBtn 3X')
-            $('.centralSvg').css('transform','scale(2.125)')
-            $('#store_name text').css('font-size','15')
-            $('#1Fstore_name text').css('font-size','15')
-            $('#2Fstore_name text').css('font-size','15')
-            $('#3Fstore_name text').css('font-size','15')
-        }
+            $('#3Fstore').css('cursor','');
+            $('#zoomIn').attr('class', 'plusBtn')
+            $('.centralSvg').css('left','')
+            $('.centralSvg').css('top','')
+        }   
     }
 
-    function zoomReset(){
-        $('.centralSvg').css('transform','')
-        $('.centralSvg').css('left','')
-        $('.centralSvg').css('top','')
-        $('#zoomIn').attr('class', 'plusBtn')
-        $('#store_name text').hide()
-        $('#1Fstore_name text').hide()
-        $('#2Fstore_name text').hide()
-        $('#3Fstore_name text').hide()
-    }
+
 
     //층수 클릭
     $('.floorBtn div').on('click',function(e){

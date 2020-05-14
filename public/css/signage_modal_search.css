@@ -138,7 +138,7 @@
 .searchNav li{width: 33.333%; float: left;}
 .searchNavPrev{
     background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
-    background-image: url('/img/signage/left_arrow_icon.png');
+    /* background-image: url('/img/signage/left_arrow_icon.png'); */
     background-repeat: no-repeat;
     background-position: 48% 47%;
     list-style:none;
@@ -152,7 +152,7 @@
 }
 .searchNavNext{
     background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
-    background-image: url('/img/signage/right_arrow_icon.png');
+    /* background-image: url('/img/signage/right_arrow_icon.png'); */
     background-repeat: no-repeat;
     background-position: 48% 47%;
     width: 50px;
@@ -208,7 +208,12 @@
     color: #767676;
     padding: 0 20px;
   }
-
+.searchCancel{
+    margin-top: -55px;
+    font-size: 25px;
+    text-align: right;
+    margin-right: 20px;
+}
 
 /* 팝업 내부 가운데 하단 : 브랜드 목록 ------------------------------ */
   .searchContent{height: 100%; width: 100%; margin: 0;}
