@@ -31,6 +31,16 @@
             localStorage.setItem('categoryLV2',JSON.stringify(res.data))
         }
     })
+//svg파일 상가 정보
+    $.ajax({
+        url: '/api/storeInfo',
+        method: 'get',
+        dataType: 'json',
+        async : false,
+        success: function(res){
+            localStorage.setItem('storeInfo',JSON.stringify(res.data))
+        }
+    })
 //일반 영문
     $.ajax({
         url: '/api/language',

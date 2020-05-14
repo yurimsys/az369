@@ -279,20 +279,18 @@
                 <!--@모달 브랜드 상세보기 좌측 메뉴바 -->
                 <div class='brandInfoLeft'>
 
-
-
                     <!--@모달 브랜드 상세보기 광고 -->
                     <div class="modal_search_left">
                         <img src="/img/ad/11@2x.png">
                     </div>
                     <ul>
-                        <li class="brandInfoBtn">
+                        <li class="brandInfoBtn" onclick="brandNavInfo()">
                             <div class='categoryBtn categoryFont categoryBack brandInfoText'>정보</div>
                         </li>
-                        <li class="brandMenuBtn">
+                        <li class="brandMenuBtn" onclick="brandNavMenu(this)">
                             <div class='categoryBtn categoryFont categoryBack brandInfoText'>메뉴</div>
                         </li>
-                        <li class="brandEventBtn">
+                        <li class="brandEventBtn" onclick="brandNavEvent(this)">
                             <div class='categoryBtn categoryFont categoryBack brandInfoText'>이벤트</div><span></span>
                         </li>
                     </ul>
@@ -533,10 +531,10 @@
 
 
 
-                <!-- 우측 광고 -->
-                <!-- 첫페이지 -->
-                <div class='ad search searchRight slideshow-container'>
-                    <img src='img/test1.png'>
+            <!-- 우측 광고 -->
+            <!-- 첫페이지 -->
+            <div class='ad search searchRight slideshow-container'>
+                <img src='img/test1.png'>
             </div>
             <!-- 카테고리 클릭 -->
             <div class='searchRight searchRightAd'>
@@ -544,13 +542,13 @@
                 <div class='ad category_mid slideshow-container'></div>
                 <div class='ad category_bottom slideshow-container'></div>
             </div>
-                <!-- 브랜드 자세히 보기 -->
-                <div class='searchRightDetail'>
-                    <div class='brandDetail'>
-                    </div>
-                    <!-- <div class='ad category_bottom slideshow-container'>
-                    </div> -->
+            <!-- 브랜드 자세히 보기 -->
+            <div class='searchRightDetail'>
+                <div class='brandDetail'>
                 </div>
+                <!-- <div class='ad category_bottom slideshow-container'>
+                </div> -->
+            </div>
             <!-- </div> -->
         </div>
     </div>
@@ -565,8 +563,11 @@
     <script src="js/signage/signageRight.js"></script>
     <script src="js/signage/signageMap.js"></script>
     <script src="js/signage/signageLeft.js"></script>
+    <script src="js/signage/searchModal.js"></script>
     <script src="js/signage/advertisement.js"></script>
     <script src="js/signage/search.js"></script>
+    
+    
 
 </body>
 

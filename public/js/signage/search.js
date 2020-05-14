@@ -77,7 +77,8 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
                 }
             }
         }
-
+        
+        //검색창 초기화
         function searchCancel(){
             searchBrandList();
             $('#searchBrandName').val('')
