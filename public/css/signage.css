@@ -397,6 +397,6 @@ h1 span {font-size: 36px; font-weight: 400;}
 
 .main_left, .main_right {position: absolute; bottom: 0;}
 
-g.storeName text {fill: #fff; text-shadow: 0 0 3px rgba(44, 6, 36, 0.7);}
+g.storeName text {fill: #fff; text-shadow: 0 0 3px rgba(27, 7, 18, 0.7);}
 
 /* ------------------------------------- 첫 화면 여기까지 */
