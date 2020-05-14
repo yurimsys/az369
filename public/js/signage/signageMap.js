@@ -1,13 +1,6 @@
 //*** 중앙 svg 스크립트 ***
 
-$.ajax({
-    url: '/api/storeInfo',
-    method: 'get',
-    dataType: 'json',
-    success: function(res){
-        localStorage.setItem('storeInfo',JSON.stringify(res.data))
-    }
-})
+
 
     //이미지 확대
     let img_L = 0;
@@ -211,8 +204,6 @@ $.ajax({
         }   
     }
 
-
-
     //층수 클릭
     $('.floorBtn div').on('click',function(e){
         let nowFloor = e.target.id
@@ -239,8 +230,8 @@ $.ajax({
     //svg파일 클래스,텍스트 매칭
     function svgLocation(){
         let storeList = JSON.parse(localStorage.getItem('storeInfo'))
-        // console.log('스토어리스트')
-        // console.log(storeList)
+
+        //상가 호수에 카테고리명 클래스 입력
         $('#1Fstore path').each(function(){
             let svg3FStore = $(this).attr('id').replace('h','')
             for(let i=0; i<storeList.length; i++){
@@ -249,6 +240,7 @@ $.ajax({
                 }
             }
         })
+        //상가 호수에 브랜드명 입력
         $('#1Fstore_name text').each(function(){
             let svg3FStoreName = $(this).attr('id').replace('h','').replace('-2','')
             //console.log(storeList)
@@ -259,10 +251,10 @@ $.ajax({
                     }else{
                         $(this).children('tspan').text(storeList[i].BS_NameEng)
                     }
-                    
                 }
             }
         })
+        //상가 호수에 카테고리명 클래스 입력
         $('#2Fstore path').each(function(){
             let svg3FStore = $(this).attr('id').replace('h','')
             for(let i=0; i<storeList.length; i++){
@@ -271,6 +263,7 @@ $.ajax({
                 }
             }
         })
+        //상가 호수에 브랜드명 입력
         $('#2Fstore_name text').each(function(){
             let svg3FStoreName = $(this).attr('id').replace('h','').replace('-2','')
             //console.log(storeList)
@@ -285,6 +278,7 @@ $.ajax({
                 }
             }
         })
+        //상가 호수에 카테고리명 클래스 입력
         $('#3Fstore path').each(function(){
             let svg3FStore = $(this).attr('id').replace('h','')
             for(let i=0; i<storeList.length; i++){
@@ -293,6 +287,7 @@ $.ajax({
                 }
             }
         })
+        //상가 호수에 브랜드명 입력
         $('#3Fstore_name text').each(function(){
             let svg3FStoreName = $(this).attr('id').replace('h','').replace('-2','')
             //console.log(storeList)

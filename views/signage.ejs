@@ -8,6 +8,15 @@
 
     <!-- 폰트 -->
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|Roboto&display=swap" rel="stylesheet">
+    <!--폰트어썸-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">	
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+  />
+
+
 
     <!-- 메인 css -->
     <link rel="stylesheet" href="/css/signage.css">
@@ -235,7 +244,7 @@
         <div class="modal-content">
             <div class='searchTop'><span class='searchTopName'>검색</span></div>
             <div class="searchClose"><span class='searchCloseName'>닫기</span><img
-                    src="/img/signage/modal/search_title_Close_icon.png"></div>
+                    src="/img/signage/modal/search_Close_icon.png"></div>
             <div class='searchContent'>
                 <!-- 좌측 검색 카테고리 -->
                 <div class='searchLeft'>
@@ -279,20 +288,18 @@
                 <!--@모달 브랜드 상세보기 좌측 메뉴바 -->
                 <div class='brandInfoLeft'>
 
-
-
                     <!--@모달 브랜드 상세보기 광고 -->
                     <div class="modal_search_left">
                         <img src="/img/ad/11@2x.png">
                     </div>
                     <ul>
-                        <li class="brandInfoBtn">
+                        <li class="brandInfoBtn" onclick="brandNavInfo()">
                             <div class='categoryBtn categoryFont categoryBack brandInfoText'>정보</div>
                         </li>
-                        <li class="brandMenuBtn">
+                        <li class="brandMenuBtn" onclick="brandNavMenu(this)">
                             <div class='categoryBtn categoryFont categoryBack brandInfoText'>메뉴</div>
                         </li>
-                        <li class="brandEventBtn">
+                        <li class="brandEventBtn" onclick="brandNavEvent(this)">
                             <div class='categoryBtn categoryFont categoryBack brandInfoText'>이벤트</div><span></span>
                         </li>
                     </ul>
@@ -304,9 +311,12 @@
                     <div class="searchCenter_top">
                         <ul>
                             <li>
-                                <input type="text" placeholder="이곳을 클릭하여 찾으시는 브랜드명을 검색하세요. (초성검색가능)" class='searchBox'
+                                <div class="searchBox_wrap">
+                                <input type="text" placeholder="이곳을 클릭하여 찾으시는 브랜드를 검색하세요. (초성검색가능)" class='searchBox'
                                 id='searchBrandName'>
-                                <div class='searchCancel' onclick="searchCancel()">X</div>
+                                <div class='searchCancel' onclick="searchCancel()"><img
+                                    src="/img/signage/modal/search_cancle_icon.png"></div>
+                                </div>
                             </li>
                             <li>
                                 <button type='submit' onclick="search()">검색</button>
@@ -340,17 +350,17 @@
                             <div class="brandInfoDetail_txt">
                                 <h3>상세정보 <span>단체석 예약, 포장 가능</span></h3>
                                 <dl>
-                                    <dt>영업시간</dt>
+                                    <dt><i class="far fa-clock"></i> 영업시간</dt>
                                     <dd>매일 00:00 ~ 00:00</dd>
                                     <dd style="color: #999;">매주 월요일 휴무</dd>
                                 </dl>
                                 <dl>
-                                    <dt>전화번호</dt>
+                                    <dt><i class="fas fa-mobile-alt"></i> 전화번호</dt>
                                     <dd>000 - 000 - 0000</dd>
                                     <dd>000 - 0000 - 0000</dd>
                                 </dl>
                                 <dl>
-                                    <dt>주소</dt>
+                                    <dt><i class="fas fa-map-marker-alt"></i> 주소</dt>
                                     <dd>경기도 평택시 비전1동 104-28</dd>
                                     <dd>평택 가로수길 센트럴돔 0000호</dd>
                                 </dl>
@@ -533,10 +543,10 @@
 
 
 
-                <!-- 우측 광고 -->
-                <!-- 첫페이지 -->
-                <div class='ad search searchRight slideshow-container'>
-                    <img src='img/test1.png'>
+            <!-- 우측 광고 -->
+            <!-- 첫페이지 -->
+            <div class='ad search searchRight slideshow-container'>
+                <img src='img/test1.png'>
             </div>
             <!-- 카테고리 클릭 -->
             <div class='searchRight searchRightAd'>
@@ -549,6 +559,9 @@
                     <div class='brandDetail'></div>
                     <div class='ad category_bottom slideshow-container'></div>
                 </div>
+                <!-- <div class='ad category_bottom slideshow-container'>
+                </div> -->
+            </div>
             <!-- </div> -->
         </div>
     </div>
@@ -563,8 +576,11 @@
     <script src="js/signage/signageRight.js"></script>
     <script src="js/signage/signageMap.js"></script>
     <script src="js/signage/signageLeft.js"></script>
+    <script src="js/signage/searchModal.js"></script>
     <script src="js/signage/advertisement.js"></script>
     <script src="js/signage/search.js"></script>
+    
+    
 
 </body>
 
