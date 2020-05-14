@@ -32,6 +32,7 @@ body,html{
     position: relative;
     float: left;
     height: 100%;
+    box-shadow: 0 -15px 5px rgba(0, 0, 0, 1);
 }
 #box-center {
     width: 71%;
@@ -39,7 +40,7 @@ body,html{
     position: relative;
     height: 100%;
     text-align: center;
-    background-color: #7c818f;
+    background: url('/img/signage/main_bg.png');
 }
 #box-right {
     width: 15%;
@@ -155,7 +156,7 @@ body,html{
 #categoryIcon6 {background-color: #A2D2F2;}
 #categoryIcon7 {background-color: #5275B1;}
 #categoryIcon8 {background-color: #9BB259}
-#categoryIcon9 {background-color: #008100;}
+#categoryIcon9 {background-color: #D0A3DB;}
 #categoryIcon10 {background-color: #4e43a1;}
 
 
@@ -220,8 +221,8 @@ body,html{
     background-color: rgba( 0, 0, 0, 0.2);
     color: #fff; font-size: 18px; font-weight: 300; text-align: justify;
 }
-.center-footer ul {width: 100%; height: 90px; text-align: center;}
-.center-footer ul li {float: left; width: 16.666%; line-height: 90px;}
+.center-footer ul {width: 100%; height: 90px; text-align: center; display: flex; align-content: space-between; padding: 0 50px;}
+.center-footer ul li {float: left; flex:1;  line-height: 90px;}
 .center-footer ul li img {margin-right: 14px;}
 
 
@@ -229,8 +230,8 @@ body,html{
 /* 오른쪽 상단 로고 */
 h1.logo {
     font-size: 24px;
-    color: rgb(167, 120, 153);
-    font-weight: 200;
+    color: rgb(161, 115, 148);
+    font-weight: 300;
     text-align: center;
     line-height: 1.15; 
     margin: 42px 0 ;
@@ -384,7 +385,7 @@ h1 span {font-size: 36px; font-weight: 400;}
 .Kids·Pet {fill: #A2D2F2;}
 .Sports·Car {fill: #5275B1;}
 .Convenience {fill:#9BB259;}
-.Normal {fill:#008100;}
+.Normal {fill:#D0A3DB;}
 
 /* Advertisement CSS */
 /* Slideshow container */
@@ -395,5 +396,7 @@ h1 span {font-size: 36px; font-weight: 400;}
 }
 
 .main_left, .main_right {position: absolute; bottom: 0;}
+
+g.storeName text {fill: #fff; text-shadow: 0 0 3px rgba(27, 7, 18, 0.7);}
 
 /* ------------------------------------- 첫 화면 여기까지 */
