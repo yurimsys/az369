@@ -137,9 +137,10 @@ body,html{
     width: 100%;
     position: fixed;
     bottom: 0;
-}
+}a
 .main_left img{
     width: 100%;
+    height: 100%;
 }
 
 /* 카테고리별 박스 아이콘 */
@@ -257,13 +258,10 @@ h1 span {font-size: 36px; font-weight: 400;}
 }
 .languageList li{
     display: inline-block;
-    margin-top: 12px;
+    margin-top: 10px;
     cursor: pointer;
 }
-.language {
-color: #ccc;
-font-weight: 100; text-emphasis: center;
-}
+.language {color: #ccc; font-weight: 100; text-emphasis: center;}
 .languageSelect{
     width: 45px;
     height: 45px;
@@ -274,7 +272,7 @@ font-weight: 100; text-emphasis: center;
     font-size: 18px;
     text-align: center;
     color: #eee;
-    font-weight: 200;
+    font-weight: 300;
 }
 .choose{
     background-color: #6A114D;
@@ -306,7 +304,6 @@ font-weight: 100; text-emphasis: center;
     font-weight: 200;
     text-align: center;
     color: #eee;
-    font-weight: 200;
 }
 .timeCount{
     width: 100%;

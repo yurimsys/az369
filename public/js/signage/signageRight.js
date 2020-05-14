@@ -259,12 +259,16 @@ function searchCategoryListLV2(lv2CatNum){
 
 //브랜드 리스트 클릭시
     function brandClick(e){
+        console.log('brandClick');
+        
         $('.brandDetail').empty();
         $('.searchResult div').css('background-color','')
         $('#'+e.id).css('background-color','#f9eff6');
         $('.searchRight').css('display','none')
         $('.searchRightAd').css('display','none');
+        // $('.searchRightAd').css('display','block');
         $('.searchRightDetail').css('display','block')
+        // $('.brandDetail').css('display','block')
 
         // let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
         let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
@@ -539,17 +543,21 @@ function searchCategoryListLV2(lv2CatNum){
 function storeInfo(e){
     if($(e).text() === '상세 보기'){
         $(e).text('상세보기 닫기')
+        $(e).addClass('detail_click')
         $('.searchLeft').css('display','none');
         $('.brandInfoLeft').css('display','block')
         $('.searchCenter').css('display','none');
         $('.brandInfoCenter').css('display','block')
+        // $('.brandMenuCenter').css('display','block')
         
     }else{
         $(e).text('상세 보기')
+        $(e).removeClass('detail_click')
         $('.searchLeft').css('display','block');
         $('.brandInfoLeft').css('display','none')
         $('.searchCenter').css('display','block');
         $('.brandInfoCenter').css('display','none')
+        // $('.brandMenuCenter').css('display','none')
     }
 
 }

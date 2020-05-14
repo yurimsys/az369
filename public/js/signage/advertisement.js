@@ -11,7 +11,7 @@ class AdSlide{
         this.data = '';
         this.slide_template = `
             <div class="adSlides fade">
-                <img src="" style="width:100%">
+                <img src="" style="width:100%" />
             </div>
         `
         this.Slide_Event_List = [];
