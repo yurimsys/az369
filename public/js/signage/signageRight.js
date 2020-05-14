@@ -53,7 +53,7 @@
         }
         return array;
     }
-    
+
 //현재 기상상황
     function skyState(){
         $.ajax({
