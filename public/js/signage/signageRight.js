@@ -5,6 +5,8 @@
         $('.searchResult').empty()
         //let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
         let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
+        console.log('=====')
+        console.log(jsonBrand)
         for(let i=0; i<jsonBrand.length; i++){
             // console.log(jsonBrand)
             let opTime = jsonBrand[i].BS_MainDtS
@@ -12,7 +14,7 @@
             let edTime = jsonBrand[i].BS_MainDtF
                 endTime = edTime.slice(-8, -3)
                 if($('#kor').hasClass('choose')){
-                    let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)'><div class='categoryImg_wrap'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div></div>";
+                    let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
                         html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
                         html += "<ul><li><div class='searchBrand'>"+jsonBrand[i].BS_NameKor+"</div>";
                         html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation'>"+jsonBrand[i].BC_NameKor+"</span></h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
@@ -168,11 +170,13 @@ function searchCategoryListLV2(lv2CatNum){
                 let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
                     html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+j+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</div></label></li>"
                 $('.searchList').append(html);
+                $('.searchNav').css('display','none')
             }
             if( j > 8){
                 let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
                     html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+j+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</div></label></li>"
                 $('.searchList2').append(html);
+                $('.searchNav').css('display','block')
             }
         }else{
             if(j < 9){
@@ -216,6 +220,11 @@ function searchCategoryListLV2(lv2CatNum){
         $('.searchRightDetail').css('display','none')
         $('.searchRightAd').css('display','none');
         $('#chooseCategory').text('TOTAL')
+        $('.searchLeft').css('display','block');
+        $('.brandInfoLeft').css('display','none')
+        $('.searchCenter').css('display','block');
+        $('.brandInfoCenter').css('display','none')
+        $('.searchNav').css('display','block')
         //이전 다음 버튼 초기화
         searchPrev();
         //카테고리 리스트 생성
@@ -348,7 +357,7 @@ function searchCategoryListLV2(lv2CatNum){
         catChk = 0;
     }
 
-//카테고리 이전 다음버튼
+//카테고리 이전 버튼
     function searchPrev(){
         if($('#searchPage').text()==2){
             $('#searchPage').text('1')
@@ -360,7 +369,7 @@ function searchCategoryListLV2(lv2CatNum){
             $('#searchPrev img').attr('src','/img/signage/left_arrow_icon.png')
         }
     }
-
+//카테고리 다음 버튼
     function searchNext(){
         if($('#searchPage').text()==1){
             $('#searchPage').text('2')
@@ -377,9 +386,8 @@ function searchCategoryListLV2(lv2CatNum){
 //브랜드 위치보기
     function storeLocation(e){
         if(e.id >1000 && e.id < 1231){
-            console.log('1층')
             $('#1Fstore path').css('fill','#E2E2E2')
-            $('#h'+e.id).css('fill','#a91179')
+            // $('#h'+e.id).css('fill','#a91179')
             $('#myModal').css('display','none')
             $('.centralSvg1F').css('display','block');
             $('.centralSvg2F').css('display','none');
@@ -387,11 +395,20 @@ function searchCategoryListLV2(lv2CatNum){
             $('.floorBtn div').removeClass('floorSelcet')
             $('#floor1Btn').addClass('floorSelcet')
             $('#nowFloor').text('1F')
+            $('#1Fstore_name text').each(function(){
+                let storeName = $(this)
+                let storeNumber;
+                //svg텍스트가 선택한 브랜드 명과 같으면
+                if(storeName.text() == $('#h'+e.id+'-2').text()){
+                    //해당 아이디를 가져옴
+                    storeNumber = $(this).attr('id').substring('1','5')
+                    $('#h'+storeNumber).css('fill','#a91179')
+                }
+            })
         }
         else if(e.id > 2000 && e.id < 2103){
-            console.log('2층')
+            // console.log('2층')
             $('#2Fstore path').css('fill','#E2E2E2')
-            $('#h'+e.id).css('fill','#a91179')
             $('#myModal').css('display','none')
             $('.centralSvg1F').css('display','none');
             $('.centralSvg2F').css('display','block');
@@ -399,11 +416,20 @@ function searchCategoryListLV2(lv2CatNum){
             $('.floorBtn div').removeClass('floorSelcet')
             $('#floor2Btn').addClass('floorSelcet')
             $('#nowFloor').text('2F')
+            $('#2Fstore_name text').each(function(){
+                let storeName = $(this)
+                let storeNumber;
+                //svg텍스트가 선택한 브랜드 명과 같으면
+                if(storeName.text() == $('#h'+e.id+'-2').text()){
+                    //해당 아이디를 가져옴
+                    storeNumber = $(this).attr('id').substring('1','5')
+                    $('#h'+storeNumber).css('fill','#a91179')
+                }
+            })
         }
         else if(e.id>3000 && e.id < 3107){
-            console.log('3층')
+            // console.log('3층')
             $('#3Fstore path').css('fill','#E2E2E2')
-            $('#h'+e.id).css('fill','#a91179')
             $('#myModal').css('display','none')
             $('.centralSvg1F').css('display','none');
             $('.centralSvg2F').css('display','none');
@@ -411,6 +437,16 @@ function searchCategoryListLV2(lv2CatNum){
             $('.floorBtn div').removeClass('floorSelcet')
             $('#floor3Btn').addClass('floorSelcet')
             $('#nowFloor').text('3F')
+            $('#3Fstore_name text').each(function(){
+                let storeName = $(this)
+                let storeNumber;
+                //svg텍스트가 선택한 브랜드 명과 같으면
+                if(storeName.text() == $('#h'+e.id+'-2').text()){
+                    //해당 아이디를 가져옴
+                    storeNumber = $(this).attr('id').substring('1','5')
+                    $('#h'+storeNumber).css('fill','#a91179')
+                }
+            })
         }
     }
 
@@ -463,6 +499,9 @@ function storeInfo(e){
                     $('.weather').append(html)
                 }else if(skyState == 'Rain'){
                     let html = "<img src='/img/signage/weather/weather_04_icon.png'></img>"
+                    $('.weather').append(html)
+                }else{
+                    let html = "<img src='/img/signage/weather/weather_02m_icon.png'></img>"
                     $('.weather').append(html)
                 }
 
@@ -637,7 +676,16 @@ function storeInfo(e){
         $('#3Fstore path').css('fill','')
         $('.floorBtn div').removeClass('floorSelcet')
         let deviceParam = urlParam();
-        if(deviceParam[0].substring('0','1') == 1){
+
+        if(deviceParam[2] === undefined){
+            $('.centralSvg1F').css('display','block');
+            $('.centralSvg2F').css('display','none');
+            $('.centralSvg3F').css('display','none');
+            $('#floor1Btn').addClass('floorSelcet')
+            $('#nowFloor').text('1F')
+            location.href='http://localhost:8001/sign?device_cd=1fa'
+        }
+        else if(deviceParam[2].substring('0','1') == 1){
 
             $('.centralSvg1F').css('display','block');
             $('.centralSvg2F').css('display','none');
@@ -645,14 +693,14 @@ function storeInfo(e){
             $('#floor1Btn').addClass('floorSelcet')
             $('#nowFloor').text('1F')
         }        
-        else if(deviceParam[0].substring('0','1') == 2){
+        else if(deviceParam[2].substring('0','1') == 2){
             $('.centralSvg1F').css('display','none');
             $('.centralSvg2F').css('display','block');
             $('.centralSvg3F').css('display','none');
             $('#floor2Btn').addClass('floorSelcet')
             $('#nowFloor').text('2F')
         }
-        else if(deviceParam[0].substring('0','1') == 3){
+        else if(deviceParam[2].substring('0','1') == 3){
             $('.centralSvg1F').css('display','none');
             $('.centralSvg2F').css('display','none');
             $('.centralSvg3F').css('display','block');
@@ -673,7 +721,7 @@ function storeInfo(e){
             // console.log(hash);
             array[hash[0]] = hash[1];
         }
-        // console.log(array)
+        console.log(array)
         return array;
     }
 //*** 메인 우측 하단 날씨, 시간, 언어 선택 스크립트 종료 ***

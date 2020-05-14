@@ -39,6 +39,7 @@
         async : false,
         success: function(res){
             //번역 저장
+            console.log('language', res.data)
             localStorage.setItem('language',JSON.stringify(res.data))
         }
     })
@@ -50,8 +51,6 @@
         async : false,
         success: function(res){
             localStorage.setItem('brandListOverLap',JSON.stringify(res.data))
-            console.log('teststest')
-            console.log(res.data)
         }
     })
 
