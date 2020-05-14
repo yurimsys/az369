@@ -87,7 +87,6 @@
     function selectCat(e){
         let catId = e.id;
         let svgClass = $('#'+catId).data('catclass').replace(/ /g, '')
-        console.log(svgClass)
         //클릭시 전체 색상 초기화
         if(count == 0){
             $('.svgCat').css('fill','#e2e2e2');   

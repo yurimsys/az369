@@ -26,6 +26,8 @@
         $('.searchCenter').css('display','block');
         $('.brandInfoCenter').css('display','none')
         $('.searchNav').css('display','block')
+        //지도 초기화
+        zoomReset();
         //이전 다음 버튼 초기화
         searchPrev();
         //카테고리 리스트 생성
@@ -267,7 +269,7 @@
                         html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsEng+"</div></li>"
                         html += "</ul></div>"
                         html += "<ul class='detailInfo'>"
-                        html += "<li><div class='infoImgNav'>Detail</div></li>"
+                        html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeInfo(this)'>Detail</div></li>"
                         html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>Location</div></li></ul>"
                     $('.brandDetail').append(html)
                 }
@@ -376,6 +378,8 @@
     function storeLocation(e){
         $('#myModal').css('display','none')
         $('.floorBtn div').removeClass('floorSelcet')
+        $('.brandInfoCenter').css('display','none')
+        $('.brandMenuCenter').css('display','none')
     //1층    
         if(e.id >1000 && e.id < 1231){
             $('#1Fstore path').css('fill','#E2E2E2')
@@ -525,24 +529,29 @@
 
 //브랜드 상세보기
     function storeInfo(e){
-        if($(e).text() === '상세 보기'){
-            $(e).text('상세보기 닫기')
+        if($(e).text() === '상세 보기' || ($(e).text() === 'Detail')){
+            if($('#kor').hasClass('choose') == true){
+                $(e).text('상세보기 닫기')
+            }else{
+                $(e).text('Close')
+            }
             $(e).addClass('detail_click')
             $('.searchLeft').css('display','none');
             $('.brandInfoLeft').css('display','block')
             $('.searchCenter').css('display','none');
             brandNavInfo();
-            //$('.brandInfoCenter').css('display','block')
-            // $('.brandMenuCenter').css('display','block')
-            
-        }else{
-            $(e).text('상세 보기')
+        }else if($(e).text() === '상세보기 닫기' || $(e).text() === 'Close'){
+            if($('#kor').hasClass('choose') == true){
+                $(e).text('상세 보기')
+            }else{
+                $(e).text('Detail')
+            }
             $(e).removeClass('detail_click')
             $('.searchLeft').css('display','block');
             $('.brandInfoLeft').css('display','none')
             $('.searchCenter').css('display','block');
             $('.brandInfoCenter').css('display','none')
-            // $('.brandMenuCenter').css('display','none')
+            $('.brandMenuCenter').css('display','none')
         }
     }
 

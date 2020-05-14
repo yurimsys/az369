@@ -27,7 +27,18 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
             item.diassembled = cho;
         });
         
+
         
+    //검색창 값 입력시 초기화 버튼 생성
+        document.getElementById('searchBrandName').addEventListener('keyup', function (){
+            if($(this).val() !== ''){
+                $('.searchCancel').css('display','block')
+            }else{
+                $('.searchCancel').css('display','none')
+            }
+        })
+
+
         let searchResult = new Array();
         function search(){
             let allText = document.getElementById('searchBrandName').value;
@@ -47,7 +58,7 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
                 let searchJson = new Object();
                 searchJson.name = item.name
                 searchResult.push(searchJson)
-                //console.log(searchResult,'dd')
+                console.log(searchResult,'dd')
             });
              $('.searchResult').empty();
              for(let i=0; i<jsonBrand.length; i++){
@@ -55,7 +66,6 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
                 if($('#kor').hasClass('choose')){
                     for(let j=0; j<searchResult.length; j++){
                         if( jsonBrand[i].BS_NameKor === searchResult[j].name || jsonBrand[i].BS_NameEng === searchResult[j].name){
-                            console.log(jsonBrand[i].BS_NameKor)
                             let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)'><div class='categoryImg_wrap'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div></div>";
                                 html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
                                 html += "<ul><li><div class='searchBrand'>"+jsonBrand[i].BS_NameKor+"</div>";
@@ -81,5 +91,6 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
         //검색창 초기화
         function searchCancel(){
             searchBrandList();
+            $('.searchCancel').css('display','none')
             $('#searchBrandName').val('')
         }
