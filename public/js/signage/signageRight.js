@@ -5,6 +5,8 @@
         $('.searchResult').empty()
         //let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
         let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
+        console.log('=====')
+        console.log(jsonBrand)
         for(let i=0; i<jsonBrand.length; i++){
             // console.log(jsonBrand)
             let opTime = jsonBrand[i].BS_MainDtS
@@ -12,7 +14,7 @@
             let edTime = jsonBrand[i].BS_MainDtF
                 endTime = edTime.slice(-8, -3)
                 if($('#kor').hasClass('choose')){
-                    let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)'><div class='categoryImg_wrap'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div></div>";
+                    let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
                         html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
                         html += "<ul><li><div class='searchBrand'>"+jsonBrand[i].BS_NameKor+"</div>";
                         html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation'>"+jsonBrand[i].BC_NameKor+"</span></h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
