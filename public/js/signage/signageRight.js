@@ -459,14 +459,16 @@ function storeInfo(e){
         $('.searchLeft').css('display','none');
         $('.brandInfoLeft').css('display','block')
         $('.searchCenter').css('display','none');
-        $('.brandInfoCenter').css('display','block')
+        // $('.brandInfoCenter').css('display','block')
+        $('.brandMenuCenter').css('display','block')
         
     }else{
         $(e).text('상세 보기')
         $('.searchLeft').css('display','block');
         $('.brandInfoLeft').css('display','none')
         $('.searchCenter').css('display','block');
-        $('.brandInfoCenter').css('display','none')
+        // $('.brandInfoCenter').css('display','none')
+        $('.brandMenuCenter').css('display','none')
     }
 
 }
