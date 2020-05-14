@@ -4,6 +4,7 @@
         url: '/api/brandList',
         method: 'get',
         dataType: 'json',
+        async : false,
         success: function(res){
             localStorage.setItem('brandList',JSON.stringify(res.data))
         }
@@ -13,6 +14,7 @@
         url: '/api/categoryLV1',
         method: 'get',
         dataType: 'json',
+        async : false,
         success: function(res){
             //카테고리 저장
             localStorage.setItem('categoryLV1',JSON.stringify(res.data))
@@ -23,6 +25,7 @@
         url: '/api/categoryLV2',
         method: 'get',
         dataType: 'json',
+        async : false,
         success: function(res){
             //카테고리 저장
             localStorage.setItem('categoryLV2',JSON.stringify(res.data))
@@ -33,6 +36,7 @@
         url: '/api/language',
         method: 'get',
         dataType: 'json',
+        async : false,
         success: function(res){
             //번역 저장
             console.log('language', res.data)
@@ -44,6 +48,7 @@
         url: '/api/brandListOverLap',
         method: 'get',
         dataType: 'json',
+        async : false,
         success: function(res){
             localStorage.setItem('brandListOverLap',JSON.stringify(res.data))
             console.log('teststest')

@@ -89,7 +89,6 @@ class AdSlide{
                 $template.attr('data-display_f', data.display_f.replace('T',' ').replace('Z',''));
                 $template.children().attr('src', data.url);
                 if( type.includes('category') ){
-
                     // 업종 분류 하여 광고판 추가
                     $(`.ad.${type}`).append($template.clone());
                 } else {

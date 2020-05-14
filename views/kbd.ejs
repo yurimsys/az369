@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="/css/keyboard.css">
+</head>
+
+<body>
+    <textarea class="use-virtual-keyboard"></textarea>
+    <!-- <textarea id='test'></textarea> -->
+    
+
+
+
+
+    <script src="https://unpkg.com/hangul-js" type="text/javascript"></script>
+    <script src="/js/signage/keyboard.js"></script>
+    <script>
+        let d = document.getElementById('test');
+        let gvalue ='';
+        function sin(value){
+            gvalue += value;
+            d.value = Hangul.a(gvalue);
+        }
+
+    </script>
+</body>
