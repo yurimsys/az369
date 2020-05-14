@@ -377,7 +377,6 @@
         $('#myModal').css('display','none')
         $('.floorBtn div').removeClass('floorSelcet')
     //1층    
-        console.log('상가호수',e.id)
         if(e.id >1000 && e.id < 1231){
             $('#1Fstore path').css('fill','#E2E2E2')
             $('.centralSvg1F').css('display','block');
@@ -398,16 +397,12 @@
             //좌표이동
                 //1사 분면
                 if((e.id > 1000 && e.id < 1027) ||(e.id > 1132 && e.id < 1147) || (e.id > 1219 && e.id < 1227)){
-                    console.log('상가호수',e.id)
-                    console.log('1사분면')
                     $('.centralSvg1F').css('left','424px')
                     $('.centralSvg1F').css('top','250px')
                     storeMapSize(1,15,2.125)
                 }
                 //2사 분면
                 else if((e.id > 1026 && e.id < 1057) ||(e.id > 1147 && e.id < 1172)){
-                    console.log('상가호수',e.id)
-                    console.log('2사분면')
                     $('.centralSvg1F').css('left','-319px')
                     $('.centralSvg1F').css('top','273px')
                     storeMapSize(1,15,2.125)
@@ -421,8 +416,6 @@
                 }
                 //4사 분면
                 else if((e.id > 1096 && e.id < 1133) ||(e.id > 1198 && e.id < 1220)){
-                    console.log('상가호수',e.id)
-                    console.log('4사분면')
                     $('.centralSvg1F').css('left','445px')
                     $('.centralSvg1F').css('top','-297px')
                     storeMapSize(1,15,2.125)
