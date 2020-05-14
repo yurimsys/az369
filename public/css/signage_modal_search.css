@@ -1,0 +1,476 @@
+/* 검색 모달 팝업 ----------------------------------------------- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.75);
+}
+.modal-content {
+    position: absolute;
+    background-color: #eee;
+    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    width: 80%;
+    height: 88%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+
+/* 팝업 내부 상단 타이틀 */
+.searchTop{
+    width: 90%;
+    float: left;
+    height: 6.5%;
+    line-height: 60px;
+    font-size: 20px;
+    background: url('/img/signage/modal/search_title_bg.png');
+    color: white;
+    font-weight: 400;
+    text-align: left;
+}
+.modalSearchImg{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.searchTopName{
+    font-size: 22px;
+    font-weight:500;
+    line-height:60px;
+    color: #Eee;
+    margin-left: 25px;
+  }
+.searchClose{
+    width: 10%;
+    height: 6.5%;
+    background-color: #222;
+    float: left;
+    text-align: center;
+    cursor: pointer;
+}
+.searchCloseName{
+    font-size: 20px;
+    font-weight: 300;
+    color: #eee;
+    line-height: 60px;
+}
+.searchClose img {margin-left: 20px; width: 20px; margin-top: -5px;}
+
+
+
+/* 팝업 내부 왼쪽 : 카테고리 선택 -----------------------------------*/
+.searchLeft{
+    width: 18%;
+    height: 93.5%;
+    padding: 25px;
+    float: left;
+    position: relative;
+}
+.searchTotal{
+    width: 100%;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.75px;
+    text-align: center;
+    color: #a91179;
+    margin-bottom: 25px;
+}
+.searchList{
+    width: 100%;
+    height: auto;
+}
+.searchList2{
+    display: none;
+    width: 100%;
+}
+.searchList2 li{
+    list-style: none;
+}
+/* 카테고리 리스트 속성 */
+.searchCategory {
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); border: solid 1.5px rgba(255,255,255,0.5); background-image: linear-gradient(280deg, #ffffff, #eee); border-radius: 12px; cursor: pointer;
+}
+.searchCategoryFont{         
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 15px;
+}
+  
+.categoryChange{
+    display: none;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 12px;
+    border: solid 1.5px #444;
+    background-color: #222;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+    cursor: pointer;
+  }
+
+  .searchNav {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    margin-top: 30px;
+}
+.searchNav ul {width:100%;}
+.searchNav li{width: 33.333%; float: left;}
+.searchNavPrev{
+    background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
+    background-image: url('/img/signage/left_arrow_icon.png');
+    background-repeat: no-repeat;
+    background-position: 48% 47%;
+    list-style:none;
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    border-radius: 12px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); 
+    border: solid 1.5px rgba(255,255,255,0.5);
+    cursor: pointer;
+}
+.searchNavNext{
+    background-image: linear-gradient(279deg, #ffffff, #f2f2f2); border-radius: 12px;
+    background-image: url('/img/signage/right_arrow_icon.png');
+    background-repeat: no-repeat;
+    background-position: 48% 47%;
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    border-radius: 12px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); 
+    border: solid 1.5px rgba(255,255,255,0.5);
+    float: right;
+    cursor: pointer;
+}
+.searchState{line-height: 50px;}
+/* 최하단 텍스트 */
+.searchInfo{
+    color: #444444;
+    bottom: 25px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    position: absolute;
+}
+
+.searchCheck{
+    display: none;
+}
+
+
+/* 팝업 내부 가운데 상단 : 검색바 및 리스트 -------------------------------*/
+.searchCenter{
+    width: 52%;
+    height: 93.5%;
+    position: relative;
+    float: left;
+    padding: 25px;
+}
+/* 검색박스 + 검색버튼 */
+.searchCenter_top {width:100%; height: 10%; position: relative;}
+.searchCenter_top ul li {float: left;}
+.searchCenter_top ul li:nth-child(1) {width: 76%;  margin-right:2%;}
+.searchCenter_top ul li:nth-child(2) {width: 22%;}
+.searchCenter_top ul li:nth-child(2) button {width: 100%; height: 60px; background: url('/img/signage/mainNav/mainNav_bg_04.png') top; border: none; float: left; border-radius: 12px;font-size: 18px; color: #eee; font-weight: 400; cursor: pointer;}
+.searchBox{
+    width: 100%;
+    height: 60px;
+    border-radius: 12px;
+    border: solid 1.5px #6A114D;
+    background-color: #fff;
+}
+.searchBox::placeholder{
+    font-size: 16px;
+    font-weight: 200;
+    color: #767676;
+    padding: 0 20px;
+  }
+
+
+/* 팝업 내부 가운데 하단 : 브랜드 목록 ------------------------------ */
+  .searchContent{height: 100%; width: 100%; margin: 0;}
+ 
+/* 브랜드목록 전체 틀 */
+.searchCenter_bottom {width: 100%; height: 90%; position: relative; bottom: 0; padding-bottom: 25px;}
+
+.searchResult{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0; 
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    overflow:scroll;
+    overflow-x: hidden;
+}
+/* 브랜드 목록 스크롤 속성 */
+.searchResult::-webkit-scrollbar{width: 10px; border-radius: 4px;}
+.searchResult::-webkit-scrollbar-track{background-color: #cccccc;}
+.searchResult::-webkit-scrollbar-thumb{border-radius: 4px; background-color: #6A114D; height: 10px;}
+
+/* 팝업 내부 가운데 하단 :  검색 후 브랜드 목록 */
+.brandList{width: 100%; height: 110px; padding: 10px 25px; border-bottom: 1px solid #eee; cursor: pointer;}
+
+/* 리스트 내 브랜드 사진 */
+.categoryImg{
+    position: absolute;
+    width: 80px;
+    margin-top: 0.7%;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.categoryImg img {background-position: center; background-size: cover;}
+
+/* 리스트 내 브랜드 텍스트 */
+.searchResult li{margin-left: 15%; height: auto; margin-top: 2%;}
+/* 브랜드명 */
+.searchBrand{
+    font-size: 18px;
+    font-weight: 500;
+}
+/* 층수 및 카테고리 */
+ .searchLocation {
+    font-size: 15px;
+    font-weight: 300;
+    color: #767676;
+    float: left;
+}
+.brandList h4 span {float: right;}
+
+/* 영업시간 */
+.searchTime{
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 65%;
+    color: #767676;
+  }
+/* 목록 브랜드명 옆 이벤트 태그 */
+  .searchEvent{
+    width: 80px;
+    height: 22px;
+    border-radius: 12px;
+    background-color: #f3aa00;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.8;
+    letter-spacing: normal;
+    text-align: center;
+    margin-top: -2%;
+    margin-left: 60%;
+    color: #eeeeee;
+}
+
+/* 팝업 내부 오른쪽 1 : 광고 -------------------------------*/
+/* 대분류 - 전체광고 */
+.searchRight, .searchRightAd{
+    width: 30%;
+    float: right;
+    height: 93.5%;
+    overflow: hidden;
+}
+
+.searchRightAd_inner {Width:100%; height: 100%;}
+.searchRightAd_inner > div {height: 32%; margin-bottom: 4%; background-color:#4e43a1;}
+
+/* .searchRightAd_inner {Width:100%; height: 100%; background-color: red; display: flex; flex-direction: column; justify-content: space-between;}
+.searchRightAd_inner > div {height: 32%;background-color:yellow;} */
+
+
+/* .searchRight ul {width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-self:stretch;}
+.searchRight ul li {  width: 100%; height: 30%; background-color: yellow;} */
+
+
+/* .searchRight ul {width: 100%; height: 100%;}
+.searchRight ul li {width: 100%; background-color: coral; height:32%; margin-bottom: 2.5%;}
+.searchRight ul li:nth-child(3) {margin-bottom: 0;}
+.searchRight ul li img {width: 100%;} */
+
+/* 중분류 - 광고 3개 */
+/* .searchRightAd ul {width: 100%; height: 100%;position: relative;}
+.searchRightAd ul li {position: relative; width: 100%; height: 32.65%; margin-bottom: 2%; background-color: cadetblue;}
+.searchRightAd ul li:nth-child(3) {margin-bottom: 0;} */
+
+
+/* 팝업 내부 오른쪽 2 : 브랜드 정보 ---------------------------*/
+/* 전체틀 */
+.searchRightDetail{
+    width: 30%;
+    float: right;
+    height: 93.5%;
+    position: relative;
+}
+
+/* 상단틀 (광고 제외) */
+.brandDetail{
+    width: 100%;
+    height: 66%;
+    margin-bottom: 4%;
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.ad_box {width: 100%; height: 32%; position: absolute; background-color: #4e43a1;}
+
+/* 상단 사진 영역 */
+.brandDetail_img {Width:100%; height: 500px;}
+.searchRightDetail img{ width: 100%;}
+
+/* 텍스트 영역 틀 */
+.brandContents{padding: 20px 25px 25px;}
+
+/* 텍스트 영역 */
+.brandName{
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.75px;
+}
+.brandInfo{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 300;
+    margin-top: 35px;
+}
+
+
+/* 전체틀 내 하단 버튼 */
+ul.detailInfo {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding: 15px;
+}
+
+ul.detailInfo li {width: 48%; margin-right: 2%; float: left; background-image: url('/img/signage/mainNav/mainNav_bg_04.png'); height: 50px; line-height: 50px; border-radius: 12px; text-align: center; color: #fff; font-size: 18px; font-weight: 400; cursor: pointer;}
+ul.detailInfo li:nth-child(2) {margin-right: 0;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 상세보기 > 정보 --------------------------------------- */
+
+/* 상세보기 왼쪽 영역 */
+.brandInfoLeft{
+    display: none;
+    padding: 25px;
+    width: 18%;
+    position: relative;
+    float: left;
+    height: 100%;
+    background-color:olivedrab;
+}
+
+.modal_search_left {position: absolute; background-color: orange; height: 500px;; width: 100%;}
+
+.brandInfoLeft ul {width: 100%;}
+.brandInfoLeft ul li {width: 100%; height: 50px;}
+.brandInfoLeft > ul li:nth-child(1) {margin-top: 0;}
+
+.brandInfoText{
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: 400;;
+    text-align: center;
+}
+
+/* 왼쪽 하단 광고 */
+
+/* .brandInfoLeft > .brandInfo_ad {width: 100%; height: 40%; background-color: orange; position: absolute; bottom: 0;}
+.brandInfo_ad img {width: 100%;} */
+
+
+
+
+
+/* 상세보기 가운데 영역 */
+.brandInfoCenter{
+    display: none;
+    width: 52%;
+    height: 100%;
+    padding: 25px;
+    float: left;
+    background-color: blueviolet;
+}
+/* 가운데 상단 제목 */
+.brandInfoCenter img{
+    width: 100%;
+    height: 100%;
+}
+
+
+/* 가운데 내용 */
+.brandInfoDetail{
+    list-style: none;
+    display: inline-block;
+    width: 100%;
+    height: 640px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    margin-top: 25px;
+}
+.detailName{
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.45;
+    letter-spacing: normal;
+    text-align: left;
+    color: #222222;
+}
+.detailNameInfo{
+    font-size: 15px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.87;
+    letter-spacing: normal;
+    text-align: left;
+    float: right;
+    color: #999999;
+}
+/* .brandInfoDetailLine{
+    width: 800px;
+    height: 0;
+    margin-top: 3%;
+    border: solid 1px #eeeeee;
+} */
+
+/* .brandInfoIcon{
+    width: 24px;
+    height: 24px;
+    background-color: #fcceff;
+} */
