@@ -456,19 +456,21 @@ function storeInfo(e){
     
     if($(e).text() === '상세 보기'){
         $(e).text('상세보기 닫기')
+        $(e).addClass('detail_click')
         $('.searchLeft').css('display','none');
         $('.brandInfoLeft').css('display','block')
         $('.searchCenter').css('display','none');
-        // $('.brandInfoCenter').css('display','block')
-        $('.brandMenuCenter').css('display','block')
+        $('.brandInfoCenter').css('display','block')
+        // $('.brandMenuCenter').css('display','block')
         
     }else{
         $(e).text('상세 보기')
+        $(e).removeClass('detail_click')
         $('.searchLeft').css('display','block');
         $('.brandInfoLeft').css('display','none')
         $('.searchCenter').css('display','block');
-        // $('.brandInfoCenter').css('display','none')
-        $('.brandMenuCenter').css('display','none')
+        $('.brandInfoCenter').css('display','none')
+        // $('.brandMenuCenter').css('display','none')
     }
 
 }

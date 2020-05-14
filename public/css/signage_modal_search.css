@@ -122,8 +122,8 @@
     background-color: #222;
     font-size: 16px;
     text-align: center;
-    color: #fff;
-    font-weight: 300;
+    color: #ddd;
+    font-weight: 400;
     cursor: pointer;
   }
 
@@ -320,7 +320,7 @@
 .searchRightDetail{
     width: 30%;
     float: right;
-    height: 93.5%;
+    height: 100%;
     position: relative;
 }
 
@@ -356,17 +356,17 @@
     margin-top: 35px;
 }
 
-
 /* 전체틀 내 하단 버튼 */
 ul.detailInfo {
     width: 100%;
     position: absolute;
     bottom: 0;
-    padding: 15px;
+    padding: 25px;
 }
-
 ul.detailInfo li {width: 48%; margin-right: 2%; float: left; background-image: url('/img/signage/mainNav/mainNav_bg_04.png'); height: 50px; line-height: 50px; border-radius: 12px; text-align: center; color: #fff; font-size: 18px; font-weight: 400; cursor: pointer;}
 ul.detailInfo li:nth-child(2) {margin-right: 0;}
+/* 상세보기 클릭시 닫기 css */
+.detail_click {border-radius: 12px; border: solid 1.5px #444; background-color: #222; height: 50px; line-height: 45px; color: #ddd;}
 
 
 
@@ -389,7 +389,7 @@ ul.detailInfo li:nth-child(2) {margin-right: 0;}
     width: 18%;
     position: relative;
     float: left;
-    height: 93.5%;
+    height: 100%;
 }
 .brandInfoLeft ul {width: 100%;}
 .brandInfoLeft .categoryBtn {margin-top: 0;}
@@ -414,7 +414,7 @@ ul.detailInfo li:nth-child(2) {margin-right: 0;}
 .brandInfoCenter{
     display: none;
     width: 52%;
-    height: 93.5%;
+    height: 100%;
     position: relative;
     padding: 25px;
     overflow: hidden;
@@ -457,7 +457,7 @@ ul.detailInfo li:nth-child(2) {margin-right: 0;}
 
 .brandInfoDetail_pic {width: 100%; position: absolute; bottom: 0; padding: 0 30px 25px 30px;}
 .brandInfoDetail_pic ul {width: 100%; display: flex; align-content: space-between;}
-.brandInfoDetail_pic ul li {float: left; width: 157px; height: 100%; margin-right: 20px; background: rgb(255, 221, 221);}
+.brandInfoDetail_pic ul li {float: left;  width: 100%; height: 158px; margin-right: 20px; background:#4e43a1; flex: 1;}
 .brandInfoDetail_pic ul li:nth-child(4) {margin-right: 0;}
 
 
@@ -465,29 +465,36 @@ ul.detailInfo li:nth-child(2) {margin-right: 0;}
 .brandMenuCenter{
     display: none;
     width: 52%;
-    height: 93.5%;
+    height: 100%;
     padding: 25px;
     float: left;
 }
-.brandMenuCenter h3 {width: 100%; padding-bottom: 8px; border-bottom: 1px solid #eee; font-size: 20px; font-weight: 600; float: left; margin-bottom: 25px;}
-.brandMenuCenter_inner {width: 100%; height: 100%; background-color: #fff; padding: 25px; border-radius: 12px;  overflow: scroll; overflow-x: hidden;}
+.brandMenuCenter h3 {width: 100%; padding-bottom: 8px; border-bottom: 1px solid #eee; font-size: 20px; font-weight: 600; float: left; margin-bottom: 20px;}
+.brandMenuCenter_inner {width: 100%; height: 100%; background-color: #fff; padding: 25px 30px 25px 25px; border-radius: 12px;  overflow: scroll; overflow-x: hidden;}
 /* 메뉴 스크롤 속성 */
 .brandMenuCenter_inner::-webkit-scrollbar{width: 10px; border-radius: 4px;}
 .brandMenuCenter_inner::-webkit-scrollbar-track{background-color: #cccccc;}
 .brandMenuCenter_inner::-webkit-scrollbar-thumb{border-radius: 4px; background-color: #6A114D; height: 10px;}
 
 
-/* 상세보기 : 메뉴 - 인기메뉴 */
-.brandMenuCenter_best {position: relative; overflow: hidden; margin-bottom: 40px; width: 100%; height: auto;}
-.brandMenuCenter_best ul {width: 100%; display: flex; flex-direction:row; align-content: space-between;}
-.brandMenuCenter_best ul li {float: left; height: auto;  flex: 1; margin-right: 20px;}
-.brandMenuCenter_best ul li:nth-child(4) {margin-right: 0;}
-.menu_best_pic {width: 100%; height: 157px; background-color: pink; overflow: hidden;}
-.menu_best_name {width: 100%; font-weight: 400; margin-top: 8px; margin-left: 4px;}
-.menu_best_price {font-size: 15px; font-weight: 300; color: #999; margin-left: 4px}
+/* 상세보기 : 메뉴 - 인기메뉴, 세트메뉴 */
+.brandMenuCenter_best, .brandMenuCenter_set {position: relative; overflow: hidden; margin-bottom: 40px; width: 100%; height: auto;}
+.brandMenuCenter_best ul, .brandMenuCenter_set ul {width: 100%; display: flex; flex-direction:row; align-content: space-between;}
+.brandMenuCenter_best ul li, .brandMenuCenter_set ul li {float: left; height: auto;  flex: 1; margin-right: 20px;}
+.brandMenuCenter_best ul li:nth-child(4), .brandMenuCenter_set ul li:nth-child(4) {margin-right: 0;}
+.menu_best_pic, .menu_set_pic {width: 100%; height: 158px; background-color: #4e43a1; overflow: hidden;}
+.menu_best_name, .menu_set_name {width: 100%; font-weight: 400; margin-top: 8px; margin-left: 4px; font-size: 16px;}
+.menu_best_price, .menu_set_price {font-size: 15px; font-weight: 300; color: #999; margin-left: 4px;}
 
 
-
+.brandMenuCenter_list {width: 100%; border-top: 1px solid #eee; padding-top: 30px;}
+.brandMenuCenter_list ul li {width: 45%; margin-right: 10%; float: left;}
+.brandMenuCenter_list ul li:nth-child(2){margin-right: 0;}
+.brandMenuCenter_list dl {width: 100%; height: 30px; margin: 8px 0;}
+.brandMenuCenter_list dl:nth-child(1) {margin: 0;}
+.brandMenuCenter_list dl dt{width: 50%; float: left; font-size: 16px; font-weight: 400; height: 100%; color: #444;}
+.brandMenuCenter_list dl dd {width: 50%;; float: right;line-height: 30px;}
+.brandMenuCenter_list dl dd h6 {float: right; font-size: 15px; font-weight: 300; color: #999;}
 
 
 
