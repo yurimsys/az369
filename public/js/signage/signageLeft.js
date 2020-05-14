@@ -39,6 +39,7 @@
         async : false,
         success: function(res){
             //번역 저장
+            console.log('language', res.data)
             localStorage.setItem('language',JSON.stringify(res.data))
         }
     })
