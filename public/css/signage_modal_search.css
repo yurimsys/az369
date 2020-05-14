@@ -77,7 +77,7 @@
     width: 100%;
     font-size: 30px;
     font-weight: 800;
-    letter-spacing: -0.75px;
+    letter-spacing: -0.5px;
     text-align: center;
     color: #a91179;
     margin-bottom: 25px;
@@ -272,18 +272,12 @@
 /* 목록 브랜드명 옆 이벤트 태그 */
   .searchEvent{
     width: 80px;
-    height: 22px;
+    height: 24px;
     border-radius: 12px;
     background-color: #f3aa00;
     font-size: 12px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.8;
-    letter-spacing: normal;
     text-align: center;
-    margin-top: -2%;
-    margin-left: 60%;
+    margin-left: 65%;
     color: #eeeeee;
 }
 
@@ -297,7 +291,7 @@
 }
 
 .searchRightAd_inner {Width:100%; height: 100%;}
-.searchRightAd_inner > div {height: 32%; margin-bottom: 4%; background-color:#4e43a1;}
+.searchRightAd_inner > div {height: 32%; margin-bottom: 4%; background-color: #4e43a1;}
 
 /* .searchRightAd_inner {Width:100%; height: 100%; background-color: red; display: flex; flex-direction: column; justify-content: space-between;}
 .searchRightAd_inner > div {height: 32%;background-color:yellow;} */
@@ -412,7 +406,8 @@ ul.detailInfo li:nth-child(2) {margin-right: 0;}
 
 
 
-/* 상세보기 가운데 영역 ----------------------------------------*/
+/* 상세보기 가운데 영역 ----------------------------------------------*/
+/* 상세보기 : 정보 ----------------------------------------- */
 .brandInfoCenter{
     display: none;
     width: 52%;
@@ -423,21 +418,27 @@ ul.detailInfo li:nth-child(2) {margin-right: 0;}
     float: left;
 }
 
-/* 상세정보 상단 */
-.brandInfoCenter_top {width: 100%; height: 23%; background-color: red; border-radius:12px 12px 0 0; position: relative; top: 0; left: 0; overflow: hidden; box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);}
-/* .brandInfoCenter_top_tit  {position: absolute; width: 100%; height: 100%; vertical-align:middle;} */
-.brandInfoCenter_top h1 { color: #fff; opacity: 1; z-index: 1000; font-weight: 600; font-size: 28px; background-color: red; text-align: center;}
-.brandInfoCenter_top h1 span {font-size: 16px; opacity: 0.7; line-height: 50px; background-color: goldenrod;}
+/* 상세보기 : 정보 상단 - 브랜드명 + 사진 */
+.brandInfoCenter_top {width: 100%; height: 22%; background-color: red; border-radius:12px 12px 0 0; position: relative; top: 0; left: 0; overflow: hidden; box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);}
 .brandInfoCenter_top img {Width:100%;}
+
 /* 상단 사진 위에 씌우는 그라디언트 효과 */
 .brandInfoCenter_top_cover {width: 100%; height: 100%; z-index: 100; position: absolute; background-color: red; top:0; left:0; background-image: linear-gradient(280deg, #6A114D, #000); opacity: 0.4;}
 .brandInfoCenter img{ width: 100%;}
 
-/* 가운데 내용 */
+/* 상단 텍스트 */
+.brandInfoCenter_top_tit {position: absolute; color: #fff; opacity: 1; z-index: 1000; top: 50%; transform: translateY(-50%); left: 25px;}
+.brandInfoCenter_top_tit ul {width: 100%;}
+.brandInfoCenter_top_tit ul li:nth-child(1) {font-size: 28px; margin-right: 12px; font-weight: 600;} 
+.brandInfoCenter_top_tit ul li:nth-child(2) {font-size: 16px; font-weight: 400; opacity: 0.8;}
+.brandInfoCenter_top_tit ul li {float: left; width: auto; font-size: 16px; line-height: 54px;}
+
+
+/* 상세보기 : 정보 하단 - 내용 */
 .brandInfoDetail{
     width: 100%;
     height: 77%;
-    padding: 20px 30px;
+    /* padding: 20px 30px; */
     position: relative;
     border-radius:0 0 12px 12px;
     background-color: #fff;
@@ -446,15 +447,43 @@ ul.detailInfo li:nth-child(2) {margin-right: 0;}
 .brandInfoDetail h3 {width: 100%; padding-bottom: 8px; border-bottom: 1px solid #eee; font-size: 20px; font-weight: 600; float: left; margin-bottom: 25px;}
 .brandInfoDetail h3 span {float: right; font-size: 15px; font-weight: 300; margin-top: 4px; color: #999;}
 
-.brandInfoDetail_txt {width: 100%;}
+.brandInfoDetail_txt {width: 100%; padding: 20px 30px 0 39px;}
 .brandInfoDetail_txt dl {width: 100%; position: relative; overflow: hidden; margin-bottom: 30px;}
 .brandInfoDetail_txt dl dt {width: 18%; float: left; font-weight: 400;}
 .brandInfoDetail_txt dl dd {width: 82%; float: right; font-weight: 300; color: #444;}
 
-.brandInfoDetail_pic {width: 100%; position: absolute; bottom: 25px;}
-.brandInfoDetail_pic ul {width: 100%;}
-.brandInfoDetail_pic ul li {float: left; width: 165px; margin-right: 1.33%; background: rgb(255, 221, 221); height: 165px;}
+.brandInfoDetail_pic {width: 100%; position: absolute; bottom: 0; padding: 0 30px 25px 30px;}
+.brandInfoDetail_pic ul {width: 100%; display: flex; align-content: space-between;}
+.brandInfoDetail_pic ul li {float: left; width: 157px; height: 100%; margin-right: 20px; background: rgb(255, 221, 221);}
 .brandInfoDetail_pic ul li:nth-child(4) {margin-right: 0;}
+
+
+/* 상세보기 : 메뉴 ----------------------------------------- */
+.brandMenuCenter{
+    display: none;
+    width: 52%;
+    height: 93.5%;
+    padding: 25px;
+    float: left;
+}
+.brandMenuCenter h3 {width: 100%; padding-bottom: 8px; border-bottom: 1px solid #eee; font-size: 20px; font-weight: 600; float: left; margin-bottom: 25px;}
+.brandMenuCenter_inner {width: 100%; height: 100%; background-color: #fff; padding: 25px; border-radius: 12px;  overflow: scroll; overflow-x: hidden;}
+/* 메뉴 스크롤 속성 */
+.brandMenuCenter_inner::-webkit-scrollbar{width: 10px; border-radius: 4px;}
+.brandMenuCenter_inner::-webkit-scrollbar-track{background-color: #cccccc;}
+.brandMenuCenter_inner::-webkit-scrollbar-thumb{border-radius: 4px; background-color: #6A114D; height: 10px;}
+
+
+/* 상세보기 : 메뉴 - 인기메뉴 */
+.brandMenuCenter_best {position: relative; overflow: hidden; margin-bottom: 40px; width: 100%; height: auto;}
+.brandMenuCenter_best ul {width: 100%; display: flex; flex-direction:row; align-content: space-between;}
+.brandMenuCenter_best ul li {float: left; height: auto;  flex: 1; margin-right: 20px;}
+.brandMenuCenter_best ul li:nth-child(4) {margin-right: 0;}
+.menu_best_pic {width: 100%; height: 157px; background-color: pink; overflow: hidden;}
+.menu_best_name {width: 100%; font-weight: 400; margin-top: 8px; margin-left: 4px;}
+.menu_best_price {font-size: 15px; font-weight: 300; color: #999; margin-left: 4px}
+
+
 
 
 
