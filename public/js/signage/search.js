@@ -31,8 +31,6 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
         let searchResult = new Array();
         function search(){
             let allText = document.getElementById('searchBrandName').value;
-            console.log('-----')
-            console.log(allText)
             if(allText === ''){
                 searchBrandList();
                 return false;
@@ -78,4 +76,9 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
                     }
                 }
             }
+        }
+
+        function searchCancel(){
+            searchBrandList();
+            $('#searchBrandName').val('')
         }

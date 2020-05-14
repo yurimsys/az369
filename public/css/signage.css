@@ -141,19 +141,17 @@ body,html{
 /* 카테고리별 박스 아이콘 */
 .categoryIconBox { width: 12px; height: 12px; float: left; margin-top: 9%;margin-left: 8%;}
 
-#categoryIcon0 {background-color: #a91179;}
-#categoryIcon1 {background-color: #92477D;}
-#categoryIcon2 {background-color: #C26B8F;}
-#categoryIcon3 {background-color: #DE9A9A;}
-#categoryIcon4 {background-color: #EBB121;}
-#categoryIcon5 {background-color: #EBD048;}
-#categoryIcon6 {background-color: #746E9F;}
-#categoryIcon7 {background-color: #A2D2F2;}
+#categoryIcon0 {background-color: #92477D;}
+#categoryIcon1 {background-color: #C26B8F;}
+#categoryIcon2 {background-color: #DE9A9A;}
+#categoryIcon3 {background-color: #EBB121;}
+#categoryIcon4 {background-color: #EBD048;}
+#categoryIcon5 {background-color: #746E9F;}
+#categoryIcon6 {background-color: #A2D2F2;}
+#categoryIcon7 {background-color: #5275B1;}
 #categoryIcon8 {background-color: #5275B1}
 #categoryIcon9 {background-color: #9BB259;}
 #categoryIcon10 {background-color: #4e43a1;}
-
-
 
 
 /* 가운데 영역 오른쪽 nav ----------------------------------------------- */
@@ -321,7 +319,6 @@ font-weight: 100; text-emphasis: center;
     font-weight: 300;
     line-height: 1.19;
     display: inline;
-    width: 100%;
     color: #ccc;
 }
 
@@ -332,12 +329,70 @@ font-weight: 100; text-emphasis: center;
 }
 .main_right img{width: 100%;}
 
-
-
-/* 카테고리 선택시 속성 */
-.selected{
-    height: 50px;
-    border: solid 1.5px #a91179;
-    color: #a91179;
-    font-weight: 500;
+/* svg파일 -----------------------------------------*/
+.centerLeft{
+    width: 100%;
+    height: 100%;
+    overflow:hidden;
 }
+.centralMap{
+    width: 90%;
+    height: 100%;
+    float: left;
+}
+.centralMap img{
+    width: 85%;
+    height: 85%;
+    margin-top: 3%;
+    transition: transform .35s;
+    /* cursor:pointer; */
+    position: relative;
+    touch-action: manipulation;
+}
+.centralSvg{
+    width: 100%;
+    height: 85%;
+    margin-top: 3%;
+    transition: transform .50s;
+    /* cursor:pointer; */
+    position: relative;
+    touch-action: manipulation;
+}
+.centralSvg1F{
+    display: block;
+}
+.centralSvg2F{
+    display: none;
+
+}
+.centralSvg3F{
+    display: none;
+}
+.storeName text {
+    fill:#fff; 
+    font-size:16px; 
+}
+
+/* svg 카테고리 색상 */
+.FashionClothing {fill: #92477D;}
+.FashionGoods {fill: #C26B8F;}
+.Beauty {fill:#DE9A9A;}
+.Restaurant {fill: #EBB121;}
+.Food {fill:#EBD048;}
+.Living {fill:#746E9F;}
+.Kids·Pet {fill: #A2D2F2;}
+.Sports·Car {fill: #5275B1;}
+.Convenience {fill:#9BB259;}
+.Normal {fill:#9BB259;}
+
+/* Advertisement CSS */
+/* Slideshow container */
+.slideshow-container {
+    position: relative;
+    margin: 0 auto;
+    overflow-y: hidden;
+}
+
+.main_left, .main_right {position: absolute; bottom: 0;}
+
+/* ------------------------------------- 첫 화면 여기까지 */

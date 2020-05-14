@@ -304,8 +304,9 @@
                     <div class="searchCenter_top">
                         <ul>
                             <li>
-                                <input type="text" placeholder="이곳을 클릭하여 찾으시는 브랜드명을 검색하세요." class='searchBox'
-                                    id='searchBrandName'>
+                                <input type="text" placeholder="이곳을 클릭하여 찾으시는 브랜드명을 검색하세요. (초성검색가능)" class='searchBox'
+                                id='searchBrandName'>
+                                <div class='searchCancel' onclick="searchCancel()">X</div>
                             </li>
                             <li>
                                 <button type='submit' onclick="search()">검색</button>
