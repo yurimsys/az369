@@ -31,6 +31,12 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
         let searchResult = new Array();
         function search(){
             let allText = document.getElementById('searchBrandName').value;
+            console.log('-----')
+            console.log(allText)
+            if(allText === ''){
+                searchBrandList();
+                return false;
+            }
             // let search = (find_string !== '') ? find_string : document.getElementById('searchBrandName').value;
             let korText = Hangul.disassemble(allText).join("");  // ㄺ=>ㄹㄱ
             searchResult = [];
