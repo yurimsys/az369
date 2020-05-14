@@ -96,9 +96,9 @@
 
                     <div class='mapNav'>
                         <ul>
-                            <li><div class='plusBtn' id='zoomIn'><img src='/img/signage/mapNav_icon/zoom_in_icon.png'></div></li>
-                            <li><div class='minusBtn' id='zoomOut'><img src='/img/signage/mapNav_icon/zoom_out_icon.png'></div></li>
-                            <li><div class='resetBtn' id='zoomReset'><img src='/img/signage/mapNav_icon/zoom_back_icon.png'></div></li>
+                            <li><div class='plusBtn' id='zoomIn' onclick="zoomIn(this)"><img src='/img/signage/mapNav_icon/zoom_in_icon.png'></div></li>
+                            <li><div class='minusBtn' id='zoomOut' onclick="zoomOut(this)"><img src='/img/signage/mapNav_icon/zoom_out_icon.png'></div></li>
+                            <li><div class='resetBtn' id='zoomReset' onclick="zoomReset(this)"><img src='/img/signage/mapNav_icon/zoom_back_icon.png'></div></li>
                         </ul>  
                     </div>   
                 </div>
@@ -137,13 +137,13 @@
             </h1>
         <!-- 우측 메뉴 리스트 -->
             <ul class='rightNav'>
-                <li>
+                <li onclick="signageMain()">
                     <div class="rightNav_list">
                     <div class="rightNav_img"><img src='/img/signage/mainNav/rightNav_icon_01.png' ></div>
                     <h2 id='mainHome'>메인</h2>
                 </div>
                 </li>
-                <li onclick="searchCategoryMenu()" class="search">
+                <li onclick="signageSearch()" class="search">
                     <div class="rightNav_list">
                     <div class="rightNav_img"><img src='/img/signage/mainNav/rightNav_icon_02.png' ></div>
                     <h2 id='mainSearch'>검색</h2>
@@ -249,7 +249,7 @@
                     <li>
                         <div class='searchNavNext searchNextClick' id='searchNext' onclick="searchNext()">
                             <img
-                                src='/img/signage/right_arrow_icon.png'>
+                                src='/img/signage/right_arrow_active_icon.png'>
                             </div>
                     </li>
                 </ul>
@@ -284,7 +284,7 @@
                                 id='searchBrandName'>
                         </li>
                         <li>
-                            <button type='submit' onclick="testBtn()">검색</button>
+                            <button type='submit' onclick="search()">검색</button>
                         </li>
                     </ul>
                 </div>

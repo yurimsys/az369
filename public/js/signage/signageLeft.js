@@ -38,6 +38,16 @@
             localStorage.setItem('language',JSON.stringify(res.data))
         }
     })
+//중복제거 브랜드 리스트
+    $.ajax({
+        url: '/api/brandListOverLap',
+        method: 'get',
+        dataType: 'json',
+        success: function(res){
+            localStorage.setItem('brandListOverLap',JSON.stringify(res.data))
+            console.log(res.data)
+        }
+    })
 
     
     //카테고리 리스트
@@ -110,4 +120,7 @@
             $('.categoryPrev img').attr('src','/img/signage/left_arrow_icon.png')
         }
     }
+
+    
+
 //*** 메인 좌측 카테고리 선택 스크립트 종료 ***

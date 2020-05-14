@@ -1204,6 +1204,7 @@ router.get('/categoryLV2', function(req, res, next) {
         })
     });
 });
+
 //전체 브랜드 리스트
 router.get('/brandList', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
@@ -1245,4 +1246,34 @@ router.get('/storeInfo', function(req, res, next) {
     });
 });
 
+//전체 중복제거 브랜드 리스트
+router.get('/brandListOverLap', function(req, res, next) {
+    mssql.connect(dbconf.mssql, function (err, result){
+        if(err) throw err;
+        new mssql.Request().query(`
+        select BS_NameKor, BS_NameEng, tBCR.BCR_ID, BCR_LV1_BC_ID, BCR_LV2_BC_ID, BCR_LV3_BC_ID, tBS.BS_ID, BS_BC_ID, 
+                BS_LoginID, BS_LoginPW, BS_CEO, convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
+                convert(varchar, BS_MainDtf, 108) as BS_MainDtF, convert(varchar, BS_SubDtF, 108) as BS_SubDtF, BC_NameKor, BC_NameEng,
+                convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
+                BS_ContentsKor, BS_ContentsEng, BS_ThumbnailUrl,
+                convert(varchar, BS_PersonalDay, 108) as BS_PersonalDay, BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
+        from tBCR inner join tBSxBCR on tBCR.BCR_ID = tBSxBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxBCR.BS_ID
+                inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
+        inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
+        (err, result) => {
+            let brandList = result.recordset;
+            filtered = brandList.filter(function (a) {
+                var key = ['BS_NameKor', 'BS_NameEng'].map(function (k) { return a[k]; }).join('|');
+                // var key = Object.keys(a).map(function (k) { return a[k]; }).join('|');
+                if (!this[key]) {
+                    return this[key] = true;
+                }
+            }, Object.create(null));
+            // console.log('==============')
+            // console.log(filtered);
+
+            res.json({ data : filtered });
+        })
+    });
+});
 module.exports = router;
