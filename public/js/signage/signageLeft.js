@@ -45,6 +45,7 @@
         dataType: 'json',
         success: function(res){
             localStorage.setItem('brandListOverLap',JSON.stringify(res.data))
+            console.log('teststest')
             console.log(res.data)
         }
     })
