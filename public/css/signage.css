@@ -40,7 +40,7 @@ body,html{
     position: relative;
     height: 100%;
     text-align: center;
-    background-color: #7c818f;
+    background: url('/img/signage/main_bg.png');
 }
 #box-right {
     width: 15%;
