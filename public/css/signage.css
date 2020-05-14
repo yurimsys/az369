@@ -13,7 +13,10 @@ body,html{
 }
 
 
-
+.adSlides{
+    width: 100%;
+    height: 100%;
+}
 
 /* 페이지 3분할 14 / 71/ 15 -------------------------------*/
 .container{
@@ -130,7 +133,7 @@ body,html{
 
 /* 왼쪽 하단 광고 */
 .main_left{
-    width: 14%;
+    width: 100%;
     position: fixed;
     bottom: 0;
 }
