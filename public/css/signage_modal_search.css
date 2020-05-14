@@ -94,13 +94,6 @@
     list-style: none;
 }
 /* 카테고리 리스트 속성 */
-.selected{
-    height: 50px;
-    border: solid 1.5px #a91179;
-    color: #a91179;
-    font-weight: 500;
-}
-
 .searchCategory {
     box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.1); border: solid 1.5px rgba(255,255,255,0.5); background-image: linear-gradient(280deg, #ffffff, #eee); border-radius: 12px; cursor: pointer;
 }
@@ -113,7 +106,12 @@
     text-align: center;
     margin-top: 15px;
 }
-  
+.selected{
+    height: 50px;
+    border: solid 1.5px #a91179;
+    color: #a91179;
+    font-weight: 500;
+}
 .categoryChange{
     display: none;
     width: 100%;
