@@ -106,7 +106,7 @@
                 if($('#kor').hasClass('choose') == true){
                     if(nowDust < 30){
                         nowDust = '좋음'
-                        $('#dust').css('color','#0054FF')
+                        $('#dust').css('color','#40CFD9')
                         $('#dust').text(nowDust)
                     }else if(nowDust < 80){
                         nowDust = '보통'
@@ -114,11 +114,11 @@
                         $('#dust').text(nowDust)
                     }else if(nowDust < 150){
                         nowDust = '나쁨'
-                        $('#dust').css('color','orange')
+                        $('#dust').css('color','#C7622D')
                         $('#dust').text(nowDust)
                     }else if(nowDust > 150){
                         nowDust = '매우나쁨'
-                        $('#dust').css('color','red')
+                        $('#dust').css('color','#C72D2D')
                         $('#dust').text(nowDust)
                     }
 
