@@ -249,7 +249,7 @@ function searchCategoryListLV2(lv2CatNum){
             $('.searchTopName').text('Search')
         }else{
             let html = "위의<span style='color: #222222; font-weight: 500;'> 카테고리를 선택</span>하세요."
-            $('#searchBrandName').attr('placeholder','이곳을 클릭하여 찾으시는 브랜드명을 검색하세요.')
+            $('#searchBrandName').attr('placeholder','이곳을 클릭하여 찾으시는 브랜드를 검색하세요. (초성검색가능)')
             $('.searchInfo').append(html);
             $('#chagneCategory').text('카테고리 변경하기')
             $('.searchCloseName').text('닫기')
