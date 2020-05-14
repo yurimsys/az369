@@ -139,14 +139,14 @@ body,html{
 /* 카테고리별 박스 아이콘 */
 .categoryIconBox { width: 12px; height: 12px; float: left; margin-top: 9%;margin-left: 8%;}
 
-#categoryIcon0 {background-color: #a91179;}
-#categoryIcon1 {background-color: #92477D;}
-#categoryIcon2 {background-color: #C26B8F;}
-#categoryIcon3 {background-color: #DE9A9A;}
-#categoryIcon4 {background-color: #EBB121;}
-#categoryIcon5 {background-color: #EBD048;}
-#categoryIcon6 {background-color: #746E9F;}
-#categoryIcon7 {background-color: #A2D2F2;}
+#categoryIcon0 {background-color: #92477D;}
+#categoryIcon1 {background-color: #C26B8F;}
+#categoryIcon2 {background-color: #DE9A9A;}
+#categoryIcon3 {background-color: #EBB121;}
+#categoryIcon4 {background-color: #EBD048;}
+#categoryIcon5 {background-color: #746E9F;}
+#categoryIcon6 {background-color: #A2D2F2;}
+#categoryIcon7 {background-color: #5275B1;}
 #categoryIcon8 {background-color: #5275B1}
 #categoryIcon9 {background-color: #9BB259;}
 #categoryIcon10 {background-color: #4e43a1;}
@@ -544,10 +544,18 @@ font-weight: 100; text-emphasis: center;
     background-color: #fff;
     padding-left: 20px;
 }
+
 .searchBox::placeholder{
     font-size: 16px;
     font-weight: 200;
     color: #767676;
+  }
+  .searchCancel{
+    margin-top: -58px;
+    text-align: right;
+    padding: 0px;
+    margin-right: 20px;
+    font-size: 30px;
   }
 
 
@@ -826,16 +834,17 @@ ul.detailInfo li:nth-child(2) {margin-right: 0;}
 }
 
 /* svg 카테고리 색상 */
+.FashionClothing {fill: #92477D;}
+.FashionGoods {fill: #C26B8F;}
+.Beauty {fill:#DE9A9A;}
+.Restaurant {fill: #EBB121;}
 .Food {fill:#EBD048;}
 .Living {fill:#746E9F;}
-.Beauty {fill:#DE9A9A;}
-.Convenience {fill:#9BB259;}
-.Restaurant {fill: #EBB121;}
-.FashionGoods {fill: #C26B8F;}
 .Kids·Pet {fill: #A2D2F2;}
 .Sports·Car {fill: #5275B1;}
-.Normal {fill:#EBB121;}
-.FashionClothing {fill: #92477D;}
+.Convenience {fill:#9BB259;}
+.Normal {fill:#9BB259;}
+
 
 
 
