@@ -23,77 +23,78 @@ const Keyboard = {
         onclose: null
     },
     config : {
-        mode : "qwerty",
+        lineBreakWord : "\n",
+        mode : "cheonjiin",
         layout : {
             qwerty : {
                 // Kor Keyboard Layout
                 korean : [
-                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
-                    "ㅂ|ㅃ", "ㅈ|ㅉ", "ㄷ|ㄸ", "ㄱ|ㄲ", "ㅅ|ㅆ", "ㅛ", "ㅕ", "ㅑ", "ㅐ|ㅒ", "ㅔ|ㅖ",
-                    "ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ", "done",
-                    "caps", "ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ",
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace", "\n",
+                    "ㅂ|ㅃ", "ㅈ|ㅉ", "ㄷ|ㄸ", "ㄱ|ㄲ", "ㅅ|ㅆ", "ㅛ", "ㅕ", "ㅑ", "ㅐ|ㅒ", "ㅔ|ㅖ", "\n",
+                    "ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ", "done", "\n",
+                    "caps", "ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ", "\n",
                     "A", "space"
                 ],
                 // Eng Keyboard Layout
                 english : [
-                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
-                    "q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
-                    "a", "s", "d", "f", "g", "h", "j", "k", "l", "done",
-                    "caps", "z", "x", "c", "v", "b", "n", "m",
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace", "\n",
+                    "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\n",
+                    "a", "s", "d", "f", "g", "h", "j", "k", "l", "done", "\n",
+                    "caps", "z", "x", "c", "v", "b", "n", "m", "\n",
                     "가", "space"
                 ]
             },
             cheonjiin : {
                  // Kor Keyboard Layout
                  korean : [
-                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
-                    "ㅂ|ㅃ", "ㅈ|ㅉ", "ㄷ|ㄸ", "ㄱ|ㄲ", "ㅅ|ㅆ", "ㅛ", "ㅕ", "ㅑ", "ㅐ|ㅒ", "ㅔ|ㅖ",
-                    "ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ", "done",
-                    "caps", "ㅊ", "ㅊ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ",
-                    "A", "space"
+                    "ㅣ", "·", "ㅡ", "backspace", "\n",
+                    "ㄱㅋ", "ㄴㄹ", "ㄷㅌ", "done", "\n",
+                    "ㅂㅍ", "ㅅㅎ", "ㅈㅊ", ".,?!", "\n",
+                    "!#1","ㅇㅁ", "space"
                 ],
                 // Eng Keyboard Layout == qwerty Layout
                 english : [
-                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
-                    "q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
-                    "a", "s", "d", "f", "f", "h", "j", "k", "l", "done",
-                    "caps", "z", "x", "c", "v", "b", "n", "m",
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace", "\n",
+                    "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\n",
+                    "a", "s", "d", "f", "f", "h", "j", "k", "l", "done", "\n",
+                    "caps", "z", "x", "c", "v", "b", "n", "m", "\n",
                     "가", "space"
                 ]
             }
         }
     },
-    properties: {
+    default : {
         value: "",
         capsLock: false,
         bufferValue: "",
-        currentLanguage: "english"
+        currentLanguage: "korean",
+        languageType : ""
     },
+    properties: {},
     init() {
+        // Init properties 
+        this.properties = JSON.parse(JSON.stringify(this.default));
+        this.properties.languageType = Object.keys( this.config.layout[this.config.mode] );
+        
         // Create main elements
         this.elements.main = document.createElement("div");
 
         // Create Keycontainer
-        const languageType = this.config.layout[this.config.mode]
-        
-        this.elements.keysContainer.english = document.createElement("div");
-        this.elements.keysContainer.english.id = 'eng_keyboard';
-        this.elements.keysContainer.english.classList.add("keyboard__keys");
-        
-        this.elements.keysContainer.korean = document.createElement("div");
-        this.elements.keysContainer.korean.id = 'kor_keyboard';
-        this.elements.keysContainer.korean.classList.add("keyboard__keys");
-        
-
-
+        this.properties.languageType.forEach( type => {
+            this.elements.keysContainer[ type ] = document.createElement("div");
+            this.elements.keysContainer[ type ].id = 'eng_keyboard';
+            this.elements.keysContainer[ type ].classList.add("keyboard__keys");
+        });
 
         // Setup main elements
         this.elements.main.classList.add("keyboard", "keyboard--hidden");
         this.elements.main.appendChild( this._createKeys() );
 
-        this.elements.keys.english = this.elements.keysContainer.english.querySelectorAll(".keyboard__key");
-        this.elements.keys.korean = this.elements.keysContainer.korean.querySelectorAll(".keyboard__key");
-
+        // Setup keys elements
+        this.properties.languageType.forEach( type => {
+            this.elements.keys[ type ] = this.elements.keysContainer[ type ].querySelectorAll(".keyboard__key");
+        });
+        
         // Init Visiable Keyboard Type
         this.elements.keysContainer[ this.properties.currentLanguage ].classList.add( 'active' )
         
@@ -110,7 +111,6 @@ const Keyboard = {
     },
     _createKeys() {
         
-
         const keyContainerFragment = document.createDocumentFragment();
         const keyFragment = document.createDocumentFragment();
         const keyLayout = this.config.layout[ this.config.mode ];
@@ -125,7 +125,7 @@ const Keyboard = {
                 const keyElement = document.createElement("button");
 
                 // 줄넘김을 추가할 마지막 key
-                const insertLineBreak = ["backspace", "p", "done", "m", "ㅔ|ㅖ", "ㅡ"].indexOf(key) !== -1;
+                const insertLineBreak = this.config.lineBreakWord === key;
 
                 // Add attributes/classes
                 keyElement.setAttribute("type", "button");
@@ -190,7 +190,8 @@ const Keyboard = {
                         });
 
                         break;
-
+                    
+                    // qwerty 한/영 변환
                     case "가":
                     case "A":
                         keyElement.textContent = key.toString();
@@ -221,10 +222,10 @@ const Keyboard = {
                         break;
                 }
 
-                keyFragment.appendChild(keyElement);
-
                 if (insertLineBreak) {
                     keyFragment.appendChild(document.createElement("br"));
+                } else {
+                    keyFragment.appendChild(keyElement);
                 }
             });
 
