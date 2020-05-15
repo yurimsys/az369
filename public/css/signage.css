@@ -416,16 +416,16 @@ g.storeName text {fill: #fff; text-shadow: 0 0 3px rgba(27, 7, 18, 0.7);}
 
 /* mainNav - 이용안내 */
 /* 이용안내 텍스트 공통속성 */
-#box-info h3 {font-size: 28px; font-weight:500; color: #6A114D; margin-top: 30px; letter-spacing: -0.5px; margin-bottom:6px;}
-#box-info p {font-size: 18px; font-weight: 300;}
+#box-info h3 {font-size: 28px; font-weight:500; color: #6A114D; margin-top: 30px; letter-spacing: -0.75px; margin-bottom:4px;}
+#box-info p {font-size: 16px; font-weight: 300;}
 #box-info p span {font-weight: 500;}
 /* 이용안내 타이틀영역 */
 .main_info_tit {width: 100%; background-color: #fff; height: 10%; position: relative; overflow: hidden;}
-.main_info_tit h1 {font-size: 32px; font-weight: 300; position: absolute; top: 50%; transform: translateY(-50%); padding-left: 40px; letter-spacing: -0.5px;}
-.main_info_tit h1 span {font-size: 36px; font-weight: 600;;}
+.main_info_tit h1 {font-size: 34px; font-weight: 300; position: absolute; top: 50%; transform: translateY(-50%); padding-left: 40px; letter-spacing: -0.5px;}
+.main_info_tit h1 span {font-size: 34px; font-weight: 600;;}
 
 /* 이용안내 내용영역 */
-.main_info_inner {width:100%; height: 90%; position: relative; padding: 0 40px; background: url('/img/signage/main_info_bg.png') center;}
+.main_info_inner {width:100%; height: 90%; position: relative; padding: 0 40px; background: url('/img/signage/main_info_bg.png') center; }
 
 /* 이용안내 가운데 */
 .main_info_middle {width: 100%;overflow: hidden;} 
@@ -433,14 +433,15 @@ g.storeName text {fill: #fff; text-shadow: 0 0 3px rgba(27, 7, 18, 0.7);}
 .main_info_middle ul li {float: left; width: 45%; margin-right: 7.5%;}
 .main_info_middle ul li:nth-child(2) {margin-right: 0;}
 
-.main_info_middle dl {width: 100%; overflow: hidden; font-size: 20px; margin-bottom: 4px;}
-.main_info_middle dl dt {width: 30%; float: left; font-weight: 400; line-height: 35px;;}
-.main_info_middle dl dd {width: 70%; float: right; font-weight: 300; font-size: 18px; line-height: 35px;}
+.main_info_middle dl {width: 100%; overflow: hidden; font-size: 18px;}
+.main_info_middle dl dt {width: 30%; float: left; font-weight: 400; line-height: 35px; letter-spacing: -0.5px;}
+.main_info_middle dl dd {width: 70%; float: right; font-weight: 300; font-size: 16px; line-height: 35px;}
 .main_info_middle dl dd span {font-weight: 500;}
 p.parking_p {margin-top: 20px; color: #444;}
-p.locker_p {margin-top: 8px;}
+p.locker_p {margin-top: 10px;}
 
 /* .main_info_bottom {width: 100%; margin-top: 30px;} */
-.main_info_bottom > h3 {margin-top: 20px !important;}
-.main_info_img {background-color:#D9D1D1; width: 100%; height: 330px;}
-.main_info_bottom p {margin-top: 8px;}
+/* .main_info_bottom > h3 {margin-top: 20px !important;} */
+/* .main_info_img { width: 100%; height: 330px; margin: 0 auto; text-align: center;background: url('/img/signage/main_info_img_bg.png') center; margin: 12px 0; } */
+.main_info_img {width: 100%; height: 330px; background: url('/img/signage/main_info_img_bg.png') center; text-align: center; position: relative; padding: 10px; margin: 12px 0;}
+.main_info_img img {margin: 0 auto; width: 55%; margin-top: 20px;}
