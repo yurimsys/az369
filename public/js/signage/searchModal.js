@@ -239,10 +239,8 @@
         $('#'+e.id).css('background-color','#f9eff6');
         $('.searchRight').css('display','none')
         $('.searchRightAd').css('display','none');
-        // $('.searchRightAd').css('display','block');
         $('.searchRightDetail').css('display','block')
-            // $('.brandDetail').css('display','block')
-
+        
         // let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
         let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
         //BCR_LV1_BC_ID에 검색 
