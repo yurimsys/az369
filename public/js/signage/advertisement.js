@@ -35,7 +35,7 @@ class AdSlide{
                 slides = document.querySelectorAll(`.${parent_class_name} .ad.${type} .adSlides`);
             }
             
-            console.log(type, parent_class_name, category_id,slides);
+            //console.log(type, parent_class_name, category_id,slides);
             for (i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none";
             }

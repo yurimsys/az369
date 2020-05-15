@@ -26,6 +26,12 @@
         $('.searchCenter').css('display','block');
         $('.brandInfoCenter').css('display','none')
         $('.searchNav').css('display','block')
+        $('#1Fstore path').css('fill','')
+        $('#2Fstore path').css('fill','')
+        $('#3Fstore path').css('fill','')
+        $('.categoryBtn').removeClass('selected')
+        //카테고리 초기화
+        mainPrev();
         //지도 초기화
         zoomReset();
         //이전 다음 버튼 초기화
@@ -66,8 +72,6 @@
                         html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation'>"+jsonBrand[i].BC_NameEng+"</span></h4><div class='searchTime'>OpenTime "+openTime+" ~ "+endTime+"</div></li></ul>";
                     $('.searchResult').append(html)
                 }
-
-
         //해당 브랜드에 이벤트가 있을시 이벤트 아이콘 추가
             // if(i==2 || i==4){
             //     html = "<div class='brandList' id='brand02' onclick='brandClick(this)'><div class='categoryImg'></div>";
@@ -256,7 +260,7 @@
                         html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsKor+"</div></li>"
                         html += "</ul></div>"
                         html += "<ul class='detailInfo'>"
-                        html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeInfo(this)'>상세 보기</div></li>"
+                        html += "<li><div class='infoImgNav' id="+'bs'+selectBrand[0].BS_ID+" onclick='storeInfo(this)'>상세 보기</div></li>"
                         html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>위치 보기</div></li></ul>"
                     $('.brandDetail').append(html)
                 }else{
@@ -267,7 +271,7 @@
                         html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsEng+"</div></li>"
                         html += "</ul></div>"
                         html += "<ul class='detailInfo'>"
-                        html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeInfo(this)'>Detail</div></li>"
+                        html += "<li><div class='infoImgNav' id="+'bs'+selectBrand[0].BS_ID+" onclick='storeInfo(this)'>Detail</div></li>"
                         html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>Location</div></li></ul>"
                     $('.brandDetail').append(html)
                 }
@@ -533,6 +537,8 @@
             }else{
                 $(e).text('Close')
             }
+            //상세정보 정보 버튼에 아이디 추가
+            $('.brandInfoBtn div').attr('id',e.id)
             $(e).addClass('detail_click')
             $('.searchLeft').css('display','none');
             $('.brandInfoLeft').css('display','block')
@@ -559,6 +565,8 @@
         $('.brandInfoBtn div').addClass('selected')
         $('.brandInfoCenter').css('display','block')
         $('.brandMenuCenter').css('display','none')
+        let brandID = $('.brandInfoBtn div').attr('id')
+        brandInfoList(brandID.replace(/bs/g,''));
     }
 
 //브랜드 메뉴
@@ -567,4 +575,51 @@
         $(e).children('div').addClass('selected')
         $('.brandInfoCenter').css('display','none')
         $('.brandMenuCenter').css('display','block')
+    }
+
+//브랜드 상세정보 
+    function brandInfoList(bs){
+        $('.brandInfoDetail_txt').empty();
+        $('#infoStoreName').empty();
+        $('#infoStoreNumber').empty();
+        let jsonBrandInfoList = JSON.parse(localStorage.getItem('brandList'))
+        let brandInfoList = [];   
+        for(let i=0; i<jsonBrandInfoList.length; i++){
+            if(jsonBrandInfoList[i].BS_ID == bs ){
+                brandInfoList.push(jsonBrandInfoList[i])
+            }
+        }
+        if($('#kor').hasClass('choose')){
+            let html = "<h3>상세정보 <span>단체석 예약, 포장 가능</span></h3>"
+                html += "<dl><dt><i class='far fa-clock'></i> 영업시간</dt>"
+                html += "<dd>"+brandInfoList[0].BS_MainDtS.substring(0,5)+' ~ '+brandInfoList[0].BS_MainDtF.substring(0,5)+"</dd>"
+                html += "<dd style='color: #999;'>"+brandInfoList[0].BS_PersonalDayKor+' 휴무'+"</dd></dl>"
+
+                html += "<dl><dt><i class='fas fa-mobile-alt'></i> 전화번호</dt>"
+                html += "<dd>"+brandInfoList[0].BS_Phone+"</dd>"
+                html += "<dd>"+brandInfoList[0].BS_CEOPhone+"</dd></dl>"
+
+                html += "<dl><dt><i class='fas fa-map-marker-alt'></i> 주소</dt>"
+                html += "<dd>"+brandInfoList[0].BS_Addr1Kor+"</dd>"
+                html += "<dd>"+brandInfoList[0].BS_Addr2Kor+"</dd></dl>"
+            $('.brandInfoDetail_txt').append(html)
+            $('#infoStoreName').append(brandInfoList[0].BS_NameKor)
+            $('#infoStoreNumber').append(brandInfoList[0].LS_Number+' 호')
+        }else{
+            let html = "<h3>Information <span>Group seat reservation and packing available</span></h3>"
+                html += "<dl><dt><i class='far fa-clock'></i> OpenTime</dt>"
+                html += "<dd>"+brandInfoList[0].BS_MainDtS.substring(0,5)+' ~ '+brandInfoList[0].BS_MainDtF.substring(0,5)+"</dd>"
+                html += "<dd style='color: #999;'>"+'Closed for the '+brandInfoList[0].BS_PersonalDayEng+"</dd></dl>"
+
+                html += "<dl><dt><i class='fas fa-mobile-alt'></i> Phone</dt>"
+                html += "<dd>"+brandInfoList[0].BS_Phone+"</dd>"
+                html += "<dd>"+brandInfoList[0].BS_CEOPhone+"</dd></dl>"
+
+                html += "<dl><dt><i class='fas fa-map-marker-alt'></i> Address</dt>"
+                html += "<dd>"+brandInfoList[0].BS_Addr1Eng+"</dd>"
+                html += "<dd>"+brandInfoList[0].BS_Addr2Eng+"</dd></dl>"
+                $('#infoStoreName').append(brandInfoList[0].BS_NameEng)
+                $('#infoStoreNumber').append(brandInfoList[0].LS_Number+' Room')
+            $('.brandInfoDetail_txt').append(html)
+        }
     }

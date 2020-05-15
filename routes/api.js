@@ -1202,11 +1202,10 @@ router.get('/brandList', function(req, res, next) {
         if(err) throw err;
         new mssql.Request().query(`
         select BS_NameKor, BS_NameEng, tBCR.BCR_ID, BCR_LV1_BC_ID, BCR_LV2_BC_ID, BCR_LV3_BC_ID, tBS.BS_ID, BS_BC_ID, 
-                BS_LoginID, BS_LoginPW, BS_CEO, convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
+                BS_LoginID, BS_LoginPW, BS_CEO, BS_Phone, BS_CEOPhone, BS_Addr1Kor, BS_Addr2Kor, BS_Addr1Eng, BS_Addr2Eng, convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
                 convert(varchar, BS_MainDtf, 108) as BS_MainDtF, convert(varchar, BS_SubDtF, 108) as BS_SubDtF, BC_NameKor, BC_NameEng,
                 convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
-                BS_ContentsKor, BS_ContentsEng, BS_ThumbnailUrl,
-                convert(varchar, BS_PersonalDay, 108) as BS_PersonalDay, BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
+                BS_ContentsKor, BS_ContentsEng, BS_ThumbnailUrl, BS_PersonalDayKor, BS_PersonalDayEng,  BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
         from tBCR inner join tBSxBCR on tBCR.BCR_ID = tBSxBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxBCR.BS_ID
                 inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
         inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
@@ -1246,8 +1245,7 @@ router.get('/brandListOverLap', function(req, res, next) {
                 BS_LoginID, BS_LoginPW, BS_CEO, convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
                 convert(varchar, BS_MainDtf, 108) as BS_MainDtF, convert(varchar, BS_SubDtF, 108) as BS_SubDtF, BC_NameKor, BC_NameEng,
                 convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
-                BS_ContentsKor, BS_ContentsEng, BS_ThumbnailUrl,
-                convert(varchar, BS_PersonalDay, 108) as BS_PersonalDay, BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
+                BS_ContentsKor, BS_ContentsEng, BS_ThumbnailUrl,BS_PersonalDayKor, BS_PersonalDayEng, BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
         from tBCR inner join tBSxBCR on tBCR.BCR_ID = tBSxBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxBCR.BS_ID
                 inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
         inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,

@@ -2,6 +2,8 @@
 //*** 메인 우측 하단 날씨, 시간,언어 선택 스크립트 ***
     //메인 돌아가기
     function signageMain(){
+        //카테고리 초기화
+        mainPrev();
         $('#box-left').css('display','block')
         $('#box-center').css('display','block')
         $('#box-info').css('display','none')
@@ -44,11 +46,11 @@
     }
     
 //이용안내
-function signageInfo(){
-    $('#box-left').css('display','none')
-    $('#box-center').css('display','none')
-    $('#box-info').css('display','block')
-}
+    function signageInfo(){
+        $('#box-left').css('display','none')
+        $('#box-center').css('display','none')
+        $('#box-info').css('display','block')
+    }
 
 //url 매개변수
     function urlParam(){
@@ -135,7 +137,7 @@ function signageInfo(){
                 }else{
                     if(nowDust < 30){
                         nowDust = ' Good'
-                        $('#dust').css('color','blue')
+                        $('#dust').css('color','#40CFD9')
                         $('#dust').text(nowDust)
                     }else if(nowDust < 80){
                         nowDust = ' Usually'
@@ -143,11 +145,11 @@ function signageInfo(){
                         $('#dust').text(nowDust)
                     }else if(nowDust < 150){
                         nowDust = ' Bad'
-                        $('#dust').css('color','orange')
+                        $('#dust').css('color','#C7622D')
                         $('#dust').text(nowDust)
                     }else if(nowDust > 150){
                         nowDust = ' Wrong'
-                        $('#dust').css('color','red')
+                        $('#dust').css('color','#C72D2D')
                         $('#dust').text(nowDust)
                     }
                 }
