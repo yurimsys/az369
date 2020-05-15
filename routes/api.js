@@ -38,6 +38,7 @@ router.get('/adtype', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
         new mssql.Request().query('select * from tADY', (err, result) => {
+            if(err) throw err;
             res.json({ data : result.recordset });
         })
     });
@@ -48,51 +49,49 @@ router.get('/adtype', function(req, res, next) {
 // 광고 리스트
 router.get('/ad', function(req, res, next) {
     let req_type = req.query.type;
-    let query = '';
+    let query = `
+        SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL 
+        FROM tAD
+            INNER JOIN tADY on AD_ADY_ID = ADY_ID 
+            LEFT JOIN tBS on AD_BS_ID = BS_ID
+            LEFT JOIN tBC on AD_BC_ID = BC_ID 
+        `;
+    
     if(req_type !== 'display'){
-        query = `
-            SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL 
-            FROM tAD
-                INNER JOIN tADY on AD_ADY_ID = ADY_ID 
-                LEFT JOIN tBS on AD_BS_ID = BS_ID
-                LEFT JOIN tBC on AD_BC_ID = BC_ID`;
+    
         mssql.connect(dbconf.mssql, function (err, result){
             if(err) throw err;
             new mssql.Request().query(query, (err, result) => {
+                if(err) throw err;
                 res.json({ data : result.recordset });
             })
         });
     } else {
-        query = `
-            SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL 
-            FROM tAD
-                INNER JOIN tADY on AD_ADY_ID = ADY_ID 
-                LEFT JOIN tBS on AD_BS_ID = BS_ID
-                LEFT JOIN tBC on AD_BC_ID = BC_ID
-            WHERE AD_DtF >= GETDATE()`;
-        
-            mssql.connect(dbconf.mssql, function (err, result){
+        query += "WHERE AD_DtF >= GETDATE()";
+
+        mssql.connect(dbconf.mssql, function (err, result){
             if(err) throw err;
             new mssql.Request().query(query, (err, result) => {
+                if(err) throw err;
                 let result_data = {};
                 result.recordset.forEach((row) => {
                     if(result_data[row.ADY_CD] === undefined){
                         result_data[row.ADY_CD] = {};
                         result_data[row.ADY_CD].slide_sec = row.ADY_SlideDuration;
-                        let content_obj = {
-                            url : row.AD_ContentURL,
-                            display_s : row.AD_DtS,
-                            display_f : row.AD_DtF
-                        };
-                        result_data[row.ADY_CD].contents = [content_obj];
-                    } else {
-                        let content_obj = {
-                            url : row.AD_ContentURL,
-                            display_s : row.AD_DtS,
-                            display_f : row.AD_DtF
-                        };
-                        result_data[row.ADY_CD].contents.push(content_obj)
+                        result_data[row.ADY_CD].contents = [];
+                    } 
+
+                    let content_obj = {
+                        url : row.AD_ContentURL,
+                        display_s : row.AD_DtS,
+                        display_f : row.AD_DtF
+                    };
+                    
+                    if(row.AD_BC_ID !== null){
+                        content_obj.category_id = row.AD_BC_ID
                     }
+                    result_data[row.ADY_CD].contents.push(content_obj);
+                    
                 });
     
                 res.json({ data : result_data });

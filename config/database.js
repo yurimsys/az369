@@ -17,7 +17,6 @@ const database_json =
             "database"  : "YR_SIGNAGE",
             "timezone"  : 'utc',
             "options"   : {
-                //useUTC : false,
                 "encrypt" : false
             }
         }
