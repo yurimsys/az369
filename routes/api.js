@@ -1264,4 +1264,33 @@ router.get('/brandListOverLap', function(req, res, next) {
         })
     });
 });
+
+//브랜드 상세정보 메뉴 리스트
+
+router.get('/brandMenuList', function(req, res, next) {
+    mssql.connect(dbconf.mssql, function (err, result){
+        if(err) throw err;
+        new mssql.Request().query(`select * from tM left join tMC on tM.M_MC_ID = tMC.MC_ID`,
+        (err, result) => {
+            let brandMenuList = result.recordset;
+
+            let eventMenu = [];
+            let normalMenu = [];
+            for(let i=0; i<brandMenuList.length; i++){
+                if(brandMenuList[i].M_MC_ID !== null){
+                eventMenu.push(brandMenuList[i])
+                }else{
+                    normalMenu.push(brandMenuList[i])
+                }
+            }
+            // console.log('===========')
+            // console.log(eventMenu);
+            // console.log('===========')
+            // console.log(normalMenu);
+            // console.log('===========')
+            res.json({ event : eventMenu , normal : normalMenu});
+        })
+    });
+});
+
 module.exports = router;
