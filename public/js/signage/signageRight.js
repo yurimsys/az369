@@ -2,6 +2,9 @@
 //*** 메인 우측 하단 날씨, 시간,언어 선택 스크립트 ***
     //메인 돌아가기
     function signageMain(){
+        $('#box-left').css('display','block')
+        $('#box-center').css('display','block')
+        $('#box-info').css('display','none')
         zoomReset();
         $('.categoryBtn ').removeClass('selected')
         $('#1Fstore path').css('fill','')
@@ -39,6 +42,13 @@
             $('#nowFloor').text('3F')
         }
     }
+    
+//이용안내
+function signageInfo(){
+    $('#box-left').css('display','none')
+    $('#box-center').css('display','none')
+    $('#box-info').css('display','block')
+}
 
 //url 매개변수
     function urlParam(){
@@ -241,12 +251,6 @@
             dustState()
             svgLocation();
         })
-    }
-
-    function signageInfo(){
-        $('#box-left').css('display','none')
-        $('#box-center').css('display','none')
-        $('#box-info').css('display','block')
     }
 
 //*** 메인 우측 하단 날씨, 시간, 언어 선택 스크립트 종료 ***
