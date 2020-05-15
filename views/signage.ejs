@@ -181,7 +181,7 @@
                         <h2 id='mainEvent'>이벤트</h2>
                     </div>
                 </li>
-                <li>
+                <li onclick="signageInfo()">
                     <div class="rightNav_list">
                         <div class="rightNav_img"><img src='/img/signage/mainNav/rightNav_icon_04.png'></div>
                         <h2 id='mainGuide'>이용안내</h2>
@@ -236,6 +236,10 @@
             </div> -->
         </div>
         <!--컨테이너 종료  -->
+        <!-- 이용안내 -->
+        <div id='box-info'>
+        </div>
+
     </div>
 
 
@@ -294,13 +298,13 @@
                     </div>
                     <ul>
                         <li class="brandInfoBtn" onclick="brandNavInfo()">
-                            <div class='categoryBtn categoryFont categoryBack brandInfoText'>정보</div>
+                            <div class='categoryBtn categoryFont categoryBack brandInfoText' data-kor='정보' data-eng="Information">정보</div>
                         </li>
                         <li class="brandMenuBtn" onclick="brandNavMenu(this)">
-                            <div class='categoryBtn categoryFont categoryBack brandInfoText'>메뉴</div>
+                            <div class='categoryBtn categoryFont categoryBack brandInfoText' data-kor='메뉴' data-eng='Menu'>메뉴</div>
                         </li>
                         <li class="brandEventBtn" onclick="brandNavEvent(this)">
-                            <div class='categoryBtn categoryFont categoryBack brandInfoText'>이벤트</div><span></span>
+                            <div class='categoryBtn categoryFont categoryBack brandInfoText' data-kor='이벤트' data-eng='Event'>이벤트</div><span></span>
                         </li>
                     </ul>
 

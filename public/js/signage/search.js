@@ -27,7 +27,18 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
             item.diassembled = cho;
         });
         
+
         
+    //검색창 값 입력시 초기화 버튼 생성
+        document.getElementById('searchBrandName').addEventListener('keyup', function (){
+            if($(this).val() !== ''){
+                $('.searchCancel').css('display','block')
+            }else{
+                $('.searchCancel').css('display','none')
+            }
+        })
+
+
         let searchResult = new Array();
         function search(){
             let allText = document.getElementById('searchBrandName').value;
@@ -47,7 +58,7 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
                 let searchJson = new Object();
                 searchJson.name = item.name
                 searchResult.push(searchJson)
-                //console.log(searchResult,'dd')
+                console.log(searchResult,'dd')
             });
              $('.searchResult').empty();
              for(let i=0; i<jsonBrand.length; i++){
@@ -81,5 +92,6 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
         //검색창 초기화
         function searchCancel(){
             searchBrandList();
+            $('.searchCancel').css('display','none')
             $('#searchBrandName').val('')
         }
