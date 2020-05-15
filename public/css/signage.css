@@ -58,6 +58,7 @@ body,html{
     position: relative;
     height: 100%;
     letter-spacing: -0.25px;
+    overflow: hidden;
     /* background: url('/img/signage/main_info_bg.png'); */
 }
 
@@ -425,7 +426,7 @@ g.storeName text {fill: #fff; text-shadow: 0 0 3px rgba(27, 7, 18, 0.7);}
 .main_info_tit h1 span {font-size: 34px; font-weight: 600;;}
 
 /* 이용안내 내용영역 */
-.main_info_inner {width:100%; height: 90%; position: relative; padding: 0 40px; background: url('/img/signage/main_info_bg.png') center; }
+.main_info_inner {width:100%; height: 90%; position: relative; padding: 0 40px; background: url('/img/signage/main_info_bg.png') center; overflow: hidden;}
 
 /* 이용안내 가운데 */
 .main_info_middle {width: 100%;overflow: hidden;} 
@@ -440,8 +441,5 @@ g.storeName text {fill: #fff; text-shadow: 0 0 3px rgba(27, 7, 18, 0.7);}
 p.parking_p {margin-top: 20px; color: #444;}
 p.locker_p {margin-top: 10px;}
 
-/* .main_info_bottom {width: 100%; margin-top: 30px;} */
-/* .main_info_bottom > h3 {margin-top: 20px !important;} */
-/* .main_info_img { width: 100%; height: 330px; margin: 0 auto; text-align: center;background: url('/img/signage/main_info_img_bg.png') center; margin: 12px 0; } */
-.main_info_img {width: 100%; height: 330px; background: url('/img/signage/main_info_img_bg.png') center; text-align: center; position: relative; padding: 10px; margin: 12px 0;}
-.main_info_img img {margin: 0 auto; width: 55%; margin-top: 20px;}
+.main_info_img {width: 100%; height: 320px; background: url('/img/signage/main_info_img_bg.png') center; text-align: center; position: relative; margin: 12px 0;}
+.main_info_img_Wrap {width: 100%; height: 320px; line-height: 330px;;}
