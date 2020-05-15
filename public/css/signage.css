@@ -1,5 +1,6 @@
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|Roboto&display=swap');
+
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; background-repeat: no-repeat;
    user-select:none; -webkit-user-drag: none;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
@@ -40,7 +41,8 @@ body,html{
     position: relative;
     height: 100%;
     text-align: center;
-    background: url('/img/signage/main_bg.png');
+    background: url('/img/signage/main_bg.png') no-repeat;
+    background-size: cover;
 }
 #box-right {
     width: 15%;
@@ -55,8 +57,8 @@ body,html{
     float: left;
     position: relative;
     height: 100%;
-    background-color: #eee;
-
+    letter-spacing: -0.25px;
+    /* background: url('/img/signage/main_info_bg.png'); */
 }
 
 /* 왼쪽 영역  --------------------------------------------- */
@@ -340,6 +342,8 @@ h1 span {font-size: 36px; font-weight: 400;}
 }
 .main_right img{width: 100%;}
 
+
+
 /* svg파일 -----------------------------------------*/
 .centerLeft{
     width: 100%;
@@ -356,7 +360,6 @@ h1 span {font-size: 36px; font-weight: 400;}
     height: 85%;
     margin-top: 3%;
     transition: transform .35s;
-    /* cursor:pointer; */
     position: relative;
     touch-action: manipulation;
 }
@@ -365,7 +368,6 @@ h1 span {font-size: 36px; font-weight: 400;}
     height: 85%;
     margin-top: 3%;
     transition: transform .50s;
-    /* cursor:pointer; */
     position: relative;
     touch-action: manipulation;
 }
@@ -398,7 +400,7 @@ h1 span {font-size: 36px; font-weight: 400;}
 
 /* Advertisement CSS */
 /* Slideshow container */
-.slideshow-container {
+.slideshow-ontainer {
     position: relative;
     margin: 0 auto;
     overflow-y: hidden;
@@ -409,3 +411,37 @@ h1 span {font-size: 36px; font-weight: 400;}
 g.storeName text {fill: #fff; text-shadow: 0 0 3px rgba(27, 7, 18, 0.7);}
 
 /* ------------------------------------- 첫 화면 여기까지 */
+
+
+
+/* mainNav - 이용안내 */
+/* 이용안내 텍스트 공통속성 */
+#box-info h3 {font-size: 28px; font-weight:500; color: #6A114D; margin-top: 30px; letter-spacing: -0.75px; margin-bottom:4px;}
+#box-info p {font-size: 16px; font-weight: 300;}
+#box-info p span {font-weight: 500;}
+/* 이용안내 타이틀영역 */
+.main_info_tit {width: 100%; background-color: #fff; height: 10%; position: relative; overflow: hidden;}
+.main_info_tit h1 {font-size: 34px; font-weight: 300; position: absolute; top: 50%; transform: translateY(-50%); padding-left: 40px; letter-spacing: -0.5px;}
+.main_info_tit h1 span {font-size: 34px; font-weight: 600;;}
+
+/* 이용안내 내용영역 */
+.main_info_inner {width:100%; height: 90%; position: relative; padding: 0 40px; background: url('/img/signage/main_info_bg.png') center; }
+
+/* 이용안내 가운데 */
+.main_info_middle {width: 100%;overflow: hidden;} 
+.main_info_middle ul {width: 100%;}
+.main_info_middle ul li {float: left; width: 45%; margin-right: 7.5%;}
+.main_info_middle ul li:nth-child(2) {margin-right: 0;}
+
+.main_info_middle dl {width: 100%; overflow: hidden; font-size: 18px;}
+.main_info_middle dl dt {width: 30%; float: left; font-weight: 400; line-height: 35px; letter-spacing: -0.5px;}
+.main_info_middle dl dd {width: 70%; float: right; font-weight: 300; font-size: 16px; line-height: 35px;}
+.main_info_middle dl dd span {font-weight: 500;}
+p.parking_p {margin-top: 20px; color: #444;}
+p.locker_p {margin-top: 10px;}
+
+/* .main_info_bottom {width: 100%; margin-top: 30px;} */
+/* .main_info_bottom > h3 {margin-top: 20px !important;} */
+/* .main_info_img { width: 100%; height: 330px; margin: 0 auto; text-align: center;background: url('/img/signage/main_info_img_bg.png') center; margin: 12px 0; } */
+.main_info_img {width: 100%; height: 330px; background: url('/img/signage/main_info_img_bg.png') center; text-align: center; position: relative; padding: 10px; margin: 12px 0;}
+.main_info_img img {margin: 0 auto; width: 55%; margin-top: 20px;}
