@@ -243,5 +243,10 @@
         })
     }
 
+    function signageInfo(){
+        $('#box-left').css('display','none')
+        $('#box-center').css('display','none')
+        $('#box-info').css('display','block')
+    }
 
 //*** 메인 우측 하단 날씨, 시간, 언어 선택 스크립트 종료 ***

@@ -44,10 +44,19 @@ body,html{
 }
 #box-right {
     width: 15%;
-    float: left;
+    float: right;
     box-shadow: -10px 0 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #1E1A1D;
     height: 100%;
+}
+#box-info {
+    display: none;
+    width: 85%;
+    float: left;
+    position: relative;
+    height: 100%;
+    background-color: #eee;
+
 }
 
 /* 왼쪽 영역  --------------------------------------------- */
