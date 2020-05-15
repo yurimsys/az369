@@ -8,6 +8,10 @@
  *  Hangul.js Document : https://github.com/e-/Hangul.js/
  */
 
+ /**
+  * keyboard mode : qwerty, chunjiin
+  * 
+  */
 const Keyboard = {
     elements: {
         main: null,
@@ -18,25 +22,80 @@ const Keyboard = {
         oninput: null,
         onclose: null
     },
+    config : {
+        mode : "qwerty",
+        layout : {
+            qwerty : {
+                // Kor Keyboard Layout
+                korean : [
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
+                    "ㅂ|ㅃ", "ㅈ|ㅉ", "ㄷ|ㄸ", "ㄱ|ㄲ", "ㅅ|ㅆ", "ㅛ", "ㅕ", "ㅑ", "ㅐ|ㅒ", "ㅔ|ㅖ",
+                    "ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ", "done",
+                    "caps", "ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ",
+                    "A", "space"
+                ],
+                // Eng Keyboard Layout
+                english : [
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
+                    "q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
+                    "a", "s", "d", "f", "g", "h", "j", "k", "l", "done",
+                    "caps", "z", "x", "c", "v", "b", "n", "m",
+                    "가", "space"
+                ]
+            },
+            cheonjiin : {
+                 // Kor Keyboard Layout
+                 korean : [
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
+                    "ㅂ|ㅃ", "ㅈ|ㅉ", "ㄷ|ㄸ", "ㄱ|ㄲ", "ㅅ|ㅆ", "ㅛ", "ㅕ", "ㅑ", "ㅐ|ㅒ", "ㅔ|ㅖ",
+                    "ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ", "done",
+                    "caps", "ㅊ", "ㅊ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ",
+                    "A", "space"
+                ],
+                // Eng Keyboard Layout == qwerty Layout
+                english : [
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
+                    "q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
+                    "a", "s", "d", "f", "f", "h", "j", "k", "l", "done",
+                    "caps", "z", "x", "c", "v", "b", "n", "m",
+                    "가", "space"
+                ]
+            }
+        }
+    },
     properties: {
         value: "",
         capsLock: false,
         bufferValue: "",
-        currentKeyboardType: "eng"
+        currentLanguage: "english"
     },
     init() {
         // Create main elements
         this.elements.main = document.createElement("div");
 
+        // Create Keycontainer
+        const languageType = this.config.layout[this.config.mode]
+        
+        this.elements.keysContainer.english = document.createElement("div");
+        this.elements.keysContainer.english.id = 'eng_keyboard';
+        this.elements.keysContainer.english.classList.add("keyboard__keys");
+        
+        this.elements.keysContainer.korean = document.createElement("div");
+        this.elements.keysContainer.korean.id = 'kor_keyboard';
+        this.elements.keysContainer.korean.classList.add("keyboard__keys");
+        
+
+
+
         // Setup main elements
         this.elements.main.classList.add("keyboard", "keyboard--hidden");
         this.elements.main.appendChild( this._createKeys() );
 
-        this.elements.keys.eng = this.elements.keysContainer.eng.querySelectorAll(".keyboard__key");
-        this.elements.keys.kor = this.elements.keysContainer.kor.querySelectorAll(".keyboard__key");
+        this.elements.keys.english = this.elements.keysContainer.english.querySelectorAll(".keyboard__key");
+        this.elements.keys.korean = this.elements.keysContainer.korean.querySelectorAll(".keyboard__key");
 
         // Init Visiable Keyboard Type
-        this.elements.keysContainer[ this.properties.currentKeyboardType ].classList.add( 'active' )
+        this.elements.keysContainer[ this.properties.currentLanguage ].classList.add( 'active' )
         
         // Add to DOM
         document.body.appendChild(this.elements.main);
@@ -50,35 +109,11 @@ const Keyboard = {
         });
     },
     _createKeys() {
-        this.elements.keysContainer.eng = document.createElement("div");
-        this.elements.keysContainer.eng.id = 'eng_keyboard';
-        this.elements.keysContainer.eng.classList.add("keyboard__keys");
         
-        this.elements.keysContainer.kor = document.createElement("div");
-        this.elements.keysContainer.kor.id = 'kor_keyboard';
-        this.elements.keysContainer.kor.classList.add("keyboard__keys");
-        
+
         const keyContainerFragment = document.createDocumentFragment();
         const keyFragment = document.createDocumentFragment();
-        const keyLayout = {
-            // Eng Keyboard Layout
-            eng: [
-                "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
-                "q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
-                "a", "s", "d", "f", "g", "h", "j", "k", "l", "done",
-                "caps", "z", "x", "c", "v", "b", "n", "m",
-                "가", "space"
-            ],
-
-            // Kor Keyboard Layout
-            kor: [
-                "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
-                "ㅂ|ㅃ", "ㅈ|ㅉ", "ㄷ|ㄸ", "ㄱ|ㄲ", "ㅅ|ㅆ", "ㅛ", "ㅕ", "ㅑ", "ㅐ|ㅒ", "ㅔ|ㅖ",
-                "ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ", "done",
-                "caps", "ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ",
-                "A", "space"
-            ]
-        }
+        const keyLayout = this.config.layout[ this.config.mode ];
 
         // Creates HTML for an icon
         const createIconHTML = (icon_name) => {
@@ -160,7 +195,7 @@ const Keyboard = {
                     case "A":
                         keyElement.textContent = key.toString();
                         keyElement.addEventListener("click", () => {
-                            this._toggleLanguage(this.properties.currentKeyboardType);
+                            this._toggleLanguage(this.properties.currentLanguage);
                         });
 
                         keyElement.classList.add("keyboard__key--wide");
@@ -209,19 +244,19 @@ const Keyboard = {
     _toggleCapsLock() {
         this.properties.capsLock = !this.properties.capsLock;
 
-        switch( this.properties.currentKeyboardType ){
-            case "eng":
+        switch( this.properties.currentLanguage ){
+            case "english":
                 // 영문 키보드 토글
-                for (const key of this.elements.keys.eng) {
+                for (const key of this.elements.keys.english) {
                     if (key.childElementCount === 0) {
                         key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
                     }
                 }
                 break;
             
-            case "kor":
+            case "korean":
                     // 한글 키보드 토글
-                    for (const key of this.elements.keys.kor) {
+                    for (const key of this.elements.keys.korean) {
                         if (key.childElementCount === 0 && key.dataset.capsOn !== undefined) {
                             key.textContent = this.properties.capsLock ? key.dataset.capsOn : key.dataset.capsOff;
                         }
@@ -231,10 +266,10 @@ const Keyboard = {
 
     },
 
-    _toggleLanguage( currentKeyboardType ) {
-        this.properties.currentKeyboardType = (currentKeyboardType == "eng") ? "kor" : "eng";
-        this.elements.keysContainer[ currentKeyboardType ].classList.remove('active');
-        this.elements.keysContainer[ this.properties.currentKeyboardType ].classList.add('active');
+    _toggleLanguage( currentLanguage ) {
+        this.properties.currentLanguage = (currentLanguage == "english") ? "korean" : "english";
+        this.elements.keysContainer[ currentLanguage ].classList.remove('active');
+        this.elements.keysContainer[ this.properties.currentLanguage ].classList.add('active');
     },
 
     open(initialValue, oninput, onclose) {
