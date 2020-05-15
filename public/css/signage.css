@@ -416,7 +416,7 @@ g.storeName text {fill: #fff; text-shadow: 0 0 3px rgba(27, 7, 18, 0.7);}
 
 /* mainNav - 이용안내 */
 /* 이용안내 텍스트 공통속성 */
-#box-info h3 {font-size: 28px; font-weight:500; color: #6A114D; margin-top: 25px; letter-spacing: -0.75px; margin-bottom:4px;}
+#box-info h3 {font-size: 28px; font-weight:500; color: #6A114D; margin-top: 30px; letter-spacing: -0.75px; margin-bottom:4px;}
 #box-info p {font-size: 16px; font-weight: 300;}
 #box-info p span {font-weight: 500;}
 /* 이용안내 타이틀영역 */
@@ -443,4 +443,4 @@ p.locker_p {margin-top: 10px;}
 /* .main_info_bottom {width: 100%; margin-top: 30px;} */
 /* .main_info_bottom > h3 {margin-top: 20px !important;} */
 .main_info_img { width: 100%; height: 330px; margin: 0 auto; text-align: center;background: url('/img/signage/main_info_img_bg.png') center; margin: 12px 0; position: relative;}
-.main_info_img img {top: 40%; padding: 10px;}
+.main_info_img img {top: 40%; padding: 10px}
