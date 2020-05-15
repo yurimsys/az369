@@ -297,11 +297,11 @@
                         <img src="/img/ad/11@2x.png">
                     </div>
                     <ul>
-                        <li class="brandInfoBtn" onclick="brandNavInfo()">
-                            <div class='categoryBtn categoryFont categoryBack brandInfoText' data-kor='정보' data-eng="Information">정보</div>
+                        <li class="brandInfoBtn">
+                            <div class='categoryBtn categoryFont categoryBack brandInfoText' onclick="brandNavInfo()" data-kor='정보' data-eng="Information">정보</div>
                         </li>
-                        <li class="brandMenuBtn" onclick="brandNavMenu(this)">
-                            <div class='categoryBtn categoryFont categoryBack brandInfoText' data-kor='메뉴' data-eng='Menu'>메뉴</div>
+                        <li class="brandMenuBtn">
+                            <div class='categoryBtn categoryFont categoryBack brandInfoText' onclick="brandNavMenu(this)" data-kor='메뉴' data-eng='Menu'>메뉴</div>
                         </li>
                         <li class="brandEventBtn" onclick="brandNavEvent(this)">
                             <div class='categoryBtn categoryFont categoryBack brandInfoText' data-kor='이벤트' data-eng='Event'>이벤트</div><span></span>
@@ -375,8 +375,8 @@
                 <div class="brandMenuCenter">
                     <div class="brandMenuCenter_inner">
                     <div class="brandMenuCenter_best">
-                        <h3>인기메뉴</h3>
-                        <ul>
+                        <h3 id='envetMenuOneName'>인기메뉴</h3>
+                        <ul id='envetMenuOne'>
                             <!-- 인기메뉴 1 -->
                             <li>
                                 <div class="menu_best_pic"></div>

@@ -30,6 +30,9 @@
         $('#2Fstore path').css('fill','')
         $('#3Fstore path').css('fill','')
         $('.categoryBtn').removeClass('selected')
+        $('#box-left').css('display','block')
+        $('#box-center').css('display','block')
+        $('#box-info').css('display','none')
         //카테고리 초기화
         mainPrev();
         //지도 초기화
@@ -54,24 +57,20 @@
         //let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
         let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
         for(let i=0; i<jsonBrand.length; i++){
-            // console.log(jsonBrand)
-            let opTime = jsonBrand[i].BS_MainDtS
-                openTime = opTime.slice(-8,-3)
-            let edTime = jsonBrand[i].BS_MainDtF
-                endTime = edTime.slice(-8, -3)
                 if($('#kor').hasClass('choose')){
                     let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+"><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
                         html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
                         html += "<ul><li><div class='searchBrand'>"+jsonBrand[i].BS_NameKor+"</div>";
-                        html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation'>"+jsonBrand[i].BC_NameKor+"</span></h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
+                        html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation'>"+jsonBrand[i].BC_NameKor+"</span></h4><div class='searchTime'>영업시간 "+jsonBrand[i].BS_MainDtS.substring(0,5)+" ~ "+jsonBrand[i].BS_MainDtF.substring(0,5)+"</div></li></ul>";
                     $('.searchResult').append(html)
                 }else{
                     let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+"><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
                         html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
                         html += "<ul><li><div class='searchBrand'>"+jsonBrand[i].BS_NameEng+"</div>";
-                        html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation'>"+jsonBrand[i].BC_NameEng+"</span></h4><div class='searchTime'>OpenTime "+openTime+" ~ "+endTime+"</div></li></ul>";
+                        html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation'>"+jsonBrand[i].BC_NameEng+"</span></h4><div class='searchTime'>OpenTime "+jsonBrand[i].BS_MainDtS.substring(0,5)+" ~ "+jsonBrand[i].BS_MainDtF.substring(0,5)+"</div></li></ul>";
                     $('.searchResult').append(html)
                 }
+
         //해당 브랜드에 이벤트가 있을시 이벤트 아이콘 추가
             // if(i==2 || i==4){
             //     html = "<div class='brandList' id='brand02' onclick='brandClick(this)'><div class='categoryImg'></div>";
@@ -119,33 +118,23 @@
     //중분류 브랜드 리스트 생성
     function LV2BrandList(lv2CatNum){
         $('#searchResult').empty();
-        // let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
         let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
         //BCR_LV1_BC_ID에 검색 
-        for(let i=0; i<jsonBrand.length; i++){
-            //검색내용이 있으면 리스트를 그려줌
-            if(jsonBrand[i].BCR_LV2_BC_ID == lv2CatNum){
-                let lv2BrandList = []
-                    lv2BrandList.push(jsonBrand[i])
-                for(let j=0; j<lv2BrandList.length; j++){
-                    let opTime = lv2BrandList[j].BS_MainDtS
-                        openTime = opTime.slice(-8,-3)
-                    let edTime = lv2BrandList[j].BS_MainDtF
-                        endTime = edTime.slice(-8, -3)
-                    if($('#kor').hasClass('choose')){
-                        let html = "<div class='brandList' id="+lv2BrandList[j].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+"><div><div class='categoryImg'><img src="+lv2BrandList[j].BS_ThumbnailUrl+"></div></div>";
-                            html += "<ul><li><div class='searchBrand'>"+lv2BrandList[j].BS_NameKor+"</div>";
-                            html += "<h4 class='searchLocation'> "+lv2BrandList[j].LS_Floor+"."+lv2BrandList[j].BC_NameKor+"</h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
-                        $('.searchResult').append(html)
-                    }else{
-                        let html = "<div class='brandList' id="+lv2BrandList[j].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+"><div><div class='categoryImg'><img src="+lv2BrandList[j].BS_ThumbnailUrl+"></div></div>";
-                            html += "<ul><li><div class='searchBrand'>"+lv2BrandList[j].BS_NameEng+"</div>";
-                            html += "<h4 class='searchLocation'> "+lv2BrandList[j].LS_Floor+"."+lv2BrandList[j].BC_NameEng+"</h4><div class='searchTime'>Opentime "+openTime+" ~ "+endTime+"</div></li></ul>";
-                        $('.searchResult').append(html) 
-                    }
-
-                }
+        let lv2BrandList = []
+        lv2BrandList = jsonBrand.filter(data => data.BCR_LV2_BC_ID == lv2CatNum )
+        for(let i=0; i<lv2BrandList.length; i++){
+            if($('#kor').hasClass('choose')){
+                let html = "<div class='brandList' id="+lv2BrandList[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+"><div><div class='categoryImg'><img src="+lv2BrandList[i].BS_ThumbnailUrl+"></div></div>";
+                    html += "<ul><li><div class='searchBrand'>"+lv2BrandList[i].BS_NameKor+"</div>";
+                    html += "<h4 class='searchLocation'> "+lv2BrandList[i].LS_Floor+"."+lv2BrandList[i].BC_NameKor+"</h4><div class='searchTime'>영업시간 "+lv2BrandList[i].BS_MainDtS.substring(0,5)+" ~ "+lv2BrandList[i].BS_MainDtF.substring(0,5)+"</div></li></ul>";
+                $('.searchResult').append(html)
+            }else{
+                let html = "<div class='brandList' id="+lv2BrandList[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+"><div><div class='categoryImg'><img src="+lv2BrandList[i].BS_ThumbnailUrl+"></div></div>";
+                    html += "<ul><li><div class='searchBrand'>"+lv2BrandList[i].BS_NameEng+"</div>";
+                    html += "<h4 class='searchLocation'> "+lv2BrandList[i].LS_Floor+"."+lv2BrandList[i].BC_NameEng+"</h4><div class='searchTime'>Opentime "+lv2BrandList[i].BS_MainDtS.substring(0,5)+" ~ "+lv2BrandList[i].BS_MainDtF.substring(0,5)+"</div></li></ul>";
+                $('.searchResult').append(html) 
             }
+
         }
     }
 
@@ -156,7 +145,6 @@
         //로컬에 저장된 카테고리를 사용
         let searchCatLV1 = JSON.parse(localStorage.getItem('categoryLV1'))
         for(let i=0; i<searchCatLV1.length; i++){
-            // console.log(searchCatLV1)
             if($('#kor').hasClass('choose')){
                 if(i < 9){
                     let html = "<li><label>"
@@ -165,7 +153,7 @@
                         html += "</label></li>"
                     $('.searchList').append(html)
                 }
-                if(i > 8){
+                if(i >= 9){
                     let html = "<li><label>"
                         html += "<input type='checkbox' name='searchCategoryList' data-lv1cat ="+Number(i+1)+"  onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' class='searchCheck' value='"+searchCatLV1[i].BC_NameKor+"'>"
                         html += "<div class='searchCategory searchCategoryFont categoryBack'>"+searchCatLV1[i].BC_NameKor+"</div>"
@@ -180,7 +168,7 @@
                         html += "</label></li>"
                     $('.searchList').append(html)
                 }
-                if(i > 8){
+                if(i >= 9){
                     let html = "<li><label>"
                         html += "<input type='checkbox' name='searchCategoryList' data-lv1cat ="+Number(i+1)+"  onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' class='searchCheck' value='"+searchCatLV1[i].BC_NameEng+"'>"
                         html += "<div class='searchCategory searchCategoryFont categoryBack'>"+searchCatLV1[i].BC_NameEng+"</div>"
@@ -192,19 +180,15 @@
     }
 
     //중분류 카테고리 리스트
-    function searchCategoryListLV2(lv2CatNum){
+    function searchCategoryListLV2(lv1CatNum){
         let searchCatLV2 = JSON.parse(localStorage.getItem('categoryLV2'))
         let resultCatLV2 = new Array();
         //console.log(searchCatLV2)
         $('.searchList').empty()
         $('.searchList2').empty()
         //중분류 카테고리
-        for(let i=0; i<searchCatLV2.length; i++){
-            if(searchCatLV2[i].BCR_LV1_BC_ID == lv2CatNum){
-                let jsonObject = searchCatLV2[i]
-                resultCatLV2.push(jsonObject)
-            }
-        }
+        resultCatLV2 = searchCatLV2.filter(data => data.BCR_LV1_BC_ID == lv1CatNum)
+
         for(let j=0; j<resultCatLV2.length; j++){
             if($('#kor').hasClass('choose')){
                 if(j < 9){
@@ -213,7 +197,7 @@
                     $('.searchList').append(html);
                     $('.searchNav').css('display','none')
                 }
-                if( j > 8){
+                else if( j >=9){
                     let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
                         html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+j+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</div></label></li>"
                     $('.searchList2').append(html);
@@ -225,12 +209,18 @@
                         html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+j+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameEng+"</div></label></li>"
                     $('.searchList').append(html);
                 }
-                if(j > 8){
+                if(j >= 9){
                     let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
                         html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+j+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameEng+"</div></label></li>"
                     $('.searchList2').append(html);
                 }
             }
+
+
+
+
+
+            
 
         }
     }
@@ -247,39 +237,34 @@
         
         // 업종 광고 변경
         AD.showCategoryAD(e.dataset.lv1categoryid);
-        console.log(e.dataset.lv1categoryid)
-
         // let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
         let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
+        let selectBrand = []
         //BCR_LV1_BC_ID에 검색 
-        for(let i=0; i<jsonBrand.length; i++){
-            if(jsonBrand[i].BS_ID == e.id){            
-                let selectBrand = []
-                    selectBrand.push(jsonBrand[i])
-                if($('#kor').hasClass('choose')){
-                    let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"></div>";
-                        html += "<div class='brandContents'><ul>";
-                        html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameKor+"</h2></li>"
-                        html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameKor+"</h4></li>"
-                        html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsKor+"</div></li>"
-                        html += "</ul></div>"
-                        html += "<ul class='detailInfo'>"
-                        html += "<li><div class='infoImgNav' id="+'bs'+selectBrand[0].BS_ID+" onclick='storeInfo(this)'>상세 보기</div></li>"
-                        html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>위치 보기</div></li></ul>"
-                    $('.brandDetail').append(html)
-                }else{
-                    let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"></div>";
-                        html += "<div class='brandContents'><ul>";
-                        html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameEng+"</h2></li>"
-                        html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameEng+"</h4></li>"
-                        html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsEng+"</div></li>"
-                        html += "</ul></div>"
-                        html += "<ul class='detailInfo'>"
-                        html += "<li><div class='infoImgNav' id="+'bs'+selectBrand[0].BS_ID+" onclick='storeInfo(this)'>Detail</div></li>"
-                        html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>Location</div></li></ul>"
-                    $('.brandDetail').append(html)
-                }
-            }
+        selectBrand = jsonBrand.filter(data => data.BS_ID == e.id)
+
+        if($('#kor').hasClass('choose')){
+            let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"></div>";
+                html += "<div class='brandContents'><ul>";
+                html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameKor+"</h2></li>"
+                html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameKor+"</h4></li>"
+                html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsKor+"</div></li>"
+                html += "</ul></div>"
+                html += "<ul class='detailInfo'>"
+                html += "<li><div class='infoImgNav' id="+'bs'+selectBrand[0].BS_ID+" onclick='storeInfo(this)'>상세 보기</div></li>"
+                html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>위치 보기</div></li></ul>"
+            $('.brandDetail').append(html)
+        }else{
+            let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"></div>";
+                html += "<div class='brandContents'><ul>";
+                html += "<li><h2 class='brandName'>"+selectBrand[0].BS_NameEng+"</h2></li>"
+                html += "<li><h4 class='searchLocation'>"+selectBrand[0].LS_Floor+"."+selectBrand[0].BC_NameEng+"</h4></li>"
+                html += "<li><div class='brandInfo'>"+selectBrand[0].BS_ContentsEng+"</div></li>"
+                html += "</ul></div>"
+                html += "<ul class='detailInfo'>"
+                html += "<li><div class='infoImgNav' id="+'bs'+selectBrand[0].BS_ID+" onclick='storeInfo(this)'>Detail</div></li>"
+                html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>Location</div></li></ul>"
+            $('.brandDetail').append(html)
         }
     }
 
@@ -546,6 +531,8 @@
             }
             //상세정보 정보 버튼에 아이디 추가
             $('.brandInfoBtn div').attr('id',e.id)
+            $('.brandMenuBtn div').attr('id',e.id)
+            $('.brandEventBtn div').attr('id',e.id)
             $(e).addClass('detail_click')
             $('.searchLeft').css('display','none');
             $('.brandInfoLeft').css('display','block')
@@ -579,23 +566,20 @@
 //브랜드 메뉴
     function brandNavMenu(e){
         $('.brandInfoText').removeClass('selected')
-        $(e).children('div').addClass('selected')
+        $(e).addClass('selected')
         $('.brandInfoCenter').css('display','none')
         $('.brandMenuCenter').css('display','block')
+        brandMenuList(e.id)
     }
 
 //브랜드 상세정보 
-    function brandInfoList(bs){
+    function brandInfoList(bsID){
         $('.brandInfoDetail_txt').empty();
         $('#infoStoreName').empty();
         $('#infoStoreNumber').empty();
         let jsonBrandInfoList = JSON.parse(localStorage.getItem('brandList'))
         let brandInfoList = [];   
-        for(let i=0; i<jsonBrandInfoList.length; i++){
-            if(jsonBrandInfoList[i].BS_ID == bs ){
-                brandInfoList.push(jsonBrandInfoList[i])
-            }
-        }
+        brandInfoList = jsonBrandInfoList.filter(data => data.BS_ID == bsID)
         if($('#kor').hasClass('choose')){
             let html = "<h3>상세정보 <span>단체석 예약, 포장 가능</span></h3>"
                 html += "<dl><dt><i class='far fa-clock'></i> 영업시간</dt>"
@@ -630,3 +614,53 @@
             $('.brandInfoDetail_txt').append(html)
         }
     }
+
+    //브랜드 메뉴 정보
+    function brandMenuList(bsID){
+        let eventList = JSON.parse(localStorage.getItem('eventList'))
+        let normalList = JSON.parse(localStorage.getItem('normalList'))
+        let brnadId = bsID.replace(/bs/,'')
+        let resultEvent = [];
+        let resultNormal = [];
+        let eventOne = [];
+        let eventTwo = [];
+        let eventThree = [];
+    //현재 브랜드의 값을 도출
+        resultEvent = eventList.filter(data => data.M_BS_ID == brnadId)
+        resultNormal = normalList.filter(data => data.M_BS_ID == brnadId)
+    //M_MC_ID가 같은것 끼리 묶어주기
+        eventOne = resultEvent.filter(data => data.M_MC_ID == 1)
+        eventTwo = resultEvent.filter(data => data.M_MC_ID == 2)
+        eventThree = resultEvent.filter(data => data.M_MC_ID == 3)
+    
+
+
+        // <h3>인기메뉴</h3>
+        // <ul envetMenuOne>
+        //     <li>
+        //         <div class="menu_best_pic"></div>
+                
+                
+        //     </li>
+        // </ul>
+    //html 그려줌
+        // $('#envetMenuOneName').text(eventOne[0].)
+        
+        if($('#kor').hasClass('choose')){
+            $('#envetMenuOneName').text(eventOne[0].MC_Name)
+            for(let i=0; i<eventOne.length; i++){
+                let html = '<div class="menu_best_pic"><img src='+eventOne[i].M_ImageUrl+'></div>'
+                    html += '<div class="menu_best_name">'+eventOne[i].M_NameKor+'</div>'
+                    html += '<div class="menu_best_price">'+eventOne[i].M_Price+'+"원"</div>'
+                $('#envetMenuOne').append(html);
+            }
+        }
+        for(let i=0; i<eventTwo.length; i++){
+            console.log(eventTwo[i].M_MC_ID)
+            $('#kor').text(eventTwo[i].M_MC_ID)
+        }
+        // console.log(eventOne)
+        // console.log(eventTwo)
+        //console.log(resultEvent)
+    }
+    // brandMenuList();
