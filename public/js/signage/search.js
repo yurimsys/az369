@@ -58,7 +58,6 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
                 let searchJson = new Object();
                 searchJson.name = item.name
                 searchResult.push(searchJson)
-                console.log(searchResult,'dd')
             });
              $('.searchResult').empty();
              for(let i=0; i<jsonBrand.length; i++){
@@ -66,7 +65,8 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
                 if($('#kor').hasClass('choose')){
                     for(let j=0; j<searchResult.length; j++){
                         if( jsonBrand[i].BS_NameKor === searchResult[j].name || jsonBrand[i].BS_NameEng === searchResult[j].name){
-                            let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)'><div class='categoryImg_wrap'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div></div>";
+                            console.log(jsonBrand[i].BS_NameKor)
+                            let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+"><div class='categoryImg_wrap'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div></div>";
                                 html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
                                 html += "<ul><li><div class='searchBrand'>"+jsonBrand[i].BS_NameKor+"</div>";
                                 html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation'>"+jsonBrand[i].BC_NameKor+"</span></h4><div class='searchTime'>영업시간 "+openTime+" ~ "+endTime+"</div></li></ul>";
@@ -76,8 +76,8 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
                 }
                 else if($('#eng').hasClass('choose')){
                     for(let j=0; j<searchResult.length; j++){
-                        if( jsonBrand[i].BS_NameEng === searchResult[j].name || jsonBrand[i].BS_NameEng === searchResult[j].name){
-                            let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
+                        if( jsonBrand[i].BS_NameEng === searchResult[j].name || jsonBrand[i].BS_NameKor === searchResult[j].name){
+                            let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+"><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
                                 html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
                                 html += "<ul><li><div class='searchBrand'>"+jsonBrand[i].BS_NameEng+"</div>";
                                 html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation'>"+jsonBrand[i].BC_NameEng+"</span></h4><div class='searchTime'>OpenTime "+openTime+" ~ "+endTime+"</div></li></ul>";

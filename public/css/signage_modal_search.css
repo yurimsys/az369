@@ -345,6 +345,9 @@
     background-color: #fff;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
+.brandDetail img{
+    height: 117px;
+}
 
 /* 하단 광고 */
 .searchRightDetail .ad {

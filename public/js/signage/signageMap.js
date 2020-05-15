@@ -48,19 +48,19 @@
         //이미지 커서 이동 css
 
         if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '12px'){
-            storeMapSize(1,13,1.375)
+            storeMapSize(1,13,1.5)
             $('.centralSvg').css('left','0px')
             $('.centralSvg').css('top','0px')
             return false;
         }
         else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '12px'){
-            storeMapSize(2,13,1.375)
+            storeMapSize(2,13,1.5)
             $('.centralSvg').css('left','0px')
             $('.centralSvg').css('top','0px')
             return false;
         }
         else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '12px'){
-            storeMapSize(3,13,1.375)
+            storeMapSize(3,13,1.5)
             $('.centralSvg').css('left','0px')
             $('.centralSvg').css('top','0px')
             return false;
@@ -68,44 +68,44 @@
         
         //2줌
         if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '13px'){
-            storeMapSize(1,14,1.75)
+            storeMapSize(1,14,2.0)
             return false;
         }
         else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '13px'){
-            storeMapSize(2,14,1.75)
+            storeMapSize(2,14,2.0)
             return false;
         }
         else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '13px'){
-            storeMapSize(3,14,1.75)
+            storeMapSize(3,14,2.0)
             return false;
         }
         
         //3줌
         if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '14px'){
-            storeMapSize(1,15,2.125)
+            storeMapSize(1,15,2.5)
             return false;
         }
         else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '14px'){
-            storeMapSize(2,15,2.125)
+            storeMapSize(2,15,2.5)
             return false;
         }
         else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '14px'){
-            storeMapSize(3,15,2.125)
+            storeMapSize(3,15,2.5)
             return false;
         }
         
 
         //4줌
         if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '15px'){
-            storeMapSize(1,16,2.5)
+            storeMapSize(1,16,3.0)
             return false;
         }
         else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '15px'){
-            storeMapSize(2,16,2.5)
+            storeMapSize(2,16,3.0)
             return false;
         }
         else if($('.centralSvg3F').css('display') == 'block' && $('#3ㄹstore_name text').css('font-size') == '15px'){
-            storeMapSize(3,16,2.5)
+            storeMapSize(3,16,3.0)
             return false;
         }
         
@@ -117,52 +117,52 @@
         if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '13px'){
             zoomReset();
         }
-        else if($('.centralSvg1F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '13px'){
+        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '13px'){
             zoomReset();
         }
-        else if($('.centralSvg1F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '13px'){
+        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '13px'){
             zoomReset();
         }
 
         //2줌
         if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '14px'){
-            storeMapSize(1,13,1.375)
+            storeMapSize(1,13,1.5)
             return false;
         }
         else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '14px'){
-            storeMapSize(2,13,1.375)
+            storeMapSize(2,13,1.5)
             return false;
         }
         else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '14px'){
-            storeMapSize(3,13,1.375)
+            storeMapSize(3,13,1.5)
             return false;
         }
     
         //3줌
         if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '15px'){
-            storeMapSize(1,14,1.75)
+            storeMapSize(1,14,2.0)
             return false;
         }
         else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '15px'){
-            storeMapSize(2,14,1.75)
+            storeMapSize(2,14,2.0)
             return false;
         }
         else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '15px'){
-            storeMapSize(3,14,1.75)
+            storeMapSize(3,14,2.0)
             return false;
         }
     
         //4줌
         if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '16px'){
-            storeMapSize(1,15,2.125)
+            storeMapSize(1,15,2.5)
             return false;
         }
         else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '16px'){
-            storeMapSize(2,15,2.125)
+            storeMapSize(2,15,2.5)
             return false;
         }
         else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '16px'){
-            storeMapSize(3,15,2.125)
+            storeMapSize(3,15,2.5)
             return false;
         }
         
@@ -178,29 +178,27 @@
 
 //리셋
     function zoomReset(){
+        $('#zoomIn').attr('class', 'plusBtn')
         if($('.centralSvg1F').css('display') == 'block'){
             storeMapSize(1,12,1)
             $('#1Fstore_name text').hide()
             $('#1Fstore').css('cursor','');
-            $('#zoomIn').attr('class', 'plusBtn')
-            $('.centralSvg').css('left','')
-            $('.centralSvg').css('top','')
+            $('.centralSvg1F').css('left','')
+            $('.centralSvg1F').css('top','')
         }
         else if($('.centralSvg2F').css('display') == 'block'){
             storeMapSize(2,12,1)
             $('#2Fstore_name text').hide()
             $('#2Fstore').css('cursor','');
-            $('#zoomIn').attr('class', 'plusBtn')
-            $('.centralSvg').css('left','')
-            $('.centralSvg').css('top','')
+            $('.centralSvg2F').css('left','')
+            $('.centralSvg2F').css('top','')
         }
         else if($('.centralSvg3F').css('display') == 'block'){
             storeMapSize(3,12,1)
             $('#3Fstore_name text').hide()
             $('#3Fstore').css('cursor','');
-            $('#zoomIn').attr('class', 'plusBtn')
-            $('.centralSvg').css('left','')
-            $('.centralSvg').css('top','')
+            $('.centralSvg3F').css('left','')
+            $('.centralSvg3F').css('top','')
         }   
     }
 

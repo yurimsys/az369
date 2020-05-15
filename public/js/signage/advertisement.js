@@ -6,7 +6,11 @@
 class AdSlide{
     static ad_main_instance = $('.ad.main_full');
     constructor () {
-        this.default_slide_duration_sec = 5;
+        this.default = {
+            slide_duration_sec : 5,
+            category_ad_id : 1
+        };
+
         this.ad_init_min = 1;   // 미동작시 전면광고 보여주는 타임(min)
         this.data = '';
         this.slide_template = `
@@ -18,7 +22,7 @@ class AdSlide{
         
     }
     // parent_class_name  :  body tag 의 class name을 입력.
-    static showSlides(type, time = this.default_slide_duration_sec, category_id, parent_class_name = 'full' ) {
+    static showSlides(type, time = this.default.slide_duration_sec, category_id, parent_class_name = 'full' ) {
         
         let slide_index = 0;
         
@@ -35,7 +39,7 @@ class AdSlide{
                 slides = document.querySelectorAll(`.${parent_class_name} .ad.${type} .adSlides`);
             }
             
-            console.log(type, parent_class_name, category_id,slides);
+            // console.log(type, parent_class_name, category_id,slides);
             for (i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none";
             }
@@ -93,150 +97,150 @@ class AdSlide{
                 sessionStorage.setItem('ad_data', JSON.stringify(res));
                 AD.data = res.data;
                 // TEST DATA
-                AD.data = {
-                        "main_full": {
-                            "slide_sec": 5,
-                            "contents": [
-                                {
-                                    "url": "/img/ad/ad_main_full1.jpg",
-                                    "display_s": "2020-04-30T00:00:00.000Z",
-                                    "display_f": "2020-05-30T00:00:00.000Z"
-                                }
-                            ]
-                        },
-                        "main_right": {
-                            "slide_sec": 3,
-                            "contents": [
-                                {
-                                    "url": "/img/ad/ad_main_right1.png",
-                                    "display_s": "2020-05-10T10:00:00.000Z",
-                                    "display_f": "2020-06-10T10:00:00.000Z"
-                                },
-                                {
-                                    "url": "/img/ad/ad_main_right2.png",
-                                    "display_s": "2020-05-10T10:00:00.000Z",
-                                    "display_f": "2020-06-10T10:00:00.000Z"
-                                }
-                            ]
-                        },
-                        "main_left": {
-                            "slide_sec": 6,
-                            "contents": [
-                                {
-                                    "url": "/img/ad/ad_main_left1.png",
-                                    "display_s": "2020-05-01T11:00:00.000Z",
-                                    "display_f": "2020-06-01T11:00:00.000Z"
-                                },
-                                {
-                                    "url": "/img/ad/ad_main_left2.png",
-                                    "display_s": "2020-04-23T00:00:00.000Z",
-                                    "display_f": "2020-05-24T00:00:00.000Z"
-                                }
-                            ]
-                        },
-                        "search": {
-                            "slide_sec": 5,
-                            "contents": [
-                                {
-                                    "url": "/img/ad/ad_search1.jpg",
-                                    "display_s": "2020-04-14T01:00:00.000Z",
-                                    "display_f": "2020-05-15T01:00:00.000Z"
-                                },
-                                {
-                                    "url": "/img/ad/ad_search2.jpg",
-                                    "display_s": "2020-04-05T02:00:00.000Z",
-                                    "display_f": "2020-05-16T02:00:00.000Z"
-                                }
-                            ]
-                        },
-                        "category_top": {
-                            "slide_sec": 5,
-                            "contents": [
-                                {
-                                    "url": "/img/ad/ad_category_top1_1.jpg",
-                                    "display_s": "2020-03-27T03:00:00.000Z",
-                                    "display_f": "2020-05-27T03:00:00.000Z",
-                                    "category_id" : 1
-                                },
-                                {
-                                    "url": "/img/ad/ad_category_top1_2.jpg",
-                                    "display_s": "2020-03-27T03:00:00.000Z",
-                                    "display_f": "2020-05-27T03:00:00.000Z",
-                                    "category_id" : 1
-                                },
-                                {
-                                    "url": "/img/ad/ad_category_top2_1.jpg",
-                                    "display_s": "2020-03-27T03:00:00.000Z",
-                                    "display_f": "2020-05-27T03:00:00.000Z",
-                                    "category_id" : 2
-                                },
-                                {
-                                    "url": "/img/ad/ad_category_top2_2.jpg",
-                                    "display_s": "2020-03-27T03:00:00.000Z",
-                                    "display_f": "2020-05-27T03:00:00.000Z",
-                                    "category_id" : 2
-                                }
-                            ]
-                        },
-                        "category_mid": {
-                            "slide_sec": 5,
-                            "contents": [
-                                {
-                                    "url": "/img/ad/ad_category_mid1_1.jpg",
-                                    "display_s": "2020-04-18T04:00:00.000Z",
-                                    "display_f": "2020-05-18T04:00:00.000Z",
-                                    "category_id" : 1
-                                },
-                                {
-                                    "url": "/img/ad/ad_category_mid1_2.jpg",
-                                    "display_s": "2020-04-18T04:00:00.000Z",
-                                    "display_f": "2020-06-18T04:00:00.000Z",
-                                    "category_id" : 1
-                                },
-                                {
-                                    "url": "/img/ad/ad_category_mid2_1.jpg",
-                                    "display_s": "2020-04-18T04:00:00.000Z",
-                                    "display_f": "2020-05-18T04:00:00.000Z",
-                                    "category_id" : 2
-                                },
-                                {
-                                    "url": "/img/ad/ad_category_mid2_2.jpg",
-                                    "display_s": "2020-04-18T04:00:00.000Z",
-                                    "display_f": "2020-05-18T04:00:00.000Z",
-                                    "category_id" : 2
-                                }
-                            ]
-                        },
-                        "category_bottom": {
-                            "slide_sec": 5,
-                            "contents": [
-                                {
-                                    "url": "/img/ad/ad_category_bottom1_1.jpg",
-                                    "display_s": "2020-03-09T05:00:00.000Z",
-                                    "display_f": "2020-06-09T05:00:00.000Z",
-                                    "category_id" : 1
-                                },
-                                {
-                                    "url": "/img/ad/ad_category_bottom1_2.jpg",
-                                    "display_s": "2020-03-09T05:00:00.000Z",
-                                    "display_f": "2020-06-09T05:00:00.000Z",
-                                    "category_id" : 1
-                                },
-                                {
-                                    "url": "/img/ad/ad_category_bottom2_1.jpg",
-                                    "display_s": "2020-03-09T05:00:00.000Z",
-                                    "display_f": "2020-06-09T05:00:00.000Z",
-                                    "category_id" : 2
-                                },
-                                {
-                                    "url": "/img/ad/ad_category_bottom2_2.jpg",
-                                    "display_s": "2020-03-09T05:00:00.000Z",
-                                    "display_f": "2020-06-09T05:00:00.000Z",
-                                    "category_id" : 2
-                                }
-                            ]
-                        }
-                }
+                // AD.data = {
+                //         "main_full": {
+                //             "slide_sec": 5,
+                //             "contents": [
+                //                 {
+                //                     "url": "/img/ad/ad_main_full1.jpg",
+                //                     "display_s": "2020-04-30T00:00:00.000Z",
+                //                     "display_f": "2020-05-30T00:00:00.000Z"
+                //                 }
+                //             ]
+                //         },
+                //         "main_right": {
+                //             "slide_sec": 3,
+                //             "contents": [
+                //                 {
+                //                     "url": "/img/ad/ad_main_right1.png",
+                //                     "display_s": "2020-05-10T10:00:00.000Z",
+                //                     "display_f": "2020-06-10T10:00:00.000Z"
+                //                 },
+                //                 {
+                //                     "url": "/img/ad/ad_main_right2.png",
+                //                     "display_s": "2020-05-10T10:00:00.000Z",
+                //                     "display_f": "2020-06-10T10:00:00.000Z"
+                //                 }
+                //             ]
+                //         },
+                //         "main_left": {
+                //             "slide_sec": 6,
+                //             "contents": [
+                //                 {
+                //                     "url": "/img/ad/ad_main_left1.png",
+                //                     "display_s": "2020-05-01T11:00:00.000Z",
+                //                     "display_f": "2020-06-01T11:00:00.000Z"
+                //                 },
+                //                 {
+                //                     "url": "/img/ad/ad_main_left2.png",
+                //                     "display_s": "2020-04-23T00:00:00.000Z",
+                //                     "display_f": "2020-05-24T00:00:00.000Z"
+                //                 }
+                //             ]
+                //         },
+                //         "search": {
+                //             "slide_sec": 5,
+                //             "contents": [
+                //                 {
+                //                     "url": "/img/ad/ad_search1.jpg",
+                //                     "display_s": "2020-04-14T01:00:00.000Z",
+                //                     "display_f": "2020-05-15T01:00:00.000Z"
+                //                 },
+                //                 {
+                //                     "url": "/img/ad/ad_search2.jpg",
+                //                     "display_s": "2020-04-05T02:00:00.000Z",
+                //                     "display_f": "2020-05-16T02:00:00.000Z"
+                //                 }
+                //             ]
+                //         },
+                //         "category_top": {
+                //             "slide_sec": 5,
+                //             "contents": [
+                //                 {
+                //                     "url": "/img/ad/ad_category_top1_1.jpg",
+                //                     "display_s": "2020-03-27T03:00:00.000Z",
+                //                     "display_f": "2020-05-27T03:00:00.000Z",
+                //                     "category_id" : 1
+                //                 },
+                //                 {
+                //                     "url": "/img/ad/ad_category_top1_2.jpg",
+                //                     "display_s": "2020-03-27T03:00:00.000Z",
+                //                     "display_f": "2020-05-27T03:00:00.000Z",
+                //                     "category_id" : 1
+                //                 },
+                //                 {
+                //                     "url": "/img/ad/ad_category_top2_1.jpg",
+                //                     "display_s": "2020-03-27T03:00:00.000Z",
+                //                     "display_f": "2020-05-27T03:00:00.000Z",
+                //                     "category_id" : 2
+                //                 },
+                //                 {
+                //                     "url": "/img/ad/ad_category_top2_2.jpg",
+                //                     "display_s": "2020-03-27T03:00:00.000Z",
+                //                     "display_f": "2020-05-27T03:00:00.000Z",
+                //                     "category_id" : 2
+                //                 }
+                //             ]
+                //         },
+                //         "category_mid": {
+                //             "slide_sec": 5,
+                //             "contents": [
+                //                 {
+                //                     "url": "/img/ad/ad_category_mid1_1.jpg",
+                //                     "display_s": "2020-04-18T04:00:00.000Z",
+                //                     "display_f": "2020-05-18T04:00:00.000Z",
+                //                     "category_id" : 1
+                //                 },
+                //                 {
+                //                     "url": "/img/ad/ad_category_mid1_2.jpg",
+                //                     "display_s": "2020-04-18T04:00:00.000Z",
+                //                     "display_f": "2020-06-18T04:00:00.000Z",
+                //                     "category_id" : 1
+                //                 },
+                //                 {
+                //                     "url": "/img/ad/ad_category_mid2_1.jpg",
+                //                     "display_s": "2020-04-18T04:00:00.000Z",
+                //                     "display_f": "2020-05-18T04:00:00.000Z",
+                //                     "category_id" : 2
+                //                 },
+                //                 {
+                //                     "url": "/img/ad/ad_category_mid2_2.jpg",
+                //                     "display_s": "2020-04-18T04:00:00.000Z",
+                //                     "display_f": "2020-05-18T04:00:00.000Z",
+                //                     "category_id" : 2
+                //                 }
+                //             ]
+                //         },
+                //         "category_bottom": {
+                //             "slide_sec": 5,
+                //             "contents": [
+                //                 {
+                //                     "url": "/img/ad/ad_category_bottom1_1.jpg",
+                //                     "display_s": "2020-03-09T05:00:00.000Z",
+                //                     "display_f": "2020-06-09T05:00:00.000Z",
+                //                     "category_id" : 1
+                //                 },
+                //                 {
+                //                     "url": "/img/ad/ad_category_bottom1_2.jpg",
+                //                     "display_s": "2020-03-09T05:00:00.000Z",
+                //                     "display_f": "2020-06-09T05:00:00.000Z",
+                //                     "category_id" : 1
+                //                 },
+                //                 {
+                //                     "url": "/img/ad/ad_category_bottom2_1.jpg",
+                //                     "display_s": "2020-03-09T05:00:00.000Z",
+                //                     "display_f": "2020-06-09T05:00:00.000Z",
+                //                     "category_id" : 2
+                //                 },
+                //                 {
+                //                     "url": "/img/ad/ad_category_bottom2_2.jpg",
+                //                     "display_s": "2020-03-09T05:00:00.000Z",
+                //                     "display_f": "2020-06-09T05:00:00.000Z",
+                //                     "category_id" : 2
+                //                 }
+                //             ]
+                //         }
+                // }
                 AD.render();
                 AD.execute();
             }
@@ -280,6 +284,14 @@ class AdSlide{
                 });
             }
         }
+    }
+    showCategoryAD(lv1_category_id = this.default.category_ad_id) {
+        $(`.category_container`).hide();
+        if ( $(`.category_container[data-category_id=${lv1_category_id}]`).length == 0 ){
+            lv1_category_id = this.default.category_ad_id;
+        }
+        
+        $(`.category_container[data-category_id=${lv1_category_id}]`).show();
     }
     execute () {
         if( this.Slide_Event_List.length > 0){
@@ -329,7 +341,7 @@ $(document).ready(() => {
         AdSlide.ad_main_instance.removeClass('active');
         clearTimeout(usedTimeout);
         usedTimeout=setTimeout( AD.showMainAD, AD.ad_init_min * 1000 * 1000 );
-        // console.log('usedTimeout : ',  usedTimeout);
+
     });
 
 });
