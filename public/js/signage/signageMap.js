@@ -244,6 +244,7 @@
             //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
                 if(storeList[i].LS_Number == svg3FStoreName){
+                    console.log(svg3FStoreName)
                     if($('#kor').hasClass('choose')){
                         $(this).children('tspan').text(storeList[i].BS_NameKor)
                     }else{
