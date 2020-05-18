@@ -321,6 +321,7 @@
                     //해당 아이디를 가져옴
                     storeNumber = $(this).attr('id').substring('1','5');
                     $('#h'+storeNumber).css('fill','#a91179');
+                    storeNumber = $(this).attr('id').substring('1','5')
                 }
             })
             //좌표이동
