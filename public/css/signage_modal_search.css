@@ -303,10 +303,14 @@
     overflow: hidden;
 }
 
+<<<<<<< HEAD
 .searchRight img{
     width: 100%;
     height: 100%;
 }
+=======
+.searchRight img, .searchRightAd img {width: 100%;}
+>>>>>>> 0e55f0f93aa44b65a99b1fff775333548fe33bf3
 
 /* 업종 광고 */
 .category_container {height: 100%;}
