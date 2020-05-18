@@ -231,20 +231,19 @@
 
         //상가 호수에 카테고리명 클래스 입력
         $('#1Fstore path').each(function(){
-            let svg3FStore = $(this).attr('id').replace('h','')
+            let svg1FStore = $(this).attr('id').replace('h','')
             for(let i=0; i<storeList.length; i++){
-                if(storeList[i].LS_Number == svg3FStore){
+                if(storeList[i].LS_Number == svg1FStore){
                     $(this).addClass('svgCat '+storeList[i].BC_NameEng.replace(/ /g, ''))
                 }
             }
         })
         //상가 호수에 브랜드명 입력
         $('#1Fstore_name text').each(function(){
-            let svg3FStoreName = $(this).attr('id').replace('h','').replace('-2','')
+            let svg2FStoreName = $(this).attr('id').replace('h','').replace('-2','')
             //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
-                if(storeList[i].LS_Number == svg3FStoreName){
-                    console.log(svg3FStoreName)
+                if(storeList[i].LS_Number == svg2FStoreName){
                     if($('#kor').hasClass('choose')){
                         $(this).children('tspan').text(storeList[i].BS_NameKor)
                     }else{
@@ -264,10 +263,10 @@
         })
         //상가 호수에 브랜드명 입력
         $('#2Fstore_name text').each(function(){
-            let svg3FStoreName = $(this).attr('id').replace('h','').replace('-2','')
+            let svg2FStoreName = $(this).attr('id').replace('h','').replace('-2','')
             //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
-                if(storeList[i].LS_Number == svg3FStoreName){
+                if(storeList[i].LS_Number == svg2FStoreName){
                     if($('#kor').hasClass('choose')){
                         $(this).children('tspan').text(storeList[i].BS_NameKor)
                     }else{
