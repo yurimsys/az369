@@ -49,7 +49,7 @@
     <div class="ad main_full active slideshow-container"></div>
     <div class='container'>
         <!-- 좌측메뉴 -->
-        <div id='box-left'>
+        <div id='box-left'">
             <h3 class='floorFont'><span id='nowFloor'>1F</span></h3>
             <!-- 좌측 카테고리 -->
             <ul class='categoryList'>
@@ -299,8 +299,10 @@
                     <h3>층별안내</h3>
         
                     <div class="main_info_img">
-                        <img src="/img/signage/main_info_img.png" alt="층별안내 이미지">
+                        <div class="main_info_img_Wrap">
+                        <img src="/img/signage/main_info_img_en.png" alt="층별안내 이미지">
                     </div>
+                </div>
                     <p>평택 센트럴돔은 옥상정원과 지하 주차장 2층을 포함하여 총 6층으로 이루어져 있습니다.</p>
                     <p>지하 1층은 마트, 지상 1층과 2층은 다양한 프렌차이즈와 보세 쇼핑몰이, 3층은 명품관이 자리하고 있습니다. </p>
                 </div>
@@ -363,11 +365,11 @@
                         <img src="/img/ad/11@2x.png">
                     </div>
                     <ul>
-                        <li class="brandInfoBtn" onclick="brandNavInfo()">
-                            <div class='categoryBtn categoryFont categoryBack brandInfoText' data-kor='정보' data-eng="Information">정보</div>
+                        <li class="brandInfoBtn">
+                            <div class='categoryBtn categoryFont categoryBack brandInfoText' onclick="brandNavInfo()" data-kor='정보' data-eng="Information">정보</div>
                         </li>
-                        <li class="brandMenuBtn" onclick="brandNavMenu(this)">
-                            <div class='categoryBtn categoryFont categoryBack brandInfoText' data-kor='메뉴' data-eng='Menu'>메뉴</div>
+                        <li class="brandMenuBtn">
+                            <div class='categoryBtn categoryFont categoryBack brandInfoText' onclick="brandNavMenu(this)" data-kor='메뉴' data-eng='Menu'>메뉴</div>
                         </li>
                         <li class="brandEventBtn" onclick="brandNavEvent(this)">
                             <div class='categoryBtn categoryFont categoryBack brandInfoText' data-kor='이벤트' data-eng='Event'>이벤트</div><span></span>
@@ -441,67 +443,19 @@
                 <div class="brandMenuCenter">
                     <div class="brandMenuCenter_inner">
                     <div class="brandMenuCenter_best">
-                        <h3>인기메뉴</h3>
-                        <ul>
-                            <!-- 인기메뉴 1 -->
-                            <li>
-                                <div class="menu_best_pic"></div>
-                                <div class="menu_best_name">샤오롱바오</div>
-                                <div class="menu_best_price">10,500원</div>
-                            </li>
-                            <!-- 인기메뉴 2 -->
-                            <li>
-                                <div class="menu_best_pic"></div>
-                                <div class="menu_best_name">샤오롱바오</div>
-                                <div class="menu_best_price">10,500원</div>
-                            </li>
-                            <!-- 인기메뉴 3 -->
-                            <li>
-                                <div class="menu_best_pic"></div>
-                                <div class="menu_best_name">샤오롱바오</div>
-                                <div class="menu_best_price">10,500원</div>
-                            </li>
-                            <!-- 인기메뉴 4 -->
-                            <li>
-                                <div class="menu_best_pic"></div>
-                                <div class="menu_best_name">샤오롱바오</div>
-                                <div class="menu_best_price">10,500원</div>
-                            </li>
+                        <h3 id='envetMenuOneName'></h3>
+                        <ul id='envetMenuOne'>
                         </ul>
                     </div>
 
                     <div class="brandMenuCenter_set">
-                        <h3>세트메뉴</h3>
-                        <ul>
-                            <!-- 세트메뉴 1 -->
-                            <li>
-                                <div class="menu_set_pic"></div>
-                                <div class="menu_set_name">샤오롱바오 10개</div>
-                                <div class="menu_set_price">10,500원</div>
-                            </li>
-                            <!-- 세트메뉴 2 -->
-                            <li>
-                                <div class="menu_set_pic"></div>
-                                <div class="menu_set_name">샤오롱바오 10개</div>
-                                <div class="menu_set_price">10,500원</div>
-                            </li>
-                            <!-- 세트메뉴 3 -->
-                            <li>
-                                <div class="menu_set_pic"></div>
-                                <div class="menu_set_name">샤오롱바오 10개</div>
-                                <div class="menu_set_price">10,500원</div>
-                            </li>
-                            <!-- 세트메뉴 4 -->
-                            <li>
-                                <div class="menu_set_pic"></div>
-                                <div class="menu_set_name">샤오롱바오 10개</div>
-                                <div class="menu_set_price">10,500원</div>
-                            </li>
+                        <h3 id='envetMenuTwoName'></h3>
+                        <ul id='envetMenuTwo'>
                         </ul>
                     </div>
                     <!-- 하단메뉴 -->
                     <div class="brandMenuCenter_list">
-                        <ul>
+                        <ul id='normalList'>
                             <!-- 왼쪽 -->
                             <li>
                                 <dl>

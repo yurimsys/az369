@@ -59,8 +59,8 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
                 searchJson.name = item.name
                 searchResult.push(searchJson)
             });
-             $('.searchResult').empty();
-             for(let i=0; i<jsonBrand.length; i++){
+            $('.searchResult').empty();
+            for(let i=0; i<jsonBrand.length; i++){
                 
                 if($('#kor').hasClass('choose')){
                     for(let j=0; j<searchResult.length; j++){

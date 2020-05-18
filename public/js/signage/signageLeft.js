@@ -62,6 +62,17 @@
             localStorage.setItem('brandListOverLap',JSON.stringify(res.data))
         }
     })
+//브랜드 메뉴 리스트
+    $.ajax({
+        url: '/api/brandMenuList',
+        method: 'get',
+        dataType: 'json',
+        async : false,
+        success: function(res){
+            localStorage.setItem('eventList',JSON.stringify(res.event))
+            localStorage.setItem('normalList',JSON.stringify(res.normal))
+        }
+    })
 
     
     //카테고리 리스트
