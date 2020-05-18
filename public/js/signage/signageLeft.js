@@ -81,15 +81,15 @@
         for(let i=0; i<categoryList.length; i++){
             if(i <7){
                 let html = "<li>";
-                    html += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"class="categoryIconBox categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>'
+                    html += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"class="categoryIconBox categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>';
                     html += "</li>";
                 $('.categoryList').append(html);
             }
-            if(i > 6){
+            if(i >= 7){
                 let html2 = "<li>";
-                    html2 += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"class="categoryIconBox categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>'
-                    html2 += "</li>"
-                $('.categoryList2').append(html2)
+                    html2 += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"class="categoryIconBox categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>';
+                    html2 += "</li>";
+                $('.categoryList2').append(html2);
             }
         }
     }
@@ -97,7 +97,7 @@
     let count = 0;
     function selectCat(e){
         let catId = e.id;
-        let svgClass = $('#'+catId).data('catclass').replace(/ /g, '')
+        let svgClass = $('#'+catId).data('catclass').replace(/ /g, '');
         //클릭시 전체 색상 초기화
         if(count == 0){
             $('.svgCat').css('fill','#e2e2e2');   
@@ -105,13 +105,13 @@
         }
         //클릭한 것만 색상표시
         if($('#'+catId).hasClass('selected') == false ){
-            $(e).addClass('selected')
+            $(e).addClass('selected');
             //svg클래스
-            $('.'+svgClass).css('fill','')
+            $('.'+svgClass).css('fill','');
         }
         else if($('#'+catId).hasClass('selected') == true ){
-            $(e).removeClass('selected')
-            $('.'+svgClass).css('fill','#e2e2e2')
+            $(e).removeClass('selected');
+            $('.'+svgClass).css('fill','#e2e2e2');
             if($('.categoryList div').hasClass('selected') == false && $('.categoryList2 div').hasClass('selected') == false){
                 $('.svgCat').css('fill',''); 
                 
@@ -124,11 +124,11 @@
     //카테고리 다음버튼
     function mainNext(e){
         if($('#nowPage').text()==1){
-            $('#nowPage').text('2')
-            $('.categoryList').css('display','none')
-            $('.categoryList2').css('display','block')
-            $('.categoryPrev img').attr('src','/img/signage/left_arrow_active_icon.png')
-            $('.categoryNext img').attr('src','/img/signage/right_arrow_icon.png')
+            $('#nowPage').text('2');
+            $('.categoryList').css('display','none');
+            $('.categoryList2').css('display','block');
+            $('.categoryPrev img').attr('src','/img/signage/left_arrow_active_icon.png');
+            $('.categoryNext img').attr('src','/img/signage/right_arrow_icon.png');
             // $('#prev').addClass('clickPrevBtn')
             // $('#next').removeClass('clickNextBtn')
 
@@ -137,11 +137,11 @@
     //카테고리 이전버튼
     function mainPrev(){
         if($('#nowPage').text()==2){
-            $('#nowPage').text('1')
-            $('.categoryList').css('display','block')
-            $('.categoryList2').css('display','none')
-            $('.categoryNext img').attr('src','/img/signage/right_arrow_active_icon.png')
-            $('.categoryPrev img').attr('src','/img/signage/left_arrow_icon.png')
+            $('#nowPage').text('1');
+            $('.categoryList').css('display','block');
+            $('.categoryList2').css('display','none');
+            $('.categoryNext img').attr('src','/img/signage/right_arrow_active_icon.png');
+            $('.categoryPrev img').attr('src','/img/signage/left_arrow_icon.png');
         }
     }
 
