@@ -195,7 +195,7 @@
             html += "</ul></div>";
             html += "<ul class='detailInfo'>";
             html += "<li><div class='infoImgNav' id="+'bs'+selectBrand[0].BS_ID+" onclick='storeInfo(this)'>상세 보기</div></li>";
-            html += "<li><div class='infoImgNav' id="+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>위치 보기</div></li></ul>";
+            html += "<li><div class='infoImgNav' id="+"area"+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>위치 보기</div></li></ul>";
         $('.brandDetail').append(html);
     }
 
@@ -301,12 +301,13 @@
    
    //브랜드 위치보기
     function storeLocation(e){
+        let storeArea = e.id.replace(/area/g,'')
         $('#myModal').css('display','none');
         $('.floorBtn div').removeClass('floorSelcet');
         $('.brandInfoCenter').css('display','none');
         $('.brandMenuCenter').css('display','none');
     //1층    
-        if(e.id >=1001 && e.id <= 1230){
+        if(storeArea >=1001 && storeArea <= 1230){
             $('#1Fstore path').css('fill','#E2E2E2');
             $('.centralSvg1F').css('display','block');
             $('.centralSvg2F').css('display','none');
@@ -317,7 +318,7 @@
                 let storeName = $(this);
                 let storeNumber;
                 //svg텍스트가 선택한 브랜드 명과 같으면
-                if(storeName.text() == $('#h'+e.id+'-2').text()){
+                if(storeName.text() == $('#h'+storeArea+'-2').text()){
                     //해당 아이디를 가져옴
                     storeNumber = $(this).attr('id').substring('1','5');
                     $('#h'+storeNumber).css('fill','#a91179');
@@ -326,25 +327,25 @@
             })
             //좌표이동
                 //1사 분면
-                if((e.id >= 1001 && e.id <= 1026) ||(e.id >= 1133 && e.id <= 1147) || (e.id >= 1220 && e.id <= 1226)){
+                if((storeArea >= 1001 && storeArea <= 1026) ||(storeArea >= 1133 && storeArea <= 1147) || (storeArea >= 1220 && storeArea <= 1226)){
                     $('.centralSvg1F').css('left','424px');
                     $('.centralSvg1F').css('top','250px');
                     storeMapSize(1,15,2.125);
                 }
                 //2사 분면
-                else if((e.id >= 1027 && e.id <= 1056) ||(e.id >= 1148 && e.id <= 1171)){
+                else if((storeArea >= 1027 && storeArea <= 1056) ||(storeArea >= 1148 && storeArea <= 1171)){
                     $('.centralSvg1F').css('left','-319px');
                     $('.centralSvg1F').css('top','273px');
                     storeMapSize(1,15,2.125);
                 }
                 //3사 분면
-                else if((e.id >= 1057 && e.id <= 1096) ||(e.id >= 1172 && e.id <= 1196) ||(e.id >= 1227 && e.id <= 1230)){
+                else if((storeArea >= 1057 && storeArea <= 1096) ||(storeArea >= 1172 && storeArea <= 1196) ||(storeArea >= 1227 && storeArea<= 1230)){
                     $('.centralSvg1F').css('left','-378px');
                     $('.centralSvg1F').css('top','-435px');
                     storeMapSize(1,15,2.125);
                 }
                 //4사 분면
-                else if((e.id >= 1097 && e.id <= 1132) ||(e.id >= 1199 && e.id <= 1219)){
+                else if((storeArea >= 1097 && storeArea <= 1132) ||(storeArea >= 1199 && storeArea <= 1219)){
                     $('.centralSvg1F').css('left','445px');
                     $('.centralSvg1F').css('top','-297px');
                     storeMapSize(1,15,2.125);
@@ -353,7 +354,7 @@
             }
 
         //2층
-            else if(e.id >= 2001 && e.id <= 2102){
+            else if(storeArea>= 2001 && storeArea<= 2102){
                 // console.log('2층')
                 $('#2Fstore path').css('fill','#E2E2E2');
                 $('.centralSvg1F').css('display','none');
@@ -373,31 +374,32 @@
                 })
                 //좌표이동
                 //1사 분면
-                if((e.id >= 2001 && e.id <= 2010) ||(e.id >= 2064 && e.id <= 2067) || (e.id == 2060 || e.id == 2101)){
+                if((storeArea >= 2001 && storeArea <= 2010) ||(storeArea >= 2064 && storeArea <= 2067) || (storeArea == 2060 || storeArea == 2101)){
                     $('.centralSvg2F').css('left','424px');
                     $('.centralSvg2F').css('top','250px');
                     storeMapSize(1,15,2.125);
                 }
                 //2사 분면
-                else if((e.id >= 2011 && e.id <= 2027) ||(e.id >= 2068 && e.id <= 2077) || e.id == 2061){
+                else if((storeArea >= 2011 && storeArea <= 2027) ||(storeArea >= 2068 && storeArea <= 2077) || storeArea == 2061){
                     $('.centralSvg2F').css('left','-319px');
                     $('.centralSvg2F').css('top','273px');
                     storeMapSize(1,15,2.125);
                 }
                 //3사 분면
-                else if((e.id >= 2028 && e.id <= 2044) ||(e.id >= 2078 && e.id <= 2090) ||(e.id == 2062)){
+                else if((storeArea >= 2028 && storeArea <= 2044) ||(storeArea >= 2078 && storeArea <= 2090) ||(storeArea == 2062)){
                     $('.centralSvg2F').css('left','-378px');
                     $('.centralSvg2F').css('top','-435px');
                     storeMapSize(1,15,2.125);
                 }
                 //4사 분면
-                else if((e.id >= 2045 && e.id <= 2059) ||(e.id >= 2091 && e.id <= 2100) || e.id == 2063){
+                else if((storeArea >= 2045 && storeArea <= 2059) ||(storeArea >= 2091 && storeArea <= 2100) || storeArea == 2063){
                     $('.centralSvg2F').css('left','445px');
                     $('.centralSvg2F').css('top','-297px');
                     storeMapSize(1,15,2.125);
                 }
             }
-            else if(e.id >= 3001 && e.id <= 3106){
+        //3층
+            else if(storeArea >= 3001 && storeArea <= 3106){
                 // console.log('3층')
                 $('#3Fstore path').css('fill','#E2E2E2');
                 $('.centralSvg1F').css('display','none');
@@ -409,32 +411,32 @@
                 let storeName = $(this);
                 let storeNumber;
                 //svg텍스트가 선택한 브랜드 명과 같으면
-                if(storeName.text() == $('#h'+e.id+'-2').text()){
+                if(storeName.text() == $('#h'+storeArea+'-2').text()){
                     //해당 아이디를 가져옴
                     storeNumber = $(this).attr('id').substring('1','5');
                     $('#h'+storeNumber).css('fill','#a91179');
                 }
                 //좌표이동
                 //1사 분면
-                if((e.id >= 3001 && e.id <= 3010) ||(e.id >= 3060 && e.id <= 3061) ||(e.id >= 3068 && e.id <= 3071) || (e.id == 3106)){
+                if((storeArea >= 3001 && storeArea <= 3010) ||(storeArea >= 3060 && storeArea <= 3061) ||(storeArea >= 3068 && storeArea <= 3071) || (storeArea == 3106)){
                     $('.centralSvg3F').css('left','424px');
                     $('.centralSvg3F').css('top','250px');
                     storeMapSize(1,15,2.125);
                 }
                 //2사 분면
-                else if((e.id >= 3011 && e.id <= 3027) ||(e.id >= 3062 && e.id <= 3063) ||(e.id >= 3072 && e.id <= 3081)){
+                else if((storeArea >= 3011 && storeArea <= 3027) ||(storeArea >= 3062 && storeArea <= 3063) ||(storeArea >= 3072 && storeArea <= 3081)){
                     $('.centralSvg3F').css('left','-319px');
                     $('.centralSvg3F').css('top','273px');
                     storeMapSize(1,15,2.125);
                 }
                 //3사 분면
-                else if((e.id >= 3028 && e.id <= 3044) ||(e.id >= 3064 && e.id <= 3065) ||(e.id >= 3082 && e.id <= 3095)){
+                else if((storeArea >= 3028 && storeArea <= 3044) ||(storeArea >= 3064 && storeArea <= 3065) ||(storeArea >= 3082 && storeArea <= 3095)){
                     $('.centralSvg3F').css('left','-378px');
                     $('.centralSvg3F').css('top','-435px');
                     storeMapSize(1,15,2.125);
                 }
                 //4사 분면
-                else if((e.id >= 3045 && e.id <= 3059) ||(e.id >= 3066 && e.id <= 3067) ||(e.id >= 3096 && e.id <= 3105)){
+                else if((storeArea >= 3045 && storeArea <= 3059) ||(storeArea >= 3066 && storeArea <= 3067) ||(storeArea >= 3096 && storeArea <= 3105)){
                     $('.centralSvg3F').css('left','445px');
                     $('.centralSvg3F').css('top','-297px');
                     storeMapSize(1,15,2.125);

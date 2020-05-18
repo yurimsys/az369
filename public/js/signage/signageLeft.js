@@ -96,7 +96,6 @@
     LV1CatList();
     let count = 0;
     function selectCat(e){
-        console.log(count)
         let catId = e.id;
         let svgClass = $('#'+catId).data('catclass').replace(/ /g, '');
         //클릭시 전체 색상 초기화

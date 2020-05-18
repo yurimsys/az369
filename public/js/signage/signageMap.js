@@ -172,7 +172,7 @@
     function storeMapSize(floor,size,scale){
         $('.centralSvg'+floor+'F').css('transform','scale('+scale+')');
         $('#'+floor+'Fstore_name text').css('font-size',size);
-        $('#'+floor+'Fstore').css('cursor','pointer');
+        //$('#'+floor+'Fstore').css('cursor','pointer');
         $('#'+floor+'Fstore_name text').show();
     }
 
