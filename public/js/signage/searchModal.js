@@ -317,7 +317,12 @@
         $('.brandMenuCenter').css('display','none')
     //1층    
         if(e.id >1000 && e.id < 1231){
-            $('#1Fstore path').css('fill','#E2E2E2')
+            // $('#1Fstore path').css('fill','#CFD2DF')
+            // $('#1Fstore path').css('stroke','#B9BDCE');
+            // $('#1Fstore path').css('fill','#4F5157')
+            // $('#1Fstore path').css('stroke','#434446')
+            // $('#store_under path').css('fill','#434446')
+            $('#1Fstore path').css('fill','#e2e2e2')
             $('.centralSvg1F').css('display','block');
             $('.centralSvg2F').css('display','none');
             $('.centralSvg3F').css('display','none');
@@ -331,6 +336,7 @@
                     //해당 아이디를 가져옴
                     storeNumber = $(this).attr('id').substring('1','5')
                     $('#h'+storeNumber).css('fill','#a91179')
+                    $('#h'+storeNumber).css('storke','#a91179')
                 }
             })
             //좌표이동
