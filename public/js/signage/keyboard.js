@@ -25,6 +25,7 @@ const Keyboard = {
         onsearch: null
     },
     config : {
+        debugger : false,
         BlankLineWord : "---",
         lineBreakWord : "\n",
         mode : "cheonjiin",
@@ -146,6 +147,8 @@ const Keyboard = {
                         element.value = currentValue;
                         // Input Event execute
                         $(element).trigger('input');
+                        // Debugger
+                        this.debugger();
                     }
                 );
                 
@@ -188,7 +191,7 @@ const Keyboard = {
                         keyElement.innerHTML = createIconHTML("backspace");
 
                         keyElement.addEventListener("click", () => {
-                            
+                            this.properties.beforeChar = '';
                             this.properties.bufferValue = this.properties.bufferValue.substring(0, this.properties.bufferValue.length - 1);
                             this.properties.value = Hangul.a( this.properties.bufferValue );
                             this._triggerEvent("oninput");
@@ -258,6 +261,7 @@ const Keyboard = {
                     case "A":
                         keyElement.textContent = key.toString();
                         keyElement.addEventListener("click", () => {
+                            this.properties.beforeChar = '';
                             this._toggleLanguage(this.properties.currentLanguage);
                         });
 
@@ -475,6 +479,12 @@ const Keyboard = {
         this.properties.value = "";
         this.elements.main.classList.add("keyboard--hidden");
     },
+
+    debugger(){
+        if(this.config.debugger){
+            for(let key in this.properties)  console.log(key, this.properties[key]);
+        }
+    }
 
 };
 
