@@ -1,5 +1,10 @@
 
 //*** 메인 우측 하단 날씨, 시간,언어 선택 스크립트 ***
+    function nowLocation(){
+        let nowLocation = urlParam();
+        $('#'+nowLocation.device_cd+ ' rect').css('fill','red')
+    }
+    nowLocation();
     //메인 돌아가기
     function signageMain(){
         //카테고리 초기화
@@ -14,6 +19,8 @@
         $('#3Fstore path').css('fill','');
         $('.floorBtn div').removeClass('floorSelcet');
         let deviceParam = urlParam();
+        // console.log(deviceParam.device_cd.subString(0,1))
+
         if(deviceParam.device_cd === undefined){
             $('.centralSvg1F').css('display','block');
             $('.centralSvg2F').css('display','none');
@@ -22,21 +29,21 @@
             $('#nowFloor').text('1F');
             location.href='http://localhost:8001/sign?device_cd=1fa';
         }
-        else if(deviceParam.device_cd == '1fa'){
+        else if(deviceParam.device_cd.substring(0,1) == '1'){
             $('.centralSvg1F').css('display','block');
             $('.centralSvg2F').css('display','none');
             $('.centralSvg3F').css('display','none');
             $('#floor1Btn').addClass('floorSelcet')
             $('#nowFloor').text('1F');
         }        
-        else if(deviceParam.device_cd == '2fa'){
+        else if(deviceParam.device_cd.substring(0,1) == '2'){
             $('.centralSvg1F').css('display','none');
             $('.centralSvg2F').css('display','block');
             $('.centralSvg3F').css('display','none');
             $('#floor2Btn').addClass('floorSelcet');
             $('#nowFloor').text('2F');
         }
-        else if(deviceParam.device_cd == '3fa'){
+        else if(deviceParam.device_cd.substring(0,1) == '3'){
             $('.centralSvg1F').css('display','none');
             $('.centralSvg2F').css('display','none');
             $('.centralSvg3F').css('display','block');

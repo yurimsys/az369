@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="questionForm" method="post" enctype="multipart/form-data" action="/save">
+        <!-- <input type="hidden" name="TEST_SN" value="1"> -->
+        
+        <ul id="questionFormList">
+          <li>
+            <!-- <input type="hidden" name="tumbnail" value="1"> -->
+            <input type="file" name="imgFile" value='tumb'>
+          </li>
+          <li>
+            <!-- <input type="hidden" name="mainImg" value="2"> -->
+            <input type="file" name="imgFile2" value='main'>
+          </li>
+        </ul>
+        <input type="submit" value="전송">
+      </form>
+</body>
+</html>
