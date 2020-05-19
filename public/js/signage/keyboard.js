@@ -9,7 +9,7 @@
  */
 
  /**
-  * keyboard mode : qwerty, chunjiin
+  * keyboard mode : qwerty, cheonjiin
   * 
   */
 const Keyboard = {
@@ -31,7 +31,7 @@ const Keyboard = {
                 korean : [
                     "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace", "\n",
                     "ㅂ|ㅃ", "ㅈ|ㅉ", "ㄷ|ㄸ", "ㄱ|ㄲ", "ㅅ|ㅆ", "ㅛ", "ㅕ", "ㅑ", "ㅐ|ㅒ", "ㅔ|ㅖ", "\n",
-                    "ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ", "done", "\n",
+                    "ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ", "search", "\n",
                     "caps", "ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ", "\n",
                     "A", "space"
                 ],
@@ -39,7 +39,7 @@ const Keyboard = {
                 english : [
                     "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace", "\n",
                     "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\n",
-                    "a", "s", "d", "f", "g", "h", "j", "k", "l", "done", "\n",
+                    "a", "s", "d", "f", "g", "h", "j", "k", "l", "search", "\n",
                     "caps", "z", "x", "c", "v", "b", "n", "m", "\n",
                     "가", "space"
                 ]
@@ -48,17 +48,25 @@ const Keyboard = {
                  // Kor Keyboard Layout
                  korean : [
                     "ㅣ", "·", "ㅡ", "backspace", "\n",
-                    "ㄱㅋ", "ㄴㄹ", "ㄷㅌ", "done", "\n",
-                    "ㅂㅍ", "ㅅㅎ", "ㅈㅊ", ".,?!", "\n",
-                    "!#1","ㅇㅁ", "space"
+                    "ㄱㅋ", "ㄴㄹ", "ㄷㅌ", "search", "\n",
+                    "ㅂㅍ", "ㅅㅎ", "ㅈㅊ", "A","\n",
+                    "","ㅇㅁ", ".,?!", "space", "\n",
+                    "1", "2", "3", "", "\n",
+                    "4", "5", "6", "-/", "\n",
+                    "7", "8", "9", ".,?!", "\n",
+                    "","0","","@#","\n"
                 ],
                 // Eng Keyboard Layout == qwerty Layout
                 english : [
-                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace", "\n",
-                    "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\n",
-                    "a", "s", "d", "f", "f", "h", "j", "k", "l", "done", "\n",
-                    "caps", "z", "x", "c", "v", "b", "n", "m", "\n",
-                    "가", "space"
+                    "a", "b", "c","backspace", "\n",
+                    "d", "e", "f", "search", "\n",
+                    "g", "h", "i", "가", "\n",
+                    "j", "k", "l", "space", "\n",
+                    "m", "n", "o", "caps", "\n",
+                    "p", "q", "r", "-/", "\n",
+                    "s", "t", "u", ".,?!", "\n",
+                    "v", "w", "x", "", "\n",
+                    "y", "z", "", "", "\n"
                 ]
             }
         }
@@ -70,10 +78,26 @@ const Keyboard = {
         currentLanguage: "korean",
         languageType : ""
     },
-    properties: {},
+    properties: {
+        beforeChar : "",
+        cheonjiinMapData : {
+            "ㄱㅋ" : ['ㄱ', 'ㅋ', 'ㄲ'],
+            "ㄴㄹ" : ['ㄴ', 'ㄹ'],
+            "ㄷㅌ" : ['ㄷ', 'ㅌ', 'ㄸ'],
+            "ㅂㅍ" : ['ㅂ', 'ㅍ', 'ㅃ'],
+            "ㅅㅎ" : ['ㅅ', 'ㅎ', 'ㅆ'],
+            "ㅈㅊ" : ['ㅈ', 'ㅊ', 'ㅉ'],
+            "ㅇㅁ" : ['ㅇ', 'ㅁ'],
+            "-/"  : ['-', '/'],
+            "@#"  : ['@', '#'],
+            ".,?!" : [".", ",", "?", "!"]
+        },
+        cIndex : 0
+    },
     init() {
         // Init properties 
-        this.properties = JSON.parse(JSON.stringify(this.default));
+        // this.properties = JSON.parse(JSON.stringify(this.default));
+        this.properties = Object.assign(this.default, this.properties);
         this.properties.languageType = Object.keys( this.config.layout[this.config.mode] );
         
         // Create main elements
@@ -133,7 +157,7 @@ const Keyboard = {
 
                 switch (key) {
                     case "backspace":
-                        keyElement.classList.add("keyboard__key--wide");
+                        // keyElement.classList.add("keyboard__key--wide");
                         keyElement.innerHTML = createIconHTML("backspace");
 
                         keyElement.addEventListener("click", () => {
@@ -146,7 +170,10 @@ const Keyboard = {
                         break;
 
                     case "caps":
-                        keyElement.classList.add("keyboard__key--wide", "keyboard__key--activatable");
+                        if(this.config.mode === 'qwerty'){
+                            keyElement.classList.add("keyboard__key--wide");
+                        }
+                        keyElement.classList.add("keyboard__key--activatable");
                         keyElement.innerHTML = createIconHTML("keyboard_capslock");
 
                         keyElement.addEventListener("click", () => {
@@ -169,7 +196,11 @@ const Keyboard = {
                     //     break;
 
                     case "space":
-                        keyElement.classList.add("keyboard__key--extra-wide");
+                        if(this.config.mode === "cheonjiin"){
+
+                        } else {
+                            keyElement.classList.add("keyboard__key--extra-wide");
+                        }
                         keyElement.innerHTML = createIconHTML("space_bar");
 
                         keyElement.addEventListener("click", () => {
@@ -180,11 +211,15 @@ const Keyboard = {
 
                         break;
 
-                    case "done":
-                        keyElement.classList.add("keyboard__key--wide", "keyboard__key--dark");
-                        keyElement.innerHTML = createIconHTML("check_circle");
+                    case "search":
+                        // keyElement.classList.add("keyboard__key--wide", "keyboard__key--dark");
+                        keyElement.classList.add("keyboard__key--dark");
+                        keyElement.innerHTML = createIconHTML("search");
 
                         keyElement.addEventListener("click", () => {
+                            /**
+                             * TODO : search 메소드 추가. 
+                             * */
                             this.close();
                             this._triggerEvent("onclose");
                         });
@@ -199,10 +234,73 @@ const Keyboard = {
                             this._toggleLanguage(this.properties.currentLanguage);
                         });
 
-                        keyElement.classList.add("keyboard__key--wide");
+                        if(this.config.mode === 'qwerty'){
+                            keyElement.classList.add("keyboard__key--wide");
+                        }
                         break;
 
+
+                    // 천지인 모음 자판
+                    case "ㅣ":
+
+                        keyElement.textContent = key.toString();
+                        keyElement.addEventListener("click", () => {
+                            if(this.properties.beforeChar === '·')          this._cheonjiinInputEvent('ㅓ');
+                            else if (this.properties.beforeChar === '··')   this._cheonjiinInputEvent('ㅕ');
+                            else if (this.properties.beforeChar === 'ㅏ')   this._cheonjiinInputEvent('ㅐ');
+                            else if (this.properties.beforeChar === 'ㅑ')   this._cheonjiinInputEvent('ㅒ');
+                            else if (this.properties.beforeChar === 'ㅓ')   this._cheonjiinInputEvent('ㅔ');
+                            else if (this.properties.beforeChar === 'ㅕ')   this._cheonjiinInputEvent('ㅖ');
+                            else if (this.properties.beforeChar === 'ㅗ')   this._cheonjiinInputEvent('ㅚ');
+                            else if (this.properties.beforeChar === 'ㅜ')   this._cheonjiinInputEvent('ㅟ');
+                            else if (this.properties.beforeChar === 'ㅠ')   this._cheonjiinInputEvent('ㅝ');
+                            else if (this.properties.beforeChar === 'ㅘ')   this._cheonjiinInputEvent('ㅙ');
+                            else if (this.properties.beforeChar === 'ㅝ')   this._cheonjiinInputEvent('ㅞ');
+                            else if (this.properties.beforeChar === 'ㅡ')   this._cheonjiinInputEvent('ㅢ')
+                            else {
+                                this.properties.beforeChar = keyElement.textContent;
+                                this.properties.bufferValue += keyElement.textContent;
+                                this.properties.value = Hangul.a(this.properties.bufferValue);
+                            }
+                            this._triggerEvent("oninput");
+                        });
+
+                        break;
+                    case "·": 
+                        keyElement.textContent = key.toString();
+                        keyElement.addEventListener("click", () => {
+                            if(this.properties.beforeChar === '·')          this._cheonjiinInputEvent('··');
+                            else if (this.properties.beforeChar === '··')   this._cheonjiinInputEvent('·');
+                            else if (this.properties.beforeChar === 'ㅣ')   this._cheonjiinInputEvent('ㅏ');
+                            else if (this.properties.beforeChar === 'ㅏ')   this._cheonjiinInputEvent('ㅑ');
+                            else if (this.properties.beforeChar === 'ㅡ')   this._cheonjiinInputEvent('ㅜ');
+                            else if (this.properties.beforeChar === 'ㅜ')   this._cheonjiinInputEvent('ㅠ');
+                            else if (this.properties.beforeChar === 'ㅚ')   this._cheonjiinInputEvent('ㅘ');
+                            else {
+                                this.properties.beforeChar = keyElement.textContent;
+                                this.properties.bufferValue += keyElement.textContent;
+                                this.properties.value = Hangul.a(this.properties.bufferValue);
+                            }
+                            this._triggerEvent("oninput");
+                        });
+
+                        break;
+                    case "ㅡ":
+                        keyElement.textContent = key.toString();
+                        keyElement.addEventListener("click", () => {
+                            if(this.properties.beforeChar === '·')          this._cheonjiinInputEvent('ㅗ');
+                            else if (this.properties.beforeChar === '··')   this._cheonjiinInputEvent('ㅛ');
+                            else {
+                                this.properties.beforeChar = keyElement.textContent;
+                                this.properties.bufferValue += keyElement.textContent;
+                                this.properties.value = Hangul.a(this.properties.bufferValue);
+                            }
+                            this._triggerEvent("oninput");
+                        });
+
+                        break;
                     default:
+                        // capsLock 분리
                         if( !key.includes('|') ){
                             keyElement.textContent = key.toLowerCase();
                         } else {
@@ -213,9 +311,14 @@ const Keyboard = {
                         }
 
                         keyElement.addEventListener("click", () => {
-                            this.properties.bufferValue += keyElement.textContent;
-                            this.properties.value = Hangul.a(this.properties.bufferValue);
-
+                            if(this.config.mode.toLowerCase() === "qwerty"){
+                                this.properties.bufferValue += keyElement.textContent;
+                                this.properties.value = Hangul.a(this.properties.bufferValue);
+                            } else if(this.config.mode.toLowerCase() === "cheonjiin" ) {
+                                let keyChar = this._getCharCheonjiin( keyElement )
+                                this._cheonjiinInputEvent( keyChar.char, keyChar.mode );
+                            }
+                            
                             this._triggerEvent("oninput");
                         });
 
@@ -234,6 +337,60 @@ const Keyboard = {
         }
 
         return keyContainerFragment;
+    },
+
+    _cheonjiinInit(){
+        this.properties.cIndex = 0;
+        this.properties.beforeChar = '';    
+    },
+
+    _getCharCheonjiin( keyElement ) {
+        let result = {
+            char : "",
+            mode : ""
+        };
+
+        if( this.properties.cheonjiinMapData[ keyElement.textContent ] !== undefined ){
+            let charList = this.properties.cheonjiinMapData[ keyElement.textContent ];
+
+            if( this.properties.cheonjiinMapData[ keyElement.textContent ].indexOf( this.properties.beforeChar ) === -1 ) {
+                // 다른 버튼을 누른 경우
+                this.properties.cIndex = 0;
+                this.properties.beforeChar = charList[ this.properties.cIndex ];
+                result.mode = "add";
+            } else {
+                // 같은 버튼을 누른 경우
+                this.properties.cIndex = ( this.properties.cIndex === charList.length - 1 ) ? 0 : this.properties.cIndex + 1 ;
+                this.properties.beforeChar = charList[ this.properties.cIndex ];
+                result.mode = "replace";
+            }
+            
+            result.char = this.properties.beforeChar;
+        } else {
+            this.properties.beforeChar = keyElement.textContent;
+            result.char = this.properties.beforeChar;
+            result.mode = "add";
+        }
+        return result;
+        
+    },
+
+    /**
+     * 
+     * @param {string} char 입력할 문자
+     * @param {string} mode "add" / "replace"(default)
+     */
+    _cheonjiinInputEvent(char, mode = "replace") {
+        if( mode === "replace" ) {
+            if( this.properties.beforeChar === '··') {
+                this.properties.bufferValue = this.properties.bufferValue.substring(0, this.properties.bufferValue.length-2);
+            } else {
+                this.properties.bufferValue = this.properties.bufferValue.substring(0, this.properties.bufferValue.length-1);
+            }
+        }
+        this.properties.beforeChar = char;
+        this.properties.bufferValue += char;
+        this.properties.value = Hangul.a( this.properties.bufferValue );
     },
 
     _triggerEvent(handlerName) {

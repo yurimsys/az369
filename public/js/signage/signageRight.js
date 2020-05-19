@@ -244,7 +244,7 @@
         if($('#eng').attr('class') == 'languageSelect'){
             $('#kor').removeClass('choose');
             $('#eng').addClass('choose');    
-            $('.rightNav_list').css('width','62%');
+            $('.rightNav_list').css('width','65%');
             $('.searchTotal').css('height', '7%');
             $('.searchTotal').css('letter-spacing', '-1.96px');
             $('#infoImg').attr('src','/img/signage/main_info_img_en.png')

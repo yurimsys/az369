@@ -24,7 +24,7 @@
     <!-- 팝업 > 검색 css -->
     <link rel="stylesheet" href="/css/signage_modal_search.css">
     <!-- 팝업 > 이벤트 css 생성예정 :  signage_modal_event-->
-
+    <link rel="stylesheet" href="/css/keyboard.css">
     <!--자바스크립트-->
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/scrolla.jquery.min.js"></script>
@@ -392,7 +392,7 @@
                         <ul>
                             <li>
                                 <div class="searchBox_wrap">
-                                <input type="text" placeholder="이곳을 클릭하여 찾으시는 브랜드를 검색하세요. (초성검색가능)" class='searchBox'
+                                <input type="text" placeholder="이곳을 클릭하여 찾으시는 브랜드를 검색하세요. (초성검색가능)" class='searchBox use-virtual-keyboard'
                                 id='searchBrandName'>
                                 <div class='searchCancel' onclick="searchCancel()"><img
                                     src="/img/signage/modal/search_cancle_icon.png"></div>
@@ -587,7 +587,7 @@
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/sha256.min.js"></script>
-    <script src="https://unpkg.com/hangul-js" type="text/javascript"></script>
+    <script src="js/signage/hangul.js" type="text/javascript"></script>
     <script src="js/signage/language.js"></script>
     <script src="js/signage/signageRight.js"></script>
     <script src="js/signage/signageMap.js"></script>
@@ -595,6 +595,7 @@
     <script src="js/signage/searchModal.js"></script>
     <script src="js/signage/advertisement.js"></script>
     <script src="js/signage/search.js"></script>
+    <script src="js/signage/keyboard.js"></script>
     
     
 
