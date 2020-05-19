@@ -144,6 +144,8 @@ const Keyboard = {
                 this.open(element.value, 
                     currentValue => {
                         element.value = currentValue;
+                        // Input Event execute
+                        $(element).trigger('input');
                     }
                 );
                 
@@ -155,12 +157,6 @@ const Keyboard = {
                 keyboardElement.style.height = searchLeftPosition.height+"px";
             });
 
-            // Input Event 
-            element.addEventListener("input", (e) => {
-                console.log('input event', e.target.value);
-                this.bufferValue = e.target.value;
-                this.value = e.target.value;
-            });
         });
     },
     _createKeys() {
