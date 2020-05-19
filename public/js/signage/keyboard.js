@@ -54,12 +54,12 @@ const Keyboard = {
                     "ㅣ", "·", "ㅡ", "backspace", "\n",
                     "ㄱㅋ", "ㄴㄹ", "ㄷㅌ", "search", "\n",
                     "ㅂㅍ", "ㅅㅎ", "ㅈㅊ", "A","\n",
-                    "","ㅇㅁ", ".,?!", "space",
+                    "","ㅇㅁ", "", "space",
                     "---",
-                    "1", "2", "3", "", "\n",
-                    "4", "5", "6", "-/", "\n",
-                    "7", "8", "9", ".,?!", "\n",
-                    "","0","","@#","\n"
+                    "1", "2", "3", "-/", "\n",
+                    "4", "5", "6", ".,?!", "\n",
+                    "7", "8", "9", "@#", "\n",
+                    "","0","","","\n"
                 ],
                 // Eng Keyboard Layout == qwerty Layout
                 english : [
@@ -234,6 +234,7 @@ const Keyboard = {
                         keyElement.innerHTML = createIconHTML("space_bar");
 
                         keyElement.addEventListener("click", () => {
+                            this.properties.beforeChar = "";
                             this.properties.bufferValue += " ";
                             this.properties.value += " ";
                             this._triggerEvent("oninput");
@@ -247,9 +248,7 @@ const Keyboard = {
                         keyElement.innerHTML = createIconHTML("search");
 
                         keyElement.addEventListener("click", () => {
-                            /**
-                             * TODO : search 메소드 추가. 
-                             * */
+                            this.properties.beforeChar = "";
                             this._triggerEvent("onserch");
                             this.close();
                         });
@@ -376,7 +375,8 @@ const Keyboard = {
 
     _cheonjiinInit(){
         this.properties.cIndex = 0;
-        this.properties.beforeChar = '';    
+        this.properties.beforeChar = '';
+        this.properties.value = '';
     },
 
     _getCharCheonjiin( keyElement ) {
@@ -478,6 +478,7 @@ const Keyboard = {
         this.properties.bufferValue = "";
         this.properties.value = "";
         this.elements.main.classList.add("keyboard--hidden");
+        this._cheonjiinInit();
     },
 
     debugger(){

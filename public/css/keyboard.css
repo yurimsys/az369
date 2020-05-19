@@ -38,8 +38,7 @@
 }
 
 .keyboard--hidden {
-    /* bottom: -100%; */
-    opacity: 0;
+    display: none;
 }
 
 .keyboard__blank_line{

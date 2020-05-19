@@ -5,6 +5,7 @@
         let searchClose = $('.searchClose')[0];                                
         searchClose.onclick = function() {
             searchModal.style.display = "none";
+            Keyboard.close();
         }
         window.onclick = function(event) {
             if (event.target == searchModal) {
