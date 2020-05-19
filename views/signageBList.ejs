@@ -67,7 +67,7 @@
                     html += '<td>'+res.data[i].BS_ThumbnailUrl+'</td>'
                     html += '<td>'+res.data[i].BS_ImageUrl+'</td>'
                     html += '<td>'+res.data[i].BS_cDt+'</td>'
-                    html += '<td><button type="button" id='+res.data[i].BS_ID+'>수정</button></td></tr>'
+                    html += '<td><button type="button" id='+res.data[i].BS_ID+' onclick="goModify(this)">수정</button></td></tr>'
                 $('#list').append(html) 
 
             }
@@ -77,6 +77,11 @@
     function addBusiness(){
         location.href='/addList'
     }
+    function goModify(e){
+        location.href = '/addList?bs_id='+e.id
+    }
+
+
 </script>
 
 </html>

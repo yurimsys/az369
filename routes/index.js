@@ -187,9 +187,160 @@ router.post('/api/addBusiness', upload.any(), async function (req, res, next) {
             .input('LS_Number', mssql.Int, req.body.storeNumber)
             .query('insert into tBSxtLS(BS_ID, LS_Number) values(@BS_ID, @LS_Number)')
 
+        res.render('signage')
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+});
+
+//매장 수정
+router.put('/api/modifyBusiness/:bsid', upload.any(), async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+        let BS_ThumbnailUrl, BS_ImageUrl
+        let imgArr = req.files
+    //업로드 파일 구분
+        if(imgArr != undefined){
+            imgArr.forEach(function(element){
+                element.fieldname == 'tumb' ? BS_ThumbnailUrl = element.originalname : BS_ImageUrl = element.originalname
+            })
+        }
+
+        let query = 'update tBS set ';
+        let tBS = new Object();
+            tBS.BS_BC_ID = req.body.catLv1
+            tBS.BS_LoginID = req.body.bsId
+            tBS.BS_LoginPW = req.body.bsPw
+            tBS.BS_CEO = req.body.bsCeo
+            tBS.BS_NameKor = req.body.bsNameKo
+            tBS.BS_NameEng = req.body.bsNameEn
+            tBS.BS_ContentsKor = req.body.bsContKo
+            tBS.BS_ContentsEng = req.body.bsContEn
+            tBS.BS_Phone = req.body.bsTel
+            tBS.BS_CEOPhone = req.body.bsCeoTel
+            tBS.BS_Addr1Kor = req.body.bsAddr1Ko
+            tBS.BS_Addr1Eng = req.body.bsAddr1En
+            tBS.BS_Addr2Kor = req.body.bsAddr2Ko
+            tBS.BS_Addr2Eng = req.body.bsAddr2En
+            tBS.BS_MainDtS = req.body.mainDtS
+            tBS.BS_MainDtF = req.body.mainDtF
+            tBS.BS_SubDtS = req.body.bsSubS
+            tBS.BS_SubDtF = req.body.bsSubF
+            tBS.BS_BreakDtS = req.body.bsBreakS
+            tBS.BS_BreakDtF = req.body.bsBreakF
+            tBS.BS_PersonalDayKor = req.body.bsPersonalKo
+            tBS.BS_PersonalDayEng = req.body.bsPersonalEn
+            tBS.BS_ThumbnailUrl = req.body.bsTumb
+            tBS.BS_ImageUrl = req.body.bsMain
+        // let bodyArr = req.body
+        // let bsObj = Object.keys(tBS)
+        // let bodyObj = Object.keys(req.body)
+        // //for(let i=0; i<bsObj.length; i++){
+        //     for(let j=0; j<bodyObj.length; j++){
+        //         if(bodyObj[Object.keys(bodyObj)[j]] != undefined){
+        //             query += bsObj[j]+'=' +' @'+bodyObj[Object.keys(bodyObj)[j]]+','
+        //             if(j == bodyObj.length-1){
+        //                 query = query.substring(0, query.length-1)
+        //             }
+        //         }
+        //     }
         
-        console.log(result3);
-        console.log(result4);
+        if(req.body.mainDtS == undefined){
+            req.body.mainDtS = '00:00:00'
+        }
+        if(req.body.mainDtF == undefined){
+            req.body.mainDtF = '00:00:00'
+        }
+        if(req.body.bsSubS == undefined){
+            req.body.bsSubS = '00:00:00'
+        }
+        if(req.body.bsSubF == undefined){
+            req.body.bsSubF = '00:00:00'
+        }
+        if(req.body.bsBreakS == undefined){
+            req.body.bsBreakS = '00:00:00'
+        }
+        if(req.body.bsBreakF == undefined){
+            req.body.bsBreakF = '00:00:00'
+        }
+
+        mainDtS = '2020-05-18 ' + req.body.mainDtS;
+        mainDtF = '2020-05-18 ' + req.body.mainDtF;
+        bsSubS = '2020-05-18 ' + req.body.bsSubS
+        bsSubF = '2020-05-18 ' + req.body.bsSubF
+        breakS = '2020-05-18 ' + req.body.bsBreakS
+        breakF = '2020-05-18 ' + req.body.bsBreakF
+
+        
+
+        let bsObj = Object.keys(tBS)
+        let bodyObj = Object.keys(req.body)
+            let j=0;
+            for(let i=0; i<bsObj.length; i++){
+                if(tBS[Object.keys(tBS)[i]] !== undefined){
+                    query += bsObj[i]+'=' +' @'+bodyObj[j]+','
+                    j++
+                }
+            //마지막 , 제거
+                if(i === bsObj.length -1){
+                    query = query.substring(0, query.length-1)
+                }
+
+            }
+        
+        query += ' where BS_ID ='+req.params.bsid
+        console.log(query);
+
+
+        // 매장입력 BS_BC_ID == lv1Cat
+        let result = await pool.request()
+            .input('BS_ID', mssql.Int, req.params.bsid)
+            .input('BS_BC_ID', mssql.Int, req.body.BS_BC_ID)
+            .input('BS_LoginID', mssql.NVarChar, req.body.BS_LoginID)
+            .input('BS_LoginPW', mssql.NVarChar, req.body.BS_LoginPW)
+            .input('BS_CEO', mssql.NVarChar, req.body.BS_CEO)
+            .input('BS_NameKor', mssql.NVarChar, req.body.BS_NameKor)
+            .input('BS_NameEng', mssql.NVarChar, req.body.BS_NameEng)
+            .input('BS_ContentsKor', mssql.NVarChar, req.body.BS_ContentsKor)
+            .input('BS_ContentsEng', mssql.NVarChar, req.body.BS_ContentsEng)
+            .input('BS_Phone', mssql.NVarChar, req.body.BS_Phone)
+            .input('BS_CEOPhone', mssql.NVarChar, req.body.BS_CEOPhone)
+            .input('BS_Addr1Kor', mssql.NVarChar, req.body.BS_Addr1)
+            .input('BS_Addr1Eng', mssql.NVarChar, req.body.BS_Addr2)
+            .input('BS_Addr2Kor', mssql.NVarChar, req.body.BS_MainDtS)
+            .input('BS_Addr2Eng', mssql.NVarChar, req.body.BS_MainDtF)
+            .input('BS_MainDtS', mssql.DateTime, BS_SubDtS)
+            .input('BS_MainDtF', mssql.DateTime, BS_SubDtF)
+            .input('BS_SubDtS', mssql.DateTime, BS_BreakDtS)
+            .input('BS_SubDtF', mssql.DateTime, BS_BreakDtF)
+            .input('BS_BreakDtS', mssql.DateTime, breakS)
+            .input('BS_BreakDtF', mssql.DateTime, breakF)
+            .input('BS_PersonalDayKor', mssql.VarChar, req.body.bsPersonalKo)
+            .input('BS_PersonalDayEng', mssql.VarChar, req.body.bsPersonalEn)
+            .input('BS_ThumbnailUrl', mssql.VarChar, BS_ThumbnailUrl)
+            .input('BS_ImageUrl', mssql.VarChar, BS_ImageUrl)
+            .query(query);
+
+
+        // //카테고리 업종 입력 BCR_ID 구하기
+        // let result2 = await pool.request()
+        //     .input('BCRLV1', mssql.Int, req.body.catLv1)
+        //     .input('BCRLV2', mssql.Int, req.body.catLv2)
+        //     .query('select BCR_ID from tBCR where BCR_LV1_BC_ID = @BCRLV1 AND BCR_LV2_BC_ID = @BCRLV2')
+        
+        // // 업종 수정
+        // let result3 = await pool.request()
+        //     .input('BS_ID', mssql.Int, req.params.bsid)
+        //     .input('BCR_ID', mssql.Int, result2.recordset[0].BCR_ID)
+        //     .query('update tBSxBCR set BCR_ID = @BCR_ID where BS_ID = @BS_ID')
+
+        // // 층수 수정
+        // let result4 = await pool.request()
+        //     .input('BS_ID', mssql.Int, result1.recordset[0].BS_ID)
+        //     .input('LS_Number', mssql.Int, req.body.storeNumber)
+        //     .query('update tBSxtLS set LS_Number = @LS_Number where BS_ID = @BS_ID')
+
     } catch (err) {
         console.log(err);
         console.log('error fire')
@@ -201,6 +352,7 @@ router.get('/api/business/:bsid', async function(req,res){
     let bsid = req.params.bsid;
     try {
         let pool = await mssql.connect(dbconf.mssql)
+
         let result = await pool.request()
             .input('BSID', mssql.Int, bsid)
             .query(`select BS_NameKor, BS_NameEng, tBCR.BCR_ID, BCR_LV1_BC_ID, BCR_LV2_BC_ID, BCR_LV3_BC_ID, tBS.BS_ID, BS_BC_ID, 
