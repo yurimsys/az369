@@ -283,7 +283,7 @@
 //검색창 플레이스홀더 내용 번역
     function searchModalLanguage(){
         $('.searchInfo').empty();
-        let lanType1 = $('#kor').hasClass('choose') ? '이곳을 클릭하여 찾으시는 브랜드명을 검색하세요.' : 'Click here to search for the brand name you are looking for';
+        let lanType1 = $('#kor').hasClass('choose') ? '이곳을 클릭하여 찾으시는 브랜드명을 검색하세요. (초성검색가능)' : 'Click here to search for the brand name you are looking for';
         let lanType2 = $('#kor').hasClass('choose') ? '위의<span style="color: #222222; font-weight: 500;"> 카테고리를 선택</span>하세요.' : 'Select a<span style="color: #222222; font-weight: 500;"> category </span>above.';
         let lanType3 = $('#kor').hasClass('choose') ? '카테고리 변경하기' : 'Change Category';
         let lanType4 = $('#kor').hasClass('choose') ? '닫기' : 'Close';
