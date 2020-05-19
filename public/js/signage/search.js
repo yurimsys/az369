@@ -24,7 +24,6 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
             item.diassembled = cho;
         });
         
-
         
     //검색창 값 입력시 초기화 버튼 생성
         document.getElementById('searchBrandName').addEventListener('keyup', function (){
@@ -36,7 +35,7 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
         })
 
 
-        let searchResult = new Array();
+        
 
     //검색 버튼
         // function search(){
@@ -76,33 +75,29 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
         //         }
         //     }
         // }
-
+        let searchResult = new Array();
         //검색 필터
         document.getElementById('searchBrandName').addEventListener('keyup', function () {
-            
-            let allText = document.getElementById('searchBrandName').value;
+            let allText =  document.getElementById('searchBrandName').value;
+            let korText = Hangul.disassemble(allText).join("");  // ㄺ=>ㄹㄱ
             if(allText === ''){
                 $('.searchResult').empty();
                 searchBrandList();
                 return false;
             }
-            var search = this.value;
-            var search1 = Hangul.disassemble(search).join("");  // ㄺ=>ㄹㄱ
+
             searchResult = [];
             arr
             // 문자열 검색 || 초성검색
             .filter(function (item) {
                 console.log(item);
-                return item.name.includes(search) || item.diassembled.includes(search1);
+                return item.name.includes(allText) || item.diassembled.includes(korText);
             })
             // 검색결과 ul 아래에 li 로 추가
             .forEach(function (item) {
-                
                 let searchJson = new Object();
                 searchJson.name = item.name
                 searchResult.push(searchJson)
-                // console.log(item);
-
             });
             $('.searchResult').empty();
             for(let i=0; i<jsonBrand.length; i++){
@@ -110,7 +105,6 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
                 let lanType2 = $('#kor').hasClass('choose') ? jsonBrand[i].BC_NameKor : jsonBrand[i].BC_NameEng
 
                 for(let j=0; j<searchResult.length; j++){
-                    
                     if( jsonBrand[i].BS_NameKor === searchResult[j].name || jsonBrand[i].BS_NameEng === searchResult[j].name){
                         let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+"><div class='categoryImg_wrap'><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div></div>";
                             html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
@@ -122,10 +116,9 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
             }
         });
 
-
-        //검색창 초기화
-        function searchCancel(){
-            searchBrandList();
-            $('.searchCancel').css('display','none')
-            $('#searchBrandName').val('')
-        }
+    //검색창 초기화
+    function searchCancel(){
+        searchBrandList();
+        $('.searchCancel').css('display','none')
+        $('#searchBrandName').val('')
+    }

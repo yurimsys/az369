@@ -377,25 +377,25 @@
                 if((storeArea >= 2001 && storeArea <= 2010) ||(storeArea >= 2064 && storeArea <= 2067) || (storeArea == 2060 || storeArea == 2101)){
                     $('.centralSvg2F').css('left','424px');
                     $('.centralSvg2F').css('top','250px');
-                    storeMapSize(1,15,2.125);
+                    storeMapSize(2,15,2.125);
                 }
                 //2사 분면
                 else if((storeArea >= 2011 && storeArea <= 2027) ||(storeArea >= 2068 && storeArea <= 2077) || storeArea == 2061){
                     $('.centralSvg2F').css('left','-319px');
                     $('.centralSvg2F').css('top','273px');
-                    storeMapSize(1,15,2.125);
+                    storeMapSize(2,15,2.125);
                 }
                 //3사 분면
                 else if((storeArea >= 2028 && storeArea <= 2044) ||(storeArea >= 2078 && storeArea <= 2090) ||(storeArea == 2062)){
                     $('.centralSvg2F').css('left','-378px');
                     $('.centralSvg2F').css('top','-435px');
-                    storeMapSize(1,15,2.125);
+                    storeMapSize(2,15,2.125);
                 }
                 //4사 분면
                 else if((storeArea >= 2045 && storeArea <= 2059) ||(storeArea >= 2091 && storeArea <= 2100) || storeArea == 2063){
                     $('.centralSvg2F').css('left','445px');
                     $('.centralSvg2F').css('top','-297px');
-                    storeMapSize(1,15,2.125);
+                    storeMapSize(2,15,2.125);
                 }
             }
         //3층
@@ -421,25 +421,25 @@
                 if((storeArea >= 3001 && storeArea <= 3010) ||(storeArea >= 3060 && storeArea <= 3061) ||(storeArea >= 3068 && storeArea <= 3071) || (storeArea == 3106)){
                     $('.centralSvg3F').css('left','424px');
                     $('.centralSvg3F').css('top','250px');
-                    storeMapSize(1,15,2.125);
+                    storeMapSize(3,15,2.125);
                 }
                 //2사 분면
                 else if((storeArea >= 3011 && storeArea <= 3027) ||(storeArea >= 3062 && storeArea <= 3063) ||(storeArea >= 3072 && storeArea <= 3081)){
                     $('.centralSvg3F').css('left','-319px');
                     $('.centralSvg3F').css('top','273px');
-                    storeMapSize(1,15,2.125);
+                    storeMapSize(3,15,2.125);
                 }
                 //3사 분면
                 else if((storeArea >= 3028 && storeArea <= 3044) ||(storeArea >= 3064 && storeArea <= 3065) ||(storeArea >= 3082 && storeArea <= 3095)){
                     $('.centralSvg3F').css('left','-378px');
                     $('.centralSvg3F').css('top','-435px');
-                    storeMapSize(1,15,2.125);
+                    storeMapSize(3,15,2.125);
                 }
                 //4사 분면
                 else if((storeArea >= 3045 && storeArea <= 3059) ||(storeArea >= 3066 && storeArea <= 3067) ||(storeArea >= 3096 && storeArea <= 3105)){
                     $('.centralSvg3F').css('left','445px');
                     $('.centralSvg3F').css('top','-297px');
-                    storeMapSize(1,15,2.125);
+                    storeMapSize(3,15,2.125);
                 }
             })
         }

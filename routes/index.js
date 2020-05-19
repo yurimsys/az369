@@ -154,10 +154,10 @@ router.post('/api/addBusiness', upload.any(), async function (req, res, next) {
                                 BS_Phone, BS_CEOPhone, BS_Addr1Kor, BS_Addr2Kor, BS_Addr1Eng, BS_Addr2Eng, BS_MainDtS, BS_MainDtF,
                                 BS_SubDtS, BS_SubDtF, BS_BreakDtS, BS_BreakDtF,BS_PersonalDayKor, BS_PersonalDayEng, BS_ThumbnailUrl,
                                 BS_ImageUrl)
-                           values(@BS_BC_ID, @BS_LoginID, @BS_LoginPW, @BS_CEO, @BS_NameKor, @BS_NameEng, @BS_ContentsKor,
-                   @BS_ContentsEng, @BS_Phone, @BS_CEOPhone, @BS_Addr1Kor, @BS_Addr2Kor, @BS_Addr1Eng, @BS_Addr2Eng, @BS_MainDtS, 
-                   @BS_MainDtF, @BS_SubDtS, @BS_SubDtF, @BS_BreakDtS, @BS_BreakDtF, @BS_PersonalDayKor, @BS_PersonalDayEng,
-                   @BS_ThumbnailUrl, @BS_ImageUrl)`);
+                        values(@BS_BC_ID, @BS_LoginID, @BS_LoginPW, @BS_CEO, @BS_NameKor, @BS_NameEng, @BS_ContentsKor,
+                                @BS_ContentsEng, @BS_Phone, @BS_CEOPhone, @BS_Addr1Kor, @BS_Addr2Kor, @BS_Addr1Eng, @BS_Addr2Eng, @BS_MainDtS, 
+                                @BS_MainDtF, @BS_SubDtS, @BS_SubDtF, @BS_BreakDtS, @BS_BreakDtF, @BS_PersonalDayKor, @BS_PersonalDayEng,
+                                @BS_ThumbnailUrl, @BS_ImageUrl)`);
 
         console.log('여기');
         //제일 최근에 입력된 BS_ID를 구함
@@ -230,20 +230,8 @@ router.put('/api/modifyBusiness/:bsid', upload.any(), async function (req, res, 
             tBS.BS_BreakDtF = req.body.bsBreakF
             tBS.BS_PersonalDayKor = req.body.bsPersonalKo
             tBS.BS_PersonalDayEng = req.body.bsPersonalEn
-            tBS.BS_ThumbnailUrl = req.body.bsTumb
-            tBS.BS_ImageUrl = req.body.bsMain
-        // let bodyArr = req.body
-        // let bsObj = Object.keys(tBS)
-        // let bodyObj = Object.keys(req.body)
-        // //for(let i=0; i<bsObj.length; i++){
-        //     for(let j=0; j<bodyObj.length; j++){
-        //         if(bodyObj[Object.keys(bodyObj)[j]] != undefined){
-        //             query += bsObj[j]+'=' +' @'+bodyObj[Object.keys(bodyObj)[j]]+','
-        //             if(j == bodyObj.length-1){
-        //                 query = query.substring(0, query.length-1)
-        //             }
-        //         }
-        //     }
+            tBS.BS_ThumbnailUrl = BS_ThumbnailUrl
+            tBS.BS_ImageUrl = BS_ImageUrl
         
         if(req.body.bsMainDtS == undefined){
             req.body.bsMainDtS = '00:00:00'
@@ -271,30 +259,28 @@ router.put('/api/modifyBusiness/:bsid', upload.any(), async function (req, res, 
         bsBreakS = '2020-05-18 ' + req.body.bsBreakS
         bsBreakF = '2020-05-18 ' + req.body.bsBreakF
 
-        
-
         let bsObj = Object.keys(tBS)
         let bodyObj = Object.keys(req.body)
-            let j=0;
-            for(let i=0; i<bsObj.length; i++){
-                if(tBS[Object.keys(tBS)[i]] !== undefined){
-                    if(req.body[Object.keys(req.body)[j]] == tBS[Object.keys(tBS)[i]]){
-                        query += bsObj[i]+'=' +' @'+bodyObj[j]+','
-                        j++
-                    }
-                }
-            //마지막 , 제거
-                if(i === bsObj.length -1){
-                    query = query.substring(0, query.length-1)
+        let j=0;
+        for(let i=0; i<bsObj.length; i++){
+            if(tBS[Object.keys(tBS)[i]] !== undefined){
+                if(req.body[Object.keys(req.body)[j]] == tBS[Object.keys(tBS)[i]]){
+                    query += bsObj[i]+'=' +' @'+bodyObj[j]+','
+                    j++
                 }
             }
+        //마지막 , 제거
+            if(i === bsObj.length -1){
+                query = query.substring(0, query.length-1)
+            }
+        }
         
         query += ' where BS_ID ='+req.params.bsid
         console.log(query);
 
 
         // 매장입력 BS_BC_ID == lv1Cat
-        let result = await pool.request()
+        await pool.request()
             .input('catLv1', mssql.Int, req.body.catLv1)
             .input('bsId', mssql.NVarChar, req.body.bsId)
             .input('bsPw', mssql.NVarChar, req.body.bsPw)
@@ -317,28 +303,32 @@ router.put('/api/modifyBusiness/:bsid', upload.any(), async function (req, res, 
             .input('bsBreakF', mssql.DateTime, bsBreakF)
             .input('bsPersonalKo', mssql.VarChar, req.body.bsPersonalKo)
             .input('bsPersonalEn', mssql.VarChar, req.body.bsPersonalEn)
-            .input('bsTumb', mssql.VarChar, req.body.bsTumb)
-            .input('bsMain', mssql.VarChar, req.body.bsMain)
+            .input('bsTumb', mssql.VarChar, BS_ThumbnailUrl)
+            .input('bsMain', mssql.VarChar, BS_ImageUrl)
             .query(query);
 
 
-        // //카테고리 업종 입력 BCR_ID 구하기
-        // let result2 = await pool.request()
-        //     .input('BCRLV1', mssql.Int, req.body.catLv1)
-        //     .input('BCRLV2', mssql.Int, req.body.catLv2)
-        //     .query('select BCR_ID from tBCR where BCR_LV1_BC_ID = @BCRLV1 AND BCR_LV2_BC_ID = @BCRLV2')
-        
-        // // 업종 수정
-        // let result3 = await pool.request()
-        //     .input('BS_ID', mssql.Int, req.params.bsid)
-        //     .input('BCR_ID', mssql.Int, result2.recordset[0].BCR_ID)
-        //     .query('update tBSxBCR set BCR_ID = @BCR_ID where BS_ID = @BS_ID')
+        if(req.body.catLv1 !== undefined && req.body.catLv2 !== undefined){
+            //카테고리 업종 입력 BCR_ID 구하기
+            let result2 = await pool.request()
+                .input('BCRLV1', mssql.Int, req.body.catLv1)
+                .input('BCRLV2', mssql.Int, req.body.catLv2)
+                .query('select BCR_ID from tBCR where BCR_LV1_BC_ID = @BCRLV1 AND BCR_LV2_BC_ID = @BCRLV2')
+            
+            // 업종 수정
+            await pool.request()
+                .input('BS_ID', mssql.Int, req.params.bsid)
+                .input('BCR_ID', mssql.Int, result2.recordset[0].BCR_ID)
+                .query('update tBSxBCR set BCR_ID = @BCR_ID where BS_ID = @BS_ID')
+        }
 
-        // // 층수 수정
-        // let result4 = await pool.request()
-        //     .input('BS_ID', mssql.Int, result1.recordset[0].BS_ID)
-        //     .input('LS_Number', mssql.Int, req.body.storeNumber)
-        //     .query('update tBSxtLS set LS_Number = @LS_Number where BS_ID = @BS_ID')
+        if(req.body.storeNumber !== undefined){
+            // 층수 수정
+            await pool.request()
+                .input('BS_ID', mssql.Int, req.params.bsid)
+                .input('LS_Number', mssql.Int, req.body.storeNumber)
+                .query('update tBSxtLS set LS_Number = @LS_Number where BS_ID = @BS_ID')
+        }
 
     } catch (err) {
         console.log(err);
