@@ -169,4 +169,5 @@ function searchCancel() {
     searchBrandList();
     $('.searchCancel').css('display', 'none')
     $('#searchBrandName').val('')
+    Keyboard._cheonjiinInit();
 }
