@@ -206,7 +206,6 @@ router.put('/api/modifyBusiness/:bsid', upload.any(), async function (req, res, 
                 element.fieldname == 'tumb' ? BS_ThumbnailUrl = element.originalname : BS_ImageUrl = element.originalname
             })
         }
-
         let query = 'update tBS set ';
         let tBS = new Object();
             tBS.BS_BC_ID = req.body.catLv1
@@ -223,10 +222,10 @@ router.put('/api/modifyBusiness/:bsid', upload.any(), async function (req, res, 
             tBS.BS_Addr1Eng = req.body.bsAddr1En
             tBS.BS_Addr2Kor = req.body.bsAddr2Ko
             tBS.BS_Addr2Eng = req.body.bsAddr2En
-            tBS.BS_MainDtS = req.body.mainDtS
-            tBS.BS_MainDtF = req.body.mainDtF
-            tBS.BS_SubDtS = req.body.bsSubS
-            tBS.BS_SubDtF = req.body.bsSubF
+            tBS.BS_MainDtS = req.body.bsMainDtS
+            tBS.BS_MainDtF = req.body.bsMainDtF
+            tBS.BS_SubDtS = req.body.bsSubDtS
+            tBS.BS_SubDtF = req.body.bsSubDtF
             tBS.BS_BreakDtS = req.body.bsBreakS
             tBS.BS_BreakDtF = req.body.bsBreakF
             tBS.BS_PersonalDayKor = req.body.bsPersonalKo
@@ -246,17 +245,17 @@ router.put('/api/modifyBusiness/:bsid', upload.any(), async function (req, res, 
         //         }
         //     }
         
-        if(req.body.mainDtS == undefined){
-            req.body.mainDtS = '00:00:00'
+        if(req.body.bsMainDtS == undefined){
+            req.body.bsMainDtS = '00:00:00'
         }
-        if(req.body.mainDtF == undefined){
-            req.body.mainDtF = '00:00:00'
+        if(req.body.bsMainDtF == undefined){
+            req.body.bsMainDtF = '00:00:00'
         }
-        if(req.body.bsSubS == undefined){
-            req.body.bsSubS = '00:00:00'
+        if(req.body.bsSubDtS == undefined){
+            req.body.bsSubDtS = '00:00:00'
         }
-        if(req.body.bsSubF == undefined){
-            req.body.bsSubF = '00:00:00'
+        if(req.body.bsSubDtF == undefined){
+            req.body.bsSubDtF = '00:00:00'
         }
         if(req.body.bsBreakS == undefined){
             req.body.bsBreakS = '00:00:00'
@@ -265,12 +264,12 @@ router.put('/api/modifyBusiness/:bsid', upload.any(), async function (req, res, 
             req.body.bsBreakF = '00:00:00'
         }
 
-        mainDtS = '2020-05-18 ' + req.body.mainDtS;
-        mainDtF = '2020-05-18 ' + req.body.mainDtF;
-        bsSubS = '2020-05-18 ' + req.body.bsSubS
-        bsSubF = '2020-05-18 ' + req.body.bsSubF
-        breakS = '2020-05-18 ' + req.body.bsBreakS
-        breakF = '2020-05-18 ' + req.body.bsBreakF
+        bsMainDtS = '2020-05-18 ' + req.body.bsMainDtS;
+        bsMainDtF = '2020-05-18 ' + req.body.bsMainDtF;
+        bsSubDtS = '2020-05-18 ' + req.body.bsSubDtS
+        bsSubDtF = '2020-05-18 ' + req.body.bsSubDtF
+        bsBreakS = '2020-05-18 ' + req.body.bsBreakS
+        bsBreakF = '2020-05-18 ' + req.body.bsBreakF
 
         
 
@@ -279,14 +278,15 @@ router.put('/api/modifyBusiness/:bsid', upload.any(), async function (req, res, 
             let j=0;
             for(let i=0; i<bsObj.length; i++){
                 if(tBS[Object.keys(tBS)[i]] !== undefined){
-                    query += bsObj[i]+'=' +' @'+bodyObj[j]+','
-                    j++
+                    if(req.body[Object.keys(req.body)[j]] == tBS[Object.keys(tBS)[i]]){
+                        query += bsObj[i]+'=' +' @'+bodyObj[j]+','
+                        j++
+                    }
                 }
             //마지막 , 제거
                 if(i === bsObj.length -1){
                     query = query.substring(0, query.length-1)
                 }
-
             }
         
         query += ' where BS_ID ='+req.params.bsid
@@ -295,31 +295,30 @@ router.put('/api/modifyBusiness/:bsid', upload.any(), async function (req, res, 
 
         // 매장입력 BS_BC_ID == lv1Cat
         let result = await pool.request()
-            .input('BS_ID', mssql.Int, req.params.bsid)
-            .input('BS_BC_ID', mssql.Int, req.body.BS_BC_ID)
-            .input('BS_LoginID', mssql.NVarChar, req.body.BS_LoginID)
-            .input('BS_LoginPW', mssql.NVarChar, req.body.BS_LoginPW)
-            .input('BS_CEO', mssql.NVarChar, req.body.BS_CEO)
-            .input('BS_NameKor', mssql.NVarChar, req.body.BS_NameKor)
-            .input('BS_NameEng', mssql.NVarChar, req.body.BS_NameEng)
-            .input('BS_ContentsKor', mssql.NVarChar, req.body.BS_ContentsKor)
-            .input('BS_ContentsEng', mssql.NVarChar, req.body.BS_ContentsEng)
-            .input('BS_Phone', mssql.NVarChar, req.body.BS_Phone)
-            .input('BS_CEOPhone', mssql.NVarChar, req.body.BS_CEOPhone)
-            .input('BS_Addr1Kor', mssql.NVarChar, req.body.BS_Addr1)
-            .input('BS_Addr1Eng', mssql.NVarChar, req.body.BS_Addr2)
-            .input('BS_Addr2Kor', mssql.NVarChar, req.body.BS_MainDtS)
-            .input('BS_Addr2Eng', mssql.NVarChar, req.body.BS_MainDtF)
-            .input('BS_MainDtS', mssql.DateTime, BS_SubDtS)
-            .input('BS_MainDtF', mssql.DateTime, BS_SubDtF)
-            .input('BS_SubDtS', mssql.DateTime, BS_BreakDtS)
-            .input('BS_SubDtF', mssql.DateTime, BS_BreakDtF)
-            .input('BS_BreakDtS', mssql.DateTime, breakS)
-            .input('BS_BreakDtF', mssql.DateTime, breakF)
-            .input('BS_PersonalDayKor', mssql.VarChar, req.body.bsPersonalKo)
-            .input('BS_PersonalDayEng', mssql.VarChar, req.body.bsPersonalEn)
-            .input('BS_ThumbnailUrl', mssql.VarChar, BS_ThumbnailUrl)
-            .input('BS_ImageUrl', mssql.VarChar, BS_ImageUrl)
+            .input('catLv1', mssql.Int, req.body.catLv1)
+            .input('bsId', mssql.NVarChar, req.body.bsId)
+            .input('bsPw', mssql.NVarChar, req.body.bsPw)
+            .input('bsCeo', mssql.NVarChar, req.body.bsCeo)
+            .input('bsNameKo', mssql.NVarChar, req.body.bsNameKo)
+            .input('bsNameEn', mssql.NVarChar, req.body.bsNameEn)
+            .input('bsContKo', mssql.NVarChar, req.body.bsContKo)
+            .input('bsContEn', mssql.NVarChar, req.body.bsContEn)
+            .input('bsTel', mssql.NVarChar, req.body.bsTel)
+            .input('bsCeoTel', mssql.NVarChar, req.body.bsCeoTel)
+            .input('bsAddr1Ko', mssql.NVarChar, req.body.bsAddr1Ko)
+            .input('bsAddr1En', mssql.NVarChar, req.body.bsAddr1En)
+            .input('bsAddr2Ko', mssql.NVarChar, req.body.bsAddr2Ko)
+            .input('bsAddr2En', mssql.NVarChar, req.body.bsAddr2En)
+            .input('bsMainDtS', mssql.DateTime, bsMainDtS)
+            .input('bsMainDtF', mssql.DateTime, bsMainDtF)
+            .input('bsSubDtS', mssql.DateTime, bsSubDtS)
+            .input('bsSubDtF', mssql.DateTime, bsSubDtF)
+            .input('bsBreakS', mssql.DateTime, bsBreakS)
+            .input('bsBreakF', mssql.DateTime, bsBreakF)
+            .input('bsPersonalKo', mssql.VarChar, req.body.bsPersonalKo)
+            .input('bsPersonalEn', mssql.VarChar, req.body.bsPersonalEn)
+            .input('bsTumb', mssql.VarChar, req.body.bsTumb)
+            .input('bsMain', mssql.VarChar, req.body.bsMain)
             .query(query);
 
 
