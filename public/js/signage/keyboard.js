@@ -376,6 +376,7 @@ const Keyboard = {
     _cheonjiinInit(){
         this.properties.cIndex = 0;
         this.properties.beforeChar = '';
+        this.properties.bufferValue = '';
         this.properties.value = '';
     },
 
