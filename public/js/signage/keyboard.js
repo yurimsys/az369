@@ -16,13 +16,16 @@ const Keyboard = {
     elements: {
         main: null,
         keysContainer: {},
-        keys: {}
+        keys: {},
+        close: null
     },
     eventHandlers: {
         oninput: null,
-        onclose: null
+        onclose: null,
+        onsearch: null
     },
     config : {
+        BlankLineWord : "---",
         lineBreakWord : "\n",
         mode : "cheonjiin",
         layout : {
@@ -50,7 +53,8 @@ const Keyboard = {
                     "ㅣ", "·", "ㅡ", "backspace", "\n",
                     "ㄱㅋ", "ㄴㄹ", "ㄷㅌ", "search", "\n",
                     "ㅂㅍ", "ㅅㅎ", "ㅈㅊ", "A","\n",
-                    "","ㅇㅁ", ".,?!", "space", "\n",
+                    "","ㅇㅁ", ".,?!", "space",
+                    "---",
                     "1", "2", "3", "", "\n",
                     "4", "5", "6", "-/", "\n",
                     "7", "8", "9", ".,?!", "\n",
@@ -110,9 +114,19 @@ const Keyboard = {
             this.elements.keysContainer[ type ].classList.add("keyboard__keys");
         });
 
+        // Setup 닫기 Element
+        this.elements.close = document.createElement('div');
+        this.elements.close.style.display = "flex";
+        this.elements.close.innerHTML = `<div class="keyboard__key keyboard__close keyboard__key--wide keyboard__key--dark">닫 기</div>`;
+        this.elements.close.addEventListener("click", () => {
+            this.close();
+        })
+
         // Setup main elements
         this.elements.main.classList.add("keyboard", "keyboard--hidden");
         this.elements.main.appendChild( this._createKeys() );
+        this.elements.main.appendChild( $("<div class='keyboard__blank_line'>")[0] );
+        this.elements.main.appendChild( this.elements.close );
 
         // Setup keys elements
         this.properties.languageType.forEach( type => {
@@ -120,16 +134,33 @@ const Keyboard = {
         });
         
         // Init Visiable Keyboard Type
-        this.elements.keysContainer[ this.properties.currentLanguage ].classList.add( 'active' )
+        this.elements.keysContainer[ this.properties.currentLanguage ].classList.add( 'active' );
         
         // Add to DOM
         document.body.appendChild(this.elements.main);
 
         document.querySelectorAll(".use-virtual-keyboard").forEach(element => {
+            // Focus Event 
             element.addEventListener("focus", () => {
-                this.open(element.value, currentValue => {
-                    element.value = currentValue;
-                });
+                this.open(element.value, 
+                    currentValue => {
+                        element.value = currentValue;
+                    }
+                );
+                
+                // Layout Position setup
+                let searchLeftPosition = document.querySelector(".searchLeft").getBoundingClientRect();
+                let keyboardElement = document.querySelector(".keyboard");
+                keyboardElement.style.top = searchLeftPosition.top+"px";
+                keyboardElement.style.left = searchLeftPosition.left+"px";
+                keyboardElement.style.height = searchLeftPosition.height+"px";
+            });
+
+            // Input Event 
+            element.addEventListener("input", (e) => {
+                console.log('input event', e.target.value);
+                this.bufferValue = e.target.value;
+                this.value = e.target.value;
             });
         });
     },
@@ -150,6 +181,7 @@ const Keyboard = {
 
                 // 줄넘김을 추가할 마지막 key
                 const insertLineBreak = this.config.lineBreakWord === key;
+                const insertBlankLine = this.config.BlankLineWord === key;
 
                 // Add attributes/classes
                 keyElement.setAttribute("type", "button");
@@ -220,8 +252,8 @@ const Keyboard = {
                             /**
                              * TODO : search 메소드 추가. 
                              * */
+                            this._triggerEvent("onserch");
                             this.close();
-                            this._triggerEvent("onclose");
                         });
 
                         break;
@@ -325,10 +357,14 @@ const Keyboard = {
                         break;
                 }
 
-                if (insertLineBreak) {
-                    keyFragment.appendChild(document.createElement("br"));
+                if ( insertLineBreak ) {
+                    keyFragment.appendChild( document.createElement("br") );
+                } else if( insertBlankLine ) {
+                    let blankLine = document.createElement("div");
+                    blankLine.classList.add('keyboard__blank_line');
+                    keyFragment.appendChild( blankLine );
                 } else {
-                    keyFragment.appendChild(keyElement);
+                    keyFragment.appendChild( keyElement );
                 }
             });
 
@@ -439,10 +475,12 @@ const Keyboard = {
     },
 
     close() {
+        this.properties.beforeChar = "";
         this.properties.bufferValue = "";
         this.properties.value = "";
         this.elements.main.classList.add("keyboard--hidden");
-    }
+    },
+
 };
 
 window.addEventListener("DOMContentLoaded", function () {

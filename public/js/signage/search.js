@@ -27,7 +27,7 @@ let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'))
 
         
     //검색창 값 입력시 초기화 버튼 생성
-        document.getElementById('searchBrandName').addEventListener('keyup', function (){
+        document.getElementById('searchBrandName').addEventListener('input', function (){
             if($(this).val() !== ''){
                 $('.searchCancel').css('display','block')
             }else{

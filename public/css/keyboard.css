@@ -25,10 +25,12 @@
 .keyboard {
     position: absolute;
     left: 0;
-    bottom: 0;
-    width: 300px;
+    top: 0;
+    z-index: 10000;
+    width: 305px;
     height: 700px;
     padding: 5px 0;
+    padding-top: 23px;
     background: #4c233f;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
     user-select: none;
@@ -36,7 +38,15 @@
 }
 
 .keyboard--hidden {
-    bottom: -100%;
+    /* bottom: -100%; */
+    opacity: 0;
+}
+
+.keyboard__blank_line{
+    height: 60px;
+    padding: 5px 0;
+    margin: 3px;
+    background: #4c233f;
 }
 
 .keyboard__keys {
@@ -96,6 +106,13 @@
 
 .keyboard__key--dark {
     background: rgba(0, 0, 0, 0.25);
+}
+
+.keyboard__close {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    margin: auto;
 }
 
 .active {
