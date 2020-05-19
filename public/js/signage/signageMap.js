@@ -244,11 +244,7 @@
             //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
                 if(storeList[i].LS_Number == svg2FStoreName){
-                    if($('#kor').hasClass('choose')){
-                        $(this).children('tspan').text(storeList[i].BS_NameKor);
-                    }else{
-                        $(this).children('tspan').text(storeList[i].BS_NameEng);
-                    }
+                    $('#kor').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng);
                 }
             }
         })
@@ -267,12 +263,7 @@
             //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
                 if(storeList[i].LS_Number == svg2FStoreName){
-                    if($('#kor').hasClass('choose')){
-                        $(this).children('tspan').text(storeList[i].BS_NameKor);
-                    }else{
-                        $(this).children('tspan').text(storeList[i].BS_NameEng);
-                    }
-                    
+                    $('#kor').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng); 
                 }
             }
         })
@@ -291,11 +282,7 @@
             //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
                 if(storeList[i].LS_Number == svg3FStoreName){
-                    if($('#kor').hasClass('choose')){
-                        $(this).children('tspan').text(storeList[i].BS_NameKor);
-                    }else{
-                        $(this).children('tspan').text(storeList[i].BS_NameEng);
-                    }
+                    $('#kor').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng);
                 }
             }
         })

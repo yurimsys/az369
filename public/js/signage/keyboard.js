@@ -100,8 +100,7 @@ const Keyboard = {
     },
     init() {
         // Init properties 
-        // this.properties = JSON.parse(JSON.stringify(this.default));
-        this.properties = Object.assign(this.default, this.properties);
+        this.properties = Object.assign(this.properties, this.default);
         this.properties.languageType = Object.keys( this.config.layout[this.config.mode] );
         
         // Create main elements
