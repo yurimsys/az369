@@ -1,8 +1,12 @@
 
 //*** 메인 우측 하단 날씨, 시간,언어 선택 스크립트 ***
+//현위치
     function nowLocation(){
         let nowLocation = urlParam();
-        $('#'+nowLocation.device_cd+ ' rect').css('fill','red')
+        // $('#'+nowLocation.device_cd+ ' rect').css('fill','red')
+        console.log('주소', nowLocation.device_cd);
+        $('.'+nowLocation.device_cd).css('display','block')
+        
     }
     nowLocation();
     //메인 돌아가기

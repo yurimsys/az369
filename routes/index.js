@@ -359,11 +359,156 @@ router.get('/api/business/:bsid', async function(req,res){
     }
 })
 
-//특정 매장 수정
-router.put('/api/business/modify/:bsid', function(req,res){
-    let bsid = req.params.bsid;
+//광고 등록
+router.post('/api/addAd', upload.any(), async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+        // 광고입력
+        console.log('보내기');
+        let result = await pool.request()
+            .input('adBsId', mssql.Int, req.body.adBsId)
+            .input('adAdyId', mssql.Int, req.body.adAdyId)
+            .input('adBcId', mssql.Int, req.body.adBcId)
+            .input('adPay', mssql.NVarChar, req.body.adPay)
+            .input('adTitle', mssql.NVarChar, req.body.adTitle)
+            .input('AdDtS', mssql.DateTime, req.body.AdDtS)
+            .input('AdDtF', mssql.DateTime, req.body.AdDtF)
+            .input('AdUrl', mssql.NVarChar, req.body.AdUrl) //req.files.xxxx
+            .input('AdConTy', mssql.NVarChar, req.body.AdConTy)
+            .query(`insert into tAD(AD_BS_ID, AD_ADY_ID, AD_BC_ID, AD_PaymentStatus, AD_Title, AD_DtS,
+                                    AD_DtF, AD_ContentURL, AD_ContentTy)
+                        values(@adBsId, @adAdyId, @adBcId, @adPay, @adTitle, @AdDtS, @AdDtF, @AdUrl, @AdConTy)`);
+        console.log('성공');
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+});
 
-})
+//광고 수정
+router.put('/api/modifyAd/:adId', upload.any(), async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let tAD = new Object();
+            tAD.AD_BS_ID = req.body.adBsId
+            tAD.AD_ADY_ID = req.body.adAdyId
+            tAD.AD_BC_ID = req.body.adBcId
+            tAD.AD_PaymentStatus = req.body.adPay
+            tAD.AD_Title = req.body.adTitle
+            tAD.AD_DtS = req.body.AdDtS
+            tAD.AD_DtF = req.body.AdDtF
+            tAD.AD_ContentURL = req.body.AdUrl
+            tAD.AD_ContentTy = req.body.AdConTy
+
+        let ADObj = Object.keys(tAD)
+        let bodyObj = Object.keys(req.body)
+        let query = 'update tAD set '
+        let j=0;
+        for(let i=0; i<ADObj.length; i++){
+            if(tAD[Object.keys(tAD)[i]] !== undefined){
+                if(req.body[Object.keys(req.body)[j]] == tAD[Object.keys(tAD)[i]]){
+                    query += ADObj[i]+'=' +' @'+bodyObj[j]+','
+                    j++
+                }
+            }
+        //마지막 , 제거
+            if(i === ADObj.length -1){
+                query = query.substring(0, query.length-1)
+                query += ' where AD_ID ='+req.params.adId
+            }
+        }
+        // 광고입력
+        console.log('보내기');
+        let result = await pool.request()
+            .input('adBsId', mssql.Int, req.body.adBsId)
+            .input('adAdyId', mssql.Int, req.body.adAdyId)
+            .input('adBcId', mssql.Int, req.body.adBcId)
+            .input('adPay', mssql.NVarChar, req.body.adPay)
+            .input('adTitle', mssql.NVarChar, req.body.adTitle)
+            .input('AdDtS', mssql.DateTime, req.body.AdDtS)
+            .input('AdDtF', mssql.DateTime, req.body.AdDtF)
+            .input('AdUrl', mssql.NVarChar, req.body.AdUrl) //req.files.xxxx
+            .input('AdConTy', mssql.NVarChar, req.body.AdConTy)
+            .query(query);
+        console.log('성공');
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+});
+
+//광고종류 등록
+router.post('/api/addAdy', async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+        // 광고입력
+        console.log('보내기');
+        // let result = await pool.request()
+        //     .input('adyCd', mssql.NVarChar, req.body.adyCd)
+        //     .input('adyLoc', mssql.NVarChar, req.body.adyLoc)
+        //     .input('adySlide', mssql.Int, req.body.adySlide)
+        //     .input('adyLimit', mssql.Int, req.body.adyLimit)
+        //     .input('adyAmount', mssql.Int, req.body.adyAmount)
+        //     .input('adyWidth', mssql.Int, req.body.adyWidth)
+        //     .input('adyHeight', mssql.Int, req.body.adyHeight)
+        //     .query(`insert into tADY(ADY_CD, ADY_Location, ADY_SlideDuration, ADY_Limit, ADY_Amount, ADY_Width,ADY_Height)
+        //                    values(@adyCd, @adyLoc, @adySlide, @adyLimit, @adyAmount, @adyWidth, @adyHeight)`);
+        console.log('성공');
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+});
+
+//광고종류 수정
+router.put('/api/modifyAdy/:adyId',  async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let tADY = new Object();
+            tADY.ADY_CD=  req.body.adyCd
+            tADY.ADY_Location = req.body.adyLoc
+            tADY.ADY_SlideDuration = req.body.adySlide
+            tADY.ADY_Limit = req.body.adyLimit
+            tADY.ADY_Amount = req.body.adyAmount
+            tADY.ADY_Width =  req.body.adyWidth
+            tADY.ADY_Height = req.body.adyHeight
+
+        let adyObj = Object.keys(tADY)
+        let bodyObj = Object.keys(req.body)
+        let query = 'update tADY set '
+        let j=0;
+        for(let i=0; i<adyObj.length; i++){
+            if(tADY[Object.keys(tADY)[i]] !== undefined){
+                if(req.body[Object.keys(req.body)[j]] == tADY[Object.keys(tADY)[i]]){
+                    query += adyObj[i]+'=' +' @'+bodyObj[j]+','
+                    j++
+                }
+            }
+        //마지막 , 제거
+            if(i === adyObj.length -1){
+                query = query.substring(0, query.length-1)
+                query += ' where ADY_ID ='+req.params.adyId
+            }
+        }
+        // 광고입력
+        console.log('보내기');
+        // let result = await pool.request()
+        //     .input('adyCd', mssql.NVarChar, req.body.adyCd)
+        //     .input('adyLoc', mssql.NVarChar, req.body.adyLoc)
+        //     .input('adySlide', mssql.Int, req.body.adySlide)
+        //     .input('adyLimit', mssql.Int, req.body.adyLimit)
+        //     .input('adyAmount', mssql.Int, req.body.adyAmount)
+        //     .input('adyWidth', mssql.Int, req.body.adyWidth)
+        //     .input('adyHeight', mssql.Int, req.body.adyHeight)
+        //     .query(query);
+        console.log('성공');
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+});
 
 // // Survey 이전버전
 // router.get('/a', function(req, res){
