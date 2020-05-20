@@ -345,5 +345,5 @@ $(document).ready(() => {
 function signageInit() {
     AD.showMainAD();
     signageMain();
-    Keyboard.close();
+    searchModalInit();
 }
