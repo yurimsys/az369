@@ -81,9 +81,11 @@ const Keyboard = {
         capsLock: false,
         bufferValue: "",
         currentLanguage: "korean",
-        languageType : ""
+        languageType : "",
+        beforCharDurationSec : 2
     },
     properties: {
+        beforeCharResetTimeout : null,
         beforeChar : "",
         cheonjiinMapData : {
             "ㄱㅋ" : ['ㄱ', 'ㅋ', 'ㄲ'],
@@ -100,6 +102,7 @@ const Keyboard = {
         cIndex : 0
     },
     init() {
+        if( document.querySelector('.keyboard') != undefined ) return false;
         // Init properties 
         this.properties = Object.assign(this.properties, this.default);
         this.properties.languageType = Object.keys( this.config.layout[this.config.mode] );
@@ -118,7 +121,7 @@ const Keyboard = {
         this.elements.close = document.createElement('div');
         this.elements.close.style.display = "flex";
         this.elements.close.innerHTML = `<div class="keyboard__key keyboard__close keyboard__key--wide keyboard__key--dark">닫 기</div>`;
-        this.elements.close.addEventListener("click", () => {
+        this.elements.close.firstChild.addEventListener("click", () => {
             this.close();
         })
 
@@ -345,6 +348,9 @@ const Keyboard = {
                                 this.properties.bufferValue += keyElement.textContent;
                                 this.properties.value = Hangul.a(this.properties.bufferValue);
                             } else if(this.config.mode.toLowerCase() === "cheonjiin" ) {
+                                // timeout reset
+                                clearTimeout(this.properties.beforeCharResetTimeout);
+                                this.properties.beforeCharResetTimeout = setTimeout( this.beforeCharReset, this.properties.beforCharDurationSec * 1000);
                                 let keyChar = this._getCharCheonjiin( keyElement )
                                 this._cheonjiinInputEvent( keyChar.char, keyChar.mode );
                             }
@@ -380,6 +386,11 @@ const Keyboard = {
         this.properties.value = '';
     },
 
+    beforeCharReset(){
+        console.log('beforCharReset');
+        Keyboard.properties.beforeChar = '';
+    },
+
     _getCharCheonjiin( keyElement ) {
         let result = {
             char : "",
@@ -391,6 +402,7 @@ const Keyboard = {
 
             if( this.properties.cheonjiinMapData[ keyElement.textContent ].indexOf( this.properties.beforeChar ) === -1 ) {
                 // 다른 버튼을 누른 경우
+                clearTimeout(this.properties.beforeCharResetTimeout);
                 this.properties.cIndex = 0;
                 this.properties.beforeChar = charList[ this.properties.cIndex ];
                 result.mode = "add";

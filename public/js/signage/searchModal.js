@@ -1,15 +1,21 @@
+// 검색창 초기화
+function searchModalInit(){
+    $('#myModal').hide();
+    Keyboard.close();
+    $("#searchBrandName").val('')
+}
+
 //검색 모달
     function searchModal(){
         count = 0;
         let searchModal = $('#myModal')[0]
         let searchClose = $('.searchClose')[0];                                
-        searchClose.onclick = function() {
-            searchModal.style.display = "none";
-            Keyboard.close();
-        }
+        
+        searchClose.onclick = searchModalInit;
+
         window.onclick = function(event) {
             if (event.target == searchModal) {
-                searchModal.style.display = "none";
+                searchModalInit();
             }
         }
         searchModal.style.display = "block";

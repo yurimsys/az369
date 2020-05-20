@@ -331,17 +331,19 @@ AD.init();
 /**
  *  Data 체크 시간 고민해볼것.
  * */
-// setInterval(() => {
-//     AD.dataReload();
-// }, 7 * 1000);
 
-var usedTimeout = '';
 $(document).ready(() => {
+    let usedTimeout = null;
     $("body").click(()=>{
         AdSlide.ad_main_instance.removeClass('active');
         clearTimeout(usedTimeout);
-        usedTimeout=setTimeout( AD.showMainAD, AD.ad_init_min * 1000 * 1000 );
-
+        usedTimeout=setTimeout( signageInit, AD.ad_init_min * 5000 * 1000 );
     });
 
 });
+
+function signageInit() {
+    AD.showMainAD();
+    signageMain();
+    searchModalInit();
+}
