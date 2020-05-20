@@ -85,7 +85,10 @@ const Keyboard = {
         beforCharDurationSec : 1.5
     },
     properties: {
-        beforeCharResetTimeout : null,
+        beforeCharResetObj : {
+            callback : null,
+            onProgress : false
+        },
         beforeChar : "",
         cheonjiinMapData : {
             "ㄱㅋ" : ['ㄱ', 'ㅋ', 'ㄲ'],
@@ -237,10 +240,16 @@ const Keyboard = {
                         keyElement.innerHTML = createIconHTML("space_bar");
 
                         keyElement.addEventListener("click", () => {
-                            this.properties.beforeChar = "";
-                            this.properties.bufferValue += " ";
-                            this.properties.value += " ";
-                            this._triggerEvent("oninput");
+                            console.log(this.properties.beforeCharResetObj.onProgress);
+                            console.log('this.config.mode === "cheonjiin" : ',this.config.mode === "cheonjiin");
+                            if( this.properties.beforeCharResetObj.onProgress && this.config.mode === "cheonjiin" ){
+                                this._beforeCharReset();
+                            } else {
+                                this.properties.beforeChar = "";
+                                this.properties.bufferValue += " ";
+                                this.properties.value += " ";
+                                this._triggerEvent("oninput");
+                            }
                         });
 
                         break;
@@ -302,7 +311,7 @@ const Keyboard = {
                     case "·": 
                         keyElement.textContent = key.toString();
                         keyElement.addEventListener("click", () => {
-                            clearTimeout(this.properties.beforeCharResetTimeout);
+                            this._beforeCharResetClear();
                             if(this.properties.beforeChar === '·')          this._cheonjiinInputEvent('··');
                             else if (this.properties.beforeChar === '··')   this._cheonjiinInputEvent('·');
                             else if (this.properties.beforeChar === 'ㅣ')   this._cheonjiinInputEvent('ㅏ');
@@ -350,9 +359,11 @@ const Keyboard = {
                                 this.properties.value = Hangul.a(this.properties.bufferValue);
                             } else if(this.config.mode.toLowerCase() === "cheonjiin" ) {
                                 // timeout reset
-                                clearTimeout(this.properties.beforeCharResetTimeout);
-                                this.properties.beforeCharResetTimeout = setTimeout( this.beforeCharReset, this.properties.beforCharDurationSec * 1000);
-                                let keyChar = this._getCharCheonjiin( keyElement )
+                                // clearTimeout(this.properties.beforeCharResetTimeout);
+                                // this.properties.beforeCharResetTimeout = setTimeout( this._beforeCharReset, this.properties.beforCharDurationSec * 1000);
+                                this._beforeCharResetClear();
+                                this._beforeCharResetTimeout();
+                                let keyChar = this._getCharCheonjiin( keyElement );
                                 this._cheonjiinInputEvent( keyChar.char, keyChar.mode );
                             }
                             
@@ -387,7 +398,17 @@ const Keyboard = {
         this.properties.value = '';
     },
 
-    beforeCharReset(){
+    _beforeCharResetTimeout(){
+        this.properties.beforeCharResetObj.onProgress = true;
+        this.properties.beforeCharResetObj.callback = setTimeout( this._beforeCharReset, this.properties.beforCharDurationSec * 1000);
+    },
+
+    _beforeCharResetClear(){
+        this.properties.beforeCharResetObj.onProgress = false;
+        clearTimeout( this.properties.beforeCharResetObj.callback );
+    },
+
+    _beforeCharReset(){
         Keyboard.properties.beforeChar = '';
     },
 
