@@ -388,7 +388,6 @@ const Keyboard = {
     },
 
     beforeCharReset(){
-        console.log('beforCharReset');
         Keyboard.properties.beforeChar = '';
     },
 
@@ -403,7 +402,6 @@ const Keyboard = {
 
             if( this.properties.cheonjiinMapData[ keyElement.textContent ].indexOf( this.properties.beforeChar ) === -1 ) {
                 // 다른 버튼을 누른 경우
-                // clearTimeout(this.properties.beforeCharResetTimeout);
                 this.properties.cIndex = 0;
                 this.properties.beforeChar = charList[ this.properties.cIndex ];
                 result.mode = "add";
