@@ -439,21 +439,21 @@ router.put('/api/modifyAd/:adId', upload.any(), async function (req, res, next) 
 });
 
 //광고종류 등록
-router.post('/api/addAdy', async function (req, res, next) {
+router.post('/api/addAdy',  async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
         // 광고입력
         console.log('보내기');
-        // let result = await pool.request()
-        //     .input('adyCd', mssql.NVarChar, req.body.adyCd)
-        //     .input('adyLoc', mssql.NVarChar, req.body.adyLoc)
-        //     .input('adySlide', mssql.Int, req.body.adySlide)
-        //     .input('adyLimit', mssql.Int, req.body.adyLimit)
-        //     .input('adyAmount', mssql.Int, req.body.adyAmount)
-        //     .input('adyWidth', mssql.Int, req.body.adyWidth)
-        //     .input('adyHeight', mssql.Int, req.body.adyHeight)
-        //     .query(`insert into tADY(ADY_CD, ADY_Location, ADY_SlideDuration, ADY_Limit, ADY_Amount, ADY_Width,ADY_Height)
-        //                    values(@adyCd, @adyLoc, @adySlide, @adyLimit, @adyAmount, @adyWidth, @adyHeight)`);
+        let result = await pool.request()
+            .input('adyCd', mssql.NVarChar, req.body.adyCd)
+            .input('adyLoc', mssql.NVarChar, req.body.adyLoc)
+            .input('adySlide', mssql.Int, req.body.adySlide)
+            .input('adyLimit', mssql.Int, req.body.adyLimit)
+            .input('adyAmount', mssql.Int, req.body.adyAmount)
+            .input('adyWidth', mssql.Int, req.body.adyWidth)
+            .input('adyHeight', mssql.Int, req.body.adyHeight)
+            .query(`insert into tADY(ADY_CD, ADY_Location, ADY_SlideDuration, ADY_Limit, ADY_Amount, ADY_Width,ADY_Height)
+                           values(@adyCd, @adyLoc, @adySlide, @adyLimit, @adyAmount, @adyWidth, @adyHeight)`);
         console.log('성공');
     } catch (err) {
         console.log(err);
@@ -494,15 +494,15 @@ router.put('/api/modifyAdy/:adyId',  async function (req, res, next) {
         }
         // 광고입력
         console.log('보내기');
-        // let result = await pool.request()
-        //     .input('adyCd', mssql.NVarChar, req.body.adyCd)
-        //     .input('adyLoc', mssql.NVarChar, req.body.adyLoc)
-        //     .input('adySlide', mssql.Int, req.body.adySlide)
-        //     .input('adyLimit', mssql.Int, req.body.adyLimit)
-        //     .input('adyAmount', mssql.Int, req.body.adyAmount)
-        //     .input('adyWidth', mssql.Int, req.body.adyWidth)
-        //     .input('adyHeight', mssql.Int, req.body.adyHeight)
-        //     .query(query);
+        let result = await pool.request()
+            .input('adyCd', mssql.NVarChar, req.body.adyCd)
+            .input('adyLoc', mssql.NVarChar, req.body.adyLoc)
+            .input('adySlide', mssql.Int, req.body.adySlide)
+            .input('adyLimit', mssql.Int, req.body.adyLimit)
+            .input('adyAmount', mssql.Int, req.body.adyAmount)
+            .input('adyWidth', mssql.Int, req.body.adyWidth)
+            .input('adyHeight', mssql.Int, req.body.adyHeight)
+            .query(query);
         console.log('성공');
     } catch (err) {
         console.log(err);
