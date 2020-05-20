@@ -57,7 +57,6 @@ $('#searchBrandName').bind('input', function (e) {
     // 문자열 검색 || 초성검색
     arr
         .filter(function (item) {
-            console.log(item);
             return item.name.includes(allText) || item.diassembled.includes(korText);
         })
         // 검색결과 ul 아래에 li 로 추가

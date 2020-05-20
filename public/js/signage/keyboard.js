@@ -81,7 +81,8 @@ const Keyboard = {
         capsLock: false,
         bufferValue: "",
         currentLanguage: "korean",
-        languageType : ""
+        languageType : "",
+        beforCharDurationSec : 2
     },
     properties: {
         beforeChar : "",
@@ -118,7 +119,7 @@ const Keyboard = {
         this.elements.close = document.createElement('div');
         this.elements.close.style.display = "flex";
         this.elements.close.innerHTML = `<div class="keyboard__key keyboard__close keyboard__key--wide keyboard__key--dark">닫 기</div>`;
-        this.elements.close.addEventListener("click", () => {
+        this.elements.close.firstChild.addEventListener("click", () => {
             this.close();
         })
 
@@ -340,11 +341,15 @@ const Keyboard = {
                             keyElement.dataset.capsOn = keySplit[1];
                         }
 
+                        let beforeCharReset = null;
                         keyElement.addEventListener("click", () => {
                             if(this.config.mode.toLowerCase() === "qwerty"){
                                 this.properties.bufferValue += keyElement.textContent;
                                 this.properties.value = Hangul.a(this.properties.bufferValue);
                             } else if(this.config.mode.toLowerCase() === "cheonjiin" ) {
+                                // timeout reset
+                                clearTimeout(beforeCharReset);
+                                beforeCharReset = setTimeout( this.beforeCharReset, this.properties.beforCharDurationSec * 1000);
                                 let keyChar = this._getCharCheonjiin( keyElement )
                                 this._cheonjiinInputEvent( keyChar.char, keyChar.mode );
                             }
@@ -378,6 +383,10 @@ const Keyboard = {
         this.properties.beforeChar = '';
         this.properties.bufferValue = '';
         this.properties.value = '';
+    },
+
+    beforeCharReset(){
+        Keyboard.properties.beforeChar = '';
     },
 
     _getCharCheonjiin( keyElement ) {
