@@ -337,8 +337,13 @@ $(document).ready(() => {
     $("body").click(()=>{
         AdSlide.ad_main_instance.removeClass('active');
         clearTimeout(usedTimeout);
-        usedTimeout=setTimeout( AD.showMainAD, AD.ad_init_min * 60 * 1000 );
-
+        usedTimeout=setTimeout( signageInit, AD.ad_init_min * 5000 * 1000 );
     });
 
 });
+
+function signageInit() {
+    AD.showMainAD();
+    signageMain();
+    Keyboard.close();
+}

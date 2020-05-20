@@ -101,6 +101,7 @@ const Keyboard = {
         cIndex : 0
     },
     init() {
+        if( document.querySelector('.keyboard') != undefined ) return false;
         // Init properties 
         this.properties = Object.assign(this.properties, this.default);
         this.properties.languageType = Object.keys( this.config.layout[this.config.mode] );
