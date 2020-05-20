@@ -85,6 +85,7 @@ const Keyboard = {
         beforCharDurationSec : 2
     },
     properties: {
+        beforeCharResetTimeout : null,
         beforeChar : "",
         cheonjiinMapData : {
             "ㄱㅋ" : ['ㄱ', 'ㅋ', 'ㄲ'],
@@ -342,15 +343,14 @@ const Keyboard = {
                             keyElement.dataset.capsOn = keySplit[1];
                         }
 
-                        let beforeCharReset = null;
                         keyElement.addEventListener("click", () => {
                             if(this.config.mode.toLowerCase() === "qwerty"){
                                 this.properties.bufferValue += keyElement.textContent;
                                 this.properties.value = Hangul.a(this.properties.bufferValue);
                             } else if(this.config.mode.toLowerCase() === "cheonjiin" ) {
                                 // timeout reset
-                                clearTimeout(beforeCharReset);
-                                beforeCharReset = setTimeout( this.beforeCharReset, this.properties.beforCharDurationSec * 1000);
+                                clearTimeout(this.properties.beforeCharResetTimeout);
+                                this.properties.beforeCharResetTimeout = setTimeout( this.beforeCharReset, this.properties.beforCharDurationSec * 1000);
                                 let keyChar = this._getCharCheonjiin( keyElement )
                                 this._cheonjiinInputEvent( keyChar.char, keyChar.mode );
                             }
@@ -387,6 +387,7 @@ const Keyboard = {
     },
 
     beforeCharReset(){
+        console.log('beforCharReset');
         Keyboard.properties.beforeChar = '';
     },
 
@@ -401,6 +402,7 @@ const Keyboard = {
 
             if( this.properties.cheonjiinMapData[ keyElement.textContent ].indexOf( this.properties.beforeChar ) === -1 ) {
                 // 다른 버튼을 누른 경우
+                clearTimeout(this.properties.beforeCharResetTimeout);
                 this.properties.cIndex = 0;
                 this.properties.beforeChar = charList[ this.properties.cIndex ];
                 result.mode = "add";
