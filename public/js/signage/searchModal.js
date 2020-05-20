@@ -151,6 +151,7 @@
 
         for(let j=0; j<resultCatLV2.length; j++){
             let lanType1 = $('#kor').hasClass('choose') ? resultCatLV2[j].BC_NameKor : resultCatLV2[j].BC_NameEng;
+        
             if(j < 9){
                 let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
                     html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+j+"' data-lv2cat ="+resultCatLV2[j].BC_ID+">"+lanType1+"</div></label></li>";
@@ -187,6 +188,7 @@
         let lanType1 = $('#kor').hasClass('choose') ? selectBrand[0].BS_NameKor : selectBrand[0].BS_NameEng;
         let lanType2 = $('#kor').hasClass('choose') ? selectBrand[0].BC_NameKor : selectBrand[0].BC_NameEng;
         let lanType3 = $('#kor').hasClass('choose') ? selectBrand[0].BS_ContentsKor : selectBrand[0].BS_ContentsEng;
+        let lanType4 = $('#kor').hasClass('choose') ? '위치 보기' : 'Location';
 
         let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"></div>";
             html += "<div class='brandContents'><ul>";
@@ -196,7 +198,7 @@
             html += "</ul></div>";
             html += "<ul class='detailInfo'>";
             html += "<li><div class='infoImgNav' id="+'bs'+selectBrand[0].BS_ID+" onclick='storeInfo(this)'>상세 보기</div></li>";
-            html += "<li><div class='infoImgNav' id="+"area"+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>위치 보기</div></li></ul>";
+            html += "<li><div class='infoImgNav' id="+"area"+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>"+lanType4+"</div></li></ul>";
         $('.brandDetail').append(html);
     }
 
