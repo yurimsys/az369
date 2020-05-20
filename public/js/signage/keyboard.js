@@ -82,7 +82,7 @@ const Keyboard = {
         bufferValue: "",
         currentLanguage: "korean",
         languageType : "",
-        beforCharDurationSec : 2
+        beforCharDurationSec : 1.5
     },
     properties: {
         beforeCharResetTimeout : null,
@@ -302,6 +302,7 @@ const Keyboard = {
                     case "·": 
                         keyElement.textContent = key.toString();
                         keyElement.addEventListener("click", () => {
+                            clearTimeout(this.properties.beforeCharResetTimeout);
                             if(this.properties.beforeChar === '·')          this._cheonjiinInputEvent('··');
                             else if (this.properties.beforeChar === '··')   this._cheonjiinInputEvent('·');
                             else if (this.properties.beforeChar === 'ㅣ')   this._cheonjiinInputEvent('ㅏ');
@@ -387,7 +388,6 @@ const Keyboard = {
     },
 
     beforeCharReset(){
-        console.log('beforCharReset');
         Keyboard.properties.beforeChar = '';
     },
 
@@ -402,7 +402,6 @@ const Keyboard = {
 
             if( this.properties.cheonjiinMapData[ keyElement.textContent ].indexOf( this.properties.beforeChar ) === -1 ) {
                 // 다른 버튼을 누른 경우
-                clearTimeout(this.properties.beforeCharResetTimeout);
                 this.properties.cIndex = 0;
                 this.properties.beforeChar = charList[ this.properties.cIndex ];
                 result.mode = "add";
