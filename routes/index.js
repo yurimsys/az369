@@ -103,7 +103,7 @@ router.get('/api/floor', function(req, res, next) {
     });
 });
 
-//매장 등록 테스트
+//매장 등록
 router.post('/api/addBusiness', upload.any(), async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
@@ -179,7 +179,7 @@ router.post('/api/addBusiness', upload.any(), async function (req, res, next) {
         let result3 = await pool.request()
             .input('BS_ID', mssql.Int, result1.recordset[0].BS_ID)
             .input('BCR_ID', mssql.Int, result2.recordset[0].BCR_ID)
-            .query('insert into tBSxBCR(BS_ID, BCR_ID) values(@BS_ID, @BCR_ID)')
+            .query('insert into tBSxtBCR(BS_ID, BCR_ID) values(@BS_ID, @BCR_ID)')
 
         //층수 입력
         let result4 = await pool.request()
@@ -319,7 +319,7 @@ router.put('/api/modifyBusiness/:bsid', upload.any(), async function (req, res, 
             await pool.request()
                 .input('BS_ID', mssql.Int, req.params.bsid)
                 .input('BCR_ID', mssql.Int, result2.recordset[0].BCR_ID)
-                .query('update tBSxBCR set BCR_ID = @BCR_ID where BS_ID = @BS_ID')
+                .query('update tBSxtBCR set BCR_ID = @BCR_ID where BS_ID = @BS_ID')
         }
 
         if(req.body.storeNumber !== undefined){
@@ -349,7 +349,7 @@ router.get('/api/business/:bsid', async function(req,res){
                         convert(varchar, BS_MainDtf, 108) as BS_MainDtF, convert(varchar, BS_SubDtF, 108) as BS_SubDtF, BC_NameKor, BC_NameEng,
                         convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
                         BS_ContentsKor, BS_ContentsEng, BS_ThumbnailUrl, BS_PersonalDayKor, BS_PersonalDayEng,  BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
-                    from tBCR inner join tBSxBCR on tBCR.BCR_ID = tBSxBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxBCR.BS_ID
+                    from tBCR inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
                         inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
                     inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID where tBS.BS_ID = @BSID`)
         console.log(result.recordset);
@@ -358,7 +358,58 @@ router.get('/api/business/:bsid', async function(req,res){
         console.log('error fire')
     }
 })
+//특정 매장 삭제
+router.delete('/api/deleteBs/:bsid', async function(req,res){
+    let bsid = req.params.bsid;
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
 
+        await pool.request()
+            .input('bsid', mssql.Int, bsid)
+            .query(`delete from tBSxtBCR where BS_ID = @bsid`)
+        
+        await pool.request()
+            .input('bsid', mssql.Int, bsid)
+            .query(`delete from tBSxtLS where BS_ID = @bsid`)
+
+        await pool.request()
+        .input('bsid', mssql.Int, bsid)
+        .query(`delete from tBS where BS_ID = @bsid`)
+        console.log('성공');
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+})
+
+//광고 리스트
+router.get('/adList', async function(req, res){
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let result = await pool.request()
+            .query(`select * from tAD left join tADY on tAD.AD_ADY_ID = tADY.ADY_ID`)
+        console.log(result.recordset);
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+})
+
+//특정 광고 리스트
+router.get('/adList/:adBsId', async function(req, res){
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let result = await pool.request()
+        .input('adBsId', Int, req.params.adBsId)
+            .query(`select * from tAD left join tADY on tAD.AD_ADY_ID = tADY.ADY_ID where AD_BS_ID = @adBsId`)
+        console.log(result.recordset);
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+})
 //광고 등록
 router.post('/api/addAd', upload.any(), async function (req, res, next) {
     try {
@@ -452,6 +503,21 @@ router.delete('/api/deleteAd/:adId',  async function (req, res, next) {
         console.log('error fire')
     }
 });
+
+//광고종류 리스트
+router.get('/adyList', async function(req, res){
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let result = await pool.request()
+            .query(`select * from tADY`)
+        console.log(result.recordset);
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+})
+
 //광고종류 등록
 router.post('/api/addAdy',  async function (req, res, next) {
     try {
@@ -540,6 +606,21 @@ router.delete('/api/deleteAdy/:adyId',  async function (req, res, next) {
     }
 });
 
+
+//카테고리 리스트
+router.get('/bcList', async function(req, res){
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let result = await pool.request()
+            .query(`select * from tBC`)
+        console.log(result.recordset);
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+})
+
 //카테고리 등록
 router.post('/api/addBc',  async function (req, res, next) {
     try {
@@ -613,6 +694,21 @@ router.delete('/api/deleteBc/:bcId',  async function (req, res, next) {
     }
 });
 
+
+//카테고리 분류 리스트
+router.get('/bcrList', async function(req, res){
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let result = await pool.request()
+            .query(`select * from tBCR`)
+        console.log(result.recordset);
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+})
+
 //카테고리분류 등록
 router.post('/api/addBcr',  async function (req, res, next) {
     try {
@@ -644,7 +740,7 @@ router.put('/api/modifyBcr/:bcrId',  async function (req, res, next) {
 
         let tbcrObj = Object.keys(tBCR)
         let bodyObj = Object.keys(req.body)
-        let query = 'update tBC set '
+        let query = 'update tBCR set '
         let j=0;
         for(let i=0; i<tbcrObj.length; i++){
             if(tBCR[Object.keys(tBCR)[i]] !== undefined){
@@ -687,6 +783,35 @@ router.delete('/api/deleteBcr/:bcrId',  async function (req, res, next) {
         console.log('error fire')
     }
 });
+
+//임대인 리스트
+router.get('/lList', async function(req, res){
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let result = await pool.request()
+            .query(`select * from tL`)
+        console.log(result.recordset);
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+})
+
+//특정 임대인 리스트 
+router.get('/lList/:lLsNumber', async function(req, res){
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let result = await pool.request()
+            .input('lLsNumber', Int, req.params.lLsNumber)
+            .query(`select * from tL where L_LS_Number = @lLsNumber`)
+        console.log(result.recordset);
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+})
 
 //임대인 등록
 router.post('/api/addL',  async function (req, res, next) {
@@ -766,26 +891,55 @@ router.delete('/api/deleteL/:lId',  async function (req, res, next) {
     }
 });
 
+//임대인 맵핑 리스트
+
+
+
+//상품 리스트 
+router.get('/mList', async function(req, res){
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let result = await pool.request()
+            .query(`select * from tM left join tMC on tM.M_MC_ID = tMC.MC_ID`)
+        console.log(result.recordset);
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+})
+
+//특정 매장 상품 리스트 
+router.get('/mList/:mBsId', async function(req, res){
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let result = await pool.request()
+            .input('mBsId', Int, req.params.mBsId)
+            .query(`select * from tM left join tMC on tM.M_MC_ID = tMC.MC_ID where M_BS_ID = @mBsId`)
+        console.log(result.recordset);
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+})
 
 //상품 등록 BS_ID 세션값으로 
-router.post('/api/addAd', upload.any(), async function (req, res, next) {
+router.post('/api/addM', upload.any(), async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
         // 광고입력
         console.log('보내기');
         let result = await pool.request()
-            .input('mBsId', mssql.Int, req.body.mBsId)
-            .input('mMcId', mssql.Int, req.body.adAdyId)
-            .input('adBcId', mssql.Int, req.body.adBcId)
-            .input('adPay', mssql.NVarChar, req.body.adPay)
-            .input('adTitle', mssql.NVarChar, req.body.adTitle)
-            .input('AdDtS', mssql.DateTime, req.body.AdDtS)
-            .input('AdDtF', mssql.DateTime, req.body.AdDtF)
-            .input('AdUrl', mssql.NVarChar, req.body.AdUrl) //req.files.originalname
-            .input('AdConTy', mssql.NVarChar, req.body.AdConTy)
-            .query(`insert into tAD(AD_BS_ID, AD_ADY_ID, AD_BC_ID, AD_PaymentStatus, AD_Title, AD_DtS,
-                                    AD_DtF, AD_ContentURL, AD_ContentTy)
-                        values(@adBsId, @adAdyId, @adBcId, @adPay, @adTitle, @AdDtS, @AdDtF, @AdUrl, @AdConTy)`);
+            .input('mBsId', mssql.Int, req.body.mBsId) //세션값 매장점주
+            .input('mMcId', mssql.Int, req.body.mMcId)
+            .input('mNameKor', mssql.NVarChar, req.body.mNameKor)
+            .input('mNameEng', mssql.NVarChar, req.body.mNameEng)
+            .input('mImageUrl', mssql.NVarChar, req.body.mImageUrl) //req.files.originalname
+            .input('mPriority', mssql.Int, req.body.mPriority)
+            .input('mPrice', mssql.Int, req.body.mPrice)
+            .query(`insert into tM(M_MS_ID, M_MC_ID, M_NameKor, M_NameEng, M_ImageUrl, M_Priority, M_PRice)
+                        values(@mBsId, @adAdyId, @mNameKor, @mNameEng, @mImageUrl, @mPriority, @mPrice)`);
         console.log('성공');
     } catch (err) {
         console.log(err);
@@ -794,15 +948,173 @@ router.post('/api/addAd', upload.any(), async function (req, res, next) {
 });
 
 
+//상품 수정
+router.put('/api/modifyM/:mId',  async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let tM = new Object();
+            tM.M_MCID=  req.body.mMcId
+            tM.M_NAmeKor = req.body.mNameKor
+            tM.M_NameEng = req.body.mNameEng
+            tM.M_ImageUrl = req.body.mImageUrl // req.files.originalname
+            tM.M_Priority = req.body.mPriority
+            tM.M_PRice = req.body.mPrice
+
+        let tmObj = Object.keys(tM)
+        let bodyObj = Object.keys(req.body)
+        let query = 'update tM set '
+        let j=0;
+        for(let i=0; i<tmObj.length; i++){
+            if(tM[Object.keys(tM)[i]] !== undefined){
+                if(req.body[Object.keys(req.body)[j]] == tM[Object.keys(tM)[i]]){
+                    query += tmObj[i]+'=' +' @'+bodyObj[j]+','
+                    j++
+                }
+            }
+        //마지막 , 제거
+            if(i === tmObj.length -1){
+                query = query.substring(0, query.length-1)
+                query += ' where M_ID ='+req.params.mId
+            }
+        }
+        console.log('보내기');
+        let result = await pool.request()
+            .input('mMcId', mssql.Int, req.body.mMcId)
+            .input('mNameKor', mssql.NVarChar, req.body.mNameKor)
+            .input('mNameEng', mssql.NVarChar, req.body.mNameEng)
+            .input('mImageUrl', mssql.NVarChar, req.body.mImageUrl) //req.files.originalname
+            .input('mPriority', mssql.Int, req.body.mPriority)
+            .input('mPrice', mssql.Int, req.body.mPrice)
+            .query(query);
+        console.log('성공');
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+});
 
 
+//상품 삭제
+router.delete('/api/deleteM/:mId',  async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+        // 광고입력
+        console.log('보내기');
+        let result = await pool.request()
+            .input('mId', mssql.Int, req.params.mId)
+            .query(`delete from tM where M_ID = @mId`);
+        console.log('성공');
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+});
 
+//상품분류 리스트 
+router.get('/mcList', async function(req, res){
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
 
+        let result = await pool.request()
+            .query(`select * from tMC`)
+        console.log(result.recordset);
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+})
 
+//특정 매장상품분류 리스트 
+router.get('/mcList/:mcBsId', async function(req, res){
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
 
+        let result = await pool.request()
+            .input('mcBsId', int, req.params.mcBsId)
+            .query(`select * from tMC where MC_BS_ID = @mcBsId`)
+        console.log(result.recordset);
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+})
 
+//상품 분류 등록
+router.post('/api/addMc', upload.any(), async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+        // 광고입력
+        console.log('보내기');
+        let result = await pool.request()
+            .input('mcBsId', mssql.Int, req.body.mcBsId) //세션값 매장점주
+            .input('mcNameKor', mssql.NVarChar, req.body.mcNameKor)
+            .input('mcPriority', mssql.NVarChar, req.body.mcPriority)
+            .input('mcNameEng', mssql.NVarChar, req.body.mcNameEng)
+            .query(`insert into tMC(MC_BS_ID, MC_NameKor, MC_Priority, MC_NameEng)
+                        values(@mcBsId, @mcNameKor, @mcPriority, @mcNameEng)`);
+        console.log('성공');
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+});
 
+//상품 분류 수정
+router.put('/api/modifyMc/:mcId',  async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
 
+        let tMC = new Object();
+            tMC.MC_NameKor = req.body.mcNameKor
+            tMC.MC_Priority = req.body.mcPriority
+            tMC.MC_NameEng = req.body.mcNameEng // req.files.originalname
+
+        let tmcObj = Object.keys(tMC)
+        let bodyObj = Object.keys(req.body)
+        let query = 'update tMC set '
+        let j=0;
+        for(let i=0; i<tmcObj.length; i++){
+            if(tMC[Object.keys(tMC)[i]] !== undefined){
+                if(req.body[Object.keys(req.body)[j]] == tMC[Object.keys(tMC)[i]]){
+                    query += tmcObj[i]+'=' +' @'+bodyObj[j]+','
+                    j++
+                }
+            }
+        //마지막 , 제거
+            if(i === tmcObj.length -1){
+                query = query.substring(0, query.length-1)
+                query += ' where MC_ID ='+req.params.mcId
+            }
+        }
+        console.log('보내기');
+        let result = await pool.request()
+            .input('mcNameKor', mssql.NVarChar, req.body.mcNameKor)
+            .input('mcPriority', mssql.NVarChar, req.body.mcPriority)
+            .input('mcNameEng', mssql.NVarChar, req.body.mcNameEng)
+            .query(query);
+        console.log('성공');
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+});
+
+//상품분류 삭제
+router.delete('/api/deleteMc/:mcId',  async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+        // 광고입력
+        console.log('보내기');
+        let result = await pool.request()
+            .input('mcId', mssql.Int, req.params.mcId)
+            .query(`delete from tMC where MC_ID = @mcId`);
+        console.log('성공');
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+});
 
 
 
