@@ -12,15 +12,14 @@
     //메인 돌아가기
     function signageMain(){
         //카테고리 초기화
+        count = 0;
         mainPrev();
         $('#box-left').css('display','block');
         $('#box-center').css('display','block');
         $('#box-info').css('display','none');
         zoomReset();
         $('.categoryBtn ').removeClass('selected');
-        $('#1Fstore path').css('fill','');
-        $('#2Fstore path').css('fill','');
-        $('#3Fstore path').css('fill','');
+        $('.svgCat').css('fill','');
         $('.floorBtn div').removeClass('floorSelcet');
         let deviceParam = urlParam();
         // console.log(deviceParam.device_cd.subString(0,1))

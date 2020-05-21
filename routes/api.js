@@ -1205,7 +1205,7 @@ router.get('/brandList', function(req, res, next) {
                 convert(varchar, BS_MainDtf, 108) as BS_MainDtF, convert(varchar, BS_SubDtF, 108) as BS_SubDtF, BC_NameKor, BC_NameEng,
                 convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
                 BS_ContentsKor, BS_ContentsEng, BS_ThumbnailUrl, BS_PersonalDayKor, BS_PersonalDayEng,  BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
-        from tBCR inner join tBSxBCR on tBCR.BCR_ID = tBSxBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxBCR.BS_ID
+        from tBCR inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
                 inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
         inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
         (err, result) => {
@@ -1245,7 +1245,7 @@ router.get('/brandListOverLap', function(req, res, next) {
                 convert(varchar, BS_MainDtf, 108) as BS_MainDtF, convert(varchar, BS_SubDtF, 108) as BS_SubDtF, BC_NameKor, BC_NameEng,
                 convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
                 BS_ContentsKor, BS_ContentsEng, BS_ThumbnailUrl,BS_PersonalDayKor, BS_PersonalDayEng, BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
-        from tBCR inner join tBSxBCR on tBCR.BCR_ID = tBSxBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxBCR.BS_ID
+        from tBCR inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
                 inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
         inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
         (err, result) => {
