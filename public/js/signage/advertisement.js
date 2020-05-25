@@ -96,151 +96,6 @@ class AdSlide{
 
                 sessionStorage.setItem('ad_data', JSON.stringify(res));
                 AD.data = res.data;
-                // TEST DATA
-                // AD.data = {
-                //         "main_full": {
-                //             "slide_sec": 5,
-                //             "contents": [
-                //                 {
-                //                     "url": "/img/ad/ad_main_full1.jpg",
-                //                     "display_s": "2020-04-30T00:00:00.000Z",
-                //                     "display_f": "2020-05-30T00:00:00.000Z"
-                //                 }
-                //             ]
-                //         },
-                //         "main_right": {
-                //             "slide_sec": 3,
-                //             "contents": [
-                //                 {
-                //                     "url": "/img/ad/ad_main_right1.png",
-                //                     "display_s": "2020-05-10T10:00:00.000Z",
-                //                     "display_f": "2020-06-10T10:00:00.000Z"
-                //                 },
-                //                 {
-                //                     "url": "/img/ad/ad_main_right2.png",
-                //                     "display_s": "2020-05-10T10:00:00.000Z",
-                //                     "display_f": "2020-06-10T10:00:00.000Z"
-                //                 }
-                //             ]
-                //         },
-                //         "main_left": {
-                //             "slide_sec": 6,
-                //             "contents": [
-                //                 {
-                //                     "url": "/img/ad/ad_main_left1.png",
-                //                     "display_s": "2020-05-01T11:00:00.000Z",
-                //                     "display_f": "2020-06-01T11:00:00.000Z"
-                //                 },
-                //                 {
-                //                     "url": "/img/ad/ad_main_left2.png",
-                //                     "display_s": "2020-04-23T00:00:00.000Z",
-                //                     "display_f": "2020-05-24T00:00:00.000Z"
-                //                 }
-                //             ]
-                //         },
-                //         "search": {
-                //             "slide_sec": 5,
-                //             "contents": [
-                //                 {
-                //                     "url": "/img/ad/ad_search1.jpg",
-                //                     "display_s": "2020-04-14T01:00:00.000Z",
-                //                     "display_f": "2020-05-15T01:00:00.000Z"
-                //                 },
-                //                 {
-                //                     "url": "/img/ad/ad_search2.jpg",
-                //                     "display_s": "2020-04-05T02:00:00.000Z",
-                //                     "display_f": "2020-05-16T02:00:00.000Z"
-                //                 }
-                //             ]
-                //         },
-                //         "category_top": {
-                //             "slide_sec": 5,
-                //             "contents": [
-                //                 {
-                //                     "url": "/img/ad/ad_category_top1_1.jpg",
-                //                     "display_s": "2020-03-27T03:00:00.000Z",
-                //                     "display_f": "2020-05-27T03:00:00.000Z",
-                //                     "category_id" : 1
-                //                 },
-                //                 {
-                //                     "url": "/img/ad/ad_category_top1_2.jpg",
-                //                     "display_s": "2020-03-27T03:00:00.000Z",
-                //                     "display_f": "2020-05-27T03:00:00.000Z",
-                //                     "category_id" : 1
-                //                 },
-                //                 {
-                //                     "url": "/img/ad/ad_category_top2_1.jpg",
-                //                     "display_s": "2020-03-27T03:00:00.000Z",
-                //                     "display_f": "2020-05-27T03:00:00.000Z",
-                //                     "category_id" : 2
-                //                 },
-                //                 {
-                //                     "url": "/img/ad/ad_category_top2_2.jpg",
-                //                     "display_s": "2020-03-27T03:00:00.000Z",
-                //                     "display_f": "2020-05-27T03:00:00.000Z",
-                //                     "category_id" : 2
-                //                 }
-                //             ]
-                //         },
-                //         "category_mid": {
-                //             "slide_sec": 5,
-                //             "contents": [
-                //                 {
-                //                     "url": "/img/ad/ad_category_mid1_1.jpg",
-                //                     "display_s": "2020-04-18T04:00:00.000Z",
-                //                     "display_f": "2020-05-18T04:00:00.000Z",
-                //                     "category_id" : 1
-                //                 },
-                //                 {
-                //                     "url": "/img/ad/ad_category_mid1_2.jpg",
-                //                     "display_s": "2020-04-18T04:00:00.000Z",
-                //                     "display_f": "2020-06-18T04:00:00.000Z",
-                //                     "category_id" : 1
-                //                 },
-                //                 {
-                //                     "url": "/img/ad/ad_category_mid2_1.jpg",
-                //                     "display_s": "2020-04-18T04:00:00.000Z",
-                //                     "display_f": "2020-05-18T04:00:00.000Z",
-                //                     "category_id" : 2
-                //                 },
-                //                 {
-                //                     "url": "/img/ad/ad_category_mid2_2.jpg",
-                //                     "display_s": "2020-04-18T04:00:00.000Z",
-                //                     "display_f": "2020-05-18T04:00:00.000Z",
-                //                     "category_id" : 2
-                //                 }
-                //             ]
-                //         },
-                //         "category_bottom": {
-                //             "slide_sec": 5,
-                //             "contents": [
-                //                 {
-                //                     "url": "/img/ad/ad_category_bottom1_1.jpg",
-                //                     "display_s": "2020-03-09T05:00:00.000Z",
-                //                     "display_f": "2020-06-09T05:00:00.000Z",
-                //                     "category_id" : 1
-                //                 },
-                //                 {
-                //                     "url": "/img/ad/ad_category_bottom1_2.jpg",
-                //                     "display_s": "2020-03-09T05:00:00.000Z",
-                //                     "display_f": "2020-06-09T05:00:00.000Z",
-                //                     "category_id" : 1
-                //                 },
-                //                 {
-                //                     "url": "/img/ad/ad_category_bottom2_1.jpg",
-                //                     "display_s": "2020-03-09T05:00:00.000Z",
-                //                     "display_f": "2020-06-09T05:00:00.000Z",
-                //                     "category_id" : 2
-                //                 },
-                //                 {
-                //                     "url": "/img/ad/ad_category_bottom2_2.jpg",
-                //                     "display_s": "2020-03-09T05:00:00.000Z",
-                //                     "display_f": "2020-06-09T05:00:00.000Z",
-                //                     "category_id" : 2
-                //                 }
-                //             ]
-                //         }
-                // }
                 AD.render();
                 AD.execute();
             }
@@ -252,7 +107,9 @@ class AdSlide{
         if( !AdSlide.ad_main_instance.hasClass('active') ) AdSlide.ad_main_instance.addClass('active');
     }
     render () {
+        console.log(this.data);
         for( let type in this.data ){
+            
             $(`.ad.${type}`).html('');
             let $container = $('<div class="category_container">');
             let $template = $(this.slide_template);
@@ -264,10 +121,10 @@ class AdSlide{
                         container_store[ data.category_id ] = $container.clone();
                         container_store[ data.category_id ].attr('data-category_id', data.category_id);
                     }
+
                     $template.attr('data-display_s', data.display_s.replace('T',' ').replace('Z',''));
                     $template.attr('data-display_f', data.display_f.replace('T',' ').replace('Z',''));
                     $template.children().attr('src', data.url);
-
                     container_store[ data.category_id ].append($template.clone());
                 });
                 for( let key in container_store){
@@ -275,13 +132,14 @@ class AdSlide{
                 }
             } else {
                 this.data[type].contents.forEach((data)=>{
-                    
+                    //메인 광고
                     $template.attr('data-display_s', data.display_s.replace('T',' ').replace('Z',''));
                     $template.attr('data-display_f', data.display_f.replace('T',' ').replace('Z',''));
                     $template.children().attr('src', data.url);
-    
                     $(`.ad.${type}`).append($template.clone());
                 });
+
+                    
             }
         }
     }
@@ -296,7 +154,7 @@ class AdSlide{
     execute () {
         if( this.Slide_Event_List.length > 0){
             // Slide Event 제거.
-            while( this.Slide_Event_List.length > 0 ){                
+            while( this.Slide_Event_List.length > 0 ){
                 clearTimeout( this.Slide_Event_List.pop() );
             }
         }
@@ -306,6 +164,7 @@ class AdSlide{
                 category_id_list = category_id_list.filter((item, index) => category_id_list.indexOf(item) === index);
                 
                 category_id_list.forEach( category_id => {
+                    
                     // category_bottom 의 경우 나눠서 실행
                     if( type === "category_bottom" ){
                         this.Slide_Event_List.push( AdSlide.showSlides( type, AD.data[type].slide_sec, category_id, 'searchRightAd' ) );
@@ -337,7 +196,7 @@ $(document).ready(() => {
     $("body").click(()=>{
         AdSlide.ad_main_instance.removeClass('active');
         clearTimeout(usedTimeout);
-        usedTimeout=setTimeout( signageInit, AD.ad_init_min * 5000 * 1000 );
+        usedTimeout=setTimeout( signageInit, AD.ad_init_min * 60 * 1000 );
     });
 
 });
