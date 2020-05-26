@@ -149,10 +149,7 @@ class AdSlide{
     }
     showCategoryAD(lv1_category_id) {
         let ad_default = JSON.parse(sessionStorage.getItem('ad_default'))
-        console.log(ad_default);
-        // console.log(ad_default);
         $(`.category_container`).hide();
-        //불러오는 광고 데이터 카테고리 id 11이상으로 디폴트 이미지?
         $(`.category_top .category_container`).each(function(){
             if($(`.category_top .category_container[data-category_id=${lv1_category_id}]`).children('div').length == 0){
                 ad_default.forEach((ad)=>{
@@ -182,7 +179,9 @@ class AdSlide{
         })
         
         $(`.category_bottom .category_container`).each(function(){
+            console.log(lv1_category_id);
             if($(`.category_bottom .category_container[data-category_id=${lv1_category_id}]`).children('div').length == 0){
+                $('.searchRightDetail .category_bottom div').css('display','none')
                 ad_default.forEach((ad)=>{
                     if( ad.ADY_CD === "category_bottom"){
                         let html = '<div class="category_container" data-category_id='+lv1_category_id+'><div class="adSlides fade" data-display_s="2020-03-27 03:00:00.000" data-display_f="2020-05-27 03:00:00.000">';
@@ -194,6 +193,8 @@ class AdSlide{
                 $(`.category_bottom .category_container[data-category_id=${lv1_category_id}]`).show();
             }
         })
+
+        
     }
     execute () {
         if( this.Slide_Event_List.length > 0){

@@ -94,7 +94,7 @@ function searchModalInit(){
             let lanType1 = $('#kor').hasClass('choose') ? lv1BrandList[j].BS_NameKor : lv1BrandList[j].BS_NameEng;
             let lanType2 = $('#kor').hasClass('choose') ? lv1BrandList[j].BC_NameKor : lv1BrandList[j].BC_NameEng;
 
-            let html = "<div class='brandList' id="+lv1BrandList[j].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[j].BCR_LV1_BC_ID+"><div><div class='categoryImg'><img src="+lv1BrandList[j].BS_ThumbnailUrl+"></div></div>";
+            let html = "<div class='brandList' id="+lv1BrandList[j].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+lv1BrandList[j].BCR_LV1_BC_ID+"><div><div class='categoryImg'><img src="+lv1BrandList[j].BS_ThumbnailUrl+"></div></div>";
                 html += "<ul><li><div class='searchBrand'>"+lanType1+"</div>";
                 html += "<h4 class='searchLocation'>"+lv1BrandList[j].LS_Floor+"."+lanType2+"</h4><div class='searchTime'>영업시간 "+lv1BrandList[j].BS_MainDtS.substring(0,5)+" ~ "+lv1BrandList[j].BS_MainDtF.substring(0,5)+"</div></li></ul>";
             $('.searchResult').append(html);
@@ -182,7 +182,7 @@ function searchModalInit(){
         $('.search_right').css('display','none');
         $('.searchRightAd').css('display','none');
         $('.searchRightDetail').css('display','block');
-        
+        $('.category_bottom div').css('display','block')
         // 업종 광고 변경
         AD.showCategoryAD(e.dataset.lv1categoryid);
         
@@ -208,7 +208,7 @@ function searchModalInit(){
             html += "<li><div class='infoImgNav' id="+"area"+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>"+lanType4+"</div></li></ul>";
         $('.brandDetail').append(html);
         // debugger;
-        $('.category_bottom div').css('display','block')
+        
     }
 
     //대분류 카테고리 클릭
