@@ -93,8 +93,8 @@ class AdSlide{
             method: 'get',
             dataType: 'json',
             success: function(res){
-
                 sessionStorage.setItem('ad_data', JSON.stringify(res));
+                sessionStorage.setItem('ad_default', JSON.stringify(res.data2))
                 AD.data = res.data;
                 AD.render();
                 AD.execute();
@@ -107,7 +107,7 @@ class AdSlide{
         if( !AdSlide.ad_main_instance.hasClass('active') ) AdSlide.ad_main_instance.addClass('active');
     }
     render () {
-        console.log(this.data);
+        // console.log(this.data);
         for( let type in this.data ){
             
             $(`.ad.${type}`).html('');
@@ -131,6 +131,9 @@ class AdSlide{
                 for( let key in container_store){
                     $(`.ad.${type}`).append( container_store[ key ] );
                 }
+
+
+
             } else {
                 this.data[type].contents.forEach((data)=>{
                     //메인 광고
@@ -145,23 +148,34 @@ class AdSlide{
         }
     }
     showCategoryAD(lv1_category_id) {
-        
-
-
+        let ad_default = JSON.parse(sessionStorage.getItem('ad_default'))
+        console.log(ad_default);
+        // console.log(ad_default);
         $(`.category_container`).hide();
-
+        //불러오는 광고 데이터 카테고리 id 11이상으로 디폴트 이미지?
         $(`.category_top .category_container`).each(function(){
-            if($(`.category_mid .category_container[data-category_id=${lv1_category_id}]`).children('div').length == 0){
-                $(`.category_top .category_container[data-category_id=1]`).show();
+            if($(`.category_top .category_container[data-category_id=${lv1_category_id}]`).children('div').length == 0){
+                ad_default.forEach((ad)=>{
+                    if( ad.ADY_CD === "category_top"){
+                        let html = '<div class="category_container" data-category_id='+lv1_category_id+'><div class="adSlides fade" data-display_s="2020-03-27 03:00:00.000" data-display_f="2020-05-27 03:00:00.000">';
+                            html += '<img src='+ad.AD_ContentURL+' style="width:100%"></div></div>'
+                        $('.category_top').append(html)   
+                    }
+                })
             }else{
                 $(`.category_top .category_container[data-category_id=${lv1_category_id}]`).show();
             }
         })
 
         $(`.category_mid .category_container`).each(function(){
-            // debugger;
             if($(`.category_mid .category_container[data-category_id=${lv1_category_id}]`).children('div').length == 0){
-                $(`.category_mid .category_container[data-category_id=1]`).show();
+                ad_default.forEach((ad)=>{
+                    if( ad.ADY_CD === "category_mid"){
+                        let html = '<div class="category_container" data-category_id='+lv1_category_id+'><div class="adSlides fade" data-display_s="2020-03-27 03:00:00.000" data-display_f="2020-05-27 03:00:00.000">';
+                            html += '<img src='+ad.AD_ContentURL+' style="width:100%"></div></div>'
+                        $('.category_mid').append(html)   
+                    }
+                })
             }else{
                 $(`.category_mid .category_container[data-category_id=${lv1_category_id}]`).show();
             }
@@ -169,7 +183,13 @@ class AdSlide{
         
         $(`.category_bottom .category_container`).each(function(){
             if($(`.category_bottom .category_container[data-category_id=${lv1_category_id}]`).children('div').length == 0){
-                $(`.category_bottom .category_container[data-category_id=1]`).show();
+                ad_default.forEach((ad)=>{
+                    if( ad.ADY_CD === "category_bottom"){
+                        let html = '<div class="category_container" data-category_id='+lv1_category_id+'><div class="adSlides fade" data-display_s="2020-03-27 03:00:00.000" data-display_f="2020-05-27 03:00:00.000">';
+                            html += '<img src='+ad.AD_ContentURL+' style="width:100%"></div></div>'
+                        $('.category_bottom').append(html)   
+                    }
+                })
             }else{
                 $(`.category_bottom .category_container[data-category_id=${lv1_category_id}]`).show();
             }
