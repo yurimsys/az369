@@ -82,7 +82,7 @@ const Keyboard = {
         bufferValue: "",
         currentLanguage: "korean",
         languageType : "",
-        beforCharDurationSec : 1.5
+        beforCharDurationSec : 1.3
     },
     properties: {
         beforeCharResetObj : {
