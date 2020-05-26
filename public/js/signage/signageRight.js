@@ -4,7 +4,6 @@
     function nowLocation(){
         let nowLocation = urlParam();
         // $('#'+nowLocation.device_cd+ ' rect').css('fill','red')
-        console.log('주소', nowLocation.device_cd);
         $('.'+nowLocation.device_cd).css('display','block')
         
     }
@@ -178,6 +177,7 @@
 
 //날짜 함수
     function dayCount(){
+
         this.day = new Date();
         nowYear = String(day.getFullYear());
         nowMon = String(day.getMonth() + 1);
@@ -268,3 +268,4 @@
     }
 
 //*** 메인 우측 하단 날씨, 시간, 언어 선택 스크립트 종료 ***
+

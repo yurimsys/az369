@@ -85,13 +85,61 @@ router.get('/ad', function(req, res, next) {
             new mssql.Request().query(query, (err, result) => {
                 if(err) throw err;
                 let result_data = {};
+                let ad_list = {
+                    'main_full' : '',
+                    'main_right' : '',
+                    'main_left' : '',
+                    'search_right' : '',
+                    'category_top' : '',
+                    'category_mid' : '',
+                    'category_bottom' : '',
+                    'modal_search_left' : ''
+                    // 'category_topmid' : ''
+                    }
+
+
+
+                let result_arr = new Object();
+                for(let i=0; i<result.recordset.length; i++){
+                    let ad_name = result.recordset[i].ADY_CD
+                    result_arr[ad_name] = {}
+                }
+
+                //기본 광고 key값 추출
+                let ad_key = Object.keys(ad_list)
+
+                for(let i=0; i<ad_key.length; i++){
+                    new_result(ad_key[i])
+                }
+                //디폴트 광고
+                function new_result(ad_key){
+                    result.recordset.forEach((row) => {
+                        if(!result_arr.hasOwnProperty(ad_key)){
+                            let content_obj = {
+                                url : 'img/test12.png',
+                                display_s : "2000-06-01T00:00:00.000Z",
+                                display_f : "2050-06-01T00:00:00.000Z"
+                            };
+                            
+                            // if(row.AD_BC_ID !== null){
+                            //     content_obj.category_id = row.AD_BC_ID
+                            // }
+                            
+                            result_data[ad_key] = {};
+                            result_data[ad_key].slide_sec = 5
+                            result_data[ad_key].contents = []
+                            result_data[ad_key].contents.push(content_obj);
+
+                        }
+                    })
+                }
+
                 result.recordset.forEach((row) => {
                     if(result_data[row.ADY_CD] === undefined){
                         result_data[row.ADY_CD] = {};
                         result_data[row.ADY_CD].slide_sec = row.ADY_SlideDuration;
                         result_data[row.ADY_CD].contents = [];
                     } 
-
                     let content_obj = {
                         url : row.AD_ContentURL,
                         display_s : row.AD_DtS,
@@ -104,7 +152,7 @@ router.get('/ad', function(req, res, next) {
                     result_data[row.ADY_CD].contents.push(content_obj);
                     
                 });
-    
+
                 res.json({ data : result_data });
             })
         });
@@ -1347,7 +1395,8 @@ router.get('/adList', async function(req, res){
 
         let result = await pool.request()
             .query(`select * from tAD left join tADY on tAD.AD_ADY_ID = tADY.ADY_ID`)
-        console.log(result.recordset);
+        // console.log(result.recordset);
+        res.json({ data : result.recordset });
     } catch (err) {
         console.log(err);
         console.log('error fire')
@@ -1376,6 +1425,7 @@ router.get('/adyList', async function(req, res){
 
         let result = await pool.request()
             .query(`select * from tADY`)
+        res.json({ data : result.recordset });
         console.log(result.recordset);
     } catch (err) {
         console.log(err);
@@ -1391,6 +1441,7 @@ router.get('/bcList', async function(req, res){
         let result = await pool.request()
             .query(`select * from tBC`)
         console.log(result.recordset);
+        res.json({data : result.recordset})
     } catch (err) {
         console.log(err);
         console.log('error fire')
@@ -1406,6 +1457,7 @@ router.get('/bcrList', async function(req, res){
         let result = await pool.request()
             .query(`select * from tBCR`)
         console.log(result.recordset);
+        res.json({ data : result.recordset });
     } catch (err) {
         console.log(err);
         console.log('error fire')
@@ -1422,6 +1474,7 @@ router.get('/lList', async function(req, res){
         let result = await pool.request()
             .query(`select * from tL`)
         console.log(result.recordset);
+        res.json({ data : result.recordset });
     } catch (err) {
         console.log(err);
         console.log('error fire')
@@ -1437,6 +1490,7 @@ router.get('/lList/:lId', async function(req, res){
             .input('lId', mssql.Int, req.params.lId)
             .query(`select * from tL where L_ID = @lId`)
         console.log(result.recordset);
+        res.json({ data : result.recordset });
     } catch (err) {
         console.log(err);
         console.log('error fire')
@@ -1451,6 +1505,7 @@ router.get('/lxlsList', async function(req, res){
         let result = await pool.request()
             .query(`select * from tLxLs`)
         console.log(result.recordset);
+        res.json({ data : result.recordset });
     } catch (err) {
         console.log(err);
         console.log('error fire')
@@ -1466,6 +1521,7 @@ router.get('/lxlsList/:lId', async function(req, res){
             .input('lId', mssql.Int, req.params.lId)
             .query(`select * from tLxLs where L_ID = @lId`)
         console.log(result.recordset);
+        res.json({ data : result.recordset });
     } catch (err) {
         console.log(err);
         console.log('error fire')
@@ -1479,6 +1535,7 @@ router.get('/mList', async function(req, res){
 
         let result = await pool.request()
             .query(`select * from tM left join tMC on tM.M_MC_ID = tMC.MC_ID`)
+            res.json({ data : result.recordset });
         console.log(result.recordset);
     } catch (err) {
         console.log(err);
@@ -1495,6 +1552,7 @@ router.get('/mList/:mBsId', async function(req, res){
             .input('mBsId', mssql.Int, req.params.mBsId)
             .query(`select * from tM left join tMC on tM.M_MC_ID = tMC.MC_ID where M_BS_ID = @mBsId`)
         console.log(result.recordset);
+        res.json({ data : result.recordset });
     } catch (err) {
         console.log(err);
         console.log('error fire')
@@ -1509,6 +1567,7 @@ router.get('/mcList', async function(req, res){
         let result = await pool.request()
             .query(`select * from tMC`)
         console.log(result.recordset);
+        res.json({ data : result.recordset });
     } catch (err) {
         console.log(err);
         console.log('error fire')
@@ -1524,6 +1583,7 @@ router.get('/mcList/:mcBsId', async function(req, res){
             .input('mcBsId', mssql.int, req.params.mcBsId)
             .query(`select * from tMC where MC_BS_ID = @mcBsId`)
         console.log(result.recordset);
+        res.json({ data : result.recordset });
     } catch (err) {
         console.log(err);
         console.log('error fire')
@@ -1585,10 +1645,10 @@ router.post('/addBs', upload.any(), async function (req, res, next) {
             .input('BS_SubDtF', mssql.DateTime, subDtF)
             .input('BS_BreakDtS', mssql.DateTime, breakS)
             .input('BS_BreakDtF', mssql.DateTime, breakF)
-            .input('BS_PersonalDayKor', mssql.VarChar, req.body.bsPersonalKo)
-            .input('BS_PersonalDayEng', mssql.VarChar, req.body.bsPersonalEn)
-            .input('BS_ThumbnailUrl', mssql.VarChar, BS_ThumbnailUrl)
-            .input('BS_ImageUrl', mssql.VarChar, BS_ImageUrl)
+            .input('BS_PersonalDayKor', mssql.NVarChar, req.body.bsPersonalKo)
+            .input('BS_PersonalDayEng', mssql.NVarChar, req.body.bsPersonalEn)
+            .input('BS_ThumbnailUrl', mssql.NVarChar, BS_ThumbnailUrl)
+            .input('BS_ImageUrl', mssql.NVarChar, BS_ImageUrl)
             .query(`insert into tBS(BS_BC_ID, BS_LoginID, BS_LoginPW, BS_CEO, BS_NameKor, BS_NameEng, BS_ContentsKor, BS_ContentsEng, 
                                 BS_Phone, BS_CEOPhone, BS_Addr1Kor, BS_Addr2Kor, BS_Addr1Eng, BS_Addr2Eng, BS_MainDtS, BS_MainDtF,
                                 BS_SubDtS, BS_SubDtF, BS_BreakDtS, BS_BreakDtF,BS_PersonalDayKor, BS_PersonalDayEng, BS_ThumbnailUrl,

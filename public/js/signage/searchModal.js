@@ -23,7 +23,7 @@ function searchModalInit(){
 
     //검색모달 오픈
     function signageSearch(){
-        $('.searchRight').css('display','block');
+        $('.search_right').css('display','block');
         $('.searchInfo').css('display','block');
         $('.categoryChange').css('display','none');
         $('.searchRightDetail').css('display','none');
@@ -179,12 +179,13 @@ function searchModalInit(){
         $('.brandDetail').empty();
         $('.searchResult div').css('background-color','')
         $('#'+e.id).css('background-color','#f9eff6');
-        $('.searchRight').css('display','none');
+        $('.search_right').css('display','none');
         $('.searchRightAd').css('display','none');
         $('.searchRightDetail').css('display','block');
         
         // 업종 광고 변경
         AD.showCategoryAD(e.dataset.lv1categoryid);
+        
         // let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
         let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'));
         let selectBrand = [];
@@ -206,6 +207,8 @@ function searchModalInit(){
             html += "<li><div class='infoImgNav' id="+'bs'+selectBrand[0].BS_ID+" onclick='storeInfo(this)'>상세 보기</div></li>";
             html += "<li><div class='infoImgNav' id="+"area"+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>"+lanType4+"</div></li></ul>";
         $('.brandDetail').append(html);
+        // debugger;
+        $('.category_bottom div').css('display','block')
     }
 
     //대분류 카테고리 클릭
@@ -251,7 +254,7 @@ function searchModalInit(){
         $('.categoryChange').css('display','block');
         $('.searchInfo').css('display','none');
         $('.searchRightDetail').css('display','none');
-        $('.searchRight').css('display','none');
+        $('.search_right').css('display','none');
         $('.searchRightAd').css('display','block');
     }
 
@@ -514,7 +517,7 @@ function searchModalInit(){
         let lanName2 = $('#kor').hasClass('choose') ? "<dl><dt><i class='far fa-clock'></i> 영업시간</dt>" : "<dl><dt><i class='far fa-clock'></i> OpenTime</dt>";
         let lanName3 = $('#kor').hasClass('choose') ? "<dl><dt><i class='fas fa-mobile-alt'></i> 전화번호</dt>" : "<dl><dt><i class='fas fa-mobile-alt'></i> Phone</dt>";
         let lanName4 = $('#kor').hasClass('choose') ? "<dl><dt><i class='fas fa-map-marker-alt'></i> 주소</dt>" : "<dl><dt><i class='fas fa-map-marker-alt'></i> Address</dt>";
-
+        let lanName5 = $('#kor').hasClass('choose') ? $('#infoStoreNumber').append(brandInfoList[0].LS_Number + ' 호') : $('#infoStoreNumber').append('Room No. '+brandInfoList[0].LS_Number)
         //html
         let html = lanName1;
             html += lanName2;
@@ -529,7 +532,6 @@ function searchModalInit(){
             html += "<dd>"+lanType3+"</dd></dl>";
         $('.brandInfoDetail_txt').append(html);
         $('#infoStoreName').append(lanType4);
-        $('#infoStoreNumber').append(brandInfoList[0].LS_Number);
     }
 
     //브랜드 메뉴 정보
