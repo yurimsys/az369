@@ -97,6 +97,19 @@ router.get('/ad', function(req, res, next) {
                     // 'category_topmid' : ''
                     }
 
+                let default_arr = [
+                        {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '1'},
+                        {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '2'},
+                        {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '3'},
+                        {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '4'},
+                        {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '5'},
+                        {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '6'},
+                        {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '7'},
+                        {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '8'},
+                        {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '9'},
+                        {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '10'},
+
+                ]
 
 
                 let result_arr = new Object();
@@ -113,24 +126,26 @@ router.get('/ad', function(req, res, next) {
                 }
                 //디폴트 광고
                 function new_result(ad_key){
-                    result.recordset.forEach((row) => {
+                    default_arr.forEach((row) => {
                         if(!result_arr.hasOwnProperty(ad_key)){
-                            let content_obj = {
-                                url : 'img/test12.png',
-                                display_s : "2000-06-01T00:00:00.000Z",
-                                display_f : "2050-06-01T00:00:00.000Z"
-                            };
-                            
-                            // if(row.AD_BC_ID !== null){
-                            //     content_obj.category_id = row.AD_BC_ID
-                            // }
-                            
                             result_data[ad_key] = {};
                             result_data[ad_key].slide_sec = 5
                             result_data[ad_key].contents = []
+
+                            let content_obj = {
+                                url : row.url,
+                                display_s : row.display_s,
+                                display_f : row.display_f
+                            };
+    
+                            if(ad_key.includes('category')){
+                                content_obj.category_id = 1
+                            }
                             result_data[ad_key].contents.push(content_obj);
 
+                            
                         }
+
                     })
                 }
 
@@ -152,6 +167,7 @@ router.get('/ad', function(req, res, next) {
                     result_data[row.ADY_CD].contents.push(content_obj);
                     
                 });
+
 
                 res.json({ data : result_data });
             })
