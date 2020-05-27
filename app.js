@@ -22,8 +22,7 @@ const app = express();
 
 
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-app.use( require('./config/view_route') );
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // 개발환경일 경우만 실행
