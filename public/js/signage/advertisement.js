@@ -263,7 +263,7 @@ function restart(){
     // slide_start.showCategoryAD(sessionStorage.getItem('ad_category_id'));
     if($('#chagneCategory').css('display') == 'block'){
         $('#chagneCategory').trigger('click');
-        setTimeout(re_category, 50);
+        setTimeout(re_category, 100);
         clearTimeout(re_category);
     }
     

@@ -65,6 +65,7 @@ function searchModalInit(){
         for(let i=0; i<jsonBrand.length; i++){
             let lanType1 = $('#kor').hasClass('choose') ? jsonBrand[i].BS_NameKor : jsonBrand[i].BS_NameEng;
             let lanType2 = $('#kor').hasClass('choose') ? jsonBrand[i].BC_NameKor : jsonBrand[i].BC_NameEng;
+            console.log(jsonBrand[i].BCR_LV1_BC_ID);
             let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+"><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
                 html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">';
                 html += "<ul><li><div class='searchBrand'>"+lanType1+"</div>";
@@ -113,7 +114,7 @@ function searchModalInit(){
             let lanType1 = $('#kor').hasClass('choose') ? lv2BrandList[i].BS_NameKor : lv2BrandList[i].BS_NameEng;
             let lanType2 = $('#kor').hasClass('choose') ? lv2BrandList[i].BC_NameKor : lv2BrandList[i].BC_NameEng;
 
-            let html = "<div class='brandList' id="+lv2BrandList[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+"><div><div class='categoryImg'><img src="+lv2BrandList[i].BS_ThumbnailUrl+"></div></div>";
+            let html = "<div class='brandList' id="+lv2BrandList[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+lv2BrandList[i].BCR_LV1_BC_ID+"><div><div class='categoryImg'><img src="+lv2BrandList[i].BS_ThumbnailUrl+"></div></div>";
                 html += "<ul><li><div class='searchBrand'>"+lanType1+"</div>";
                 html += "<h4 class='searchLocation'> "+lv2BrandList[i].LS_Floor+"."+lanType2+"</h4><div class='searchTime'>영업시간 "+lv2BrandList[i].BS_MainDtS.substring(0,5)+" ~ "+lv2BrandList[i].BS_MainDtF.substring(0,5)+"</div></li></ul>";
             $('.searchResult').append(html);
@@ -128,17 +129,18 @@ function searchModalInit(){
         let searchCatLV1 = JSON.parse(localStorage.getItem('categoryLV1'));
         for(let i=0; i<searchCatLV1.length; i++){
             let lanType = ( $('#kor').hasClass('choose') ) ? searchCatLV1[i].BC_NameKor : searchCatLV1[i].BC_NameEng;
+            console.log('ddd:',searchCatLV1[i].BC_NameKor);
             if(i < 9){
                 let html = "<li><label>";
-                    html += "<input type='checkbox' name='searchCategoryList' class='searchCheck' value='"+lanType+"'>";
-                    html += "<div class='searchCategory searchCategoryFont categoryBack' data-lv1cat ="+Number(i+1)+" onclick='LV1Cat(this)' id='lv1Cateogry"+i+"'>"+lanType+"</div>";
+                    html += "<input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                    html += "<div class='searchCategory searchCategoryFont categoryBack' data-lv1cat ="+Number(i+1)+" onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' value='"+lanType+"'>"+lanType+"</div>";
                     html += "</label></li>";
                 $('.searchList').append(html);
             }
             else if(i >= 9){
                 let html = "<li><label>";
-                    html += "<input type='checkbox' name='searchCategoryList' class='searchCheck' value='"+lanType+"'>";
-                    html += "<div class='searchCategory searchCategoryFont categoryBack' data-lv1cat ="+Number(i+1)+"  onclick='LV1Cat(this)' id='lv1Cateogry"+i+"'>"+lanType+"</div>";
+                    html += "<input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                    html += "<div class='searchCategory searchCategoryFont categoryBack' data-lv1cat ="+Number(i+1)+"  onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' value='"+lanType+"'>"+lanType+"</div>";
                     html += "</label></li>";
                 $('.searchList2').append(html);
             }
@@ -215,11 +217,12 @@ function searchModalInit(){
     let catChk = 0;
     function LV1Cat(e){
         //선택된 카테고리 아이디
-        console.log('dd');
         let lv1CatId = e.id;
         //상단 선택된 카테고리 명
+        console.log('lv1CatId',$("#"+lv1CatId).val());
         if(catChk == 0){
-            let chooseCatName = $("#"+lv1CatId).val();
+            let chooseCatName = e.getAttribute('value');
+           // console.log('lv1CatId',$("#"+lv1CatId).val());
             $('#chooseCategory').text(chooseCatName);
         }
         
