@@ -130,15 +130,15 @@ function searchModalInit(){
             let lanType = ( $('#kor').hasClass('choose') ) ? searchCatLV1[i].BC_NameKor : searchCatLV1[i].BC_NameEng;
             if(i < 9){
                 let html = "<li><label>";
-                    html += "<input type='checkbox' name='searchCategoryList' data-lv1cat ="+Number(i+1)+" onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' class='searchCheck' value='"+lanType+"'>";
-                    html += "<div class='searchCategory searchCategoryFont categoryBack'>"+lanType+"</div>";
+                    html += "<input type='checkbox' name='searchCategoryList' class='searchCheck' value='"+lanType+"'>";
+                    html += "<div class='searchCategory searchCategoryFont categoryBack' data-lv1cat ="+Number(i+1)+" onclick='LV1Cat(this)' id='lv1Cateogry"+i+"'>"+lanType+"</div>";
                     html += "</label></li>";
                 $('.searchList').append(html);
             }
             else if(i >= 9){
                 let html = "<li><label>";
-                    html += "<input type='checkbox' name='searchCategoryList' data-lv1cat ="+Number(i+1)+"  onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' class='searchCheck' value='"+lanType+"'>";
-                    html += "<div class='searchCategory searchCategoryFont categoryBack'>"+lanType+"</div>";
+                    html += "<input type='checkbox' name='searchCategoryList' class='searchCheck' value='"+lanType+"'>";
+                    html += "<div class='searchCategory searchCategoryFont categoryBack' data-lv1cat ="+Number(i+1)+"  onclick='LV1Cat(this)' id='lv1Cateogry"+i+"'>"+lanType+"</div>";
                     html += "</label></li>";
                 $('.searchList2').append(html);
             }
@@ -185,7 +185,7 @@ function searchModalInit(){
         $('.category_bottom div').css('display','block')
         // 업종 광고 변경
         AD.showCategoryAD(e.dataset.lv1categoryid);
-        
+
         // let jsonBrand = JSON.parse(localStorage.getItem('brandList'))
         let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'));
         let selectBrand = [];
@@ -215,6 +215,7 @@ function searchModalInit(){
     let catChk = 0;
     function LV1Cat(e){
         //선택된 카테고리 아이디
+        console.log('dd');
         let lv1CatId = e.id;
         //상단 선택된 카테고리 명
         if(catChk == 0){
@@ -224,6 +225,7 @@ function searchModalInit(){
         
         //업종 광고 변경
         AD.showCategoryAD(e.dataset.lv1cat);
+        sessionStorage.setItem('ad_category_id',e.dataset.lv1cat)
         //카테고리, 브랜드 리스트 초기화
         $('.searchResult').empty();
         //이전 다음 초기화
@@ -239,6 +241,9 @@ function searchModalInit(){
     //중분류 카테고리 클릭
     function LV2Cat(e){
         let lv2Cateogry = e.id;
+        $('.searchRightAd').css('display','block')
+        $('.searchRightDetail').css('display','none')
+
         //중분류 브랜드 리스트
         if($('.searchCheck').attr('checked',false)){
             $('.searchCategory').removeClass('selected');
@@ -364,7 +369,7 @@ function searchModalInit(){
                 }
 
             }
-
+        
         //2층
             else if(storeArea>= 2001 && storeArea<= 2102){
                 // console.log('2층')
