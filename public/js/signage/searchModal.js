@@ -470,6 +470,7 @@ function searchModalInit(){
             $('.brandInfoLeft').css('display','block');
             $('.searchCenter').css('display','none');
             brandNavInfo();
+            AD.showCategoryAD(e.id.replace('bs',''));
         }else if($(e).text() === '상세보기 닫기' || $(e).text() === 'Close'){
             $('#kor').hasClass('choose') ? $(e).text('상세 보기') : $(e).text('Detail');
             $(e).removeClass('detail_click');

@@ -95,6 +95,7 @@ class AdSlide{
             success: function(res){
                 sessionStorage.setItem('ad_data', JSON.stringify(res));
                 sessionStorage.setItem('ad_default', JSON.stringify(res.data2))
+                console.log(res.data);
                 AD.data = res.data;
                 AD.render();
                 AD.execute();
@@ -150,10 +151,11 @@ class AdSlide{
     showCategoryAD(lv1_category_id) {
         let ad_default = JSON.parse(sessionStorage.getItem('ad_default'))
         $(`.category_container`).hide();
+        
         $(`.category_top .category_container`).each(function(){
             if($(`.category_top .category_container[data-category_id=${lv1_category_id}]`).children('div').length == 0){
                 ad_default.forEach((ad)=>{
-                    if( ad.ADY_CD === "category_top"){
+                    if( ad.ADY_CD === "category_top" && ad.AD_BC_ID == lv1_category_id){
                         let html = '<div class="category_container" data-category_id='+lv1_category_id+'><div class="adSlides fade" data-display_s="2020-03-27 03:00:00.000" data-display_f="2020-05-27 03:00:00.000">';
                             html += '<img src='+ad.AD_ContentURL+' style="width:100%"></div></div>'
                         $('.category_top').append(html)   
@@ -167,7 +169,7 @@ class AdSlide{
         $(`.category_mid .category_container`).each(function(){
             if($(`.category_mid .category_container[data-category_id=${lv1_category_id}]`).children('div').length == 0){
                 ad_default.forEach((ad)=>{
-                    if( ad.ADY_CD === "category_mid"){
+                    if( ad.ADY_CD === "category_mid"  && ad.AD_BC_ID == lv1_category_id){
                         let html = '<div class="category_container" data-category_id='+lv1_category_id+'><div class="adSlides fade" data-display_s="2020-03-27 03:00:00.000" data-display_f="2020-05-27 03:00:00.000">';
                             html += '<img src='+ad.AD_ContentURL+' style="width:100%"></div></div>'
                         $('.category_mid').append(html)   
@@ -179,11 +181,10 @@ class AdSlide{
         })
         
         $(`.category_bottom .category_container`).each(function(){
-            console.log(lv1_category_id);
             if($(`.category_bottom .category_container[data-category_id=${lv1_category_id}]`).children('div').length == 0){
                 $('.searchRightDetail .category_bottom div').css('display','none')
                 ad_default.forEach((ad)=>{
-                    if( ad.ADY_CD === "category_bottom"){
+                    if( ad.ADY_CD === "category_bottom" && ad.AD_BC_ID == lv1_category_id){
                         let html = '<div class="category_container" data-category_id='+lv1_category_id+'><div class="adSlides fade" data-display_s="2020-03-27 03:00:00.000" data-display_f="2020-05-27 03:00:00.000">';
                             html += '<img src='+ad.AD_ContentURL+' style="width:100%"></div></div>'
                         $('.category_bottom').append(html)   
@@ -194,7 +195,6 @@ class AdSlide{
             }
         })
 
-        
     }
     execute () {
         if( this.Slide_Event_List.length > 0){
