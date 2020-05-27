@@ -18,7 +18,6 @@ const indexRouter = require('./routes/index'),
     extraRouter = require('./routes/extra'),
     usersRouter = require('./routes/users'),
     adminRouter = require('./routes/admin');
-const methodOverride = require('method-override');
 const app = express();
 
 
@@ -52,7 +51,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
-app.use(methodOverride('_method'))
 
 // Session Path
 let fileStoreOption = {
