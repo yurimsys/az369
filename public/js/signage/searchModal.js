@@ -65,7 +65,6 @@ function searchModalInit(){
         for(let i=0; i<jsonBrand.length; i++){
             let lanType1 = $('#kor').hasClass('choose') ? jsonBrand[i].BS_NameKor : jsonBrand[i].BS_NameEng;
             let lanType2 = $('#kor').hasClass('choose') ? jsonBrand[i].BC_NameKor : jsonBrand[i].BC_NameEng;
-            console.log(jsonBrand[i].BCR_LV1_BC_ID);
             let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+"><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
                 html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">';
                 html += "<ul><li><div class='searchBrand'>"+lanType1+"</div>";
@@ -129,7 +128,6 @@ function searchModalInit(){
         let searchCatLV1 = JSON.parse(localStorage.getItem('categoryLV1'));
         for(let i=0; i<searchCatLV1.length; i++){
             let lanType = ( $('#kor').hasClass('choose') ) ? searchCatLV1[i].BC_NameKor : searchCatLV1[i].BC_NameEng;
-            console.log('ddd:',searchCatLV1[i].BC_NameKor);
             if(i < 9){
                 let html = "<li><label>";
                     html += "<input type='checkbox' name='searchCategoryList' class='searchCheck'>";
@@ -199,6 +197,7 @@ function searchModalInit(){
         let lanType3 = $('#kor').hasClass('choose') ? selectBrand[0].BS_ContentsKor : selectBrand[0].BS_ContentsEng;
         let lanType4 = $('#kor').hasClass('choose') ? '위치 보기' : 'Location';
 
+        console.log(selectBrand[0]);
         let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"></div>";
             html += "<div class='brandContents'><ul>";
             html += "<li><h2 class='brandName'>"+lanType1+"</h2></li>";
@@ -206,7 +205,7 @@ function searchModalInit(){
             html += "<li><div class='brandInfo'>"+lanType3+"</div></li>";
             html += "</ul></div>";
             html += "<ul class='detailInfo'>";
-            html += "<li><div class='infoImgNav' id="+'bs'+selectBrand[0].BS_ID+" onclick='storeInfo(this)'>상세 보기</div></li>";
+            html += "<li><div class='infoImgNav' id="+'bs'+selectBrand[0].BS_ID+" data-lv1cat="+selectBrand[0].BCR_LV1_BC_ID+" onclick='storeInfo(this)'>상세 보기</div></li>";
             html += "<li><div class='infoImgNav' id="+"area"+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>"+lanType4+"</div></li></ul>";
         $('.brandDetail').append(html);
         // debugger;
@@ -478,7 +477,8 @@ function searchModalInit(){
             $('.brandInfoLeft').css('display','block');
             $('.searchCenter').css('display','none');
             brandNavInfo();
-            AD.showCategoryAD(e.id.replace('bs',''));
+            AD.showCategoryAD(e.dataset.lv1cat);
+            // AD.showCategoryAD(e.id.replace('bs',''));
         }else if($(e).text() === '상세보기 닫기' || $(e).text() === 'Close'){
             $('#kor').hasClass('choose') ? $(e).text('상세 보기') : $(e).text('Detail');
             $(e).removeClass('detail_click');

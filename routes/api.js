@@ -110,13 +110,12 @@ router.get('/ad', async function(req, res, next) {
             let content_obj = {
                 url : row.AD_ContentURL,
                 display_s : row.AD_DtS,
-                display_f : row.AD_DtF,
-                bs_id : row.BS_ID
+                display_f : row.AD_DtF
             };
             
             if(row.AD_BC_ID !== null){
                 content_obj.category_id = row.AD_BC_ID
-                content_obj.bs_id = row.BS_ID
+                content_obj.bs_id = 'bs'+row.BS_ID
                 // content_obj.url = row.AD_BC_ID
             }
             result_data[row.ADY_CD].contents.push(content_obj);
