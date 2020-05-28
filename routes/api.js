@@ -56,12 +56,20 @@ router.get('/adtype', function(req, res, next) {
     
 });
 
-
 // 광고 리스트
-router.get('/ad', function(req, res, next) {
+router.get('/ad', async function(req, res, next) {
+    try {
+    let pool = await mssql.connect(dbconf.mssql)
+
+    let tMC = new Object();
+        tMC.MC_NameKor = req.body.mcNameKor
+        tMC.MC_Priority = req.body.mcPriority
+        tMC.MC_NameEng = req.body.mcNameEng // req.files.originalname
+
+
     let req_type = req.query.type;
     let query = `
-        SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL 
+        SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL , BS_ID
         FROM tAD
             INNER JOIN tADY on AD_ADY_ID = ADY_ID 
             LEFT JOIN tBS on AD_BS_ID = BS_ID
@@ -69,95 +77,232 @@ router.get('/ad', function(req, res, next) {
         `;
     
     if(req_type !== 'display'){
-    
-        mssql.connect(dbconf.mssql, function (err, result){
-            if(err) throw err;
-            new mssql.Request().query(query, (err, result) => {
-                if(err) throw err;
-                res.json({ data : result.recordset });
-            })
-        });
+        let result = await pool.request()
+        .query(query);
+
+        res.json({ data : result.recordset });
+
     } else {
-        query += "WHERE AD_DtF >= GETDATE()";
-
-        mssql.connect(dbconf.mssql, function (err, result){
-            if(err) throw err;
-            new mssql.Request().query(query, (err, result) => {
-                if(err) throw err;
-                let result_data = {};
-                let ad_list = {
-                    'main_full' : '',
-                    'main_right' : '',
-                    'main_left' : '',
-                    'search_right' : '',
-                    'category_top' : '',
-                    'category_mid' : '',
-                    'category_bottom' : '',
-                    'modal_search_left' : ''
-                    // 'category_topmid' : ''
-                    }
+        query += "WHERE AD_DtF >= GETDATE() AND AD_Default = 'n'";
 
 
+        query2 = `
+                SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL , BS_ID
+                    FROM tAD
+                        INNER JOIN tADY on AD_ADY_ID = ADY_ID 
+                        LEFT JOIN tBS on AD_BS_ID = BS_ID
+                        LEFT JOIN tBC on AD_BC_ID = BC_ID 
+                    WHERE AD_DtF >= GETDATE() AND AD_Default = 'y' 
+                `;
 
-                let result_arr = new Object();
-                for(let i=0; i<result.recordset.length; i++){
-                    let ad_name = result.recordset[i].ADY_CD
-                    result_arr[ad_name] = {}
-                }
 
-                //기본 광고 key값 추출
-                let ad_key = Object.keys(ad_list)
+        let result_data = {};
+        
+        let result = await pool.request()
+        .query(query);
 
-                for(let i=0; i<ad_key.length; i++){
-                    new_result(ad_key[i])
-                }
-                //디폴트 광고
-                function new_result(ad_key){
-                    result.recordset.forEach((row) => {
-                        if(!result_arr.hasOwnProperty(ad_key)){
-                            let content_obj = {
-                                url : 'img/test12.png',
-                                display_s : "2000-06-01T00:00:00.000Z",
-                                display_f : "2050-06-01T00:00:00.000Z"
-                            };
-                            
-                            // if(row.AD_BC_ID !== null){
-                            //     content_obj.category_id = row.AD_BC_ID
-                            // }
-                            
-                            result_data[ad_key] = {};
-                            result_data[ad_key].slide_sec = 5
-                            result_data[ad_key].contents = []
-                            result_data[ad_key].contents.push(content_obj);
-
-                        }
-                    })
-                }
-
-                result.recordset.forEach((row) => {
-                    if(result_data[row.ADY_CD] === undefined){
-                        result_data[row.ADY_CD] = {};
-                        result_data[row.ADY_CD].slide_sec = row.ADY_SlideDuration;
-                        result_data[row.ADY_CD].contents = [];
-                    } 
-                    let content_obj = {
-                        url : row.AD_ContentURL,
-                        display_s : row.AD_DtS,
-                        display_f : row.AD_DtF
-                    };
-                    
-                    if(row.AD_BC_ID !== null){
-                        content_obj.category_id = row.AD_BC_ID
-                    }
-                    result_data[row.ADY_CD].contents.push(content_obj);
-                    
-                });
-
-                res.json({ data : result_data });
-            })
+        result.recordset.forEach((row) => {
+            if(result_data[row.ADY_CD] === undefined){
+                result_data[row.ADY_CD] = {};
+                result_data[row.ADY_CD].slide_sec = row.ADY_SlideDuration;
+                result_data[row.ADY_CD].contents = [];
+            } 
+            let content_obj = {
+                url : row.AD_ContentURL,
+                display_s : row.AD_DtS,
+                display_f : row.AD_DtF
+            };
+            
+            if(row.AD_BC_ID !== null){
+                content_obj.category_id = row.AD_BC_ID
+                content_obj.bs_id = 'bs'+row.BS_ID
+                // content_obj.url = row.AD_BC_ID
+            }
+            result_data[row.ADY_CD].contents.push(content_obj);
+            
         });
+
+        let result2 = await pool.request()
+        .query(query2); 
+        
+        let all_data = {};
+        
+
+        result2.recordset.forEach((data)=>{
+            if(!result_data.hasOwnProperty(data.ADY_CD)){
+                if(all_data[data.ADY_CD] === undefined){
+                    all_data[data.ADY_CD] = {}
+                    all_data[data.ADY_CD].slide_sec = data.ADY_SlideDuration;
+                    all_data[data.ADY_CD].contents = [];
+                }
+
+                let content_obj = {
+                    url : data.AD_ContentURL,
+                    display_s : data.AD_DtS,
+                    display_f : data.AD_DtF
+                };
+    
+                if(data.AD_BC_ID !== null){
+                    content_obj.category_id = data.AD_BC_ID
+                }
+                all_data[data.ADY_CD].contents.push(content_obj);
+            }
+        })
+
+        //카테고리 데이터
+        let query3 = `SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL 
+                            FROM tAD left JOIN tADY on AD_ADY_ID = ADY_ID LEFT JOIN tBS on AD_BS_ID = BS_ID LEFT JOIN tBC on AD_BC_ID = BC_ID 
+                    WHERE AD_DtF >= GETDATE() AND AD_Default = 'y' AND AD_BC_ID is not null`
+
+        let result3 = await pool.request()
+        .query(query3);
+
+
+        res.json({ data : Object.assign(result_data, all_data) , data2 : result3.recordset });
     }
+
+} catch (err) {
+    console.log(err);
+    console.log('error fire')
+}
 });
+
+// 광고 리스트
+// router.get('/ad', async function(req, res, next) {
+//         try {
+//         let pool = await mssql.connect(dbconf.mssql)
+
+//         let tMC = new Object();
+//             tMC.MC_NameKor = req.body.mcNameKor
+//             tMC.MC_Priority = req.body.mcPriority
+//             tMC.MC_NameEng = req.body.mcNameEng // req.files.originalname
+
+
+//         let req_type = req.query.type;
+//         let query = `
+//             SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL , BS_ID
+//             FROM tAD
+//                 INNER JOIN tADY on AD_ADY_ID = ADY_ID 
+//                 LEFT JOIN tBS on AD_BS_ID = BS_ID
+//                 LEFT JOIN tBC on AD_BC_ID = BC_ID 
+//             `;
+        
+//         if(req_type !== 'display'){
+//             let result = await pool.request()
+//             .query(query);
+
+//             res.json({ data : result.recordset });
+
+//         } else {
+//             query += "WHERE AD_DtF >= GETDATE() AND AD_Default = 'n'";
+
+
+//             let result = await pool.request()
+//             .query(query);
+//             let result_data = {};
+//             let ad_list = {
+//                 'main_full' : '',
+//                 'main_right' : '',
+//                 'main_left' : '',
+//                 'search_right' : '',
+//                 'category_top' : '',
+//                 'category_mid' : '',
+//                 'category_bottom' : '',
+//                 'modal_search_left' : ''
+//                 // 'category_topmid' : ''
+//                 }
+
+//             let default_arr = [
+//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '1'},
+//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '2'},
+//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '3'},
+//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '4'},
+//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '5'},
+//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '6'},
+//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '7'},
+//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '8'},
+//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '9'},
+//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '10'},
+
+//             ]
+
+
+//             let result_arr = new Object();
+//             for(let i=0; i<result.recordset.length; i++){
+//                 let ad_name = result.recordset[i].ADY_CD
+//                 result_arr[ad_name] = {}
+//             }
+
+//             //기본 광고 key값 추출
+//             let ad_key = Object.keys(ad_list)
+
+//             for(let i=0; i<ad_key.length; i++){
+//                 new_result(ad_key[i])
+//             }
+//             //디폴트 광고
+//             function new_result(ad_key){
+//                 default_arr.forEach((row) => {
+//                     if(!result_arr.hasOwnProperty(ad_key)){
+//                         result_data[ad_key] = {};
+//                         result_data[ad_key].slide_sec = 5
+//                         result_data[ad_key].contents = []
+
+//                         let content_obj = {
+//                             url : row.url,
+//                             display_s : row.display_s,
+//                             display_f : row.display_f
+//                         };
+
+//                         if(ad_key.includes('category')){
+//                             content_obj.category_id = 1
+//                         }
+//                         result_data[ad_key].contents.push(content_obj);
+
+                        
+//                     }
+
+//                 })
+//             }
+
+//             result.recordset.forEach((row) => {
+//                 if(result_data[row.ADY_CD] === undefined){
+//                     result_data[row.ADY_CD] = {};
+//                     result_data[row.ADY_CD].slide_sec = row.ADY_SlideDuration;
+//                     result_data[row.ADY_CD].contents = [];
+//                 } 
+//                 let content_obj = {
+//                     url : row.AD_ContentURL,
+//                     display_s : row.AD_DtS,
+//                     display_f : row.AD_DtF,
+//                     bs_id : row.BS_ID
+//                 };
+                
+//                 if(row.AD_BC_ID !== null){
+//                     content_obj.category_id = row.AD_BC_ID
+//                     content_obj.bs_id = row.BS_ID
+//                     // content_obj.url = row.AD_BC_ID
+//                 }
+//                 result_data[row.ADY_CD].contents.push(content_obj);
+                
+//             });
+
+//             let query3 = `SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL 
+//                                 FROM tAD left JOIN tADY on AD_ADY_ID = ADY_ID LEFT JOIN tBS on AD_BS_ID = BS_ID LEFT JOIN tBC on AD_BC_ID = BC_ID 
+//                           WHERE AD_DtF >= GETDATE() AND AD_Default = 'y'`
+
+//             let result3 = await pool.request()
+//             .query(query3);
+
+
+//             res.json({ data : result_data, data2 : result3.recordset });
+//         }
+
+//     } catch (err) {
+//         console.log(err);
+//         console.log('error fire')
+//     }
+// });
+
 
 router.post('/ad', async function(req, res){
     let pool = await mssql.connect(dbconf.mssql)
@@ -1876,9 +2021,10 @@ router.post('/addAd', upload.any(), async function (req, res, next) {
             .input('adDtF', mssql.DateTime, req.body.adDtF)
             .input('adUrl', mssql.NVarChar, req.body.adUrl) //req.files.originalname
             .input('adConTy', mssql.NVarChar, req.body.adConTy)
-            .query(`insert into tAD(AD_BS_ID, AD_ADY_ID, AD_BC_ID, AD_PaymentStatus, AD_Title, AD_DtS,
-                                    AD_DtF, AD_ContentURL, AD_ContentTy)
-                        values(@adBsId, @adAdyId, @adBcId, @adPay, @adTitle, @adDtS, @adDtF, @adUrl, @adConTy)`);
+            .input('addef', mssql.NVarChar, req.body.addef)
+            .query(`insert into tAD(AD_BS_ID, AD_ADY_ID, AD_BC_ID, AD_PaymentStatus, AD_Title, AD_DtS, 
+                                    AD_DtF, AD_ContentURL, AD_ContentTy, AD_Default)
+                        values(@adBsId, @adAdyId, @adBcId, @adPay, @adTitle, @adDtS, @adDtF, @adUrl, @adConTy, @addef)`);
         console.log('성공');
     } catch (err) {
         console.log(err);
