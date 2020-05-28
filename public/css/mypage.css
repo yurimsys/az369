@@ -84,7 +84,7 @@ section.sub_wrap h1 {
 .mypage_nav button { width: 100%; height: 50px; line-height: 50px; border-bottom: 1px solid #eee; margin: 5px; background: #fff; border: none; font-family: 'Noto Sans KR', sans-serif; font-weight: bold;}
 .mypage_nav button span {float: right;}
 .info_title {width: 100%; overflow: hidden; margin-top: 3%; padding-bottom: 8%; border-bottom: 1px solid #eee;}
-.mypage_left h2 {font-size: 30px; font-weight: bold; display: inline-block; float: left; width: 70%;} 
+.mypage_left h2 {font-size: 28px; font-weight: bold; display: inline-block; float: left; width: 70%;} 
 .mypage_left .modify_btn { color: #fff; background: rgba(173, 134, 60, 0.8);  display: inline-block; padding: 2% 5%; margin-top: 2.8%; font-size: 15px; font-weight: normal;float: right;width:30%; text-align: center; border-radius: 50px; transition: all 0.3s;}
 .mypage_left .modify_btn a {display: block;}
 .mypage_left .modify_btn:hover {background: rgba(173, 134, 60,1);}
@@ -115,7 +115,7 @@ section.sub_wrap h1 {
 /*오른쪽 예약현황*/
 /*reserve_list 타이틀*/
 .reserve_list_tit {overflow: auto; width: 100%; margin: 0 auto;  border: 1px solid #f2f2f2;}
-.reserve_list_tit ul li {float: left; width: 25%; text-align: center; height: 50px; line-height: 50px; background: #f4f4f4; color: #444; font-weight: bold; border-top: 2px solid #ad863c;}
+.reserve_list_tit ul li {float: left; width: 25%; text-align: center; height: 50px; line-height: 50px; background: #f8f8f8; color: #444; font-weight: 500;border-top: 2px solid #c3a164;}
 
 
 /*reserve_list*/
@@ -124,7 +124,7 @@ section.sub_wrap h1 {
 
 /*reserve_list 목록*/
 .reserve_bar { width: 100%; 
-  height: 50px; line-height: 50px;font-weight: normal;font-weight: normal;  color: #444; padding: 0; border: 1px solid #f4f4f4;}
+  height: 50px; line-height: 50px;font-weight: normal;font-weight: normal;  color: #444; padding: 0; border: 1px solid #f8f8f8;}
 
 .reserve_bar ul li {float: left; width: 25%; text-align: center; font-size: 16px; font-weight: normal;}
 
@@ -227,7 +227,7 @@ section.sub_wrap h1 {
 .list02_mo {display: none;}
 
 .list02,
-.list03 {width: 100%; height: 320px; background: #fff; overflow: scroll; overflow-x: hidden;/* border: 1px solid #eee;*/ background: #f9f9f9;}
+.list03 {width: 100%; height: 320px; background: #fff; overflow: scroll; overflow-x: hidden;/* border: 1px solid #eee;*/ background: #fcfcfc; border-top: 2px solid #c3a164;}
 
 tr.canceled td {background: #eee; border: none; color: #999; text-decoration: line-through;}
 p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
@@ -290,7 +290,7 @@ button{
 .inpType{padding-left:2%; height:35px; line-height:35px; border:1px solid #eee; font-size: 17px; border-radius: 8px; background: #f4f4f4; width: 46%;}
 
 /*날짜조회 버튼*/
-.search_btn {width: 17%; height: 35px; background: #fff; border-radius: 5px; border: 1px solid #ccc; font-size: 15px; float: right; color: #555;}
+.search_btn {width: 17%; height: 35px; background: #fff; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; float: right; color: #555;}
 
 
 /*두번째 테이블 타이틀 간격*/
@@ -327,9 +327,11 @@ button{
 
 .table th {
     color: #444;
-    background: #f4f4f4;
+    background: #f8f8f8;
     text-align: center;
     padding: 10px 5px;
+    font-weight: 500;
+    border-top: 1px solid #c3a164;
 }
 
 .table td {
@@ -369,7 +371,7 @@ button{
 .table_mo {display: none;}
 
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
-.layer .popup_box{padding: 1.5% 1%; 60px;margin:20px;width: 62.5%; background:#fff;position:relative; z-index: 1000;}
+.layer .popup_box{padding: 1.5% 1%; margin:20px;width: 62.5%; background:#fff; position:relative; z-index: 1000;}
 
 .popup_open {margin: 0 auto; width: 200px; height: 45px; line-height: 45px; background: #eee; display: block; text-align: center; transition: all 0.3s; color: #555;}
 .popup_open:hover {background: #ddd;}
@@ -429,6 +431,7 @@ header .open {
     /*.tabcontent {padding: 2% 3% 3%;}*/
     
     .searchBox {width: 80%;}
+    .box {padding-top: 60px;}
     
 }
 
@@ -453,10 +456,6 @@ header .open {
     .info h5 {font-size: 18px;}
     .layer .popup_box{width: 95%; margin-top: -35%;}
     
-
-    
-    
-    
     /*footer*/
     footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
     footer .footer_inner {width: 90%; margin: 0 auto;}
@@ -470,6 +469,7 @@ header .open {
 @media screen and (max-width: 768px) {
     
     .box {padding-top: 9.5%;}
+    section.sub_wrap h1 {font-size: 35px;}
     
      /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
@@ -483,7 +483,7 @@ header .open {
     
     .mypage_left h2 {font-size: 30px;}
     
-    .mypage_box .modify_btn {width: 18%; margin-top: 0; font-size: 16px;}
+    .mypage_box .modify_btn {width: 16%; margin-top: 0; font-size: 16px;}
     .info_title {padding-bottom: 3%;}
     .mypage_box .info { margin: 4% 0 0;}
     .mypage_box h5 {font-size: 22px; margin-bottom: 1.5%;}
@@ -548,6 +548,7 @@ header .open {
     .logout_mo {display: block; width: 100%; height: 50px; line-height: 50px; background: #eee; overflow: hidden; color: #888; text-align: center; margin-top: 7%;}
     .logout_mo a {display: block;}
     
+    .searchBox {padding-bottom: 5px;}
     
     /*footer*/
     footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
@@ -571,7 +572,8 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h1 {font-size: 28px; color: #666; text-align: center;}
+    section.sub_wrap h6 { margin-bottom: -5px;}
+    section.sub_wrap h1 {font-size: 30px; margin-bottom: 4%;}
     section.sub_wrap .bar {display: none;}
     .mypage_box h2 {font-size: 24px;}
     .mypage_box h5 {font-size: 18px; color: #555; margin-bottom: 2.5%; padding-top: 2%;}
@@ -699,7 +701,6 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
-    section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
     section.sub_wrap p {margin-bottom: 5%;}
     
     .popup_open3 ul li:nth-child(1),
