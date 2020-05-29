@@ -1,6 +1,7 @@
 require('./config/init');
 const createError = require('http-errors');
 const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
 const session =  require('express-session');
 const fileStore = require('session-file-store')(session);
 const passport = require('passport');
@@ -12,6 +13,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const livereload = require('livereload');
 const livereloadMiddleware = require('connect-livereload');
+const expressStatusMonitor  = require('express-status-monitor');
 const indexRouter = require('./routes/index'),
     apiRouter = require('./routes/api'),
     testRouter = require('./routes/test'),
@@ -19,12 +21,14 @@ const indexRouter = require('./routes/index'),
     usersRouter = require('./routes/users'),
     adminRouter = require('./routes/admin');
 const app = express();
-
-
+    
+    
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(expressLayouts);
 
+app.use(expressStatusMonitor());
 // 개발환경일 경우만 실행
 if( app.get('env') == "development"){
     // Debuging 용도

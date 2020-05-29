@@ -1,0 +1,186 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|Roboto&display=swap');
+
+$header_height              : 55px;
+$header_background-color    : #ffffff;
+$sidebar_width              : 192px;
+$sidebar-active-color       : #ffffff;
+$sidebar_background-color   : #403f3e;
+$gold_color                 : #c3a164;
+
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; background-repeat: no-repeat;
+    user-select:none; -webkit-user-drag: none;}
+
+// SideBar -------------
+.vertical-menu {
+    font-family: NotoSansKr;
+    width: $sidebar_width;
+    background-color: $sidebar_background-color;
+    top : $header_height;
+    box-shadow: 15px 0 20px 0 rgba(0, 0, 0, 0.1);
+
+    #sidebar-menu{
+        padding: 0 25px;
+        
+        .sub-title {
+            font-size: 26px;
+            color : #e2e2e2;
+            font-weight: 300;
+            height: 70px;
+            margin-top: 30px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #999999;
+        }
+
+        .active {
+            color : $sidebar-active-color;
+        }
+        a {
+            &:hover {
+                text-decoration: none;
+                color : $sidebar-active-color;
+            }
+            padding: 12px 0;
+            font-family: 'Noto Sans KR';
+        }
+    }
+}
+
+// SideBar End -------------
+
+
+// Header -------------
+.navbar-header {
+    height : $header_height;
+    background-color: $header_background-color;
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.1);
+    .navbar-brand-box {
+        
+        width: $sidebar_width;
+        height: 100%;
+        padding: 0;
+        .logo {
+            line-height: $header_height;
+            width: 192px;
+            img{
+                width : calc(192px - 40px);
+                height: 100%;
+            }
+        }
+    }
+    .gnb_header {
+        width : calc( 100% - 192px);
+        justify-content: space-between;
+        height: 100%;
+        #gnb_menu {
+            display: flex;
+            list-style: none;
+            text-align: center;
+            margin-top: 11px;
+            margin-bottom: 0;
+            .gnb_link {
+                width : 70px;
+                height: 24px;
+                font-size: 16px;
+                color: #999999;
+                border-left: 2px solid #f2f2f2; 
+                >div {
+                    height: $header_height;
+                }
+                &.active {
+                    line-height: 1.5;
+                    color: #222222;
+                    font-weight : 500;
+                    // border-bottom: 3px solid $gold_color;
+                }
+            }
+        }
+        .header-profile-user {
+            width: 41px;
+            height: 41px;
+        }
+
+    }
+
+}
+
+// Header End --------------------
+// Body --------------------------
+// Page Title --------------------
+.main-container{
+    padding: 20px;
+    .header{
+        width: 100%;
+        height: 30px;
+        margin-bottom: 16px;
+
+        .header-content{
+            .page-title{
+                font-size: 20px;
+                font-weight: 500;
+                line-height: 1.45;
+                color : #222222;
+            }
+            .page-title-desc{
+                padding-left: 14px;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+                font-size: 14px;
+                font-weight: 300;
+                color: #444444
+            }
+        }
+    }
+}
+
+// Page Title End ----------------
+.main-content {
+    position: relative;
+    top: $header_height;
+    margin-left: $sidebar_width;
+
+    .object-info {
+        margin-bottom: 10px;
+        box-shadow: 8px 8px 25px 0 rgba(0, 0, 0, 0.1);
+
+        .card-header{
+            background-color: #554b58;
+            padding-left: 30px;
+            padding-top: 0.3rem;
+            padding-bottom: 0.3rem;
+            font-weight: 500;
+
+            span.title{
+                font-size: 16px;
+                color: #eeeeee;
+                line-height: 2rem;
+            }
+            .btn {
+                font-size : 14px;
+            }
+            .btn-new {
+                color : #8be839;
+            }
+            .btn-modify {
+                color : #e2e2e2;
+            }
+            .btn-save {
+                color : #e2e2e2;
+            }
+            .btn-delete {
+                color: #ff5d33;
+            }
+        }
+        .card-body {
+            span {
+                line-height: 2rem;
+            }
+        }
+    }
+
+    .object-table {
+        box-shadow: 8px 8px 30px 0 rgba(0, 0, 0, 0.1);
+    }
+}
+
+// Body End ----------------------

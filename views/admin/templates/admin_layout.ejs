@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      <%= title %>
+    </title>
+    <% include admin_head.ejs %>
+    <%- HeaderCss %>
+  </head>
+  <body data-sidebar="">
+    <div id="layout-wrapper">
+        <% include admin_header.ejs %>
+		<% include admin_sidebar.ejs %>
+      <div class="main-content">
+        <%- body %>
+      </div>
+    </div>
+    <% include admin_footer.ejs %>
+    <%- FooterJs %>
+  </body>
+</html>

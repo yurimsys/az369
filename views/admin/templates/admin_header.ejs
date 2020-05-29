@@ -1,62 +1,41 @@
-<!-- Searchbar -->
-<div class="top-search-bar">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-6 offset-md-3">
-				<div class="search-input-addon">
-					<span class="addon-icon"><i class="icon-search4"></i></span>
-					<input type="text" class="form-control top-search-input" placeholder="Enter your keyword...">
+<header id="page-topbar">
+	<div class="navbar-header">
+		<div class="d-flex">
+			<!-- LOGO -->
+			<div class="navbar-brand-box">
+				<a href="/" class="logo">
+					<span class="logo-lg">
+						<img src="/img/admin/logo.png" alt="" height="18" />
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="d-flex gnb_header">
+			<div style="height: 55px;">
+				<ul id="gnb_menu" class="list-unstyled">
+					<li class="gnb_link">차량</li>
+					<li class="gnb_link">회원</li>
+					<li class="gnb_link">결제</li>
+					<li class="gnb_link active"><div>관리</div></li>
+				</ul>
+			</div>
+		<!-- </div>
+		<div class="d-flex"> -->
+			<div class="dropdown d-inline-block">
+				<a class="btn waves-effect" id="page-header-user-dropdown"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<img class="rounded header-profile-user" src="http://via.placeholder.com/44x44"
+						alt="Header Avatar" />
+				</a>
+				<div class="dropdown-menu dropdown-menu-right">
+					<!-- item-->
+					<a class="dropdown-item" href="#">
+						Profile</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item text-danger" href="#">
+						Logout</a>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- /Searchbar -->
-
-<!-- Branding -->
-<div class="navbar-left float-left">
-	<div class="clearfix">
-		<a href="/admin/index"><img src='/img/main/logo2.png' style="margin-top: 5px;"></a>
-	</div>
-</div>
-<!-- /Branding -->
-
-<!-- /Search & Languages -->
-
-<!-- Navbar icons -->
-<div class="navbar float-right navbar-toggleable-sm">
-	<div class="clearfix">
-		<ul class="float-right top-icons">
-			<li><a href="#" class="btn-top-search hidden-sm-up"><i class="icon-search4"></i></a></li>
-
-			<!-- Quick apps dropdown -->
-
-			<!-- /Quick apps dropdown -->
-
-			<!-- Rightbar -->
-			<!-- /Rightbar -->
-
-			<!-- User dropdown -->
-			<li class="dropdown user-dropdown">
-				<a href="#" class="btn-user dropdown-toggle hidden-xs-down" data-toggle="dropdown"><img
-						src="http://via.placeholder.com/80x80" class="rounded-circle user" alt="" /></a>
-				<a class="user-name hidden-xs-down" data-toggle="dropdown">AZ369<small>Administrator</small></a>
-				<a href="#" class="dropdown-toggle hidden-sm-up" data-toggle="dropdown"><i class="icon-more"></i></a>
-				<div class="dropdown-menu animated fadeIn no-p">
-					<div class="user-icon text-center p-t-15">
-						<img src="http://via.placeholder.com/120x120" class="rounded-circle" alt="" />
-						<h5 class="text-center p-b-15">Administrator</h5>
-					</div>
-
-					<div class="text-center p-10"><a href="/logout" class="btn btn-block"><i
-								class="icon-exit3 i-16 position-left"></i> Logout</a></div>
-					<div class="text-center p-10"><a href="/" class="btn btn-block"><i
-								class="icon-exit3 i-16 position-left"></i> AZ369</a></div>
-				</div>
-			</li>
-			<!-- /User dropdown -->
-
-		</ul>
-	</div>
-</div>
-<!-- /Navbar icons -->
+</header>
