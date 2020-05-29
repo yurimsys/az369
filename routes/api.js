@@ -35,6 +35,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage})
 
 
+
 connection.on('error', function(err) {
     console.log('------ on error!');
     console.log(err);
@@ -409,6 +410,9 @@ router.post('/user/checkId', (req, res, next) =>{
         });
         
 });
+
+
+
 //회원가입 액션
 router.post('/user/join', (req, res, next) =>{
     let query = `insert into tU (U_uId, U_Pw, U_Name, U_Phone, U_Email, U_Brand, U_Zip, U_Addr1, U_Addr2) 
@@ -441,8 +445,8 @@ router.post('/user/carPool', (req, res, next) =>{
     let query = `insert into tCP(CP_U_ID, CP_PreferDays, CP_DepartureTe, CP_ReturnTe) 
                 values( :joinId, :preferDays, :departureTe, :returnTe)`;
     let preferDays = req.body['days[]'].join(',');
-    let departureTe = req.body.sel;
-    let returnTe = req.body.sel2;
+    let departureTe = req.body.departureTe;
+    let returnTe = req.body.returnTe;
     let joinId = req.body.joinId;
     console.log("날짜 :",preferDays)
     console.log("출발시간 :",departureTe)
@@ -617,7 +621,7 @@ router.post('/user/confirm', auth.isLoggedIn, (req, res, done) =>{
             } else {
                 console.log("성공")
                 res.json( {  data : "성공"});
-            }           6
+            }           
         });      
 }); 
 
@@ -700,7 +704,7 @@ router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
 });
 
 //회원 예약유무 
-router.post('/user/delchoice',  auth.isLoggedIn, (req, res, next) =>{
+router.get('/user/delchoice',  auth.isLoggedIn, (req, res, next) =>{
    
     let query = `select * from tCR where CR_U_ID = :sessionId AND CR_Cancel = 'N' 
                 AND (select CT_DepartureTe from tCT where tCT.CT_ID = tCR.CR_CT_ID) > now()`;
@@ -966,7 +970,7 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
 
 
 //마이페이지 취소 및 환불조회
-router.post('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
+router.get('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
     let query = `   select
                         date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
                         date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
@@ -1123,7 +1127,7 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
     
     let str_values_list = [],
         str_values ="",
-        seatNums = req.body['seatNums[]'],
+        seatNums = req.body['seatNums'],
         ct_id = req.body.ct_id,
         oPrice = req.body.oPrice,
         sPrice = req.body.sPrice,
@@ -1367,7 +1371,7 @@ router.post('/video/count', function(req, res, next) {
 });
 
 //추천 비디오
-router.post('/video/best', function(req, res, next) {
+router.get('/video/best', function(req, res, next) {
     let query = `select * from tYL where YL_d_order order by rand() limit 1`; 
     connection.query(query,
       function(err, rows, fields) {
