@@ -105,7 +105,7 @@ section.sub_wrap h5 span {font-weight: 400;}
 .benefit_list .txt p br {display: none;}
 .list_bar {width: 20px; border-bottom: 1px solid #c3a164; margin: 15px 0;}
 
-.benefit_btn {display: inline-block; transition: all 0.4s; margin-top: 10px; color: #C3A164; font-weight: 500; font-size: 16px; overflow: hidden;}
+.benefit_btn {display: inline-block; transition: all 0.4s; margin-top: 10px; color: #444; font-weight: 500; font-size: 16px; overflow: hidden;}
 
 
 
