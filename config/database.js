@@ -29,6 +29,17 @@ const database_json =
             "database" : "yurimsys12",
             "port"     : "3306",
             "dateStrings"     : "date"
+        },
+        mssql : {
+            "user"      : "sa",
+            "password"  : "qw12qw12)",
+            "server"    : "yurimsys.iptime.org",
+            "port"      : 14331,
+            "database"  : "YR_SIGNAGE",
+            "timezone"  : 'utc',
+            "options"   : {
+                "encrypt" : false
+            }
         }
     }
 }
