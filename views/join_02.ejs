@@ -444,9 +444,9 @@
                         method: "post",
                         data: {
                             'joinId': joinId,
-                            'sel': $("#select01 option:selected").val(),
-                            'sel2': $("#select02 option:selected").val(),
-                            'days': seatArr
+                            'departureTe': $("#select01 option:selected").val(),
+                            'returnTe': $("#select02 option:selected").val(),
+                            'preferDays': seatArr
                         },
                         success: function (res) {
                             if (res.data === '성공') {
