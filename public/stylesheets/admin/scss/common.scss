@@ -7,9 +7,40 @@ $sidebar_width              : 192px;
 $sidebar-active-color       : #ffffff;
 $sidebar_background-color   : #403f3e;
 $gold_color                 : #c3a164;
+$primary_color              : #f6633c;
+$secondary_color            : #f6633c;
+$success_color              : #f6633c;
+$danger_color               : #f6633c;
+$normal_color               : #222222;
 
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; background-repeat: no-repeat;
     user-select:none; -webkit-user-drag: none;}
+
+// Icon ----------------
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
 
 // SideBar -------------
 .vertical-menu {
@@ -210,3 +241,49 @@ $gold_color                 : #c3a164;
 }
 
 // Body End ----------------------
+
+// Modal -------------------------
+.modal {
+    .modal-content {
+        .modal-header {
+            border-bottom: none;
+            .close {
+                font-size: 30px;
+                &:focus{
+                    outline: none;
+                }
+            }
+        }
+        .modal-body {
+            min-height: 80px;
+        }
+        .modal-footer {
+            border-top: none;
+            padding: 0;
+            justify-content: space-around;
+            background-color: #fcfcfc;
+            min-height: 60px;
+            border-radius: 0.3rem;
+            button {
+                margin: 0;
+                width: 100%;
+                background-color: inherit;
+                border: none;
+                outline: none !important;
+                box-shadow: none !important;
+                &.btn-danger {
+                    color: $danger_color;
+                }
+                &.btn-normal {
+                    color: $normal_color;
+                }
+                
+                &:active {
+                    background-color: inherit;
+                }
+                
+            }
+        }
+    }
+}
+// Modal End ---------------------
