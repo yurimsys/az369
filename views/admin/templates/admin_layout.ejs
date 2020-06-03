@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <title>
-      <%= title %>
+        <% if ( title ) { %>
+            <%= title %> | AZ369 관리 페이지
+        <% } else { %>
+            AZ369 관리 페이지
+        <% } %>
     </title>
     <% include admin_head.ejs %>
     <%- HeaderCss %>
-  </head>
-  <body data-sidebar="">
+</head>
+
+<body data-sidebar="">
     <div id="layout-wrapper">
         <% include admin_header.ejs %>
-		<% include admin_sidebar.ejs %>
-      <div class="main-content">
-        <%- body %>
-      </div>
+        <% include admin_sidebar.ejs %>
+        <div class="main-content">
+            <%- body %>
+        </div>
     </div>
     <% include admin_footer.ejs %>
     <%- FooterJs %>
-  </body>
+</body>
+
 </html>

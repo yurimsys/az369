@@ -50,9 +50,8 @@ router.get('/index', function(req, res, next) {
 
 router.get('/ad', function(req, res, next) {
     var pageSetting = {
-        title: 'Page Title',
-        description: 'Page Description',
-        header: 'Page Header',
+        title: '광고관리',
+        description: '센트럴돔 내 사이니지 광고를 관리하는 페이지 입니다.',
         layout: 'admin/templates/admin_layout'
     };
     res.render('admin/admin_ad', pageSetting);
