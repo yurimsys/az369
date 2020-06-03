@@ -106,6 +106,13 @@ $gold_color                 : #c3a164;
 
 // Header End --------------------
 // Body --------------------------
+.card-body {
+    padding : 1rem;
+    .form-group {
+        margin-bottom: 0.5rem;
+    }
+}
+
 // Page Title --------------------
 .main-container{
     padding: 20px;
@@ -155,20 +162,39 @@ $gold_color                 : #c3a164;
                 color: #eeeeee;
                 line-height: 2rem;
             }
-            .btn {
-                font-size : 14px;
+            .action-btns.action-new{
+                .btn {
+                    font-size : 14px;
+                }
+                .btn-new {
+                    color : #8be839;
+                }
+                .btn-modify {
+                    color : #999999;
+                }
+                .btn-save {
+                    color : #e2e2e2;
+                }
+                .btn-delete {
+                    color: #f6633c;
+                }
             }
-            .btn-new {
-                color : #8be839;
-            }
-            .btn-modify {
-                color : #e2e2e2;
-            }
-            .btn-save {
-                color : #e2e2e2;
-            }
-            .btn-delete {
-                color: #ff5d33;
+            .action-btns.action-modify{
+                .btn {
+                    font-size : 14px;
+                }
+                .btn-new {
+                    color : #8be839;
+                }
+                .btn-modify {
+                    color : #e2e2e2;
+                }
+                .btn-save {
+                    color : #999999;
+                }
+                .btn-delete {
+                    color: #ff5d33;
+                }
             }
         }
         .card-body {
