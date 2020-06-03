@@ -29,7 +29,7 @@
             $('.centralSvg3F').css('display','none');
             $('#floor1Btn').addClass('floorSelcet');
             $('#nowFloor').text('1F');
-            location.href='http://localhost:8001/sign?device_cd=1fa';
+            location.href=location.origin+'/sign?device_cd=1fa';
         }
         else if(deviceParam.device_cd.substring(0,1) == '1'){
             $('.centralSvg1F').css('display','block');

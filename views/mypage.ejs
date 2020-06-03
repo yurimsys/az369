@@ -478,7 +478,9 @@
         </section>
 
         <script>
+            
             $(window).load(function () {
+                $('#tab1').addClass('active')
                 $(".trigger_popup_fricc").click(function () {
                     $('.hover_bkgr_fricc').show();
                 });
@@ -499,6 +501,7 @@
     <script>
         var trVal = Array();
         var tdVal = Array();
+        
         //선택예매취소 클릭 후 리스트 보여주기
         function cancelBtn() {
             $(".cancelRes").empty();
@@ -532,6 +535,7 @@
                     'sendArray': seatArr
                 },
                 success: function (res) {
+                    
                     //PC 예매취소 리스트
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<tr val=" + res.data[i].pId + ">";
@@ -563,6 +567,7 @@
                 }
             })
         }
+        
 
         //예매 취소
         function resCancel() {
@@ -731,7 +736,7 @@
             $("#cancelList").empty();
             $.ajax({
                 url: "api/user/resCancelList",
-                method: "post",
+                method: "get",
                 dataType: "json",
                 success: function (res) {
                     for (let i = 0; i < res.data.length; i++) {
@@ -739,7 +744,7 @@
                         html += "<td>" + res.data[i].PayDay + "</td>";
                         html += "<td>" + res.data[i].deptTe + "</td>";
                         html += "<td>" + res.data[i].cancelDay + "</td>";
-                        html += "<td>" + res.data[i].seatCnt + "</td>";
+                        html += "<td>" + res.data[i].seatCnt + "</td>";     
                         html += "<td>" + res.data[i].payType + "</td>";
                         html += "<td>" + res.data[i].price + "</td>";
                         html += "</tr>";

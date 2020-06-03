@@ -221,7 +221,7 @@
     <!--youtube 영상 사이즈 자동조절-->
     <script type="text/javascript">
         $(function () {
-            $("iframe.myFrame").load(function () { //iframe 컨텐츠가 로드 된 후에 호출됩니다.
+            $("iframe.myFrame").on('load',function () { //iframe 컨텐츠가 로드 된 후에 호출됩니다.
                 var frame = $(this).get(0);
                 var doc = (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
                 $(this).height(doc.body.scrollHeight);
@@ -233,7 +233,7 @@
         //추천 비디오
         $.ajax({
             url: '/api/video/best',
-            method: 'post',
+            method: 'get',
             dataType: 'json',
             success: function (res) {
                 //console.log("res :::",res)
