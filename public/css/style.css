@@ -129,14 +129,14 @@ section.main {
 
 /*공통속성*/
 section .bar {
-    border-bottom: 2px solid #a0772b;
+    border-bottom: 2px solid #c3a164;;
     width: 30px;
     margin: 0 auto;
     margin-top: 10px;
     margin-bottom: 40px;
 }
 
-section h6 {text-align: center; color: #a0772b; margin-bottom: -1%; font-weight: bold; font-size: 1rem;}
+section h6 {text-align: center; color: #c3a164;; margin-bottom: -1%; font-weight: bold; font-size: 16px; font-weight: 500;}
 
 section h3 {
     text-align: center;

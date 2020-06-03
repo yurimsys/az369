@@ -23,7 +23,6 @@ section.main {
     position: relative;
     width: 100%;
     height: 450px;
-    z-index: -100;
     overflow: hidden;
 }
 
@@ -32,9 +31,8 @@ background-position: center;
 background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 
 @keyframes bg {
-    0% {transform: scale(1.05);
+    0% {transform: scale(1.05);}
     100% {transform: scale(1);}
-    }
 }
 
 /*section.main 완료*/
@@ -47,20 +45,20 @@ section.sub_wrap {
     color: #333;
 }
 
-.tnb {position: relative; width: 1200px; margin: 0 auto;  margin-top: -5%;}
+.tnb {position: absolute; width: 1200px; margin: 0 auto;  bottom: 0; left: 50%; transform: translateX(-50%);}
 .tnb ul li {float: left; width: 50%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; color: #444; transition: all 0.2s; z-index: 1000; font-size: 17px;}
 
 
 
 section.sub_wrap .bar {
-    border-bottom: 2px solid #624000; 
+    border-bottom: 2px solid #c3a164;; 
     width: 35px; 
     margin: 0 auto;
     margin-top: 2%;
     margin-bottom: 5%;
 }
 
-section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 13%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #c3a164;;  padding-top: 13%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
 
 section.sub_wrap h1 {
     text-align: center; 
@@ -99,7 +97,7 @@ input[type=text]{
     padding: 12px 20px;
     margin-right: 5%;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid #eee;
     border-radius: 4px;
     box-sizing: border-box;
     outline-style: none;
@@ -126,7 +124,7 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-  background-color: #ad863c;
+  background-color: #C3A164;
     color: #fff;
 }
 
@@ -152,7 +150,7 @@ input[type=submit]:hover {
 .apply_check h3 {margin-bottom: 2%;}
 
 .check_btn {width: 100%; margin-top: 3%;}
-.check_btn a:hover {background: #ad863c; color: #fff;}
+.check_btn a:hover {background: #C3A164; color: #fff;}
 .check_btn a {display: block; width: 100%; transition: all 0.3s;}
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
 .popup_box{ margin:20px; width: 35%; height: auto;  padding-bottom: 1.5%; background:#fff;position:relative;/* border: 4px solid #ad863c; */z-index: 1000; text-align: center; color: #555;}

@@ -65,7 +65,7 @@ section.sub_wrap h1 {
 input::placeholder {font-weight: 14px; font-weight: 300; color: #767676;}
 input:focus {border: 1px solid #c3a164;}
 
-.modify_box h2 {text-align: center; padding: 12px 0; background: #f8f8f8; font-size: 18px; font-weight: 400; margin-top: 15px; margin-bottom:20px;}
+.modify_box h2 {text-align: center; padding: 12px 0;  font-size: 20px; font-weight: 400; margin-top: 15px; margin-bottom:20px;}
 .modify_box h2 span {font-weight: 300;}
 .modify_box p {text-align: center; margin-bottom: 25px; color: #222; font-weight: 300;}
 .modify_box h3 {font-size: 16px; margin-bottom: 1%; font-weight: normal; color: #666; margin-top: 3%;}
@@ -79,7 +79,7 @@ input:focus {border: 1px solid #c3a164;}
 /*인증번호받기*/
 #phone {width: 70%; float: left; margin-right: 1%;}
 .check_btn, .btn-primary {width: 29%; height: 50px; line-height: 50px; float: left; cursor: pointer; text-align: center;}
-.check_btn {width: 29%; height: 50px; line-height: 50px; float: left;  border: 1px solid #eee; background: #eee; cursor: pointer; font-weight: 400;}
+.check_btn {width: 29%; height: 50px; line-height: 50px; float: left;  border: 1px solid #ccc; background: #fff; cursor: pointer; font-weight: 400;}
 #phone_check {margin-top: 1%;}
 #phone_check_box {
   font-size: 16px;
