@@ -1,4 +1,13 @@
 //*** 메인 좌측 카테고리 선택 스크립트 ***
+// window.addEventListener('touchstart', function(e) {
+//     if (e.targetTouches.length === 2) {
+//       e.preventDefault();
+//     }
+//   }, false);
+//   let test1 = monitorEvents(document.body, 'mouse')
+//   console.log(test1);
+  
+  
 //브랜드 리스트
     $.ajax({
         url: '/api/brandList',
@@ -74,10 +83,10 @@
         }
     })
 
-    let $categoryList = $('.categoryList')
-    let $categoryList2 = $('.categoryList2')
-    let $categoryPrev = $('.categoryPrev img')
-    let $categoryNext = $('.categoryNext img')
+    let $category_list = $('.categoryList')
+    let $category_list2 = $('.categoryList2')
+    let $category_prev = $('.categoryPrev img')
+    let $category_next = $('.categoryNext img')
 
     //카테고리 리스트
     function LV1CatList(){
@@ -88,39 +97,40 @@
                 let html = "<li>";
                     html += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"class="categoryIconBox categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>';
                     html += "</li>";
-                $categoryList.append(html);
+                $category_list.append(html);
             }
             if(i >= 7){
                 let html2 = "<li>";
                     html2 += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"class="categoryIconBox categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>';
                     html2 += "</li>";
-                $categoryList2.append(html2);
+                $category_list2.append(html2);
             }
         }
     }
     LV1CatList();
     let count = 0;
+    let $svg_cat = $('.svgCat')
     function selectCat(e){
         let catId = e.id;
-        let svgClass = $('#'+catId).data('catclass').replace(/ /g, '');
-        let $catIdClass = $('#'+catId).hasClass('selected');
-        let $svgClass = $('.'+svgClass)
+        let svg_class = $('#'+catId).data('catclass').replace(/ /g, '');
+        let $catId_class = $('#'+catId).hasClass('selected');
+        let $svg_class = $('.'+svg_class)
         //클릭시 전체 색상 초기화
         if(count == 0){
-            $('.svgCat').css('fill','#e2e2e2');   
+            $svg_cat.css('fill','#e2e2e2');   
             count = 1;
         }
         //클릭한 것만 색상표시
-        if($catIdClass == false ){
+        if($catId_class == false ){
             $(e).addClass('selected');
             //svg클래스
-            $svgClass.css('fill','');
+            $svg_class.css('fill','');
         }
-        else if($catIdClass == true ){
+        else if($catId_class == true ){
             $(e).removeClass('selected');
-            $svgClass.css('fill','#e2e2e2');
+            $svg_class.css('fill','#e2e2e2');
             if($('.categoryList div').hasClass('selected') == false && $('.categoryList2 div').hasClass('selected') == false){
-                $('.svgCat').css('fill',''); 
+                $svg_cat.css('fill',''); 
                 
                 count = 0;
                 return count;
@@ -128,15 +138,16 @@
         }
     }
 
+    let $now_page = $('#nowPage')
 
     //카테고리 다음버튼
     function mainNext(e){
-        if($('#nowPage').text()==1){
-            $('#nowPage').text('2');
-            $categoryList.css('display','none');
-            $categoryList2.css('display','block');
-            $categoryPrev.attr('src','/img/signage/left_arrow_active_icon.png');
-            $categoryNext.attr('src','/img/signage/right_arrow_icon.png');
+        if($now_page.text()==1){
+            $now_page.text('2');
+            $category_list.css('display','none');
+            $category_list2.css('display','block');
+            $category_prev.attr('src','/img/signage/left_arrow_active_icon.png');
+            $category_next.attr('src','/img/signage/right_arrow_icon.png');
             // $('#prev').addClass('clickPrevBtn')
             // $('#next').removeClass('clickNextBtn')
 
@@ -144,12 +155,12 @@
     }
     //카테고리 이전버튼
     function mainPrev(){
-        if($('#nowPage').text()==2){
-            $('#nowPage').text('1');
-            $categoryList.css('display','block');
-            $categoryList2.css('display','none');
-            $categoryNext.attr('src','/img/signage/right_arrow_active_icon.png');
-            $categoryPrev.attr('src','/img/signage/left_arrow_icon.png');
+        if($now_page.text()==2){
+            $now_page.text('1');
+            $category_list.css('display','block');
+            $category_list2.css('display','none');
+            $category_next.attr('src','/img/signage/right_arrow_active_icon.png');
+            $category_prev.attr('src','/img/signage/left_arrow_icon.png');
         }
     }
 

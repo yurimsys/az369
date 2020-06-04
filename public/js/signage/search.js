@@ -67,8 +67,8 @@ $('#searchBrandName').bind('input', function (e) {
         });
     $('.searchResult').empty();
     for (let i = 0; i < jsonBrand.length; i++) {
-        let lanType1 = $('#kor').hasClass('choose') ? jsonBrand[i].BS_NameKor : jsonBrand[i].BS_NameEng
-        let lanType2 = $('#kor').hasClass('choose') ? jsonBrand[i].BC_NameKor : jsonBrand[i].BC_NameEng
+        let lanType1 = $('#eng').hasClass('choose') ? jsonBrand[i].BS_NameKor : jsonBrand[i].BS_NameEng;
+        let lanType2 = $('#eng').hasClass('choose') ? jsonBrand[i].BC_NameKor : jsonBrand[i].BC_NameEng; 
 
         for (let j = 0; j < searchResult.length; j++) {
             if (jsonBrand[i].BS_NameKor === searchResult[j].name || jsonBrand[i].BS_NameEng === searchResult[j].name) {

@@ -154,7 +154,6 @@ class AdSlide{
         }
     }
     showCategoryAD(lv1_category_id) {
-        console.log('카테고리',lv1_category_id);
         let ad_default = JSON.parse(sessionStorage.getItem('ad_default'))
         $(`.category_container`).hide();
         
