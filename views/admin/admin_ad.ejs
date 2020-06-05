@@ -25,10 +25,10 @@
 				</div>
 				<div class="col-4">
 					<div class="float-right action-btns action-new">
-						<div class="btn btn-new px-4" onclick=objectInfo("new")>신규</div>
-						<div class="btn btn-modify px-4 disabled">수정</div>
-						<div class="btn btn-save px-4" onclick="saveAD()">저장</div>
-						<div class="btn btn-delete px-4 disabled" data-toggle="modal" data-target="#deleteModal">삭제
+						<div name="new" class="btn btn-new px-4" onclick=objectInfo("new")>신규</div>
+						<div name="modify" class="btn btn-modify px-4 disabled">수정</div>
+						<div name="save" class="btn btn-save px-4" onclick="saveAD()">저장</div>
+						<div name="delete" class="btn btn-delete px-4 disabled" data-toggle="modal" data-target="#deleteModal">삭제
 						</div>
 					</div>
 				</div>
@@ -121,3 +121,6 @@
 	</div>
 </div>
 <%- contentFor('FooterJs') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.0.1/exceljs.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.2/jszip.min.js"></script>

@@ -91,6 +91,8 @@ let objectInfo = function (mode = "modify", row_data) {
         $(".select2").val(null).trigger('change');
         ad_duration_start_instance.reset();
         ad_duration_final_instance.reset();
+
+        sessionStorage.removeItem('row_data');
     } else if( mode === "modify"){
         action_btns_instance.removeClass('action-new');
         action_btns_instance.addClass('action-modify');
@@ -107,6 +109,8 @@ let objectInfo = function (mode = "modify", row_data) {
         $('#inputAdTitle').val(row_data.inputAdTitle);
         ad_duration_start_instance.option("value", row_data.ad_duration_start);
         ad_duration_final_instance.option("value", row_data.ad_duration_final);
+
+        sessionStorage.setItem('row_data', JSON.stringify(row_data) );
     }
 }
 
@@ -158,6 +162,25 @@ let tableInit = function (data) {
         headerFilter: {
             visible: true
         },
+        export: {
+            enabled: true,
+            allowExportSelectedData: true
+          },
+          onExporting: function(e) {
+            var workbook = new ExcelJS.Workbook();
+            var worksheet = workbook.addWorksheet('광고관리');
+            
+            DevExpress.excelExporter.exportDataGrid({
+              component: e.component,
+              worksheet: worksheet,
+              autoFilterEnabled: true
+            }).then(function() {
+              workbook.xlsx.writeBuffer().then(function(buffer) {
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), '광고관리.xlsx');
+              });
+            });
+            e.cancel = true;
+          },
         columns: [
             { dataField: "AD_ID", caption: "ID", width : 70, sortOrder : "desc"},
             { dataField: "BS_NameKor", caption: "브랜드"},
@@ -205,19 +228,27 @@ function saveAD(){
         }
     })
 }
-function deleteAD(id) {
-    $.ajax({
-        dataType : 'JSON',
-        type : "DELETE",
-        url : '/api/ad/'+id,
-        success : function (res) {
-            console.log('ajax result');
-            console.log(res);
-            $("#mgmt-table").dxDataGrid("instance").refresh();
-        }
-    });
+function deleteAD(mode = 'single') {
+    if(mode === 'single'){
+
+        let id = JSON.parse( sessionStorage.getItem('row_data') ).ad_id;
+        $.ajax({
+            dataType : 'JSON',
+            type : "DELETE",
+            url : '/api/ad/'+id,
+            success : function (res) {
+                console.log('ajax result');
+                console.log(res);
+                objectInfo('new');
+                $("#mgmt-table").dxDataGrid("instance").refresh();
+            }
+        });
+    } else if(mode === "multi"){
+        
+    }
 }
-function updateAD(id){
+function updateAD(){
+    let id = JSON.parse( sessionStorage.getItem('row_data') ).ad_id;
     let update_data = {
         adBsId : $("#selectBrand").val(),
         adAdyId : $("#selectAdType").val(),
