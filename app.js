@@ -19,13 +19,15 @@ const indexRouter = require('./routes/index'),
     testRouter = require('./routes/test'),
     usersRouter = require('./routes/users'),
     adminRouter = require('./routes/admin');
+const multer = require('multer')
 const app = express();
     
     
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(expressLayouts);
+
+// app.use(multer);
 
 app.use(expressStatusMonitor());
 // 개발환경일 경우만 실행
@@ -77,6 +79,10 @@ app.use('/', indexRouter);
 app.use('/api', apiRouter);
 app.use('/test', testRouter);
 app.use('/users', usersRouter);
+
+// Admin Layout 적용
+app.use(expressLayouts);
+
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler

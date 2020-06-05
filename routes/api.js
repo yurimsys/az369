@@ -13,6 +13,9 @@ const LocalStrategy = require('passport-local').Strategy;
 const sms = require('../modules/sms');
 const localAuth = require('../modules/auth');
 const multer = require('multer')
+const path = require('path');
+const fs = require('fs');
+
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
     
@@ -26,7 +29,7 @@ connection.config.queryFormat = function (query, values) {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, '/public/upload')
+      cb(null, path.join(__dirname, '..', '_tmp_files/'))
     },
     filename: function (req, file, cb) {
       cb(null, file.originalname)
@@ -44,6 +47,22 @@ connection.on('error', function(err) {
 /**
  * SiGNAGE API Start
  */
+
+router.put('/test', upload.any(), function(req, res){
+    console.log(req);
+    let filename = req.files[0].filename;
+    let old_path = req.files[0].path;
+    let new_path = path.join(config.path.ad_image , filename);
+
+    fs.rename(old_path, new_path, (err) => {
+        if (err) throw err;
+        fs.stat(new_path, (err, stats) => {
+          if (err) throw err;
+          console.log(`stats: ${JSON.stringify(stats)}`);
+        });
+      });
+    res.json({result:1});
+})
 
  // 광고 타입 
 router.get('/adtype', function(req, res, next) {
@@ -1833,10 +1852,24 @@ router.delete('/deleteBs/:bsId', async function(req,res){
 
 ///////////////광고
 //광고 등록
-router.post('/addAd', upload.any(), async function (req, res, next) {
+router.post('/ad', upload.any(), async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
         // 광고입력
+        if(req.files.length === 0) throw Error('Non include files');
+        let content_type = req.files[0].mimetype.split('/')[0];
+        let filename = req.files[0].filename;
+        let old_path = req.files[0].path;
+        let new_path = path.join(config.path.ad_image , filename);
+
+        fs.rename(old_path, new_path, (err) => {
+            if (err) throw err;
+            fs.stat(new_path, (err, stats) => {
+            if (err) throw err;
+            console.log(`stats: ${JSON.stringify(stats)}`);
+            });
+        });
+
         console.log('보내기');
         let result = await pool.request()
             .input('adBsId', mssql.Int, req.body.adBsId)
@@ -1846,21 +1879,23 @@ router.post('/addAd', upload.any(), async function (req, res, next) {
             .input('adTitle', mssql.NVarChar, req.body.adTitle)
             .input('adDtS', mssql.DateTime, req.body.adDtS)
             .input('adDtF', mssql.DateTime, req.body.adDtF)
-            .input('adUrl', mssql.NVarChar, req.body.adUrl) //req.files.originalname
-            .input('adConTy', mssql.NVarChar, req.body.adConTy)
+            .input('adUrl', mssql.NVarChar, '/img/ad/'+filename)
+            .input('adConTy', mssql.NVarChar, content_type)
             .input('addef', mssql.NVarChar, req.body.addef)
             .query(`insert into tAD(AD_BS_ID, AD_ADY_ID, AD_BC_ID, AD_PaymentStatus, AD_Title, AD_DtS, 
                                     AD_DtF, AD_ContentURL, AD_ContentTy, AD_Default)
                         values(@adBsId, @adAdyId, @adBcId, @adPay, @adTitle, @adDtS, @adDtF, @adUrl, @adConTy, @addef)`);
         console.log('성공');
+        res.json({result : 1});
     } catch (err) {
         console.log(err);
         console.log('error fire')
+        res.json({result : 0});
     }
 });
 
 //광고 수정
-router.put('/modifyAd/:adId', upload.any(), async function (req, res, next) {
+router.put('/ad/:adId', upload.any(), async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
 
@@ -1906,24 +1941,28 @@ router.put('/modifyAd/:adId', upload.any(), async function (req, res, next) {
             .input('adConTy', mssql.NVarChar, req.body.adConTy)
             .query(query);
         console.log('성공');
+        res.json({result : 1});
     } catch (err) {
         console.log(err);
         console.log('error fire')
+        res.json({result : 0});
     }
 });
 //광고 삭제
-router.delete('/deleteAd/:adId',  async function (req, res, next) {
+router.delete('/ad/:adId',  async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
         // 광고입력
         console.log('보내기');
         let result = await pool.request()
-            .input('adyId', mssql.NVarChar, req.params.adId)
-            .query(`delete from tADY where AD_ID = @adId`);
+            .input('adId', mssql.Char, req.params.adId)
+            .query(`delete from tAD where AD_ID = @adId`);
         console.log('성공');
+        res.json({result : 1});
     } catch (err) {
         console.log(err);
         console.log('error fire')
+        res.json({result : 0});
     }
 });
 

@@ -1,4 +1,3 @@
-
 <%- contentFor('HeaderCss') %>
 
 <%- contentFor('body') %>
@@ -28,8 +27,9 @@
 					<div class="float-right action-btns action-new">
 						<div class="btn btn-new px-4" onclick=objectInfo("new")>신규</div>
 						<div class="btn btn-modify px-4 disabled">수정</div>
-						<div class="btn btn-save px-4">저장</div>
-						<div class="btn btn-delete px-4 disabled" data-toggle="modal" data-target="#staticBackdrop">삭제</div>
+						<div class="btn btn-save px-4" onclick="saveAD()">저장</div>
+						<div class="btn btn-delete px-4 disabled" data-toggle="modal" data-target="#deleteModal">삭제
+						</div>
 					</div>
 				</div>
 			</div>
@@ -43,7 +43,7 @@
 					</div>
 					<label for="inputAdFiles" class="col-1 col-form-label">사진첨부</label>
 					<div class="col-4">
-						<input type="file" class="form-control" id="inputAdFiles">
+						<input type="file" class="form-control" id="inputAdFiles" name="inputAdFiles">
 					</div>
 				</div>
 				<div class="form-group row">
@@ -91,37 +91,33 @@
 	<!-- 테이블 -->
 	<div class="card object-table">
 		<div class="card-body container-flud">
-			<div class="demo-container">
-				<div id="gridContainer"></div>
-			</div>
+			<div id="mgmt-table"></div>
 		</div>
 	</div>
 	<!-- /테이블 -->
 
 </section>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-	mbutton
-</button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+	aria-labelledby="ModalTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title" id="staticBackdropLabel"></h5>
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span class="material-icons">close</span>
-		  </button>
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalTitle"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="material-icons">close</span>
+				</button>
+			</div>
+			<div class="modal-body text-center">
+				선택하신 광고를 삭제하시겠습니까?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteAD()">삭제</button>
+				<button type="button" class="btn btn-normal" data-dismiss="modal">취소</button>
+			</div>
 		</div>
-		<div class="modal-body text-center">
-		  선택하신 광고를 삭제하시겠습니까?
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-danger">삭제</button>
-			<button type="button" class="btn btn-normal" data-dismiss="modal">취소</button>
-		</div>
-	  </div>
 	</div>
-  </div>
+</div>
 <%- contentFor('FooterJs') %>

@@ -79,6 +79,15 @@ $normal_color               : #222222;
 
 // SideBar End -------------
 
+@mixin nav-after {
+    &:after {
+        content: '';
+        display: block;
+        margin-top: 12px;
+        height: 4px;
+        background-color: $gold_color;
+    }
+}
 
 // Header -------------
 .navbar-header {
@@ -107,7 +116,7 @@ $normal_color               : #222222;
             display: flex;
             list-style: none;
             text-align: center;
-            margin-top: 11px;
+            margin-top: 15px;
             margin-bottom: 0;
             .gnb_link {
                 width : 70px;
@@ -115,14 +124,16 @@ $normal_color               : #222222;
                 font-size: 16px;
                 color: #999999;
                 border-left: 2px solid #f2f2f2; 
-                >div {
-                    height: $header_height;
-                }
+                
                 &.active {
                     line-height: 1.5;
                     color: #222222;
                     font-weight : 500;
-                    // border-bottom: 3px solid $gold_color;
+                    
+                    @include nav-after;
+                }
+                &:hover {
+                    @include nav-after;
                 }
             }
         }
