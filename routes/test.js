@@ -24,6 +24,11 @@ router.get('/sms', function(req, res){
     })
 });
 
+router.get('/test',function(req,res){
+    res.render('test');
+});
+
+
 // UDI API 전송 예제 코드
 router.get('/', function(req,res){
     var details = {

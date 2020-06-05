@@ -57,20 +57,20 @@
         //이미지 커서 이동 css
         if($central_svg_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '12px'){
             storeMapSize(1,13,1.5);
-            $centralSvg.css('left','0px');
-            $centralSvg.css('top','0px');
+            $central_svg_1f.css('left','0px');
+            $central_svg_1f.css('top','0px');
             return false;
         }
-        else if($central_svg_2f.css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '12px'){
+        else if($central_svg_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '12px'){
             storeMapSize(2,13,1.5);
-            $centralSvg.css('left','0px');
-            $centralSvg.css('top','0px');
+            $central_svg_2f.css('left','0px');
+            $central_svg_2f.css('top','0px');
             return false;
         }
-        else if($central_svg_3f.css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '12px'){
+        else if($central_svg_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '12px'){
             storeMapSize(3,13,1.5);
-            $centralSvg.css('left','0px');
-            $centralSvg.css('top','0px');
+            $central_svg_3f.css('left','0px');
+            $central_svg_3f.css('top','0px');
             return false;
         }
         

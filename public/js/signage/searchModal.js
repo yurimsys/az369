@@ -38,7 +38,7 @@ function searchModalInit(){
     let $box_info = $('#box-info');
     let $brandMenuCenter = $('.brandMenuCenter');
     let $search_result = $('.searchResult')
-    let $brand_list = $('.brandList')
+    let $brandList = $('.brandList')
     //검색모달 오픈
     function signageSearch(){
         $search_right.css('display','block');
@@ -78,7 +78,6 @@ function searchModalInit(){
         $('.lv2category').removeClass('selectCat');
         $('.lv2category2').removeClass('selectCat');
         $('.searchCategory').removeClass('selected')
-        $('.searchResult div').css('background-color','')
 
     }    
     //대분류 카테고리 리스트 생성
@@ -249,7 +248,6 @@ function searchModalInit(){
         $searchList.css('display','block')
         signageSearch();
         localStorage.removeItem('catlv2');
-        $('.searchResult div').css('background-color','')
         $('.brandList').css('display','block')
         catChk = 0;
         

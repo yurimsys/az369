@@ -11,11 +11,32 @@ $(document).ready(function(){
     function nowLocation(){
         let nowLocation = urlParam();
         // $('#'+nowLocation.device_cd+ ' rect').css('fill','red')
+        console.log(nowLocation.device_cd.substring(0,1));
+        if(nowLocation.device_cd.substring(0,1) == 1){
+            $central_svg_1f.css('display','block');
+            $central_svg_2f.css('display','none');
+            $central_svg_3f.css('display','none');
+            $('#floor1Btn').addClass('floorSelcet');
+            $nowFloor.text('1F');
+        }
+        else if(nowLocation.device_cd.substring(0,1) == 2){
+            $central_svg_1f.css('display','none');
+            $central_svg_2f.css('display','block');
+            $central_svg_3f.css('display','none');
+            $('#floor2Btn').addClass('floorSelcet');
+            $nowFloor.text('2F');
+        }
+        else{
+            $central_svg_1f.css('display','none');
+            $central_svg_2f.css('display','none');
+            $central_svg_3f.css('display','block');
+            $('#floor3Btn').addClass('floorSelcet');
+            $nowFloor.text('3F');
+        }
         $('.'+nowLocation.device_cd).css('display','block')
-        console.log(nowLocation);
         
     }
-    nowLocation();1
+    nowLocation();
     //메인 돌아가기
     function signageMain(){
         //카테고리 초기화
@@ -29,7 +50,6 @@ $(document).ready(function(){
         $('.svgCat').css('fill','');
         $('.floorBtn div').removeClass('floorSelcet');
         let deviceParam = urlParam();
-
         if(deviceParam.device_cd === undefined){
             $central_svg_1f.css('display','block');
             $central_svg_2f.css('display','none');
@@ -47,6 +67,7 @@ $(document).ready(function(){
             $nowFloor.text('1F');
         }        
         else if(deviceParam.device_cd.substring(0,1) == '2'){
+            
             $central_svg_1f.css('display','none');
             $central_svg_2f.css('display','block');
             $central_svg_3f.css('display','none');
@@ -82,6 +103,7 @@ $(document).ready(function(){
         }
         return array;
     }
+
 
 //현재 기상상황
     let $weather = $('.weather')
