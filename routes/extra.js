@@ -3,7 +3,7 @@ const router = express.Router();
 const mysql = require('mysql');
 const mssql = require('mssql');
 const dbconf = require('../config/database');
-const connection = mysql.createConnection(dbconf.mssql);
+const connection = mysql.createConnection(dbconf.mysql);
 const conn_ms = mssql.connect(dbconf.mssql);
 
 connection.config.queryFormat = function (query, values) {
