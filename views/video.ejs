@@ -28,6 +28,11 @@
         <section class="main">
             <div class="inner_main">
                 <div class="main_bg"></div>
+                <div class="tnb">
+                    <a href="video.ejs">
+                        소개영상
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -37,22 +42,12 @@
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
-
-                <div class="tnb">
-                    <ul>
-                        <a href="video.ejs">
-                            <li style="background: #ad8743; color: #fff">소개영상</li>
-                        </a>
-
-                    </ul>
-                </div>
-
                 <!--타이틀-->
                 <h6>소개영상</h6>
-                <h1 style="font-family: 'PT Serif', serif;">VIDEO</h1>
+                <h1>VIDEO</h1>
                 <div class="bar"></div>
-                <h2><span>평택 센트럴돔의 생생한 현장을 담았습니다.</span><br>
-                    <em>영상을 통해 <strong>센트럴돔이 가진 매력</strong>을 확인해보세요.</em></h2>
+                <h2><span style="font-weight: 300; color: #444;">평택 센트럴돔의 생생한 현장을 담았습니다.</span><br>
+                    영상을 통해 <strong style="font-weight: 600;">센트럴돔이 가진 매력</strong>을 확인해보세요.</h2>
 
 
                 <!--section.main_video-->
@@ -76,19 +71,21 @@
                     <ul>
                         <!--영상 목록 1번-->
                         <%for(let i=0; i<data.length; i++) {%>
-                            
-                        <li class="popup_open" id='<%=data[i].YL_id%>' onclick="popVideo(this)">
+
+                        <li class="popup_open" id='<%=data[i].YL_id%>' onclick="popVideo(this)" value='<%=i+1%>'>
                             <a>
-                               <div class="video_img" id='<%=data[i].YL_id%>' >
-                                    <iframe style="width: 100%; height: 100%;" src="<%=data[i].YL_url%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <div class="video_img" id='<%=data[i].YL_id%>'>
+                                    <iframe style="width: 100%; height: 100%;" src="<%=data[i].YL_url%>" frameborder="0"
+                                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
                                 </div>
                                 <div class="video_txt">
                                     <h4><%=data[i].YL_title%></h4>
                                     <p><%=data[i].YL_ch_name%><span>|</span><%=data[i].YL_dDt%></p>
-                                </div>    
-                            </a>                        
+                                </div>
+                            </a>
                         </li>
-                    
+
                         <%}%>
                     </ul>
         
@@ -130,14 +127,6 @@
 
                 <div class="btn_box">
                     <div class="pagination">
-                        <!-- <a href="#">❮</a>
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                        <a href="#">❯</a> -->
                     </div>
                 </div>
 
@@ -155,7 +144,7 @@
         fixHeader();
 
         //윈도우창 조절시에 이벤트
-        $(window).on('scroll resize', function() {
+        $(window).on('scroll resize', function () {
             scrollTop = $(document).scrollTop();
             fixHeader();
 
@@ -176,10 +165,10 @@
         setGnbMo();
 
         function setGnbMo() {
-            $('header .open').on('click', function() {
+            $('header .open').on('click', function () {
                 $('.gnb_mo').addClass('on');
             }); //햄버거버튼
-            $('.gnb_mo .close').on('click', function() {
+            $('.gnb_mo .close').on('click', function () {
                 $('.gnb_mo').removeClass('on');
                 $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
                 $('.gnb_mo > ul > li > a').removeClass('on')
@@ -188,7 +177,7 @@
 
             //inner메뉴 열기
 
-            $('.gnb_mo > ul > li > a').on('click', function() {
+            $('.gnb_mo > ul > li > a').on('click', function () {
                 $(this).next().slideToggle();
                 $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
             });
@@ -196,20 +185,20 @@
 
 
         //scroll 애니
-        $(function() {
+        $(function () {
             var scrollAni = 0;
             //스크롤했을때 이벤트 적용
             scrollAni = $(document).scrollTop();
             ani('.menu_list, .int_slide, .owner_img, .insta_list'); //각 클래스 적용
             //윈도우창사이즈 조절시 동일하게 이벤트 적용
-            $(window).on('scroll resize', function() {
+            $(window).on('scroll resize', function () {
                 scrollAni = $(document).scrollTop();
                 ani('.menu_list, .int_slide, .owner_img, .insta_list');
             });
 
             //함수선언 ani-함수명/(selector)-선택자
             function ani(selector) {
-                $(selector).each(function() {
+                $(selector).each(function () {
 
                     var $selector = $(this);
                     var minShow = $selector.offset().top - $(window).height();
@@ -231,27 +220,28 @@
 
     <!--youtube 영상 사이즈 자동조절-->
     <script type="text/javascript">
-        $(function() {
-            $("iframe.myFrame").load(function() { //iframe 컨텐츠가 로드 된 후에 호출됩니다.
+        $(function () {
+            $("iframe.myFrame").on('load',function () { //iframe 컨텐츠가 로드 된 후에 호출됩니다.
                 var frame = $(this).get(0);
                 var doc = (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
                 $(this).height(doc.body.scrollHeight);
                 $(this).width(doc.body.scrollWidth);
             });
         });
-        
+
 
         //추천 비디오
         $.ajax({
             url: '/api/video/best',
-            method: 'post',
+            method: 'get',
             dataType: 'json',
-            success: function(res){
-                console.log("res :::",res)
-                let html ="<div style='position: relative; height:0; padding-bottom: 56.25%;'>"
-                    html += "<iframe class='myFrame' src="+res.data[0].YL_url+" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen style='position: absolute; width:100%; height:100%;''></iframe></div>";
-                    html += "<h3>"+res.data[0].YL_title+"</h3>";
-                    html += "<h5>"+res.data[0].YL_ch_name+"<span>|</span>"+res.data[0].YL_dDt+"</h5></div>"
+            success: function (res) {
+                //console.log("res :::",res)
+                let html = "<div style='position: relative; height:0; padding-bottom: 56.25%;'>"
+                html += "<iframe class='myFrame' src=" + res.data[0].YL_url + " frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen style='position: absolute; width:100%; height:100%;''></iframe></div>";
+                html += "<div class='main_video_txt'>"
+                html += "<h3>" + res.data[0].YL_title + "</h3>";
+                html += "<h5>" + res.data[0].YL_ch_name + "<span>|</span>" + res.data[0].YL_dDt + "</h5></div>"
                 $('.main_video').append(html);
             }
         })
@@ -259,139 +249,157 @@
         let currentPage = 1;
         //전체 페이지 수
         $.ajax({
-            url : "/api/video/count",
-            method : "post",
-            async : false,	
-            success : function(res){
-                $("#endPage").text(res.data[0].cnt)              
-                for(let i=1; i<Math.ceil(res.data[0].cnt/6)+1; i++){
+            url: "/api/video/count",
+            method: "post",
+            async: false,
+            success: function (res) {
+                $("#endPage").text(res.data[0].cnt)
+                for (let i = 1; i < Math.ceil(res.data[0].cnt / 6) + 1; i++) {
                     let html = ""
-                    if(i == 1){
+                    if (i == 1) {
                         html = "<a id='prevA'>❮</a>"
                     }
-                    html +="<a href=/video/"+i+">"+i+"</a>";
-                    if(i == Math.ceil(res.data[0].cnt/6)){
-                        html +="<a id='nextA'>❯</a>";
+                    html += "<a href=/video/" + i + " id=" + i + "p" + " onclick='nowPage(this)'>" + i + "</a>";
+                    if (i == Math.ceil(res.data[0].cnt / 6)) {
+                        html += "<a id='nextA'>❯</a>";
                     }
                     $(".pagination").append(html);
+                    //페이징 선택부분 색상 변경
+                    if (document.location.href.split("/")[4] == i) {
+                        $("#" + i + "p").attr('class', 'active')
+                    }
                 }
-            }       
-        });	
+            }
+        });
 
-        function popVideo(e){
+        function popVideo(e) {
             $('#popup').css('display', 'block');
             //$('.video_control').css('display','block')
+            //alert(document.location.href.split("/")[4])
+            //alert(e.getAttribute('value'))
+            let chkVal = Number(e.getAttribute('value'))
+            if (document.location.href.split("/")[4] == 2) {
+                chkVal = chkVal + 6
+            } else if (document.location.href.split("/")[4] == 3) {
+                chkVal = chkVal + 12
+            } else if (document.location.href.split("/")[4] == 4) {
+                chkVal = chkVal + 18
+            }
+
             let youId = e.id
             $.ajax({
                 url: '/api/user/videoPopup',
                 method: 'post',
                 dataType: 'json',
-                data: {'youId' : youId},
-                success: function(res){
-                    $('#firstPage').text(youId)
-                    let html =  "<div class='mySlides' id="+res.data[0].YL_id+">";
-                        html += "<div class='video_slide'>";
-                        html += "<iframe class='video' width='100%' height='100%;' src="+res.data[0].YL_url+" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";
-                        html += "<div class='video_slide_txt'>";
-                        html += "<h3>"+res.data[0].YL_title+"</h3>";
-                        html += "<h5>"+res.data[0].YL_ch_name+"<span>|</span>"+res.data[0].YL_dDt+"</h5>";
-                        html += "<div class='text_box'><p>"+res.data[0].YL_description+"</p></div>";
-                        html += "</div></div>";
-                    $('.slideshow-container').append(html);                    
-                }                
+                data: { 'youId': youId },
+                success: function (res) {
+                    $('#firstPage').text(chkVal)
+                    let html = "<div class='mySlides' id=" + res.data[0].YL_id + ">";
+                    html += "<div class='video_slide'>";
+                    html += "<iframe class='video' width='100%' height='100%;' src=" + res.data[0].YL_url + " frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";
+                    html += "<div class='video_slide_txt'>";
+                    html += "<h3>" + res.data[0].YL_title + "</h3>";
+                    html += "<h5>" + res.data[0].YL_ch_name + "<span>|</span>" + res.data[0].YL_dDt + "</h5>";
+                    html += "<div class='text_box'><p>" + res.data[0].YL_description + "</p></div>";
+                    html += "</div></div>";
+                    $('.slideshow-container').append(html);
+                }
             })
         }
 
-        function exit(){
-            $('#popup').css('display','none');
+        function exit() {
+            $('#popup').css('display', 'none');
             $('.mySlides').remove()
         }
-       
-         //이전버튼
-         $('#prevA').on('click', function(){
-          var para = document.location.href.split("/");
-          //console.log('link2 :', para[4])
-          if(para[4] == 1){
-              return;
-          }else{
-            location.href='/video/'+(para[4]-1);
-          }
-          
+
+        //이전버튼
+        $('#prevA').on('click', function () {
+            var para = document.location.href.split("/");
+            //console.log('link2 :', para[4])
+            if (para[4] == 1) {
+                return;
+            } else {
+                location.href = '/video/' + (para[4] - 1);
+            }
+
         })
 
         //이전버튼
-        $(".prev").on('click', function(){           
-            let yPage =Number($('.mySlides').attr('id'))-1
-            if(yPage == 0){
+        $(".prev").on('click', function () {
+            let begin = $('#firstPage').text()
+            //let yPage =Number($('.mySlides').attr('id'))-1
+            if ($('#firstPage').text() == 1) {
                 return;
-            }else{
+            } else {
                 $.ajax({
-                url: '/api/user/videoPopup',
-                method: 'post',
-                dataType: 'json',
-                data: {'youId' : yPage},
-                success: function(res){
-                    $('.mySlides').remove()
-                    $('#firstPage').text(yPage)
-                    let html =  "<div class='mySlides' id="+res.data[0].YL_id+">";
+                    url: '/api/user/videoPopupBtn',
+                    method: 'post',
+                    dataType: 'json',
+                    data: { 'begin': Number(begin) - 2 },
+                    success: function (res) {
+                        $('.mySlides').remove()
+                        $('#firstPage').text(Number(begin) - 1)
+                        let html = "<div class='mySlides' id=" + res.data[0].YL_id + ">";
                         html += "<div class='video_slide'>";
-                        html += "<iframe class='video' width='100%' height='100%;' src="+res.data[0].YL_url+" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";
+                        html += "<iframe class='video' width='100%' height='100%;' src=" + res.data[0].YL_url + " frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";
                         html += "<div class='video_slide_txt'>";
-                        html += "<h3>"+res.data[0].YL_title+"</h3>";
-                        html += "<h5>"+res.data[0].YL_ch_name+"<span>|</span>"+res.data[0].YL_dDt+"</h5>";
-                        html += "<div class='text_box'><p>"+res.data[0].YL_description+"</p></div>";
+                        html += "<h3>" + res.data[0].YL_title + "</h3>";
+                        html += "<h5>" + res.data[0].YL_ch_name + "<span>|</span>" + res.data[0].YL_dDt + "</h5>";
+                        html += "<div class='text_box'><p>" + res.data[0].YL_description + "</p></div>";
                         html += "</div></div>";
-                    $('.slideshow-container').append(html);                   
-                }              
-            })
+                        $('.slideshow-container').append(html);
+                    }
+                })
             }
         })
 
 
-        $("#nextA").click(function(){  	
+        $("#nextA").click(function () {
             let count = 0;
             $.ajax({
-                url : "/api/video/count",
-                method : "post",
-                async : false,	
-                success : function(res){
-                    count = (res.data[0].cnt)%6 +1
-                }                
+                url: "/api/video/count",
+                method: "post",
+                async: false,
+                success: function (res) {
+                    count = (res.data[0].cnt) % 6 + 1
+                }
             });
             var para = document.location.href.split("/");
             //console.log('link2 :', para[4])
-            if(para[4] == count){
+            if (para[4] == count) {
                 return;
-            }else{
-                location.href='/video/'+(Number(para[4])+1);
+            } else {
+                location.href = '/video/' + (Number(para[4]) + 1);
             }
-            
+
         });
+
         //다음버튼
-        $(".next").on('click', function(){           
-            let yPage =Number($('.mySlides').attr('id'))+1
+        $(".next").on('click', function () {
+            let begin = $('#firstPage').text()
+            //let yPage =Number($('.mySlides').attr('id'))+1
             //console.log(yPage)
-            if(yPage-1 == Number($("#endPage").text())){
+            if (begin == Number($("#endPage").text())) {
                 return;
-            }else{
+            } else {
                 $.ajax({
-                url: '/api/user/videoPopup',
-                method: 'post',
-                dataType: 'json',
-                data: {'youId' : yPage},
-                success: function(res){
-                    $('.mySlides').remove();
-                    $('#firstPage').text(yPage)
-                    let html =  "<div class='mySlides' id="+res.data[0].YL_id+">";
+                    url: '/api/user/videoPopupBtn',
+                    method: 'post',
+                    dataType: 'json',
+                    data: { 'begin': Number(begin) },
+                    success: function (res) {
+                        $('.mySlides').remove();
+                        $('#firstPage').text(Number(begin) + 1)
+                        let html = "<div class='mySlides' id=" + res.data[0].YL_id + ">";
                         html += "<div class='video_slide'>";
-                        html += "<iframe class='video' width='100%' height='100%;' src="+res.data[0].YL_url+" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";
+                        html += "<iframe class='video' width='100%' height='100%;' src=" + res.data[0].YL_url + " frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";
                         html += "<div class='video_slide_txt'>";
-                        html += "<h3>"+res.data[0].YL_title+"</h3>";
-                        html += "<h5>"+res.data[0].YL_ch_name+"<span>|</span>"+res.data[0].YL_dDt+"</h5>";
-                        html += "<div class='text_box'><p>"+res.data[0].YL_description+"</p></div>";
+                        html += "<h3>" + res.data[0].YL_title + "</h3>";
+                        html += "<h5>" + res.data[0].YL_ch_name + "<span>|</span>" + res.data[0].YL_dDt + "</h5>";
+                        html += "<div class='text_box'><p>" + res.data[0].YL_description + "</p></div>";
                         html += "</div></div>";
-                    $('.slideshow-container').append(html);                  
-                    }              
+                        $('.slideshow-container').append(html);
+                    }
                 })
             }
         })

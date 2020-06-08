@@ -1,4 +1,4 @@
-@charset="UTF-8";
+@charset "UTF-8";
 
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|PT+Serif&display=swap');
 
@@ -57,11 +57,25 @@ input[type=number] {
         box-sizing: border-box;
     }
 
+/* textarea 디자인*/
+textarea{
+    width: 100%;
+    height: 100px;
+    padding: 0 2%;
+    margin-top: 1.3%;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input:focus {border: 1px solid #C3A164;}
+
 /*개별적용부분*/
 .form_list {position: relative; width: 100%; height: auto; overflow: hidden; float: left; margin-bottom: 25px; margin-top: 2.5%;}
 
 .form_01 {width: 100%; overflow: hidden;}
 .form_01 h5 { width: 20%; height: 50px; line-height: 50px;  display: inline-block; margin: 0; float: left; color: #444; font-size: 17px; /*margin-top: 1%;*/}
+.form_01 .form_h5  {margin-top: 15px;}
 #cur_deposit, #cur_rental_fee{width: 80%; float: left; overflow: hidden; position: relative;}
 #cur_deposit {margin-top: 0;}
 #cur_rental_fee {margin-bottom: 25px;}
@@ -160,7 +174,7 @@ input[type=number].range {width: 45%; float: left; position: relative; overflow:
         width: 100%;
         overflow: hidden;
         padding-bottom: 1%;
-        margin-bottom: 5em;
+        margin-bottom: 2em;
     }
 
     .survey_form h4 span {
@@ -323,19 +337,19 @@ input[type=number].range {width: 45%; float: left; position: relative; overflow:
     }
 
 
-
-
 /*반응형*/
 /*1200px*/
 @media screen and (max-width: 1200px) {
     .sub_wrap {padding: 0 13%;}
+	.form_01 .form_h5  {margin-top: 10px;}
 }
 
 /*768px*/
 @media screen and (max-width: 768px) {
     .sub_wrap {padding: 0 0%;}
+	.form_01 .form_h5  {margin-top: 0px;}
     .wrap h1 {padding: 2.1%;}
-    .select_check {padding-bottom: 1%;}
+    .select_check { padding-bottom: 1%;}
  }
 
 /*414px*/

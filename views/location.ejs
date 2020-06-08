@@ -2,7 +2,7 @@
 <html lang="ko">
 
 <head>
-    <% include templates/head.ejs %>    
+    <% include templates/head.ejs %>
     <link rel="stylesheet" href="/css/location.css">
 
     <title>AZ369 - 오시는길</title>
@@ -11,7 +11,8 @@
     <meta name="title" content="AZ369 - 오시는길">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
 </head>
@@ -25,8 +26,21 @@
 
         <section class="main">
             <div class="inner_main">
-                        <div class="main_bg"></div>
-                    </div>
+                <div class="main_bg"></div>
+                <div class="tnb">
+                    <ul>
+                        <a href="summary">
+                            <li>사업개요</li>
+                        </a>
+                        <a href="ctd_info">
+                            <li>센트럴돔 소개</li>
+                        </a>
+                        <a href="location">
+                            <li style="background: #C3A164; color: #fff">오시는 길</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
         </section>
 
 
@@ -35,45 +49,43 @@
 
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
-               
-               <div class="tnb">
-                            <ul>
-                               <a href="summary"> <li>사업개요</li></a>
-                                <a href="ctd_info"><li>센트럴돔 소개</li></a>
-                                <a href="location"><li style="background: #ad8743; color: #fff">오시는 길</li></a>
-                            </ul>
-                        </div>
-               
-               
+
+
                 <h6>오시는 길</h6>
-                <h1 style="font-family: 'PT Serif', serif;" >LOCATION</h1>
+                <h1>LOCATION</h1>
                 <div class="bar"></div>
-                <h5>경기도 평택시 비전1동 104-28</h5> 
+                <h5>경기도 평택시 비전1동 104-28</h5>
                 <h2><em>평택 가로수길 센트럴돔</em></h2>
-                <div class="sub_map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3186.454932067259!2d127.11039511529547!3d36.99894187990809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b3b204150bffd%3A0xb26cb125e0565d8b!2z7Y-J7YOd6rCA66Gc7IiY6ri4IOyEvO2KuOuftOuPlA!5e0!3m2!1sko!2skr!4v1578987141300!5m2!1sko!2skr" width="100%"  height="450px;"
-                 frameborder="0" style="border:0;" allowfullscreen=""></iframe></div>
-                
+                <div class="sub_map"><iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3186.454932067259!2d127.11039511529547!3d36.99894187990809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b3b204150bffd%3A0xb26cb125e0565d8b!2z7Y-J7YOd6rCA66Gc7IiY6ri4IOyEvO2KuOuftOuPlA!5e0!3m2!1sko!2skr!4v1578987141300!5m2!1sko!2skr"
+                        width="100%" height="450px;" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+
                 <div class="sub_contents">
                     <ul>
-                        <li><h3><i class="fas fa-map-marker-alt"></i>주소</h3><p>경기도 평택시 비전1동 104-28</p></li>
-                        <li><h3><i class="fas fa-mobile-alt"></i>문의</h3><p>031 - 668 - 0116</p></li>
-                        
-                        
+                        <li>
+                            <h3><i class="fas fa-map-marker-alt"></i>주소</h3>
+                            <p>경기도 평택시 비전1동 104-28</p>
+                        </li>
+                        <li>
+                            <h3><i class="fas fa-mobile-alt"></i>문의</h3>
+                            <p>031 - 668 - 0116</p>
+                        </li>
                     </ul>
                 </div>
-                
+
             </div>
         </section>
 
         <!--//secton.sub_wrap 완료-->
-        
+
 
         <!--<footer></footer>-->
     </div>
 
     <script>
         'use sctrict';
-        
+
         //main 슬라이드
         var slideIndex = 0;
         showSlides();
@@ -96,17 +108,17 @@
             dots[slideIndex - 1].className += " active";
             setTimeout(showSlides, 6000); // Change image every 2 seconds
         }
-        
-        //gallery 슬라이드
-            var slides = document.querySelectorAll('#slides .slide');
-            var currentSlide = 0;
-            var slideInterval = setInterval(nextSlide, 3000);
 
-            function nextSlide() {
-                slides[currentSlide].className = 'slide';
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].className = 'slide showing';
-            }
+        //gallery 슬라이드
+        var slides = document.querySelectorAll('#slides .slide');
+        var currentSlide = 0;
+        var slideInterval = setInterval(nextSlide, 3000);
+
+        function nextSlide() {
+            slides[currentSlide].className = 'slide';
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].className = 'slide showing';
+        }
 
         //gnb modla 
         var modal = document.getElementById("myModal");
@@ -118,17 +130,17 @@
         var span = document.getElementsByClassName("close")[0];
 
         // When the user clicks on the button, open the modal
-        btn.onclick = function() {
+        btn.onclick = function () {
             modal.style.display = "block";
         }
 
         // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
+        span.onclick = function () {
             modal.style.display = "none";
         }
 
         // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
@@ -136,4 +148,6 @@
 
 
     </script>
-</body></html>
+</body>
+
+</html>

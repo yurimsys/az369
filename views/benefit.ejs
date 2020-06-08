@@ -11,7 +11,8 @@
     <meta name="title" content="AZ369 - 입점상가혜택">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
 
@@ -29,8 +30,13 @@
                 <div class="main_bg"></div>
                 <div class="tnb">
                     <ul>
-                        <a href="benefit"><li style="background: #ad8743; color: #fff">입점상가혜택</li></a>
-                        <a href="benefit_application"><li>입점상담신청</li></a>
+                        <a href="benefit">
+                            <li style="background: #C3A164; color: #fff">입점상가혜택</li>
+                        </a>
+
+                        <a href="benefit_application">
+                            <li>입점상담신청</li>
+                        </a>
                     </ul>
                 </div>
             </div>
@@ -46,7 +52,7 @@
                 <h6>입점상가혜택</h6>
                 <h1 style="font-family: 'PT Serif', serif;">BENEFIT</h1>
                 <div class="bar"></div>
-                <h5><strong>최소의 비용</strong>으로 얻는 <strong>최고의 조건 </strong></h5>
+                <h5><span>최소의 비용</span>으로 얻는 <span>최고의 조건 </span></h5>
                 <h2><em>최고의 경쟁력을 갖춘 <br><strong>AZ369</strong></em>와 함께하세요.</h2>
                 <div class="sub_bg"></div>
 
@@ -61,7 +67,7 @@
                                 <div class="list_bar"></div>
                                 <p>소상공인분들을 위한 창업지원 서비스를 소개하고<br>
                                     자금 지원을 받을 수 있도록 컨설팅을 진행합니다. </p>
-                                    <a href="benefit_1" class="benefit_btn"><u>상세보기</u> ></a>
+                                <a href="benefit_1" class="benefit_btn">자세히보기</a>
                             </div>
                         </li>
                         <!--list02-->
@@ -94,7 +100,7 @@
                                 <div class="list_bar"></div>
                                 <p>오프라인에서 남는 재고를 온라인과 연동하여 <br>
                                     재고율을 낮추고 판매량을 증가시킬 수 있습니다. </p>
-                                    <a href="benefit_4" class="benefit_btn"><u>상세보기</u> ></a>
+                                <a href="benefit_4" class="benefit_btn">자세히보기</a>
                             </div>
                         </li>
                         <!--list05-->
@@ -143,9 +149,11 @@
                         </li>
                         <!--list09-->
                         <li>
-                           
+
                             <div class="call">
-                               <div class="call_pic"><!--<img src="/img/benefit/list_call.png" alt="">--></div>
+                                <div class="call_pic">
+                                    <!--<img src="/img/benefit/list_call.png" alt="">-->
+                                </div>
                                 <div class="call_txt">
                                     <h3>안내 / 문의</h3>
                                     <p>031 - 668 - 0116</p>
@@ -155,29 +163,21 @@
 
                     </ul>
                 </div>
-                
-                <!--<div class="info_notice">
-                            <p>
-                                입점상담신청 페이지는 현재 작업진행중으로, <br> 빠른 시일 내에 오픈하도록 하겠습니다.<br>
-                                <span>문의 031 - 668 - 0116</span>
-                            </p>
-                        </div>-->
-                        
-                        <div class="apply_btn">
-                        <a href="benefit_application">입점상담신청</a>
-                    </div>
+
+
+                <div class="apply_btn">
+                    <a href="benefit_application">입점상담신청</a>
+                </div>
 
             </div>
         </section>
 
         <!--//secton.about 완료-->
 
-
-        <!--<footer></footer>-->
     </div>
 
     <script>
-        
+
         //main 슬라이드
         var slideIndex = 0;
         showSlides();
@@ -200,17 +200,19 @@
             dots[slideIndex - 1].className += " active";
             setTimeout(showSlides, 6000); // Change image every 2 seconds
         }
-        
-        //gallery 슬라이드
-            var slides = document.querySelectorAll('#slides .slide');
-            var currentSlide = 0;
-            var slideInterval = setInterval(nextSlide, 3000);
 
-            function nextSlide() {
-                slides[currentSlide].className = 'slide';
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].className = 'slide showing';
-            }
+        //gallery 슬라이드
+        var slides = document.querySelectorAll('#slides .slide');
+        var currentSlide = 0;
+        var slideInterval = setInterval(nextSlide, 3000);
+
+        function nextSlide() {
+            slides[currentSlide].className = 'slide';
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].className = 'slide showing';
+        }
 
     </script>
-</body></html>
+</body>
+
+</html>

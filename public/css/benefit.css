@@ -1,4 +1,6 @@
-@charset="UTF-8";
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
@@ -29,18 +31,17 @@ section.main {
     overflow: hidden;
 }
 
-.main_bg {background: url(../img/benefit/benefit_bg.jpg);
+.main_bg {background: url(/img/benefit/benefit_bg.jpg);
 background-position: center;
 background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 
 @keyframes bg {
-    0% {transform: scale(1.05);
+    0% {transform: scale(1.05);}
     100% {transform: scale(1);}
-    }
 }
 
 .tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); }
-.tnb ul li {float: left; width: 50%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; color: #444; transition: all 0.2s;}
+.tnb ul li {float: left; width: 50%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; transition: all 0.2s; font-weight: 400;}
 
 
 /*section.main 완료*/
@@ -49,43 +50,43 @@ background-size: cover; width: 100%; height: 500px; animation: bg; animation-del
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 6.5%;
+    margin-bottom: 90px;
     color: #333;
-    overflow: hidden;
+	overflow: hidden;
 }
-
-
-
-/*section.sub_wrap .tnb ul li:hover {cursor: pointer; background: #ad8743; color: #fff;}*/
-
 
 section.sub_wrap .bar {
-    border-bottom: 2px solid #624000; 
-    width: 35px; 
+    border-bottom: 2px solid #c3a164; 
+    width: 30px; 
     margin: 0 auto;
-    margin-top: 2%;
-    margin-bottom: 4%;
+    margin-top: 30px;
+    margin-bottom: 40px;
 }
 
-section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 7.5%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #C3A164; margin-top:90px; font-weight: 500; font-size: 16px;}
 
 section.sub_wrap h1 {
-    text-align: center; 
-    font-size: 2.8rem;
+    text-align: center;
+    font-size: 45px;
     margin-top: -1%;
-     font-weight: normal;
+	font-family: 'PT Serif', serif;
+	font-weight: normal;
 }
 
-section.sub_wrap h2 {font-size: 2rem; text-align: center; margin-bottom: 5%; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif;  font-weight: normal;}
+
 section.sub_wrap h2 br {display: none;}
+section.sub_wrap h2 {font-size: 30px; text-align: center; margin-bottom: 50px; line-height: 1.4; font-weight: 400;}
+section.sub_wrap h2 span {font-weight: 600;}
 
-section.sub_wrap h5 {color: #777; font-size: 1.3rem; text-align:center; margin-bottom: -0.5%;  font-weight: normal;}
-section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow: inset 0 -15px 0 #fcf3dc;}
+section.sub_wrap h5 {font-size: 24px; font-weight: 300; text-align:center; color: #444;}
+section.sub_wrap h5 br {display: none;}
+section.sub_wrap h5 span {font-weight: 400;}
 
 
-.benefit_list{width: 1200px; overflow: hidden;}
-.benefit_list ul li {float: left; position: relative; width: 32.3%; margin-right: 1.5%; margin-bottom: 2%; height: 460px; border: 1px solid #ddd; box-shadow: 0 0 13px rgba(227, 219, 204,0.7); transition: 0.3s all; background: #f0f0f0;}
-.benefit_list ul li:hover {border: 1px solid #a0772b; background: #fff;}
+
+.benefit_list{width: 100%; overflow: hidden;}
+.benefit_list ul li {float: left; position: relative; width: 32.3%; margin-right: 1.5%; margin-bottom: 2%; height: 480px; border: 1px solid #eee;  transition: 0.3s all; background: #fff;}
+.benefit_list ul li:hover {border: 1px solid #eee; background: #fff; box-shadow: 0 0 30px rgba(180, 180, 180,0.4);}
 .benefit_list ul li:hover .pic img {transform: scale(1.03);}
 .benefit_list ul li:nth-child(3),
 .benefit_list ul li:nth-child(6),
@@ -96,33 +97,31 @@ section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow
 .benefit_list ul li:nth-child(9) {margin-bottom: 0;}
 
 .benefit_list ul li .pic {float: left; width: 100%; height: 43%; overflow: hidden;}
-.benefit_list ul li .pic img {width: 100%; transition: all 0.5s; height: 100%;}
+.benefit_list ul li .pic img {width: 100%; transition: all 0.5s;}
 .benefit_list ul li .txt {float: left; width: 100%; height: 57%; padding: 7% 8%; overflow: hidden;}
-.benefit_list ul li .txt span {color: #333; font-weight: bold;}
-.benefit_list h3 {margin: 0; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.5;}
-.benefit_list .txt p {color: #666; font-size: 15.5px;}
-.list_bar {width: 12%; border-bottom: 1px solid #a0772b; margin: 6% 0 6.5%;}
+.benefit_list ul li .txt span {font-weight: 500;}
+.benefit_list h3 {margin: 0; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 24px; line-height: 1.5; font-weight: 600; width: 100%;}
+.benefit_list .txt p { font-size: 16px; color: #222; font-weight: 300;}
+.benefit_list .txt p br {display: none;}
+.list_bar {width: 20px; border-bottom: 1px solid #c3a164; margin: 15px 0;}
 
-.benefit_btn {display: inline-block; transition: all 0.4s; margin-top: 2%; color: #000; font-weight: bold; font-size: 15px;}
+.benefit_btn {display: inline-block; transition: all 0.4s; margin-top: 10px; color: #444; font-weight: 500; font-size: 16px; overflow: hidden;}
 
 
 
-.call_pic {background: url(../img/benefit/list_call.png) no-repeat; width: 400px; height: 460px; background-size: cover; filter: grayscale(70%); transition: all 1s;}
-.call .pic img {height: 460px;}
+.call_pic {background: url(/img/benefit/list_call.png) no-repeat; width: 100%; height: 460px; background-size: cover; filter: grayscale(70%); transition: all 1s;}
 .call:hover > .call_pic {filter: grayscale(0%);}
 .call_txt {z-index: 100; position: absolute; top: 50%; transform: translateY(-50%); text-align: center; width: 100%; color: #fff; text-shadow: 0 0 5px rgba(0,0,0,0.5);}
 .call_txt h3 {font-size: 1.7rem;}
 .call_txt p {font-size: 1.5rem; text-align: center; margin-top: 3%;}
 
 
-.info_notice {background: #f2f2f2;  display: inline-block; height: auto; padding: 2% 15%; margin-bottom: 2%; color: #222; margin: 0 auto; width: 60%; margin-top: 5.5%; margin-left: 50%; transform: translateX(-50%);}
-.info_notice p {; text-align: center;}
-.info_notice p span {font-size: 1.2rem; margin: 0;}
 
-.apply_btn { text-align: center;  margin: 0 auto;  overflow: hidden;  transition: all 0.3s; margin-right: 2%; margin-top: 4%;}
-.apply_btn a {display: block; text-align: center; padding: 1.3% 6%; border: 1px solid #bbb; display: inline-block; font-size: 1.1rem; color: #a0772b; transition: all 0.3s;}
+.apply_btn {text-align: center;  margin: 0 auto; transition: all 0.3s; margin-top: 40px; width: 100%; height: 50px; line-height: 50px; border: 1px solid #ddd; color: #222;}
 
-.apply_btn a:hover {background: #a7813c; color: #fff; border: 1px solid #be974f;}
+.apply_btn a {display: block;}
+.apply_btn:hover {background: #C3A164; color: #fff; border: 1px solid #be974f;}
+.apply_btn:hover {background: #C3A164; color: #fff; border: 1px solid #be974f;}
 
 
 footer {
@@ -131,8 +130,6 @@ footer {
     margin: 0 auto;
     background: #211e1c;
 }
-
-
 /*section.sub_wrap 완료*/
 
 
@@ -170,14 +167,13 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1200px;}
-    section.main .tnb {bottom: -14%;}
+    section.main .inner_main {width: 100%;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1200px;}
+    section.sub_wrap .inner_sub_wrap {width: 100%;}
     .benefit_list {width: 98%; margin: 0 auto;}
-    .tnb {padding-bottom: 5%; width: 1200px; margin-top: -5%;}
+    .tnb {width: 100%;}
     
     .sub_bg {width: 95%; margin: 0 auto; padding-top: 2%;}
     
@@ -190,25 +186,13 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1024px;}
-    
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1024px;}
-    
-    .tnb {padding-bottom: 6%; width: 1024px; margin-top: -5.9%;}
     
     .benefit_list ul li .txt p br {display: none;}
     .benefit_list ul li .txt p {width: 95%;}
-    
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+	.benefit_list ul li .txt {padding: 0 8%;}
 }
 
 
@@ -217,19 +201,15 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 768px;}
-    
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 768px;}
-    .tnb {width: 768px; margin-top:-7.6%;}
-    section.sub_wrap h1 {font-size: 2.2rem;}
+    section.sub_wrap h1 {font-size: 35px; margin-bottom: 2%;}
     
-    section.sub_wrap h2 {margin-bottom: 4%; font-size: 28px;}
+    section.sub_wrap h2 {font-size: 28px;}
     
-    .tnb {width: 768px; margin-bottom: 2%;}
-    
+	.benefit_list ul li .txt {padding-top: 20px;}
+	.benefit_list ul li h3 {font-size: 24px;}
     .benefit_list {margin: 0; margin: 0 auto;}
     .benefit_list ul li {width: 49.5%; margin-right: 1%; margin-bottom: 2%;}
     .benefit_list ul li:nth-child(3) {margin-right: 1%;}
@@ -241,17 +221,10 @@ header .open {
     .benefit_list ul li .txt p {width: 100%;}
     
     .benefit_btn {margin-top: 3%;}
+
+    .apply_btn {background: #C3A164; color: #fff; width: 98%;}
     
-    .info_notice { width: 80%;}
-    
-    .apply_btn a {margin-top: 4%; padding: 2.5% 15%;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+
 }
 
 /*414px*/
@@ -259,22 +232,21 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 414px;}
     
     /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 414px;}
-    section.sub_wrap h1 {font-size: 2rem;}
-    section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-     section.sub_wrap h2 {font-size: 24px; padding-bottom: 7%; line-height: 1.5;}
+    section.sub_wrap {width:100%;}
+	
+	section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
+	
+    section.sub_wrap h1 {font-size: 30px;}
+     section.sub_wrap h2 {font-size: 24px; margin-bottom: 40px; line-height: 1.5;}
     section.sub_wrap h2 br {display: block;}
-    section.sub_wrap h5{font-size: 18px; margin-bottom: -1%;}
-    section.sub_wrap h6 {padding-top: 11%;}
+    section.sub_wrap h5{font-size: 18px;}
+    section.sub_wrap h6 {margin-top: 50px;}
     
-    
-    .tnb {width: 414px; margin-bottom: 9.3%;} 
     .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
-    
+	
+    .benefit_list h3 {font-size: 24px;}
     .benefit_list {margin: 0; margin: 0 auto;}
     .benefit_list ul li {margin: 0; width: 95%; margin-bottom: 5%; margin-left: 50%; transform: translateX(-50%);}
     
@@ -283,22 +255,11 @@ header .open {
     .benefit_list ul li:last-child {display: block;}
     .call_pic {width: 100%;}
     .benefit_list ul li .txt p {width: 100%;}
-    .benefit_btn {margin-top: 7%;}
+    .benefit_btn {margin-top: 4%;}
     
-    .apply_btn a {margin-top: 7%; width: 100%; height: 50px;}
+    .apply_btn a { width: 100%; height: 50px; line-height: 50px;}
     
-     .info_notice { width: 100%; margin-top: 10%;}
-    .info_notice p {font-size: 1rem; padding: 2% 0; line-height: 1.8;}
-    
-    .apply_btn {width: 95%; margin-top: 6%;}
-
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%; color: #a0772b;}
+    .apply_btn {width: 95%;}
 }
 
 /*320px*/
@@ -306,22 +267,20 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 320px;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 320px;}
-    section.sub_wrap h1 {font-size: 24px;;}
-    section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-     section.sub_wrap h2 {font-size: 20px; padding-bottom: 7%; line-height: 1.5;}
-    section.sub_wrap h2 br {display: block;}
-    section.sub_wrap h5{font-size: 16px; margin-bottom: -1%;}
-    section.sub_wrap h6 {padding-top: 11%; font-size: 14px;}
+    section.sub_wrap h1 {font-size: 24px;}
+     section.sub_wrap h2 {font-size: 20px; line-height: 1.5; margin-top: 5px;}
+    section.sub_wrap h5 {font-size: 16px; margin-bottom: -1%;}
     
-    .tnb {width: 320px; margin-bottom: 13.8%;} 
-
+	.benefit_list ul li {height: 400px;}
+	.benefit_list ul li .pic {height: 35%;}
+	.benefit_list ul li .txt { height: 65%;}
     .benefit_list h3 {font-size: 22px;}
     .benefit_list ul li .txt p {width: 100%; font-size: 15px;}
     
-    .apply_btn a  {width: 95%; font-size: 15px; line-height: 30px;}
+    .benefit_list ul li .call_txt h3 {font-size: 20px; font-weight: 500; color: #eee;}
+
+    .apply_btn a  {font-size: 15px;}
 }

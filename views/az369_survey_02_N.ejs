@@ -35,7 +35,7 @@
                 <h3>희망 금액 의향서 작성 <span>(단위: 만원)</span></h3>
                 <div class="bar"></div>
 
-                <form name="survey_form"  method="post" onsubmit="surveySubmit()">
+                <form name="survey_form" method="post" onsubmit="surveySubmit()">
                     <h5 class="period_h5">계약기간</h5>
                     <div class="period_select">
                         <select id="wt_contact_period" name="wt_contact_period" required=true>
@@ -49,7 +49,9 @@
                     <h4 class="rent_h4">임대료</h4>
                     <ul>
                         <li>
-                            <input required = true class="range" type="number" id="wt_rental_fee_min" name="wt_rental_fee_min" placeholder="최저 금액" maxlength="6" oninput="numberMaxLength(this);" />
+                            <input required=true class="range" type="number" id="wt_rental_fee_min"
+                                name="wt_rental_fee_min" placeholder="최저 금액" maxlength="6"
+                                oninput="numberMaxLength(this);" />
                         </li>
 
                         <li>
@@ -57,14 +59,17 @@
                         </li>
 
                         <li>
-                            <input required = true class="range" type="number" id="wt_rental_fee_max" name="wt_rental_fee_max" placeholder="적정 금액" maxlength="6" oninput="numberMaxLength(this);" />
+                            <input required=true class="range" type="number" id="wt_rental_fee_max"
+                                name="wt_rental_fee_max" placeholder="적정 금액" maxlength="6"
+                                oninput="numberMaxLength(this);" />
                         </li>
                     </ul>
 
                     <ul class="form_list">
                         <h4>임대보증금액</h4>
                         <li>
-                            <input required = true class="range" type="number" id="wt_deposit_min" name="wt_deposit_min" placeholder="최저 금액" maxlength="6" oninput="numberMaxLength(this);" />
+                            <input required=true class="range" type="number" id="wt_deposit_min" name="wt_deposit_min"
+                                placeholder="최저 금액" maxlength="6" oninput="numberMaxLength(this);" />
                         </li>
 
                         <li>
@@ -72,7 +77,8 @@
                         </li>
 
                         <li>
-                            <input required = true class="range" type="number" id="wt_deposit_max" name="wt_deposit_max" placeholder="적정 금액" maxlength="6" oninput="numberMaxLength(this);" />
+                            <input required=true class="range" type="number" id="wt_deposit_max" name="wt_deposit_max"
+                                placeholder="적정 금액" maxlength="6" oninput="numberMaxLength(this);" />
                         </li>
                     </ul>
 
@@ -91,10 +97,14 @@
                             <label for="r4"><span></span>아니오</label>
                         </div>
                     </div>
+                    <div class="opinion">
+                        <h4 class="check_h4">기타 추가 문의 사항이 있으신가요?</h4>
+                        <textarea id="opinion" name="opinion"></textarea>
+                    </div>
                     <div class="survey_btn">
                         <ul>
                             <li>
-                                <a href="survey1" class="back">뒤로</a>
+                                <a href="b" class="back">뒤로</a>
                             </li>
                             <li>
                                 <input type="submit" class="next" value="제출하기">
@@ -107,23 +117,23 @@
     </div>
 
 
-<script>
-    
-    function surveySubmit(){
-        let survey_result = JSON.parse( sessionStorage.getItem("survey_result") );
-        let sub_html = "";
-        for (let key in survey_result) {
+    <script>
 
-            sub_html += `<input type='hidden' name='${key}' value='${survey_result[key]}' />`
+        function surveySubmit() {
+            let survey_result = JSON.parse(sessionStorage.getItem("survey_result"));
+            let sub_html = "";
+            for (let key in survey_result) {
+
+                sub_html += `<input type='hidden' name='${key}' value='${survey_result[key]}' />`
+            }
+
+            $("form").append(sub_html);
+            // document.survey_form.submit();
         }
 
-        $("form").append(sub_html);
-        // document.survey_form.submit();
-    }
+    </script>
 
-</script>
-
-<!--seletbox js-->
+    <!--seletbox js-->
     <script>
         var x, i, j, selElmnt, a, b, c;
         x = document.getElementsByClassName("period_select");
@@ -142,7 +152,7 @@
                 create a new DIV that will act as an option item:*/
                 c = document.createElement("DIV");
                 c.innerHTML = selElmnt.options[j].innerHTML;
-                c.addEventListener("click", function(e) {
+                c.addEventListener("click", function (e) {
                     /*when an item is clicked, update the original select box,
                     and the selected item:*/
                     var y, i, k, s, h;
@@ -165,7 +175,7 @@
                 b.appendChild(c);
             }
             x[i].appendChild(b);
-            a.addEventListener("click", function(e) {
+            a.addEventListener("click", function (e) {
                 /*when the select box is clicked, close any other select boxes,
                 and open/close the current select box:*/
                 e.stopPropagation();
@@ -199,7 +209,7 @@
         document.addEventListener("click", closeAllSelect);
     </script>
 
-<!--최대글자수-->
+    <!--최대글자수-->
     <script>
         function numberMaxLength(e) {
             if (e.value.length > e.maxLength) {
@@ -209,4 +219,6 @@
     </script>
 
 
-</body></html>
+</body>
+
+</html>

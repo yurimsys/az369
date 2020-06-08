@@ -11,7 +11,8 @@
     <meta name="title" content="AZ369 - 장차버스예매">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
     <!--reservation css link-->
@@ -20,7 +21,7 @@
     <!--<link rel="stylesheet" type="text/css" href="/css/lib/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-theme.css">
     <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-theme.min.css">
-    
+
 
 </head>
 
@@ -48,15 +49,18 @@
 
                                     <!--왼쪽 상단 : 지역-->
                                     <div class="location left_list">
-                                        <h4>1. 지역 및 시간 선택 <span style="color: #777; font-weight: normal; font-size: 16px;">(왕복)</span></h4>
+                                        <h4>1. 지역 및 시간 선택 <span
+                                                style="color: #777; font-weight: normal; font-size: 16px;">(왕복)</span>
+                                        </h4>
                                         <ul>
                                             <li>
                                                 <div class="location_select01 location_select" id="timeSelect01">
                                                     <select id="depart01">
                                                         <option value="0">지역 / 출발시간</option>
-                                                       
+
                                                         <%for(let i=0; i<data.length; i++) {%>
-                                                        <option value=<%=data[i].deptTe%>>평택 <%=data[i].deptTe2%></option>
+                                                        <option value=<%=data[i].deptTe%>>평택 <%=data[i].deptTe2%>
+                                                        </option>
                                                         <% }%>
                                                     </select>
                                                 </div>
@@ -69,9 +73,10 @@
                                                 <div class="location_select02 location_select" id="timeSelect02">
                                                     <select id="depart02">
                                                         <option value="0">지역 / 출발시간</option>
-                                                        
+
                                                         <%for(let i=0; i<data.length; i++) {%>
-                                                        <option value=<%=data[i].returnTe%>>서울 동대문 <%=data[i].returnTe2%></option>
+                                                        <option value=<%=data[i].returnTe%>>서울 동대문
+                                                            <%=data[i].returnTe2%></option>
                                                         <% }%>
                                                     </select>
                                                 </div>
@@ -123,7 +128,7 @@
                                                 <h5> 좌석 개수<span id="counter"> 0</span></h5>
                                                 <ul id="selected-seats"></ul>
                                             </div>-->
-                                            
+
                                             <!--좌석선택 텍스트-->
                                             <div class="select_seat">
                                                 <h4>3. 좌석 선택 <span>(최대 4개)</span></h4>
@@ -136,16 +141,19 @@
                                                         <dt>좌석 개수</dt>
                                                         <dd id="selected_seats_cnt">　</dd>
                                                     </dl>
-                                                    
-                                                    <button class="reload_btn" onclick="flushSeat()"><img src="/img/reservation/reload.png" alt="새로고침"> <p>좌석 새로고침</p></button>
-                                                    
+
+                                                    <button class="reload_btn" onclick="flushSeat()"><img
+                                                            src="/img/reservation/reload.png" alt="새로고침">
+                                                        <p>좌석 새로고침</p>
+                                                    </button>
+
                                                     <!--pupop PC 버튼-->
-                                                    <a onclick = "showPayment()" class="payment_open">예매하기</a>
+                                                    <a onclick="showPayment()" class="payment_open">예매하기</a>
                                                 </div>
-                                                
-                                                
+
+
                                             </div>
-                                            
+
                                         </div>
                                     </div>
 
@@ -176,8 +184,10 @@
                                 </dl>
                                 <dl class="info_time">
                                     <dt>출발시간</dt>
-                                    <dd><span class="region">평택</span> <span id="payment_deptTe">2020.02.03(월) 22:00</span></dd>
-                                    <dd><span class="region">서울 동대문</span> <span id="payment_retuTe">2020.02.04(화) 04:00</span></dd>
+                                    <dd><span class="region">평택</span> <span id="payment_deptTe">2020.02.03(월)
+                                            22:00</span></dd>
+                                    <dd><span class="region">서울 동대문</span> <span id="payment_retuTe">2020.02.04(화)
+                                            04:00</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>차량정보</dt>
@@ -215,7 +225,7 @@
                                     · 출발일 4일전, 적정 인원수가 부족하면 차량이 변경될 수 있습니다.
                                 </p>
                             </div>
-                            
+
                             <ul class="payment_btn">
                                 <li>
                                     <a href="#" class="payment_close1 payment_close">취소</a>
@@ -231,7 +241,7 @@
             </div>
 
         </section>
-        
+
         <!--//secton.about 완료-->
         <!--<footer></footer>-->
     </div>
@@ -241,47 +251,48 @@
     <script src="/js/lib/jquery.seat-charts.js"></script>
     <script src="/js/lib/bootstrap.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
-    <script src="/js/lib/angular.min.js"></script>   
+    <script src="/js/lib/angular.min.js"></script>
     <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
-    
-    <script> 
+
+    <script>
 
         $.ajax({
             url: 'api/user/resDept',
             method: 'post',
             dataType: 'json',
-            success: function(res){
-                for(let i=0; i<res.data.length; i++){
-                    let html = "<option value="+res.data[i].deptTe+">평택 "+res.data[i].deptTe2+"</option>"
+            success: function (res) {
+                for (let i = 0; i < res.data.length; i++) {
+                    let html = "<option value=" + res.data[i].deptTe + ">평택 " + res.data[i].deptTe2 + "</option>"
                     $('#depart01').append(html);
                 }
             }
         })
-        $('#timeSelect01, #timeSelect02').click(function(){
+        $('#timeSelect01, #timeSelect02').click(function () {
             $(".tab").empty();
             //console.log($("#depart01").val())
             //console.log($("#depart02").val())
             $.ajax({
-            url: "api/user/resCarList",
-            method: "post",
-            dataType: "json",
-            data : {'sel': $("#depart01 option:selected").val(), 'sel2' : $("#depart02 option:selected").val()},
-            success: function(res){
-                              
-                for(let i=0; i<res.data.length; i++){
-                    
-                    //console.log("요일",getInputDayLabel(res.data[i].deptTe));  
-                
-                    let html = "<button class='tablinks' onclick='openBus(event, \""+res.data[i].ctID+"\")' value="+res.data[i].seatPrice+">";
-                        html += "<span class='select_bus_time'>"+res.data[i].deptTe.split(' ', 1).toString()+'\t('+getInputDayLabel(res.data[i].deptTe)+")</span>";
+                url: "api/user/resCarList",
+                method: "post",
+                dataType: "json",
+                data: { 'sel': $("#depart01 option:selected").val(), 'sel2': $("#depart02 option:selected").val() },
+                success: function (res) {
+
+                    for (let i = 0; i < res.data.length; i++) {
+
+                        //console.log("요일",getInputDayLabel(res.data[i].deptTe));  
+
+                        let html = "<button class='tablinks' onclick='openBus(event, \"" + res.data[i].ctID + "\")' value=" + res.data[i].seatPrice + ">";
+                        html += "<span class='select_bus_time'>" + res.data[i].deptTe.split(' ', 1).toString() + '\t(' + getInputDayLabel(res.data[i].deptTe) + ")</span>";
                         // html += "<span class='select_bus_name'>"+res.data[i].b_name+'\n'+"("+res.data[i].carNum+")</span>";
-                        html += "<span class='select_bus_name'>"+res.data[i].b_name+"</span>";
-                        html += " <span class='select_bus_seat'>"+(res.data[i].total_passenger - res.data[i].available_seat_cnt)+" / "+res.data[i].total_passenger+"</span>";
+                        html += "<span class='select_bus_name'>" + res.data[i].b_name + "</span>";
+                        html += " <span class='select_bus_seat'>" + (res.data[i].total_passenger - res.data[i].available_seat_cnt) + " / " + res.data[i].total_passenger + "</span>";
                         $(".tab").append(html);
+                    }
+
+                    sessionStorage.setItem("car_list", JSON.stringify(res.data));
                 }
-                
-                sessionStorage.setItem("car_list", JSON.stringify( res.data ));
-            }});
+            });
         })
 
     </script>
@@ -290,26 +301,26 @@
         var selected_seats = [];
         var selected_seats_cnt = 0;
         var seatPrice = 0;
-        function showPayment(){
-            let car_list = JSON.parse( sessionStorage.getItem("car_list") ),
+        function showPayment() {
+            let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                 ct_id = sessionStorage.getItem("ct_id");
 
-            let reserve_car_info = car_list.find((k)=> (k.ctID == ct_id)),
+            let reserve_car_info = car_list.find((k) => (k.ctID == ct_id)),
                 deptTe = reserve_car_info.deptTe,
                 retuTe = reserve_car_info.retuTe,
                 b_name = reserve_car_info.b_name;
 
 
-            $("#payment_deptTe").text( deptTe.split(' ').join('('+getInputDayLabel( deptTe )+') ') );
-            $("#payment_retuTe").text( retuTe.split(' ').join('('+getInputDayLabel( retuTe )+') ') );
-            $("#payment_car_info").text( b_name );
-            
+            $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptTe) + ') '));
+            $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retuTe) + ') '));
+            $("#payment_car_info").text(b_name);
+
             location.href = "/reservation#payment";
         }
-        
+
         function openBus(evt, busSeat) {
             var i, tablinks
-            
+
             sessionStorage.removeItem('seat_price');
             tablinks = document.getElementsByClassName("tablinks");
             //alert(seatPrice);
@@ -319,15 +330,15 @@
             sessionStorage.setItem('ct_id', busSeat);
             //좌석금액 세션에 저장
             sessionStorage.setItem('seat_price', evt.currentTarget.value);
-            
+
             document.getElementById("bus_seat_layer").style.display = "block";
             evt.currentTarget.className += " active";
             var firstSeatLabel = 1;
-        
+
 
             //좌석금액 불러오기
             var seatPay = Number(sessionStorage.getItem('seat_price'));
-        
+
             var $cart = $('#selected-seats'),
                 $nums = $('#selected_seats_num'),
                 $counter = $('#selected_seats_cnt'),
@@ -351,7 +362,7 @@
                     ],
                     seats: {
                         e: {
-                            
+
                             classes: '일반', //your custom CSS class
                             category: '일반'
                         }
@@ -359,47 +370,47 @@
                     },
                     naming: {
                         top: false,
-                        getLabel: function(character, row, column) {
+                        getLabel: function (character, row, column) {
                             return firstSeatLabel++;
                         },
                     },
-                    click: function() {
+                    click: function () {
                         if (this.status() == 'available') {
-                            if( selected_seats_cnt >=4){
+                            if (selected_seats_cnt >= 4) {
                                 alert("최대 4개까지 선택가능합니다.");
                                 return this.style();
                             }
                             selected_seats_cnt = sc.find('selected').length + 1;
-                            selected_seats.push( this.settings.label );
+                            selected_seats.push(this.settings.label);
                             let origin_price = recalculateTotal(sc) + Number(sessionStorage.getItem("seat_price"));
 
-                            $nums.text('　'.concat( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) ) );
-                            $payment_seats_nums.text( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) );
+                            $nums.text('　'.concat(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : '')));
+                            $payment_seats_nums.text(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : ''));
 
-                            $counter.text('　'.concat( sc.find('selected').length + 1) );
-                            $payment_seats_cnt.text( sc.find('selected').length + 1 );
-                            $origin_price.text( formatNumber(origin_price) + '원');
-                            $origin_price.data( 'price', origin_price);
-                            $sale_price.text('-' + formatNumber(origin_price) + '원' );
-                            $sale_price.data( 'price', origin_price);
+                            $counter.text('　'.concat(sc.find('selected').length + 1));
+                            $payment_seats_cnt.text(sc.find('selected').length + 1);
+                            $origin_price.text(formatNumber(origin_price) + '원');
+                            $origin_price.data('price', origin_price);
+                            $sale_price.text('-' + formatNumber(origin_price) + '원');
+                            $sale_price.data('price', origin_price);
 
                             return 'selected';
                         } else if (this.status() == 'selected') {
                             selected_seats_cnt = sc.find('selected').length - 1;
-                            let idx = selected_seats.indexOf( this.settings.label );
+                            let idx = selected_seats.indexOf(this.settings.label);
                             selected_seats.splice(idx, 1);
 
                             let origin_price = recalculateTotal(sc) - Number(sessionStorage.getItem("seat_price"));
 
-                            $nums.text( '　'.concat( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) ) );
-                            $payment_seats_nums.text( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) );
+                            $nums.text('　'.concat(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : '')));
+                            $payment_seats_nums.text(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : ''));
 
-                            $counter.text('　'.concat( sc.find('selected').length - 1 ) );
-                            $payment_seats_cnt.text( sc.find('selected').length - 1);
-                            $origin_price.text( formatNumber(origin_price) + '원' );
-                            $origin_price.data( 'price', origin_price);
-                            $sale_price.text('-' + formatNumber(origin_price) + '원' );
-                            $sale_price.data( 'price', origin_price);
+                            $counter.text('　'.concat(sc.find('selected').length - 1));
+                            $payment_seats_cnt.text(sc.find('selected').length - 1);
+                            $origin_price.text(formatNumber(origin_price) + '원');
+                            $origin_price.data('price', origin_price);
+                            $sale_price.text('-' + formatNumber(origin_price) + '원');
+                            $sale_price.data('price', origin_price);
 
                             //seat has been vacated
                             return 'available';
@@ -413,23 +424,23 @@
                 });
 
             //this will handle "[cancel]" link clicks
-            $('#selected-seats').on('click', '.cancel-cart-item', function() {
+            $('#selected-seats').on('click', '.cancel-cart-item', function () {
                 //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
                 sc.get($(this).parents('li:first').data('seatId')).click();
             });
 
 
-      
+
             flushSeat();
-            
+
         }
-       
 
 
-        function getInputDayLabel( date ) {
-            var week = new Array('일', '월', '화', '수', '목', '금', '토');                         
-            var today = new Date( date ).getDay();
-            var todayLabel = week[today];                          
+
+        function getInputDayLabel(date) {
+            var week = new Array('일', '월', '화', '수', '목', '금', '토');
+            var today = new Date(date).getDay();
+            var todayLabel = week[today];
             return todayLabel;
         }
 
@@ -437,67 +448,67 @@
             var total = 0;
 
             //basically find every selected seat and sum its price
-            sc.find('selected').each(function() {
+            sc.find('selected').each(function () {
                 total += Number(sessionStorage.getItem("seat_price"));
             });
 
             return total;
         }
 
-        function flushSeat(){
+        function flushSeat() {
             var sc = $('.seat-map').seatCharts();
             selected_seats = [];
             selected_seats_cnt = 0;
             sc.find('e.selected').status('available');
             $("#selected_seats_num").text('　');
             $("#selected_seats_cnt").text('　');
-            
+
             // 데이터 가져와서 예약된 좌석 상태 설정.
             var ct_id = sessionStorage.getItem('ct_id');
             $.ajax({
                 dataType: "json",
                 method: "GET",
-                url:"/api/useSeat/"+ct_id
-            }).done((res)=>{
+                url: "/api/useSeat/" + ct_id
+            }).done((res) => {
                 let seat_id_list = [];
                 res.data.map((seat_num) => {
-                    seat_id_list.push( getSeatId(seat_num) );
+                    seat_id_list.push(getSeatId(seat_num));
                 });
 
                 sc.find('unavailable').status('available');
-                sc.status( seat_id_list, 'unavailable');
+                sc.status(seat_id_list, 'unavailable');
             });
         }
 
         // 45인승 기준 seatId 가져오기
-        function getSeatId(seat_num){
-            if( seat_num <= 45 && seat_num > 0){
+        function getSeatId(seat_num) {
+            if (seat_num <= 45 && seat_num > 0) {
 
                 let seat_id = "1_1";
                 let row = '',
                     column = '';
-                
-                if(seat_num > 40){
+
+                if (seat_num > 40) {
                     row = 11;
-                    column  = seat_num % 10;
+                    column = seat_num % 10;
                 } else {
-                    if( (seat_num % 4) === 0 ){
+                    if ((seat_num % 4) === 0) {
                         row = Number.parseInt(seat_num / 4);
                         column = 4;
                     } else {
-                        row = (Number.parseInt(seat_num / 4))+1;
+                        row = (Number.parseInt(seat_num / 4)) + 1;
                         column = seat_num % 4;
                     }
 
-                    if(column >=3 ) column +=1;
+                    if (column >= 3) column += 1;
                 }
 
-                seat_id = row+"_"+column;
+                seat_id = row + "_" + column;
                 return seat_id;
             } else {
                 return null;
             }
-            
+
         }
     </script>
 
@@ -521,7 +532,7 @@
                 create a new DIV that will act as an option item:*/
                 c = document.createElement("DIV");
                 c.innerHTML = selElmnt.options[j].innerHTML;
-                c.addEventListener("click", function(e) {
+                c.addEventListener("click", function (e) {
                     /*when an item is clicked, update the original select box,
                     and the selected item:*/
                     var y, i, k, s, h;
@@ -544,7 +555,7 @@
                 b.appendChild(c);
             }
             x[i].appendChild(b);
-            a.addEventListener("click", function(e) {
+            a.addEventListener("click", function (e) {
                 /*when the select box is clicked, close any other select boxes,
                 and open/close the current select box:*/
                 e.stopPropagation();
@@ -577,40 +588,42 @@
         then close all select boxes:*/
         document.addEventListener("click", closeAllSelect);
 
-    // 숫자 천단위 , 찍어주는 function
-    function formatNumber(num) {
-        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-    }
+        // 숫자 천단위 , 찍어주는 function
+        function formatNumber(num) {
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        }
 
-    function processPayment(){
-        let origin_price = $("#original_price").data('price');
-        let sale_price = $("#sale_price").data('price');
-        let ct_id = sessionStorage.getItem("ct_id");
-        let seatPrice = sessionStorage.getItem("seatPrice")
-        $.ajax({
-            method  : "POST",
-            dataType: "json",
-            url     : "/api/payment",
-            data    : {
-                "seatNums"  : selected_seats,
-                "oPrice"    : origin_price,
-                "sPrice"    : sale_price,
-                "ct_id"     : ct_id
-            }
-        }).done((result)=>{
-            let car_list = JSON.parse( sessionStorage.getItem("car_list") ),
-                ct_id = sessionStorage.getItem("ct_id");
+        function processPayment() {
+            let origin_price = $("#original_price").data('price');
+            let sale_price = $("#sale_price").data('price');
+            let ct_id = sessionStorage.getItem("ct_id");
+            let seatPrice = sessionStorage.getItem("seatPrice")
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                url: "/api/payment",
+                data: {
+                    "seatNums": selected_seats,
+                    "oPrice": origin_price,
+                    "sPrice": sale_price,
+                    "ct_id": ct_id
+                }
+            }).done((result) => {
+                let car_list = JSON.parse(sessionStorage.getItem("car_list")),
+                    ct_id = sessionStorage.getItem("ct_id");
 
-            let payment_result = car_list.find((k)=> (k.ctID == ct_id));
-            payment_result.price = result.price;
-            payment_result.ph_type = result.ph_type;
-            
-            sessionStorage.setItem("payment_result", JSON.stringify( payment_result ));
+                let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                payment_result.price = result.price;
+                payment_result.ph_type = result.ph_type;
 
-            location.href = "/complate";
-        });
-    }
+                sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
 
-</script>
+                location.href = "/complate";
+            });
+        }
 
-</body></html>
+    </script>
+
+</body>
+
+</html>

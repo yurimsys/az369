@@ -1,9 +1,53 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mysql = require('mysql');
+const mssql = require('mssql');
 const CryptoJS = require('crypto-js');
 const dbconf = require('../config/database');
-const connection = mysql.createConnection(dbconf);
+const connection = mysql.createConnection(dbconf.mysql);
+
+// mssql.connect(dbconf.mssql, function (err, result){
+//     if(err) throw err;
+//     console.log("connection mssql ok")
+//     new mssql.Request().query('select * from tLS', (err, result) => {
+//         console.log('==================')
+//         console.log(result);
+//         console.log('==================')
+//     })
+// });
+
+// const conn = mssql.connect(dbconf.mssql);
+// conn.then(() => {
+//    return mssql.query`select 1 as number` 
+// }).then(result1 => {
+//     console.log('pormise!')
+//     console.log(result1);
+// });
+
+// (async function () {
+//     try {
+//         let pool = await mssql.connect(dbconf.mssql)
+//         let result1 = await pool.request()
+//             .input('id', mssql.Int, 1002)
+//             .query('select * from tLS where LS_Number = @id')
+        
+//         console.log('ddd');
+//         console.dir(result1)
+        
+        
+//         let result2 = await pool.request()
+//         .input('sector', mssql.VarChar(10), 'a2')
+//         .query('select * from tLS where LS_Sector = @sector')
+        
+//         console.log('result2');
+//         console.dir(result2)
+//     } catch (err) {
+//         console.log(err);
+//         console.log('error fire')
+//     }
+// })();
+ 
+
 const config = require('../config');
 
 connection.config.queryFormat = function (query, values) {
@@ -17,8 +61,8 @@ connection.config.queryFormat = function (query, values) {
     }.bind(this));
 };
 passport.use(new LocalStrategy({ usernameField: 'id' }, (username, password, done) => {
-    let query = "SELECT u_id, u_username, u_pw, u_isAdmin  from tU where u_username = :id";
-    //let query2 = 'select u_id, u_username, u_pw, u_isAdmin from tU where u_username = :id';
+    let query = "SELECT u_id, U_uId, u_pw, u_isAdmin  from tU where U_uId = :id";
+    //let query2 = 'select u_id, U_uId, u_pw, u_isAdmin from tU where U_uId = :id';
         connection.query(query, { id: username }, (err, rows) =>{
             if (err) {return done(err);}
             if(!rows[0])

@@ -11,194 +11,207 @@
     <meta name="title" content="AZ369 - 회원가입">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
 </head>
 
 <body>
-    <div class="wrap">       
-            <% include templates/header.ejs %>
-        
-        
-        <!--section.main 시작-->
+    <div class="wrap">
+        <% include templates/header.ejs %>
 
-        <!--//secton.main 완료-->
         <!--secton.sub_wrap 시작-->
 
 
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
-                              
+
                 <div class="box">
                     <h6>회원가입</h6>
                     <h1 style="font-family: 'PT Serif', serif;">JOIN</h1>
                     <div class="bar"></div>
 
 
-                <div class="join_box">
-                    <div class="join_process">약관동의 > <span>정보입력 ></span> 가입완료</div>
+                    <div class="join_box">
+                        <div class="join_process">약관동의 ·<span> 정보입력 </span>· 가입완료</div>
 
-                    <h2>02. 정보입력</h2>
+                        <h2>02/ 정보입력</h2>
 
-                    <!-- <h3>회원정보를 입력해주세요.</h3> -->
-                    <form>
-                        <ul>
-                            <li>
-                                <label for="name"></label>
-                                <input type="text" id="id" name="아이디" placeholder="아이디">
-                                <div id="overId" style="font-size: 13px; color: green; display: none;">아이디 사용이 가능합니다.</div>
-								<div id="overId2" style="font-size: 13px; color: red; display: none;">아이디 사용이 불가능합니다.</div>
+                        <!-- <h3>회원정보를 입력해주세요.</h3> -->
+                        <form>
+                            <ul>
+                                <li>
+                                    <label for="name"></label>
+                                    <input type="text" id="id" name="아이디" placeholder="아이디">
+                                    <div id="overId" style="font-size: 13px; color: green; display: none;">아이디 사용이
+                                        가능합니다.</div>
+                                    <div id="overId2" style="font-size: 13px; color: red; display: none;">아이디 사용이
+                                        불가능합니다.</div>
 
-                            </li>
+                                </li>
 
-                            <li>
-                                <label for="password"></label>
-                                <input type="password" id="password" name="패스워드" placeholder="비밀번호 (영문 + 숫자 + 특문 포함 8글자 이상)">
-                            </li>
+                                <li>
+                                    <label for="password"></label>
+                                    <input type="password" id="password" name="패스워드"
+                                        placeholder="비밀번호 (영문 + 숫자 + 특문 포함 8글자 이상)">
+                                </li>
 
-                            <li>
-                                <label for="password2"></label>
-                                <input type="password" id="password2" name="패스워드" placeholder="비밀번호 확인">
-                                <div class="alert alert-success" id="alert-success" style="font-size: 13px; color: green; display: none;">비밀번호가 일치합니다.</div>
-								<div class="alert alert-danger" id="alert-danger" style="font-size: 13px; color: red; display: none;">비밀번호가 일치하지 않습니다.</div>
-                            </li>
-                          
+                                <li>
+                                    <label for="password2"></label>
+                                    <input type="password" id="password2" name="패스워드" placeholder="비밀번호 확인">
+                                    <div class="alert alert-success" id="alert-success"
+                                        style="font-size: 13px; color: green; display: none;">비밀번호가 일치합니다.</div>
+                                    <div class="alert alert-danger" id="alert-danger"
+                                        style="font-size: 13px; color: red; display: none;">비밀번호가 일치하지 않습니다.</div>
+                                </li>
 
-                            <li>
-                                <label for="name"></label>
-                                <input type="text" id="name" name="이름" placeholder="이름">
-                            </li>
 
-                            <li>
-                                <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
-                            </li>
+                                <li>
+                                    <label for="name"></label>
+                                    <input type="text" id="name" name="이름" placeholder="이름">
+                                </li>
 
-                            <li>
-                                <div class="check_btn" onclick="myFunction()">인증번호 받기</div>
-                            </li>
-        
-                            <li>
-                                <div id="phone_check_box">
-                                    <input type="text" id="phone_check" name="phone_check" placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4" oninput="numberMaxLength(this);" />
+                                <li>
+                                    <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
+                                </li>
+
+                                <li>
+                                    <div class="check_btn" onclick="myFunction()">인증번호 받기</div>
+                                </li>
+
+                                <li>
+                                    <div id="phone_check_box">
+                                        <input type="text" id="phone_check" name="phone_check"
+                                            placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4"
+                                            oninput="numberMaxLength(this);" />
+                                    </div>
+                                    <div class="text-alert" id="alert_msg"
+                                        style="font-size: 13px; display: none; color: #AD863C; font-weight: bold;">인증번호의
+                                        유효시간은 30분입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+                                    <div class="text-alert" id="alert_msg_fail"
+                                        style="font-size: 13px; color: red; display: none;"></div>
+                                    <div class="text-alert" id="alert_msg_success"
+                                        style="font-size: 13px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
+                                </li>
+
+                                <li>
+                                    <label for="email"></label>
+                                    <input type="text" id="email" name="이메일" placeholder="이메일주소">
+                                </li>
+
+                                <li>
+                                    <label for="brand"></label>
+                                    <input type="text" id="brand" name="브랜드" placeholder="브랜드명">
+                                </li>
+
+                                <div class="address_form">
+                                    <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호"
+                                        style="background: #f8f8f8;">
+                                    <button type="button" onclick="execDaumPostcode()" value="우편번호 찾기"
+                                        class="btn-primary round">우편번호찾기</button><br>
+                                    <input type="text" id="address" name="address" placeholder="매장주소"
+                                        style="background: #f8f8f8;"><br>
+                                    <input type="text" id="detailAddress" name="detailAddress" placeholder="매장상세주소">
+                                    <input type="text" id="extraAddress" name="extraAddress" hidden=""> <!-- 기본정보  -->
+                                    <input type="text" id="roadAddress" name="roadAddress" hidden="">
+                                    <input type="text" id="jibunAddress" name="jibunAddress" hidden="">
                                 </div>
-                                <div class="text-alert" id="alert_msg" style="font-size: 13px; display: none; color: #AD863C; font-weight: bold;">인증번호의 유효시간은 30분입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
-                                <div class="text-alert" id="alert_msg_fail" style="font-size: 13px; color: red; display: none;"></div>
-                                <div class="text-alert" id="alert_msg_success" style="font-size: 13px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
-                            </li>
+                            </ul>
+                        </form>
 
-                            <li>
-                                <label for="email"></label>
-                                <input type="text" id="email" name="이메일" placeholder="이메일주소">
-                            </li>
+                        <div class="survey_box">
 
-                            <li>
-                                <label for="brand"></label>
-                                <input type="text" id="brand" name="브랜드" placeholder="브랜드명">
-                            </li>
-
-                            <div class="address_form">
-                                <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" style="background: #f8f8f8;">
-                                <button type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn-primary round">우편번호찾기</button><br>
-                                <input type="text" id="address" name="address" placeholder="매장주소" style="background: #f8f8f8;"><br>
-                                <input type="text" id="detailAddress" name="detailAddress" placeholder="매장상세주소">
-                                <input type="text" id="extraAddress" name="extraAddress" hidden=""> <!-- 기본정보  -->
-                                <input type="text" id="roadAddress" name="roadAddress" hidden="">
-                                <input type="text" id="jibunAddress" name="jibunAddress" hidden="">
+                            <div class="hr-sect">
+                                <h3><span>선호하는 장차이용시간</span>을 선택해주세요.</h3>
                             </div>
-                        </ul>
-                    </form>
 
-                    <div class="survey_box">
+                            <div class="day">
+                                <h4>장차운행요일 <span style="font-size: 14px; color: #555;">(매주 밤 운행)</span></h4>
+                                <ul>
+                                    <li>
+                                        <label>
+                                            <input type="checkbox" class='chk' name="day[]" value="월">
+                                            <span>월</span>
+                                        </label>
+                                    </li>
 
-                        <h3>선호하는 장차이용시간을 선택해주세요.</h3>
-                        
-                        <div class="day">
-                           <h4>장차운행요일 <span style="font-size: 14px; color: #555;">(매주 밤 운행)</span></h4>
-                            <ul>
-                                <li>
-                                    <label>
-                                        <input type="checkbox" class='chk' name="day[]" value="월">
-                                        <span>월</span>
-                                    </label>
-                                </li>
+                                    <li>
+                                        <label>
+                                            <input type="checkbox" class='chk' name="day[]" value="화">
+                                            <span>화</span>
+                                        </label>
+                                    </li>
 
-                                <li>
-                                    <label>
-                                        <input type="checkbox" class='chk' name="day[]" value="화">
-                                        <span>화</span>
-                                    </label>
-                                </li>
+                                    <li>
+                                        <label>
+                                            <input type="checkbox" class='chk' name="day[]" value="수">
+                                            <span>수</span>
+                                        </label>
+                                    </li>
 
-                                <li>
-                                    <label>
-                                        <input type="checkbox" class='chk' name="day[]" value="수">
-                                        <span>수</span>
-                                    </label>
-                                </li>
+                                    <li>
+                                        <label>
+                                            <input type="checkbox" class='chk' name="day[]" value="목">
+                                            <span>목</span>
+                                        </label>
+                                    </li>
 
-                                <li>
-                                    <label>
-                                        <input type="checkbox" class='chk' name="day[]" value="목">
-                                        <span>목</span>
-                                    </label>
-                                </li>
+                                    <li>
+                                        <label>
+                                            <input type="checkbox" class='chk' name="day[]" value="금">
+                                            <span>금</span>
+                                        </label>
+                                    </li>
 
-                                <li>
-                                    <label>
-                                        <input type="checkbox" class='chk' name="day[]" value="금">
-                                        <span>금</span>
-                                    </label>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                        <div id="hideId" style="display: none;"></div>
-                       
-                        <div class="time">
-                           <h4>장차운행시간</h4>
-                            <ul>
-                                <li>
-                                    <div class="time_select01 time_select" >
-                                        <select id="select01">
-                                            <option value="0">평택 출발시간</option>
-                                            <option value="20:00:00">평택 20:00</option>
-                                            <option value="21:00:00">평택 21:00</option>
-                                            <option value="22:00:00">평택 22:00</option>
-                                            <option value="23:00:00">평택 23:00</option>
+                                </ul>
+                            </div>
+                            <div id="hideId" style="display: none;"></div>
 
-                                        </select>
-                                    </div>
-                                </li>
-                                <li><img src="/img/reservation/location_icon.png" alt="왕복 아이콘">
+                            <div class="time">
+                                <h4>장차운행시간</h4>
+                                <ul>
+                                    <li>
+                                        <div class="time_select01 time_select">
+                                            <select id="select01">
+                                                <option value="0">평택 출발시간</option>
+                                                <option value="20:00:00">평택 20:00</option>
+                                                <option value="21:00:00">평택 21:00</option>
+                                                <option value="22:00:00">평택 22:00</option>
+                                                <option value="23:00:00">평택 23:00</option>
 
-                                </li>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li><img src="/img/reservation/location_icon.png" alt="왕복 아이콘">
 
-                                <li>
-                                    <div class="time_select02 time_select" >
-                                        <select id="select02">
-                                            <option value="0">서울동대문 출발시간</option>
-                                            <option value="02:00:00">서울동대문 02:00</option>
-                                            <option value="03:00:00">서울동대문 03:00</option>
-                                            <option value="04:00:00">서울동대문 04:00</option>
-                                            <option value="05:00:00">서울동대문 05:00</option>
-                                        </select>
-                                    </div>
-                                </li>
-                            </ul>
+                                    </li>
+
+                                    <li>
+                                        <div class="time_select02 time_select">
+                                            <select id="select02">
+                                                <option value="0">서울동대문 출발시간</option>
+                                                <option value="02:00:00">서울동대문 02:00</option>
+                                                <option value="03:00:00">서울동대문 03:00</option>
+                                                <option value="04:00:00">서울동대문 04:00</option>
+                                                <option value="05:00:00">서울동대문 05:00</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
                         </div>
 
-                    </div>
-
-                    <div class="join_btn">
-                        <ul>
-                            <a href="join">
-                                <li class="back">이전</li>
-                            </a>
-                            <a onclick="joinUser()">
-                                <li class="next">다음</li>
-                            </a>
-                        </ul>
+                        <div class="join_btn">
+                            <ul>
+                                <a href="join">
+                                    <li class="back">이전</li>
+                                </a>
+                                <a onclick="joinUser()">
+                                    <li class="next">다음</li>
+                                </a>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -219,134 +232,134 @@
 
     <script>
 
-      $(document).ready(()=>{
-        //본인인증
-        $("div.check_btn").click((e) => {
-            if($('#phone').val() == ""){
-                alert("휴대전화 번호를 입력해 주세요.")
-                return;
-            }
-            e.preventDefault();
-            sendSmsButton();
-            return false;
+        $(document).ready(() => {
+            //본인인증
+            $("div.check_btn").click((e) => {
+                if ($('#phone').val() == "") {
+                    alert("휴대전화 번호를 입력해 주세요.")
+                    return;
+                }
+                e.preventDefault();
+                sendSmsButton();
+                return false;
+            });
+
+            $("#phone_check").keyup(checkPhoneNumber);
+
         });
- 
-        $("#phone_check").keyup( checkPhoneNumber );
 
-    });
+        function sendSmsButton() {
+            let phone_number = $("#phone").val();
+            phone_number = phone_number.replace(/-/g, "");
 
-    function sendSmsButton(){
-        let phone_number = $("#phone").val();
-        phone_number = phone_number.replace(/-/g, "");
-
-        $.ajax({
-            dataType: "json",
-            url : "/api/auth/phone",
-            method : "post",
-            data : {
-                phone_number : phone_number
-            }
-        }).done((res) => {
-            $("#alert_msg").css('display','block');
-            $("#alert_msg_success").css('display','none');
-        })
-    }
-    let chkCnt = 0;
-    function checkPhoneNumber(e){
-        let ele_phone_check = $("#phone_check");
-        // let auth_number = ele_phone_check.val();
-        let auth_number = e.target.value;
-
-        let phone_number = $("#phone").val();
-        phone_number.replace(/-/g, "");
-
-        if(window.timer !== undefined) clearTimeout(window.timer);
-  
-        window.timer = setTimeout( () => {
             $.ajax({
                 dataType: "json",
-                url : "/api/auth/phone",
-                method : "get",
-                data : {
-                    phone_number : phone_number,
-                    auth_number : auth_number
+                url: "/api/auth/phone",
+                method: "post",
+                data: {
+                    phone_number: phone_number
                 }
             }).done((res) => {
-                console.log("checkPhoneNumber !! ");
-                console.log(res);
-                if( res.status_code == 200 ){
-                    ele_phone_check.data("is_confirm", true);
-                    chkCnt = 1;
-                    $("#alert_msg").css('display','none');
-                    $("#alert_msg_success").css('display','block');
-                    $("#alert_msg_fail").css('display','none');
-                } else if ( res.status_code == 400 ){
-                    ele_phone_check.data("is_confirm", false);
-                    $("#alert_msg").css('display','block');
-                    $("#alert_msg_success").css('display','none');
-                    
-                    let ele_alert_fail = $("#alert_msg_fail");
-                    ele_alert_fail.text(res.msg);
-                    ele_alert_fail.css('display','block');
-                }
+                $("#alert_msg").css('display', 'block');
+                $("#alert_msg_success").css('display', 'none');
             })
-        }, 1000 );
-        
-    }
-/////////////////////
+        }
+        let chkCnt = 0;
+        function checkPhoneNumber(e) {
+            let ele_phone_check = $("#phone_check");
+            // let auth_number = ele_phone_check.val();
+            let auth_number = e.target.value;
+
+            let phone_number = $("#phone").val();
+            phone_number.replace(/-/g, "");
+
+            if (window.timer !== undefined) clearTimeout(window.timer);
+
+            window.timer = setTimeout(() => {
+                $.ajax({
+                    dataType: "json",
+                    url: "/api/auth/phone",
+                    method: "get",
+                    data: {
+                        phone_number: phone_number,
+                        auth_number: auth_number
+                    }
+                }).done((res) => {
+                    //console.log("checkPhoneNumber !! ");
+                    //console.log(res);
+                    if (res.status_code == 200) {
+                        ele_phone_check.data("is_confirm", true);
+                        chkCnt = 1;
+                        $("#alert_msg").css('display', 'none');
+                        $("#alert_msg_success").css('display', 'block');
+                        $("#alert_msg_fail").css('display', 'none');
+                    } else if (res.status_code == 400) {
+                        ele_phone_check.data("is_confirm", false);
+                        $("#alert_msg").css('display', 'block');
+                        $("#alert_msg_success").css('display', 'none');
+
+                        let ele_alert_fail = $("#alert_msg_fail");
+                        ele_alert_fail.text(res.msg);
+                        ele_alert_fail.css('display', 'block');
+                    }
+                })
+            }, 1000);
+
+        }
+        /////////////////////
         //비밀번호 정규식
-        $("#password").change(function(){
+        $("#password").change(function () {
             checkPassword($('#password').val());
         });
-        function checkPassword(password){
-            
-            if( !(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)) ){
+        function checkPassword(password) {
+
+            if (!(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password))) {
                 alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
                 $('#password').val('').focus();
                 return false;
-            }    
+            }
             var checkNumber = password.search(/[0-9]/g);
             var checkEnglish = password.search(/[a-z]/ig);
-            if(checkNumber <0 || checkEnglish <0){
+            if (checkNumber < 0 || checkEnglish < 0) {
                 alert("숫자와 영문자를 혼용하여야 합니다.");
                 $('#password').val('').focus();
                 return false;
-            }                                
+            }
         }
         //비밀번호 확인
-         $(function(){
-            $("input").keyup(function(){ 
-                var pwd1=$("#password").val(); 
-                var pwd2=$("#password2").val();
-                if(pwd1 != "" || pwd2 != ""){ 
-                    if(pwd1 == pwd2){ 
+        $(function () {
+            $("input").keyup(function () {
+                var pwd1 = $("#password").val();
+                var pwd2 = $("#password2").val();
+                if (pwd1 != "" || pwd2 != "") {
+                    if (pwd1 == pwd2) {
                         $("#alert-success").css('display', 'block')
                         $("#alert-danger").css('display', 'none')
-                        $("#submit").removeAttr("disabled"); 
-                    }else{
-                            $("#alert-success").css('display', 'none')
-                            $("#alert-danger").css('display', 'block')
-                            $("#submit").attr("disabled", "disabled");
-                        } 
-                    } 
-                }); 
+                        $("#submit").removeAttr("disabled");
+                    } else {
+                        $("#alert-success").css('display', 'none')
+                        $("#alert-danger").css('display', 'block')
+                        $("#submit").attr("disabled", "disabled");
+                    }
+                }
             });
+        });
 
         // //아이디 중복확인
         var timeout = null;
         let chkId = 0;
-        $('#id').keyup(function () {        
-            clearTimeout(timeout);                
+        $('#id').keyup(function () {
+            clearTimeout(timeout);
             timeout = setTimeout(function () {
-                var id = $("#id").val();               
+                var id = $("#id").val();
                 $.ajax({
                     type: 'post',
                     dataType: 'json',
-                    data: {'id' : id},
+                    data: { 'id': id },
                     url: 'api/user/checkId',
                     success: function (res) {
-                        console.log("res :::",res.data.length)
-                        if(res.data.length == 0){
+                        //console.log("res :::",res.data.length)
+                        if (res.data.length == 0) {
                             chkId = 1;
                             $("#overId").css("display", "block");
                             $("#overId2").css("display", "none");
@@ -354,96 +367,96 @@
                             $("#overId").css("display", "none");
                             $("#overId2").css("display", "block");
                         }
-                        if($('#id').val() == ""){
+                        if ($('#id').val() == "") {
                             $("#overId").css("display", "none");
                             $("#overId2").css("display", "none");
                         }
-                    }, 
+                    },
                 });
             }, 800);
         });
 
 
-                                                                                   
+
         ///회원가입 버튼 클릭
-        function joinUser(){
-            if(chkCnt == 0){
+        function joinUser() {
+            if (chkCnt == 0) {
                 alert("본인인증을 해주세요.");
                 return;
             }
-            if(chkId == 0){
+            if (chkId == 0) {
                 alert("아이디 중복입니다.")
                 return;
-            }    
-            if($('#id').val() == "" || $('#password').val()==''|| $('#password2').val()==''|| $('#name').val()=='' || $('#phone').val()==''|| $('#brand').val()=='' || 
-            $('#postcode').val()==''|| $('#address').val()==''||$('#detailAddress').val()=='' ||$('#email').val()==''){
-            alert("빈칸을 입력해 주세요");
-            return;
-                }
-                if($(".chk").is(':checked') == false || $("#select01 option:selected").val()=='0' || $("#select02 option:selected").val()=='0'){
-                    alert("장차 선호날짜와 시간을 선택해주세요.");
-                    return;
-                }
+            }
+            if ($('#id').val() == "" || $('#password').val() == '' || $('#password2').val() == '' || $('#name').val() == '' || $('#phone').val() == '' || $('#brand').val() == '' ||
+                $('#postcode').val() == '' || $('#address').val() == '' || $('#detailAddress').val() == '' || $('#email').val() == '') {
+                alert("빈칸을 입력해 주세요");
+                return;
+            }
+            if ($(".chk").is(':checked') == false || $("#select01 option:selected").val() == '0' || $("#select02 option:selected").val() == '0') {
+                alert("장차 선호날짜와 시간을 선택해주세요.");
+                return;
+            }
             $.ajax({
-                method : 'POST',
-                dataType : 'json',
+                method: 'POST',
+                dataType: 'json',
                 url: "api/user/join",
                 data: {
-                    id : $("#id").val(),
-                    password : $("#password").val(),
-                    name : $("#name").val(),
-                    phone : $("#phone").val(),
-                    email : $("#email").val(),
-                    brand : $("#brand").val(),
-                    postcode : $("#postcode").val(),
-                    address : $("#address").val(),
-                    detailAddress : $("#detailAddress").val()
+                    id: $("#id").val(),
+                    password: $("#password").val(),
+                    name: $("#name").val(),
+                    phone: $("#phone").val(),
+                    email: $("#email").val(),
+                    brand: $("#brand").val(),
+                    postcode: $("#postcode").val(),
+                    address: $("#address").val(),
+                    detailAddress: $("#detailAddress").val()
                 },
-                success: function(res){
-                    console.log("회원가입 시 :::", res.data.insertId);
+                success: function (res) {
+                    //console.log("회원가입 시 :::", res.data.insertId);
                     joinId = res.data.insertId;
-                    var orderDetail = [{name:"findId", value:res.name }, {name:"findName", value:res.id}];
-                    sessionStorage.setItem("orderDetail",JSON.stringify(orderDetail));
+                    var orderDetail = [{ name: "findId", value: res.name }, { name: "findName", value: res.id }];
+                    sessionStorage.setItem("orderDetail", JSON.stringify(orderDetail));
 
                     //장차선호 날짜
                     var send_array = Array();
                     var send_cnt = 0;
                     var chkbox = $(".chk");
-                    for(i=0; i<chkbox.length; i++){
-                        if(chkbox[i].checked == true){
+                    for (i = 0; i < chkbox.length; i++) {
+                        if (chkbox[i].checked == true) {
                             send_array[send_cnt] = chkbox[i].value;
                             send_cnt++
                         }
                     }
                     var sendJson = JSON.stringify(send_array);
-                    console.log('sendjson :',sendJson); 
+                    //console.log('sendjson :',sendJson); 
 
                     var seatArr = JSON.parse(sendJson);
-                    console.log('seatArr :', seatArr);  
+                    //console.log('seatArr :', seatArr);  
                     //선호 시간                                            
                     var sel = $("#select01 option:selected").val();
-                    var sel2 = $('#select02 option:selected').val();     
-                    console.log("시간 :", sel, sel2);                        
-                    
+                    var sel2 = $('#select02 option:selected').val();
+                    //console.log("시간 :", sel, sel2);                        
+
                     $.ajax({
                         url: "api/user/carPool",
                         dataType: "json",
                         method: "post",
                         data: {
-                            'joinId' : joinId, 
-                            'sel' : $("#select01 option:selected").val(), 
-                            'sel2' : $("#select02 option:selected").val(), 
-                            'days' : seatArr
-                                },
-                        success: function(res){
-                            if(res.data === '성공'){
+                            'joinId': joinId,
+                            'departureTe': $("#select01 option:selected").val(),
+                            'returnTe': $("#select02 option:selected").val(),
+                            'preferDays': seatArr
+                        },
+                        success: function (res) {
+                            if (res.data === '성공') {
                                 location.href = "join3"
                             }
-                        
+
                         }
                     });
 
-                }                    
+                }
             });
 
         }
@@ -465,7 +478,7 @@
                 create a new DIV that will act as an option item:*/
                 c = document.createElement("DIV");
                 c.innerHTML = selElmnt.options[j].innerHTML;
-                c.addEventListener("click", function(e) {
+                c.addEventListener("click", function (e) {
                     /*when an item is clicked, update the original select box,
                     and the selected item:*/
                     var y, i, k, s, h;
@@ -488,7 +501,7 @@
                 b.appendChild(c);
             }
             x[i].appendChild(b);
-            a.addEventListener("click", function(e) {
+            a.addEventListener("click", function (e) {
                 /*when the select box is clicked, close any other select boxes,
                 and open/close the current select box:*/
                 e.stopPropagation();
@@ -524,21 +537,23 @@
 
     <!--input maxlength-->
     <script>
-    function numberMaxLength(e){
-        if(e.value.length > e.maxLength){
-            e.value = e.value.slice(0, e.maxLength);
+        function numberMaxLength(e) {
+            if (e.value.length > e.maxLength) {
+                e.value = e.value.slice(0, e.maxLength);
+            }
         }
-    }
     </script>
 
     <!--인증번호받기 js-->
     <script>
         function myFunction() {
-            if($('#phone').val() == ""){
+            if ($('#phone').val() == "") {
                 return;
             }
             document.getElementById("phone_check_box").style.display = "block";
         }
     </script>
 
-</body></html>
+</body>
+
+</html>

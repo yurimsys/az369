@@ -1,8 +1,10 @@
-@charset="UTF-8";
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; font-weight: normal;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -28,18 +30,17 @@ section.main {
     overflow: hidden;
 }
 
-.main_bg {background: url(../img/benefit_list/benefit_list01_bg.png);
+.main_bg {background: url(/img/benefit_list/benefit_list01_bg.png);
 background-position: center;
 background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s; z-index: -1000;}
 
 @keyframes bg {
-    0% {transform: scale(1.05);
+	0% {transform: scale(1.05);}
     100% {transform: scale(1);}
-    }
 }
 
-.tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); z-index: 10;}
-.tnb ul li {float: left; width: 50%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; color: #444; transition: all 0.2s;}
+.tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); }
+.tnb ul li {float: left; width: 50%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; transition: all 0.2s; font-weight: 400;}
 
 
 /*section.main 완료*/
@@ -48,36 +49,39 @@ background-size: cover; width: 100%; height: 500px; animation: bg; animation-del
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 6.5%;
-    overflow: hidden;
+    margin-bottom: 90px;
+	overflow: hidden;
 }
 
 section.sub_wrap .bar {
-    border-bottom: 2px solid #624000; 
-    width: 35px; 
+    border-bottom: 2px solid #c3a164; 
+    width: 30px; 
     margin: 0 auto;
-    margin-top: 2%;
-    margin-bottom: 4%;
+    margin-top: 30px;
+    margin-bottom: 40px;
 }
 
-section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 7.5%; font-weight: bold; font-size: 16px;}
+
+section.sub_wrap h6 {text-align: center; color: #C3A164; font-family: 'PT Serif', serif;  margin-top: 90px; font-size: 18px;}
 
 section.sub_wrap h1 {
     text-align: center; 
-    font-size: 37px;
+    font-size: 35px;
     line-height: 1.35;
-     font-family: 'Noto Sans KR', sans-serif;
      font-weight: normal;
 }
 
-section.sub_wrap h2 {font-size: 25px; text-align: center; margin-bottom: 5%; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif; color: #555;}
+section.sub_wrap h2 {font-size: 28px; text-align: center; margin-bottom: 70px; line-height: 1.6;font-weight:400;}
+section.sub_wrap h2 strong {font-weight: 600;}
+section.sub_wrap h2 span {font-size: 16px; color: #767676; font-weight: 300;}
 
-section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow: inset 0 -15px 0 #fcf3dc;}
-section.sub_wrap h2 span {font-size: 16px; color: #777;}
+section.sub_wrap h5 {font-size: 20px; font-weight: 300; text-align:center; color: #444;}
+section.sub_wrap h5 br {display: none;}
+section.sub_wrap h5 span {font-weight: 400;}
+
 
 .tab {
   overflow: hidden;
-  border: 1px solid #ddd;
   background-color: #fff;
 }
 
@@ -87,40 +91,48 @@ section.sub_wrap h2 span {font-size: 16px; color: #777;}
     width: 25%;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  height: 50px;
+	line-height: 50px;
   transition: 0.3s;
-    color: #444;
+    color: #767676;
   font-size: 18px;
-  border: 1px solid #eee;
-}
-
-.tab button:hover {
-  background-color: #eee;
-    color: #000;
+	font-weight: 400;
+  border: 1px solid #ddd;
+	border-bottom: 1px solid #C3A164;
+	background: #f6f6f6;
+	
 }
 
 .tab button.active {
-  background-color: #ad8743;
-    color: #fff;
+  /*background-color: #ad8743;*/
+	border: none;
+    border: 1px solid #C3A164;
+	border-bottom: none /*!important*/;
+	background: #fff;
+	color: #222;
+    /*color: #fff;*/
 }
 
 .tabcontent {
   display: none;
-  padding: 3% 4%;
+  padding: 35px 40px;
   height: auto;
-  border: 1px solid #eee;
+  /*border: 1px solid #eee;*/
   border-top: none;
-  background: #f8f8f8;
+  background: #fff;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   overflow: hidden;
+  border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 }
 
-.tabcontent h3 {font-family: 'Noto Sans KR', sans-serif; color: #000; font-weight: bold; font-size: 27px;}
-.tabcontent p {color: #888; padding-bottom: 2%; border-bottom: 1px solid #ddd; font-size: 17px;}
-.tabcontent dl {margin-top: 2%; overflow: hidden;}
+.tabcontent h3 {font-family: 'Noto Sans KR', sans-serif; color: #000; font-weight: 600; font-size: 26px;}
+.tabcontent p {color: #767676; padding-bottom: 2%; border-bottom: 1px solid #eee; font-size: 16px; font-weight: 300;}
+.tabcontent dl {margin-top: 20px; overflow: hidden;}
 .tabcontent dt {float: left; width: 18%; padding: 12px 0; font-weight: bold; color: #333;}
-.tabcontent dd {float: left; width: 82%; padding: 12px 0; color: #555;}
-.tabcontent dd span {font-size: 15px; color: #aaa;}
+.tabcontent dd {float: left; width: 82%; padding: 12px 0; color: #222; font-weight: 300;}
+.tabcontent dd span {font-size: 15px; color: #767676; font-weight: 300;}
 
 .tabcontent h3 br {display: none;}
 .tabcontent p br {display: none;}
@@ -133,7 +145,6 @@ footer {
     margin: 0 auto;
     background: #211e1c;
 }
-
 
 /*section.sub_wrap 완료*/
 
@@ -172,18 +183,15 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1200px;}
-    section.main .tnb {bottom: -14%;}
+    section.main .inner_main {width: 100%;}
+	.tnb {width: 100%;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1200px;}
-    
-    .tnb {padding-bottom: 5%; width: 1200px; margin-top: -5%;}
+    section.sub_wrap .inner_sub_wrap {width: 100%;}
     
     .tab {width: 95%; margin: 0 auto;}
     .tabcontent {width: 95%; margin: 0 auto;}
-    
     
     /*sub_contents*/
     .sub_contents {width: 95%;}
@@ -196,21 +204,10 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1024px;}
-    
-    
+
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1024px;}
     
-    .tnb {padding-bottom: 6%; width: 1024px;}
-
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 
@@ -219,32 +216,19 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 768px;}
-
+    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 768px;}
-    .tnb {width: 768px; margin-top:-7.6%;}
-    section.sub_wrap h1 {font-size: 2.2rem;}
-    section.sub_wrap h6 {padding-top: 13%;}
+    section.sub_wrap h1 {font-size: 35px;}
     
-    section.sub_wrap h2 {margin-bottom: 4%; font-size: 28px;}
+    section.sub_wrap h2 { font-size: 26px;}
+	
+	.tabcontent h3 {font-size: 24px;}
     
-    .tnb {width: 768px; margin-bottom: 2.2%;}
-    
-    .tabcontent p br {display: block;}
+    /*.tabcontent p br {display: block;}*/
     .tabcontent dt br {display: block;}
-    .tabcontent p {padding-bottom: 4%;}
+	.tabcontent p {line-height: 1.6; padding-bottom: 25px;}
     .tabcontent dl {margin-top: 3%;}
-    
-    /*.tabcontent dt {width: 25%;}
-    .tabcontent dd {width: 75%;}*/
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*414px*/
@@ -252,38 +236,39 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 414px;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 414px;}
-    section.sub_wrap h1 {font-size: 30px;}
-    section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-     section.sub_wrap h2 {font-size: 24px; padding-bottom: 10%; line-height: 1.5; width: 92%; margin: 0 auto;}
+	
+	section.sub_wrap .bar {margin-top: 30px; margin-bottom: 30px;}
+	
+    section.sub_wrap h1 {font-size: 28px;}
+     section.sub_wrap h2 {font-size: 22px; padding-bottom: 10%; line-height: 1.5; width: 98%; margin: 0 auto; }
     section.sub_wrap h5{font-size: 18px; margin-bottom: -1%;}
-    section.sub_wrap h6 {padding-top: 11%;}
+    section.sub_wrap h6 {margin-top: 50px;}
     
-    
-    .tnb {width: 414px; margin-bottom: 9.3%;} 
     .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
     
-    
-    .tab {width: 414px;}
-    .tab button {width: 50%;}
-    .tabcontent {width: 414px; text-align: center;}
-    .tabcontent h3 {margin-top: 3%; padding-bottom: 5%; border-bottom: 1px solid #eee; line-height: 1.5;}
+    .tab button {width: 50%; height: 50px; padding: 0;border: none; font-size: 16px;}
+	.tab button.active {border: 1px solid #C3A164;}
+    .tabcontent {width: 95%; text-align: center; padding: 0 20px 20px;}
+    .tabcontent h3 {padding: 20px 0; border-bottom: 1px solid #eee; line-height: 1.5; font-weight: 500;}
     .tabcontent h3 br {display: block;}
     .tabcontent p {display: none;}
     
     .tabcontent dl {width: 100%; margin: 0 auto; text-align: left; margin-top: 4%;}
-    .tabcontent dt {width: 100%; font-size: 18px; padding-bottom: 0;}
+    .tabcontent dt {width: 100%; font-size: 20px; padding-bottom: 0; font-weight: 400;}
     .tabcontent dt br {display: none;}
-    .tabcontent dd {width: 100%; padding-bottom: 5%; color: #777}
+    .tabcontent dd {width: 100%; padding-top: 5px; padding-bottom: 5%; color: #222;}
     .tabcontent dd span {font-size: 15px;}
-    
-    
-
 }
+
+
+/*375px*/
+@media screen and (max-width: 375px) {
+    .tnb {margin-top: -13%;} 
+}
+
 
 /*320px*/
 @media screen and (max-width: 320px) {
@@ -291,21 +276,15 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 320px;}
     
     /*section.sub_wrap*/
     section.sub_wrap .inner_sub_wrap {width: 320px;}
     section.sub_wrap h1 {font-size: 24px;}
      section.sub_wrap h2 {font-size: 20px; padding-bottom: 10%; line-height: 1.5; width: 92%; margin: 0 auto;}
-    section.sub_wrap h6 {font-size: 14px;}
+    section.sub_wrap h6 {font-size: 16px;}
     
-    
-    .tnb {width: 320px; margin-bottom: 13.8%;} 
-    
-    
-    .tab {width: 320px;}
     .tab button { font-size: 15px;}
-    .tabcontent {width: 320px; text-align: center;}
+    .tabcontent {text-align: center;}
     .tabcontent h3 {font-size: 22px;}
     .tabcontent h3 br {display: block;}
     .tabcontent p {display: none;}

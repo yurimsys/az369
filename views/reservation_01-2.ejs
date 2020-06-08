@@ -11,7 +11,8 @@
     <meta name="title" content="AZ369 - 장차버스예매">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
     <!--reservation css link-->
@@ -20,7 +21,7 @@
     <!--<link rel="stylesheet" type="text/css" href="/css/lib/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-theme.css">
     <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-theme.min.css">
-    
+
 
 </head>
 
@@ -30,7 +31,7 @@
         <% include templates/header.ejs %>
         <!--secton.sub_wrap 시작-->
 
-       <!--reservation01의 오른쪽 영역 MO 1024px, 768, 414 적용-->
+        <!--reservation01의 오른쪽 영역 MO 1024px, 768, 414 적용-->
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
@@ -42,123 +43,127 @@
 
                     <div class="reservation_box">
                         <!--<div id="01" class="tabcontent">-->
-                                <div class="container">
-                                    <!--좌석선택표-->
-                                    <div class="seat-map" class="seat-panel"></div>        
-                                    <div class="select_seat">
-                                        <button class="reload_btn_top reload_btn" onclick="flushSeat()"><img src="img/reservation/reload.png" alt="새로고침">
-                                            <p>좌석 새로고침</p>
-                                        </button>
-                                        
-                                        <h4>3. 좌석 선택 <span>(최대 4개)</span></h4>
-                                        <div class="seat_table">
-                                            <dl>
-                                                <dt>선택된 좌석</dt>
-                                                <dd id="selected_seats_num">　</dd>
-                                            </dl>
-                                            <dl>
-                                                <dt>좌석 개수</dt>
-                                                <dd id="selected_seats_cnt">　</dd>
-                                            </dl>
-    
-                                                <!--좌석선택 텍스트-->
-                                            <button class="reload_btn_bottom reload_btn" onclick="flushSeat()"><img src="img/reservation/reload.png" alt="새로고침">
-                                                <p>좌석 새로고침</p>
-                                            </button>
-                                        </div>
-        
-        
-                                    </div>
-        
+                        <div class="container">
+                            <!--좌석선택표-->
+                            <div class="seat-map" class="seat-panel"></div>
+                            <div class="select_seat">
+                                <button class="reload_btn_top reload_btn" onclick="flushSeat()"><img
+                                        src="img/reservation/reload.png" alt="새로고침">
+                                    <p>좌석 새로고침</p>
+                                </button>
+
+                                <h4>3. 좌석 선택 <span>(최대 4개)</span></h4>
+                                <div class="seat_table">
+                                    <dl>
+                                        <dt>선택된 좌석</dt>
+                                        <dd id="selected_seats_num">　</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>좌석 개수</dt>
+                                        <dd id="selected_seats_cnt">　</dd>
+                                    </dl>
+
+                                    <!--좌석선택 텍스트-->
+                                    <button class="reload_btn_bottom reload_btn" onclick="flushSeat()"><img
+                                            src="img/reservation/reload.png" alt="새로고침">
+                                        <p>좌석 새로고침</p>
+                                    </button>
                                 </div>
 
+
                             </div>
+
                         </div>
-                    <div class="reservation_btn_mo">
-                        <ul>
-                            <li><a href="reservation" class="back">이전</a></li>
-                            <li><a onclick="showPayment()" class="payment_open">예매하기</a></li>
-                        </ul>
-                    </div>
-
-                    
 
                     </div>
-
-                    <div id="payment" class="layer">
-                        <!--popup PC-->
-                        <div class="payment_box">
-                            <div class="payment_tit">
-                                예매정보 및 결제금액
-                            </div>
-                            <div class="payment_box_inner">
-                                <div class="info_table">
-                                    <dl>
-                                        <dt>운행지역</dt>
-                                        <dd>평택 - 서울 동대문</dd>
-                                    </dl>
-                                    <dl class="info_time">
-                                        <dt>출발시간</dt>
-                                        <dd><span class="region">평택</span> <span id="payment_deptTe">2020.02.03(월) 22:00</span></dd>
-                                    <dd><span class="region">서울 동대문</span> <span id="payment_retuTe">2020.02.04(화) 04:00</span></dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>차량정보</dt>
-                                        <dd id="payment_car_info"> - </dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>좌석개수</dt>
-                                        <dd id="payment_seats_cnt">1개</dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>좌석번호</dt>
-                                        <dd id="payment_seats_nums">01번</dd>
-                                    </dl>
-                                </div>
-                                <div class="price">
-                                    <dl>
-                                        <dt>예매금액</dt>
-                                        <dd id="original_price">100,000</dd>
-                                    </dl>
-                                    <dl class="price_sale">
-                                        <dt>할인금액</dt>
-                                        <dd id="sale_price">-100,000원</dd>
-                                    </dl>
-                                    <dl class="total_dl">
-                                        <dt>총 결제금액</dt>
-                                        <dd class="total_price">0원</dd>
-                                    </dl>
-                                </div>
-                                
-                                <div class="notice">
-                                    <h5>NOTICE</h5>
-                                    <p>
-                                        · 3월 2일 ~ 3월 31일까지 장차이용 무료서비스가 진행중입니다. <br>
-                                        · 취소 및 환불은 출발일로부터 4일전까지 가능합니다. <br>
-                                        · 출발일 4일전, 적정 인원수가 부족하면 차량이 변경될 수 있습니다.
-                                    </p>
-                                </div>
-                                
-                                <ul class="payment_btn">
-                                    <li>
-                                        <a href="#" class="payment_close1 payment_close">취소</a>
-                                    </li>
-                                
-                                    <li>
-                                        <a onclick="processPayment()" class="payment_close2 payment_close">결제하기</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+                <div class="reservation_btn_mo">
+                    <ul>
+                        <li><a href="reservation" class="back">이전</a></li>
+                        <li><a onclick="showPayment()" class="payment_open">예매하기</a></li>
+                    </ul>
+                </div>
 
 
 
             </div>
 
-        </section>
+            <div id="payment" class="layer">
+                <!--popup PC-->
+                <div class="payment_box">
+                    <div class="payment_tit">
+                        예매정보 및 결제금액
+                    </div>
+                    <div class="payment_box_inner">
+                        <div class="info_table">
+                            <dl>
+                                <dt>운행지역</dt>
+                                <dd>평택 - 서울 동대문</dd>
+                            </dl>
+                            <dl class="info_time">
+                                <dt>출발시간</dt>
+                                <dd><span class="region">평택</span> <span id="payment_deptTe">2020.02.03(월) 22:00</span>
+                                </dd>
+                                <dd><span class="region">서울 동대문</span> <span id="payment_retuTe">2020.02.04(화)
+                                        04:00</span></dd>
+                            </dl>
+                            <dl>
+                                <dt>차량정보</dt>
+                                <dd id="payment_car_info"> - </dd>
+                            </dl>
+                            <dl>
+                                <dt>좌석개수</dt>
+                                <dd id="payment_seats_cnt">1개</dd>
+                            </dl>
+                            <dl>
+                                <dt>좌석번호</dt>
+                                <dd id="payment_seats_nums">01번</dd>
+                            </dl>
+                        </div>
+                        <div class="price">
+                            <dl>
+                                <dt>예매금액</dt>
+                                <dd id="original_price">100,000</dd>
+                            </dl>
+                            <dl class="price_sale">
+                                <dt>할인금액</dt>
+                                <dd id="sale_price">-100,000원</dd>
+                            </dl>
+                            <dl class="total_dl">
+                                <dt>총 결제금액</dt>
+                                <dd class="total_price">0원</dd>
+                            </dl>
+                        </div>
 
-        <!--<footer></footer>-->
+                        <div class="notice">
+                            <h5>NOTICE</h5>
+                            <p>
+                                · 3월 2일 ~ 3월 31일까지 장차이용 무료서비스가 진행중입니다. <br>
+                                · 취소 및 환불은 출발일로부터 4일전까지 가능합니다. <br>
+                                · 출발일 4일전, 적정 인원수가 부족하면 차량이 변경될 수 있습니다.
+                            </p>
+                        </div>
+
+                        <ul class="payment_btn">
+                            <li>
+                                <a href="#" class="payment_close1 payment_close">취소</a>
+                            </li>
+
+                            <li>
+                                <a onclick="processPayment()" class="payment_close2 payment_close">결제하기</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+    </div>
+
+    </section>
+
+    <!--<footer></footer>-->
     </div>
 
     <!--reservation 스크립트-->
@@ -168,13 +173,13 @@
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/lib/angular.min.js"></script>
     <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
-        
+
     <script>
         var firstSeatLabel = 1;
         var selected_seats_cnt = 0,
             selected_seats = [];
-        $(document).ready(function() {
-            
+        $(document).ready(function () {
+
             var $cart = $('#selected-seats'),
                 $nums = $('#selected_seats_num'),
                 $counter = $('#selected_seats_cnt'),
@@ -205,46 +210,46 @@
                     },
                     naming: {
                         top: false,
-                        getLabel: function(character, row, column) {
+                        getLabel: function (character, row, column) {
                             return firstSeatLabel++;
                         },
                     },
-                    click: function() {
+                    click: function () {
                         if (this.status() == 'available') {
-                            if( selected_seats_cnt >=4){
+                            if (selected_seats_cnt >= 4) {
                                 alert("최대 4개까지 선택가능합니다.");
                                 return this.style();
                             }
                             selected_seats_cnt = sc.find('selected').length + 1;
-                            selected_seats.push( this.settings.label );
+                            selected_seats.push(this.settings.label);
                             let origin_price = recalculateTotal(sc) + Number(sessionStorage.getItem("seat_price"));
 
-                            $nums.text('　'.concat( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) ) );
-                            $payment_seats_nums.text( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) );
+                            $nums.text('　'.concat(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : '')));
+                            $payment_seats_nums.text(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : ''));
 
-                            $counter.text('　'.concat( sc.find('selected').length + 1) );
-                            $payment_seats_cnt.text( sc.find('selected').length + 1 );
-                            $origin_price.text( formatNumber(origin_price) + '원');
-                            $origin_price.data( 'price', origin_price);
-                            $sale_price.text('-' + formatNumber(origin_price) + '원' );
-                            $sale_price.data( 'price', origin_price);
+                            $counter.text('　'.concat(sc.find('selected').length + 1));
+                            $payment_seats_cnt.text(sc.find('selected').length + 1);
+                            $origin_price.text(formatNumber(origin_price) + '원');
+                            $origin_price.data('price', origin_price);
+                            $sale_price.text('-' + formatNumber(origin_price) + '원');
+                            $sale_price.data('price', origin_price);
                             return 'selected';
                         } else if (this.status() == 'selected') {
                             selected_seats_cnt = sc.find('selected').length - 1;
-                            let idx = selected_seats.indexOf( this.settings.label );
+                            let idx = selected_seats.indexOf(this.settings.label);
                             selected_seats.splice(idx, 1);
 
                             let origin_price = recalculateTotal(sc) - Number(sessionStorage.getItem("seat_price"));
 
-                            $nums.text( '　'.concat( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) ) );
-                            $payment_seats_nums.text( selected_seats.join('번, ')+((selected_seats.length>0)?'번':'' ) );
+                            $nums.text('　'.concat(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : '')));
+                            $payment_seats_nums.text(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : ''));
 
-                            $counter.text('　'.concat( sc.find('selected').length - 1 ) );
-                            $payment_seats_cnt.text( sc.find('selected').length - 1);
-                            $origin_price.text( formatNumber(origin_price) + '원' );
-                            $origin_price.data( 'price', origin_price);
-                            $sale_price.text('-' + formatNumber(origin_price) + '원' );
-                            $sale_price.data( 'price', origin_price);
+                            $counter.text('　'.concat(sc.find('selected').length - 1));
+                            $payment_seats_cnt.text(sc.find('selected').length - 1);
+                            $origin_price.text(formatNumber(origin_price) + '원');
+                            $origin_price.data('price', origin_price);
+                            $sale_price.text('-' + formatNumber(origin_price) + '원');
+                            $sale_price.data('price', origin_price);
 
                             //seat has been vacated
                             return 'available';
@@ -258,7 +263,7 @@
                 });
 
             //this will handle "[cancel]" link clicks
-            $('#selected-seats').on('click', '.cancel-cart-item', function() {
+            $('#selected-seats').on('click', '.cancel-cart-item', function () {
                 //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
                 sc.get($(this).parents('li:first').data('seatId')).click();
             });
@@ -271,7 +276,7 @@
             var total = 0;
 
             //basically find every selected seat and sum its price
-            sc.find('selected').each(function() {
+            sc.find('selected').each(function () {
                 total += Number(sessionStorage.getItem("seat_price"));
             });
 
@@ -282,7 +287,7 @@
             return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
         }
 
-        function flushSeat(){
+        function flushSeat() {
             var sc = $('.seat-map').seatCharts();
             selected_seats = [];
             selected_seats_cnt = 0;
@@ -290,104 +295,104 @@
             sc.find('e.selected').status('available');
             $("#selected_seats_num").text('　');
             $("#selected_seats_cnt").text('　');
-            
+
             // 데이터 가져와서 예약된 좌석 상태 설정.
             var ct_id = sessionStorage.getItem('ct_id');
             $.ajax({
                 dataType: "json",
                 method: "GET",
-                url:"/api/useSeat/"+ct_id
-            }).done((res)=>{
+                url: "/api/useSeat/" + ct_id
+            }).done((res) => {
                 let seat_id_list = [];
 
                 res.data.map((seat_num) => {
-                    seat_id_list.push( getSeatId(seat_num) );
+                    seat_id_list.push(getSeatId(seat_num));
                 });
 
                 sc.find('unavailable').status('available');
-                sc.status( seat_id_list, 'unavailable');
+                sc.status(seat_id_list, 'unavailable');
             });
         }
 
         // 45인승 기준 seatId 가져오기
-        function getSeatId(seat_num){
-            if( seat_num <= 45 && seat_num > 0){
+        function getSeatId(seat_num) {
+            if (seat_num <= 45 && seat_num > 0) {
 
                 let seat_id = "1_1";
                 let row = '',
                     column = '';
-                
-                if(seat_num > 40){
+
+                if (seat_num > 40) {
                     row = 11;
-                    column  = seat_num % 10;
+                    column = seat_num % 10;
                 } else {
-                    if( (seat_num % 4) === 0 ){
+                    if ((seat_num % 4) === 0) {
                         row = Number.parseInt(seat_num / 4);
                         column = 4;
                     } else {
-                        row = (Number.parseInt(seat_num / 4))+1;
+                        row = (Number.parseInt(seat_num / 4)) + 1;
                         column = seat_num % 4;
                     }
 
-                    if(column >=3 ) column +=1;
+                    if (column >= 3) column += 1;
                 }
 
-                seat_id = row+"_"+column;
+                seat_id = row + "_" + column;
                 return seat_id;
             } else {
                 return null;
             }
-            
+
         }
 
-        function showPayment(){
-            let car_list = JSON.parse( sessionStorage.getItem("car_list") ),
+        function showPayment() {
+            let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                 ct_id = sessionStorage.getItem("ct_id");
 
-            let reserve_car_info = car_list.find((k)=> (k.ctID == ct_id)),
+            let reserve_car_info = car_list.find((k) => (k.ctID == ct_id)),
                 deptTe = reserve_car_info.deptTe,
                 retuTe = reserve_car_info.retuTe,
                 b_name = reserve_car_info.b_name;
 
 
-            $("#payment_deptTe").text( deptTe.split(' ').join('('+getInputDayLabel( deptTe )+') ') );
-            $("#payment_retuTe").text( retuTe.split(' ').join('('+getInputDayLabel( retuTe )+') ') );
-            $("#payment_car_info").text( b_name );
-            
+            $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptTe) + ') '));
+            $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retuTe) + ') '));
+            $("#payment_car_info").text(b_name);
+
             location.href = "/reservation2#payment";
         }
 
-        function getInputDayLabel( date ) {
-            var week = new Array('일', '월', '화', '수', '목', '금', '토');                         
-            var today = new Date( date ).getDay();
-            var todayLabel = week[today];                          
+        function getInputDayLabel(date) {
+            var week = new Array('일', '월', '화', '수', '목', '금', '토');
+            var today = new Date(date).getDay();
+            var todayLabel = week[today];
             return todayLabel;
         }
 
-        function processPayment(){
+        function processPayment() {
             let origin_price = $("#original_price").data('price');
             let sale_price = $("#sale_price").data('price');
             let ct_id = sessionStorage.getItem("ct_id");
 
             $.ajax({
-                method  : "POST",
+                method: "POST",
                 dataType: "json",
-                url     : "/api/payment",
-                data    : {
-                    "seatNums"  : selected_seats,
-                    "oPrice"    : origin_price,
-                    "sPrice"    : sale_price,
-                    "ct_id"     : ct_id
+                url: "/api/payment",
+                data: {
+                    "seatNums": selected_seats,
+                    "oPrice": origin_price,
+                    "sPrice": sale_price,
+                    "ct_id": ct_id
                 }
-            }).done((result)=>{
-                let car_list = JSON.parse( sessionStorage.getItem("car_list") ),
+            }).done((result) => {
+                let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                     ct_id = sessionStorage.getItem("ct_id");
 
-                let payment_result = car_list.find((k)=> (k.ctID == ct_id));
+                let payment_result = car_list.find((k) => (k.ctID == ct_id));
                 payment_result.price = result.price;
                 payment_result.ph_type = result.ph_type;
-                
-                sessionStorage.setItem("payment_result", JSON.stringify( payment_result ));
+
+                sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
 
                 location.href = "/complate";
             });
@@ -397,4 +402,6 @@
 
 
 
-</body></html>
+</body>
+
+</html>

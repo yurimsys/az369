@@ -1,0 +1,101 @@
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
+
+
+/*reset*/
+* {margin: 0;padding: 0; box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif;}
+body {margin: 0; font-size: 16px; line-height: 1.6; color: #222; }
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
+a {color: inherit; text-decoration: inherit; cursor: pointer;}
+img {vertical-align: middle;}
+a img {border: none;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+p {text-align: justify; font-size: 16px;}
+
+
+.wrap {
+        width: 100%;
+        margin: 0 auto;
+        height: auto;
+        overflow: hidden;
+        padding-bottom: 40px;
+        background: #f9f9f9;
+}
+
+.sub_wrap {padding: 0 20%;}
+
+    /*main_title*/
+    .wrap h1 {margin: 0;  font-size: 28px; border-bottom: 1px solid #eee; font-weight: 400; padding: 20px; text-align: center; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.05);}
+
+
+    .main_title {/* width: 90%;*/ width: 100%; margin: 0 auto; text-align: center; padding: 20px 25px;background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px; border-radius: 12px;}
+
+    .main_title h2 { font-size: 16px; margin: 0 auto; font-weight: 300; color: #222;}
+
+    .main_title h3 span {font-size: 28px; font-weight: 400;}
+
+    /*임대보증보험이란?*/
+    .intro_btn {display: inline-block; height: 40px; line-height: 40px;/* background: #666;*/ color: #222; padding-bottom: 3px; /*s*/font-size: 18px; text-align: center;  font-weight: 500; margin-top: 20px;}
+
+.main_button {width: 70%; height: auto; margin: 0 auto; margin-top: 35px;}
+
+.main_button p {text-align: center; margin-bottom: 25px; font-weight: 300; color: #444; font-weight: 16px;}
+.main_button p br {display: none;}
+.main_button p span {font-weight: 500;}
+
+
+.main_button ul li {float: left; width: 49%; height: 50px; line-height: 50px; text-align: center; font-weight:400; border-radius: 5px;}
+.main_button ul li a {display: block; font-weight: 18px;}
+.login {background: #c3a164; color: #fff; font-size: 16px; border: 1px solid #c3a164;}
+.join {background: #fff;  margin-right: 1%; border: 1px solid #ddd;}
+
+
+/*반응형*/
+/*1200px*/
+@media screen and (max-width: 1200px) {
+    .sub_wrap {padding: 0 13%;}
+     h2 br {display: none;}
+}
+
+/*1024px*/
+@media screen and (max-width: 1024px) {
+  .sub_wrap {padding: 0 5%;}
+}
+
+
+/*768px*/
+@media screen and (max-width: 768px) {
+    .sub_wrap {padding: 0 0%;}
+    .wrap h1 {padding: 15px;}
+    .main_title {width: 90%; text-align: justify;}
+    .intro_btn {margin-left: 50%; transform: translateX(-50%); margin-top: 15px;}
+    .main_button p {margin-bottom: 20px;}
+}
+
+
+/*414px*/
+@media screen and (max-width: 414px) {
+    .wrap h1 {font-size: 20px; padding: 13px;}
+	.intro_btn {margin-top: 12px; font-size: 16px; font-weight: 600;}
+    .survey_form h3 {font-size: 26px;}
+	.bar {margin-bottom: 30px;}
+    .main_title h2 { font-size: 15px;}
+     .main_button {width: 90%; margin-top: 30px;}
+    
+	.main_button ul li {height: 50px; line-height: 50px;}
+}
+
+
+/*320px*/
+@media screen and (max-width: 320px) {
+     .wrap h1 {font-size: 18px;}
+	.intro_btn {width:70%; margin-top: 23px;}
+	.main_button {margin-top: 30px;}
+    .main_button ul li {height: 45px; line-height: 45px;  font-size: 16px;}
+    .main_button p { margin: 0 auto; margin-bottom: 20px;}
+    .main_button p br {display: block;}
+
+}
+

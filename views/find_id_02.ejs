@@ -11,7 +11,8 @@
     <meta name="title" content="AZ369 - 아이디 찾기">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
 
 </head>
 
@@ -53,32 +54,40 @@
                     <div class="tab">
                         <ul>
                             <a href="findId">
-                                <li style="border-top: 1px solid #ad863c; border-left: 1px solid #ad863c; border-right: 1px solid #ad863c; ">아이디 찾기</li>
+                                <li
+                                    style="border: 1px solid #C3A164; border-bottom: none; background: #fff; color: #222; font-weight: 500;">
+                                    아이디 찾기</li>
                             </a>
 
                             <a href="findPw">
-                                <li style="border-bottom: 1px solid #ad863c; background: #f1f1f1; color: #777;">비밀번호 찾기</li>
+                                <li
+                                    style="border-bottom: 1px solid #ad863c; background: #f8f8f8; color: #767676; font-weight: 400;">
+                                    비밀번호 찾기</li>
                             </a>
                         </ul>
                     </div>
 
                     <div class="find_box_inner">
                         <!--<h2>아이디 찾기</h2>-->
-                        
+
                         <div class="find_img"><img src="/img/login/find_id_img.png" alt="아이디찾기"></div>
-                        
+
                         <h3>회원님의 아이디는 다음과 같습니다.</h3>
-                           <h4 id="yourId"></h4>
-                            <div class="find_id_btn">
-                                <ul>
-                                    <li>
-                                        <a href="findPw"><div class="pw_btn">비밀번호 찾기</div></a>
-                                    </li>
-                                    <li>
-                                        <a href="login"><div class="login_btn">로그인</div></a>
-                                    </li>
-                                </ul>
-                            </div>
+                        <h4 id="yourId"></h4>
+                        <div class="find_id_btn">
+                            <ul>
+                                <li>
+                                    <a href="findPw">
+                                        <div class="pw_btn">비밀번호 찾기</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="login">
+                                        <div class="login_btn">로그인</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -96,11 +105,13 @@
     <script>
         //console.log(sessionStorage);
         var orderDetail = JSON.parse(sessionStorage.getItem("orderDetail"));
-        console.log(orderDetail);
-        console.log(orderDetail[0].value);
+        //console.log(orderDetail);
+        //console.log(orderDetail[0].value);
         var findId = orderDetail[0].value;
         $("#yourId").append(findId);
 
     </script>
 
-</body></html>
+</body>
+
+</html>

@@ -1,8 +1,11 @@
-@charset="UTF-8";
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
+
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -21,68 +24,58 @@ p {text-align: justify; font-family: inherit; font-size: 16px;}
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 6.5%;
-    color: #333;
-    overflow: hidden;
+    margin-bottom: 90px;
+	overflow: hidden;
+}
+
+section.sub_wrap .bar {
+    border-bottom: 2px solid #c3a164; 
+    width: 30px; 
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .box {position: relative; padding-top: 5%; overflow: hidden;}
 
-section.sub_wrap .bar {
-    border-bottom: 2px solid #ad863c; 
-    width: 35px; 
-    margin: 0 auto;
-    margin-top: 2%;
-    margin-bottom: 4%;
-}
-
-section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 5%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #C3A164;  padding-top: 60px; font-weight: 500; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
 
 section.sub_wrap h1 {
-    text-align: center; 
-    font-size: 2.8rem;
+    text-align: center;
+    font-size: 45px;
     margin-top: -1%;
-    font-weight: normal;
+	font-family: 'PT Serif', serif;
+	font-weight: normal;
 }
 
-.find_img img {width: 15%; margin: 3% 0;}
+.find_img img {width: 15%; margin: 0;}
 
 
 .find_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee;}
-.find_box_inner p {text-align: center; color: #777;margin-bottom: 5%;}
-.find_box_inner h2 {font-size: 24px;}
-.find_box_inner strong {color: #555;}
 
-.find_box_inner h3 {font-weight: normal; font-size: 16px; color: #666;}
-.find_box_inner h4 {font-size: 24px; color: #333;/* margin-top: 1%;*/}
-
+.find_box_inner {width: 100%; padding: 6% 20%; margin: 0 auto; text-align: center; overflow: hidden; }
+.find_box_inner h3 {font-weight: normal; font-size: 18px; color: #222; font-weight: 300; margin-top: 25px;}
+.find_box_inner h4 {font-size: 24px; color: #333; padding: 15px; background: #f6f6f6; margin-top: 10px;}
 
 .find_box .tab {width: 100%;}
-.find_box .tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: bold;}
+.find_box .tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: 500;}
+.find_box .tab ul li:nth-child(2) { background: #f8f8f8; color: #767676; font-weight: 400; border-bottom: 1px solid #C3A164} 
 
-.find_box_inner {width: 100%; padding: 8% 20%; margin: 0 auto; text-align: center; overflow: hidden; }
 
 .find_box_inner input {width: 100%; height: 50px; margin-bottom: 1%; padding: 2%; border: 1px solid #ddd;}
 
 .find_box_inner input[type="submit"] {height: 55px; background: #c49c4f; color: #fff; border: none; float:right;  cursor: pointer; transition: all 0.3s; margin-top: 4%;}
-3;}
+
 .find_box_inner ul {width: 100%;}
 .find_box_inner ul li button {height: 50px; width:27.5%; border: 1px solid #aaa; background: none; cursor: pointer; transition: all 0.3s;}
 .find_box_inner form ul li button:hover {background: #f4f4f4;}
 
-
-/*.search_img {background: url(../img/search_id_img.png) no-repeat; width: 20%; height: 100%;}
-.search_img img {height: 100%;}*/
-.find_id_btn {width: 65%; margin: 0 auto; margin-top: 7%;  height: 50px; line-height: 50px;}
+.find_id_btn {width: 100%; margin: 0 auto; margin-top: 7%;  height: 50px; line-height: 50px;}
 .find_id_btn ul li a {float:left; width: 49%; margin-right: 1%; text-align: center; }
 .pw_btn {border: 1px solid #ddd;}
-.login_btn {background: #ad863c; color: #fff; border: 1px solid #ad863c;}
-
-
+.login_btn {background: #C3A164; color: #fff; border: 1px solid #C3A164;}
 
 /*section.sub_wrap 완료*/
-
-
 
 
 /*모바일 메뉴*/
@@ -113,97 +106,68 @@ header .open {
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     .inner_sub_wrap {width: 95%; margin: 0 auto;}
-    .tnb {width: 1200px}
 }
     
     
 /*1024px*/
 @media screen and (max-width: 1024px) {
     
-    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    .box {padding-top: 7%;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    .box {padding-top: 60px;}
+	.find_id_btn {width: 100%;}
 }
 
 
 /*768px*/
 @media screen and (max-width: 768px) {
-    
    
     .gnb_mo_login {margin-top: 3.5%;}
-    
-    .box {padding-top: 9.5%;}
-    
     
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    .tnb {width: 768px;}
-    section.sub_wrap h1 {font-size: 2.2rem;}
+    section.sub_wrap h1 {font-size: 35px;}
     section.sub_warp .bar {display: none;}
-    .find_img img {margin: 0 0 5%;}
+	.find_box_inner h3 {font-size: 18px;}
     
     .find_id_btn {width: 100%; margin-top: 8%;}
     
     .search_box_inner {margin: 0 auto; padding: 5% 12%;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
     
     
-    .box {padding-top: 20%;}
-    
     .find_box .tab ul li {height: 50px; font-size: 16px; line-height: 50px;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h6 {padding-top: 6%;}
-    section.sub_wrap h1 {font-size: 28px; margin-bottom: 2%;}
+    section.sub_wrap h6 {padding-top: 35px; margin-bottom: -2.5%;}
+    section.sub_wrap h1 {font-size: 30px; margin-bottom: 4%;}
     section.sub_wrap .bar {display: none;}
      section.sub_wrap h2 {font-size: 18px;  line-height: 1.5; text-align: center; color: #555;}
-    .find_box_inner h3 {font-size: 15px; margin-top: 4%;}
+    .find_box_inner h3 {font-size: 16px; margin-top: 4%;}
     .find_box_inner h4 {font-size: 20px;}
     .find_box_inner {margin: 0 auto; padding: 10% 5%;}
-    .find_box p {font-size: 14px; margin-bottom: 22px; margin-top: 7px;}
-    .find_box .tnb ul li {font-size: 16px; color: #555;}
+    .find_box .tab ul li {font-size: 16px;}
     
-    .find_id_btn {width: 100%; margin-top: 10%; font-size: 16px; height: 40px; line-height: 40px;}
-
-
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    .find_id_btn {margin-top: 10%; font-size: 16px; height: 40px; line-height: 40px;}
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
     
-    .find_box .tab ul li {height: 50px; font-size: 16px; line-height: 50px;}
+    .find_box .tab ul li {height: 40px; font-size: 15px; line-height: 40px;}
     
     /*section.sub_wrap*/
-    section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
-    section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
+    section.sub_wrap h1 {font-size: 24px; margin-bottom: 5%;}
 
-    .find_box .tnb ul li {font-size: 15px;}
+    .find_box .tab ul li {font-size: 15px;}
+	.find_box_inner {margin: 0 auto; padding: 10% 3%;}
+	
+	.find_img img {width: 18%; margin: 2% 0;}
     
     .find_id_btn { font-size: 15px;}
 

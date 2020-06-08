@@ -2,7 +2,7 @@
 <html lang="ko">
 
 <head>
-    <% include templates/head.ejs %>    
+    <% include templates/head.ejs %>
     <link rel="stylesheet" href="/css/join_03.css">
 
     <title>AZ369 - 회원가입</title>
@@ -11,7 +11,8 @@
     <meta name="title" content="AZ369 - 회원가입">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
 </head>
@@ -20,52 +21,36 @@
     <div class="wrap">
 
         <% include templates/header.ejs %>
-        <!--section.main 시작-->
-        
-        <section class="main">
-            <div class="inner_main">
-                <div class="main_bg"></div>
-                <div class="tnb">
-                    <ul>
-                        <a href="login">
-                            <li>로그인</li>
-                        </a>
-                        <a href="join1">
-                            <li style="background: #ad8743; color: #fff">회원가입</li>
-                        </a>
-                    </ul>
-                </div>
-            </div>
-        </section>
 
-
+        <!--section.sub_wrap 시작-->
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
-                <h6>회원가입</h6>
-                <h1 style="font-family: 'PT Serif', serif;">JOIN</h1>
-                <div class="bar"></div>
+                <div class="box">
+                    <h6>회원가입</h6>
+                    <h1 style="font-family: 'PT Serif', serif;">JOIN</h1>
+                    <div class="bar"></div>
 
+                    <div class="join_box">
+                        <div class="join_process">약관동의 · 정보입력 · <span>가입완료</span></div>
 
-                <div class="join_box">
-                    <div class="join_process">약관동의 > 정보입력 > <span>가입완료</span></div>
+                        <h2>03. 가입완료</h2>
 
-                    <h2>03. 가입완료</h2>
-                    
-                    <div class="check_img">
-                        <img src="/img/login/join_03_check.png" alt="가입완료">
+                        <div class="check_img">
+                            <img src="/img/login/join_03_check.png" alt="가입완료">
+                        </div>
+
+                        <div class="join_txt">
+                            <h3><span id="yourName"></span>님의 회원가입이 <br> 완료되었습니다.</h3>
+                            <h4>AZ369에 가입하신 아이디는 <br><span id="yourId"></span> 입니다.</h4>
+
+                            <p>로그인하시면 장차예매 서비스를 이용하실 수 있습니다.</p>
+                        </div>
+
+                        <a href="login">
+                            <div class="login_btn">로그인</div>
+                        </a>
                     </div>
-                    
-                    <div class="join_txt">
-                        <h3><span id="yourName"></span>님의 회원가입이 <br> 완료되었습니다.</h3>
-                        <h4>AZ369에 가입하신 아이디는 <br><span id="yourId"></span> 입니다.</h4>
-                        
-                        <p>로그인하시면 장차예매 서비스를 이용하실 수 있습니다.</p>
-                    </div>
-
-                            <a href="login"><div class="login_btn">로그인</div> </a>
-
-
                 </div>
 
 
@@ -78,23 +63,26 @@
 
         <!--<footer></footer>-->
     </div>
-    
+
     <script>
         //넘겨받은 데이터 뿌려주기
         var orderDetail = JSON.parse(sessionStorage.getItem("orderDetail"));
-        console.log(orderDetail);
+        //console.log(orderDetail);
         //console.log(orderDetail[0].value);
         var findName = orderDetail[0].value;
         var findId = orderDetail[1].value;
         $("#yourId").append(findId);
         $("#yourName").append(findName);
-        
+
         /*agreement 전체동의 체크*/
-        $(document).ready(function() {
-            $('.check-all').click(function() {
+        $(document).ready(function () {
+            $('.check-all').click(function () {
                 $('.ab').prop('checked', this.checked);
             });
         });
+
     </script>
 
-</body></html>
+</body>
+
+</html>

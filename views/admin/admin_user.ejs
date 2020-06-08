@@ -1,108 +1,134 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<% include templates/admin_head.ejs %>
 </head>
+
 <body id="top">
 
-<!-- Preloader -->
-<!-- <div id="preloader">
+	<!-- Preloader -->
+	<!-- <div id="preloader">
 	<div id="status">
 		<div class="loader"></div>
 	</div>
 </div> -->
-<!-- /Preloader -->
+	<!-- /Preloader -->
 
-<div id="body-wrapper" class="body-container">
+	<div id="body-wrapper" class="body-container">
 
-	<!-- Header begins -->
-	<header class="main-nav clearfix">
-		<% include templates/admin_header.ejs %>
-	</header>
-	<!-- /Header ends -->
+		<!-- Header begins -->
+		<header class="main-nav clearfix">
+			<% include templates/admin_header.ejs %>
+		</header>
+		<!-- /Header ends -->
 
-	<!-- 네비게이션!@!@-->
-	<aside class="menu">
-		<div class="left-aside-container">			
-			<% include templates/admin_sidebar.ejs %>
-			<!-- /User profile -->
-			<!-- Main menu -->
-			<div class="menu-container">
-				
+		<!-- 네비게이션!@!@-->
+		<aside class="menu">
+			<div class="left-aside-container">
+				<% include templates/admin_sidebar.ejs %>
+				<!-- /User profile -->
+				<!-- Main menu -->
+				<!-- /Main menu -->
 			</div>
-			<!-- /Main menu -->
-		</div>
-	</aside>
-	<!-- /Sidebar -->
+		</aside>
+		<!-- /Sidebar -->
 
-	<!-- Page container begins -->
-	<section class="main-container">
-		<h1 style="display:none">Empty Heading</h1>
+		<!-- Page container begins -->
+		<section class="main-container">
+			<h1 style="display:none">Empty Heading</h1>
 
 			<!--Page Header-->
 			<div class="header">
 				<div class="header-content">
 					<div class="page-title">
-						<i class="icon-table2 position-left"></i> Advanced datatable
+						<div class="row" style="margin: 0;">
+							<div class="col-6">
+								<i class="icon-table2 position-left"></i>회원 관리
+							</div>
+							<div class="col-6">
+								<button type="button" class="btn btn-primary" data-toggle="modal"
+									data-target="#modal_primary_header" style="height: 40px; float: right;"
+									onclick="insert()">회원 추가</button>
+							</div>
+						</div>
 					</div>
+					<table class="table table-cols">
+						<tr>
+							<th style="width: 10%;">검색어</th>
+							<td>
+								<select id="choi">
+									<option value="U_uId">아이디</option>
+									<option value="U_Name">이름</option>
+									<option value="U_Brand">브랜드</option>
+								</select>
+								<input type="text" id="selResult" class="form-control2" style="width: 15%;">
+							</td>
+						</tr>
+						<tr>
+							<th>구분</th>
+							<td>
+								<label class="radio-inline">
+									<div class="choice"><span class=""><input type="radio" name="radio-inline-left"
+												class="styled" value="y"></span></div>
+									&emsp;&emsp;관리자
+								</label>
+
+								<label class="radio-inline">
+									<div class="choice"><span class=""><input type="radio" name="radio-inline-left"
+												class="styled" value="n"></span></div>
+									&emsp;&emsp;회원
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<th>가입일</th>
+							<td>
+								<div class="input-group" style="height: 30px;">
+									<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+									<input type="text" class="form-control2 datepicker-here" id="dept"
+										style="width: 290px; height: 30px;">
+									&emsp14; ~ &emsp14;
+									<span class="input-group-addon"><i class="icon-calendar2"></i></span>
+									<input type="text" class="form-control2 datepicker-here" id="end"
+										style="width: 290px;">
+								</div>
+							</td>
+						</tr>
+					</table>
+					<button type="button" onclick="searchGo()" class="btn btn-primary"
+						style=" width: 200px; margin-left: 40%">검색</button>
+
 				</div>
 			</div>
 			<!--/Page Header-->
+
 
 			<div class="container-fluid page-content">
 
 				<!-- Individual column searching (text fields) -->
 				<div class="card card-inverse card-flat table-responsive">
-					<div class="card-header">
-						<div class="card-title">Individual column searching <span class="text-semibold">(Text fields)</span></div>
-					</div>
-					<div class="card-block p-b-0">
-						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
-					</div>
 					<div class="table-responsive">
-						<table class="table datatable-button-init-basic" id="tList">
+						<table id="tList" class="table table-border table-striped">
 							<thead>
 								<tr>
-								<th>U_ID</th>
-								<th>U_UserName</th>
-								<th>U_Name</th>
-								<th>U_Email</th>
-								<th>U_Phone</th>
-								<th>U_Brand</th>
-								<th>U_Zip</th>
-								<th>U_Addr1</th>
-								<th>U_Addr2</th>
-								<th>U_cDt</th>
-								<th>U_uDt</th>
-								<th>Admin</th>
-								<th>Modify</th>
-								<th>Delete</th>
+									<th></th>
+									<th>아이디</th>
+									<th>이름</th>
+									<th>이메일</th>
+									<th>휴대전화</th>
+									<th>브랜드명</th>
+									<th>우편번호</th>
+									<th>주소</th>
+									<th>상세주소</th>
+									<th>생성날짜</th>
+									<th>수정날짜</th>
+									<th>회원구분</th>
 								</tr>
 							</thead>
-							<tbody>
-								<% for(let i=0; i<data.length; i++){ %>
-								<tr>
-								<td><%=data[i].U_ID%></td>
-								<td><%=data[i].U_UserName%></td>
-								<td><%=data[i].U_Name%></td>
-								<td><%=data[i].U_Email%></td>
-								<td><%=data[i].U_Phone%></td>
-								<td><%=data[i].U_Brand%></td>
-								<td><%=data[i].U_Zip%></td>
-								<td><%=data[i].U_Addr1%></td>
-								<td><%=data[i].U_Addr2%></td>
-								<td><%=data[i].U_cDt%></td>
-								<td><%=data[i].U_uDt%></td>
-								<td><%=data[i].U_isAdmin%></td>
-								<td><a class="icon-pencil6" id='<%=data[i].U_ID%>' data-toggle="modal" data-target="#modal_info_header" onclick="edit(this)">Edit</a></td>
-								<td><a class="icon-trash" id='<%=data[i].U_ID%>' data-toggle="modal" data-target="#modal_danger_header" onclick="del(this)">Delete</a></td>		
-								</tr>
-								<% } %>  				
-							</tbody>
 						</table>
 					</div>
 				</div>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header" onclick="insert()">회원 추가</button>
 				<!-- 수정 모달 -->
 				<div id="modal_info_header" class="modal fade" style="display: none;" aria-hidden="true">
 					<div class="modal-dialog">
@@ -112,10 +138,11 @@
 								<div class="modal-title">회원 수정</div>
 							</div>
 							<div class="modal-body" id="moList">
-								
+
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal"
+									id="delete">Delete</button>
 								<button type="button" class="btn btn-info" id="update">Modify</button>
 							</div>
 						</div>
@@ -131,11 +158,11 @@
 								<div class="modal-title">회원 삭제</div>
 							</div>
 							<div class="modal-body">
-								<p>삭제?</p>
+								<p>삭제 하시겠습니까?</p>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-danger" id="delete">Delete</button>
+								<button type="button" class="btn btn-danger" id="delAction">Delete</button>
 							</div>
 						</div>
 					</div>
@@ -150,16 +177,23 @@
 								<div class="modal-title">회원 등록</div>
 							</div>
 							<div class="modal-body" id="insertList">
-								<label>UserName</label><input type='text' class='form-control'id='userName'>
+								<label>UserName</label><input type='text' class='form-control' id='userName'>
+								<label>UserPw</label><input type='password' class='form-control' id='pw'>
 								<label>Name</label><input type='text' class='form-control' id='name'>
 								<label>Email</label><input type='text' class='form-control' id='email'>
 								<label>Phone</label><input type='text' class='form-control' id='phone'>
 								<label>Brand</label><input type='text' class='form-control' id='brand'>
-								<label>Admin</label><select><option value='y'>관리자</option><option value='n'>일반회원</option></select>
+								<label>Admin</label><select id="admin">
+									<option value='n'>일반회원</option>
+									<option value='y'>관리자</option>
+								</select>
 								<div class="address_form">
-									<input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" style="background: #f8f8f8;">
-									<button type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn-primary round">우편번호찾기</button><br>
-									<input type="text" id="address" name="address" placeholder="매장주소" style="background: #f8f8f8;"><br>
+									<input type="text" id="postcode" name="postcode" placeholder="매장 우편번호"
+										style="background: #f8f8f8;">
+									<button type="button" onclick="execDaumPostcode()" value="우편번호 찾기"
+										class="btn-primary round">우편번호찾기</button><br>
+									<input type="text" id="address" name="address" placeholder="매장주소"
+										style="background: #f8f8f8;"><br>
 									<input type="text" id="detailAddress" name="detailAddress" placeholder="매장상세주소">
 									<input type="text" id="extraAddress" name="extraAddress" hidden=""> <!-- 기본정보  -->
 									<input type="text" id="roadAddress" name="roadAddress" hidden="">
@@ -186,67 +220,263 @@
 	</div>
 
 	<script>
-	//수정                    					
-	function edit(e){
-		$('#moList').empty();
-		$.ajax({
-			url: '/admin/userModify',
-			method: 'post',
-			dataType: 'json',
-			data: {'uId' : e.id},
-			success: function(res){
-				console.log(res.data);
-				let	html ="<input type='uId' class='form-control' id='uId' value="+res.data.U_ID+" style='display: none;'>";
-					html += "<label for='userName'>U_UserName:</label><input type='userName' class='form-control' id='userName' value="+res.data.U_UserName+">";
-					html += "<label for='name'>U_Name:</label><input type='name' class='form-control' id='name' value="+res.data.U_Name+">";
-					html += "<label for='email'>U_Email:</label><input type='email' class='form-control' id='email' value="+res.data.U_Email+"> ";
-					html += "<label for='phone'>U_Phone:</label><input type='phone' class='form-control' id='phone' value="+res.data.U_Phone+"> ";
-					html += "<label for='brand'>U_Brand:</label><input type='brand' class='form-control' id='brand' value="+res.data.U_Brand+">";	
-					html += "<label for='zip'>U_Zip:</label><input type='zip' class='form-control' id='zip' value="+res.data.U_Zip+">";
-					html += "<label for='addr1'>U_Addr1:</label><input type='addr1' class='form-control' id='addr1' value="+res.data.U_Addr1+">";
-					html += "<label for='addr2'>U_Addr2:</label><input type='addr2' class='form-control' id='addr2' value="+res.data.U_Addr2+">";
-					html += "<label for='admin'>U_admin:</label><input type='admin' class='form-control' id='admin' value="+res.data.U_isAdmin+">";		
-				$('#moList').append(html);	
-			}
-		})
-		$('#modal_info_header').css('display','block');
-	}
 
-	$('#update').on('click', function(){
-		$.ajax({
-			url: "/admin/user/modify",
-			method: 'post',
-			dataType: 'json',
-			data: {
-				'uId' : $("#uId").val(), 'userName' : $('#userName').val(),'name' : $("#name").val(), 'email' : $("#email").val(),
-				'brand' : $("#brand").val(), 'zip' : $("#zip").val(), 'addr1' : $("#addr1").val(), 'addr2' : $("#addr2").val(),
-				'phone' : $("#phone").val()
+		$(document).ready(function () {
+
+			let table = $('#tList').DataTable({
+				language: {
+					"lengthMenu": '<select>' +
+						'<option value="5">5</option>' +
+						'<option value="15">15</option>' +
+						'<option value="30">30</option>' +
+						'<option value="50">50</option>' +
+						'<option value="-1">All</option>' +
+						'</select>'
 				},
-            success: function(res){
-            	if(res.data == "수정"){
-                	location.reload();
-				}
-            }
-     	})
-	})
+				dom: 'l<"toolbar">frtip',
+				ajax: '/admin/user/List',
+				deferRender: true,
+				columnDefs: [
+					{
+						targets: 0,
+						className: 'dt-body-center'
+					},
+					{
+						targets: 9,
+						render: function (data, type, row) {
+							var test = row.U_cDt;
+							var test2 = test.split(' ', 1)
+							return test2;
+
+						}
+					},
+					{
+						targets: 10,
+						render: function (data, type, row) {
+							var test = row.U_uDt;
+							var test2 = test.split(' ', 1)
+							return test2;
+
+						}
+					},
+					{
+						targets: 11,
+						render: function (data, row, type) {
+							console.log(data)
+							let adminType = row.U_isAdmin;
+							if (data == 'y') {
+								adminType = '관리자'
+							} else {
+								adminType = '회원'
+							}
+							return adminType;
+						}
+					}
+				],
+				// start: 0,
+				// pageLength: 10,
+				rowId: "U_ID",
+				columns: [
+					{
+						"data": null,
+						"render": function (data, type, full, meta) {
+							return meta.row + 1
+						}
+					},
+					{ "data": "U_uId" },
+					{ "data": "U_Name" },
+					{ "data": "U_Email" },
+					{ "data": "U_Phone" },
+					{ "data": "U_Brand" },
+					{ "data": "U_Zip" },
+					{ "data": "U_Addr1" },
+					{ "data": "U_Addr2" },
+					{ "data": "U_cDt" },
+					{ "data": "U_uDt" },
+					{ "data": "U_isAdmin" }
+				]
+			});
+
+			$('.dataTables_length select').addClass('form-control')
+			$(".dataTables_filter input").addClass("form-control")
+
+			//수정                    					
+			$('#tList tbody').on('click', 'tr', function (e) {
+				$('#moList').empty();
+				localStorage.setItem('nowId', e.currentTarget.id)
+				$.ajax({
+					url: '/admin/userModify',
+					method: 'post',
+					dataType: 'json',
+					data: { 'uId': e.currentTarget.id },
+					success: function (res) {
+						//console.log(res.data);
+						let html = "<input type='uId' class='form-control' id='uId' value=" + res.data.U_ID + " style='display: none;'>";
+						html += "<label for='userName'>U_uId:</label><input type='userName' class='form-control' id='userName' value=" + res.data.U_uId + ">";
+						html += "<label for='name'>U_Name:</label><input type='name' class='form-control' id='name' value=" + res.data.U_Name + ">";
+						html += "<label for='email'>U_Email:</label><input type='email' class='form-control' id='email' value=" + res.data.U_Email + "> ";
+						html += "<label for='phone'>U_Phone:</label><input type='phone' class='form-control' id='phone' value=" + res.data.U_Phone + "> ";
+						html += "<label for='brand'>U_Brand:</label><input type='brand' class='form-control' id='brand' value=" + res.data.U_Brand + ">";
+						html += "<label for='zip'>U_Zip:</label><input type='zip' class='form-control' id='zip' value=" + res.data.U_Zip + ">";
+						html += "<label for='addr1'>U_Addr1:</label><input type='addr1' class='form-control' id='addr1' value=" + res.data.U_Addr1 + ">";
+						html += "<label for='addr2'>U_Addr2:</label><input type='addr2' class='form-control' id='addr2' value=" + res.data.U_Addr2 + ">";
+						html += "<label for='admin'>U_admin:</label><input type='admin' class='form-control' id='admin' value=" + res.data.U_isAdmin + ">";
+						$('#moList').append(html);
+					}
+				})
+				$('#modal_info_header').modal()
+			})
+
+		})
 
 
+		function searchGo() {
+			if ($('#dept').val() != "" && $('#end').val() == "") {
+				alert("기간을 입력하세요.");
+				return;
+			} else if ($('#dept').val() == "" && $('#end').val() != "") {
+				alert("기간을 입력하세요.");
+				return;
+			}
+			$('#tList').DataTable().clear().destroy();
+			$('#tList').DataTable({
+				language: {
+					"lengthMenu": '<select>' +
+						'<option value="5">5</option>' +
+						'<option value="15">15</option>' +
+						'<option value="30">30</option>' +
+						'<option value="50">50</option>' +
+						'<option value="-1">All</option>' +
+						'</select>'
+				},
+				dom: 'l<"toolbar">frtip',
+				processing: true,
+				ajax: {
+					url: '/admin/user/search',
+					method: 'post',
+					data: {
+						'selectName': $('#choi option:selected').val(), 'chkMem': $("input:radio[name='radio-inline-left']:checked").val(),
+						'selResult': $('#selResult').val(), 'dept': $('#dept').val(), 'end': $('#end').val()
+					}
+				},
+				deferRender: true,
+				columnDefs: [
+					{
+						targets: 0,
+						className: 'dt-body-center'
+					},
+					{
+						targets: 9,
+						render: function (data, type, row) {
+							var test = row.U_cDt;
+							var test2 = test.split(' ', 1)
+							return test2;
 
-	function del(e){
-		$('#delete').attr('val', e.id);
-		$('#delete').on('click',function(){
+						}
+					},
+					{
+						targets: 10,
+						render: function (data, type, row) {
+							var test = row.U_uDt;
+							var test2 = test.split(' ', 1)
+							return test2;
+
+						}
+					},
+					{
+						targets: 11,
+						render: function (data, row, type) {
+							let adminType = data;
+							if (data == 'y') {
+								adminType = '관리자'
+							} else {
+								adminType = '회원'
+							}
+							return adminType;
+						}
+					}
+				],
+				rowId: "U_ID",
+				columns: [
+					{
+						"data": null,
+						"render": function (data, type, full, meta) {
+							return meta.row + 1
+						}
+					},
+					{ "data": "U_uId" },
+					{ "data": "U_Name" },
+					{ "data": "U_Email" },
+					{ "data": "U_Phone" },
+					{ "data": "U_Brand" },
+					{ "data": "U_Zip" },
+					{ "data": "U_Addr1" },
+					{ "data": "U_Addr2" },
+					{ "data": "U_cDt" },
+					{ "data": "U_uDt" },
+					{ "data": "U_isAdmin" }
+				],
+			});
+			$('.dataTables_length select').addClass('form-control')
+			$(".dataTables_filter input").addClass("form-control")
+
+		}
+
+		function insertMember() {
 			$.ajax({
-				url: '/admin/userDelete',
+				url: "/admin/user/insert",
 				method: 'post',
 				dataType: 'json',
-				data: {'uId' : e.id},
-				success: function(res){
-					location.reload()
+				data: {
+					'userName': $("#userName").val(), 'pw': $("#pw").val(), 'name': $("#name").val(), 'email': $("#email").val(),
+					'phone': $("#phone").val(), 'brand': $("#brand").val(), 'postcode': $("#postcode").val(), 'address': $("#address").val(),
+					'detailAddress': $("#detailAddress").val(), 'admin': $('#admin').val()
+				},
+				success: function (res) {
+					if (res.data == "추가") {
+						location.href = "/admin/user/";
+					}
+				}
+			})
+		}
+
+
+		$('#update').on('click', function () {
+			$.ajax({
+				url: "/admin/user/modify",
+				method: 'post',
+				dataType: 'json',
+				data: {
+					'uId': $("#uId").val(), 'userName': $('#userName').val(), 'name': $("#name").val(), 'email': $("#email").val(),
+					'brand': $("#brand").val(), 'zip': $("#zip").val(), 'addr1': $("#addr1").val(), 'addr2': $("#addr2").val(),
+					'phone': $("#phone").val()
+				},
+				success: function (res) {
+					if (res.data == "수정") {
+						location.reload();
+					}
 				}
 			})
 		})
-	}
+
+
+
+		$('#delete').on('click', function () {
+			$('#modal_danger_header').modal()
+			$('#delAction').on('click', function () {
+				$.ajax({
+					url: '/admin/userDelete',
+					method: 'post',
+					dataType: 'json',
+					data: { 'uId': localStorage.getItem('nowId') },
+					success: function (res) {
+						location.reload()
+					}
+				})
+			})
+		})
 
 	</script>
 </body>
+
 </html>

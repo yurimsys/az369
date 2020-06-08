@@ -1,50 +1,94 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<% include templates/admin_head.ejs %>
+
 </head>
+
 <body id="top">
 
-<!-- Preloader -->
-<!-- <div id="preloader">
+	<!-- Preloader -->
+	<!-- <div id="preloader">
 	<div id="status">
 		<div class="loader"></div>
 	</div>
 </div> -->
-<!-- /Preloader -->
+	<!-- /Preloader -->
 
-<div id="body-wrapper" class="body-container">
+	<div id="body-wrapper" class="body-container">
 
-	<!-- Header begins -->
-	<header class="main-nav clearfix">
-		<% include templates/admin_header.ejs %>
-	</header>
-	<!-- /Header ends -->
+		<!-- Header begins -->
+		<header class="main-nav clearfix">
+			<% include templates/admin_header.ejs %>
+		</header>
+		<!-- /Header ends -->
 
-	<!-- 네비게이션!@!@-->
-	<aside class="menu">
-		<div class="left-aside-container">			
-			<% include templates/admin_sidebar.ejs %>
-			<!-- /User profile -->
-			<!-- Main menu -->
-			<div class="menu-container">
-				
+		<!-- 네비게이션!@!@-->
+		<aside class="menu">
+			<div class="left-aside-container">
+				<% include templates/admin_sidebar.ejs %>
+				<!-- /User profile -->
+				<!-- Main menu -->
+				<div class="menu-container">
+
+				</div>
+				<!-- /Main menu -->
 			</div>
-			<!-- /Main menu -->
-		</div>
-	</aside>
-	<!-- /Sidebar -->
+		</aside>
+		<!-- /Sidebar -->
 
-	<!-- Page container begins -->
-	<section class="main-container">
-		<h1 style="display:none">Empty Heading</h1>
+		<!-- Page container begins -->
+		<section class="main-container">
+			<h1 style="display:none">Empty Heading</h1>
 
 			<!--Page Header-->
 			<div class="header">
 				<div class="header-content">
 					<div class="page-title">
-						<i class="icon-table2 position-left"></i> Advanced datatable
+						<div class="row" style="margin: 0;">
+							<div class="col-6">
+								<i class="icon-table2 position-left"></i> 운송사 관리
+							</div>
+							<div class="col-6">
+								<button type="button" class="btn btn-primary" data-toggle="modal"
+									data-target="#modal_primary_header" style="height: 40px; float: right;">운송사
+									추가</button>
+							</div>
+						</div>
 					</div>
+					<table class="table table-cols">
+						<tr>
+							<th style="width: 10%;">검색어</th>
+							<td>
+								<select id='choi'>
+									<option value="B_Name">운송사 이름</option>
+									<option value="B_Tel">전화번호</option>
+								</select>
+								<span>
+									<input type="text" id="selResult" class="form-control2" style="width: 15%;">
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>가입일</th>
+							<td>
+								<div class="input-group" style="height: 30px;">
+									<span class="input-group-addon"><i class="icon-calendar2"
+											style="margin-top: 8px;"></i></span>
+									<input type="text" class="form-control2 datepicker-here" id="dept"
+										style="width: 290px; height: 30px;">
+									&emsp14; ~ &emsp14;
+									<span class="input-group-addon"><i class="icon-calendar2"
+											style="margin-top: 8px;"></i></span>
+									<input type="text" class="form-control2 datepicker-here" id="end"
+										style="width: 290px;">
+								</div>
+							</td>
+						</tr>
+					</table>
+					<button type="button" onclick="searchGo()" class="btn btn-primary"
+						style=" width: 200px; margin-left: 40%">검색</button>
 				</div>
 			</div>
 			<!--/Page Header-->
@@ -53,37 +97,26 @@
 
 				<!-- Individual column searching (text fields) -->
 				<div class="card card-inverse card-flat table-responsive">
-					<div class="card-header">
-						<div class="card-title">Individual column searching <span class="text-semibold">(Text fields)</span></div>
-					</div>
-					<div class="card-block p-b-0">
-						<p>Individual columns searching with <code>text inputs</code>. It can be used by adding <code>column().search()</code> method to the datatable.</p>
-					</div>
 					<div class="table-responsive">
-						<table class="table datatable-button-init-basic" id="tList">
+						<table id="tList" class="table table-border table-striped">
 							<thead>
 								<tr>
-									<th>B_ID</th>
-									<th>B_Name</th>
-									<th>B_Tel</th>
-									<th>B_Fax</th>
-									<th>B_Email</th>
-									<th>B_Zip</th>
-									<th>B_Addr1</th>
-									<th>B_Addr2</th>
-									<th>B_cDt</th>
-									<th>B_uDt</th>
-									<th>Modify</th>
-									<th>Delete</th>
+									<th></th>
+									<th>운송사명</th>
+									<th>전화번호</th>
+									<th>팩스</th>
+									<th>이메일</th>
+									<th>우편번호</th>
+									<th>주소</th>
+									<th>상세주소</th>
+									<th>생성날짜</th>
+									<th>수정날짜</th>
 								</tr>
 							</thead>
-							<tbody id="testList">
-							
-							</tbody>
 						</table>
 					</div>
 				</div>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_primary_header">운송사 추가</button>
+
 				<!-- 수정 모달 -->
 				<div id="modal_info_header" class="modal fade" style="display: none;" aria-hidden="true">
 					<div class="modal-dialog">
@@ -94,11 +127,11 @@
 							</div>
 
 							<div class="modal-body" id="moList">
-								
 							</div>
 
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal"
+									id="delete">delete</button>
 								<button type="button" class="btn btn-info" id="update">Modify</button>
 							</div>
 						</div>
@@ -115,12 +148,12 @@
 							</div>
 
 							<div class="modal-body">
-								<p>삭제?</p>
+								<p>삭제 하시겠습니까?</p>
 							</div>
 
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-danger" id="delete">Delete</button>
+								<button type="button" class="btn btn-danger" id="delAction">Delete</button>
 							</div>
 						</div>
 					</div>
@@ -136,14 +169,17 @@
 							</div>
 
 							<div class="modal-body" id="insertList">
-								<label>B_Name</label><input type='text' class='form-control'id='name'>
+								<label>B_Name</label><input type='text' class='form-control' id='name'>
 								<label>B_Tel</label><input type='text' class='form-control' id='tel'>
 								<label>B_Fax</label><input type='text' class='form-control' id='fax'>
 								<label>B_Email</label><input type='text' class='form-control' id='email'>
 								<div class="address_form">
-									<input type="text" id="postcode" name="postcode" placeholder="매장 우편번호" style="background: #f8f8f8;">
-									<button type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn-primary round">우편번호찾기</button><br>
-									<input type="text" id="address" name="address" placeholder="매장주소" style="background: #f8f8f8;"><br>
+									<input type="text" id="postcode" name="postcode" placeholder="매장 우편번호"
+										style="background: #f8f8f8;">
+									<button type="button" onclick="execDaumPostcode()" value="우편번호 찾기"
+										class="btn-primary round">우편번호찾기</button><br>
+									<input type="text" id="address" name="address" placeholder="매장주소"
+										style="background: #f8f8f8;"><br>
 									<input type="text" id="detailAddress" name="detailAddress" placeholder="매장상세주소">
 									<input type="text" id="extraAddress" name="extraAddress" hidden=""> <!-- 기본정보  -->
 									<input type="text" id="roadAddress" name="roadAddress" hidden="">
@@ -158,99 +194,229 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 
 		</section>
-		<!-- /Page Container ends -->
-		<!-- ScrolltoTop -->
-		<!-- <a id="scrollTop" href="#top"><i class="icon-arrow-up12"></i></a> -->
-		<!-- /ScrolltoTop -->
 		<% include templates/admin_footer.ejs %>
 	</div>
 
-	<script>		
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
-	//테이블 생성
-	$.ajax({
-		url: '/admin/business/List',
-		method: 'post',
-		dataType: 'json',
-		success: function(res){
-			console.log(res.data)
-			for(let i=0; i<res.data.length; i++){
-				let html = "<tr><td>"+res.data[i].B_ID+"</td>";
-					html += "<td>"+res.data[i].B_Name+"</td>";
-					html += "<td>"+res.data[i].B_Tel+"</td>";
-					html += "<td>"+res.data[i].B_Fax+"</td>";
-					html += "<td>"+res.data[i].B_Email+"</td>";
-					html += "<td>"+res.data[i].B_Zip+"</td>";
-					html += "<td>"+res.data[i].B_Addr1+"</td>";
-					html += "<td>"+res.data[i].B_Addr2+"</td>";
-					html += "<td>"+res.data[i].B_cDt+"</td>";
-					html += "<td>"+res.data[i].B_uDt+"</td>";
-					html += "<td><a id="+res.data[i].B_ID+" class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)''>Edit</a></td>";
-					html += "<td><a id="+res.data[i].B_ID+" class='dropdown-item' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)''>Delete</a></td></tr>";
-				$('#testList').append(html);
+
+	<script>
+
+		$(document).ready(function () {
+
+			let table = $('#tList').DataTable({
+				language: {
+					"lengthMenu": '<select>' +
+						'<option value="5">5</option>' +
+						'<option value="15">15</option>' +
+						'<option value="30">30</option>' +
+						'<option value="50">50</option>' +
+						'<option value="-1">All</option>' +
+						'</select>'
+				},
+				dom: 'l<"toolbar">frtip',
+				ajax: '/admin/business/List',
+				deferRender: true,
+				columnDefs: [
+					{
+						targets: 0,
+						className: 'dt-body-center'
+					},
+					{
+						targets: 8,
+						render: function (data, type, row) {
+							var test = row.B_cDt;
+							var test2 = test.split(' ', 1)
+							return test2;
+
+						}
+					},
+					{
+						targets: 9,
+						render: function (data, type, row) {
+							var test = row.B_uDt;
+							var test2 = test.split(' ', 1)
+							return test2;
+
+						}
+					}
+				],
+				// start: 0,
+				// pageLength: 10,
+				rowId: "B_ID",
+				columns: [
+					{
+						"data": null,
+						"render": function (data, type, full, meta) {
+							return meta.row + 1
+						}
+					},
+					{ "data": "B_Name" },
+					{ "data": "B_Tel" },
+					{ "data": "B_Fax" },
+					{ "data": "B_Email" },
+					{ "data": "B_Zip" },
+					{ "data": "B_Addr1" },
+					{ "data": "B_Addr2" },
+					{ "data": "B_cDt" },
+					{ "data": "B_uDt" }
+					// { 
+					// 	data: null,
+					// 	className: 'B_ID',
+					// 	defaultContent: "<a class='icon-pencil6' data-toggle='modal' data-target='#modal_info_header' onclick='edit(this)' style='color:darkblue;'>Edit</a>"
+
+					// },
+					// { 	
+					// 	data: null,
+					// 	className: 'B_ID',
+					// 	defaultContent: "<a class='icon-trash' data-toggle='modal' data-target='#modal_danger_header' onclick='del(this)' style='color:darkblue;'>Delete</a>"
+					// }
+				]
+			});
+			$('.dataTables_length select').addClass('form-control')
+			$(".dataTables_filter input").addClass("form-control")
+
+			$('#tList tbody').on('click', 'tr', function (e) {
+				$('#moList').empty();
+				localStorage.setItem('nowId', e.currentTarget.id)
+				$.ajax({
+					url: '/admin/businessModify',
+					method: 'post',
+					dataType: 'json',
+					data: { 'bId': e.currentTarget.id },
+					success: function (res) {
+						let html = "<label for='name'>B_Name:</label><input type='name' class='form-control' id='name' value=" + res.data.B_Name + ">";
+						html += "<label for='Tel'>B_Tel:</label><input type='Tel' class='form-control' id='tel' value=" + res.data.B_Tel + ">";
+						html += "<label for='Fax'>B_Fax:</label><input type='Fax' class='form-control' id='fax' value=" + res.data.B_Fax + ">";
+						html += "<label for='eMail'>B_eMail:</label><input type='eMail' class='form-control' id='eMail' value=" + res.data.B_Email + ">";
+						html += "<label for='zip'>B_Zip:</label><input type='zip' class='form-control' id='zip' value=" + res.data.B_Zip + ">";
+						html += "<label for='addr1'>B_Addr1:</label><input type='addr1' class='form-control' id='addr1' value=" + res.data.B_Addr1 + ">";
+						html += "<label for='addr2'>B_Addr2:</label><input type='addr2' class='form-control' id='addr2' value=" + res.data.B_Addr2 + ">";
+						html += "<input type='bId' class='form-control' id='bId' value=" + res.data.B_ID + " style='display: none;'>";
+						$('#moList').append(html);
+					}
+				})
+				$('#modal_info_header').modal()
+			})
+
+		})
+
+		function searchGo() {
+			if ($('#dept').val() != "" && $('#end').val() == "") {
+				alert("기간을 입력하세요.");
+				return;
 			}
+			if ($('#dept').val() == "" && $('#end').val() != "") {
+				alert("기간을 입력하세요.");
+				return;
+			}
+			$('#tList').DataTable().clear().destroy();
+			$('#tList').DataTable({
+				language: {
+					"lengthMenu": '<select>' +
+						'<option value="5">5</option>' +
+						'<option value="15">15</option>' +
+						'<option value="30">30</option>' +
+						'<option value="50">50</option>' +
+						'<option value="-1">All</option>' +
+						'</select>'
+				},
+				dom: 'l<"toolbar">frtip',
+				processing: true,
+				ajax: {
+					url: '/admin/business/search',
+					method: 'post',
+					data: {
+						'selectName': $('#choi option:selected').val(),
+						'selResult': $('#selResult').val(), 'dept': $('#dept').val(), 'end': $('#end').val()
+					}
+				},
+				deferRender: true,
+				columnDefs: [
+					{
+						targets: 0,
+						className: 'dt-body-center'
+					},
+					{
+						targets: 8,
+						render: function (data, type, row) {
+							var test = row.B_cDt;
+							var test2 = test.split(' ', 1)
+							return test2;
+
+						}
+					},
+					{
+						targets: 9,
+						render: function (data, type, row) {
+							var test = row.B_uDt;
+							var test2 = test.split(' ', 1)
+							return test2;
+						}
+					}
+				],
+				start: 0,
+				length: 50,
+				pageLength: 10,
+				rowId: "B_ID",
+				columns: [
+					{
+						"data": null,
+						"render": function (data, type, full, meta) {
+							return meta.row + 1
+						}
+					},
+					{ "data": "B_Name" },
+					{ "data": "B_Tel" },
+					{ "data": "B_Fax" },
+					{ "data": "B_Email" },
+					{ "data": "B_Zip" },
+					{ "data": "B_Addr1" },
+					{ "data": "B_Addr2" },
+					{ "data": "B_cDt" },
+					{ "data": "B_uDt" }
+				],
+			});
+			$('.dataTables_length select').addClass('form-control')
+			$(".dataTables_filter input").addClass("form-control")
+
 		}
-	})
 
 
-	//운송사 추가
-		function insert(){
+		//운송사 추가
+		function insert() {
 			$.ajax({
 				url: '/admin/business/insert',
 				method: 'post',
 				dataType: 'json',
 				data: {
-					'name':$('#name').val(), 'tel' : $('#tel').val(), 'fax':$('#fax').val(), 'email':$('#email').val(),
-					'zip':$('#postcode').val(), 'addr1':$('#address').val() , 'addr2':$('#detailAddress').val()
+					'name': $('#name').val(), 'tel': $('#tel').val(), 'fax': $('#fax').val(), 'email': $('#email').val(),
+					'zip': $('#postcode').val(), 'addr1': $('#address').val(), 'addr2': $('#detailAddress').val()
 				},
-				success: function(res){
-				if(res.data == "추가"){
-                location.reload();
-                }
+				success: function (res) {
+					if (res.data == "추가") {
+						location.reload();
+					}
 				}
 			})
 		}
 
-		//수정                    		
-		function edit(e){
-			$('#moList').empty();
-			$.ajax({
-				url: '/admin/businessModify',
-				method: 'post',
-				dataType: 'json',
-				data: {'bId' : e.id},
-				success: function(res){
-					console.log(res.data.B_Name)
-					let	html = "<label for='name'>B_Name:</label><input type='name' class='form-control' id='name' value="+res.data.B_Name+">";
-						html += "<label for='Tel'>B_Tel:</label><input type='Tel' class='form-control' id='tel' value="+res.data.B_Tel+">";
-						html += "<label for='Fax'>B_Fax:</label><input type='Fax' class='form-control' id='fax' value="+res.data.B_Fax+">";
-						html += "<label for='eMail'>B_eMail:</label><input type='eMail' class='form-control' id='eMail' value="+res.data.B_Email+">";
-						html += "<label for='zip'>B_Zip:</label><input type='zip' class='form-control' id='zip' value="+res.data.B_Zip+">";												
-						html += "<label for='addr1'>B_Addr1:</label><input type='addr1' class='form-control' id='addr1' value="+res.data.B_Addr1+">";
-						html += "<label for='addr2'>B_Addr2:</label><input type='addr2' class='form-control' id='addr2' value="+res.data.B_Addr2+">";
-						html += "<input type='bId' class='form-control' id='bId' value="+res.data.B_ID+" style='display: none;'>";
-					$('#moList').append(html);	
-				}
-			})
-			$('#modal_info_header').css('display','block');
-		}
-
-		$('#update').on('click',function(){
+		$('#update').on('click', function () {
 			$.ajax({
 				url: "/admin/business/modify",
 				method: 'post',
 				dataType: 'json',
 				data: {
-					'bId' : $("#bId").val(), 'bName' : $("#name").val(), 'bTel' : $('#tel').val(),
-					'bFax' : $("#fax").val(), 'bEmail' : $("#eMail").val(), 'bZip' : $('#zip').val(),
-					'bAddr1' : $("#addr1").val(), 'bAddr2' : $("#bAddr2").val()
-					},
-					success: function(res){
-					if(res.data == "수정"){
+					'bId': $("#bId").val(), 'bName': $("#name").val(), 'bTel': $('#tel').val(),
+					'bFax': $("#fax").val(), 'bEmail': $("#eMail").val(), 'bZip': $('#zip').val(),
+					'bAddr1': $("#addr1").val(), 'bAddr2': $("#bAddr2").val()
+				},
+				success: function (res) {
+					if (res.data == "수정") {
 						//alert("수정완료");
 						location.reload();
 					}
@@ -258,23 +424,22 @@
 			})
 		})
 
-
 		//삭제
-		function del(e){
-			$('#delete').attr('val', e.id);
-			$('#delete').on('click',function(){
+		$('#delete').on('click', function () {
+			$('#modal_danger_header').modal()
+			$('#delAction').on('click', function () {
 				$.ajax({
 					url: '/admin/businessDelete',
 					method: 'post',
 					dataType: 'json',
-					data: {'bId' : e.id},
-					success: function(res){
-						//alert("삭제");
+					data: { 'bId': localStorage.getItem('nowId') },
+					success: function (res) {
 						location.reload()
 					}
 				})
 			})
-		}
+		})
 	</script>
 </body>
+
 </html>

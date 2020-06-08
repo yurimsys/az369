@@ -1,4 +1,4 @@
-@charset="UFT-8";
+@charset "UFT-8";
 
 
 /*reset*/
@@ -10,7 +10,7 @@ img {vertical-align: middle;}
 a img {border: none;}
 li {list-style: none;}
 address, em, i {font-style: normal;}
-p {text-align: justify; font-family: inherit; font-size: 16px;}
+p {font-family: inherit; font-size: 16px; color: #777;}
 
 .wrap {
     width: 100%;
@@ -129,29 +129,29 @@ section.main {
 
 /*공통속성*/
 section .bar {
-    border-bottom: 2px solid #624000; 
-    width: 35px; 
+    border-bottom: 2px solid #c3a164;;
+    width: 30px;
     margin: 0 auto;
-    margin-top: 2%;
-    margin-bottom: 4%;
+    margin-top: 10px;
+    margin-bottom: 40px;
 }
 
-section h6 {text-align: center; color: #a0772b; margin-bottom: -1%; font-weight: bold; font-size: 1rem;}
+section h6 {text-align: center; color: #c3a164;; margin-bottom: -1%; font-weight: bold; font-size: 16px; font-weight: 500;}
 
 section h3 {
     text-align: center;
     font-weight: bold;
-    font-size: 2.7rem;
+    font-size: 37px;
     font-family: 'PT Serif', serif;
     font-weight: normal;
 }
 
 section.about {
     width: 1200px;
-    margin: 0 auto;
     overflow: hidden;
-    margin-top: 5%;
-    margin-bottom: 6.5%;
+	margin: 0 auto;
+	margin-top: 60px;
+	margin-bottom: 80px;
     color: #272727;
 }
 
@@ -160,10 +160,10 @@ section.about ul li {float: left; width: 47%;}
 section.about .about_img {overflow: hidden;}
 section.about .about_img img {width: 100%;}
 section.about .about_text {margin-left: 8%; margin-top: 3.5%;}
-section.about .about_text h5 {font-size: 1.2rem; line-height: 1.6; font-weight: normal; color: #555;}
-section.about .about_text h4 {color: #222; font-weight: bold; font-size: 1.5rem; margin-top: }
-section.about .about_text p {margin-top: 8%; line-height: 1.8;}
-section.about .about_btn {padding: 1.5% 8%;  border: 1px solid #bbb; display: inline-block; transition: all 0.4s; margin-top: 12.5%; color: #a0772b;}
+section.about .about_text h5 {font-size: 18px; line-height: 1.6; font-weight: normal; color: #444;}
+section.about .about_text h4 {color: #222; font-weight: normal; font-size: 24px;}
+section.about .about_text p {margin-top: 25px; line-height: 1.8;}
+section.about .about_btn {width: 200px; height: 50px; line-height: 50px; text-align: center;border: 1px solid #ddd; display: inline-block; transition: all 0.4s; margin-top: 12.5%; color: #333;}
 section.about .about_btn a {display: block;}
 section.about .about_btn:hover {background: #a7813c; color: #fff; border: 1px solid #be974f;}
 
@@ -178,7 +178,7 @@ section.benefit {
     overflow: hidden;
 }
 
-section.benefit .benefit_bg {background: url(../img/main/benefit_bg.png); width: 100%; height: 500px; z-index: -100; position: absolute;}
+.benefit_bg {background: url(../img/main/benefit_bg.png); width: 100%; height: 470px; background-position: center; background-size: cover; z-index: -100; position: absolute;}
 
 .inner_benefit {
     width: 1200px;
@@ -186,7 +186,7 @@ section.benefit .benefit_bg {background: url(../img/main/benefit_bg.png); width:
 }
 
 .benefit_tit {margin-top: 8%; float: left;}
-.benefit_tit h3 {text-align: justify;margin-top: -6%;}
+.benefit_tit h3 {text-align: justify; margin-top: -6%;}
 .benefit_tit .bar {margin-bottom: 15%; padding-top: 5%; margin-left: 0;}
 .benefit_tit h6 {text-align: justify; font-family: 'Noto Sans KR', sans-serif;}
 
@@ -195,7 +195,7 @@ section.benefit .benefit_bg {background: url(../img/main/benefit_bg.png); width:
 .benefit_list ul li {width: 48%; height: 500px; float: left; transition: all 0.3s; overflow: hidden;}
 .benefit_list ul li {margin-right: 2%;}
 .benefit_list ul li:nth-child(2) {margin-right: 0;}
-.benefit_list ul li:hover { box-shadow: 0 0 8px rgba(0,0,0,0.3);}
+.benefit_list ul li:hover { box-shadow: 0 0 20px rgba(199, 172, 121, 0.2);}
 
 .benefit_01 {background: url(../img/main/benefit_list01.png); background-size: cover; width: 100%; height: 500px;transition: all 0.3s; overflow: hidden;}
 .benefit_02 {background: url(../img/main/benefit_list02.png); background-size: cover; width: 100%; height: 500px; transition: all 0.3s; overflow: hidden;}
@@ -263,14 +263,15 @@ section.gallery p {text-align: center; margin: 0;  margin-bottom: 3%;}
 
 .gallery_slide_buttons {
     width: 100%;
-  left: 0;
-  position: relative;
-  right: 0;
-  text-align: center;
+    left: 0;
+	top: 8px;
+ 	position: relative;
+	right: 0;
+ 	text-align: center;
 }
 
 a.slide_btn {
-  color: #888;
+  color: #ddd;
     font-size: 20px;
     line-height: 60px;
   margin: 0 0.175em;
@@ -320,7 +321,7 @@ a.slide_btn {
   height: 60px;
   text-align: center;
   line-height: 60px;
-  color: #000;
+  color: #777;
     padding: 0% 5%;
   -webkit-transition: opacity 0.4s ease-in-out;
   -moz-transition: opacity 0.4s ease-in-out;
@@ -411,14 +412,6 @@ footer {
 }
 
 
-
-/*gnb 자바스크립트*/
-header.on {
-    background: rgba(255,255,255,0.95);
-    height: 80px;
-}
-
-
 /*모바일 메뉴*/
 header .open {
     /*버거버튼 클래스*/
@@ -446,7 +439,7 @@ header .open {
     
     /*main 이미지*/
     section.main {width: 100%; height: 900px;}
-    section.main .inner_main {width: 1200px; }
+    section.main .inner_main {width: 100%;}
     section.main .main_bg img {width: 100%; height: 900px;} 
 
     /*main 타이틀*/
@@ -458,42 +451,36 @@ header .open {
     .main_btn {width: 13%; top: 10px;}
     
     /*section.about*/
-    section.about {width: 1200px;}
+    section.about {width: 100%;}
     section.about .inner_about {width: 100%;}
     section.about .about_img {margin-left: 5%;}
     section.about .about_text {margin-top:2%;}
 
     /*section.benefit*/
     section.benefit .benefit_tit {margin-left: 5%;}
-    section.benefit .benefit_list {margin-right: 5%;}  
+    section.benefit .benefit_list {margin-right: 5%;}
+	.inner_benefit {width: 100%;}
 
     /*section.gallery*/
-    section.gallery {width: 1200px;}
-    section.gallery .inner_story {width: 100%;}
+    section.gallery {width: 100%;}
+	.gallery_slider {margin: 0 auto; max-width: 95%;}
+}
     
     /*section.video*/
-    section.video {width: 1200px;}
+    /*section.video {width: 1200px;}
     .inner_video { width: 100%; margin: 0 auto;}
     .video-slider {width: 95%;}    
     .video_btn div {margin: 0 auto; margin-right: 43%; margin-top: 61%; width: 6%;}
     .video_btn i {padding: 28% 0;}
-    .slide-arrow {right: 90px;}
-    
-
+    .slide-arrow {right: 90px;}*/
     /*section.video iframe {width: 95%; margin-left: 50%; transform: translateX(-50%);}*/
-    
-    
-    
-    
-    
-
 
 /*1024px*/
 @media screen and (max-width: 1024px) {
     
     /*main 이미지*/
     section.main {width: 100%; height: 820px;}
-    section.main .inner_main {width: 1024px;}
+    /*section.main .inner_main {width: 100%;}*/
 
     
     /*main 타이틀*/
@@ -509,44 +496,35 @@ header .open {
     section h3 {font-size: 2.5rem;}
     
     /*section.about*/
-    section.about {width: 1024px;}
+    /*section.about {width: 1024px;}*/
     section.about .inner_about {width: 100%;}
     section.about .about_text {margin-top: 0%;}
     section.about .about_text p {margin-top: 6%;}
     section.about .about_btn {margin-top: 10%;}
 
     /*section.benefit*/
-    section.benefit {width: 100%;}
-    section.about .inner_benefit {width: 1024px;}
-    section.benefit .benefit_tit {margin-left: 5%;}
-    section.benefit .benefit_list {width: 53%; margin-right: 20%;}  
+    /*section.benefit {width: 100%;}*/
+    section.benefit .benefit_list {width: 60%; margin-right: 3%;}
 
     /*section.gallery*/
-    section.gallery {width: 1024px; margin: 0 auto;}
-    section.gallery .inner_story {width: 100%;}
-    .gallery_slide {width: 1024px;}
+    /*section.gallery {width: 1024px; margin: 0 auto;}*/
+    section.gallery {width: 100%;}
+    .gallery_slide {width: 100%;}
     .gallery_slide_group, .gallery_slide_viewer {height: 470px;}
     .gallery_slide img {width: 100%;}
-    
-    .video-slider {height:700px;}
+
+	.gallery_slide_buttons {top: 3px;}
+	a.slide_btn {line-height: 50px;}
+
     
     /*section.video*/
-    section.video {width: 1024px;}
+    /*section.video {width: 1024px;}
     .inner_video {width: 1024px; margin: 0 auto;}
     .video_slide {height: 550px;}
     .video_btn div {margin: 0 auto; margin-right: 43%; margin-top: 60%; width: 7.5%;}
     .video_btn i {padding: 28% 0;}
-    .slide-arrow {right: 90px;}
-    
-    
-    
+    .slide-arrow {right: 90px;}*/
 
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 
@@ -555,7 +533,6 @@ header .open {
     
     /*main 이미지*/
     section.main {width: 100%; height: 800px;}
-    section.main .inner_main {width: 768px;}
     .slideshow-container .main_slide_bg {width: 100%; background-size: cover; height: 800px;}
     
     /*main 타이틀*/
@@ -570,43 +547,39 @@ header .open {
     .main_prev, .main_next {background: rgba(0,0,0,0.5); position: relative; float: left;}
     
     /*section.about*/
-    section.about {width: 768px; margin-top: 7%;}
+    section.about {margin-top: 7%;}
     section.about .inner_about {width: 100%; margin: 0;}
     section.about ul li {float: none; width: 100%; margin: 0 auto;}
     section.about .about_text {width: 95%; margin: 0 auto; text-align: center; margin-top: 5%;}
     section.about .about_img {margin-left:0%; width: 95%; margin: 0 auto;}
     section.about .about_text p {text-align: center; margin-top: 4%;}
     section.about .bar {margin-bottom: 5%;}
-    section.about .about_btn {margin-top: 6%; padding: 1.5% 10%;}
+    section.about .about_btn {margin-top: 6%;}
     
     /*section.benefit*/
     section.benefit {width: 100%;}
-    section.about .inner_benefit {width: 768px;}
-    section.benefit .benefit_tit {margin-top: 5%; margin-left: 23%;}
-    section.benefit .benefit_tit h6 {text-align: center;}
-    section.benefit .benefit_tit h3 {text-align: center;}
-    section.benefit .benefit_tit p {text-align: center;}
-    section.benefit .benefit_tit .bar {margin-left: 50%; transform: translateX(-50%);}
-    section.benefit .benefit_list {width: 55%; float: left; margin-left: 5%; height: 480px; margin-top: -2%;}  
+    section.benefit .benefit_tit {margin-top: 5%; float: none; margin-left: 50%; transform: translateX(-50%); text-align: center;}
+	.benefit_tit h3, .benefit_tit h6 {text-align: center; margin-top: 0%;}
+    section.benefit .benefit_tit .bar {margin-left: 50%; transform: translateX(-50%); margin-top: 0; margin-bottom: 8%;}
+	section.benefit .benefit_list {width: 95%; margin-right: 0; margin: 0 auto; margin-right: 2%;}
     section.benefit .benefit_01,
     section.benefit .benefit_02 {background-size: cover; height: 460px;} 
+	.benefit_bg {height: 700px;}
 
     /*section.gallery*/
-    section.gallery {width: 768px; margin-top: 9%; margin-bottom: 0;}
+    section.gallery {margin-top: 9%; margin-bottom: 0;}
     section.gallery .inner_gallery {width: 100%;}
     section.gallery .inner_gallery p {margin-bottom: 5%;}
-    .gallery_slide {width: 768px;}
     .gallery_slide_group, .gallery_slide_viewer {height: 350px;}
     .gallery_slide img {width: 100%;}
     
     /*section.video*/
-    section.video {width: 768px; }
-    .inner_video {width: 768px; margin: 0 auto;}
+    /*.inner_video {width: 768px; margin: 0 auto;}
     .video-slider {height: 550px;}
     .video_slide {height: 410px;}
     .video_btn div {margin: 0 auto; margin-right: 40%; margin-top: 60%; width: 10%;}
     .video_btn i {padding: 25% 25%;}
-    .slide-arrow {right: 80px;}
+    .slide-arrow {right: 80px;}*/
     
     /*footer*/
     footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
@@ -621,7 +594,7 @@ header .open {
     
     /*main 이미지*/
     section.main {width: 100%; height: 500px;}
-    section.main .inner_main {width: 414px; height: auto;}
+    section.main .inner_main {height: auto;}
     .main_slideshow-container .main_Slide01,
     .main_slideshow-container .main_Slide02,
     .main_slideshow-container .main_Slide03 {width: 100%; background-size: cover; background-position: bottom; height: 500px;}
@@ -641,36 +614,32 @@ header .open {
     .main_prev, .main_next {background: rgba(0,0,0,0.2); position: relative; float: left; padding: 2% 16%;}
     
     /*section.about*/
-    section.about {width: 414px; margin: 10% 0 13%;}
+    section.about { margin: 10% 0 13%;}
     section.about .inner_about {width: 100%; margin: 0 auto;}
     section.about .bar {margin-bottom: 10%;}
     section.about .inner_about ul li {float: none; width: 95%; margin: 0 auto;}
     section.about .about_text {margin: 0 auto; text-align: center; margin-top: 8%;}
-    section.about .about_text h5 {width: 65%; margin-left: 50%; transform: translateX(-50%); font-size: 1.1rem;}
-     section.about .about_text h4 {font-size: 1.6rem;}
+    section.about .about_text h5 {width: 65%; margin-left: 50%; transform: translateX(-50%); font-size: 17px;}
+     section.about .about_text h4 {font-size: 20px;}
     section.about .about_text p br {display: none;}
     section.about .about_text p {margin-top: 5%;}
-    section.about .about_btn {margin-top: 10%; padding: 2% 15%;}
+    section.about .about_btn {margin-top: 10%; height: 40px; line-height: 40px;}
     
     /*section.benefit*/
-    section.benefit {width: 414px;}
     section.benefit .inner_benefit {width: 100%;}
-    section.benefit .benefit_tit {margin: 0 auto; margin-left: 50%; transform: translateX(-50%); margin-top: 20%;}
-    section.benefit .bar {margin-top: 5%; margin-bottom: 40%;}
+	.benefit_bg {height: 1055px;}
+    section.benefit .benefit_tit {margin: 0 auto; margin-left: 50%; transform: translateX(-50%); margin-top: 40px;}
     section.benefit .benefit_tit p {display: none;}
-    section.benefit .benefit_list {float: none; width: 95%; margin: 0 auto;}  
-    section.benefit .benefit_list ul li {margin-bottom: 1%;}
+    section.benefit .benefit_list {float: none; clear: both; margin: 0 auto; margin-top: 15px;}
     .benefit_list_txt {text-align: center;}
 
-    section.benefit .benefit_list ul li {width: 100%; height: 450px; margin-bottom: 3%;}
-    
-    section.benefit .benefit_list {width: 95%; height: auto; margin-top: -10%;}  
+    section.benefit .benefit_list ul li {width: 100%; height: 430px; margin-bottom: 3%;}
     section.benefit .benefit_01,
-    section.benefit .benefit_02 { background-size: cover; height: 450px;} 
+    section.benefit .benefit_02 { background-size: cover; background-position: center;height: 100%;}
     
     
     /*section.gallery*/
-    section.gallery {width: 414px; margin-top: 15%;}
+    section.gallery { width: 100%;  margin-top: 15%;}
     section.gallery p {display: none;}
     section.gallery .bar {margin-bottom: 10%;}
     section.gallery .inner_gallery {width: 100%;}
@@ -679,9 +648,11 @@ header .open {
     .gallery_slide_group, .gallery_slide_viewer {height: 190px;}
     .previous_btn {left: 28%;}
     .next_btn {right: 28%;}
+	.gallery_btn img {width: 70%;}
+	.gallery_slide_buttons {top: 0px;}
     
     /*section.video*/
-    section.video {width: 414px; padding: 12% 0;}
+    /*section.video {width: 414px; padding: 12% 0;}
     .inner_video {width: 414px; margin: 0 auto;}
     section.video .bar {margin-bottom: 5%;}
     section.video p {display: none;} 
@@ -689,7 +660,7 @@ header .open {
     .video_slide {height: 220px;}
     .video_btn div {margin: 0 auto; margin-right: 39%; margin-top: 60%; width: 10%;}
     .video_btn i {padding: 20% 33%; font-size: 20px;}
-    .slide-arrow {right: 40px;}
+    .slide-arrow {right: 40px;}*/
     
     /*footer*/
     footer {width: 100%; margin: 0 auto; margin-top: -50%;}
@@ -698,6 +669,24 @@ header .open {
     footer .footer_txt p {margin: 2% 0;}
     footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
+
+
+/*375px*/
+@media screen and (max-width: 375px) {
+    /*main 이미지*/
+    section.main {width: 100%; height: auto;}
+    section.main .inner_main {max-width: 375px; height: auto;}
+    .main_slideshow-container .main_Slide01,
+    .main_slideshow-container .main_Slide02,
+    .main_slideshow-container .main_Slide03 {width: 100%; background-size: cover;  background-repeat: no-repeat; height: 400px;}
+	section.main .main_text h1 {font-size: 35px;}
+
+	/*section.about*/
+	section.about .about_text p {text-align: justify;}
+	section.about .about_btn {margin-top: 25px;}
+
+    }
+
 
 /*320px*/
 @media screen and (max-width: 320px) {
@@ -735,9 +724,8 @@ header .open {
     section.about .about_text p {font-size: 15px;}
     
     /*section.benefit*/
-    section.benefit {width: 320px;}
-    section.benefit .inner_benefit {width: 100%;}
-    section.benefit .benefit_tit {margin: 0 auto; margin-left: 50%; transform: translateX(-50%); margin-top: 20%;}
+	.benefit_bg {height: 900px;}
+    section.benefit .benefit_tit {margin: 0 auto; margin-left: 50%; transform: translateX(-50%); margin-top: 40px;}
     section.benefit .benefit_tit p {display: none;}
     section.benefit .benefit_list {float: none; margin: 0 auto;}  
     .benefit_list h5 {font-size: 16px;}
@@ -745,8 +733,7 @@ header .open {
     .benefit_list_txt {text-align: center;}
 
     section.benefit .benefit_list ul li {width: 95%; height: 450px; margin: 0 auto; margin-bottom: 3%; margin-left: 2.5%;} 
-    
-    section.benefit .benefit_list {width: 95%; height: auto; margin-top: -10%;}  
+
     section.benefit .benefit_01,
     section.benefit .benefit_02 { background-size: cover; height: 450px;} 
     

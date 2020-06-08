@@ -11,7 +11,8 @@
     <meta name="title" content="AZ369 - 장차버스예매">
     <meta name="author" content="AZ369">
     <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords" content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
 </head>
@@ -21,7 +22,7 @@
 
         <% include templates/header.ejs %>
         <!--section.sub_wrap 시작-->
-        
+
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
 
@@ -29,17 +30,17 @@
                     <h6>장차버스예매</h6>
                     <h1 style="font-family: 'PT Serif', serif;">RESERVATION</h1>
                     <div class="bar"></div>
-                    
-                    
+
+
                     <div class="reservation_box">
                         <!--<div class="join_process">장차선택 > 결제하기 > <span>예매완료</span></div>-->
-                    
+
                         <h2><span>이용해주셔서 감사합니다.</span> <br>장차예매가 정상적으로 완료되었습니다.</h2>
-                        
+
                         <div class="reservation_img">
                             <img src="/img/reservation/reservation_icon.png" alt="가입완료">
                         </div>
-                        
+
                         <div class="reservation_txt">
                             <!--<h3>2020.02.03 22:00 <span>(평택 - 서울동대문)</span></h3>
                             
@@ -53,13 +54,13 @@
                                 <td id="order_ph_type"></td>
                                 <td class="td"><span id="order_price"></span>원 결제완료</td>
                             </table>
-                            
+
                             <p>장차예매내역은 장차예매 > 장차예매현황 에서 확인하실 수 있습니다.</p>
                         </div>
-                    
+
                         <div class="mypage_btn"><a href="/mypage">예매내역 확인 </a></div>
-                    
-                    
+
+
                     </div>
                 </div>
 
@@ -75,23 +76,25 @@
     </div>
 
     <script>
-      
-        $(document).ready(function() {
+
+        $(document).ready(function () {
             /*agreement 전체동의 체크*/
-            $('.check-all').click(function() {
+            $('.check-all').click(function () {
                 $('.ab').prop('checked', this.checked);
             });
 
-            let payment_result = JSON.parse( sessionStorage.getItem("payment_result") );
-            
-            $("#order_price").text( payment_result.price );
+            let payment_result = JSON.parse(sessionStorage.getItem("payment_result"));
+
+            $("#order_price").text(payment_result.price);
             // $("#order_ph_type").text( payment_result.ph_type );
-            $("#order_ph_type").text( '무료예약' );
-            $("#order_deptTe").text( payment_result.deptTe );
+            $("#order_ph_type").text('무료예약');
+            $("#order_deptTe").text(payment_result.deptTe);
 
             sessionStorage.removeItem("payment_result");
             sessionStorage.removeItem("ct_id");
             sessionStorage.removeItem("car_list");
         });
     </script>
-</body></html>
+</body>
+
+</html>

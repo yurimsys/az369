@@ -1,10 +1,13 @@
 const sms = require('./sms');
 const config = require('../config');
 const mysql = require('mysql');
+const mssql = require('mssql');
 const dbconf = require('../config/database');
-const connection = mysql.createConnection(dbconf);
+const conn_my = mysql.createConnection(dbconf.mysql);
+const conn_ms = mssql.connect(dbconf.mssql);
 
-connection.config.queryFormat = function (query, values) {
+
+conn_my.config.queryFormat = function (query, values) {
     if (!values) return query;
     
     return query.replace(/\:(\w+)/g, function (txt, key) {
@@ -31,10 +34,10 @@ const genNumber = ( digit_length = 4) => {
 // 인증번호 유효 시간 30분
 const saveNumber = ( phone_number ) => {
     let auth_number = genNumber(4);
-    let query = `insert into phone_auth values( ${phone_number}, ${auth_number}, date_add(now(), interval 30 minute))`;
+    let query = `insert into tBPA values( ${phone_number}, ${auth_number}, date_add(now(), interval 30 minute))`;
     
     return new Promise( function (resolve, reject) {
-        connection.query( query, null, (err, result) => {
+        conn_my.query( query, null, (err, result) => {
             if(err) reject(err);
             
             result.auth_number = auth_number;
@@ -47,21 +50,21 @@ const saveNumber = ( phone_number ) => {
 // 인증번호 Check
 const checkNubmer = ( phone_number, auth_number ) => {
     let query = `
-        select auth_number 
-        from phone_auth 
-        where phone_number = :phone_number
-        and expire_dt > now() 
-        order by expire_dt desc 
+        select BPA_AuthNumber 
+        from tBPA 
+        where BPA_Phone = :phone_number
+        and BPA_eDt > now() 
+        order by BPA_eDt desc 
         limit 1`;
     return new Promise( function (resolve, reject) {
 
-        connection.query( query, { phone_number : phone_number }, (err, result) => {
+        conn_my.query( query, { phone_number : phone_number }, (err, result) => {
             if(err) reject( err );
             
             console.log(result);
             let res_data = {};
             if( result.length === 1 ){
-                if( result[0].auth_number == auth_number ){
+                if( result[0].BPA_AuthNumber == auth_number ){
 
                     res_data = {
                         msg : "success",

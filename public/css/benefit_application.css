@@ -1,4 +1,4 @@
-@charset="UTF-8";
+@charset "UTF-8";
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
@@ -23,7 +23,6 @@ section.main {
     position: relative;
     width: 100%;
     height: 450px;
-    z-index: -100;
     overflow: hidden;
 }
 
@@ -32,9 +31,8 @@ background-position: center;
 background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 
 @keyframes bg {
-    0% {transform: scale(1.05);
+    0% {transform: scale(1.05);}
     100% {transform: scale(1);}
-    }
 }
 
 /*section.main 완료*/
@@ -47,20 +45,20 @@ section.sub_wrap {
     color: #333;
 }
 
-.tnb {position: relative; width: 1200px; margin: 0 auto;  margin-top: -5%;}
+.tnb {position: absolute; width: 1200px; margin: 0 auto;  bottom: 0; left: 50%; transform: translateX(-50%);}
 .tnb ul li {float: left; width: 50%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; color: #444; transition: all 0.2s; z-index: 1000; font-size: 17px;}
 
 
 
 section.sub_wrap .bar {
-    border-bottom: 2px solid #624000; 
+    border-bottom: 2px solid #c3a164;; 
     width: 35px; 
     margin: 0 auto;
     margin-top: 2%;
     margin-bottom: 5%;
 }
 
-section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 13%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #c3a164;;  padding-top: 13%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
 
 section.sub_wrap h1 {
     text-align: center; 
@@ -99,7 +97,7 @@ input[type=text]{
     padding: 12px 20px;
     margin-right: 5%;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid #eee;
     border-radius: 4px;
     box-sizing: border-box;
     outline-style: none;
@@ -108,6 +106,8 @@ input[type=text]{
 input[type=text]:nth-child(2) {margin-right: 0; margin-top: 1%;}
 
 textarea {margin-top: 0.5%;}
+
+input:focus {border: 1px solid #C3A164;}
 
 input[type=submit] {
   width: 100%;
@@ -124,7 +124,7 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-  background-color: #ad863c;
+  background-color: #C3A164;
     color: #fff;
 }
 
@@ -150,7 +150,7 @@ input[type=submit]:hover {
 .apply_check h3 {margin-bottom: 2%;}
 
 .check_btn {width: 100%; margin-top: 3%;}
-.check_btn a:hover {background: #ad863c; color: #fff;}
+.check_btn a:hover {background: #C3A164; color: #fff;}
 .check_btn a {display: block; width: 100%; transition: all 0.3s;}
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
 .popup_box{ margin:20px; width: 35%; height: auto;  padding-bottom: 1.5%; background:#fff;position:relative;/* border: 4px solid #ad863c; */z-index: 1000; text-align: center; color: #555;}
@@ -166,25 +166,7 @@ input[type=submit]:hover {
 .layer:target{display:flex;animation:open 0.5s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
 
-
-
-footer {
-    width: 100%;
-    height: 200px;
-    margin: 0 auto;
-    background: #211e1c;
-}
-
-
 /*section.sub_wrap 완료*/
-
-
-
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
 
 
 /*모바일 메뉴*/
@@ -214,14 +196,14 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1200px;}
+    section.main .inner_main {width: 100%;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1200px;}
+    section.sub_wrap .inner_sub_wrap {width: 100%;}
     .sub_form {width: 95%; margin: 0 auto;}
     section.sub_wrap h6 {padding-top: 8%;}
-    .tnb {padding-bottom: 5%; width: 1200px; margin-top: -5%;}
+    .tnb {padding-bottom: 5%; width: 100%; margin-top: -5%;}
 
     /*sub_contents*/
     .sub_contents {width: 95%;}
@@ -234,23 +216,10 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1024px;}
-    
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1024px;}
-    
-    .tnb {padding-bottom: 6%; width: 1024px; margin-top: -5.9%;}
-    
-    
-
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    .tnb {padding-bottom: 6%; margin-top: -5.9%;}
 }
 
 
@@ -259,40 +228,27 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 768px;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 768px;}
-    .tnb {width: 768px; margin-top:-7.6%;}
+    .tnb {margin-top:-7.6%;}
     section.sub_wrap h1 {font-size: 2.2rem;}
     section.sub_wrap h6 {padding-top: 15%;}
     section.sub_wrap h2 {margin-bottom: 4%; font-size: 28px;}
     
-    .tnb {width: 768px; margin-top: -7.7%;}
+    .tnb {margin-top: -7.7%;}
 
     .layer .popup_box {width: 80%; padding-bottom: 4%;}
-    
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
-
 
 /*414px*/
 @media screen and (max-width: 414px) {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 414px;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 414px;}
     section.sub_wrap h1 {font-size: 2rem;}
     section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
      section.sub_wrap h2 {font-size: 24px; padding-bottom: 7%; line-height: 1.5;}
@@ -302,7 +258,7 @@ header .open {
     .sub_form h3 {font-size: 22px;}
     
     
-    .tnb {width: 414px; margin-top: -11%;} 
+    .tnb {margin-top: -11%;}
     .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
     
     .apply_form p, .apply_check h3 {margin-bottom: 4%;}
@@ -321,6 +277,12 @@ header .open {
     footer .footer_txt p {margin: 2% 0;}
     footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
+
+/*375px*/
+@media screen and (max-width: 375px) {
+    .tnb {margin-top: -13%;}
+}
+
 
 /*320px*/
 @media screen and (max-width: 320px) {
@@ -350,6 +312,4 @@ header .open {
     
     .popup_open {margin-top: 6%;}
     .layer .popup_box {width: 95%; margin: 0;font-size: 14px; padding-bottom: 5%;}
-    
-
 }

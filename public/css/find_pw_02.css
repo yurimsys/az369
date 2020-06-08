@@ -1,9 +1,12 @@
-@charset="UTF-8";
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
+
 
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -23,61 +26,61 @@ p {text-align: justify; font-family: inherit; font-size: 16px;}
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 6.5%;
-    color: #333;
-    overflow: hidden;
+    margin-bottom: 90px;
+	overflow: hidden;
+}
+
+section.sub_wrap .bar {
+    border-bottom: 2px solid #c3a164; 
+    width: 30px; 
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .box {position: relative; padding-top: 5%; overflow: hidden;}
 
-section.sub_wrap .bar {
-    border-bottom: 2px solid #ad863c; 
-    width: 35px; 
-    margin: 0 auto;
-    margin-top: 2%;
-    margin-bottom: 4%;
-}
-
-section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 5%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #c3a164;  padding-top: 5%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
 
 section.sub_wrap h1 {
-    text-align: center; 
-    font-size: 2.8rem;
+    text-align: center;
+    font-size: 45px;
     margin-top: -1%;
-    font-weight: normal;
+	font-family: 'PT Serif', serif;
+	font-weight: normal;
 }
 
 .find_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee;}
-.find_box_inner p {text-align: center; color: #777;margin-bottom: 3%;}
-.find_box_inner h2 {font-size: 24px;}
-.find_box_inner strong {color: #555;}
+
+.find_box_inner h2 {font-size: 26px;}
+.find_box_inner p { color: #222; font-weight: 300; margin-bottom: 25px; font-size: 16px; text-align: center;}
+.find_box_inner p span {font-weight: 500;}
+
 
 .find_box .tab {width: 100%;}
-.find_box .tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: bold;}
+.find_box .tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: 500;}
 
 .find_box_inner {width: 100%; padding: 8% 20%; margin: 0 auto; text-align: center; overflow: hidden; }
 
 .find_box_inner input {width: 100%; height: 50px; margin-bottom: 1%; padding: 2%; border: 1px solid #ddd;}
+input::placeholder {font-weight: 14px; font-weight: 300; color: #767676;}
 
 .find_box_inner ul {width: 100%;}
 .find_form ul li:nth-child(1) {width: 70%; margin-right: 1%; float: left;}
 .search_form ul li button {height: 50px; width:29%; border: 1px solid #aaa; background: none; cursor: pointer; transition: all 0.3s;}
 .find_box_inner form ul li button:hover {background: #f4f4f4;}
 
-.find_pw_btn {width: 65%; margin: 0 auto; margin-top: 5.5%;  height: 50px; line-height: 50px;}
-.find_pw_btn ul li a {float:left; width: 49%; margin-right: 1%; text-align: center; }
+.find_pw_btn {width: 100%; margin: 0 auto; margin-top: 5.5%;  height: 50px; line-height: 50px;}
+.find_pw_btn ul li {float:left; width: 49.5%; margin-right: 1%; text-align: center; }
+.find_pw_btn ul li:nth-child(2) {margin-right: 0;;}
 .login_btn {border: 1px solid #ddd;}
-.next_btn {background: #ad863c; color: #fff; border: 1px solid #ad863c;}
+.next_btn {background: #c3a164; color: #fff; border: 1px solid #c3a164;}
 
-.find_pw_form > p {text-align: justify; font-size: 14px; color: #777; margin: 0;}
-.find_box_inner form {margin-top: 2%;}
-.find_box_inner h3 {font-size: 18px; font-weight: normal; color: #555;}
-.find_box_inner h3 span {color:#ad863c;}
-.find_box_inner h3 strong {font-weight: bold; color:#333; font-size: 20px;}
+.find_box_inner form {margin-top: 20px;}
+.find_box_inner h3 {font-size: 18px; padding: 12px 0; background: #f8f8f8; font-weight: 400;}
+.find_pw_form > p {text-align: justify; font-size: 15px; font-weight: 300; margin: 0; }
 
 /*section.sub_wrap 완료*/
-
-
 
 /*모바일 메뉴*/
 header .open {
@@ -107,8 +110,6 @@ header .open {
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     .inner_sub_wrap {width: 95%; margin: 0 auto;}
-    .tnb {width: 1200px;}
-    
 }
     
     
@@ -117,15 +118,9 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    .box {padding-top: 7%;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    .box {padding-top: 60px;}
 }
+
 
 
 /*768px*/
@@ -133,68 +128,39 @@ header .open {
     
     .box {padding-top: 9.5%;}
     
-    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    .tnb {width: 768px;}
-    section.sub_wrap h1 {font-size: 2.2rem;}
-    section.sub_warp .bar {display: none;}
+    section.sub_wrap h1 {font-size: 35px;}
+    .find_box_inner {margin: 0 auto; padding: 5% 12%;}
+	.find_box_inner h2 {font-size: 24px;}
     .find_box_inner h3 {font-size: 16px;}
     .find_box_inner h3 strong {font-size: 20px;}
     
-    .find_box_inner {margin: 0 auto; padding: 5% 12%;}
-    .find_pw_btn {width: 100%;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
     
-    .box {padding-top: 20%;}
-    
-    .find_box .tab ul li {height: 50px; font-size: 16px; line-height: 50px;}
-    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h6 {padding-top: 6%;}
-    section.sub_wrap h1 {font-size: 28px; margin-bottom: 2%;}
+    section.sub_wrap h6 {padding-top: 35px; margin-bottom: -2.5%;}
+    section.sub_wrap h1 {font-size: 30px; margin-bottom: 4%;}
     section.sub_wrap .bar {display: none;}
-    .find_pw_btn {width: 100%; margin-top: 10%; font-size: 16px;}
+    .find_box .tab ul li {height: 50px; font-size: 16px; line-height: 50px;}
     .find_box_inner {margin: 0 auto; padding: 10% 5%;}
     section.sub_wrap h2 {font-size: 18px;  line-height: 1.5; text-align: center; color: #555;}
     .find_box_inner h3 {font-size: 14px; margin-top: 4%;}
     .find_box_inner h3 strong {font-size: 16px;}
-    .find_box p {font-size: 14px; margin-bottom: 22px; margin-top: 7px;}
-    .find_box .tnb ul li {font-size: 16px; color: #555;}
-
-    .find_pw_btn {height: 40px; line-height: 40px;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    .find_box p {font-size: 15px;}
+    .find_box .tab ul li {font-size: 16px;}
+    .find_pw_btn {height: 40px; line-height: 40px; font-size: 16px; margin-top: 40px;}
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
     
-    .find_box .tab ul li {height: 50px; font-size: 15px; line-height: 50px;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
-    section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
-
-    .find_box .tnb ul li {font-size: 15px;}
-    .find_box h3 {margin-top: 5%;}
-    
-    .find_id_btn { font-size: 15px;}
-
+    .find_box .tab ul li {height: 40px; font-size: 15px; line-height: 40px;}
+    section.sub_wrap h1 {font-size: 24px; margin-bottom: 5%;}
+	.find_box_inner p {margin-bottom: 5px;}
+    .find_pw_btn { font-size: 15px;}
 }

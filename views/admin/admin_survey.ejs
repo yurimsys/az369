@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<% include templates/admin_head.ejs %>
+</head>
+
+<body id="top">
+
+	<!-- Preloader -->
+	<!-- <div id="preloader">
+	<div id="status">
+		<div class="loader"></div>
+	</div>
+</div> -->
+	<!-- /Preloader -->
+
+	<div id="body-wrapper" class="body-container">
+
+		<!-- Header begins -->
+		<header class="main-nav clearfix">
+			<% include templates/admin_header.ejs %>
+		</header>
+		<!-- /Header ends -->
+
+		<!-- 네비게이션!@!@-->
+		<aside class="menu">
+			<div class="left-aside-container">
+				<% include templates/admin_sidebar.ejs %>
+				<!-- /User profile -->
+				<!-- Main menu -->
+				<div class="menu-container">
+
+				</div>
+				<!-- /Main menu -->
+			</div>
+		</aside>
+		<!-- /Sidebar -->
+
+		<!-- Page container begins -->
+		<section class="main-container">
+			<h1 style="display:none">Empty Heading</h1>
+
+			<!--Page Header-->
+			<div class="header">
+				<div class="header-content">
+					<div class="page-title">
+						<i class="icon-table2 position-left"></i> 의향서 관리
+						<table class="table table-cols">
+							<tr>
+								<th style="width: 10%;">검색어</th>
+								<td colspan='3'>
+									<select id="choi">
+										<option value="Name">회원이름</option>
+										<option value="Phone">전화번호</option>
+										<option value="Addr">주소</option>
+									</select>
+									<input type="text" id="selResult" class="form-control2" style="width: 15%;">
+								</td>
+							</tr>
+							<tr>
+								<th>보증보헙 가입 여부</th>
+								<td>
+									<label class="radio-inline">
+										<div class="choice"><span class=""><input type="radio" name="insType"
+													class="styled" value="y"></span></div>
+										&emsp;&emsp;신청
+									</label>
+
+									<label class="radio-inline">
+										<div class="choice"><span class=""><input type="radio" name="insType"
+													class="styled" value="n"></span></div>
+										&emsp;&emsp;신청안함
+									</label>
+								</td>
+								<th>조정의향 여부</th>
+								<td>
+									<label class="radio-inline">
+										<div class="choice"><span class=""><input type="radio" name="modType"
+													class="styled" value="y"></span></div>
+										&emsp;&emsp;있음
+									</label>
+
+									<label class="radio-inline">
+										<div class="choice"><span class=""><input type="radio" name="modType"
+													class="styled" value="n"></span></div>
+										&emsp;&emsp;없음
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th>계약완료 or 공실</th>
+								<td>
+									<label class="radio-inline">
+										<div class="choice"><span class=""><input type="radio" name="conType"
+													class="styled" value="y"></span></div>
+										&emsp;&emsp;계약완료
+									</label>
+
+									<label class="radio-inline">
+										<div class="choice"><span class=""><input type="radio" name="conType"
+													class="styled" value="n"></span></div>
+										&emsp;&emsp;공실
+									</label>
+								</td>
+								<th>신청날짜</th>
+								<td>
+									<div class="input-group" style="height: 30px;">
+										<span class="input-group-addon"><i class="icon-calendar2"
+												style="margin-top: 8px;"></i></span>
+										<input type="text" class="form-control2 datepicker-here" id="dept"
+											style="width: 290px; height: 30px;">
+										&emsp14; ~ &emsp14;
+										<span class="input-group-addon"><i class="icon-calendar2"
+												style="margin-top: 8px;"></i></span>
+										<input type="text" class="form-control2 datepicker-here" id="end"
+											style="width: 290px;">
+									</div>
+								</td>
+							</tr>
+						</table>
+						<button type="button" onclick="searchGo()" class="btn btn-primary"
+							style=" width: 200px; margin-left: 40%">검색</button>
+					</div>
+				</div>
+			</div>
+			<!--/Page Header-->
+
+			<div class="container-fluid page-content">
+
+				<!-- Individual column searching (text fields) -->
+				<div class="card card-inverse card-flat table-responsive">
+					<div class="table-responsive">
+						<table id="tList" class="table table-border table-striped">
+							<thead>
+								<tr>
+									<th></th>
+									<th>이름</th>
+									<th>전화번호</th>
+									<th>주소</th>
+									<th>계약기간</th>
+									<th>최소 월 임대료</th>
+									<th>최대 월 임대료</th>
+									<th>최소 보증금</th>
+									<th>최대 보증금</th>
+									<th>보증보헙 가입 여부</th>
+									<th>현재 계약된 임대료</th>
+									<th>현재 계약된 보증금</th>
+									<th>조정의향 여부</th>
+									<th>계약완료 or 공실</th>
+									<th>신청일</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+
+				<div id="modal_full" class="modal fade" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog modal-full">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<div class="modal-title">의향서 세부</div>
+							</div>
+
+							<div class="modal-body" id="surveyList">
+								<table class="table table-border table-striped">
+									<thead>
+										<tr>
+											<th>이름</th>
+											<th>전화번호</th>
+											<th>주소</th>
+											<th>계약기간</th>
+											<th>최소 월 임대료</th>
+											<th>최대 월 임대료</th>
+											<th>최소 보증금</th>
+											<th>최대 보증금</th>
+											<th>보증보헙 가입 여부</th>
+											<th>현재 계약된 임대료</th>
+											<th>현재 계약된 보증금</th>
+											<th>조정의향 여부</th>
+											<th>계약완료 or 공실</th>
+											<th>신청일</th>
+										</tr>
+									</thead>
+									<tbody id="sList"></tbody>
+								</table>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</section>
+
+		<% include templates/admin_footer.ejs %>
+	</div>
+
+	<script>
+
+		$(document).ready(function () {
+			let table = $('#tList').DataTable({
+				language: {
+					"lengthMenu": '<select>' +
+						'<option value="5">5</option>' +
+						'<option value="15">15</option>' +
+						'<option value="30">30</option>' +
+						'<option value="50">50</option>' +
+						'<option value="-1">All</option>' +
+						'</select>'
+				},
+				dom: 'l<"toolbar">frtip',
+				ajax: '/admin/survey/List',
+				deferRender: true,
+				columnDefs: [
+					{
+						targets: 0,
+						className: 'dt-body-center'
+					},
+					{
+						targets: 1,
+						render: function (data, type, row) {
+							return '<p name=' + row.Phone + '>' + row.Name + '</p>';
+						}
+					},
+					{
+						targets: 9,
+						render: function (data, type, row) {
+							let insName = row.wt_insurance_type
+							if (row.cur_has_contract == 'y') {
+								conName = '신청';
+							} else {
+								conName = '신청안함'
+							}
+							return conName;
+
+						}
+					},
+					{
+						targets: 12,
+						render: function (data, type, row) {
+							let modName = row.wt_modify
+							if (row.cur_has_contract == 'y') {
+								conName = '있음';
+							} else {
+								conName = '없음'
+							}
+							return conName;
+
+						}
+					},
+					{
+						targets: 13,
+						render: function (data, type, row) {
+							let conName = row.cur_has_contract
+							if (row.cur_has_contract == 'y') {
+								conName = '계약완료';
+							} else {
+								conName = '공실'
+							}
+							return conName;
+
+						}
+					},
+					{
+						targets: 14,
+						render: function (data, type, row) {
+							var test = row.create_dt;
+							var test2 = test.split(' ', 1)
+							return test2;
+
+						}
+					}
+				],
+				rowId: "Name",
+				columns: [
+					{
+						"data": null,
+						"render": function (data, type, full, meta) {
+							return meta.row + 1
+						}
+					},
+					{ "data": "Name" },
+					{ "data": "Phone" },
+					{ "data": "Addr" },
+					{ "data": "wt_contact_period" },
+					{ "data": "wt_rental_fee_min" },
+					{ "data": "wt_rental_fee_max" },
+					{ "data": "wt_deposit_min" },
+					{ "data": "wt_deposit_max" },
+					{ "data": "wt_insurance_type" },
+					{ "data": "cur_rental_fee" },
+					{ "data": "cur_deposit" },
+					{ "data": "wt_modify" },
+					{ "data": "cur_has_contract" },
+					{ "data": "create_dt" }
+				]
+			});
+
+			$('.dataTables_length select').addClass('form-control')
+			$(".dataTables_filter input").addClass("form-control")
+
+			$('#tList tbody').on('click', 'tr', function (e) {
+				$('#sList').empty();
+				$.ajax({
+					url: '/admin/survey/all',
+					method: 'post',
+					dataType: 'json',
+					data: {
+						surId: e.currentTarget.id,
+						surPhone: $(e.currentTarget).children('td').children('p').attr('name')
+					},
+					success: function (res) {
+						for (let i = 0; i < res.data.length; i++) {
+							let html = "<tr>"
+							html += "<td>" + res.data[i].Name + "</td>";
+							html += "<td>" + res.data[i].Phone + "</td>";
+							html += "<td>" + res.data[i].Addr + "</td>";
+							html += "<td>" + res.data[i].wt_contact_period + "</td>";
+							html += "<td>" + res.data[i].wt_rental_fee_min + "</td>";
+							html += "<td>" + res.data[i].wt_rental_fee_max + "</td>";
+							html += "<td>" + res.data[i].wt_deposit_min + "</td>";
+							html += "<td>" + res.data[i].wt_deposit_max + "</td>";
+							html += "<td>" + res.data[i].wt_insurance_type + "</td>";
+							html += "<td>" + res.data[i].cur_rental_fee + "</td>";
+							html += "<td>" + res.data[i].cur_deposit + "</td>";
+							html += "<td>" + res.data[i].wt_modify + "</td>";
+							html += "<td>" + res.data[i].cur_has_contract + "</td>";
+							html += "<td>" + res.data[i].create_dt + "</td></tr>";
+							$('#sList').append(html);
+						}
+					}
+				})
+				$('#modal_full').modal()
+			})
+
+		})
+
+		function searchGo() {
+			if ($('#dept').val() != "" && $('#end').val() == "") {
+				alert("기간을 입력하세요.");
+				return;
+			}
+			if ($('#dept').val() == "" && $('#end').val() != "") {
+				alert("기간을 입력하세요.");
+				return;
+			}
+			$('#tList').DataTable().clear().destroy();
+			$('#tList').DataTable({
+				language: {
+					"lengthMenu": '<select>' +
+						'<option value="5">5</option>' +
+						'<option value="15">15</option>' +
+						'<option value="30">30</option>' +
+						'<option value="50">50</option>' +
+						'<option value="-1">All</option>' +
+						'</select>'
+				},
+				dom: 'l<"toolbar">frtip',
+				processing: true,
+				ajax: {
+					url: '/admin/survey/search',
+					method: 'post',
+					data: {
+						'selectName': $('#choi option:selected').val(), 'chkIns': $("input:radio[name='insType']:checked").val(),
+						'chkMod': $("input:radio[name='modType']:checked").val(), 'chkCon': $("input:radio[name='conType']:checked").val(),
+						'selResult': $('#selResult').val(), 'dept': $('#dept').val(), 'end': $('#end').val()
+					}
+				},
+				deferRender: true,
+				columnDefs: [
+					{
+						targets: 0,
+						className: 'dt-body-center'
+					},
+					{
+						targets: 1,
+						render: function (data, type, row) {
+							return '<p name=' + row.Phone + '>' + row.Name + '</p>';
+						}
+					},
+					{
+						targets: 9,
+						render: function (data, type, row) {
+							let insName = row.wt_insurance_type
+							if (row.wt_insurance_type == 'y') {
+								conName = '신청';
+							} else {
+								conName = '신청안함'
+							}
+							return conName;
+
+						}
+					},
+					{
+						targets: 12,
+						render: function (data, type, row) {
+							let modName = row.wt_modify
+							if (row.cur_has_contract == 'y') {
+								conName = '있음';
+							} else {
+								conName = '없음'
+							}
+							return conName;
+
+						}
+					},
+					{
+						targets: 13,
+						render: function (data, type, row) {
+							let conName = row.cur_has_contract
+							if (row.cur_has_contract == 'y') {
+								conName = '계약완료';
+							} else {
+								conName = '공실'
+							}
+							return conName;
+
+						}
+					},
+					{
+						targets: 14,
+						render: function (data, type, row) {
+							var test = row.create_dt;
+							var test2 = test.split(' ', 1)
+							return test2;
+
+						}
+					}
+				],
+				rowId: "Name",
+				columns: [
+					{
+						"data": null,
+						"render": function (data, type, full, meta) {
+							return meta.row + 1
+						}
+					},
+					{ "data": "Name" },
+					{ "data": "Phone" },
+					{ "data": "Addr" },
+					{ "data": "wt_contact_period" },
+					{ "data": "wt_rental_fee_min" },
+					{ "data": "wt_rental_fee_max" },
+					{ "data": "wt_deposit_min" },
+					{ "data": "wt_deposit_max" },
+					{ "data": "wt_insurance_type" },
+					{ "data": "cur_rental_fee" },
+					{ "data": "cur_deposit" },
+					{ "data": "wt_modify" },
+					{ "data": "cur_has_contract" },
+					{ "data": "create_dt" }
+				]
+			});
+			$('.dataTables_length select').addClass('form-control')
+			$(".dataTables_filter input").addClass("form-control")
+
+		}
+
+	</script>
+</body>
+
+</html>

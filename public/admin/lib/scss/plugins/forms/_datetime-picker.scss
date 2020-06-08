@@ -99,6 +99,7 @@ $datepickerTransitionOffset: 8px !default;
   position: absolute;
   left: 0;
   top: -50px;
+  bottom: 500px;
 
   @media print {
     display: none;

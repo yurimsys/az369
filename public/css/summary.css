@@ -1,8 +1,10 @@
-@charset="UTF-8";
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -17,23 +19,25 @@ p {text-align: justify; font-family: inherit; font-size: 16px;}
     height: auto;
 }
 
-
 /*section.main*/
 section.main {
     position: relative;
     width: 100%;
     height: 450px;
-    z-index: -100;
     overflow: hidden;
 }
 
-.main_bg { background: url(../img/sub_main_bg/sub01_main_bg.jpg) no-repeat; background-position: bottom; background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
+.main_bg { background: url(/img/sub_main_bg/sub01_main_bg.jpg) no-repeat; background-position: bottom; background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 
 @keyframes bg {
-    0% {transform: scale(1.05);
+    0% {transform: scale(1.05);}
     100% {transform: scale(1);}
-    }
+    
 }
+
+.tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); }
+.tnb ul li {float: left; width: 33.33%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; transition: all 0.2s; font-weight: 400;}
+
 
 /*section.main 완료*/
 /*section.sub_wrap 시작*/
@@ -41,80 +45,60 @@ section.main {
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 6.5%;
-    color: #333;
+    margin-bottom: 90px;
+	overflow: hidden;
 }
 
-
-.tnb {position: relative; width: 1200px; margin: 0 auto;  margin-top: -5%;}
-.tnb ul li {float: left; width: 33.33%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; color: #444; transition: all 0.2s;z-index: 10000;}
-
-
-section.sub_wrap .bar {
-    border-bottom: 2px solid #624000; 
-    width: 35px; 
-    margin: 0 auto;
-    margin-top: 2%;
-    margin-bottom: 4%;
-}
-
-section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 13%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
-
+section.sub_wrap h6 {text-align: center; color: #C3A164; margin-top:90px; font-weight: 500; font-size: 16px;}
 
 section.sub_wrap h1 {
     text-align: center;
-    font-size: 2.8rem;
+    font-size: 45px;
     margin-top: -1%;
-    font-weight: normal;
+	font-family: 'PT Serif', serif;
+    font-weight: normal; 
+}
+
+section.sub_wrap .bar {
+    border-bottom: 2px solid #c3a164; 
+    width: 30px; 
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 40px;
 }
 
 section.sub_wrap h2 br {display: none;}
-section.sub_wrap h2 {font-size: 30px; text-align: center; margin-bottom: 5%; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif; color: #555; font-weight: normal;}
+section.sub_wrap h2 {font-size: 30px;  text-align: center; margin-bottom: 60px; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif; font-weight: 400;}
+section.sub_wrap h2 span {font-weight: 600;}
 
-section.sub_wrap h5 {color: #777; font-size: 20px; text-align:center; font-weight: normal;}
+section.sub_wrap h5 {font-size: 24px; font-weight: 300; text-align:center; color: #444;}
+section.sub_wrap h5 span {font-weight: 400;}
 
-
-section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow: inset 0 -15px 0 #fcf3dc;}
 
 .sub_bg {box-shadow: 0 0 10px rgba(0,0,0,0.2);}
 .sub_bg img {width: 100%;}
 
 
 /*sub_info*/
-.sub_info {width: 100%; text-align: center; margin-top: 5%;}
+.sub_info {width: 100%; text-align: center; margin-top:60px;}
 
-.sub_info em {font-size: 18px; color: #a0772b;}
-.sub_info h3 {font-size: 1.6rem; margin: 0; margin-bottom: 3%; font-family: 'Noto Sans KR', sans-serif;}
+.sub_info h4 {font-size: 20px; font-weight: 300; color: #ad863c;}
+.sub_info h4 span {font-weight: 500;}
+.sub_info h3 {font-size: 24px; margin: 0; margin-bottom: 30px; font-weight: 400;}
+.sub_info h3 span {font-weight: 600;}
 .sub_info h3 br {display: none;}
-.sub_info p {text-align: center; line-height: 1.8; margin-bottom: 4%; color: #777;}
+.sub_info p {text-align: center; line-height: 1.8; color: #222; font-weight: 300;}
+.sub_info p span {font-weight: 400;}
 
-.sub_info ul {width: 50%; padding: 0; overflow: hidden; margin: 0 auto;}
+.sub_info ul {width: 50%; padding: 0; overflow: hidden; margin: 0 auto; margin-top: 40px;}
 .sub_info ul li {float: left; width: 49%; overflow: hidden;  transition: all 0.3s; margin-right: 2%;}
-.sub_info ul li:last-child {margin-right: 0;}
-.sub_info ul li a {display: block; text-align: center; padding: 4% 0; font-size: 1.1rem; color: #000; transition: all 0.3s;}
 
-.sub_info ul li a {padding: 4% 8%;  border: 1px solid #bbb; display: inline-block; transition: all 0.4s; color: #a0772b;}
+.sub_info ul li{width: 49%; margin-right: 1%; height: 50px; line-height: 50px; border: 1px solid #ddd; display: inline-block; transition: all 0.4s; color: #222; font-weight: 400; }
+.sub_info ul li:nth-child(2) {margin-right: 0;}
 .sub_info .info_btn a {display: block;}
-.sub_info ul li a:hover {background: #a7813c; color: #fff; border: 1px solid #be974f;}
+.sub_info ul li:hover {background: #c3a164; color: #fff; border: 1px solid #c3a164; transition: all 0.3s;}
 
-
-
-
-footer {
-    width: 100%;
-    height: 200px;
-    margin: 0 auto;
-    background: #211e1c;
-}
 /*section.sub_wrap 완료*/
-
-
-
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
 
 
 /*모바일 메뉴*/
@@ -144,196 +128,46 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1200px;}
-    
+    section.main .inner_main {width: 100%}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1200px;}
+	
+	.tnb {width: 100%;}
     
-    .tnb {padding-bottom: 5%; width: 1200px; margin-top: -5%;}
-    section.sub_wrap h6 {padding-top: 8%;}
     .sub_bg {width: 95%; margin: 0 auto;}
-    
-    /*sub_contents*/
-    .sub_contents {width: 95%;}
-    
-  /*gnb_mo*/
-    header .open {
-        display: block;
-        width: 30px;
-        height: 30px;
-        position: absolute;
-        right: 30px;
-        top: 25px;
-        opacity: 1;
-        z-index: 1000000000;
-    }
-
-    header .open img {width: 100%; height: auto;}
-
-    .gnb_mo {
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.6);
-        right: -1100px;
-        top: 0;
-        transition: all 0.3s;
-        overflow: hidden;
-        z-index: 1000;
-        opacity: 0;
-        color: #eee;
-    }
-
-    .gnb_mo.on {
-        right: 0;
-        transition: opacity 0.3s;
-        opacity: 1;
-    }
-
-    .gnb_mo .close {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        z-index: 200;
-        transform: rotate(360deg);
-        transition: all 0.3s;
-        width: 25px;
-        height: 25px;
-    }
-
-    .gnb_mo .close img {width: 100%;}
-
-    .gnb_mo.on .close {
-        right: 77%;
-        transform: rotate(0);
-        transition: all 0.5s;
-    }
-
-    .gnb_mo > ul {
-        position: absolute;
-        right: 0px;
-        top: 0;
-        background-color: #fff;
-        color: #242424;
-        width: 75%;
-        height: 100%;
-        transition: all 0.3s;
-        padding-top: 60px;
-    }
-
-    .gnb_mo.on > ul {
-        right: 0;
-        transition: all 0.5s;
-    }
-
-    .gnb_mo > ul > li {
-        font-size: 16px;
-        line-height: 50px;
-        text-indent: 20px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .gnb_mo > ul > li > a {
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: relative;
-    }
-
-    .gnb_mo > ul > li > a:after {
-        position: absolute;
-        content: '';
-        width: 21px;
-        height: 12px;
-        background: url(img/index_img/mob_gnb_arrow.png) no-repeat center/cover;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .gnb_mo > ul > li > a.on:after {
-        background: url(img/index_img/mob_gnb_arrow2.png) no-repeat center/cover;
-    }
-
-    .gnb_mo > ul > li .inner {
-        display: none;
-        background-color: #e3ddd2;
-    }
-
-    .gnb_mo > ul > li .inner.on {
-        background-color: #fff;
-        display: block;
-    }
-
-    .gnb_mo > ul > li .inner li {
-        border-bottom: 1px solid #ddd;
-        font-size: 14px;
-        color: #000;
-    }
-
-    .gnb_mo > ul > li .inner li:last-child {border-bottom: none;}
 }
 
 
 /*1024px*/
 @media screen and (max-width: 1024px) {
     
-  
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 1024px;}
-    
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 1024px;}
-    section.sub_wrap {padding-top: -10%;}
-    
-    .tnb {padding-bottom: 6%; width: 1024px; margin-top: -5.9%;}
     
     .sub_bg {margin: 0 auto;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 
 /*768px*/
 @media screen and (max-width: 768px) {
     
-    
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 768px;}
-    
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 768px;}
-    .tnb {width: 768px; margin-top:-7.6%;}
-    section.sub_wrap h1 {font-size: 2.2rem;}
-    section.sub_wrap h2 {margin-bottom: 6%; font-size: 28px;}
+    section.sub_wrap h1 {font-size: 35px;}
+    section.sub_wrap h2 {font-size: 28px;}
     
     .sub_bg {margin: 0 auto;}
     
-    .sub_info {margin: 0 auto; padding-top: 6%;}
+    .sub_info {margin: 0 auto; margin-top: 40px;}
     .sub_info ul {width: 80%;}
-    .sub_info h3 {font-size: 1.5rem;}
-    section.sub_wrap h6 {padding-top: 10%;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    .sub_info h3 {font-size: 22px;}
 }
 
 /*414px*/
@@ -341,88 +175,54 @@ header .open {
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 414px;}
 
     /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 414px;}
-    section.sub_wrap h1 {font-size: 2rem;}
-    section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-    section.sub_wrap h2 {font-size: 24px; padding-bottom: 7%; line-height: 1.5;}
+    section.sub_wrap {width:100%;}
+	
+	section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
+	
+    section.sub_wrap h1 {font-size: 30px;}
+    section.sub_wrap h2 {font-size: 24px; line-height: 1.5; margin-bottom: 40px;}
     section.sub_wrap h5 {font-size: 18px;}
     section.sub_wrap h2 br {display: block;}
+	section.sub_wrap h6 {margin-top: 50px;}
     
-    section.sub_wrap h2 span {font-size: 1.1rem;}
-    section.sub_wrap h6 {padding-top: 22%;}
-    
-    .tnb {width: 414px; margin-top: -12%;} 
+    /*.tnb {margin-top: -12%;} */
     .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
-    .sub_bg {margin: 0 auto; margin-bottom: 2%;}
     
-    .sub_info {margin-top: 5%;}
-    .sub_info h3 {font-size: 20px; width: 95%; margin: 0 auto; color: #555;}
+    .sub_info h4 { width: 95%; margin: 0 auto; font-size: 16px;}
+    .sub_info h3 {font-size: 18px; width: 90%; margin: 0 auto; margin-bottom: 20px; letter-spacing: -0.35px;}
     
-    .sub_info p {width: 95%; margin: 0 auto; margin-top: 10%; font-size: 15px;}
-    .sub_info p br {display: none;}
+    .sub_info p {width: 95%; margin: 0 auto; font-size: 16px; text-align: justify;}
     .sub_info ul {width: 95%;}
     
-    .info_notice {margin: 12% 0; padding: 4% 4%;}
-    .info_notice p > br {display: none;}
-    .info_notice p {width: 75%; margin-top: 0; font-size: 1rem;}
-    .info_notice p span {display: block; margin-top: 2%;  width: 100%;}
-    
-    .vehicle_btn {width:100%; margin-left: 2%; margin-top: 8%;padding-bottom:1%;}
-    .vehicle_btn ul li {width: 49%; float: left; height: 50px; line-height: 50px;}
-    .vehicle_btn ul li a {padding: 0; }
+    .sub_info p br {display: none;}
 
-
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    .sub_info {width:100%;}
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
     
-    /*Header*/
-    header {width: 320px;}
-    header .innerHeader {width: 320px;}
-    
     .gnb_mo_login a {font-size: 13px;}
     
     /*main*/
     section.main {width: 100%;}
-    section.main .inner_main {width: 320px;}
     
     /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 320px;}
-    section.sub_wrap h1 {font-size: 24px;}
-    section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-    section.sub_wrap h2 {font-size: 20px;; padding-bottom: 7%; line-height: 1.5;}
+    section.sub_wrap {width:100%;}
+    section.sub_wrap h1 {font-size: 26px;}
+    section.sub_wrap h2 {font-size: 20px; line-height: 1.5;}
     section.sub_wrap h2 br {display: block;}
-    section.sub_wrap h5{font-size: 15px;}
-    section.sub_wrap h6 {font-size: 14px;}
+    section.sub_wrap h5{font-size: 16px;}
     
-    
-    .tnb {width: 320px; margin-top: -15.5%;} 
     .tnb ul li {font-size: 15px;}
     .sub_bg {margin: 0 auto;}
     
-    .sub_info {margin-top: 5%;}
-    .sub_info em {font-size: 14px;}
-    .sub_info h3 {font-size: 18px; width: 90%; margin: 0 auto; margin-top: 1%;}
+    .sub_info {width: 90%; margin-top: 30px;}
     
-    .sub_info p {width: 95%; margin: 0 auto; margin-top: 7%; font-size: 15px;}
-    .sub_info em {font-size: 1.05rem; }
-    
-    .sub_info p {width: 90%; margin: 0 auto; text-align: justify; margin-top: 7%;}
+    .sub_info p {margin: 0 auto; }
     .sub_info p br{display: none;}
-    .sub_info ul {width: 95%;}
-    
-    .info_btn {margin: 10% 0;}
+    .sub_info ul {margin-top: 30px;;}
     .sub_info .info_btn a {font-size: 15px;}
 }

@@ -1,4 +1,4 @@
-;(function ($) { $.fn.datepicker.language['en'] = {
+;(function ($) { $.fn.datepicker = {
     days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
@@ -7,6 +7,6 @@
     today: 'Today',
     clear: 'Clear',
     dateFormat: 'yyyy/mm/dd',
-    timeFormat: 'hh:ii',
+    timeFormat: 'hh:ii:ss',
     firstDay: 0
 }; })(jQuery);
