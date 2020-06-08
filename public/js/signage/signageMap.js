@@ -240,9 +240,8 @@
     //svg파일 클래스,텍스트 매칭
     function svgLocation(){
         let storeList = JSON.parse(localStorage.getItem('storeInfo'));
-
         //상가 호수에 카테고리명 클래스 입력
-        $('#1Fstore path').each(function(){
+        $1f_store_path.each(function(){
             let svg1FStore = $(this).attr('id').replace('h','');
             for(let i=0; i<storeList.length; i++){
                 if(storeList[i].LS_Number == svg1FStore){
@@ -251,7 +250,7 @@
             }
         })
         //상가 호수에 브랜드명 입력
-        $('#1Fstore_name text').each(function(){
+        $1f_store_name.each(function(){
             let svg2FStoreName = $(this).attr('id').replace('h','').replace('-2','');
             //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
@@ -261,7 +260,7 @@
             }
         })
         //상가 호수에 카테고리명 클래스 입력
-        $('#2Fstore path').each(function(){
+        $2f_store_path.each(function(){
             let svg3FStore = $(this).attr('id').replace('h','');
             for(let i=0; i<storeList.length; i++){
                 if(storeList[i].LS_Number == svg3FStore){
@@ -270,7 +269,7 @@
             }
         })
         //상가 호수에 브랜드명 입력
-        $('#2Fstore_name text').each(function(){
+        $2f_store_name.each(function(){
             let svg2FStoreName = $(this).attr('id').replace('h','').replace('-2','');
             //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
@@ -280,7 +279,7 @@
             }
         })
         //상가 호수에 카테고리명 클래스 입력
-        $('#3Fstore path').each(function(){
+        $3f_store_path.each(function(){
             let svg3FStore = $(this).attr('id').replace('h','');
             for(let i=0; i<storeList.length; i++){
                 if(storeList[i].LS_Number == svg3FStore){
@@ -289,7 +288,7 @@
             }
         })
         //상가 호수에 브랜드명 입력
-        $('#3Fstore_name text').each(function(){
+        $3f_store_name.each(function(){
             let svg3FStoreName = $(this).attr('id').replace('h','').replace('-2','');
             //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
@@ -299,5 +298,8 @@
             }
         })
     }
-    svgLocation();
+    $(document).ready(function(){
+        svgLocation();
+    })
+    
 //*** 중앙 svg 스크립트 종료 ***

@@ -7,6 +7,8 @@ $(document).ready(function(){
     }
 })
 
+
+
 //현위치
     function nowLocation(){
         let nowLocation = urlParam();

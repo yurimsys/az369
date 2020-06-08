@@ -107,10 +107,12 @@
             }
         }
     }
+    
+    
     LV1CatList();
     let count = 0;
-    let $svg_cat = $('.svgCat')
     function selectCat(e){
+        let $svg_cat = $('.svgCat')
         let catId = e.id;
         let svg_class = $('#'+catId).data('catclass').replace(/ /g, '');
         let $catId_class = $('#'+catId).hasClass('selected');

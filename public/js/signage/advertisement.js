@@ -156,9 +156,6 @@ class AdSlide{
     showCategoryAD(lv1_category_id) {
         let ad_default = JSON.parse(sessionStorage.getItem('ad_default'))
         $(`.category_container`).hide();
-        
-        
-        
         $(`.category_top .category_container`).each(function(){
             if($(`.category_top .category_container[data-category_id=${lv1_category_id}]`).children('div').length == 0){
                 ad_default.forEach((ad)=>{
@@ -265,7 +262,7 @@ $(document).ready(() => {
     $("body").click(()=>{
         AdSlide.ad_main_instance.removeClass('active');
         clearTimeout(usedTimeout);
-        usedTimeout=setTimeout( signageInit, AD.ad_init_min * 60 * 10000 );
+        usedTimeout=setTimeout( signageInit, AD.ad_init_min * 60 * 1000 );
         
     });
 
