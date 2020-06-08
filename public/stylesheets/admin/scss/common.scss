@@ -7,7 +7,7 @@ $sidebar_width              : 192px;
 $sidebar-active-color       : #ffffff;
 $sidebar_background-color   : #403f3e;
 $gold_color                 : #c3a164;
-$primary_color              : #f6633c;
+$primary_color              : #007bff;
 $secondary_color            : #f6633c;
 $success_color              : #f6633c;
 $danger_color               : #f6633c;
@@ -188,62 +188,89 @@ $normal_color               : #222222;
     top: $header_height;
     margin-left: $sidebar_width;
 
+    .card-header{
+        background-color: #554b58;
+        padding-left: 30px;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        font-weight: 500;
+
+        span.title{
+            font-size: 16px;
+            color: #eeeeee;
+            line-height: 2rem;
+        }
+        .action-btns.action-new{
+            .btn {
+                font-size : 14px;
+            }
+            .btn-new {
+                color : #8be839;
+            }
+            .btn-modify {
+                color : #999999;
+            }
+            .btn-save, .btn-reset {
+                color : #e2e2e2;
+            }
+            .btn-delete {
+                color: #f6633c;
+            }
+        }
+        .action-btns.action-modify{
+            .btn {
+                font-size : 14px;
+            }
+            .btn-new {
+                color : #8be839;
+            }
+            .btn-modify {
+                color : #e2e2e2;
+            }
+            .btn-save {
+                color : #999999;
+            }
+            .btn-delete {
+                color: #ff5d33;
+            }
+        }
+    }
+    .card-body {
+        span {
+            line-height: 2rem;
+        }
+    }
+
+    .object-search-popup {
+        width: 384px;
+        position: absolute;
+        z-index: 100;
+
+        .search-footer {
+            height: 60px;
+            align-items: flex-end;
+            .btn-close {
+                width: 100%;
+                color : #444444;
+                border-radius: 4px;
+                background-color: #eeeeee;
+            }
+            .btn-search {
+                width: 100%;
+                color: #eeeeee;
+                border-radius: 4px;
+                background-color: #444444;
+            }
+        }
+    }
+
+    .object-search-header {
+        cursor: move;
+    }
+
     .object-info {
         margin-bottom: 10px;
         box-shadow: 8px 8px 25px 0 rgba(0, 0, 0, 0.1);
-
-        .card-header{
-            background-color: #554b58;
-            padding-left: 30px;
-            padding-top: 0.3rem;
-            padding-bottom: 0.3rem;
-            font-weight: 500;
-
-            span.title{
-                font-size: 16px;
-                color: #eeeeee;
-                line-height: 2rem;
-            }
-            .action-btns.action-new{
-                .btn {
-                    font-size : 14px;
-                }
-                .btn-new {
-                    color : #8be839;
-                }
-                .btn-modify {
-                    color : #999999;
-                }
-                .btn-save {
-                    color : #e2e2e2;
-                }
-                .btn-delete {
-                    color: #f6633c;
-                }
-            }
-            .action-btns.action-modify{
-                .btn {
-                    font-size : 14px;
-                }
-                .btn-new {
-                    color : #8be839;
-                }
-                .btn-modify {
-                    color : #e2e2e2;
-                }
-                .btn-save {
-                    color : #999999;
-                }
-                .btn-delete {
-                    color: #ff5d33;
-                }
-            }
-        }
-        .card-body {
-            span {
-                line-height: 2rem;
-            }
-        }
     }
 
     .object-table {
@@ -252,7 +279,6 @@ $normal_color               : #222222;
 }
 
 // Body End ----------------------
-
 // Modal -------------------------
 .modal {
     .modal-content {
@@ -288,7 +314,9 @@ $normal_color               : #222222;
                 &.btn-normal {
                     color: $normal_color;
                 }
-                
+                &.btn-success {
+                    color: $primary_color;
+                }
                 &:active {
                     background-color: inherit;
                 }

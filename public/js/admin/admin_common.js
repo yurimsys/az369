@@ -1,11 +1,3 @@
-/*
-Template Name: Veltrix - Responsive Bootstrap 4 Admin Dashboard
-Author: Themesbrand
-Version: 3.0.0
-Website: https://themesbrand.com/
-Contact: themesbrand@gmail.com
-File: Main Js File
-*/
 
 (function($) {
   "use strict";
@@ -270,8 +262,26 @@ File: Main Js File
     initComponents();
     initSettings();
     initPreloader();
-    // Waves.init();
   }
 
+  window.YR = {
+    template : {
+      alert : {
+        delete : ``
+      }
+    },
+    delete() {
+      
+      $("#deleteModal").modal("show");
+    },
+    alert(message) {
+      if(message) $("#confirmModal .message").text(message);
+      $("#confirmModal").modal("show");
+    },
+    init(){
+
+    }
+  }
+  
   init();
 })(jQuery);

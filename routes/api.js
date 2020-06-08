@@ -1965,7 +1965,25 @@ router.delete('/ad/:adId',  async function (req, res, next) {
         res.json({result : 0});
     }
 });
-
+router.delete('/ad', async function(req, rex, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+        // 광고입력
+        console.log('보내기');
+        let row_ids = req.body.row_ids;
+        let result = await pool.request()
+            .query(`delete from tAD where AD_ID in (${row_ids})`);
+        console.log('성공');
+        let rowAffected = 0;
+        if(result.rowAffected.length > 0) rowAffected = result.rowAffected[0];
+        
+        res.json({result : 1, rowAffected : rowAffected});
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+        res.json({result : 0});
+    }
+});
 //광고종류 등록
 router.post('/addAdy',  async function (req, res, next) {
     try {

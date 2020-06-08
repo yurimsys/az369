@@ -34,7 +34,7 @@ app.use(expressStatusMonitor());
 if( app.get('env') == "development"){
     // Debuging 용도
     app.use(function(req, res, next) {
-        console.log('handling request for: ' + req.url);
+        // console.log('handling request for: ' + req.url);
         next();
     });
 

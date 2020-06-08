@@ -14,10 +14,10 @@ function init(){
             let brand_list = res.data.map((data) =>{
                 return { id : data.BS_ID, text : data.BS_NameKor}
             });
-
-            $('#selectBrand').select2(
+            debugger;
+            $('.selectBrand').select2(
                 {
-                    placeholder: 'Select an option',
+                    placeholder: '브랜드 선택',
                     data: brand_list
                 }
             );
@@ -34,9 +34,9 @@ function init(){
                 return { id : data.BCR_LV1_BC_ID, text : data.BC_NameKor}
             });
 
-            $('#selectAdCategory').select2(
+            $('.selectAdCategory').select2(
                 {
-                    placeholder: 'Select an option',
+                    placeholder: '업종 선택',
                     data: categoryLV1
                 }
             );
@@ -53,9 +53,9 @@ function init(){
                 return { id : data.ADY_ID, text : data.ADY_Location}
             });
 
-            $('#selectAdType').select2(
+            $('.selectAdType').select2(
                 {
-                    placeholder: 'Select an option',
+                    placeholder: '위치 선택',
                     data: adtype
                 }
             );
@@ -63,7 +63,7 @@ function init(){
     });
 
     // 광고기간 DateBox
-    $("#ad_duration_start, #ad_duration_final").dxDateBox({
+    $(".ad_duration_start, .ad_duration_final").dxDateBox({
         type: "date",
         dateSerializationFormat : "yyyy-MM-dd"
     });
@@ -74,8 +74,8 @@ function init(){
 
 let objectInfo = function (mode = "modify", row_data) {
     let action_btns_instance = $(".object-info .action-btns"),
-        ad_duration_start_instance = $("#ad_duration_start").dxDateBox("instance"),
-        ad_duration_final_instance = $("#ad_duration_final").dxDateBox("instance");
+        ad_duration_start_instance = $(".object-info .ad_duration_start").dxDateBox("instance"),
+        ad_duration_final_instance = $(".object-info .ad_duration_final").dxDateBox("instance");
 
     if( mode === "new"){
         action_btns_instance.removeClass('action-modify');
@@ -84,10 +84,10 @@ let objectInfo = function (mode = "modify", row_data) {
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-modify, .btn-delete').addClass('disabled');
         // todo : object reset
-        $('#ad_id').text("");
-        $('#ad_content_url').text("");
-        $("#inputAdFiles").val('');
-        $("#inputAdTitle").val('');
+        $('.object-info .ad_id').text("");
+        $('.object-info .ad_content_url').text("");
+        $(".object-info .inputAdFiles").val('');
+        $(".object-info .inputAdTitle").val('');
         $(".select2").val(null).trigger('change');
         ad_duration_start_instance.reset();
         ad_duration_final_instance.reset();
@@ -101,12 +101,12 @@ let objectInfo = function (mode = "modify", row_data) {
         action_btns_instance.find('.btn-save').addClass('disabled');
         
         // todo : object data-bind
-        $('#ad_id').text(row_data.ad_id);
-        $('#selectBrand').val(row_data.selectBrand).trigger('change');
-        $('#ad_content_url').text(row_data.ad_content_url);
-        $('#selectAdCategory').val(row_data.selectAdCategory).trigger('change');
-        $('#selectAdType').val(row_data.selectAdType).trigger('change');
-        $('#inputAdTitle').val(row_data.inputAdTitle);
+        $('.object-info .ad_id').text(row_data.ad_id);
+        $('.object-info .selectBrand').val(row_data.selectBrand).trigger('change');
+        $('.object-info .ad_content_url').text(row_data.ad_content_url);
+        $('.object-info .selectAdCategory').val(row_data.selectAdCategory).trigger('change');
+        $('.object-info .selectAdType').val(row_data.selectAdType).trigger('change');
+        $('.object-info .inputAdTitle').val(row_data.inputAdTitle);
         ad_duration_start_instance.option("value", row_data.ad_duration_start);
         ad_duration_final_instance.option("value", row_data.ad_duration_final);
 
@@ -197,15 +197,34 @@ let tableInit = function (data) {
     });
 }
 
+// 상세 검색창 설정
+$(document).ready(()=>{
+    let search_popup_element = $('.object-search-popup');
+    search_popup_element.draggable({ handle: ".object-search-header" });
+    let rect = document.querySelector("#mgmt-table").getBoundingClientRect();
+    search_popup_element.css("left", "30px");
+    search_popup_element.css("top", rect.top+'px');
+});
+
+// 검색창 초기화
+function resetSearch() {
+    $(".select2").val(null).trigger('change');
+    let ad_duration_start_instance = $(".object-search-popup .ad_duration_start").dxDateBox("instance"),
+    ad_duration_final_instance = $(".object-search-popup .ad_duration_final").dxDateBox("instance");
+    ad_duration_start_instance.reset();
+    ad_duration_final_instance.reset();
+}
+
+
 tableInit();
 function saveAD(){
     let update_data = {
-        adBsId : $("#selectBrand").val(),
-        adAdyId : $("#selectAdType").val(),
-        adBcId : $("#selectAdCategory").val(),
-        adTitle : $("#inputAdTitle").val(),
-        adDtS : $("#ad_duration_start").dxDateBox("instance").option().value,
-        adDtF : $("#ad_duration_final").dxDateBox("instance").option().value
+        adBsId : $(".object-info .selectBrand").val(),
+        adAdyId : $(".object-info .selectAdType").val(),
+        adBcId : $(".object-info .selectAdCategory").val(),
+        adTitle : $(".object-info .inputAdTitle").val(),
+        adDtS : $(".object-info .ad_duration_start").dxDateBox("instance").option().value,
+        adDtF : $(".object-info .ad_duration_final").dxDateBox("instance").option().value
     }
 
     let form_data = new FormData(document.forms[0]);
@@ -244,18 +263,35 @@ function deleteAD(mode = 'single') {
             }
         });
     } else if(mode === "multi"){
-        
+        // let id = JSON.parse( sessionStorage.getItem('row_data') ).ad_id;
+        //test
+        let id_list = {
+            row_ids : ['103','104']
+        };
+
+        $.ajax({
+            dataType : 'JSON',
+            type : "DELETE",
+            data : id_list,
+            url : '/api/ad/',
+            success : function (res) {
+                console.log('ajax result');
+                console.log(res);
+                objectInfo('new');
+                $("#mgmt-table").dxDataGrid("instance").refresh();
+            }
+        });
     }
 }
 function updateAD(){
     let id = JSON.parse( sessionStorage.getItem('row_data') ).ad_id;
     let update_data = {
-        adBsId : $("#selectBrand").val(),
-        adAdyId : $("#selectAdType").val(),
-        adBcId : $("#selectAdCategory").val(),
-        adTitle : $("#inputAdTitle").val(),
-        adDtS : $("#ad_duration_start").dxDateBox("instance").option().value,
-        adDtF : $("#ad_duration_final").dxDateBox("instance").option().value
+        adBsId : $(".object-info .selectBrand").val(),
+        adAdyId : $(".object-info .selectAdType").val(),
+        adBcId : $(".object-info .selectAdCategory").val(),
+        adTitle : $(".object-info .inputAdTitle").val(),
+        adDtS : $(".object-info .ad_duration_start").dxDateBox("instance").option().value,
+        adDtF : $(".object-info .ad_duration_final").dxDateBox("instance").option().value
     }
 
     let form_data = new FormData(document.forms[0]);
@@ -278,14 +314,12 @@ function updateAD(){
     })
 }
 function clickActionBtn(e){
-    
-    // TODO : 클릭 버튼과 API 연결해야함.
     if( $(e.target).hasClass('disabled') ) return false;
 
-    if(e.target.name == "modify"){
-        // deleteAD()
-    } else if(e.target.name == "save"){
-
+    if(e.target.getAttribute('name') == "modify"){
+        updateAD();
+    } else if(e.target.getAttribute('name') == "save"){
+        saveAD();
     }
 }
 
