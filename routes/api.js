@@ -1984,7 +1984,7 @@ router.delete('/ad/:adId',  async function (req, res, next) {
         res.json({result : 0});
     }
 });
-router.delete('/ad', async function(req, rex, next) {
+router.delete('/ad', async function(req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
         // 광고입력

@@ -119,6 +119,7 @@ $normal_color               : #222222;
             margin-top: 15px;
             margin-bottom: 0;
             .gnb_link {
+                cursor: pointer;
                 width : 70px;
                 height: 24px;
                 font-size: 16px;
@@ -235,12 +236,14 @@ $normal_color               : #222222;
             }
         }
     }
-    .card-body {
-        span {
-            line-height: 2rem;
+    .object-info {
+        .card-body {
+            span {
+                line-height: 2rem;
+            }
         }
     }
-
+    
     .object-search-popup {
         width: 384px;
         position: absolute;
@@ -279,6 +282,24 @@ $normal_color               : #222222;
 }
 
 // Body End ----------------------
+// Table -------------------------
+.dx-datagrid {
+    .dx-toolbar {
+        .informer {
+            margin-right: 15px;
+        }
+        .selectedActionBtns {
+            display: none;
+            align-items: center;
+            margin-left: 15px;
+            .btn-delete {
+                line-height: 1rem;
+                color : $danger_color;
+            }
+        }
+    }
+}
+// Table End ---------------------
 // Modal -------------------------
 .modal {
     .modal-content {

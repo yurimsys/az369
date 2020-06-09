@@ -1,7 +1,6 @@
 
 $(document).ready(function(){
     init();
-
 })
 function init(){
     // 브랜드 Data Load
@@ -87,7 +86,7 @@ let objectInfo = function (mode = "modify", row_data) {
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-modify, .btn-delete').addClass('disabled');
         // todo : object reset
-        $('.object-info .ad_id').text("");
+        $('.object-info #ad_id').text("");
         $('.object-info .ad_content_url').text("");
         $(".object-info .inputAdFiles").val('');
         $(".object-info .inputAdTitle").val('');
@@ -103,8 +102,7 @@ let objectInfo = function (mode = "modify", row_data) {
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-save').addClass('disabled');
         
-        // todo : object data-bind
-        $('.object-info .ad_id').text(row_data.ad_id);
+        $('.object-info #ad_id').text(row_data.ad_id);
         $('.object-info .selectBrand').val(row_data.selectBrand).trigger('change');
         $('.object-info .ad_content_url').text(row_data.ad_content_url);
         $('.object-info .selectAdCategory').val(row_data.selectAdCategory).trigger('change');
@@ -147,6 +145,17 @@ let tableInit = function (data) {
         },
         onSelectionChanged : function(e) {
             console.log('selection changed', e);
+            sessionStorage.setItem("row_data_list", e.selectedRowsData.map(data => data.AD_ID));
+            let dataGrid = e.component;
+            
+            let informer = e.element.find(".selectedActionBtns");
+            informer.find(".selectRowCount").text( "선택 "+dataGrid.getSelectedRowsData().length+" 개");
+
+            let isSelected = (e.selectedRowsData.length > 0);
+            let selectedActionBtns = $(".selectedActionBtns");
+            
+            selectedActionBtns.css('display', (isSelected) ? "flex" : "none");
+            selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
         },
         onRowClick : function(e) {
             console.log('row click', e.data);
@@ -196,7 +205,44 @@ let tableInit = function (data) {
             { dataField: "AD_BC_ID", visible: false },
             { dataField: "BS_ID", visible: false },
             { dataField: "AD_ADY_ID", visible: false },
-        ]
+        ],
+        onContentReady: function(e) {
+            let informer = e.element.find(".informer");
+            informer.find(".totalCount").text(e.component.totalCount()+" 개");
+        },
+        onToolbarPreparing: function(e) {
+            var dataGrid = e.component;
+            e.toolbarOptions.items.unshift({
+                location: "before",
+                template: function(){
+                    return $("<div/>")
+                        .addClass("informer")
+                        .append(
+                            $("<span />")
+                            .css("color", "#767676")
+                            .text("검색 결과 "),
+                           $("<strong />")
+                             .addClass("totalCount")
+                             .text("")
+                        );
+                }
+            }, {
+                location: "before",
+                template: function(){
+                    return $("<div/>")
+                        .addClass("selectedActionBtns")
+                        .append(
+                            $("<div />")
+                            .addClass("selectRowCount")
+                            .text(""),
+                            $("<div />")
+                            .addClass("btn btn-delete py-0")
+                            .text("삭제")
+                            .attr("onClick", "deleteAD('multi')")
+                        );
+                }
+            })
+        }
     });
 }
 
@@ -266,12 +312,10 @@ function deleteAD(mode = 'single') {
             }
         });
     } else if(mode === "multi"){
-        // let id = JSON.parse( sessionStorage.getItem('row_data') ).ad_id;
-        //test
         let id_list = {
-            row_ids : ['103','104']
-        };
-
+            row_ids : sessionStorage.getItem('row_data_list')
+        }
+        
         $.ajax({
             dataType : 'JSON',
             type : "DELETE",
