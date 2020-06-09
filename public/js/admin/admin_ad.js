@@ -14,11 +14,12 @@ function init(){
             let brand_list = res.data.map((data) =>{
                 return { id : data.BS_ID, text : data.BS_NameKor}
             });
-            debugger;
-            $('.selectBrand').select2(
+
+            $(".selectBrand").select2(
                 {
                     placeholder: '브랜드 선택',
-                    data: brand_list
+                    data: brand_list,
+                    width: 'resolve'
                 }
             );
         }
@@ -37,7 +38,8 @@ function init(){
             $('.selectAdCategory').select2(
                 {
                     placeholder: '업종 선택',
-                    data: categoryLV1
+                    data: categoryLV1,
+                    width: 'resolve'
                 }
             );
         }
@@ -56,7 +58,8 @@ function init(){
             $('.selectAdType').select2(
                 {
                     placeholder: '위치 선택',
-                    data: adtype
+                    data: adtype,
+                    width: 'resolve'
                 }
             );
         }
@@ -88,7 +91,7 @@ let objectInfo = function (mode = "modify", row_data) {
         $('.object-info .ad_content_url').text("");
         $(".object-info .inputAdFiles").val('');
         $(".object-info .inputAdTitle").val('');
-        $(".select2").val(null).trigger('change');
+        $(".object-info .select2").val(null).trigger('change');
         ad_duration_start_instance.reset();
         ad_duration_final_instance.reset();
 
@@ -324,3 +327,45 @@ function clickActionBtn(e){
 }
 
 $(".action-btns .btn").click(clickActionBtn);
+
+// 상세 검색 버튼 기능
+// 초기화
+function searchPopupReset(){
+    $("#object-search-popup .select2").val(null).trigger('change');
+    let ad_duration_start_instance = $("#object-search-popup .ad_duration_start").dxDateBox("instance"),
+    ad_duration_final_instance = $("#object-search-popup .ad_duration_final").dxDateBox("instance");
+    ad_duration_start_instance.reset();
+    ad_duration_final_instance.reset();
+    $("#object-search-popup .inputAdTitle").val('');
+}
+// 닫기
+function searchPopupClose() {
+    $("#object-search-popup").hide();
+}
+function searchPopupShow() {
+    $("#object-search-popup").show();
+}
+// 검색
+function searchPopupAction() {
+    let condition_data = {
+        adBsId : $("#object_search_info .selectBrand").val(),
+        adAdyId : $("#object_search_info .selectAdType").val(),
+        adBcId : $("#object_search_info .selectAdCategory").val(),
+        adTitle : $("#object_search_info .inputAdTitle").val(),
+        adDtS : $("#object_search_info .ad_duration_start").dxDateBox("instance").option().value,
+        adDtF : $("#object_search_info .ad_duration_final").dxDateBox("instance").option().value
+    };
+
+    $.ajax({
+        type : "GET",
+        dataType : 'JSON',
+        url : '/api/ad',
+        data : condition_data,
+        success : function (res) {
+            
+            $("#mgmt-table").dxDataGrid({
+                dataSource: res.data
+            });
+        }
+    })
+}

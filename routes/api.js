@@ -81,12 +81,6 @@ router.get('/ad', async function(req, res, next) {
     try {
     let pool = await mssql.connect(dbconf.mssql)
 
-    let tMC = new Object();
-        tMC.MC_NameKor = req.body.mcNameKor
-        tMC.MC_Priority = req.body.mcPriority
-        tMC.MC_NameEng = req.body.mcNameEng // req.files.originalname
-
-
     let req_type = req.query.type;
     let query = `
         SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL , BS_ID, AD_ADY_ID
@@ -95,13 +89,38 @@ router.get('/ad', async function(req, res, next) {
             LEFT JOIN tBS on AD_BS_ID = BS_ID
             LEFT JOIN tBC on AD_BC_ID = BC_ID 
         `;
-    
+    // 관리 페이지 용도
     if(req_type !== 'display'){
+        let condition_list = [];
+        if( req.query.adDtS ){
+            condition_list.push(`AD_DtS >= ${req.query.adDtS}`);
+        }
+        if( req.query.adDtF ){
+            condition_list.push(`AD_DtF <= ${req.query.adDtF}`);
+        }
+        if( req.query.adAdyId ){
+            condition_list.push(`AD_ADY_ID = ${req.query.adAdyId}`);
+        }
+        if( req.query.adBsId ){
+            condition_list.push(`AD_BS_ID = ${req.query.adBsId}`);
+        }
+        if( req.query.adTitle ){
+            condition_list.push(`AD_Title like '%${req.query.adTitle}%'`);
+        }
+        if( req.query.adBcId ){
+            condition_list.push(`AD_BC_ID = ${req.query.adBcId}`);
+        }
+
+        if( condition_list.length > 0){
+            let condition_stmt = 'WHERE '+condition_list.join(' AND ');
+            query += condition_stmt;
+        }
         let result = await pool.request()
         .query(query);
 
         res.json({ data : result.recordset });
-
+    
+    // SIGNAGE 용도
     } else {
         query += "WHERE AD_DtF >= GETDATE() AND AD_Default = 'n'";
 
