@@ -19,6 +19,7 @@
     "datatables.net-dt": "^1.10.20",
     "datatables.net-editor": "^1.6.5",
     "datatables.net-editor-server": "^1.9.2",
+    "date-utils": "^1.2.21",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
@@ -37,6 +38,8 @@
     "nodemailer": "^6.4.4",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "session-file-store": "^1.4.0"
+    "session-file-store": "^1.4.0",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^4.4.2"
   }
 }

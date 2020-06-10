@@ -10,7 +10,7 @@ const path = require('path');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const logger = require('morgan');
+const morgan = require('morgan');
 const livereload = require('livereload');
 const livereloadMiddleware = require('connect-livereload');
 const expressStatusMonitor  = require('express-status-monitor');
@@ -19,7 +19,8 @@ const indexRouter = require('./routes/index'),
     testRouter = require('./routes/test'),
     usersRouter = require('./routes/users'),
     adminRouter = require('./routes/admin');
-const multer = require('multer')
+const multer = require('multer');
+const { logger, stream }  = require('./config/winston');
 const app = express();
     
     
@@ -49,7 +50,6 @@ if( app.get('env') == "development"){
     app.use(livereloadMiddleware());
 }
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -70,6 +70,11 @@ app.use(session({
 // Sessions Config
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Logging Config
+morgan.token('remote-user', function(req){
+    return (req.user == "undefined") ? req.user.U_ID : ''});
+app.use(morgan('combined', { stream }));
 
 // Flash Set
 app.use(flash());
@@ -92,6 +97,26 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+  let apiError = err;
+
+  if(!err.status){
+      apiError = createError(err);
+  }
+  let errObj = {
+      user : req.user,
+      req: {
+          headers: req.headers,
+          query : req.query,
+          body : req.body,
+          route: req.route
+      },
+      error: {
+          message: apiError.message,
+          stack: apiError.status
+      }
+  }
+  
+
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   
@@ -100,7 +125,7 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.end();
-  // res.render('error');
+  
 });
 
 module.exports = app;

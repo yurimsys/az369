@@ -79,6 +79,8 @@ router.get('/adtype', function(req, res, next) {
 // 광고 리스트
 router.get('/ad', async function(req, res, next) {
     try {
+        //test
+        console.log('req : ',req);
     let pool = await mssql.connect(dbconf.mssql)
 
     let req_type = req.query.type;
