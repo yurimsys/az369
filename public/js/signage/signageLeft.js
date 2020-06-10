@@ -1,13 +1,4 @@
-//*** 메인 좌측 카테고리 선택 스크립트 ***
-// window.addEventListener('touchstart', function(e) {
-//     if (e.targetTouches.length === 2) {
-//       e.preventDefault();
-//     }
-//   }, false);
-//   let test1 = monitorEvents(document.body, 'mouse')
-//   console.log(test1);
-  
-  
+//*** 메인 좌측 카테고리 선택 스크립트 ***  
 //브랜드 리스트
     $.ajax({
         url: '/api/brandList',

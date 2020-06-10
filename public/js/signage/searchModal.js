@@ -374,6 +374,7 @@ function searchModalInit(){
     function storeLocation(e){
         let storeArea = e.id.replace(/area/g,'')
         $('#myModal').css('display','none');
+        
         $('.floorBtn div').removeClass('floorSelcet');
         $brandInfoCenter.css('display','none');
         $brandMenuCenter.css('display','none');
@@ -597,6 +598,8 @@ function searchModalInit(){
 
     //브랜드 메뉴 정보
     function brandMenuList(bsID){
+        let $event_menu_one = $('#eventMenuOne')
+        let $event_menu_two = $('#eventMenuTwo')
         let eventList = JSON.parse(localStorage.getItem('eventList'));
         let normalList = JSON.parse(localStorage.getItem('normalList'));
         let brnadId = bsID.replace(/bs/,'');
@@ -613,8 +616,8 @@ function searchModalInit(){
         eventTwo = resultEvent.filter(data => data.M_MC_ID == 2);
         eventThree = resultEvent.filter(data => data.M_MC_ID == 3);
   
-        $('#envetMenuOne').empty();
-        $('#envetMenuTwo').empty();
+        $event_menu_one.empty();
+        $event_menu_two.empty();
         $('#normalList').empty();
 
         for(let i=0; i<eventOne.length; i++){
@@ -623,8 +626,8 @@ function searchModalInit(){
             let html = '<li><div class="menu_best_pic"><img src='+eventOne[i].M_ImageUrl+'></div>';
                 html += '<div class="menu_best_name">'+languageType1+'</div>';
                 html += '<div class="menu_best_price">'+eventOne[i].M_Price+'</div></li>';
-            $('#envetMenuOne').append(html);
-            $('#envetMenuOneName').text(languageName1);
+            $event_menu_one.append(html);
+            $('#eventMenuOneName').text(languageName1);
         
         }
  
@@ -635,8 +638,8 @@ function searchModalInit(){
             let html = '<li><div class="menu_best_pic"><img src='+eventTwo[i].M_ImageUrl+'></div>';
                 html += '<div class="menu_best_name">'+languageType2+'</div>';
                 html += '<div class="menu_best_price">'+eventTwo[i].M_Price+'</div></li>';
-            $('#envetMenuTwo').append(html);
-            $('#envetMenuTwoName').text(languageName2);
+            $event_menu_two.append(html);
+            $('#eventMenuTwoName').text(languageName2);
         }
         for(let i=0; i<resultNormal.length; i++){
             let languageType3 = $eng.hasClass('choose') ? resultNormal[i].M_NameKor : resultNormal[i].M_NameEng;
