@@ -150,7 +150,7 @@
 </div>
 
 <!-- 상세검색 -->
-<div class="card object-search-popup" id="object-search-popup">
+<div class="card object-search-popup" id="object-search-popup" style="display: none;">
 	<div class="card-header object-search-header">
 		<div class="row">
 			<div class="col-8 search-header-title">
@@ -171,6 +171,13 @@
 					<input type="text" class="form-control" id="inputID" />
 				</div>
 			</div> -->
+			<div class="form-group row">
+				<label class="col-3 col-form-label pt-0">검색조건</label>
+				<div class="col-9 align-self-center">
+					<input type="checkbox" id="searchType" switch="success" checked/>
+					<label class="m-0" for="searchType" data-on-label="AND" data-off-label="OR"></label>
+				</div>
+			</div>
 			<div class="form-group row">
 				<label class="col-3 col-form-label">브랜드</label>
 				<div class="col-9">

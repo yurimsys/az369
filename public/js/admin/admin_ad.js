@@ -241,6 +241,17 @@ let tableInit = function (data) {
                             .attr("onClick", "deleteAD('multi')")
                         );
                 }
+            }, {
+                location: "after",
+                template: function(){
+                    return $("<div/>")
+                        .append(
+                            $("<strong />")
+                            .addClass("btn searchPopupBtn")
+                            .text("상세검색")
+                            .attr("onClick", "searchPopupShow()")
+                        );
+                }
             })
         }
     });
@@ -392,6 +403,7 @@ function searchPopupShow() {
 // 검색
 function searchPopupAction() {
     let condition_data = {
+        searchType : $("#object_search_info #searchType").is(":checked"),
         adBsId : $("#object_search_info .selectBrand").val(),
         adAdyId : $("#object_search_info .selectAdType").val(),
         adBcId : $("#object_search_info .selectAdCategory").val(),

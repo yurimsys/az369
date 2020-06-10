@@ -111,8 +111,9 @@ router.get('/ad', async function(req, res, next) {
             condition_list.push(`AD_BC_ID = ${req.query.adBcId}`);
         }
 
+        let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
         if( condition_list.length > 0){
-            let condition_stmt = 'WHERE '+condition_list.join(' AND ');
+            let condition_stmt = 'WHERE '+condition_list.join(searchType);
             query += condition_stmt;
         }
         let result = await pool.request()
