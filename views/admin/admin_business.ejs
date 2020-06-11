@@ -429,7 +429,7 @@
 			$('#modal_danger_header').modal()
 			$('#delAction').on('click', function () {
 				$.ajax({
-					url: '/admin/businessDelete',
+					url: '/admin/business/delete',
 					method: 'post',
 					dataType: 'json',
 					data: { 'bId': localStorage.getItem('nowId') },

@@ -224,14 +224,14 @@
 					{
 						targets: 1,
 						render: function (data, type, row) {
-							return '<p name=' + row.Phone + '>' + row.Name + '</p>';
+							return '<p name=' + row.LSV_Phone + '>' + row.LSV_NAME + '</p>';
 						}
 					},
 					{
 						targets: 9,
 						render: function (data, type, row) {
-							let insName = row.wt_insurance_type
-							if (row.cur_has_contract == 'y') {
+							let insName = row.LSV_wInsuranceTy
+							if (row.LSV_Contract == 'y') {
 								conName = '신청';
 							} else {
 								conName = '신청안함'
@@ -243,8 +243,8 @@
 					{
 						targets: 12,
 						render: function (data, type, row) {
-							let modName = row.wt_modify
-							if (row.cur_has_contract == 'y') {
+							let modName = row.LSV_wModify
+							if (row.LSV_Contract == 'y') {
 								conName = '있음';
 							} else {
 								conName = '없음'
@@ -256,8 +256,8 @@
 					{
 						targets: 13,
 						render: function (data, type, row) {
-							let conName = row.cur_has_contract
-							if (row.cur_has_contract == 'y') {
+							let conName = row.LSV_Contract
+							if (row.LSV_Contract == 'y') {
 								conName = '계약완료';
 							} else {
 								conName = '공실'
@@ -269,7 +269,7 @@
 					{
 						targets: 14,
 						render: function (data, type, row) {
-							var test = row.create_dt;
+							var test = row.LSV_cDt;
 							var test2 = test.split(' ', 1)
 							return test2;
 
@@ -284,20 +284,20 @@
 							return meta.row + 1
 						}
 					},
-					{ "data": "Name" },
-					{ "data": "Phone" },
-					{ "data": "Addr" },
-					{ "data": "wt_contact_period" },
-					{ "data": "wt_rental_fee_min" },
-					{ "data": "wt_rental_fee_max" },
-					{ "data": "wt_deposit_min" },
-					{ "data": "wt_deposit_max" },
-					{ "data": "wt_insurance_type" },
-					{ "data": "cur_rental_fee" },
-					{ "data": "cur_deposit" },
-					{ "data": "wt_modify" },
-					{ "data": "cur_has_contract" },
-					{ "data": "create_dt" }
+					{ "data": "LSV_NAME" },
+					{ "data": "LSV_Phone" },
+					{ "data": "LSV_Store" },
+					{ "data": "LSV_wContactPeriod" },
+					{ "data": "LSV_wRentalFeeMin" },
+					{ "data": "LSV_wRentalFeeMax" },
+					{ "data": "LSV_wDepositMin" },
+					{ "data": "LSV_wDepositMax" },
+					{ "data": "LSV_wInsuranceTy" },
+					{ "data": "LSV_cRentalFee" },
+					{ "data": "LSV_cDeposit" },
+					{ "data": "LSV_wModify" },
+					{ "data": "LSV_Contract" },
+					{ "data": "LSV_cDt" }
 				]
 			});
 
@@ -317,20 +317,20 @@
 					success: function (res) {
 						for (let i = 0; i < res.data.length; i++) {
 							let html = "<tr>"
-							html += "<td>" + res.data[i].Name + "</td>";
-							html += "<td>" + res.data[i].Phone + "</td>";
-							html += "<td>" + res.data[i].Addr + "</td>";
-							html += "<td>" + res.data[i].wt_contact_period + "</td>";
-							html += "<td>" + res.data[i].wt_rental_fee_min + "</td>";
-							html += "<td>" + res.data[i].wt_rental_fee_max + "</td>";
-							html += "<td>" + res.data[i].wt_deposit_min + "</td>";
-							html += "<td>" + res.data[i].wt_deposit_max + "</td>";
-							html += "<td>" + res.data[i].wt_insurance_type + "</td>";
-							html += "<td>" + res.data[i].cur_rental_fee + "</td>";
-							html += "<td>" + res.data[i].cur_deposit + "</td>";
-							html += "<td>" + res.data[i].wt_modify + "</td>";
-							html += "<td>" + res.data[i].cur_has_contract + "</td>";
-							html += "<td>" + res.data[i].create_dt + "</td></tr>";
+							html += "<td>" + res.data[i].LSV_NAME + "</td>";
+							html += "<td>" + res.data[i].LSV_Phone + "</td>";
+							html += "<td>" + res.data[i].LSV_Store + "</td>";
+							html += "<td>" + res.data[i].LSV_wContactPeriod + "</td>";
+							html += "<td>" + res.data[i].LSV_wRentalFeeMin + "</td>";
+							html += "<td>" + res.data[i].LSV_wRentalFeeMax + "</td>";
+							html += "<td>" + res.data[i].LSV_wDepositMin + "</td>";
+							html += "<td>" + res.data[i].LSV_wDepositMax + "</td>";
+							html += "<td>" + res.data[i].LSV_wInsuranceTy + "</td>";
+							html += "<td>" + res.data[i].LSV_cRentalFee + "</td>";
+							html += "<td>" + res.data[i].LSV_cDeposit + "</td>";
+							html += "<td>" + res.data[i].LSV_wModify + "</td>";
+							html += "<td>" + res.data[i].LSV_Contract + "</td>";
+							html += "<td>" + res.data[i].LSV_cDt + "</td></tr>";
 							$('#sList').append(html);
 						}
 					}
@@ -380,14 +380,14 @@
 					{
 						targets: 1,
 						render: function (data, type, row) {
-							return '<p name=' + row.Phone + '>' + row.Name + '</p>';
+							return '<p name=' + row.LSV_Phone + '>' + row.LSV_NAME + '</p>';
 						}
 					},
 					{
 						targets: 9,
 						render: function (data, type, row) {
-							let insName = row.wt_insurance_type
-							if (row.wt_insurance_type == 'y') {
+							let insName = row.LSV_wInsuranceTy
+							if (row.LSV_Contract == 'y') {
 								conName = '신청';
 							} else {
 								conName = '신청안함'
@@ -399,8 +399,8 @@
 					{
 						targets: 12,
 						render: function (data, type, row) {
-							let modName = row.wt_modify
-							if (row.cur_has_contract == 'y') {
+							let modName = row.LSV_wModify
+							if (row.LSV_Contract == 'y') {
 								conName = '있음';
 							} else {
 								conName = '없음'
@@ -412,8 +412,8 @@
 					{
 						targets: 13,
 						render: function (data, type, row) {
-							let conName = row.cur_has_contract
-							if (row.cur_has_contract == 'y') {
+							let conName = row.LSV_Contract
+							if (row.LSV_Contract == 'y') {
 								conName = '계약완료';
 							} else {
 								conName = '공실'
@@ -425,7 +425,7 @@
 					{
 						targets: 14,
 						render: function (data, type, row) {
-							var test = row.create_dt;
+							var test = row.LSV_cDt;
 							var test2 = test.split(' ', 1)
 							return test2;
 
@@ -440,20 +440,20 @@
 							return meta.row + 1
 						}
 					},
-					{ "data": "Name" },
-					{ "data": "Phone" },
-					{ "data": "Addr" },
-					{ "data": "wt_contact_period" },
-					{ "data": "wt_rental_fee_min" },
-					{ "data": "wt_rental_fee_max" },
-					{ "data": "wt_deposit_min" },
-					{ "data": "wt_deposit_max" },
-					{ "data": "wt_insurance_type" },
-					{ "data": "cur_rental_fee" },
-					{ "data": "cur_deposit" },
-					{ "data": "wt_modify" },
-					{ "data": "cur_has_contract" },
-					{ "data": "create_dt" }
+					{ "data": "LSV_NAME" },
+					{ "data": "LSV_Phone" },
+					{ "data": "LSV_Store" },
+					{ "data": "LSV_wContactPeriod" },
+					{ "data": "LSV_wRentalFeeMin" },
+					{ "data": "LSV_wRentalFeeMax" },
+					{ "data": "LSV_wDepositMin" },
+					{ "data": "LSV_wDepositMax" },
+					{ "data": "LSV_wInsuranceTy" },
+					{ "data": "LSV_cRentalFee" },
+					{ "data": "LSV_cDeposit" },
+					{ "data": "LSV_wModify" },
+					{ "data": "LSV_Contract" },
+					{ "data": "LSV_cDt" }
 				]
 			});
 			$('.dataTables_length select').addClass('form-control')
