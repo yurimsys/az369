@@ -1,0 +1,356 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|Roboto&display=swap');
+
+$header_height              : 55px;
+$header_background-color    : #ffffff;
+$sidebar_width              : 192px;
+$sidebar-active-color       : #ffffff;
+$sidebar_background-color   : #403f3e;
+$gold_color                 : #c3a164;
+$primary_color              : #007bff;
+$secondary_color            : #f6633c;
+$success_color              : #f6633c;
+$danger_color               : #f6633c;
+$normal_color               : #222222;
+
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; background-repeat: no-repeat;
+    user-select:none; -webkit-user-drag: none;}
+
+// Icon ----------------
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+// SideBar -------------
+.vertical-menu {
+    font-family: NotoSansKr;
+    width: $sidebar_width;
+    background-color: $sidebar_background-color;
+    top : $header_height;
+    box-shadow: 15px 0 20px 0 rgba(0, 0, 0, 0.1);
+
+    #sidebar-menu{
+        padding: 0 25px;
+        
+        .sub-title {
+            font-size: 26px;
+            color : #e2e2e2;
+            font-weight: 300;
+            height: 70px;
+            margin-top: 30px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #999999;
+        }
+
+        .active {
+            color : $sidebar-active-color;
+        }
+        a {
+            &:hover {
+                text-decoration: none;
+                color : $sidebar-active-color;
+            }
+            padding: 12px 0;
+            font-family: 'Noto Sans KR';
+        }
+    }
+}
+
+// SideBar End -------------
+
+@mixin nav-after {
+    &:after {
+        content: '';
+        display: block;
+        margin-top: 12px;
+        height: 4px;
+        background-color: $gold_color;
+    }
+}
+
+// Header -------------
+.navbar-header {
+    height : $header_height;
+    background-color: $header_background-color;
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.1);
+    .navbar-brand-box {
+        
+        width: $sidebar_width;
+        height: 100%;
+        padding: 0;
+        .logo {
+            line-height: $header_height;
+            width: 192px;
+            img{
+                width : calc(192px - 40px);
+                height: 100%;
+            }
+        }
+    }
+    .gnb_header {
+        width : calc( 100% - 192px);
+        justify-content: space-between;
+        height: 100%;
+        #gnb_menu {
+            display: flex;
+            list-style: none;
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 0;
+            .gnb_link {
+                cursor: pointer;
+                width : 70px;
+                height: 24px;
+                font-size: 16px;
+                color: #999999;
+                border-left: 2px solid #f2f2f2; 
+                
+                &.active {
+                    line-height: 1.5;
+                    color: #222222;
+                    font-weight : 500;
+                    
+                    @include nav-after;
+                }
+                &:hover {
+                    @include nav-after;
+                }
+            }
+        }
+        .header-profile-user {
+            width: 41px;
+            height: 41px;
+        }
+
+    }
+
+}
+
+// Header End --------------------
+// Body --------------------------
+// Card --------------------------
+.card-header{
+    background-color: #554b58;
+    padding-left: 30px;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    font-weight: 500;
+
+    span.title{
+        font-size: 16px;
+        color: #eeeeee;
+        line-height: 2rem;
+    }
+    .action-btns.action-new{
+        .btn {
+            font-size : 14px;
+        }
+        .btn-new {
+            color : #8be839;
+        }
+        .btn-modify {
+            color : #999999;
+        }
+        .btn-save, .btn-reset {
+            color : #e2e2e2;
+        }
+        .btn-delete {
+            color: #f6633c;
+        }
+    }
+    .action-btns.action-modify{
+        .btn {
+            font-size : 14px;
+        }
+        .btn-new {
+            color : #8be839;
+        }
+        .btn-modify {
+            color : #e2e2e2;
+        }
+        .btn-save {
+            color : #999999;
+        }
+        .btn-delete {
+            color: #ff5d33;
+        }
+    }
+}
+
+.card-body {
+    padding : 1rem;
+    .form-group {
+        margin-bottom: 0.5rem;
+    }
+}
+
+// Card End ----------------------
+// Page Title --------------------
+.main-container{
+    padding: 20px;
+    .header{
+        width: 100%;
+        height: 30px;
+        margin-bottom: 16px;
+
+        .header-content{
+            .page-title{
+                font-size: 20px;
+                font-weight: 500;
+                line-height: 1.45;
+                color : #222222;
+            }
+            .page-title-desc{
+                padding-left: 14px;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+                font-size: 14px;
+                font-weight: 300;
+                color: #444444
+            }
+        }
+    }
+}
+
+// Page Title End ----------------
+.main-content {
+    position: relative;
+    top: $header_height;
+    margin-left: $sidebar_width;
+
+    .object-info {
+        .card-body {
+            span {
+                line-height: 2rem;
+            }
+        }
+    }
+    
+    .object-info {
+        margin-bottom: 10px;
+        box-shadow: 8px 8px 25px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .object-table {
+        box-shadow: 8px 8px 30px 0 rgba(0, 0, 0, 0.1);
+    }
+}
+
+// Body End ----------------------
+// Table -------------------------
+.dx-datagrid {
+    .dx-toolbar {
+        .informer {
+            margin-right: 15px;
+        }
+        .selectedActionBtns {
+            display: none;
+            align-items: center;
+            margin-left: 15px;
+            .btn-delete {
+                line-height: 1rem;
+                color : $danger_color;
+            }
+        }
+        .searchPopupBtn {
+            text-decoration: underline;
+        }
+    }
+}
+// Table End ---------------------
+// Modal -------------------------
+.modal {
+    .modal-content {
+        .modal-header {
+            border-bottom: none;
+            .close {
+                font-size: 30px;
+                &:focus{
+                    outline: none;
+                }
+            }
+        }
+        .modal-body {
+            min-height: 80px;
+        }
+        .modal-footer {
+            border-top: none;
+            padding: 0;
+            justify-content: space-around;
+            background-color: #fcfcfc;
+            min-height: 60px;
+            border-radius: 0.3rem;
+            button {
+                margin: 0;
+                width: 100%;
+                background-color: inherit;
+                border: none;
+                outline: none !important;
+                box-shadow: none !important;
+                &.btn-danger {
+                    color: $danger_color;
+                }
+                &.btn-normal {
+                    color: $normal_color;
+                }
+                &.btn-success {
+                    color: $primary_color;
+                }
+                &:active {
+                    background-color: inherit;
+                }
+                
+            }
+        }
+    }
+}
+// Modal End ---------------------
+// 상세검색 Popup -----------------
+.object-search-popup { 
+    width: 384px;
+    position: absolute;
+    z-index: 1010;
+
+    .search-footer {
+        height: 60px;
+        align-items: flex-end;
+        .btn-close {
+            width: 100%;
+            color : #444444;
+            border-radius: 4px;
+            background-color: #eeeeee;
+        }
+        .btn-search {
+            width: 100%;
+            color: #eeeeee;
+            border-radius: 4px;
+            background-color: #444444;
+        }
+    }
+}
+
+.object-search-header {
+    cursor: move;
+}
+// 상세검색 Popup End -------------

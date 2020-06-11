@@ -1,3 +1,4 @@
+const path  = require('path');
 
 module.exports = {
     aligo : {
@@ -22,5 +23,8 @@ module.exports = {
             pw : 'go121212!!'
         }
     },
-    enc_salt : '!@#yurimsys#@!'
+    enc_salt : '!@#yurimsys#@!',
+    path : {
+        ad_image : path.join(__dirname, '..', '/public/img/ad')
+    }
 }

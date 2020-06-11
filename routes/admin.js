@@ -41,20 +41,20 @@ router.get('/index', function(req, res, next) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////비지니스 테이블 
 
 // Signage
-router.get('/ad', auth.isLoggedIn, function(req, res, next) {
-    if(req.user.U_isAdmin === 'n'){
-        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
-    }else{
-        res.render('advertisement');
-    }
-});
+// router.get('/ad', auth.isLoggedIn, function(req, res, next) {
+//     if(req.user.U_isAdmin === 'n'){
+//         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+//     }else{
+//         res.render('admin/admin_ad');
+//     }
 
-router.get('/api/adlist', function(req, res, next) {
-    let table_data = {
-        
-    }
-
-    res.render('advertisement');    
+router.get('/ad', function(req, res, next) {
+    var pageSetting = {
+        title: '광고관리',
+        description: '센트럴돔 내 사이니지 광고를 관리하는 페이지 입니다.',
+        layout: 'admin/templates/admin_layout'
+    };
+    res.render('admin/admin_ad', pageSetting);
 });
 
 //비지니스 테이블

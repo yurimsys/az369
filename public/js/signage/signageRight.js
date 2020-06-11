@@ -57,14 +57,8 @@ $(document).ready(function(){
             $central_svg_2f.css('display','none');
             $central_svg_3f.css('display','none');
             $('#floor1Btn').addClass('floorSelcet');
-<<<<<<< HEAD
             $('#nowFloor').text('1F');
             location.href=location.origin+'/sign?device_cd=1fa';
-=======
-            $nowFloor.text('1F');
-            location.href='http://localhost:8001/sign?device_cd=1fa';
-            // location.href='http://az369.com/sign?device_cd=1fa'
->>>>>>> new_signage
         }
         else if(deviceParam.device_cd.substring(0,1) == '1'){
             $central_svg_1f.css('display','block');

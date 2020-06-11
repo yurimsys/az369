@@ -13,6 +13,9 @@ const LocalStrategy = require('passport-local').Strategy;
 const sms = require('../modules/sms');
 const localAuth = require('../modules/auth');
 const multer = require('multer')
+const path = require('path');
+const fs = require('fs');
+
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
     
@@ -26,7 +29,7 @@ connection.config.queryFormat = function (query, values) {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, '/public/upload')
+      cb(null, path.join(__dirname, '..', '_tmp_files/'))
     },
     filename: function (req, file, cb) {
       cb(null, file.originalname)
@@ -45,6 +48,22 @@ connection.on('error', function(err) {
  * SiGNAGE API Start
  */
 
+router.put('/test', upload.any(), function(req, res){
+    console.log(req);
+    let filename = req.files[0].filename;
+    let old_path = req.files[0].path;
+    let new_path = path.join(config.path.ad_image , filename);
+
+    fs.rename(old_path, new_path, (err) => {
+        if (err) throw err;
+        fs.stat(new_path, (err, stats) => {
+          if (err) throw err;
+          console.log(`stats: ${JSON.stringify(stats)}`);
+        });
+      });
+    res.json({result:1});
+})
+
  // 광고 타입 
 router.get('/adtype', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
@@ -60,29 +79,51 @@ router.get('/adtype', function(req, res, next) {
 // 광고 리스트
 router.get('/ad', async function(req, res, next) {
     try {
+        //test
+        console.log('req : ',req);
     let pool = await mssql.connect(dbconf.mssql)
-
-    let tMC = new Object();
-        tMC.MC_NameKor = req.body.mcNameKor
-        tMC.MC_Priority = req.body.mcPriority
-        tMC.MC_NameEng = req.body.mcNameEng // req.files.originalname
-
 
     let req_type = req.query.type;
     let query = `
-        SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL , BS_ID
+        SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL , BS_ID, AD_ADY_ID
         FROM tAD
             INNER JOIN tADY on AD_ADY_ID = ADY_ID 
             LEFT JOIN tBS on AD_BS_ID = BS_ID
             LEFT JOIN tBC on AD_BC_ID = BC_ID 
         `;
-    
+    // 관리 페이지 용도
     if(req_type !== 'display'){
+        let condition_list = [];
+        if( req.query.adDtS ){
+            condition_list.push(`AD_DtS >= ${req.query.adDtS}`);
+        }
+        if( req.query.adDtF ){
+            condition_list.push(`AD_DtF <= ${req.query.adDtF}`);
+        }
+        if( req.query.adAdyId ){
+            condition_list.push(`AD_ADY_ID = ${req.query.adAdyId}`);
+        }
+        if( req.query.adBsId ){
+            condition_list.push(`AD_BS_ID = ${req.query.adBsId}`);
+        }
+        if( req.query.adTitle ){
+            condition_list.push(`AD_Title like '%${req.query.adTitle}%'`);
+        }
+        if( req.query.adBcId ){
+            condition_list.push(`AD_BC_ID = ${req.query.adBcId}`);
+        }
+
+        let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
+        if( condition_list.length > 0){
+            let condition_stmt = 'WHERE '+condition_list.join(searchType);
+            query += condition_stmt;
+        }
         let result = await pool.request()
         .query(query);
 
         res.json({ data : result.recordset });
-
+    
+    // SIGNAGE 용도
     } else {
         query += "WHERE AD_DtF >= GETDATE() AND AD_DtS <= GETDATE() AND AD_Default = 'n'";
 
@@ -166,74 +207,6 @@ router.get('/ad', async function(req, res, next) {
 }
 });
 
-// //중분류 카테고리
-// router.get('/categoryLV2', function(req, res, next) {
-//     mssql.connect(dbconf.mssql, function (err, result){
-//         if(err) throw err;
-//         new mssql.Request().query('select * from tBC inner join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID', (err, result) => {
-//             let cat_arr = result.recordset;
-//             let lv2_cat = {}
-                
-//             for(let i=0; i<cat_arr.length; i++){
-//                 if(cat_arr[i].BCR_LV1_BC_ID == 1){
-//                     lv2_cat.cat1 = cat_arr[i]
-//                 }else if(cat_arr[i].BCR_LV1_BC_ID == 2){
-//                     lv2_cat.cat2 = cat_arr[i]
-//                 }
-//             }
-
-
-//             // cat_arr.forEach((data)=>{
-//             //     if(data.BCR_LV1_BC_ID =)
-//             // })
-            
-
-//             res.json({ data : result.recordset });
-//         })
-//     });
-// });
-
-
-router.post('/ad', async function(req, res){
-    let pool = await mssql.connect(dbconf.mssql)
-    
-    /**
-     * TODO : 결제 추가 시 작성.
-     */
-    let PaymentStatus = null;
-
-    // TEST
-    
-    req.body.BS_ID = '1';
-    req.body.ADY_ID = '2';
-    req.body.BC_ID = null;
-    PaymentStatus = '결제완료';
-    req.body.Title = '테스트 제목121';
-    req.body.DtS = '2020-05-10 10:00:00';
-    req.body.DtF = '2020-06-10 10:00:00';
-    req.body.ContentURL = 'image/a.jpg';
-    req.body.ContentTy = 'Image';
-    
-
-    let result = await pool.request()
-        .input('BS_ID',         req.body.BS_ID)
-        .input('ADY_ID',        req.body.ADY_ID)
-        .input('BC_ID',         req.body.BC_ID)
-        .input('PaymentStatus', PaymentStatus)
-        .input('Title',         req.body.Title)
-        .input('DtS',           req.body.DtS)
-        .input('DtF',           req.body.DtF)
-        .input('ContentURL',    req.body.ContentURL)
-        .input('ContentTy',     req.body.ContentTy)
-        .query(`
-            INSERT INTO tAD (AD_BS_ID, AD_ADY_ID, AD_BC_ID, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL, AD_ContentTy)
-            VALUES (@BS_ID, @ADY_ID, @BC_ID, @PaymentStatus, @Title, @DtS, @DtF, @ContentURL, @ContentTy)
-        `)
-    console.log(result)
-    res.json({data : result.rowsAffected})
-    
-});
- 
 // SIGNAGE API END
  
 
@@ -1901,10 +1874,24 @@ router.delete('/deleteBs/:bsId', async function(req,res){
 
 ///////////////광고
 //광고 등록
-router.post('/addAd', upload.any(), async function (req, res, next) {
+router.post('/ad', upload.any(), async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
         // 광고입력
+        if(req.files.length === 0) throw Error('Non include files');
+        let content_type = req.files[0].mimetype.split('/')[0];
+        let filename = req.files[0].filename;
+        let old_path = req.files[0].path;
+        let new_path = path.join(config.path.ad_image , filename);
+
+        fs.rename(old_path, new_path, (err) => {
+            if (err) throw err;
+            fs.stat(new_path, (err, stats) => {
+            if (err) throw err;
+            console.log(`stats: ${JSON.stringify(stats)}`);
+            });
+        });
+
         console.log('보내기');
         let result = await pool.request()
             .input('adBsId', mssql.Int, req.body.adBsId)
@@ -1914,21 +1901,23 @@ router.post('/addAd', upload.any(), async function (req, res, next) {
             .input('adTitle', mssql.NVarChar, req.body.adTitle)
             .input('adDtS', mssql.DateTime, req.body.adDtS)
             .input('adDtF', mssql.DateTime, req.body.adDtF)
-            .input('adUrl', mssql.NVarChar, req.body.adUrl) //req.files.originalname
-            .input('adConTy', mssql.NVarChar, req.body.adConTy)
+            .input('adUrl', mssql.NVarChar, '/img/ad/'+filename)
+            .input('adConTy', mssql.NVarChar, content_type)
             .input('addef', mssql.NVarChar, req.body.addef)
             .query(`insert into tAD(AD_BS_ID, AD_ADY_ID, AD_BC_ID, AD_PaymentStatus, AD_Title, AD_DtS, 
                                     AD_DtF, AD_ContentURL, AD_ContentTy, AD_Default)
                         values(@adBsId, @adAdyId, @adBcId, @adPay, @adTitle, @adDtS, @adDtF, @adUrl, @adConTy, @addef)`);
         console.log('성공');
+        res.json({result : 1});
     } catch (err) {
         console.log(err);
         console.log('error fire')
+        res.json({result : 0});
     }
 });
 
 //광고 수정
-router.put('/modifyAd/:adId', upload.any(), async function (req, res, next) {
+router.put('/ad/:adId', upload.any(), async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
 
@@ -1974,27 +1963,49 @@ router.put('/modifyAd/:adId', upload.any(), async function (req, res, next) {
             .input('adConTy', mssql.NVarChar, req.body.adConTy)
             .query(query);
         console.log('성공');
+        res.json({result : 1});
     } catch (err) {
         console.log(err);
         console.log('error fire')
+        res.json({result : 0});
     }
 });
 //광고 삭제
-router.delete('/deleteAd/:adId',  async function (req, res, next) {
+router.delete('/ad/:adId',  async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
         // 광고입력
         console.log('보내기');
         let result = await pool.request()
-            .input('adyId', mssql.NVarChar, req.params.adId)
-            .query(`delete from tADY where AD_ID = @adId`);
+            .input('adId', mssql.Char, req.params.adId)
+            .query(`delete from tAD where AD_ID = @adId`);
         console.log('성공');
+        res.json({result : 1});
     } catch (err) {
         console.log(err);
         console.log('error fire')
+        res.json({result : 0});
     }
 });
-
+router.delete('/ad', async function(req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+        // 광고입력
+        console.log('보내기');
+        let row_ids = req.body.row_ids;
+        let result = await pool.request()
+            .query(`delete from tAD where AD_ID in (${row_ids})`);
+        console.log('성공');
+        let rowAffected = 0;
+        if(result.rowAffected.length > 0) rowAffected = result.rowAffected[0];
+        
+        res.json({result : 1, rowAffected : rowAffected});
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+        res.json({result : 0});
+    }
+});
 //광고종류 등록
 router.post('/addAdy',  async function (req, res, next) {
     try {
