@@ -135,7 +135,7 @@ router.post('/business/modify', auth.isLoggedIn, function(req, res, next) {
 
 
 //관리자 비지니스 테이블 삭제 페이지
-router.post('/businessDelete', auth.isLoggedIn, function(req, res, next) {
+router.post('/business/delete', auth.isLoggedIn, function(req, res, next) {
 
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
@@ -1208,7 +1208,7 @@ router.get('/survey/List', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `select * from admin_survey order by create_dt desc`;
+        let query = `select * from tLSV order by LSV_cDt desc`;
         connection.query(query,
             function(err, rows, fields) {
             if (err) throw err;
@@ -1225,7 +1225,7 @@ router.post('/survey/all', auth.isLoggedIn, function(req, res, next) {
     }else{
         let surId = req.body.surId;
         let surPhone = req.body.surPhone;
-        let query = `select * from admin_survey where Name = :surId and Phone = :surPhone order by create_dt desc`;
+        let query = `select * from tLSV where LSV_NAME = :surId and LSV_Phone = :surPhone order by LSV_cDt desc`;
         connection.query(query,{surId, surPhone},
             function(err, rows, fields) {
             if (err) throw err;
@@ -1248,22 +1248,22 @@ router.post('/survey/search', auth.isLoggedIn, function(req, res, next) {
         let chkCon = req.body.chkCon;
         let dept = req.body.dept;
         let end = req.body.end;
-        let query = 'SELECT * FROM admin_survey where 1=1 '
+        let query = 'SELECT * FROM tLSV where 1=1 '
 
         if(selResult !== "" && selResult !== undefined){
             query += ` and ${selectName} like '%${selResult}%'`
         }
         if(chkIns !== "" && chkIns !== undefined){
-            query += ` and wt_insurance_type = :chkIns `
+            query += ` and LSV_wInsuranceTy = :chkIns `
         }
         if(chkMod !== "" && chkMod !== undefined){
-            query += ` and wt_modify = :chkMod`
+            query += ` and LSV_wModify = :chkMod`
         }
         if(chkCon !== "" && chkCon !== undefined){
-            query += ` and cur_has_contract = :chkCon `
+            query += ` and LSV_Contract = :chkCon `
         }          
         if(dept !== "" && dept !== undefined && end !== "" && end !== undefined){
-            query += " and date_format(create_dt,'%y%y-%m-%d') between date(:dept) AND date(:end)"
+            query += " and date_format(LSV_cDt,'%y%y-%m-%d') between date(:dept) AND date(:end)"
         }
         connection.query(query,{selectName, selResult, chkIns, chkMod, chkCon, dept, end},
           function(err, rows, fields) {

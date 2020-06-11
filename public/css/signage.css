@@ -3,7 +3,7 @@
 
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; background-repeat: no-repeat;
    user-select:none; -webkit-user-drag: none;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222; touch-action: none;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -356,14 +356,14 @@ h1 span {font-size: 36px; font-weight: 400;}
     height: 100%;
     float: left;
 }
-.centralMap img{
+/* .centralMap img{
     width: 85%;
     height: 85%;
     margin-top: 3%;
     transition: transform .35s;
     position: relative;
     touch-action: manipulation;
-}
+} */
 .centralSvg{
     width: 100%;
     height: 85%;
@@ -371,6 +371,9 @@ h1 span {font-size: 36px; font-weight: 400;}
     transition: transform .50s;
     position: relative;
     touch-action: manipulation;
+    /* pointer-events: auto; */
+    touch-action: pinch-zoom;
+    
 }
 .centralSvg1F{
     display: block;
@@ -443,3 +446,12 @@ p.locker_p {margin-top: 10px;}
 .main_info_img {width: 100%; height: 330px; background: url('/img/signage/main_info_img_bg.png') center; text-align: center; position: relative; margin: 12px 0;}
 .main_info_img_Wrap {width: 100%; height: 330px; line-height: 330px;;}
 
+.lv2category{
+    display: none;
+}
+.lv2category2{
+    display: none;
+}
+.selectCat{
+    display: block;
+}

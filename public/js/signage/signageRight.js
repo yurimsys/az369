@@ -7,65 +7,94 @@ $(document).ready(function(){
     }
 })
 
+
+
 //현위치
     function nowLocation(){
         let nowLocation = urlParam();
         // $('#'+nowLocation.device_cd+ ' rect').css('fill','red')
+        console.log(nowLocation.device_cd.substring(0,1));
+        if(nowLocation.device_cd.substring(0,1) == 1){
+            $central_svg_1f.css('display','block');
+            $central_svg_2f.css('display','none');
+            $central_svg_3f.css('display','none');
+            $('#floor1Btn').addClass('floorSelcet');
+            $nowFloor.text('1F');
+        }
+        else if(nowLocation.device_cd.substring(0,1) == 2){
+            $central_svg_1f.css('display','none');
+            $central_svg_2f.css('display','block');
+            $central_svg_3f.css('display','none');
+            $('#floor2Btn').addClass('floorSelcet');
+            $nowFloor.text('2F');
+        }
+        else{
+            $central_svg_1f.css('display','none');
+            $central_svg_2f.css('display','none');
+            $central_svg_3f.css('display','block');
+            $('#floor3Btn').addClass('floorSelcet');
+            $nowFloor.text('3F');
+        }
         $('.'+nowLocation.device_cd).css('display','block')
-        console.log(nowLocation);
         
     }
-    nowLocation();1
+    nowLocation();
     //메인 돌아가기
     function signageMain(){
         //카테고리 초기화
         count = 0;
         mainPrev();
-        $('#box-left').css('display','block');
-        $('#box-center').css('display','block');
-        $('#box-info').css('display','none');
+        $box_left.css('display','block');
+        $box_center.css('display','block');
+        $box_info.css('display','none');
         zoomReset();
-        $('.categoryBtn ').removeClass('selected');
+        $categoryBtn.removeClass('selected');
         $('.svgCat').css('fill','');
         $('.floorBtn div').removeClass('floorSelcet');
         let deviceParam = urlParam();
-
         if(deviceParam.device_cd === undefined){
-            $('.centralSvg1F').css('display','block');
-            $('.centralSvg2F').css('display','none');
-            $('.centralSvg3F').css('display','none');
+            $central_svg_1f.css('display','block');
+            $central_svg_2f.css('display','none');
+            $central_svg_3f.css('display','none');
             $('#floor1Btn').addClass('floorSelcet');
+<<<<<<< HEAD
             $('#nowFloor').text('1F');
             location.href=location.origin+'/sign?device_cd=1fa';
+=======
+            $nowFloor.text('1F');
+            location.href='http://localhost:8001/sign?device_cd=1fa';
+            // location.href='http://az369.com/sign?device_cd=1fa'
+>>>>>>> new_signage
         }
         else if(deviceParam.device_cd.substring(0,1) == '1'){
-            $('.centralSvg1F').css('display','block');
-            $('.centralSvg2F').css('display','none');
-            $('.centralSvg3F').css('display','none');
+            $central_svg_1f.css('display','block');
+            $central_svg_2f.css('display','none');
+            $central_svg_3f.css('display','none');
             $('#floor1Btn').addClass('floorSelcet')
-            $('#nowFloor').text('1F');
+            $nowFloor.text('1F');
         }        
         else if(deviceParam.device_cd.substring(0,1) == '2'){
-            $('.centralSvg1F').css('display','none');
-            $('.centralSvg2F').css('display','block');
-            $('.centralSvg3F').css('display','none');
+            
+            $central_svg_1f.css('display','none');
+            $central_svg_2f.css('display','block');
+            $central_svg_3f.css('display','none');
             $('#floor2Btn').addClass('floorSelcet');
-            $('#nowFloor').text('2F');
+            $nowFloor.text('2F');
         }
         else if(deviceParam.device_cd.substring(0,1) == '3'){
-            $('.centralSvg1F').css('display','none');
-            $('.centralSvg2F').css('display','none');
-            $('.centralSvg3F').css('display','block');
+            $central_svg_1f.css('display','none');
+            $central_svg_2f.css('display','none');
+            $central_svg_3f.css('display','block');
             $('#floor3Btn').addClass('floorSelcet');
-            $('#nowFloor').text('3F');
+            $nowFloor.text('3F');
         }
     }
     
 //이용안내
     function signageInfo(){
-        $('#box-left').css('display','none');
-        $('#box-center').css('display','none');
-        $('#box-info').css('display','block');
+        $box_left.css('display','none');
+        $box_center.css('display','none');
+        $box_info.css('display','block');
     }
 
 //url 매개변수
@@ -81,6 +110,7 @@ $(document).ready(function(){
         }
         return array;
     }
+
 
 //현재 기상상황
     let $weather = $('.weather')
@@ -246,13 +276,15 @@ $(document).ready(function(){
 //언어선택
     let $eng = $('#eng')
     let $kor = $('#kor')
+    let $search_total = $('.searchTotal')
+    let $info_img = $('#infoImg')
     function languageKor(){
             $kor.removeClass('choose');
             $eng.addClass('choose');
             $('.rightNav_list').css('width','50%');   
-            $('.searchTotal').css('height', '38px');
-            $('.searchTotal').css('letter-spacing', '-0.96px');
-            $('#infoImg').attr('src','/img/signage/main_info_img_ko.png')
+            $search_total.css('height', '38px');
+            $search_total.css('letter-spacing', '-0.96px');
+            $info_img.attr('src','/img/signage/main_info_img_ko.png')
         
         $('[data-kor]').each(function(){
             $(this).html($(this).data('kor'));
@@ -264,9 +296,9 @@ $(document).ready(function(){
             $kor.addClass('choose');
             $eng.removeClass('choose');    
             $('.rightNav_list').css('width','65%');
-            $('.searchTotal').css('height', '7%');
-            $('.searchTotal').css('letter-spacing', '-1.96px');
-            $('#infoImg').attr('src','/img/signage/main_info_img_en.png')
+            $search_total.css('height', '7%');
+            $search_total.css('letter-spacing', '-1.96px');
+            $info_img.attr('src','/img/signage/main_info_img_en.png')
         
         $('[data-eng]').each(function(){
             $(this).html($(this).data('eng'));
