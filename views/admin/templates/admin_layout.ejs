@@ -18,9 +18,10 @@
     <div id="layout-wrapper">
         <% include admin_header.ejs %>
         <% include admin_sidebar.ejs %>
-        <div class="main-content">
-            <%- body %>
+        <div class="main-content h-100">
+            <%- Body %>
         </div>
+        <%- Modal %>
     </div>
     <% include admin_footer.ejs %>
     <%- FooterJs %>

@@ -1,6 +1,6 @@
 <%- contentFor('HeaderCss') %>
 
-<%- contentFor('body') %>
+<%- contentFor('Body') %>
 <section class="main-container">
 	<!--Page Title-->
 	<div class="header">
@@ -50,7 +50,7 @@
 					<label for="selectBrand" class="col-1 col-form-label">브랜드</label>
 					<div class="col-4">
 						<!-- <input type="hidden" class="select2 selectBrand" style="width:100%;"/> -->
-						<select name="selectBrand" class="form-control select2 selectBrand" >
+						<select name="selectBrand" class="form-control select2 selectBrand" style="width:100%" >
 							<option></option>
 						</select>
 					</div>
@@ -63,7 +63,7 @@
 					<label for="selectAdCategory" class="col-1 col-form-label">광고업종</label>
 					<div class="col-4">
 						<!-- <input type="hidden" class="select2 selectAdCategory" style="width:100%;"/> -->
-						<select class="form-control select2 selectAdCategory" >
+						<select class="form-control select2 selectAdCategory" style="width:100%">
 							<option></option>
 						</select>
 					</div>
@@ -78,7 +78,7 @@
 					<label for="selectAdType" class="col-1 col-form-label">광고위치</label>
 					<div class="col-4">
 						<!-- <input type="hidden" class="select2 selectAdType" style="width:100%;"/> -->
-						<select name="selectBrand" class="form-control select2 selectAdType" >
+						<select name="selectBrand" class="form-control select2 selectAdType" style="width:100%">
 							<option></option>
 						</select>
 					</div>
@@ -103,7 +103,7 @@
 
 </section>
 
-
+<%- contentFor('Modal') %>
 <!-- 삭제 Modal -->
 <div class="modal fade" id="deleteModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
 	aria-labelledby="ModalTitle" aria-hidden="true">
@@ -182,7 +182,7 @@
 				<label class="col-3 col-form-label">브랜드</label>
 				<div class="col-9">
 					<!-- <input type="hidden" class="form-control selectBrand" style="width:100%;"/> -->
-					<select name="selectBrand" class="form-control select2 selectBrand" >
+					<select name="selectBrand" class="form-control select2 selectBrand" style="width:100%">
 						<option></option>
 					</select>
 				</div>
@@ -190,7 +190,7 @@
 			<div class="form-group row">
 				<label class="col-3 col-form-label">광고업종</label>
 				<div class="col-9">
-					<select name="selectAdCategory" class="form-control select2 selectAdCategory" >
+					<select name="selectAdCategory" class="form-control select2 selectAdCategory" style="width:100%">
 						<option></option>
 					</select>
 				</div>
@@ -199,7 +199,7 @@
 				<label class="col-3 col-form-label">광고위치</label>
 				<div class="col-9">
 					<!-- <input type="hidden" class="form-control select2 selectAdType" style="width:100%;"/> -->
-					<select name="selectAdType" class="form-control select2 selectAdType" >
+					<select name="selectAdType" class="form-control select2 selectAdType" style="width:100%">
 						<option></option>
 					</select>
 				</div>
