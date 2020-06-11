@@ -42,24 +42,29 @@
     $('#2Fstore_name text').hide();
     $('#3Fstore_name text').hide();
 
+    let $centralSvg1F = $('.centralSvg1F')
+    let $centralSvg2F = $('.centralSvg2F')
+    let $centralSvg3F = $('.centralSvg3F')
+    let $1Fstore_name = $('#1Fstore_name text')
+    let $2Fstore_name = $('#2Fstore_name text')
+    let $3Fstore_name = $('#3Fstore_name text')
 
     //줌인
     function zoomIn(){
         //이미지 커서 이동 css
-
-        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '12px'){
+        if($centralSvg1F.css('display') == 'block' && $1Fstore_name.css('font-size') == '12px'){
             storeMapSize(1,13,1.5);
             $('.centralSvg').css('left','0px');
             $('.centralSvg').css('top','0px');
             return false;
         }
-        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '12px'){
+        else if($centralSvg2F.css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '12px'){
             storeMapSize(2,13,1.5);
             $('.centralSvg').css('left','0px');
             $('.centralSvg').css('top','0px');
             return false;
         }
-        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '12px'){
+        else if($centralSvg3F.css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '12px'){
             storeMapSize(3,13,1.5);
             $('.centralSvg').css('left','0px');
             $('.centralSvg').css('top','0px');
@@ -67,44 +72,44 @@
         }
         
         //2줌
-        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '13px'){
+        if($centralSvg1F.css('display') == 'block' && $1Fstore_name.css('font-size') == '13px'){
             storeMapSize(1,14,2.0);
             return false;
         }
-        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '13px'){
+        else if($centralSvg2F.css('display') == 'block' && $2Fstore_name.css('font-size') == '13px'){
             storeMapSize(2,14,2.0);
             return false;
         }
-        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '13px'){
+        else if($centralSvg3F.css('display') == 'block' && $3Fstore_name.css('font-size') == '13px'){
             storeMapSize(3,14,2.0);
             return false;
         }
         
         //3줌
-        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '14px'){
+        if($centralSvg1F.css('display') == 'block' && $1Fstore_name.css('font-size') == '14px'){
             storeMapSize(1,15,2.5);
             return false;
         }
-        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '14px'){
+        else if($centralSvg2F.css('display') == 'block' && $2Fstore_name.css('font-size') == '14px'){
             storeMapSize(2,15,2.5);
             return false;
         }
-        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '14px'){
+        else if($centralSvg3F.css('display') == 'block' && $3Fstore_name.css('font-size') == '14px'){
             storeMapSize(3,15,2.5);
             return false;
         }
         
 
         //4줌
-        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '15px'){
+        if($centralSvg1F.css('display') == 'block' && $1Fstore_name.css('font-size') == '15px'){
             storeMapSize(1,16,3.0);
             return false;
         }
-        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '15px'){
+        else if($centralSvg2F.css('display') == 'block' && $2Fstore_name.css('font-size') == '15px'){
             storeMapSize(2,16,3.0);
             return false;
         }
-        else if($('.centralSvg3F').css('display') == 'block' && $('#3ㄹstore_name text').css('font-size') == '15px'){
+        else if($centralSvg3F.css('display') == 'block' && $3Fstore_name.css('font-size') == '15px'){
             storeMapSize(3,16,3.0);
             return false;
         }
@@ -114,54 +119,54 @@
 //줌 아웃
     function zoomOut(){
         //1줌
-        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '13px'){
+        if($centralSvg1F.css('display') == 'block' && $1Fstore_name.css('font-size') == '13px'){
             zoomReset();
         }
-        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '13px'){
+        else if($centralSvg2F.css('display') == 'block' && $2Fstore_name.css('font-size') == '13px'){
             zoomReset();
         }
-        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '13px'){
+        else if($centralSvg3F.css('display') == 'block' && $3Fstore_name.css('font-size') == '13px'){
             zoomReset();
         }
 
         //2줌
-        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '14px'){
+        if($centralSvg1F.css('display') == 'block' && $1Fstore_name.css('font-size') == '14px'){
             storeMapSize(1,13,1.5);
             return false;
         }
-        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '14px'){
+        else if($centralSvg2F.css('display') == 'block' && $2Fstore_name.css('font-size') == '14px'){
             storeMapSize(2,13,1.5);
             return false;
         }
-        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '14px'){
+        else if($centralSvg3F.css('display') == 'block' && $3Fstore_name.css('font-size') == '14px'){
             storeMapSize(3,13,1.5);
             return false;
         }
     
         //3줌
-        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '15px'){
+        if($centralSvg1F.css('display') == 'block' && $1Fstore_name.css('font-size') == '15px'){
             storeMapSize(1,14,2.0);
             return false;
         }
-        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '15px'){
+        else if($centralSvg2F.css('display') == 'block' && $2Fstore_name.css('font-size') == '15px'){
             storeMapSize(2,14,2.0);
             return false;
         }
-        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '15px'){
+        else if($centralSvg3F.css('display') == 'block' && $3Fstore_name.css('font-size') == '15px'){
             storeMapSize(3,14,2.0);
             return false;
         }
     
         //4줌
-        if($('.centralSvg1F').css('display') == 'block' && $('#1Fstore_name text').css('font-size') == '16px'){
+        if($centralSvg1F.css('display') == 'block' && $1Fstore_name.css('font-size') == '16px'){
             storeMapSize(1,15,2.5);
             return false;
         }
-        else if($('.centralSvg2F').css('display') == 'block' && $('#2Fstore_name text').css('font-size') == '16px'){
+        else if($centralSvg2F.css('display') == 'block' && $2Fstore_name.css('font-size') == '16px'){
             storeMapSize(2,15,2.5);
             return false;
         }
-        else if($('.centralSvg3F').css('display') == 'block' && $('#3Fstore_name text').css('font-size') == '16px'){
+        else if($centralSvg3F.css('display') == 'block' && $3Fstore_name.css('font-size') == '16px'){
             storeMapSize(3,15,2.5);
             return false;
         }
@@ -170,8 +175,10 @@
 
     //지도 사이즈
     function storeMapSize(floor,size,scale){
+        // console.log(size,'사이즈');
         $('.centralSvg'+floor+'F').css('transform','scale('+scale+')');
         $('#'+floor+'Fstore_name text').css('font-size',size);
+        // console.log('여기',$('#'+floor+'Fstore_name text').css('font-size',size));
         //$('#'+floor+'Fstore').css('cursor','pointer');
         $('#'+floor+'Fstore_name text').show();
     }
@@ -179,26 +186,26 @@
 //리셋
     function zoomReset(){
         $('#zoomIn').attr('class', 'plusBtn')
-        if($('.centralSvg1F').css('display') == 'block'){
+        if($centralSvg1F.css('display') == 'block'){
             storeMapSize(1,12,1);
-            $('#1Fstore_name text').hide();
+            $1Fstore_name.hide();
             $('#1Fstore').css('cursor','');
-            $('.centralSvg1F').css('left','');
-            $('.centralSvg1F').css('top','');
+            $centralSvg1F.css('left','');
+            $centralSvg1F.css('top','');
         }
-        else if($('.centralSvg2F').css('display') == 'block'){
+        else if($centralSvg2F.css('display') == 'block'){
             storeMapSize(2,12,1);
-            $('#2Fstore_name text').hide();
+            $2Fstore_name.hide();
             $('#2Fstore').css('cursor','');
-            $('.centralSvg2F').css('left','');
-            $('.centralSvg2F').css('top','');
+            $centralSvg2F.css('left','');
+            $centralSvg2F.css('top','');
         }
-        else if($('.centralSvg3F').css('display') == 'block'){
+        else if($centralSvg3F.css('display') == 'block'){
             storeMapSize(3,12,1);
-            $('#3Fstore_name text').hide();
+            $3Fstore_name.hide();
             $('#3Fstore').css('cursor','');
-            $('.centralSvg3F').css('left','');
-            $('.centralSvg3F').css('top','');
+            $centralSvg3F.css('left','');
+            $centralSvg3F.css('top','');
         }   
     }
 
@@ -208,23 +215,25 @@
         $('.floorBtn div').removeClass('floorSelcet');
         $('#'+nowFloor).addClass('floorSelcet');
         if(nowFloor == 'floor1Btn'){
-            $('.centralSvg1F').css('display','block');
-            $('.centralSvg2F').css('display','none');
-            $('.centralSvg3F').css('display','none');
+            $centralSvg1F.css('display','block');
+            $centralSvg2F.css('display','none');
+            $centralSvg3F.css('display','none');
             $('#nowFloor').text('1F');
         }else if(nowFloor == 'floor2Btn'){
-            $('.centralSvg1F').css('display','none');
-            $('.centralSvg2F').css('display','block');
-            $('.centralSvg3F').css('display','none');
+            $centralSvg1F.css('display','none');
+            $centralSvg2F.css('display','block');
+            $centralSvg3F.css('display','none');
             $('#nowFloor').text('2F');
         }else if(nowFloor == 'floor3Btn'){
-            $('.centralSvg1F').css('display','none');
-            $('.centralSvg2F').css('display','none');
-            $('.centralSvg3F').css('display','block');
+            $centralSvg1F.css('display','none');
+            $centralSvg2F.css('display','none');
+            $centralSvg3F.css('display','block');
             $('#nowFloor').text('3F');
         }
     })    
 
+
+    
     //svg파일 클래스,텍스트 매칭
     function svgLocation(){
         let storeList = JSON.parse(localStorage.getItem('storeInfo'));
@@ -244,7 +253,7 @@
             //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
                 if(storeList[i].LS_Number == svg2FStoreName){
-                    $('#kor').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng);
+                    $('#eng').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng);
                 }
             }
         })
@@ -263,7 +272,7 @@
             //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
                 if(storeList[i].LS_Number == svg2FStoreName){
-                    $('#kor').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng); 
+                    $('#eng').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng); 
                 }
             }
         })
@@ -282,7 +291,7 @@
             //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
                 if(storeList[i].LS_Number == svg3FStoreName){
-                    $('#kor').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng);
+                    $('#eng').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng);
                 }
             }
         })

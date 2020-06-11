@@ -47,7 +47,7 @@ function searchModalInit(){
         //이전 다음 버튼 초기화
         searchPrev();
         //카테고리 리스트 생성
-        searchCategoryListLV1();
+        
         //전체브랜드 리스트 생성
         searchBrandList();
         //검색 모달 생성
@@ -55,7 +55,8 @@ function searchModalInit(){
         //모달 플레이스 홀더
         searchModalLanguage();
     }    
-
+    //대분류 카테고리 리스트 생성
+    searchCategoryListLV1();
     
     //전체 브랜드 리스트 생성
     function searchBrandList(){
@@ -63,8 +64,8 @@ function searchModalInit(){
         $('.searchResult').empty();
         let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'));
         for(let i=0; i<jsonBrand.length; i++){
-            let lanType1 = $('#kor').hasClass('choose') ? jsonBrand[i].BS_NameKor : jsonBrand[i].BS_NameEng;
-            let lanType2 = $('#kor').hasClass('choose') ? jsonBrand[i].BC_NameKor : jsonBrand[i].BC_NameEng;
+            let lanType1 = $eng.hasClass('choose') ? jsonBrand[i].BS_NameKor : jsonBrand[i].BS_NameEng;
+            let lanType2 = $eng.hasClass('choose') ? jsonBrand[i].BC_NameKor : jsonBrand[i].BC_NameEng;
             let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+"><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
                 html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">';
                 html += "<ul><li><div class='searchBrand'>"+lanType1+"</div>";
@@ -91,8 +92,8 @@ function searchModalInit(){
             lv1BrandList = jsonBrand.filter(data => data.BCR_LV1_BC_ID == lv1CatNum);
 
         for(let j=0; j<lv1BrandList.length; j++){
-            let lanType1 = $('#kor').hasClass('choose') ? lv1BrandList[j].BS_NameKor : lv1BrandList[j].BS_NameEng;
-            let lanType2 = $('#kor').hasClass('choose') ? lv1BrandList[j].BC_NameKor : lv1BrandList[j].BC_NameEng;
+            let lanType1 = $eng.hasClass('choose') ? lv1BrandList[j].BS_NameKor : lv1BrandList[j].BS_NameEng;
+            let lanType2 = $eng.hasClass('choose') ? lv1BrandList[j].BC_NameKor : lv1BrandList[j].BC_NameEng;
 
             let html = "<div class='brandList' id="+lv1BrandList[j].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+lv1BrandList[j].BCR_LV1_BC_ID+"><div><div class='categoryImg'><img src="+lv1BrandList[j].BS_ThumbnailUrl+"></div></div>";
                 html += "<ul><li><div class='searchBrand'>"+lanType1+"</div>";
@@ -110,8 +111,8 @@ function searchModalInit(){
         let lv2BrandList = [];
         lv2BrandList = jsonBrand.filter(data => data.BCR_LV2_BC_ID == lv2CatNum );
         for(let i=0; i<lv2BrandList.length; i++){
-            let lanType1 = $('#kor').hasClass('choose') ? lv2BrandList[i].BS_NameKor : lv2BrandList[i].BS_NameEng;
-            let lanType2 = $('#kor').hasClass('choose') ? lv2BrandList[i].BC_NameKor : lv2BrandList[i].BC_NameEng;
+            let lanType1 = $eng.hasClass('choose') ? lv2BrandList[i].BS_NameKor : lv2BrandList[i].BS_NameEng;
+            let lanType2 = $eng.hasClass('choose') ? lv2BrandList[i].BC_NameKor : lv2BrandList[i].BC_NameEng;
 
             let html = "<div class='brandList' id="+lv2BrandList[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+lv2BrandList[i].BCR_LV1_BC_ID+"><div><div class='categoryImg'><img src="+lv2BrandList[i].BS_ThumbnailUrl+"></div></div>";
                 html += "<ul><li><div class='searchBrand'>"+lanType1+"</div>";
@@ -127,7 +128,7 @@ function searchModalInit(){
         //로컬에 저장된 카테고리를 사용
         let searchCatLV1 = JSON.parse(localStorage.getItem('categoryLV1'));
         for(let i=0; i<searchCatLV1.length; i++){
-            let lanType = ( $('#kor').hasClass('choose') ) ? searchCatLV1[i].BC_NameKor : searchCatLV1[i].BC_NameEng;
+            let lanType = ( $eng.hasClass('choose') ) ? searchCatLV1[i].BC_NameKor : searchCatLV1[i].BC_NameEng;
             if(i < 9){
                 let html = "<li><label>";
                     html += "<input type='checkbox' name='searchCategoryList' class='searchCheck'>";
@@ -146,6 +147,35 @@ function searchModalInit(){
         }
     }
 
+    function catTest(){
+        let resultCatLV2 = new Array();
+        for(let i=1; i<11; i++){
+            let html = "<ul class='lv2category searchCat"+i+"' data-lv2catid="+i+"></ul>"
+            $('.searchLeft_inner').append(html)
+        }
+
+
+    }
+    catTest();
+
+    function testCat(){
+        let searchCatLV2 = JSON.parse(localStorage.getItem('categoryLV2'));
+        console.log(searchCatLV2);
+        for(let i=0; i<searchCatLV2.length; i++){
+            // let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+            //     html += "<div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+i+"' data-lv2cat ="+searchCatLV2[i].BC_ID+">"+searchCatLV2[i].BC_NameKor+"</div></label></li>";
+            //     // if(searchCatLV2[i].BCR_LV1_BC_ID = Number(i+1)){
+            //     //     for(let j=0; j<searchCatLV2[i].length; j++){
+            //     //         $('.searchCat'+Number(i+1)+'').append(html);                
+            //     //     }
+            //     // }
+                if($('.searchCat'+Number(i+1)+'').data('lv2catid') === searchCatLV2[i].BCR_LV1_BC_ID){
+                    console.log(searchCatLV2[i].BC_NameKor);
+            }  
+        }
+    }
+    testCat();
+
     //중분류 카테고리 리스트
     function searchCategoryListLV2(lv1CatNum){
         let searchCatLV2 = JSON.parse(localStorage.getItem('categoryLV2'));
@@ -156,7 +186,7 @@ function searchModalInit(){
         resultCatLV2 = searchCatLV2.filter(data => data.BCR_LV1_BC_ID == lv1CatNum);
 
         for(let j=0; j<resultCatLV2.length; j++){
-            let lanType1 = $('#kor').hasClass('choose') ? resultCatLV2[j].BC_NameKor : resultCatLV2[j].BC_NameEng;
+            let lanType1 = $eng.hasClass('choose') ? resultCatLV2[j].BC_NameKor : resultCatLV2[j].BC_NameEng;
         
             if(j < 9){
                 let html = "<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'>";
@@ -176,6 +206,7 @@ function searchModalInit(){
    
    //브랜드 리스트 클릭시
     function brandClick(e){
+        console.log('ddd');
         $('.brandDetail').empty();
         $('.searchResult div').css('background-color','')
         $('#'+e.id).css('background-color','#f9eff6');
@@ -192,12 +223,13 @@ function searchModalInit(){
         //BCR_LV1_BC_ID에 검색 
         selectBrand = jsonBrand.filter(data => data.BS_ID == e.id);
 
-        let lanType1 = $('#kor').hasClass('choose') ? selectBrand[0].BS_NameKor : selectBrand[0].BS_NameEng;
-        let lanType2 = $('#kor').hasClass('choose') ? selectBrand[0].BC_NameKor : selectBrand[0].BC_NameEng;
-        let lanType3 = $('#kor').hasClass('choose') ? selectBrand[0].BS_ContentsKor : selectBrand[0].BS_ContentsEng;
-        let lanType4 = $('#kor').hasClass('choose') ? '위치 보기' : 'Location';
+        let lanType1 = $eng.hasClass('choose') ? selectBrand[0].BS_NameKor : selectBrand[0].BS_NameEng;
+        let lanType2 = $eng.hasClass('choose') ? selectBrand[0].BC_NameKor : selectBrand[0].BC_NameEng;
+        let lanType3 = $eng.hasClass('choose') ? selectBrand[0].BS_ContentsKor : selectBrand[0].BS_ContentsEng;
+        let lanType4 = $eng.hasClass('choose') ? '상세 보기' : 'Detail';
+        let lanType5 = $eng.hasClass('choose') ? '위치 보기' : 'Location';
 
-        console.log(selectBrand[0]);
+        console.log(selectBrand[0].LS_Number);
         let html = "<div><img src="+selectBrand[0].BS_ImageUrl+"></div>";
             html += "<div class='brandContents'><ul>";
             html += "<li><h2 class='brandName'>"+lanType1+"</h2></li>";
@@ -205,8 +237,8 @@ function searchModalInit(){
             html += "<li><div class='brandInfo'>"+lanType3+"</div></li>";
             html += "</ul></div>";
             html += "<ul class='detailInfo'>";
-            html += "<li><div class='infoImgNav' id="+'bs'+selectBrand[0].BS_ID+" data-lv1cat="+selectBrand[0].BCR_LV1_BC_ID+" onclick='storeInfo(this)'>상세 보기</div></li>";
-            html += "<li><div class='infoImgNav' id="+"area"+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>"+lanType4+"</div></li></ul>";
+            html += "<li><div class='infoImgNav' id="+'bs'+selectBrand[0].BS_ID+" data-lv1cat="+selectBrand[0].BCR_LV1_BC_ID+" onclick='storeInfo(this)'>"+lanType4+"</div></li>";
+            html += "<li><div class='infoImgNav' id="+"area"+selectBrand[0].LS_Number+" onclick='storeLocation(this)'>"+lanType5+"</div></li></ul>";
         $('.brandDetail').append(html);
         // debugger;
         
@@ -300,11 +332,11 @@ function searchModalInit(){
 //검색창 플레이스홀더 내용 번역
     function searchModalLanguage(){
         $('.searchInfo').empty();
-        let lanType1 = $('#kor').hasClass('choose') ? '이곳을 클릭하여 찾으시는 브랜드명을 검색하세요. (초성검색가능)' : 'Click here to search for the brand name you are looking for';
-        let lanType2 = $('#kor').hasClass('choose') ? '위의<span style="color: #222222; font-weight: 500;"> 카테고리를 선택</span>하세요.' : 'Select a<span style="color: #222222; font-weight: 500;"> category </span>above.';
-        let lanType3 = $('#kor').hasClass('choose') ? '카테고리 변경하기' : 'Change Category';
-        let lanType4 = $('#kor').hasClass('choose') ? '닫기' : 'Close';
-        let lanType5 = $('#kor').hasClass('choose') ? '검색' : 'Search';
+        let lanType1 = $eng.hasClass('choose') ? '이곳을 클릭하여 찾으시는 브랜드명을 검색하세요. (초성검색가능)' : 'Click here to search for the brand name you are looking for';
+        let lanType2 = $eng.hasClass('choose') ? '위의<span style="color: #222222; font-weight: 500;"> 카테고리를 선택</span>하세요.' : 'Select a<span style="color: #222222; font-weight: 500;"> category </span>above.';
+        let lanType3 = $eng.hasClass('choose') ? '카테고리 변경하기' : 'Change Category';
+        let lanType4 = $eng.hasClass('choose') ? '닫기' : 'Close';
+        let lanType5 = $eng.hasClass('choose') ? '검색' : 'Search';
 
         $('#searchBrandName').attr('placeholder',lanType1);
         let html = lanType2;
@@ -467,7 +499,7 @@ function searchModalInit(){
 //브랜드 상세보기
     function storeInfo(e){
         if($(e).text() === '상세 보기' || ($(e).text() === 'Detail')){
-            $('#kor').hasClass('choose') ? $(e).text('상세보기 닫기') : $(e).text('Close');
+            $eng.hasClass('choose') ? $(e).text('상세보기 닫기') : $(e).text('Close');
             //상세정보 정보 버튼에 아이디 추가
             $('.brandInfoBtn div').attr('id',e.id);
             $('.brandMenuBtn div').attr('id',e.id);
@@ -480,7 +512,7 @@ function searchModalInit(){
             AD.showCategoryAD(e.dataset.lv1cat);
             // AD.showCategoryAD(e.id.replace('bs',''));
         }else if($(e).text() === '상세보기 닫기' || $(e).text() === 'Close'){
-            $('#kor').hasClass('choose') ? $(e).text('상세 보기') : $(e).text('Detail');
+            $eng.hasClass('choose') ? $(e).text('상세 보기') : $(e).text('Detail');
             $(e).removeClass('detail_click');
             $('.searchLeft').css('display','block');
             $('.brandInfoLeft').css('display','none');
@@ -517,16 +549,16 @@ function searchModalInit(){
         let jsonBrandInfoList = JSON.parse(localStorage.getItem('brandList'));
         let brandInfoList = [];   
         brandInfoList = jsonBrandInfoList.filter(data => data.BS_ID == bsID);
-        let lanType1 = $('#kor').hasClass('choose') ? "<dd style='color: #999;'>"+brandInfoList[0].BS_PersonalDayKor+' 휴무'+"</dd></dl>" : "<dd style='color: #999;'>"+'Closed for the '+brandInfoList[0].BS_PersonalDayEng+"</dd></dl>";
-        let lanType2 = $('#kor').hasClass('choose') ? brandInfoList[0].BS_Addr1Kor : brandInfoList[0].BS_Addr1Eng;
-        let lanType3 = $('#kor').hasClass('choose') ? brandInfoList[0].BS_Addr2Kor : brandInfoList[0].BS_Addr2Eng;
-        let lanType4 = $('#kor').hasClass('choose') ? brandInfoList[0].BS_NameKor : brandInfoList[0].BS_NameEng;
+        let lanType1 = $eng.hasClass('choose') ? "<dd style='color: #999;'>"+brandInfoList[0].BS_PersonalDayKor+' 휴무'+"</dd></dl>" : "<dd style='color: #999;'>"+'Closed for the '+brandInfoList[0].BS_PersonalDayEng+"</dd></dl>";
+        let lanType2 = $eng.hasClass('choose') ? brandInfoList[0].BS_Addr1Kor : brandInfoList[0].BS_Addr1Eng;
+        let lanType3 = $eng.hasClass('choose') ? brandInfoList[0].BS_Addr2Kor : brandInfoList[0].BS_Addr2Eng;
+        let lanType4 = $eng.hasClass('choose') ? brandInfoList[0].BS_NameKor : brandInfoList[0].BS_NameEng;
 
-        let lanName1 = $('#kor').hasClass('choose') ? "<h3>상세정보 <span>단체석 예약, 포장 가능</span></h3>" : "<h3>Information <span>Group seat reservation and packing available</span></h3>";
-        let lanName2 = $('#kor').hasClass('choose') ? "<dl><dt><i class='far fa-clock'></i> 영업시간</dt>" : "<dl><dt><i class='far fa-clock'></i> OpenTime</dt>";
-        let lanName3 = $('#kor').hasClass('choose') ? "<dl><dt><i class='fas fa-mobile-alt'></i> 전화번호</dt>" : "<dl><dt><i class='fas fa-mobile-alt'></i> Phone</dt>";
-        let lanName4 = $('#kor').hasClass('choose') ? "<dl><dt><i class='fas fa-map-marker-alt'></i> 주소</dt>" : "<dl><dt><i class='fas fa-map-marker-alt'></i> Address</dt>";
-        let lanName5 = $('#kor').hasClass('choose') ? $('#infoStoreNumber').append(brandInfoList[0].LS_Number + ' 호') : $('#infoStoreNumber').append('Room No. '+brandInfoList[0].LS_Number)
+        let lanName1 = $eng.hasClass('choose') ? "<h3>상세정보 <span>단체석 예약, 포장 가능</span></h3>" : "<h3>Information <span>Group seat reservation and packing available</span></h3>";
+        let lanName2 = $eng.hasClass('choose') ? "<dl><dt><i class='far fa-clock'></i> 영업시간</dt>" : "<dl><dt><i class='far fa-clock'></i> OpenTime</dt>";
+        let lanName3 = $eng.hasClass('choose') ? "<dl><dt><i class='fas fa-mobile-alt'></i> 전화번호</dt>" : "<dl><dt><i class='fas fa-mobile-alt'></i> Phone</dt>";
+        let lanName4 = $eng.hasClass('choose') ? "<dl><dt><i class='fas fa-map-marker-alt'></i> 주소</dt>" : "<dl><dt><i class='fas fa-map-marker-alt'></i> Address</dt>";
+        let lanName5 = $eng.hasClass('choose') ? $('#infoStoreNumber').append(brandInfoList[0].LS_Number + ' 호') : $('#infoStoreNumber').append('Room No. '+brandInfoList[0].LS_Number)
         //html
         let html = lanName1;
             html += lanName2;
@@ -566,8 +598,8 @@ function searchModalInit(){
         $('#normalList').empty();
 
         for(let i=0; i<eventOne.length; i++){
-            let languageType1 = $('#kor').hasClass('choose') ? eventOne[i].M_NameKor : eventOne[i].M_NameEng;
-            let languageName1 = $('#kor').hasClass('choose') ? eventOne[0].MC_NameKor : eventOne[0].MC_NameEng;
+            let languageType1 = $eng.hasClass('choose') ? eventOne[i].M_NameKor : eventOne[i].M_NameEng;
+            let languageName1 = $eng.hasClass('choose') ? eventOne[0].MC_NameKor : eventOne[0].MC_NameEng;
             let html = '<li><div class="menu_best_pic"><img src='+eventOne[i].M_ImageUrl+'></div>';
                 html += '<div class="menu_best_name">'+languageType1+'</div>';
                 html += '<div class="menu_best_price">'+eventOne[i].M_Price+'</div></li>';
@@ -578,8 +610,8 @@ function searchModalInit(){
  
         
         for(let i=0; i<eventTwo.length; i++){
-            let languageType2 = $('#kor').hasClass('choose') ? eventTwo[i].M_NameKor : eventTwo[i].M_NameEng;
-            let languageName2 = $('#kor').hasClass('choose') ? eventTwo[0].MC_NameKor : eventTwo[0].MC_NameEng;
+            let languageType2 = $eng.hasClass('choose') ? eventTwo[i].M_NameKor : eventTwo[i].M_NameEng;
+            let languageName2 = $eng.hasClass('choose') ? eventTwo[0].MC_NameKor : eventTwo[0].MC_NameEng;
             let html = '<li><div class="menu_best_pic"><img src='+eventTwo[i].M_ImageUrl+'></div>';
                 html += '<div class="menu_best_name">'+languageType2+'</div>';
                 html += '<div class="menu_best_price">'+eventTwo[i].M_Price+'</div></li>';
@@ -587,7 +619,7 @@ function searchModalInit(){
             $('#envetMenuTwoName').text(languageName2);
         }
         for(let i=0; i<resultNormal.length; i++){
-            let languageType3 = $('#kor').hasClass('choose') ? resultNormal[i].M_NameKor : resultNormal[i].M_NameEng;
+            let languageType3 = $eng.hasClass('choose') ? resultNormal[i].M_NameKor : resultNormal[i].M_NameEng;
             let html = '<li><dl>';
                 html += '<dt>'+languageType3+'</dt>';
                 html += '<dd><h6>'+resultNormal[i].M_Price+'</h6></dd></dl></li>';
