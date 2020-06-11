@@ -13,6 +13,9 @@ const LocalStrategy = require('passport-local').Strategy;
 const sms = require('../modules/sms');
 const localAuth = require('../modules/auth');
 const multer = require('multer')
+const path = require('path');
+const fs = require('fs');
+
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
     
@@ -26,7 +29,7 @@ connection.config.queryFormat = function (query, values) {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, '/public/upload')
+      cb(null, path.join(__dirname, '..', '_tmp_files/'))
     },
     filename: function (req, file, cb) {
       cb(null, file.originalname)
@@ -45,6 +48,22 @@ connection.on('error', function(err) {
  * SiGNAGE API Start
  */
 
+router.put('/test', upload.any(), function(req, res){
+    console.log(req);
+    let filename = req.files[0].filename;
+    let old_path = req.files[0].path;
+    let new_path = path.join(config.path.ad_image , filename);
+
+    fs.rename(old_path, new_path, (err) => {
+        if (err) throw err;
+        fs.stat(new_path, (err, stats) => {
+          if (err) throw err;
+          console.log(`stats: ${JSON.stringify(stats)}`);
+        });
+      });
+    res.json({result:1});
+})
+
  // 광고 타입 
 router.get('/adtype', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
@@ -60,34 +79,56 @@ router.get('/adtype', function(req, res, next) {
 // 광고 리스트
 router.get('/ad', async function(req, res, next) {
     try {
+        //test
+        console.log('req : ',req);
     let pool = await mssql.connect(dbconf.mssql)
-
-    let tMC = new Object();
-        tMC.MC_NameKor = req.body.mcNameKor
-        tMC.MC_Priority = req.body.mcPriority
-        tMC.MC_NameEng = req.body.mcNameEng // req.files.originalname
-
 
     let req_type = req.query.type;
     let query = `
-        SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL , BS_ID
+        SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL , BS_ID, AD_ADY_ID
         FROM tAD
             INNER JOIN tADY on AD_ADY_ID = ADY_ID 
             LEFT JOIN tBS on AD_BS_ID = BS_ID
             LEFT JOIN tBC on AD_BC_ID = BC_ID 
         `;
-    
+    // 관리 페이지 용도
     if(req_type !== 'display'){
+        let condition_list = [];
+        if( req.query.adDtS ){
+            condition_list.push(`AD_DtS >= ${req.query.adDtS}`);
+        }
+        if( req.query.adDtF ){
+            condition_list.push(`AD_DtF <= ${req.query.adDtF}`);
+        }
+        if( req.query.adAdyId ){
+            condition_list.push(`AD_ADY_ID = ${req.query.adAdyId}`);
+        }
+        if( req.query.adBsId ){
+            condition_list.push(`AD_BS_ID = ${req.query.adBsId}`);
+        }
+        if( req.query.adTitle ){
+            condition_list.push(`AD_Title like '%${req.query.adTitle}%'`);
+        }
+        if( req.query.adBcId ){
+            condition_list.push(`AD_BC_ID = ${req.query.adBcId}`);
+        }
+
+        let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
+        if( condition_list.length > 0){
+            let condition_stmt = 'WHERE '+condition_list.join(searchType);
+            query += condition_stmt;
+        }
         let result = await pool.request()
         .query(query);
 
         res.json({ data : result.recordset });
-
+    
+    // SIGNAGE 용도
     } else {
-        query += "WHERE AD_DtF >= GETDATE() AND AD_Default = 'n'";
+        query += "WHERE AD_DtF >= GETDATE() AND AD_DtS <= GETDATE() AND AD_Default = 'n'";
 
 
-        query2 = `
+        let query2 = `
                 SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL , BS_ID
                     FROM tAD
                         INNER JOIN tADY on AD_ADY_ID = ADY_ID 
@@ -95,7 +136,10 @@ router.get('/ad', async function(req, res, next) {
                         LEFT JOIN tBC on AD_BC_ID = BC_ID 
                     WHERE AD_DtF >= GETDATE() AND AD_Default = 'y' 
                 `;
-
+        let query3 = `SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL 
+                        FROM tAD left JOIN tADY on AD_ADY_ID = ADY_ID LEFT JOIN tBS on AD_BS_ID = BS_ID LEFT JOIN tBC on AD_BC_ID = BC_ID 
+                      WHERE AD_DtF >= GETDATE() AND AD_Default = 'y' AND AD_BC_ID is not null
+                    `
 
         let result_data = {};
         
@@ -150,16 +194,11 @@ router.get('/ad', async function(req, res, next) {
             }
         })
 
-        //카테고리 데이터
-        let query3 = `SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL 
-                            FROM tAD left JOIN tADY on AD_ADY_ID = ADY_ID LEFT JOIN tBS on AD_BS_ID = BS_ID LEFT JOIN tBC on AD_BC_ID = BC_ID 
-                    WHERE AD_DtF >= GETDATE() AND AD_Default = 'y' AND AD_BC_ID is not null`
-
+        //디폴트 이미지
         let result3 = await pool.request()
         .query(query3);
 
-
-        res.json({ data : Object.assign(result_data, all_data) , data2 : result3.recordset });
+        res.json({ data : Object.assign(result_data, all_data) , data2 : result3.recordset});
     }
 
 } catch (err) {
@@ -168,183 +207,6 @@ router.get('/ad', async function(req, res, next) {
 }
 });
 
-// 광고 리스트
-// router.get('/ad', async function(req, res, next) {
-//         try {
-//         let pool = await mssql.connect(dbconf.mssql)
-
-//         let tMC = new Object();
-//             tMC.MC_NameKor = req.body.mcNameKor
-//             tMC.MC_Priority = req.body.mcPriority
-//             tMC.MC_NameEng = req.body.mcNameEng // req.files.originalname
-
-
-//         let req_type = req.query.type;
-//         let query = `
-//             SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL , BS_ID
-//             FROM tAD
-//                 INNER JOIN tADY on AD_ADY_ID = ADY_ID 
-//                 LEFT JOIN tBS on AD_BS_ID = BS_ID
-//                 LEFT JOIN tBC on AD_BC_ID = BC_ID 
-//             `;
-        
-//         if(req_type !== 'display'){
-//             let result = await pool.request()
-//             .query(query);
-
-//             res.json({ data : result.recordset });
-
-//         } else {
-//             query += "WHERE AD_DtF >= GETDATE() AND AD_Default = 'n'";
-
-
-//             let result = await pool.request()
-//             .query(query);
-//             let result_data = {};
-//             let ad_list = {
-//                 'main_full' : '',
-//                 'main_right' : '',
-//                 'main_left' : '',
-//                 'search_right' : '',
-//                 'category_top' : '',
-//                 'category_mid' : '',
-//                 'category_bottom' : '',
-//                 'modal_search_left' : ''
-//                 // 'category_topmid' : ''
-//                 }
-
-//             let default_arr = [
-//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '1'},
-//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '2'},
-//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '3'},
-//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '4'},
-//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '5'},
-//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '6'},
-//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '7'},
-//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '8'},
-//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '9'},
-//                     {'url' : '/img/test12.png', 'display_s' : '2000-06-01T00:00:00.000Z', 'display_f' : '2050-06-01T00:00:00.000Z', 'AD_BC_ID' : '10'},
-
-//             ]
-
-
-//             let result_arr = new Object();
-//             for(let i=0; i<result.recordset.length; i++){
-//                 let ad_name = result.recordset[i].ADY_CD
-//                 result_arr[ad_name] = {}
-//             }
-
-//             //기본 광고 key값 추출
-//             let ad_key = Object.keys(ad_list)
-
-//             for(let i=0; i<ad_key.length; i++){
-//                 new_result(ad_key[i])
-//             }
-//             //디폴트 광고
-//             function new_result(ad_key){
-//                 default_arr.forEach((row) => {
-//                     if(!result_arr.hasOwnProperty(ad_key)){
-//                         result_data[ad_key] = {};
-//                         result_data[ad_key].slide_sec = 5
-//                         result_data[ad_key].contents = []
-
-//                         let content_obj = {
-//                             url : row.url,
-//                             display_s : row.display_s,
-//                             display_f : row.display_f
-//                         };
-
-//                         if(ad_key.includes('category')){
-//                             content_obj.category_id = 1
-//                         }
-//                         result_data[ad_key].contents.push(content_obj);
-
-                        
-//                     }
-
-//                 })
-//             }
-
-//             result.recordset.forEach((row) => {
-//                 if(result_data[row.ADY_CD] === undefined){
-//                     result_data[row.ADY_CD] = {};
-//                     result_data[row.ADY_CD].slide_sec = row.ADY_SlideDuration;
-//                     result_data[row.ADY_CD].contents = [];
-//                 } 
-//                 let content_obj = {
-//                     url : row.AD_ContentURL,
-//                     display_s : row.AD_DtS,
-//                     display_f : row.AD_DtF,
-//                     bs_id : row.BS_ID
-//                 };
-                
-//                 if(row.AD_BC_ID !== null){
-//                     content_obj.category_id = row.AD_BC_ID
-//                     content_obj.bs_id = row.BS_ID
-//                     // content_obj.url = row.AD_BC_ID
-//                 }
-//                 result_data[row.ADY_CD].contents.push(content_obj);
-                
-//             });
-
-//             let query3 = `SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL 
-//                                 FROM tAD left JOIN tADY on AD_ADY_ID = ADY_ID LEFT JOIN tBS on AD_BS_ID = BS_ID LEFT JOIN tBC on AD_BC_ID = BC_ID 
-//                           WHERE AD_DtF >= GETDATE() AND AD_Default = 'y'`
-
-//             let result3 = await pool.request()
-//             .query(query3);
-
-
-//             res.json({ data : result_data, data2 : result3.recordset });
-//         }
-
-//     } catch (err) {
-//         console.log(err);
-//         console.log('error fire')
-//     }
-// });
-
-
-router.post('/ad', async function(req, res){
-    let pool = await mssql.connect(dbconf.mssql)
-    
-    /**
-     * TODO : 결제 추가 시 작성.
-     */
-    let PaymentStatus = null;
-
-    // TEST
-    
-    req.body.BS_ID = '1';
-    req.body.ADY_ID = '2';
-    req.body.BC_ID = null;
-    PaymentStatus = '결제완료';
-    req.body.Title = '테스트 제목121';
-    req.body.DtS = '2020-05-10 10:00:00';
-    req.body.DtF = '2020-06-10 10:00:00';
-    req.body.ContentURL = 'image/a.jpg';
-    req.body.ContentTy = 'Image';
-    
-
-    let result = await pool.request()
-        .input('BS_ID',         req.body.BS_ID)
-        .input('ADY_ID',        req.body.ADY_ID)
-        .input('BC_ID',         req.body.BC_ID)
-        .input('PaymentStatus', PaymentStatus)
-        .input('Title',         req.body.Title)
-        .input('DtS',           req.body.DtS)
-        .input('DtF',           req.body.DtF)
-        .input('ContentURL',    req.body.ContentURL)
-        .input('ContentTy',     req.body.ContentTy)
-        .query(`
-            INSERT INTO tAD (AD_BS_ID, AD_ADY_ID, AD_BC_ID, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL, AD_ContentTy)
-            VALUES (@BS_ID, @ADY_ID, @BC_ID, @PaymentStatus, @Title, @DtS, @DtF, @ContentURL, @ContentTy)
-        `)
-    console.log(result)
-    res.json({data : result.rowsAffected})
-    
-});
- 
 // SIGNAGE API END
  
 
@@ -1403,6 +1265,8 @@ router.get('/categoryLV2', function(req, res, next) {
     });
 });
 
+
+
 //전체 브랜드 리스트
 router.get('/brandList', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
@@ -2010,10 +1874,24 @@ router.delete('/deleteBs/:bsId', async function(req,res){
 
 ///////////////광고
 //광고 등록
-router.post('/addAd', upload.any(), async function (req, res, next) {
+router.post('/ad', upload.any(), async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
         // 광고입력
+        if(req.files.length === 0) throw Error('Non include files');
+        let content_type = req.files[0].mimetype.split('/')[0];
+        let filename = req.files[0].filename;
+        let old_path = req.files[0].path;
+        let new_path = path.join(config.path.ad_image , filename);
+
+        fs.rename(old_path, new_path, (err) => {
+            if (err) throw err;
+            fs.stat(new_path, (err, stats) => {
+            if (err) throw err;
+            console.log(`stats: ${JSON.stringify(stats)}`);
+            });
+        });
+
         console.log('보내기');
         let result = await pool.request()
             .input('adBsId', mssql.Int, req.body.adBsId)
@@ -2023,21 +1901,23 @@ router.post('/addAd', upload.any(), async function (req, res, next) {
             .input('adTitle', mssql.NVarChar, req.body.adTitle)
             .input('adDtS', mssql.DateTime, req.body.adDtS)
             .input('adDtF', mssql.DateTime, req.body.adDtF)
-            .input('adUrl', mssql.NVarChar, req.body.adUrl) //req.files.originalname
-            .input('adConTy', mssql.NVarChar, req.body.adConTy)
+            .input('adUrl', mssql.NVarChar, '/img/ad/'+filename)
+            .input('adConTy', mssql.NVarChar, content_type)
             .input('addef', mssql.NVarChar, req.body.addef)
             .query(`insert into tAD(AD_BS_ID, AD_ADY_ID, AD_BC_ID, AD_PaymentStatus, AD_Title, AD_DtS, 
                                     AD_DtF, AD_ContentURL, AD_ContentTy, AD_Default)
                         values(@adBsId, @adAdyId, @adBcId, @adPay, @adTitle, @adDtS, @adDtF, @adUrl, @adConTy, @addef)`);
         console.log('성공');
+        res.json({result : 1});
     } catch (err) {
         console.log(err);
         console.log('error fire')
+        res.json({result : 0});
     }
 });
 
 //광고 수정
-router.put('/modifyAd/:adId', upload.any(), async function (req, res, next) {
+router.put('/ad/:adId', upload.any(), async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
 
@@ -2083,27 +1963,49 @@ router.put('/modifyAd/:adId', upload.any(), async function (req, res, next) {
             .input('adConTy', mssql.NVarChar, req.body.adConTy)
             .query(query);
         console.log('성공');
+        res.json({result : 1});
     } catch (err) {
         console.log(err);
         console.log('error fire')
+        res.json({result : 0});
     }
 });
 //광고 삭제
-router.delete('/deleteAd/:adId',  async function (req, res, next) {
+router.delete('/ad/:adId',  async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
         // 광고입력
         console.log('보내기');
         let result = await pool.request()
-            .input('adyId', mssql.NVarChar, req.params.adId)
-            .query(`delete from tADY where AD_ID = @adId`);
+            .input('adId', mssql.Char, req.params.adId)
+            .query(`delete from tAD where AD_ID = @adId`);
         console.log('성공');
+        res.json({result : 1});
     } catch (err) {
         console.log(err);
         console.log('error fire')
+        res.json({result : 0});
     }
 });
-
+router.delete('/ad', async function(req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+        // 광고입력
+        console.log('보내기');
+        let row_ids = req.body.row_ids;
+        let result = await pool.request()
+            .query(`delete from tAD where AD_ID in (${row_ids})`);
+        console.log('성공');
+        let rowAffected = 0;
+        if(result.rowAffected.length > 0) rowAffected = result.rowAffected[0];
+        
+        res.json({result : 1, rowAffected : rowAffected});
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+        res.json({result : 0});
+    }
+});
 //광고종류 등록
 router.post('/addAdy',  async function (req, res, next) {
     try {

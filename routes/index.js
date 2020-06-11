@@ -43,6 +43,8 @@ router.get('/opentest', function(req, res, next) {
 
 
 router.get('/', function(req, res, next) {
+    console.log('req info : ', req);
+    console.log('sessionID info : ', req.sessionID);
     res.render('index', { sessionUser : req.user });
 });
 
@@ -375,7 +377,8 @@ router.post('/login',
 );
 
 router.get('/logout', function(req, res, next){
-    req.logout();
+    req.session.destroy();
+    // req.logout();
     res.redirect('/');
 });
 

@@ -53,23 +53,18 @@ class AdSlide{
                 // slides 노출시 유효시간 체크
                 let display_finish_time = new Date( slides[slide_index-1].dataset.display_f );
                 let now = new Date();
+
                 if(display_finish_time >= now){
                     slides[slide_index-1].style.display = "block";
                     flag_display = true;
-                    
                     current_slide_index = slide_index;
-                    // console.log(sessionStorage.getItem('ad_category_id'));
-                    // restart(sessionStorage.getItem('ad_category_id'));
-                } else {
-                    // AdSlide.reload_ad = 1;
+                }
+                else{
                     restart();
-                    return;
-                    // slide_index++;
-                    // if (slide_index > slides.length) { slide_index = 1; current_slide_index++ }
-                    // console.log('else');
-                    
-                    // if (slide_index == current_slide_index) { flag_non_ad = true; return current_slide_index;} 
-                    
+                    slide_index++;
+                    if (slide_index > slides.length) { slide_index = 1; current_slide_index++ }
+                    if (slide_index == current_slide_index) { flag_non_ad = true} 
+                    return false;
                 }
             } while ( !(flag_display || flag_non_ad) );
         }
@@ -119,7 +114,6 @@ class AdSlide{
         if( !AdSlide.ad_main_instance.hasClass('active') ) AdSlide.ad_main_instance.addClass('active');
     }
     render () {
-        // console.log(this.data);
         for( let type in this.data ){
             
             $(`.ad.${type}`).html('');
@@ -160,12 +154,8 @@ class AdSlide{
         }
     }
     showCategoryAD(lv1_category_id) {
-        console.log('카테고리',lv1_category_id);
         let ad_default = JSON.parse(sessionStorage.getItem('ad_default'))
         $(`.category_container`).hide();
-        
-        
-        
         $(`.category_top .category_container`).each(function(){
             if($(`.category_top .category_container[data-category_id=${lv1_category_id}]`).children('div').length == 0){
                 ad_default.forEach((ad)=>{
@@ -258,9 +248,6 @@ function re_category(){
 function restart(){
     let slide_start = new AdSlide();
     slide_start.dataReload();
-    // slide_start.render();
-    // slide_start.execute();
-    // slide_start.showCategoryAD(sessionStorage.getItem('ad_category_id'));
     if($('#chagneCategory').css('display') == 'block'){
         $('#chagneCategory').trigger('click');
         setTimeout(re_category, 100);
@@ -286,3 +273,7 @@ function signageInit() {
     signageMain();
     searchModalInit();
 }
+//새로고침 주기
+setInterval(function(){
+    location.reload();
+},1000 * 60 * 60 * 12)

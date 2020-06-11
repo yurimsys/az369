@@ -1,9 +1,40 @@
 
 //*** 메인 우측 하단 날씨, 시간,언어 선택 스크립트 ***
+$(document).ready(function(){
+    let default_url = urlParam();
+    if(default_url.device_cd == undefined){
+        location.href = 'http://az369.com/sign?device_cd=1fa'
+    }
+})
+
+
+
 //현위치
     function nowLocation(){
         let nowLocation = urlParam();
         // $('#'+nowLocation.device_cd+ ' rect').css('fill','red')
+        console.log(nowLocation.device_cd.substring(0,1));
+        if(nowLocation.device_cd.substring(0,1) == 1){
+            $central_svg_1f.css('display','block');
+            $central_svg_2f.css('display','none');
+            $central_svg_3f.css('display','none');
+            $('#floor1Btn').addClass('floorSelcet');
+            $nowFloor.text('1F');
+        }
+        else if(nowLocation.device_cd.substring(0,1) == 2){
+            $central_svg_1f.css('display','none');
+            $central_svg_2f.css('display','block');
+            $central_svg_3f.css('display','none');
+            $('#floor2Btn').addClass('floorSelcet');
+            $nowFloor.text('2F');
+        }
+        else{
+            $central_svg_1f.css('display','none');
+            $central_svg_2f.css('display','none');
+            $central_svg_3f.css('display','block');
+            $('#floor3Btn').addClass('floorSelcet');
+            $nowFloor.text('3F');
+        }
         $('.'+nowLocation.device_cd).css('display','block')
         
     }
@@ -13,52 +44,51 @@
         //카테고리 초기화
         count = 0;
         mainPrev();
-        $('#box-left').css('display','block');
-        $('#box-center').css('display','block');
-        $('#box-info').css('display','none');
+        $box_left.css('display','block');
+        $box_center.css('display','block');
+        $box_info.css('display','none');
         zoomReset();
-        $('.categoryBtn ').removeClass('selected');
+        $categoryBtn.removeClass('selected');
         $('.svgCat').css('fill','');
         $('.floorBtn div').removeClass('floorSelcet');
         let deviceParam = urlParam();
-        // console.log(deviceParam.device_cd.subString(0,1))
-
         if(deviceParam.device_cd === undefined){
-            $('.centralSvg1F').css('display','block');
-            $('.centralSvg2F').css('display','none');
-            $('.centralSvg3F').css('display','none');
+            $central_svg_1f.css('display','block');
+            $central_svg_2f.css('display','none');
+            $central_svg_3f.css('display','none');
             $('#floor1Btn').addClass('floorSelcet');
             $('#nowFloor').text('1F');
             location.href=location.origin+'/sign?device_cd=1fa';
         }
         else if(deviceParam.device_cd.substring(0,1) == '1'){
-            $('.centralSvg1F').css('display','block');
-            $('.centralSvg2F').css('display','none');
-            $('.centralSvg3F').css('display','none');
+            $central_svg_1f.css('display','block');
+            $central_svg_2f.css('display','none');
+            $central_svg_3f.css('display','none');
             $('#floor1Btn').addClass('floorSelcet')
-            $('#nowFloor').text('1F');
+            $nowFloor.text('1F');
         }        
         else if(deviceParam.device_cd.substring(0,1) == '2'){
-            $('.centralSvg1F').css('display','none');
-            $('.centralSvg2F').css('display','block');
-            $('.centralSvg3F').css('display','none');
+            
+            $central_svg_1f.css('display','none');
+            $central_svg_2f.css('display','block');
+            $central_svg_3f.css('display','none');
             $('#floor2Btn').addClass('floorSelcet');
-            $('#nowFloor').text('2F');
+            $nowFloor.text('2F');
         }
         else if(deviceParam.device_cd.substring(0,1) == '3'){
-            $('.centralSvg1F').css('display','none');
-            $('.centralSvg2F').css('display','none');
-            $('.centralSvg3F').css('display','block');
+            $central_svg_1f.css('display','none');
+            $central_svg_2f.css('display','none');
+            $central_svg_3f.css('display','block');
             $('#floor3Btn').addClass('floorSelcet');
-            $('#nowFloor').text('3F');
+            $nowFloor.text('3F');
         }
     }
     
 //이용안내
     function signageInfo(){
-        $('#box-left').css('display','none');
-        $('#box-center').css('display','none');
-        $('#box-info').css('display','block');
+        $box_left.css('display','none');
+        $box_center.css('display','none');
+        $box_info.css('display','block');
     }
 
 //url 매개변수
@@ -75,7 +105,9 @@
         return array;
     }
 
+
 //현재 기상상황
+    let $weather = $('.weather')
     function skyState(){
         $.ajax({
             url: 'http://api.openweathermap.org/data/2.5/weather?q=Pyeongtaek,%20KR&appid=47e6ad3f944264b19fae6989cd782a07',
@@ -86,22 +118,22 @@
                 // 
                 if(skyState == 'Clear'){
                     let html = "<img src='/img/signage/weather/weather_01m_icon.png'></img>";
-                    $('.weather').append(html);
+                    $weather.append(html);
                 }else if(skyState == 'Clouds'){
                     let html = "<img src='/img/signage/weather/weather_03_icon.png'></img>";
-                    $('.weather').append(html);
+                    $weather.append(html);
                 }else if(skyState == 'Drizzle'){
                     let html = "<img src='/img/signage/weather/weather_04_icon.png'></img>";
-                    $('.weather').append(html);
+                    $weather.append(html);
                 }else if(skyState == 'Mist'){
                     let html = "<img src='/img/signage/weather/weather_03_icon.png'></img>";
-                    $('.weather').append(html);
+                    $weather.append(html);
                 }else if(skyState == 'Rain'){
                     let html = "<img src='/img/signage/weather/weather_04_icon.png'></img>";
-                    $('.weather').append(html);
+                    $weather.append(html);
                 }else{
                     let html = "<img src='/img/signage/weather/weather_02m_icon.png'></img>";
-                    $('.weather').append(html);
+                    $weather.append(html);
                 }
 
             }
@@ -115,6 +147,7 @@
     },3600000)
 
 //현재 미세먼지 상황
+    let $dust = $('#dust')
     function dustState(){
         $.ajax({
             url:'https://api.waqi.info/feed/Suwon/?token=1e20d40a5d021e3c440d37f1e04d7002f5b08c30',
@@ -124,42 +157,42 @@
                 let nowDust = json.data.iaqi.pm10.v;
                 //현재 온도
                 $('#temp').text(Math.round(nowTemp)+'°')
-                if($('#kor').hasClass('choose') == true){
+                if($('#kor').hasClass('choose') == false){
                     if(nowDust < 30){
                         nowDust = '좋음';
-                        $('#dust').css('color','#40CFD9');
-                        $('#dust').text(nowDust);
+                        $dust.css('color','#40CFD9');
+                        $dust.text(nowDust);
                     }else if(nowDust < 80){
                         nowDust = '보통';
-                        $('#dust').css('color','#53ec5d');
-                        $('#dust').text(nowDust);
+                        $dust.css('color','#53ec5d');
+                        $dust.text(nowDust);
                     }else if(nowDust < 150){
                         nowDust = '나쁨';
-                        $('#dust').css('color','#C7622D');
-                        $('#dust').text(nowDust);
+                        $dust.css('color','#C7622D');
+                        $dust.text(nowDust);
                     }else if(nowDust > 150){
                         nowDust = '매우나쁨';
-                        $('#dust').css('color','#C72D2D');
-                        $('#dust').text(nowDust);
+                        $dust.css('color','#C72D2D');
+                        $dust.text(nowDust);
                     }
 
                 }else{
                     if(nowDust < 30){
                         nowDust = ' Good';
-                        $('#dust').css('color','#40CFD9');
-                        $('#dust').text(nowDust);
+                        $dust.css('color','#40CFD9');
+                        $dust.text(nowDust);
                     }else if(nowDust < 80){
                         nowDust = ' Usually';
-                        $('#dust').css('color','#53ec5d');
-                        $('#dust').text(nowDust);
+                        $dust.css('color','#53ec5d');
+                        $dust.text(nowDust);
                     }else if(nowDust < 150){
                         nowDust = ' Bad';
-                        $('#dust').css('color','#C7622D');
-                        $('#dust').text(nowDust);
+                        $dust.css('color','#C7622D');
+                        $dust.text(nowDust);
                     }else if(nowDust > 150){
                         nowDust = ' Wrong';
-                        $('#dust').css('color','#C72D2D');
-                        $('#dust').text(nowDust);
+                        $dust.css('color','#C72D2D');
+                        $dust.text(nowDust);
                     }
                 }
 
@@ -235,15 +268,18 @@
     timeCount();
 
 //언어선택
+    let $eng = $('#eng')
+    let $kor = $('#kor')
+    let $search_total = $('.searchTotal')
+    let $info_img = $('#infoImg')
     function languageKor(){
-        if($('#kor').attr('class') == 'languageSelect'){
-            $('#kor').addClass('choose');
-            $('#eng').removeClass('choose');
+            $kor.removeClass('choose');
+            $eng.addClass('choose');
             $('.rightNav_list').css('width','50%');   
-            $('.searchTotal').css('height', '38px');
-            $('.searchTotal').css('letter-spacing', '-0.96px');
-            $('#infoImg').attr('src','/img/signage/main_info_img_ko.png')
-        }
+            $search_total.css('height', '38px');
+            $search_total.css('letter-spacing', '-0.96px');
+            $info_img.attr('src','/img/signage/main_info_img_ko.png')
+        
         $('[data-kor]').each(function(){
             $(this).html($(this).data('kor'));
             dustState();
@@ -251,14 +287,13 @@
         })
     }
     function languageEng(){
-        if($('#eng').attr('class') == 'languageSelect'){
-            $('#kor').removeClass('choose');
-            $('#eng').addClass('choose');    
+            $kor.addClass('choose');
+            $eng.removeClass('choose');    
             $('.rightNav_list').css('width','65%');
-            $('.searchTotal').css('height', '7%');
-            $('.searchTotal').css('letter-spacing', '-1.96px');
-            $('#infoImg').attr('src','/img/signage/main_info_img_en.png')
-        }
+            $search_total.css('height', '7%');
+            $search_total.css('letter-spacing', '-1.96px');
+            $info_img.attr('src','/img/signage/main_info_img_en.png')
+        
         $('[data-eng]').each(function(){
             $(this).html($(this).data('eng'));
             // $('.modal-content').html()
