@@ -62,11 +62,10 @@
     function zoomIn(){
         //이미지 커서 이동 css
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '12px'){
-            console.log('됬');
             storeMapSize(1,13,1.5);
             $central_svg_1f.css('left','0px');
             $central_svg_1f.css('top','0px');
-            $center_left_1f.css('width','1850px')
+            $center_left_1f.css('width','2100px')
             $central_map_1f.css('margin-left','7%')
             $central_map_1f.css('margin-top','7%')
             return false;
@@ -75,7 +74,7 @@
             storeMapSize(2,13,1.5);
             $central_svg_2f.css('left','0px');
             $central_svg_2f.css('top','0px');
-            $center_left_2f.css('width','1850px')
+            $center_left_2f.css('width','2100px')
             $central_map_2f.css('margin-left','7%')
             $central_map_2f.css('margin-top','7%')
             return false;
@@ -84,7 +83,7 @@
             storeMapSize(3,13,1.5);
             $central_svg_3f.css('left','0px');
             $central_svg_3f.css('top','0px');
-            $center_left_3f.css('width','1850px')
+            $center_left_3f.css('width','2100px')
             $central_map_3f.css('margin-left','7%')
             $central_map_3f.css('margin-top','7%')
             return false;
@@ -169,21 +168,21 @@
         //2줌
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '14px'){
             storeMapSize(1,13,1.5);
-            $center_left_1f.css('width','1850px')
+            $center_left_1f.css('width','2100px')
             $central_map_1f.css('margin-top','7%')
             $central_map_1f.css('margin-top','7%')
             return false;
         }
         else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '14px'){
             storeMapSize(2,13,1.5);
-            $center_left_2f.css('width','1850px')
+            $center_left_2f.css('width','2100px')
             $central_map_2f.css('margin-top','7%')
             $central_map_2f.css('margin-top','7%')
             return false;
         }
         else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '14px'){
             storeMapSize(3,13,1.5);
-            $center_left_3f.css('width','1850px')
+            $center_left_3f.css('width','2100px')
             $central_map_3f.css('margin-top','7%')
             $central_map_3f.css('margin-top','7%')
             return false;
@@ -236,10 +235,8 @@
 
     //지도 사이즈
     function storeMapSize(floor,size,scale){
-        // console.log(size,'사이즈');
         $('.centralSvg'+floor+'F').css('transform','scale('+scale+')');
         $('#'+floor+'Fstore_name text').css('font-size',size);
-        // console.log('여기',$('#'+floor+'Fstore_name text').css('font-size',size));
         //$('#'+floor+'Fstore').css('cursor','pointer');
         $('#'+floor+'Fstore_name text').show();
     }
@@ -285,7 +282,6 @@
         $('.floorBtn div').removeClass('floorSelcet');
         $('#'+nowFloor).addClass('floorSelcet');
         if(nowFloor == 'floor1Btn'){
-            console.log('1층');
             // $central_svg_1f.css('display','block');
             // $central_svg_2f.css('display','none');
             // $central_svg_3f.css('display','none');
@@ -294,7 +290,6 @@
             $center_left_3f.css('display','none');
             $nowFloor.text('1F');
         }else if(nowFloor == 'floor2Btn'){
-            console.log('2층');
             // $central_svg_1f.css('display','none');
             // $central_svg_2f.css('display','block');
             // $central_svg_3f.css('display','none');
@@ -303,7 +298,6 @@
             $center_left_3f.css('display','none');
             $nowFloor.text('2F');
         }else if(nowFloor == 'floor3Btn'){
-            console.log('3층');
             // $central_svg_1f.css('display','none');
             // $central_svg_2f.css('display','none');
             // $central_svg_3f.css('display','block');
@@ -331,7 +325,6 @@
         //상가 호수에 브랜드명 입력
         $1f_store_name.each(function(){
             let svg2FStoreName = $(this).attr('id').replace('h','').replace('-2','');
-            //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
                 if(storeList[i].LS_Number == svg2FStoreName){
                     $('#eng').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng);
@@ -350,7 +343,6 @@
         //상가 호수에 브랜드명 입력
         $2f_store_name.each(function(){
             let svg2FStoreName = $(this).attr('id').replace('h','').replace('-2','');
-            //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
                 if(storeList[i].LS_Number == svg2FStoreName){
                     $('#eng').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng); 
@@ -369,7 +361,6 @@
         //상가 호수에 브랜드명 입력
         $3f_store_name.each(function(){
             let svg3FStoreName = $(this).attr('id').replace('h','').replace('-2','');
-            //console.log(storeList)
             for(let i=0; i<storeList.length; i++){
                 if(storeList[i].LS_Number == svg3FStoreName){
                     $('#eng').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng);
