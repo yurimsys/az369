@@ -74,7 +74,7 @@
             storeMapSize(2,13,1.5);
             $central_svg_2f.css('left','0px');
             $central_svg_2f.css('top','0px');
-            $center_left_2f.css('width','2100px')
+            $center_left_2f.css('width','1700px')
             // $central_map_2f.css('margin-left','7%')
             $central_map_2f.css('margin-top','7%')
             return false;
@@ -83,7 +83,7 @@
             storeMapSize(3,13,1.5);
             $central_svg_3f.css('left','0px');
             $central_svg_3f.css('top','0px');
-            $center_left_3f.css('width','2100px')
+            $center_left_3f.css('width','1700px')
             // $central_map_3f.css('margin-left','7%')
             $central_map_3f.css('margin-top','7%')
             return false;
