@@ -33,6 +33,12 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage})
 
 
+router.get('/testst',function(req, res, next){
+    res.render('testst');
+})
+
+
+
 router.get('/sign', function(req, res, next) {
     res.render('signage');
 });
@@ -51,6 +57,10 @@ router.get('/', function(req, res, next) {
 router.get('/search', function(req, res, next) {
     res.render('search', { sessionUser : req.user });
 });
+
+router.get('/svg-1f',function(req,res, next){
+    res.render('svgCentral1F');
+})
 
 
 //매장관리자 페이지

@@ -1,9 +1,11 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|Roboto&display=swap');
-
+html {
+    scroll-behavior: smooth;
+}
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; background-repeat: no-repeat;
    user-select:none; -webkit-user-drag: none;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #222; touch-action: none;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222; touch-action: none; }
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -35,6 +37,7 @@ body,html{
     height: 100%;
     box-shadow: 15px 0px 30px rgba(0, 0, 0, 0.15);
     z-index: 1;
+    touch-action: none;
 }
 #box-center {
     width: 71%;
@@ -50,6 +53,9 @@ body,html{
     float: right;
     background-color: #1E1A1D;
     height: 100%;
+    touch-action: none;
+    position: fixed;
+    margin-left: 85%;
 }
 #box-info {
     display: none;
@@ -176,9 +182,11 @@ body,html{
 .centerRight{
     width: 80px;
     margin: 0 auto;
-    margin-top: 40px;
-    margin-right: 25px;
-    float: right;
+    margin-top: 3%;
+    margin-left: 65%;
+    float: left;
+    position: fixed;
+    top: 0;
 }
 /* 층 nav*/
 .floorBtn  {width: 100%; margin: 0 auto;}
@@ -346,12 +354,45 @@ h1 span {font-size: 36px; font-weight: 400;}
 
 
 /* svg파일 -----------------------------------------*/
-.centerLeft{
+/* .centerLeft{
     width: 100%;
     height: 100%;
-    overflow:hidden;
+    overflow:scroll;
+} */
+::-webkit-scrollbar{
+    display: none;
 }
-.centralMap{
+
+.centerLeft1F{
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    display: block;
+}
+.centerLeft2F{
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    display: none;
+}
+.centerLeft3F{
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    display: none;
+}
+
+.centralMap1F{
+    width: 90%;
+    height: 100%;
+    float: left;
+}
+.centralMap2F{
+    width: 90%;
+    height: 100%;
+    float: left;
+}
+.centralMap3F{
     width: 90%;
     height: 100%;
     float: left;
@@ -370,12 +411,12 @@ h1 span {font-size: 36px; font-weight: 400;}
     margin-top: 3%;
     transition: transform .50s;
     position: relative;
-    touch-action: manipulation;
+    /* touch-action: manipulation; */
     /* pointer-events: auto; */
-    touch-action: pinch-zoom;
+    /* touch-action: pinch-zoom; */
     
 }
-.centralSvg1F{
+/* .centralSvg1F{
     display: block;
 }
 .centralSvg2F{
@@ -384,7 +425,7 @@ h1 span {font-size: 36px; font-weight: 400;}
 }
 .centralSvg3F{
     display: none;
-}
+} */
 .storeName text {
     fill:#222; 
     font-size:12px; 
