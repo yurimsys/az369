@@ -65,8 +65,8 @@
             storeMapSize(1,13,1.5);
             $central_svg_1f.css('left','0px');
             $central_svg_1f.css('top','0px');
-            $center_left_1f.css('width','2100px')
-            $central_map_1f.css('margin-left','7%')
+            $center_left_1f.css('width','1700px')
+            // $central_map_1f.css('margin-left','7%')
             $central_map_1f.css('margin-top','7%')
             return false;
         }
@@ -75,7 +75,7 @@
             $central_svg_2f.css('left','0px');
             $central_svg_2f.css('top','0px');
             $center_left_2f.css('width','2100px')
-            $central_map_2f.css('margin-left','7%')
+            // $central_map_2f.css('margin-left','7%')
             $central_map_2f.css('margin-top','7%')
             return false;
         }
@@ -84,7 +84,7 @@
             $central_svg_3f.css('left','0px');
             $central_svg_3f.css('top','0px');
             $center_left_3f.css('width','2100px')
-            $central_map_3f.css('margin-left','7%')
+            // $central_map_3f.css('margin-left','7%')
             $central_map_3f.css('margin-top','7%')
             return false;
         }
@@ -169,21 +169,21 @@
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '14px'){
             storeMapSize(1,13,1.5);
             $center_left_1f.css('width','2100px')
-            $central_map_1f.css('margin-top','7%')
-            $central_map_1f.css('margin-top','7%')
+            $central_map_1f.css('margin-left','')
+            $central_map_1f.css('margin-top','15%')
             return false;
         }
         else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '14px'){
             storeMapSize(2,13,1.5);
             $center_left_2f.css('width','2100px')
-            $central_map_2f.css('margin-top','7%')
+            $central_map_1f.css('margin-left','')
             $central_map_2f.css('margin-top','7%')
             return false;
         }
         else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '14px'){
             storeMapSize(3,13,1.5);
             $center_left_3f.css('width','2100px')
-            $central_map_3f.css('margin-top','7%')
+            $central_map_1f.css('margin-left','')
             $central_map_3f.css('margin-top','7%')
             return false;
         }
@@ -191,22 +191,19 @@
         //3줌
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '15px'){
             storeMapSize(1,14,2.0);
-            $center_left_1f.css('width','2700px')
-            $central_map_1f.css('margin-top','7%')
-            $central_map_1f.css('margin-top','15%')
+            $center_left_3f.css('width','2700px')
+            $central_map_3f.css('margin-top','15%')
             return false;
         }
         else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '15px'){
             storeMapSize(2,14,2.0);
-            $center_left_2f.css('width','2700px')
-            $central_map_2f.css('margin-top','7%')
-            $central_map_2f.css('margin-top','15%')
+            $center_left_3f.css('width','2700px')
+            $central_map_3f.css('margin-top','15%')
             return false;
         }
         else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '15px'){
             storeMapSize(3,14,2.0);
             $center_left_3f.css('width','2700px')
-            $central_map_3f.css('margin-top','7%')
             $central_map_3f.css('margin-top','15%')
             return false;
         }
