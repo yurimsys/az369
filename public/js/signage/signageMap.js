@@ -170,7 +170,7 @@
             storeMapSize(1,13,1.5);
             $center_left_1f.css('width','2100px')
             $central_map_1f.css('margin-left','')
-            $central_map_1f.css('margin-top','15%')
+            $central_map_1f.css('margin-top','7%')
             return false;
         }
         else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '14px'){
