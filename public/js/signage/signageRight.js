@@ -15,23 +15,23 @@ $(document).ready(function(){
         // $('#'+nowLocation.device_cd+ ' rect').css('fill','red')
         console.log(nowLocation.device_cd.substring(0,1));
         if(nowLocation.device_cd.substring(0,1) == 1){
-            $central_svg_1f.css('display','block');
-            $central_svg_2f.css('display','none');
-            $central_svg_3f.css('display','none');
+            $center_left_1f.css('display','block');
+            $center_left_2f.css('display','none');
+            $center_left_3f.css('display','none');
             $('#floor1Btn').addClass('floorSelcet');
             $nowFloor.text('1F');
         }
         else if(nowLocation.device_cd.substring(0,1) == 2){
-            $central_svg_1f.css('display','none');
-            $central_svg_2f.css('display','block');
-            $central_svg_3f.css('display','none');
+            $center_left_1f.css('display','none');
+            $center_left_2f.css('display','block');
+            $center_left_3f.css('display','none');
             $('#floor2Btn').addClass('floorSelcet');
             $nowFloor.text('2F');
         }
         else{
-            $central_svg_1f.css('display','none');
-            $central_svg_2f.css('display','none');
-            $central_svg_3f.css('display','block');
+            $center_left_1f.css('display','none');
+            $center_left_2f.css('display','none');
+            $center_left_3f.css('display','block');
             $('#floor3Btn').addClass('floorSelcet');
             $nowFloor.text('3F');
         }
@@ -53,25 +53,25 @@ $(document).ready(function(){
         $('.floorBtn div').removeClass('floorSelcet');
         let deviceParam = urlParam();
         if(deviceParam.device_cd === undefined){
-            $central_svg_1f.css('display','block');
-            $central_svg_2f.css('display','none');
-            $central_svg_3f.css('display','none');
+            $center_left_1f.css('display','block');
+            $center_left_2f.css('display','none');
+            $center_left_3f.css('display','none');
             $('#floor1Btn').addClass('floorSelcet');
             $('#nowFloor').text('1F');
             location.href=location.origin+'/sign?device_cd=1fa';
         }
         else if(deviceParam.device_cd.substring(0,1) == '1'){
-            $central_svg_1f.css('display','block');
-            $central_svg_2f.css('display','none');
-            $central_svg_3f.css('display','none');
+            $center_left_1f.css('display','block');
+            $center_left_2f.css('display','none');
+            $center_left_3f.css('display','none');
             $('#floor1Btn').addClass('floorSelcet')
             $nowFloor.text('1F');
         }        
         else if(deviceParam.device_cd.substring(0,1) == '2'){
             
-            $central_svg_1f.css('display','none');
-            $central_svg_2f.css('display','block');
-            $central_svg_3f.css('display','none');
+            $center_left_1f.css('display','none');
+            $center_left_2f.css('display','block');
+            $center_left_3f.css('display','none');
             $('#floor2Btn').addClass('floorSelcet');
             $nowFloor.text('2F');
         }

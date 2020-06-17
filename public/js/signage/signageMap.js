@@ -49,71 +49,105 @@
     let $3f_store_path = $('#3Fstore path')
     let $centralSvg = $('.centralSvg')
     let $nowFloor = $('#nowFloor')
+    let $center_left_1f = $('.centerLeft1F')
+    let $central_map_1f = $('.centralMap1F')
+    let $center_left_2f = $('.centerLeft2F')
+    let $central_map_2f = $('.centralMap2F')
+    let $center_left_3f = $('.centerLeft3F')
+    let $central_map_3f = $('.centralMap3F')
     $1f_store_name.hide();
     $2f_store_name.hide();
     $3f_store_name.hide();
     //줌인
     function zoomIn(){
         //이미지 커서 이동 css
-        if($central_svg_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '12px'){
+        if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '12px'){
+            console.log('됬');
             storeMapSize(1,13,1.5);
             $central_svg_1f.css('left','0px');
             $central_svg_1f.css('top','0px');
+            $center_left_1f.css('width','1700px')
+            $central_map_1f.css('margin-left','7%')
+            $central_map_1f.css('margin-top','7%')
             return false;
         }
-        else if($central_svg_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '12px'){
+        else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '12px'){
             storeMapSize(2,13,1.5);
             $central_svg_2f.css('left','0px');
             $central_svg_2f.css('top','0px');
+            $center_left_2f.css('width','1700px')
+            $central_map_2f.css('margin-left','7%')
+            $central_map_2f.css('margin-top','7%')
             return false;
         }
-        else if($central_svg_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '12px'){
+        else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '12px'){
             storeMapSize(3,13,1.5);
             $central_svg_3f.css('left','0px');
             $central_svg_3f.css('top','0px');
+            $center_left_3f.css('width','1700px')
+            $central_map_3f.css('margin-left','7%')
+            $central_map_3f.css('margin-top','7%')
             return false;
         }
         
         //2줌
-        if($central_svg_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '13px'){
+        if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '13px'){
             storeMapSize(1,14,2.0);
+            $center_left_1f.css('width','2700px')
+            $central_map_1f.css('margin-top','15%')
             return false;
         }
-        else if($central_svg_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '13px'){
+        else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '13px'){
             storeMapSize(2,14,2.0);
+            $center_left_2f.css('width','2700px')
+            $central_map_2f.css('margin-top','15%')
             return false;
         }
-        else if($central_svg_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '13px'){
+        else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '13px'){
             storeMapSize(3,14,2.0);
+            $center_left_3f.css('width','2700px')
+            $central_map_3f.css('margin-top','15%')
             return false;
         }
         
         //3줌
-        if($central_svg_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '14px'){
+        if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '14px'){
             storeMapSize(1,15,2.5);
+            $central_map_1f.css('margin-left','14%')
+            $central_map_1f.css('margin-top','25%')
             return false;
         }
-        else if($central_svg_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '14px'){
+        else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '14px'){
             storeMapSize(2,15,2.5);
+            $central_map_2f.css('margin-left','14%')
+            $central_map_2f.css('margin-top','25%')
             return false;
         }
-        else if($central_svg_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '14px'){
+        else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '14px'){
             storeMapSize(3,15,2.5);
+            $central_map_3f.css('margin-left','14%')
+            $central_map_3f.css('margin-top','25%')
             return false;
         }
         
 
         //4줌
-        if($central_svg_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '15px'){
+        if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '15px'){
             storeMapSize(1,16,3.0);
+            $central_map_1f.css('margin-left','25%')
+            $central_map_1f.css('margin-top','35%')
             return false;
         }
-        else if($central_svg_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '15px'){
+        else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '15px'){
             storeMapSize(2,16,3.0);
+            $central_map_2f.css('margin-left','25%')
+            $central_map_2f.css('margin-top','35%')
             return false;
         }
-        else if($central_svg_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '15px'){
+        else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '15px'){
             storeMapSize(3,16,3.0);
+            $central_map_3f.css('margin-left','25%')
+            $central_map_3f.css('margin-top','35%')
             return false;
         }
         
@@ -122,55 +156,79 @@
 //줌 아웃
     function zoomOut(){
         //1줌
-        if($central_svg_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '13px'){
+        if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '13px'){
             zoomReset();
         }
-        else if($central_svg_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '13px'){
+        else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '13px'){
             zoomReset();
         }
-        else if($central_svg_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '13px'){
+        else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '13px'){
             zoomReset();
         }
 
         //2줌
-        if($central_svg_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '14px'){
+        if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '14px'){
             storeMapSize(1,13,1.5);
+            $center_left_1f.css('width','1700px')
+            $central_map_1f.css('margin-top','7%')
+            $central_map_1f.css('margin-top','7%')
             return false;
         }
-        else if($central_svg_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '14px'){
+        else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '14px'){
             storeMapSize(2,13,1.5);
+            $center_left_2f.css('width','1700px')
+            $central_map_2f.css('margin-top','7%')
+            $central_map_2f.css('margin-top','7%')
             return false;
         }
-        else if($central_svg_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '14px'){
+        else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '14px'){
             storeMapSize(3,13,1.5);
+            $center_left_3f.css('width','1700px')
+            $central_map_3f.css('margin-top','7%')
+            $central_map_3f.css('margin-top','7%')
             return false;
         }
     
         //3줌
-        if($central_svg_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '15px'){
+        if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '15px'){
             storeMapSize(1,14,2.0);
+            $center_left_1f.css('width','2700px')
+            $central_map_1f.css('margin-top','7%')
+            $central_map_1f.css('margin-top','15%')
             return false;
         }
-        else if($central_svg_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '15px'){
+        else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '15px'){
             storeMapSize(2,14,2.0);
+            $center_left_2f.css('width','2700px')
+            $central_map_2f.css('margin-top','7%')
+            $central_map_2f.css('margin-top','15%')
             return false;
         }
-        else if($central_svg_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '15px'){
+        else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '15px'){
             storeMapSize(3,14,2.0);
+            $center_left_3f.css('width','2700px')
+            $central_map_3f.css('margin-top','7%')
+            $central_map_3f.css('margin-top','15%')
             return false;
         }
     
         //4줌
-        if($central_svg_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '16px'){
+        if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '16px'){
             storeMapSize(1,15,2.5);
+            $central_map_1f.css('margin-left','14%')
+            $central_map_1f.css('margin-top','25%')
             return false;
         }
-        else if($central_svg_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '16px'){
+        else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '16px'){
             storeMapSize(2,15,2.5);
+            $central_map_2f.css('margin-left','14%')
+            $central_map_2f.css('margin-top','25%')
             return false;
         }
-        else if($central_svg_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '16px'){
+        else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '16px'){
             storeMapSize(3,15,2.5);
+            $central_map_3f.css('margin-left','14%')
+            $central_map_3f.css('margin-top','25%')
             return false;
         }
         
@@ -189,26 +247,35 @@
 //리셋
     function zoomReset(){
         $('#zoomIn').attr('class', 'plusBtn')
-        if($central_svg_1f.css('display') == 'block'){
+        if($center_left_1f.css('display') == 'block'){
             storeMapSize(1,12,1);
             $1f_store_name.hide();
             $('#1Fstore').css('cursor','');
             $central_svg_1f.css('left','');
             $central_svg_1f.css('top','');
+            $center_left_1f.css('width','100%')
+            $central_map_1f.css('margin-left','')
+            $central_map_1f.css('margin-top','')
         }
-        else if($central_svg_2f.css('display') == 'block'){
+        else if($center_left_2f.css('display') == 'block'){
             storeMapSize(2,12,1);
             $2f_store_name.hide();
             $('#2Fstore').css('cursor','');
             $central_svg_2f.css('left','');
             $central_svg_2f.css('top','');
+            $center_left_2f.css('width','100%')
+            $central_map_2f.css('margin-left','')
+            $central_map_2f.css('margin-top','')
         }
-        else if($central_svg_3f.css('display') == 'block'){
+        else if($center_left_3f.css('display') == 'block'){
             storeMapSize(3,12,1);
             $3f_store_name.hide();
             $('#3Fstore').css('cursor','');
             $central_svg_3f.css('left','');
             $central_svg_3f.css('top','');
+            $center_left_3f.css('width','100%')
+            $central_map_3f.css('margin-left','')
+            $central_map_3f.css('margin-top','')
         }   
     }
 
@@ -218,19 +285,31 @@
         $('.floorBtn div').removeClass('floorSelcet');
         $('#'+nowFloor).addClass('floorSelcet');
         if(nowFloor == 'floor1Btn'){
-            $central_svg_1f.css('display','block');
-            $central_svg_2f.css('display','none');
-            $central_svg_3f.css('display','none');
+            console.log('1층');
+            // $central_svg_1f.css('display','block');
+            // $central_svg_2f.css('display','none');
+            // $central_svg_3f.css('display','none');
+            $center_left_1f.css('display','block');
+            $center_left_2f.css('display','none');
+            $center_left_3f.css('display','none');
             $nowFloor.text('1F');
         }else if(nowFloor == 'floor2Btn'){
-            $central_svg_1f.css('display','none');
-            $central_svg_2f.css('display','block');
-            $central_svg_3f.css('display','none');
+            console.log('2층');
+            // $central_svg_1f.css('display','none');
+            // $central_svg_2f.css('display','block');
+            // $central_svg_3f.css('display','none');
+            $center_left_1f.css('display','none');
+            $center_left_2f.css('display','block');
+            $center_left_3f.css('display','none');
             $nowFloor.text('2F');
         }else if(nowFloor == 'floor3Btn'){
-            $central_svg_1f.css('display','none');
-            $central_svg_2f.css('display','none');
-            $central_svg_3f.css('display','block');
+            console.log('3층');
+            // $central_svg_1f.css('display','none');
+            // $central_svg_2f.css('display','none');
+            // $central_svg_3f.css('display','block');
+            $center_left_1f.css('display','none');
+            $center_left_2f.css('display','none');
+            $center_left_3f.css('display','block');
             $nowFloor.text('3F');
         }
     })    

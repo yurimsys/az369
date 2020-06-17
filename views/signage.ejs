@@ -89,74 +89,85 @@
         </div>
         <!-- 중앙 svg 파일 -->
         <div id='box-center'>
-            <div class='centerLeft'>
-                <div class='centralMap'>
+            <div class='centerLeft1F'>
+                <div class='centralMap1F'>
+                    <!-- <iframe src="/svg-1f" frameborder="0" width="1500" height="2000" touch-action='pinch-zoom'></iframe> -->
                     <% include central1F.ejs%>
+                </div>
+            </div>
+            <div class='centerLeft2F'>
+                <div class='centralMap2F'>
+                    <!-- <iframe src="/svg-1f" frameborder="0" width="1500" height="2000" touch-action='pinch-zoom'></iframe> -->
                     <% include central2F.ejs%>
+                </div>
+            </div>
+            <div class='centerLeft3F'>
+                <div class='centralMap3F'>
+                    <!-- <iframe src="/svg-1f" frameborder="0" width="1500" height="2000" touch-action='pinch-zoom'></iframe> -->
                     <% include central3F.ejs%>
                 </div>
-                <!-- 지도 네비게이션 및 층  -->
-                <div class='centerRight'>
+            </div>
+            <!-- 지도 네비게이션 및 층  -->
+            <div class='centerRight'>
 
-                    <div class='floorBtn'>
-                        <ul>
-                            <li>
-                                <div class="floorIcon" id='floor1Btn'>1F</div>
-                            </li>
-                            <li>
-                                <div class="floorIcon" id='floor2Btn'>2F</div>
-                            </li>
-                            <li>
-                                <div class="floorIcon" id='floor3Btn'>3F</div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class='mapNav'>
-                        <ul>
-                            <li>
-                                <div class='plusBtn' id='zoomIn' onclick="zoomIn()"><img
-                                        src='/img/signage/mapNav_icon/zoom_in_icon.png'></div>
-                            </li>
-                            <li>
-                                <div class='minusBtn' id='zoomOut' onclick="zoomOut()"><img
-                                        src='/img/signage/mapNav_icon/zoom_out_icon.png'></div>
-                            </li>
-                            <li>
-                                <div class='resetBtn' id='zoomReset' onclick="zoomReset()"><img
-                                        src='/img/signage/mapNav_icon/zoom_back_icon.png'></div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- 하단 이용시설 -->
-                <div class='center-footer'>
-                    <!-- <div style='display: inline;'> -->
+                <div class='floorBtn'>
                     <ul>
                         <li>
-                            <img src='/img/signage/footer_icon/toilet_icon.png'><span id='footToilet'>화장실</span>
+                            <div class="floorIcon" id='floor1Btn'>1F</div>
                         </li>
                         <li>
-                            <img src='/img/signage/footer_icon/escalator_icon.png'><span
-                                id='footEscalator'>에스컬레이터</span>
+                            <div class="floorIcon" id='floor2Btn'>2F</div>
                         </li>
                         <li>
-                            <img src='/img/signage/footer_icon/elevator_icon.png'><span id='footElevator'>엘리베이터</span>
+                            <div class="floorIcon" id='floor3Btn'>3F</div>
                         </li>
-                        <li>
-                            <img src='/img/signage/footer_icon/stairs_icon.png'><span id='footStairs'>계단</span>
-                        </li>
-                        <li>
-                            <img src='/img/signage/footer_icon/locker_icon.png.png'><span
-                                id='footStockroom'>물품보관소</span>
-                        </li>
-                        <li>
-                            <img src='/img/signage/footer_icon/exit_icon.png'><span id='footExit'>출입구</span>
-                        </li>
-
                     </ul>
-                    <!-- </div> -->
                 </div>
+
+                <div class='mapNav'>
+                    <ul>
+                        <li>
+                            <div class='plusBtn' id='zoomIn' onclick="zoomIn()"><img
+                                    src='/img/signage/mapNav_icon/zoom_in_icon.png'></div>
+                        </li>
+                        <li>
+                            <div class='minusBtn' id='zoomOut' onclick="zoomOut()"><img
+                                    src='/img/signage/mapNav_icon/zoom_out_icon.png'></div>
+                        </li>
+                        <li>
+                            <div class='resetBtn' id='zoomReset' onclick="zoomReset()"><img
+                                    src='/img/signage/mapNav_icon/zoom_back_icon.png'></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 하단 이용시설 -->
+            <div class='center-footer'>
+                <!-- <div style='display: inline;'> -->
+                <ul>
+                    <li>
+                        <img src='/img/signage/footer_icon/toilet_icon.png'><span id='footToilet'>화장실</span>
+                    </li>
+                    <li>
+                        <img src='/img/signage/footer_icon/escalator_icon.png'><span
+                            id='footEscalator'>에스컬레이터</span>
+                    </li>
+                    <li>
+                        <img src='/img/signage/footer_icon/elevator_icon.png'><span id='footElevator'>엘리베이터</span>
+                    </li>
+                    <li>
+                        <img src='/img/signage/footer_icon/stairs_icon.png'><span id='footStairs'>계단</span>
+                    </li>
+                    <li>
+                        <img src='/img/signage/footer_icon/locker_icon.png.png'><span
+                            id='footStockroom'>물품보관소</span>
+                    </li>
+                    <li>
+                        <img src='/img/signage/footer_icon/exit_icon.png'><span id='footExit'>출입구</span>
+                    </li>
+
+                </ul>
+                <!-- </div> -->
             </div>
         </div>
         <!-- 우측메뉴 -->
