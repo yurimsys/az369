@@ -402,13 +402,14 @@
     }
 
     function pointermove_handler(ev) {
-
+        
         for (var i = 0; i < evCache.length; i++) {
             if (ev.pointerId == evCache[i].pointerId) {
                 evCache[i] = ev;
                 break;
             }
         }
+
         let now_floor;
         if($('#floor1Btn').hasClass('floorSelect') == true){
             now_floor = 1;
@@ -424,57 +425,80 @@
             let location_x = Math.abs(evCache[0].clientX - evCache[1].clientX);
             let location_y = Math.abs(evCache[0].clientY - evCache[1].clientY);
             let now_scale = ev.currentTarget.style.transform.replace('scale(','').replace(')','')
-            let arr_x = [];
-            let arr_y = [];
-            // arr_x.push(location_x);
-            // arr_y.push(location_y);
-            //줌 인
-            let go_x = arr_x[arr_x.length -1]
-            let go_y = arr_y[arr_y.length -1]
 
+            let move_scale;
+            let up_scale;
+            let down_scale;
+
+            move_scale = (location_y + location_x) / 2000;
+            
+            down_scale = Number(now_scale) - move_scale
+            
+            up_scale = Number(now_scale) + move_scale
+            localStorage.removeItem('scale_test');
+            localStorage.removeItem('scale_down');
+            //줌인
             if (prevDiff > 0) {
-                if (location_x > prevDiff) {
-                    let good = (location_y + location_x) / 1000;
-                    let up_scale = Number(now_scale) + good
+                if (move_scale > prevDiff) {
 
-                    ev.currentTarget.style.left = '0px';
-                    ev.currentTarget.style.top = '0px';
+                    
+                    if(Number(up_scale) > Number(localStorage.getItem('scale_test'))){
+                        console.log('scale_test',Number(localStorage.getItem('scale_test')),'up_scale',up_scale);    
                         
-                        
-                    ev.currentTarget.style.transform = 'scale('+up_scale+')'; 
-                    $('#'+now_floor+'Fstore_name text').css('font-size','14px');
-                    $('#'+now_floor+'Fstore_name text').show();
-
-                    if(now_scale >= 3){
-                        ev.currentTarget.style.transform = 'scale(3.0)';
-
-                        return;
+                        zoom(ev, up_scale, now_floor)
+                        localStorage.setItem('scale_test',up_scale)
+                        console.log('줌인');
                     }
-
                 }
 
-            //줌 아웃
-            if (location_x < prevDiff) {
-                let good = (location_y + location_x) / 1000;
-                let down_scale = Number(now_scale) - good
-                ev.currentTarget.style.transform = 'scale('+down_scale+')';
-
-                // console.log('dd',ev.currentTarget.style.transform);
-                if(now_scale <= 1){
-                    $('#'+now_floor+'Fstore_name text').hide();
-                    ev.currentTarget.style.transform = 'scale(1.0)';
-                    ev.currentTarget.style.left = '';
-                    ev.currentTarget.style.top = '';
-                    return;
+                //줌 아웃
+                if (move_scale < prevDiff) {
+                    
+                    // console.log('줌아웃');
+                    // console.log('scale_down',Number(localStorage.getItem('scale_down')),'down_scale',down_scale);
+                    // console.log('down_scale',down_scale);
+                    // debugger;
+                    if(Number(down_scale) > Number(localStorage.getItem('scale_down'))){
+                        
+                        localStorage.setItem('scale_down',down_scale)
+                        zoom(ev, down_scale, now_floor)
+                        
+                        console.log('줌아웃');
+                    }
                 }
-
             }
-
-            }
-            prevDiff = location_x;
-            console.log(go_x,'gogogo');
+            prevDiff = move_scale;
         }
     }
+
+    function zoom(ev, now_scale,now_floor){
+
+            let i = 0;
+            // console.log('카운트 :', i++);
+            ev.currentTarget.style.left = '0px';
+            ev.currentTarget.style.top = '0px';
+
+            $('#'+now_floor+'Fstore_name text').css('font-size','14px');
+            $('#'+now_floor+'Fstore_name text').show();
+
+            ev.currentTarget.style.transform = 'scale('+now_scale+')';
+
+            if(now_scale >= 3){
+                ev.currentTarget.style.transform = 'scale(3.0)';
+                return;
+
+            }else if(now_scale <= 1){
+                $('#'+now_floor+'Fstore_name text').hide();
+                ev.currentTarget.style.transform = 'scale(1.0)';
+                ev.currentTarget.style.left = '';
+                ev.currentTarget.style.top = '';
+                return;
+            }
+
+
+
+    }
+
 
 
     function pointerup_handler(ev) {
