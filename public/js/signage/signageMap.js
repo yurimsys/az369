@@ -419,15 +419,15 @@
         }
 
         if (evCache.length == 2) {
+            // let location_x 
+            // let location_y 
             let location_x = Math.abs(evCache[0].clientX - evCache[1].clientX);
             let location_y = Math.abs(evCache[0].clientY - evCache[1].clientY);
             let now_scale = ev.currentTarget.style.transform.replace('scale(','').replace(')','')
             let arr_x = [];
             let arr_y = [];
-            arr_x.push(location_x);
-            arr_y.push(location_y);
-
-            console.log(evCache);
+            // arr_x.push(location_x);
+            // arr_y.push(location_y);
             //줌 인
             let go_x = arr_x[arr_x.length -1]
             let go_y = arr_y[arr_y.length -1]
@@ -472,6 +472,7 @@
 
             }
             prevDiff = location_x;
+            console.log(go_x,'gogogo');
         }
     }
 
