@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
     init();
-})
+}) 
 function init(){
     // 브랜드 Data Load
     $.ajax({

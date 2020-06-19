@@ -13,26 +13,26 @@ $(document).ready(function(){
     function nowLocation(){
         let nowLocation = urlParam();
         // $('#'+nowLocation.device_cd+ ' rect').css('fill','red')
-        console.log(nowLocation.device_cd.substring(0,1));
+        // console.log(nowLocation.device_cd.substring(0,1));
         if(nowLocation.device_cd.substring(0,1) == 1){
             $center_left_1f.css('display','block');
             $center_left_2f.css('display','none');
             $center_left_3f.css('display','none');
-            $('#floor1Btn').addClass('floorSelcet');
+            $('#floor1Btn').addClass('floorSelect');
             $nowFloor.text('1F');
         }
         else if(nowLocation.device_cd.substring(0,1) == 2){
             $center_left_1f.css('display','none');
             $center_left_2f.css('display','block');
             $center_left_3f.css('display','none');
-            $('#floor2Btn').addClass('floorSelcet');
+            $('#floor2Btn').addClass('floorSelect');
             $nowFloor.text('2F');
         }
         else{
             $center_left_1f.css('display','none');
             $center_left_2f.css('display','none');
             $center_left_3f.css('display','block');
-            $('#floor3Btn').addClass('floorSelcet');
+            $('#floor3Btn').addClass('floorSelect');
             $nowFloor.text('3F');
         }
         $('.'+nowLocation.device_cd).css('display','block')
@@ -50,13 +50,13 @@ $(document).ready(function(){
         zoomReset();
         $categoryBtn.removeClass('selected');
         $('.svgCat').css('fill','');
-        $('.floorBtn div').removeClass('floorSelcet');
+        $('.floorBtn div').removeClass('floorSelect');
         let deviceParam = urlParam();
         if(deviceParam.device_cd === undefined){
             $center_left_1f.css('display','block');
             $center_left_2f.css('display','none');
             $center_left_3f.css('display','none');
-            $('#floor1Btn').addClass('floorSelcet');
+            $('#floor1Btn').addClass('floorSelect');
             $('#nowFloor').text('1F');
             location.href=location.origin+'/sign?device_cd=1fa';
         }
@@ -64,7 +64,7 @@ $(document).ready(function(){
             $center_left_1f.css('display','block');
             $center_left_2f.css('display','none');
             $center_left_3f.css('display','none');
-            $('#floor1Btn').addClass('floorSelcet')
+            $('#floor1Btn').addClass('floorSelect')
             $nowFloor.text('1F');
         }        
         else if(deviceParam.device_cd.substring(0,1) == '2'){
@@ -72,14 +72,14 @@ $(document).ready(function(){
             $center_left_1f.css('display','none');
             $center_left_2f.css('display','block');
             $center_left_3f.css('display','none');
-            $('#floor2Btn').addClass('floorSelcet');
+            $('#floor2Btn').addClass('floorSelect');
             $nowFloor.text('2F');
         }
         else if(deviceParam.device_cd.substring(0,1) == '3'){
             $central_svg_1f.css('display','none');
             $central_svg_2f.css('display','none');
             $central_svg_3f.css('display','block');
-            $('#floor3Btn').addClass('floorSelcet');
+            $('#floor3Btn').addClass('floorSelect');
             $nowFloor.text('3F');
         }
     }
