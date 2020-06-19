@@ -1,8 +1,24 @@
 //*** 중앙 svg 스크립트 ***
+// window.addEventListener('touchstart', function (e) {
+//     alert('gg')
+//     console.log('touchstart', e);
+// });
+// window.addEventListener('touchmove', function (e) {
+//     alert(e)
+//     console.log('touchmove', e);
+// });
+// window.addEventListener('touchend', function (e) {
+//     alert(e)
+//     console.log('touchend', e);
+// });
+
+
 
     //이미지 확대
     let img_L = 0;
     let img_T = 0;
+    let m_left = [];
+    let m_top = [];
     let targetObj;
     function getLeft(o){
         return parseInt(o.style.left.replace('px', ''));
@@ -10,33 +26,79 @@
     function getTop(o){
         return parseInt(o.style.top.replace('px', ''));
     }
-    // 이미지 움직이기
-    function moveDrag(e){
-        let e_obj = window.event? window.event : e;
-        let dmvx = parseInt(e_obj.clientX + img_L);
-        let dmvy = parseInt(e_obj.clientY + img_T);
+
+    // // 드래그 시작
+    // function startDrag(e, obj){
+    //     targetObj = obj;
+    //     let e_obj = window.event? window.event : e;
+    //     img_L = getLeft(obj) - e_obj.clientX;
+    //     img_T = getTop(obj) - e_obj.clientY;
         
-        targetObj.style.left = dmvx +"px";
-        targetObj.style.top = dmvy +"px";
+    //     document.onmousemove = moveDrag;
+    //     document.onmouseup = stopDrag;
+    //     if(e_obj.preventDefault)e_obj.preventDefault();
+    // }
+    // // 드래그 멈추기
+    // function stopDrag(){
+    //     document.onmousemove = null;
+    //     document.onmouseup = null;
+    // }
+    // // 이미지 움직이기
+    // function moveDrag(e){
+    //     let e_obj = window.event? window.event : e;
+    //     let dmvx = parseInt(e_obj.clientX + img_L);
+    //     let dmvy = parseInt(e_obj.clientY + img_T);
+        
+    //     console.log('터치', img_L);
+    //     // console.log('터치움직', document.ontouchmove);
+    //     targetObj.style.left = dmvx +"px";
+    //     targetObj.style.top = dmvy +"px";
+    //     return false;
+    // }
+
+
+
+    targetObj = document.getElementsByClassName('centralSvg1F')[0]
+
+    //터치 종료
+    function cancelEnd(e){
+        m_left = [];
+        m_top = [];
+    }
+    
+
+    targetObj = document.getElementsByClassName('centralSvg1F')[0]
+    // 터치 이미지 움직이기
+    function moveImg(e){
+        // clearTimeout(refresh);
+        // console.log(targetObj);
+        let e_obj = window.event? window.event : e;
+        img_L = getLeft(targetObj);
+        img_T = getTop(targetObj);
+        let clientX = e_obj.touches[0].clientX;
+        let clientY = e_obj.touches[0].clientY;
+
+        // console.log('gg');
+        
+        if( m_left.length < 2 || m_top.length < 2 ){
+            m_left.push(clientX);
+            m_top.push(clientY);
+            return false;
+        }
+
+        let prev_L = m_left.shift();
+        let prev_T = m_top.shift();
+
+        let dmvx = parseInt(clientX - prev_L);
+        let dmvy = parseInt(clientY - prev_T);
+        
+        targetObj.style.left = img_L + dmvx +"px";
+        targetObj.style.top = img_T + dmvy +"px";
+
+        // refreshTimeout();
         return false;
     }
-    // 드래그 시작
-    function startDrag(e, obj){
-        targetObj = obj;
-        let e_obj = window.event? window.event : e;
-        img_L = getLeft(obj) - e_obj.clientX;
-        img_T = getTop(obj) - e_obj.clientY;
 
-        document.onmousemove = moveDrag;
-        document.onmouseup = stopDrag;
-        if(e_obj.preventDefault)e_obj.preventDefault();
-    }
-    // 드래그 멈추기
-    function stopDrag(){
-        document.onmousemove = null;
-        document.onmouseup = null;
-    }
- 
     let $svgCat = $('.svgCat')
     let $central_svg_1f = $('.centralSvg1F')
     let $central_svg_2f = $('.centralSvg2F')
@@ -65,67 +127,46 @@
             storeMapSize(1,13,1.5);
             $central_svg_1f.css('left','0px');
             $central_svg_1f.css('top','0px');
-            $center_left_1f.css('width','1700px')
-            // $central_map_1f.css('margin-left','7%')
-            $central_map_1f.css('margin-top','7%')
             return false;
         }
         else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '12px'){
             storeMapSize(2,13,1.5);
             $central_svg_2f.css('left','0px');
             $central_svg_2f.css('top','0px');
-            $center_left_2f.css('width','1700px')
-            // $central_map_2f.css('margin-left','7%')
-            $central_map_2f.css('margin-top','7%')
             return false;
         }
         else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '12px'){
             storeMapSize(3,13,1.5);
             $central_svg_3f.css('left','0px');
             $central_svg_3f.css('top','0px');
-            $center_left_3f.css('width','1700px')
-            // $central_map_3f.css('margin-left','7%')
-            $central_map_3f.css('margin-top','7%')
             return false;
         }
         
         //2줌
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '13px'){
             storeMapSize(1,14,2.0);
-            $center_left_1f.css('width','2700px')
-            $central_map_1f.css('margin-top','15%')
             return false;
         }
         else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '13px'){
             storeMapSize(2,14,2.0);
-            $center_left_2f.css('width','2700px')
-            $central_map_2f.css('margin-top','15%')
             return false;
         }
         else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '13px'){
             storeMapSize(3,14,2.0);
-            $center_left_3f.css('width','2700px')
-            $central_map_3f.css('margin-top','15%')
             return false;
         }
         
         //3줌
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '14px'){
             storeMapSize(1,15,2.5);
-            $central_map_1f.css('margin-left','14%')
-            $central_map_1f.css('margin-top','25%')
             return false;
         }
         else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '14px'){
             storeMapSize(2,15,2.5);
-            $central_map_2f.css('margin-left','14%')
-            $central_map_2f.css('margin-top','25%')
             return false;
         }
         else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '14px'){
             storeMapSize(3,15,2.5);
-            $central_map_3f.css('margin-left','14%')
-            $central_map_3f.css('margin-top','25%')
             return false;
         }
         
@@ -133,20 +174,14 @@
         //4줌
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '15px'){
             storeMapSize(1,16,3.0);
-            $central_map_1f.css('margin-left','25%')
-            $central_map_1f.css('margin-top','35%')
             return false;
         }
         else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '15px'){
             storeMapSize(2,16,3.0);
-            $central_map_2f.css('margin-left','25%')
-            $central_map_2f.css('margin-top','35%')
             return false;
         }
         else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '15px'){
             storeMapSize(3,16,3.0);
-            $central_map_3f.css('margin-left','25%')
-            $central_map_3f.css('margin-top','35%')
             return false;
         }
         
@@ -168,63 +203,42 @@
         //2줌
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '14px'){
             storeMapSize(1,13,1.5);
-            $center_left_1f.css('width','2100px')
-            $central_map_1f.css('margin-left','')
-            $central_map_1f.css('margin-top','7%')
             return false;
         }
         else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '14px'){
             storeMapSize(2,13,1.5);
-            $center_left_2f.css('width','2100px')
-            $central_map_1f.css('margin-left','')
-            $central_map_2f.css('margin-top','7%')
             return false;
         }
         else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '14px'){
             storeMapSize(3,13,1.5);
-            $center_left_3f.css('width','2100px')
-            $central_map_1f.css('margin-left','')
-            $central_map_3f.css('margin-top','7%')
             return false;
         }
     
         //3줌
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '15px'){
             storeMapSize(1,14,2.0);
-            $center_left_3f.css('width','2700px')
-            $central_map_3f.css('margin-top','15%')
             return false;
         }
         else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '15px'){
             storeMapSize(2,14,2.0);
-            $center_left_3f.css('width','2700px')
-            $central_map_3f.css('margin-top','15%')
             return false;
         }
         else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '15px'){
             storeMapSize(3,14,2.0);
-            $center_left_3f.css('width','2700px')
-            $central_map_3f.css('margin-top','15%')
             return false;
         }
     
         //4줌
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '16px'){
             storeMapSize(1,15,2.5);
-            $central_map_1f.css('margin-left','14%')
-            $central_map_1f.css('margin-top','25%')
             return false;
         }
         else if($center_left_2f.css('display') == 'block' && $2f_store_name.css('font-size') == '16px'){
             storeMapSize(2,15,2.5);
-            $central_map_2f.css('margin-left','14%')
-            $central_map_2f.css('margin-top','25%')
             return false;
         }
         else if($center_left_3f.css('display') == 'block' && $3f_store_name.css('font-size') == '16px'){
             storeMapSize(3,15,2.5);
-            $central_map_3f.css('margin-left','14%')
-            $central_map_3f.css('margin-top','25%')
             return false;
         }
         
@@ -248,8 +262,6 @@
             $central_svg_1f.css('left','');
             $central_svg_1f.css('top','');
             $center_left_1f.css('width','100%')
-            $central_map_1f.css('margin-left','')
-            $central_map_1f.css('margin-top','')
         }
         else if($center_left_2f.css('display') == 'block'){
             storeMapSize(2,12,1);
@@ -258,8 +270,6 @@
             $central_svg_2f.css('left','');
             $central_svg_2f.css('top','');
             $center_left_2f.css('width','100%')
-            $central_map_2f.css('margin-left','')
-            $central_map_2f.css('margin-top','')
         }
         else if($center_left_3f.css('display') == 'block'){
             storeMapSize(3,12,1);
@@ -268,42 +278,42 @@
             $central_svg_3f.css('left','');
             $central_svg_3f.css('top','');
             $center_left_3f.css('width','100%')
-            $central_map_3f.css('margin-left','')
-            $central_map_3f.css('margin-top','')
         }   
     }
 
-    //층수 클릭
-    $('.floorBtn div').on('click',function(e){
-        let nowFloor = e.target.id;
-        $('.floorBtn div').removeClass('floorSelcet');
-        $('#'+nowFloor).addClass('floorSelcet');
-        if(nowFloor == 'floor1Btn'){
-            // $central_svg_1f.css('display','block');
-            // $central_svg_2f.css('display','none');
-            // $central_svg_3f.css('display','none');
-            $center_left_1f.css('display','block');
-            $center_left_2f.css('display','none');
-            $center_left_3f.css('display','none');
-            $nowFloor.text('1F');
-        }else if(nowFloor == 'floor2Btn'){
-            // $central_svg_1f.css('display','none');
-            // $central_svg_2f.css('display','block');
-            // $central_svg_3f.css('display','none');
-            $center_left_1f.css('display','none');
-            $center_left_2f.css('display','block');
-            $center_left_3f.css('display','none');
-            $nowFloor.text('2F');
-        }else if(nowFloor == 'floor3Btn'){
-            // $central_svg_1f.css('display','none');
-            // $central_svg_2f.css('display','none');
-            // $central_svg_3f.css('display','block');
-            $center_left_1f.css('display','none');
-            $center_left_2f.css('display','none');
-            $center_left_3f.css('display','block');
-            $nowFloor.text('3F');
-        }
-    })    
+        //층수 클릭
+        $('.floorBtn div').on('click',function(e){
+            let nowFloor = e.target.id;
+            $('.floorBtn div').removeClass('floorSelect');
+            $('#'+nowFloor).addClass('floorSelect');
+            if(nowFloor == 'floor1Btn'){
+                $center_left_1f.css('display','block');
+                $center_left_2f.css('display','none');
+                $center_left_3f.css('display','none');
+                $nowFloor.text('1F');
+                targetObj = document.getElementsByClassName('centralSvg1F')[0]
+                el=document.getElementsByClassName('centralSvg1F')[0]
+                init(1);
+            }else if(nowFloor == 'floor2Btn'){
+                $center_left_1f.css('display','none');
+                $center_left_2f.css('display','block');
+                $center_left_3f.css('display','none');
+                $nowFloor.text('2F');
+                targetObj = document.getElementsByClassName('centralSvg2F')[0]
+                el=document.getElementsByClassName('centralSvg2F')[0]
+                init(2);
+            }else if(nowFloor == 'floor3Btn'){
+                $center_left_1f.css('display','none');
+                $center_left_2f.css('display','none');
+                $center_left_3f.css('display','block');
+                $nowFloor.text('3F');
+                targetObj = document.getElementsByClassName('centralSvg3F')[0]
+                el=document.getElementsByClassName('centralSvg3F')[0]
+                init(3);
+            }
+        })    
+    
+
 
 
     
@@ -370,3 +380,127 @@
     })
     
 //*** 중앙 svg 스크립트 종료 ***
+
+// 핀치 줌 
+    let evCache = new Array();
+    let prevDiff = -1;
+    let el = document.getElementsByClassName('centralSvg1F')[0];
+    function init(floor) {
+        
+        el.onpointerdown = pointerdown_handler;
+        el.onpointermove = pointermove_handler;
+
+        el.onpointerup = pointerup_handler;
+        el.onpointercancel = pointerup_handler;
+        el.onpointerout = pointerup_handler;
+        el.onpointerleave = pointerup_handler;
+    }
+
+
+    function pointerdown_handler(ev) {
+        evCache.push(ev);
+    }
+
+    function pointermove_handler(ev) {
+
+        for (var i = 0; i < evCache.length; i++) {
+            if (ev.pointerId == evCache[i].pointerId) {
+                evCache[i] = ev;
+                break;
+            }
+        }
+        let now_floor;
+        if($('#floor1Btn').hasClass('floorSelect') == true){
+            now_floor = 1;
+        }else if($('#floor2Btn').hasClass('floorSelect') == true){
+            now_floor = 2;
+        }else if($('#floor3Btn').hasClass('floorSelect') == true){
+            now_floor = 3;
+        }
+
+        if (evCache.length == 2) {
+            let location_x = Math.abs(evCache[0].clientX - evCache[1].clientX);
+            let location_y = Math.abs(evCache[0].clientY - evCache[1].clientY);
+            let now_scale = ev.currentTarget.style.transform.replace('scale(','').replace(')','')
+            let arr_x = [];
+            let arr_y = [];
+            arr_x.push(location_x);
+            arr_y.push(location_y);
+
+            console.log(evCache);
+            //줌 인
+            let go_x = arr_x[arr_x.length -1]
+            let go_y = arr_y[arr_y.length -1]
+
+            if (prevDiff > 0) {
+                if (location_x > prevDiff) {
+                    let good = (location_y + location_x) / 1000;
+                    let up_scale = Number(now_scale) + good
+
+                    ev.currentTarget.style.left = '0px';
+                    ev.currentTarget.style.top = '0px';
+                        
+                        
+                    ev.currentTarget.style.transform = 'scale('+up_scale+')'; 
+                    $('#'+now_floor+'Fstore_name text').css('font-size','14px');
+                    $('#'+now_floor+'Fstore_name text').show();
+
+                    if(now_scale >= 3){
+                        ev.currentTarget.style.transform = 'scale(3.0)';
+
+                        return;
+                    }
+
+                }
+
+            //줌 아웃
+            if (location_x < prevDiff) {
+                let good = (location_y + location_x) / 1000;
+                let down_scale = Number(now_scale) - good
+                ev.currentTarget.style.transform = 'scale('+down_scale+')';
+
+                // console.log('dd',ev.currentTarget.style.transform);
+                if(now_scale <= 1){
+                    $('#'+now_floor+'Fstore_name text').hide();
+                    ev.currentTarget.style.transform = 'scale(1.0)';
+                    ev.currentTarget.style.left = '';
+                    ev.currentTarget.style.top = '';
+                    return;
+                }
+
+            }
+
+            }
+            prevDiff = location_x;
+        }
+    }
+
+
+    function pointerup_handler(ev) {
+        log(ev.type, ev);
+        remove_event(ev);
+        if (evCache.length < 2) {
+            prevDiff = -1;
+        }
+    }
+
+    function remove_event(ev) {
+        for (var i = 0; i < evCache.length; i++) {
+            if (evCache[i].pointerId == ev.pointerId) {
+                evCache.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    var logEvents = false;
+
+    function log(prefix, ev) {
+        if (!logEvents) return;
+        var o = document.getElementsByTagName('output')[0];
+        var s = prefix + ": pointerID = " + ev.pointerId +
+        " ; pointerType = " + ev.pointerType +
+        " ; isPrimary = " + ev.isPrimary;
+        o.innerHTML += s + " ";
+    } 
+

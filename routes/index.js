@@ -34,7 +34,7 @@ const upload = multer({storage: storage})
 
 
 router.get('/testst',function(req, res, next){
-    res.render('testst');
+    res.render('dragtest');
 })
 
 
@@ -58,8 +58,8 @@ router.get('/search', function(req, res, next) {
     res.render('search', { sessionUser : req.user });
 });
 
-router.get('/svg-1f',function(req,res, next){
-    res.render('svgCentral1F');
+router.get('/svgfile',function(req,res, next){
+    res.render('svgfile');
 })
 
 

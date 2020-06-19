@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width">
+    
     <title>센트럴돔 사이니지</title>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <!-- 폰트 -->
@@ -45,7 +46,7 @@
     }
 </style>
 
-<body class='full'>
+<body class='full' onload="init();" style="touch-action:none">
     <div class="ad main_full active slideshow-container">
     </div>
     <div class='container'>
@@ -89,7 +90,8 @@
         </div>
         <!-- 중앙 svg 파일 -->
         <div id='box-center'>
-            <div class='centerLeft1F'>
+            <!-- <iframe src='/svgfile' width="100%" height="100%" frameborder='0'></iframe> -->
+            <div class='centerLeft1F' id='target_one'>
                 <div class='centralMap1F'>
                     <!-- <iframe src="/svg-1f" frameborder="0" width="1500" height="2000" touch-action='pinch-zoom'></iframe> -->
                     <% include central1F.ejs%>

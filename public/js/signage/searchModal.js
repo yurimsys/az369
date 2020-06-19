@@ -375,7 +375,7 @@ function searchModalInit(){
         let storeArea = e.id.replace(/area/g,'')
         $('#myModal').css('display','none');
         
-        $('.floorBtn div').removeClass('floorSelcet');
+        $('.floorBtn div').removeClass('floorSelect');
         $brandInfoCenter.css('display','none');
         $brandMenuCenter.css('display','none');
     //1층    
@@ -384,7 +384,7 @@ function searchModalInit(){
             $central_svg_1f.css('display','block');
             $central_svg_2f.css('display','none');
             $central_svg_3f.css('display','none');
-            $('#floor1Btn').addClass('floorSelcet');
+            $('#floor1Btn').addClass('floorSelect');
             $nowFloor.text('1F');
             $1f_store_name.each(function(){
                 let storeName = $(this);
@@ -432,7 +432,7 @@ function searchModalInit(){
                 $central_svg_1f.css('display','none');
                 $central_svg_2f.css('display','block');
                 $central_svg_3f.css('display','none');
-                $('#floor2Btn').addClass('floorSelcet');
+                $('#floor2Btn').addClass('floorSelect');
                 $nowFloor.text('2F');
                 $2f_store_name.each(function(){
                     let storeName = $(this);
@@ -477,7 +477,7 @@ function searchModalInit(){
                 $central_svg_1f.css('display','none');
                 $central_svg_2f.css('display','none');
                 $central_svg_3f.css('display','block');
-                $('#floor3Btn').addClass('floorSelcet');
+                $('#floor3Btn').addClass('floorSelect');
                 $nowFloor.text('3F');
                 $3f_store_name.each(function(){
                 let storeName = $(this);

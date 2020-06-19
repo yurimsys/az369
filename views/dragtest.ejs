@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+        <!-- 폰트 -->
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|Roboto&display=swap" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+        <!--폰트어썸-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">	
+    
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+      />
+    
+    
+    
+        <!-- 메인 css -->
+        <link rel="stylesheet" href="/css/signage.css">
+        <!-- 팝업 > 검색 css -->
+        <link rel="stylesheet" href="/css/signage_modal_search.css">
+        <!-- 팝업 > 이벤트 css 생성예정 :  signage_modal_event-->
+        <link rel="stylesheet" href="/css/keyboard.css">
+        <!--자바스크립트-->
+        <script src="/js/jquery-3.3.1.min.js"></script>
+        <script src="/js/scrolla.jquery.min.js"></script>
+<style>
+    /* html {cursor:none;} */
+</style>
+</head>
+<body>
+                <div class='centerLeft1F' style="overflow: scroll;">
+                <div class='centralMap1F'>
+                    <!-- <iframe src="/svg-1f" frameborder="0" width="1500" height="2000" touch-action='pinch-zoom'></iframe> -->
+                    <% include central1F.ejs%>
+                </div>
+            </div>
+</body>
+</html>
+
+<script>
+    
+    //이미지 확대
+    let img_L = 0;
+    let img_T = 0;
+    let m_left = [];
+    let m_top = [];
+    let targetObj;
+    function getLeft(o){
+        return parseInt(o.style.left.replace('px', ''));
+    }
+    function getTop(o){
+        return parseInt(o.style.top.replace('px', ''));
+    }
+
+    //터치 종료
+    function cancelEnd(e){
+        m_left = [];
+        m_top = [];
+    }
+    targetObj = document.getElementsByClassName('centralSvg1F')[0]
+
+    
+
+
+    // 초기화
+    // timeout 0.7s
+    // let refresh;
+    // function refreshTimeout() {
+    //     refresh = setTimeout (()=>{
+    //         m_left = [];
+    //         m_top = [];
+    //     }, 0.7 * 1000);
+    // }
+    
+    // 터치 이미지 움직이기
+    function moveImg(e){
+        // clearTimeout(refresh);
+        let e_obj = window.event? window.event : e;
+        img_L = getLeft(targetObj);
+        img_T = getTop(targetObj);
+        let clientX = e_obj.touches[0].clientX;
+        let clientY = e_obj.touches[0].clientY;
+
+        // console.log('gg');
+        
+        if( m_left.length < 2 || m_top.length < 2 ){
+            m_left.push(clientX);
+            m_top.push(clientY);
+            return false;
+        }
+
+        let prev_L = m_left.shift();
+        let prev_T = m_top.shift();
+
+        let dmvx = parseInt(clientX - prev_L);
+        let dmvy = parseInt(clientY - prev_T);
+        
+        // console.log('e_obj :',e_obj);
+        // console.log('cX :'+clientX + ' cY :'+clientY);
+        // console.log('prev_L :'+prev_L + ' prev_T :'+prev_T);
+
+        // console.log('dmvx :'+dmvx + ' dmvy :'+dmvy);
+        // console.log('img_L :'+img_L + ' img_T :'+img_T);
+        // console.log('left :'+(img_L + dmvx) + ' top : '+(img_T + dmvy));
+        
+        targetObj.style.left = img_L + dmvx +"px";
+        targetObj.style.top = img_T + dmvy +"px";
+
+        // refreshTimeout();
+        return false;
+    }
+
+    // //터치 움직이기
+    // function startMove(e =window.event, obj){
+    //     targetObj = obj;
+    //     let e_obj = window.event? window.event : e;
+    //     console.log('e_obj', e_obj);
+    //     img_L = getLeft(obj) - e_obj.touches[0].clientX;
+    //     img_T = getTop(obj) - e_obj.touches[0].clientY;
+    //     console.log(getLeft(obj));
+    //     // console.log('getL',getLeft(obj));
+    //     // console.log(e_obj.touches[0].clientX);
+    //     console.log('X :', img_L);
+    //     document.ontouchmove = moveImg;
+    //     document.ontouchcancel = stopTouch;
+    //     if(e_obj.preventDefault)e_obj.preventDefault();
+
+    // }
+ 
+
+
+    // startMove(null, document.getElementById("target_one"));
+   
+</script>
