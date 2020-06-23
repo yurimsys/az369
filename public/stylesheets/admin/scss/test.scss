@@ -1,0 +1,168 @@
+.test {
+    background-color: red;
+    div{
+        background-color:blueviolet;
+    }
+}
+
+// 
+
+.list {
+    width: 100px;
+    height: 50px;
+    background-color:blue;
+    li {
+        color: red;
+        background-color: yellow;
+        list-style: none;;
+        &:nth-child(1) {
+            background-color: green;
+        }
+    }
+}
+
+// 
+
+.section1 {
+    width: 100%;
+    .list2 {
+        padding: 20px;
+        li {
+            float: left; width: 50%;
+        }
+    }
+}
+
+// 
+
+.btn1 {
+    position: absolute;
+    left: 0;
+    background-color: #fafafa;
+    border: none; padding: 20px;
+    &:active {
+        background: black;
+        color: #fff;
+    
+    }
+}
+
+.list3 {
+    li {
+        width: 50%;
+        &:last-child {background-color: palegreen;}
+    }
+}
+
+// 
+
+.fs {
+    &-small {font-size: 12px;}
+    &-medium {font-size: 14px;}
+    &-large {font-size: 16px;}
+}
+
+// 
+
+.list4 {
+    $w1 : 100px;
+    $h1 : 50px;
+    $b1 : #4169e1;
+    li {
+        width: $w1;
+        height: $h1;
+        background-color: $b1;
+    }
+    @at-root .box1 {
+        width: $w1;
+        height: $h1;
+        background-color: $b1;
+    }
+    // list - li 라는 중첩에서 벗어나서 사용하고 싶을 때 @at-root를 사용. 다만 list 내의 속성이므로
+    // list의 괄호 바깥에서 사용하면 적용되지 않는다.
+}
+
+// 
+
+.box2 {
+    background-color: salmon;
+    font: {
+        weight: bold;
+        size: 30px;
+        family: sans-serif;
+    };
+    margin: {
+        top: 10px;
+        left: 20px;
+    };
+    padding: {
+        bottom: 40px;
+        right: 30px;
+    };
+}
+
+// 
+// 변수 (블록 내에 선언 했으면 그 블록 내에서만 적용 가능. 바깥은 공용사용 가능)
+// 
+$color-primary: #e96900;
+$w2: 200px;
+$h2: 200px;
+
+.box3 {
+    width: $w2;
+    height: $h2;
+    background-color: $color-primary;
+}
+
+.box4 {
+    width: $w2;
+    height: $h2;
+    $color1: #111;
+    background-color: $color1;
+}
+.box4-2 {
+    width: $w2;
+    height: $h2;
+    background-color: $color-primary;
+}
+
+// 
+// 변수 재 할당
+// 
+$red: #ff0000;
+$blue: #0000ff;
+
+$color-primary: $blue; 
+$color-danger: $red;
+// 위에 먼저 같은 이름으로 적용한 것이 있다면 이후에 쓴 것이 우선된다.
+
+.box5 {color:$color-danger; background-color: $color-primary;
+width: 200px; height: 200px;}
+
+// 
+// !global 전역설정 (블록 내에 설정한 변수를 바깥에 설정한 것과 동일시)
+// 대신 기존에 사용하던 같은 이름의 변수가 있을 경우 갚이 이후의 적용한 걸로 덮임.
+// !global < 이후 같은 변수 이름으로 쓴 다른 속성값
+// 
+
+.box6 {
+    $color: #111 !global;
+    background-color: $color;
+    width: $w2;
+    height: $h2;
+}
+.box6-2 {background-color: $color; width: $w2;
+    height: $h2;}
+
+
+// 
+// !default 초기값 설정 (할당되지 않은 변수 초기값 설정)
+// 이미 변수에 속성이 있다면 변경되지 않음!
+// 
+
+$color-primary: red;
+.box7 {
+    $color-primary: blue !default;
+    background: $color-primary;
+    width: 100px; height: 100px;
+}

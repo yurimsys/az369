@@ -34,7 +34,7 @@ const upload = multer({storage: storage})
 
 
 router.get('/testst',function(req, res, next){
-    res.render('dragtest');
+    res.render('testst');
 })
 
 
