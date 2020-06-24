@@ -153,6 +153,7 @@ $(document).ready(function(){
             url:'https://api.waqi.info/feed/Suwon/?token=1e20d40a5d021e3c440d37f1e04d7002f5b08c30',
             dataType:'json',
             success: function(json){
+                console.log(json);
                 let nowTemp = json.data.iaqi.t.v;
                 let nowDust = json.data.iaqi.pm10.v;
                 //현재 온도
