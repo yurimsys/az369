@@ -10,6 +10,7 @@ const database_json =
         //     "port"     : "3306",
         //     "dateStrings"     : "date"
         // },        
+        //머지 테스트 입니다.
         mysql : {
             "host"     : "192.168.0.132",
             "user"     : "root",
