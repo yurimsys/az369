@@ -427,25 +427,26 @@
             up_scale = Number(now_scale) + move_scale
             
             
-            
             //줌인
             if (prevDiff > 0) {
                 if (move_scale > prevDiff) {
-                    console.log('scale_test',Number(localStorage.getItem('scale_test')),'up_scale',up_scale);  
+                    
+                    //현재 확대할 줌이 현재 사이즈 보다 클때 줌 
                     if(Number(up_scale) > Number(localStorage.getItem('scale_test'))){
                         
                         zoom(ev, up_scale, now_floor)
+                        //현재 사이즈 값 로컬에 저장
                         localStorage.setItem('scale_test',up_scale)
-                        
-                        // console.log('줌인');
                     }
                 }
 
                 //줌 아웃
+
                 if (move_scale < prevDiff) {
-                    
+                    //현재 축소할 줌이 현재 사이즈 보다 클때 축소 
                     if(Number(down_scale) > Number(localStorage.getItem('scale_down'))){
                         localStorage.setItem('scale_down',down_scale)
+                        //현재 사이즈 값 로컬에 저장
                         zoom(ev, down_scale, now_floor)
                     }
                 }
