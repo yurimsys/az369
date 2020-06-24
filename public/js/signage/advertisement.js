@@ -262,7 +262,7 @@ $(document).ready(() => {
     $("body").click(()=>{
         AdSlide.ad_main_instance.removeClass('active');
         clearTimeout(usedTimeout);
-        usedTimeout=setTimeout( signageInit, AD.ad_init_min * 60 * 1000 );
+        usedTimeout=setTimeout( signageInit, AD.ad_init_min * 60 * 1000 * 5 );
         
     });
 

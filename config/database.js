@@ -1,11 +1,20 @@
 const database_json = 
 {
     "development" : {
+        //기존 DB 로컬 정보
+        // mysql : {
+        //     "host"     : "192.168.0.78",
+        //     "user"     : "root",
+        //     "password" : "qw12qw12(",
+        //     "database" : "yurimsys12",
+        //     "port"     : "3306",
+        //     "dateStrings"     : "date"
+        // },        
         mysql : {
-            "host"     : "192.168.0.78",
+            "host"     : "192.168.0.132",
             "user"     : "root",
             "password" : "qw12qw12(",
-            "database" : "yurimsys12",
+            "database" : "az369_dev",
             "port"     : "3306",
             "dateStrings"     : "date"
         },
