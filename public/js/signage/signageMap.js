@@ -1,18 +1,4 @@
 //*** 중앙 svg 스크립트 ***
-// window.addEventListener('touchstart', function (e) {
-//     alert('gg')
-//     console.log('touchstart', e);
-// });
-// window.addEventListener('touchmove', function (e) {
-//     alert(e)
-//     console.log('touchmove', e);
-// });
-// window.addEventListener('touchend', function (e) {
-//     alert(e)
-//     console.log('touchend', e);
-// });
-
-
 
     //이미지 확대
     let img_L = 0;
@@ -27,6 +13,7 @@
         return parseInt(o.style.top.replace('px', ''));
     }
 
+    //마우스 끌기 이벤트 
     // // 드래그 시작
     // function startDrag(e, obj){
     //     targetObj = obj;
@@ -55,8 +42,6 @@
     //     targetObj.style.top = dmvy +"px";
     //     return false;
     // }
-
-
 
     targetObj = document.getElementsByClassName('centralSvg1F')[0]
 
@@ -120,6 +105,7 @@
     $1f_store_name.hide();
     $2f_store_name.hide();
     $3f_store_name.hide();
+
     //줌인
     function zoomIn(){
         //이미지 커서 이동 css
@@ -281,37 +267,39 @@
         }   
     }
 
-        //층수 클릭
-        $('.floorBtn div').on('click',function(e){
-            let nowFloor = e.target.id;
-            $('.floorBtn div').removeClass('floorSelect');
-            $('#'+nowFloor).addClass('floorSelect');
-            if(nowFloor == 'floor1Btn'){
-                $center_left_1f.css('display','block');
-                $center_left_2f.css('display','none');
-                $center_left_3f.css('display','none');
-                $nowFloor.text('1F');
-                targetObj = document.getElementsByClassName('centralSvg1F')[0]
-                el=document.getElementsByClassName('centralSvg1F')[0]
-                init(1);
-            }else if(nowFloor == 'floor2Btn'){
-                $center_left_1f.css('display','none');
-                $center_left_2f.css('display','block');
-                $center_left_3f.css('display','none');
-                $nowFloor.text('2F');
-                targetObj = document.getElementsByClassName('centralSvg2F')[0]
-                el=document.getElementsByClassName('centralSvg2F')[0]
-                init(2);
-            }else if(nowFloor == 'floor3Btn'){
-                $center_left_1f.css('display','none');
-                $center_left_2f.css('display','none');
-                $center_left_3f.css('display','block');
-                $nowFloor.text('3F');
-                targetObj = document.getElementsByClassName('centralSvg3F')[0]
-                el=document.getElementsByClassName('centralSvg3F')[0]
-                init(3);
-            }
-        })    
+    //층수 클릭
+    $('.floorBtn div').on('click',function(e){
+        let nowFloor = e.target.id;
+        localStorage.removeItem('scale_down');
+        localStorage.removeItem('scale_test'); 
+        $('.floorBtn div').removeClass('floorSelect');
+        $('#'+nowFloor).addClass('floorSelect');
+        if(nowFloor == 'floor1Btn'){
+            $center_left_1f.css('display','block');
+            $center_left_2f.css('display','none');
+            $center_left_3f.css('display','none');
+            $nowFloor.text('1F');
+            targetObj = document.getElementsByClassName('centralSvg1F')[0]
+            el=document.getElementsByClassName('centralSvg1F')[0]
+            init(1);
+        }else if(nowFloor == 'floor2Btn'){
+            $center_left_1f.css('display','none');
+            $center_left_2f.css('display','block');
+            $center_left_3f.css('display','none');
+            $nowFloor.text('2F');
+            targetObj = document.getElementsByClassName('centralSvg2F')[0]
+            el=document.getElementsByClassName('centralSvg2F')[0]
+            init(2);
+        }else if(nowFloor == 'floor3Btn'){
+            $center_left_1f.css('display','none');
+            $center_left_2f.css('display','none');
+            $center_left_3f.css('display','block');
+            $nowFloor.text('3F');
+            targetObj = document.getElementsByClassName('centralSvg3F')[0]
+            el=document.getElementsByClassName('centralSvg3F')[0]
+            init(3);
+        }
+    })    
     
 
 
@@ -401,6 +389,7 @@
         evCache.push(ev);
     }
 
+    //핀치줌 이벤트
     function pointermove_handler(ev) {
         
         for (var i = 0; i < evCache.length; i++) {
@@ -410,6 +399,7 @@
             }
         }
 
+        
         let now_floor;
         if($('#floor1Btn').hasClass('floorSelect') == true){
             now_floor = 1;
@@ -435,35 +425,29 @@
             down_scale = Number(now_scale) - move_scale
             
             up_scale = Number(now_scale) + move_scale
-            localStorage.removeItem('scale_test');
-            localStorage.removeItem('scale_down');
+            
+            
             //줌인
             if (prevDiff > 0) {
                 if (move_scale > prevDiff) {
-
                     
+                    //현재 확대할 줌이 현재 사이즈 보다 클때 줌 
                     if(Number(up_scale) > Number(localStorage.getItem('scale_test'))){
-                        console.log('scale_test',Number(localStorage.getItem('scale_test')),'up_scale',up_scale);    
                         
                         zoom(ev, up_scale, now_floor)
+                        //현재 사이즈 값 로컬에 저장
                         localStorage.setItem('scale_test',up_scale)
-                        console.log('줌인');
                     }
                 }
 
                 //줌 아웃
+
                 if (move_scale < prevDiff) {
-                    
-                    // console.log('줌아웃');
-                    // console.log('scale_down',Number(localStorage.getItem('scale_down')),'down_scale',down_scale);
-                    // console.log('down_scale',down_scale);
-                    // debugger;
+                    //현재 축소할 줌이 현재 사이즈 보다 클때 축소 
                     if(Number(down_scale) > Number(localStorage.getItem('scale_down'))){
-                        
                         localStorage.setItem('scale_down',down_scale)
+                        //현재 사이즈 값 로컬에 저장
                         zoom(ev, down_scale, now_floor)
-                        
-                        console.log('줌아웃');
                     }
                 }
             }
@@ -471,25 +455,29 @@
         }
     }
 
+    //확대할 줌
     function zoom(ev, now_scale,now_floor){
-
-            let i = 0;
-            // console.log('카운트 :', i++);
+            //svg파일 좌표 지정
             ev.currentTarget.style.left = '0px';
             ev.currentTarget.style.top = '0px';
 
             $('#'+now_floor+'Fstore_name text').css('font-size','14px');
             $('#'+now_floor+'Fstore_name text').show();
 
+            //확대크기 지정
             ev.currentTarget.style.transform = 'scale('+now_scale+')';
-
+            localStorage.removeItem('scale_down');
+            localStorage.removeItem('scale_test');
+            //확대가 3배가 이상일때 3배로 고정
             if(now_scale >= 3){
                 ev.currentTarget.style.transform = 'scale(3.0)';
                 return;
 
+            //1배 이하일때 1배로 고정 및 좌표값 삭제
             }else if(now_scale <= 1){
                 $('#'+now_floor+'Fstore_name text').hide();
-                ev.currentTarget.style.transform = 'scale(1.0)';
+                // ev.currentTarget.style.transform = 'scale(1.0)';
+                zoomReset();
                 ev.currentTarget.style.left = '';
                 ev.currentTarget.style.top = '';
                 return;
@@ -498,7 +486,6 @@
 
 
     }
-
 
 
     function pointerup_handler(ev) {
