@@ -166,3 +166,71 @@ $color-primary: red;
     background: $color-primary;
     width: 100px; height: 100px;
 }
+
+// 
+// #{} 문자보간
+// 
+
+$family: unquote("droid+sans");
+@import url("http://fonts.googleapis.com/css?famaily=#{$family}");
+// unquote() 는 문자에서 따옴표 제거
+
+// 
+// import 가져오기
+// 
+
+// @import로 외부에서 가져온 sass는 모두 css로 출력
+// 기본적으로 sass를 가져오나 css import규칙으로 컴파일 되기도함
+// 1. 확장자가 .css / 2. 파일이름 http://로 시작
+// 3. url() 이 붙었을 경우 / 4. 미디어쿼리가 있는 경우
+
+@import "hello.css";
+@import "http://hello.com/hello";
+@import url(hello);
+@import "hello" screen;
+
+// 
+// 나누기 연산 주의사항 : font: 16px / 22px; 을 쓰면 font-size와 line-height로 속성이 분리됨
+// 따라서 변수에서 나누기, 다른 연산과 함께 쓰기, 괄호 묶어 쓰기
+// 
+
+// 문자연산 +
+// "문자" + "문자";
+// " "는 띄어쓰기
+
+// @mixin 믹스인이름 {스타일;}
+
+@mixin large-text {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: orange;
+}
+
+@mixin large-text {
+    font: {
+        size: 22px;
+        weight: bold;
+        family: sans-serif;
+    }
+    color: orange;
+
+    &::after {
+        content: '!!';
+    }
+    span.icon {
+        background: url("/img/icon.png");
+    }
+}
+// 상위부모요소 참조 가능 &
+
+// @include 믹스인 이름;
+
+h1 {
+    @include large-text;
+    div {
+        @include large-text;
+    }
+}
+
+// h1과 div에 &적용한 ::after 가 붙음
