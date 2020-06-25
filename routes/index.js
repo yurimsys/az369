@@ -43,10 +43,6 @@ router.get('/sign', function(req, res, next) {
     res.render('signage');
 });
 
-router.get('/opentest', function(req, res, next) {
-    res.render('opentest');
-});
-
 
 router.get('/', function(req, res, next) {
     console.log('req info : ', req);
@@ -57,10 +53,6 @@ router.get('/', function(req, res, next) {
 router.get('/search', function(req, res, next) {
     res.render('search', { sessionUser : req.user });
 });
-
-router.get('/svgfile',function(req,res, next){
-    res.render('svgfile');
-})
 
 
 //매장관리자 페이지
