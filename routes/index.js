@@ -384,17 +384,53 @@ router.get('/logout', function(req, res, next){
     res.redirect('/');
 });
 
+// router.get('/reservation', auth.isLoggedIn, function(req,res, next){
+//     let query = `select 
+//                     DISTINCT  date_format(CT_DepartureTe,'%H%i') as pyeongDept,
+//                     date_format(CT_DepartureTe,'%H:%i') as pyeongDept2
+//                 from tCT
+//                     WHERE tCT.CT_DepartureTe > NOW()`;
+                    
+//     let query2 = `select 
+//                     DISTINCT date_format(CT_ReturnTe, '%H%i') as seoulDept,
+//                     date_format(CT_ReturnTe, '%H:%i') as seoulDept2
+//                 from tCT
+//                 WHERE tCT.CT_DepartureTe > NOW()`
+
+//     connection.query(query,
+//         function(err, rows, fields) {
+//             if (err) throw err;
+//             connection.query(query2,
+//                 function(err, rows2){
+//                     if(err) throw err;
+
+//                     console.log('good',rows);
+//                     res.render('reservation_01', {sessionUser: req.user, timeone : rows, timetwo : rows2});
+//                 })
+//     });  
+// });
+
+
 router.get('/reservation', auth.isLoggedIn, function(req,res, next){
-    let query = `select	distinct date_format(CT_ReturnTe, '%H%i') as returnTe, date_format(CT_DepartureTe,'%H%i') as deptTe,
-                        date_format(CT_DepartureTe,'%H:%i') as deptTe2, date_format(CT_ReturnTe, '%H:%i') as returnTe2
-                from tCT`;
+    let query = `select 
+                    DISTINCT  date_format(CT_DepartureTe,'%H%i') as pyeongDept,
+                    date_format(CT_DepartureTe,'%H:%i') as pyeongDept2
+                from tCT
+                    WHERE tCT.CT_DepartureTe > NOW();
+                select 
+                    DISTINCT date_format(CT_ReturnTe, '%H%i') as seoulDept,
+                    date_format(CT_ReturnTe, '%H:%i') as seoulDept2
+                from tCT
+                WHERE tCT.CT_DepartureTe > NOW()`;
+                    
     connection.query(query,
         function(err, rows, fields) {
             if (err) throw err;
-            res.render('reservation_01', {sessionUser : req.user, data : rows} );
-            console.log("rowrowrow :",rows);
+            console.log(rows);
+            res.render('reservation_01', {sessionUser: req.user, timeone : rows[0], timetwo : rows[1]});
     });  
 });
+
 
 router.get('/complate', auth.isLoggedIn, function(req, res, next){
     res.render('reservation_02', {sessionUser: req.user} );
