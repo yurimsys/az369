@@ -400,6 +400,13 @@ header .open {
     footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
+/*375px*/
+@media screen and (max-width: 375px) {
+
+  .reservation_box {width: 95%; margin: 0 auto; margin-right: 5%;}
+}
+
+
 /*320px*/
 @media screen and (max-width: 320px) {
 

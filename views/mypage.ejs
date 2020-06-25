@@ -504,6 +504,7 @@
         
         //선택예매취소 클릭 후 리스트 보여주기
         function cancelBtn() {
+            console.log('good');
             $(".cancelRes").empty();
             $(".table_mo").empty();
             if ($(".chk").is(":checked") == false) {
@@ -526,7 +527,7 @@
             //console.log('sendjson :',sendJson); 
 
             var seatArr = JSON.parse(sendJson);
-            //console.log('seatArr :', seatArr);
+            console.log('seatArr :', seatArr);
             $.ajax({
                 url: "api/user/payCancel",
                 method: 'post',
@@ -535,7 +536,7 @@
                     'sendArray': seatArr
                 },
                 success: function (res) {
-                    
+                    // console.log(res);
                     //PC 예매취소 리스트
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<tr val=" + res.data[i].pId + ">";
