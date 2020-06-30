@@ -341,7 +341,7 @@
                                                 </div>
 
                                                 <div class="popup_btn_mo">
-                                                    <a href="#" class="popup_close1">닫기</a>
+                                                    <a class="popup_close1">닫기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -456,7 +456,7 @@
                                                 </div>
 
                                                 <div class="popup_btn_mo">
-                                                    <a href="#" class="popup_close1">닫기</a>
+                                                    <a class="popup_close1">닫기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -504,6 +504,7 @@
         
         //선택예매취소 클릭 후 리스트 보여주기
         function cancelBtn() {
+            console.log('good');
             $(".cancelRes").empty();
             $(".table_mo").empty();
             if ($(".chk").is(":checked") == false) {
@@ -526,7 +527,7 @@
             //console.log('sendjson :',sendJson); 
 
             var seatArr = JSON.parse(sendJson);
-            //console.log('seatArr :', seatArr);
+            console.log('seatArr :', seatArr);
             $.ajax({
                 url: "api/user/payCancel",
                 method: 'post',
@@ -535,7 +536,7 @@
                     'sendArray': seatArr
                 },
                 success: function (res) {
-                    
+                    // console.log(res);
                     //PC 예매취소 리스트
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<tr val=" + res.data[i].pId + ">";
@@ -654,6 +655,10 @@
 
         //결제리스트 날짜 선택 @@@@@@@
         function payBetween() {
+            if($('#deptDay').val() == '' && $('#endDay').val() == ''){
+                return false;
+
+            }
             $('#payList').empty();
             $(".list02_mo").empty();
             $.ajax({
@@ -697,6 +702,7 @@
 
         //모바일 결제내역 상세보기
         $(document).on('click', '.list02_mo_list', function (e) {
+            $('#popup2').css('display','block');
             let ctId = e.target.id;
             let phId = e.target.value;
             //console.log(ctId)
@@ -711,7 +717,7 @@
                 },
                 success: function (res) {
                     $('.table_mo').empty();
-                    location.href = "#popup2"
+                    // location.href = "#popup2"
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<dl>";
                         //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
@@ -781,6 +787,9 @@
         });
         //PC 취소 및 환불 리스트 날짜 검색
         function cancelBetween() {
+            if($('#cancelDeptDay').val() == '' && $('#cancelEndDay').val() == ''){
+                return false;
+            }
             $("#cancelList").empty();
             $(".list03_mo").empty();
             $.ajax({
@@ -821,6 +830,8 @@
 
         //모바일 취소 환불 내역 상세보기
         $(document).on('click', '.list03_mo_list', function (e) {
+            $('#popup3').css('display','block');
+            $('.layer').css('background','rgba(0,0,0, 0.5)');
             $.ajax({
                 url: "api/user/resCancelDetailMo",
                 method: "post",
@@ -832,7 +843,7 @@
                 success: function (res) {
                     //console.log("여기데이터 :", res.data);
                     $('.table_mo').empty();
-                    location.href = "#popup3"
+                    // location.href = "#popup3"
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<dl>";
                         //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
@@ -846,6 +857,12 @@
                     }
                 }
             })
+        })
+
+        $('.popup_close1').on('click',function(){
+            $('#popup2').css('display','none');
+            $('#popup3').css('display','none');
+            $('.layer').css('background','');
         })
 
 

@@ -58,8 +58,8 @@
                                                     <select id="depart01">
                                                         <option value="0">지역 / 출발시간</option>
 
-                                                        <%for(let i=0; i<data.length; i++) {%>
-                                                        <option value=<%=data[i].deptTe%>>평택 <%=data[i].deptTe2%>
+                                                        <%for(let i=0; i<timeone.length; i++) {%>
+                                                        <option value=<%=timeone[i].pyeongDept%>>평택 <%=timeone[i].pyeongDept2%>
                                                         </option>
                                                         <% }%>
                                                     </select>
@@ -74,9 +74,9 @@
                                                     <select id="depart02">
                                                         <option value="0">지역 / 출발시간</option>
 
-                                                        <%for(let i=0; i<data.length; i++) {%>
-                                                        <option value=<%=data[i].returnTe%>>서울 동대문
-                                                            <%=data[i].returnTe2%></option>
+                                                        <%for(let i=0; i<timetwo.length; i++) {%>
+                                                        <option value=<%=timetwo[i].seoulDept%>>서울 동대문
+                                                            <%=timetwo[i].seoulDept2%></option>
                                                         <% }%>
                                                     </select>
                                                 </div>
@@ -256,17 +256,18 @@
 
     <script>
 
-        $.ajax({
-            url: 'api/user/resDept',
-            method: 'post',
-            dataType: 'json',
-            success: function (res) {
-                for (let i = 0; i < res.data.length; i++) {
-                    let html = "<option value=" + res.data[i].deptTe + ">평택 " + res.data[i].deptTe2 + "</option>"
-                    $('#depart01').append(html);
-                }
-            }
-        })
+        // $.ajax({
+        //     url: 'api/user/resDept',
+        //     method: 'post',
+        //     dataType: 'json',
+        //     success: function (res) {
+        //         for (let i = 0; i < res.data.length; i++) {
+        //             let html = "<option value=" + res.data[i].deptTe + ">평택 " + res.data[i].deptTe2 + "</option>"
+        //             $('#depart01').append(html);
+        //         }
+        //     }
+        // })
+        
         $('#timeSelect01, #timeSelect02').click(function () {
             $(".tab").empty();
             //console.log($("#depart01").val())

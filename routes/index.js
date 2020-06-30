@@ -43,10 +43,6 @@ router.get('/sign', function(req, res, next) {
     res.render('signage');
 });
 
-router.get('/opentest', function(req, res, next) {
-    res.render('opentest');
-});
-
 
 router.get('/', function(req, res, next) {
     console.log('req info : ', req);
@@ -57,10 +53,6 @@ router.get('/', function(req, res, next) {
 router.get('/search', function(req, res, next) {
     res.render('search', { sessionUser : req.user });
 });
-
-router.get('/svgfile',function(req,res, next){
-    res.render('svgfile');
-})
 
 
 //매장관리자 페이지
@@ -206,11 +198,34 @@ router.post('/c3/action', function(req,res){
 //의향서 c5 액션
 router.post('/c5/action', async function(req,res){
     let query = `insert into tLSV
-                        (LSV_NAME, LSV_Phone, LSV_Store, LSV_wContactPeriod, LSV_wRentalFeeMin, LSV_wRentalFeeMax,
-                         LSV_wDepositMin, LSV_wDepositMax, LSV_wInsuranceTy, LSV_cRentalFee, LSV_cDeposit, LSV_wModify, LSV_Question)
-                    values(:name , :phone , :store , :wt_contact_period, :wt_rental_fee_min, :wt_rental_fee_max, 
-                           :wt_deposit_min, :wt_deposit_max, :wt_insurance_type, :cur_rental_fee, :cur_deposit, :wt_modify, :opinion) `
-
+                        (LSV_NAME,
+                         LSV_Phone,
+                         LSV_Store,
+                         LSV_wContactPeriod,
+                         LSV_wRentalFeeMin,
+                         LSV_wRentalFeeMax,
+                         LSV_wDepositMin,
+                         LSV_wDepositMax, 
+                         LSV_wInsuranceTy, 
+                         LSV_cRentalFee, 
+                         LSV_cDeposit, 
+                         LSV_wModify, 
+                         LSV_Question)
+                    values
+                        (:name, 
+                         :phone,
+                         :store, 
+                         :wt_contact_period, 
+                         :wt_rental_fee_min, 
+                         :wt_rental_fee_max, 
+                         :wt_deposit_min, 
+                         :wt_deposit_max, 
+                         :wt_insurance_type, 
+                         :cur_rental_fee, 
+                         :cur_deposit, 
+                         :wt_modify, 
+                         :opinion) `
+ 
     let name = req.body.name; //이름
     let phone = req.body.phone; //전화번호
     let store = req.body.store; //호수
@@ -265,14 +280,19 @@ router.post('/c5/action', async function(req,res){
 router.post('/c4/chart', function(req,res){
     // and create_dt between date_add(now(), interval -6 month) and now()
     // where date_format(create_dt , '%Y-%m') IN(select date_format(create_dt, '%Y-%m') as tes from admin_survey_test group by tes)
-        let query = `select LSV_Store, LSV_wRentalFeeMin , LSV_wRentalFeeMax, LSV_cDt, concat(date_format(LSV_cDt,'%m'), '월') as day
-                            from tLSV 
-                            having LSV_Store in ( select LS_Number from tLS where LS_Floor = :floor1 and LS_Sector in (:dataSector1)
-                            union all
-                            select LS_Number from tLS where LS_Floor = :floor2 and LS_Sector in (:dataSector2)
-                            union all
-                            select LS_Number from tLS where LS_Floor = :floor3 and LS_Sector in (:dataSector3) )
-                        order by day asc;`
+        let query = `select 
+                        LSV_Store, 
+                        LSV_wRentalFeeMin, 
+                        LSV_wRentalFeeMax, 
+                        LSV_cDt, 
+                        concat(date_format(LSV_cDt,'%m'), '월') as day
+                    from tLSV 
+                        having LSV_Store in ( select LS_Number from tLS where LS_Floor = :floor1 and LS_Sector in (:dataSector1)
+                        union all
+                        select LS_Number from tLS where LS_Floor = :floor2 and LS_Sector in (:dataSector2)
+                        union all
+                        select LS_Number from tLS where LS_Floor = :floor3 and LS_Sector in (:dataSector3) )
+                    order by day asc;`
     
         let dataSector1 = req.body['1F']
         let dataSector2 = req.body['2F']
@@ -331,11 +351,35 @@ router.post('/b', function(req, res){
 
     let query = `
         INSERT INTO tLSV
-            (LSV_NAME, LSV_Phone, LSV_Store, LSV_wContactPeriod, LSV_wRentalFeeMin, LSV_wRentalFeeMax, LSV_wDepositMin,
-             LSV_wDepositMax, LSV_wInsuranceTy, LSV_cRentalFee, LSV_cDeposit, LSV_wModify, LSV_Contract, LSV_Question)
+            (LSV_NAME, 
+            LSV_Phone, 
+            LSV_Store, 
+            LSV_wContactPeriod, 
+            LSV_wRentalFeeMin, 
+            LSV_wRentalFeeMax, 
+            LSV_wDepositMin,
+            LSV_wDepositMax, 
+            LSV_wInsuranceTy, 
+            LSV_cRentalFee, 
+            LSV_cDeposit, 
+            LSV_wModify, 
+            LSV_Contract, 
+            LSV_Question)
         VALUES
-            (:NAME, :Phone, :Addr, :WT_Contact_Period, :WT_Rantal_Fee_Min, :WT_Rantal_Fee_Max, :WT_Deposit_Min,
-            :WT_Deposit_Max, :WT_Insurance_Type, :CUR_Rental_Fee, :CUR_Deposit, :WT_Modify, :CUR_has_Contract, :Opinion)`;
+            (:NAME, 
+            :Phone, 
+            :Addr, 
+            :WT_Contact_Period, 
+            :WT_Rantal_Fee_Min,
+            :WT_Rantal_Fee_Max,
+            :WT_Deposit_Min,
+            :WT_Deposit_Max,
+            :WT_Insurance_Type, 
+            :CUR_Rental_Fee, 
+            :CUR_Deposit, 
+            :WT_Modify, 
+            :CUR_has_Contract, 
+            :Opinion)`;
 
     connection.query(query, {
         NAME : req.body.name,
@@ -392,17 +436,54 @@ router.get('/logout', function(req, res, next){
     res.redirect('/');
 });
 
+// router.get('/reservation', auth.isLoggedIn, function(req,res, next){
+//     let query = `select 
+//                     DISTINCT  date_format(CT_DepartureTe,'%H%i') as pyeongDept,
+//                     date_format(CT_DepartureTe,'%H:%i') as pyeongDept2
+//                 from tCT
+//                     WHERE tCT.CT_DepartureTe > NOW()`;
+                    
+//     let query2 = `select 
+//                     DISTINCT date_format(CT_ReturnTe, '%H%i') as seoulDept,
+//                     date_format(CT_ReturnTe, '%H:%i') as seoulDept2
+//                 from tCT
+//                 WHERE tCT.CT_DepartureTe > NOW()`
+
+//     connection.query(query,
+//         function(err, rows, fields) {
+//             if (err) throw err;
+//             connection.query(query2,
+//                 function(err, rows2){
+//                     if(err) throw err;
+
+//                     console.log('good',rows);
+//                     res.render('reservation_01', {sessionUser: req.user, timeone : rows, timetwo : rows2});
+//                 })
+//     });  
+// });
+
+
 router.get('/reservation', auth.isLoggedIn, function(req,res, next){
-    let query = `select	distinct date_format(CT_ReturnTe, '%H%i') as returnTe, date_format(CT_DepartureTe,'%H%i') as deptTe,
-                        date_format(CT_DepartureTe,'%H:%i') as deptTe2, date_format(CT_ReturnTe, '%H:%i') as returnTe2
-                from tCT`;
+    let query = `select 
+                    DISTINCT  date_format(CT_DepartureTe,'%H%i') as pyeongDept,
+                    date_format(CT_DepartureTe,'%H:%i') as pyeongDept2
+                from tCT
+                    WHERE tCT.CT_DepartureTe > NOW();
+
+                select 
+                    DISTINCT date_format(CT_ReturnTe, '%H%i') as seoulDept,
+                    date_format(CT_ReturnTe, '%H:%i') as seoulDept2
+                from tCT
+                    WHERE tCT.CT_DepartureTe > NOW()`;
+                    
     connection.query(query,
         function(err, rows, fields) {
             if (err) throw err;
-            res.render('reservation_01', {sessionUser : req.user, data : rows} );
-            console.log("rowrowrow :",rows);
+            console.log(rows);
+            res.render('reservation_01', {sessionUser: req.user, timeone : rows[0], timetwo : rows[1]});
     });  
 });
+
 
 router.get('/complate', auth.isLoggedIn, function(req, res, next){
     res.render('reservation_02', {sessionUser: req.user} );

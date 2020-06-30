@@ -126,8 +126,15 @@ router.post('/business/modify', auth.isLoggedIn, function(req, res, next) {
         let bAddr1 = req.body.bAddr1;
         let bAddr2 = req.body.bAddr2;   
         console.log("아이디 :", bId);
-        let query = `update tB set B_Name =:bName, B_Tel =:bTel, B_Fax =:bFax, B_Email =:bEmail,
-                            B_Zip =:bZip, B_Addr1 =:bAddr1, B_Addr2 =:bAddr2, B_uDt = now()
+        let query = `update tB set 
+                            B_Name =:bName,
+                            B_Tel =:bTel, 
+                            B_Fax =:bFax, 
+                            B_Email =:bEmail,
+                            B_Zip =:bZip, 
+                            B_Addr1 =:bAddr1, 
+                            B_Addr2 =:bAddr2, 
+                            B_uDt = now()
                      where B_ID =:bId`; 
     
         connection.query(query,{bId, bName, bTel, bFax, bEmail, bZip, bAddr1, bAddr2},
@@ -174,8 +181,22 @@ router.post('/business/insert', auth.isLoggedIn, function(req, res, next) {
         let bAddr1 = req.body.addr1;
         let bAddr2 = req.body.addr2;
     
-        let query = `insert into tB(B_Name, B_Tel, B_Fax, B_Email, B_Zip, B_Addr1, B_Addr2) 
-                    values(:bName, :bTel, :bFax, :bEmail, :bZip, :bAddr1, :bAddr2)`; 
+        let query = `insert into tB(
+                        B_Name, 
+                        B_Tel, 
+                        B_Fax, 
+                        B_Email, 
+                        B_Zip, 
+                        B_Addr1, 
+                        B_Addr2) 
+                    values(
+                        :bName, 
+                        :bTel, 
+                        :bFax, 
+                        :bEmail, 
+                        :bZip, 
+                        :bAddr1, 
+                        :bAddr2)`; 
     
         connection.query(query,{ bName, bTel, bFax, bEmail, bZip, bAddr1, bAddr2},
           function(err, rows, fields) {
@@ -292,8 +313,13 @@ router.post('/carType/modify', auth.isLoggedIn, function(req, res, next) {
         let cyBId = req.body.cyBId;
     
         console.log("아이디 :", cyId);
-        let query = `update tCY set CY_Ty =:cyTy, CY_B_ID =:cyBId, CY_TotalPassenger =:total, CY_ServicePassenger =:service,
-                            CY_SeatPrice =:price, CY_uDt = now()
+        let query = `update tCY set 
+                        CY_Ty =:cyTy, 
+                        CY_B_ID =:cyBId, 
+                        CY_TotalPassenger =:total, 
+                        CY_ServicePassenger =:service,
+                        CY_SeatPrice =:price, 
+                        CY_uDt = now()
                      where CY_ID =:cyId`; 
     
         connection.query(query,{cyId, cyTy, cyBId, total, service, price},
@@ -337,8 +363,18 @@ router.post('/carType/insert', auth.isLoggedIn, function(req, res, next) {
         let service = req.body.service;
         let price = req.body.price;
     
-        let query = `insert into tCY(CY_B_ID, CY_Ty, CY_TotalPassenger, CY_ServicePassenger, CY_SeatPrice) 
-                    values(:cyBId, :cyTy, :total, :service, :price)`; 
+        let query = `insert into tCY(
+                        CY_B_ID, 
+                        CY_Ty, 
+                        CY_TotalPassenger, 
+                        CY_ServicePassenger, 
+                        CY_SeatPrice) 
+                    values(
+                        :cyBId, 
+                        :cyTy, 
+                        :total, 
+                        :service, 
+                        :price)`; 
     
         connection.query(query,{ cyBId, cyTy, total, service, price},
           function(err, rows, fields) {
@@ -490,8 +526,14 @@ router.post('/carTime/modify', auth.isLoggedIn, function(req, res, next) {
         let drPhone = req.body.drPhone;
     
         console.log("아이디 :", ctId);
-        let query = `update tCT set CT_CY_ID =:ctCyId, CT_DepartureTe =:deptTe, CT_ReturnTe =:returnTe,
-                                    CT_LeadTe =:lead, CT_carNum =:carNum, CT_DriverName =:drName, CT_DriverPhone =:drPhone
+        let query = `update tCT set 
+                        CT_CY_ID =:ctCyId, 
+                        CT_DepartureTe =:deptTe, 
+                        CT_ReturnTe =:returnTe,
+                        CT_LeadTe =:lead, 
+                        CT_carNum =:carNum, 
+                        CT_DriverName =:drName, 
+                        CT_DriverPhone =:drPhone
                      where CT_ID =:ctId`; 
     
         connection.query(query,{ctCyId, deptTe, returnTe, lead, carNum, drName, drPhone, ctId},
@@ -558,8 +600,22 @@ router.post('/carTime/insert', auth.isLoggedIn, function(req, res, next) {
         let drName = req.body.drName;
         let drPhone = req.body.drPhone;
         console.log("입력 ::", req.body)
-        let query = `insert into tCT(CT_CY_ID, CT_DepartureTe, CT_ReturnTe, CT_LeadTe, CT_CarNum, CT_DriverName, CT_DriverPhone) 
-                    values(:ctCyId, :dept, :retun, :lead, :carNum, :drName, :drPhone)`; 
+        let query = `insert into tCT(
+                        CT_CY_ID, 
+                        CT_DepartureTe, 
+                        CT_ReturnTe, 
+                        CT_LeadTe, 
+                        CT_CarNum, 
+                        CT_DriverName, 
+                        CT_DriverPhone) 
+                    values(
+                        :ctCyId, 
+                        :dept, 
+                        :retun, 
+                        :lead, 
+                        :carNum, 
+                        :drName, 
+                        :drPhone)`; 
     
         connection.query(query,{ctCyId, dept, retun, lead, carNum, drName, drPhone},
           function(err, rows, fields) {

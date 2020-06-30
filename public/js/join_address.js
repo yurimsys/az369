@@ -44,8 +44,8 @@
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("detailAddress").focus();
                 //console.log(data);
-                console.log(data.jibunAddress);
-                console.log(data.roadAddress);
+                // console.log(data.jibunAddress);
+                // console.log(data.roadAddress);
                 $("#roadAddress").val(data.roadAddress)
                 $("#jibunAddress").val(data.jibunAddress)
             }

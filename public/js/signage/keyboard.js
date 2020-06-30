@@ -240,8 +240,8 @@ const Keyboard = {
                         keyElement.innerHTML = createIconHTML("space_bar");
 
                         keyElement.addEventListener("click", () => {
-                            console.log(this.properties.beforeCharResetObj.onProgress);
-                            console.log('this.config.mode === "cheonjiin" : ',this.config.mode === "cheonjiin");
+                            // console.log(this.properties.beforeCharResetObj.onProgress);
+                            // console.log('this.config.mode === "cheonjiin" : ',this.config.mode === "cheonjiin");
                             if( this.properties.beforeCharResetObj.onProgress && this.config.mode === "cheonjiin" ){
                                 this._beforeCharReset();
                             } else {

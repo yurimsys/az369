@@ -353,7 +353,8 @@
                 deptTe = reserve_car_info.deptTe,
                 retuTe = reserve_car_info.retuTe,
                 b_name = reserve_car_info.b_name;
-
+                console.log('============');
+            console.log('요일',getInputDayLabel(deptTe) );
 
             $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptTe) + ') '));
             $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retuTe) + ') '));
