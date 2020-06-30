@@ -207,6 +207,8 @@ $family: unquote("droid+sans");
     color: orange;
 }
 
+// 
+
 @mixin large-text {
     font: {
         size: 22px;
@@ -226,11 +228,161 @@ $family: unquote("droid+sans");
 
 // @include 믹스인 이름;
 
-h1 {
-    @include large-text;
-    div {
-        @include large-text;
+// h1 {
+//     @include large-text;
+//     div {
+//         @include large-text;
+//     }
+// }
+
+// h1과 div에 &적용한 ::after 가 붙음
+
+
+//
+// 인수 : 믹스인은 함수처럼 하나의 인수를 가질 수 있다
+// @mixin 믹스인이름($매개변수) {스타일;}
+// @include 믹스인이름(인수);
+// 매개변수란 변수의 한종류로 제공되는 여러 데이터 중 하나의 데이터를 가리키기 위해 사용된다.
+// 제공되는 여러 데이터를 전달인수라고 한다.
+// 
+
+@mixin dash-line($width, $color) {
+    border: $width dashed $color;
+}
+
+.box1 { @include dash-line(1px, red);}
+.box2 { @include dash-line(3px, yellow);}
+
+// 
+// 인수 기본값 설정 (별도의 인수 전달되지 않으면 된다.)
+//@mixin 믹스인이름 ($매개변수 : 기본값) {스타일;} 
+// 
+
+@mixin dash-line($width: 2px, $color: blue) { 
+    border: $width dashed $color;
+}
+
+.box1 { @include dash-line;}
+.box2 {@include dash-line(5px, green);}
+
+
+// 
+// 키워드인수 : 인수입력 시 키워드(변수)를 입력
+// 별도의 인수입력 순서 필요치 않음
+// 단, 작성하지 않은 인수 적용될 수 있게 기본값 설정 필요
+//
+// @mixin 믹스인이름 ($매개변수A: 기본값, $매개변수B: 기본값) {스타일;}
+// @include 믹스인이름 ($매개변수B: 인수);
+// 요약: 하나의 믹스인안에 여러개의 매개변수를 ,로 구분하여 넣고 각각 기본값을 넣음.
+// 
+
+@mixin position (
+    $p: absolute,
+    $t: null,
+    $b: null,
+    $l: null,
+    $r: null
+    ) {
+        position: $p;
+        top: $t;
+        bottom: $b;
+        left: $l;
+        right: $r;
+}
+
+.absolute {
+    @include position ($b: 10px, $r: 20px);
+}
+// include에 들어가는 인수에 믹스인의 스타일에서 넣었던 키워드를 골라서 필요한 것만 설정가능 .
+
+.fixed {
+    @include position(fixed, $t:30px, $t: 40px);
+} 
+
+// 
+// --------------------------------------------------------- 가변인수
+// 입력한 인수 개수가 불확실한 경우, 매개변수 뒤에 ...을 붙인다.
+// 
+// @mixin 믹스인이름($매개변수...) {스타일;}
+// @include 믹스인이름(인수a, 인수b, 인수c);
+// 
+
+@mixin bg($width, $height, $bg-values...) {
+    width: $width;
+    height: $height;
+    background: $bg-values;    
+}
+
+div {
+    @include bg (
+        100px,
+        200px,
+        url(/img/bg1.png) no-repeat 10px 20px,
+        url(/img/bg2.png) no-repeat,
+        url(/img/bg3.png)
+    );
+    // d위의 mixin bg 설정에 맞게 인수를 순서대로 전달하다가 3번째부터는 상관없이 전달
+}
+
+@mixin font(
+    $style: normal,
+    $weight: normal,
+    $size: 16px,
+    $family: sans-serif
+) {
+    font: {
+        style: $style;
+        weight: $weight;
+        size: $size;
+        family: $family;
     }
 }
 
-// h1과 div에 &적용한 ::after 가 붙음
+div {
+    $font-values: italic, bold, 16px, sans-serif;
+    @include font($font-values...);
+}
+span {
+    $font-values: ????????????
+}
+
+// -----------------------------------가변인수 나중에 다시 확인할 것 (이해안감)
+
+
+// 
+// @content 해당부분 원하는 스타일 블록 전달가능
+// @mixin 믹스인이름 () {스타일; @content;}
+// @include 믹스인이름() {스타일;}
+ 
+
+@mixin icon ($url) {
+    &::after {
+        content: $url;
+        @content;
+    }
+}
+
+.icon1 {
+    @include icon("/image/icon.png");
+    // 기존기능만 사용
+}
+
+.icon2 {
+    @include icon("/image/icon.png") {
+        position: absolute;
+    };
+}
+
+$color: red;
+@mixin colors($color: blue) {
+    @content;
+    background-color: $color;
+    border-color: $color;
+}
+
+div {
+    @include colors() {
+        color: $color;
+    }
+}
+
