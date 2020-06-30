@@ -91,37 +91,7 @@
         
 
 
-                    <!-- <div id="popup" class="layer" style="display: none;"> -->
-                    <div id="popup" class="layer" style="display: none;">
-                        <!--popup 내부 PC-->
-                        <div class="popup_box">
 
-                            <div class="popup_box_header">
-                                <a class="popup_close" onclick="exit()"><img src="/img/video/close_img.png" alt=""></a>
-                            </div>
-
-                            <div class="popup_box_inner">
-                                <div class="slideshow-container">
-                                    
-
-                                    <!-- 내부 유튜브 -->
-                                    <div class="video_control">
-                                        <div class="video_control_num"><strong id="firstPage">1</strong> / <span id="endPage"></span></div>
-                                        <a class="prev"><img src="/img/video/prev_icon.png" alt="이전버튼"></a>
-                                        <a class="next"><img src="/img/video/next_icon.png" alt="다음버튼"></a>
-                                    </div>
-                                    <div class="dot-container">
-                                        <span class="dot" onclick="currentSlide(1)"></span>
-                                        <span class="dot" onclick="currentSlide(2)"></span>
-                                        <span class="dot" onclick="currentSlide(3)"></span>
-                                    </div>
-
-                                </div>            
-                            </div>
-
-
-                        </div>
-                    </div>
                 </section>
                 <!--하단버튼-->
 
@@ -133,90 +103,38 @@
             </div>
         </section>
     </div>
-    <script> 
 
-        'use sctrict';
+<!-- <div id="popup" class="layer" style="display: none;"> -->
+    <div id="popup" class="layer" style="display: none;">
+        <!--popup 내부 PC-->
+        <div class="popup_box">
 
-        //gnb scroll
-        //고정헤더, 사이드바 이벤트
-        var scrollTop = 0;
-        scrollTop = $(document).scrollTop();
-        fixHeader();
+            <div class="popup_box_header">
+                <a class="popup_close" onclick="exit()"><img src="/img/video/close_img.png" alt=""></a>
+            </div>
 
-        //윈도우창 조절시에 이벤트
-        $(window).on('scroll resize', function () {
-            scrollTop = $(document).scrollTop();
-            fixHeader();
+            <div class="popup_box_inner">
+                <div class="slideshow-container">
+                    
 
-        });
+                    <!-- 내부 유튜브 -->
+                    <div class="video_control">
+                        <div class="video_control_num"><strong id="firstPage">1</strong> / <span id="endPage"></span></div>
+                        <a class="prev"><img src="/img/video/prev_icon.png" alt="이전버튼"></a>
+                        <a class="next"><img src="/img/video/next_icon.png" alt="다음버튼"></a>
+                    </div>
+                    <div class="dot-container">
+                        <span class="dot" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
+                    </div>
 
-        //고정헤더 함수
-        function fixHeader() {
-            if (scrollTop > 200) {
-                $('header').addClass('on');
-            } else {
-                $('header').removeClass('on');
-            }
-        }
-
-
-        //모바일 모드 gnb_mo
-
-        setGnbMo();
-
-        function setGnbMo() {
-            $('header .open').on('click', function () {
-                $('.gnb_mo').addClass('on');
-            }); //햄버거버튼
-            $('.gnb_mo .close').on('click', function () {
-                $('.gnb_mo').removeClass('on');
-                $('.gnb_mo > ul > li .inner').slideUp(); //하위메뉴
-                $('.gnb_mo > ul > li > a').removeClass('on')
-            });
+                </div>            
+            </div>
 
 
-            //inner메뉴 열기
-
-            $('.gnb_mo > ul > li > a').on('click', function () {
-                $(this).next().slideToggle();
-                $(this).toggleClass('on'); //토글 클래스를 추가하고 빼고.
-            });
-        }
-
-
-        //scroll 애니
-        $(function () {
-            var scrollAni = 0;
-            //스크롤했을때 이벤트 적용
-            scrollAni = $(document).scrollTop();
-            ani('.menu_list, .int_slide, .owner_img, .insta_list'); //각 클래스 적용
-            //윈도우창사이즈 조절시 동일하게 이벤트 적용
-            $(window).on('scroll resize', function () {
-                scrollAni = $(document).scrollTop();
-                ani('.menu_list, .int_slide, .owner_img, .insta_list');
-            });
-
-            //함수선언 ani-함수명/(selector)-선택자
-            function ani(selector) {
-                $(selector).each(function () {
-
-                    var $selector = $(this);
-                    var minShow = $selector.offset().top - $(window).height();
-                    var maxShow = $selector.offset().top + $selector.outerHeight();
-
-                    $selector.removeClass('down on up');
-                    if (scrollTop < minShow) {
-                        $selector.addClass('down');
-                    } else if (scrollTop > maxShow) {
-                        $selector.addClass('up');
-                    } else {
-                        $selector.addClass('on');
-                    }
-                });
-            }
-        });
-    </script>
-
+        </div>
+    </div>
 
     <!--youtube 영상 사이즈 자동조절-->
     <script type="text/javascript">
@@ -274,6 +192,7 @@
 
         function popVideo(e) {
             $('#popup').css('display', 'block');
+            $('.wrap').css('display','none');
             //$('.video_control').css('display','block')
             //alert(document.location.href.split("/")[4])
             //alert(e.getAttribute('value'))
@@ -309,6 +228,7 @@
 
         function exit() {
             $('#popup').css('display', 'none');
+            $('.wrap').css('display','block');
             $('.mySlides').remove()
         }
 
@@ -410,4 +330,5 @@
     <!---video 슬라이드 이동시 재생중지되는 JS (참고용)-->
 
 
-</body></html>
+</body>
+</html>
