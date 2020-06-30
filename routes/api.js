@@ -85,12 +85,26 @@ router.get('/ad', async function(req, res, next) {
 
     let req_type = req.query.type;
     let query = `
-        SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL , BS_ID, AD_ADY_ID
-        FROM tAD
-            INNER JOIN tADY on AD_ADY_ID = ADY_ID 
-            LEFT JOIN tBS on AD_BS_ID = BS_ID
-            LEFT JOIN tBC on AD_BC_ID = BC_ID 
-        `;
+                SELECT 
+                    AD_ID, 
+                    BS_NameKor, 
+                    ADY_CD, 
+                    ADY_Location, 
+                    ADY_SlideDuration, 
+                    AD_BC_ID, 
+                    BC_NameKor, 
+                    AD_PaymentStatus, 
+                    AD_Title, 
+                    AD_DtS, 
+                    AD_DtF, 
+                    AD_ContentURL, 
+                    BS_ID, 
+                    AD_ADY_ID
+                FROM tAD
+                    INNER JOIN tADY on AD_ADY_ID = ADY_ID 
+                    LEFT JOIN tBS on AD_BS_ID = BS_ID
+                    LEFT JOIN tBC on AD_BC_ID = BC_ID 
+                `;
     // 관리 페이지 용도
     if(req_type !== 'display'){
         let condition_list = [];
@@ -129,16 +143,44 @@ router.get('/ad', async function(req, res, next) {
 
 
         let query2 = `
-                SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL , BS_ID
-                    FROM tAD
+                SELECT 
+                    AD_ID, 
+                    BS_NameKor, 
+                    ADY_CD, 
+                    ADY_Location, 
+                    ADY_SlideDuration, 
+                    AD_BC_ID, 
+                    BC_NameKor, 
+                    AD_PaymentStatus, 
+                    AD_Title, 
+                    AD_DtS, 
+                    AD_DtF, 
+                    AD_ContentURL, 
+                    BS_ID
+                FROM tAD
                         INNER JOIN tADY on AD_ADY_ID = ADY_ID 
                         LEFT JOIN tBS on AD_BS_ID = BS_ID
                         LEFT JOIN tBC on AD_BC_ID = BC_ID 
-                    WHERE AD_DtF >= GETDATE() AND AD_Default = 'y' 
+                WHERE AD_DtF >= GETDATE() AND AD_Default = 'y' 
                 `;
-        let query3 = `SELECT AD_ID, BS_NameKor, ADY_CD, ADY_Location, ADY_SlideDuration, AD_BC_ID, BC_NameKor, AD_PaymentStatus, AD_Title, AD_DtS, AD_DtF, AD_ContentURL 
-                        FROM tAD left JOIN tADY on AD_ADY_ID = ADY_ID LEFT JOIN tBS on AD_BS_ID = BS_ID LEFT JOIN tBC on AD_BC_ID = BC_ID 
-                      WHERE AD_DtF >= GETDATE() AND AD_Default = 'y' AND AD_BC_ID is not null
+        let query3 = `SELECT 
+                        AD_ID, 
+                        BS_NameKor, 
+                        ADY_CD, 
+                        ADY_Location, 
+                        ADY_SlideDuration, 
+                        AD_BC_ID, 
+                        BC_NameKor, 
+                        AD_PaymentStatus, 
+                        AD_Title, 
+                        AD_DtS, 
+                        AD_DtF, 
+                        AD_ContentURL 
+                    FROM tAD 
+                        left JOIN tADY on AD_ADY_ID = ADY_ID 
+                        LEFT JOIN tBS on AD_BS_ID = BS_ID 
+                        LEFT JOIN tBC on AD_BC_ID = BC_ID 
+                    WHERE AD_DtF >= GETDATE() AND AD_Default = 'y' AND AD_BC_ID is not null
                     `
 
         let result_data = {};
@@ -277,8 +319,26 @@ router.post('/user/checkId', (req, res, next) =>{
 
 //회원가입 액션
 router.post('/user/join', (req, res, next) =>{
-    let query = `insert into tU (U_uId, U_Pw, U_Name, U_Phone, U_Email, U_Brand, U_Zip, U_Addr1, U_Addr2) 
-            values( :uUserName,  :uPw,  :uName,  :uPhone , :uEmail, :uBrand,  :uZip,  :uAddr1,  :uAddr2)`;
+    let query = `insert into tU (
+                            U_uId, 
+                            U_Pw, 
+                            U_Name, 
+                            U_Phone, 
+                            U_Email, 
+                            U_Brand, 
+                            U_Zip, 
+                            U_Addr1, 
+                            U_Addr2) 
+                    values( 
+                        :uUserName,  
+                        :uPw,  
+                        :uName,  
+                        :uPhone, 
+                        :uEmail, 
+                        :uBrand,  
+                        :uZip,  
+                        :uAddr1,  
+                        :uAddr2)`;
 
     let password = req.body.password;
     let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString()
@@ -304,8 +364,16 @@ router.post('/user/join', (req, res, next) =>{
 
 //회원가입 페이지 장차선호
 router.post('/user/carPool', (req, res, next) =>{
-    let query = `insert into tCP(CP_U_ID, CP_PreferDays, CP_DepartureTe, CP_ReturnTe) 
-                values( :joinId, :preferDays, :departureTe, :returnTe)`;
+    let query = `insert into tCP(
+                        CP_U_ID, 
+                        CP_PreferDays, 
+                        CP_DepartureTe, 
+                        CP_ReturnTe) 
+                    values( 
+                        :joinId, 
+                        :preferDays, 
+                        :departureTe, 
+                        :returnTe)`;
     let preferDays = req.body['days[]'].join(',');
     let departureTe = req.body.departureTe;
     let returnTe = req.body.returnTe;
@@ -327,7 +395,7 @@ router.post('/user/carPool', (req, res, next) =>{
 
 //아이디 찾기
 router.post('/user/findId', (req, res, next) =>{
-    let query = "select U_uId from tU where U_Name =:uName and U_Phone =:uPhone limit 1";
+    let query = `select U_uId from tU where U_Name =:uName and U_Phone =:uPhone limit 1`;
     
     console.log(req.body);
 
@@ -397,8 +465,18 @@ router.post('/user/modifyPw', (req, res, next) =>{
 
 //입점신청 
 router.post('/user/benefitApply', (req, res, next) =>{
-    let query = `insert into tSI (SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Content) 
-        values( :siName, :siPhone, :siBrand, :siAddr, :siMemo)`;
+    let query = `insert into tSI (
+                        SI_Name, 
+                        SI_Phone, 
+                        SI_Brand, 
+                        SI_Addr1, 
+                        SI_Content) 
+                    VALUES( 
+                        :siName, 
+                        :siPhone, 
+                        :siBrand, 
+                        :siAddr, 
+                        :siMemo)`;
     
     let transporter  = nodemailer.createTransport({
         service: 'gmail',
@@ -508,17 +586,42 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     console.log("uAddr1 :", uAddr1);
     console.log("uAddr2 ::", uAddr2);
 
-    let query = `UPDATE tU SET U_Pw = :hash_pw, U_Phone = :uPhone, U_Brand = :uBrand,
-                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_uId =:uUserName`;
+    let query = `UPDATE tU SET 
+                    U_Pw = :hash_pw, 
+                    U_Phone = :uPhone, 
+                    U_Brand = :uBrand,
+                    U_Zip = :uZip, 
+                    U_Addr1 = :uAddr1, 
+                    U_Addr2 = :uAddr2, 
+                    U_uDt = now() 
+                WHERE U_uId =:uUserName`;
 
-    let query2 = `UPDATE tU SET U_Phone = :uPhone, U_Brand = :uBrand,
-                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_uId =:uUserName`;
+    let query2 = `UPDATE tU SET 
+                    U_Phone = :uPhone, 
+                    U_Brand = :uBrand,
+                    U_Zip = :uZip, 
+                    U_Addr1 = :uAddr1, 
+                    U_Addr2 = :uAddr2, 
+                    U_uDt = now() 
+                WHERE U_uId =:uUserName`;
 
-    let query3 = `UPDATE tU SET  U_Pw = :hash_pw, U_Brand = :uBrand,
-                U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_uId =:uUserName`;
+    let query3 = `UPDATE tU SET  
+                    U_Pw = :hash_pw, 
+                    U_Brand = :uBrand,
+                    U_Zip = :uZip, 
+                    U_Addr1 = :uAddr1, 
+                    U_Addr2 = :uAddr2, 
+                    U_uDt = now() 
+                WHERE U_uId =:uUserName`;
 
-    let query4 = `UPDATE tU SET U_Phone = :uPhone, U_Brand = :uBrand,
-                 U_Zip = :uZip, U_Addr1 = :uAddr1, U_Addr2 = :uAddr2, U_uDt = now() WHERE U_uId =:uUserName`;
+    let query4 = `UPDATE tU SET 
+                    U_Phone = :uPhone, 
+                    U_Brand = :uBrand,
+                    U_Zip = :uZip, 
+                    U_Addr1 = :uAddr1, 
+                    U_Addr2 = :uAddr2, 
+                    U_uDt = now() 
+                WHERE U_uId =:uUserName`;
 
     if(password === "" && uPhone === "" ){
         connection.query(query2,{uBrand, uZip, uAddr1, uAddr2, uUserName},
@@ -568,8 +671,11 @@ router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
 //회원 예약유무 
 router.get('/user/delchoice',  auth.isLoggedIn, (req, res, next) =>{
    
-    let query = `select * from tCR where CR_U_ID = :sessionId AND CR_Cancel = 'N' 
-                AND (select CT_DepartureTe from tCT where tCT.CT_ID = tCR.CR_CT_ID) > now()`;
+    let query = `select * from tCR 
+                    where 
+                        CR_U_ID = :sessionId AND 
+                        CR_Cancel = 'N' AND 
+                        (select CT_DepartureTe from tCT where tCT.CT_ID = tCR.CR_CT_ID) > now()`;
     let sessionId = req.user.U_ID;
 
     console.log(req.body);
@@ -609,7 +715,11 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     tPH.PH_Price as price,
                     tPH.PH_ID as pId,
                     count(CR_SeatNum) as seatCnt
-                from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                from tCT 
+                    left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                    left join tB on tCY.CY_B_ID = tB.B_ID 
+                    left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+                    left join tPH on tPH.PH_ID = tCR.CR_PH_ID
                 where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = 'N'
                     and tCR.CR_U_ID = :sessionId and tCR.CR_cDt IN ( :seatNum)
                     and tCT.CT_DepartureTe > now()
@@ -681,8 +791,12 @@ router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
                     tCR.CR_CT_ID as crCTID,
                     tCR.CR_PH_ID as crPHID,
                     tCR.CR_cDt as no	
-                from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                    where tCR.CR_CT_ID = tCT.CT_ID
+                from tCT
+                    left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                    left join tB on tCY.CY_B_ID = tB.B_ID 
+                    left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+                    left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                where tCR.CR_CT_ID = tCT.CT_ID
                     and tCR.CR_U_ID = :sessionId
                     group by tCR.CR_cDt
                 order by no desc
@@ -723,10 +837,17 @@ router.post('/user/resPayBetween',  auth.isLoggedIn, (req, res, next) =>{
                     tCR.CR_CT_ID as crCTID,
                     tCR.CR_PH_ID as crPHID,
                     tCR.CR_cDt as no
-                from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                    where tCR.CR_CT_ID = tCT.CT_ID
-                    and tCR.CR_U_ID = :sessionId and tCR.CR_cDt between date(:deptDay) AND date(:endDay)+1
-                    group by tCR.CR_cDt
+                from tCT 
+                    left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                    left join tB on tCY.CY_B_ID = tB.B_ID 
+                    left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+                    left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                where 
+                    tCR.CR_CT_ID = tCT.CT_ID and 
+                    tCR.CR_U_ID = :sessionId and 
+                    tCR.CR_cDt between date(:deptDay) and 
+                    date(:endDay)+1
+                group by tCR.CR_cDt
                 order by no desc
              `;
     
@@ -763,10 +884,15 @@ router.post('/user/resPayMo',  auth.isLoggedIn, (req, res, next) =>{
                     tCR.CR_CT_ID as crCTID,
                     tCR.CR_PH_ID as crPHID,
                     tCR.CR_cDt as no
-                from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                    where tCR.CR_CT_ID = tCT.CT_ID
-                    and tCR.CR_U_ID = :sessionId
-                    group by tCR.CR_cDt
+                from tCT 
+                    left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                    left join tB on tCY.CY_B_ID = tB.B_ID 
+                    left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+                    left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                where 
+                    tCR.CR_CT_ID = tCT.CT_ID and 
+                    tCR.CR_U_ID = :sessionId
+                group by tCR.CR_cDt
                 order by no desc
              `;
     
@@ -804,10 +930,17 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
                     CR_cDt as crCdt,
                     tCR.CR_CT_ID as crCTID,
                     tCR.CR_PH_ID as crPHID
-                from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                    where tCR.CR_CT_ID = tCT.CT_ID and tCR.CR_CT_ID = :moCtId and tCR.CR_PH_ID = :moPhId
-                    and tCR.CR_U_ID = :sessionId
-                    group by tCR.CR_cDt
+                from tCT 
+                    left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                    left join tB on tCY.CY_B_ID = tB.B_ID 
+                    left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+                    left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                where 
+                    tCR.CR_CT_ID = tCT.CT_ID and 
+                    tCR.CR_CT_ID = :moCtId and 
+                    tCR.CR_PH_ID = :moPhId and 
+                    tCR.CR_U_ID = :sessionId
+                group by tCR.CR_cDt
                 order by PayDay desc
              `;
     
@@ -842,10 +975,16 @@ router.get('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
                         tPH.PH_Price as price,
                         CR_CT_ID as ctId,
                         CR_PH_ID as phId
-                    from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                        where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = :crCancel
-                        and tCR.CR_U_ID = :sessionId
-                        group by tCR.CR_cDt
+                    from tCT 
+                        left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                        left join tB on tCY.CY_B_ID = tB.B_ID 
+                        left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+                        left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                    where 
+                        tCR.CR_CT_ID = tCT.CT_ID AND 
+                        tCR.CR_Cancel = :crCancel and 
+                        tCR.CR_U_ID = :sessionId
+                    group by tCR.CR_cDt
                     order by PayDay desc`;
 
     let sessionId = req.user.U_ID;
@@ -882,10 +1021,18 @@ router.post('/user/resCancelListBetween', auth.isLoggedIn, (req, res, next) =>{
                         CR_CT_ID as ctId,
                         CR_PH_ID as phId,
                         tPH.PH_Price as price	
-                    from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                        where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = :crCancel
-                        and tCR.CR_U_ID = :sessionId and tCR.CR_CancelDt between date(:cancelDeptDay) AND date(:cancelEndDay)+1
-                        group by tCR.CR_cDt
+                    from tCT 
+                        left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                        left join tB on tCY.CY_B_ID = tB.B_ID 
+                        left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+                        left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                    where 
+                        tCR.CR_CT_ID = tCT.CT_ID AND 
+                        tCR.CR_Cancel = :crCancel and 
+                        tCR.CR_U_ID = :sessionId and 
+                        tCR.CR_CancelDt between date(:cancelDeptDay) AND 
+                        date(:cancelEndDay)+1
+                    group by tCR.CR_cDt
                     order by cancelDay desc
 	                `;
 
@@ -918,10 +1065,16 @@ router.post('/user/resCancelListMo', auth.isLoggedIn, (req, res, next) =>{
                     tPH.PH_Price as price,
                     CR_CT_ID as ctId,
                     CR_PH_ID as phId	
-                from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                    where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = :crCancel
-                    and tCR.CR_U_ID = :sessionId
-                    group by tCR.CR_cDt
+                from tCT 
+                    left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                    left join tB on tCY.CY_B_ID = tB.B_ID 
+                    left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+                    left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                where 
+                    tCR.CR_CT_ID = tCT.CT_ID AND 
+                    tCR.CR_Cancel = :crCancel and 
+                    tCR.CR_U_ID = :sessionId
+                group by tCR.CR_cDt
                 order by PayDay desc`;
 
     let sessionId = req.user.U_ID;
@@ -956,10 +1109,18 @@ router.post('/user/resCancelDetailMo', auth.isLoggedIn, (req, res, next) =>{
                     tB.B_Name as carName,
                     CR_CT_ID as ctId,
                     CR_PH_ID as phId	
-                from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                    where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = :crCancel
-                    and tCR.CR_U_ID = :sessionId and CR_CT_ID = :ctId and CR_PH_ID = :phId
-                    group by tCR.CR_cDt
+                from tCT 
+                    left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                    left join tB on tCY.CY_B_ID = tB.B_ID 
+                    left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+                    left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                where 
+                    tCR.CR_CT_ID = tCT.CT_ID AND 
+                    tCR.CR_Cancel = :crCancel and 
+                    tCR.CR_U_ID = :sessionId and 
+                    CR_CT_ID = :ctId and 
+                    CR_PH_ID = :phId
+                group by tCR.CR_cDt
                 order by PayDay desc`;
 
     let sessionId = req.user.U_ID;
@@ -1051,7 +1212,9 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
 //장차예매 리스트
 router.post('/user/resDept', auth.isLoggedIn, (req, res, next) =>{
     let query = `
-                select	distinct date_format(CT_DepartureTe,'%H%i') as deptTe, date_format(CT_DepartureTe,'%H:%i') as deptTe2
+                select 
+                    distinct date_format(CT_DepartureTe,'%H%i') as deptTe, 
+                    date_format(CT_DepartureTe,'%H:%i') as deptTe2
                  from tCT`;
 
     connection.query(query,
@@ -1078,10 +1241,13 @@ router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
                     tcy.CY_ID,
                     tcy.CY_Ty,
                     tcy.CY_TotalPassenger
-                FROM tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID
-                WHERE date_format(CT_DepartureTe,'%H%i') = :deptTe
-                AND date_format(CT_ReturnTe,'%H%i') = :retuTe
-                AND tCT.CT_DepartureTe > now()
+                FROM tCT 
+                    left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                    left join tB on tCY.CY_B_ID = tB.B_ID
+                WHERE 
+                    date_format(CT_DepartureTe,'%H%i') = :deptTe AND 
+                    date_format(CT_ReturnTe,'%H%i') = :retuTe AND 
+                    tCT.CT_DepartureTe > now()
                 ORDER BY tCT.CT_DepartureTe ASC`;
 
     let sessionId = req.user.U_ID;
@@ -1127,8 +1293,12 @@ router.get('/useSeat/:ct_id', auth.isLoggedIn, (req, res, next) =>{
 
 router.get('/useSeat2/:ct_id', auth.isLoggedIn, (req, res, next) =>{
     let query = `select 
-                    CY_SeatPrice from tCR inner join tCT on tCR.CR_CT_ID = tCT.CT_ID inner join tCY on tCT.CT_CY_ID = tCY.CY_ID
-                where CR_CT_ID = :ct_id and CR_Cancel = 'N'`;
+                    CY_SeatPrice 
+                from tCR 
+                    inner join tCT on tCR.CR_CT_ID = tCT.CT_ID 
+                    inner join tCY on tCT.CT_CY_ID = tCY.CY_ID
+                where 
+                    CR_CT_ID = :ct_id and CR_Cancel = 'N'`;
     let ct_id = req.params.ct_id;
     
     connection.query(query, { ct_id : ct_id },
@@ -1275,14 +1445,46 @@ router.get('/brandList', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
         new mssql.Request().query(`
-        select BS_NameKor, BS_NameEng, tBCR.BCR_ID, BCR_LV1_BC_ID, BCR_LV2_BC_ID, BCR_LV3_BC_ID, tBS.BS_ID, BS_BC_ID, 
-                BS_LoginID, BS_LoginPW, BS_CEO, BS_Phone, BS_CEOPhone, BS_Addr1Kor, BS_Addr2Kor, BS_Addr1Eng, BS_Addr2Eng, convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
-                convert(varchar, BS_MainDtf, 108) as BS_MainDtF, convert(varchar, BS_SubDtF, 108) as BS_SubDtF, BC_NameKor, BC_NameEng,
-                convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
-                BS_ContentsKor, BS_ContentsEng, BS_ThumbnailUrl, BS_PersonalDayKor, BS_PersonalDayEng,  BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
-        from tBCR inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
-                inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
-        inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
+            select 
+                BS_NameKor, 
+                BS_NameEng, 
+                tBCR.BCR_ID, 
+                BCR_LV1_BC_ID, 
+                BCR_LV2_BC_ID, 
+                BCR_LV3_BC_ID, 
+                tBS.BS_ID, 
+                BS_BC_ID, 
+                BS_LoginID, 
+                BS_LoginPW, 
+                BS_CEO, 
+                BS_Phone, 
+                BS_CEOPhone, 
+                BS_Addr1Kor, 
+                BS_Addr2Kor, 
+                BS_Addr1Eng, 
+                BS_Addr2Eng, 
+                convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
+                convert(varchar, BS_MainDtf, 108) as BS_MainDtF, 
+                convert(varchar, BS_SubDtF, 108) as BS_SubDtF, 
+                BC_NameKor, 
+                BC_NameEng,
+                convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, 
+                convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
+                BS_ContentsKor, 
+                BS_ContentsEng, 
+                BS_ThumbnailUrl, 
+                BS_PersonalDayKor, 
+                BS_PersonalDayEng,  
+                BS_ImageUrl,
+                tLS.LS_Number, 
+                LS_Sector, 
+                LS_Floor 
+            from tBCR 
+                inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID 
+                inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
+                inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID 
+                inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
+                inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
         (err, result) => {
             res.json({ data : result.recordset });
         })
@@ -1303,8 +1505,19 @@ router.get('/language', function(req, res, next) {
 router.get('/storeInfo', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
-        new mssql.Request().query(`SELECT LS_Number, tBS.BS_ID, BS_BC_ID, BS_NameKor, BS_NameEng,BC_NameKor, BC_NameEng 
-                                          FROM tBSxtLS inner join tBS on tBSxtLS.BS_ID = tBS.BS_ID inner join tBC on tBC.BC_ID = tBS.BS_BC_ID`, (err, result) => {
+        new mssql.Request().query(
+            `SELECT 
+                LS_Number, 
+                tBS.BS_ID, 
+                BS_BC_ID, 
+                BS_NameKor, 
+                BS_NameEng,
+                BC_NameKor, 
+                BC_NameEng 
+            FROM tBSxtLS 
+                inner join tBS on tBSxtLS.BS_ID = tBS.BS_ID 
+                inner join tBC on tBC.BC_ID = tBS.BS_BC_ID`, 
+        (err, result) => {
             res.json({ data : result.recordset });
         })
     });
@@ -1315,14 +1528,40 @@ router.get('/brandListOverLap', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
         new mssql.Request().query(`
-        select BS_NameKor, BS_NameEng, tBCR.BCR_ID, BCR_LV1_BC_ID, BCR_LV2_BC_ID, BCR_LV3_BC_ID, tBS.BS_ID, BS_BC_ID, 
-                BS_LoginID, BS_LoginPW, BS_CEO, convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
-                convert(varchar, BS_MainDtf, 108) as BS_MainDtF, convert(varchar, BS_SubDtF, 108) as BS_SubDtF, BC_NameKor, BC_NameEng,
-                convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
-                BS_ContentsKor, BS_ContentsEng, BS_ThumbnailUrl,BS_PersonalDayKor, BS_PersonalDayEng, BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
-        from tBCR inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
-                inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
-        inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
+            select 
+                BS_NameKor, 
+                BS_NameEng, 
+                tBCR.BCR_ID, 
+                BCR_LV1_BC_ID, 
+                BCR_LV2_BC_ID, 
+                BCR_LV3_BC_ID, 
+                tBS.BS_ID, 
+                BS_BC_ID, 
+                BS_LoginID, 
+                BS_LoginPW, 
+                BS_CEO, 
+                convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
+                convert(varchar, BS_MainDtf, 108) as BS_MainDtF, 
+                convert(varchar, BS_SubDtF, 108) as BS_SubDtF, 
+                BC_NameKor, 
+                BC_NameEng,
+                convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, 
+                convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
+                BS_ContentsKor, 
+                BS_ContentsEng, 
+                BS_ThumbnailUrl,
+                BS_PersonalDayKor, 
+                BS_PersonalDayEng, 
+                BS_ImageUrl,
+                tLS.LS_Number, 
+                LS_Sector,
+                LS_Floor 
+            from tBCR 
+                inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID 
+                inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
+                inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID 
+                inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
+                inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
         (err, result) => {
             let brandList = result.recordset;
             filtered = brandList.filter(function (a) {
@@ -1388,14 +1627,46 @@ router.get('/bsList/:bsId', async function(req,res){
 
         let result = await pool.request()
             .input('bsId', mssql.Int, bsId)
-            .query(`select BS_NameKor, BS_NameEng, tBCR.BCR_ID, BCR_LV1_BC_ID, BCR_LV2_BC_ID, BCR_LV3_BC_ID, tBS.BS_ID, BS_BC_ID, 
-                        BS_LoginID, BS_LoginPW, BS_CEO, BS_Phone, BS_CEOPhone, BS_Addr1Kor, BS_Addr2Kor, BS_Addr1Eng, BS_Addr2Eng, convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
-                        convert(varchar, BS_MainDtf, 108) as BS_MainDtF, convert(varchar, BS_SubDtF, 108) as BS_SubDtF, BC_NameKor, BC_NameEng,
-                        convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
-                        BS_ContentsKor, BS_ContentsEng, BS_ThumbnailUrl, BS_PersonalDayKor, BS_PersonalDayEng,  BS_ImageUrl,tLS.LS_Number, LS_Sector, LS_Floor 
-                    from tBCR inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
-                        inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
-                    inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID where tBS.BS_ID = @bsId`)
+            .query(`select 
+                        BS_NameKor, 
+                        BS_NameEng, 
+                        tBCR.BCR_ID, 
+                        BCR_LV1_BC_ID, 
+                        BCR_LV2_BC_ID, 
+                        BCR_LV3_BC_ID, 
+                        tBS.BS_ID,
+                        BS_BC_ID, 
+                        BS_LoginID, 
+                        BS_LoginPW, 
+                        BS_CEO, 
+                        BS_Phone, 
+                        BS_CEOPhone, 
+                        BS_Addr1Kor, 
+                        BS_Addr2Kor, 
+                        BS_Addr1Eng, 
+                        BS_Addr2Eng, 
+                        convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
+                        convert(varchar, BS_MainDtf, 108) as BS_MainDtF, 
+                        convert(varchar, BS_SubDtF, 108) as BS_SubDtF, 
+                        BC_NameKor, 
+                        BC_NameEng,
+                        convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, 
+                        convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
+                        BS_ContentsKor, 
+                        BS_ContentsEng, 
+                        BS_ThumbnailUrl, 
+                        BS_PersonalDayKor, 
+                        BS_PersonalDayEng,  
+                        BS_ImageUrl,
+                        tLS.LS_Number, 
+                        LS_Sector, 
+                        LS_Floor 
+                    from tBCR 
+                        inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID 
+                        inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
+                        inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID 
+                        inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
+                        inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID where tBS.BS_ID = @bsId`)
         console.log(result.recordset);
     } catch (err) {
         console.log(err);

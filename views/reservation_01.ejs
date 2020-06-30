@@ -167,7 +167,7 @@
                     <div class="reservation_btn_mo">
                         <ul>
                             <li><a href="mypage" class="back">뒤로</a></li>
-                            <li><a href="reservation2" class="next">다음</a></li>
+                            <li><a class="next" onclick="moNext()">다음</a></li>
                         </ul>
                     </div>
 
@@ -299,6 +299,17 @@
     </script>
 
     <script>
+        //모바일 다음 버튼 기능 
+        function moNext(){
+            if($('.tab').children('button').hasClass('active') == true){
+                location.href = "/reservation2";
+            }else{
+                alert('날짜 및 차량 선택을 해주세요.');
+                return false;
+            }
+        }
+
+
         var selected_seats = [];
         var selected_seats_cnt = 0;
         var seatPrice = 0;
