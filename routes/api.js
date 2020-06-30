@@ -1936,7 +1936,8 @@ router.post('/addBs', upload.any(), async function (req, res, next) {
             .input('BS_PersonalDayEng', mssql.NVarChar, req.body.bsPersonalEn)
             .input('BS_ThumbnailUrl', mssql.NVarChar, BS_ThumbnailUrl)
             .input('BS_ImageUrl', mssql.NVarChar, BS_ImageUrl)
-            .query(`insert into tBS(BS_BC_ID, BS_LoginID, BS_LoginPW, BS_CEO, BS_NameKor, BS_NameEng, BS_ContentsKor, BS_ContentsEng, 
+            .query(`insert into tBS(
+                                BS_BC_ID, BS_LoginID, BS_LoginPW, BS_CEO, BS_NameKor, BS_NameEng, BS_ContentsKor, BS_ContentsEng, 
                                 BS_Phone, BS_CEOPhone, BS_Addr1Kor, BS_Addr2Kor, BS_Addr1Eng, BS_Addr2Eng, BS_MainDtS, BS_MainDtF,
                                 BS_SubDtS, BS_SubDtF, BS_BreakDtS, BS_BreakDtF,BS_PersonalDayKor, BS_PersonalDayEng, BS_ThumbnailUrl,
                                 BS_ImageUrl)
@@ -2178,9 +2179,14 @@ router.post('/ad', upload.any(), async function (req, res, next) {
             .input('adUrl', mssql.NVarChar, '/img/ad/'+filename)
             .input('adConTy', mssql.NVarChar, content_type)
             .input('addef', mssql.NVarChar, req.body.addef)
-            .query(`insert into tAD(AD_BS_ID, AD_ADY_ID, AD_BC_ID, AD_PaymentStatus, AD_Title, AD_DtS, 
-                                    AD_DtF, AD_ContentURL, AD_ContentTy, AD_Default)
-                        values(@adBsId, @adAdyId, @adBcId, @adPay, @adTitle, @adDtS, @adDtF, @adUrl, @adConTy, @addef)`);
+            .query(`insert into tAD(
+                                    AD_BS_ID, AD_ADY_ID, AD_BC_ID, AD_PaymentStatus, AD_Title, AD_DtS, 
+                                    AD_DtF, AD_ContentURL, AD_ContentTy, AD_Default
+                                    )
+                            values(
+                                    @adBsId, @adAdyId, @adBcId, @adPay, @adTitle, @adDtS, @adDtF, @adUrl, @adConTy, @addef
+                                    )`
+                    );
         console.log('성공');
         res.json({result : 1});
     } catch (err) {
