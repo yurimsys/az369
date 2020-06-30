@@ -146,7 +146,7 @@
 
                         <ul class="payment_btn">
                             <li>
-                                <a href="#" class="payment_close1 payment_close">취소</a>
+                                <a class="payment_close1 payment_close" onclick="payBack()">취소</a>
                             </li>
 
                             <li>
@@ -344,24 +344,38 @@
             }
 
         }
-
+        //예매하기 버튼
         function showPayment() {
-            $('header').remove();
-            let car_list = JSON.parse(sessionStorage.getItem("car_list")),
-                ct_id = sessionStorage.getItem("ct_id");
 
-            let reserve_car_info = car_list.find((k) => (k.ctID == ct_id)),
-                deptTe = reserve_car_info.deptTe,
-                retuTe = reserve_car_info.retuTe,
-                b_name = reserve_car_info.b_name;
-                console.log('============');
-            console.log('요일',getInputDayLabel(deptTe) );
+            if($('.seatCharts-seat').hasClass('selected') == true){
+                $('header').css('display','none');
+                let car_list = JSON.parse(sessionStorage.getItem("car_list")),
+                    ct_id = sessionStorage.getItem("ct_id");
 
-            $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptTe) + ') '));
-            $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retuTe) + ') '));
-            $("#payment_car_info").text(b_name);
+                let reserve_car_info = car_list.find((k) => (k.ctID == ct_id)),
+                    deptTe = reserve_car_info.deptTe,
+                    retuTe = reserve_car_info.retuTe,
+                    b_name = reserve_car_info.b_name;
+                    console.log('============');
+                console.log('요일',getInputDayLabel(deptTe) );
 
-            location.href = "/reservation2#payment";
+                $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptTe) + ') '));
+                $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retuTe) + ') '));
+                $("#payment_car_info").text(b_name);
+
+                $('#payment').css('display','block')
+            }else{
+                alert('좌석을 선택해 주세요.');
+                return false;
+            }
+
+
+
+        }
+        //취소 버튼
+        function payBack(){
+            $('header').css('display','block');
+            $('#payment').css('display','none')
         }
 
         function getInputDayLabel(date) {
