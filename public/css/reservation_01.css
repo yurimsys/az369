@@ -29,7 +29,7 @@ section.sub_wrap {
 
 
 section.sub_wrap .bar {
-    border-bottom: 2px solid #ad863c; 
+    border-bottom: 2px solid #C3A164; 
     width: 35px; 
     margin: 0 auto;
     margin-top: 2%;
@@ -152,7 +152,7 @@ section.sub_wrap h1 {
 /*왼쪽하단 - 버스선택*/
 .select_bus {width: 100%; overflow: hidden;}
 .select_bus_list {width: 100%; height: 370px; overflow: scroll; overflow-x: hidden;background: #f4f4f4;}
-.select_bus p {font-size: 14px; color: #ad863c; margin-top: 2%;}
+.select_bus p {font-size: 14px; color: #C3A164; margin-top: 2%;}
 
 .select_bus label input {display: none;}
 .select_bus label span {
@@ -178,10 +178,10 @@ section.sub_wrap h1 {
 
 
 /*select_bus_list 스크롤 css*/
-.select_bus_list::-webkit-scrollbar {width: 5px; height: 20px}
+.select_bus_list::-webkit-scrollbar {width: 3px; height: 20px;}
 .select_bus_list::-webkit-scrollbar-track {background-color: #ddd;}
 .select_bus_list::-webkit-scrollbar-button {display: none;}
-.select_bus_list::-webkit-scrollbar-thumb {border-radius: 5px; background-color: #ad863c;}
+.select_bus_list::-webkit-scrollbar-thumb {border-radius: 5px; background-color: #C3A164;}
 
 /*버스선택버튼 active*/
 .tab {
@@ -205,9 +205,9 @@ section.sub_wrap h1 {
 
 .tab button.active {
   background-color: #fff;
-    border: 1px solid #ad863c; 
+    border: 1px solid #C3A164; 
     border-radius: 5px;
-    color: #ad863c;
+    color: #C3A164;
 }
 
 
@@ -266,7 +266,7 @@ section.sub_wrap h1 {
 
 /*결제버튼 팝업 내부*/
 /*팝업 타이틀*/
-.payment_tit { background: #f8f8f8; border-bottom: 2px solid #ad863c; height: 60px; line-height: 60px; margin: 0 auto;text-align: center; color: #222; font-weight: normal; font-size: 22px;}
+.payment_tit { background: #f8f8f8; border-bottom: 2px solid #C3A164; height: 60px; line-height: 60px; margin: 0 auto;text-align: center; color: #222; font-weight: normal; font-size: 22px;}
 
 /*팝업 요약*/
 .info_table {width: 100%; overflow: hidden;/* border-bottom: 1px solid #eee;*/ padding: 0 6%; margin-top: 2%;}
@@ -296,13 +296,13 @@ dl.price_sale {color: #c17e00;}
 .reservation_btn_mo {display: none;}
 
 
-.payment_btn {width: 100%; height: 50px; margin-top: 10%; border: 0; background: #ad863c; color: #fff; font-size: 16px;}
+.payment_btn {width: 100%; height: 50px; margin-top: 10%; border: 0; background: #C3A164; color: #fff; font-size: 16px;}
 .payment_btn li {float: left; width: 49%; margin-right: 1%;}
 .payment_btn li:last-child {margin-right: 0;} 
 .payment_close {width: 100%; display: block; height: 50px; line-height: 50px; text-align: center;}
 .payment_close1 {background: #eee; color: #666; transition: all 0.2s;}
 .payment_close1:hover {background: #ddd;}
-.payment_close2{bottom:20px;display:block;background:#ad863c;color:#fff;text-align:center; float: left; width: 100%;}
+.payment_close2{bottom:20px;display:block;background:#C3A164;color:#fff;text-align:center; float: left; width: 100%;}
 
 /*section.sub_wrap 완료*/
 
@@ -373,7 +373,7 @@ header .open {
     .reservation_btn_mo ul li:nth-child(2) {margin-right: 0;}
     .reservation_btn_mo ul li a {display: block;}
     .back {border: 1px solid #ddd;}
-    .next {background: #ad863c; color: #fff; }
+    .next {background: #C3A164; color: #fff; }
 }
 
 
@@ -418,7 +418,7 @@ header .open {
     .reservation_btn ul li:nth-child(2) {margin-right: 0;}
     .reservation_btn ul li a {display: block;}
     .back {border: 1px solid #ddd;}
-    .next {background: #ad863c; color: #fff; }*/
+    .next {background: #C3A164; color: #fff; }*/
     .reservation_btn_mo {width: 95%; margin-top: 5%;}
     
     /*main*/
@@ -427,7 +427,7 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 414px;}
+    section.sub_wrap .inner_sub_wrap {width: 100%;}
     section.sub_wrap h1 {font-size: 2rem;}
     section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
     section.sub_wrap h2 {font-size: 1.6rem; padding-bottom: 7%; line-height: 1.5;}
@@ -450,7 +450,8 @@ header .open {
 
 /* 375px */
 @media screen and (max-width: 375px) {
-  .reservation_box {width: 95%; margin: 0 auto; margin-right: 5%;}
+  .reservation_box {width: 95%;}
+  .reserve_left {padding: 8% 5%;}
 }
 
 /*320px*/
