@@ -314,6 +314,12 @@
         var selected_seats_cnt = 0;
         var seatPrice = 0;
         function showPayment() {
+
+            if($('.seatCharts-seat').hasClass('selected') == false){
+                alert('좌석을 선택해 주세요.');
+                return false;
+            }
+
             let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                 ct_id = sessionStorage.getItem("ct_id");
 
