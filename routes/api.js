@@ -36,6 +36,48 @@ const storage = multer.diskStorage({
     }
   })
 const upload = multer({storage: storage})
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, 'upload/')
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.originalname)
+//     }
+//   })
+
+// const upload = multer({storage : storage})
+
+
+router.post('/upload', upload.any(), function(req, res){
+    console.log('test',req.file);
+})
+
+
+
+router.post('/add', upload.any(), async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+        // 광고입력
+        if(req.files.length === 0) throw Error('Non include files');
+        let content_type = req.files[0].mimetype.split('/')[0];
+        let filename = req.files[0].filename;
+        let old_path = req.files[0].path;
+        let new_path = path.join(config.path.ad_image , filename);
+
+        fs.rename(old_path, new_path, (err) => {
+            if (err) throw err;
+            fs.stat(new_path, (err, stats) => {
+            if (err) throw err;
+            console.log(`stats: ${JSON.stringify(stats)}`);
+            });
+        });
+
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+        res.json({result : 0});
+    }
+});
 
 
 
