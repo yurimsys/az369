@@ -1,136 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Node js Test</title>
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/scrolla.jquery.min.js"></script>
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/scrolla.jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
+<body>
+  <!-- <form id='fileTest' enctype="multipart/form-data">
+    <input type="file" name="file" id='file'>
+  </form>
+  <button onclick="add()">전송</button> -->
 
-<body onload="init();" style="touch-action:none">
-    <div id="target" style="margin-top: 30%;">
-        <% include central1F.ejs%>
-    </div>
-    <!-- UI for logging/debugging -->
-    <button id="log" onclick="enableLog(event);">Start/Stop event logging</button>
-    <button id="clearlog" onclick="clearLog(event);">Clear the log</button>
-    <p></p>
-    <output></output>
-
-    <div>여긴움직이면안대</div>
-   </body>
-
+  <form>
+    <input type="file" name="file" id='file'>
+    
+  </form>
+  <button type="button" onclick="add()">전송</button>
+</body>
 <script>
-    var evCache = new Array();
-var prevDiff = -1;
-
-function init() {
- // Install event handlers for the pointer target
- var el=document.getElementsByClassName('centralSvg1F')[0]
- el.onpointerdown = pointerdown_handler;
- el.onpointermove = pointermove_handler;
-
- // Use same handler for pointer{up,cancel,out,leave} events since
- // the semantics for these events - in this app - are the same.
- el.onpointerup = pointerup_handler;
- el.onpointercancel = pointerup_handler;
- el.onpointerout = pointerup_handler;
- el.onpointerleave = pointerup_handler;
-}
-
-
-function pointerdown_handler(ev) {
- evCache.push(ev);
-//  log("pointerDown", ev);
-}
-
-function pointermove_handler(ev) {
-//  log("pointerMove", ev);
- ev.target.style.border = "dashed";
-
- // Find this event in the cache and update its record with this event
- for (var i = 0; i < evCache.length; i++) {
-   if (ev.pointerId == evCache[i].pointerId) {
-      evCache[i] = ev;
-   break;
-   }
- }
-
- if (evCache.length == 2) {
-   let curDiff = Math.abs(evCache[0].clientX - evCache[1].clientX);
-   let location_y = Math.abs(evCache[0].clientY - evCache[1].clientY);
-   let now_scale = ev.currentTarget.style.transform.replace('scale(','').replace(')','')
-   
-   //줌 인
-   if (prevDiff > 0) {
-     if (curDiff > prevDiff) {
-        let good = (location_y + curDiff) / 1000;
-        let up_scale = Number(now_scale) + good
-        ev.currentTarget.style.transform = 'scale('+up_scale+')';
-
-        console.log('dd',ev.currentTarget.style.transform);
-        if(now_scale >= 3){
-            ev.currentTarget.style.transform = 'scale(3.0)';
-            return;
-        }
-
-     }
-     //줌 아웃
-    if (curDiff < prevDiff) {
-        let good = (location_y + curDiff) / 1000;
-        let down_scale = Number(now_scale) - good
-        ev.currentTarget.style.transform = 'scale('+down_scale+')';
-        console.log('dd',ev.currentTarget.style.transform);
-        if(now_scale <= 1){
-            ev.currentTarget.style.transform = 'scale(1.0)';
-            return;
-        }
-
-    }
-
-}
-   // Cache the distance for the next move event 
-   prevDiff = curDiff;
- }
-}
-
-function pointerup_handler(ev) {
-  log(ev.type, ev);
-  // Remove this pointer from the cache and reset the target's
-  // background and border
-  remove_event(ev);
-  ev.target.style.background = "white";
-  ev.target.style.border = "1px solid black";
-
-  // If the number of pointers down is less than two then reset diff tracker
-  if (evCache.length < 2) {
-    prevDiff = -1;
+  var form = $('#fileTest')[0]
+  var form_data = new FormData(document.forms[0])
+  
+  
+  function add(){
+    console.log(form);
+    console.log(form_data);
+    console.log($('#file').val());
+    $.ajax({
+      url: '/api/upload',
+      method: 'post',
+      enctype : "multipart/form-data",
+      data : form_data,
+      contentType : false,
+      processData : false,
+      success : function(){
+        // console.log('goood');
+      }
+    });
   }
-}
-
-function remove_event(ev) {
- // Remove this event from the target's cache
- for (var i = 0; i < evCache.length; i++) {
-   if (evCache[i].pointerId == ev.pointerId) {
-     evCache.splice(i, 1);
-     break;
-   }
- }
-}
-
-var logEvents = false;
-
-function log(prefix, ev) {
-  if (!logEvents) return;
-  var o = document.getElementsByTagName('output')[0];
-  var s = prefix + ": pointerID = " + ev.pointerId +
-                " ; pointerType = " + ev.pointerType +
-                " ; isPrimary = " + ev.isPrimary;
-  o.innerHTML += s + " ";
-} 
-
-
 
 </script>
 </html>

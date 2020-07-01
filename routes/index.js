@@ -34,7 +34,7 @@ const upload = multer({storage: storage})
 
 
 router.get('/testst',function(req, res, next){
-    res.render('dragtest');
+    res.render('testst');
 })
 
 
@@ -198,11 +198,34 @@ router.post('/c3/action', function(req,res){
 //의향서 c5 액션
 router.post('/c5/action', async function(req,res){
     let query = `insert into tLSV
-                        (LSV_NAME, LSV_Phone, LSV_Store, LSV_wContactPeriod, LSV_wRentalFeeMin, LSV_wRentalFeeMax,
-                         LSV_wDepositMin, LSV_wDepositMax, LSV_wInsuranceTy, LSV_cRentalFee, LSV_cDeposit, LSV_wModify, LSV_Question)
-                    values(:name , :phone , :store , :wt_contact_period, :wt_rental_fee_min, :wt_rental_fee_max, 
-                           :wt_deposit_min, :wt_deposit_max, :wt_insurance_type, :cur_rental_fee, :cur_deposit, :wt_modify, :opinion) `
-
+                        (LSV_NAME,
+                         LSV_Phone,
+                         LSV_Store,
+                         LSV_wContactPeriod,
+                         LSV_wRentalFeeMin,
+                         LSV_wRentalFeeMax,
+                         LSV_wDepositMin,
+                         LSV_wDepositMax, 
+                         LSV_wInsuranceTy, 
+                         LSV_cRentalFee, 
+                         LSV_cDeposit, 
+                         LSV_wModify, 
+                         LSV_Question)
+                    values
+                        (:name, 
+                         :phone,
+                         :store, 
+                         :wt_contact_period, 
+                         :wt_rental_fee_min, 
+                         :wt_rental_fee_max, 
+                         :wt_deposit_min, 
+                         :wt_deposit_max, 
+                         :wt_insurance_type, 
+                         :cur_rental_fee, 
+                         :cur_deposit, 
+                         :wt_modify, 
+                         :opinion) `
+ 
     let name = req.body.name; //이름
     let phone = req.body.phone; //전화번호
     let store = req.body.store; //호수
@@ -257,14 +280,19 @@ router.post('/c5/action', async function(req,res){
 router.post('/c4/chart', function(req,res){
     // and create_dt between date_add(now(), interval -6 month) and now()
     // where date_format(create_dt , '%Y-%m') IN(select date_format(create_dt, '%Y-%m') as tes from admin_survey_test group by tes)
-        let query = `select LSV_Store, LSV_wRentalFeeMin , LSV_wRentalFeeMax, LSV_cDt, concat(date_format(LSV_cDt,'%m'), '월') as day
-                            from tLSV 
-                            having LSV_Store in ( select LS_Number from tLS where LS_Floor = :floor1 and LS_Sector in (:dataSector1)
-                            union all
-                            select LS_Number from tLS where LS_Floor = :floor2 and LS_Sector in (:dataSector2)
-                            union all
-                            select LS_Number from tLS where LS_Floor = :floor3 and LS_Sector in (:dataSector3) )
-                        order by day asc;`
+        let query = `select 
+                        LSV_Store, 
+                        LSV_wRentalFeeMin, 
+                        LSV_wRentalFeeMax, 
+                        LSV_cDt, 
+                        concat(date_format(LSV_cDt,'%m'), '월') as day
+                    from tLSV 
+                        having LSV_Store in ( select LS_Number from tLS where LS_Floor = :floor1 and LS_Sector in (:dataSector1)
+                        union all
+                        select LS_Number from tLS where LS_Floor = :floor2 and LS_Sector in (:dataSector2)
+                        union all
+                        select LS_Number from tLS where LS_Floor = :floor3 and LS_Sector in (:dataSector3) )
+                    order by day asc;`
     
         let dataSector1 = req.body['1F']
         let dataSector2 = req.body['2F']
@@ -323,11 +351,35 @@ router.post('/b', function(req, res){
 
     let query = `
         INSERT INTO tLSV
-            (LSV_NAME, LSV_Phone, LSV_Store, LSV_wContactPeriod, LSV_wRentalFeeMin, LSV_wRentalFeeMax, LSV_wDepositMin,
-             LSV_wDepositMax, LSV_wInsuranceTy, LSV_cRentalFee, LSV_cDeposit, LSV_wModify, LSV_Contract, LSV_Question)
+            (LSV_NAME, 
+            LSV_Phone, 
+            LSV_Store, 
+            LSV_wContactPeriod, 
+            LSV_wRentalFeeMin, 
+            LSV_wRentalFeeMax, 
+            LSV_wDepositMin,
+            LSV_wDepositMax, 
+            LSV_wInsuranceTy, 
+            LSV_cRentalFee, 
+            LSV_cDeposit, 
+            LSV_wModify, 
+            LSV_Contract, 
+            LSV_Question)
         VALUES
-            (:NAME, :Phone, :Addr, :WT_Contact_Period, :WT_Rantal_Fee_Min, :WT_Rantal_Fee_Max, :WT_Deposit_Min,
-            :WT_Deposit_Max, :WT_Insurance_Type, :CUR_Rental_Fee, :CUR_Deposit, :WT_Modify, :CUR_has_Contract, :Opinion)`;
+            (:NAME, 
+            :Phone, 
+            :Addr, 
+            :WT_Contact_Period, 
+            :WT_Rantal_Fee_Min,
+            :WT_Rantal_Fee_Max,
+            :WT_Deposit_Min,
+            :WT_Deposit_Max,
+            :WT_Insurance_Type, 
+            :CUR_Rental_Fee, 
+            :CUR_Deposit, 
+            :WT_Modify, 
+            :CUR_has_Contract, 
+            :Opinion)`;
 
     connection.query(query, {
         NAME : req.body.name,
@@ -417,11 +469,12 @@ router.get('/reservation', auth.isLoggedIn, function(req,res, next){
                     date_format(CT_DepartureTe,'%H:%i') as pyeongDept2
                 from tCT
                     WHERE tCT.CT_DepartureTe > NOW();
+
                 select 
                     DISTINCT date_format(CT_ReturnTe, '%H%i') as seoulDept,
                     date_format(CT_ReturnTe, '%H:%i') as seoulDept2
                 from tCT
-                WHERE tCT.CT_DepartureTe > NOW()`;
+                    WHERE tCT.CT_DepartureTe > NOW()`;
                     
     connection.query(query,
         function(err, rows, fields) {
@@ -444,6 +497,7 @@ router.get('/reservation2', auth.isLoggedIn, function(req, res, next){
 router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
     let sessionId = req.user.U_ID;
     let crCancel = "N";
+    //(select group_concat(CR_SeatNum ,'번')) as seatNum 마이페이지 좌석 번호 표시
     let query = `select 
                     distinct tB.B_Name as carName,
                     date_format(tCT.CT_DepartureTe,'%m.%d') as deptTe1,
@@ -453,7 +507,8 @@ router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
                     tCT.CT_DepartureTe,
                     tCT.CT_CarNum as carNum,
                     tCR.CR_cDt as payDay,
-                    (select group_concat(CR_SeatNum ,'번')) as seatNum
+                    (select group_concat(CR_SeatNum)) as seatNum,
+                    (select group_concat(CR_SeatNum ,'번')) as seatNumMo
                 from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                     where tCR.CR_CT_ID =tCT.CT_ID AND tCR.CR_Cancel = :crCancel
                     and tCR.CR_U_ID = :sessionId

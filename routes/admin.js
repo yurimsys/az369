@@ -126,8 +126,15 @@ router.post('/business/modify', auth.isLoggedIn, function(req, res, next) {
         let bAddr1 = req.body.bAddr1;
         let bAddr2 = req.body.bAddr2;   
         console.log("아이디 :", bId);
-        let query = `update tB set B_Name =:bName, B_Tel =:bTel, B_Fax =:bFax, B_Email =:bEmail,
-                            B_Zip =:bZip, B_Addr1 =:bAddr1, B_Addr2 =:bAddr2, B_uDt = now()
+        let query = `update tB set 
+                            B_Name =:bName,
+                            B_Tel =:bTel, 
+                            B_Fax =:bFax, 
+                            B_Email =:bEmail,
+                            B_Zip =:bZip, 
+                            B_Addr1 =:bAddr1, 
+                            B_Addr2 =:bAddr2, 
+                            B_uDt = now()
                      where B_ID =:bId`; 
     
         connection.query(query,{bId, bName, bTel, bFax, bEmail, bZip, bAddr1, bAddr2},
@@ -174,8 +181,22 @@ router.post('/business/insert', auth.isLoggedIn, function(req, res, next) {
         let bAddr1 = req.body.addr1;
         let bAddr2 = req.body.addr2;
     
-        let query = `insert into tB(B_Name, B_Tel, B_Fax, B_Email, B_Zip, B_Addr1, B_Addr2) 
-                    values(:bName, :bTel, :bFax, :bEmail, :bZip, :bAddr1, :bAddr2)`; 
+        let query = `insert into tB(
+                        B_Name, 
+                        B_Tel, 
+                        B_Fax, 
+                        B_Email, 
+                        B_Zip, 
+                        B_Addr1, 
+                        B_Addr2) 
+                    values(
+                        :bName, 
+                        :bTel, 
+                        :bFax, 
+                        :bEmail, 
+                        :bZip, 
+                        :bAddr1, 
+                        :bAddr2)`; 
     
         connection.query(query,{ bName, bTel, bFax, bEmail, bZip, bAddr1, bAddr2},
           function(err, rows, fields) {
@@ -292,8 +313,13 @@ router.post('/carType/modify', auth.isLoggedIn, function(req, res, next) {
         let cyBId = req.body.cyBId;
     
         console.log("아이디 :", cyId);
-        let query = `update tCY set CY_Ty =:cyTy, CY_B_ID =:cyBId, CY_TotalPassenger =:total, CY_ServicePassenger =:service,
-                            CY_SeatPrice =:price, CY_uDt = now()
+        let query = `update tCY set 
+                        CY_Ty =:cyTy, 
+                        CY_B_ID =:cyBId, 
+                        CY_TotalPassenger =:total, 
+                        CY_ServicePassenger =:service,
+                        CY_SeatPrice =:price, 
+                        CY_uDt = now()
                      where CY_ID =:cyId`; 
     
         connection.query(query,{cyId, cyTy, cyBId, total, service, price},
@@ -337,8 +363,18 @@ router.post('/carType/insert', auth.isLoggedIn, function(req, res, next) {
         let service = req.body.service;
         let price = req.body.price;
     
-        let query = `insert into tCY(CY_B_ID, CY_Ty, CY_TotalPassenger, CY_ServicePassenger, CY_SeatPrice) 
-                    values(:cyBId, :cyTy, :total, :service, :price)`; 
+        let query = `insert into tCY(
+                        CY_B_ID, 
+                        CY_Ty, 
+                        CY_TotalPassenger, 
+                        CY_ServicePassenger, 
+                        CY_SeatPrice) 
+                    values(
+                        :cyBId, 
+                        :cyTy, 
+                        :total, 
+                        :service, 
+                        :price)`; 
     
         connection.query(query,{ cyBId, cyTy, total, service, price},
           function(err, rows, fields) {
@@ -490,8 +526,14 @@ router.post('/carTime/modify', auth.isLoggedIn, function(req, res, next) {
         let drPhone = req.body.drPhone;
     
         console.log("아이디 :", ctId);
-        let query = `update tCT set CT_CY_ID =:ctCyId, CT_DepartureTe =:deptTe, CT_ReturnTe =:returnTe,
-                                    CT_LeadTe =:lead, CT_carNum =:carNum, CT_DriverName =:drName, CT_DriverPhone =:drPhone
+        let query = `update tCT set 
+                        CT_CY_ID =:ctCyId, 
+                        CT_DepartureTe =:deptTe, 
+                        CT_ReturnTe =:returnTe,
+                        CT_LeadTe =:lead, 
+                        CT_carNum =:carNum, 
+                        CT_DriverName =:drName, 
+                        CT_DriverPhone =:drPhone
                      where CT_ID =:ctId`; 
     
         connection.query(query,{ctCyId, deptTe, returnTe, lead, carNum, drName, drPhone, ctId},
@@ -558,8 +600,22 @@ router.post('/carTime/insert', auth.isLoggedIn, function(req, res, next) {
         let drName = req.body.drName;
         let drPhone = req.body.drPhone;
         console.log("입력 ::", req.body)
-        let query = `insert into tCT(CT_CY_ID, CT_DepartureTe, CT_ReturnTe, CT_LeadTe, CT_CarNum, CT_DriverName, CT_DriverPhone) 
-                    values(:ctCyId, :dept, :retun, :lead, :carNum, :drName, :drPhone)`; 
+        let query = `insert into tCT(
+                        CT_CY_ID, 
+                        CT_DepartureTe, 
+                        CT_ReturnTe, 
+                        CT_LeadTe, 
+                        CT_CarNum, 
+                        CT_DriverName, 
+                        CT_DriverPhone) 
+                    values(
+                        :ctCyId, 
+                        :dept, 
+                        :retun, 
+                        :lead, 
+                        :carNum, 
+                        :drName, 
+                        :drPhone)`; 
     
         connection.query(query,{ctCyId, dept, retun, lead, carNum, drName, drPhone},
           function(err, rows, fields) {
@@ -683,8 +739,16 @@ router.post('/user/modify', auth.isLoggedIn, function(req, res, next) {
         let addr2 = req.body.addr2;
        
         console.log("아이디 :", uId);
-        let query = `update tU set U_uId =:userName, U_Name =:name, U_Email =:email, U_Phone =:phone,
-                            U_Brand =:brand, U_Zip =:zip, U_Addr1 =:addr1, U_Addr2 =:addr2, U_uDt = now()
+        let query = `update tU set 
+                        U_uId =:userName, 
+                        U_Name =:name, 
+                        U_Email =:email, 
+                        U_Phone =:phone,
+                        U_Brand =:brand, 
+                        U_Zip =:zip, 
+                        U_Addr1 =:addr1, 
+                        U_Addr2 =:addr2, 
+                        U_uDt = now()
                      where U_ID =:uId`; 
     
         connection.query(query,{uId, userName, phone, name, email, brand, zip, addr1, addr2},
@@ -739,8 +803,28 @@ router.post('/user/insert', auth.isLoggedIn, function(req, res, next) {
         let password = req.body.pw;
         let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString();
     
-        let query = `insert into tU(U_uId, U_Pw ,U_Name, U_Email, U_Phone, U_Brand, U_Zip, U_Addr1, U_Addr2, U_isAdmin) 
-                    values(:userName, :hash_pw, :name, :email, :phone, :brand, :zip, :addr1, :addr2, :admin)`; 
+        let query = `insert into tU(
+                        U_uId, 
+                        U_Pw,
+                        U_Name, 
+                        U_Email, 
+                        U_Phone, 
+                        U_Brand, 
+                        U_Zip, 
+                        U_Addr1, 
+                        U_Addr2, 
+                        U_isAdmin) 
+                    values(
+                        :userName, 
+                        :hash_pw, 
+                        :name, 
+                        :email, 
+                        :phone, 
+                        :brand, 
+                        :zip, 
+                        :addr1, 
+                        :addr2, 
+                        :admin)`; 
     
         connection.query(query,{userName, hash_pw, name, email, phone, brand, zip, addr1, addr2, admin},
           function(err, rows, fields) {
@@ -803,8 +887,23 @@ router.get('/payment/List', auth.isLoggedIn, function(req, res, next) {
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
         let query = `select
-                        PH_ID, PH_U_ID, U_uId, U_Name, U_Phone, PH_PG_ID, PH_PG_Name, PH_Price, PH_OPrice, PH_SPrice, PH_Type, CR_Cancel, CR_cDt, CR_CancelDt
-                    from tPH inner join tU on PH_U_ID = U_ID inner join tCR on PH_ID = CR_PH_ID
+                        PH_ID, 
+                        PH_U_ID, 
+                        U_uId, 
+                        U_Name, 
+                        U_Phone, 
+                        PH_PG_ID, 
+                        PH_PG_Name, 
+                        PH_Price, 
+                        PH_OPrice, 
+                        PH_SPrice, 
+                        PH_Type, 
+                        CR_Cancel, 
+                        CR_cDt, 
+                        CR_CancelDt
+                    from tPH 
+                        inner join tU on PH_U_ID = U_ID 
+                        inner join tCR on PH_ID = CR_PH_ID
                     group by PH_ID order by CR_cDt desc limit 8000`; 
         connection.query(query,
             function(err, rows, fields) {
@@ -828,8 +927,23 @@ router.post('/payment/search', auth.isLoggedIn, function(req, res, next) {
         let dept = req.body.dept;
         let end = req.body.end;
         let query = `select
-                        PH_ID, PH_U_ID, U_uId, U_Name, U_Phone, PH_PG_ID, PH_PG_Name, PH_Price, PH_OPrice, PH_SPrice, PH_Type, CR_Cancel, CR_cDt, CR_CancelDt
-                    from tPH inner join tU on PH_U_ID = U_ID inner join tCR on PH_ID = CR_PH_ID
+                        PH_ID, 
+                        PH_U_ID, 
+                        U_uId, 
+                        U_Name, 
+                        U_Phone, 
+                        PH_PG_ID, 
+                        PH_PG_Name, 
+                        PH_Price, 
+                        PH_OPrice, 
+                        PH_SPrice, 
+                        PH_Type, 
+                        CR_Cancel, 
+                        CR_cDt, 
+                        CR_CancelDt
+                    from tPH
+                        inner join tU on PH_U_ID = U_ID 
+                        inner join tCR on PH_ID = CR_PH_ID
                     where 1=1
                     `
 
@@ -871,8 +985,23 @@ router.post('/cancelList', auth.isLoggedIn, function(req, res, next) {
         let phId = req.body.phId;
         //console.log("아이디 :", ctId);
         let query = `select 
-                        PH_ID, PH_U_ID, U_uId, U_Name, B_Name, CT_DepartureTe, count(PH_Price) as cnt, sum(PH_Price) as PH_Price, PH_Type, CR_Cancel, CR_cDt
-                     from tPH inner join tU on tPH.PH_U_ID = tU.U_ID inner join tCR on tPH.PH_ID = tCR.CR_PH_ID inner join tCT on tCT.CT_ID = tCR.CR_CT_ID inner join tCY on tCY.CY_ID = tCT.CT_CY_ID inner join tB on tB.B_ID = tCY.CY_B_ID
+                        PH_ID, 
+                        PH_U_ID, 
+                        U_uId, 
+                        U_Name, 
+                        B_Name, 
+                        CT_DepartureTe, 
+                        count(PH_Price) as cnt, 
+                        sum(PH_Price) as PH_Price, 
+                        PH_Type, 
+                        CR_Cancel, 
+                        CR_cDt
+                     from tPH 
+                        inner join tU on tPH.PH_U_ID = tU.U_ID 
+                        inner join tCR on tPH.PH_ID = tCR.CR_PH_ID 
+                        inner join tCT on tCT.CT_ID = tCR.CR_CT_ID 
+                        inner join tCY on tCY.CY_ID = tCT.CT_CY_ID 
+                        inner join tB on tB.B_ID = tCY.CY_B_ID
                      where PH_ID = :phId`; 
         connection.query(query,{phId},
           function(err, rows, fields) {
@@ -894,7 +1023,10 @@ router.post('/cancelPayment', auth.isLoggedIn, function(req, res, next) {
     }else{
         let phId = req.body.phId;
         let phUId = req.body.phUId;
-        let query = `update tCR set CR_Cancel = 'Y', CR_CancelDt = now() where CR_U_ID = :phUId and CR_PH_ID = :phId`; 
+        let query = `update tCR set 
+                        CR_Cancel = 'Y', 
+                        CR_CancelDt = now() 
+                    where CR_U_ID = :phUId and CR_PH_ID = :phId`; 
         connection.query(query,{phUId, phId},
           function(err, rows, fields) {
              
@@ -1060,8 +1192,13 @@ router.post('/userRes/search', auth.isLoggedIn, function(req, res, next) {
                         tCR.CR_Cancel,
                         CR_uDt,
                         CR_cDt
-                    from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID inner join tU on tCR.CR_U_ID = tU.U_ID inner join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                        where tCR.CR_CT_ID =tCT.CT_ID  and tCT.CT_DepartureTe > now() `
+                    from tCT 
+                        left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                        left join tB on tCY.CY_B_ID = tB.B_ID 
+                        left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+                        inner join tU on tCR.CR_U_ID = tU.U_ID 
+                        inner join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                    where tCR.CR_CT_ID =tCT.CT_ID  and tCT.CT_DepartureTe > now() `
 
         if(selResult !== "" && selResult !== undefined){
             query += ` and ${selectName} like '%${selResult}%'`
@@ -1102,7 +1239,17 @@ router.get('/storeIn/List', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `select SI_ID, SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Addr2, left(SI_Content,8) as SI_Content, SI_cDt, SI_Read from tSI order by SI_cDt desc`;
+        let query = `select 
+                        SI_ID, 
+                        SI_Name, 
+                        SI_Phone, 
+                        SI_Brand, 
+                        SI_Addr1, 
+                        SI_Addr2, 
+                        left(SI_Content,8) as SI_Content, 
+                        SI_cDt, 
+                        SI_Read 
+                    from tSI order by SI_cDt desc`;
         connection.query(query,
             function(err, rows, fields) {
             if (err) throw err;
@@ -1123,7 +1270,17 @@ router.post('/storeIn/search', auth.isLoggedIn, function(req, res, next) {
         let chkRad = req.body.chkRad;
         let dept = req.body.dept;
         let end = req.body.end;
-        let query = 'select SI_ID, SI_Name, SI_Phone, SI_Brand, SI_Addr1, SI_Addr2, left(SI_Content,8) as SI_Content, SI_cDt, SI_Read from tSI where 1=1'
+        let query = `select 
+                        SI_ID, 
+                        SI_Name, 
+                        SI_Phone, 
+                        SI_Brand, 
+                        SI_Addr1, 
+                        SI_Addr2, 
+                        left(SI_Content,8) as SI_Content, 
+                        SI_cDt, 
+                        SI_Read 
+                    from tSI where 1=1`;
 
         if(selResult !== "" && selResult !== undefined){
             query += ` and ${selectName} like '%${selResult}%'`
@@ -1296,7 +1453,15 @@ router.get('/video/List', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        let query = `select YL_id, YL_url, YL_title, left(YL_description,10) as YL_description, YL_ch_name, YL_d_order, YL_dDt from tYL order by YL_dDt desc limit 8000`; 
+        let query = `select 
+                        YL_id, 
+                        YL_url, 
+                        YL_title, 
+                        left(YL_description,10) as YL_description, 
+                        YL_ch_name, 
+                        YL_d_order, 
+                        YL_dDt 
+                    from tYL order by YL_dDt desc limit 8000`; 
         connection.query(query,
             function(err, rows, fields) {
                 if (err) throw err;
@@ -1317,7 +1482,15 @@ router.post('/video/search', auth.isLoggedIn, function(req, res, next) {
         let selResult = req.body.selResult;
         let dept = req.body.dept;
         let end = req.body.end;
-        let query = `select YL_id, YL_url, YL_title, left(YL_description,10) as YL_description, YL_ch_name, YL_d_order, YL_dDt from tYL where 1=1`
+        let query = `select 
+                        YL_id, 
+                        YL_url, 
+                        YL_title, 
+                        left(YL_description,10) as YL_description, 
+                        YL_ch_name, 
+                        YL_d_order, 
+                        YL_dDt 
+                    from tYL where 1=1`
 
         if(selResult !== "" && selResult !== undefined){
             query += ` and ${selectName} like '%${selResult}%'`
@@ -1341,7 +1514,15 @@ router.post('/videoModify', auth.isLoggedIn, function(req, res, next) {
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
         let ylId = req.body.ylId;
-        let query = `select YL_id, YL_url, YL_title, YL_description, YL_ch_name, YL_d_order, YL_dDt from tYL where YL_id = :ylId order by YL_dDt desc`; 
+        let query = `select 
+                        YL_id, 
+                        YL_url, 
+                        YL_title, 
+                        YL_description, 
+                        YL_ch_name, 
+                        YL_d_order, 
+                        YL_dDt 
+                    from tYL where YL_id = :ylId order by YL_dDt desc`; 
         connection.query(query,{ylId},
             function(err, rows, fields) {
                 if (err) throw err;
@@ -1363,8 +1544,13 @@ router.post('/video/modify', auth.isLoggedIn, function(req, res, next) {
         let ylContent = req.body.ylContent;
         let ylChName = req.body.ylChName;
         let ylOrder = req.body.ylOrder;
-        let query =`update tYL set YL_url =:ylUrl, YL_title =:ylTitle, YL_description =:ylContent, YL_ch_name =:ylChName, YL_d_order = :ylOrder
-                        where YL_id =:ylId`
+        let query =`update tYL set 
+                        YL_url =:ylUrl, 
+                        YL_title =:ylTitle, 
+                        YL_description =:ylContent, 
+                        YL_ch_name =:ylChName, 
+                        YL_d_order = :ylOrder
+                    where YL_id =:ylId`
 
         if(ylOrder == "" || ylOrder == undefined){
             ylOrder = null;
@@ -1393,9 +1579,29 @@ router.post('/video/insert', auth.isLoggedIn, function(req, res, next) {
         let query = "";
 
         if(ylOrder == "" || ylOrder == undefined){
-            query = `insert into tYL(YL_url, YL_title, YL_description, YL_ch_name) values(:ylUrl, :ylTitle, :ylContent, :ylChName) `; 
+            query = `insert into tYL(
+                                YL_url, 
+                                YL_title, 
+                                YL_description, 
+                                YL_ch_name)
+                            values(
+                                :ylUrl, 
+                                :ylTitle, 
+                                :ylContent, 
+                                :ylChName) `; 
         }else{
-            query = `insert into tYL(YL_url, YL_title, YL_description, YL_ch_name, YL_d_order) values(:ylUrl, :ylTitle, :ylContent, :ylChName, :ylOrder) `; 
+            query = `insert into tYL(
+                                YL_url, 
+                                YL_title, 
+                                YL_description, 
+                                YL_ch_name, 
+                                YL_d_order)
+                            values(
+                                :ylUrl, 
+                                :ylTitle, 
+                                :ylContent, 
+                                :ylChName, 
+                                :ylOrder) `; 
         }
 
         connection.query(query,{ylUrl, ylTitle, ylContent, ylChName, ylOrder},

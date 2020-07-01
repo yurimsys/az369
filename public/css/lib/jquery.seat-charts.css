@@ -112,13 +112,33 @@ li.seatCharts-legendItem {
 }
 }
 
+/*375px*/
+@media screen and (max-width: 375px) {
+    div.seatCharts-container {
+	width: 100%;
+    margin: 0;
+    background: #f8f8f8;
+    padding: 5% 8%;
+}
+}
+
+/*365px*/
+@media screen and (max-width: 365px) {
+    div.seatCharts-container {
+	width: 100%;
+    margin: 0;
+    background: #f8f8f8;
+    padding: 5% 4%;
+}
+}
+
 /*320px*/
 @media screen and (max-width: 320px) {
     div.seatCharts-container {
 	width: 100%;
     margin: 0;
     background: #f8f8f8;
-    padding: 5% 5%;
+    padding: 5%;
 }
     div.seatCharts-cell {margin: 3px;}
 }
