@@ -1,0 +1,236 @@
+<%- contentFor('HeaderCss') %>
+<!-- 카테고리 관리 -->
+<%- contentFor('Body') %>
+<section class="main-container">
+	<!--Page Title-->
+	<div class="header">
+		<div class="header-content d-flex">
+			<div class="page-title">
+				<%= title %>
+			</div>
+			<div class="page-title-desc">
+				<% if(description) {%>
+					<%=description %>
+				<% } %>
+			</div>
+		</div>
+	</div>
+	<!--/Page Title-->
+	<!-- 상세정보 -->
+	<div class="card object-info">
+		<div class="card-header">
+			<div class="row">
+				<div class="col-8">
+					<a data-toggle="collapse" href="#object_detail_group"><span class="title">상세정보</span></a>
+				</div>
+				<div class="col-4">
+					<div class="float-right action-btns action-new">
+						<div name="new" class="btn btn-new px-4" onclick=objectInfo("new")>신규</div>
+						<div name="modify" class="btn btn-modify px-4 disabled">수정</div>
+						<div name="save" class="btn btn-save px-4">저장</div>
+						<div name="delete" class="btn btn-delete px-4 disabled yr_modal_delete" data-toggle="modal" data-target="#deleteModal">삭제
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="object_detail_group" class="card-body collapse show">
+			<form enctype="multipart/form-data">
+				<div class="form-group row">
+					<label class="col-1 col-form-label">ID</label>
+					<div class="col-4">
+						<span id="ad_id"></span>
+					</div>
+					<label for="inputAdFiles" class="col-1 col-form-label">사진첨부</label>
+					<div class="col-4">
+						<input type="file" class="form-control inputAdFiles" id="inputAdFiles" name="inputAdFiles">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="selectBrand" class="col-1 col-form-label">브랜드</label>
+					<div class="col-4">
+						<!-- <input type="hidden" class="select2 selectBrand" style="width:100%;"/> -->
+						<select name="selectBrand" class="form-control select2 selectBrand" style="width:100%" >
+							<option></option>
+						</select>
+					</div>
+					<label for="ad_content_url" class="col-1 col-form-label">URL</label>
+					<div class="col-4">
+						<span class="ad_content_url" id="ad_content_url"></span>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="selectAdCategory" class="col-1 col-form-label">광고업종</label>
+					<div class="col-4">
+						<!-- <input type="hidden" class="select2 selectAdCategory" style="width:100%;"/> -->
+						<select class="form-control select2 selectAdCategory" style="width:100%">
+							<option></option>
+						</select>
+					</div>
+					<label class="col-1 col-form-label">광고기간</label>
+					<div class="col-4 form-row mx-0">
+						<div type="" class="form-control col-5 ad_duration_start" id="ad_duration_start"></div>
+						<span class="col-2 text-center">&#126;</span>
+						<div type="" class="form-control col-5 ad_duration_final" id="ad_duration_final"></div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="selectAdType" class="col-1 col-form-label">광고위치</label>
+					<div class="col-4">
+						<!-- <input type="hidden" class="select2 selectAdType" style="width:100%;"/> -->
+						<select name="selectBrand" class="form-control select2 selectAdType" style="width:100%">
+							<option></option>
+						</select>
+					</div>
+					<label for="inputAdTitle" class="col-1 col-form-label">광고제목</label>
+					<div class="col-4">
+						<input type="text" class="form-control inputAdTitle" id="inputAdTitle">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- /상세정보 -->
+	<!-- <div class="btn" data-toggle="modal" data-target="#deleteModal">검색 모달</div> -->
+	
+	<!-- 테이블 -->
+	<div class="card object-table">
+		<div class="card-body container-flud">
+			<div id="category-table"></div>
+		</div>
+	</div>
+	<!-- /테이블 -->
+
+</section>
+
+<%- contentFor('Modal') %>
+<!-- 삭제 Modal -->
+<div class="modal fade" id="deleteModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+	aria-labelledby="ModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalTitle"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="material-icons">close</span>
+				</button>
+			</div>
+			<div class="modal-body text-center">
+				선택하신 광고를 삭제하시겠습니까?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteAD()">삭제</button>
+				<button type="button" class="btn btn-normal" data-dismiss="modal">취소</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Confirm Modal -->
+<div class="modal fade" id="confirmModal" data-backdrop="static" tabindex="-1" role="dialog"
+	aria-labelledby="ModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalTitle"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="material-icons">close</span>
+				</button>
+			</div>
+			<div class="modal-body text-center message">
+				등록하시겠습니까?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-normal" data-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-success" data-dismiss="modal">확인</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 상세검색 -->
+<div class="card object-search-popup" id="object-search-popup" style="display: none;">
+	<div class="card-header object-search-header">
+		<div class="row">
+			<div class="col-8 search-header-title">
+				<a data-toggle="collapse" href="#object_search_info"><span class="title">상세검색</span></a>
+			</div>
+			<div class="col-4">
+				<div class="float-right action-btns action-new">
+					<div name="reset" class="btn btn-reset px-4" onclick="searchPopupReset()">초기화</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="object_search_info" class="card-body collapse show">
+		<form>
+			<!-- <div class="form-group row">
+				<label class="col-3 col-form-label">ID</label>
+				<div class="col-9">
+					<input type="text" class="form-control" id="inputID" />
+				</div>
+			</div> -->
+			<div class="form-group row">
+				<label class="col-3 col-form-label pt-0">검색조건</label>
+				<div class="col-9 align-self-center">
+					<input type="checkbox" id="searchType" switch="success" checked/>
+					<label class="m-0" for="searchType" data-on-label="AND" data-off-label="OR"></label>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">브랜드</label>
+				<div class="col-9">
+					<!-- <input type="hidden" class="form-control selectBrand" style="width:100%;"/> -->
+					<select name="selectBrand" class="form-control select2 selectBrand" style="width:100%">
+						<option></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">광고업종</label>
+				<div class="col-9">
+					<select name="selectAdCategory" class="form-control select2 selectAdCategory" style="width:100%">
+						<option></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">광고위치</label>
+				<div class="col-9">
+					<!-- <input type="hidden" class="form-control select2 selectAdType" style="width:100%;"/> -->
+					<select name="selectAdType" class="form-control select2 selectAdType" style="width:100%">
+						<option></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">광고기간</label>
+				<div class="col-9 form-row mx-0">
+					<div type="" class="form-control col ad_duration_start" id="ad_duration_start"></div>
+					<span class="col-1 text-center">&#126;</span>
+					<div type="" class="form-control col ad_duration_final" id="ad_duration_final"></div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">광고제목</label>
+				<div class="col-9">
+					<input type="text" class="form-control inputAdTitle" id="inputAdTitle">
+				</div>
+			</div>
+		</form>
+		<div class="search-footer row">
+			<div class="col-4 pr-1">
+				<button class="btn btn-close" onclick="searchPopupClose()">닫기</button>
+			</div>
+			<div class="col-8">
+				<button class="btn btn-search" onclick="searchPopupAction()">검색</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%- contentFor('FooterJs') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.0.1/exceljs.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.2/jszip.min.js"></script> -->

@@ -270,8 +270,6 @@
         
         $('#timeSelect01, #timeSelect02').click(function () {
             $(".tab").empty();
-            //console.log($("#depart01").val())
-            //console.log($("#depart02").val())
             $.ajax({
                 url: "api/user/resCarList",
                 method: "post",

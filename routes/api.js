@@ -1276,6 +1276,8 @@ router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
                     tB.B_Name as b_name,
                     date_format(tCT.CT_DepartureTe,'%Y-%m-%d %H:%i') as deptTe,
                     date_format(tCT.CT_ReturnTe,'%Y-%m-%d %H:%i') as retuTe,
+                    DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
+                    DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
                     tCT.CT_CarNum as carNum,
                     (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as available_seat_cnt,
                     tCY.CY_Totalpassenger as total_passenger,
@@ -1287,8 +1289,8 @@ router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID
                 WHERE 
-                    date_format(CT_DepartureTe,'%H%i') = :deptTe AND 
-                    date_format(CT_ReturnTe,'%H%i') = :retuTe AND 
+                    date_format(CT_DepartureTe,'%H%i') = 2200 AND 
+                    date_format(CT_ReturnTe,'%H%i') = 0400 AND 
                     tCT.CT_DepartureTe > now()
                 ORDER BY tCT.CT_DepartureTe ASC`;
 
@@ -2243,34 +2245,63 @@ router.put('/ad/:adId', upload.any(), async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
 
-        let tAD = new Object();
-            tAD.AD_BS_ID = req.body.adBsId
-            tAD.AD_ADY_ID = req.body.adAdyId
-            tAD.AD_BC_ID = req.body.adBcId
-            tAD.AD_PaymentStatus = req.body.adPay
-            tAD.AD_Title = req.body.adTitle
-            tAD.AD_DtS = req.body.adDtS
-            tAD.AD_DtF = req.body.adDtF
-            tAD.AD_ContentURL = req.body.adUrl
-            tAD.AD_ContentTy = req.body.adConTy
 
-        let ADObj = Object.keys(tAD)
-        let bodyObj = Object.keys(req.body)
-        let query = 'update tAD set '
-        let j=0;
-        for(let i=0; i<ADObj.length; i++){
-            if(tAD[Object.keys(tAD)[i]] !== undefined){
-                if(req.body[Object.keys(req.body)[j]] == tAD[Object.keys(tAD)[i]]){
-                    query += ADObj[i]+'=' +' @'+bodyObj[j]+','
-                    j++
-                }
-            }
-        //마지막 , 제거
-            if(i === ADObj.length -1){
-                query = query.substring(0, query.length-1)
-                query += ' where AD_ID ='+req.params.adId
-            }
-        }
+
+        // 광고입력
+        if(req.files.length === 0) throw Error('Non include files');
+        let content_type = req.files[0].mimetype.split('/')[0];
+        let filename = req.files[0].filename;
+        let old_path = req.files[0].path;
+        let new_path = path.join(config.path.ad_image , filename);
+
+        fs.rename(old_path, new_path, (err) => {
+            if (err) throw err;
+            fs.stat(new_path, (err, stats) => {
+            if (err) throw err;
+            console.log(`stats: ${JSON.stringify(stats)}`);
+            });
+        });
+
+        // let tAD = new Object();
+        // tAD.AD_BS_ID = req.body.adBsId
+        // tAD.AD_ADY_ID = req.body.adAdyId
+        // tAD.AD_BC_ID = req.body.adBcId
+        // tAD.AD_PaymentStatus = req.body.adPay
+        // tAD.AD_Title = req.body.adTitle
+        // tAD.AD_DtS = req.body.adDtS
+        // tAD.AD_DtF = req.body.adDtF
+        // tAD.AD_ContentURL = filename
+        // tAD.AD_ContentTy = req.body.adConTy
+
+        // let ADObj = Object.keys(tAD)
+        // let bodyObj = Object.keys(req.body)
+        // let query = 'update tAD set '
+        // let j=0;
+        // for(let i=0; i<ADObj.length; i++){
+        //     if(tAD[Object.keys(tAD)[i]] !== undefined){
+        //         if(req.body[Object.keys(req.body)[j]] != tAD[Object.keys(tAD)[i]]){
+        //             query += ADObj[i]+'=' +' @'+bodyObj[j]+','
+        //             j++
+        //         }
+        //     }
+        // //마지막 , 제거
+        //     if(i === ADObj.length -1){
+        //         query = query.substring(0, query.length-1)
+        //         query += ' where AD_ID ='+req.params.adId
+        //     }
+        // }
+
+        query = `UPDATE tAD SET 
+                    AD_BS_ID = @adBsId, 
+                    AD_ADY_ID = @adAdyId, 
+                    AD_BC_ID = @adBcId,
+                    AD_PaymentStatus = @adPay, 
+                    AD_ContentTy = @adConTy,
+                    AD_ContentURL = @adUrl, 
+                    AD_DtF = @adDtF, 
+                    AD_DtS = @adDtS,
+                    AD_Title = @adTitle 
+                where AD_ID =`+req.params.adId
         // 광고입력
         console.log('보내기');
         let result = await pool.request()
@@ -2281,7 +2312,7 @@ router.put('/ad/:adId', upload.any(), async function (req, res, next) {
             .input('adTitle', mssql.NVarChar, req.body.adTitle)
             .input('adDtS', mssql.DateTime, req.body.adDtS)
             .input('adDtF', mssql.DateTime, req.body.adDtF)
-            .input('adUrl', mssql.NVarChar, req.body.adUrl) //req.files.xxxx
+            .input('adUrl', mssql.NVarChar, '/img/ad/'+filename) //req.files.xxxx
             .input('adConTy', mssql.NVarChar, req.body.adConTy)
             .query(query);
         console.log('성공');
