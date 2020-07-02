@@ -2211,6 +2211,11 @@ router.post('/ad', upload.any(), async function (req, res, next) {
             });
         });
 
+        if(req.body.addef == undefined){
+            req.body.addef = 'n'
+        }
+
+
         console.log('보내기');
         let result = await pool.request()
             .input('adBsId', mssql.Int, req.body.adBsId)
