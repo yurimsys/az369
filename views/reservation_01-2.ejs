@@ -346,6 +346,7 @@
         }
 
         function showPayment() {
+            $('header').remove();
             let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                 ct_id = sessionStorage.getItem("ct_id");
 
@@ -398,6 +399,16 @@
                 location.href = "/complate";
             });
         }
+
+
+//         jQuery('.payment_open').click(function () {  
+//     if($("header").css("display") == "none"){   
+//         jQuery('.payment_box').css("display", "block");   
+//     } else {  
+//         jQuery('header').css("display", "none");   
+//     }  
+// });  
+
     </script>
 
 
