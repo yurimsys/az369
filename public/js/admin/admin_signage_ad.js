@@ -290,8 +290,7 @@ function saveAD(){
     let form_data = new FormData(document.forms[0]);
     for ( let i in update_data) form_data.append(i, update_data[i]);
 
-    let api_url  = '/api/ad/';
-
+    let api_url  = '/api/ad';
     $.ajax({
         dataType : 'JSON',
         type : "POST",

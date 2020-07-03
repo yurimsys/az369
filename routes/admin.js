@@ -48,13 +48,13 @@ router.get('/index', function(req, res, next) {
 //         res.render('admin/admin_ad');
 //     }
 
-router.get('/ad', function(req, res, next) {
+router.get('/signage_ad', function(req, res, next) {
     var pageSetting = {
         title: '광고관리',
         description: '센트럴돔 내 사이니지 광고를 관리하는 페이지 입니다.',
         layout: 'admin/templates/admin_layout'
     };
-    res.render('admin/admin_ad', pageSetting);
+    res.render('admin/admin_signage_ad', pageSetting);
 });
 
 //비지니스 테이블

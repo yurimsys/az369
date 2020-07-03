@@ -1,363 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <title>Node js Test</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-
-    
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/scrolla.jquery.min.js"></script>
-    <script src="/js/iscroll.js"></script>
-<script type="text/javascript">
-  var myScroll;
-  function loaded () {
-    myScroll = new IScroll('#wrapper', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
-  }
-  </script>
-    
-<link rel="stylesheet" href="/stylesheets/admin/css/test.css">
-<link rel="stylesheet" href="scss/test.scss">
-
-<style type="text/css">
-  * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  
-  body,ul,li {
-    padding: 0;
-    margin: 0;
-    border: 0;
-  }
-  
-  body {
-    font-size: 12px;
-    font-family: ubuntu, helvetica, arial;
-  }
-  
-  #header {
-    width: 100%;
-    height: 45px;
-    line-height: 45px;
-    background: #CD235C;
-    padding: 0;
-    color: #eee;
-    font-size: 20px;
-    text-align: center;
-    font-weight: bold;
-  }
-  
-  #wrapper {
-    position: relative;
-    z-index: 1;
-    height: 160px;
-    width: 100%;
-    background: #ccc;
-    overflow: hidden;
-    -ms-touch-action: none;
-  }
-  
-  #scroller {
-    position: absolute;
-    z-index: 1;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    width: 500%;
-    height: 160px;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-text-size-adjust: none;
-    -moz-text-size-adjust: none;
-    -ms-text-size-adjust: none;
-    -o-text-size-adjust: none;
-    text-size-adjust: none;
-  }
-  
-  #scroller ul {
-    list-style: none;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-  }
-  
-  #scroller li {
-    width: 100%;
-    height: 160px;
-    float: left;
-    line-height: 160px;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    background-color: #fafafa;
-    font-size: 14px;
-    overflow: hidden;
-    text-align: center;
-  }
-  
-  p {
-    font-size: 16px;
-    padding: 1.2em;
-    line-height: 200%;
-  }
-  
-  </style>
-
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/scrolla.jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
+<body>
+  <!-- <form id='fileTest' enctype="multipart/form-data">
+    <input type="file" name="file" id='file'>
+  </form>
+  <button onclick="add()">전송</button> -->
 
-<style>
-li {list-style: none;}
-
-</style>r
-<!-- <body onload="init();" style="touch-action:none"> -->
-
-
-
-<!-- scss 테스트 영역 -->
-
-
-  <!-- <div class="test">
-    <div>hi</div>
-  </div>  
-   -->
-<!-- <div class="list">
-  <ul>
-    <li>test</li>
-    <li>test</li>
-    <li>test</li>
-  </ul>
-</div> -->
-
-<!-- <section class="section1">
-  <div class="list2">
-    <ul>
-      <li>test</li>
-      <li>test</li>
-    </ul>
-  </div>
-</section> -->
-
-<!-- <button class="btn1">
-  안녕
-</button> -->
-
-<!-- <div class="list4">
-  <li>list4</li>
-</div>
-<div class="box1">box1</div>
-
-<div class="box2">
-  box2
-</div>
-
-<div class="box3">11</div>
-
-<div class="box4"></div>
-<div class="box4-2"></div> -->
-
-<div class="box5">변수재할당</div>
-<!-- 
-<div class="box6"></div>
-<div class="box6-2"></div> -->
-
-<div class="box7"></div>
-
-
-
-
-
-  <body onload="loaded()">
-<div id="header">iScroll</div>
-
-<div id="wrapper">
-	<div id="scroller">
-		<ul>
-			<li>Pretty cell 1</li>
-			<li>Pretty cell 2</li>
-			<li>Pretty cell 3</li>
-			<li>Pretty cell 4</li>
-			<li>Pretty cell 5</li>
-			<li>Pretty cell 6</li>
-			<li>Pretty cell 7</li>
-			<li>Pretty cell 8</li>
-			<li>Pretty cell 9</li>
-			<li>Pretty cell 10</li>
-			<li>Pretty cell 11</li>
-			<li>Pretty cell 12</li>
-			<li>Pretty cell 13</li>
-			<li>Pretty cell 14</li>
-			<li>Pretty cell 15</li>
-			<li>Pretty cell 16</li>
-			<li>Pretty cell 17</li>
-			<li>Pretty cell 18</li>
-			<li>Pretty cell 19</li>
-			<li>Pretty cell 20</li>
-		</ul>
-	</div>
-</div>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-   </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <form>
+    <input type="file" name="file" id='file'>
+    
+  </form>
+  <button type="button" onclick="add()">전송</button>
+</body>
 <script>
-    var evCache = new Array();
-var prevDiff = -1;
-
-function init() {
- // Install event handlers for the pointer target
- var el=document.getElementsByClassName('centralSvg1F')[0]
- el.onpointerdown = pointerdown_handler;
- el.onpointermove = pointermove_handler;
-
- // Use same handler for pointer{up,cancel,out,leave} events since
- // the semantics for these events - in this app - are the same.
- el.onpointerup = pointerup_handler;
- el.onpointercancel = pointerup_handler;
- el.onpointerout = pointerup_handler;
- el.onpointerleave = pointerup_handler;
-}
-
-
-function pointerdown_handler(ev) {
- evCache.push(ev);
-//  log("pointerDown", ev);
-}
-
-function pointermove_handler(ev) {
-//  log("pointerMove", ev);
- ev.target.style.border = "dashed";
-
- // Find this event in the cache and update its record with this event
- for (var i = 0; i < evCache.length; i++) {
-   if (ev.pointerId == evCache[i].pointerId) {
-      evCache[i] = ev;
-   break;
-   }
- }
-
- if (evCache.length == 2) {
-   let curDiff = Math.abs(evCache[0].clientX - evCache[1].clientX);
-   let location_y = Math.abs(evCache[0].clientY - evCache[1].clientY);
-   let now_scale = ev.currentTarget.style.transform.replace('scale(','').replace(')','')
-   
-   //줌 인
-   if (prevDiff > 0) {
-     if (curDiff > prevDiff) {
-        let good = (location_y + curDiff) / 1000;
-        let up_scale = Number(now_scale) + good
-        ev.currentTarget.style.transform = 'scale('+up_scale+')';
-
-        console.log('dd',ev.currentTarget.style.transform);
-        if(now_scale >= 3){
-            ev.currentTarget.style.transform = 'scale(3.0)';
-            return;
-        }
-
-     }
-     //줌 아웃
-    if (curDiff < prevDiff) {
-        let good = (location_y + curDiff) / 1000;
-        let down_scale = Number(now_scale) - good
-        ev.currentTarget.style.transform = 'scale('+down_scale+')';
-        console.log('dd',ev.currentTarget.style.transform);
-        if(now_scale <= 1){
-            ev.currentTarget.style.transform = 'scale(1.0)';
-            return;
-        }
-
-    }
-
-}
-   // Cache the distance for the next move event 
-   prevDiff = curDiff;
- }
-}
-
-function pointerup_handler(ev) {
-  log(ev.type, ev);
-  // Remove this pointer from the cache and reset the target's
-  // background and border
-  remove_event(ev);
-  ev.target.style.background = "white";
-  ev.target.style.border = "1px solid black";
-
-  // If the number of pointers down is less than two then reset diff tracker
-  if (evCache.length < 2) {
-    prevDiff = -1;
+  var form = $('#fileTest')[0]
+  var form_data = new FormData(document.forms[0])
+  
+  
+  function add(){
+    console.log(form);
+    console.log(form_data);
+    console.log($('#file').val());
+    $.ajax({
+      url: '/api/upload',
+      method: 'post',
+      enctype : "multipart/form-data",
+      data : form_data,
+      contentType : false,
+      processData : false,
+      success : function(){
+        // console.log('goood');
+      }
+    });
   }
-}
-
-function remove_event(ev) {
- // Remove this event from the target's cache
- for (var i = 0; i < evCache.length; i++) {
-   if (evCache[i].pointerId == ev.pointerId) {
-     evCache.splice(i, 1);
-     break;
-   }
- }
-}
-
-var logEvents = false;
-
-function log(prefix, ev) {
-  if (!logEvents) return;
-  var o = document.getElementsByTagName('output')[0];
-  var s = prefix + ": pointerID = " + ev.pointerId +
-                " ; pointerType = " + ev.pointerType +
-                " ; isPrimary = " + ev.isPrimary;
-  o.innerHTML += s + " ";
-} 
-
-
 
 </script>
 </html>

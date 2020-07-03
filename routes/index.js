@@ -497,6 +497,7 @@ router.get('/reservation2', auth.isLoggedIn, function(req, res, next){
 router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
     let sessionId = req.user.U_ID;
     let crCancel = "N";
+    //(select group_concat(CR_SeatNum ,'번')) as seatNum 마이페이지 좌석 번호 표시
     let query = `select 
                     distinct tB.B_Name as carName,
                     date_format(tCT.CT_DepartureTe,'%m.%d') as deptTe1,
@@ -506,7 +507,8 @@ router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
                     tCT.CT_DepartureTe,
                     tCT.CT_CarNum as carNum,
                     tCR.CR_cDt as payDay,
-                    (select group_concat(CR_SeatNum ,'번')) as seatNum
+                    (select group_concat(CR_SeatNum)) as seatNum,
+                    (select group_concat(CR_SeatNum ,'번')) as seatNumMo
                 from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                     where tCR.CR_CT_ID =tCT.CT_ID AND tCR.CR_Cancel = :crCancel
                     and tCR.CR_U_ID = :sessionId
