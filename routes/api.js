@@ -1946,6 +1946,36 @@ router.post('/addBs', upload.any(), async function (req, res, next) {
         })
         console.log('썸네일', BS_ThumbnailUrl);
         console.log('메인', BS_ImageUrl);
+
+        // 광고입력
+        if(req.files.length === 0) throw Error('Non include files');
+        //입력된 파일들과 새로운 경로로 저장
+        let content_type = req.files[0].mimetype.split('/')[0];
+        let tumb_name = req.files[0].filename;
+        let img_name = req.files[1].filename;
+        //이전 저장소
+        let old_tumb_path = req.files[0].path;
+        let old_img_path = req.files[1].path;
+        //새 저장소
+        let new_tumb_path = path.join(config.path.bs_image , tumb_name);
+        let new_img_path = path.join(config.path.bs_image , img_name);
+        //썸네일 재지정 함수
+        fs.rename(old_tumb_path, new_tumb_path, (err) => {
+            if (err) throw err;
+            fs.stat(new_tumb_path, (err, stats) => {
+            if (err) throw err;
+            console.log(`stats: ${JSON.stringify(stats)}`);
+            });
+        });
+        //이미지 재지정 함수
+        fs.rename(old_img_path, new_img_path, (err) => {
+            if (err) throw err;
+            fs.stat(new_img_path, (err, stats) => {
+            if (err) throw err;
+            console.log(`stats: ${JSON.stringify(stats)}`);
+            });
+        });
+
         
         let mainDtS = '2020-05-18 '+ req.body.bsMainS;
         let mainDtF = '2020-05-18 '+ req.body.bsMainF;
@@ -1978,8 +2008,8 @@ router.post('/addBs', upload.any(), async function (req, res, next) {
             .input('BS_BreakDtF', mssql.DateTime, breakF)
             .input('BS_PersonalDayKor', mssql.NVarChar, req.body.bsPersonalKo)
             .input('BS_PersonalDayEng', mssql.NVarChar, req.body.bsPersonalEn)
-            .input('BS_ThumbnailUrl', mssql.NVarChar, BS_ThumbnailUrl)
-            .input('BS_ImageUrl', mssql.NVarChar, BS_ImageUrl)
+            .input('BS_ThumbnailUrl', mssql.NVarChar, '/img/'+BS_ThumbnailUrl)
+            .input('BS_ImageUrl', mssql.NVarChar, '/img/'+BS_ImageUrl)
             .query(`insert into tBS(
                                 BS_BC_ID, BS_LoginID, BS_LoginPW, BS_CEO, BS_NameKor, BS_NameEng, BS_ContentsKor, BS_ContentsEng, 
                                 BS_Phone, BS_CEOPhone, BS_Addr1Kor, BS_Addr2Kor, BS_Addr1Eng, BS_Addr2Eng, BS_MainDtS, BS_MainDtF,
@@ -2018,7 +2048,7 @@ router.post('/addBs', upload.any(), async function (req, res, next) {
             .input('LS_Number', mssql.Int, req.body.storeNumber)
             .query('insert into tBSxtLS(BS_ID, LS_Number) values(@BS_ID, @LS_Number)')
 
-        res.render('signage')
+        res.json({data:'1'})
     } catch (err) {
         console.log(err);
         console.log('error fire')
