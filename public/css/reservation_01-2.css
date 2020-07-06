@@ -238,7 +238,7 @@ dl.price_sale {color: #c17e00;}
 /*팝업하단버튼*/
 .reservation_btn_mo {display: none;}
 .payment_btn {width: 100%; height: 50px; margin-top: 10%; border: 0; color: #fff; font-size: 16px; padding: 0 30px;}
-.payment_btn li {float: left; width: 49%; margin-right: 1%;}
+.payment_btn li {float: left; width: 49%; margin-right: 1%; }
 .payment_btn li:last-child {margin-right: 0;} 
 .payment_close {width: 100%; display: block; height: 50px; line-height: 50px; text-align: center;}
 .payment_close1 {background: #fff; color: #999; transition: all 0.2s; border: 1px solid #dbdbdb; border-radius: 4px;}
@@ -298,7 +298,7 @@ header .open {
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     section.sub_wrap {padding-top: -10%;}
-    .box {padding-top: 60px; margin-bottom: 10px;}
+    .box {padding-top: 70px; margin-bottom: 10px;}
     
     .reserve_right {display: none;}
     .reservation_box {width: 90%; margin: 0 auto;}
@@ -308,10 +308,10 @@ header .open {
     .seat_table dt {width: 100%; float: left; padding: 0;  margin-bottom: 5px; font-size: 15px; font-weight: normal; color: #222;}
     .seat_table dd {width: 100%; float: left; padding: 5px 0px; color: #000;  background: #f4f4f4; margin-bottom: 10px;}
     
-    .reservation_btn_mo {display: block; width: 60%; margin: 0 auto; margin-top: 4%; position: relative; overflow: hidden; padding-bottom: 4%;}
-    .reservation_btn_mo ul li {float: left; width: 49%; margin-right: 1%; text-align: center; height: 50px; line-height: 50px;}
+    .reservation_btn_mo {display: block; width: 60%; margin: 0 auto; margin-top: 4%; position: relative; overflow: hidden; padding-bottom: 4%; }
+    .reservation_btn_mo ul li {float: left; width: 49%; margin-right: 1%; text-align: center; height: 50px; line-height: 50px; }
     .reservation_btn_mo ul li:nth-child(2) {margin-right: 0;}
-    .reservation_btn_mo ul li a {display: block;}
+    .reservation_btn_mo ul li a {display: block; border-radius: 4px;}
     .back {border: 1px solid #ddd;}
     .payment_open {background: #C3A164; color: #fff; }
     .payment_box {width: 40%; margin-top: 3%;}
@@ -324,8 +324,6 @@ header .open {
 /*768px*/
 @media screen and (max-width: 768px) {
 
-    .box {padding-top: 9.5%;}
-    
     .reservation_box {width: 95%; margin: 0 auto;}
     .reservation_btn_mo {width: 60%; margin-top: 4%;}
 
@@ -337,6 +335,7 @@ header .open {
     section.sub_wrap h1 {font-size: 35px;}
     section.sub_wrap h2 {font-weight: normal;}
     .select_bus_list {height: 340px;}
+    .reservation_box h4 {font-size: 16px; margin-bottom: 2;}
 
     .payment_box {width: 60%;}
     
@@ -372,12 +371,14 @@ header .open {
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
     section.sub_wrap .inner_sub_wrap {width: 100%;}
-    section.sub_wrap h6 {padding-top: 30px; margin-bottom: -2.5%;}
+    section.sub_wrap h6 {padding-top: 10px; margin-bottom: -2.5%;}
     section.sub_wrap h1 {font-size: 30px; margin-bottom: 3%;}
     section.sub_wrap .bar {display: none;}
 
     section.sub_wrap h2 br {display: block;}
     section.sub_wrap h5{font-size: 1.2rem; margin-bottom: -1%;}
+        
+    .reservation_btn_mo {margin-top: 10px;}
 }
 
 /*375px*/
@@ -392,9 +393,7 @@ header .open {
 @media screen and (max-width: 320px) {
 
     /*section.sub_wrap*/
-    section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
-    section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
-    section.sub_wrap h4 {font-size: 16px;}
+    section.sub_wrap h1 {font-size: 24px;}
     .seat_table dt, .seat_table dd {font-size: 15px;}
     section.sub_wrap p {margin-bottom: 5%;}
 
@@ -406,6 +405,6 @@ header .open {
     .select_bus_list_tit {font-size: 15px;}
     .select_bus span {font-size: 14.5px;}
     .select_bus_btn p {display: none;}
-    
+
     .reservation_btn_mo ul li {height: 40px; line-height: 40px; font-size: 15px;}
 }
