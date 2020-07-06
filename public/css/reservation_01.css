@@ -246,7 +246,7 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 18px; posit
 .layer:target{display:flex;animation:open 0.3s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
 
-.payment_box{ width: 22%; height: auto; margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 40%; transform: translateY(-50%); border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.1); padding-bottom: 20px;}
+.payment_box{ width: 22%; height: auto; margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 5%;border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.1); padding-bottom: 20px;}
 
 
 /*결제버튼 팝업 내부*/
@@ -324,7 +324,7 @@ header .open {
     .reservation_box {width: 95%; margin: 0 auto;}
     .payment_open {right: 5%; bottom: 3.2%; width: 200px;}
     
-    .payment_box {width: 40%; margin-top: 8%;}
+    .payment_box {width: 40%;}
 
     .select_seat {width: 46%; padding-left: 2%;}
   }
@@ -333,10 +333,9 @@ header .open {
 /*1024px  - 왼쪽영역만 노출*/
 @media screen and (max-width: 1024px) {
     
-    .payment_box {width: 47%; margin-top: 8%;}
+    .payment_box {width: 47%;}
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap {padding-top: -10%;}
     .box {padding-top: 70px; margin-bottom: 10px;}
     
     .reserve_right {display: none;}
@@ -363,6 +362,7 @@ header .open {
     section.sub_wrap {width:100%;}
     section.sub_wrap h1 {font-size: 35px;}
     section.sub_wrap h2 {font-weight: normal;}
+    .payment_box {top: 3%;}
 
     .reserve_left h4 {font-size: 16px;}
     .reservation_btn_mo {width: 60%;}
@@ -393,7 +393,6 @@ header .open {
     .select_bus_list {height: 300px;}
     .select_bus h4 {margin-top: 3%;}
     .reserve_left {height: auto; padding: 25px 20px;}
-
     .reservation_btn_mo {width: 95%;}
 }
 
