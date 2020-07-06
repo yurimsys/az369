@@ -49,7 +49,7 @@ font-family: 'PT Serif', serif;
 font-weight: normal;
 }
 
-.inner_sub_wrap {width: 1200px; margin: 0 auto;}
+.inner_sub_wrap {width: 100%; margin: 0 auto;}
 
 @keyframes box {
     0% {opacity: 0; transform: translateY(2%);}
