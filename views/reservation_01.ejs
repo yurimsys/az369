@@ -48,15 +48,15 @@
                                 <div class="reserve_left">
 
                                     <!--왼쪽 상단 : 지역-->
-                                    <div class="location left_list">
-                                        <h4>1. 지역 및 시간 선택 <span
-                                                style="color: #777; font-weight: normal; font-size: 16px;">(왕복)</span>
+                                    <div class="left_list location">
+                                        <h4>지역 및 시간 선택 <span
+                                                style="color: #999; font-weight: 300; font-size: 16px;">(왕복)</span>
                                         </h4>
                                         <ul>
                                             <li>
-                                                <div class="location_select01 location_select" id="timeSelect01">
+                                                <div class="location_select location_select01 " id="timeSelect01">
                                                     <select id="depart01">
-                                                        <option value="0">지역 / 출발시간</option>
+                                                        <option value="0" >지역, 출발시간 (오후)</option>
 
                                                         <%for(let i=0; i<timeone.length; i++) {%>
                                                         <option value=<%=timeone[i].pyeongDept%>>평택 <%=timeone[i].pyeongDept2%>
@@ -66,13 +66,12 @@
                                                 </div>
                                             </li>
                                             <li><img src="/img/reservation/location_icon.png" alt="왕복 아이콘">
-
                                             </li>
 
                                             <li>
-                                                <div class="location_select02 location_select" id="timeSelect02">
+                                                <div class="location_select location_select02 " id="timeSelect02">
                                                     <select id="depart02">
-                                                        <option value="0">지역 / 출발시간</option>
+                                                        <option value="0">지역, 출발시간 (오전)</option>
 
                                                         <%for(let i=0; i<timetwo.length; i++) {%>
                                                         <option value=<%=timetwo[i].seoulDept%>>서울 동대문
@@ -85,19 +84,27 @@
                                     </div>
 
                                     <!--왼쪽 하단 버스선택-->
-                                    <div class="select_bus left_list">
-                                        <h4>2. 날짜 및 차량 선택</h4>
-
+                                    <div class="left_list select_bus">
+                                        <h4>날짜 및 차량 선택</h4>
+                                        <div class="select_bus_list_tit">
+                                            <ul>
+                                                <li>출발날짜</li>
+                                                <li>차량정보</li>
+                                                <li>잔여좌석</li>
+                                            </ul>
+                                        </div>
                                         <div class="select_bus_list">
-                                            <div class="select_bus_list_tit">
-                                                <ul>
-                                                    <li>출발 날짜</li>
-                                                    <li>차량정보</li>
-                                                    <li>잔여 좌석</li>
-                                                </ul>
-
+                                            <div class="tab">
+                                                <!-- <button class="tablinks" onclick="openBus(event, '01')">
+                                                    <span class="select_bus_time">02월 24일(월) </span>
+                                                    <span class="select_bus_name">
+                                                        충남고속 (11가 1234)
+                                                    </span>
+                                                    <span class="select_bus_seat">
+                                                        40 / 45 석
+                                                    </span>
+                                                </button> -->
                                             </div>
-
                                             <div class="tab">
                                                 <!-- <button class="tablinks" onclick="openBus(event, '01')">
                                                     <span class="select_bus_time">02월 24일(월) </span>
@@ -117,7 +124,6 @@
                             <li>
                                 <div class="reserve_right">
                                     <div id="bus_seat_layer" class="tabcontent">
-
                                         <div class="container">
 
                                             <!--좌석선택표-->
@@ -131,7 +137,8 @@
 
                                             <!--좌석선택 텍스트-->
                                             <div class="select_seat">
-                                                <h4>3. 좌석 선택 <span>(최대 4개)</span></h4>
+                                                <h4>좌석선택 <span style="color: #999; font-weight: 300; font-size: 16px;">(최대 4개)</span></h4>
+                                                
                                                 <div class="seat_table">
                                                     <dl>
                                                         <dt>선택된 좌석</dt>
@@ -143,9 +150,9 @@
                                                     </dl>
 
                                                     <button class="reload_btn" onclick="flushSeat()"><img
-                                                            src="/img/reservation/reload.png" alt="새로고침">
-                                                        <p>좌석 새로고침</p>
-                                                    </button>
+                                                        src="/img/reservation/reload.png" alt="새로고침">
+                                                    <p>새로고침</p>
+                                                </button>
 
                                                     <!--pupop PC 버튼-->
                                                     <a onclick="showPayment()" class="payment_open">예매하기</a>
@@ -203,34 +210,32 @@
                                 </dl>
                             </div>
                             <div class="price">
-                                <dl>
+                                <dl class="reserve_price">
                                     <dt>예매금액</dt>
                                     <dd id="original_price">0</dd>
                                 </dl>
                                 <dl class="price_sale">
                                     <dt>할인금액</dt>
-                                    <dd id="sale_price">0원</dd>
+                                    <dd id="sale_price">- 0원</dd>
                                 </dl>
                                 <dl class="total_dl">
                                     <dt>총 결제금액</dt>
-                                    <dd class="total_price">0원</dd>
+                                    <dd class="total_price">0<span>원</span></dd>
                                 </dl>
                             </div>
 
                             <div class="notice">
                                 <h5>NOTICE</h5>
-                                <p>
-                                    · 3월 2일 ~ 3월 31일까지 장차이용 무료서비스가 진행중입니다. <br>
-                                    · 취소 및 환불은 출발일로부터 4일전까지 가능합니다. <br>
-                                    · 출발일 4일전, 적정 인원수가 부족하면 차량이 변경될 수 있습니다.
-                                </p>
+                                <p>8월 1일 ~ 8월 31일까지 장차이용 무료서비스가 진행중입니다.</p>
+                                <p>취소 및 환불은 출발일로부터 3일 전까지 가능합니다.</p>
+                                <p>출발일 3일 전까지 버스를 예매한 적정 인원수가 부족할 경우 차량이 변경될 수 있습니다.</p>
+                                
                             </div>
 
                             <ul class="payment_btn">
                                 <li>
                                     <a href="#" class="payment_close1 payment_close">취소</a>
                                 </li>
-
                                 <li>
                                     <a onclick="processPayment()" class="payment_close2 payment_close">결제하기</a>
                                 </li>
