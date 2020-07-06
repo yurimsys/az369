@@ -1,5 +1,5 @@
 <%- contentFor('HeaderCss') %>
-<!-- 카테고리 관리 -->
+
 <%- contentFor('Body') %>
 <section class="main-container">
 	<!--Page Title-->
@@ -30,62 +30,137 @@
 						<div name="save" class="btn btn-save px-4">저장</div>
 						<div name="delete" class="btn btn-delete px-4 disabled yr_modal_delete" data-toggle="modal" data-target="#deleteModal">삭제
 						</div>
+						<div name="folder" class="btn btn-folder px-4" id="folding" onclick="folding()"></div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div id="object_detail_group" class="card-body collapse show">
+
+
+		<div id="object_detail_group" class="brand_info">
 			<form enctype="multipart/form-data">
-				<div class="form-group row">
-					<label class="col-1 col-form-label">ID</label>
-					<div class="col-4">
-						<span id="ad_id"></span>
+			<!-- 좌측 -->
+				<div class='info_left'>
+					
+					<div>
+						<label class='info_name'>ID</label>
+						<!-- <span id="ad_id"></span> -->
+						<input type='text' class='long_box'>
 					</div>
-					<label for="inputAdFiles" class="col-1 col-form-label">사진첨부</label>
-					<div class="col-4">
-						<input type="file" class="form-control inputAdFiles" id="inputAdFiles" name="inputAdFiles">
+					<div>
+						<label class='info_name'>비밀번호</label>
+						<input type='text' class='long_box'>
 					</div>
-				</div>
-				<div class="form-group row">
-					<label for="selectBrand" class="col-1 col-form-label">브랜드</label>
-					<div class="col-4">
-						<!-- <input type="hidden" class="select2 selectBrand" style="width:100%;"/> -->
-						<select name="selectBrand" class="form-control select2 selectBrand" style="width:100%" >
-							<option></option>
+					<div>
+						<label class='info_name'>대표자명</label>
+						<input type='text' class='long_box'>
+					</div>
+					<div>
+						<label class='info_name'>대표 전화번호</label>
+						<!-- <span id="ad_id"></span> -->
+						<input type='text' class='long_box'>
+					</div>
+					<hr style="width: 95%; height: 1px; border: solid #eeeeee; background-color: #ffffff;">
+					<div>
+						<label class='info_name'>대분류</label>
+						<!-- <span id="ad_id"></span> -->
+						<!-- <input type='text' class='long_box'> -->
+						<select class='long_box' id='lv1_category'>
+							<option>대분류 선택</option>
 						</select>
 					</div>
-					<label for="ad_content_url" class="col-1 col-form-label">URL</label>
-					<div class="col-4">
-						<span class="ad_content_url" id="ad_content_url"></span>
+					<div>
+						<label class='info_name'>중분류</label>
+						<!-- <span id="ad_id"></span> -->
+						<input type='text' class='long_box'>
+					</div>
+					<hr style="width: 95%; height: 1px; border: solid #eeeeee; background-color: #ffffff;">
+					<div>
+						<label class='info_name'>층</label>
+						<input type='text' class='long_box'>
+					</div>
+					<div>
+						<label class='info_name'>호실</label>
+						<input type='text' class='long_box'>
+					</div>
+					
+				</div>
+			<!-- 중간 -->
+				<div class='info_center'>
+					<div>
+						<label class='info_name'>매장명</label>
+						<input type="text" class='long_box'  placeholder="한글">
+						<label class='info_name'></label>
+						<input type="text" class='long_box' placeholder="영문">
+					</div>
+					<div style="margin-top: 1%;">
+						<label class='info_name'>매장소개</label>
+						<input type="text" class='long_box' placeholder="한글">
+						<label class='info_name'></label>
+						<input type="text" class='long_box' placeholder="영문">
+					</div>
+					<div style="margin-top: 1%;">
+						<label class='info_name'>매장 전화번호</label>
+						<input type="text" class='long_box' id="inputAdFiles" name="inputAdFiles">
+					</div>
+					<div>
+						<label class='info_name'>매장주소</label>
+						<input type="text" id="postcode" name="postcode" placeholder="매장 우편번호"
+								class='short_box'>
+						<button type="button" onclick="execDaumPostcode()" value="우편번호 찾기"
+							class="btn-primary round">우편번호찾기</button><br>
+							<label class='info_name'></label>
+						<input type="text" id="address" name="address" placeholder="매장주소" class='long_box'><br>
+							<label class='info_name'></label>
+						<input type="text" id="detailAddress" class='long_box' name="detailAddress" placeholder="매장상세주소">
+						<input type="text" id="extraAddress" name="extraAddress" hidden=""> <!-- 기본정보  -->
+						<input type="text" id="roadAddress" name="roadAddress" hidden="">
+						<input type="text" id="jibunAddress" name="jibunAddress" hidden="">
+					</div>
+					
+					<div style="margin-top: 1%;">
+						<label class='info_name'>영문 도로명주소</label>
+						<input type="text" class='long_box' placeholder="도로명">
+					</div>
+					<div>
+						<label class='info_name'>영문 상세주소</label>
+						<input type="text" class='long_box' placeholder="상세">
 					</div>
 				</div>
-				<div class="form-group row">
-					<label for="selectAdCategory" class="col-1 col-form-label">광고업종</label>
-					<div class="col-4">
-						<!-- <input type="hidden" class="select2 selectAdCategory" style="width:100%;"/> -->
-						<select class="form-control select2 selectAdCategory" style="width:100%">
-							<option></option>
-						</select>
+
+			<!-- 우측 -->
+				<div class='info_right'>
+					<div>
+						<label class='info_name'>평일 영업시간</label>
+						<input type='text' class='short_box'>
+						<input type="text" class='short_box'>
 					</div>
-					<label class="col-1 col-form-label">광고기간</label>
-					<div class="col-4 form-row mx-0">
-						<div type="" class="form-control col-5 ad_duration_start" id="ad_duration_start"></div>
-						<span class="col-2 text-center">&#126;</span>
-						<div type="" class="form-control col-5 ad_duration_final" id="ad_duration_final"></div>
+					<div>
+						<label class='info_name'>주말 영업시간</label>
+						<input type='text' class='short_box'>
+						<input type="text" class='short_box'>
 					</div>
-				</div>
-				<div class="form-group row">
-					<label for="selectAdType" class="col-1 col-form-label">광고위치</label>
-					<div class="col-4">
-						<!-- <input type="hidden" class="select2 selectAdType" style="width:100%;"/> -->
-						<select name="selectBrand" class="form-control select2 selectAdType" style="width:100%">
-							<option></option>
-						</select>
+					<div >
+						<label class='info_name'>점심시간</label>
+						<input type='text' class='short_box'>
+						<input type="text" class='short_box'>
 					</div>
-					<label for="inputAdTitle" class="col-1 col-form-label">광고제목</label>
-					<div class="col-4">
-						<input type="text" class="form-control inputAdTitle" id="inputAdTitle">
+					<div>
+						<label class='info_name'>휴무일</label>
+						<input type='text' class='long_box'>
+						<label class='info_name'></label>
+						<input type="text" class='long_box'>
 					</div>
+					<hr style="width: 95%; height: 1px; border: solid #eeeeee; background-color: #ffffff;">
+					<div>
+						<label class='info_name'>매장 이미지 관리</label>
+						<input type="file">
+					</div>
+					<div>
+						<label class='info_name'>매장 썸네일 관리</label>
+						<input type="file" id="inputAdFiles" name="inputAdFiles">
+					</div>
+
 				</div>
 			</form>
 		</div>
@@ -96,7 +171,7 @@
 	<!-- 테이블 -->
 	<div class="card object-table">
 		<div class="card-body container-flud">
-			<div id="category-table"></div>
+			<div id="mgmt-table"></div>
 		</div>
 	</div>
 	<!-- /테이블 -->
@@ -116,7 +191,7 @@
 				</button>
 			</div>
 			<div class="modal-body text-center">
-				선택하신 광고를 삭제하시겠습니까?
+				선택하신 매장을 삭제하시겠습니까?
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteAD()">삭제</button>
@@ -233,4 +308,5 @@
 <%- contentFor('FooterJs') %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.0.1/exceljs.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+<script src="/js/admin/admin_signage_brand.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.2/jszip.min.js"></script> -->

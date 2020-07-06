@@ -129,6 +129,7 @@ router.get('/ad', async function(req, res, next) {
     let query = `
                 SELECT 
                     AD_ID, 
+                    BS_CEO,
                     BS_NameKor, 
                     ADY_CD, 
                     ADY_Location, 
