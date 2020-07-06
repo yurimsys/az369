@@ -63,7 +63,7 @@ font-weight: normal;
 
 
 /*왼쪽영역*/
-.reserve_left {width: 100%; background: #fff; border: 1px solid #ddd; padding: 25px 30px; height: 650px;}
+.reserve_left {width: 100%; background: #fff; border: 1px solid #eee; padding: 25px 30px; height: 650px; border-radius: 4px;}
 .reserve_left ul li { width: 100%;}
 .reserve_left h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; letter-spacing: -0.50px; }
 /*.left_list {padding-bottom: 5%; border-bottom: 1px solid #eee;}*/
@@ -71,15 +71,14 @@ font-weight: normal;
 
 
 /*왼쪽상단 - 지역,시간 선택------------------------------*/
-.location ul {width: 100%;background-color: red; height: auto;}
+.location ul {width: 100%;height: auto;}
 .location ul li {float: left; height: 45px;}
 .location ul > li:nth-child(1), .location ul > li:nth-child(3)
  {width: 44%;;} 
  .location ul > li:nth-child(2) {width: 10%; text-align: center; line-height: 43px;}
 
  /* select박스 디자인 */
-.location_select {width: 100%; border: 1px solid #dbdbdb; height: 45px;line-height: 40px; position: relative; border-radius: 4px; background-color: #fff; color: #222;}
-
+.location_select {width: 100%;line-height: 40px; position: relative; border-radius: 4px; background-color: #fff;}
 .location_select01 select,
 .location_select02 select {display: none;}
 /* 화살표디자인 */
@@ -91,10 +90,10 @@ font-weight: normal;
   width: 0;
   height: 0;
   border: 6px solid transparent;
-  border-color: #999 transparent transparent transparent;
+  border-color: #ccc transparent transparent transparent;
 }
 .select-selected.select-arrow-active:after {
-  border-color: transparent transparent #999 transparent;
+  border-color: transparent transparent #ccc transparent;
   top: 10px;
 }
 /* select 영역 */
@@ -103,6 +102,7 @@ font-weight: normal;
   cursor: pointer;
   user-select: none;
   padding-left: 15px;
+  color:#444;
 }
 /* 선택된 옵션 */
 .select-selected {
@@ -111,6 +111,7 @@ font-weight: normal;
  font-weight:400;
  font-size: 15px;
  border: 1px solid #dbdbdb;
+ border-radius: 4px;
 }
 /* 선택할 옵션 */
 .select-items {
@@ -194,8 +195,8 @@ font-weight: normal;
 
 
 /*오른쪽영역*/
-.reserve_right { width: 100%; background: #fff; border: 1px solid #ddd; height: 650px; font-size: 15px; padding: 20px; position: relative;}
-.reserve_right h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; letter-spacing: -0.50px;}
+.reserve_right { width: 100%; background: #fff; border: 1px solid #ddd; height: 650px; font-size: 15px; padding: 20px; border-radius: 4px; position: relative;}
+.reserve_right h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; letter-spacing: -0.50px; }
 
 
 .reserve_right h5 {font-size: 20px; margin-left: 3%; display: inline-block;}
@@ -332,102 +333,69 @@ header .open {
 @media screen and (max-width: 1024px) {
     
     .payment_box {width: 47%; margin-top: 8%;}
-
-   
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     section.sub_wrap {padding-top: -10%;}
-     .box {padding-top: 7%; padding-bottom: 5%;}
+    .box {padding-top: 60px; margin-bottom: 10px;}
     
     .reserve_right {display: none;}
     .reserve_left {height: auto;}
-    .reservation_box {width: 95%; margin: 0 auto;}
+    .reservation_box {width: 60%; margin: 0 auto;}
     .reservation_box > ul > li {float: none; width: 100%;}
-    
-    .location left_list ul li {width: 40%; float: left;}
-    .location left_list ul li:nth-child(2) {width: 20%;}
-    .location_select {width: 300px;}
-    .reserve_left h4 {font-size: 22px;}
+
     
     .payment_open {display: none;}
-    .reservation_btn_mo {display: block; width: 60%; margin: 0 auto; margin-top: 3%;}
-    .reservation_btn_mo ul li {float: left; width: 49%; margin-right: 1%; text-align: center; height: 50px; line-height: 50px;}
+    .reservation_btn_mo {display: block; width: 40%; margin: 0 auto; margin-top: 20px;}
+    .reservation_btn_mo ul li {float: left; width: 49%; margin-right: 1%; text-align: center; height: 45px; line-height: 43px;}
     .reservation_btn_mo ul li:nth-child(2) {margin-right: 0;}
     .reservation_btn_mo ul li a {display: block;}
-    .back {border: 1px solid #ddd;}
-    .next {background: #C3A164; color: #fff; }
+    .back {border: 1px solid #dbdbdb; border-radius: 4px; color: #444;}
+    .next {background: #C3A164; color: #fff;  border-radius: 4px;}
 }
 
 
 /*768px*/
 @media screen and (max-width: 768px) {
-    
-    .box {padding-top: 9.5%;}
-    
+
     /*main*/
     section.main {width: 100%;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 768px;}
-    .tnb {width: 768px; margin-top:-7.6%;}
-    section.sub_wrap h1 {font-size: 2.2rem;}
-    section.sub_wrap h2 {margin-bottom: 6%;}
+    section.sub_wrap h1 {font-size: 35px;}
+    section.sub_wrap h2 {font-weight: normal;}
 
-    .select_bus_list {height: 340px;}
-
-    .box {padding-bottom: 4%;}
-    .location_select {width: 250px;}
-    .reserve_left h4 {font-size: 20px;}
+    .reserve_left h4 {font-size: 16px;}
+    .reservation_btn_mo {width: 60%;}
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
+    section.sub_wrap h6 {padding-top: 30px; margin-bottom: -2.5%;}
+    section.sub_wrap h1 {font-size: 30px; margin-bottom: 3%;}
+    section.sub_wrap .bar {display: none;}
+
+    .reservation_box {width: 95%;}
+    .location_select {float: left; font-size: 14px; margin-left: 0; overflow: visible;}
+    .location ul li:nth-child(1), .location ul li:nth-child(3) {width: 100%;}
+    .location ul li:nth-child(2) {background: transparent; margin-left: 45%; transform: translateX(-50%); transform: rotate(90deg);}
     
-    .box {padding-top: 20%;}
-    
-    .location_select {width: 140px; float: left; font-size: 14px; margin-left: 0; overflow: visible;}
-    .location ul li {float: left; width: 40%; position: relative; }
-    .location ul li:nth-child(2) {width: 40px;margin-left: 3%;}
-    .location ul li:nth-child(2) img {width: 80%;}
-    
+    .select_bus_list_tit {font-size: 14px;}
+    .select_bus_list_tit ul li:nth-child(1) {width: 40%;}
+    .select_bus_list_tit ul li:nth-child(2) {width: 35%;}
+    .select_bus_list_tit ul li:nth-child(3) {width: 25%;}
+    .select_bus .select_bus_time {margin: 0; width: 40%;}
+    .select_bus .select_bus_name {margin: 0; width: 35%;}
+    .select_bus .select_bus_seat {margin: 0; width: 25%;} 
+
+    .tab button {font-size: 14px;}
+
     .reserve_left h4 {font-size: 18px;}
     .select_bus_list {height: 300px;}
     .select_bus h4 {margin-top: 3%;}
-    .reserve_left {height: auto;}
-    /*.reservation_btn {width: 95%; margin: 0 auto; margin-top: 3%;}
-    .reservation_btn ul li {float: left; width: 49%; margin-right: 1%; text-align: center; height: 50px; line-height: 50px;}
-    .reservation_btn ul li:nth-child(2) {margin-right: 0;}
-    .reservation_btn ul li a {display: block;}
-    .back {border: 1px solid #ddd;}
-    .next {background: #C3A164; color: #fff; }*/
-    .reservation_btn_mo {width: 95%; margin-top: 5%;}
-    
-    /*main*/
-    section.main {width: 100%;}
-    section.main .inner_main {width: 414px;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 100%;}
-    section.sub_wrap h1 {font-size: 2rem;}
-    section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-    section.sub_wrap h2 {font-size: 1.6rem; padding-bottom: 7%; line-height: 1.5;}
-    section.sub_wrap h2 br {display: block;}
-    section.sub_wrap h5{font-size: 1.2rem; margin-bottom: -1%;}
+    .reserve_left {height: auto; padding: 25px 20px;}
 
-    .sub_info {margin-top: 5%;}
-    .sub_info em {font-size: 1.05rem;}
-    .sub_info h3 {font-size: 1.2rem; width: 70%; margin: 0 auto; margin-top: 3%;}
-    
-    .sub_info p {width: 95%; margin: 0 auto; margin-top: 7%;}
-    .sub_info em {font-size: 1.05rem; }
-    
-    .sub_info p {width: 90%; margin: 0 auto; text-align: justify; margin-top: 7%;}
-    .sub_info p br{display: none;}
-    .sub_info ul {width: 95%;}
-    
-    .info_btn {margin: 10% 0;}
+    .reservation_btn_mo {width: 95%;}
 }
 
 /* 375px */
@@ -440,20 +408,17 @@ header .open {
 @media screen and (max-width: 320px) {
 
     /*section.sub_wrap*/
-    section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
-    section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
-    section.sub_wrap p {margin-bottom: 5%;}
-
-    .box {width: 320px;}
-    .location {width: 100%;}
-    .location ul li {width: 100%; text-align: center;}
-    .location ul li:nth-child(2) {margin-left: 50%; transform: translateX(-50%);}
-    .location_select {width: 100%;}
-    .select_bus_list_tit {font-size: 15px;}
-    .select_bus span {font-size: 14.5px;}
-    .select_bus_btn p {display: none;}
+    section.sub_wrap h1 {font-size: 24px;}
     
-    .reservation_btn_mo ul li {height: 40px; line-height: 40px; font-size: 15px;}
+    .select_bus_list_tit {font-size: 14px; }
+    .select_bus_list_tit ul li {text-align: justify; }
+    .select_bus_list_tit ul li:nth-child(1) {width: 45%; padding-left: 8px;}
+    .select_bus_list_tit ul li:nth-child(2) {width: 30%;}
+    .select_bus_list_tit ul li:nth-child(3) {width: 24%;}
+    .select_bus {text-align: justify;}
+    .select_bus .select_bus_time {margin: 0; width: 48%; text-align: justify; padding-left: 8px;}
+    .select_bus .select_bus_name {margin: 0; width: 30%; text-align: justify;}
+    .select_bus .select_bus_seat {margin: 0; width: 22%; text-align: justify;} 
 
-	.select_bus_list_tit{display: none;}
+	/* .select_bus_list_tit{display: none;} */
 }
