@@ -129,6 +129,7 @@ router.get('/ad', async function(req, res, next) {
     let query = `
                 SELECT 
                     AD_ID, 
+                    BS_CEO,
                     BS_NameKor, 
                     ADY_CD, 
                     ADY_Location, 
@@ -2008,13 +2009,8 @@ router.post('/addBs', upload.any(), async function (req, res, next) {
             .input('BS_BreakDtF', mssql.DateTime, breakF)
             .input('BS_PersonalDayKor', mssql.NVarChar, req.body.bsPersonalKo)
             .input('BS_PersonalDayEng', mssql.NVarChar, req.body.bsPersonalEn)
-<<<<<<< HEAD
-            .input('BS_ThumbnailUrl', mssql.NVarChar, BS_ThumbnailUrl)
-            .input('BS_ImageUrl', mssql.NVarChar, BS_ImageUrl)
-=======
             .input('BS_ThumbnailUrl', mssql.NVarChar, '/img/'+BS_ThumbnailUrl)
             .input('BS_ImageUrl', mssql.NVarChar, '/img/'+BS_ImageUrl)
->>>>>>> cf907a3de1a4d56b5e1ad7a5e5613cbb5d23d2ad
             .query(`insert into tBS(
                                 BS_BC_ID, BS_LoginID, BS_LoginPW, BS_CEO, BS_NameKor, BS_NameEng, BS_ContentsKor, BS_ContentsEng, 
                                 BS_Phone, BS_CEOPhone, BS_Addr1Kor, BS_Addr2Kor, BS_Addr1Eng, BS_Addr2Eng, BS_MainDtS, BS_MainDtF,

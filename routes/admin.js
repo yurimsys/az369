@@ -57,6 +57,16 @@ router.get('/signage_ad', function(req, res, next) {
     res.render('admin/admin_signage_ad', pageSetting);
 });
 
+router.get('/signage_brand', function(req, res, next) {
+    var pageSetting = {
+        title: '매장관리',
+        description: '센트럴돔 내 매장을 관리하는 페이지 입니다.',
+        layout: 'admin/templates/admin_layout'
+    };
+    res.render('admin/admin_signage_brand', pageSetting);
+});
+
+
 //비지니스 테이블
 router.get('/business', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
@@ -678,7 +688,7 @@ router.get('/user', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        res.render("admin_user");
+        res.render("/admin/admin_user");
     }
 });
 

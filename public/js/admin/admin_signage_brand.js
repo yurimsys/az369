@@ -1,5 +1,45 @@
 
 $(document).ready(function(){
+        //대분류 카테고리
+        $.ajax({
+            url: '/api/categoryLV1',
+            method: 'get',
+            dataType: 'json',
+            success: function(res){
+                console.log('gooood');
+                for(let i=0; i<res.data.length; i++){
+                    // let html = "<div onclick='LV1Cat(this)' id="+"lvOne"+res.data[i].BCR_LV1_BC_ID+">";
+                    //     html += "<input type='radio'  id="+"lv1"+res.data[i].BCR_LV1_BC_ID+" name='catLv1' value="+res.data[i].BCR_LV1_BC_ID+">"
+                    //     html += "<label for="+"lv1"+res.data[i].BCR_LV1_BC_ID+">"+res.data[i].BC_NameKor+"</label>"
+                    //     html += "</div>"
+
+                    let html = "<option id="+"lv1"+res.data[i].BCR_LV1_BC_ID+">"+res.data[i].BC_NameKor+"</option>";
+                        console.log('asdasdsad');
+                    $('#lv1_category').append(html)
+                }
+            }
+        })
+        //중분류
+        $.ajax({
+            url: '/api/categoryLV2',
+            method: 'get',
+            dataType: 'json',
+            success: function(res){
+                //카테고리 저장
+                localStorage.setItem('catLV2',JSON.stringify(res.data))
+            }
+        })
+        //층수
+        $.ajax({
+            url: '/api/floor',
+            method: 'get',
+            dataType: 'json',
+            success: function(res){
+                //카테고리 저장
+                localStorage.setItem('floor',JSON.stringify(res.data))
+            }
+        })
+    
     init();
 }) 
 function init(){
@@ -63,6 +103,7 @@ function init(){
             );
         }
     });
+
 
     // 광고기간 DateBox
     $(".ad_duration_start, .ad_duration_final").dxDateBox({
@@ -129,6 +170,7 @@ let tableInit = function (data) {
             mode : "multiple",
             showCheckBoxesMode : "always" 
         },
+        horverStateEnabled : true,
         pager: {
             showPageSizeSelector: true,
             allowedPageSizes: [5, 10, 20, 50, 100],
@@ -156,9 +198,28 @@ let tableInit = function (data) {
             
             selectedActionBtns.css('display', (isSelected) ? "flex" : "none");
             selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
+            console.log('셀렉트');
         },
+        onCellClick : function(e){
+            console.log('cell click'.e);
+        },
+        // onCellHoverChanged : function(e){
+        //     // setTimeout(2000,console.log('ID :', e.value))
+        //     setTimeout(() => {
+        //         if(e.columnIndex == 1){
+        //             console.log('ID :', e.value);
+
+                    
+        //         }
+        //     }, 2000);
+        //     // console.log('ID :', e);
+        // },
+
         onRowClick : function(e) {
             console.log('row click', e.data);
+            // selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
+            e.rowElement.css("border-left", "2px solid #f2f2f2");
+            // debugger;
             let row_data = {};
             row_data.ad_id = e.data.AD_ID;
             row_data.selectBrand = e.data.BS_ID;
@@ -194,6 +255,7 @@ let tableInit = function (data) {
             e.cancel = true;
           },
         columns: [
+            //cssClass : 'tooltip'
             { dataField: "AD_ID", caption: "ID", width : 70, sortOrder : "desc"},
             { dataField: "BS_NameKor", caption: "브랜드"},
             { dataField: "BC_NameKor", caption: "광고업종"},
@@ -206,6 +268,14 @@ let tableInit = function (data) {
             { dataField: "BS_ID", visible: false },
             { dataField: "AD_ADY_ID", visible: false },
         ],
+        // onSelectionChanged: function (selectedItems) {
+        //     debugger;
+        //     var data = selectedItems.selectedRowsData[0];
+        //     console.log(selectedItems.selectedRowsData[0]);
+        //     console.log('321321321321');
+        //     console.log(selectedItems.selectedRowsData[5]);
+            
+        // },
         onContentReady: function(e) {
             let informer = e.element.find(".informer");
             informer.find(".totalCount").text(e.component.totalCount()+" 개");
@@ -254,8 +324,10 @@ let tableInit = function (data) {
                 }
             })
         }
+
     });
 }
+
 
 // 상세 검색창 설정
 $(document).ready(()=>{
@@ -424,4 +496,15 @@ function searchPopupAction() {
         }
     })
 }
- 
+
+//상세정보 토글
+
+function folding(){
+    console.log($('#folding').text());
+    if($('#folding').text() == 'ㅡ'){
+        $('#folding').text('+')
+    }else{
+        $('#folding').text('ㅡ')
+    }
+    $('#object_detail_group').slideToggle('fast')
+}
