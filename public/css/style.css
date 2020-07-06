@@ -1,16 +1,18 @@
-@charset "UFT-8";
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
 a img {border: none;}
 li {list-style: none;}
 address, em, i {font-style: normal;}
-p {font-family: inherit; font-size: 16px; color: #777;}
+p {font-family: inherit; font-size: 16px; color: #444;}
 
 .wrap {
     width: 100%;
@@ -33,13 +35,14 @@ section.main {
     width: 100%;
     height: 1080px;
     overflow: hidden;
+   
 }
 
-.main_slideshow-container .main_Slide01 {background: url(../img/main/main_slide01.png); width: 100%; height: 1080px; background-size: cover; background-position: center;z-index: 1;} 
+.main_slideshow-container .main_Slide01 {background: url(../img/main/main_slide01.png); width: 100%; height: 1080px; background-size: cover; background-position: center;z-index: 1;  background-attachment: fixed;} 
 
-.main_slideshow-container .main_Slide02 {background: url(../img/main/main_slide02.png); width: 100%; height: 1080px; background-size: cover; background-position: center; z-index: 1;} 
+.main_slideshow-container .main_Slide02 {background: url(../img/main/main_slide02.png); width: 100%; height: 1080px; background-size: cover; background-position: center; z-index: 1; background-attachment: fixed;} 
 
-.main_slideshow-container .main_Slide03 {background: url(../img/main/main_slide03.png); width: 100%; height: 1080px; background-size: cover; background-position: center; z-index: 1;} 
+.main_slideshow-container .main_Slide03 {background: url(../img/main/main_slide03.png); width: 100%; height: 1080px; background-size: cover; background-position: center; z-index: 1; background-attachment: fixed;} 
 
 
 .main_text_box {
@@ -47,21 +50,21 @@ section.main {
     width: 60%;
     margin: 0 auto;
     text-align: justify;
-    top: 40%;
+    top: 35%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
     color: #f0f0f0;
 }
 
-.main_text {width: auto; left: 0; float: left;}
+.main_text {width: auto; left: 0; float: left; letter-spacing: -0.25px; text-shadow: 0 0 30px rgba(0,0,0,0.7);}
 
 
-.main_text h2 {font-size: 1.6rem; font-weight: normal;color: #ddd; padding: 0; margin: 0; margin-bottom: -3%;}
+.main_text h2 {font-size: 28px; font-weight: normal;color: #ddd; padding: 0; margin: 0; margin-bottom: -3%;}
 .main_text h2 br {display: none;}
-.main_text h1 {font-size: 5rem; font-weight: normal; font-family: 'PT Serif', serif; line-height: 1.5;}
+.main_text h1 {font-size: 70px; font-weight: normal; font-family: 'PT Serif', serif; line-height: 1.5;}
 .main_text h2 em {color: #fff;}
-.main_text p { font-size: 1.1rem; line-height: 1.7; color: #ddd; width: 100%; overflow: hidden; position: relative;}
+.main_text p { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.8); width: 100%; overflow: hidden; position: relative; font-weight: 300;}
 
 .mainlides {
 	display: none;
@@ -73,31 +76,29 @@ section.main {
     overflow: hidden;
 
 }
-
-.main_btn {width: 11%; height: auto; position: absolute; margin-top: 270px;}
+.main_btn {width: 130px; height: auto; position: absolute; margin-top: 270px;}
 
 .main_prev, .main_next {
 	cursor: pointer;
 	position: absolute;
-	width: auto;
-	padding: 8% 18%;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 55px;
     /*background: rgba(255,255,255,0.1);*/
-    border: 1px solid #ccc;
+    /* border: 2px solid rgba(255,255,255,0.5); */
 	color: white;
 	font-weight: bold;
 	font-size: 20px;
-	transition: 0.6s ease;
-	border-radius: 0 3px 3px 0;
+	transition: 0.3s ease;
     z-index: 10;
+    border-radius: 50%;
 }
  
-.main_next {
-	right: 0;
-	border-radius: 3px 0 0 3px;
-}
+.main_next {right: 0;}
  
 .main_prev:hover, .main_next:hover {
-	background-color: rgba(0,0,0,0.8);
+	background-color: rgba(0,0,0,0.5);
 }
 
 .dot {
@@ -132,7 +133,7 @@ section .bar {
     border-bottom: 2px solid #c3a164;
     width: 30px;
     margin: 0 auto;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 40px;
 }
 
@@ -152,7 +153,7 @@ section.about {
 	margin: 0 auto;
 	margin-top: 60px;
 	margin-bottom: 80px;
-    color: #272727;
+    border-top-left-radius: 12px;
 }
 
 
@@ -160,12 +161,11 @@ section.about ul li {float: left; width: 47%;}
 section.about .about_img {overflow: hidden;}
 section.about .about_img img {width: 100%;}
 section.about .about_text {margin-left: 8%; margin-top: 3.5%;}
-section.about .about_text h5 {font-size: 18px; line-height: 1.6; font-weight: normal; color: #444;}
-section.about .about_text h4 {color: #222; font-weight: normal; font-size: 24px;}
-section.about .about_text p {margin-top: 25px; line-height: 1.8;}
-section.about .about_btn {width: 200px; height: 50px; line-height: 50px; text-align: center;border: 1px solid #ddd; display: inline-block; transition: all 0.4s; margin-top: 12.5%; color: #333;}
+section.about .about_text h4 {color: #444; font-weight: 400; font-size: 24px; line-height: 1.6; letter-spacing: -0.px;}
+section.about .about_text p {margin-top: 25px; line-height: 1.6;}
+section.about .about_btn {width: 180px; height: 45px; line-height: 45px; text-align: center;border: 1px solid #dbdbdb; border-radius: 4px; display: inline-block; transition: all 0.4s; margin-top: 50px; color: #222;}
 section.about .about_btn a {display: block;}
-section.about .about_btn:hover {background: #a7813c; color: #fff; border: 1px solid #be974f;}
+section.about .about_btn:hover {background: #c3a164; color: #fff; border: 1px solid #c3a164;}
 
 
 /*section.about 완료*/
@@ -192,10 +192,10 @@ section.benefit {
 
 .benefit_list {width: 60%; float: right; padding: 5% 0; text-align: center; margin: 0 auto; color: #444; font-weight: normal;}
 
-.benefit_list ul li {width: 48%; height: 500px; float: left; transition: all 0.3s; overflow: hidden;}
+.benefit_list ul li {width: 48%; height: 500px; float: left; transition: all 0.3s; overflow: hidden; border-radius: 12px;}
 .benefit_list ul li {margin-right: 2%;}
 .benefit_list ul li:nth-child(2) {margin-right: 0;}
-.benefit_list ul li:hover { box-shadow: 0 0 20px rgba(199, 172, 121, 0.2);}
+.benefit_list ul li:hover { box-shadow: 20px 20px 50px rgba(128, 108, 71, 0.3);}
 
 .benefit_01 {background: url(../img/main/benefit_list01.png); background-size: cover; width: 100%; height: 500px;transition: all 0.3s; overflow: hidden;}
 .benefit_02 {background: url(../img/main/benefit_list02.png); background-size: cover; width: 100%; height: 500px; transition: all 0.3s; overflow: hidden;}
@@ -224,7 +224,6 @@ section.gallery {
     overflow: hidden;
     margin-top: 2%;
     margin-bottom: 1%;
-    color: #272727;
 }
 
 section.gallery .bar {margin-bottom: 3%;}
@@ -295,9 +294,6 @@ a.slide_btn {
   position: relative;
   top: -55px;
 }
-
-.directional_nav i {font-size: 25px;}
-.directional_nav i:hover {color: #a0772b;}
 
 .previous_btn {
   bottom: 0;

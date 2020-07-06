@@ -5,7 +5,7 @@
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; font-weight: normal;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -56,10 +56,10 @@ nav.gnb ul li a {display: block;}
 .innerHeader ul li ul li a {display: block;}
 
 .innerHeader ul li:hover > ul {display: block;}
-.innerHeader ul li ul li:hover { color: #333; background: #e3ddd2;}
+.innerHeader ul li ul li:hover { color: #222; background: #e3ddd2;}
 
 /*gnb2*/
-nav.gnb2 {width: 16%; float: right; margin-right: 5%; line-height: 80px; font-size: 16px; color: #777; }
+nav.gnb2 {width: 16%; float: right; margin-right: 5%; line-height: 80px; font-size: 16px; color: #444; }
 nav.gnb2 ul li {width: 33.3%; float: left; text-align: center; }
 nav.gnb2 a {display: block;}
 

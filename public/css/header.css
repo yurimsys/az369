@@ -78,17 +78,8 @@ nav.gnb2 a {display: block;}
   visibility: visible;
 }
 
-
-
-
-
 /*gnb 자바스크립트: header scroll*/
-header.on {background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0.9) );
-
-
-}
-
-
+header.on {background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0.95);}
 
 /*1200px*/
 @media screen and (max-width: 1200px) {

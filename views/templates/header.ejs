@@ -34,7 +34,11 @@
                         <li><a href="/mypage">장차예매현황</a></li>
                     </ul>
                 </li>
-                <li><a href="/video" class="gnb_link">소개영상</a></li>
+                <li><a href="/video" class="gnb_link">소개영상</a>
+                    <ul>
+                        <li><a href="/video">소개영상</a></li>
+                        
+                    </ul></li>
             </ul>
         </nav>
 
@@ -128,7 +132,7 @@
 
     //고정헤더 함수
     function fixHeader() {
-        if (scrollTop > 200) {
+        if (scrollTop > 700) {
             $('header').addClass('on');
         } else {
             $('header').removeClass('on');

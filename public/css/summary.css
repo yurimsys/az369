@@ -93,7 +93,7 @@ section.sub_wrap h5 span {font-weight: 400;}
 .sub_info ul {width: 50%; padding: 0; overflow: hidden; margin: 0 auto; margin-top: 40px;}
 .sub_info ul li {float: left; width: 49%; overflow: hidden;  transition: all 0.3s; margin-right: 2%;}
 
-.sub_info ul li{width: 49%; margin-right: 1%; height: 50px; line-height: 50px; border: 1px solid #ddd; display: inline-block; transition: all 0.4s; color: #222; font-weight: 400; }
+.sub_info ul li{width: 49%; margin-right: 1%; height: 50px; line-height: 50px; border: 1px solid #ddd; display: inline-block; transition: all 0.4s; color: #222; font-weight: 400; border-radius: 4px;}
 .sub_info ul li:nth-child(2) {margin-right: 0;}
 .sub_info .info_btn a {display: block;}
 .sub_info ul li:hover {background: #c3a164; color: #fff; border: 1px solid #c3a164; transition: all 0.3s;}
