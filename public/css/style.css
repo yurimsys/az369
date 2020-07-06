@@ -129,7 +129,7 @@ section.main {
 
 /*공통속성*/
 section .bar {
-    border-bottom: 2px solid #c3a164;;
+    border-bottom: 2px solid #c3a164;
     width: 30px;
     margin: 0 auto;
     margin-top: 10px;
@@ -271,7 +271,7 @@ section.gallery p {text-align: center; margin: 0;  margin-bottom: 3%;}
 }
 
 a.slide_btn {
-  color: #ddd;
+  color: #eee;
     font-size: 20px;
     line-height: 60px;
   margin: 0 0.175em;
@@ -285,7 +285,7 @@ a.slide_btn {
 .slide_btn.active, .slide_btn:hover {
   cursor: pointer;
     background: none;
-    color: #a0772b;
+    color: #C3A164;
 }
 
 .directional_nav {
