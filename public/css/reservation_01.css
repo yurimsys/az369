@@ -33,20 +33,20 @@ section.sub_wrap .bar {
   border-bottom: 2px solid #c3a164; 
   width: 30px; 
   margin: 0 auto;
-  margin-top: 20px;
-  margin-bottom: 50px;
+  margin-top: 10px;
+  margin-bottom: 45px;
 }
 
 .box {position: relative; padding-top: 5%; overflow: hidden;}
 
-section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 5%; font-weight: bold;font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #C3A164;  padding-top: 60px; font-weight: 500;font-size: 16px;}
 
 section.sub_wrap h1 {
-    text-align: center; 
-    font-size: 2.8rem;
-    margin-top: -1%;
-    font-weight: normal;
-    margin-bottom: 2%;
+  text-align: center;
+  font-size: 45px;
+  margin-top: -1%;
+font-family: 'PT Serif', serif;
+font-weight: normal;
 }
 
 .inner_sub_wrap {width: 1200px; margin: 0 auto;}
@@ -67,10 +67,10 @@ section.sub_wrap h1 {
 .reserve_left ul li { width: 100%;}
 .reserve_left h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; letter-spacing: -0.50px; }
 /*.left_list {padding-bottom: 5%; border-bottom: 1px solid #eee;}*/
-.left_list:nth-child(2) { padding-top: 40px; border-bottom: none;}
+.left_list:nth-child(2) { padding-top: 35px; border-bottom: none;}
 
 
-/*왼쪽상단 - 지역*/
+/*왼쪽상단 - 지역,시간 선택------------------------------*/
 .location ul {width: 100%;background-color: red; height: auto;}
 .location ul li {float: left; height: 45px;}
 .location ul > li:nth-child(1), .location ul > li:nth-child(3)
@@ -110,12 +110,13 @@ section.sub_wrap h1 {
   color: #222;
  font-weight:400;
  font-size: 15px;
+ border: 1px solid #dbdbdb;
 }
 /* 선택할 옵션 */
 .select-items {
   position: absolute;
   background-color: #fafafa;
-  border: 1px solid #eee;
+  border: 1px solid #dbdbdb;
   color: #444;
   font-size: 15px;
   top: 100%;
@@ -125,16 +126,22 @@ section.sub_wrap h1 {
 }
 .select-hide {display: none;}
 .select-items div:hover, .same-as-selected {
-  background-color: #f2f2f2;
+  background-color: #f4f4f4;
 }
 
 
 
-/*왼쪽하단 - 버스선택*/
+/*왼쪽하단 - 날짜,버스선택 --------------------------------------*/
 .select_bus {width: 100%; overflow: hidden;}
-.select_bus_list {width: 100%; height: 370px; overflow: scroll; overflow-x: hidden;background: #fafafa;}
-.select_bus p {font-size: 14px; color: #C3A164; margin-top: 2%;}
+.select_bus_list {width: 100%; height: 380px; overflow: scroll; overflow-x: hidden;background: #fafafa;}
 
+/* 버스선택 상단 */
+.select_bus_list_tit {width: 100%; font-size: 15px;  height: 45px; line-height: 45px; background: #fff; color: #222; border-top: 1px solid #dbdbdb; letter-spacing: -0.5px; font-weight: 400;}
+.select_bus_list_tit ul li {float: left; text-align: center;  margin-bottom: 0%; border-bottom: 1px solid #dbdbdb;}
+.select_bus_list_tit ul li:nth-child(1) {width: 35%;}
+.select_bus_list_tit ul li:nth-child(2) {width: 35%;}
+.select_bus_list_tit ul li:nth-child(3) {width: 30%;}
+.select_bus_list_tit ul li{margin-right: 0;}
 .select_bus label input {display: none;}
 .select_bus label span {
     position: relative;
@@ -142,33 +149,25 @@ section.sub_wrap h1 {
     width: 100%;
     font-weight: normal;
 }
-
 .select_bus {width: 100%;}
-.select_bus_list {border: 1px solid #eee; background: #f8f8f8;}
-.select_bus_list_tit {width: 100%0; font-size: 16px;  height: 50px; line-height: 50px; background: #fff; color: #444; border-top: 2px solid #eee;}
-.select_bus_list_tit ul li {float: left; text-align: center;  margin-bottom: 0%;   border-bottom: 1px solid #eee;}
-.select_bus_list_tit ul li:nth-child(1) {width: 35%;}
-.select_bus_list_tit ul li:nth-child(2) {width: 35%;}
-.select_bus_list_tit ul li:nth-child(3) {width: 30%;}
-.select_bus_list_tit ul li{margin-right: 0;}
-
+.select_bus_list { background: #f8f8f8; padding-top: 1px;}
 .select_bus span {height: 50px; line-height: 50px; text-align: center; float: left;}
 .select_bus .select_bus_time {margin: 0; width: 35%;}
 .select_bus .select_bus_name {margin: 0; width: 35%;}
 .select_bus .select_bus_seat {margin: 0; width: 30%;}
 
-
 /*select_bus_list 스크롤 css*/
-.select_bus_list::-webkit-scrollbar {width: 3px; height: 20px;}
-.select_bus_list::-webkit-scrollbar-track {background-color: #ddd;}
+.select_bus_list::-webkit-scrollbar {width: 2px; height: 20px;}
+.select_bus_list::-webkit-scrollbar-track {background-color: #eee;}
 .select_bus_list::-webkit-scrollbar-button {display: none;}
-.select_bus_list::-webkit-scrollbar-thumb {border-radius: 5px; background-color: #C3A164;}
+.select_bus_list::-webkit-scrollbar-thumb {background-color: #444;}
 
 /*버스선택버튼 active*/
 .tab {
   overflow: hidden;
-  background-color: #f8f8f8;
+  background-color: #fafafa;
     width: 100%;
+    font-weight:300;
 }
 
 .tab button {
@@ -178,24 +177,27 @@ section.sub_wrap h1 {
   outline: none;
   cursor: pointer;
   transition: 0.3s;
-    color: #777;
+    color: #999;
   font-size: 15px;
-  border: 1px solid #eee;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #eee;
     width: 100%;
+
 }
 
 .tab button.active {
   background-color: #fff;
-    border: 1px solid #C3A164; 
-    border-radius: 5px;
-    color: #C3A164;
+    border: 1px solid #444; 
+    color: #444444;
+    font-weight: 500;
 }
 
 
-
 /*오른쪽영역*/
-.reserve_right { width: 100%; background: #fff; border: 1px solid #ddd; height: 650px; font-size: 15px; padding: 3%; }
-.reserve_right h4 {margin-left: 3%; font-size: 19px; font-weight: bold; margin-top: 2%; display: inline-block;}
+.reserve_right { width: 100%; background: #fff; border: 1px solid #ddd; height: 650px; font-size: 15px; padding: 20px; position: relative;}
+.reserve_right h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; letter-spacing: -0.50px;}
+
+
 .reserve_right h5 {font-size: 20px; margin-left: 3%; display: inline-block;}
 .reserve_right ul li {background: transparent; margin-left: 3%;}
 
@@ -216,74 +218,73 @@ section.sub_wrap h1 {
 .tabcontent p br {display: none;}
 .tabcontent dt br {display: none;}
 
-/*오른쪽 좌석선택표*/
+/*오른쪽 좌석선택표------------------------------------------*/
 .seat-map {float: left;}
 .select_seat {float: right; width: 48%; padding-left: 4%;}
-.select_seat h4 {width: 100%; font-size: 20px; padding: 0; margin: 0; margin-bottom: 5%; padding: 1%; border-bottom: 1px solid #eee;}
-.select_seat h4 span {font-size: 16px; color: #777;}
+.select_seat h4 {width: 100%; font-size: 18px; padding: 0; margin: 0; margin-bottom: 10px; padding: 1%;;}
+.select_seat h4 span {color: #999;}
 
 /*좌석선택 텍스트*/
 .seat_table {width: 100%; height: auto; overflow: hidden;}
-.seat_table dt {width: 100%; float: left; padding: 1% 0; font-size: 18px; font-weight: normal; color: #666;}
-.seat_table dd {width: 100%; float: left ; padding: 1% 0; color: #000;  background: #f4f4f4; margin-bottom: 4%;}
+.seat_table dt {width: 100%; float: left; padding: 0;  margin-bottom: 5px; font-size: 15px; font-weight: normal; color: #222;}
+.seat_table dd {width: 100%; float: left; padding: 5px 0px; color: #000;  background: #f4f4f4; margin-bottom: 10px;}
 
 /*새로고침버튼*/
-.reload_btn {background: #fff;  margin-top: 8%; border-radius: 5px; cursor: pointer; border: none; width: 100%;}
-.reload_btn img { padding: 2%; border: 1px solid #ddd; float: left; border-radius: 5px;}
+.reload_btn {background: #fff;  cursor: pointer; border: none; width: 100%;}
+.reload_btn img {padding: 5px; border: 1px solid #dbdbdb; float: left; border-radius: 50px;}
 
-.seat_table p { border-bottom: none; font-size: 15px; color: #777; display: inline-block; margin-left: 3%; float: left; line-height: 36px;}
+.reload_btn p { border-bottom: none; font-size: 14px; color: #999; display: inline-block; margin-left: 8px; float: left; line-height: 33px;}
 
 
-/*하단 예매버튼*/
-.payment_open {margin: 0 auto; width: 230px; height: 50px; line-height: 50px; background: #eee; display: block; text-align: center; transition: all 0.3s; overflow: hidden;margin-top: 2%; bottom: 3%; position: absolute; right: 2.5%;}
-.payment_open:hover {background: #ddd;}
+/*하단 예매버튼------------------------------------------*/
+.payment_open {margin: 0 auto; width: calc(100% - 52% - 40px); height: 45px; line-height: 45px; background: #c3a164; color: #fff; border-radius: 4px; display: block; text-align: center; transition: all 0.3s; overflow: hidden;bottom: 25px; position: absolute; right: 20px; font-size: 16px; font-weight: 500;}
 
 
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
 .layer:target{display:flex;animation:open 0.3s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
 
-.payment_box{ width: 25%;  height: auto; margin: 0 auto;background:#fff;position:relative; z-index: 1000; margin-top: 3%;}
+.payment_box{ width: 22%; height: auto; margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 40%; transform: translateY(-50%); border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.1); padding-bottom: 20px;}
+
 
 /*결제버튼 팝업 내부*/
 /*팝업 타이틀*/
-.payment_tit { background: #f8f8f8; border-bottom: 2px solid #C3A164; height: 60px; line-height: 60px; margin: 0 auto;text-align: center; color: #222; font-weight: normal; font-size: 22px;}
+.payment_tit {margin: 0 auto; text-align: center; color: #222; font-weight: 400; font-size: 24px; padding-top: 18px;}
 
 /*팝업 요약*/
-.info_table {width: 100%; overflow: hidden;/* border-bottom: 1px solid #eee;*/ padding: 0 6%; margin-top: 2%;}
-.info_table dl {width: 100%; padding: 2.5% 0; overflow: hidden; border-bottom: 1px solid #f4f4f4;}
-.info_table dl:last-child {border-bottom: 1px solid #eee;}
-.info_table dt {width: 35%; float: left; color: #666;}
-.info_table dd{width: 65%; float: right; color: #333;  text-align: right;}
-.info_time dd span {color: #aaa;}
+.info_table {width: 100%; overflow: hidden;/* border-bottom: 1px solid #eee;*/ margin-top: 22px; padding: 0 30px; font-size: 15px;}
+.info_table dl {width: 100%; padding: 10px 0; overflow: hidden; border-bottom: 1px solid #eee;}
+.info_table dl:last-child {border-bottom: 1px solid #444; padding-bottom: 15px;}
+.info_table dt {width: 35%; float: left; color: #767676; font-size: 300;}
+.info_table dd{width: 65%; float: right; color: #222;  text-align: right;}
 
 /*팝업 금액*/
-.price {width: 100%; overflow: hidden; padding: 0 6%; padding-top: 3%;}
-.price dl {width: 100%; color: #777; opacity: 0.8}
+.price {width: 100%; overflow: hidden; padding: 18px 30px 0;}
+.price dl {width: 100%;}
 .price dt {width: 50%; float: left;}
 .price dd {width: 50%; float: right; text-align: right;} 
+dl.reserve_price {color: #999 !important; }
 dl.price_sale {color: #c17e00;}
 /*dl.price_sale dt, dl.price_sale dd {font-weight: bold;}*/
-.total_dl {padding-top: 4%; overflow: hidden;}
+.total_dl {padding-top: 20px; overflow: hidden; letter-spacing: -0.5px;}
 .total_dl dt {color: #000; line-height: 43px; font-size: 18px;}
-.total_dl dd {color: #000; font-weight: bold;font-size: 24px; }
+.total_dl dd {color: #000; font-weight: bold;font-size: 26px;}
+.total_dl dd span {font-weight: 300; font-size: 18px;}
 
-
-.notice {padding: 4% 6%; background: #eee; margin-top: 4%;}
-.notice h5 {font-size: 18px; font-weight: bold; padding-bottom: 1%; border-bottom: 1px solid #ddd; color: #555;}
-.notice p {padding-top: 3%; font-size: 15px;}
+.notice {padding: 20px 30px; background: #f4f4f4; margin-top: 15px;}
+.notice h5 {font-size: 18px; font-weight: 500; color: #444;}
+.notice p {padding-top: 5px; font-size: 15px; color: #767676; font-weight: 300; letter-spacing: -0.25px; line-height: 1.5;}
+.notice p::before {content: '·'; margin-right: 8px; margin-left: -8px;}
 
 /*팝업하단버튼*/
 .reservation_btn_mo {display: none;}
-
-
-.payment_btn {width: 100%; height: 50px; margin-top: 10%; border: 0; background: #C3A164; color: #fff; font-size: 16px;}
+.payment_btn {width: 100%; height: 50px; margin-top: 10%; border: 0; color: #fff; font-size: 16px; padding: 0 30px;}
 .payment_btn li {float: left; width: 49%; margin-right: 1%;}
 .payment_btn li:last-child {margin-right: 0;} 
 .payment_close {width: 100%; display: block; height: 50px; line-height: 50px; text-align: center;}
-.payment_close1 {background: #eee; color: #666; transition: all 0.2s;}
-.payment_close1:hover {background: #ddd;}
-.payment_close2{bottom:20px;display:block;background:#C3A164;color:#fff;text-align:center; float: left; width: 100%;}
+.payment_close1 {background: #fff; color: #999; transition: all 0.2s; border: 1px solid #dbdbdb; border-radius: 4px;}
+.payment_close1:hover {background: #fafafa;}
+.payment_close2{bottom:20px;display:block;background:#222; color:#fff;text-align:center; font-weight: 400; float: left; width: 100%; border-radius: 4px;}
 
 /*section.sub_wrap 완료*/
 
