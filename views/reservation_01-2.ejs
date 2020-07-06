@@ -346,7 +346,7 @@
         }
         //예매하기 버튼
         function showPayment() {
-            $('header').remove();
+            $('header').css('display','none');
             let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                 ct_id = sessionStorage.getItem("ct_id");
 

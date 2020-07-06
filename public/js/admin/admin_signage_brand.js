@@ -1,115 +1,52 @@
 
 $(document).ready(function(){
-        //대분류 카테고리
-        $.ajax({
-            url: '/api/categoryLV1',
-            method: 'get',
-            dataType: 'json',
-            success: function(res){
-                console.log('gooood');
-                for(let i=0; i<res.data.length; i++){
-                    // let html = "<div onclick='LV1Cat(this)' id="+"lvOne"+res.data[i].BCR_LV1_BC_ID+">";
-                    //     html += "<input type='radio'  id="+"lv1"+res.data[i].BCR_LV1_BC_ID+" name='catLv1' value="+res.data[i].BCR_LV1_BC_ID+">"
-                    //     html += "<label for="+"lv1"+res.data[i].BCR_LV1_BC_ID+">"+res.data[i].BC_NameKor+"</label>"
-                    //     html += "</div>"
-
-                    let html = "<option id="+"lv1"+res.data[i].BCR_LV1_BC_ID+">"+res.data[i].BC_NameKor+"</option>";
-                        console.log('asdasdsad');
-                    $('#lv1_category').append(html)
-                }
+    // //중복제거 브랜드 리스트
+    // $.ajax({
+    //     url: '/api/brandListOverLap',
+    //     method: 'get',
+    //     dataType: 'json',
+    //     async : false,
+    //     success: function(res){
+    //         localStorage.setItem('brandList',JSON.stringify(res.data))
+    //     }
+    // })
+    //대분류 카테고리
+    $.ajax({
+        url: '/api/categoryLV1',
+        method: 'get',
+        dataType: 'json',
+        success: function(res){
+            console.log('gooood');
+            for(let i=0; i<res.data.length; i++){
+                let html = "<option class='goodTest' id="+"lvOne"+res.data[i].BCR_LV1_BC_ID+">"+res.data[i].BC_NameKor+"</option>";
+                $('#lv1_category').append(html)
             }
-        })
-        //중분류
-        $.ajax({
-            url: '/api/categoryLV2',
-            method: 'get',
-            dataType: 'json',
-            success: function(res){
-                //카테고리 저장
-                localStorage.setItem('catLV2',JSON.stringify(res.data))
-            }
-        })
-        //층수
-        $.ajax({
-            url: '/api/floor',
-            method: 'get',
-            dataType: 'json',
-            success: function(res){
-                //카테고리 저장
-                localStorage.setItem('floor',JSON.stringify(res.data))
-            }
-        })
+        }
+    })
+    //중분류
+    $.ajax({
+        url: '/api/categoryLV2',
+        method: 'get',
+        dataType: 'json',
+        success: function(res){
+            //카테고리 저장
+            localStorage.setItem('catLV2',JSON.stringify(res.data))
+        }
+    })
+    //층수
+    $.ajax({
+        url: '/api/floor',
+        method: 'get',
+        dataType: 'json',
+        success: function(res){
+            //카테고리 저장
+            localStorage.setItem('floor',JSON.stringify(res.data))
+        }
+    })
     
     init();
 }) 
 function init(){
-    // 브랜드 Data Load
-    $.ajax({
-        method: "get",
-        dataType : "JSON",
-        url: "/api/bsList",
-        success: function (res){
-            
-            let brand_list = res.data.map((data) =>{
-                return { id : data.BS_ID, text : data.BS_NameKor}
-            });
-
-            $(".selectBrand").select2(
-                {
-                    placeholder: '브랜드 선택',
-                    data: brand_list,
-                    width: 'resolve'
-                }
-            );
-        }
-    })
-    
-    // 광고업종 Data Load
-    $.ajax({
-        method: "get",
-        dataType : "JSON",
-        url: "/api/categoryLV1",
-        success: function (res){
-            let categoryLV1 = res.data.map((data) =>{
-                return { id : data.BCR_LV1_BC_ID, text : data.BC_NameKor}
-            });
-
-            $('.selectAdCategory').select2(
-                {
-                    placeholder: '업종 선택',
-                    data: categoryLV1,
-                    width: 'resolve'
-                }
-            );
-        }
-    });
-
-    // 광고위치 Data Load
-    $.ajax({
-        method: "get",
-        dataType : "JSON",
-        url: "/api/adtype",
-        success: function (res){           
-            let adtype = res.data.map((data) =>{
-                return { id : data.ADY_ID, text : data.ADY_Location}
-            });
-
-            $('.selectAdType').select2(
-                {
-                    placeholder: '위치 선택',
-                    data: adtype,
-                    width: 'resolve'
-                }
-            );
-        }
-    });
-
-
-    // 광고기간 DateBox
-    $(".ad_duration_start, .ad_duration_final").dxDateBox({
-        type: "date",
-        dateSerializationFormat : "yyyy-MM-dd"
-    });
 
     // 신규모드로 실행
     objectInfo("new");
@@ -158,7 +95,7 @@ let objectInfo = function (mode = "modify", row_data) {
 
 let tableInit = function (data) {
     $("#mgmt-table").dxDataGrid({
-        dataSource: "/api/ad",
+        dataSource: "/api/brandListOverLap",
         showBorders: true,
         renderAsync: true,
         allowColumnReordering: true,
@@ -256,17 +193,34 @@ let tableInit = function (data) {
           },
         columns: [
             //cssClass : 'tooltip'
-            { dataField: "AD_ID", caption: "ID", width : 70, sortOrder : "desc"},
-            { dataField: "BS_NameKor", caption: "브랜드"},
-            { dataField: "BC_NameKor", caption: "광고업종"},
-            { dataField: "ADY_Location", caption: "광고위치"},
-            { dataField: "AD_Title", caption: "광고제목"},
-            { dataField: "AD_ContentURL", caption: "URL"},
-            { dataField: "AD_DtS", caption: "광고시작일", dataType: "date"},
-            { dataField: "AD_DtF", caption: "광고종료일", dataType: "date"},
-            { dataField: "AD_BC_ID", visible: false },
-            { dataField: "BS_ID", visible: false },
-            { dataField: "AD_ADY_ID", visible: false },
+            { dataField: "BS_ID", caption: "ID", width : 70, sortOrder : "desc"},
+            { dataField: "BS_LoginID", caption: "아이디"},
+            { dataField: "BS_LoginPW", caption: "비밀번호"},
+            { dataField: "BS_CEO", caption: "대표자명"},
+            { dataField: "BS_NameKor", caption: "브랜드명"},
+            { dataField: "BS_NameEng", caption: "브랜드명 영문"},
+            { dataField: "BS_ContentsKor", caption: "매장 소개"},
+            { dataField: "BS_ContentsEng", caption: "매장 소개 영문"},
+            { dataField: "LS_Number", caption: "호실"},
+            { dataField: "BC_NameKor", caption: "카테고리"},
+            { dataField: "BS_Addr1Kor", caption: "도로명 주소"},
+            { dataField: "BS_Addr2Kor", caption: "상세 주소"},
+            { dataField: "BS_Addr1Eng", caption: "도로명 주소 영문"},
+            { dataField: "BS_Addr2Eng", caption: "상세주소 영문"},
+            { dataField: "BS_MainDtS", caption: "평일 영업시간 오픈"},
+            { dataField: "BS_MainDtF", caption: "평일 영업시간 마감"},
+            { dataField: "BS_SubDtS", caption: "주말 영업시간 오픈"},
+            { dataField: "BS_SubDtF", caption: "주말 영업시간 마감"},
+            { dataField: "BS_BreakDtS", caption: "휴식시간 시작"},
+            { dataField: "BS_BreakDtF", caption: "휴식시간 종료"},
+            { dataField: "BS_PersonalDayKor", caption: "휴일"},
+            { dataField: "BS_PersonalDayEng", caption: "휴일 영문"},
+            { dataField: "BS_ImageUrl", caption: "메인 이미지"},
+            { dataField: "BS_ThumbnailUrl", caption: "썸네일"},
+            { dataField: "BCR_ID", visible: false },
+            { dataField: "BCR_LV1_BC_ID", visible: false },
+            { dataField: "BCR_LV2_BC_ID", visible: false },
+            { dataField: "BS_BC_ID", visible: false },
         ],
         // onSelectionChanged: function (selectedItems) {
         //     debugger;
@@ -350,19 +304,40 @@ function resetSearch() {
 
 tableInit();
 function saveAD(){
+
     let update_data = {
-        adBsId : $(".object-info .selectBrand").val(),
-        adAdyId : $(".object-info .selectAdType").val(),
-        adBcId : $(".object-info .selectAdCategory").val(),
-        adTitle : $(".object-info .inputAdTitle").val(),
-        adDtS : $(".object-info .ad_duration_start").dxDateBox("instance").option().value,
-        adDtF : $(".object-info .ad_duration_final").dxDateBox("instance").option().value
+        bsBcId : $("#lv1_category option:selected").attr('id').replace(/lvOne/,''),
+        bsBcId2 : $("#lv2_category option:selected").attr('id').replace(/lvTwo/,''),
+        bsLoginId : $("#login_id").val(),
+        bsLoginPw : $('#login_pw').val(),
+        bsCeo : $("#ceo_name").val(),
+        bsNameKo : $('#brand_ko').val(),
+        bsNameEn : $('#brand_en').val(),
+        bsContentsKo : $('#brand_contents_ko').val(),
+        bsContentsEn : $('#brand_contents_en').val(),
+        bsPhone : $('#brand_phone').val(),
+        bsCeoPhone : $('#ceo_phone').val(),
+        bsAddr1Ko : $('#address').val(), 
+        bsAddr2Ko : $('#detailAddress').val(),
+        bsAddr1En : $('#address_en').val(), 
+        bsAddr2En : $('#detail_address_en').val(), 
+        bsMainOpen : $('#main_open').val(),
+        bsMainClose : $('#main_close').val(),
+        bsSubOpen : $('#sub_open').val(),
+        bsSubClose : $('#sub_close').val(),
+        bsBreakOpen : $('#break_open').val(),
+        bsBreakClose : $('#break_close').val(),
+        bsPersonalKo : $('#personal_day_ko').val(),
+        bsPersonalEn : $('#personal_day_en').val(),
+        bsStoreNumber : $('#store_number').val()
     }
+
+
 
     let form_data = new FormData(document.forms[0]);
     for ( let i in update_data) form_data.append(i, update_data[i]);
 
-    let api_url  = '/api/ad';
+    let api_url  = '/api/tbs';
     $.ajax({
         dataType : 'JSON',
         type : "POST",
@@ -508,3 +483,83 @@ function folding(){
     }
     $('#object_detail_group').slideToggle('fast')
 }
+
+//대분류 카테고리
+function LV1Cat(e){     
+    lv1Cat = e.id.replace(/lvOne/,'')
+    let catLv1Id = e.id.replace(/lvOne/,'')
+    let searchCatLV2 = JSON.parse(localStorage.getItem('catLV2'))    
+    // $('#LV2Cat').empty()
+    console.log('click');
+    for(let i=0; i<searchCatLV2.length; i++){
+        // console.log(searchCatLV2)
+        if(searchCatLV2[i].BCR_LV1_BC_ID == catLv1Id){
+            let resultCatLV2 = new Array();
+            let jsonCatLV2 = new Object();
+            jsonCatLV2 = searchCatLV2[i]
+            resultCatLV2.push(jsonCatLV2)
+            for(let j=0; j<resultCatLV2.length; j++){
+                // let html = "<div onclick='LV2Cat(this)' id="+"lvTwo"+resultCatLV2[j].BC_ID+">";
+                //     html += "<input type='radio' id="+"lv2"+resultCatLV2[j].BC_ID+" name='catLv2' value="+resultCatLV2[j].BC_ID+">"
+                //     html += "<label for="+"lv2"+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</label>"
+                //     html += "</div>"
+                // $('#LV2Cat').append(html);
+
+                let html = "<option id="+"lvTwo"+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</option>";
+                $('#lv2_category').append(html)
+
+            }
+        }
+    }
+}
+
+//대분류 선택시 중분류 리스트
+$('#lv1_category').click(function () {
+    let searchCatLV2 = JSON.parse(localStorage.getItem('catLV2'))    
+    $('.midCat').remove();
+    let catLv1Id = $("#lv1_category option:selected").attr('id').replace(/lvOne/,'')
+    for(let i=0; i<searchCatLV2.length; i++){
+        // console.log(searchCatLV2)
+        if(searchCatLV2[i].BCR_LV1_BC_ID == catLv1Id){
+            let resultCatLV2 = new Array();
+            let jsonCatLV2 = new Object();
+            jsonCatLV2 = searchCatLV2[i]
+            resultCatLV2.push(jsonCatLV2)
+            for(let j=0; j<resultCatLV2.length; j++){
+                let html = "<option class='midCat' id="+"lvTwo"+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</option>";
+                $('#lv2_category').append(html)
+            }
+        }
+    }
+})
+
+//층수 선택
+$('#floor').click(function(){
+    let floor_id = $("#floor option:selected").attr('id')
+    $('.storeNumber').remove();
+    let floorStatus = JSON.parse(localStorage.getItem('floor'))
+    console.log(floor_id,'아이디');
+    for(let i=0; i<floorStatus.length; i++){
+        if(floorStatus[i].LS_Floor == floor_id){
+            let html = "<option class='storeNumber' id="+"floor"+floorStatus[i].LS_Number+">"+floorStatus[i].LS_Number+"</option>";
+            $('#store_number').append(html)
+
+        }
+    }
+})
+
+// function selectFloor(e){
+//     $('#storeNum').empty();
+//     let floorStatus = JSON.parse(localStorage.getItem('floor'))
+//     console.log($(e).children('input').attr('id'))
+//     for(let i=0; i<floorStatus.length; i++){
+//         console.log(floorStatus[i].LS_Floor);
+//         if(floorStatus[i].LS_Floor == $(e).children('input').attr('id')){
+//             let html = "<div onclick='selectStoreNumber(this)'>";
+//                 html += "<input type='radio' id="+floorStatus[i].LS_Number+" name='storeNumber' value="+floorStatus[i].LS_Number+">"
+//                 html += "<label for="+floorStatus[i].LS_Number+">"+floorStatus[i].LS_Number+"</label>"
+//                 html += "</div>"
+//             $('#storeNum').append(html)
+//         }
+//     }
+// }

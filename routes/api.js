@@ -1510,6 +1510,7 @@ router.get('/brandList', function(req, res, next) {
                 BS_Addr2Eng, 
                 convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
                 convert(varchar, BS_MainDtf, 108) as BS_MainDtF, 
+                convert(varchar, BS_SubDtS, 108) as BS_SubDtS, 
                 convert(varchar, BS_SubDtF, 108) as BS_SubDtF, 
                 BC_NameKor, 
                 BC_NameEng,
@@ -1574,29 +1575,34 @@ router.get('/brandListOverLap', function(req, res, next) {
         if(err) throw err;
         new mssql.Request().query(`
             select 
+                tBS.BS_ID,
+                BS_LoginID, 
+                BS_LoginPW, 
+                BS_CEO, 
                 BS_NameKor, 
                 BS_NameEng, 
+                BC_NameKor,
+                BC_NameEng,
                 tBCR.BCR_ID, 
                 BCR_LV1_BC_ID, 
                 BCR_LV2_BC_ID, 
                 BCR_LV3_BC_ID, 
-                tBS.BS_ID, 
                 BS_BC_ID, 
-                BS_LoginID, 
-                BS_LoginPW, 
-                BS_CEO, 
+                BS_Addr1Kor,
+                BS_Addr2Kor,
+                BS_Addr1Eng,
+                BS_Addr2Eng,
                 convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
                 convert(varchar, BS_MainDtf, 108) as BS_MainDtF, 
+                convert(varchar, BS_SubDtS, 108) as BS_SubDtS, 
                 convert(varchar, BS_SubDtF, 108) as BS_SubDtF, 
-                BC_NameKor, 
-                BC_NameEng,
                 convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, 
                 convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
                 BS_ContentsKor, 
                 BS_ContentsEng, 
-                BS_ThumbnailUrl,
                 BS_PersonalDayKor, 
                 BS_PersonalDayEng, 
+                BS_ThumbnailUrl,
                 BS_ImageUrl,
                 tLS.LS_Number, 
                 LS_Sector,
@@ -1935,18 +1941,18 @@ router.get('/floor', function(req, res, next) {
 });
 
 //매장 등록
-router.post('/addBs', upload.any(), async function (req, res, next) {
+router.post('/tbs', upload.any(), async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
 
-        let BS_ThumbnailUrl, BS_ImageUrl
-        let imgArr = req.files
-    //업로드 파일 구분
-        imgArr.forEach(function(element){
-            element.fieldname == 'tumb' ? BS_ThumbnailUrl = element.originalname : BS_ImageUrl = element.originalname
-        })
-        console.log('썸네일', BS_ThumbnailUrl);
-        console.log('메인', BS_ImageUrl);
+    //     let BS_ThumbnailUrl, BS_ImageUrl
+    //     let imgArr = req.files
+    // //업로드 파일 구분
+    //     imgArr.forEach(function(element){
+    //         element.fieldname == 'tumb' ? BS_ThumbnailUrl = element.originalname : BS_ImageUrl = element.originalname
+    //     })
+    //     console.log('썸네일', BS_ThumbnailUrl);
+    //     console.log('메인', BS_ImageUrl);
 
         // 광고입력
         if(req.files.length === 0) throw Error('Non include files');
@@ -1978,25 +1984,25 @@ router.post('/addBs', upload.any(), async function (req, res, next) {
         });
 
         
-        let mainDtS = '2020-05-18 '+ req.body.bsMainS;
-        let mainDtF = '2020-05-18 '+ req.body.bsMainF;
-        let subDtS = '2020-05-18 '+req.body.bsSubS
-        let subDtF = '2020-05-18 '+req.body.bsSubF
-        let breakS = '2020-05-18 '+req.body.bsBreakS
-        let breakF = '2020-05-18 '+req.body.bsBreakF
+        let mainDtS = '2020-05-18 '+ req.body.bsMainOpen;
+        let mainDtF = '2020-05-18 '+ req.body.bsMainClose;
+        let subDtS = '2020-05-18 '+req.body.bsSubOpen
+        let subDtF = '2020-05-18 '+req.body.bsSubClose
+        let breakS = '2020-05-18 '+req.body.bsBreakOpen
+        let breakF = '2020-05-18 '+req.body.bsBreakClose
 
         // 매장입력 BS_BC_ID == lv1Cat
         let result = await pool.request()
-            .input('BS_BC_ID', mssql.Int, req.body.catLv1)
-            .input('BS_LoginID', mssql.NVarChar, req.body.bsLogId)
-            .input('BS_LoginPW', mssql.NVarChar, req.body.bsLogPw)
+            .input('BS_BC_ID', mssql.Int, req.body.bsBcId)
+            .input('BS_LoginID', mssql.NVarChar, req.body.bsLoginId)
+            .input('BS_LoginPW', mssql.NVarChar, req.body.bsLoginPw)
             .input('BS_CEO', mssql.NVarChar, req.body.bsCeo)
             .input('BS_NameKor', mssql.NVarChar, req.body.bsNameKo)
             .input('BS_NameEng', mssql.NVarChar, req.body.bsNameEn)
-            .input('BS_ContentsKor', mssql.NVarChar, req.body.bsContKo)
-            .input('BS_ContentsEng', mssql.NVarChar, req.body.bsContEn)
-            .input('BS_Phone', mssql.NVarChar, req.body.bsTel)
-            .input('BS_CEOPhone', mssql.NVarChar, req.body.bsCeoTel)
+            .input('BS_ContentsKor', mssql.NVarChar, req.body.bsContentsKo)
+            .input('BS_ContentsEng', mssql.NVarChar, req.body.bsContentsEn)
+            .input('BS_Phone', mssql.NVarChar, req.body.bsPhone)
+            .input('BS_CEOPhone', mssql.NVarChar, req.body.bsCeoPhone)
             .input('BS_Addr1Kor', mssql.NVarChar, req.body.bsAddr1Ko)
             .input('BS_Addr1Eng', mssql.NVarChar, req.body.bsAddr1En)
             .input('BS_Addr2Kor', mssql.NVarChar, req.body.bsAddr2Ko)
@@ -2009,8 +2015,8 @@ router.post('/addBs', upload.any(), async function (req, res, next) {
             .input('BS_BreakDtF', mssql.DateTime, breakF)
             .input('BS_PersonalDayKor', mssql.NVarChar, req.body.bsPersonalKo)
             .input('BS_PersonalDayEng', mssql.NVarChar, req.body.bsPersonalEn)
-            .input('BS_ThumbnailUrl', mssql.NVarChar, '/img/'+BS_ThumbnailUrl)
-            .input('BS_ImageUrl', mssql.NVarChar, '/img/'+BS_ImageUrl)
+            .input('BS_ThumbnailUrl', mssql.NVarChar, '/img/'+req.files[1].originalname)
+            .input('BS_ImageUrl', mssql.NVarChar, '/img/'+req.files[0].originalname)
             .query(`insert into tBS(
                                 BS_BC_ID, BS_LoginID, BS_LoginPW, BS_CEO, BS_NameKor, BS_NameEng, BS_ContentsKor, BS_ContentsEng, 
                                 BS_Phone, BS_CEOPhone, BS_Addr1Kor, BS_Addr2Kor, BS_Addr1Eng, BS_Addr2Eng, BS_MainDtS, BS_MainDtF,
@@ -2028,8 +2034,8 @@ router.post('/addBs', upload.any(), async function (req, res, next) {
         
         //카테고리 업종 입력 BCR_ID 구하기
         let result2 = await pool.request()
-            .input('BCRLV1', mssql.Int, req.body.catLv1)
-            .input('BCRLV2', mssql.Int, req.body.catLv2)
+            .input('BCRLV1', mssql.Int, req.body.bsBcId)
+            .input('BCRLV2', mssql.Int, req.body.bsBcId2)
             .query('select BCR_ID from tBCR where BCR_LV1_BC_ID = @BCRLV1 AND BCR_LV2_BC_ID = @BCRLV2')
 
         console.log('최근 입력된 BS_ID');
@@ -2046,7 +2052,7 @@ router.post('/addBs', upload.any(), async function (req, res, next) {
         //층수 입력
         let result4 = await pool.request()
             .input('BS_ID', mssql.Int, result1.recordset[0].BS_ID)
-            .input('LS_Number', mssql.Int, req.body.storeNumber)
+            .input('LS_Number', mssql.Int, req.body.bsStoreNumber)
             .query('insert into tBSxtLS(BS_ID, LS_Number) values(@BS_ID, @LS_Number)')
 
         res.json({data:'1'})
