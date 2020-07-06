@@ -186,14 +186,7 @@ header .open {
     table.order td {width: 100%; height: 45px; line-height: 45px;}
     
     .mypage_btn {margin-top: 10%; width: 100%;}
-    
 
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*320px*/
@@ -211,6 +204,6 @@ header .open {
     table.order th {font-size: 17px;}
     table.order td {font-size: 15px;} */
 
-    .mypage_btn {font-size: 15px; height: 40px; line-height: 40px;}
+    .mypage_btn {font-size: 15px; height: 45px; line-height: 45px;}
 }
 
