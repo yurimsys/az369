@@ -1283,9 +1283,9 @@ router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
                     (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as available_seat_cnt,
                     tCY.CY_Totalpassenger as total_passenger,
                     tCY.CY_SeatPrice as seatPrice,
-                    tcy.CY_ID,
-                    tcy.CY_Ty,
-                    tcy.CY_TotalPassenger
+                    tCY.CY_ID,
+                    tCY.CY_Ty,
+                    tCY.CY_TotalPassenger
                 FROM tCT 
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID
@@ -1956,7 +1956,7 @@ router.post('/tbs', upload.any(), async function (req, res, next) {
     //     console.log('썸네일', BS_ThumbnailUrl);
     //     console.log('메인', BS_ImageUrl);
 
-        // 광고입력
+        // 이미지입력
         if(req.files.length === 0) throw Error('Non include files');
         //입력된 파일들과 새로운 경로로 저장
         let content_type = req.files[0].mimetype.split('/')[0];
@@ -2074,25 +2074,34 @@ router.put('/tbs/:bsId', upload.any(), async function (req, res, next) {
         //입력된 파일들과 새로운 경로로 저장
         // let content_type = req.files[0].mimetype.split('/')[0];
 
-        let tumb_url, img_url
+        
+        
         //수정되는 파일이 있을때
-        if(req.files.length != 0){
-            let tumb_name = req.files[0].filename;
-            let img_name = req.files[1].filename;
-            //이전 저장소
-            let old_tumb_path = req.files[0].path;
-            let old_img_path = req.files[1].path;
-            //새 저장소
-            let new_tumb_path = path.join(config.path.bs_image , tumb_name);
-            let new_img_path = path.join(config.path.bs_image , img_name);
-            //썸네일 재지정 함수
-            fs.rename(old_tumb_path, new_tumb_path, (err) => {
-                if (err) throw err;
-                fs.stat(new_tumb_path, (err, stats) => {
-                if (err) throw err;
-                console.log(`stats: ${JSON.stringify(stats)}`);
-                });
-            });
+
+        let tumb_url, img_url
+        let tumb_name, img_name;
+        let old_tumb_path, old_img_path;
+        let new_tumb_path, new_img_path;
+        img_url = req.body.bsImgUrl;
+        tumb_url = req.body.bsTumbUrl;
+
+        //이미지만 바꿀때
+        if(req.files.length == 1 && req.files[0] != undefined && req.files[0].fieldname == 'store_img'){
+            onlyImg();
+        }
+        //썸네일만 바꿀때
+        else if(req.files.length == 1 && req.files[0] != undefined && req.files[0].fieldname == 'store_thumb'){
+            onlyThumb();
+        }
+        //둘다 바꿀때
+        else if(req.files.length === 2){
+            allImgUpdate();
+        }
+        
+        function onlyImg(){
+            img_name = req.files[0].filename;
+            old_img_path = req.files[0].path;old_img_path
+            new_img_path = path.join(config.path.bs_image , img_name);
             //이미지 재지정 함수
             fs.rename(old_img_path, new_img_path, (err) => {
                 if (err) throw err;
@@ -2101,15 +2110,56 @@ router.put('/tbs/:bsId', upload.any(), async function (req, res, next) {
                 console.log(`stats: ${JSON.stringify(stats)}`);
                 });
             });
-            //이미지 파일 지정
+            img_url = req.files[0].originalname;
+            tumb_url = req.body.bsTumbUrl;
+        }
+
+        function onlyThumb(){
+            tumb_name = req.files[0].filename;
+            old_tumb_path = req.files[0].path;
+            new_tumb_path = path.join(config.path.bs_image , tumb_name);
+            //썸네일 재지정 함수
+            fs.rename(old_tumb_path, new_tumb_path, (err) => {
+                if (err) throw err;
+                fs.stat(new_tumb_path, (err, stats) => {
+                if (err) throw err;
+                console.log(`stats: ${JSON.stringify(stats)}`);
+                });
+            });
+            tumb_url = req.files[0].originalname;
+            img_url = req.body.bsImgUrl;
+        }
+
+        function allImgUpdate(){
+            img_name = req.files[0].filename;
+            tumb_name = req.files[1].filename;
+            //이전 저장소
+            old_img_path = req.files[0].path;
+            old_tumb_path = req.files[1].path;
+            //새 저장소
+            new_tumb_path = path.join(config.path.bs_image , tumb_name);
+            new_img_path = path.join(config.path.bs_image , img_name);
+            //이미지 재지정 함수
+            fs.rename(old_img_path, new_img_path, (err) => {
+                if (err) throw err;
+                fs.stat(new_img_path, (err, stats) => {
+                if (err) throw err;
+                console.log(`stats: ${JSON.stringify(stats)}`);
+                });
+            });
+            //썸네일 재지정 함수
+            fs.rename(old_tumb_path, new_tumb_path, (err) => {
+                if (err) throw err;
+                fs.stat(new_tumb_path, (err, stats) => {
+                if (err) throw err;
+                console.log(`stats: ${JSON.stringify(stats)}`);
+                });
+            });
             img_url = req.files[0].originalname;
             tumb_url = req.files[1].originalname;
-            
+    
         }
-        img_url = req.body.bsImgUrl;
-        tumb_url = req.body.bsTumbUrl;
         
-
         let mainDtS = '2020-05-18 '+ req.body.bsMainOpen;
         let mainDtF = '2020-05-18 '+ req.body.bsMainClose;
         let subDtS = '2020-05-18 '+req.body.bsSubOpen
@@ -2196,7 +2246,7 @@ router.put('/tbs/:bsId', upload.any(), async function (req, res, next) {
                 .input('LS_Number', mssql.Int, req.body.bsStoreNumber)
                 .query('update tBSxtLS set LS_Number = @LS_Number where BS_ID = @BS_ID')
         }
-        res.json({data:'1'})
+        res.json({result : 1})
     } catch (err) {
         console.log(err);
         console.log('error fire')
@@ -2204,8 +2254,8 @@ router.put('/tbs/:bsId', upload.any(), async function (req, res, next) {
 });
 
 //특정 매장 삭제
-router.delete('/tBs/:bsId', async function(req,res){
-    let bsid = req.params.bsId;
+router.delete('/tbs/:bsId', async function(req,res){
+    let bsId = req.params.bsId;
     try {
         let pool = await mssql.connect(dbconf.mssql)
 
@@ -2221,12 +2271,40 @@ router.delete('/tBs/:bsId', async function(req,res){
         .input('bsId', mssql.Int, bsId)
         .query(`delete from tBS where BS_ID = @bsId`)
         console.log('성공');
+        res.json({data : 1})
     } catch (err) {
         console.log(err);
         console.log('error fire')
     }
 })
 
+
+router.delete('/tbs', async function(req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+        // 광고입력
+        console.log('보내기');
+        let row_ids = req.body.row_ids;
+
+        await pool.request()
+        .query(`delete from tBSxtBCR where BS_ID in (${row_ids})`)
+    
+        await pool.request()
+            .query(`delete from tBSxtLS where BS_ID in (${row_ids})`)
+
+        await pool.request()
+        .query(`delete from tBS where BS_ID in (${row_ids})`)
+        console.log('성공');
+
+ 
+        
+        res.json({data : 1 });
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+        res.json({result : 0});
+    }
+});
 ///////////////광고
 //광고 등록
 router.post('/ad', upload.any(), async function (req, res, next) {
@@ -2288,50 +2366,31 @@ router.put('/ad/:adId', upload.any(), async function (req, res, next) {
 
 
 
+        let filename 
+        let old_path 
+        let new_path 
+        filename = req.body.adUrl
         // 광고입력
-        if(req.files.length === 0) throw Error('Non include files');
-        let content_type = req.files[0].mimetype.split('/')[0];
-        let filename = req.files[0].filename;
-        let old_path = req.files[0].path;
-        let new_path = path.join(config.path.ad_image , filename);
+        // if(req.files.length === 0) throw Error('Non include files');
+        // let content_type = req.files[0].mimetype.split('/')[0];
 
-        fs.rename(old_path, new_path, (err) => {
-            if (err) throw err;
-            fs.stat(new_path, (err, stats) => {
-            if (err) throw err;
-            console.log(`stats: ${JSON.stringify(stats)}`);
+        //수정할 이미지가 있을때
+        if(req.files.length == 1){
+            adImgUpdate();
+        }
+        function adImgUpdate(){
+            filename = req.files[0].filename;
+            old_path = req.files[0].path;
+            new_path = path.join(config.path.ad_image , filename);
+    
+            fs.rename(old_path, new_path, (err) => {
+                if (err) throw err;
+                fs.stat(new_path, (err, stats) => {
+                if (err) throw err;
+                console.log(`stats: ${JSON.stringify(stats)}`);
+                });
             });
-        });
-
-        // let tAD = new Object();
-        // tAD.AD_BS_ID = req.body.adBsId
-        // tAD.AD_ADY_ID = req.body.adAdyId
-        // tAD.AD_BC_ID = req.body.adBcId
-        // tAD.AD_PaymentStatus = req.body.adPay
-        // tAD.AD_Title = req.body.adTitle
-        // tAD.AD_DtS = req.body.adDtS
-        // tAD.AD_DtF = req.body.adDtF
-        // tAD.AD_ContentURL = filename
-        // tAD.AD_ContentTy = req.body.adConTy
-
-        // let ADObj = Object.keys(tAD)
-        // let bodyObj = Object.keys(req.body)
-        // let query = 'update tAD set '
-        // let j=0;
-        // for(let i=0; i<ADObj.length; i++){
-        //     if(tAD[Object.keys(tAD)[i]] !== undefined){
-        //         if(req.body[Object.keys(req.body)[j]] != tAD[Object.keys(tAD)[i]]){
-        //             query += ADObj[i]+'=' +' @'+bodyObj[j]+','
-        //             j++
-        //         }
-        //     }
-        // //마지막 , 제거
-        //     if(i === ADObj.length -1){
-        //         query = query.substring(0, query.length-1)
-        //         query += ' where AD_ID ='+req.params.adId
-        //     }
-        // }
-
+        }
         query = `UPDATE tAD SET 
                     AD_BS_ID = @adBsId, 
                     AD_ADY_ID = @adAdyId, 

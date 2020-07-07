@@ -172,7 +172,7 @@ let tableInit = function (data) {
         },
         onSelectionChanged : function(e) {
             console.log('selection changed', e);
-            sessionStorage.setItem("row_data_list", e.selectedRowsData.map(data => data.AD_ID));
+            sessionStorage.setItem("row_data_list", e.selectedRowsData.map(data => data.BS_ID));
             let dataGrid = e.component;
             
             let informer = e.element.find(".selectedActionBtns");
@@ -427,11 +427,12 @@ function saveAD(){
 function deleteAD(mode = 'single') {
     if(mode === 'single'){
 
-        let id = JSON.parse( sessionStorage.getItem('row_data') ).ad_id;
+        let id = JSON.parse( sessionStorage.getItem('row_data') ).bs_id;
+        console.log(id,'삭제 아이디');
         $.ajax({
             dataType : 'JSON',
             type : "DELETE",
-            url : '/api/ad/'+id,
+            url : '/api/tbs/'+id,
             success : function (res) {
                 console.log('ajax result');
                 console.log(res);
@@ -443,12 +444,12 @@ function deleteAD(mode = 'single') {
         let id_list = {
             row_ids : sessionStorage.getItem('row_data_list')
         }
-        
+        console.log(id_list,'삭제 아이디들');
         $.ajax({
             dataType : 'JSON',
             type : "DELETE",
             data : id_list,
-            url : '/api/ad/',
+            url : '/api/tbs/',
             success : function (res) {
                 console.log('ajax result');
                 console.log(res);
