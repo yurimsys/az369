@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; font-weight: normal;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
@@ -71,11 +71,11 @@ section.sub_wrap h1 {
      font-weight: normal;
 }
 
-section.sub_wrap h2 {font-size: 28px; text-align: center; margin-bottom: 70px; line-height: 1.6;font-weight:400;}
+section.sub_wrap h2 {font-size: 24px; text-align: center; margin-bottom: 70px; line-height: 1.6; font-weight:300;}
 section.sub_wrap h2 strong {font-weight: 600;}
-section.sub_wrap h2 span {font-size: 16px; color: #767676; font-weight: 300;}
+section.sub_wrap h2 span {font-size: 16px; color: #999; font-weight: 300;}
 
-section.sub_wrap h5 {font-size: 20px; font-weight: 300; text-align:center; color: #444;}
+section.sub_wrap h5 {font-size: 20px; font-weight: 300; text-align:center; color: #999;}
 section.sub_wrap h5 br {display: none;}
 section.sub_wrap h5 span {font-weight: 400;}
 
@@ -91,24 +91,24 @@ section.sub_wrap h5 span {font-weight: 400;}
     width: 25%;
   outline: none;
   cursor: pointer;
-  height: 50px;
-	line-height: 50px;
+  height: 60px;
+	line-height: 60px;
   transition: 0.3s;
     color: #767676;
   font-size: 18px;
 	font-weight: 400;
-  border: 1px solid #ddd;
+  border: none;
 	border-bottom: 1px solid #C3A164;
 	background: #f6f6f6;
 	
 }
 
 .tab button.active {
-  /*background-color: #ad8743;*/
 	border: none;
     border: 1px solid #C3A164;
 	border-bottom: none /*!important*/;
-	background: #fff;
+    background: #fff;
+    font-weight: 500;
 	color: #222;
     /*color: #fff;*/
 }
@@ -127,24 +127,16 @@ section.sub_wrap h5 span {font-weight: 400;}
 	border-bottom: 1px solid #ddd;
 }
 
-.tabcontent h3 {font-family: 'Noto Sans KR', sans-serif; color: #000; font-weight: 600; font-size: 26px;}
-.tabcontent p {color: #767676; padding-bottom: 2%; border-bottom: 1px solid #eee; font-size: 16px; font-weight: 300;}
+.tabcontent h3 {font-family: 'Noto Sans KR', sans-serif; color: #000; font-weight: 500; font-size: 24px;}
+.tabcontent p {color: #999; padding-bottom: 20px; border-bottom: 1px solid #eee; font-size: 16px; font-weight: 300;}
 .tabcontent dl {margin-top: 20px; overflow: hidden;}
-.tabcontent dt {float: left; width: 18%; padding: 12px 0; font-weight: bold; color: #333;}
-.tabcontent dd {float: left; width: 82%; padding: 12px 0; color: #222; font-weight: 300;}
-.tabcontent dd span {font-size: 15px; color: #767676; font-weight: 300;}
+.tabcontent dt {float: left; width: 18%; padding: 12px 0; font-weight: 500;}
+.tabcontent dd {float: left; width: 82%; padding: 12px 0; font-weight: 300;}
+.tabcontent dd span {font-size: 15px; color: #999; font-weight: 300;}
 
 .tabcontent h3 br {display: none;}
 .tabcontent p br {display: none;}
 .tabcontent dt br {display: none;}
-
-
-footer {
-    width: 100%;
-    height: 200px;
-    margin: 0 auto;
-    background: #211e1c;
-}
 
 /*section.sub_wrap 완료*/
 

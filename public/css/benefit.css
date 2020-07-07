@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit; }
@@ -52,7 +52,6 @@ section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
     margin-bottom: 90px;
-    color: #333;
 	overflow: hidden;
 }
 
@@ -76,7 +75,7 @@ section.sub_wrap h1 {
 
 
 section.sub_wrap h2 br {display: none;}
-section.sub_wrap h2 {font-size: 30px; text-align: center; margin-bottom: 50px; line-height: 1.4; font-weight: 400;}
+section.sub_wrap h2 {font-size: 28px; text-align: center; margin-bottom: 50px; line-height: 1.4; font-weight: 400;}
 section.sub_wrap h2 span {font-weight: 600;}
 
 section.sub_wrap h5 {font-size: 24px; font-weight: 300; text-align:center; color: #444;}
@@ -114,7 +113,7 @@ section.sub_wrap h5 span {font-weight: 400;}
 .call_pic img {height: 100%;}
 .call:hover > .call_pic {filter: grayscale(0%);}
 .call_txt {z-index: 100; position: absolute; top: 50%; transform: translateY(-50%); text-align: center; width: 100%; color: #fff; text-shadow: 0 0 5px rgba(0,0,0,0.5);}
-.call_txt h3 {font-size: 1.7rem;}
+.call_txt h3 {font-size: 24px;}
 .call_txt p {font-size: 1.5rem; text-align: center; margin-top: 3%;}
 
 
@@ -126,12 +125,6 @@ section.sub_wrap h5 span {font-weight: 400;}
 .apply_btn:hover {background: #C3A164; color: #fff; border: 1px solid #be974f;}
 
 
-footer {
-    width: 100%;
-    height: 200px;
-    margin: 0 auto;
-    background: #211e1c;
-}
 /*section.sub_wrap 완료*/
 
 

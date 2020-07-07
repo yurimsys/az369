@@ -1,8 +1,10 @@
 @charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -50,33 +52,44 @@ section.sub_wrap {
 
 
 
-section.sub_wrap .bar {
-    border-bottom: 2px solid #c3a164;; 
-    width: 35px; 
+/*section.sub_wrap 시작*/
+
+section.sub_wrap {
+    width: 1200px;
     margin: 0 auto;
-    margin-top: 2%;
-    margin-bottom: 5%;
+    margin-bottom: 90px;
+	overflow: hidden;
 }
+
+section.sub_wrap .bar {
+    border-bottom: 2px solid #c3a164; 
+    width: 30px; 
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
 section.sub_wrap h6 {text-align: center; color: #C3A164; margin-top:90px; font-weight: 500; font-size: 16px;}
 
 section.sub_wrap h1 {
-    text-align: center; 
-    font-size: 2.8rem;
+    text-align: center;
+    font-size: 45px;
     margin-top: -1%;
-    font-weight: normal;
+	font-family: 'PT Serif', serif;
+	font-weight: normal;
 }
 
-section.sub_wrap h2 {font-size: 30px; text-align: center; margin-bottom: 5%; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif; font-weight:normal;}
-section.sub_wrap h2 br {display: none;}
 
-section.sub_wrap h5 {color: #777; font-size: 20px; text-align:center; font-weight: normal;}
+section.sub_wrap h2 {font-size: 28px; text-align: center; margin-bottom: 5%; line-height: 1.5; font-weight: 400;}
+section.sub_wrap h2 br {display: none;}
+section.sub_wrap h5 {color: #444; font-size: 24px; text-align:center; font-weight: 300;}
 section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow: inset 0 -15px 0 #fcf3dc;}
 
 
 .sub_form {width: 100%;}
 
-.sub_form h3 {font-size: 1.6rem; margin: 0; font-family: 'Noto Sans KR', sans-serif; font-weight: bold;}
-.sub_form p{font-size: 15px; color: #666; font-weight: normal;margin-bottom: 2%;}
+.sub_form h3 {font-size: 24px; margin: 0; font-weight: 400;}
+.sub_form p{font-size: 15px; color: #666; font-weight: normal; margin-bottom: 25px;}
 
 .sub_form h4 {font-weight: bold;}
 
@@ -87,7 +100,7 @@ section.sub_wrap h2 em { margin: 0; border-bottom: 1px solid #fcf3dc; box-shadow
 .apply_form ul li:nth-child(2),
 .apply_form ul li:nth-child(4){margin-right: 0;}
 .apply_form ul li label,
-.apply_check ul li label {font-weight: bold;}
+.apply_check ul li label {font-weight: 600; font-size: 15px;}
 .apply_form ul li:last-child {width: 100%; margin-bottom: 0;}
 
 textarea,
@@ -136,7 +149,7 @@ input[type=submit]:hover {
     transition: all 0.3s;
 }
 
-.apply_form:hover, .apply_check:hover { box-shadow: 0 0 13px rgba(227, 219, 204,0.7);}
+.apply_form:hover, .apply_check:hover {box-shadow: 20px 20px 30px rgba(180, 180, 180,0.3);}
 
 
 

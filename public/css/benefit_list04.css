@@ -3,17 +3,16 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif;  font-weight: normal;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
-a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
+a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit; }
 img {vertical-align: middle;}
 a img {border: none;}
 li {list-style: none;}
 address, em, i {font-style: normal;}
 strong {font-weight: bold;}
 p {text-align: justify; font-family: inherit; font-size: 16px;}
-
 .wrap {
     width: 100%;
     margin: 0 auto;
@@ -28,7 +27,6 @@ section.main {
     height: 450px;
     overflow: hidden;
 }
-
 
 .main_bg {background: url(/img/benefit_list/benefit_list04_bg.png);
 background-position: center;
@@ -71,7 +69,7 @@ section.sub_wrap h1 {
 }
 
 
-section.sub_wrap h2 {font-size: 28px; text-align: center; margin-bottom: 70px; line-height: 1.6; font-weight: 400;}
+section.sub_wrap h2 {font-size: 24px; text-align: center; margin-bottom: 70px; line-height: 1.6; font-weight: 300;}
 section.sub_wrap h2 span {color: #000; font-weight: 600;}
 
 section.sub_wrap h5 {font-size: 20px; font-weight: 300; text-align:center; color: #444;}
@@ -82,7 +80,7 @@ section.sub_wrap h5 span {font-weight: 400;}
 .sub_bg img {width: 100%;}
 
 
-.sub_info {width: 100%; background: #f8f8f8; height: auto; padding: 30px 0;  margin-top: 20px;}
+.sub_info {width: 100%; background: #fafafa; height: auto; padding: 30px 0;  margin-top: 20px;}
 .sub_info p {text-align: center; font-weight: 300; color: #000;}
 
 
