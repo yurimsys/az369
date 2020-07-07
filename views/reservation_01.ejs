@@ -269,7 +269,7 @@
                         // html += "<span class='select_bus_name'>"+res.data[i].b_name+'\n'+"("+res.data[i].carNum+")</span>";
                         html += "<span class='select_bus_name'>" + res.data[i].b_name + "</span>";
                         html += " <span class='select_bus_seat'>" + (res.data[i].total_passenger - res.data[i].available_seat_cnt) + "</span>";
-                        html += "<span class='select_bus_seat' style='color=#999999;'>"+" / " + res.data[i].total_passenger +"</span>";;
+                        html += "<span class='select_bus_seat' style='color:#999999;'>"+" / " + res.data[i].total_passenger +"</span>";;
                         $(".tab").append(html);
                     }
 
