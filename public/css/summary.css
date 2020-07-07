@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
@@ -68,7 +68,7 @@ section.sub_wrap .bar {
 }
 
 section.sub_wrap h2 br {display: none;}
-section.sub_wrap h2 {font-size: 30px;  text-align: center; margin-bottom: 60px; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif; font-weight: 400;}
+section.sub_wrap h2 {font-size: 28px;  text-align: center; margin-bottom: 60px; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif; font-weight: 400;}
 section.sub_wrap h2 span {font-weight: 600;}
 
 section.sub_wrap h5 {font-size: 24px; font-weight: 300; text-align:center; color: #444;}
@@ -82,12 +82,12 @@ section.sub_wrap h5 span {font-weight: 400;}
 /*sub_info*/
 .sub_info {width: 100%; text-align: center; margin-top:60px;}
 
-.sub_info h4 {font-size: 20px; font-weight: 300; color: #ad863c;}
+.sub_info h4 {font-size: 20px; font-weight: 300;}
 .sub_info h4 span {font-weight: 500;}
-.sub_info h3 {font-size: 24px; margin: 0; margin-bottom: 30px; font-weight: 400;}
+.sub_info h3 {font-size: 24px; margin: 0; margin-bottom: 30px; font-weight: 300;}
 .sub_info h3 span {font-weight: 600;}
 .sub_info h3 br {display: none;}
-.sub_info p {text-align: center; line-height: 1.8; color: #222; font-weight: 300;}
+.sub_info p {text-align: center; line-height: 1.6; color: #444; font-weight: 300;}
 .sub_info p span {font-weight: 400;}
 
 .sub_info ul {width: 50%; padding: 0; overflow: hidden; margin: 0 auto; margin-top: 40px;}

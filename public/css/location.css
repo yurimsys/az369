@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap'); 
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; font-weight: normal;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0; }
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
@@ -68,10 +68,10 @@ section.sub_wrap h1 {
 }
 
 section.sub_wrap h2 br {display: none;}
-section.sub_wrap h2 {font-size: 30px; text-align: center; margin-bottom: 70px; line-height: 1.4; font-weight: 400;}
+section.sub_wrap h2 {font-size: 28px; text-align: center; margin-bottom: 70px; line-height: 1.4; font-weight: 400;}
 section.sub_wrap h2 span { font-weight: 600;}
 
-section.sub_wrap h5 {font-size: 24px; font-weight: 300; text-align:center;}
+section.sub_wrap h5 {font-size: 24px; font-weight: 300; text-align:center; color: #444;}
 section.sub_wrap h5 br {display: none;}
 section.sub_wrap h5 span {font-weight: 400;}
 

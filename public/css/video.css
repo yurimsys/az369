@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
@@ -42,12 +42,12 @@ section.main {
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 50px;
+    margin-bottom: 90px;
 	overflow: hidden;
 }
 
 .tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); }
-.tnb a {float: left; width: 100%; text-align: center; height: 60px; line-height: 60px; font-size: 17px; transition: all 0.2s; font-weight: 400; background: #c3a164; color: #fff;}
+.tnb a {float: left; width: 100%; text-align: center; height: 60px; line-height: 60px; font-size: 18px; transition: all 0.2s; font-weight: 400; background: #c3a164; color: #fff;}
 
 section.sub_wrap .bar {
     border-bottom: 2px solid #c3a164; 
@@ -67,8 +67,8 @@ section.sub_wrap h1 {
 	font-weight: normal;
 }
 
-section.sub_wrap h2 {font-size: 30px;  text-align: center; margin-bottom: 60px; line-height: 1.4;  font-weight: 400;}
-section.sub_wrap h2 span { font-size: 24px; text-align:center;}
+section.sub_wrap h2 {font-size: 28px;  text-align: center; margin-bottom: 60px; line-height: 1.4;  font-weight: 400;}
+section.sub_wrap h2 span { font-size: 24px; text-align:center; font-weight: 300;}
 section.sub_wrap h2 strong {font-weight: 600;}
 
 
@@ -77,13 +77,13 @@ section.sub_wrap h2 strong {font-weight: 600;}
 section.main_video {width: 100%; overflow: hidden; margin: 0 auto; margin-top: 30px;}
 .main_video_txt {width: 100%; text-align: center;}
 .main_video_txt h3 {font-size: 24px; color: #222; margin-top: 20px; font-weight: 500;}
-.main_video_txt h5 {font-size: 16px; color: #767676; font-weight: normal; margin-top: 5px; font-weight: 300;}
+.main_video_txt h5 {font-size: 15px; color: #999; font-weight: normal; margin-top: 5px; font-weight: 300;}
 .main_video_txt h5 span {color: #ccc; padding: 0 15px;}
 
 
 
 /*최신 VIDEO*/
-section.video_list{width: 100%; margin-top: 80px; overflow: hidden;}
+section.video_list{width: 100%; margin-top: 70px; overflow: hidden;}
 .video_list h4 {font-size: 18px;}
 
 /*최신 VIDEO 소제목*/
@@ -104,52 +104,51 @@ section.video_list{width: 100%; margin-top: 80px; overflow: hidden;}
 	line-height: 0px;
 	margin: 0px 16px;
 }
-.hr-sect p {color: #444; font-size: 26px;}
+.hr-sect p {color: #222222; font-size: 24px;}
 
 
 /*최신 VIDEO 리스트*/
-.video_list ul {width: 100%;  height: auto; margin-top: 30px;}
-.video_list ul li {float: left; position: relative; width: 32%; margin-right: 2%; margin-bottom: 2%; height: auto;}
+.video_list ul {width: 100%;  height: auto; margin-top: 26px;}
+.video_list ul li {float: left; position: relative; width: 32%; margin-right: 2%; margin-bottom: 20px; height: auto;  border: 1px solid #dbdbdb; border-radius: 0 0 12px 12px;}
 .video_list ul li:nth-child(3),
 .video_list ul li:nth-child(6) {margin-right: 0;}
-.video_list ul li:hover .video_txt, 
-.video_list ul li:hover .video_img 
-{box-shadow: 0 0 15px rgba(0,0,0,0.1);}
+.video_list ul li:hover
+{box-shadow: 20px 20px 30px rgba(180, 180, 180,0.3);}
 
 
 /*최신 VIDEO 리스트 이미지영역*/
 .video_img {width: 100%; float:left; height: 213px; overflow: hidden; position: relative;}
-.video_img iframe {width: 100%; transition: all 0.3s; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px; z-index: -10000; position: absolute;}
+.video_img iframe {width: 100%; transition: all 0.3s; height: 100%;z-index: -10000; position: absolute;}
 .popup_open:hover iframe {transform: scale(1.05);}
 .video_list ul li iframe {width: 100%;}
 
 
 /*최신 VIDEO 리스트 텍스트영역*/
-.video_txt {width: 100%; float: left; height: 120px; padding: 14px 15px 10px; text-align: left; background: #fff; border: 1px solid #eee; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;}
+.video_txt {width: 100%; float: left; height: 120px; padding: 15px 18px 10px; text-align: left; background: #fff; border-radius: 0 0 12px 12px;}
 .video_txt h4 {font-size: 18px; color: #222; font-weight: 400; line-height: 1.5; }
-.video_txt p {font-size: 14px; color: #767676; font-weight: 300; margin-top: 7px;}
-.video_txt p span {color: #ddd; padding: 0 15px;}
+.video_txt p {font-size: 14px; color: #999; font-weight: 300; margin-top: 7px;}
+.video_txt p span {color: #ddd; padding: 0 18px;}
 
 
 /*하단버튼*/
 .btn_box {text-align: center; margin-top: 40px;}
 .pagination {display: inline-block;}
 .pagination a {
-  color: black;
+  color: #999;
   float: left;
   padding: 8px 18px;
   text-decoration: none;
   transition: background-color .3s;
-  border: 1px solid #eee;
   margin: 0;
     color: #222;
+    border-radius: 50%;
 }
 .pagination a.active {
   background-color: #c3a164;
   color: white;
-  border: 1px solid #c3a164;
+  border-radius: 50%;
 }
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.active) {background-color: #fafafa;}
 
 
 
@@ -164,8 +163,8 @@ section.video_list{width: 100%; margin-top: 80px; overflow: hidden;}
 .layer .popup_box{width: 100%; height: 100%; background:#fff;position:relative; z-index: 1000; overflow: scroll;}
 
 .popup_box_header {width: 100%; height: 80px; position: relative; box-shadow: 0 0 5px rgba(0,0,0,0.1);}
-.popup_close {position: absolute; height: 80px; line-height: 80px; right: 60px;}
-.popup_box_inner {padding:80px 100px; height: 100%;background: #f4f4f4;}
+.popup_close {position: absolute; height: 80px; line-height: 80px; right: 30px;}
+.popup_box_inner {padding:80px 100px; height: 100%;background: #f8f8f8;}
 
 /*영상팝업 내부 슬라이드 컨테이너*/
 .slideshow-container {
@@ -182,70 +181,37 @@ section.video_list{width: 100%; margin-top: 80px; overflow: hidden;}
 
 /*영상팝업 내부 영상영역*/
 .video_slide {float: left; width: 70%; height: 100%;}
-
+.video_slide video {width: 100%; height: 100%;}
+ 
 /*영상팝업 내부 택스트영역*/
 .video_slide_txt {float: right; width: 28%; text-align: left;}
-.mySlides .video_slide_txt h3 {font-size: 30px; line-height: 1.4; color: #222; font-weight: 500;}
-.mySlides .video_slide_txt h5 {font-size: 15px; color: #767676; margin-top: 10px; font-weight: normal; text-align: justify; font-weight: 300;}
+.mySlides .video_slide_txt h3 {font-size: 28px; line-height: 1.4; color: #222; font-weight: 500;}
+.mySlides .video_slide_txt h5 {font-size: 15px; color: #999; margin-top: 10px; font-weight: normal; text-align: justify; font-weight: 300;}
 .mySlides .video_slide_txt h5 span {color: #ddd; padding: 0 15px;}
 .mySlides .video_slide_txt p {margin-top: 25px; font-weight: 300;}
 
 
 /*영상팝업 내부 슬라이드 버튼*/
-.video_control {position: absolute; width:181px; height: 60px; float: left; bottom: 10px; right: 0;}
-.video_control img {width: 50%;}
-.video_control_num {float: left; margin-right: 25px; line-height: 60px; font-size: 16px; color: #767676;}
+.video_control {position: absolute; width:150px; height: 50px; float: left; bottom: 10px; right: 0;}
+.video_control_num {float: left; margin-right: 25px; line-height: 50px; font-size: 16px; color: #999;}
 .video_control_num strong {color: #222;}
 .prev, .next {
-  cursor: pointer;
-  position: absolute;
-    height: 60px;
-    width: 60px;
+   cursor: pointer;
+   position: absolute;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
     text-align: center; 
-    padding: 5px 15px;
-    color: #aaa;
-  font-weight: 600;
-  font-size: 24px;
-  user-select: none;
-  background: #fff;
-    border: 1px solid #eee;
+    user-select: none;
 }
 .next {
   position: absolute;
   right: 0;
 }
-.prev:hover, .next:hover {
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
 
 .dot-container {display: none;}
 
 
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
-
-
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
 
 
 /*반응형*/
@@ -261,13 +227,16 @@ header .open {
     section.sub_wrap .inner_sub_wrap {width: 95%; margin: 0 auto;}
     .video_wrap {width: 95%; margin: 0 auto;}
     .tnb {width: 100%;}
+
+    /*영상팝업 내부 영상영역*/
+    .video_slide {width: 60%;}
+    .video_slide_txt {width: 40%; padding-left: 30px;}
     
     
     /*팝업영역*/
-    .popup_close {right: 3%;}
     .popup_box_inner {padding:35px 25px 0;}
     /*팝업 내 텍스트*/
-    .mySlides .video_slide_txt h3 {font-size: 28px;}
+    .mySlides .video_slide_txt h3 {font-size: 26px;}
     .mySlides .video_slide_txt p {margin-top: 20px;}
 
 }
@@ -287,12 +256,13 @@ header .open {
     .video_slide {width: 100%; height: 548px; margin-top: 10px;}
     
     /*팝업 내 텍스트*/
-    .video_slide_txt {width: 100%; padding: 0 1%;}
+    .video_slide_txt {width: 100%; padding: 0 10px; position: relative; background: gold;}
     .mySlides .video_slide_txt h3 {font-size: 26px; margin-top:20px;}
     .mySlides .video_slide_txt h5 {font-size: 15px; margin-top: 7px;}
     .mySlides .video_slide_txt p {font-size: 16px;  height: auto; overflow: hidden; position: relative;}
     /*팝업슬라이드버튼*/
-    .video_control {position: static; float: right; margin-top: 1%;}
+    .video_control {position: relative; right: 0; margin-top: 10px; float: right; background-color: red;}
+    .video_control_num {margin-right: 15px; line-height: 55px;}
 
 }
 
@@ -306,7 +276,8 @@ header .open {
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     section.sub_wrap h1 {font-size: 35px;}
-    section.sub_wrap h2 {margin-bottom: 8%; font-size: 26px;}
+    section.sub_wrap h2 {margin-bottom:50px; font-size: 24px;}
+    section.sub_wrap h2 span {font-size: 20px;}
     
     section.video_list {margin-top: 50px;}
     .video_list ul li {width: 49%;}
@@ -341,7 +312,7 @@ header .open {
     section.sub_wrap .inner_sub_wrap {width: 100%;}
     section.sub_wrap h1 {font-size: 30px;}
     section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
-    section.sub_wrap h2 {font-size: 24px; line-height: 1.5; margin-bottom: 40px;;}
+    section.sub_wrap h2 {font-size: 22px; line-height: 1.5; margin-bottom: 40px;}
     section.sub_wrap h2 br {display: block;}
     section.sub_wrap h2 span {font-size: 18px;}
     section.sub_wrap h6 {margin-top: 50px;}
