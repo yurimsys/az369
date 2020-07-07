@@ -2278,7 +2278,7 @@ router.delete('/tbs/:bsId', async function(req,res){
     }
 })
 
-
+//매장 다중 삭제 기능
 router.delete('/tbs', async function(req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
@@ -2294,9 +2294,6 @@ router.delete('/tbs', async function(req, res, next) {
 
         await pool.request()
         .query(`delete from tBS where BS_ID in (${row_ids})`)
-        console.log('성공');
-
- 
         
         res.json({data : 1 });
     } catch (err) {

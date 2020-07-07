@@ -16,7 +16,6 @@ $(document).ready(function(){
         method: 'get',
         dataType: 'json',
         success: function(res){
-            console.log('gooood');
             for(let i=0; i<res.data.length; i++){
                 let html = "<option class='goodTest' id="+"lvOne"+res.data[i].BCR_LV1_BC_ID+" value="+res.data[i].BCR_LV1_BC_ID+">"+res.data[i].BC_NameKor+"</option>";
                 $('#lv1_category').append(html)
@@ -536,6 +535,8 @@ function searchPopupClose() {
     $("#object-search-popup").hide();
 }
 function searchPopupShow() {
+    $('#object-search-popup').css('left','430px')
+    $('#object-search-popup').css('top','300px')
     $("#object-search-popup").show();
 }
 // 검색
