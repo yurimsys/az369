@@ -110,8 +110,9 @@ header .open {
 	header {height: 65px; line-height: 65px;}
     header .gnb {display: none;}
     header .innerHeader {width: 1200px; position: fixed;}
-	.innerHeader h1.logo { line-height: 55px; margin-left: 15px;}
-	/* .innerHeader h1.logo img {width: 90%;} */
+    .innerHeader h1.logo { line-height: 58px; margin-left: 15px;}
+    .innerHeader h1.logo img {Width: 80%;}
+    header.on {height: 65px; line-height: 65px;}
     
     .gnb2 {display: none;}
     .gnb_mo_login {background: #fff; margin-top: 2%; padding: 10px 0; color: #222; letter-spacing: -0.25px;}
