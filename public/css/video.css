@@ -180,8 +180,8 @@ section.video_list{width: 100%; margin-top: 70px; overflow: hidden;}
 }
 
 /*영상팝업 내부 영상영역*/
-.video_slide {float: left; width: 70%; height: 100%; position: relative; padding-bottom: 56.25%;}
-.video_slide video {width: 100%; height: 100%; position: absolute;}
+.video_slide {float: left; width: 70%; height: 100%;}
+.video_slide video {width: 100%; height: 100%;}
  
 /*영상팝업 내부 택스트영역*/
 .video_slide_txt {float: right; width: 28%; text-align: left;}
@@ -227,6 +227,10 @@ section.video_list{width: 100%; margin-top: 70px; overflow: hidden;}
     section.sub_wrap .inner_sub_wrap {width: 95%; margin: 0 auto;}
     .video_wrap {width: 95%; margin: 0 auto;}
     .tnb {width: 100%;}
+
+    /*영상팝업 내부 영상영역*/
+    .video_slide {width: 60%;}
+    .video_slide_txt {width: 40%; padding-left: 30px;}
     
     
     /*팝업영역*/
@@ -252,12 +256,13 @@ section.video_list{width: 100%; margin-top: 70px; overflow: hidden;}
     .video_slide {width: 100%; height: 548px; margin-top: 10px;}
     
     /*팝업 내 텍스트*/
-    .video_slide_txt {width: 100%; padding: 0 1%;}
+    .video_slide_txt {width: 100%; padding: 0 10px; position: relative; background: gold;}
     .mySlides .video_slide_txt h3 {font-size: 26px; margin-top:20px;}
     .mySlides .video_slide_txt h5 {font-size: 15px; margin-top: 7px;}
     .mySlides .video_slide_txt p {font-size: 16px;  height: auto; overflow: hidden; position: relative;}
     /*팝업슬라이드버튼*/
-    .video_control {position: static; float: right; margin-top: 1%;}
+    .video_control {position: relative; right: 0; margin-top: 10px; float: right; background-color: red;}
+    .video_control_num {margin-right: 15px; line-height: 55px;}
 
 }
 
