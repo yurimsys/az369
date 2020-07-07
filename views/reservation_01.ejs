@@ -105,7 +105,7 @@
                             </li>
                             <li>
                                 <div class="reserve_right">
-                                    <p class="before_p" style="">왼쪽을 먼저 선택해주세요.</p>
+                                    <p class="before_p">왼쪽을 먼저 선택해주세요.</p>
                                     <div id="bus_seat_layer" class="tabcontent">
                                         <div class="container">
 
@@ -320,7 +320,8 @@
 
         function openBus(evt, busSeat) {
             var i, tablinks
-
+            //좌석 선택시 우측 문구 삭제
+            $('.before_p').css('display','none');
             sessionStorage.removeItem('seat_price');
             tablinks = document.getElementsByClassName("tablinks");
             //alert(seatPrice);

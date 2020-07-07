@@ -379,7 +379,8 @@ function updateAD(){
         adBcId : $(".object-info .selectAdCategory").val(),
         adTitle : $(".object-info .inputAdTitle").val(),
         adDtS : $(".object-info .ad_duration_start").dxDateBox("instance").option().value,
-        adDtF : $(".object-info .ad_duration_final").dxDateBox("instance").option().value
+        adDtF : $(".object-info .ad_duration_final").dxDateBox("instance").option().value,
+        adUrl : $('#ad_content_url').text().replace(/\/img\/ad\//,'')
     }
 
     let form_data = new FormData(document.forms[0]);
