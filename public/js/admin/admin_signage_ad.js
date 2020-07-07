@@ -429,6 +429,8 @@ function searchPopupClose() {
     $("#object-search-popup").hide();
 }
 function searchPopupShow() {
+    $('#object-search-popup').css('left','430px')
+    $('#object-search-popup').css('top','300px')
     $("#object-search-popup").show();
 }
 // 검색
