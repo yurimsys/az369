@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
@@ -18,6 +18,12 @@ p {text-align: justify; font-family: inherit; font-size: 16px;}
     margin: 0 auto;
     height: auto;
 }
+
+/*select_bus_list 스크롤 css*/
+.join_agreement::-webkit-scrollbar {width: 3px; height: 20px;}
+.join_agreement::-webkit-scrollbar-track {background-color: #eee;}
+.join_agreement::-webkit-scrollbar-button {display: none;}
+.join_agreement::-webkit-scrollbar-thumb {background-color: #999;}
 
 
 /*section.sub_wrap 시작*/
@@ -47,7 +53,7 @@ section.sub_wrap h1 {
 	font-weight: normal;
 }
 
-.box {position: relative; padding-top: 5%; overflow: hidden;}
+.box {position: relative; padding-top: 120px; overflow: hidden;}
 
 /*join_box*/
 .join_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; padding: 4% 5%; height: auto;animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; overflow: hidden; }
@@ -58,20 +64,20 @@ section.sub_wrap h1 {
 }
 
 /*회원가입과정*/
-.join_box .join_process {text-align: center; color: #767676; font-weight: 300; font-size: 16px; margin-bottom: 5px;}
+.join_box .join_process {text-align: center; color: #999; font-weight: 300; font-size: 16px; margin-bottom: 5px;}
 .join_box .join_process span {color: #c3a164; font-weight: 500;}
 
 /*박스 내부*/
 .join_box h2 {text-align: center; font-size: 24px; margin-bottom: 30px; font-weight: 500;}
-.join_box h3 {font-size: 18px; font-weight: 400; color: #222; margin-bottom: 15px;}
+.join_box h3 {font-size: 16px; font-weight: 400; color: #222; margin-bottom: 15px;}
 .join_box h3 span {color: #c3a164;}
 
 /*동의서 지문 내부*/
-.join_agreement {width: 100%; margin: 0 auto; height: 130px; overflow: scroll; background: #f8f7f1; overflow-x: hidden; margin-bottom: 50px; padding: 15px 20px;}
+.join_agreement {width: 100%; margin: 0 auto; height: 130px; overflow: scroll; background: #fafafa; overflow-x: hidden; margin-bottom: 50px; padding: 10px 20px;}
 .agreement_tit ul li {float: left;}
 .agreement_tit ul li:nth-child(2) {float: right;}
 .join_agreement strong {font-size: 16px; color: #444; font-weight: 500;}
-.join_agreement h5 {color: #666; font-size: 15px; font-weight: 400;}
+.join_agreement h5 {color: #444; font-size: 14px; font-weight: 400;}
 .join_agreement p {color: #666; font-size: 14px;  font-weight: 300;}
 
 /*동의 라디오버튼*/
@@ -174,7 +180,7 @@ section.sub_wrap h1 {
   border: 1px solid #ad863c;
 }
 
-.check_all_btn {text-align: center; padding: 15px 0; border: 1px solid #ddd; color: #222; font-weight: 400;}
+.check_all_btn {text-align: center; padding: 15px 0; border: 1px solid #eee; color: #222; font-weight: 400; border-radius: 4px;}
 
 /*하단 버튼*/
 .join_btn {width: 60%; margin: 0 auto; margin-top:40px;}

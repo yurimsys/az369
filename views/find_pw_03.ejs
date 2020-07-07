@@ -20,76 +20,59 @@
     <div class="wrap">
 
         <% include templates/header.ejs %>
-        <!--section.main 시작-->
-
-        <section class="main">
-            <div class="inner_main">
-                <div class="main_bg"></div>
-                <div class="tnb">
-                    <ul>
-                        <a href="login">
-                            <li style="background: #ad8743; color: #fff">로그인</li>
-                        </a>
-                        <a href="join">
-                            <li>회원가입</li>
-                        </a>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!--//secton.main 완료-->
         <!--secton.sub_wrap 시작-->
 
 
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
-
-                <h6>비밀번호 찾기</h6>
-                <h1 style="font-family: 'PT Serif', serif;">FIND PW</h1>
-                <div class="bar"></div>
-
-
-                <div class="find_box">
-                    <div class="tab">
-                        <ul>
-                            <a href="findId">
-                                <li
-                                    style="border-bottom: 1px solid #ad863c; background: #f8f8f8; color: #767676; font-weight: 400;">
-                                    아이디 찾기</li>
-                            </a>
-
-
-                            <a href="findPw">
-                                <li
-                                    style="border: 1px solid #C3A164; border-bottom: none; background: #fff; color: #222; font-weight: 500;">
-                                    비밀번호 찾기</li>
-                            </a>
-
-                        </ul>
+        
+                <div class="box">
+                    <h6>비밀번호 찾기</h6>
+                    <h1 style="font-family: 'PT Serif', serif;">FIND PW</h1>
+                    <div class="bar"></div>
+        
+        
+        
+                    <div class="find_box">
+                        <div class="tab">
+                            <ul>
+                                <a href="findId">
+                                    <li
+                                    style="border-bottom: 1px solid #ad863c; background: #fafafa; color: #999; font-weight: 400;">
+                                        아이디 찾기</li>
+                                </a>
+        
+        
+                                <a href="findPw">
+                                    <li
+                                        style="border: 1px solid #C3A164; border-bottom: none; background: #fff; color: #222; font-weight: 500;">
+                                        비밀번호 찾기</li>
+                                </a>
+        
+                            </ul>
+                        </div>
+        
+                        <div class="find_box_inner">
+                            <!--<h2>비밀번호 찾기</h2>-->
+        
+                            <div class="find_img"><img src="/img/login/find_pw_img.png" alt=""></div>
+        
+                            <h3><span id="yourName"></span>의 <br> 비밀번호 변경이 완료되었습니다!</h3>
+                            <p>로그인 후 장차예매 서비스를 이용해보세요.</p>
+                            <form action="/action_page.php">
+        
+                                <a href="login">
+                                    <div class="login_btn">로그인</div>
+                                </a>
+                            </form>
+                        </div>
                     </div>
-
-                    <div class="find_box_inner">
-                        <!--<h2>비밀번호 찾기</h2>-->
-
-                        <div class="find_img"><img src="/img/login/find_pw_img.png" alt=""></div>
-
-                        <h3><span id="yourName"></span>의 <br> 비밀번호 변경이 완료되었습니다!</h3>
-                        <p>변경된 비밀번호로 로그인 후 장차예매 서비스를 진행하실 수 있습니다.</p>
-                        <form action="/action_page.php">
-
-                            <a href="login">
-                                <div class="login_btn">로그인</div>
-                            </a>
-                        </form>
-                    </div>
+        
                 </div>
-
-
-
+        
             </div>
         </section>
-
+        
         <!--//secton.about 완료-->
 
 

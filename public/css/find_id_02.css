@@ -36,9 +36,9 @@ section.sub_wrap .bar {
     margin-bottom: 50px;
 }
 
-.box {position: relative; padding-top: 5%; overflow: hidden;}
+.box {position: relative; padding-top: 120px; overflow: hidden;}
 
-section.sub_wrap h6 {text-align: center; color: #C3A164;  padding-top: 60px; font-weight: 500; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #C3A164;  font-weight: 500; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
 
 section.sub_wrap h1 {
     text-align: center;
@@ -48,14 +48,12 @@ section.sub_wrap h1 {
 	font-weight: normal;
 }
 
-.find_img img {width: 15%; margin: 0;}
-
 
 .find_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee;}
 
-.find_box_inner {width: 100%; padding: 6% 20%; margin: 0 auto; text-align: center; overflow: hidden; }
-.find_box_inner h3 {font-weight: normal; font-size: 18px; color: #222; font-weight: 300; margin-top: 25px;}
-.find_box_inner h4 {font-size: 24px; color: #333; padding: 15px; background: #f6f6f6; margin-top: 10px;}
+.find_box_inner {width: 100%; padding: 6% 24%; margin: 0 auto; text-align: center; overflow: hidden; }
+.find_box_inner h3 {font-weight: normal; font-size: 16px; color: #222; font-weight: 300; margin-top: 30px;}
+.find_box_inner h4 {font-size: 20px; color: #222; padding: 10px; background: #fafafa; margin-top: 15px;}
 
 .find_box .tab {width: 100%;}
 .find_box .tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: 500;}
@@ -70,10 +68,10 @@ section.sub_wrap h1 {
 .find_box_inner ul li button {height: 50px; width:27.5%; border: 1px solid #aaa; background: none; cursor: pointer; transition: all 0.3s;}
 .find_box_inner form ul li button:hover {background: #f4f4f4;}
 
-.find_id_btn {width: 100%; margin: 0 auto; margin-top: 7%;  height: 50px; line-height: 50px;}
+.find_id_btn {width: 100%; margin: 0 auto; margin-top: 7%;  height: 50px; line-height: 50px; }
 .find_id_btn ul li a {float:left; width: 49%; margin-right: 1%; text-align: center; }
-.pw_btn {border: 1px solid #ddd;}
-.login_btn {background: #C3A164; color: #fff; border: 1px solid #C3A164;}
+.pw_btn {border: 1px solid #ddd; border-radius: 4px;}
+.login_btn {background: #C3A164; color: #fff; border: 1px solid #C3A164; border-radius: 4px;}
 
 /*section.sub_wrap 완료*/
 
