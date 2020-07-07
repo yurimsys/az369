@@ -1584,6 +1584,8 @@ router.get('/brandListOverLap', function(req, res, next) {
                 BC_NameKor,
                 BC_NameEng,
                 tBCR.BCR_ID, 
+                BS_Phone,
+				BS_CEOPhone,
                 BCR_LV1_BC_ID, 
                 BCR_LV2_BC_ID, 
                 BCR_LV3_BC_ID, 
@@ -2063,141 +2065,138 @@ router.post('/tbs', upload.any(), async function (req, res, next) {
 });
 
 //매장 수정
-router.put('/modifyBs/:bsId', upload.any(), async function (req, res, next) {
+router.put('/tbs/:bsId', upload.any(), async function (req, res, next) {
     try {
         let pool = await mssql.connect(dbconf.mssql)
-        let BS_ThumbnailUrl, BS_ImageUrl
-        let imgArr = req.files
-    //업로드 파일 구분
-        if(imgArr != undefined){
-            imgArr.forEach(function(element){
-                element.fieldname == 'tumb' ? BS_ThumbnailUrl = element.originalname : BS_ImageUrl = element.originalname
-            })
+
+        // 광고입력
+        // if(req.files.length === 0) throw Error('Non include files');
+        //입력된 파일들과 새로운 경로로 저장
+        // let content_type = req.files[0].mimetype.split('/')[0];
+
+        let tumb_url, img_url
+        //수정되는 파일이 있을때
+        if(req.files.length != 0){
+            let tumb_name = req.files[0].filename;
+            let img_name = req.files[1].filename;
+            //이전 저장소
+            let old_tumb_path = req.files[0].path;
+            let old_img_path = req.files[1].path;
+            //새 저장소
+            let new_tumb_path = path.join(config.path.bs_image , tumb_name);
+            let new_img_path = path.join(config.path.bs_image , img_name);
+            //썸네일 재지정 함수
+            fs.rename(old_tumb_path, new_tumb_path, (err) => {
+                if (err) throw err;
+                fs.stat(new_tumb_path, (err, stats) => {
+                if (err) throw err;
+                console.log(`stats: ${JSON.stringify(stats)}`);
+                });
+            });
+            //이미지 재지정 함수
+            fs.rename(old_img_path, new_img_path, (err) => {
+                if (err) throw err;
+                fs.stat(new_img_path, (err, stats) => {
+                if (err) throw err;
+                console.log(`stats: ${JSON.stringify(stats)}`);
+                });
+            });
+            //이미지 파일 지정
+            img_url = req.files[0].originalname;
+            tumb_url = req.files[1].originalname;
+            
         }
-        let query = 'update tBS set ';
-        let tBS = new Object();
-            tBS.BS_BC_ID = req.body.catLv1
-            tBS.BS_LoginID = req.body.bsLogId
-            tBS.BS_LoginPW = req.body.bsLogPw
-            tBS.BS_CEO = req.body.bsCeo
-            tBS.BS_NameKor = req.body.bsNameKo
-            tBS.BS_NameEng = req.body.bsNameEn
-            tBS.BS_ContentsKor = req.body.bsContKo
-            tBS.BS_ContentsEng = req.body.bsContEn
-            tBS.BS_Phone = req.body.bsTel
-            tBS.BS_CEOPhone = req.body.bsCeoTel
-            tBS.BS_Addr1Kor = req.body.bsAddr1Ko
-            tBS.BS_Addr1Eng = req.body.bsAddr1En
-            tBS.BS_Addr2Kor = req.body.bsAddr2Ko
-            tBS.BS_Addr2Eng = req.body.bsAddr2En
-            tBS.BS_MainDtS = req.body.bsMainDtS
-            tBS.BS_MainDtF = req.body.bsMainDtF
-            tBS.BS_SubDtS = req.body.bsSubDtS
-            tBS.BS_SubDtF = req.body.bsSubDtF
-            tBS.BS_BreakDtS = req.body.bsBreakS
-            tBS.BS_BreakDtF = req.body.bsBreakF
-            tBS.BS_PersonalDayKor = req.body.bsPersonalKo
-            tBS.BS_PersonalDayEng = req.body.bsPersonalEn
-            tBS.BS_ThumbnailUrl = BS_ThumbnailUrl
-            tBS.BS_ImageUrl = BS_ImageUrl
+        img_url = req.body.bsImgUrl;
+        tumb_url = req.body.bsTumbUrl;
         
-        if(req.body.bsMainDtS == undefined){
-            req.body.bsMainDtS = '00:00:00'
-        }
-        if(req.body.bsMainDtF == undefined){
-            req.body.bsMainDtF = '00:00:00'
-        }
-        if(req.body.bsSubDtS == undefined){
-            req.body.bsSubDtS = '00:00:00'
-        }
-        if(req.body.bsSubDtF == undefined){
-            req.body.bsSubDtF = '00:00:00'
-        }
-        if(req.body.bsBreakS == undefined){
-            req.body.bsBreakS = '00:00:00'
-        }
-        if(req.body.bsBreakF == undefined){
-            req.body.bsBreakF = '00:00:00'
-        }
 
-        bsMainDtS = '2020-05-18 ' + req.body.bsMainDtS;
-        bsMainDtF = '2020-05-18 ' + req.body.bsMainDtF;
-        bsSubDtS = '2020-05-18 ' + req.body.bsSubDtS
-        bsSubDtF = '2020-05-18 ' + req.body.bsSubDtF
-        bsBreakS = '2020-05-18 ' + req.body.bsBreakS
-        bsBreakF = '2020-05-18 ' + req.body.bsBreakF
-
-        let bsObj = Object.keys(tBS)
-        let bodyObj = Object.keys(req.body)
-        let j=0;
-        for(let i=0; i<bsObj.length; i++){
-            if(tBS[Object.keys(tBS)[i]] !== undefined){
-                if(req.body[Object.keys(req.body)[j]] == tBS[Object.keys(tBS)[i]]){
-                    query += bsObj[i]+'=' +' @'+bodyObj[j]+','
-                    j++
-                }
-            }
-        //마지막 , 제거
-            if(i === bsObj.length -1){
-                query = query.substring(0, query.length-1)
-            }
-        }
+        let mainDtS = '2020-05-18 '+ req.body.bsMainOpen;
+        let mainDtF = '2020-05-18 '+ req.body.bsMainClose;
+        let subDtS = '2020-05-18 '+req.body.bsSubOpen
+        let subDtF = '2020-05-18 '+req.body.bsSubClose
+        let breakS = '2020-05-18 '+req.body.bsBreakOpen
+        let breakF = '2020-05-18 '+req.body.bsBreakClose
         
-        query += ' where BS_ID ='+req.params.bsId
-        console.log(query);
-
+        let query = `
+                UPDATE tBS SET 
+                    BS_BC_ID = @BS_BC_ID,
+                    BS_LoginID = @BS_LoginID,
+                    BS_LoginPW = @BS_LoginPW,
+                    BS_CEO = @BS_CEO,
+                    BS_NameKor = @BS_NameKor,
+                    BS_NameEng = @BS_NameEng,
+                    BS_ContentsKor = @BS_ContentsKor,
+                    BS_ContentsEng = @BS_ContentsEng,
+                    BS_Phone = @BS_Phone,
+                    BS_CEOPhone = @BS_CEOPhone,
+                    BS_Addr1Kor = @BS_Addr1Kor,
+                    BS_Addr2Kor = @BS_Addr2Kor,
+                    BS_Addr1Eng = @BS_Addr1Eng,
+                    BS_Addr2Eng = @BS_Addr2Eng,
+                    BS_MainDtS = @BS_MainDtS,
+                    BS_MainDtF = @BS_MainDtF,
+                    BS_SubDtS = @BS_SubDtS,
+                    BS_SubDtF = @BS_SubDtF,
+                    BS_BreakDtS = @BS_BreakDtS,
+                    BS_BreakDtF = @BS_BreakDtF,
+                    BS_PersonalDayKor = @BS_PersonalDayKor,
+                    BS_PersonalDayEng = @BS_PersonalDayEng,
+                    BS_ThumbnailUrl = @BS_ThumbnailUrl,
+                    BS_ImageUrl = @BS_ImageUrl
+                WHERE BS_ID = @BS_ID`
 
         // 매장입력 BS_BC_ID == lv1Cat
         await pool.request()
-            .input('catLv1', mssql.Int, req.body.catLv1)
-            .input('bsId', mssql.NVarChar, req.body.bsId)
-            .input('bsPw', mssql.NVarChar, req.body.bsPw)
-            .input('bsCeo', mssql.NVarChar, req.body.bsCeo)
-            .input('bsNameKo', mssql.NVarChar, req.body.bsNameKo)
-            .input('bsNameEn', mssql.NVarChar, req.body.bsNameEn)
-            .input('bsContKo', mssql.NVarChar, req.body.bsContKo)
-            .input('bsContEn', mssql.NVarChar, req.body.bsContEn)
-            .input('bsTel', mssql.NVarChar, req.body.bsTel)
-            .input('bsCeoTel', mssql.NVarChar, req.body.bsCeoTel)
-            .input('bsAddr1Ko', mssql.NVarChar, req.body.bsAddr1Ko)
-            .input('bsAddr1En', mssql.NVarChar, req.body.bsAddr1En)
-            .input('bsAddr2Ko', mssql.NVarChar, req.body.bsAddr2Ko)
-            .input('bsAddr2En', mssql.NVarChar, req.body.bsAddr2En)
-            .input('bsMainDtS', mssql.DateTime, bsMainDtS)
-            .input('bsMainDtF', mssql.DateTime, bsMainDtF)
-            .input('bsSubDtS', mssql.DateTime, bsSubDtS)
-            .input('bsSubDtF', mssql.DateTime, bsSubDtF)
-            .input('bsBreakS', mssql.DateTime, bsBreakS)
-            .input('bsBreakF', mssql.DateTime, bsBreakF)
-            .input('bsPersonalKo', mssql.VarChar, req.body.bsPersonalKo)
-            .input('bsPersonalEn', mssql.VarChar, req.body.bsPersonalEn)
-            .input('bsTumb', mssql.VarChar, BS_ThumbnailUrl)
-            .input('bsMain', mssql.VarChar, BS_ImageUrl)
+            .input('BS_ID', mssql.Int, req.params.bsId)
+            .input('BS_BC_ID', mssql.Int, req.body.bsBcId)
+            .input('BS_LoginID', mssql.NVarChar, req.body.bsLoginId)
+            .input('BS_LoginPW', mssql.NVarChar, req.body.bsLoginPw)
+            .input('BS_CEO', mssql.NVarChar, req.body.bsCeo)
+            .input('BS_NameKor', mssql.NVarChar, req.body.bsNameKo)
+            .input('BS_NameEng', mssql.NVarChar, req.body.bsNameEn)
+            .input('BS_ContentsKor', mssql.NVarChar, req.body.bsContentsKo)
+            .input('BS_ContentsEng', mssql.NVarChar, req.body.bsContentsEn)
+            .input('BS_Phone', mssql.NVarChar, req.body.bsPhone)
+            .input('BS_CEOPhone', mssql.NVarChar, req.body.bsCeoPhone)
+            .input('BS_Addr1Kor', mssql.NVarChar, req.body.bsAddr1Ko)
+            .input('BS_Addr1Eng', mssql.NVarChar, req.body.bsAddr1En)
+            .input('BS_Addr2Kor', mssql.NVarChar, req.body.bsAddr2Ko)
+            .input('BS_Addr2Eng', mssql.NVarChar, req.body.bsAddr2En)
+            .input('BS_MainDtS', mssql.DateTime, mainDtS)
+            .input('BS_MainDtF', mssql.DateTime, mainDtF)
+            .input('BS_SubDtS', mssql.DateTime, subDtS)
+            .input('BS_SubDtF', mssql.DateTime, subDtF)
+            .input('BS_BreakDtS', mssql.DateTime, breakS)
+            .input('BS_BreakDtF', mssql.DateTime, breakF)
+            .input('BS_PersonalDayKor', mssql.NVarChar, req.body.bsPersonalKo)
+            .input('BS_PersonalDayEng', mssql.NVarChar, req.body.bsPersonalEn)
+            .input('BS_ThumbnailUrl', mssql.NVarChar, '/img/'+tumb_url)
+            .input('BS_ImageUrl', mssql.NVarChar, '/img/'+img_url)
             .query(query);
 
 
-        if(req.body.catLv1 !== undefined && req.body.catLv2 !== undefined){
+        if(req.body.bsBcId !== undefined && req.body.bsBcId2 !== undefined){
             //카테고리 업종 입력 BCR_ID 구하기
             let result2 = await pool.request()
-                .input('BCRLV1', mssql.Int, req.body.catLv1)
-                .input('BCRLV2', mssql.Int, req.body.catLv2)
+                .input('BCRLV1', mssql.Int, req.body.bsBcId)
+                .input('BCRLV2', mssql.Int, req.body.bsBcId2)
                 .query('select BCR_ID from tBCR where BCR_LV1_BC_ID = @BCRLV1 AND BCR_LV2_BC_ID = @BCRLV2')
             
             // 업종 수정
             await pool.request()
-                .input('BS_ID', mssql.Int, req.params.bsid)
+                .input('BS_ID', mssql.Int, req.params.bsId)
                 .input('BCR_ID', mssql.Int, result2.recordset[0].BCR_ID)
                 .query('update tBSxtBCR set BCR_ID = @BCR_ID where BS_ID = @BS_ID')
         }
 
-        if(req.body.storeNumber !== undefined){
+        if(req.body.bsStoreNumber !== undefined){
             // 층수 수정
             await pool.request()
-                .input('BS_ID', mssql.Int, req.params.bsid)
-                .input('LS_Number', mssql.Int, req.body.storeNumber)
+                .input('BS_ID', mssql.Int, req.params.bsId)
+                .input('LS_Number', mssql.Int, req.body.bsStoreNumber)
                 .query('update tBSxtLS set LS_Number = @LS_Number where BS_ID = @BS_ID')
         }
-
+        res.json({data:'1'})
     } catch (err) {
         console.log(err);
         console.log('error fire')
@@ -2205,7 +2204,7 @@ router.put('/modifyBs/:bsId', upload.any(), async function (req, res, next) {
 });
 
 //특정 매장 삭제
-router.delete('/deleteBs/:bsId', async function(req,res){
+router.delete('/tBs/:bsId', async function(req,res){
     let bsid = req.params.bsId;
     try {
         let pool = await mssql.connect(dbconf.mssql)

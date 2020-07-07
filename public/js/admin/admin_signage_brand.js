@@ -18,7 +18,7 @@ $(document).ready(function(){
         success: function(res){
             console.log('gooood');
             for(let i=0; i<res.data.length; i++){
-                let html = "<option class='goodTest' id="+"lvOne"+res.data[i].BCR_LV1_BC_ID+">"+res.data[i].BC_NameKor+"</option>";
+                let html = "<option class='goodTest' id="+"lvOne"+res.data[i].BCR_LV1_BC_ID+" value="+res.data[i].BCR_LV1_BC_ID+">"+res.data[i].BC_NameKor+"</option>";
                 $('#lv1_category').append(html)
             }
         }
@@ -64,31 +64,79 @@ let objectInfo = function (mode = "modify", row_data) {
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-modify, .btn-delete').addClass('disabled');
         // todo : object reset
-        $('.object-info #ad_id').text("");
-        $('.object-info .ad_content_url').text("");
-        $(".object-info .inputAdFiles").val('');
-        $(".object-info .inputAdTitle").val('');
-        $(".object-info .select2").val(null).trigger('change');
-        ad_duration_start_instance.reset();
-        ad_duration_final_instance.reset();
+        // $('.object-info #ad_id').text("");
+        // $('.object-info .ad_content_url').text("");
+        // $(".object-info .inputAdFiles").val('');
+        // $(".object-info .inputAdTitle").val('');
+        // $(".object-info .select2").val(null).trigger('change');
+
+
+        $('#login_id').val('');
+        $('#login_pw').val('');
+        $('#ceo_name').val('');
+        $('#ceo_phone').val('');
+        $("#lv1_category").val('null');
+        $("#lv2_category").val('null');
+        $('#floor').val('null');
+        $('#store_number').val('null');
+        $('#brand_ko').val('');
+        $('#brand_en').val('');
+        $('#brand_contents_ko').val('');
+        $('#brand_contents_en').val('');
+        $('#brand_phone').val('');
+        $('#address').val('');
+        $('#detailAddress').val('');
+        $('#address_en').val('');
+        $('#detail_address_en').val('');
+        $('#main_open').val('');
+        $('#main_close').val('');
+        $('#sub_open').val('');
+        $('#sub_close').val('');
+        $('#break_open').val('');
+        $('#break_close').val('');
+        $('#personal_day_ko').val('');
+        $('#personal_day_en').val('');
+
+
+        // ad_duration_start_instance.reset();
+        // ad_duration_final_instance.reset();
 
         sessionStorage.removeItem('row_data');
     } else if( mode === "modify"){
+        console.log(row_data);
         action_btns_instance.removeClass('action-new');
         action_btns_instance.addClass('action-modify');
         
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-save').addClass('disabled');
-        
-        $('.object-info #ad_id').text(row_data.ad_id);
-        $('.object-info .selectBrand').val(row_data.selectBrand).trigger('change');
-        $('.object-info .ad_content_url').text(row_data.ad_content_url);
-        $('.object-info .selectAdCategory').val(row_data.selectAdCategory).trigger('change');
-        $('.object-info .selectAdType').val(row_data.selectAdType).trigger('change');
-        $('.object-info .inputAdTitle').val(row_data.inputAdTitle);
-        ad_duration_start_instance.option("value", row_data.ad_duration_start);
-        ad_duration_final_instance.option("value", row_data.ad_duration_final);
-
+        // console.log(row_data.login_id);
+        $('#login_id').val(row_data.login_id);
+        $('#login_pw').val(row_data.login_pw);
+        $('#ceo_name').val(row_data.ceo_name);
+        $('#ceo_phone').val(row_data.ceo_phone);
+        $("#lv1_category").val(row_data.lv1_category).trigger('click');
+        $("#lv2_category").val(row_data.lv2_category);
+        $('#floor').val(row_data.floor).trigger('click');
+        $('#store_number').val(row_data.store_number);
+        $('#brand_ko').val(row_data.brand_ko);
+        $('#brand_en').val(row_data.brand_en);
+        $('#brand_contents_ko').val(row_data.brand_contents_ko);
+        $('#brand_contents_en').val(row_data.brand_contents_en);
+        $('#brand_phone').val(row_data.brand_phone);
+        $('#address').val(row_data.address);
+        $('#detailAddress').val(row_data.detailAddress);
+        $('#address_en').val(row_data.address_en);
+        $('#detail_address_en').val(row_data.detail_address_en);
+        $('#main_open').val(row_data.main_open);
+        $('#main_close').val(row_data.main_close);
+        $('#sub_open').val(row_data.sub_open);
+        $('#sub_close').val(row_data.sub_close);
+        $('#break_open').val(row_data.break_open);
+        $('#break_close').val(row_data.break_close);
+        $('#personal_day_ko').val(row_data.personal_day_ko);
+        $('#personal_day_en').val(row_data.personal_day_en);
+        $('#img_url').text(row_data.img_url)
+        $('#tumb_url').text(row_data.tumb_url)
         sessionStorage.setItem('row_data', JSON.stringify(row_data) );
     }
 }
@@ -156,16 +204,36 @@ let tableInit = function (data) {
             console.log('row click', e.data);
             // selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
             e.rowElement.css("border-left", "2px solid #f2f2f2");
-            // debugger;
+
             let row_data = {};
-            row_data.ad_id = e.data.AD_ID;
-            row_data.selectBrand = e.data.BS_ID;
-            row_data.ad_content_url = e.data.AD_ContentURL;
-            row_data.selectAdCategory = e.data.AD_BC_ID;
-            row_data.selectAdType = e.data.AD_ADY_ID;
-            row_data.inputAdTitle = e.data.AD_Title;
-            row_data.ad_duration_start = e.data.AD_DtS;
-            row_data.ad_duration_final = e.data.AD_DtF;
+            row_data.bs_id = e.data.BS_ID
+            row_data.login_id = e.data.BS_LoginID;
+            row_data.login_pw = e.data.BS_LoginPW;
+            row_data.ceo_name = e.data.BS_CEO;
+            row_data.ceo_phone = e.data.BS_CEOPhone;
+            row_data.lv1_category = e.data.BCR_LV1_BC_ID;
+            row_data.lv2_category = e.data.BCR_LV2_BC_ID;
+            row_data.floor = e.data.LS_Floor;
+            row_data.store_number = e.data.LS_Number;
+            row_data.brand_ko = e.data.BS_NameKor;
+            row_data.brand_en = e.data.BS_NameEng;
+            row_data.brand_contents_ko = e.data.BS_ContentsKor;
+            row_data.brand_contents_en = e.data.BS_ContentsEng;
+            row_data.brand_phone = e.data.BS_Phone;
+            row_data.address = e.data.BS_Addr1Kor;
+            row_data.detailAddress = e.data.BS_Addr2Kor;
+            row_data.address_en = e.data.BS_Addr1Eng;
+            row_data.detail_address_en = e.data.BS_Addr2Eng;
+            row_data.main_open = e.data.BS_MainDtS;
+            row_data.main_close = e.data.BS_MainDtF;
+            row_data.sub_open = e.data.BS_SubDtS;
+            row_data.sub_close = e.data.BS_SubDtF;
+            row_data.break_open = e.data.BS_BreakDtS;
+            row_data.break_close = e.data.BS_BreakDtF;
+            row_data.personal_day_ko = e.data.BS_PersonalDayKor;
+            row_data.personal_day_en = e.data.BS_PersonalDayEng;
+            row_data.img_url = e.data.BS_ImageUrl;
+            row_data.tumb_url = e.data.BS_ThumbnailUrl;
 
             objectInfo("modify", row_data);
         },
@@ -178,7 +246,7 @@ let tableInit = function (data) {
           },
           onExporting: function(e) {
             var workbook = new ExcelJS.Workbook();
-            var worksheet = workbook.addWorksheet('광고관리');
+            var worksheet = workbook.addWorksheet('매장관리');
             
             DevExpress.excelExporter.exportDataGrid({
               component: e.component,
@@ -186,7 +254,7 @@ let tableInit = function (data) {
               autoFilterEnabled: true
             }).then(function() {
               workbook.xlsx.writeBuffer().then(function(buffer) {
-                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), '광고관리.xlsx');
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), '매장관리.xlsx');
               });
             });
             e.cancel = true;
@@ -201,6 +269,8 @@ let tableInit = function (data) {
             { dataField: "BS_NameEng", caption: "브랜드명 영문"},
             { dataField: "BS_ContentsKor", caption: "매장 소개"},
             { dataField: "BS_ContentsEng", caption: "매장 소개 영문"},
+            { dataField: "BS_CEOPhone", caption: "CEO 번호"},
+            { dataField: "BS_Phone", caption: "매장번호"},
             { dataField: "LS_Number", caption: "호실"},
             { dataField: "BC_NameKor", caption: "카테고리"},
             { dataField: "BS_Addr1Kor", caption: "도로명 주소"},
@@ -221,6 +291,7 @@ let tableInit = function (data) {
             { dataField: "BCR_LV1_BC_ID", visible: false },
             { dataField: "BCR_LV2_BC_ID", visible: false },
             { dataField: "BS_BC_ID", visible: false },
+            { dataField: "LS_Floor", visible: false },
         ],
         // onSelectionChanged: function (selectedItems) {
         //     debugger;
@@ -388,20 +459,40 @@ function deleteAD(mode = 'single') {
     }
 }
 function updateAD(){
-    let id = JSON.parse( sessionStorage.getItem('row_data') ).ad_id;
+    let id = JSON.parse( sessionStorage.getItem('row_data') ).bs_id;
     let update_data = {
-        adBsId : $(".object-info .selectBrand").val(),
-        adAdyId : $(".object-info .selectAdType").val(),
-        adBcId : $(".object-info .selectAdCategory").val(),
-        adTitle : $(".object-info .inputAdTitle").val(),
-        adDtS : $(".object-info .ad_duration_start").dxDateBox("instance").option().value,
-        adDtF : $(".object-info .ad_duration_final").dxDateBox("instance").option().value
+        bsBcId : $("#lv1_category option:selected").attr('id').replace(/lvOne/,''),
+        bsBcId2 : $("#lv2_category option:selected").attr('id').replace(/lvTwo/,''),
+        bsLoginId : $("#login_id").val(),
+        bsLoginPw : $('#login_pw').val(),
+        bsCeo : $("#ceo_name").val(),
+        bsNameKo : $('#brand_ko').val(),
+        bsNameEn : $('#brand_en').val(),
+        bsContentsKo : $('#brand_contents_ko').val(),
+        bsContentsEn : $('#brand_contents_en').val(),
+        bsPhone : $('#brand_phone').val(),
+        bsCeoPhone : $('#ceo_phone').val(),
+        bsAddr1Ko : $('#address').val(), 
+        bsAddr2Ko : $('#detailAddress').val(),
+        bsAddr1En : $('#address_en').val(), 
+        bsAddr2En : $('#detail_address_en').val(), 
+        bsMainOpen : $('#main_open').val(),
+        bsMainClose : $('#main_close').val(),
+        bsSubOpen : $('#sub_open').val(),
+        bsSubClose : $('#sub_close').val(),
+        bsBreakOpen : $('#break_open').val(),
+        bsBreakClose : $('#break_close').val(),
+        bsPersonalKo : $('#personal_day_ko').val(),
+        bsPersonalEn : $('#personal_day_en').val(),
+        bsStoreNumber : $('#store_number').val(),
+        bsImgUrl : JSON.parse( sessionStorage.getItem('row_data') ).img_url.replace(/\/img/,'').replace(/\//,''),
+        bsTumbUrl : JSON.parse( sessionStorage.getItem('row_data') ).tumb_url.replace(/\/img/,'').replace(/\//,'')
     }
 
     let form_data = new FormData(document.forms[0]);
     for ( let i in update_data) form_data.append(i, update_data[i]);
 
-    let api_url  = '/api/ad/'+id;
+    let api_url  = '/api/tbs/'+id;
 
     $.ajax({
         dataType : 'JSON',
@@ -526,7 +617,7 @@ $('#lv1_category').click(function () {
             jsonCatLV2 = searchCatLV2[i]
             resultCatLV2.push(jsonCatLV2)
             for(let j=0; j<resultCatLV2.length; j++){
-                let html = "<option class='midCat' id="+"lvTwo"+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</option>";
+                let html = "<option class='midCat' id="+"lvTwo"+resultCatLV2[j].BC_ID+" value="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</option>";
                 $('#lv2_category').append(html)
             }
         }
@@ -547,19 +638,3 @@ $('#floor').click(function(){
         }
     }
 })
-
-// function selectFloor(e){
-//     $('#storeNum').empty();
-//     let floorStatus = JSON.parse(localStorage.getItem('floor'))
-//     console.log($(e).children('input').attr('id'))
-//     for(let i=0; i<floorStatus.length; i++){
-//         console.log(floorStatus[i].LS_Floor);
-//         if(floorStatus[i].LS_Floor == $(e).children('input').attr('id')){
-//             let html = "<div onclick='selectStoreNumber(this)'>";
-//                 html += "<input type='radio' id="+floorStatus[i].LS_Number+" name='storeNumber' value="+floorStatus[i].LS_Number+">"
-//                 html += "<label for="+floorStatus[i].LS_Number+">"+floorStatus[i].LS_Number+"</label>"
-//                 html += "</div>"
-//             $('#storeNum').append(html)
-//         }
-//     }
-// }
