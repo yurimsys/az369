@@ -36,9 +36,9 @@ section.sub_wrap .bar {
     margin-bottom: 50px;
 }
 
-.box {position: relative; padding-top: 5%; overflow: hidden;}
+.box {position: relative; padding-top: 120px; overflow: hidden;}
 
-section.sub_wrap h6 {text-align: center; color: #C3A164;  padding-top: 5%; font-weight: 500; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #C3A164;  font-weight: 500; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
 
 section.sub_wrap h1 {
     text-align: center;
@@ -51,7 +51,7 @@ section.sub_wrap h1 {
 /*find_box*/
 .find_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee;}
 
-.find_box_inner {width: 100%; padding: 6% 20%; margin: 0 auto; text-align: center; overflow: hidden; }
+.find_box_inner {width: 100%; padding: 6% 24%; margin: 0 auto; text-align: center; overflow: hidden; }
 .find_box_inner h2 {font-size: 26px;}
 .find_box_inner p { color: #222; font-weight: 300; margin-bottom: 25px; font-size: 16px; text-align: center;}
 .find_box_inner p span {font-weight: 500;}
@@ -63,21 +63,21 @@ section.sub_wrap h1 {
 
 
 
-.find_box_inner input {width: 100%; height: 50px; margin-bottom: 1%; padding: 2%; border: 1px solid #ddd;}
-input::placeholder {font-weight: 14px; font-weight: 300; color: #767676;}
+.find_box_inner input {width: 100%; height: 50px; margin-bottom: 1%; padding: 2%; border: 1px solid #eee;}
+input::placeholder {font-weight: 14px; font-weight: 300; color: #999;}
 
 .find_box_inner ul {width: 100%;}
 
 #phone {width: 70%; float: left; margin-right: 1%;}
-.check_btn {width: 29%; height: 50px; line-height: 50px; float: left;  border: 1px solid #eee; background: #eee; cursor: pointer; font-weight: 400;}
+.check_btn {width: 29%; height: 50px; line-height: 50px; float: left;  border: 1px solid #999; background: #fff; cursor: pointer; font-weight: 400;border-radius: 4px;}
 #phone_check {margin-top: 1%;}
 
 /*하단버튼*/
 .find_pw_btn {width: 100%; margin: 0 auto; margin-top: 40px; height: 50px; line-height: 50px;}
 .find_pw_btn ul li {float:left; width: 49.5%; margin-right: 1%; text-align: center; display: block;}
 .find_pw_btn ul li:nth-child(2) {margin-right: 0;}
-.login_btn {border: 1px solid #ddd;}
-.next_btn {background: #c3a164; color: #fff; border: 1px solid #c3a164;}
+.login_btn {border: 1px solid #ddd; border-radius: 4px;}
+.next_btn {background: #c3a164; color: #fff; border: 1px solid #c3a164; border-radius: 4px;}
 
 #phone_check_box {
   font-size: 16px;

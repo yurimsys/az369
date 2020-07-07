@@ -1,4 +1,7 @@
 @charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
+
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
@@ -17,90 +20,66 @@ p {text-align: justify; font-family: inherit; font-size: 16px;}
     height: auto;
 }
 
-
-/*section.main*/
-section.main {
-    position: relative;
-    width: 100%;
-    height: 240px;
-    overflow: hidden;
-}
-
-.main_bg {background: url(../img/login/login_main_bg.jpg);
-background-position: center;
-background-size: cover; width: 100%; height: 300px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
-
-@keyframes bg {
-    0% {transform: scale(1.05);
-    100% {transform: scale(1);}
-    }
-}
-
-.tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); }
-.tnb ul li {float: left; width: 50%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; color: #444; transition: all 0.2s;}
-
-
-/*section.main 완료*/
 /*section.sub_wrap 시작*/
 
+/*section.sub_wrap 시작*/
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 6.5%;
-    color: #333;
-    overflow: hidden;
+    margin-bottom: 90px;
+  	overflow: hidden;
 }
 
+.inner_sub_wrap {width: 100%; margin: 0 auto;}
 .box {position: relative; padding-top: 5%; overflow: hidden;}
 
 section.sub_wrap .bar {
-    border-bottom: 2px solid #624000; 
-    width: 35px; 
-    margin: 0 auto;
-    margin-top: 2%;
-    margin-bottom: 4%;
+  border-bottom: 2px solid #c3a164; 
+  width: 30px; 
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 45px;
 }
 
-section.sub_wrap h6 {text-align: center; color: #a0772b;  padding-top: 5%; font-weight: bold; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #C3A164;  padding-top: 60px; font-weight: 500;font-size: 16px;}
 
 section.sub_wrap h1 {
-    text-align: center; 
-    font-size: 2.8rem;
-    margin-top: -1%;
-    font-weight: normal;
+  text-align: center;
+  font-size: 45px;
+  margin-top: -1%;
+font-family: 'PT Serif', serif;
+font-weight: normal;
 }
+
 
 .reservation_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; padding: 4% 5%; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
 
 @keyframes box {
     0% {opacity: 0; transform: translateY(1%);}
-    100%; {opacity: 1; transform: translateY(0%);}
+    100% {opacity: 1; transform: translateY(0%);}
 }
 
 
-.reservation_box h2 {text-align: center; font-size: 26px; line-height: 1.6;}
-.reservation_box h2 span {font-size: 20px; font-weight: normal; color: #ad863c;}
+.reservation_box h2 {text-align: center; font-size: 26px; line-height: 1.6; font-weight: 500; letter-spacing: -0.5px;}
+.reservation_box h2 span {font-size: 20px; font-weight: 300;}
 .reservation_txt {text-align: center; overflow: hidden; width: 100%;}
 
 .reservation_box h3 {font-size: 22px; font-weight: bold; margin: 0; color: #555;}
 .reservation_box h3 span {font-size: 18px; font-weight: normal;}
 .reservation_box h5 {font-size: 18px; font-weight: normal; color: #777; }
 .reservation_box h4 {font-size: 20px; margin-bottom: 3%; font-weight: normal;}
-.reservation_box p {color: #777; text-align: center;}
+.reservation_box p {color: #222; text-align: center; font-weight: 300; font-size: 15px;}
 
-table.order {width: 50%; text-align: center; border: 1px solid #ddd; margin: 0 auto; padding: 0; margin-bottom: 3%;}
-th {width: 100%; background: #eee; float: left; position: relative; overflow: hidden; font-size: 18px;}
-td {width: 100%; float: left; position: relative; border-bottom: 1px solid #eee;}
+table.order {width: 50%; text-align: justify;margin: 0 auto; padding: 0; margin-bottom: 20px; font-size: 15px;}
 
-th {height: 45px; line-height: 45px;}
-td {height: 40px; line-height: 40px; color: #555;}
-.td {border-bottom: none;}
+th {width: 35%; float:left; height: 50px; line-height: 50px; font-weight: 400; font-size: 15px; border-bottom: 1px solid #eee; color: #767676;}
+td {width: 65%; float:left; height: 50px; line-height: 50px; color: #222; font-weight: 400; border-bottom: 1px solid #eee;}
 
 
-.reservation_img { margin-left: 50%; transform: translateX(-50%); text-align: center; margin-top: 3%; margin-bottom: 3%; }
+.reservation_img { margin-left: 50%; transform: translateX(-50%); text-align: center; margin-top: 20px; margin-bottom: 20px;}
 
  
-.mypage_btn {width: 230px; margin: 0 auto; text-align: center; height: 50px; line-height: 50px; color: #fff; background: #ad863c; border: 1px solid #aaa; margin-top: 4%;}
+.mypage_btn {width: 50%; margin: 0 auto; text-align: center; height: 50px; line-height: 50px; color: #fff; background: #C3A164; border: 1px solid #C3A164; margin-top: 30px; border-radius: 4px;}
 
 .mypage_btn a {display: block;}
 
@@ -130,16 +109,10 @@ header .open {
 
 /*1200px*/
 @media screen and (max-width: 1200px) {
-    
-    /*main*/
-    section.main {width: 100%;}
-    section.main .inner_main {width: 1200px;}
 
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     .inner_sub_wrap {width: 95%; margin: 0 auto;}
-    .tnb {width: 1200px;}
-    
 }
 
 
@@ -148,17 +121,11 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    .box {padding-top: 7%;}
+    .box {padding-top: 70px; margin-bottom: 10px;}
     
     .login_btn {margin-top: 6%;}
     section.sub_wrap h4 {margin-bottom: 2%;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+
 }
 
 
@@ -203,30 +170,23 @@ header .open {
     /*section.sub_wrap*/
     
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h6 {padding-top: 6%;}
-    section.sub_wrap h1 {font-size: 28px; margin-bottom: 2%;}
+    section.sub_wrap h6 {padding-top: 20px; margin-bottom: -2.5%;}
+    section.sub_wrap h1 {font-size: 30px; margin-bottom: 3%;}
     section.sub_wrap .bar {display: none;}
     
     .reservation_box {padding: 8% 6%;}
-     section.sub_wrap h2 {font-size: 20px;  line-height: 1.5; text-align: center; color: #555; margin-bottom: 5%;} 
+     section.sub_wrap h2 {font-size: 20px; line-height: 1.5; text-align: center;  margin-bottom: 5%;} 
     section.sub_wrap h2 span {font-size: 18px;}
     section.sub_wrap h3 {font-size: 20px;} 
     section.sub_wrap h5 {font-size: 16px;}
     section.sub_wrap h4 {margin-bottom:4%; font-size: 18px;}
-    section.sub_wrap p {font-size: 15px;}
+    section.sub_wrap p {font-size: 14px; text-align: justify;}
     
-    .reservation_img {margin-top: 8%; margin-bottom: 8%;}
-    .reservation_img img {width: 75%;}
+    table.order th {width: 100%; border-bottom: none; height: auto; line-height: normal; padding-top: 20px;}
+    table.order td {width: 100%; height: 45px; line-height: 45px;}
     
     .mypage_btn {margin-top: 10%; width: 100%;}
-    
 
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; }
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*320px*/
@@ -234,13 +194,16 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
-    section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
+    section.sub_wrap h1 {font-size: 24px;}
+    section.sub_wrap h2 {font-size: ;}
     section.sub_wrap h2 span {font-size: 16px;}
     section.sub_wrap p {margin-bottom: 5%;}
-    
-    table.order th {font-size: 17px;}
-    table.order td {font-size: 15px;}
 
-    .mypage_btn {font-size: 15px; height: 40px; line-height: 40px;}
+    table.order th {padding-top: 15px;}
+/*     
+    table.order th {font-size: 17px;}
+    table.order td {font-size: 15px;} */
+
+    .mypage_btn {font-size: 15px; height: 45px; line-height: 45px;}
 }
 

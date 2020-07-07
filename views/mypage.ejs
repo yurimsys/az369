@@ -71,14 +71,13 @@
 
                                     <div class="mypage_nav">
                                         <button class="tablinks" id="tab1" onclick="openList(event, '01')"
-                                            id="defaultOpen"> 현 장차예매 현황 <span><i
-                                                    class="fas fa-chevron-right"></i></span></button>
+                                            id="defaultOpen"> 현 장차예매 현황 <span><img src="/img/common/right_arrow_g.png" alt=""></span></button>
 
                                         <button class="tablinks" id="tab2" onclick="openList(event, '02')"> 예매 및 결제내역
-                                            <span><i class="fas fa-chevron-right"></i></span></button>
+                                            <span><img src="/img/common/right_arrow_g.png" alt=""></span></button>
 
                                         <button class="tablinks" id="tab3" onclick="openList(event, '03')"> 취소 및 환불조회
-                                            <span><i class="fas fa-chevron-right"></i></span></button>
+                                            <span><img src="/img/common/right_arrow_g.png" alt=""></span></button>
                                     </div>
                                     <div class="logout"><a href="login">로그아웃</a></div>
                                 </div>
@@ -109,15 +108,15 @@
                                         <h4>장차예매현황</h4>
                                         <p>현재 예매중인 장차내역입니다.</p>
 
+                                        <div class="reserve_list_tit">
+                                            <ul>
+                                                <li>출발날짜</li>
+                                                <li>운행지역</li>
+                                                <li>차량정보</li>
+                                                <li>선택좌석</li>
+                                            </ul>
+                                        </div>
                                         <div id="reserve_list">
-                                            <div class="reserve_list_tit">
-                                                <ul>
-                                                    <li>출발날짜</li>
-                                                    <li>운행지역</li>
-                                                    <li>차량정보</li>
-                                                    <li>선택좌석</li>
-                                                </ul>
-                                            </div>
                                             <% for(let i=0; i<data.length; i++){ %>
                                             <!-- <div class="reserve_bar_list"> -->
                                                 <label>

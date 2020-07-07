@@ -90,14 +90,14 @@ section.sub_wrap h5 span {font-weight: 400;}
 /*sub_info*/
 .sub_info {width: 100%; text-align: center; margin-top: 50px;}
 
-.sub_info em {font-size: 18px; color: #a0772b;}
-.sub_info h3 {font-size: 24px; margin: 0; margin-bottom: 30px; font-family: 'Noto Sans KR', sans-serif; color: #444;}
+.sub_info em {font-size: 18px; font-weight: 300;}
+.sub_info h3 {font-size: 24px; margin: 0; margin-bottom: 30px;}
 .sub_info h3 br {display: none;}
-.sub_info p {text-align: center; line-height: 1.8; color: #666;}
+.sub_info p {text-align: center; line-height: 1.6;}
 
-.sub_info h4 {font-size: 20px; font-weight: 300; color: #ad863c;}
+.sub_info h4 {font-size: 18px; font-weight: 300;}
 .sub_info h4 span {font-weight: 400;}
-.sub_info h3 {font-size: 26px; margin: 0; margin-bottom: 30px; font-weight: 400;}
+.sub_info h3 {font-size: 24px; margin: 0; margin-bottom: 30px; font-weight: 400;}
 .sub_info h3 span {font-weight: 600;}
 .sub_info h3 br {display: none;}
 .sub_info p {text-align: center; line-height: 2; color: #000; font-weight: 300; padding: 30px 0; background: #f8f8f8;}

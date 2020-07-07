@@ -36,13 +36,12 @@
                     <div class="join_box">
                         <div class="join_process">약관동의 ·<span> 정보입력 </span>· 가입완료</div>
 
-                        <h2>02/ 정보입력</h2>
+                        <h2>정보입력</h2>
 
                         <!-- <h3>회원정보를 입력해주세요.</h3> -->
                         <form>
                             <ul>
                                 <li>
-                                    <label for="name"></label>
                                     <input type="text" id="id" name="아이디" placeholder="아이디">
                                     <div id="overId" style="font-size: 13px; color: green; display: none;">아이디 사용이
                                         가능합니다.</div>
@@ -52,13 +51,11 @@
                                 </li>
 
                                 <li>
-                                    <label for="password"></label>
                                     <input type="password" id="password" name="패스워드"
                                         placeholder="비밀번호 (영문 + 숫자 + 특문 포함 8글자 이상)">
                                 </li>
 
                                 <li>
-                                    <label for="password2"></label>
                                     <input type="password" id="password2" name="패스워드" placeholder="비밀번호 확인">
                                     <div class="alert alert-success" id="alert-success"
                                         style="font-size: 13px; color: green; display: none;">비밀번호가 일치합니다.</div>
@@ -68,7 +65,6 @@
 
 
                                 <li>
-                                    <label for="name"></label>
                                     <input type="text" id="name" name="이름" placeholder="이름">
                                 </li>
 
@@ -77,13 +73,13 @@
                                 </li>
 
                                 <li>
-                                    <div class="check_btn" onclick="myFunction()">인증번호 받기</div>
+                                    <div class="check_btn btn-primary" onclick="myFunction()">인증번호 받기</div>
                                 </li>
 
                                 <li>
                                     <div id="phone_check_box">
-                                        <input type="text" id="phone_check" name="phone_check"
-                                            placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4"
+                                        <input type="text" id="phone_check" name="phone_check" style="border: 1px solid #C3A164;"
+                                            placeholder="인증번호 4자리를 입력하세요." maxlength="4"
                                             oninput="numberMaxLength(this);" />
                                     </div>
                                     <div class="text-alert" id="alert_msg"
@@ -96,22 +92,20 @@
                                 </li>
 
                                 <li>
-                                    <label for="email"></label>
                                     <input type="text" id="email" name="이메일" placeholder="이메일주소">
                                 </li>
 
                                 <li>
-                                    <label for="brand"></label>
                                     <input type="text" id="brand" name="브랜드" placeholder="브랜드명">
                                 </li>
 
                                 <div class="address_form">
                                     <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호"
-                                        style="background: #f8f8f8;">
+                                        style="background: #eee;">
                                     <button type="button" onclick="execDaumPostcode()" value="우편번호 찾기"
                                         class="btn-primary round">우편번호찾기</button><br>
                                     <input type="text" id="address" name="address" placeholder="매장주소"
-                                        style="background: #f8f8f8;"><br>
+                                        style="background: #eee;"><br>
                                     <input type="text" id="detailAddress" name="detailAddress" placeholder="매장상세주소">
                                     <input type="text" id="extraAddress" name="extraAddress" hidden=""> <!-- 기본정보  -->
                                     <input type="text" id="roadAddress" name="roadAddress" hidden="">
@@ -121,13 +115,14 @@
                         </form>
 
                         <div class="survey_box">
-
-                            <div class="hr-sect">
-                                <h3><span>선호하는 장차이용시간</span>을 선택해주세요.</h3>
-                            </div>
+                            <!-- <div class="hr-sect"> -->
+                                <h3>장차이용시간 선호도 조사</h3>
+                            <!-- </div> -->
+                            <p>선호하는 장차이용 요일과 시간을 선택해주세요.</p>
 
                             <div class="day">
-                                <h4>장차운행요일 <span style="font-size: 14px; color: #555;">(매주 밤 운행)</span></h4>
+                                <h4>요일선택</h4>
+                                <!-- <h4>장차운행요일 <span style="font-size: 14px; color: #555;">(매주 밤 운행)</span></h4> -->
                                 <ul>
                                     <li>
                                         <label>
@@ -169,7 +164,7 @@
                             <div id="hideId" style="display: none;"></div>
 
                             <div class="time">
-                                <h4>장차운행시간</h4>
+                                <h4>시간대 선택</h4>
                                 <ul>
                                     <li>
                                         <div class="time_select01 time_select">
@@ -205,12 +200,8 @@
 
                         <div class="join_btn">
                             <ul>
-                                <a href="join">
-                                    <li class="back">이전</li>
-                                </a>
-                                <a onclick="joinUser()">
-                                    <li class="next">다음</li>
-                                </a>
+                                <li class="back"><a href="join">이전</a></li>
+                                <li class="next"><a onclick="joinUser()">다음</a></li>
                             </ul>
                         </div>
                     </div>

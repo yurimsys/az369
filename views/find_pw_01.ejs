@@ -18,115 +18,99 @@
 
 <body>
     <div class="wrap">
-
+    
         <% include templates/header.ejs %>
-        <!--section.main 시작-->
-
-        <section class="main">
-            <div class="inner_main">
-                <div class="main_bg"></div>
-                <div class="tnb">
-                    <ul>
-                        <a href="login">
-                            <li style="background: #ad8743; color: #fff">로그인</li>
-                        </a>
-                        <a href="join">
-                            <li>회원가입</li>
-                        </a>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!--//secton.main 완료-->
+    
         <!--secton.sub_wrap 시작-->
-
-
+    
+    
         <section class="sub_wrap">
             <div class="inner_sub_wrap">
-
-                <h6>비밀번호 찾기</h6>
-                <h1 style="font-family: 'PT Serif', serif;">FIND PW</h1>
-                <div class="bar"></div>
-
-
-                <div class="find_box">
-                    <div class="tab">
-                        <ul>
-                            <a href="findId">
-                                <li
-                                    style="border-bottom: 1px solid #ad863c; background: #f8f8f8; color: #767676; font-weight: 400;">
-                                    아이디 찾기</li>
-                            </a>
-
-
-                            <a href="findPw">
-                                <li
-                                    style="border: 1px solid #C3A164; border-bottom: none; background: #fff; color: #222; font-weight: 500;">
-                                    비밀번호 찾기</li>
-                            </a>
-
-                        </ul>
+    
+                <div class="box">
+    
+                    <h6>비밀번호 찾기</h6>
+                    <h1 style="font-family: 'PT Serif', serif;">FIND PW</h1>
+                    <div class="bar"></div>
+    
+    
+                    <div class="find_box">
+                        <div class="tab">
+                            <ul>
+                                <a href="findId">
+                                    <li
+                                    style="border-bottom: 1px solid #ad863c; background: #fafafa; color: #999; font-weight: 400;">
+                                        아이디 찾기</li>
+                                </a>
+    
+    
+                                <a href="findPw">
+                                    <li
+                                        style="border: 1px solid #C3A164; border-bottom: none; background: #fff; color: #222; font-weight: 500;">
+                                        비밀번호 찾기</li>
+                                </a>
+    
+                            </ul>
+                        </div>
+    
+                        <div class="find_box_inner">
+                            <p>가입 시 등록한 <span>아이디</span>와 <span>전화번호</span>를 입력해주세요.</p>
+                            <form>
+    
+                                <div class="find_form">
+                                    <label for="id"></label>
+                                    <input type="text" id="id" name="id" placeholder="아이디">
+    
+                                    <ul>
+                                        <li>
+                                            <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
+                                        </li>
+    
+                                        <li>
+                                            <div class="check_btn" onclick="myFunction()">인증번호 받기</div>
+                                        </li>
+    
+                                        <li>
+                                            <div id="phone_check_box">
+                                                <input type="text" id="phone_check" name="phone_check"
+                                                    placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4"
+                                                    oninput="numberMaxLength(this);" />
+                                            </div>
+                                            <div class="text-alert" id="alert_msg"
+                                                style="font-size: 13px; display: none; color: #AD863C; font-weight: bold;">
+                                                인증번호의 유효시간은 30분입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
+                                            <div class="text-alert" id="alert_msg_fail"
+                                                style="font-size: 13px; color: red; display: none;"></div>
+                                            <div class="text-alert" id="alert_msg_success"
+                                                style="font-size: 13px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
+                                        </li>
+                                    </ul>
+                                </div>
+    
+                                <div class="find_pw_btn">
+                                    <ul>
+                                        <li>
+                                            <a href="login">
+                                                <div class="login_btn">로그인</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a onclick="findPw()">
+                                                <div class="next_btn">다음</div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+    
+                            </form>
+                        </div>
                     </div>
-
-                    <div class="find_box_inner">
-                        <p>가입 시 등록한 <span>아이디</span>와 <span>전화번호</span>를 입력해주세요.</p>
-                        <form>
-
-                            <div class="find_form">
-                                <label for="id"></label>
-                                <input type="text" id="id" name="id" placeholder="아이디">
-
-                                <ul>
-                                    <li>
-                                        <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
-                                    </li>
-
-                                    <li>
-                                        <div class="check_btn" onclick="myFunction()">인증번호 받기</div>
-                                    </li>
-
-                                    <li>
-                                        <div id="phone_check_box">
-                                            <input type="text" id="phone_check" name="phone_check"
-                                                placeholder="인증번호 4자리를 입력하세요." style="background: #eee;" maxlength="4"
-                                                oninput="numberMaxLength(this);" />
-                                        </div>
-                                        <div class="text-alert" id="alert_msg"
-                                            style="font-size: 13px; display: none; color: #AD863C; font-weight: bold;">
-                                            인증번호의 유효시간은 30분입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
-                                        <div class="text-alert" id="alert_msg_fail"
-                                            style="font-size: 13px; color: red; display: none;"></div>
-                                        <div class="text-alert" id="alert_msg_success"
-                                            style="font-size: 13px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="find_pw_btn">
-                                <ul>
-                                    <li>
-                                        <a href="login">
-                                            <div class="login_btn">로그인</div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a onclick="findPw()">
-                                            <div class="next_btn">다음</div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </form>
-                    </div>
+    
+    
                 </div>
-
-
-
             </div>
         </section>
-
+    
         <!--//secton.about 완료-->
 
 

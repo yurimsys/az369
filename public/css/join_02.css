@@ -4,7 +4,7 @@
 
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.25px;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
@@ -48,82 +48,64 @@ section.sub_wrap h1 {
 }
 
 .box {position: relative; padding-top: 120px;}
-
-input::placeholder {font-size: 14px; color: #767676; font-weight: 300;}
+input::placeholder {font-size: 14px; color: #999; font-weight: 300;}
+section.sub_wrap h4 {font-size: 15px; margin-bottom: 5px; margin-top: 12px; font-weight: 500; width: 100%;overflow: hidden;}
 
 /*join_box*/
-.join_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; padding: 30px 18%;}
+.join_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; padding: 30px 24%;}
 
 /*회원가입과정*/
-.join_box .join_process {text-align: center; color: #767676; font-weight: 300; font-size: 16px; margin-bottom: 5px;}
-.join_box .join_process span {color: #C3A164; font-weight: 500;}
+.join_box .join_process {text-align: center; color: #999999; font-weight: 300; font-size: 16px; margin-bottom: 5px;}
+.join_box .join_process span {color: #C3A164; font-weight: 400;}
 
 .join_box h2 {text-align: center; font-size: 24px; margin-bottom: 30px; font-weight: 500;}
-.join_box h3 {font-size: 16px; font-weight: normal; color: #777; margin-bottom: 2%;}
+/* .join_box h3 {font-size: 18px; font-weight: 500; color: #222; margin-bottom: 2%;} */
 
 .join_box form { width: 100%; margin: 0 auto;}
-.join_box input {width: 100%; height: 50px; padding: 2%; margin: 0.5%; border: 1px solid #eee; margin: 0;}
+.join_box input {width: 100%; height: 50px; padding-left: 15px; margin: 0.5%; border: 1px solid #eee; margin: 0;}
 
-.join_box form ul li {margin-bottom: 1%;}
-/*.join_box form ul li:nth-child(1),
-.join_box form ul li:nth-child(6) {width: 70%; margin-right: 1%; float: left; }*/
-
-.join_box form ul li:nth-child(1) input,
-.join_box form ul li:nth-child(6) input{padding: 3%;}
-.join_box form ul li button {height: 50px; width: 29%; border: 1px solid #aaa; background: none; cursor: pointer; transition: all 0.3s; color: #555; }
+.join_box form ul li {margin-bottom: 5px;}
+.join_box form ul li button {height: 50px; width: 29%; border: 1px solid #aaa; background: none; cursor: pointer; transition: all 0.3s; color: #555; margin-bottom: 5px;}
 
 .join_box form ul li button:hover {background: #f4f4f4; /*border: 1px solid #eee;*/}
 
 /*인증번호받기*/
-#phone {width: 70%; float: left; margin-right: 1%;}
-.check_btn, .btn-primary {width: 29%; height: 50px; line-height: 50px; float: left; cursor: pointer; text-align: center;}
-.check_btn {width: 29%; height: 50px; line-height: 50px; float: left;  border: 1px solid #eee; background: #eee; cursor: pointer; font-weight: 400;}
-#phone_check {margin-top: 1%;}
+#phone {width: 70%; float: left; margin-right: 1%; margin-bottom: 5px;}
+.btn-primary {width: 29%; height: 50px; line-height: 50px; cursor: pointer; float:left; background: #fff; border: 1px solid #999; font-weight: 400; text-align: center; font-size: 16px; color: #222; border-radius: 4px;}
+#phone_check {margin-top: 5px;}
 #phone_check_box {
   font-size: 16px;
   text-align: center;
   width: 100%;
   margin: auto;
+  height: auto;
 }
 #phone_check_box {display: none;}
 
 /*우편번호찾기*/
-.address_form input {margin-bottom: 1%;}
+.address_form input {margin-bottom: 5px;}
 #postcode {width: 70%; margin-right: 1%; float: left;;} 
-.btn-primary {width: 29%; height: 50px; cursor: pointer; float:left; background: #fff; border: 1px solid #aaa; font-weight: 400;  font-size: 16px; color: #222;}
+.btn-primary {width: 29%; height: 50px; line-height: 50px; cursor: pointer; float:left; background: #fff; border: 1px solid #999; font-weight: 400;  font-size: 16px; color: #222; border-radius: 4px;}
 
 /*------------------------*/
 
 /*선호도조사 폼*/
 .survey_box {height: auto;  padding-top:40px;}
 
-.hr-sect {
+/* .hr-sect {
 	display: flex;
 	flex-basis: 100%;
 	align-items: center;
-  margin-bottom: 40px;
-}
+  margin-bottom: 5px;
+} */
 
-.hr-sect::before,
-.hr-sect::after {
-	content: "";
-	flex-grow: 1;
-	background: #ddd;
-	height: 1px;
-	font-size: 0px;
-	line-height: 0px;
-	/* margin: 0px 16px; */
-}
-
-.survey_box h3 {position: absolute; color: #222; font-size: 20px; font-weight: 300;  text-align: center; background-color: #fff; left: 50%; transform: translateX(-50%); } 
-
-.survey_box h3 span {font-weight: 400;}
-.survey_box h4 {font-weight: normal; text-align: center; margin-bottom: 15px;  font-size: 16px; font-weight: 400;}
+.survey_box h3 { color: #222; font-size: 18px; font-weight:400; text-align: justify;} 
+.survey_box p {color: #999; font-size: 15px;}
 
 /*선호도조사 - 요일*/
-.day {width: 100%; height: auto; overflow: hidden;}
-.day ul {width: 45%; margin: 0 auto;}
-.day ul li {float: left; width: 18%; margin-right: 2%; text-align: center; background: transparent; color: #666; }
+.day {width: 100%; height: auto; overflow: hidden; margin-top: 10px;}
+.day ul {width: 50%; display: flex;}
+.day ul li {float: left; flex: 1; margin-right: 8px; text-align: center; background: transparent; color: #666; }
 .day ul li:last-child{margin-right: 0;}
 .day label {position: relative; cursor: pointer;}
 .day label input {display: none;}
@@ -132,75 +114,75 @@ input::placeholder {font-size: 14px; color: #767676; font-weight: 300;}
     width: 100%;
     padding: 18%;
     background: #fff;
-    border: 1px solid #ddd;
-    color: #767676;
+    border: 1px solid #dbdbdb;
+    color: #999;
     font-weight: 400;
-    font-size: 18px;
-    border-radius: 5px;
+    font-size: 15px;
+    border-radius: 4px;
 }
-.day label input:checked ~ span {background: #fff; border: 2px solid #c3a164; font-weight: 500; color: #c3a164;}
+.day label input:checked ~ span {background: #fff; border: 1px solid #444; font-weight: 500; color: #222;}
 
 
 /*선호도조사 - 시간대*/
-.time h4 {margin-top: 35px;}
-.time {width: 100%; height: auto; position: relative; padding-bottom: 12%;}
-.time ul {width: 90%; margin: 0 auto;}
+.time {width: 100%; height: auto; position: relative; padding-bottom: 60px; margin-top: 20px;}
+.time ul {width: 100%;}
 .time ul li {float: left;}
 
-.time ul li:nth-child(1) {width: 40%;}
-.time ul li:nth-child(2) img {width:25%;}
-.time ul li:nth-child(2){width: 20%; line-height: 40px; text-align: center;}
-.time ul li:nth-child(3) {width: 40%;}
+.time ul li:nth-child(1) {width: 45%;}
+.time ul li:nth-child(2){width: 10%; line-height: 40px; text-align: center;}
+.time ul li:nth-child(3) {width: 45%;}
 .time_select {
-  position: relative;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    float: right;
-    text-align: justify;
-    width: 100%;
-}
+  width: 100%;line-height: 40px; position: relative; border-radius: 4px; background-color: #fff;}
 .time_select01 select, .time_select02 select {display: none;}
 .select-selected:after {
   position: absolute;
   content: "";
-  top: 20px;
-  right: 10px;
+  top: 18px;
+  right: 12px;
   width: 0;
   height: 0;
   border: 6px solid transparent;
-  border-color: #c3a164 transparent transparent transparent;
+  border-color: #ccc transparent transparent transparent;
 }
 
 .select-selected.select-arrow-active:after {
-  border-color: transparent transparent #555 transparent;
-  top: 14px;
+  border-color: transparent transparent #ccc transparent;
+  top: 10px;
 }
 
 .select-items div,.select-selected {
-  color: #222;
-  height: 45px;
-  line-height: 45px;
-  padding-left: 10px;
   border: 1px solid transparent;
   cursor: pointer;
   user-select: none;
+  padding-left: 15px;
+  color:#444;
 }
-.select-selected {background-color: #fff; font-weight: 400; color: #222;}
+
+.select-selected {
+  background-color: #fff;
+  color: #222;
+ font-weight:400;
+ font-size: 15px;
+ border: 1px solid #dbdbdb;
+ border-radius: 4px;}
 
 
 .select-items {
   position: absolute;
-  background-color: #f8f8f8;
-    border: 1px solid #ddd;
+  background-color: #fafafa;
+  border: 1px solid #eee;
+  color: #444;
+  font-size: 15px;
   top: 100%;
   left: 0;
   right: 0;
-  z-index: 1000;;
+  z-index: 9999;
+}
+.select-hide {display: none;}
+.select-items div:hover, .same-as-selected {
+  background-color: #f2f2f2;
 }
 
-.select-hide {display: none;}
-
-.select-items div:hover, .same-as-selected {background-color: rgba(0, 0, 0, 0.1);}
 
 /*------------------------*/
 
@@ -208,7 +190,9 @@ input::placeholder {font-size: 14px; color: #767676; font-weight: 300;}
 
 /*하단 버튼*/
 .join_btn {width: 100%; margin: 0 auto; margin-top: 40px; overflow: hidden;}
-.join_btn ul li {float: left; width: 49%; margin-right: 1%; text-align: center; height: 50px; line-height: 50px;}
+.join_btn ul {width: 100%;}
+.join_btn ul li {margin-right: 1%; text-align: center; height: 50px; line-height: 50px; width: 49%; float: left;}
+.join_btn ul li a {display: block;}
 .join_btn ul li:nth-child(2) {margin-right: 0;}
 .back {border: 1px solid #ddd;}
 .next{background: #C3A164; border: 1px solid #C3A164; color: #fff;}

@@ -5,7 +5,7 @@
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; font-weight: normal;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -21,7 +21,7 @@ p {text-align: justify; font-family: inherit; font-size: 16px;}
     height: auto;
 }
 
-header {width: 100%; height: 80px; position: fixed; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05);}
+/* header {width: 100%; height: 80px; position: fixed; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05);}
 
 .innerHeader {
     width: 100%;
@@ -50,19 +50,16 @@ nav.gnb ul li {
 }
 
 nav.gnb ul li a {display: block;}
-
-
 .innerHeader ul li:hover {color: #a0772b;}
-
 .innerHeader ul ul {display: none;   border: 1px solid #000;}
 .innerHeader ul ul li {float: none; width: 100%; height: 50px; line-height: 50px; position: relative;  color: #242424; background: #fff; font-size: 16px;}
 .innerHeader ul li ul li a {display: block;}
 
 .innerHeader ul li:hover > ul {display: block;}
-.innerHeader ul li ul li:hover { color: #333; background: #e3ddd2;}
+.innerHeader ul li ul li:hover { color: #222; background: #e3ddd2;}
 
 /*gnb2*/
-nav.gnb2 {width: 16%; float: right; margin-right: 5%; line-height: 80px; font-size: 16px; color: #777; }
+nav.gnb2 {width: 16%; float: right; margin-right: 5%; line-height: 80px; font-size: 16px; color: #444; }
 nav.gnb2 ul li {width: 33.3%; float: left; text-align: center; }
 nav.gnb2 a {display: block;}
 
@@ -106,7 +103,7 @@ nav.gnb2 a {display: block;}
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
-
+ */
 
 /*header 완료*/
 /*section.sub_wrap 시작*/
@@ -115,7 +112,7 @@ nav.gnb2 a {display: block;}
 section.sub_wrap {
   width: 1200px;
   margin: 0 auto;
-  margin-bottom: 90px;
+  margin-bottom: 40px;
   overflow: hidden;
 }
 
@@ -207,7 +204,7 @@ font-weight: normal;
 .layer:target{display:flex;animation:open 0.3s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
 
-.payment_box{ width: 25%;  height: auto; margin: 0 auto;background:#fff;position:relative; z-index: 1000; margin-top: 10%; padding-bottom: 20px; border-radius: 12px;}
+.payment_box{ width: 25%;  height: auto; margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 10%; padding-bottom: 20px; border-radius: 12px;}
 
 /*결제버튼 팝업 내부*/
 /*팝업 타이틀*/
@@ -241,7 +238,7 @@ dl.price_sale {color: #c17e00;}
 /*팝업하단버튼*/
 .reservation_btn_mo {display: none;}
 .payment_btn {width: 100%; height: 50px; margin-top: 10%; border: 0; color: #fff; font-size: 16px; padding: 0 30px;}
-.payment_btn li {float: left; width: 49%; margin-right: 1%;}
+.payment_btn li {float: left; width: 49%; margin-right: 1%; }
 .payment_btn li:last-child {margin-right: 0;} 
 .payment_close {width: 100%; display: block; height: 50px; line-height: 50px; text-align: center;}
 .payment_close1 {background: #fff; color: #999; transition: all 0.2s; border: 1px solid #dbdbdb; border-radius: 4px;}
@@ -295,13 +292,13 @@ header .open {
 /*1024px*/
 @media screen and (max-width: 1024px) {
 
-    .payment_box {width: 47%; margin-top: 8%;}
+    .payment_box {width: 47%;}
 
    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     section.sub_wrap {padding-top: -10%;}
-    .box {padding-top: 60px; margin-bottom: 10px;}
+    .box {padding-top: 70px; margin-bottom: 10px;}
     
     .reserve_right {display: none;}
     .reservation_box {width: 90%; margin: 0 auto;}
@@ -311,13 +308,13 @@ header .open {
     .seat_table dt {width: 100%; float: left; padding: 0;  margin-bottom: 5px; font-size: 15px; font-weight: normal; color: #222;}
     .seat_table dd {width: 100%; float: left; padding: 5px 0px; color: #000;  background: #f4f4f4; margin-bottom: 10px;}
     
-    .reservation_btn_mo {display: block; width: 60%; margin: 0 auto; margin-top: 4%; position: relative; overflow: hidden; padding-bottom: 4%;}
-    .reservation_btn_mo ul li {float: left; width: 49%; margin-right: 1%; text-align: center; height: 50px; line-height: 50px;}
+    .reservation_btn_mo {display: block; width: 60%; margin: 0 auto; margin-top: 4%; position: relative; overflow: hidden; padding-bottom: 4%; }
+    .reservation_btn_mo ul li {float: left; width: 49%; margin-right: 1%; text-align: center; height: 50px; line-height: 50px; }
     .reservation_btn_mo ul li:nth-child(2) {margin-right: 0;}
-    .reservation_btn_mo ul li a {display: block;}
+    .reservation_btn_mo ul li a {display: block; border-radius: 4px;}
     .back {border: 1px solid #ddd;}
     .payment_open {background: #C3A164; color: #fff; }
-    .payment_box {width: 40%; margin-top: 3%;}
+    .payment_box {width: 40%;}
 
     
 
@@ -327,8 +324,6 @@ header .open {
 /*768px*/
 @media screen and (max-width: 768px) {
 
-    .box {padding-top: 9.5%;}
-    
     .reservation_box {width: 95%; margin: 0 auto;}
     .reservation_btn_mo {width: 60%; margin-top: 4%;}
 
@@ -340,21 +335,15 @@ header .open {
     section.sub_wrap h1 {font-size: 35px;}
     section.sub_wrap h2 {font-weight: normal;}
     .select_bus_list {height: 340px;}
+    .reservation_box h4 {font-size: 16px; margin-bottom: 2;}
 
-    .payment_box {width: 60%;}
+    .payment_box {width: 60%; }
     
     
     .box {padding-bottom: 4%;}
     .location_select {width: 250px;}
-
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
+
 
 /*414px*/
 @media screen and (max-width: 414px) {
@@ -368,25 +357,27 @@ header .open {
     .innerHeader {z-index: 100;}
     
     .layer {background: #fff; opacity: 1;}
-    .payment_box {width: 100%; height: 100%; margin-top: 0;} 
+    .payment_box {width: 100%; height: 100%; top:0;} 
+    .payment_tit {margin-bottom: 20px; padding-top: 5px;}
     .payment_box_inner {height: 100%; overflow: scroll;}
     .payment_btn {margin-top: 15px;}
 
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
     section.sub_wrap .inner_sub_wrap {width: 100%;}
-    section.sub_wrap h6 {padding-top: 30px; margin-bottom: -2.5%;}
+    section.sub_wrap h6 {padding-top: 10px; margin-bottom: -2.5%;}
     section.sub_wrap h1 {font-size: 30px; margin-bottom: 3%;}
     section.sub_wrap .bar {display: none;}
 
     section.sub_wrap h2 br {display: block;}
-    section.sub_wrap h5{font-size: 1.2rem; margin-bottom: -1%;}
+        
+    .reservation_btn_mo {margin-top: 10px;}
 }
 
 /*375px*/
 @media screen and (max-width: 375px) {
   .reservation_box {width: 100%; margin: 0 auto; margin-right: 5%;}
-  .payment_box {width: 100%; height: 100%;}
+  .payment_box {width: 100%;}
   .payment_box_inner {height: 100%; overflow: scroll;}
 }
 
@@ -395,9 +386,7 @@ header .open {
 @media screen and (max-width: 320px) {
 
     /*section.sub_wrap*/
-    section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
-    section.sub_wrap h1 {font-size: 24px; margin-bottom: 3%;}
-    section.sub_wrap h4 {font-size: 16px;}
+    section.sub_wrap h1 {font-size: 24px;}
     .seat_table dt, .seat_table dd {font-size: 15px;}
     section.sub_wrap p {margin-bottom: 5%;}
 
@@ -409,6 +398,8 @@ header .open {
     .select_bus_list_tit {font-size: 15px;}
     .select_bus span {font-size: 14.5px;}
     .select_bus_btn p {display: none;}
-    
-    .reservation_btn_mo ul li {height: 40px; line-height: 40px; font-size: 15px;}
+    .notice h5 {margin-bottom: 10px;}
+    .notice p {padding: 0; margin-bottom: 0;}
+    .payment_btn {padding: 0; width: 95%; margin: 0 auto; margin-top: 10px;}
+    .reservation_btn_mo ul li, .payment_close1, .payment_close2 {height: 45px; line-height: 45px; font-size: 16px;}
 }

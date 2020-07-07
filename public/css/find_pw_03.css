@@ -4,7 +4,7 @@
 
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
@@ -24,7 +24,6 @@ p {text-align: justify; font-family: inherit; font-size: 16px;}
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 90px;
 	overflow: hidden;
 }
 
@@ -36,9 +35,9 @@ section.sub_wrap .bar {
     margin-bottom: 50px;
 }
 
-.box {position: relative; padding-top: 5%; overflow: hidden;}
+.box {position: relative; padding-top: 120px; overflow: hidden;}
 
-section.sub_wrap h6 {text-align: center; color: #C3A164;  padding-top: 5%; font-weight: 500; font-size: 16px;}
+section.sub_wrap h6 {text-align: center; color: #C3A164;  font-weight: 500; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
 
 section.sub_wrap h1 {
     text-align: center;
@@ -50,20 +49,18 @@ section.sub_wrap h1 {
 
 .find_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee;}
 
-
 .find_box_inner p span {font-weight: 500;}
-
 
 .find_box .tab {width: 100%;}
 .find_box .tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: bold;}
 
-.find_box_inner {width: 100%; padding: 6% 20%; margin: 0 auto; text-align: center; overflow: hidden; }
-.find_box_inner h3 {font-size: 26px; margin-top: 3%; font-weight: 600;}
+.find_box_inner {width: 100%; padding: 6% 24%; margin: 0 auto; text-align: center; overflow: hidden; }
+.find_box_inner h3 {font-size: 20px; margin-top: 25px; font-weight: 500;}
 .find_box_inner h3 span {color:#C3A164;}
 .find_box_inner h3 br {display: none;}
-.find_box_inner p {text-align: center; font-weight: 300; font-size: 18px;}
+.find_box_inner p {text-align: center; font-weight: 300; font-size: 15px;}
 
-.login_btn {width: 100%; margin: 0 auto; margin-top: 40px; border: 1px solid #aaa; height: 50px; color: #fff; line-height: 50px; background: #C3A164;}
+.login_btn {width: 70%; margin: 0 auto; margin-top: 40px; height: 50px; color: #fff; line-height: 50px; background: #C3A164; border-radius: 4px; font-weight: 500;}
 
 .find_img img {width: 12%; margin: 3% 0 2%;}
 

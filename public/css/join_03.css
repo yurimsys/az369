@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
@@ -47,7 +47,7 @@ section.sub_wrap h1 {
 }
 
 /*회원가입과정*/
-.join_box .join_process {text-align: center; color: #666; font-weight: 300; font-size: 16px; margin-bottom: 5px;}
+.join_box .join_process {text-align: center; color: #999; font-weight: 300; font-size: 16px; margin-bottom: 5px;}
 .join_box .join_process span {color: #c3a164; font-weight: 500;}
 
 /*박스 내부*/
@@ -60,15 +60,15 @@ section.sub_wrap h1 {
 
 .join_txt {text-align: center;}
 .join_txt span {color: #ad863c; font-weight: bold;}
-.join_box h3 {font-size: 30px; font-weight: 500;}
+.join_box h3 {font-size: 26px; font-weight:400;}
 .join_box h3 span {color: #ad863c;}
-.join_box h4 {font-size: 24px; margin-bottom: 30px; font-weight: 400; }
+.join_box h4 {font-size: 20px; margin-bottom: 30px; font-weight: 400; }
 .join_box p {color: #767676; text-align: center; font-weight: 300;}
 
 .join_txt h3 br,
 .join_txt h4 br {display: none;}
 
-.login_btn {width: 40%; margin: 0 auto; text-align: center; height: 50px; line-height: 50px; color: #fff; background: #C3A164; border: 1px solid #aaa; margin-top: 20px; font-size: 18px;}
+.login_btn {width: 40%; margin: 0 auto; text-align: center; height: 50px; line-height: 50px; color: #fff; background: #C3A164; border: 1px solid #C3A164; margin-top: 20px; font-size: 16px; font-weight: 500;}
 /*section.sub_wrap 완료*/
 
 

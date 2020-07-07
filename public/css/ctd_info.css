@@ -80,10 +80,12 @@ section.sub_wrap h5 span {font-weight: 400;}
 
 .slideshow-container {
 	width: 100%;
-	position: relative;
+    position: relative;
+    height: auto;
     overflow: hidden;
-
 }
+
+.slide_btn {width: 20%; height: auto; background-color: red; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);}
 /* Next & previous buttons */
 .prev, .next {
 	cursor: pointer;
@@ -97,32 +99,31 @@ section.sub_wrap h5 span {font-weight: 400;}
 	font-weight: bold;
 	font-size: 25px;
 	transition: 0.6s ease;
-	border-radius: 0 3px 3px 0;
 }
 /* Position the "next button" to the right */
 .next {
 	right: 0;
-	border-radius: 3px 0 0 3px;
 }
 /* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
+/* .prev:hover, .next:hover {
 	background-color: rgba(0,0,0,0.8);
-}
+} */
 
 /* The dots/bullets/indicators */
 .dot {
 	cursor: pointer;
-	height: 10px;
-	width: 10px;
-	margin: 0 2px;
-    border: 1px solid #a0772b;
+	height: 8px;
+	width: 8px;
+    margin: 0 2px;
+    background: #eee;;
 	/*background-color: #eee;*/
 	border-radius: 50%;
 	display: inline-block;
 	transition: background-color 0.6s ease;
 }
 .active, .dot:hover {
-	background-color: #a0772b;
+    background-color: #C3A164;
+    width: 8px; height: 8px;
 }
 /* Fading animation */
 .fade {
@@ -131,20 +132,20 @@ section.sub_wrap h5 span {font-weight: 400;}
 	animation-name: fade;
 	animation-duration: 1s;
 }
-@-webkit-keyframes fade {
-  from {opacity: .6} 
+/* @-webkit-keyframes fade {
+  from {opacity: .8} 
   to {opacity: 1}
 }
 
 @keyframes fade {
-  from {opacity: .6} 
+  from {opacity: .8} 
   to {opacity: 1}
-}
+} */
 
 /*sub_info*/
 .sub_info {width: 100%; margin: 0 auto; text-align: center; margin-top: 50px; overflow: hidden;}
 
-.sub_info h4 {font-size: 20px; font-weight: 300; color: #ad863c;}
+.sub_info h4 {font-size: 18px; font-weight: 300;}
 .sub_info h4 br {display: none;}
 .sub_info h4 span {font-weight: 500;}
 .sub_info h3 {font-size: 24px; margin: 0; margin-bottom: 40px; font-weight: 400;}
@@ -160,14 +161,14 @@ section.sub_wrap h5 span {font-weight: 400;}
 .sub_info_list {width: 100%; overflow: hidden; padding-top: 40px; padding-bottom: 40px; border-bottom: 1px solid #eee;}
 .sub_info_list.sub_info_list01{border-top: none;}
 .sub_info_list.sub_info_list03 {border-bottom: none; margin-bottom: 40px;}
-.list_title {float: left; width: 27%; text-align: justify; font-size: 20px; font-weight: 400; line-height: 1.6;}
+.list_title {float: left; width: 25%; text-align: justify; font-size: 18px; font-weight: 400; line-height: 1.6;}
 
-.list_txt {float: left; width: 73%; text-align: justify;}
+.list_txt {float: left; width: 75%; text-align: justify;}
       
-.ctd_btn { text-align: center;  margin: 0 auto;  overflow: hidden;  transition: all 0.3s; width: 100%; height: 50px; line-height: 50px;  font-size: 16px; transition: all 0.3s; border: 1px solid #ddd; margin-top: 40px;}
-.ctd_btn a {display: block;  transition: all 0.3s;}
+.ctd_btn { text-align: center;  margin: 0 auto;  overflow: hidden;  transition: all 0.3s; width: 30%; height: 50px; line-height: 50px;  font-size: 16px; transition: all 0.3s; border: 1px solid #ddd; margin-top: 40px; border-radius: 4px;}
+.ctd_btn a {display: block;}
 
-.ctd_btn a:hover {background: #c3a164; color: #fff; border: 1px solid #c3a164;}        
+.ctd_btn:hover {background: #c3a164; color: #fff; border: 1px solid #c3a164;}        
 
 
 
