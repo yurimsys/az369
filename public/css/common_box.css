@@ -41,7 +41,7 @@ section.sub_wrap h1 {
 }
 
 /* 버튼 -----------------------------------------------------*/
-.btn {text-align: center; border-radius: 4px; height: 50px; line-height: 50px;}
+.btn {text-align: center; border-radius: 4px; height: 50px; line-height: 50px; font-size: 15px;}
 .btn-primary {border: 1px solid #C3A164; background: #c3a164; color: #fff; font-weight: 400;}
 .btn-outline-primary {border: 1px solid #dbdbdb; color: #444;transition: all 0.3s;}
 .btn-secondary {background: #eee; color: #767676; border: 1px solid #f8f8f8;} 
@@ -56,6 +56,7 @@ section.sub_wrap h1 {
 /* input ----------------------------------------------------- */
 input {width: 100%; height: 50px; padding: 0 15px; border: 1px solid #eee; margin-bottom: 5px;}
 input::placeholder {font-size: 14px; font-weight: 300; color: #767676;}
+input:focus {border: 1px solid #c3a164;}
 
 /* 인증번호받기 */
 #phone {width: 70%; float: left; margin-right: 1%;}

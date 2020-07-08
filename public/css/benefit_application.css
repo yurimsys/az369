@@ -114,28 +114,9 @@ input[type=submit]:hover {
 /*section.sub_wrap 완료*/
 
 
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
 
 
 /*반응형*/
-
 /*1200px*/
 @media screen and (max-width: 1200px) {
     .sub_form {width: 95%; margin: 0 auto;}

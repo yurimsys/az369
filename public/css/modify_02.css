@@ -1,75 +1,20 @@
 @charset "UTF-8";
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
-@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
-
-
-/*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
-h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
-a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
-img {vertical-align: middle;}
-a img {border: none;}
-li {list-style: none;}
-address, em, i {font-style: normal;}
-p {text-align: justify; font-family: inherit; font-size: 16px;}
-
-.wrap {
-    width: 100%;
-    margin: 0 auto;
-    height: auto;
-}
-
-
-/*section.sub_wrap 시작*/
-section.sub_wrap {
-    width: 1200px;
-    margin: 0 auto;
-    margin-bottom: 50px;
-	overflow: hidden;
-}
-
-section.sub_wrap .bar {
-    border-bottom: 2px solid #c3a164; 
-    width: 30px; 
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 50px;
-}
-
-section.sub_wrap h6 {text-align: center; color: #c3a164;  padding-top: 5%; font-weight: 500; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
-
-section.sub_wrap h1 {
-    text-align: center;
-    font-size: 45px;
-    margin-top: -1%;
-	font-family: 'PT Serif', serif;
-	font-weight: normal;
-}
-
-/*박스 영역*/
-.inner_sub_wrap {width: 1200px; margin: 0 auto;}
-.box {position: relative; padding-top: 5%; overflow: hidden;}
 
 /*전체 틀*/
-.modify_box {position: relative; width: 100%; background: #fff; border: 1px solid #ddd; height: auto; overflow: hidden; font-size: 16px; padding: 4% 20%;}
+.modify_box {position: relative; width: 100%; background: #fff; border: 1px solid #ddd; height: auto; overflow: hidden; font-size: 16px; padding: 5% 24%;}
 
 /*과정*/
 .modify_box .modify_process {text-align: center; color: #767676; font-weight: 300; font-size: 16px; margin-bottom: 5px;}
 .modify_box .modify_process span {color: #c3a164; font-weight: 500;}
 
-
 /*내부 폼*/
 .modify_box form {width: 100%; margin: 0 auto; overflow: hidden;}
-.modify_box input {width: 100%; height: 50px; padding: 2%; margin: 0.5%; border: 1px solid #eee; margin: 0; margin-bottom: 1%;}
-input::placeholder {font-weight: 14px; font-weight: 300; color: #767676;}
-input:focus {border: 1px solid #c3a164;}
 
-.modify_box h2 {text-align: center; padding: 12px 0;  font-size: 20px; font-weight: 400; margin-top: 15px; margin-bottom:20px;}
-.modify_box h2 span {font-weight: 300;}
+.modify_box h2 {text-align: center; font-size: 20px; font-weight: 500; margin-top: 15px; margin-bottom:25px;}
+.modify_box h2 span {font-weight: 300;color: #999; }
 .modify_box p {text-align: center; margin-bottom: 25px; color: #222; font-weight: 300;}
-.modify_box h3 {font-size: 16px; margin-bottom: 1%; font-weight: normal; color: #666; margin-top: 3%;}
-.modify_box button {width: 29%; height: 50px; background: #fff; border: 1px solid #bbb; font-size: 16px; color: #333;}
+.modify_box h3 {font-size: 16px; margin-bottom: 1%; font-weight: normal; color: #444; margin-top: 3%;}
+/*  */
  
 .pw_modify_form,
 .phone_modify_form,
@@ -77,9 +22,8 @@ input:focus {border: 1px solid #c3a164;}
 
 /*폼 버튼영역*/
 /*인증번호받기*/
-#phone {width: 70%; float: left; margin-right: 1%;}
-.check_btn, .btn-primary {width: 29%; height: 50px; line-height: 50px; float: left; cursor: pointer; text-align: center;}
-.check_btn {width: 29%; height: 50px; line-height: 50px; float: left;  border: 1px solid #ccc; background: #fff; cursor: pointer; font-weight: 400;}
+.check_btn, .btn-add {width: 29%; height: 50px; line-height: 50px; float: left; cursor: pointer; text-align: center;}
+.check_btn {width: 29%; height: 50px; line-height: 50px; float: left;  cursor: pointer; font-weight: 400;}
 #phone_check {margin-top: 1%;}
 #phone_check_box {
   font-size: 16px;
@@ -91,12 +35,9 @@ input:focus {border: 1px solid #c3a164;}
 
 /*우편번호찾기*/
 #postcode {width: 70%; float: left; margin-right: 1%;}
-.btn-primary.round {color: #444;}
-
-
 
 /*회원탈퇴버튼*/
-.withdrawal_open { display: inline-block; margin-top: 70px; margin-left: 50%; transform: translateX(-50%); color: #333; font-weight: 200;}
+.withdrawal_open { display: inline-block; margin-top: 70px; margin-left: 50%; transform: translateX(-50%); color: #999; font-weight: 300;}
  
 
 /*------------------------*/
@@ -107,21 +48,17 @@ input:focus {border: 1px solid #c3a164;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
 
 /*회원탈퇴 팝업 내부*/
-.withdrawal_box {width: 35%; height: auto; margin: 0 auto; background:#fff;position:relative; z-index: 1000; margin: 0 auto; margin-top: 2%; overflow: hidden;}
+.withdrawal_box {width: 33%; height: auto; margin: 0 auto; background:#fff;position:relative; z-index: 1000; margin: 0 auto; margin-top: 2%; overflow: hidden; border-radius: 12px; padding:30px 30px;}
+.withdrawal_tit {font-size: 22px; font-weight: 500; line-height: 1.5;padding-bottom: 15px; text-align: center; }
 
-.withdrawal_tit {width: 100%; height: 70px; line-height: 70px; text-align: center; position: relative;  font-size: 24px; font-weight: 500; font-weight: 500;}
-
-.withdrawal_box_txt {width: 90%; margin: 0 auto; margin-top: 25px; margin-bottom: 30px;}
-.withdrawal_box_txt p { font-size: 16px; font-weight: 300; }
+.withdrawal_box_txt {width: 90%; margin: 0 auto; margin-top: 12px;}
+.withdrawal_box_txt p {text-align: center; font-size: 16px; margin: 0 auto; color: #444; margin-top:5px;} 
 .withdrawal_box_txt p strong {font-weight: 400; color: #c3a164;}
 
-.withdrawal_box_txt input {background: #fff; border: 1px solid #ddd;}
-
-/* .withdrawal_btn {width: 100%; height: 60px; line-height: 60px; font-weight: 400; color: #444; text-align: center; font-size: 18px; background: #eee; margin-top: 40px;} */
-.withdrawal_btn {width: 100%; margin-top: 40px;}
-.withdrawal_btn li {float: left; width: 50%; height: 50px; line-height: 50px; text-align: center; font-size: 16px; font-weight: 400;}
+.withdrawal_btn {width: 100%; margin-top: 40px; width: 100%;}
+.withdrawal_btn li {float: left; width: 49%; margin-right: 1%; height: 45px; line-height: 45px; text-align: center; font-size: 16px; font-weight: 400;}
 .withdrawal_btn li:nth-child(1) {background: #f4f4f4;}
-.withdrawal_btn li:nth-child(2) {background: #c3a164; color: #fff;}
+.withdrawal_btn li:nth-child(2) { color: #fff; margin-right: 0;}
 .withdrawal_btn li a {display: block;}
 
 
@@ -129,107 +66,40 @@ input:focus {border: 1px solid #c3a164;}
 
 
 /*하단 버튼*/
-.modify_btn {width: 100%; margin: 0 auto; text-align: center; height: 50px; line-height: 50px; background: #c3a164; color: #fff; font-weight: 400; margin-top: 20px; transition: all 0.3s;}
+.modify_btn {width: 100%; margin: 0 auto;  font-weight: 400; margin-top: 30px; transition: all 0.3s;}
 .modify_btn a {display: block; }
 
-/* .withdrawal_btn {border: transparent; width: 100%; margin-top: 5%; text-align: center; color: #767676;} */
-
-/*section.sub_wrap 완료*/
-
-
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-
 /*반응형*/
-
 /*1200px*/
 @media screen and (max-width: 1200px) {
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width: 1200px; overflow: hidden;}
-    section.sub_wrap .inner_sub_wrap {width: 95%; overflow: hidden;}
-    .inner_sub_wrap h1 {margin-bottom: 2%;}
-    
     .withdrawal_box {width: 50%;}
 }
 
 
 /*1024px*/
 @media screen and (max-width: 1024px) {
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    .box {padding-top: 7%;}
-    .withdrawal_box {width: 55%;}
-    
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+    .withdrawal_box {width: 60%;}
 }
 
 
 /*768px*/
 @media screen and (max-width: 768px) {
-    
-    .box {padding-top: 9.5%;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    section.sub_wrap h1 {font-size: 35px;}
-    .modify_box {padding: 5%;}
-    
-    .withdrawal_box_txt {margin-top: 20px;}
+    .modify_box {padding: 5% 15%;}
     .withdrawal_box {width: 80%;}
+    section.sub_wrap h2 {margin-bottom: 25px; font-size: 22px;}
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
-    
-    .box {padding-top: 20%;}
     .withdrawal_box {width: 95%;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-	section.sub_wrap h6 {margin-bottom: -5px;}
-    section.sub_wrap h1 {font-size: 30px; margin-bottom: 3%;}
-    .inner_sub_wrap h2 {font-size: 18px;}
-    section.sub_wrap .bar {display: none;}
-    section.sub_wrap p {margin-bottom: 8%;}
-    
-    /*section.sub_wrap*/
-    .modify_box {margin: 0 auto; padding: 10% 5%;}
-    .modify_box h2 {margin-bottom: 4%;}
-    .modify_box p {font-size: 16px;}
-    .modify_btn {width: 100%; margin: 0; margin-top: 3%; font-size: 16px;}
-
+    .modify_box {margin: 0 auto; padding: 8% 5%;}
     .withdrawal_box_txt {width: 85%;}
     .withdrawal_box_txt p {text-align: justify;}
     .withdrawal_box_txt p br {display: none;}
+    section.sub_wrap h2 {font-size: 20px;}
     
-    .modify_form {padding-bottom: 8%; border-bottom: 1px solid #eee;}
+    .modify_form {border-bottom: 1px solid #eee;}
     .modify_form:nth-child(3) {border-bottom: 0; padding-bottom: 0;}
-    
     #phone, #postcode {width: 60%;}
     .check_btn, .modify_box button {width: 39%; font-size: 15px;}
 }
