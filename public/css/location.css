@@ -1,24 +1,4 @@
 @charset "UTF-8";
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
-@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap'); 
-
-/*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
-h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0; }
-a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
-img {vertical-align: middle;}
-a img {border: none;}
-li {list-style: none;}
-address, em, i {font-style: normal;}
-p {text-align: justify; font-family: inherit; font-size: 16px;}
-
-.wrap {
-    width: 100%;
-    margin: 0 auto;
-    height: auto;
-    
-}
 
 /*section.main*/
 section.main {
@@ -29,73 +9,29 @@ section.main {
 }
 
 .main_bg { background: url(/img/sub_main_bg/sub01_main_bg.jpg) no-repeat; background-position: bottom; background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
-
 @keyframes bg {
     0% {transform: scale(1.05);}
     100% {transform: scale(1);}
 }
 
-.tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%);}
-.tnb ul li {float: left; width: 33.33%; text-align: center; height: 60px; background: rgba(255,255,255,0.9); line-height: 60px; font-size: 17px; transition: all 0.2s; font-weight: 400; }
-
-
 /*section.main 완료*/
 /*section.sub_wrap 시작*/
 
-section.sub_wrap {
-    width: 1200px;
-    margin: 0 auto;
-    margin-bottom: 100px;
-	overflow: hidden;
-}
-
-section.sub_wrap .bar {
-    border-bottom: 2px solid #c3a164; 
-    width: 30px; 
-    margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 40px;
-}
-
-section.sub_wrap h6 {text-align: center; color: #C3A164; margin-top:90px; font-weight: 500; font-size: 16px;}
-
-section.sub_wrap h1 {
-    text-align: center;
-    font-size: 45px;
-    margin-top: -1%;
-	font-family: 'PT Serif', serif;
-	font-weight: normal;
-}
-
 section.sub_wrap h2 br {display: none;}
-section.sub_wrap h2 {font-size: 28px; text-align: center; margin-bottom: 70px; line-height: 1.4; font-weight: 400;}
-section.sub_wrap h2 span { font-weight: 600;}
-
-section.sub_wrap h5 {font-size: 24px; font-weight: 300; text-align:center; color: #444;}
 section.sub_wrap h5 br {display: none;}
-section.sub_wrap h5 span {font-weight: 400;}
-
 .sub_map {width: 100%; height: 450px; box-shadow: 0 0 15px rgba(0,0,0,0.3);}
 
 /*sib_contents*/
-.sub_contents {width: 100%; margin: 0 auto; overflow: hidden; margin-top: 50px; border-bottom: 1px solid #eee; padding-bottom: 10px;}
-.sub_contents ul li {float: left; width: 48%;/*; border-bottom: 1px solid #ddd; */margin-right: 4%;}
-.sub_contents ul li:nth-child(2),
-.sub_contents ul li:nth-child(4),
-.sub_contents ul li:nth-child(6) {margin-right: 0%;}
-.sub_contents ul li h3, p {display: inline-block; padding-left: 25px;}
-.sub_contents ul li h3 {margin-right: 6%; font-size: 18px; width: 20%; font-weight: 300;}
+.sub_contents {width: 100%; margin: 0 auto; overflow: hidden; margin-top: 50px; padding-bottom: 10px;}
+.sub_contents ul {width: 100%; width: 100%;}
+.sub_contents ul li {float: left; width: 48%; margin-right: 2%;  /*; border-bottom: 1px solid #ddd; */}
+.sub_contents ul li:nth-child(2) {margin-right: 0;}
+.sub_contents ul li em, p {display: inline-block; padding-left: 25px;}
+.sub_contents ul li em {font-size: 16px; width: 20%; font-weight: 400; width: 18%;}
 .sub_contents ul li p {font-size: 16px; font-weight: 400;}
-.sub_contents ul li h3 i {margin-right: 15px; color: #c3a164; font-size: 22px;}
+.sub_contents ul li em i {margin-right: 15px; color: #c3a164; font-size: 22px;}
 
 /*section.about 완료*/
-
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
-
 
 /*모바일 메뉴*/
 header .open {
@@ -106,7 +42,6 @@ header .open {
     opacity: 0;
     z-index: -9999;
 }
-
 .gnb_mo {
     /*모바일 네비 전체*/
     width: 0;
@@ -115,23 +50,10 @@ header .open {
     opacity: 0;
     z-index: -9999;
 }
-
-
 /*반응형*/
 
 /*1200px*/
 @media screen and (max-width: 1200px) {
-    
-    /*main*/
-    section.main {width: 100%;}
-    section.main .inner_main {width: 100%;}
-	
-	.tnb {width: 100%;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 100%;}
-
     .sub_contents {width: 95%;}
     .sub_map {width: 95%; margin: 0 auto;}
 }
@@ -139,78 +61,32 @@ header .open {
 
 /*1024px*/
 @media screen and (max-width: 1024px) {
-    
-    /*main*/
-    section.main {width: 100%;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    .sub_map {width: 95%; margin: 0 auto;}
 }
 
 
 
 /*768px*/
 @media screen and (max-width: 768px) {
-    
-    /*main*/
-    section.main {width: 100%;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    
-    section.sub_wrap h1 {font-size: 35px;}
-    section.sub_wrap h5 {font-size: 20px;}
-    section.sub_wrap h2 {font-size: 30px;}
-    
-    .sub_contents {margin: 0 auto; margin-top: 35px;  border-bottom: 0; font-size: 16px;}
-    .sub_contents ul li { width: 100%; margin-bottom: 20px;}
-	.sub_contents ul li:nth-child(2) {margin-bottom: 10px;}
-    .sub_contents ul li h3 {width: 20%; font-weight: 300;}
-	.sub_contents ul li p {font-weight: 400;}
+    .sub_contents ul li {width: 100%; padding-bottom: 15px;}
+    .sub_contents ul li em {width: 30%;}
+
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
-    
-    /*main*/
-    section.main {width: 100%;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 20px;} 
+    .sub_contents {margin-top: 40px; width: 90%;}
+    .sub_contents ul li:nth-child(1) {padding-bottom: 20px;}
+    .sub_contents ul li p { text-align: justify; padding: 0;}
+    .sub_contents ul li em, p {padding: 0;}
 	
-	section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
-	
-    section.sub_wrap h1 {font-size: 30px;}
-	section.sub_wrap h6 {margin-top: 50px;}
-    section.sub_wrap .bar {margin-top: 6%; margin-bottom: 8%;}
-    section.sub_wrap h2 {font-size: 24px; line-height: 1.5; margin-bottom: 50px;}
-    section.sub_wrap h2 br {display: block;}
-    section.sub_wrap h5{font-size: 18px; margin-bottom: -1%;}
-    
-    .sub_contents {margin-top: 40px;}
-    .sub_contents ul li {text-align: center; width: 100%; border-bottom: none; margin-bottom: 4%;}
-    .sub_contents ul li h3 {margin: 0 auto; width: 100%; padding: 0;}
-    .sub_contents ul li p {margin-bottom: 2; width: 100%; text-align: center; padding: 0;}
-    .sub_contents ul li:last-child p {margin-bottom: 0;}
-	
-	.tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
-
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
 
-    /*main*/
-    section.main {width: 100%;}
-    section.main .inner_main {width: 320px;}
-    
     /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-	section.sub_wrap h6 {font-size: 15px;}
-    section.sub_wrap h1 {font-size: 24px;}
-    section.sub_wrap h2 {font-size: 20px;  line-height: 1.5;}
-	.sub_contents ul li h3, .sub_contents ul li p, .sub_contents ul li i {font-size: 16px;}
-    
-	.tnb ul li {font-size: 15px;} 
+    .sub_contents ul li:nth-child(1) {padding-bottom: 20px;}
+    .sub_contents ul li em {width: 100%; margin-bottom: 5px;}
+    .sub_contents ul li p { text-align: justify; padding: 0;}
+    .sub_contents ul li em, p {padding: 0;}
 }

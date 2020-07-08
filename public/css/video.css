@@ -49,35 +49,31 @@ section.sub_wrap {
 .tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); }
 .tnb a {float: left; width: 100%; text-align: center; height: 60px; line-height: 60px; font-size: 18px; transition: all 0.2s; font-weight: 400; background: #c3a164; color: #fff;}
 
-section.sub_wrap .bar {
-    border-bottom: 2px solid #c3a164; 
-    width: 30px; 
-    margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 40px;
-}
-
-section.sub_wrap h6 {text-align: center; color: #c3a164; margin-top:90px; font-weight: 500; font-size: 16px;}
-
+section.sub_wrap h6 {text-align: center; color: #C3A164; margin-top:80px; font-weight: 500; font-size: 16px;}
 section.sub_wrap h1 {
     text-align: center;
-    font-size: 45px;
-    margin-top: -1%;
+    font-size: 43px;
+    margin-top:-7px;
 	font-family: 'PT Serif', serif;
-	font-weight: normal;
+    font-weight: normal; 
 }
-
-section.sub_wrap h2 {font-size: 28px;  text-align: center; margin-bottom: 60px; line-height: 1.4;  font-weight: 400;}
-section.sub_wrap h2 span { font-size: 24px; text-align:center; font-weight: 300;}
-section.sub_wrap h2 strong {font-weight: 600;}
-
+section.sub_wrap .bar {
+    border-bottom: 1px solid #c3a164; 
+    width: 25px; 
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+/* 소제목1 */
+section.sub_wrap h2 {font-size: 26px;  text-align: center; margin-bottom: 55px; line-height: 1.6; font-family: 'Noto Sans KR', sans-serif; font-weight: 300;}
+section.sub_wrap h2 span {font-weight: 500;}
 
 
 /*section.main_video 메인영상*/
 section.main_video {width: 100%; overflow: hidden; margin: 0 auto; margin-top: 30px;}
 .main_video_txt {width: 100%; text-align: center;}
-.main_video_txt h3 {font-size: 24px; color: #222; margin-top: 20px; font-weight: 500;}
-.main_video_txt h5 {font-size: 15px; color: #999; font-weight: normal; margin-top: 5px; font-weight: 300;}
+.main_video_txt h3 {font-size: 24px; color: #222; margin-top: 20px; font-weight: 600;}
+.main_video_txt h5 {font-size: 18px; color: #999; font-weight: normal; margin-top: 5px; font-weight: 300;}
 .main_video_txt h5 span {color: #ccc; padding: 0 15px;}
 
 
@@ -141,12 +137,12 @@ section.video_list{width: 100%; margin-top: 70px; overflow: hidden;}
   transition: background-color .3s;
   margin: 0;
     color: #222;
-    border-radius: 50%;
+    border-radius: 4px;
 }
 .pagination a.active {
   background-color: #c3a164;
   color: white;
-  border-radius: 50%;
+  border-radius: 4px;
 }
 .pagination a:hover:not(.active) {background-color: #fafafa;}
 

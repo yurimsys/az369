@@ -99,7 +99,7 @@ section.sub_wrap h1 {
 
 /*reserve_list 목록*/
 .reserve_bar { width: 100%; 
-  font-weight: normal;font-weight: normal;  color: #444; padding: 0; border: 1px solid #f8f8f8;}
+  font-weight: normal;font-weight: normal;  color: #767676; padding: 0; border: 1px solid #f8f8f8;}
 
 .reserve_bar ul li {float: left; width: 25%; text-align: center; font-size: 16px; font-weight: normal;}
 
@@ -238,30 +238,30 @@ button{
 
         
 /*search 박스*/
-.searchBox {table-layout:fixed; /*border-collapse:collapse;*/ border-spacing:0; border:none; width: 80%; position: relative; margin: 0 auto; margin-top: 2%; margin-bottom: 25px; overflow: hidden; height: auto;}
+.searchBox {table-layout:fixed; border-spacing:0; border:none; width: 100%; position: relative; margin: 0 auto; overflow: hidden; height: auto; background: red;}
             
         
 .clearfix:after{content:"";display:block;clear:both;overflow:hidden}
 .searchDate:after{display:block;clear:both;content:'';}
 
 /*날짜 버튼*/
-.searchDate{overflow:hidden; object-position: center; width: 100%; margin: 0 auto;}
-.searchDate li{position:relative;float:left; width: 15%; margin-right: 1%; margin-bottom: 1.5%;}
+.searchDate{overflow:hidden; object-position: center; width: 100%; margin: 0 auto; background: darkcyan; display: flex; }
+.searchDate li{position:relative; flex:1; margin-right: 10px; margin-bottom: 10px;}
 .searchDate li:last-child {margin-right: 0;}
 .searchDate li .chkbox {display:block;text-align:center;}
 .searchDate li .chkbox input {position:absolute; display: none;}
-.searchDate li .chkbox label {display:block; height:30px; width: 100%;  line-height:30px; font-size: 15px; color:#666; text-align:center; text-decoration:none;cursor:pointer;background:#fff; border: 1px solid #ddd; border-radius: 4px; float: left; position: relative;}
+.searchDate li .chkbox label {display:block; height:30px; width: 100%;  line-height:30px; font-size: 15px; color:#444; text-align:center; text-decoration:none;cursor:pointer;background:#fff; border: 1px solid #dbdbdb; border-radius: 4px; float: left; position: relative;}
 .searchDate li .chkbox.on label {background:#444; color: #fff; border: none;}
 
 /*날짜 표시 사이 아이콘*/
 .demi{display:inline-block;margin:0 2%; vertical-align:middle}
 
 /*날짜표시칸*/
-.clearfix{ float: left; width: 80%;} 
+.clearfix{ float: left; width:100%; background: orange;} 
 .inpType{padding-left:2%; height:40px; line-height:40px; border:1px solid #eee; font-size: 17px; border-radius: 8px; background: #f4f4f4; width: 46%;}
 
 /*날짜조회 버튼*/
-.search_btn {width: 17%; height: 40px; background: #fff; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; float: right; color: #555;}
+.search_btn {width: 17%; height: 40px; background: #fff; border-radius: 4px; border: 1px solid #999; font-size: 14px; float: right; color: #222; font-weight: 400;}
 
 
 /*두번째 테이블 타이틀 간격*/

@@ -3,6 +3,7 @@
 
 <head>
     <% include templates/head.ejs %>
+    <link rel="stylesheet" href="/css/common_main.css">
     <link rel="stylesheet" href="/css/benefit_application.css">
 
     <title>AZ369 - 입점상담신청</title>
@@ -118,12 +119,12 @@
 
                     <div id="popup" class="layer">
                         <div class="popup_box">
-                            <h5>문의날짜 <br><span></span>
-                                <h5 id="applyDate"></h5></span>
-                            </h5>
-                            <p>입점상담신청 문의가 성공적으로 보내졌습니다.<br>빠른시일 내에 연락드리겠습니다.</p>
+                            <div class="popup_tit">제출여부조회 <br>
+                                <div id="applyDate"></div>
+                            </div>
+                            <p>입점상담신청 문의가 성공적으로 보내졌습니다. <br>빠른시일 내에 연락드리겠습니다.</p>
 
-                            <div class="popup_btn">
+                            <div class="popup_btn btn btn-secondary">
                                 <a href="benefit_application" class="popup_close">닫기</a>
                             </div>
                         </div>
@@ -181,7 +182,7 @@
                             alert("이름 혹은 휴대전화가 틀리거나 제출하시지 않으셨습니다.");
                             location.reload();
                         } else if (res.data.SI_cDt != "") {
-                            $("#applyDate").append(res.data.SI_cDt);
+                            $("#applyDate").text(res.data.SI_cDt);
                             location.href = "#popup";
                         }
                     }
