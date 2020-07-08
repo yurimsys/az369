@@ -1,55 +1,4 @@
 @charset "UTF-8";
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
-@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
-
-
-/*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.25px;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
-h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
-a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
-img {vertical-align: middle;}
-a img {border: none;}
-li {list-style: none;}
-address, em, i {font-style: normal;}
-p {text-align: justify; font-family: inherit; font-size: 16px;}
-
-.wrap {
-    width: 100%;
-    margin: 0 auto;
-    height: auto;
-}
-
-/*section.sub_wrap 시작*/
-section.sub_wrap {
-    width: 1200px;
-    margin: 0 auto;
-    margin-bottom: 90px;
-    color: #333;
-	/* overflow: hidden; */
-}
-
-section.sub_wrap .bar {
-    border-bottom: 2px solid #c3a164; 
-    width: 30px; 
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 50px;
-}
-
-section.sub_wrap h6 {text-align: center; color: #C3A164; font-weight: 500; font-size: 16px;}
-
-section.sub_wrap h1 {
-    text-align: center;
-    font-size: 45px;
-    margin-top: -1%;
-	font-family: 'PT Serif', serif;
-	font-weight: normal;
-}
-
-.box {position: relative; padding-top: 120px;}
-input::placeholder {font-size: 14px; color: #999; font-weight: 300;}
-section.sub_wrap h4 {font-size: 15px; margin-bottom: 5px; margin-top: 12px; font-weight: 500; width: 100%;overflow: hidden;}
 
 /*join_box*/
 .join_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; padding: 30px 24%;}
@@ -59,19 +8,11 @@ section.sub_wrap h4 {font-size: 15px; margin-bottom: 5px; margin-top: 12px; font
 .join_box .join_process span {color: #C3A164; font-weight: 400;}
 
 .join_box h2 {text-align: center; font-size: 24px; margin-bottom: 30px; font-weight: 500;}
-/* .join_box h3 {font-size: 18px; font-weight: 500; color: #222; margin-bottom: 2%;} */
 
 .join_box form { width: 100%; margin: 0 auto;}
-.join_box input {width: 100%; height: 50px; padding-left: 15px; margin: 0.5%; border: 1px solid #eee; margin: 0;}
 
-.join_box form ul li {margin-bottom: 5px;}
-.join_box form ul li button {height: 50px; width: 29%; border: 1px solid #aaa; background: none; cursor: pointer; transition: all 0.3s; color: #555; margin-bottom: 5px;}
-
-.join_box form ul li button:hover {background: #f4f4f4; /*border: 1px solid #eee;*/}
 
 /*인증번호받기*/
-#phone {width: 70%; float: left; margin-right: 1%; margin-bottom: 5px;}
-.btn-primary {width: 29%; height: 50px; line-height: 50px; cursor: pointer; float:left; background: #fff; border: 1px solid #999; font-weight: 400; text-align: center; font-size: 16px; color: #222; border-radius: 4px;}
 #phone_check {margin-top: 5px;}
 #phone_check_box {
   font-size: 16px;
@@ -85,27 +26,20 @@ section.sub_wrap h4 {font-size: 15px; margin-bottom: 5px; margin-top: 12px; font
 /*우편번호찾기*/
 .address_form input {margin-bottom: 5px;}
 #postcode {width: 70%; margin-right: 1%; float: left;;} 
-.btn-primary {width: 29%; height: 50px; line-height: 50px; cursor: pointer; float:left; background: #fff; border: 1px solid #999; font-weight: 400;  font-size: 16px; color: #222; border-radius: 4px;}
+.btn-add {width: 29%; height: 50px; line-height: 50px; cursor: pointer; float:left; background: #fff; border: 1px solid #999; font-weight: 400;  font-size: 16px; color: #222; border-radius: 4px;}
 
 /*------------------------*/
 
 /*선호도조사 폼*/
-.survey_box {height: auto;  padding-top:40px;}
-
-/* .hr-sect {
-	display: flex;
-	flex-basis: 100%;
-	align-items: center;
-  margin-bottom: 5px;
-} */
-
-.survey_box h3 { color: #222; font-size: 18px; font-weight:400; text-align: justify;} 
-.survey_box p {color: #999; font-size: 15px;}
+.survey_box {height: auto;  padding-top:40px; text-align: center;}
+.survey_box h3 { color: #222; font-size: 20px; font-weight:600; text-align: center;} 
+.survey_box p {color: #999; font-size: 15px; text-align: center; margin-bottom: 30px;}
+.survey_box h4 {margin-bottom: 12px; font-weight:500;}
 
 /*선호도조사 - 요일*/
-.day {width: 100%; height: auto; overflow: hidden; margin-top: 10px;}
-.day ul {width: 50%; display: flex;}
-.day ul li {float: left; flex: 1; margin-right: 8px; text-align: center; background: transparent; color: #666; }
+.day {width: 100%; height: auto; overflow: hidden;}
+.day ul {width: 50%; margin: 0 auto; display: flex;}
+.day ul li {float: left; flex: 1; margin-right: 8px; text-align: center; background: transparent; color: #999; }
 .day ul li:last-child{margin-right: 0;}
 .day label {position: relative; cursor: pointer;}
 .day label input {display: none;}
@@ -124,7 +58,7 @@ section.sub_wrap h4 {font-size: 15px; margin-bottom: 5px; margin-top: 12px; font
 
 
 /*선호도조사 - 시간대*/
-.time {width: 100%; height: auto; position: relative; padding-bottom: 60px; margin-top: 20px;}
+.time {width: 100%; height: auto; position: relative; padding-bottom: 60px; margin-top: 35px;}
 .time ul {width: 100%;}
 .time ul li {float: left;}
 
@@ -132,7 +66,7 @@ section.sub_wrap h4 {font-size: 15px; margin-bottom: 5px; margin-top: 12px; font
 .time ul li:nth-child(2){width: 10%; line-height: 40px; text-align: center;}
 .time ul li:nth-child(3) {width: 45%;}
 .time_select {
-  width: 100%;line-height: 40px; position: relative; border-radius: 4px; background-color: #fff;}
+  width: 100%;line-height: 40px; position: relative; border-radius: 4px; background-color: #fff; text-align: justify;}
 .time_select01 select, .time_select02 select {display: none;}
 .select-selected:after {
   position: absolute;
@@ -168,7 +102,7 @@ section.sub_wrap h4 {font-size: 15px; margin-bottom: 5px; margin-top: 12px; font
 
 
 .select-items {
-  position: absolute;
+  position: relative;
   background-color: #fafafa;
   border: 1px solid #eee;
   color: #444;
@@ -176,7 +110,7 @@ section.sub_wrap h4 {font-size: 15px; margin-bottom: 5px; margin-top: 12px; font
   top: 100%;
   left: 0;
   right: 0;
-  z-index: 9999;
+  margin-bottom: 10px;
 }
 .select-hide {display: none;}
 .select-items div:hover, .same-as-selected {
@@ -194,117 +128,43 @@ section.sub_wrap h4 {font-size: 15px; margin-bottom: 5px; margin-top: 12px; font
 .join_btn ul li {margin-right: 1%; text-align: center; height: 50px; line-height: 50px; width: 49%; float: left;}
 .join_btn ul li a {display: block;}
 .join_btn ul li:nth-child(2) {margin-right: 0;}
-.back {border: 1px solid #ddd;}
-.next{background: #C3A164; border: 1px solid #C3A164; color: #fff;}
-
-
-
 /*section.sub_wrap 완료*/
-
-
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
-
-
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
 
 /*반응형*/
 
-/*1200px*/
-@media screen and (max-width: 1200px) {
-
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    .inner_sub_wrap {width: 95%; margin: 0 auto;}
-}
-
-
-/*1024px*/
-@media screen and (max-width: 1024px) {
-
-    .box {padding-top: 100px;}
-}
-
-
 /*768px*/
 @media screen and (max-width: 768px) {
-    
-    .join_box {padding: 30px;}
-    section.sub_wrap h1 {font-size: 35px;}
+    .join_box {padding: 30px 60px;}
 }
-    
 
 /*414px*/
 @media screen and (max-width: 414px) {
-
-  .box {padding-top: 80px;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h6 {margin-bottom: -5px;}
-    section.sub_wrap h1 {font-size: 30px; margin-bottom: 3%;}
-    section.sub_wrap .bar {display: none;}
-    section.sub_wrap h2 {font-size: 20px;  line-height: 1.5; text-align: center;}
     section.sub_wrap p {font-size: 14px; text-align: center; margin-bottom: 3%;}
-    
     .join_box .join_process {font-size: 14px;}
-    
-    /*section.sub_wrap*/
     .join_box {padding: 5%; margin: 0 auto;}
-
-    .join_btn ul li {height: 50px; line-height: 50px;}
+    .join_btn ul li {height: 45px; line-height:45px;}
     
+    .day {margin-top: 30px;}
     .day ul {width: 80%;}
     .time ul {width: 100%;}
     .time ul li:nth-child(1) {width: 100%;}
     .time ul li:nth-child(2) {margin-left: 50%; transform: translateX(-50%); padding: 3px 0;}
-    .time ul li:nth-child(2) img {transform: rotate(-90deg); width: 30%;}
+    .time ul li:nth-child(2) img {transform: rotate(-90deg);}
     .time ul li:nth-child(3) {width: 100%;}
     
     .time {font-size: 15px;}
-    .time h4 {margin-top: 25px;}
-    .survey_box h3 {font-size: 18px; width: 100%; text-align: center; letter-spacing: -1.2px;}
-    .line {display: none;}
+    .survey_box h3 {font-size: 20px; width: 100%; text-align: center; letter-spacing: -1.2px;}
     
     #phone, #postcode {width: 60%;}
-    .check_btn, .btn-primary {width: 39%; font-size: 15px;}
+    .check_btn, .btn-add {width: 39%; font-size: 15px;}
   .join_btn {position: relative; overflow: hidden; padding-top: 40px;}
 }
 
 
 /*320px*/
 @media screen and (max-width: 320px) {
-    
-    /*section.sub_wrap*/
-    section.sub_wrap h1 {font-size: 24px;}
-    section.sub_wrap p {margin-bottom: 5%;}
-    .join_agreement strong {font-size: 14px;}
-    .check_all_btn {padding: 4% 8;}
-    
     .time h4 {margin-top: 7%;}
     .check_btn {font-size: 14px;}
-	
   .survey_box h3 {font-size: 18px;  width: 95%;}
   .survey_box h4 {margin-bottom: 10px;}
   .day ul {width: 100%;}

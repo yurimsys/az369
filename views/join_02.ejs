@@ -3,6 +3,7 @@
 
 <head>
     <% include templates/head.ejs %>
+    <link rel="stylesheet" href="/css/common_box.css">
     <link rel="stylesheet" href="/css/join_02.css">
 
     <title>AZ369 - 회원가입</title>
@@ -73,7 +74,7 @@
                                 </li>
 
                                 <li>
-                                    <div class="check_btn btn-primary" onclick="myFunction()">인증번호 받기</div>
+                                    <div class="check_btn btn btn-light" onclick="myFunction()">인증번호 받기</div>
                                 </li>
 
                                 <li>
@@ -103,7 +104,7 @@
                                     <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호"
                                         style="background: #eee;">
                                     <button type="button" onclick="execDaumPostcode()" value="우편번호 찾기"
-                                        class="btn-primary round">우편번호찾기</button><br>
+                                        class="btn-add btn-light btn round">우편번호찾기</button><br>
                                     <input type="text" id="address" name="address" placeholder="매장주소"
                                         style="background: #eee;"><br>
                                     <input type="text" id="detailAddress" name="detailAddress" placeholder="매장상세주소">
@@ -200,8 +201,8 @@
 
                         <div class="join_btn">
                             <ul>
-                                <li class="back"><a href="join">이전</a></li>
-                                <li class="next"><a onclick="joinUser()">다음</a></li>
+                                <li class="back btn btn-outline-primary"><a href="join">이전</a></li>
+                                <li class="next btn btn-primary"><a onclick="joinUser()">다음</a></li>
                             </ul>
                         </div>
                     </div>

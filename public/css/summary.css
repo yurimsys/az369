@@ -15,17 +15,13 @@ section.main {
 }
 /*section.main 완료*/
 /*section.sub_wrap 시작*/
-
-section.sub_wrap h2 br {display: none;}
-
-.sub_bg {box-shadow: 0 0 10px rgba(0,0,0,0.2);}
+.sub_bg { box-shadow: 20px 20px 20px rgba(180,180,180,0.2);}
 .sub_bg img {width: 100%;}
 
 
 
 /*sub_info*/
 .sub_info {width: 100%; text-align: center; margin-top:55px;}
-.sub_info h4 br {display: none;}
 .sub_info ul {width: 50%; padding: 0; overflow: hidden; margin: 0 auto; margin-top: 40px;}
 .sub_info ul li {float: left; width: 49%; overflow: hidden;  transition: all 0.3s; margin-right: 2%;}
 .sub_info ul li{width: 49%; margin-right: 1%; height: 50px; line-height: 50px; border-radius: 4px;}
@@ -60,19 +56,19 @@ header .open {
 
 /*1200px*/
 @media screen and (max-width: 1200px) {
-    .sub_bg {width: 95%; margin: 0 auto;}
+    .sub_bg {width: 93%; margin: 0 auto;}
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
     section.sub_wrap h2 br {display: block;}
-    .sub_info p {width: 95%; margin: 0 auto; font-size: 16px; text-align: justify;}
+    .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: justify;}
     .sub_info {margin-top: 35px;}
-    .sub_info ul {width: 95%; margin-top: 10px;}
+    .sub_info ul {width: 93%; margin-top: 10px;}
     .sub_info h4 br {display: block;}
     .sub_info p br {display: none;}
     .sub_info {width:100%;}
-    .sub_info p {width: 95%; margin: 0 auto; font-size: 16px; text-align: justify;}
+    .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: justify;}
 }
 
 /*320px*/

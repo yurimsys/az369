@@ -1,0 +1,204 @@
+/* (section.main 없음) div.box가 있는 ejs의 공통 css입니다. */
+
+
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
+
+/*reset*/
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
+a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
+img {vertical-align: middle;}
+a img {border: none;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+p {text-align: justify; font-family: inherit; font-size: 16px;}
+span {padding: 0; margin: 0;}
+/* ----------------------- */
+
+
+/* 공통 속성 영역 : 상단 */
+.wrap {width: 100%; margin: 0 auto; height: auto;}
+section.sub_wrap {
+    width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+	  overflow: hidden;
+}
+.inner_sub_wrap {width: 100%;}
+.box {position: relative; padding-top: 120px; overflow: hidden;}
+
+section.sub_wrap h6 {text-align: center; color: #C3A164;font-weight: 500; font-size: 16px;}
+section.sub_wrap h1 {
+    text-align: center;
+    font-size: 43px;
+    margin-top:-10px;
+	font-family: 'PT Serif', serif;
+    font-weight: normal; 
+    margin-bottom: 20px;
+}
+
+/* 버튼 -----------------------------------------------------*/
+.btn {text-align: center; border-radius: 4px; height: 50px; line-height: 50px;}
+.btn-primary {border: 1px solid #C3A164; background: #c3a164; color: #fff; font-weight: 400;}
+.btn-outline-primary {border: 1px solid #dbdbdb; color: #444;transition: all 0.3s;}
+.btn-secondary {background: #eee; color: #767676; border: 1px solid #f8f8f8;} 
+ .btn-light {border: 1px solid #999; color: #444;background: #fff;} 
+
+ /*스크롤 --------------------------------*/
+.scroll_style::-webkit-scrollbar {width: 3px; height: 20px;}
+.scroll_style::-webkit-scrollbar-track {background-color: #eee;}
+.scroll_style::-webkit-scrollbar-button {display: none;}
+.scroll_style::-webkit-scrollbar-thumb {background-color: #999;}
+
+/* input ----------------------------------------------------- */
+input {width: 100%; height: 50px; padding: 0 15px; border: 1px solid #eee; margin-bottom: 5px;}
+input::placeholder {font-size: 14px; font-weight: 300; color: #767676;}
+
+/* 인증번호받기 */
+#phone {width: 70%; float: left; margin-right: 1%;}
+.check_btn {width: 29%; height: 50px; line-height: 50px; float: left; cursor: pointer;}
+#phone_check {margin-top: 1%;}
+
+/* checkbox 디자인 -----------------------------------------------------*/
+
+.checks {position: relative;}
+.checks input[type="checkbox"] {  /* 실제 체크박스는 화면에서 숨김 */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0
+}
+.checks input[type="checkbox"] + label {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  line-height: 20px;
+}
+
+.checks.etrans input[type="checkbox"]:checked + label {
+  font-weight: 400;
+}
+
+.checks input[type="checkbox"] + label:before {
+  content: ' ';
+  display: inline-block;
+  width: 18px; 
+  height: 18px; 
+  line-height: 20px;
+  margin: -2px 8px 0 0;
+  text-align: center; 
+  vertical-align: middle;
+  background: #fafafa;
+  border: 1px solid #cacece;
+  border-radius : 3px;
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+}
+.checks input[type="checkbox"] + label:active:before,
+.checks input[type="checkbox"]:checked + label:active:before {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.checks input[type="checkbox"]:checked + label:before {  
+  content: '\2714';
+  color: #99a1a7;
+  text-shadow: 1px 1px #fff;
+  background: #e9ecee;
+  border-color: #adb8c0;
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+}
+
+.checks.etrans input[type="checkbox"] + label {
+  padding-left: 30px; color: #444; font-size: 15px; font-weight: 300;
+}
+.checks.etrans input[type="checkbox"] + label:before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-top: 0;
+  opacity: .6;
+  box-shadow: none;
+  border-color: #ad863c;
+  -webkit-transition: all .12s, border-color .08s;
+  transition: all .12s, border-color .08s;
+}
+
+.checks.etrans input[type="checkbox"]:checked + label:before {
+  position: absolute;
+  content: "";
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border-radius: 0;
+  opacity:1; 
+  background: transparent;
+  border-color:transparent #ad863c #ad863c transparent;
+  border-top-color:transparent;
+  border-left-color:transparent;
+  -ms-transform:rotate(45deg);
+  -webkit-transform:rotate(45deg);
+  transform:rotate(45deg);
+}
+
+.no-csstransforms .checks.etrans input[type="checkbox"]:checked + label:before {
+  content: "\2714";
+  top: 0;
+  left: 0;
+  width: 21px;
+  line-height: 21px;
+  color: #ad863c;
+  text-align: center;
+  border: 1px solid #ad863c;
+}
+
+input[type="submit"] {font-size: 18px;}
+
+/*반응형 ----------------------------------------------------------------------------*/
+
+/*1200px*/
+@media screen and (max-width: 1200px) {
+    .box {padding-top: 100px;}
+    section.sub_wrap {width:100%;}
+    .inner_sub_wrap {width: 93%; margin: 0 auto;}
+}
+
+
+/*1024px*/
+@media screen and (max-width: 1024px) {
+    .box {padding-top: 100px;}
+	.find_id_btn {width: 100%;}
+}
+
+
+/*768px*/
+@media screen and (max-width: 768px) {
+    section.sub_wrap h1 {font-size: 35px;}
+    section.sub_wrap h2 {font-size: 24px; margin-bottom: 45px;}
+}
+
+/*414px*/
+@media screen and (max-width: 414px) {
+  .tab ul li  {height:50px; font-size: 15px; line-height: 50px;}
+    section.sub_wrap h6 {font-size: 15px;}
+    section.sub_wrap h1 {font-size: 30px;}
+
+    #phone {width: 60%;}
+    .check_btn {width: 39%; font-size: 15px;}
+}
+
+/*320px*/
+@media screen and (max-width: 320px) {
+    .gnb_mo_login a {font-size: 13px;}
+    section.sub_wrap h1 {font-size: 26px;}
+    #phone {width: 56%;}
+    .check_btn {width: 43%; font-size: 15px;}
+}

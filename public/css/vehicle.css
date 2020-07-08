@@ -56,7 +56,7 @@ section.sub_wrap h2 br {display: none;}
 
 /*section.sub_wrap 완료*/
 
-.sub_list {width: 100%; height: auto; margin: 0 auto; padding: 40px 35px; background: #f8f8f8;}
+.sub_list {width: 100%; height: auto; margin: 0 auto; padding: 40px 35px; background: #fafafa;}
 .sub_list ul {width: 100%; display: flex;} 
 .sub_list ul li {flex: 1; padding: 25px 30px 30px; margin-right: 15px; border: 1px solid #eee; background: #fff; border-radius: 12px; text-align: justify; font-size: 15px; box-shadow: 20px 20px 20px rgba(180,180,180,0.2);}
 .sub_list ul li:nth-child(4) {margin-right: 0;}

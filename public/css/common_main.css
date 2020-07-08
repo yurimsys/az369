@@ -56,7 +56,7 @@ section.sub_wrap h5 {font-size: 22px; font-weight: 300; text-align:center;}
 section.sub_wrap h5 span {font-weight: 500;}
 
 /* 소제목2 */
-section.sub_wrap h4 {font-size: 22px; font-weight: 300; margin-bottom: 20px;}
+section.sub_wrap h4 {font-size: 22px; font-weight: 300; margin-bottom: 35px; line-height: 1.6;}
 section.sub_wrap h4 span {font-weight: 500;}
 section.sub_wrap p { font-weight: 300;}
 section.sub_wrap p span {font-weight: 400;}
@@ -98,14 +98,15 @@ section.sub_wrap p span {font-weight: 400;}
 /*414px*/
 @media screen and (max-width: 414px) {
 
+    section.sub_wrap h6 {font-size: 15px;}
 	section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
     section.sub_wrap h1 {font-size: 30px;}
-    section.sub_wrap h2 {font-size: 22px; line-height: 1.5; margin-bottom: 40px;}
+    section.sub_wrap h2 {font-size: 22px; line-height: 1.5; margin-bottom: 30px;}
     section.sub_wrap h5 {font-size: 18px;}
-    section.sub_wrap h4 {font-size: 18px; width: 95%; text-align: justify;}
+    section.sub_wrap h4 {font-size: 18px; width: 93%; text-align: justify;}
 	
     .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
-    .sub_info h4 { width: 95%; margin: 0 auto; font-size: 16px;}
+    .sub_info h4 { width: 93%; margin: 0 auto; font-size: 16px;}
     .sub_info h3 {font-size: 18px; width: 90%; margin: 0 auto; margin-bottom: 20px; letter-spacing: -0.35px;}
 }
 

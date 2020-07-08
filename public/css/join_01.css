@@ -1,59 +1,4 @@
 @charset "UTF-8";
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
-@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
-
-/*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
-h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
-a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
-img {vertical-align: middle;}
-a img {border: none;}
-li {list-style: none;}
-address, em, i {font-style: normal;}
-p {text-align: justify; font-family: inherit; font-size: 16px;}
-
-.wrap {
-    width: 100%;
-    margin: 0 auto;
-    height: auto;
-}
-
-/*select_bus_list 스크롤 css*/
-.join_agreement::-webkit-scrollbar {width: 3px; height: 20px;}
-.join_agreement::-webkit-scrollbar-track {background-color: #eee;}
-.join_agreement::-webkit-scrollbar-button {display: none;}
-.join_agreement::-webkit-scrollbar-thumb {background-color: #999;}
-
-
-/*section.sub_wrap 시작*/
-section.sub_wrap {
-    width: 1200px;
-    margin: 0 auto;
-    margin-bottom: 90px;
-    color: #333;
-	overflow: hidden;
-}
-
-section.sub_wrap .bar {
-    border-bottom: 2px solid #c3a164; 
-    width: 30px; 
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 50px;
-}
-
-section.sub_wrap h6 {text-align: center; color: #C3A164;  padding-top: 50px; font-weight: 500; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
-
-section.sub_wrap h1 {
-    text-align: center;
-    font-size: 45px;
-    margin-top: -1%;
-	font-family: 'PT Serif', serif;
-	font-weight: normal;
-}
-
-.box {position: relative; padding-top: 120px; overflow: hidden;}
 
 /*join_box*/
 .join_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; padding: 4% 5%; height: auto;animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; overflow: hidden; }
@@ -73,214 +18,49 @@ section.sub_wrap h1 {
 .join_box h3 span {color: #c3a164;}
 
 /*동의서 지문 내부*/
-.join_agreement {width: 100%; margin: 0 auto; height: 130px; overflow: scroll; background: #fafafa; overflow-x: hidden; margin-bottom: 50px; padding: 10px 20px;}
-.agreement_tit ul li {float: left;}
+.join_agreement {width: 100%; margin: 0 auto; height: 130px; overflow: scroll; background: #fafafa; overflow-x: hidden; margin-bottom: 40px; padding: 10px 20px;}
+.agreement_tit ul {width: 100%;  height: 30px; overflow:hidden; margin-bottom: 10px;}
+.agreement_tit ul li {float: left;  position: relative;}
 .agreement_tit ul li:nth-child(2) {float: right;}
 .join_agreement strong {font-size: 16px; color: #444; font-weight: 500;}
 .join_agreement h5 {color: #444; font-size: 14px; font-weight: 400;}
 .join_agreement p {color: #666; font-size: 14px;  font-weight: 300;}
-
-/*동의 라디오버튼*/
-.etrans {font-size: 16px;}
-.checks {position: relative;}
-.checks input[type="checkbox"] {  /* 실제 체크박스는 화면에서 숨김 */
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip:rect(0,0,0,0);
-  border: 0;
-}
-.checks input[type="checkbox"] + label {
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  font-size: 16px;
-  line-height: 21px;
-  font-weight: 300;
-}
-.checks input[type="checkbox"] + label:before {  /* 가짜 체크박스 */
-  content: ' ';
-  display: inline-block;
-  width: 21px;  /* 체크박스의 너비를 지정 */
-  height: 21px;  /* 체크박스의 높이를 지정 */
-  line-height: 21px; /* 세로정렬을 위해 높이값과 일치 */
-  margin: -2px 8px 0 0;
-  text-align: center; 
-  vertical-align: middle;
-  background: #fafafa;
-  border: 1px solid #cacece;
-  border-radius : 3px;
-  box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
-}
-.checks input[type="checkbox"] + label:active:before,
-.checks input[type="checkbox"]:checked + label:active:before {
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
-}
-
-.checks input[type="checkbox"]:checked + label:before {  /* 체크박스를 체크했을때 */ 
-  content: '\2714';  /* 체크표시 유니코드 사용 */
-  color: #99a1a7;
-  text-shadow: 1px 1px #fff;
-  background: #e9ecee;
-  border-color: #adb8c0;
-  box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
-}
-
-.checks.etrans input[type="checkbox"] + label {
-  padding-left: 30px;
-}
-.checks.etrans input[type="checkbox"] + label:before {
-  position: absolute;
-  left: 0;
-  top: 0;
-  margin-top: 0;
-  opacity: .6;
-  box-shadow: none;
-  border-color: #ad863c;
-  -webkit-transition: all .12s, border-color .08s;
-  transition: all .12s, border-color .08s;
-}
-
-.checks.etrans input[type="checkbox"]:checked + label:before {
-  position: absolute;
-  content: "";
-  width: 10px;
-  top: -5px;
-  left: 5px;
-  border-radius: 0;
-  opacity:1; 
-  background: transparent;
-  border-color:transparent #ad863c #ad863c transparent;
-  border-top-color:transparent;
-  border-left-color:transparent;
-  -ms-transform:rotate(45deg);
-  -webkit-transform:rotate(45deg);
-  transform:rotate(45deg);
-}
-
-.checks.etrans input[type="checkbox"]:checked + label {
-  font-weight: 500;
-}
-
-.no-csstransforms .checks.etrans input[type="checkbox"]:checked + label:before {
-  /*content:"\2713";*/
-  content: "\2714";
-  top: 0;
-  left: 0;
-  width: 21px;
-  line-height: 21px;
-  color: #ad863c;
-  text-align: center;
-  border: 1px solid #ad863c;
-}
-
 .check_all_btn {text-align: center; padding: 15px 0; border: 1px solid #eee; color: #222; font-weight: 400; border-radius: 4px;}
 
 /*하단 버튼*/
-.join_btn {width: 60%; margin: 0 auto; margin-top:40px;}
+.join_btn {width: 50%; margin: 0 auto; margin-top:40px;}
 .join_btn ul li {float: left; width: 49%; margin-right: 1%; text-align: center; height: 50px; line-height: 50px;}
 .join_btn ul li:nth-child(2) {margin-right: 0;}
-.back {border: 1px solid #ddd;}
-.next{background: #C3A164; border: 1px solid #C3A164; color: #fff;}
 
 /*section.sub_wrap 완료*/
 
 
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
-
-
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-
 /*반응형*/
 
-/*1200px*/
-@media screen and (max-width: 1200px) {
-    
-   /*main*/
-    section.main {width: 100%;}
-    section.main .inner_main {width: 100%;}
-
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    .inner_sub_wrap {width: 95%; margin: 0 auto;}
-}
-
-
 /*1024px*/
-@media screen and (max-width: 1024px) {
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    .box {padding-top: 7%;}
-    
-    /*하단 버튼*/
-    .join_btn {width: 70%;}
+@media screen and (max-width: 1024px) {    
+    .join_btn {width: 50%;}
 }
 
 
 /*768px*/
 @media screen and (max-width: 768px) {
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    section.sub_wrap h1 {font-size: 35px;}
-    .box {padding-top: 9.5%;}
     .join_btn {width: 100%;}
+    .join_box {padding: 5%;}
 }
 
 
 /*414px*/
 @media screen and (max-width: 414px) {
-    
-    .box {padding-top: 20%;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h1 {font-size: 30px; margin-bottom: 3%;}
-     section.sub_wrap h2 {font-size: 20px;  line-height: 1.5; text-align: center;}
-     section.sub_wrap h6 {padding-top: 4%;}
-     section.sub_wrap .bar {display: none;}
 
+    .join_box {padding: 8% 5%;}
     .join_box h3 {font-size: 15px; color: #444; margin-bottom: 7px;}
-    .check_btn{color: #666;}
+    .check_btn{color: #999;}
     .checks input[type="checkbox"] + label:before {width: 18px; height: 18px; }
     .checks.etrans input[type="checkbox"] + label {font-size: 14px;}
-    
     .join_box .join_process {font-size: 14px;}
-    .check_all_btn {margin-top: 5%; font-size: 14px; margin-top: 5%;} 
-    
-    .join_btn {width: 100%; margin-top: 8%;}
-    .join_btn ul li {height: 40px; line-height: 40px; }
+    .join_btn ul li {height: 45px; line-height: 45px; }
     .agreement_tit {margin-top: 35px;}
-
 }
 
 /*320px*/
@@ -288,6 +68,7 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap h1 {font-size: 24px;}
+    section.sub_wrap h2 {font-size: 20px; margin-bottom: 10px;}
     section.sub_wrap p {margin-bottom: 5%;}
     .join_agreement strong {font-size: 14px;}
     .check_all_btn {padding: 4% 0;}

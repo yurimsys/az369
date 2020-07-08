@@ -1,168 +1,42 @@
 @charset "UTF-8";
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
-@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
-
-
-/*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
-h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
-a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
-img {vertical-align: middle;}
-a img {border: none;}
-li {list-style: none;}
-address, em, i {font-style: normal;}
-p {text-align: justify; font-family: inherit; font-size: 16px;}
-
-.wrap {
-    width: 100%;
-    margin: 0 auto;
-    height: auto;
-}
-
-/*section.sub_wrap 시작*/
-section.sub_wrap {
-    width: 1200px;
-    margin: 0 auto;
-	overflow: hidden;
-}
-
-section.sub_wrap .bar {
-    border-bottom: 2px solid #c3a164; 
-    width: 30px; 
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 50px;
-}
-
-.box {position: relative; padding-top: 120px; overflow: hidden;}
-
-section.sub_wrap h6 {text-align: center; color: #C3A164;  font-weight: 500; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
-
-section.sub_wrap h1 {
-    text-align: center;
-    font-size: 45px;
-    margin-top: -1%;
-	font-family: 'PT Serif', serif;
-	font-weight: normal;
-}
 
 .find_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee;}
 
 .find_box_inner p span {font-weight: 500;}
 
-.find_box .tab {width: 100%;}
-.find_box .tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: bold;}
+.tab {width: 100%;}
+.tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: bold;}
 
 .find_box_inner {width: 100%; padding: 6% 24%; margin: 0 auto; text-align: center; overflow: hidden; }
 .find_box_inner h3 {font-size: 20px; margin-top: 25px; font-weight: 500;}
 .find_box_inner h3 span {color:#C3A164;}
 .find_box_inner h3 br {display: none;}
-.find_box_inner p {text-align: center; font-weight: 300; font-size: 15px;}
+.find_box_inner p {text-align: center; font-weight: 300;}
 
-.login_btn {width: 70%; margin: 0 auto; margin-top: 40px; height: 50px; color: #fff; line-height: 50px; background: #C3A164; border-radius: 4px; font-weight: 500;}
+.login_btn {width: 50%; margin: 0 auto; margin-top: 40px;}
 
 .find_img img {width: 12%; margin: 3% 0 2%;}
-
-
-
 /*section.sub_wrap 완료*/
 
-
-
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-
 /*반응형*/
-
-/*1200px*/
-@media screen and (max-width: 1200px) {
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    .inner_sub_wrap {width: 95%; margin: 0 auto;}
-    .tnb {width: 100%;}
-}
-
-
-/*1024px*/
-@media screen and (max-width: 1024px) {
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    .box {padding-top: 7%;}
-}
-
-
 /*768px*/
 @media screen and (max-width: 768px) {
-    
-    .box {padding-top: 9.5%;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    section.sub_wrap h1 {font-size: 35px;}
-    section.sub_warp .bar {display: none;}
-    
-    .find_box_inner {margin: 0 auto; padding: 5% 12%;}
-    .find_pw_btn {width: 100%;}
+    .find_box_inner {margin: 0 auto; padding: 6% 8%;}
+    .login_btn {margin-top: 30px;}
+    .find_img img {width: 14%;}
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
-    
-    .box {padding-top: 20%;}
-    
-    .find_box .tab ul li {height: 50px; font-size: 16px; line-height: 50px;}
-
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h6 {padding-top: 35px; margin-bottom: -2.5%;}
-    section.sub_wrap h1 {font-size: 30px; margin-bottom: 2%;}
-    section.sub_wrap .bar {display: none;}
-    .find_pw_btn {width: 100%; margin-top: 10%; font-size: 16px;}
-    .find_box_inner {margin: 0 auto; padding: 10% 5%;}
-    section.sub_wrap h2 {font-size: 18px;  line-height: 1.5; text-align: center; color: #555;}
-    .find_box_inner h3 {font-size: 22px; margin-top: 4%; line-height: 1.6;}
+    .find_box_inner {margin: 0 auto; padding:12% 5% 10%;}
+    .find_box_inner h3 {font-size: 22px; margin-top: 15px; line-height: 1.6;}
 	.find_box_inner h3 br {display: block;}
     .find_box p {font-size: 15px; margin-top: 4px;}
-    .find_box .tnb ul li {font-size: 16px; color: #555;}
-	
-	.find_img img {width: 14%;}
-    
-    .login_btn {width: 100%; height: 40px; line-height: 40px; margin-top: 8%;}
+    .login_btn {width: 100%; margin-top: 40px; height: 45px; line-height: 45px;}
+    .find_box_inner p {font-size: 15px;}
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
-    
-    .find_box .tab ul li {height: 40px; font-size: 15px; line-height: 40px;}
-    
-    /*section.sub_wrap*/
-    
-    section.sub_wrap h1 {font-size: 24px; margin-bottom: 5%;}
-	
-    .find_box .tnb ul li {font-size: 15px;}
-	.find_box_inner h3 {font-size: 18px;}
 	.find_box_inner p {font-size: 15px; line-height: 1.6; margin-top: 10px;}
-    
-    .login_btn { font-size: 15px; margin-top: 10%;}
-
 }
