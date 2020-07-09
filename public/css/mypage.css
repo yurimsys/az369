@@ -27,7 +27,7 @@
 /* 상단 */
 .tabcontent {width: 100%; display: none; overflow: hidden;z-index: 1000;}
 .tabcontent h4 {font-size: 22px; font-weight:500; text-align: center;}
-.tabcontent p {color: #999; margin-bottom: 15px; font-size: 15px; text-align: center; font-weight: 300;}
+.tabcontent p {color: #999; margin-bottom: 15px; font-size: 14px; text-align: center; font-weight: 300;}
 /* .logout {width: 85%; background: #fafafa;text-align: center; height: 45px; line-height: 45px; transition: all 0.3s; bottom: 0; margin-bottom: 10%; position: absolute; border-radius: 4px;} */
 .logout {position: absolute; bottom: 20px; width: calc(100% - 60px);} 
 .logout:hover { background: #ddd;}
@@ -68,12 +68,6 @@
 
 
 /*tab 02 - 예매 및 결제내역*/
-.list02,
-.list03 {background: #fff; height:440px; overflow-y: scroll; border-top: 1px solid #eee; background: #fafafa;
-position: relative; width: 100%; }
-
-tr.canceled td {background: #eee; border: none; color: #999; text-decoration: line-through;}
-p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 
 #ui-datepicker-div{
  top:-999px; 
@@ -138,6 +132,11 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 .table_tit3 ul li:nth-child(4) {width: 10%;}
 .table_tit3 ul li:nth-child(5) {width: 17%;}
 .table_tit3 ul li:nth-child(6) {width:  17%;} */
+.list02,
+.list03 {background: #fff; height:440px; overflow-y: scroll; border-top: 1px solid #eee; position: relative; width: 100%; }
+
+tr.canceled td {background: #eee; border: none; color: #999; text-decoration: line-through;}
+p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 
 
 .table {
@@ -147,7 +146,7 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 }
 
 .table th {
-    color: #444;
+    color: #222;
     background: #fff;
     text-align: center;
     height: 45px;

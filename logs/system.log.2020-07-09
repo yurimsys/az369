@@ -2158,3 +2158,6 @@
 =======
 >>>>>>> a4dcf82b2dae5b1f56d616cfc991d9f022e7a4a4
 >>>>>>> b8a54ef98e06dd441798fe40e4a90c19aed50d3d
+{"message":"::1 - - [09/Jul/2020:09:23:22 +0000] \"GET /mypage HTTP/1.1\" 302 56 \"http://localhost:8001/mypage\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\"\n","level":"info"}
+{"message":"::1 - - [09/Jul/2020:09:23:22 +0000] \"GET /login HTTP/1.1\" 200 11550 \"http://localhost:8001/mypage\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\"\n","level":"info"}
+{"message":"::1 - - [09/Jul/2020:09:23:23 +0000] \"GET /mypage HTTP/1.1\" 302 56 \"http://localhost:8001/mypage\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\"\n","level":"info"}
