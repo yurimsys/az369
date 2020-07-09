@@ -27,7 +27,7 @@
 /* 상단 */
 .tabcontent {width: 100%; display: none; overflow: hidden;z-index: 1000;}
 .tabcontent h4 {font-size: 22px; font-weight:500; text-align: center;}
-.tabcontent p {color: #444; margin-bottom: 15px; font-size: 15px; text-align: center; font-weight: 300;}
+.tabcontent p {color: #999; margin-bottom: 15px; font-size: 15px; text-align: center; font-weight: 300;}
 /* .logout {width: 85%; background: #fafafa;text-align: center; height: 45px; line-height: 45px; transition: all 0.3s; bottom: 0; margin-bottom: 10%; position: absolute; border-radius: 4px;} */
 .logout {position: absolute; bottom: 20px; width: calc(100% - 60px);} 
 .logout:hover { background: #ddd;}
@@ -68,43 +68,23 @@
 
 
 /*tab 02 - 예매 및 결제내역*/
-
-
 .list02,
-.list03 {width: 100%; height: 450px; background: #fff; overflow: scroll; overflow-x: hidden;/* border: 1px solid #eee;*/ background: #fcfcfc; border-top: 1px solid #444;}
+.list03 {background: #fff;border-top: 1px solid #eee; background: #fafafa;}
+
+.list_inner {width:100%; height: 440px; overflow: scroll;}
 
 tr.canceled td {background: #eee; border: none; color: #999; text-decoration: line-through;}
 p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 
-/* input{
-    line-height: 30px;
-    margin: 0;
-    padding: 0;
-    padding-left: 5px;
-    padding-right: 5px;
-    width: 190px;
-}  */
-/* button{
-  clear: both;
-  display: block;  
-  line-height: 40px;
-  background-color: #eee;  
-  color: #333;
-  border: 1px solid #666;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 4px;
-} */
 #ui-datepicker-div{
  top:-999px; 
  border: 0;
  font-size: 14px;
 }
-.ui-datepicker-header{font-size: 13px;}
-
+.ui-datepicker-header{font-size: 14px;}
 .ui-datepicker-calendar{
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #eee;
 }
 
         
@@ -137,7 +117,7 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 
 
 /*두번째 테이블 타이틀 간격*/
-.table_tit2 {border: none; border-top: 1px solid #eee; text-align: center; background: #f8f8f8; height: 50px; line-height: 50px; width: 100%;}
+/* .table_tit2 {border: none; border-top: 1px solid #eee; text-align: center; background: #f8f8f8; height: 50px; line-height: 50px; width: 100%;}
 .table_tit2 ul {width: 100%;}
 .table_tit2 ul li {float: left;}
 .table_tit2 ul li:nth-child(1) {width: 16%;}
@@ -145,12 +125,12 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 .table_tit2 ul li:nth-child(3) {width: 22%;}
 .table_tit2 ul li:nth-child(4) {width: 10%;}
 .table_tit2 ul li:nth-child(5) {width: 16%;}
-.table_tit2 ul li:nth-child(6) {width: 16%;}
+.table_tit2 ul li:nth-child(6) {width: 16%;} */
 
 
 
 /*세번째 테이블 타이틀 간격*/
-.table_tit3 {border: none; border-top: 1px solid #eee; text-align: center; background: #f8f8f8; height: 50px; line-height: 50px; width: 100%; }
+/* .table_tit3 {border: none; border-top: 1px solid #eee; text-align: center; background: #f8f8f8; height: 50px; line-height: 50px; width: 100%; }
 .table_tit3 ul {width: 100%;}
 .table_tit3 ul li {float: left; position: relative;}
 .table_tit3 ul li:nth-child(1) {width: 17%;}
@@ -158,7 +138,7 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 .table_tit3 ul li:nth-child(3) {width: 17%;}
 .table_tit3 ul li:nth-child(4) {width: 10%;}
 .table_tit3 ul li:nth-child(5) {width: 17%;}
-.table_tit3 ul li:nth-child(6) {width:  17%;}
+.table_tit3 ul li:nth-child(6) {width:  17%;} */
 
 
 .table {
@@ -170,24 +150,28 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 
 .table th {
     color: #444;
-    background: #f8f8f8;
+    background: #fff;
     text-align: center;
-    padding: 10px 5px;
-    font-weight: 500;
-    border-top: 1px solid #eee;
+    height: 45px;
+    line-height: 45px;
+    font-weight: 400;
+    
+    border-bottom: 1px solid #dbdbdb;
+    font-size: 15px;
 }
 
 .table td {
     font-size: 15px;
     background: #fff;
-    color: #666;
+    color: #444;
+    font-weight: 300;
+    border: 1px solid #f2f2f2;
+     text-align: center;
+     padding: 8px 0;
+     background: #fafafa;
 }
+/* .table tr:hover {background: #fff;} */
 
-.table td {
-    padding: 10px 5px;
-    border: 1px solid #eee;
-    text-align: center;
-}
 
 .table th:first-child,
 .table td:first-child {
@@ -382,7 +366,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .mypage_right {width: 100%; margin-top: 1%;}
     .reserve_bar ul li {float: left;}
     
-    .list02, .list03 {height: 250px; overflow: scroll; overflow-x: hidden;}
+    .list02, .list03 {height: 220px; overflow-x: hidden;}
 
 
     .logout_mo {display: block; width: 100%; height: 50px; line-height: 50px; background: #eee; overflow: hidden; color: #888; text-align: center; margin-top: 7%;}
@@ -476,7 +460,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .dl3 dd span {color: #888;}
     
     .list02 {display: none;}
-    .list02_mo {display: block; width: 100%; height: 250px; font-size: 13px; overflow: scroll; overflow-x: hidden;}
+    .list02_mo {display: block; width: 100%; height: 250px; font-size: 13px;; overflow-x: hidden;}
     .popup_open2 {width: 100%;}
     .popup_open2 ul li {float: left; text-align: justify;}
     .popup_open2 ul li:nth-child(1) {width: 37%; color: #222; font-weight: 500;}
@@ -486,7 +470,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .list02_mo_list {padding: 0 5%; height: 50px; line-height: 50px;  border: 1px solid #eee;}
     
     .list03 {display: none;}
-    .list03_mo {display: block; width: 100%; height: 250px; font-size: 13px; overflow: scroll;  overflow-x: hidden;}
+    .list03_mo {display: block; width: 100%; height: 250px; font-size: 13px; overflow-x: hidden;}
     .popup_open3 ul li {float: left; text-align: justify;}
     .popup_open3 ul li:nth-child(1) {width: 37%; color: #222; font-weight: 500;}
     .popup_open3 ul li:nth-child(2) {width: 33%; color: #222; font-weight: 300;}
