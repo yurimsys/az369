@@ -19,6 +19,7 @@ $(document).ready(function(){
             for(let i=0; i<res.data.length; i++){
                 let html = "<option class='goodTest' id="+"lvOne"+res.data[i].BCR_LV1_BC_ID+" value="+res.data[i].BCR_LV1_BC_ID+">"+res.data[i].BC_NameKor+"</option>";
                 $('#lv1_category').append(html)
+                $('#search_lv1_category').append(html)
             }
         }
     })
@@ -57,18 +58,15 @@ let objectInfo = function (mode = "modify", row_data) {
         ad_duration_final_instance = $(".object-info .ad_duration_final").dxDateBox("instance");
 
     if( mode === "new"){
+        if($('.brand_info').css('display') == 'none'){
+            folding();
+        }
+        
         action_btns_instance.removeClass('action-modify');
         action_btns_instance.addClass('action-new');
         
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-modify, .btn-delete').addClass('disabled');
-        // todo : object reset
-        // $('.object-info #ad_id').text("");
-        // $('.object-info .ad_content_url').text("");
-        // $(".object-info .inputAdFiles").val('');
-        // $(".object-info .inputAdTitle").val('');
-        // $(".object-info .select2").val(null).trigger('change');
-
 
         $('#login_id').val('');
         $('#login_pw').val('');
@@ -95,14 +93,14 @@ let objectInfo = function (mode = "modify", row_data) {
         $('#break_close').val('');
         $('#personal_day_ko').val('');
         $('#personal_day_en').val('');
-
+        $('#img_url').text('');
+        $('#tumb_url').text('');
 
         // ad_duration_start_instance.reset();
         // ad_duration_final_instance.reset();
 
         sessionStorage.removeItem('row_data');
     } else if( mode === "modify"){
-        console.log(row_data);
         action_btns_instance.removeClass('action-new');
         action_btns_instance.addClass('action-modify');
         
@@ -182,22 +180,33 @@ let tableInit = function (data) {
             
             selectedActionBtns.css('display', (isSelected) ? "flex" : "none");
             selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
-            console.log('셀렉트');
         },
         onCellClick : function(e){
             console.log('cell click'.e);
         },
         // onCellHoverChanged : function(e){
-        //     // setTimeout(2000,console.log('ID :', e.value))
+            
+        //     if(e.rowType == 'data'){
+                
+        //         let testC = e.cellElement.parent()[0]
+        //         console.log(testC);
+        //         $(testC).addClass('data_hover')
+                
+        //     }
         //     setTimeout(() => {
         //         if(e.columnIndex == 1){
-        //             console.log('ID :', e.value);
+        //             console.log('ID :', e);
 
                     
         //         }
         //     }, 2000);
         //     // console.log('ID :', e);
+        //     // setTimeout(2000,$(testC).removeClass('data_hover'));
         // },
+
+        onRowHoverChanged : function(e){
+            console.log('성공?');
+        },
 
         onRowClick : function(e) {
             console.log('row click', e.data);
@@ -233,7 +242,9 @@ let tableInit = function (data) {
             row_data.personal_day_en = e.data.BS_PersonalDayEng;
             row_data.img_url = e.data.BS_ImageUrl;
             row_data.tumb_url = e.data.BS_ThumbnailUrl;
-
+            if($('.brand_info').css('display') == 'none'){
+                folding();
+            }
             objectInfo("modify", row_data);
         },
         headerFilter: {
@@ -264,8 +275,8 @@ let tableInit = function (data) {
             { dataField: "BS_LoginID", caption: "아이디"},
             { dataField: "BS_LoginPW", caption: "비밀번호"},
             { dataField: "BS_CEO", caption: "대표자명"},
-            { dataField: "BS_NameKor", caption: "브랜드명"},
-            { dataField: "BS_NameEng", caption: "브랜드명 영문"},
+            { dataField: "BS_NameKor", caption: "매장명"},
+            { dataField: "BS_NameEng", caption: "매장명 영문"},
             { dataField: "BS_ContentsKor", caption: "매장 소개"},
             { dataField: "BS_ContentsEng", caption: "매장 소개 영문"},
             { dataField: "BS_CEOPhone", caption: "CEO 번호"},
@@ -364,11 +375,11 @@ $(document).ready(()=>{
 
 // 검색창 초기화
 function resetSearch() {
-    $(".select2").val(null).trigger('change');
-    let ad_duration_start_instance = $(".object-search-popup .ad_duration_start").dxDateBox("instance"),
-    ad_duration_final_instance = $(".object-search-popup .ad_duration_final").dxDateBox("instance");
-    ad_duration_start_instance.reset();
-    ad_duration_final_instance.reset();
+    // $(".select2").val(null).trigger('change');
+    // let ad_duration_start_instance = $(".object-search-popup .ad_duration_start").dxDateBox("instance"),
+    // ad_duration_final_instance = $(".object-search-popup .ad_duration_final").dxDateBox("instance");
+    // ad_duration_start_instance.reset();
+    // ad_duration_final_instance.reset();
 }
 
 
@@ -523,38 +534,75 @@ $(".action-btns .btn").click(clickActionBtn);
 // 상세 검색 버튼 기능
 // 초기화
 function searchPopupReset(){
-    $("#object-search-popup .select2").val(null).trigger('change');
-    let ad_duration_start_instance = $("#object-search-popup .ad_duration_start").dxDateBox("instance"),
-    ad_duration_final_instance = $("#object-search-popup .ad_duration_final").dxDateBox("instance");
-    ad_duration_start_instance.reset();
-    ad_duration_final_instance.reset();
-    $("#object-search-popup .inputAdTitle").val('');
+    // $("#object-search-popup .select2").val(null).trigger('change');
+    // let ad_duration_start_instance = $("#object-search-popup .ad_duration_start").dxDateBox("instance"),
+    // ad_duration_final_instance = $("#object-search-popup .ad_duration_final").dxDateBox("instance");
+    // ad_duration_start_instance.reset();
+    // ad_duration_final_instance.reset();
+    // $("#object-search-popup .inputAdTitle").val('');
+    $('#search_login_id').val('');
+    $('#search_login_pw').val('');
+    $('#search_ceo_name').val('');
+    $('#search_ceo_phone').val('');
+    $("#search_lv1_category").val('null');
+    $("#search_lv2_category").val('null');
+    $('#search_floor').val('null');
+    $('#search_store_number').val('null');
+    $('#search_brand_ko').val('');
+    $('#search_brand_contents_ko').val('');
+    $('#search_brand_contents_en').val('');
+    $('#search_brand_phone').val('');
+    $('#search_address').val('');
+    $('#search_detailAddress').val('');
+    $('#search_main_open').val('');
+    $('#search_main_close').val('');
+    $('#search_sub_open').val('');
+    $('#search_sub_close').val('');
+    $('#search_break_open').val('');
+    $('#search_break_close').val('');
+    $('#search_personal_day_ko').val('');
 }
 // 닫기
 function searchPopupClose() {
     $("#object-search-popup").hide();
-}
+}0
 function searchPopupShow() {
     $('#object-search-popup').css('left','430px')
     $('#object-search-popup').css('top','300px')
     $("#object-search-popup").show();
 }
+
 // 검색
 function searchPopupAction() {
+    
     let condition_data = {
         searchType : $("#object_search_info #searchType").is(":checked"),
-        adBsId : $("#object_search_info .selectBrand").val(),
-        adAdyId : $("#object_search_info .selectAdType").val(),
-        adBcId : $("#object_search_info .selectAdCategory").val(),
-        adTitle : $("#object_search_info .inputAdTitle").val(),
-        adDtS : $("#object_search_info .ad_duration_start").dxDateBox("instance").option().value,
-        adDtF : $("#object_search_info .ad_duration_final").dxDateBox("instance").option().value
+        bsLoginId : $("#search_login_id").val(),
+        bsCeo : $("#search_ceo_name").val(),
+        bsCeoPhone : $('#search_ceo_phone').val(),
+        bsBcId : $("#search_lv1_category").val(),
+        bsBcId2 : $("#search_lv2_category").val(),
+        bsStoreNumber : $('#search_store_number').val(),
+        bsFloor : $('#search_floor').val(),
+        bsNameKo : $('#search_brand_ko').val(),
+        bsContentsKo : $('#search_brand_contents_ko').val(),
+        bsPhone : $('#search_brand_phone').val(),
+        bsAddr1Ko : $('#search_address').val(), 
+        bsAddr2Ko : $('#search_detailAddress').val(),
+        bsMainOpen : $('#search_main_open').val(),
+        bsMainClose : $('#search_main_close').val(),
+        bsSubOpen : $('#search_sub_open').val(),
+        bsSubClose : $('#search_sub_close').val(),
+        bsBreakOpen : $('#search_break_open').val(),
+        bsBreakClose : $('#search_break_close').val(),
+        bsPersonalKo : $('#search_personal_day_ko').val(),
+        
     };
-
+    console.log(condition_data);
     $.ajax({
         type : "GET",
         dataType : 'JSON',
-        url : '/api/ad',
+        url : '/api/brandListOverLap?type=admin',
         data : condition_data,
         success : function (res) {
             
@@ -568,13 +616,9 @@ function searchPopupAction() {
 //상세정보 토글
 
 function folding(){
-    console.log($('#folding').text());
-    if($('#folding').text() == 'ㅡ'){
-        $('#folding').text('+')
-    }else{
-        $('#folding').text('ㅡ')
-    }
     $('#object_detail_group').slideToggle('fast')
+    
+    
 }
 
 //대분류 카테고리
@@ -592,12 +636,6 @@ function LV1Cat(e){
             jsonCatLV2 = searchCatLV2[i]
             resultCatLV2.push(jsonCatLV2)
             for(let j=0; j<resultCatLV2.length; j++){
-                // let html = "<div onclick='LV2Cat(this)' id="+"lvTwo"+resultCatLV2[j].BC_ID+">";
-                //     html += "<input type='radio' id="+"lv2"+resultCatLV2[j].BC_ID+" name='catLv2' value="+resultCatLV2[j].BC_ID+">"
-                //     html += "<label for="+"lv2"+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</label>"
-                //     html += "</div>"
-                // $('#LV2Cat').append(html);
-
                 let html = "<option id="+"lvTwo"+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</option>";
                 $('#lv2_category').append(html)
 
@@ -607,36 +645,76 @@ function LV1Cat(e){
 }
 
 //대분류 선택시 중분류 리스트
-$('#lv1_category').click(function () {
+$('#lv1_category, #search_lv1_category').click(function (event) {
     let searchCatLV2 = JSON.parse(localStorage.getItem('catLV2'))    
-    $('.midCat').remove();
-    let catLv1Id = $("#lv1_category option:selected").attr('id').replace(/lvOne/,'')
-    for(let i=0; i<searchCatLV2.length; i++){
-        // console.log(searchCatLV2)
-        if(searchCatLV2[i].BCR_LV1_BC_ID == catLv1Id){
-            let resultCatLV2 = new Array();
-            let jsonCatLV2 = new Object();
-            jsonCatLV2 = searchCatLV2[i]
-            resultCatLV2.push(jsonCatLV2)
-            for(let j=0; j<resultCatLV2.length; j++){
-                let html = "<option class='midCat' id="+"lvTwo"+resultCatLV2[j].BC_ID+" value="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</option>";
-                $('#lv2_category').append(html)
+
+    if(event.target.id == 'lv1_category'){
+        $('.midCat').remove();
+        let catLv1Id = $("#lv1_category option:selected").attr('id').replace(/lvOne/,'')
+        for(let i=0; i<searchCatLV2.length; i++){
+            if(searchCatLV2[i].BCR_LV1_BC_ID == catLv1Id){
+                let resultCatLV2 = new Array();
+                let jsonCatLV2 = new Object();
+                jsonCatLV2 = searchCatLV2[i]
+                resultCatLV2.push(jsonCatLV2)
+                for(let j=0; j<resultCatLV2.length; j++){
+                    let html = "<option class='midCat' id="+"lvTwo"+resultCatLV2[j].BC_ID+" value="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</option>";
+                    $('#lv2_category').append(html)
+                }
+            }
+        }
+    }else{
+        $('.search_midCat').remove();
+        let catLv1Id = $("#search_lv1_category option:selected").attr('id').replace(/lvOne/,'')
+        for(let i=0; i<searchCatLV2.length; i++){
+            if(searchCatLV2[i].BCR_LV1_BC_ID == catLv1Id){
+                
+                let resultCatLV2 = new Array();
+                let jsonCatLV2 = new Object();
+                jsonCatLV2 = searchCatLV2[i]
+                resultCatLV2.push(jsonCatLV2)
+                for(let j=0; j<resultCatLV2.length; j++){
+                    let html = "<option class='search_midCat' id="+"lvTwo"+resultCatLV2[j].BC_ID+" value="+resultCatLV2[j].BC_ID+">"+resultCatLV2[j].BC_NameKor+"</option>";
+                    $('#search_lv2_category').append(html)
+                }
             }
         }
     }
+
 })
 
 //층수 선택
-$('#floor').click(function(){
-    let floor_id = $("#floor option:selected").attr('id')
-    $('.storeNumber').remove();
+$('#floor, #search_floor').click(function(event){
     let floorStatus = JSON.parse(localStorage.getItem('floor'))
-    console.log(floor_id,'아이디');
-    for(let i=0; i<floorStatus.length; i++){
-        if(floorStatus[i].LS_Floor == floor_id){
-            let html = "<option class='storeNumber' id="+"floor"+floorStatus[i].LS_Number+">"+floorStatus[i].LS_Number+"</option>";
-            $('#store_number').append(html)
 
+    if(event.target.id == 'floor'){
+        let floor_id = $("#floor option:selected").attr('id')
+        $('.storeNumber').remove();
+        
+        for(let i=0; i<floorStatus.length; i++){
+            if(floorStatus[i].LS_Floor == floor_id){
+                let html = "<option class='storeNumber' id="+"floor"+floorStatus[i].LS_Number+">"+floorStatus[i].LS_Number+"</option>";
+                $('#store_number').append(html)
+                $('#search_store_number').append(html)
+    
+            }
+        }
+    }else{
+        let floor_id = $("#search_floor option:selected").attr('id')
+        $('.search_storeNumber').remove();
+        
+        for(let i=0; i<floorStatus.length; i++){
+            if(floorStatus[i].LS_Floor == floor_id){
+                let html = "<option class='search_storeNumber' id="+"floor"+floorStatus[i].LS_Number+">"+floorStatus[i].LS_Number+"</option>";
+                $('#search_store_number').append(html)
+            }
         }
     }
+
+
+
 })
+
+$(function() {
+    $('.timepicker').timepicker();
+});

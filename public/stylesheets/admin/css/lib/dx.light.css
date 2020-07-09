@@ -4331,10 +4331,10 @@
   .dx-datebox input[type=date] {
     line-height: normal;
   }
-  .dx-datebox.dx-auto-width .dx-texteditor-input,
+  /* .dx-datebox.dx-auto-width .dx-texteditor-input,
   .dx-datebox:not(.dx-texteditor-empty).dx-auto-width .dx-texteditor-input {
     padding-right: 26px;
-  }
+  } */
   .dx-datebox.dx-auto-width.dx-rtl .dx-texteditor-input,
   .dx-datebox:not(.dx-texteditor-empty).dx-auto-width.dx-rtl .dx-texteditor-input {
     padding-right: 9px;
@@ -7141,6 +7141,9 @@
   .dx-datagrid-rowsview .dx-row {
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
+  }
+  .dx-datagrid-rowsview .dx-row:hover{
+    background-color:rgb(220, 220, 220);
   }
   .dx-datagrid-rowsview .dx-row.dx-edit-row:first-child > td {
     border-top-width: 0;

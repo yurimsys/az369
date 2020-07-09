@@ -839,9 +839,53 @@ router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
                     left join tB on tCY.CY_B_ID = tB.B_ID 
                     left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                     left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                where tCR.CR_CT_ID = tCT.CT_ID
-                    and tCR.CR_U_ID = :sessionId
-                    group by tCR.CR_cDt
+                where tCR.CR_CT_ID = tCT.CT_ID and 
+                      tCR.CR_U_ID = :sessionId
+                group by tCR.CR_cDt
+                order by no desc
+             `;
+    
+    console.log(req.body);
+
+    connection.query(query, 
+        {          
+            sessionId
+                                
+        },
+        function(err, rows, fields) {
+            if (err) throw err;          
+             
+            // //console.log(findId);
+            res.json( {  data : rows});
+            console.log("rows :",rows);
+            
+        });
+});
+
+//마이페이지 예매 및 결제내역 모바일
+router.post('/user/resPayMo',  auth.isLoggedIn, (req, res, next) =>{
+    let sessionId = req.user.U_ID;
+    let query = `select 
+                    date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
+                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
+                    tB.B_Name as carName,
+                    tCT.CT_CarNum as carNum,
+                    count(CR_SeatNum) as seatCnt,
+                    tPH.PH_Type as payType,
+                    tPH.PH_Price as price,
+                    CR_cDt as crCdt,
+                    tCR.CR_CT_ID as crCTID,
+                    tCR.CR_PH_ID as crPHID,
+                    tCR.CR_cDt as no
+                from tCT 
+                    left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                    left join tB on tCY.CY_B_ID = tB.B_ID 
+                    left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+                    left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+                where 
+                    tCR.CR_CT_ID = tCT.CT_ID and 
+                    tCR.CR_U_ID = :sessionId
+                group by tCR.CR_cDt
                 order by no desc
              `;
     
@@ -912,50 +956,7 @@ router.post('/user/resPayBetween',  auth.isLoggedIn, (req, res, next) =>{
         
 });
 
-//마이페이지 예매 및 결제내역 모바일
-router.post('/user/resPayMo',  auth.isLoggedIn, (req, res, next) =>{
-    let sessionId = req.user.U_ID;
-    let query = `select 
-                    date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
-                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
-                    tB.B_Name as carName,
-                    tCT.CT_CarNum as carNum,
-                    count(CR_SeatNum) as seatCnt,
-                    tPH.PH_Type as payType,
-                    tPH.PH_Price as price,
-                    CR_cDt as crCdt,
-                    tCR.CR_CT_ID as crCTID,
-                    tCR.CR_PH_ID as crPHID,
-                    tCR.CR_cDt as no
-                from tCT 
-                    left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
-                    left join tB on tCY.CY_B_ID = tB.B_ID 
-                    left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
-                    left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                where 
-                    tCR.CR_CT_ID = tCT.CT_ID and 
-                    tCR.CR_U_ID = :sessionId
-                group by tCR.CR_cDt
-                order by no desc
-             `;
-    
-    console.log(req.body);
 
-    connection.query(query, 
-        {          
-            sessionId
-                                
-        },
-        function(err, rows, fields) {
-            if (err) throw err;          
-             
-            // //console.log(findId);
-            res.json( {  data : rows});
-            console.log("rows :",rows);
-            
-        });
-        
-});
 
 //마이페이지 예매 및 결제내역 상세보기 모바일
 router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
@@ -1573,62 +1574,175 @@ router.get('/storeInfo', function(req, res, next) {
 router.get('/brandListOverLap', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
-        new mssql.Request().query(`
-            select 
-                tBS.BS_ID,
-                BS_LoginID, 
-                BS_LoginPW, 
-                BS_CEO, 
-                BS_NameKor, 
-                BS_NameEng, 
-                BC_NameKor,
-                BC_NameEng,
-                tBCR.BCR_ID, 
-                BS_Phone,
-				BS_CEOPhone,
-                BCR_LV1_BC_ID, 
-                BCR_LV2_BC_ID, 
-                BCR_LV3_BC_ID, 
-                BS_BC_ID, 
-                BS_Addr1Kor,
-                BS_Addr2Kor,
-                BS_Addr1Eng,
-                BS_Addr2Eng,
-                convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
-                convert(varchar, BS_MainDtf, 108) as BS_MainDtF, 
-                convert(varchar, BS_SubDtS, 108) as BS_SubDtS, 
-                convert(varchar, BS_SubDtF, 108) as BS_SubDtF, 
-                convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, 
-                convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
-                BS_ContentsKor, 
-                BS_ContentsEng, 
-                BS_PersonalDayKor, 
-                BS_PersonalDayEng, 
-                BS_ThumbnailUrl,
-                BS_ImageUrl,
-                tLS.LS_Number, 
-                LS_Sector,
-                LS_Floor 
-            from tBCR 
-                inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID 
-                inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
-                inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID 
-                inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
-                inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
-        (err, result) => {
-            let brandList = result.recordset;
-            filtered = brandList.filter(function (a) {
-                var key = ['BS_NameKor', 'BS_NameEng'].map(function (k) { return a[k]; }).join('|');
-                // var key = Object.keys(a).map(function (k) { return a[k]; }).join('|');
-                if (!this[key]) {
-                    return this[key] = true;
-                }
-            }, Object.create(null));
-            // console.log('==============')
-            // console.log(filtered);
+        let req_type = req.query.type;
+        let query = `
+                    select 
+                        tBS.BS_ID,
+                        BS_LoginID, 
+                        BS_LoginPW, 
+                        BS_CEO, 
+                        BS_NameKor, 
+                        BS_NameEng, 
+                        BC_NameKor,
+                        BC_NameEng,
+                        tBCR.BCR_ID, 
+                        BS_Phone,
+                        BS_CEOPhone,
+                        BCR_LV1_BC_ID, 
+                        BCR_LV2_BC_ID, 
+                        BCR_LV3_BC_ID, 
+                        BS_BC_ID, 
+                        BS_Addr1Kor,
+                        BS_Addr2Kor,
+                        BS_Addr1Eng,
+                        BS_Addr2Eng,
+                        convert(varchar, BS_MainDtS, 108) as BS_MainDtS,
+                        convert(varchar, BS_MainDtf, 108) as BS_MainDtF, 
+                        convert(varchar, BS_SubDtS, 108) as BS_SubDtS, 
+                        convert(varchar, BS_SubDtF, 108) as BS_SubDtF, 
+                        convert(varchar, BS_BreakDtS, 108) as BS_BreakDtS, 
+                        convert(varchar, BS_BreakDtF, 108) as BS_BreakDtF,
+                        BS_ContentsKor, 
+                        BS_ContentsEng, 
+                        BS_PersonalDayKor, 
+                        BS_PersonalDayEng, 
+                        BS_ThumbnailUrl,
+                        BS_ImageUrl,
+                        tLS.LS_Number, 
+                        LS_Sector,
+                        LS_Floor 
+                    from tBCR 
+                        inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID 
+                        inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
+                        inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID 
+                        inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
+                        inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID
+                        `
 
-            res.json({ data : filtered });
-        })
+        // 관리 페이지 상세검색
+        if(req_type === 'admin'){
+            let condition_list = [];
+            //아이디
+            if(req.query.bsLoginId){
+                condition_list.push(`BS_LoginID = '${req.query.bsLoginId}'`);
+            }
+            //대표자명
+            if(req.query.bsCeo){
+                condition_list.push(`BS_LoginID = '${req.query.bsCeo}'`);
+            }
+            //매장명
+            if(req.query.bsNameKo){
+                condition_list.push(`BS_NameKor like '%${req.query.bsNameKo}%'`);
+            }
+            //매장 소개
+            if(req.query.bsContentsKo){
+                condition_list.push(`BS_ContentsKor like '%${req.query.bsContentsKo}%'`);
+            }
+            //대분류 카테고리
+            if(req.query.bsBcId != 'null'){
+                condition_list.push(`BCR_LV1_BC_ID = ${req.query.bsBcId}`);
+            }
+            //중분류 카테고리
+            if(req.query.bsBcId2 != 'null'){
+                condition_list.push(`BCR_LV2_BC_ID = ${req.query.bsBcId2}`);
+            }
+            //대표자 전화번호
+            if(req.query.bsCeoPhone){
+                condition_list.push(`BS_CEOPhone like '%${req.query.bsCeoPhone}%'`);
+            }
+            //매장 전화번호
+            if(req.query.bsPhone){
+                condition_list.push(`BS_Phone like '%${req.query.bsPhone}%'`);
+            }
+            //도로명 주소
+            if(req.query.bsAddr1Ko){
+                condition_list.push(`BS_Addr1Kor like '%${req.query.bsAddr1Ko}%'`);
+            }
+            //상세 주소
+            if(req.query.bsAddr2Ko){
+                condition_list.push(`BS_Addr2Kor like '%${req.query.bsAddr2Ko}%'`);
+            }
+            //층수
+            if(req.query.bsStoreNumber != 'null'){
+                condition_list.push(`tLS.LS_Number = '${req.query.bsStoreNumber}'`);
+            }
+            //호실
+            if(req.query.bsFloor != 'null'){
+                condition_list.push(`tLS.LS_Floor = '${req.query.bsFloor}'`);
+            }
+            //휴무일
+            if(req.query.bsPersonalKo){
+                condition_list.push(`BS_PersonalDayKor like '%${req.query.bsPersonalKo}%'`);
+            }            
+            //평일 오픈시간
+            if(req.query.bsMainOpen){
+                condition_list.push(`convert(varchar, BS_MainDtS, 108) >= '${req.query.bsMainOpen}'`);
+            }            
+            //평일 마감시간
+            if(req.query.bsMainClose){
+                condition_list.push(`convert(varchar, BS_MainDtF, 108) <= '${req.query.bsMainClose}'`);
+            }
+            //주말 오픈시간
+            if(req.query.bsSubOpen){
+                condition_list.push(`convert(varchar, BS_SubDtS, 108) >= '${req.query.bsSubOpen}'`);
+            }
+            //주말 마감시간
+            if(req.query.bsSubClose){
+                condition_list.push(`convert(varchar, BS_SubDtF, 108) <= '${req.query.bsSubClose}'`);
+            }
+            //점심시간 시작
+            if(req.query.bsBreakOpen){
+                condition_list.push(`convert(varchar, BS_BreakDtS, 108) >= '${req.query.bsBreakOpen}'`);
+            }
+            //점심시간 종료
+            if(req.query.bsBreakClose){
+                condition_list.push(`convert(varchar, BS_BreakDtF, 108) <= '${req.query.bsBreakClose}'`);
+            }
+
+            let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
+            if( condition_list.length > 0){
+                let condition_stmt = ' WHERE '+condition_list.join(searchType);
+                query += condition_stmt;
+            }
+
+            new mssql.Request().query(query,
+                (err, result) => {
+                    let brandList = result.recordset;
+                    filtered = brandList.filter(function (a) {
+                        var key = ['BS_NameKor', 'BS_NameEng'].map(function (k) { return a[k]; }).join('|');
+                        // var key = Object.keys(a).map(function (k) { return a[k]; }).join('|');
+                        if (!this[key]) {
+                            return this[key] = true;
+                        }
+                    }, Object.create(null));
+                    // console.log('==============')
+                    // console.log(filtered);
+        
+                    res.json({ data : filtered });
+                })
+        
+        // 중복제거한 전체 리스트
+        }else{
+            new mssql.Request().query(query,
+                (err, result) => {
+                    let brandList = result.recordset;
+                    filtered = brandList.filter(function (a) {
+                        var key = ['BS_NameKor', 'BS_NameEng'].map(function (k) { return a[k]; }).join('|');
+                        if (!this[key]) {
+                            return this[key] = true;
+                        }
+                    }, Object.create(null));
+                    // console.log('==============')
+                    // console.log(filtered);
+        
+                    res.json({ data : filtered });
+                })
+
+        }
+
+
+
+
     });
 });
 

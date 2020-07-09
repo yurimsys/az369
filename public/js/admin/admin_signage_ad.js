@@ -80,6 +80,9 @@ let objectInfo = function (mode = "modify", row_data) {
         ad_duration_final_instance = $(".object-info .ad_duration_final").dxDateBox("instance");
 
     if( mode === "new"){
+        if($('#object_detail_group').css('display') == 'none'){
+            folding();
+        }
         action_btns_instance.removeClass('action-modify');
         action_btns_instance.addClass('action-new');
         
@@ -162,8 +165,9 @@ let tableInit = function (data) {
         onCellClick : function(e){
             console.log('cell click'.e);
         },
+        //셀 호버 이벤트
         // onCellHoverChanged : function(e){
-        //     // setTimeout(2000,console.log('ID :', e.value))
+        //     setTimeout(2000,console.log('ID :', e.value))
         //     setTimeout(() => {
         //         if(e.columnIndex == 1){
         //             console.log('ID :', e.value);
@@ -188,7 +192,9 @@ let tableInit = function (data) {
             row_data.inputAdTitle = e.data.AD_Title;
             row_data.ad_duration_start = e.data.AD_DtS;
             row_data.ad_duration_final = e.data.AD_DtF;
-
+            if($('#object_detail_group').css('display') == 'none'){
+                folding();
+            }
             objectInfo("modify", row_data);
         },
         headerFilter: {

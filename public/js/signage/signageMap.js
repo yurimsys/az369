@@ -15,33 +15,35 @@
 
     //마우스 끌기 이벤트 
     // // 드래그 시작
-    // function startDrag(e, obj){
-    //     targetObj = obj;
-    //     let e_obj = window.event? window.event : e;
-    //     img_L = getLeft(obj) - e_obj.clientX;
-    //     img_T = getTop(obj) - e_obj.clientY;
+    function startDrag(e, obj){
+        targetObj = obj;
+        let e_obj = window.event? window.event : e;
+        img_L = getLeft(obj) - e_obj.clientX;
+        img_T = getTop(obj) - e_obj.clientY;
         
-    //     document.onmousemove = moveDrag;
-    //     document.onmouseup = stopDrag;
-    //     if(e_obj.preventDefault)e_obj.preventDefault();
-    // }
-    // // 드래그 멈추기
-    // function stopDrag(){
-    //     document.onmousemove = null;
-    //     document.onmouseup = null;
-    // }
-    // // 이미지 움직이기
-    // function moveDrag(e){
-    //     let e_obj = window.event? window.event : e;
-    //     let dmvx = parseInt(e_obj.clientX + img_L);
-    //     let dmvy = parseInt(e_obj.clientY + img_T);
+        document.onmousemove = moveDrag;
+        document.onmouseup = stopDrag;
+        if(e_obj.preventDefault)e_obj.preventDefault();
+    }
+    // 드래그 멈추기
+    function stopDrag(){
+        document.onmousemove = null;
+        document.onmouseup = null;
+    }
+    // 이미지 움직이기
+    function moveDrag(e){
+        let e_obj = window.event? window.event : e;
+        let dmvx = parseInt(e_obj.clientX + img_L);
+        let dmvy = parseInt(e_obj.clientY + img_T);
         
-    //     console.log('터치', img_L);
-    //     // console.log('터치움직', document.ontouchmove);
-    //     targetObj.style.left = dmvx +"px";
-    //     targetObj.style.top = dmvy +"px";
-    //     return false;
-    // }
+        // console.log('터치', img_L);
+        // console.log('터치움직', document.ontouchmove);
+        targetObj.style.left = dmvx +"px";
+        targetObj.style.top = dmvy +"px";
+        return false;
+    }
+
+    //터치 이벤트
 
     targetObj = document.getElementsByClassName('centralSvg1F')[0]
 
@@ -283,6 +285,8 @@
             el=document.getElementsByClassName('centralSvg1F')[0]
             init(1);
         }else if(nowFloor == 'floor2Btn'){
+            console.log('gooooooooooo2f');
+            console.log($center_left_2f.css('display'));
             $center_left_1f.css('display','none');
             $center_left_2f.css('display','block');
             $center_left_3f.css('display','none');

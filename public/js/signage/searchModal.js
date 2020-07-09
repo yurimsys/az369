@@ -381,9 +381,9 @@ function searchModalInit(){
     //1층    
         if(storeArea >=1001 && storeArea <= 1230){
             $1f_store_path.css('fill','#E2E2E2');
-            $central_svg_1f.css('display','block');
-            $central_svg_2f.css('display','none');
-            $central_svg_3f.css('display','none');
+            $center_left_1f.css('display','block');
+            $center_left_2f.css('display','none');
+            $center_left_3f.css('display','none');
             $('#floor1Btn').addClass('floorSelect');
             $nowFloor.text('1F');
             $1f_store_name.each(function(){
@@ -429,9 +429,9 @@ function searchModalInit(){
             else if(storeArea>= 2001 && storeArea<= 2102){
                 // console.log('2층')
                 $2f_store_path.css('fill','#E2E2E2');
-                $central_svg_1f.css('display','none');
-                $central_svg_2f.css('display','block');
-                $central_svg_3f.css('display','none');
+                $center_left_1f.css('display','none');
+                $center_left_2f.css('display','block');
+                $center_left_3f.css('display','none');
                 $('#floor2Btn').addClass('floorSelect');
                 $nowFloor.text('2F');
                 $2f_store_name.each(function(){
@@ -474,9 +474,9 @@ function searchModalInit(){
             else if(storeArea >= 3001 && storeArea <= 3106){
                 // console.log('3층')
                 $3f_store_path.css('fill','#E2E2E2');
-                $central_svg_1f.css('display','none');
-                $central_svg_2f.css('display','none');
-                $central_svg_3f.css('display','block');
+                $center_left_1f.css('display','none');
+                $center_left_2f.css('display','none');
+                $center_left_3f.css('display','block');
                 $('#floor3Btn').addClass('floorSelect');
                 $nowFloor.text('3F');
                 $3f_store_name.each(function(){
