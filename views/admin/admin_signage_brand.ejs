@@ -142,44 +142,52 @@
 				<div class='info_right'>
 					<div>
 						<label class='info_name'>평일 영업시간</label>
-						<input type='text' class='short_box' id='main_open'>
-						<input type="text" class='short_box' id='main_close'>
+						<input type='text' class='short_box timepicker' id='main_open'>
+						&nbsp;~&nbsp;
+						<input type="text" class='short_box timepicker' id='main_close'>
 					</div>
 					<div>
 						<label class='info_name'>주말 영업시간</label>
-						<input type='text' class='short_box' id='sub_open'>
-						<input type="text" class='short_box' id='sub_close'>
+						<input type='text' class='short_box timepicker' id='sub_open'>
+						&nbsp;~&nbsp;
+						<input type="text" class='short_box timepicker' id='sub_close'>
 					</div>
 					<div >
 						<label class='info_name'>점심시간</label>
-						<input type='text' class='short_box' id='break_open'>
-						<input type="text" class='short_box' id='break_close'>
+						<input type='text' class='short_box timepicker' id='break_open'>
+						&nbsp;~&nbsp;
+						<input type="text" class='short_box timepicker' id='break_close'>
 					</div>
 					<div>
 						<label class='info_name'>휴무일</label>
-						<input type='text' class='long_box' id='personal_day_ko' placeholder="한글">
+						<input type='text' class='long_box timepicker' id='personal_day_ko' placeholder="한글">
 						<label class='info_name'></label>
-						<input type="text" class='long_box' id='personal_day_en' placeholder="영문">
+						<input type="text" class='long_box timepicker' id='personal_day_en' placeholder="영문">
 					</div>
 					<hr class='info_line'>
 					<div>
-						<label class='info_name'>매장 이미지 관리</label>
-						<input type="file" id='store_img' name='store_img'>
+						<label class='info_name'>이미지 관리</label>
+						<input type="button" value="파일 선택" onclick="document.getElementById('store_img').click()">
+						<input type="file" id="store_img" name="store_img"  onchange="javascript:document.getElementById('store_img_name').value = this.value"  accept="image/*" hidden>
+						<input type='text' id='store_img_name' class='input_remove_line' readonly>
 					</div>
-					
 					<div>
 						<label class='info_name'>이미지 URL</label>
 						<span class="ad_content_url" id="img_url"></span>
 					</div>
+					<label class='info_name'></label>
 					<div>
-						<label class='info_name'>매장 썸네일 관리</label>
-						<input type="file" id="store_thumb" name="store_thumb">
+						<label class='info_name'>썸네일 관리</label>
+						<input type="button" value="파일 선택" onclick="document.getElementById('store_thumb').click()">
+						<input type="file" id="store_thumb" name="store_thumb"  onchange="javascript:document.getElementById('store_thumb_name').value = this.value"  accept="image/*" hidden>
+						<input type='text' id='store_thumb_name' class='input_remove_line' readonly>
+
 					</div>
 					<div>
 						<label class='info_name'>썸네일 URL</label>
 						<span class="ad_content_url" id="tumb_url"></span>
 					</div>
-
+					<button type="button" data-toggle="modal" data-target="#imgModal">이미지 관리 모달</button>
 				</div>
 			</form>
 		</div>
@@ -243,6 +251,28 @@
 	</div>
 </div>
 
+<!-- 이미지 관리 모달 -->
+<div class="modal fade" id="imgModal" data-backdrop="static" tabindex="-1" role="dialog"
+	aria-labelledby="ModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalTitle"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="material-icons">close</span>
+				</button>
+			</div>
+			<div class="modal-body text-center message">
+				등록하시겠습니까?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-normal" data-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-success" data-dismiss="modal">확인</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!-- 상세검색 -->
 <div class="card object-search-popup" id="object-search-popup" style="display: none;">
 	<div class="card-header object-search-header">
@@ -258,7 +288,9 @@
 		</div>
 	</div>
 	<div id="object_search_info" class="card-body collapse show">
-		<form>
+		<div class='detail_search_form'>
+		<form style="padding: 10px;">
+			
 			<!-- <div class="form-group row">
 				<label class="col-3 col-form-label">ID</label>
 				<div class="col-9">
@@ -275,63 +307,123 @@
 			<div class="form-group row">
 				<label class="col-3 col-form-label">아이디</label>
 				<div class="col-9">
-					<input type="text" class="form-control inputAdTitle" id="inputAdTitle">
+					<input type="text" class="form-control inputAdTitle" id="search_login_id">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-3 col-form-label">대표자명</label>
 				<div class="col-9">
-					<input type="text" class="form-control inputAdTitle" id="inputAdTitle">
+					<input type="text" class="form-control inputAdTitle" id="search_ceo_name">
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">대표자 번호</label>
+				<label class="col-3 col-form-label">대표번호</label>
 				<div class="col-9">
-					<input type="text" class="form-control inputAdTitle" id="inputAdTitle">
+					<input type="number" class="form-control inputAdTitle" id="search_ceo_phone">
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">브랜드</label>
+				<label class="col-3 col-form-label">대분류</label>
 				<div class="col-9">
 					<!-- <input type="hidden" class="form-control selectBrand" style="width:100%;"/> -->
-					<select name="selectBrand" class="form-control select2 selectBrand" style="width:100%">
-						<option></option>
+					<select id='search_lv1_category' class="form-control select2" style="width:100%">
+						<option value="null">대분류 선택</option>
 					</select>
 				</div>
+
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">광고업종</label>
+				<label class="col-3 col-form-label">중분류</label>
 				<div class="col-9">
-					<select name="selectAdCategory" class="form-control select2 selectAdCategory" style="width:100%">
-						<option></option>
+					<select id='search_lv2_category' class="form-control select2" style="width:100%">
+						<option value="null">중분류 선택</option>
 					</select>
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">광고위치</label>
+				<label class="col-3 col-form-label">층</label>
 				<div class="col-9">
 					<!-- <input type="hidden" class="form-control select2 selectAdType" style="width:100%;"/> -->
-					<select name="selectAdType" class="form-control select2 selectAdType" style="width:100%">
-						<option></option>
+					<select id='search_floor' class="form-control select2" style="width:100%">
+						<option value="null">층 선택</option>
+						<option id='1F' value="1F">1층</option>
+						<option id='2F' value="2F">2층</option>
+						<option id='3F' value="3F">3층</option>
 					</select>
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">광고기간</label>
-				<div class="col-9 form-row mx-0">
-					<div type="" class="form-control col ad_duration_start" id="ad_duration_start"></div>
-					<span class="col-1 text-center">&#126;</span>
-					<div type="" class="form-control col ad_duration_final" id="ad_duration_final"></div>
+				<label class="col-3 col-form-label">호실</label>
+				<div class="col-9">
+					<!-- <input type="hidden" class="form-control select2 selectAdType" style="width:100%;"/> -->
+					<select id='search_store_number' class="form-control select2" style="width:100%">
+						<option value="null">호실 선택</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">광고제목</label>
+				<label class="col-3 col-form-label">매장명</label>
 				<div class="col-9">
-					<input type="text" class="form-control inputAdTitle" id="inputAdTitle">
+					<input type="text" id='search_brand_ko' class="form-control inputAdTitle">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">매장소개</label>
+				<div class="col-9">
+					<input type="text" id='search_brand_contents_ko' class="form-control inputAdTitle">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">매장 번호</label>
+				<div class="col-9">
+					<input type="number" id='search_brand_phone' class="form-control inputAdTitle">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">도로명주소</label>
+				<div class="col-9">
+					<input type="text" id='search_address' class="form-control inputAdTitle">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">상세 주소</label>
+				<div class="col-9">
+					<input type="text" id='search_detailAddress' class="form-control inputAdTitle">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">평일 오픈</label>
+				<div class="col-9 form-row mx-0">
+					<input type="text" id='search_main_open' class="form-control col timepicker">
+					<span class="col-1 text-center">&#126;</span>
+					<input type="text" id='search_main_close' class="form-control col timepicker">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">주말 오픈</label>
+				<div class="col-9 form-row mx-0">
+					<input type="" id='search_sub_open' class="form-control col timepicker">
+					<span class="col-1 text-center">&#126;</span>
+					<input type="" id='search_sub_close' class="form-control col timepicker">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">점심시간</label>
+				<div class="col-9 form-row mx-0">
+					<input type="" id='search_break_open' class="form-control col timepicker">
+					<span class="col-1 text-center">&#126;</span>
+					<input type="" id='search_break_close' class="form-control col timepicker">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">휴무일</label>
+				<div class="col-9">
+					<input type="text" id='search_personal_day_ko' class="form-control inputAdTitle">
 				</div>
 			</div>
 		</form>
-		<div class="search-footer row">
+	</div>
+		<div class="search-footer row" style="background-color: #ffffff;">
 			<div class="col-4 pr-1">
 				<button class="btn btn-close" onclick="searchPopupClose()">닫기</button>
 			</div>

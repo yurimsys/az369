@@ -253,7 +253,10 @@
         //     }
         // })
         
-        $('#timeSelect02').click(function () {
+        $('#timeSelect01, #timeSelect02').click(function () {
+            if($('#depart01').val() == 0 || $('#depart02').val() == 0){
+                return false;
+            }
             $(".tab").empty();
             $.ajax({
                 url: "api/user/resCarList",

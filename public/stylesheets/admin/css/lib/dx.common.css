@@ -4316,6 +4316,10 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  height: 400px;
 }
 .dx-gridbase-container > .dx-datagrid-rowsview.dx-scrollable > .dx-scrollable-wrapper {
   -webkit-box-flex: 1;

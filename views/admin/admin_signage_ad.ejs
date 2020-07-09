@@ -42,10 +42,16 @@
 					<div class="col-4">
 						<span id="ad_id"></span>
 					</div>
-					<label for="inputAdFiles" class="col-1 col-form-label detail_font">사진첨부</label>
+
+					<label class="col-1 col-form-label detail_font">사진첨부</label>
 					<div class="col-4">
-						<input type="file" class="form-control inputAdFiles" id="inputAdFiles" name="inputAdFiles">
+						<input type="button" value="파일 선택" onclick="document.getElementById('inputAdFiles').click()">
+						<input type="file" class="form-control inputAdFiles" id="inputAdFiles" name="inputAdFiles" onchange="javascript:document.getElementById('inputAdFiles_name').value = this.value"  accept="image/*" hidden>
+						<input type='text' id='inputAdFiles_name' class='input_remove_line' readonly>
 					</div>
+
+
+
 				</div>
 				<div class="form-group row">
 					<label for="selectBrand" class="col-1 col-form-label detail_font">브랜드</label>

@@ -344,10 +344,13 @@ $normal_color               : #222222;
     width: 450px;
     position: absolute;
     z-index: 1010;
-
+    // height: 500px;
+    // padding: 10px 0px;
+    // overflow: scroll;
     .search-footer {
         height: 60px;
         align-items: flex-end;
+        padding-top: 0px;
         .btn-close {
             width: 100%;
             color : #444444;
@@ -431,7 +434,7 @@ $normal_color               : #222222;
     border-radius: 4px;
     border: solid 1px #dbdbdb;
     background-color: #ffffff;
-    width: calc(40.5% - 30px);
+    width: calc(39% - 30px);
     height: 30px;
 }
 .info_line{
@@ -446,3 +449,19 @@ input[type="number"]::-webkit-inner-spin-button {
     margin: 0;
 }
 
+.detail_search_form{
+    overflow: scroll;
+    overflow-x: hidden; 
+    width: 100%; 
+    height: 400px;
+}
+.detail_search_form::-webkit-scrollbar{width: 10px; border-radius: 4px; display: block;}
+.detail_search_form::-webkit-scrollbar-track{background-color: #cccccc; display: block;}
+.detail_search_form::-webkit-scrollbar-thumb{border-radius: 4px; background-color: #6A114D; height: 10px; display: block;}
+
+.input_remove_line{
+    width: 58%;
+    border:none;
+    border-right:0px; 
+    border-top:0px; 
+}
