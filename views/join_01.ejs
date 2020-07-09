@@ -45,7 +45,7 @@
                                 </li>
 
                                 <li>
-                                    <div class="checks etrans">
+                                    <div class="checks etrans" id='chk01'>
                                         <input type="checkbox" id="ex_chk1" class="ab">
                                         <label for="ex_chk1">동의</label>
                                     </div>
@@ -172,7 +172,7 @@
                                 </li>
 
                                 <li>
-                                    <div class="checks etrans">
+                                    <div class="checks etrans" id='chk02'>
                                         <input type="checkbox" id="ex_chk2" class="ab">
                                         <label for="ex_chk2">동의</label>
                                     </div>
@@ -196,7 +196,7 @@
 
 
 
-                        <div class="checks etrans check_all_btn">
+                        <div class="checks etrans check_all_btn" id='chk03'>
                             <input type="checkbox" id="ex_chk3" class="check-all">
                             <label for="ex_chk3">위 약관에 전체동의 합니다.</label>
                         </div>
@@ -250,6 +250,23 @@
     <script>
         /*agreement 전체동의 체크*/
         $(document).ready(function () {
+
+            $('#chk01').click(function(){
+                if($("#ex_chk1").is(":checked") == true && $("#ex_chk2").is(":checked") == true){
+                    $("#ex_chk3").prop('checked', true);
+                }else if($("#ex_chk1").is(":checked") == false && $("#ex_chk2").is(":checked") == true){
+                    $("#ex_chk3").prop('checked', false);
+                }
+            })
+
+            $('#chk02').click(function(){
+                if($("#ex_chk1").is(":checked") == true && $("#ex_chk2").is(":checked") == true){
+                    $("#ex_chk3").prop('checked', true);
+                }else if($("#ex_chk1").is(":checked") == true && $("#ex_chk2").is(":checked") == false){
+                    $("#ex_chk3").prop('checked', false);
+                }
+            })
+
             $('.check-all').click(function () {
                 $('.ab').prop('checked', this.checked);
             });
