@@ -1,108 +1,48 @@
 @charset "UTF-8";
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
-@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
-
-/*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
-h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
-a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
-img {vertical-align: middle;}
-a img {border: none;}
-li {list-style: none;}
-address, em, i {font-style: normal;}
-p {text-align: justify; font-family: inherit; font-size: 16px;}
-span {padding: 0; margin: 0;}
-
-.wrap {
-    width: 100%;
-    margin: 0 auto;
-    height: auto;
-}
-
-/*section.sub_wrap 시작*/
-section.sub_wrap {
-    width: 1280px;
-    margin: 0 auto;
-    margin-bottom: 90px;
-  	overflow: hidden;
-}
-
-section.sub_wrap .bar {
-    border-bottom: 2px solid #c3a164; 
-    width: 30px; 
-    margin: 0 auto;
-    margin-top: 10px;
-    margin-bottom: 40px;
-}
-.box {position: relative; padding-top: 120px; overflow: hidden;}
-
-section.sub_wrap h6 {text-align: center; color: #C3A164; font-weight: 500;font-size: 16px;}
-
-section.sub_wrap h1 {
-    text-align: center;
-    font-size: 45px;
-    margin-top: -1%;
-	font-family: 'PT Serif', serif;
-	font-weight: normal;
-}
-
 
 /*전체 마이페이지 틀*/
-.mypage_box {position: relative; width: 100%; height: auto; font-size: 16px; overflow: hidden;}
-/*.mypage_box ul li {float: left;}*/
-.mypage_box .box_01 {width: 25%; margin-right: 1%;  background: #fff; border: 1px solid #dbdbdb; height: 650px; border-radius: 5px; position: relative; float: left;}
-.mypage_box .box_02 {width: 74%;  background: #fff; margin-right: 0; height: 650px; border: 1px solid #dbdbdb; border-radius: 5px; float: right;}
+.mypage_box {position: relative; width: 100%; height: auto; overflow: hidden;}
+.box_01 {width: 25%; margin-right: 1%;  background: #fff; border: 1px solid #dbdbdb; height: 650px; border-radius: 4px; position: relative; float: left; position: relative;}
+.box_02 {width: 74%;  background: #fff; margin-right: 0; height: 650px; border: 1px solid #dbdbdb; border-radius: 4px; float: right;}
 
 /*마이페이지 왼쪽*/
-.mypage_left {width: 100%; height: auto; padding: 3% 8% 4%; overflow: hidden;}
-.mypage_nav button { width: 100%; height: 50px; line-height: 50px; border-bottom: 1px solid #eee; margin: 5px; background: #fff; border: none; font-family: 'Noto Sans KR', sans-serif; font-weight: bold;}
-.mypage_nav button span {float: right;}
+.mypage_left {width: 100%; height: auto; padding: 20px 30px; overflow: hidden; }
+/*왼쪽 상단*/
 .info_title {width: 100%; overflow: hidden; padding-bottom: 20px; border-bottom: 1px solid #eee;}
-.mypage_left h2 {font-size: 24px; font-weight: 400; display: inline-block; float: left; width: 70%;} 
-.mypage_left .modify_btn { color: #fff; background: rgba(173, 134, 60, 0.8);  display: inline-block; height: 43px; line-height: 43px; font-size: 15px; font-weight: normal; float: right; width:30%; text-align: center; border-radius: 50px; transition: all 0.3s;}
-.mypage_left .modify_btn a {display: block;}
-.mypage_left .modify_btn:hover {background: rgba(173, 134, 60,1);}
-
-
-.info {text-align: justify; width: 100%;margin-top: 10%; margin-bottom: 25%; background:  /*border-bottom: 1px solid #aaa;*/}
-.info p {color: #444; font-size: 16px; line-height: 1.6;}
-.info h5 {font-size: 20px; font-weight: normal; margin-bottom: 6%; font-weight: bold; color: #222;}
-.info h5 span {font-size: 16px; color: #aaa; /*color: #C3A164;*/}
-.info p span {color: #C3A164;}
+.info_title h2 {font-size: 24px; font-weight: 400; display: inline-block; float: left; width: 70%;} 
+.modify_btn { color: #767676; background: #f2f2f2; display: inline-block; height: 40px; line-height: 40px; font-size: 15px; float: right; width:25%; text-align: center; border-radius: 12px; transition: all 0.3s;}
+.modify_btn a {display: block;}
+.info {text-align: justify; width: 100%; margin-top: 15px; margin-bottom: 50px;}
+.info h5 {font-size: 16px; font-weight: normal; margin-bottom: 6%; font-weight: 500; color: #222;}
+.info h5 span {font-size: 16px; color: #999; font-weight: 300;}
+.info p {color: #444; font-size: 15px; line-height: 1.6;}
+/* 왼쪽 하단 버튼*/
+.mypage_nav {overflow: hidden;}
+.mypage_nav button { width: 100%; height: 45px; line-height:45px; border: none; float: left; padding: 0; margin: 0; background: #fff; font-size: 16px; cursor: pointer; text-align: justify; transition: all 0.3s; color: #999; font-weight: 400;}
+.mypage_nav button span {float: right;}
+.mypage_nav button.active {color: #222; font-weight: 500; padding: 0;}
 
 /*마이페이지 오른쪽*/
+.mypage_right  {padding: 20px;}
+/* 상단 */
+.tabcontent {width: 100%; display: none; overflow: hidden;z-index: 1000;}
+.tabcontent h4 {font-size: 22px; font-weight:500; text-align: center;}
+.tabcontent p {color: #444; margin-bottom: 15px; font-size: 15px; text-align: center; font-weight: 300;}
+/* .logout {width: 85%; background: #fafafa;text-align: center; height: 45px; line-height: 45px; transition: all 0.3s; bottom: 0; margin-bottom: 10%; position: absolute; border-radius: 4px;} */
+.logout {position: absolute; bottom: 20px; width: calc(100% - 60px);} 
+.logout:hover { background: #ddd;}
+.logout a {display: block;}
 
-.mypage_right  {padding: 2% 1.5% 3%;}
-
-.tabcontent { /*padding 안먹힘*/
-    width: 100%;
-    display: none;
-    overflow: hidden;
-    z-index: 1000;
-}
-
-.tabcontent h4 {font-family: 'Noto Sans KR', sans-serif; color: #444; font-weight: bold; font-size: 24px; text-align: center;}
-.tabcontent p {color: #777; margin-bottom: 2%; font-size: 15px; text-align: center;}
-
-
-
-/*오른쪽 예약현황*/
+/*tab 01 - 장차예매현황*/
 /*reserve_list 타이틀*/
-.reserve_list_tit {overflow: auto; width: 100%; margin: 0 auto;  border: 1px solid #f2f2f2; }
-.reserve_list_tit ul li {float: left; width: 25%; text-align: center; height: 50px; line-height: 50px; background: #f8f8f8; color: #444; font-weight: 500;border-top: 1px solid #eee;}
-
-
-/*reserve_list*/
-#reserve_list {width: 100%; height: 350px; background: #fafafa; border: 1px solid #eee; overflow: scroll; overflow-x: hidden; overflow-x: hidden;}
-
-
-/*reserve_list 목록*/
-.reserve_bar { width: 100%; 
-  font-weight: normal;font-weight: normal;  color: #767676; padding: 0; border: 1px solid #f8f8f8;}
-
-.reserve_bar ul li {float: left; width: 25%; text-align: center; font-size: 16px; font-weight: normal;}
-
+.reserve_list_tit {overflow: auto; width: 100%; margin: 0 auto;}
+.reserve_list_tit ul {width: 100%; display: flex;}
+.reserve_list_tit ul li {float: left; flex:1; text-align: center; height: 45px; line-height: 45px; background: #fff; color: #222; font-weight: 400;border-top: 1px solid #eee; border-bottom: 1px solid #eee; font-size: 15px;}
+/*reserve_list - 예약바 리스트*/
+#reserve_list {width: 100%; height: 350px; background: #f8f8f8; border: 1px solid #eee; overflow: scroll; overflow-x: hidden;}
+/*reserve_list 예약바*/
+.reserve_bar { width: 100%; font-weight: 300;padding: 0; border: 1px solid #f8f8f8;}
+.reserve_bar ul li {float: left; width: 25%; text-align: center; }
 #reserve_list label input {display: none;}
 #reserve_list label span {
     position: relative;
@@ -113,90 +53,22 @@ section.sub_wrap h1 {
     line-height: 45px;
     padding: 0;
     margin: 0;
-    font-weight: normal;
-    color: #777;
+    font-weight: 300;
+    color: #444;
     font-size: 15px;
     border-radius: 5px;
     cursor: pointer;
 }
-#reserve_list label input:checked ~ span {/*color: #fff;*/ color: #222; font-weight: bold; background: #fff; border: 1px solid #444;}
+#reserve_list label span:hover {background-color: #fff; color: #222;}
+#reserve_list label input:checked ~ span {/*color: #fff;*/ color: #222; font-weight: 500; background: #fff; border: 1px solid #444;}
 
-/*스크롤 css*/
-.list02::-webkit-scrollbar,
-.list03::-webkit-scrollbar,
-.list02_mo::-webkit-scrollbar,
-.list03_mo::-webkit-scrollbar,
-#reserve_list::-webkit-scrollbar {width: 3px; height: 20px;}
-
-.list02::-webkit-scrollbar-track,
-.list03::-webkit-scrollbar-track,
-.list02_mo::-webkit-scrollbar-track,
-.list03_mo::-webkit-scrollbar-track,
-#reserve_list::-webkit-scrollbar-track {background-color: #eee;}
-
-.list02::-webkit-scrollbar-button,
-.list03::-webkit-scrollbar-button,
-.list02_mo::-webkit-scrollbar-button,
-.list03_mo::-webkit-scrollbar-button,
-#reserve_list::-webkit-scrollbar-button {display: none;}
-
-.list02::-webkit-scrollbar-thumb,
-.list03::-webkit-scrollbar-thumb,
-.list02_mo::-webkit-scrollbar-thumb,
-.list03_mo::-webkit-scrollbar-thumb,
-#reserve_list::-webkit-scrollbar-thumb {border-radius: 5px; background-color: #444;}
-
-.active, .reserve_bar_mo:hover{
-  background-color: #C3A164;
-  color: #fff;
-    font-weight: normal;
-}
-
-.mypage_nav_mo {display: none;}
-.reserve_bar_mo {display: none;}
-.reserve_bar_mo_list {display: none;}
-#reserve_list_mo {display: none; opacity: 0;}
-#reserve_list_mo button.reserve_bar {display: none;}
-
-.mypage_nav {overflow: hidden;}
-.mypage_nav button {
-  background-color: inherit;
-  float: left;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-     height: 50px;
-     line-height: 50px; 
-    font-size: 16px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-      cursor: pointer;
-    text-align: justify;
-  transition: 0.3s;
-    color: #999;
-    font-weight: normal;
-}
-
-.mypage_nav button.active {
-    color: #222;
-    font-weight: 500;
-    padding: 0;
-}
-
-.mypage_right h4 {font-size: 24px; text-align: center;}
 
 .cancel_btn {float: right; margin-top: 1%;}
 .cancel_btn a {display: inline-block; font-size: 14px;  color: #555;}
 
-.logout {width: 85%; background: #fafafa;text-align: center; height: 45px; line-height: 45px; transition: all 0.3s; bottom: 0; margin-bottom: 10%; position: absolute; border-radius: 4px;}
-.logout:hover { background: #ddd;}
-.logout a {display: block;}
 
-.logout_mo {display: none;}
+/*tab 02 - 예매 및 결제내역*/
 
-.list03_mo,
-.list02_mo {display: none;}
 
 .list02,
 .list03 {width: 100%; height: 450px; background: #fff; overflow: scroll; overflow-x: hidden;/* border: 1px solid #eee;*/ background: #fcfcfc; border-top: 1px solid #444;}
@@ -363,25 +235,22 @@ p.cancel_info {margin:2% 0; text-align: center;}
 
 /*section.sub_wrap 완료*/
 
+/* 모바일영역 -------------------------------------------*/
+.mypage_nav_mo {display: none;}
+.reserve_bar_mo {display: none;}
+.reserve_bar_mo_list {display: none;}
+#reserve_list_mo {display: none; opacity: 0;}
+#reserve_list_mo button.reserve_bar {display: none;}
 
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
+.active, .reserve_bar_mo:hover{
+    background-color: #C3A164;
+    color: #fff;
+      font-weight: normal;
+  }
+.logout_mo {display: none;}
 
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
+.list03_mo,
+.list02_mo {display: none;}
 
 
 /*반응형*/
