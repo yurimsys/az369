@@ -121,7 +121,7 @@
                                             <!-- <div class="reserve_bar_list"> -->
                                                 <label>
                                                     <input type="radio" class='chk' value='<%=data[i].payDay%>'
-                                                        name="day[]">
+                                                        name="day[]" onclick="test5(this)">
                                                     <span class="reserve_bar">
                                                         <ul>
                                                             <li><%=data[i].deptTe%></li>
@@ -193,7 +193,7 @@
                                                     예매를 취소하겠습니까?</p>
                                                 <ul class="popup_btn">
                                                     <li>
-                                                        <a href="mypage" class="popup_close1">닫기</a>
+                                                        <a onclick="javascript:$('#popup').css('display','none')" class="popup_close1">닫기</a>
                                                     </li>
 
                                                     <li>
@@ -488,16 +488,14 @@
         var trVal = Array();
         var tdVal = Array();
         
-        //선택예매취소 클릭 후 리스트 보여주기
-        function cancelBtn() {
-            console.log('good');
-            $(".cancelRes").empty();
+function test5(e){
+    $(".cancelRes").empty();
             $(".table_mo").empty();
-            if ($(".chk").is(":checked") == false) {
-                alert("취소 항목을 선택해 주세요.");
-                return;
-            }
-            location.href = "#popup";
+            // if ($(".chk").is(":checked") == false) {
+            //     alert("취소 항목을 선택해 주세요.");
+            //     return;
+            // }
+            $('#popup').css('display','block');
 
             //체크된 레이블 보여주기
             var send_array = Array();
@@ -553,7 +551,83 @@
                     }
                 }
             })
-        }
+}
+
+        //선택예매취소 클릭 후 리스트 보여주기
+        $('.reserve_bar').click(function(){
+            // alert('ggg')
+           
+        })
+
+
+
+
+
+        // function cancelBtn() {
+        //     console.log('good');
+        //     $(".cancelRes").empty();
+        //     $(".table_mo").empty();
+        //     if ($(".chk").is(":checked") == false) {
+        //         alert("취소 항목을 선택해 주세요.");
+        //         return;
+        //     }
+        //     $('#popup').css('display','block');
+
+        //     //체크된 레이블 보여주기
+        //     var send_array = Array();
+        //     var send_cnt = 0;
+        //     var chkbox = $(".chk");
+        //     for (i = 0; i < chkbox.length; i++) {
+        //         if (chkbox[i].checked == true) {
+        //             send_array[send_cnt] = chkbox[i].value;
+        //             send_cnt++
+        //         }
+        //     }
+        //     var sendJson = JSON.stringify(send_array);
+        //     //console.log('sendjson :',sendJson); 
+
+        //     var seatArr = JSON.parse(sendJson);
+        //     console.log('seatArr :', seatArr);
+        //     $.ajax({
+        //         url: "api/user/payCancel",
+        //         method: 'post',
+        //         dataType: 'json',
+        //         data: {
+        //             'sendArray': seatArr
+        //         },
+        //         success: function (res) {
+        //             // console.log(res);
+        //             //PC 예매취소 리스트
+        //             for (let i = 0; i < res.data.length; i++) {
+        //                 let html = "<tr val=" + res.data[i].pId + ">";
+        //                 html += "<td>" + res.data[i].PayDay + "</td>";
+        //                 html += "<td>" + res.data[i].deptTe + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td>";
+        //                 html += "<td>" + res.data[i].seatCnt + "</td>";
+        //                 html += "<td>" + res.data[i].payType + "</td>";
+        //                 html += "<td>" + res.data[i].price + "</td>";
+        //                 html += "</tr>";
+        //                 $(".cancelRes").append(html);
+        //                 trVal[i] = res.data[i].pId;
+        //                 tdVal[i] = res.data[i].ctId;
+        //             }
+
+        //             //모바일 예매취소 리스트
+        //             //console.log("여기 리스트",res.data);
+        //             for (let k = 0; k < res.data.length; k++) {
+        //                 let html = "<dl>";
+        //                 //html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
+        //                 html += "<dt>결제날짜</dt><dd>" + res.data[k].PayDay + "</dd>";
+        //                 html += "<dl class='dl3'><dt>예약정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<br> <span>(평택 > 서울 동대문)</span></dd></dl>";
+        //                 html += "<dt>좌석개수</dt><dd>" + res.data[k].seatCnt + "</dd>";
+        //                 html += "<dt>결제수단</dt><dd>" + res.data[k].payType + "</dd>";
+        //                 html += "<dt>결제금액</dt><dd>" + res.data[k].price + "</dd></dl>";
+        //                 $(".table_mo").append(html);
+        //                 trVal[k] = res.data[k].pId;
+        //                 tdVal[k] = res.data[k].ctId;
+        //             }
+        //         }
+        //     })
+        // }
         
 
         //예매 취소
