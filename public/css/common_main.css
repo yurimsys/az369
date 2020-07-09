@@ -1,0 +1,139 @@
+/* section.main이 있는 ejs의 공통 css입니다. */
+
+
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
+
+/*reset*/
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
+a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
+img {vertical-align: middle;}
+a img {border: none;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+p {text-align: justify; font-family: inherit; font-size: 16px;}
+span {padding: 0; margin: 0;}
+/* ----------------------- */
+
+
+/* 공통 속성 영역 : 상단 */
+.wrap {width: 100%; margin: 0 auto; height: auto;}
+section.sub_wrap {
+    width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    overflow: hidden;
+}
+.inner_sub_wrap {width: 100%;}
+/* tnb영역 */
+.tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%);  display:flex;}
+.tnb ul{width: 100%; display:flex;}
+.tnb a { flex: 1; text-align: center; height: 100%; background: rgba(255,255,255,0.9); line-height: 55px; font-size: 16px; transition: all 0.2s; font-weight: 400; color: #444;}
+
+
+
+section.sub_wrap h6 {text-align: center; color: #C3A164; margin-top:80px; font-weight: 500; font-size: 16px;}
+section.sub_wrap h1 {
+    text-align: center;
+    font-size: 43px;
+    margin-top:-7px;
+	font-family: 'PT Serif', serif;
+    font-weight: normal; 
+}
+section.sub_wrap .bar {
+    border-bottom: 1px solid #c3a164; 
+    width: 25px; 
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+/* 소제목1 */
+section.sub_wrap h2 {font-size: 26px;  text-align: center; margin-bottom: 55px; line-height: 1.4; font-family: 'Noto Sans KR', sans-serif; font-weight: 300;}
+section.sub_wrap h2 span {font-weight: 500;}
+section.sub_wrap h5 {font-size: 22px; font-weight: 300; text-align:center;}
+section.sub_wrap h5 span {font-weight: 500;}
+
+/* 소제목2 */
+section.sub_wrap h4 {font-size: 22px; font-weight: 300; margin-bottom: 35px; line-height: 1.6;}
+section.sub_wrap h4 span {font-weight: 500;}
+section.sub_wrap p { font-weight: 300;}
+section.sub_wrap p span {font-weight: 400;}
+
+/* 버튼 */
+.btn {text-align: center; border-radius: 4px;}
+.btn-primary {border: 1px solid #C3A164; background: #c3a164; color: #fff; font-weight: 400;}
+.btn-outline-primary:hover {background: #c3a164; color: #fff; font-weight: 400;}
+.btn-outline-primary {border: 1px solid #dbdbdb; color: #444;transition: all 0.3s;}
+.btn-secondary {background: #eee; color: #767676; border: 1px solid #f8f8f8;} 
+ 
+
+/*반응형 ----------------------------------------------------------------------------*/
+
+/*1200px*/
+@media screen and (max-width: 1200px) {
+    /*main*/
+    section.main {width: 100%;}
+    section.main .inner_main {width: 100%;}
+    section.sub_wrap {width:100%;}
+	.tnb {width: 100%;}
+}
+
+/*1024px*/
+@media screen and (max-width: 1024px) {
+}
+
+
+/*768px*/
+@media screen and (max-width: 768px) {
+   
+    section.sub_wrap h6 {margin-top: 60px;}
+    section.sub_wrap h1 {font-size: 35px;}
+    section.sub_wrap h2 {font-size: 24px; margin-bottom: 45px;}
+    
+    .sub_info ul {width: 100%;}    
+}
+
+/*414px*/
+@media screen and (max-width: 414px) {
+
+    section.sub_wrap h6 {font-size: 15px;}
+	section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
+    section.sub_wrap h1 {font-size: 30px;}
+    section.sub_wrap h2 {font-size: 22px; line-height: 1.5; margin-bottom: 30px;}
+    section.sub_wrap h5 {font-size: 20px;}
+    section.sub_wrap h4 {font-size: 18px; width: 93%; text-align: justify;}
+	
+    .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
+    .sub_info h4 { width: 93%; margin: 0 auto; font-size: 16px;}
+    .sub_info h3 {font-size: 18px; width: 90%; margin: 0 auto; margin-bottom: 20px; letter-spacing: -0.35px;}
+}
+
+/*320px*/
+@media screen and (max-width: 320px) {
+    
+    .gnb_mo_login a {font-size: 13px;}
+    
+    /*main*/
+    section.main {width: 100%;}
+    
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%;}
+    section.sub_wrap h1 {font-size: 26px;}
+    section.sub_wrap h2 {font-size: 20px; line-height: 1.5; width: 93%; margin: 0 auto; margin-bottom: 25px;}
+    section.sub_wrap h2 br {display: block;}
+    section.sub_wrap h5{font-size: 18px;}
+    
+    .tnb ul li {font-size: 14px;}
+    .sub_bg {margin: 0 auto;}
+    
+    .sub_info {width: 90%; margin-top: 30px;}
+    
+    .sub_info p {margin: 0 auto; }
+    .sub_info p br{display: none;}
+    .sub_info ul {margin-top: 30px;;}
+    .sub_info .info_btn a {font-size: 15px;}
+}

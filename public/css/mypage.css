@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
@@ -51,16 +51,16 @@ section.sub_wrap h1 {
 /*전체 마이페이지 틀*/
 .mypage_box {position: relative; width: 100%; height: auto; font-size: 16px; overflow: hidden;}
 /*.mypage_box ul li {float: left;}*/
-.mypage_box .box_01 {width: 25%; margin-right: 1%;  background: #fff; border: 1px solid #dbdbdb; height: 700px; border-radius: 5px; position: relative; float: left;}
-.mypage_box .box_02 {width: 74%;  background: #fff; margin-right: 0; height: 700px; border: 1px solid #dbdbdb; border-radius: 5px; float: right;}
+.mypage_box .box_01 {width: 25%; margin-right: 1%;  background: #fff; border: 1px solid #dbdbdb; height: 650px; border-radius: 5px; position: relative; float: left;}
+.mypage_box .box_02 {width: 74%;  background: #fff; margin-right: 0; height: 650px; border: 1px solid #dbdbdb; border-radius: 5px; float: right;}
 
 /*마이페이지 왼쪽*/
 .mypage_left {width: 100%; height: auto; padding: 3% 8% 4%; overflow: hidden;}
 .mypage_nav button { width: 100%; height: 50px; line-height: 50px; border-bottom: 1px solid #eee; margin: 5px; background: #fff; border: none; font-family: 'Noto Sans KR', sans-serif; font-weight: bold;}
 .mypage_nav button span {float: right;}
-.info_title {width: 100%; overflow: hidden; margin-top: 3%; padding-bottom: 8%; border-bottom: 1px solid #eee;}
-.mypage_left h2 {font-size: 26px; font-weight: 400; display: inline-block; float: left; width: 70%;} 
-.mypage_left .modify_btn { color: #fff; background: rgba(173, 134, 60, 0.8);  display: inline-block; padding: 2% 5%; margin-top: 2.8%; font-size: 15px; font-weight: normal;float: right;width:30%; text-align: center; border-radius: 50px; transition: all 0.3s;}
+.info_title {width: 100%; overflow: hidden; padding-bottom: 20px; border-bottom: 1px solid #eee;}
+.mypage_left h2 {font-size: 24px; font-weight: 400; display: inline-block; float: left; width: 70%;} 
+.mypage_left .modify_btn { color: #fff; background: rgba(173, 134, 60, 0.8);  display: inline-block; height: 43px; line-height: 43px; font-size: 15px; font-weight: normal; float: right; width:30%; text-align: center; border-radius: 50px; transition: all 0.3s;}
 .mypage_left .modify_btn a {display: block;}
 .mypage_left .modify_btn:hover {background: rgba(173, 134, 60,1);}
 
@@ -89,17 +89,17 @@ section.sub_wrap h1 {
 
 /*오른쪽 예약현황*/
 /*reserve_list 타이틀*/
-.reserve_list_tit {overflow: auto; width: 100%; margin: 0 auto;  border: 1px solid #f2f2f2;}
+.reserve_list_tit {overflow: auto; width: 100%; margin: 0 auto;  border: 1px solid #f2f2f2; }
 .reserve_list_tit ul li {float: left; width: 25%; text-align: center; height: 50px; line-height: 50px; background: #f8f8f8; color: #444; font-weight: 500;border-top: 1px solid #eee;}
 
 
 /*reserve_list*/
-#reserve_list {width: 100%; height: 440px; background: #fafafa; border: 1px solid #eee; overflow: scroll; overflow-x: hidden; overflow-x: hidden;}
+#reserve_list {width: 100%; height: 350px; background: #fafafa; border: 1px solid #eee; overflow: scroll; overflow-x: hidden; overflow-x: hidden;}
 
 
 /*reserve_list 목록*/
 .reserve_bar { width: 100%; 
-  font-weight: normal;font-weight: normal;  color: #444; padding: 0; border: 1px solid #f8f8f8;}
+  font-weight: normal;font-weight: normal;  color: #767676; padding: 0; border: 1px solid #f8f8f8;}
 
 .reserve_bar ul li {float: left; width: 25%; text-align: center; font-size: 16px; font-weight: normal;}
 
@@ -109,14 +109,15 @@ section.sub_wrap h1 {
     display:inline-block;
     background: transparent;
     width: 100%;
-    height: 40px;
-    line-height: 40px;
+    height: 45px;
+    line-height: 45px;
     padding: 0;
     margin: 0;
     font-weight: normal;
     color: #777;
     font-size: 15px;
     border-radius: 5px;
+    cursor: pointer;
 }
 #reserve_list label input:checked ~ span {/*color: #fff;*/ color: #222; font-weight: bold; background: #fff; border: 1px solid #444;}
 
@@ -210,8 +211,7 @@ input{
     padding-left: 5px;
     padding-right: 5px;
     width: 190px;
-}  }
-
+} 
 button{
   clear: both;
   display: block;  
@@ -238,30 +238,30 @@ button{
 
         
 /*search 박스*/
-.searchBox {table-layout:fixed; /*border-collapse:collapse;*/ border-spacing:0; border:none; width: 80%; position: relative; margin: 0 auto; margin-top: 2%; margin-bottom: 25px; overflow: hidden; height: auto;}
+.searchBox {table-layout:fixed; border-spacing:0; border:none; width: 100%; position: relative; margin: 0 auto; overflow: hidden; height: auto; background: red;}
             
         
 .clearfix:after{content:"";display:block;clear:both;overflow:hidden}
 .searchDate:after{display:block;clear:both;content:'';}
 
 /*날짜 버튼*/
-.searchDate{overflow:hidden; object-position: center; width: 100%; margin: 0 auto;}
-.searchDate li{position:relative;float:left; width: 15%; margin-right: 1%; margin-bottom: 1.5%;}
+.searchDate{overflow:hidden; object-position: center; width: 100%; margin: 0 auto; background: darkcyan; display: flex; }
+.searchDate li{position:relative; flex:1; margin-right: 10px; margin-bottom: 10px;}
 .searchDate li:last-child {margin-right: 0;}
 .searchDate li .chkbox {display:block;text-align:center;}
 .searchDate li .chkbox input {position:absolute; display: none;}
-.searchDate li .chkbox label {display:block; height:30px; width: 100%;  line-height:30px; font-size: 15px; color:#666; text-align:center; text-decoration:none;cursor:pointer;background:#fff; border: 1px solid #ddd; border-radius: 4px; float: left; position: relative;}
+.searchDate li .chkbox label {display:block; height:30px; width: 100%;  line-height:30px; font-size: 15px; color:#444; text-align:center; text-decoration:none;cursor:pointer;background:#fff; border: 1px solid #dbdbdb; border-radius: 4px; float: left; position: relative;}
 .searchDate li .chkbox.on label {background:#444; color: #fff; border: none;}
 
 /*날짜 표시 사이 아이콘*/
 .demi{display:inline-block;margin:0 2%; vertical-align:middle}
 
 /*날짜표시칸*/
-.clearfix{ float: left; width: 80%;} 
+.clearfix{ float: left; width:100%; background: orange;} 
 .inpType{padding-left:2%; height:40px; line-height:40px; border:1px solid #eee; font-size: 17px; border-radius: 8px; background: #f4f4f4; width: 46%;}
 
 /*날짜조회 버튼*/
-.search_btn {width: 17%; height: 40px; background: #fff; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; float: right; color: #555;}
+.search_btn {width: 17%; height: 40px; background: #fff; border-radius: 4px; border: 1px solid #999; font-size: 14px; float: right; color: #222; font-weight: 400;}
 
 
 /*두번째 테이블 타이틀 간격*/

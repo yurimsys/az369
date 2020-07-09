@@ -1,157 +1,8 @@
 @charset "UTF-8";
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
-@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
-
-
-/*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; font-weight: normal;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
-h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
-a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
-img {vertical-align: middle;}
-a img {border: none;}
-li {list-style: none;}
-address, em, i {font-style: normal;}
-strong {font-weight: bold;}
-p {text-align: justify; font-family: inherit; font-size: 16px;}
-
-.wrap {
-    width: 100%;
-    margin: 0 auto;
-    height: auto;
-}
-
-/* header {width: 100%; height: 80px; position: fixed; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05);}
-
-.innerHeader {
-    width: 100%;
-    height: 80px;
-    position: relative;
-    margin: 0 auto;
-     z-index: 500;
-    font-size: 18px;
-}
-
-/*로고*/
-.innerHeader h1.logo {float: left; margin-left: 3%; line-height: 70px; overflow: hidden;}
-
-
-/*nav_gnb*/
-nav.gnb {width: 45%;/* float: left; */margin: 0 auto;} 
-
-nav.gnb ul li {
-    float: left;
-    margin: 0 auto;
-    width: 33.3%;
-    height: 80px;
-    line-height: 80px;
-    text-align: center;
-    font-weight: normal;
-}
-
-nav.gnb ul li a {display: block;}
-.innerHeader ul li:hover {color: #a0772b;}
-.innerHeader ul ul {display: none;   border: 1px solid #000;}
-.innerHeader ul ul li {float: none; width: 100%; height: 50px; line-height: 50px; position: relative;  color: #242424; background: #fff; font-size: 16px;}
-.innerHeader ul li ul li a {display: block;}
-
-.innerHeader ul li:hover > ul {display: block;}
-.innerHeader ul li ul li:hover { color: #222; background: #e3ddd2;}
-
-/*gnb2*/
-nav.gnb2 {width: 16%; float: right; margin-right: 5%; line-height: 80px; font-size: 16px; color: #444; }
-nav.gnb2 ul li {width: 33.3%; float: left; text-align: center; }
-nav.gnb2 a {display: block;}
-
-
-.tooltip {
-  position: relative;
-  display: inline-block; 
-   /* color: #333;*/
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 180px;
-    height: 60px;
-    line-height: 60px;
-  background-color: #000;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 1px 0;
-  position: absolute;
-    font-size: 16px;
-    font-weight: normal;
-  z-index: 1;
-  top: 100%;
-  left: 0%;
-  margin-left: -60px;
-}
-
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -8px;
-  border-width: 8px;
-  border-style: solid;
-  border-color: transparent transparent black transparent;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
- */
-
-/*header 완료*/
-/*section.sub_wrap 시작*/
-
-
-section.sub_wrap {
-  width: 1200px;
-  margin: 0 auto;
-  margin-bottom: 40px;
-  overflow: hidden;
-}
-
-section.sub_wrap .bar {
-border-bottom: 2px solid #c3a164; 
-width: 30px; 
-margin: 0 auto;
-margin-top: 10px;
-margin-bottom: 45px;
-}
-
-.box {position: relative; padding-top: 5%; overflow: hidden;}
-section.sub_wrap h6 {text-align: center; color: #C3A164;  padding-top: 60px; font-weight: 500;font-size: 16px;}
-
-section.sub_wrap h1 {
-  text-align: center;
-  font-size: 45px;
-  margin-top: -1%;
-font-family: 'PT Serif', serif;
-font-weight: normal;
-}
-/*폰트적용*/
-.inner_sub_wrap h1,
-.inner_sub_wrap h2 {font-family: 'Noto Sans KR', sans-serif; }
-
-.inner_sub_wrap {width: 1200px; margin: 0 auto;}
-
-
-
-@keyframes box {
-    0% {opacity: 0; transform: translateY(2%);}
-    100% {opacity: 1; transform: translateY(0%);}
-}
 
 /*reserve_box*/
 .reservation_box { width: 100%; background: #fff; border: 1px solid #ddd; height: auto; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; padding: 3%;
 }
-
-
 /*오른쪽영역*/
 .reserve_right h4 {margin-left: 3%; font-size: 19px; font-weight: bold; margin-top: 2%; display: inline-block;}
 .reserve_right h5 {font-size: 20px; margin-left: 3%; display: inline-block;}
@@ -169,11 +20,9 @@ font-weight: normal;
 .tabcontent dt {float: left; width: 18%; padding: 15px 0; font-weight: bold; color: #222;}
 .tabcontent dd {float: left; width: 82%; padding: 15px 0;}
 .tabcontent dd span {font-size: 15px; color: #555;}
-
 .tabcontent h3 br {display: none;}
 .tabcontent p br {display: none;}
 .tabcontent dt br {display: none;}
-
 
 /*새로고침버튼*/
 .reload_btn_top {display: none;}
@@ -186,7 +35,6 @@ font-weight: normal;
 .reserve_right h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; letter-spacing: -0.50px; }
 .select_seat h4 span {color: #999; font-weight: 300; font-size: 16px;}
 
-
 /*좌석선택 텍스트*/
 .seat_table {width: 100%; height: auto; overflow: hidden;}
 .seat_table dt {width: 100%; float: left; padding: 0;  margin-bottom: 5px; font-size: 15px; font-weight: normal; color: #222;}
@@ -194,29 +42,23 @@ font-weight: normal;
 
 .seat_table p { border-bottom: none; font-size: 15px; color: #777; display: inline-block; margin-left: 3%; float: left; line-height: 36px;}
 
-
 /*하단 예매버튼*/
-/*.payment_open {margin: 0 auto; width: 230px; height: 50px; line-height: 50px; background: #eee; display: block; text-align: center; transition: all 0.3s; overflow: hidden;margin-top: 2%; bottom: 3%; position: absolute; right: 2.5%;}*/
 .payment_open:hover {background: #ddd;}
-
 
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
 .layer:target{display:flex;animation:open 0.3s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
-
 .payment_box{ width: 25%;  height: auto; margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 10%; padding-bottom: 20px; border-radius: 12px;}
 
 /*결제버튼 팝업 내부*/
 /*팝업 타이틀*/
 .payment_tit {margin: 0 auto; text-align: center; color: #222; font-weight: 400; font-size: 24px; padding-top: 18px;}
-
 /*팝업 요약*/
 .info_table {width: 100%; overflow: hidden;/* border-bottom: 1px solid #eee;*/ margin-top: 22px; padding: 0 30px; font-size: 15px;}
 .info_table dl {width: 100%; padding: 10px 0; overflow: hidden; border-bottom: 1px solid #eee;}
 .info_table dl:last-child {border-bottom: 1px solid #444; padding-bottom: 15px;}
 .info_table dt {width: 35%; float: left; color: #767676; font-size: 300;}
 .info_table dd{width: 65%; float: right; color: #222;  text-align: right;}
-
 /*팝업 금액*/
 .price {width: 100%; overflow: hidden; padding: 18px 30px 0;}
 .price dl {width: 100%;}
@@ -224,90 +66,43 @@ font-weight: normal;
 .price dd {width: 50%; float: right; text-align: right;} 
 dl.reserve_price {color: #999 !important; }
 dl.price_sale {color: #c17e00;}
-/*dl.price_sale dt, dl.price_sale dd {font-weight: bold;}*/
 .total_dl {padding-top: 20px; overflow: hidden; letter-spacing: -0.5px;}
 .total_dl dt {color: #000; line-height: 43px; font-size: 18px;}
 .total_dl dd {color: #000; font-weight: bold;font-size: 26px;}
 .total_dl dd span {font-weight: 300; font-size: 18px;}
-
 .notice {padding: 20px 30px; background: #f4f4f4; margin-top: 15px;}
 .notice h5 {font-size: 18px; font-weight: 500; color: #444;}
 .notice p {padding-top: 5px; font-size: 15px; color: #767676; font-weight: 300; letter-spacing: -0.25px; line-height: 1.5;}
 .notice p::before {content: '·'; margin-right: 8px; margin-left: -8px;}
-
 /*팝업하단버튼*/
 .reservation_btn_mo {display: none;}
 .payment_btn {width: 100%; height: 50px; margin-top: 10%; border: 0; color: #fff; font-size: 16px; padding: 0 30px;}
 .payment_btn li {float: left; width: 49%; margin-right: 1%; }
 .payment_btn li:last-child {margin-right: 0;} 
 .payment_close {width: 100%; display: block; height: 50px; line-height: 50px; text-align: center;}
-.payment_close1 {background: #fff; color: #999; transition: all 0.2s; border: 1px solid #dbdbdb; border-radius: 4px;}
 .payment_close1:hover {background: #fafafa;}
-.payment_close2{bottom:20px;display:block;background:#222; color:#fff;text-align:center; font-weight: 400; float: left; width: 100%; border-radius: 4px;}
+.payment_close2{bottom:20px;display:block;background:#c3a164; color:#fff;text-align:center; font-weight: 400; float: left; width: 100%; border-radius: 4px;}
 /*section.sub_wrap 완료*/
 
-
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-
 /*반응형*/
-
 /*1200px*/
 @media screen and (max-width: 1200px) {
-
-    /*main*/
-    section.main {width: 100%;}
-    section.main .inner_main {width: 100%;}
-    
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
     section.sub_wrap .inner_sub_wrap {width: 100%;}
-    
     .reservation_box {width: 75%; margin: 0 auto;}
-    
     .payment_box {width: 40%;}
     .select_seat {width: 46%; padding-left: 2%;}
-
 }
 
 
 /*1024px*/
 @media screen and (max-width: 1024px) {
-
     .payment_box {width: 47%;}
-
-   
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    section.sub_wrap {padding-top: -10%;}
-    .box {padding-top: 70px; margin-bottom: 10px;}
-    
     .reserve_right {display: none;}
     .reservation_box {width: 90%; margin: 0 auto;}
     .reservation_box > ul > li {float: none; width: 100%;}
-    
     .reservation_box h4 {font-size: 22px; font-weight: bold; margin-bottom: 15px;}
     .seat_table dt {width: 100%; float: left; padding: 0;  margin-bottom: 5px; font-size: 15px; font-weight: normal; color: #222;}
     .seat_table dd {width: 100%; float: left; padding: 5px 0px; color: #000;  background: #f4f4f4; margin-bottom: 10px;}
-    
     .reservation_btn_mo {display: block; width: 60%; margin: 0 auto; margin-top: 4%; position: relative; overflow: hidden; padding-bottom: 4%; }
     .reservation_btn_mo ul li {float: left; width: 49%; margin-right: 1%; text-align: center; height: 50px; line-height: 50px; }
     .reservation_btn_mo ul li:nth-child(2) {margin-right: 0;}
@@ -315,81 +110,44 @@ header .open {
     .back {border: 1px solid #ddd;}
     .payment_open {background: #C3A164; color: #fff; }
     .payment_box {width: 40%;}
-
-    
-
 }
 
 
 /*768px*/
 @media screen and (max-width: 768px) {
-
-    .reservation_box {width: 95%; margin: 0 auto;}
+    .reservation_box {width: 93%; margin: 0 auto;}
     .reservation_btn_mo {width: 60%; margin-top: 4%;}
-
-    /*main*/
-    section.main {width: 100%;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    section.sub_wrap h1 {font-size: 35px;}
-    section.sub_wrap h2 {font-weight: normal;}
     .select_bus_list {height: 340px;}
     .reservation_box h4 {font-size: 16px; margin-bottom: 2;}
-
     .payment_box {width: 60%; }
-    
-    
-    .box {padding-bottom: 4%;}
     .location_select {width: 250px;}
 }
 
 
 /*414px*/
 @media screen and (max-width: 414px) {
-
-    .box {padding-top: 20%;}
-    
     .select_seat {float: left; width: 100%; margin-top: 5%;}
     .reload_btn {margin-top: 2%;}
-    .reservation_btn_mo {width: 95%; margin-top: 4%;}
-    
-    .innerHeader {z-index: 100;}
-    
+    .reservation_btn_mo {width: 93%; margin-top: 4%;}
     .layer {background: #fff; opacity: 1;}
     .payment_box {width: 100%; height: 100%; top:0;} 
-    .payment_tit {margin-bottom: 20px; padding-top: 5px;}
+    .payment_tit {margin-bottom: 20px; padding-top: 0px;}
     .payment_box_inner {height: 100%; overflow: scroll;}
     .payment_btn {margin-top: 15px;}
-
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap .inner_sub_wrap {width: 100%;}
-    section.sub_wrap h6 {padding-top: 10px; margin-bottom: -2.5%;}
-    section.sub_wrap h1 {font-size: 30px; margin-bottom: 3%;}
-    section.sub_wrap .bar {display: none;}
-
-    section.sub_wrap h2 br {display: block;}
-        
     .reservation_btn_mo {margin-top: 10px;}
 }
 
 /*375px*/
 @media screen and (max-width: 375px) {
-  .reservation_box {width: 100%; margin: 0 auto; margin-right: 5%;}
-  .payment_box {width: 100%;}
+  .reservation_box {width: 100%; margin: 0 auto; margin-right: 5%; }
+  .payment_box {width: 100%;;}
   .payment_box_inner {height: 100%; overflow: scroll;}
 }
 
-
 /*320px*/
 @media screen and (max-width: 320px) {
-
-    /*section.sub_wrap*/
-    section.sub_wrap h1 {font-size: 24px;}
     .seat_table dt, .seat_table dd {font-size: 15px;}
     section.sub_wrap p {margin-bottom: 5%;}
-
     .box {width: 100%;}
     .location {width: 100%;}
     .location ul li {width: 100%; text-align: center;}
@@ -400,6 +158,6 @@ header .open {
     .select_bus_btn p {display: none;}
     .notice h5 {margin-bottom: 10px;}
     .notice p {padding: 0; margin-bottom: 0;}
-    .payment_btn {padding: 0; width: 95%; margin: 0 auto; margin-top: 10px;}
+    .payment_btn {padding: 0; width: 93%; margin: 0 auto; margin-top: 10px;}
     .reservation_btn_mo ul li, .payment_close1, .payment_close2 {height: 45px; line-height: 45px; font-size: 16px;}
 }

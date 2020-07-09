@@ -4,6 +4,7 @@
 <head>
     <% include templates/head.ejs %>
     <link rel="stylesheet" href="/css/reservation_01-2.css">
+    <link rel="stylesheet" href="/css/common_box.css">
 
     <title>AZ369 - 장차버스예매</title>
 
@@ -146,11 +147,11 @@
 
                         <ul class="payment_btn">
                             <li>
-                                <a class="payment_close1 payment_close" onclick="payBack()">취소</a>
+                                <a class="payment_close btn btn-secondary " onclick="payBack()">취소</a>
                             </li>
 
                             <li>
-                                <a onclick="processPayment()" class="payment_close2 payment_close">결제하기</a>
+                                <a onclick="processPayment()" class="payment_close payment_close2">결제하기</a>
                             </li>
                         </ul>
                     </div>

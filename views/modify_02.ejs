@@ -3,6 +3,7 @@
 
 <head>
     <% include templates/head.ejs %>
+    <link rel="stylesheet" href="/css/common_box.css">
     <link rel="stylesheet" href="/css/modify_02.css">
 
     <title>AZ369 - 내정보수정</title>
@@ -63,7 +64,7 @@
                                 </li>
 
                                 <li>
-                                    <div class="check_btn" onclick="myFunction()">인증번호 받기</div>
+                                    <div class="check_btn btn btn-light" onclick="myFunction()">인증번호 받기</div>
                                 </li>
 
                                 <li>
@@ -95,7 +96,7 @@
                                         <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호"
                                             value='<%= sessionUser.U_Zip%>' style="background: #f8f8f8;">
                                         <button type="button" onclick="execDaumPostcode()" value="우편번호 찾기"
-                                            class="btn-primary round">우편번호찾기</button><br>
+                                            class="btn-add btn btn-light round">우편번호찾기</button><br>
                                         <input type="text" id="address" name="address" placeholder="매장주소"
                                             value='<%= sessionUser.U_Addr1%>' style="background: #f8f8f8;"><br>
                                         <input type="text" id="detailAddress" name="detailAddress"
@@ -106,7 +107,7 @@
                                         <input type="text" id="jibunAddress" name="jibunAddress" hidden="">
                                     </div>
                                 </li>
-                                <div class="modify_btn">
+                                <div class="modify_btn btn btn-primary">
                                     <a onclick="modifyInfo()">내정보 변경</a>
                                 </div>
 
@@ -135,7 +136,7 @@
 
                                         <ul class="withdrawal_btn">
                                             <li>
-                                                <a href="modify2" class="withdrawal_close">취소</a></li>
+                                                <a href="modify2" class="withdrawal_close1">취소</a></li>
 
                                             <li><a onclick="delUser()" class="withdrawal_close2">탈퇴하기</a></li>
                                         </ul>
@@ -147,22 +148,24 @@
                                     <div class="withdrawal_box">
 
                                         <div class="withdrawal_tit">
-                                            <p>회원탈퇴</p>
+                                            회원탈퇴
                                         </div>
 
                                         <div class="withdrawal_box_txt">
-                                            <p>하단의 비밀번호를 입력 후 탈퇴하기 버튼을 클릭하시면 탈퇴가 가능하며, <br>
+                                            <p>하단의 비밀번호를 입력 후 탈퇴하기를 누르시면 탈퇴가 가능합니다. <br>
                                                 탈퇴 시 모든 데이터가 삭제되므로 장차이용이 불가합니다.<br>
                                                 예약중인 장차가 있으실 경우 <strong><u>환불 이후에 탈퇴가 가능</u></strong>합니다. <br>
-                                                헌재 아직 남아있는 장차예매가 있습니다. <br>
-                                                환불이 완료된 후 다시 시도해주세요.</p>
+                                                </p>
+                                                <p style="color: #222; font-weight: 400;">
+                                                    헌재 아직 남아있는 장차예매가 있습니다.
+                                                    환불이 완료된 후 다시 시도해주세요.</p>
                                         </div>
 
                                         <ul class="withdrawal_btn">
                                             <li>
-                                                <a href="modify2" class="withdrawal_close">취소</a></li>
+                                                <a href="modify2" class="withdrawal_close1 btn btn-secondary">취소</a></li>
                                             <li>
-                                                <a href="mypage" class="withdrawal_close2">예약현황</a></li>
+                                                <a href="mypage" class="withdrawal_close2 btn btn-primary">예약현황</a></li>
                                         </ul>
 
                                     </div>

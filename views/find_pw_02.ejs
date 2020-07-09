@@ -2,7 +2,8 @@
 <html lang="ko">
 
 <head>
-    <% include templates/head.ejs %>    
+    <% include templates/head.ejs %>
+    <link rel="stylesheet" href="/css/common_box.css">
     <link rel="stylesheet" href="/css/find_pw_02.css">
 
     <title>AZ369 - 비밀번호 찾기</title>
@@ -37,7 +38,7 @@
                             <ul>
                                 <a href="findId">
                                     <li
-                                        style="border-bottom: 1px solid #ad863c; background: #fafafa; color: #999; font-weight: 400;">
+                                    style="background: #fafafa; border: 1px solid #fafafa; border-bottom: 1px solid #ad863c; color: #999; font-weight: 400;">
                                         아이디 찾기</li>
                                 </a>
     
@@ -75,7 +76,7 @@
                                         style="font-size: 13px; color: red; display: none;">비밀번호가 일치하지 않습니다.</div>
     
     
-                                    <p>(비밀번호는 영문 + 숫자 + 특문 포함 8글자 이상이어야 합니다.)</p>
+                                    <p>(영문 + 숫자 + 특문 포함 8글자 이상)</p>
                                 </div>
     
                                 <div class="find_pw_btn">

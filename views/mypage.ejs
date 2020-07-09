@@ -248,66 +248,70 @@
                                                         <ul class="searchDate">
                                                             <li>
                                                                 <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType1"
-                                                                        onclick="setSearchDate('0d')" />
+                                                                    <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')" />
                                                                     <label for="dateType1">당일</label>
                                                                 </span>
                                                             </li>
                                                             <li>
                                                                 <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType2"
-                                                                        onclick="setSearchDate('1w')" />
+                                                                    <input type="radio" name="dateType" id="dateType2" onclick="setSearchDate('1w')" />
                                                                     <label for="dateType2">1주</label>
                                                                 </span>
                                                             </li>
                                                             <li>
                                                                 <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType3"
-                                                                        onclick="setSearchDate('1m')" />
+                                                                    <input type="radio" name="dateType" id="dateType3" onclick="setSearchDate('1m')" />
                                                                     <label for="dateType3">1개월</label>
                                                                 </span>
                                                             </li>
                                                             <li>
                                                                 <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType4"
-                                                                        onclick="setSearchDate('3m')" />
+                                                                    <input type="radio" name="dateType" id="dateType4" onclick="setSearchDate('3m')" />
                                                                     <label for="dateType4">3개월</label>
                                                                 </span>
                                                             </li>
                                                             <li>
                                                                 <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType5"
-                                                                        onclick="setSearchDate('6m')" />
+                                                                    <input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('6m')" />
                                                                     <label for="dateType5">6개월</label>
                                                                 </span>
                                                             </li>
                                                         </ul>
-
+                                        
                                                         <div class="clearfix">
-                                                            <!-- 시작일 -->
-                                                            <span class="dset">
-                                                                <input type="text" id="deptDay"
-                                                                    class="datepicker inpType searchStartDate"
-                                                                    name="searchStartDate">
-                                                            </span>
-
-                                                            <span class="demi">~</span>
-
-                                                            <!-- 종료일 -->
-                                                            <span class="dset">
-                                                                <input type="text" id="endDay"
-                                                                    class="datepicker inpType searchEndDate"
-                                                                    name="searchEndDate">
-                                                            </span>
+                                                            <ul>
+                                                                <!-- 시작일 -->
+                                                                <li>
+                                                                    <span class="dset">
+                                                                        <input type="text" id="deptDay" class="datepicker inpType searchStartDate"
+                                                                            name="searchStartDate">
+                                                                    </span>
+                                                                </li>
+                                        
+                                                                <li>
+                                                                    <span class="demi">~</span>
+                                                                </li>
+                                        
+                                                                <li>
+                                                                    <!-- 종료일 -->
+                                                                    <span class="dset">
+                                                                        <input type="text" id="endDay" class="datepicker inpType searchEndDate"
+                                                                            name="searchEndDate">
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+                                        
+                                        
+                                                            <button class="search_btn" onclick="payBetween()">날짜조회</button>
                                                         </div>
-
-                                                        <button class="search_btn" onclick="payBetween()">날짜조회</button>
+                                        
+                                        
                                                     </td>
                                                 </tr>
-
+                                        
                                             <tbody>
                                         </table>
-
+                                        
                                         <!--두번째 리스트 PC-->
                                         <div class="list02">
                                             <table class="table">
@@ -320,107 +324,99 @@
                                                     <th>결제금액</th>
                                                 </thead>
                                                 <tbody id="payList">
-
+                                        
                                                 </tbody>
                                             </table>
                                         </div>
-
+                                        
                                         <!--두번째 리스트 mo 414px-->
-
+                                        
                                         <div class="list02_mo">
-
+                                        
                                         </div>
-
+                                        
                                         <!--두번째 리스트 popup mo-->
                                         <div id="popup2" class="layer">
                                             <div class="popup_box_mo popup_box_mo2">
                                                 <h2>예매 및 결제 상세내역</h2>
-
+                                        
                                                 <div class="table_mo">
                                                 </div>
-
+                                        
                                                 <div class="popup_btn_mo">
                                                     <a class="popup_close1">닫기</a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <!--환불조회 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22 -->
-                                    <div id="03" class="tabcontent">
-                                        <div class="tab_tit">
-                                            <h4>취소 및 환불조회</h4>
-                                            <p>취소 및 환불조회는 오늘날짜기준 최대 3개월까지만 조회가 가능합니다. </p>
                                         </div>
-
-                                        <!-- search -->
-                                        <table class="searchBox">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <ul class="searchDate">
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType10"
-                                                                        onclick="setSearchDate('0d')" />
-                                                                    <label for="dateType10">당일</label>
+                                        
+                                        <!--환불조회 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22 -->
+                                        <div id="03" class="tabcontent">
+                                            <div class="tab_tit">
+                                                <h4>취소 및 환불조회</h4>
+                                                <p>취소 및 환불조회는 오늘날짜기준 최대 3개월까지만 조회가 가능합니다. </p>
+                                            </div>
+                                        
+                                            <!-- search -->
+                                            <table class="searchBox">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <ul class="searchDate">
+                                                                <li>
+                                                                    <span class="chkbox2 chkbox">
+                                                                        <input type="radio" name="dateType" id="dateType10" onclick="setSearchDate('0d')" />
+                                                                        <label for="dateType10">당일</label>
+                                                                    </span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="chkbox2 chkbox">
+                                                                        <input type="radio" name="dateType" id="dateType11" onclick="setSearchDate('1w')" />
+                                                                        <label for="dateType11">1주</label>
+                                                                    </span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="chkbox2 chkbox">
+                                                                        <input type="radio" name="dateType" id="dateType12" onclick="setSearchDate('1m')" />
+                                                                        <label for="dateType12">1개월</label>
+                                                                    </span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="chkbox2 chkbox">
+                                                                        <input type="radio" name="dateType" id="dateType14" onclick="setSearchDate('3m')" />
+                                                                        <label for="dateType14">3개월</label>
+                                                                    </span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="chkbox2 chkbox">
+                                                                        <input type="radio" name="dateType" id="dateType15" onclick="setSearchDate('6m')" />
+                                                                        <label for="dateType15">6개월</label>
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+                                        
+                                                            <div class="clearfix">
+                                                                <!-- 시작일 -->
+                                                                <span class="dset">
+                                                                    <input type="text" id="cancelDeptDay" class="datepicker inpType searchStartDate"
+                                                                        name="searchStartDate">
                                                                 </span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType11"
-                                                                        onclick="setSearchDate('1w')" />
-                                                                    <label for="dateType11">1주</label>
+                                        
+                                                                <span class="demi">~</span>
+                                        
+                                                                <!-- 종료일 -->
+                                                                <span class="dset">
+                                                                    <input type="text" id="cancelEndDay" class="datepicker inpType searchEndDate"
+                                                                        name="searchEndDate">
                                                                 </span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType12"
-                                                                        onclick="setSearchDate('1m')" />
-                                                                    <label for="dateType12">1개월</label>
-                                                                </span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType14"
-                                                                        onclick="setSearchDate('3m')" />
-                                                                    <label for="dateType14">3개월</label>
-                                                                </span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType15"
-                                                                        onclick="setSearchDate('6m')" />
-                                                                    <label for="dateType15">6개월</label>
-                                                                </span>
-                                                            </li>
-                                                        </ul>
-
-                                                        <div class="clearfix">
-                                                            <!-- 시작일 -->
-                                                            <span class="dset">
-                                                                <input type="text" id="cancelDeptDay"
-                                                                    class="datepicker inpType searchStartDate"
-                                                                    name="searchStartDate">
-                                                            </span>
-
-                                                            <span class="demi">~</span>
-
-                                                            <!-- 종료일 -->
-                                                            <span class="dset">
-                                                                <input type="text" id="cancelEndDay"
-                                                                    class="datepicker inpType searchEndDate"
-                                                                    name="searchEndDate">
-                                                            </span>
-                                                        </div>
-
-                                                        <button class="search_btn"
-                                                            onclick="cancelBetween()">날짜조회</button>
-                                                    </td>
-                                                </tr>
-
-                                            <tbody>
-                                        </table>
+                                                            </div>
+                                        
+                                                            <button class="search_btn" onclick="cancelBetween()">날짜조회</button>
+                                                        </td>
+                                                    </tr>
+                                        
+                                                <tbody>
+                                            </table>
 
 
                                         <div class="list03">

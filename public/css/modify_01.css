@@ -1,58 +1,7 @@
 @charset "UTF-8";
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
-@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
-
-/*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
-h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
-a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
-img {vertical-align: middle;}
-a img {border: none;}
-li {list-style: none;}
-address, em, i {font-style: normal;}
-p {text-align: justify; font-family: inherit; font-size: 16px;}
-
-.wrap {
-    width: 100%;
-    margin: 0 auto;
-    height: auto;
-}
-
-/*section.sub_wrap 시작*/
-section.sub_wrap {
-    width: 1200px;
-    margin: 0 auto;
-    margin-bottom: 90px;
-	overflow: hidden;
-}
-
-section.sub_wrap .bar {
-    border-bottom: 2px solid #c3a164; 
-    width: 30px; 
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 50px;
-}
-
-section.sub_wrap h6 {text-align: center; color: #c3a164;  padding-top: 5%; font-weight: 500; font-family: 'Noto Sans KR', sans-serif; font-size: 16px;}
-
-section.sub_wrap h1 {
-    text-align: center;
-    font-size: 45px;
-    margin-top: -1%;
-	font-family: 'PT Serif', serif;
-	font-weight: normal;
-}
-
-
-/*박스 영역*/
-.inner_sub_wrap {width: 1200px; margin: 0 auto;}
-.box {position: relative; padding-top: 5%; overflow: hidden;}
-
 
 /*전체틀*/
-.modify_box {position: relative; width: 100%; background: #fff; border: 1px solid #eee; height: auto; overflow: hidden;font-size: 16px; padding: 4% 20%; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;
+.modify_box {position: relative; width: 100%; background: #fff; border: 1px solid #eee; height: auto; overflow: hidden;font-size: 16px; padding:5% 24%; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;
 }
 @keyframes box {
     0% {opacity: 0; transform: translateY(2%);}
@@ -65,7 +14,7 @@ section.sub_wrap h1 {
 
 /*내부 폼*/
 .modify_box form {width: 100%; margin: 0 auto;}
-.modify_box input {width: 100%; height: 50px; padding: 2%; margin: 0.5%; border: 1px solid #eee; margin: 0;}
+
 
 .modify_box h2 {text-align: center; font-size: 24px; margin-bottom: 10px; font-weight: 500;}
 .modify_box p {font-weight: 300; margin-bottom: 25px; font-size: 16px; text-align: center;}
@@ -78,112 +27,32 @@ section.sub_wrap h1 {
 .phone_modify_form ul li,
 .add_modify_form ul li{margin-bottom: 0%;}
 
-/*폼 버튼영역*/
-.phone_modify_form #phone {width: 70%; margin-right: 1%; float: left;}
-#phone_coheck_btn {width: 29%; float: left;}
-.add_modify_form #postcode {width: 70%; margin-right: 0.5%;}
-.modify_box #phone {width: 70%; float: left; margin-right: 1%;}
-#phone_check_btn {width: 29%; float: left;}
-.modify_box input {margin-bottom: 1%;}
-input::placeholder {font-weight: 14px; font-weight: 300; color: #767676;}
-
 
 /*하단 버튼*/
 .modify_btn {width: 100%; margin: 0 auto; text-align: center;  margin-top: 40px;}
-.modify_btn ul li {float: left; width: 49.5%; margin-right: 1%;}
-.modify_btn ul li:nth-child(2) {margin-right: 0%;}
+.modify_btn ul {display: flex;}
+.modify_btn ul li {flex: 1; margin-right: 10px;}
 .modify_btn ul li a {display: block;}
-.back {border: 1px solid #ddd; height: 50px; line-height: 50px; float: left;}
-.next {background: #c3a164; color: #fff; width: 230px; height: 50px; line-height: 50px; float: left; border: #c3a164;}
 
 /*section.sub_wrap 완료*/
 
 
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
-
-
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-
 /*반응형*/
-
-/*1200px*/
-@media screen and (max-width: 1200px) {
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width: 1200px; overflow: hidden;}
-    section.sub_wrap .inner_sub_wrap {width: 95%; overflow: hidden;}
-}
-
-
-/*1024px*/
-@media screen and (max-width: 1024px) {
-    
-    .box {padding-top: 60px;}
-
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-
-}
-
 
 /*768px*/
 @media screen and (max-width: 768px) {
-    
-    .box {padding-top: 9.5%;}
-    section.sub_wrap h1 {font-size: 35px;}
-    
-    /*하단 버튼*/
-    .modify_box {padding: 5% 7%;}
-	
-	
+    section.sub_wrap h2 {margin-bottom: 15px;}
+    .modify_box {padding: 5% 20%;}
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-	section.sub_wrap h6 {padding-top: 50px; margin-bottom: -5px;}
-    section.sub_wrap h1 {font-size: 30px; margin-bottom: 4%;}
-    .inner_sub_wrap h2 {font-size: 18px;}
-    section.sub_wrap .bar {display: none;}
-    
-    /*section.sub_wrap*/
-    .modify_box {margin: 0 auto; padding: 10% 5%;}
-    .modify_box p {color: #444; font-size: 16px;}
+    .modify_box {margin: 0 auto; padding: 8% 5%;}
+    .modify_box p {color: #444; font-size: 15px; text-align: justify; margin-bottom: 12px;}
     .modify_btn {width: 100%;}
-    
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
-
-    /*section.sub_wrap*/
-    section.sub_wrap h1 {font-size: 24px;}
-	.modify_box p {color: #444; font-size: 15px;}
-	
-    .modify_btn ul li {font-size: 15px; line-height: 40px; height: 40px;}
     .modify_box {padding-bottom: 10%;}
 }

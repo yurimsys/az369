@@ -3,7 +3,9 @@
 
 <head>
     <% include templates/head.ejs %>
+    <link rel="stylesheet" href="/css/common_box.css">
     <link rel="stylesheet" href="/css/join_01.css">
+    
 
     <title>AZ369 - 회원가입</title>
 
@@ -34,7 +36,7 @@
                     <div class="join_box">
                         <div class="join_process"><span>약관동의 </span>· 정보입력 · 가입완료</div>
 
-                        <h2>01/ 약관동의</h2>
+                        <h2>약관동의</h2>
 
                         <div class="agreement_tit">
                             <ul>
@@ -43,14 +45,14 @@
                                 </li>
 
                                 <li>
-                                    <div class="checks etrans check_btn">
+                                    <div class="checks etrans">
                                         <input type="checkbox" id="ex_chk1" class="ab">
                                         <label for="ex_chk1">동의</label>
                                     </div>
                                 </li>
                             </ul>
                         </div>
-                        <div class="join_agreement">
+                        <div class="join_agreement scroll_style">
 
                             <link rel="stylesheet" href="/css/join_agreement.css">
 
@@ -170,7 +172,7 @@
                                 </li>
 
                                 <li>
-                                    <div class="checks etrans check_btn">
+                                    <div class="checks etrans">
                                         <input type="checkbox" id="ex_chk2" class="ab">
                                         <label for="ex_chk2">동의</label>
                                     </div>
@@ -179,7 +181,7 @@
 
 
                         </div>
-                        <div class="join_agreement">
+                        <div class="join_agreement scroll_style">
 
 
                             <!-- <서비스 이용약관>-->
@@ -202,10 +204,10 @@
                         <div class="join_btn">
                             <ul>
                                 <a href="login">
-                                    <li class="back">취소</li>
+                                    <li class="back btn btn-outline-primary">취소</li>
                                 </a>
                                 <a onclick="nextBtn()">
-                                    <li class="next">다음</li>
+                                    <li class="next btn btn-primary">다음</li>
                                 </a>
                             </ul>
                         </div>
