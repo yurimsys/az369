@@ -43,13 +43,13 @@
                     <div class="bar"></div>
 
                     <div class="reservation_box">
-                        <!-- <ul> -->
-                            <!-- <li> -->
-                                <!--예약 왼쪽목록-->
-                                <!-- <div class="reserve_left"> -->
+                        <!-- <ul>
+                            <li>
+                                예약 왼쪽목록
+                                <div class="reserve_left">
 
-                                    <!--왼쪽 상단 : 지역-->
-                                    <!-- <div class="left_list location">
+                                    왼쪽 상단 : 지역
+                                    <div class="left_list location">
                                         <h4>지역 및 시간 선택 <span
                                                 style="color: #999; font-weight: 300; font-size: 16px;">(왕복)</span>
                                         </h4>
@@ -99,10 +99,10 @@
                                             </div>
                                         </div>
 
-                                    </div> -->
-                                <!-- </div> -->
-                            <!-- </li> -->
-                            <!-- <li> -->
+                                    </div>
+                                </div>
+                            </li>
+                            <li> -->
                                 <div class="reserve_right">
                                     <!-- <p class="before_p"><img src="/img/reservation/before_p_icon.png" alt=""> 왼쪽을 먼저 선택해주세요.</p> -->
                                     <div id="bus_seat_layer" class="tabcontent">
@@ -241,6 +241,22 @@
 
     <script>
 
+        $(document).ready(function(){
+            var filter = "win16|win32|win64|mac|macintel"; 
+            if ( navigator.platform ) { 
+                if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) 
+                { 
+                    //mobile 
+                    location.href = "/reservation2";
+                    // alert('mobile 접속'); 
+                } else { 
+                    //pc 
+                    alert('pc 접속'); 
+                } 
+        }
+
+        })
+
         // $.ajax({
         //     url: 'api/user/resDept',
         //     method: 'post',
@@ -282,6 +298,8 @@
     </script>
 
     <script>
+
+        openBus(45);
         //모바일 다음 버튼 기능 
         function moNext(){
             if($('.tab').children('button').hasClass('active') == true){
@@ -319,7 +337,9 @@
             location.href = "/reservation#payment";
         }
 
-        function openBus(evt, busSeat) {
+        function openBus(busSeat) {
+            // console.log('evt',evt);
+            console.log('busSeat', busSeat);
             var i, tablinks
             //좌석 선택시 우측 문구 삭제
             $('.before_p').css('display','none');
@@ -331,10 +351,11 @@
             }
             sessionStorage.setItem('ct_id', busSeat);
             //좌석금액 세션에 저장
-            sessionStorage.setItem('seat_price', evt.currentTarget.value);
+            // sessionStorage.setItem('seat_price', evt.currentTarget.value);
+            sessionStorage.setItem('seat_price', '3000');
 
             document.getElementById("bus_seat_layer").style.display = "block";
-            evt.currentTarget.className += " active";
+            // evt.currentTarget.className += " active";
             var firstSeatLabel = 1;
 
 
