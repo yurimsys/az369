@@ -1,0 +1,359 @@
+@charset "UTF-8";
+
+
+/*reserve_box*/
+.reservation_box { width: 100%; height: auto; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
+.reservation_box ul li {width: 49.5%; float: left; margin-right: 1%;  background: #fff;}
+.reservation_box ul li:nth-child(2) {margin-right: 0;}
+
+/*왼쪽영역*/
+.reserve_left {width: 100%; background: #fff; border: 1px solid #dbdbdb; padding: 25px 30px; height: 650px; border-radius: 4px;}
+.reserve_left ul li { width: 100%;}
+.reserve_left h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; letter-spacing: -0.50px; }
+.left_list:nth-child(2) { padding-top: 35px; border-bottom: none;}
+
+/*왼쪽상단 - 지역,시간 선택------------------------------*/
+.location ul {width: 100%;height: auto;}
+.location ul li {float: left; height: 45px;}
+.location ul > li:nth-child(1), .location ul > li:nth-child(3)
+ {width: 44%;;} 
+ .location ul > li:nth-child(2) {width: 10%; text-align: center; line-height: 43px;}
+
+ /* select박스 디자인 */
+.location_select {width: 100%;line-height: 40px; position: relative; border-radius: 4px; background-color: #fff;}
+.location_select01 select,
+.location_select02 select {display: none;}
+/* 화살표디자인 */
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 18px;
+  right: 12px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #ccc transparent transparent transparent;
+}
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #ccc transparent;
+  top: 10px;
+}
+/* select 영역 */
+.select-items div,.select-selected {
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  padding-left: 15px;
+  color:#444;
+}
+/* 선택된 옵션 */
+.select-selected {
+  background-color: #fff;
+  color: #222;
+ font-weight:400;
+ font-size: 15px;
+ border: 1px solid #dbdbdb;
+ border-radius: 4px;
+}
+/* 선택할 옵션 */
+.select-items {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #eee;
+  color: #444;
+  font-size: 15px;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+.select-hide {display: none;}
+.select-items div:hover, .same-as-selected {
+  background-color: #f4f4f4;
+}
+
+
+
+/*왼쪽하단 - 날짜,버스선택 --------------------------------------*/
+.select_bus {width: 100%; overflow: hidden;}
+.select_bus_list {width: 100%; height: 380px; overflow: scroll; overflow-x: hidden;background: #fafafa;}
+
+/* 버스선택 상단 */
+.select_bus_list_tit {width: 100%; font-size: 15px;  height: 45px; line-height: 45px; color: #222; border-top: 1px solid #dbdbdb; letter-spacing: -0.5px; font-weight: 400;}
+.select_bus_list_tit ul li {float: left; text-align: center;  margin-bottom: 0%; border-bottom: 1px solid #dbdbdb; background: #fff;}
+.select_bus_list_tit ul li:nth-child(1) {width: 35%;}
+.select_bus_list_tit ul li:nth-child(2) {width: 35%;}
+.select_bus_list_tit ul li:nth-child(3) {width: 30%;}
+.select_bus_list_tit ul li{margin-right: 0;}
+.select_bus label input {display: none;}
+.select_bus label span {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    font-weight: normal;
+}
+.select_bus {width: 100%;}
+.select_bus_list { background: #fafafa; border: 1px solid #eee; padding-top: 1px;}
+.select_bus span {height: 50px; line-height: 50px; text-align: center; float: left;}
+.select_bus .select_bus_time {margin: 0; width: 35%;}
+.select_bus .select_bus_name {margin: 0; width: 35%;}
+.select_bus .select_bus_seat {margin: 0; width: 30%; float: initial;}
+
+/*버스선택버튼 active*/
+.tab {
+  overflow: hidden;
+  background-color: inherit;
+    width: 100%;
+    font-weight:200;
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+    color: #444;
+    font-weight: 300;
+  font-size: 16px;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #eee;
+    width: 100%;
+
+}
+.tab button:hover {background-color: #fff; color: #222;}
+.tab button.active {
+  background-color: #fff;
+    border: 1px solid #444; 
+    color: #444444;
+    font-weight: 500;
+}
+
+
+/*오른쪽영역*/
+.reserve_right { width: 100%; background: #fff; border: 1px solid #dbdbdb; height: 650px; font-size: 15px; padding: 20px; border-radius: 4px; position: relative;}
+.reserve_right h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; letter-spacing: -0.50px; }
+p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; position: absolute; top: 50%;transform: translateY(-50%); line-height: 25px;}
+.reserve_right h5 {font-size: 20px; margin-left: 3%; display: inline-block;}
+.reserve_right ul li {background: transparent; margin-left: 3%;}
+
+/*오른쪽영역 내부*/
+.tabcontent {
+  display: none;
+    height: 620px;
+  border-top: none;
+}
+.tabcontent h3 {font-family: 'Noto Sans KR', sans-serif; color: #000; font-weight: bold; font-size: 30px;}
+.tabcontent p {color: #555; padding-bottom: 2.5%; border-bottom: 1px solid #ddd; font-size: 18px;}
+.tabcontent dl {margin-top: 2%;}
+.tabcontent dt {float: left; width: 18%; padding: 15px 0; font-weight: bold; color: #222;}
+.tabcontent dd {float: left; width: 82%; padding: 15px 0;}
+.tabcontent dd span {font-size: 15px; color: #555;}
+
+.tabcontent h3 br {display: none;}
+.tabcontent p br {display: none;}
+.tabcontent dt br {display: none;}
+
+/*오른쪽 좌석선택표------------------------------------------*/
+.seat-map {float: left;}
+.select_seat {float: right; width: 48%; padding-left: 4%;}
+.select_seat h4 {width: 100%; font-size: 18px; padding: 0; margin: 0; margin-bottom: 10px; padding: 1%;;}
+.select_seat h4 span {color: #999;}
+
+/*좌석선택 텍스트*/
+.seat_table {width: 100%; height: auto; overflow: hidden;}
+.seat_table dt {width: 100%; float: left; padding: 0;  margin-bottom: 5px; font-size: 15px; font-weight: normal; color: #222;}
+.seat_table dd {width: 100%; float: left; padding: 5px 0px; color: #000;  background: #f4f4f4; margin-bottom: 10px;}
+
+/*새로고침버튼*/
+.reload_btn {background: #fff;  cursor: pointer; border: none; width: 100%;}
+.reload_btn img {padding: 5px; border: 1px solid #dbdbdb; float: left; border-radius: 50px;}
+
+.reload_btn p { border-bottom: none; font-size: 14px; color: #999; display: inline-block; margin-left: 8px; float: left; line-height: 33px;}
+
+
+/*하단 예매버튼------------------------------------------*/
+.payment_open {margin: 0 auto; width: calc(100% - 52% - 40px); height: 45px; line-height: 45px; background: #c3a164; color: #fff; border-radius: 4px; display: block; text-align: center; transition: all 0.3s; overflow: hidden;bottom: 25px; position: absolute; right: 20px; font-size: 16px; font-weight: 500;}
+
+
+.layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
+.layer:target{display:flex;animation:open 0.3s;}
+@keyframes open {from {opacity:0;} to {opacity:1;}}
+
+.payment_box{ width: 22%; height: auto; margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 5%;border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.1); padding-bottom: 20px;}
+
+
+/*결제버튼 팝업 내부*/
+/*팝업 타이틀*/
+.payment_tit {margin: 0 auto; text-align: center; color: #222; font-weight: 400; font-size: 24px; padding-top: 18px;}
+
+/*팝업 요약*/
+.info_table {width: 100%; overflow: hidden;/* border-bottom: 1px solid #eee;*/ margin-top: 22px; padding: 0 30px; font-size: 15px;}
+.info_table dl {width: 100%; padding: 10px 0; overflow: hidden; border-bottom: 1px solid #eee;}
+.info_table dl:last-child {border-bottom: 1px solid #444; padding-bottom: 15px;}
+.info_table dt {width: 35%; float: left; color: #767676; font-size: 300;}
+.info_table dd{width: 65%; float: right; color: #222;  text-align: right;}
+
+/*팝업 금액*/
+.price {width: 100%; overflow: hidden; padding: 18px 30px 0;}
+.price dl {width: 100%;}
+.price dt {width: 50%; float: left;}
+.price dd {width: 50%; float: right; text-align: right;} 
+dl.reserve_price {color: #999 !important; }
+dl.price_sale {color: #c17e00;}
+/*dl.price_sale dt, dl.price_sale dd {font-weight: bold;}*/
+.total_dl {padding-top: 20px; overflow: hidden; letter-spacing: -0.5px;}
+.total_dl dt {color: #000; line-height: 43px; font-size: 18px;}
+.total_dl dd {color: #000; font-weight: bold;font-size: 26px;}
+.total_dl dd span {font-weight: 300; font-size: 18px;}
+
+.notice {padding: 20px 30px; background: #fafafa; margin-top: 15px;}
+.notice h5 {font-size: 18px; font-weight: 500; color: #444;}
+.notice p {padding-top: 5px; font-size: 15px; color: #444; font-weight: 300; letter-spacing: -0.25px; line-height: 1.5;}
+.notice p::before {content: '·'; margin-right: 8px; margin-left: -8px;}
+
+/*팝업하단버튼*/
+.reservation_btn_mo {display: none;}
+.payment_btn {width: 100%; height: 50px; margin-top: 10%; border: 0; color: #fff; font-size: 16px; padding: 0 30px;}
+.payment_btn li {float: left; width: 49%; margin-right: 1%;}
+.payment_btn li:last-child {margin-right: 0;} 
+.payment_close {width: 100%; display: block; height: 50px; line-height: 50px; text-align: center;}
+.payment_close1 {background: #fff; color: #999; transition: all 0.2s; border: 1px solid #dbdbdb; border-radius: 4px;}
+.payment_close1:hover {background: #fafafa;}
+.payment_close2{bottom:20px;display:block;background:#222; color:#fff;text-align:center; font-weight: 400; float: left; width: 100%; border-radius: 4px;}
+
+/*section.sub_wrap 완료*/
+
+
+
+/*모바일 메뉴*/
+header .open {
+    /*버거버튼 클래스*/
+    width: 0;
+    height: 0;
+    display: none;
+    opacity: 0;
+    z-index: -9999;
+}
+
+.gnb_mo {
+    /*모바일 네비 전체*/
+    width: 0;
+    height: 0;
+    display: none;
+    opacity: 0;
+    z-index: -9999;
+}
+
+
+/*반응형*/
+
+/*1200px*/
+@media screen and (max-width: 1200px) {
+
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%;}
+    section.sub_wrap .inner_sub_wrap {width: 100%;}
+    
+    .reservation_box {width: 95%; margin: 0 auto;}
+    .payment_open {right: 5%; bottom: 3.2%; width: 200px;}
+    
+    .payment_box {width: 40%;}
+
+    .select_seat {width: 46%; padding-left: 2%;}
+  }
+
+
+/*1024px  - 왼쪽영역만 노출*/
+@media screen and (max-width: 1024px) {
+    
+    .payment_box {width: 47%;}
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%;}
+    .box {padding-top: 70px; margin-bottom: 10px;}
+    
+    .reserve_right {display: none;}
+    .reserve_left {height: auto;}
+    .reservation_box {width: 60%; margin: 0 auto;}
+    .reservation_box > ul > li {float: none; width: 100%;}
+
+    
+    .payment_open {display: none;}
+    .reservation_btn_mo {display: block; width: 40%; margin: 0 auto; margin-top: 20px;}
+    .reservation_btn_mo ul li {float: left; width: 49%; margin-right: 1%; text-align: center; height: 45px; line-height: 43px;}
+    .reservation_btn_mo ul li:nth-child(2) {margin-right: 0;}
+    .reservation_btn_mo ul li a {display: block;}
+    .back {border: 1px solid #dbdbdb; border-radius: 4px; color: #444;}
+    .next {background: #C3A164; color: #fff;  border-radius: 4px;}
+}
+
+
+/*768px*/
+@media screen and (max-width: 768px) {
+
+  .reservation_box {width: 80%; margin: 0 auto;}
+    /*section.sub_wrap*/
+    section.sub_wrap {width:100%;}
+    section.sub_wrap h1 {font-size: 35px;}
+    section.sub_wrap h2 {font-weight: normal;}
+    .payment_box {top: 3%;}
+
+    .reserve_left h4 {font-size: 16px;}
+    .reservation_btn_mo {width: 60%;}
+}
+
+/*414px*/
+@media screen and (max-width: 414px) {
+    section.sub_wrap h6 {padding-top: 20px; margin-bottom: -2.5%;}
+    section.sub_wrap h1 {font-size: 30px; margin-bottom: 3%;}
+    section.sub_wrap .bar {display: none;}
+
+    .reservation_box {width: 95%;}
+    .location_select {float: left; font-size: 14px; margin-left: 0; overflow: visible;}
+    .location ul li:nth-child(1), .location ul li:nth-child(3) {width: 100%;}
+    .location ul li:nth-child(2) {background: transparent; margin-left: 45%; transform: translateX(-50%); transform: rotate(90deg);}
+    
+    .left_list:nth-child(2) {padding-top: 20px;}
+    .select_bus_list_tit {font-size: 14px;}
+    .select_bus_list_tit ul li:nth-child(1) {width: 40%;}
+    .select_bus_list_tit ul li:nth-child(2) {width: 35%;}
+    .select_bus_list_tit ul li:nth-child(3) {width: 25%;}
+    .select_bus .select_bus_time {margin: 0; width: 40%;}
+    .select_bus .select_bus_name {margin: 0; width: 35%;}
+    .select_bus .select_bus_seat {margin: 0; width: 25%;} 
+
+    .tab button {font-size: 15px;}
+
+    .reserve_left h4 {font-size: 18px;}
+    .select_bus_list {height: 300px;}
+    .select_bus h4 {margin-top: 3%;}
+    .reserve_left {height: auto; padding: 25px 20px;}
+    .reservation_btn_mo {width: 95%;}
+}
+
+/* 375px */
+@media screen and (max-width: 375px) {
+  .reservation_box {width: 95%;}
+  .reserve_left {padding: 8% 5%;}
+}
+
+/*320px*/
+@media screen and (max-width: 320px) {
+
+    /*section.sub_wrap*/
+    section.sub_wrap h1 {font-size: 24px;}
+    
+    .select_bus_list_tit {font-size: 14px; }
+    /* .select_bus_list_tit ul li {text-align: justify; } */
+    .select_bus_list_tit ul li:nth-child(1) {width: 43%; padding-left: 12px;}
+    .select_bus_list_tit ul li:nth-child(2) {width: 30%;}
+    .select_bus_list_tit ul li:nth-child(3) {width: 27%;}
+    .select_bus {text-align: justify;}
+    .select_bus .select_bus_time {margin: 0; width: 43%; padding-left: 8px;}
+    .select_bus .select_bus_name {margin: 0; width: 30%;}
+    .select_bus .select_bus_seat {margin: 0; width: 27%; ;} 
+    .tab button {font-size: 14px;}
+
+	/* .select_bus_list_tit{display: none;} */
+}

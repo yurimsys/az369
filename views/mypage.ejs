@@ -3,6 +3,7 @@
 
 <head>
     <% include templates/head.ejs %>
+    <link rel="stylesheet" href="/css/common_box.css">
     <link rel="stylesheet" href="/css/mypage.css">
 
     <title>AZ369 - 마이페이지</title>
@@ -43,7 +44,6 @@
                     <!--마이페이지 전체 틀-->
                     <div class="mypage_box">
                         <ul>
-
                             <!--마이페이지 왼쪽-->
                             <li class="box_01">
                                 <div class="mypage_left">
@@ -79,7 +79,7 @@
                                         <button class="tablinks" id="tab3" onclick="openList(event, '03')"> 취소 및 환불조회
                                             <span><img src="/img/common/right_arrow_g.png" alt=""></span></button>
                                     </div>
-                                    <div class="logout"><a href="login">로그아웃</a></div>
+                                    <div class="logout btn btn-secondary"><a href="login">로그아웃</a></div>
                                 </div>
 
                                 <!--왼쪽 목록버튼-->
@@ -116,7 +116,7 @@
                                                 <li>선택좌석</li>
                                             </ul>
                                         </div>
-                                        <div id="reserve_list">
+                                        <div id="reserve_list" class="scroll_style">
                                             <% for(let i=0; i<data.length; i++){ %>
                                             <!-- <div class="reserve_bar_list"> -->
                                                 <label>
@@ -125,7 +125,7 @@
                                                     <span class="reserve_bar">
                                                         <ul>
                                                             <li><%=data[i].deptTe%></li>
-                                                            <li> 평택 > 서울 동대문</li>
+                                                            <li> 평택 - 서울 동대문</li>
                                                             <!-- <li><%=data[i].carName%> / <%=data[i].carNum%></li> -->
                                                             <li><%=data[i].carName%></li>
                                                             <li><%=data[i].seatNumMo%></li>
@@ -313,7 +313,7 @@
                                         </table>
                                         
                                         <!--두번째 리스트 PC-->
-                                        <div class="list02">
+                                        <div class="list02 scroll_style">
                                             <table class="table">
                                                 <thead>
                                                     <th>결제일시</th>
@@ -331,7 +331,7 @@
                                         
                                         <!--두번째 리스트 mo 414px-->
                                         
-                                        <div class="list02_mo">
+                                        <div class="list02_mo scroll_style">
                                         
                                         </div>
                                         
@@ -419,7 +419,7 @@
                                             </table>
 
 
-                                        <div class="list03">
+                                        <div class="list03 scroll_style">
                                             <table class="table">
                                                 <thead>
                                                     <th>결제일시</th>
@@ -437,7 +437,7 @@
                                         </div>
 
                                         <!--세번째 리스트 mo 414px-->
-                                        <div class="list03_mo">
+                                        <div class="list03_mo scroll_style">
                                         </div>
 
                                         <!--세번째 리스트 popup mo-->

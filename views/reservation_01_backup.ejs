@@ -43,13 +43,13 @@
                     <div class="bar"></div>
 
                     <div class="reservation_box">
-                        <!-- <ul> -->
-                            <!-- <li> -->
+                        <ul>
+                            <li>
                                 <!--예약 왼쪽목록-->
-                                <!-- <div class="reserve_left"> -->
+                                <div class="reserve_left">
 
                                     <!--왼쪽 상단 : 지역-->
-                                    <!-- <div class="left_list location">
+                                    <div class="left_list location">
                                         <h4>지역 및 시간 선택 <span
                                                 style="color: #999; font-weight: 300; font-size: 16px;">(왕복)</span>
                                         </h4>
@@ -82,10 +82,10 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                    </div> -->
+                                    </div>
 
                                     <!--왼쪽 하단 버스선택-->
-                                    <!-- <div class="left_list select_bus">
+                                    <div class="left_list select_bus">
                                         <h4>날짜 및 차량 선택</h4>
                                         <div class="select_bus_list_tit">
                                             <ul>
@@ -99,12 +99,12 @@
                                             </div>
                                         </div>
 
-                                    </div> -->
-                                <!-- </div> -->
-                            <!-- </li> -->
-                            <!-- <li> -->
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
                                 <div class="reserve_right">
-                                    <!-- <p class="before_p"><img src="/img/reservation/before_p_icon.png" alt=""> 왼쪽을 먼저 선택해주세요.</p> -->
+                                    <p class="before_p"><img src="/img/reservation/before_p_icon.png" alt=""> 왼쪽을 먼저 선택해주세요.</p>
                                     <div id="bus_seat_layer" class="tabcontent">
                                         <div class="container">
 
@@ -148,19 +148,20 @@
 
                                 </div>
 
-                            <!-- </li> -->
+                            </li>
                         </ul>
                     </div>
 
                     <!--1024, 768, 414 모바일버튼-->
-                    <!-- <div class="reservation_btn_mo">
+                    <div class="reservation_btn_mo">
                         <ul>
                             <li><a href="mypage" class="back">뒤로</a></li>
                             <li><a class="next" onclick="moNext()">다음</a></li>
                         </ul>
-                    </div> -->
+                    </div>
 
-                    <!-- <div id="payment" class="layer">
+                    <div id="payment" class="layer">
+                        <!--popup PC-->
                         <div class="payment_box">
                             <div class="payment_tit">
                                 예매정보 및 결제금액
@@ -221,7 +222,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
 
@@ -253,10 +254,7 @@
         //     }
         // })
         
-        $('#timeSelect01, #timeSelect02').click(function () {
-            if($('#depart01').val() == 0 || $('#depart02').val() == 0){
-                return false;
-            }
+        $('#timeSelect02').click(function () {
             $(".tab").empty();
             $.ajax({
                 url: "api/user/resCarList",
