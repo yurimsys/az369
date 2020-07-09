@@ -110,14 +110,11 @@ button{
 
         
 /*search 박스*/
-.searchBox {table-layout:fixed; border-spacing:0; border:none; width: 100%; position: relative; margin: 0 auto; overflow: hidden; height: auto; background: red;}
-            
-        
-.clearfix:after{content:"";display:block;clear:both;overflow:hidden}
+.searchBox {table-layout:fixed; border-spacing:0; border:none; width: 100%; position: relative; margin: 0 auto; overflow: hidden; height: auto;}
+.clearfix:after{content:"";display:block;clear:both;overflow:hidden;}
 .searchDate:after{display:block;clear:both;content:'';}
-
 /*날짜 버튼*/
-.searchDate{overflow:hidden; object-position: center; width: 100%; margin: 0 auto; background: darkcyan; display: flex; }
+.searchDate{overflow:hidden; object-position: center; width: 60%; margin: 0 auto;; display: flex;}
 .searchDate li{position:relative; flex:1; margin-right: 10px; margin-bottom: 10px;}
 .searchDate li:last-child {margin-right: 0;}
 .searchDate li .chkbox {display:block;text-align:center;}
@@ -129,11 +126,16 @@ button{
 .demi{display:inline-block;margin:0 2%; vertical-align:middle}
 
 /*날짜표시칸*/
-.clearfix{ float: left; width:100%; background: orange;} 
-.inpType{padding-left:2%; height:40px; line-height:40px; border:1px solid #eee; font-size: 17px; border-radius: 8px; background: #f4f4f4; width: 46%;}
+.clearfix{float: left; width:100%; background: orange;} 
+.clearfix ul {width: 70%;}
+.clearfix ul li {float: left;}
+.clearfix ul li:nth-child(1),.clearfix ul li:nth-child(3) {width: 45%;}
+.clearfix ul li:nth-child(2) {width: 10%;}
+.clearfix input {width: 100%; border-radius: 4px; height: 40px; margin-bottom: 5px; border: 1px solid #dbdbdb; }
+/* .inpType{padding-left:2%; height:40px; line-height:40px; border:1px solid #eee; font-size: 17px; border-radius: 8px; background: #f4f4f4; width: 46%;} */
 
 /*날짜조회 버튼*/
-.search_btn {width: 17%; height: 40px; background: #fff; border-radius: 4px; border: 1px solid #999; font-size: 14px; float: right; color: #222; font-weight: 400;}
+.search_btn {width: 30%; float:left; height: 40px; background: #fff; border-radius: 4px; border: 1px solid #999; font-size: 14px; float: right; color: #222; font-weight: 400;}
 
 
 /*두번째 테이블 타이틀 간격*/

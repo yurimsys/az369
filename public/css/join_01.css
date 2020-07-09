@@ -18,7 +18,7 @@
 .join_box h3 span {color: #c3a164;}
 
 /*동의서 지문 내부*/
-.join_agreement {width: 100%; margin: 0 auto; height: 130px; overflow: scroll; background: #fafafa; overflow-x: hidden; margin-bottom: 40px; padding: 10px 20px;}
+.join_agreement {width: 100%; margin: 0 auto; height: 130px; overflow: scroll; background: #eee; overflow-x: hidden; margin-bottom: 40px; padding: 10px 15px;}
 .agreement_tit ul {width: 100%;  height: 30px; overflow:hidden; margin-bottom: 10px;}
 .agreement_tit ul li {float: left;  position: relative;}
 .agreement_tit ul li:nth-child(2) {float: right;}

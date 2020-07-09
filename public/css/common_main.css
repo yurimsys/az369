@@ -27,6 +27,7 @@ section.sub_wrap {
     margin: 0 auto;
     margin-bottom: 50px;
     overflow: hidden;
+    
 }
 .inner_sub_wrap {width: 100%;}
 /* tnb영역 */
@@ -80,7 +81,7 @@ section.sub_wrap p span {font-weight: 400;}
     section.main {width: 100%;}
     section.main .inner_main {width: 100%;}
     section.sub_wrap {width:100%;}
-	.tnb {width: 100%;}
+    .tnb {width: 100%;}
 }
 
 /*1024px*/

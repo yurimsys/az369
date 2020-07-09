@@ -241,76 +241,70 @@
                                             <p>장차예매 및 결제내역은 오늘날짜기준 최대 3개월까지만 조회가 가능합니다. </p>
                                         </div>
                                         <!-- search -->
-                                        <table class="searchBox">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <ul class="searchDate">
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')" />
-                                                                    <label for="dateType1">당일</label>
-                                                                </span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType2" onclick="setSearchDate('1w')" />
-                                                                    <label for="dateType2">1주</label>
-                                                                </span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType3" onclick="setSearchDate('1m')" />
-                                                                    <label for="dateType3">1개월</label>
-                                                                </span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType4" onclick="setSearchDate('3m')" />
-                                                                    <label for="dateType4">3개월</label>
-                                                                </span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('6m')" />
-                                                                    <label for="dateType5">6개월</label>
-                                                                </span>
-                                                            </li>
-                                                        </ul>
+                                        <div class="searchBox">
+                                            <ul class="searchDate">
+                                                <li>
+                                                    <span class="chkbox2 chkbox">
+                                                        <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')" />
+                                                        <label for="dateType1">당일</label>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span class="chkbox2 chkbox">
+                                                        <input type="radio" name="dateType" id="dateType2" onclick="setSearchDate('1w')" />
+                                                        <label for="dateType2">1주</label>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span class="chkbox2 chkbox">
+                                                        <input type="radio" name="dateType" id="dateType3" onclick="setSearchDate('1m')" />
+                                                        <label for="dateType3">1개월</label>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span class="chkbox2 chkbox">
+                                                        <input type="radio" name="dateType" id="dateType4" onclick="setSearchDate('3m')" />
+                                                        <label for="dateType4">3개월</label>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span class="chkbox2 chkbox">
+                                                        <input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('6m')" />
+                                                        <label for="dateType5">6개월</label>
+                                                    </span>
+                                                </li>
+                                            </ul>
                                         
-                                                        <div class="clearfix">
-                                                            <ul>
-                                                                <!-- 시작일 -->
-                                                                <li>
-                                                                    <span class="dset">
-                                                                        <input type="text" id="deptDay" class="datepicker inpType searchStartDate"
-                                                                            name="searchStartDate">
-                                                                    </span>
-                                                                </li>
+                                            <div class="clearfix">
+                                                <div class="day_input_l">
+                                                    <!-- 시작일 -->
+                                                    <li>
+                                                        <span class="dset">
+                                                            <input type="text" id="deptDay" class="datepicker inpType searchStartDate" name="searchStartDate">
+                                                        </span>
+                                                    </li>
                                         
-                                                                <li>
-                                                                    <span class="demi">~</span>
-                                                                </li>
+                                                    <li>
+                                                        <span class="demi">~</span>
+                                                    </li>
                                         
-                                                                <li>
-                                                                    <!-- 종료일 -->
-                                                                    <span class="dset">
-                                                                        <input type="text" id="endDay" class="datepicker inpType searchEndDate"
-                                                                            name="searchEndDate">
-                                                                    </span>
-                                                                </li>
-                                                            </ul>
+                                                    <li>
+                                                        <!-- 종료일 -->
+                                                        <span class="dset">
+                                                            <input type="text" id="endDay" class="datepicker inpType searchEndDate" name="searchEndDate">
+                                                        </span>
+                                                    </li>
+                                                    </div>
+                                                </ul>
                                         
                                         
-                                                            <button class="search_btn" onclick="payBetween()">날짜조회</button>
-                                                        </div>
+                                                <button class="search_btn" onclick="payBetween()">날짜조회</button>
+                                            </div>
                                         
                                         
-                                                    </td>
-                                                </tr>
                                         
-                                            <tbody>
-                                        </table>
+                                        
+                                        </div>
                                         
                                         <!--두번째 리스트 PC-->
                                         <div class="list02 scroll_style">
