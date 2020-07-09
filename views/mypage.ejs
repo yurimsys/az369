@@ -121,7 +121,7 @@
                                             <!-- <div class="reserve_bar_list"> -->
                                                 <label>
                                                     <input type="radio" class='chk' value='<%=data[i].payDay%>'
-                                                        name="day[]" onclick="test5(this)">
+                                                        name="day[]">
                                                     <span class="reserve_bar">
                                                         <ul>
                                                             <li><%=data[i].deptTe%></li>
@@ -164,7 +164,7 @@
 
                                         </div>
 
-                                        <p class="cancel_info">취소할 예매 목록을 선택하시고 하단의 버튼을 누르시면 예매를 취소하실 수 있습니다.</p>
+                                        <!-- <p class="cancel_info">취소할 예매 목록을 선택하시고 하단의 버튼을 누르시면 예매를 취소하실 수 있습니다.</p> -->
 
                                         <a class="popup_open" onclick="cancelBtn()">선택예매취소</a>
 
@@ -193,7 +193,7 @@
                                                     예매를 취소하겠습니까?</p>
                                                 <ul class="popup_btn">
                                                     <li>
-                                                        <a onclick="javascript:$('#popup').css('display','none')" class="popup_close1">닫기</a>
+                                                        <a href="mypage" class="popup_close1">닫기</a>
                                                     </li>
 
                                                     <li>
@@ -241,94 +241,85 @@
                                             <p>장차예매 및 결제내역은 오늘날짜기준 최대 3개월까지만 조회가 가능합니다. </p>
                                         </div>
                                         <!-- search -->
-                                        <table class="searchBox">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <ul class="searchDate">
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')" />
-                                                                    <label for="dateType1">당일</label>
-                                                                </span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType2" onclick="setSearchDate('1w')" />
-                                                                    <label for="dateType2">1주</label>
-                                                                </span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType3" onclick="setSearchDate('1m')" />
-                                                                    <label for="dateType3">1개월</label>
-                                                                </span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType4" onclick="setSearchDate('3m')" />
-                                                                    <label for="dateType4">3개월</label>
-                                                                </span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="chkbox2 chkbox">
-                                                                    <input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('6m')" />
-                                                                    <label for="dateType5">6개월</label>
-                                                                </span>
-                                                            </li>
-                                                        </ul>
+                                        <div class="searchBox">
+                                            <ul class="searchDate">
+                                                <li>
+                                                    <span class="chkbox2 chkbox">
+                                                        <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')" />
+                                                        <label for="dateType1">당일</label>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span class="chkbox2 chkbox">
+                                                        <input type="radio" name="dateType" id="dateType2" onclick="setSearchDate('1w')" />
+                                                        <label for="dateType2">1주</label>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span class="chkbox2 chkbox">
+                                                        <input type="radio" name="dateType" id="dateType3" onclick="setSearchDate('1m')" />
+                                                        <label for="dateType3">1개월</label>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span class="chkbox2 chkbox">
+                                                        <input type="radio" name="dateType" id="dateType4" onclick="setSearchDate('3m')" />
+                                                        <label for="dateType4">3개월</label>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span class="chkbox2 chkbox">
+                                                        <input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('6m')" />
+                                                        <label for="dateType5">6개월</label>
+                                                    </span>
+                                                </li>
+                                            </ul>
                                         
-                                                        <div class="clearfix">
-                                                            <ul>
-                                                                <!-- 시작일 -->
-                                                                <li>
-                                                                    <span class="dset">
-                                                                        <input type="text" id="deptDay" class="datepicker inpType searchStartDate"
-                                                                            name="searchStartDate">
-                                                                    </span>
-                                                                </li>
+                                            <div class="clearfix">
+                                                <ul>
+                                                    <li> 
+                                                        <!-- 시작일 -->
+                                                        <span class="dset">
+                                                            <input type="text" id="deptDay" class="datepicker inpType searchStartDate" name="searchStartDate">
+                                                        </span>
+                                                    </li>
                                         
-                                                                <li>
-                                                                    <span class="demi">~</span>
-                                                                </li>
+                                                    <li>
+                                                        <span class="demi">~</span>
+                                                    </li>
                                         
-                                                                <li>
-                                                                    <!-- 종료일 -->
-                                                                    <span class="dset">
-                                                                        <input type="text" id="endDay" class="datepicker inpType searchEndDate"
-                                                                            name="searchEndDate">
-                                                                    </span>
-                                                                </li>
-                                                            </ul>
+                                                    <li>
+                                                        <!-- 종료일 -->
+                                                        <span class="dset">
+                                                            <input type="text" id="endDay" class="datepicker inpType searchEndDate" name="searchEndDate">
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                                <button class="search_btn" onclick="payBetween()">날짜조회</button>
+                                            </div>
                                         
                                         
-                                                            <button class="search_btn" onclick="payBetween()">날짜조회</button>
-                                                        </div>
                                         
                                         
-                                                    </td>
-                                                </tr>
-                                        
-                                            <tbody>
-                                        </table>
+                                        </div>
                                         
                                         <!--두번째 리스트 PC-->
                                         <div class="list02 scroll_style">
                                             <table class="table">
                                                 <thead>
-                                                    <th>결제일시</th>
-                                                    <th>출발날짜</th>
-                                                    <th>차량정보</th>
-                                                    <th>좌석개수</th>
-                                                    <th>결제수단</th>
-                                                    <th>결제금액</th>
+                                                    <tr>
+                                                        <th>결제일시</th>
+                                                        <th>출발날짜</th>
+                                                        <th>차량정보</th>
+                                                        <th>좌석개수</th>
+                                                        <th>결제수단</th>
+                                                        <th>결제금액</th>
+                                                    </tr>
                                                 </thead>
-                                                <tbody id="payList">
-                                        
+                                                <tbody id='payList'>
                                                 </tbody>
                                             </table>
                                         </div>
-                                        
                                         <!--두번째 리스트 mo 414px-->
                                         
                                         <div class="list02_mo scroll_style">
@@ -358,10 +349,7 @@
                                             </div>
                                         
                                             <!-- search -->
-                                            <table class="searchBox">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
+                                            <div class="searchBox">
                                                             <ul class="searchDate">
                                                                 <li>
                                                                     <span class="chkbox2 chkbox">
@@ -394,45 +382,46 @@
                                                                     </span>
                                                                 </li>
                                                             </ul>
-                                        
+
                                                             <div class="clearfix">
-                                                                <!-- 시작일 -->
-                                                                <span class="dset">
-                                                                    <input type="text" id="cancelDeptDay" class="datepicker inpType searchStartDate"
-                                                                        name="searchStartDate">
-                                                                </span>
-                                        
-                                                                <span class="demi">~</span>
-                                        
-                                                                <!-- 종료일 -->
-                                                                <span class="dset">
-                                                                    <input type="text" id="cancelEndDay" class="datepicker inpType searchEndDate"
-                                                                        name="searchEndDate">
-                                                                </span>
+                                                                <ul>
+                                                                    <li> 
+                                                                        <!-- 시작일 -->
+                                                                        <span class="dset">
+                                                                            <input type="text" id="cancelDeptDay" class="datepicker inpType searchStartDate"
+                                                                                name="searchStartDate">
+                                                                        </span>
+                                                                    </li>
+                                                        
+                                                                    <li>
+                                                                        <span class="demi">~</span>
+                                                                    </li>
+                                                        
+                                                                    <li>
+                                                                        <!-- 종료일 -->
+                                                                        <span class="dset">
+                                                                            <input type="text" id="cancelEndDay" class="datepicker inpType searchEndDate"
+                                                                                name="searchEndDate">
+                                                                        </span>
+                                                                    </li>
+                                                                </ul>
+                                                                <button class="search_btn" onclick="cancelBetween()">날짜조회</button>
                                                             </div>
-                                        
-                                                            <button class="search_btn" onclick="cancelBetween()">날짜조회</button>
-                                                        </td>
-                                                    </tr>
-                                        
-                                                <tbody>
-                                            </table>
+                                                </div>
 
 
                                         <div class="list03 scroll_style">
                                             <table class="table">
-                                                <thead>
+                                                <tr>
                                                     <th>결제일시</th>
                                                     <th>출발날짜</th>
                                                     <th>취소날짜</th>
                                                     <th>좌석개수</th>
                                                     <th>결제수단</th>
                                                     <th>환불금액</th>
-                                                </thead>
+                                                </tr>
                                                 <tbody id="cancelList">
-
                                                 </tbody>
-
                                             </table>
                                         </div>
 
@@ -497,14 +486,16 @@
         var trVal = Array();
         var tdVal = Array();
         
-function test5(e){
-    $(".cancelRes").empty();
+        //선택예매취소 클릭 후 리스트 보여주기
+        function cancelBtn() {
+            console.log('good');
+            $(".cancelRes").empty();
             $(".table_mo").empty();
-            // if ($(".chk").is(":checked") == false) {
-            //     alert("취소 항목을 선택해 주세요.");
-            //     return;
-            // }
-            $('#popup').css('display','block');
+            if ($(".chk").is(":checked") == false) {
+                alert("취소 항목을 선택해 주세요.");
+                return;
+            }
+            location.href = "#popup";
 
             //체크된 레이블 보여주기
             var send_array = Array();
@@ -560,83 +551,7 @@ function test5(e){
                     }
                 }
             })
-}
-
-        //선택예매취소 클릭 후 리스트 보여주기
-        $('.reserve_bar').click(function(){
-            // alert('ggg')
-           
-        })
-
-
-
-
-
-        // function cancelBtn() {
-        //     console.log('good');
-        //     $(".cancelRes").empty();
-        //     $(".table_mo").empty();
-        //     if ($(".chk").is(":checked") == false) {
-        //         alert("취소 항목을 선택해 주세요.");
-        //         return;
-        //     }
-        //     $('#popup').css('display','block');
-
-        //     //체크된 레이블 보여주기
-        //     var send_array = Array();
-        //     var send_cnt = 0;
-        //     var chkbox = $(".chk");
-        //     for (i = 0; i < chkbox.length; i++) {
-        //         if (chkbox[i].checked == true) {
-        //             send_array[send_cnt] = chkbox[i].value;
-        //             send_cnt++
-        //         }
-        //     }
-        //     var sendJson = JSON.stringify(send_array);
-        //     //console.log('sendjson :',sendJson); 
-
-        //     var seatArr = JSON.parse(sendJson);
-        //     console.log('seatArr :', seatArr);
-        //     $.ajax({
-        //         url: "api/user/payCancel",
-        //         method: 'post',
-        //         dataType: 'json',
-        //         data: {
-        //             'sendArray': seatArr
-        //         },
-        //         success: function (res) {
-        //             // console.log(res);
-        //             //PC 예매취소 리스트
-        //             for (let i = 0; i < res.data.length; i++) {
-        //                 let html = "<tr val=" + res.data[i].pId + ">";
-        //                 html += "<td>" + res.data[i].PayDay + "</td>";
-        //                 html += "<td>" + res.data[i].deptTe + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td>";
-        //                 html += "<td>" + res.data[i].seatCnt + "</td>";
-        //                 html += "<td>" + res.data[i].payType + "</td>";
-        //                 html += "<td>" + res.data[i].price + "</td>";
-        //                 html += "</tr>";
-        //                 $(".cancelRes").append(html);
-        //                 trVal[i] = res.data[i].pId;
-        //                 tdVal[i] = res.data[i].ctId;
-        //             }
-
-        //             //모바일 예매취소 리스트
-        //             //console.log("여기 리스트",res.data);
-        //             for (let k = 0; k < res.data.length; k++) {
-        //                 let html = "<dl>";
-        //                 //html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
-        //                 html += "<dt>결제날짜</dt><dd>" + res.data[k].PayDay + "</dd>";
-        //                 html += "<dl class='dl3'><dt>예약정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<br> <span>(평택 > 서울 동대문)</span></dd></dl>";
-        //                 html += "<dt>좌석개수</dt><dd>" + res.data[k].seatCnt + "</dd>";
-        //                 html += "<dt>결제수단</dt><dd>" + res.data[k].payType + "</dd>";
-        //                 html += "<dt>결제금액</dt><dd>" + res.data[k].price + "</dd></dl>";
-        //                 $(".table_mo").append(html);
-        //                 trVal[k] = res.data[k].pId;
-        //                 tdVal[k] = res.data[k].ctId;
-        //             }
-        //         }
-        //     })
-        // }
+        }
         
 
         //예매 취소
