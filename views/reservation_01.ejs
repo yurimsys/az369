@@ -119,6 +119,8 @@
 
                                             <!--좌석선택 텍스트-->
                                             <div class="select_seat">
+
+                                                <h2> 01.31(월) 평택 22:00 ~ 동대문 04:00 유림고속(1234)</h2>
                                                 <h4>좌석선택 <span style="color: #999; font-weight: 300; font-size: 16px;">(최대 4개)</span></h4>
                                                 
                                                 <div class="seat_table">
@@ -241,21 +243,21 @@
 
     <script>
 
-        $(document).ready(function(){
-            var filter = "win16|win32|win64|mac|macintel"; 
-            if ( navigator.platform ) { 
-                if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) 
-                { 
-                    //mobile 
-                    location.href = "/reservation2";
-                    // alert('mobile 접속'); 
-                } else { 
-                    //pc 
-                    alert('pc 접속'); 
-                } 
-        }
+        // $(document).ready(function(){
+        //     var filter = "win16|win32|win64|mac|macintel"; 
+        //     if ( navigator.platform ) { 
+        //         if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) 
+        //         { 
+        //             //mobile 
+        //             location.href = "/reservation2";
+        //             // alert('mobile 접속'); 
+        //         } else { 
+        //             //pc 
+        //             alert('pc 접속'); 
+        //         } 
+        // }
 
-        })
+        // })
 
         // $.ajax({
         //     url: 'api/user/resDept',
