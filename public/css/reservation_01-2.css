@@ -1,157 +1,9 @@
 @charset "UTF-8";
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
-@import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
-
-/*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; font-weight: normal;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
-h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
-a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
-img {vertical-align: middle;}
-a img {border: none;}
-li {list-style: none;}
-address, em, i {font-style: normal;}
-strong {font-weight: bold;}
-p {text-align: justify; font-family: inherit; font-size: 16px;}
-
-.wrap {
-    width: 100%;
-    margin: 0 auto;
-    height: auto;
-}
-
-/* header {width: 100%; height: 80px; position: fixed; z-index: 10000; background: #fff; box-shadow: 0 1px 10px rgb(0,0,0,0.05);}
-
-.innerHeader {
-    width: 100%;
-    height: 80px;
-    position: relative;
-    margin: 0 auto;
-     z-index: 500;
-    font-size: 18px;
-}
-
-/*로고*/
-.innerHeader h1.logo {float: left; margin-left: 3%; line-height: 70px; overflow: hidden;}
-
-
-/*nav_gnb*/
-nav.gnb {width: 45%;/* float: left; */margin: 0 auto;} 
-
-nav.gnb ul li {
-    float: left;
-    margin: 0 auto;
-    width: 33.3%;
-    height: 80px;
-    line-height: 80px;
-    text-align: center;
-    font-weight: normal;
-}
-
-nav.gnb ul li a {display: block;}
-.innerHeader ul li:hover {color: #a0772b;}
-.innerHeader ul ul {display: none;   border: 1px solid #000;}
-.innerHeader ul ul li {float: none; width: 100%; height: 50px; line-height: 50px; position: relative;  color: #242424; background: #fff; font-size: 16px;}
-.innerHeader ul li ul li a {display: block;}
-
-.innerHeader ul li:hover > ul {display: block;}
-.innerHeader ul li ul li:hover { color: #222; background: #e3ddd2;}
-
-/*gnb2*/
-nav.gnb2 {width: 16%; float: right; margin-right: 5%; line-height: 80px; font-size: 16px; color: #444; }
-nav.gnb2 ul li {width: 33.3%; float: left; text-align: center; }
-nav.gnb2 a {display: block;}
-
-
-.tooltip {
-  position: relative;
-  display: inline-block; 
-   /* color: #333;*/
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 180px;
-    height: 60px;
-    line-height: 60px;
-  background-color: #000;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 1px 0;
-  position: absolute;
-    font-size: 16px;
-    font-weight: normal;
-  z-index: 1;
-  top: 100%;
-  left: 0%;
-  margin-left: -60px;
-}
-
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -8px;
-  border-width: 8px;
-  border-style: solid;
-  border-color: transparent transparent black transparent;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
- */
-
-/*header 완료*/
-/*section.sub_wrap 시작*/
-
-
-section.sub_wrap {
-  width: 1200px;
-  margin: 0 auto;
-  margin-bottom: 40px;
-  overflow: hidden;
-}
-
-section.sub_wrap .bar {
-border-bottom: 2px solid #c3a164; 
-width: 30px; 
-margin: 0 auto;
-margin-top: 10px;
-margin-bottom: 45px;
-}
-
-.box {position: relative; padding-top: 5%; overflow: hidden;}
-section.sub_wrap h6 {text-align: center; color: #C3A164;  padding-top: 60px; font-weight: 500;font-size: 16px;}
-
-section.sub_wrap h1 {
-  text-align: center;
-  font-size: 45px;
-  margin-top: -1%;
-font-family: 'PT Serif', serif;
-font-weight: normal;
-}
-/*폰트적용*/
-.inner_sub_wrap h1,
-.inner_sub_wrap h2 {font-family: 'Noto Sans KR', sans-serif; }
-
-.inner_sub_wrap {width: 1200px; margin: 0 auto;}
-
-
-
-@keyframes box {
-    0% {opacity: 0; transform: translateY(2%);}
-    100% {opacity: 1; transform: translateY(0%);}
-}
 
 /*reserve_box*/
 .reservation_box { width: 100%; background: #fff; border: 1px solid #ddd; height: auto; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; padding: 3%;
 }
-
-
 /*오른쪽영역*/
 .reserve_right h4 {margin-left: 3%; font-size: 19px; font-weight: bold; margin-top: 2%; display: inline-block;}
 .reserve_right h5 {font-size: 20px; margin-left: 3%; display: inline-block;}
@@ -174,7 +26,6 @@ font-weight: normal;
 .tabcontent p br {display: none;}
 .tabcontent dt br {display: none;}
 
-
 /*새로고침버튼*/
 .reload_btn_top {display: none;}
 .reload_btn {background: #fff;  cursor: pointer; border: none; width: 100%; margin-top: 20px;}
@@ -196,7 +47,6 @@ font-weight: normal;
 
 
 /*하단 예매버튼*/
-/*.payment_open {margin: 0 auto; width: 230px; height: 50px; line-height: 50px; background: #eee; display: block; text-align: center; transition: all 0.3s; overflow: hidden;margin-top: 2%; bottom: 3%; position: absolute; right: 2.5%;}*/
 .payment_open:hover {background: #ddd;}
 
 
@@ -241,9 +91,9 @@ dl.price_sale {color: #c17e00;}
 .payment_btn li {float: left; width: 49%; margin-right: 1%; }
 .payment_btn li:last-child {margin-right: 0;} 
 .payment_close {width: 100%; display: block; height: 50px; line-height: 50px; text-align: center;}
-.payment_close1 {background: #fff; color: #999; transition: all 0.2s; border: 1px solid #dbdbdb; border-radius: 4px;}
+/* .payment_close1 {background: #fff; color: #999; transition: all 0.2s; border: 1px solid #dbdbdb; border-radius: 4px;} */
 .payment_close1:hover {background: #fafafa;}
-.payment_close2{bottom:20px;display:block;background:#222; color:#fff;text-align:center; font-weight: 400; float: left; width: 100%; border-radius: 4px;}
+.payment_close2{bottom:20px;display:block;background:#c3a164; color:#fff;text-align:center; font-weight: 400; float: left; width: 100%; border-radius: 4px;}
 /*section.sub_wrap 완료*/
 
 
@@ -324,7 +174,7 @@ header .open {
 /*768px*/
 @media screen and (max-width: 768px) {
 
-    .reservation_box {width: 95%; margin: 0 auto;}
+    .reservation_box {width: 93%; margin: 0 auto;}
     .reservation_btn_mo {width: 60%; margin-top: 4%;}
 
     /*main*/
@@ -352,13 +202,13 @@ header .open {
     
     .select_seat {float: left; width: 100%; margin-top: 5%;}
     .reload_btn {margin-top: 2%;}
-    .reservation_btn_mo {width: 95%; margin-top: 4%;}
+    .reservation_btn_mo {width: 93%; margin-top: 4%;}
     
     .innerHeader {z-index: 100;}
     
     .layer {background: #fff; opacity: 1;}
     .payment_box {width: 100%; height: 100%; top:0;} 
-    .payment_tit {margin-bottom: 20px; padding-top: 5px;}
+    .payment_tit {margin-bottom: 20px; padding-top: 0px;}
     .payment_box_inner {height: 100%; overflow: scroll;}
     .payment_btn {margin-top: 15px;}
 
@@ -400,6 +250,6 @@ header .open {
     .select_bus_btn p {display: none;}
     .notice h5 {margin-bottom: 10px;}
     .notice p {padding: 0; margin-bottom: 0;}
-    .payment_btn {padding: 0; width: 95%; margin: 0 auto; margin-top: 10px;}
+    .payment_btn {padding: 0; width: 93%; margin: 0 auto; margin-top: 10px;}
     .reservation_btn_mo ul li, .payment_close1, .payment_close2 {height: 45px; line-height: 45px; font-size: 16px;}
 }

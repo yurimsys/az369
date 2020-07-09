@@ -3,6 +3,7 @@
 
 <head>
     <% include templates/head.ejs %>
+    <link rel="stylesheet" href="/css/common_box.css">
     <link rel="stylesheet" href="/css/reservation_01.css">
 
     <title>AZ369 - 장차버스예매</title>
@@ -93,11 +94,9 @@
                                                 <li>잔여좌석</li>
                                             </ul>
                                         </div>
-                                        <div class="select_bus_list">
+                                        <div class="select_bus_list scroll_style">
                                             <div class="tab">
-
                                             </div>
-
                                         </div>
 
                                     </div>
@@ -105,7 +104,7 @@
                             </li>
                             <li>
                                 <div class="reserve_right">
-                                    <p class="before_p">왼쪽을 먼저 선택해주세요.</p>
+                                    <p class="before_p"><img src="/img/reservation/before_p_icon.png" alt=""> 왼쪽을 먼저 선택해주세요.</p>
                                     <div id="bus_seat_layer" class="tabcontent">
                                         <div class="container">
 
@@ -216,7 +215,7 @@
 
                             <ul class="payment_btn">
                                 <li>
-                                    <a href="#" class="payment_close1 payment_close">취소</a>
+                                    <a href="#" class="payment_close1 payment_close btn btn-secondary">취소</a>
                                 </li>
                                 <li>
                                     <a onclick="processPayment()" class="payment_close2 payment_close">결제하기</a>
@@ -269,7 +268,7 @@
                         // html += "<span class='select_bus_name'>"+res.data[i].b_name+'\n'+"("+res.data[i].carNum+")</span>";
                         html += "<span class='select_bus_name'>" + res.data[i].b_name + "</span>";
                         html += " <span class='select_bus_seat'>" + (res.data[i].total_passenger - res.data[i].available_seat_cnt) + "</span>";
-                        html += "<span class='select_bus_seat' style='color:#999999;'>"+" / " + res.data[i].total_passenger +"</span>";;
+                        html += "<span class='select_bus_seat' style='color:#999999;'>"+" / " + res.data[i].total_passenger +"</span>";
                         $(".tab").append(html);
                     }
 

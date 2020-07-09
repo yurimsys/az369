@@ -20,7 +20,7 @@ section.main {
 section.sub_wrap h2 br {display: none;}
 section.sub_wrap h5 br {display: none;}
 
-.mySlides {display: none; box-shadow: 20px 20px 20px rgba(180,180,180,0.2);}
+.mySlides {display: none;}
 
 .slideshow-container {
 	width: 100%;
@@ -30,20 +30,16 @@ section.sub_wrap h5 br {display: none;}
     
 }
 
-.slide_btn {width: 20%; height: auto; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);}
+.slide_btn {width: 18%; height: auto; position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);}
 /* Next & previous buttons */
 .prev, .next {
 	cursor: pointer;
 	position: absolute;
 	top: 50%;
 	width: auto;
-	padding: 2%;
-    top: 50%;
     transform: translateY(-50%);
 	color: white;
-	font-weight: bold;
-	font-size: 25px;
-	transition: 0.6s ease;
+    transition: 0.6s ease;
 }
 .next {right: 0;}
 
@@ -71,46 +67,23 @@ section.sub_wrap h5 br {display: none;}
 }
 
 /*sub_info*/
-.sub_info {width: 100%; margin: 0 auto; text-align: center; margin-top: 50px; overflow: hidden;}
+.sub_info {width: 100%; margin: 0 auto; text-align: center; margin-top: 50px;}
 
 .sub_info p br {display: none;}
 .ctd_btn { text-align: center;  margin: 0 auto;  overflow: hidden;  transition: all 0.3s; width: 30%; height: 50px; line-height: 50px;  font-size: 16px; margin-top: 40px; border-radius: 4px;}
 .ctd_btn a {display: block;}
 
-.sub_list {width: 100%; height: auto; margin: 0 auto; padding: 40px 20px; background: #f8f8f8;}
+.sub_list {width: 100%; height: auto; margin: 0 auto; padding: 40px 35px; background: #fafafa; margin-top: 40px;}
 .sub_list ul {width: 100%; display: flex;} 
-.sub_list ul li {flex: 1; padding: 25px 34px 30px; margin-right: 15px; border: 1px solid #eee; background: #fff; border-radius: 12px; text-align: justify; font-size: 15px; box-shadow: 20px 20px 20px rgba(180,180,180,0.2);}
+.sub_list ul li {flex: 1; padding: 25px 30px 30px; margin-right: 15px; border: 1px solid #eee; background: #fff; border-radius: 12px; text-align: justify; font-size: 15px; box-shadow: 10px 20px 20px rgba(180,180,180,0.3);}
 .sub_list ul li:nth-child(3) {margin-right: 0;}
 .sub_list ul li span {color: #999;}
 .list_bar {background-color: red; width: 20px;border-bottom: 1px solid #dbdbdb; margin: 20px 0; position: relative;}
 .sub_list h3 {font-size:20px; line-height: 1.5;}
-.list_txt p {float: left; width: 100%; text-align: justify;}
-
- 
-
-
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
+.list_txt p {float: left; width: 100%; text-align: justify; font-size: 15px;}
 
 
 /*반응형*/
-
 /*1200px*/
 @media screen and (max-width: 1200px) {
     .slideshow-container {width: 95%; margin: 0 auto;}
@@ -119,7 +92,9 @@ header .open {
 
 /*1024px*/
 @media screen and (max-width: 1024px) {
-    .dot {margin-bottom: 5px;}
+    .dot {margin-bottom: 3px;}
+    .slide_btn {width: 23%;}
+    .ctd_btn {background-color: #C3A164; color: #fff; font-weight: 400;}
 }
 
 /*768px*/
@@ -131,6 +106,7 @@ header .open {
     .slide_btn {width: 30%;}
     .sub_list ul {flex-direction: column;}
     .sub_list ul li {margin-right: 0; margin-bottom: 15px;}
+    
 }
 
 /*414px*/
@@ -144,6 +120,7 @@ header .open {
     .ctd_btn {width: 93%; margin-top: 20px; }
     .sub_list ul li {padding: 30px 25px 30px;}
     .sub_list {width: 100%; height: auto; margin: 0 auto; padding: 20px ; background: #f8f8f8;}
+    .dot {margin-bottom: 0px;}
 }
 
 /*320px*/

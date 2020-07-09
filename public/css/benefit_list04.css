@@ -76,7 +76,7 @@ section.sub_wrap h5 {font-size: 20px; font-weight: 300; text-align:center; color
 section.sub_wrap h5 br {display: none;}
 section.sub_wrap h5 span {font-weight: 400;}
 
-.sub_bg {/*background: url(../img/benefit_list/benefit_list04_sub.png) no-repeat;*/ width: 99%; margin-left: 50%; transform: translateX(-50%);/* box-shadow: 0 0 8px rgba(0,0,0,0.15);*/}
+.sub_bg { width: 99%; margin-left: 50%; transform: translateX(-50%);}
 .sub_bg img {width: 100%;}
 
 
@@ -85,13 +85,6 @@ section.sub_wrap h5 span {font-weight: 400;}
 
 
 /*section.sub_wrap 완료*/
-
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
-
 
 /*모바일 메뉴*/
 header .open {

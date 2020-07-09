@@ -124,7 +124,8 @@ section.sub_wrap h5 span {font-weight: 400;}
   overflow: hidden;
   border-left: 1px solid #ddd;
 	border-right: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0 0 12px 12px;
 }
 
 .tabcontent h3 {font-family: 'Noto Sans KR', sans-serif; color: #000; font-weight: 500; font-size: 24px;}
@@ -141,94 +142,38 @@ section.sub_wrap h5 span {font-weight: 400;}
 /*section.sub_wrap 완료*/
 
 
-/*gnb 자바스크립트*/
-header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
-    height: 80px;
-}
-
-
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
 
 /*반응형*/
 
 /*1200px*/
 @media screen and (max-width: 1200px) {
-    
-    /*main*/
-    section.main {width: 100%;}
-    section.main .inner_main {width: 100%;}
 	.tnb {width: 100%;}
-    
-    /*section.sub_wrap*/
+    .tab {width: 93%; margin: 0 auto;}
+    .tabcontent {width: 93%; margin: 0 auto;}
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 100%;}
-    
-    .tab {width: 95%; margin: 0 auto;}
-    .tabcontent {width: 95%; margin: 0 auto;}
     
     /*sub_contents*/
-    .sub_contents {width: 95%;}
+    .sub_contents {width: 93%;}
 }
     
-
-
-/*1024px*/
-@media screen and (max-width: 1024px) {
-    
-    /*main*/
-    section.main {width: 100%;}
-
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
-    
-}
 
 
 /*768px*/
 @media screen and (max-width: 768px) {
-    
-    /*main*/
-    section.main {width: 100%;}
-    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap h1 {font-size: 35px;}
-    
-    section.sub_wrap h2 { font-size: 26px;}
-	
-	.tabcontent h3 {font-size: 24px;}
-    
-    /*.tabcontent p br {display: block;}*/
     .tabcontent dt br {display: block;}
 	.tabcontent p {line-height: 1.6; padding-bottom: 25px;}
     .tabcontent dl {margin-top: 3%;}
+    .tab button {font-size: 16px; height: 50px; line-height: 50px;}
+    .tabcontent {padding: 30px;}
+
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
     
     /*main*/
-    section.main {width: 100%;}
-    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
 	
@@ -241,15 +186,15 @@ header .open {
     
     .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
     
-    .tab button {width: 50%; height: 50px; padding: 0;border: none; font-size: 16px;}
-	.tab button.active {border: 1px solid #C3A164;}
-    .tabcontent {width: 95%; text-align: center; padding: 0 20px 20px;}
+    .tab button {width: 50%; height: 50px; line-height: 50px; padding: 0;border: none; font-size: 16px; border: 1px solid #eee;}
+	.tab button.active {border: 1px solid #C3A164; font-weight: 400;}
+    .tabcontent {text-align: center; padding: 0 20px 20px; border: 1px solid #eee;}
     .tabcontent h3 {padding: 20px 0; border-bottom: 1px solid #eee; line-height: 1.5; font-weight: 500;}
     .tabcontent h3 br {display: block;}
     .tabcontent p {display: none;}
     
     .tabcontent dl {width: 100%; margin: 0 auto; text-align: left; margin-top: 4%;}
-    .tabcontent dt {width: 100%; font-size: 20px; padding-bottom: 0; font-weight: 400;}
+    .tabcontent dt {width: 100%; font-size: 18px; padding-bottom: 0;}
     .tabcontent dt br {display: none;}
     .tabcontent dd {width: 100%; padding-top: 5px; padding-bottom: 5%; color: #222;}
     .tabcontent dd span {font-size: 15px;}
