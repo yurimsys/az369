@@ -752,7 +752,7 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     date_format(tCT.CT_DepartureTe,'%H:%i') as startTime,
                     date_format(tct.CT_ReturnTe,'%H:%i') as returnTime,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptTe2,
-                    date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
+                    date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                     tCR.CR_cDt as cDt,
                     tCT.CT_DepartureTe as deptTe,
                     tB.B_Name as carName,
@@ -828,8 +828,8 @@ router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
 router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
     let query = `select 
-                    date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
-                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
+                    date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
+                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     tB.B_Name as carName,
                     tCT.CT_CarNum as carNum,
                     count(CR_SeatNum) as seatCnt,
@@ -870,8 +870,8 @@ router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
 router.post('/user/resPayMo',  auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
     let query = `select 
-                    date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
-                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
+                    date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
+                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     tB.B_Name as carName,
                     tCT.CT_CarNum as carNum,
                     count(CR_SeatNum) as seatCnt,
@@ -917,8 +917,8 @@ router.post('/user/resPayBetween',  auth.isLoggedIn, (req, res, next) =>{
     let deptDay = req.body.deptDay;
     let endDay = req.body.endDay;
     let query = `select 
-                    date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
-                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
+                    date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
+                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     tB.B_Name as carName,
                     tCT.CT_CarNum as carNum,
                     count(CR_SeatNum) as seatCnt,
@@ -968,8 +968,8 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
     let moCtId = req.body.ctId;
     let moPhId = req.body.phId;
     let query = `select
-                    date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
-                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
+                    date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
+                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     tB.B_Name as carName,
                     tCT.CT_CarNum as carNum,
                     count(CR_SeatNum) as seatCnt,
@@ -1015,8 +1015,9 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
 //마이페이지 취소 및 환불조회
 router.get('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
     let query = `   select
-                        date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
-                        date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
+                        date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
+                        date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
+                        date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
                         tCR.CR_CancelDt as cancelDay,
                         count(CR_SeatNum) as seatCnt,
                         tPH.PH_Type as payType,
@@ -1061,9 +1062,9 @@ router.post('/user/resCancelListBetween', auth.isLoggedIn, (req, res, next) =>{
     let cancelDeptDay = req.body.cancelDeptDay
     let cancelEndDay = req.body.cancelEndDay
     let query = `   select 
-                        date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
-                        date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
-                        date_format(tCR.CR_CancelDt ,'%y%y-%m-%d %k:%i') as cancelDay,
+                        date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
+                        date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
+                        date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
                         count(CR_SeatNum) as seatCnt,
                         tPH.PH_Type as payType,
                         CR_CT_ID as ctId,
@@ -1105,9 +1106,9 @@ router.post('/user/resCancelListBetween', auth.isLoggedIn, (req, res, next) =>{
 //마이페이지 취소 및 환불조회 모바일
 router.post('/user/resCancelListMo', auth.isLoggedIn, (req, res, next) =>{
     let query = `select 
-                    date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
-                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
-                    tCR.CR_CancelDt as cancelDay,
+                    date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
+                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
+                    date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
                     count(CR_SeatNum) as seatCnt,
                     tPH.PH_Type as payType,
                     tPH.PH_Price as price,
@@ -1148,9 +1149,9 @@ router.post('/user/resCancelListMo', auth.isLoggedIn, (req, res, next) =>{
 //마이페이지 취소 및 환불조회 상세보기 모바일
 router.post('/user/resCancelDetailMo', auth.isLoggedIn, (req, res, next) =>{
     let query = `select 
-                    date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
-                    date_format(tCT.CT_DepartureTe,'%y%y-%m-%d %k:%i') as deptTe,
-                    date_format(tCR.CR_CancelDt,'%y%y-%m-%d')as cancelDay,
+                    date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
+                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
+                    date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
                     count(CR_SeatNum) as seatCnt,
                     tPH.PH_Type as payType,
                     tPH.PH_Price as price,
