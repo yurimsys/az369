@@ -119,6 +119,16 @@
 
                                             <!--좌석선택 텍스트-->
                                             <div class="select_seat">
+
+                                                <h2> 01.31(월) 평택 22:00 ~ 동대문 04:00 유림고속(1234)</h2>
+                                                <ul>
+                                                    <li>01.31(월)</li>
+                                                    <li>평택 22:00 ~ 동대문 04:00</li>
+                                                    <li>유림고속(1234)</li>
+                                                <!-- <div class="day">01.31(월)</div>
+                                                <div class="time">평택 22:00 ~ 동대문 04:00</div>
+                                                <div class="bus">유림고속(1234)</div>
+                                            </ul> -->
                                                 <h4>좌석선택 <span style="color: #999; font-weight: 300; font-size: 16px;">(최대 4개)</span></h4>
                                                 
                                                 <div class="seat_table">
@@ -241,22 +251,8 @@
 
     <script>
 
-        $(document).ready(function(){
-            nowCarList();
-            var filter = "win16|win32|win64|mac|macintel"; 
-            if ( navigator.platform ) { 
-                if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) 
-                { 
-                    //mobile 
-                    location.href = "/reservation2";
-                    // alert('mobile 접속'); 
-                } else { 
-                    //pc 
-                    // alert('pc 접속'); 
-                } 
-        }
 
-        })
+        // })
 
         // $.ajax({
         //     url: 'api/user/resDept',
@@ -270,35 +266,51 @@
         //     }
         // })
         
-        $('#timeSelect01, #timeSelect02').click(function () {
-            if($('#depart01').val() == 0 || $('#depart02').val() == 0){
-                return false;
-            }
-            $(".tab").empty();
-            $.ajax({
-                url: "api/user/resCarList",
-                method: "post",
-                dataType: "json",
-                data: { 'sel': $("#depart01 option:selected").val(), 'sel2': $("#depart02 option:selected").val() },
-                success: function (res) {
-                    for (let i = 0; i < res.data.length; i++) {
-                        let html = "<button class='tablinks' onclick='openBus(event, \"" + res.data[i].ctID + "\")' value=" + res.data[i].seatPrice + ">";
-                        html += "<span class='select_bus_time'>" + res.data[i].deptTe.split(' ', 1).toString() + '\t(' + getInputDayLabel(res.data[i].deptTe) + ")</span>";
-                        // html += "<span class='select_bus_name'>"+res.data[i].b_name+'\n'+"("+res.data[i].carNum+")</span>";
-                        html += "<span class='select_bus_name'>" + res.data[i].b_name + "</span>";
-                        html += " <span class='select_bus_seat'>" + (res.data[i].total_passenger - res.data[i].available_seat_cnt) + "</span>";
-                        html += "<span class='select_bus_seat' style='color:#999999;'>"+" / " + res.data[i].total_passenger +"</span>";
-                        $(".tab").append(html);
-                    }
+        // $('#timeSelect01, #timeSelect02').click(function () {
+        //     if($('#depart01').val() == 0 || $('#depart02').val() == 0){
+        //         return false;
+        //     }
+        //     $(".tab").empty();
+        //     $.ajax({
+        //         url: "api/user/resCarList",
+        //         method: "post",
+        //         dataType: "json",
+        //         data: { 'sel': $("#depart01 option:selected").val(), 'sel2': $("#depart02 option:selected").val() },
+        //         success: function (res) {
+        //             for (let i = 0; i < res.data.length; i++) {
+        //                 let html = "<button class='tablinks' onclick='openBus(event, \"" + res.data[i].ctID + "\")' value=" + res.data[i].seatPrice + ">";
+        //                 html += "<span class='select_bus_time'>" + res.data[i].deptTe.split(' ', 1).toString() + '\t(' + getInputDayLabel(res.data[i].deptTe) + ")</span>";
+        //                 // html += "<span class='select_bus_name'>"+res.data[i].b_name+'\n'+"("+res.data[i].carNum+")</span>";
+        //                 html += "<span class='select_bus_name'>" + res.data[i].b_name + "</span>";
+        //                 html += " <span class='select_bus_seat'>" + (res.data[i].total_passenger - res.data[i].available_seat_cnt) + "</span>";
+        //                 html += "<span class='select_bus_seat' style='color:#999999;'>"+" / " + res.data[i].total_passenger +"</span>";
+        //                 $(".tab").append(html);
+        //             }
 
-                    sessionStorage.setItem("car_list", JSON.stringify(res.data));
-                }
-            });
-        })
+        //             sessionStorage.setItem("car_list", JSON.stringify(res.data));
+        //         }
+        //     });
+        // })
 
     </script>
 
     <script>
+
+        
+$(document).ready(function(){
+            nowCarList();
+            var filter = "win16|win32|win64|mac|macintel"; 
+            if ( navigator.platform ) { 
+                if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) 
+                { 
+                    //mobile 
+                    location.href = "/reservation2";
+                    // alert('mobile 접속'); 
+                } else { 
+                    //pc 
+                    // alert('pc 접속'); 
+                } 
+        }
 
     function nowCarList(){
         $.ajax({

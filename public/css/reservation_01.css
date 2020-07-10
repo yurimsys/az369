@@ -7,24 +7,24 @@
 .reservation_box ul li:nth-child(2) {margin-right: 0;}
 
 /*왼쪽영역*/
-.reserve_left {width: 100%; background: #fff; border: 1px solid #dbdbdb; padding: 25px 30px; height: 650px; border-radius: 4px;}
+/* .reserve_left {width: 100%; background: #fff; border: 1px solid #dbdbdb; padding: 25px 30px; height: 650px; border-radius: 4px;}
 .reserve_left ul li { width: 100%;}
 .reserve_left h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; letter-spacing: -0.50px; }
-.left_list:nth-child(2) { padding-top: 35px; border-bottom: none;}
+.left_list:nth-child(2) { padding-top: 35px; border-bottom: none;} */
 
 /*왼쪽상단 - 지역,시간 선택------------------------------*/
-.location ul {width: 100%;height: auto;}
+/* .location ul {width: 100%;height: auto;}
 .location ul li {float: left; height: 45px;}
 .location ul > li:nth-child(1), .location ul > li:nth-child(3)
  {width: 44%;;} 
- .location ul > li:nth-child(2) {width: 10%; text-align: center; line-height: 43px;}
+ .location ul > li:nth-child(2) {width: 10%; text-align: center; line-height: 43px;} */
 
  /* select박스 디자인 */
-.location_select {width: 100%;line-height: 40px; position: relative; border-radius: 4px; background-color: #fff;}
+/* .location_select {width: 100%;line-height: 40px; position: relative; border-radius: 4px; background-color: #fff;}
 .location_select01 select,
-.location_select02 select {display: none;}
+.location_select02 select {display: none;} */
 /* 화살표디자인 */
-.select-selected:after {
+/* .select-selected:after {
   position: absolute;
   content: "";
   top: 18px;
@@ -37,26 +37,26 @@
 .select-selected.select-arrow-active:after {
   border-color: transparent transparent #ccc transparent;
   top: 10px;
-}
+} */
 /* select 영역 */
-.select-items div,.select-selected {
+/* .select-items div,.select-selected {
   border: 1px solid transparent;
   cursor: pointer;
   user-select: none;
   padding-left: 15px;
   color:#444;
-}
+} */
 /* 선택된 옵션 */
-.select-selected {
+/* .select-selected {
   background-color: #fff;
   color: #222;
  font-weight:400;
  font-size: 15px;
  border: 1px solid #dbdbdb;
  border-radius: 4px;
-}
+} */
 /* 선택할 옵션 */
-.select-items {
+/* .select-items {
   position: absolute;
   background-color: #fff;
   border: 1px solid #eee;
@@ -70,16 +70,16 @@
 .select-hide {display: none;}
 .select-items div:hover, .same-as-selected {
   background-color: #f4f4f4;
-}
+} */
 
 
 
 /*왼쪽하단 - 날짜,버스선택 --------------------------------------*/
-.select_bus {width: 100%; overflow: hidden;}
-.select_bus_list {width: 100%; height: 380px; overflow: scroll; overflow-x: hidden;background: #fafafa;}
+/* .select_bus {width: 100%; overflow: hidden;}
+.select_bus_list {width: 100%; height: 380px; overflow: scroll; overflow-x: hidden;background: #fafafa;} */
 
 /* 버스선택 상단 */
-.select_bus_list_tit {width: 100%; font-size: 15px;  height: 45px; line-height: 45px; color: #222; border-top: 1px solid #dbdbdb; letter-spacing: -0.5px; font-weight: 400;}
+/* .select_bus_list_tit {width: 100%; font-size: 15px;  height: 45px; line-height: 45px; color: #222; border-top: 1px solid #dbdbdb; letter-spacing: -0.5px; font-weight: 400;}
 .select_bus_list_tit ul li {float: left; text-align: center;  margin-bottom: 0%; border-bottom: 1px solid #dbdbdb; background: #fff;}
 .select_bus_list_tit ul li:nth-child(1) {width: 35%;}
 .select_bus_list_tit ul li:nth-child(2) {width: 35%;}
@@ -97,10 +97,10 @@
 .select_bus span {height: 50px; line-height: 50px; text-align: center; float: left;}
 .select_bus .select_bus_time {margin: 0; width: 35%;}
 .select_bus .select_bus_name {margin: 0; width: 35%;}
-.select_bus .select_bus_seat {margin: 0; width: 30%; float: initial;}
+.select_bus .select_bus_seat {margin: 0; width: 30%; float: initial;} */
 
 /*버스선택버튼 active*/
-.tab {
+/* .tab {
   overflow: hidden;
   background-color: inherit;
     width: 100%;
@@ -128,12 +128,13 @@
     border: 1px solid #444; 
     color: #444444;
     font-weight: 500;
-}
+} */
 
 
 /*오른쪽영역*/
-.reserve_right { width: 100%; background: #fff; border: 1px solid #dbdbdb; height: 650px; font-size: 15px; padding: 20px; border-radius: 4px; position: relative;}
-.reserve_right h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; letter-spacing: -0.50px; }
+.reserve_right { width: 100%; background: #fff; border: 1px solid #dbdbdb; height: 650px; padding: 20px; border-radius: 4px; position: relative;}
+.reserve_right h2 {font-size: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; font-weight: 400;}
+.reserve_right h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; padding-top: 15px;}
 p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; position: absolute; top: 50%;transform: translateY(-50%); line-height: 25px;}
 .reserve_right h5 {font-size: 20px; margin-left: 3%; display: inline-block;}
 .reserve_right ul li {background: transparent; margin-left: 3%;}
@@ -158,7 +159,7 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; posit
 /*오른쪽 좌석선택표------------------------------------------*/
 .seat-map {float: left;}
 .select_seat {float: right; width: 48%; padding-left: 4%;}
-.select_seat h4 {width: 100%; font-size: 18px; padding: 0; margin: 0; margin-bottom: 10px; padding: 1%;;}
+/* .select_seat h4 {width: 100%; font-size: 18px; padding: 0; margin: 0; margin-bottom: 10px; padding: 1%;;} */
 .select_seat h4 span {color: #999;}
 
 /*좌석선택 텍스트*/
