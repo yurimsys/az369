@@ -55,6 +55,11 @@
                                                 수정
                                             </a>
                                         </div>
+                                        <div class="modify_btn_mo">
+                                            <a href="modify">
+                                               <u>내정보 수정</u>
+                                            </a>
+                                        </div>
                                     </div>
                                     <div class="info">
                                         <!-- <h5><%= sessionUser.U_Name %>님
@@ -87,15 +92,15 @@
                                 <!--왼쪽 목록버튼-->
                                 <div class="mypage_nav_mo">
                                     <button class="tablinks" onclick="openList(event, '01')" id="defaultOpen">
-                                        <p>현 장차예매 현황</p>
+                                        <p>장차예매현황</p>
                                     </button>
 
                                     <button class="tablinks" id="tab_mo2" onclick="openList(event, '02')">
-                                        <p>예매 및 결제내역</p>
+                                        <p>예매결제내역</p>
                                     </button>
 
                                     <button class="tablinks" id="tab_mo3" onclick="openList(event, '03')">
-                                        <p>취소 및 환불조회</p>
+                                        <p>취소환불조회</p>
                                     </button>
                                 </div>
                             </li>
@@ -715,7 +720,7 @@
                         html2 += "<ul class='testcode' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
                         html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
                         html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
-                        html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><i class='fas fa-chevron-right'></i></li>";
+                        html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><i class='fas fa-chevron-right' style='color: #999;'></i></li>";
                         html2 += "</ul></a>";
                         html2 += "</div>";
                         $(".list02_mo").append(html2);

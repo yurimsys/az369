@@ -1112,3 +1112,5 @@
 {"message":"::ffff:127.0.0.1 - - [10/Jul/2020:02:09:41 +0000] \"POST /api/user/resPayBetween HTTP/1.1\" 200 5430 \"http://localhost:8001/mypage\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\"\n","level":"info"}
 {"message":"::ffff:127.0.0.1 - - [10/Jul/2020:02:09:42 +0000] \"POST /api/user/resPay HTTP/1.1\" 200 6170 \"http://localhost:8001/mypage\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\"\n","level":"info"}
 >>>>>>> 980fc37c6c0e8bb04dfbe25d1a2f2e1062bcf56e
+{"message":"::1 - - [10/Jul/2020:02:13:27 +0000] \"GET /mypage HTTP/1.1\" 302 56 \"http://localhost:8001/mypage\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\"\n","level":"info"}
+{"message":"::1 - - [10/Jul/2020:02:13:27 +0000] \"GET /login HTTP/1.1\" 200 11550 \"http://localhost:8001/mypage\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\"\n","level":"info"}
