@@ -133,8 +133,8 @@
 
 /*오른쪽영역*/
 .reserve_right { width: 100%; background: #fff; border: 1px solid #dbdbdb; height: 650px; padding: 20px; border-radius: 4px; position: relative;}
-.reserve_right h2 {font-size: 20px;}
-.reserve_right h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; letter-spacing: -0.50px; }
+.reserve_right h2 {font-size: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; font-weight: 400;}
+.reserve_right h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; padding-top: 15px;}
 p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; position: absolute; top: 50%;transform: translateY(-50%); line-height: 25px;}
 .reserve_right h5 {font-size: 20px; margin-left: 3%; display: inline-block;}
 .reserve_right ul li {background: transparent; margin-left: 3%;}
@@ -159,7 +159,7 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; posit
 /*오른쪽 좌석선택표------------------------------------------*/
 .seat-map {float: left;}
 .select_seat {float: right; width: 48%; padding-left: 4%;}
-.select_seat h4 {width: 100%; font-size: 18px; padding: 0; margin: 0; margin-bottom: 10px; padding: 1%;;}
+/* .select_seat h4 {width: 100%; font-size: 18px; padding: 0; margin: 0; margin-bottom: 10px; padding: 1%;;} */
 .select_seat h4 span {color: #999;}
 
 /*좌석선택 텍스트*/

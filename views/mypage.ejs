@@ -166,14 +166,13 @@
 
                                         <!-- <p class="cancel_info">취소할 예매 목록을 선택하시고 하단의 버튼을 누르시면 예매를 취소하실 수 있습니다.</p> -->
 
-                                        <a class="popup_open" onclick="cancelBtn()">선택예매취소</a>
+                                        <!-- <a class="popup_open" onclick="cancelBtn()">선택예매취소</a> -->
 
                                         <div id="popup" class="layer">
                                             <!-- 예매취소 후 리스트 @@@@@@@@@@@@@@@@@@@@@@@@@@@222 -->
                                             <!--popup PC-->
                                             <div class="popup_box">
-                                                <h2>장차예매취소</h2>
-
+                                                <h2>예매상세내역</h2>
                                                 <table class="table">
                                                     <thead>
                                                         <!-- <th>예약번호</th> -->
@@ -184,44 +183,41 @@
                                                         <th>결제금액</th>
                                                     </thead>
                                                     <tbody class="cancelRes">
-
                                                     </tbody>
-
                                                 </table>
 
                                                 <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한
                                                     예매를 취소하겠습니까?</p>
-                                                <ul class="popup_btn">
+                                                <div class="popup_btn">
+                                                    <ul>
                                                     <li>
-                                                        <a onclick="javascript:$('#popup').css('display','none')" class="popup_close1">닫기</a>
+                                                        <a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary">닫기</a>
                                                     </li>
 
                                                     <li>
-                                                        <a href="#" class="popup_close2" onclick="resCancel()">예매 취소</a>
+                                                        <a href="#" class="btn btn-primary" onclick="resCancel()">예매 취소</a>
                                                     </li>
                                                 </ul>
+                                            </div>
                                             </div>
 
 
                                             <!--popup mo 768px-->
                                             <div class="popup_box_mo">
                                                 <h2>장차예매취소</h2>
-
                                                 <div class="table_mo">
                                                 </div>
-
-
                                                 <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한
                                                     예매를 취소하겠습니까?</p>
 
                                                 <div class="popup_btn_mo">
                                                     <ul>
                                                         <li>
-                                                            <a href="mypage" class="popup_close1">닫기</a>
+                                                            <a href="mypage" class=" btn-secondary">닫기</a>
                                                         </li>
 
                                                         <li>
-                                                            <a class="popup_close2" onclick="resCancel()">예매 취소</a>
+                                                            <a class="btn btn-primary" onclick="resCancel()">예매 취소</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -523,7 +519,7 @@
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<tr val=" + res.data[i].pId + ">";
                         html += "<td>" + res.data[i].PayDay + "</td>";
-                        html += "<td>" + res.data[i].deptTe + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td>";
+                        html += "<td> " + res.data[i].deptTe + res.data[i].carName + "<span>(평택 > 서울 동대문)</span></td>";
                         html += "<td>" + res.data[i].seatCnt + "</td>";
                         html += "<td>" + res.data[i].payType + "</td>";
                         html += "<td>" + res.data[i].price + "</td>";
