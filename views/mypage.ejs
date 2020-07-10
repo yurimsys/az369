@@ -538,7 +538,7 @@
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<tr val=" + res.data[i].pId + ">";
                         html += "<td>" + res.data[i].PayDay + "</td>";
-                        html += "<td> " + res.data[i].startDay +"<span> 평택</span>" + res.data[i].startTime +"<span> - 서울</span>"+ res.data[i].returnTime +"&nbsp;" +res.data[i].carName+"<span>("+res.data[i].carNum+")</span>"+"</td>";
+                        html += "<td> " + res.data[i].startDay +"<span> 평택 </span>" + res.data[i].startTime +"<span> - 서울 </span>"+ res.data[i].returnTime +"&nbsp;" +res.data[i].carName+"<span>("+res.data[i].carNum+")</span>"+"</td>";
                         html += "<td>" + res.data[i].seatCnt + "</td>";
                         html += "<td>" + res.data[i].payType + "</td>";
                         html += "<td>" + res.data[i].price + "</td>";
@@ -658,11 +658,14 @@
 
         //현 장차예매 현황 체크박스 지우기
         $("#tab1").on('click', function () {
+            $('.chkbox2').removeClass('on')
             $("input[type=radio]").prop("checked", false);
         })
 
         //결제리스트
         $("#tab2").on('click', function () {
+            $('.chkbox2').removeClass('on')
+
             $('input[type=radio]').prop('checked', false);
             //달력 val 지우기
             $("#deptDay").val('')
@@ -693,6 +696,8 @@
 
         //결제리스트 모바일
         $("#tab_mo2").on('click', function () {
+            $('.chkbox2').removeClass('on')
+            
             //달력 val 지우기
             $("#deptDay").val('')
             $("#endDay").val('')
@@ -801,6 +806,8 @@
 
         //@@@@@PC 취소 및 환불 리스트
         $("#tab3").on('click', function () {
+            $('.chkbox2').removeClass('on')
+            
             //달력 val 지우기
             $("#cancelDeptDay").val('')
             $("#cancelEndDay").val('')
@@ -827,6 +834,8 @@
 
         //모바일 취소 및 환불 리스트
         $("#tab_mo3").on('click', function () {
+            $('.chkbox2').removeClass('on')
+            
             //달력 val 지우기
             $("#cancelDeptDay").val('')
             $("#cancelEndDay").val('')
