@@ -310,8 +310,6 @@ p.cancel_info {margin:2% 0; text-align: center;}
 /*414px*/
 @media screen and (max-width: 414px) {
     .info_title h2 br  {display: block;}
-   
-
     .mypage_nav_mo p {font-size:15px;}
     .tabcontent h4 {font-size: 20px;}
     .info_title {padding-bottom: 15px;}
@@ -412,17 +410,8 @@ p.cancel_info {margin:2% 0; text-align: center;}
 /*320px*/
 @media screen and (max-width: 320px) {
     
-    /*Header*/
-    header {width: 320px;}
-    header .innerHeader {width: 320px; position: fixed;}
-    
-    .gnb_mo_login a {font-size: 13px;}
-    
-    
-    /*section.sub_wrap*/
-    section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
-    section.sub_wrap p {margin-bottom: 5%;}
-    
+    .mypage_right {padding: 10px;}
+    .modify_btn_mo {float: left;}
     .popup_open3 ul li:nth-child(1),
     .popup_open2 ul li:nth-child(1) {width: 49%;}
     .popup_open3 ul li:nth-child(2),
@@ -446,6 +435,12 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .table_mo {height: 290px; overflow: scroll;}
     
     /*search 박스*/
+
+    .searchDate ul {
+        flex:none;
+        width: 100%;
+      }
+      .searchDate ul li {margin-right: 0; width: 33.33%;}
             
     .searchDate{margin-left: 0%; margin-top: 3%;}
     .searchDate li .chkbox label {display:block; width: 52px; margin-right: 2px;}
