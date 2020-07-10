@@ -9,13 +9,15 @@
 .mypage_left {width: 100%; height: auto; padding: 20px 30px; overflow: hidden; }
 /*왼쪽 상단*/
 .info_title {width: 100%; overflow: hidden; padding-bottom: 20px; border-bottom: 1px solid #eee;}
-.info_title h2 {font-size: 24px; font-weight: 400; display: inline-block; float: left; width: 70%;} 
+.info_title h2 {font-size: 20px; font-weight: 50 0; display: inline-block; float: left; width: 70%;line-height: 1.5;} 
+.info_title h2 span {font-size: 16px; font-weight: 300; color: #999;}
 .modify_btn { color: #767676; background: #f2f2f2; display: inline-block; height: 40px; line-height: 40px; font-size: 15px; float: right; width:25%; text-align: center; border-radius: 12px; transition: all 0.3s;}
 .modify_btn a {display: block;}
+.modify_btn_mo {display: none;  color: #767676;display: inline-block; height: 30px; line-height: 30px; font-size: 15px; float: right; width:auto; margin-right: 10px;}
 .info {text-align: justify; width: 100%; margin-top: 15px; margin-bottom: 50px;}
-.info h5 {font-size: 16px; font-weight: normal; margin-bottom: 10px; font-weight: 500; color: #222;}
-.info h5 span {font-size: 16px; color: #999; font-weight: 300;}
-.info p {color: #767676; font-size: 15px; line-height: 1.6;}
+/* .info h5 {font-size: 16px; font-weight: normal; margin-bottom: 10px; font-weight: 500; color: #222;}
+.info h5 span {font-size: 16px; color: #999; font-weight: 300;} */
+.info p {color: #444; font-size: 15px; line-height: 1.6;}
 /* 왼쪽 하단 버튼*/
 .mypage_nav {overflow: hidden;}
 .mypage_nav button { width: 100%; height: 45px; line-height:45px; border: none; float: left; padding: 0; margin: 0; background: #fff; font-size: 16px; cursor: pointer; text-align: justify; transition: all 0.3s; color: #999; font-weight: 400;}
@@ -236,27 +238,12 @@ p.cancel_info {margin:2% 0; text-align: center;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    .box {padding-top: 7%;}
-     .tnb {width: 1024px;}
-    
     .box_01, .box_02 {height: 650px;}
-    .logout {margin-top: 63%;}
  
-    
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-
-    .mypage_nav button span {margin-left: 40%;}
-    .mypage_left h2 {font-size: 24px;}
     .info h5 {font-size: 18px;}
-    .layer .popup_box{width: 95%; margin-top: -35%;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
+     .popup_box{width: 95%; margin-top: -35%;}
 }
 
 
@@ -266,46 +253,26 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .box_01, .box_02 {float: none; width: 100%; overflow: hidden;}
     .mypage_box .logout {display: none;}
     .mypage_left {height: auto;}
-    section.sub_wrap h2 {margin-bottom: 0;}
-    .info {margin-bottom: 0; padding: 20px 0;}
-    .info h5 {margin-bottom: 15px;}
-    .box_01 {height: auto; position: relative; width: 100%; overflow: hidden;}
-    .box_02 {border-top: none;}
+    section.sub_wrap h2 {margin-bottom: 0; font-size: 20px;}
+    .info {margin-bottom: 0; padding:10px 0 15px;}
+    .info_title h2 br  {display: none;}
+    .box_01 {height: auto; position: relative; width: 100%; overflow: hidden; border-bottom: none;}
+    .box_02 {border-top: none; padding-top: 8px;}
+    /* .modify_btn {width: 12%; height: auto; background-color: transparent; font-weight: 400;} */
+    .modify_btn {display: none;}
+    .modify_btn_mo {display: block;}
     .mypage_nav {display: none;}
     .mypage_nav_mo { display: block; width: 100%; overflow: hidden;}
-    .mypage_nav_mo .tablinks {width: 33.3%; float: left; height: 55px; color: #444; border: none; font-size: 14px; border: 1px solid #eee; background-color: #f8f8f8;}
-    .mypage_nav_mo p {width:60%; margin: 0 auto; text-align: center; font-size: 16px;}
-    
-    .mypage_nav_mo button.active {background: #C3A164; border: 1px solid #C3A164; color: #fff;}
+    .mypage_nav_mo .tablinks {width: 33.3%; float: left; height: 55px; color: #444;}
+    .mypage_nav_mo p { margin: 0 auto; text-align: center; font-size: 16px; color: #767676;}
+    /* .mypage_nav_mo button.active {background: #C3A164; border: 1px solid #C3A164; color: #fff;} */
+    .mypage_nav_mo button {border: 1px solid #eee; border-bottom:1px solid #C3A164; background: #f4f4f4; }
+    .mypage_nav_mo button.active {border: 1px solid #C3A164; border-bottom: none; background: #fff; color:#222;}
+    .mypage_nav_mo button.active p {color: #222; font-weight: 500;}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     .popup_box{display: none;}
-    .layer {width: 768px;}
-    .popup_box_mo {display: block; width: 95%; background: #fff; height: auto; margin: 0 auto; padding: 0; top: 15%; position: absolute; padding: 2% 2% 3%; z-index: 100000000;}
+    .layer {width: 100%;}
+    .popup_box_mo {display: block; width: 95%; background: #fff; padding: 0; position: absolute; z-index: 100000;}
     .popup_box_mo h2 {text-align: center; margin-bottom: 2%; font-size: 20px;}
     .popup_box_mo p {font-size: 14px;}
     .table_mo {display: block;}
@@ -313,80 +280,44 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .table_mo dl {width: 100%;}
     .table_mo dt {width: 35%; float: left; background: #fafafa; font-weight: 500;}
     .table_mo dd {width: 65%; float: right;}
-    
     .table_mo dt, .table_mo dd {
       padding: 10px 20px;
       border: 1px solid #eee;
       text-align: left;
     }
-    
     dd br {display: none;}
-
     .popup_btn_mo {width: 80%; margin: 0 auto; margin-top: 5%; background: #eee;}
     .popup_close1, .popup_close2 {width: 49%; float: left;}
     .popup_close1 {margin-right: 1%;}
     
-\
-    
-    
-    
 
-    #reserve_list {width: 100%; height: 250px;}
+
+
+    #reserve_list {width: 100%; height: 280px;}
     .reserve_list_tit ul li {float: left; width: 25%;}
     .reserve_bar {width: 100%;}
     .reserve_bar ul li {float: left; width: 25%;}
-    
-    .mypage_nav button span {margin-left: 70%;}
-    .mypage_nav button {height: 60px; line-height: 60px; border-bottom: 1px solid #eee;}
-    
+    .list02, .list03 {height: 240px; overflow-x: hidden;}
     .mypage_box .box_02 {float: none; width: 100%; height: auto;}
     .mypage_right {width: 100%; margin-top: 1%;}
     .reserve_bar ul li {float: left;}
     
-    .list02, .list03 {height: 220px; overflow-x: hidden;}
 
-
-    .logout_mo {display: block; width: 100%; height: 50px; line-height: 50px; background: #eee; overflow: hidden; color: #888; text-align: center; margin-top: 7%;}
+    .logout_mo {display: block; width: 100%; height: 45px; line-height: 45px; background: #eee; overflow: hidden; color: #999; text-align: center; margin-top: 60px;}
     .logout_mo a {display: block;}
-    
-    .searchBox {padding-bottom: 5px;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-bottom: 3%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
-    
-    .box {padding-top: 20%;}
-    
-    /*main*/
-    section.main {width: 100%;}
-    section.main .inner_main {width: 414px;}
-    
-    .tnb {width: 414px;} 
-    .tnb ul li {font-size: 15px;}
-    
-    /*section.sub_wrap*/
-    section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h6 { margin-bottom: -5px;}
-    section.sub_wrap h1 {font-size: 30px; margin-bottom: 4%;}
-    section.sub_wrap .bar {display: none;}
-    .mypage_box h2 {font-size: 24px;}
-    .mypage_box h5 {font-size: 18px; color: #555; margin-bottom: 2.5%; padding-top: 2%;}
-    .mypage_box h5 span {font-size: 14px;}
+    .info_title h2 br  {display: block;}
+   
+
+    .mypage_nav_mo p {font-size:15px;}
+    .tabcontent h4 {font-size: 20px;}
+    .info_title {padding-bottom: 15px;}
+    .info {padding-top: 0;}
     .info p {font-size: 15px;}
-    
-    .mypage_box .modify_btn {width: 25%; margin-top: 1%;}
-    .mypage_box .modify_btn a {font-size: 14px;}
-    
-    .mypage_box .box_01 {position: relative; width: 100%; height: 290px; overflow: hidden;}
-    .mypage_nav_mo .tablinks {width: 33.3%; float: left; height: 55px; background: #fff; border: 1px solid #eee; font-size: 14px; color: #444;}
-    .mypage_nav_mo p {width:90%; margin: 0 auto; text-align: center; font-size: 15px;}
+
     
     #reserve_list {background: #f8f8f8;}
     .reserve_list_tit {display: none;}
@@ -395,15 +326,15 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .reserve_bar_mo_list {display: block; width: 100%;}
     .reserve_bar_mo {display: block; width: 100%; padding: 2%; height: 60px; margin: 1% 0; line-height: 60px; vertical-align: middle; border-bottom: 1px solid #eee;}
     
-    .reserve_bar_mo ul li {float: left; text-align: center; font-size: 12px; font-weight: normal; color: #888; line-height: 1.4;}
-    .reserve_bar_mo ul li:nth-child(1) {width: 29%;}
+    .reserve_bar_mo ul {width: 100%; display: flex;}
+    .reserve_bar_mo ul li {float: left; text-align: center; font-size: 12px; font-weight: normal; color: #888; line-height: 1.4; flex: 2;}
+    .reserve_bar_mo ul li:nth-child(4) {flex: 1;}
+    /* .reserve_bar_mo ul li:nth-child(1) {width: 29%;}
     .reserve_bar_mo ul li:nth-child(2) {width: 34%;}
-    .reserve_bar_mo ul li:nth-child(3) {width: 29%;}
-    .reserve_bar_mo ul li:last-child {width: 8%;  text-align: center; vertical-align: middle;}
+    .reserve_bar_mo ul li:nth-child(3) {width: 29%;} */
+    /* .reserve_bar_mo ul li:last-child {width: 8%;  text-align: center; vertical-align: middle;} */
     .reserve_bar_mo ul li h6 { font-size: 14px; margin: 0; color: #666; font-weight: bold;}
     .reserve_bar_mo ul li i {float: right; display: table-cell; vertical-align: middle; padding:12px 0; padding-right: 8px;}
-    
-    .mypage_nav_mo button.active {color: #fff; background: #c49b4e;}
     
     p.cancel_info {font-size: 14px; line-height: 1.4; width: 90%; margin: 0 auto;  padding: 4% 0 8%;}
     
@@ -437,23 +368,23 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .dl3 dd span {color: #888;}
     
     .list02 {display: none;}
-    .list02_mo {display: block; width: 100%; height: 250px; font-size: 13px;; overflow-x: hidden;}
+    .list02_mo {display: block; width: 100%; height: 260px; font-size: 13px;; overflow-x: hidden;}
     .popup_open2 {width: 100%;}
     .popup_open2 ul li {float: left; text-align: justify;}
     .popup_open2 ul li:nth-child(1) {width: 37%; color: #222; font-weight: 500;}
-    .popup_open2 ul li:nth-child(2) {width: 33%; color: #222; font-weight: 300;}
+    .popup_open2 ul li:nth-child(2) {width: 33%; color: #999; font-weight: 400;}
     .popup_open2 ul li:nth-child(3) {width: 30%; color: #767676;}
     .popup_open2 i {float: right; padding: 17px 0;}
-    .list02_mo_list {padding: 0 5%; height: 50px; line-height: 50px;  border: 1px solid #eee;}
+    .list02_mo_list {padding: 0 5%; height: 50px; line-height: 50px;  border: 1px solid #eee; background-color: #fafafa;}
     
     .list03 {display: none;}
-    .list03_mo {display: block; width: 100%; height: 250px; font-size: 13px; overflow-x: hidden;}
+    .list03_mo {display: block; width: 100%; height: 260px; font-size: 13px; overflow-x: hidden;}
     .popup_open3 ul li {float: left; text-align: justify;}
     .popup_open3 ul li:nth-child(1) {width: 37%; color: #222; font-weight: 500;}
-    .popup_open3 ul li:nth-child(2) {width: 33%; color: #222; font-weight: 300;}
+    .popup_open3 ul li:nth-child(2) {width: 33%; color: #999; font-weight: 400;}
     .popup_open3 ul li:nth-child(3) {width: 30%; color: #767676;}
     .popup_open3 i {float: right; padding: 17px 0;}
-    .list03_mo_list {padding: 0 5%; height: 50px; line-height: 50px;  border: 1px solid #eee;}
+    .list03_mo_list {padding: 0 5%; height: 50px; line-height: 50px;  border: 1px solid #eee; background: #fafafa;}
     
 
     dd br {display: block;}
@@ -462,27 +393,16 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_box_mo {padding: 3% 2% 5%;}
     
     .mypage_nav button span {margin-left: 60%;}
-    .tabcontent h4 {font-size: 18px; padding-top: 4%;}
+    /* .tabcontent h4 {font-size: 18px; padding-top: 4%;} */
     
-    .tab_tit p {font-size: 12px; width: 80%; margin: 0 auto; line-height: 1.5; margin-bottom: 5%;}
     
    .table th, .table td {font-size: 10px; padding: 5px;}
     
-
-    
-    /*search 박스*/
-.searchBox {width: 100%;}
-
-
-/*날짜 표시 사이 아이콘*/
-.demi{display:inline-block;margin:0 2%;vertical-align:middle}
-
-/*날짜표시칸*/
-.clearfix{ float: left; width: 100%;} 
-.inpType{padding-left:2%; height:35px; line-height:35px; border:1px solid #eee; font-size: 17px; border-radius: 8px; background: #f4f4f4; width: 45%; margin-top: 2%;}
-
-/*날짜조회 버튼*/
-.search_btn {width: 100%; margin-top: 3%;}
+    /*날짜조회영역*/
+    .searchDate {width: 100%;}
+    .clearfix{width: 100%;} 
+    .clearfix ul {width: 100%; margin: 5px 0;}
+    .search_btn {width: 100%; margin: 10px 0; height: 40px; border: 1px solid #999;} 
 
 }
 
@@ -504,15 +424,16 @@ p.cancel_info {margin:2% 0; text-align: center;}
     section.sub_wrap p {margin-bottom: 5%;}
     
     .popup_open3 ul li:nth-child(1),
-    .popup_open2 ul li:nth-child(1) {width: 40%; letter-spacing: -0.5px;}
+    .popup_open2 ul li:nth-child(1) {width: 49%;}
     .popup_open3 ul li:nth-child(2),
-    .popup_open2 ul li:nth-child(2) {width: 40%; letter-spacing: -0.5px;}
+    .popup_open2 ul li:nth-child(2) {width: 48%;}
     .popup_open3 ul li:nth-child(3),
-    .popup_open2 ul li:nth-child(3) {width: 20%;}
+    .popup_open2 ul li:nth-child(3) {width: 3%;}
     
     .popup_box_mo2 .table_mo {height: 300px;}
     
-    .mypage_nav_mo p {padding: 5%;}
+    .mypage_nav_mo p {padding: 5%; font-size: 15px; word-break: break-all;width: 80%;}
+    .mypage_nav_mo .tablinks { padding: 5px; height: auto;}
     
     .dl3 dt {height: 97px;}
     

@@ -48,16 +48,22 @@
                             <li class="box_01">
                                 <div class="mypage_left">
                                     <div class="info_title">
-                                        <h2>내정보</h2>
+                                        <h2><%= sessionUser.U_Name %>님 <br>
+                                            <span>(<%= sessionUser.U_uId %>)</span></h2>
                                         <div class="modify_btn">
                                             <a href="modify">
                                                 수정
                                             </a>
                                         </div>
+                                        <div class="modify_btn_mo">
+                                            <a href="modify">
+                                               <u>내정보 수정</u>
+                                            </a>
+                                        </div>
                                     </div>
                                     <div class="info">
-                                        <h5><%= sessionUser.U_Name %>님
-                                            <span>(<%= sessionUser.U_uId %>)</span></h5>
+                                        <!-- <h5><%= sessionUser.U_Name %>님
+                                            <span>(<%= sessionUser.U_uId %>)</span></h5> -->
 
 
                                         <p>
@@ -86,15 +92,15 @@
                                 <!--왼쪽 목록버튼-->
                                 <div class="mypage_nav_mo">
                                     <button class="tablinks" onclick="openList(event, '01')" id="defaultOpen">
-                                        <p>현 장차예매 현황</p>
+                                        <p>장차예매현황</p>
                                     </button>
 
                                     <button class="tablinks" id="tab_mo2" onclick="openList(event, '02')">
-                                        <p>예매 및 결제내역</p>
+                                        <p>예매결제내역</p>
                                     </button>
 
                                     <button class="tablinks" id="tab_mo3" onclick="openList(event, '03')">
-                                        <p>취소 및 환불조회</p>
+                                        <p>취소환불조회</p>
                                     </button>
                                 </div>
                             </li>
