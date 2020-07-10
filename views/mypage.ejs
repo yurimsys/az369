@@ -514,12 +514,13 @@
                     'sendArray': seatArr
                 },
                 success: function (res) {
-                    // console.log(res);
+                    console.log(res);
+                    //07.30. 평택 22:00 - 서울동대문 04:00 유림고속(1213)
                     //PC 예매취소 리스트
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<tr val=" + res.data[i].pId + ">";
                         html += "<td>" + res.data[i].PayDay + "</td>";
-                        html += "<td> " + res.data[i].deptTe + res.data[i].carName + "<span>(평택 > 서울 동대문)</span></td>";
+                        html += "<td> " + res.data[i].startDay +"<span> 평택</span>" + res.data[i].startTime +"<span> - 서울</span>"+ res.data[i].returnTime +"&nbsp;" +res.data[i].carName+"<span>("+res.data[i].carNum+")</span>"+"</td>";
                         html += "<td>" + res.data[i].seatCnt + "</td>";
                         html += "<td>" + res.data[i].payType + "</td>";
                         html += "<td>" + res.data[i].price + "</td>";
@@ -629,6 +630,7 @@
                         alert("출발 3일전에는 취소가 불가능합니다.");
                         location.href = "mypage";
                     } else {
+                        alert("취소가 완료되었습니다.");
                         location.href = "mypage";
                     }
 

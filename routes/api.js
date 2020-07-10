@@ -747,13 +747,17 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                 select
                     tCR.CR_CT_ID as ctId,
                     tCR.CR_cDt as payDay,
-                    date_format(tCT.CT_DepartureTe,'%m.%d') as deptTe1,
+                    date_format(tCT.CT_DepartureTe,'%m.%d') AS startDay,
+                    date_format(tct.CT_ReturnTe,'%m.%d') as returnDay,
+                    date_format(tCT.CT_DepartureTe,'%H:%i') as startTime,
+                    date_format(tct.CT_ReturnTe,'%H:%i') as returnTime,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptTe2,
                     date_format(tCR.CR_cDt,'%y%y-%m-%d') as PayDay,
                     tCR.CR_cDt as cDt,
                     tCT.CT_DepartureTe as deptTe,
                     tB.B_Name as carName,
-                    tCT.CT_CarNum as carNum,
+                    tCT.CT_CarNum,
+                    (SELECT right(CT_CarNum, 4)) AS carNum,
                     tPH.PH_Type as payType,
                     tPH.PH_Price as price,
                     tPH.PH_ID as pId,
@@ -764,8 +768,8 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                     left join tPH on tPH.PH_ID = tCR.CR_PH_ID
                 where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = 'N'
-                    and tCR.CR_U_ID = :sessionId and tCR.CR_cDt IN ( :seatNum)
-                    and tCT.CT_DepartureTe > now()
+                        and tCR.CR_U_ID = :sessionId and tCR.CR_cDt IN ( :seatNum)
+                    and tCT.CT_DepartureTe > NOW()
                 group by tCR.CR_cDt
                 order by tCT.CT_DepartureTe desc
                 `;
