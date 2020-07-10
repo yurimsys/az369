@@ -202,7 +202,7 @@
                                                     <ul>
                                                         <li>
                                                             <a onclick="javascript:$('#popup').css('display','none')"
-                                                                class="btn btn-secondary">닫기</a>
+                                                                class="btn btn-secondary popup_close1">닫기</a>
                                                         </li>
 
                                                         <li>
@@ -216,7 +216,7 @@
 
                                             <!--popup mo 768px-->
                                             <div class="popup_box_mo">
-                                                <h2>장차예매취소</h2>
+                                                <h2>예매상세내역</h2>
                                                 <div class="table_mo">
                                                 </div>
                                                 <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한
@@ -348,7 +348,7 @@
                                                 </div>
 
                                                 <div class="popup_btn_mo">
-                                                    <a class="popup_close1">닫기</a>
+                                                    <a class="btn btn-secondary popup_close1">닫기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -463,7 +463,7 @@
                                                 </div>
 
                                                 <div class="popup_btn_mo">
-                                                    <a class="popup_close1">닫기</a>
+                                                    <a class="btn btn-secondary popup_close1">닫기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -557,15 +557,27 @@
                     }
 
                     //모바일 예매취소 리스트
-                    console.log("여기 리스트",res.data);
+                    //console.log("여기 리스트",res.data);
+                    // for (let k = 0; k < res.data.length; k++) {
+                    //     let html = "<dl>";
+                    //     //html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
+                    //     html += "<dt>결제날짜</dt><dd>" + res.data[k].PayDay + "</dd>";
+                    //     html += "<dt>예약정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<span> (평택 - 서울 동대문)</span></dd>";
+                    //     html += "<dt>좌석개수</dt><dd>" + res.data[k].seatCnt + "</dd>";
+                    //     html += "<dt>결제수단</dt><dd>" + res.data[k].payType + "</dd>";
+                    //     html += "<dt>결제금액</dt><dd>" + res.data[k].price + "</dd></dl>";
+                    //     $(".table_mo").append(html);
+                    //     trVal[k] = res.data[k].pId;
+                    //     tdVal[k] = res.data[k].ctId;
+                    // }
                     for (let k = 0; k < res.data.length; k++) {
-                        let html = "<dl>";
+                        let html = "<table class='detail_table'>";
                         //html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
-                        html += "<dt>결제날짜</dt><dd>" + res.data[k].PayDay + "</dd>";
-                        html += "<dl class='dl3'><dt>예약정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<br> <span>(평택 > 서울 동대문)</span></dd></dl>";
-                        html += "<dt>좌석개수</dt><dd>" + res.data[k].seatCnt + "</dd>";
-                        html += "<dt>결제수단</dt><dd>" + res.data[k].payType + "</dd>";
-                        html += "<dt>결제금액</dt><dd>" + res.data[k].price + "</dd></dl>";
+                        html += "<tr><th>결제날짜</th><td>" + res.data[k].PayDay + "</td></tr>";
+                        html += "<tr><th>예약정보</th><td>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<span> <br> (평택 - 서울 동대문)</span></td></tr>";
+                        html += "<tr><th>좌석개수</th><td>" + res.data[k].seatCnt + "</td></tr>";
+                        html += "<tr><th>결제수단</th><td>" + res.data[k].payType + "</td></tr>";
+                        html += "<tr><th>결제금액</th><td>" + res.data[k].price + "</td></tr></table>";
                         $(".table_mo").append(html);
                         trVal[k] = res.data[k].pId;
                         tdVal[k] = res.data[k].ctId;
@@ -797,13 +809,13 @@
                     $('.table_mo').empty();
                     // location.href = "#popup2"
                     for (let i = 0; i < res.data.length; i++) {
-                        let html = "<dl>";
+                        let html = "<table class='detail_table'>";
                         //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
-                        html += "<dt>결제일시</dt><dd>" + res.data[i].PayDay + "</dd>";
-                        html += "<dl class='dl3'><dt>예약정보</dt><dd>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></dd></dl>";
-                        html += "<dt>좌석개수</dt><dd>" + res.data[i].seatCnt + "</dd>";
-                        html += "<dt>결제수단</dt><dd>" + res.data[i].payType + "</dd>";
-                        html += "<dt>결제금액</dt><dd>" + res.data[i].price + "</dd></dl>";
+                        html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay + "</td></tr>";
+                        html += "<tr><th>예약정보</th><td>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
+                        html += "<tr><th>좌석개수</th><td>" + res.data[i].seatCnt + "</td></tr>";
+                        html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td><tr>";
+                        html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);
                     }
                 }
@@ -927,14 +939,14 @@
                     $('.table_mo').empty();
                     // location.href = "#popup3"
                     for (let i = 0; i < res.data.length; i++) {
-                        let html = "<dl>";
+                        let html = "<table class='detail_table'>";
                         //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
-                        html += "<dt>결제일시</dt><dd>" + res.data[i].PayDay + "</dd>";
-                        html += "<dl class='dl3'><dt>예약정보</dt><dd>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></dd></dl>";
-                        html += "<dt>좌석개수</dt><dd>" + res.data[i].seatCnt + "</dd>";
-                        html += "<dt>취소날짜</dt><dd>" + res.data[i].cancelDay + "</dd>"
-                        html += "<dt>결제수단</dt><dd>" + res.data[i].payType + "</dd>";
-                        html += "<dt>환불금액</dt><dd>" + res.data[i].price + "</dd></dl>";
+                        html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay + "</td></tr>";
+                        html += "<tr><th>예약정보</th><td>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
+                        html += "<tr><th>좌석개수</th><td>" + res.data[i].seatCnt + "</td></tr>";
+                        html += "<tr><th>취소날짜</th><td>" + res.data[i].cancelDay + "</td></tr>"
+                        html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
+                        html += "<tr><th>환불금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);
                     }
                 }
