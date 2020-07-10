@@ -745,6 +745,7 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
     //console.log(seatNum);
     let query = `
                 select
+                    tCR.CR_ID,
                     tCR.CR_CT_ID as ctId,
                     tCR.CR_cDt as payDay,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') AS deptTe,
@@ -786,7 +787,7 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
             if (err) throw err;
 
             // //console.log(findId);
-            res.json( {  data : rows});
+            res.json( {  data : rows, session_user : sessionId});
             console.log("rows :",rows);
         });
 

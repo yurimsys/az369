@@ -183,6 +183,7 @@
                                             <!--popup PC-->
                                             <div class="popup_box">
                                                 <h2>예매상세내역</h2>
+                                                <div id='qrcode'></div>
                                                 <table class="table">
                                                     <thead>
                                                         <!-- <th>예약번호</th> -->
@@ -484,6 +485,7 @@
             </div>
         </section>
 
+        <script src="/js/qrcode.js"></script>
         <script>
 
             $(window).load(function () {
@@ -516,6 +518,7 @@
             //     alert("취소 항목을 선택해 주세요.");
             //     return;
             // }
+
             $('#popup').css('display', 'block')
             console.log(e);
             //체크된 레이블 보여주기
@@ -532,6 +535,10 @@
             //console.log('sendjson :',sendJson); 
 
             var seatArr = JSON.parse(sendJson);
+            console.log(seatArr,'seatArr');
+
+            let qr_info = {};
+
             $.ajax({
                 url: "api/user/payCancel",
                 method: 'post',
@@ -543,6 +550,7 @@
                     console.log(res);
                     //07.30. 평택 22:00 - 서울동대문 04:00 유림고속(1213)
                     //PC 예매취소 리스트
+                    qr_info.cr_id = res.data[0].CR_ID;
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<tr val=" + res.data[i].pId + ">";
                         html += "<td>" + res.data[i].PayDay + "</td>";
@@ -584,6 +592,22 @@
                     }
                 }
             })
+
+            
+
+
+        }
+
+        function qrCodeImg(userInfo){
+            var qrcode = new QRCode(document.getElementById("qrcode"), 
+            {
+                text: userInfo,
+                width: 128,
+                height: 128,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
         }
 
         // //선택예매취소 클릭 후 리스트 보여주기
