@@ -25,6 +25,9 @@
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <!-- datepicker 한국어로 -->
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
+
+    <!-- QR코드 -->
+    <script src="/js/qrcode.js"></script>
 </head>
 
 <body>
@@ -182,7 +185,11 @@
                                             <!-- 예매취소 후 리스트 @@@@@@@@@@@@@@@@@@@@@@@@@@@222 -->
                                             <!--popup PC-->
                                             <div class="popup_box">
-                                                <h2>예매상세내역</h2>
+                                                <h2>예매상세내역 (승차권)</h2>
+                                                <div class="qr_info">
+                                                    <div id="qrcode"></div>
+                                                <p>장차예매 이용자임을 확인하기 위한  QR코드입니다. <br>QR코드가 있는 승차권을 보여드리면 장차 탑승이 가능합니다.</p>
+                                                </div>
                                                 <table class="table">
                                                     <thead>
                                                         <!-- <th>예약번호</th> -->
@@ -225,7 +232,7 @@
                                                 <div class="popup_btn_mo">
                                                     <ul>
                                                         <li>
-                                                            <a onclick="javascript:$('#popup').css('display','none')" class=" btn-secondary">닫기</a>
+                                                            <a onclick="javascript:$('#popup').css('display','none')" class=" btn btn-secondary">닫기</a>
                                                         </li>
 
                                                         <li>
@@ -584,6 +591,15 @@
                     }
                 }
             })
+
+        //     var qrcode = new QRCode(document.getElementById("qrcode"), {
+        //     text: "{id : 20}",
+        //     width: 60,
+        //     height: 60,
+        //     colorDark : "#000000",
+        //     colorLight : "#ffffff",
+        //     correctLevel : QRCode.CorrectLevel.H
+        // });
         }
 
         // //선택예매취소 클릭 후 리스트 보여주기
@@ -1112,6 +1128,9 @@
             });*/
 
         }
+
+// QR코드
+
     </script>
 
 

@@ -502,7 +502,7 @@ router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
                     distinct tB.B_Name as carName,
                     date_format(tCT.CT_DepartureTe,'%m.%d') as deptTe1,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptTe2,
-                    date_format(tCT.CT_DepartureTe,'%k:%i') as deptTe3,
+                    date_format(tCT.CT_DepartureTe,'%H:%i') as deptTe3,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     tCT.CT_DepartureTe,
                     tCT.CT_CarNum as carNum,
