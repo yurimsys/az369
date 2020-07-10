@@ -242,6 +242,7 @@
     <script>
 
         $(document).ready(function(){
+            nowCarList();
             var filter = "win16|win32|win64|mac|macintel"; 
             if ( navigator.platform ) { 
                 if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) 
@@ -251,7 +252,7 @@
                     // alert('mobile 접속'); 
                 } else { 
                     //pc 
-                    alert('pc 접속'); 
+                    // alert('pc 접속'); 
                 } 
         }
 
@@ -299,7 +300,23 @@
 
     <script>
 
-        openBus(45);
+    function nowCarList(){
+        $.ajax({
+                url: "api/user/resCarList",
+                method: "post",
+                dataType: "json",
+                data: { 'sel': $("#depart01 option:selected").val(), 'sel2': $("#depart02 option:selected").val() },
+                success: function (res) {
+                    sessionStorage.setItem("car_list", JSON.stringify(res.data));
+                }
+            });
+            openBus(JSON.parse(sessionStorage.getItem("car_list"))[0].ctID);
+            console.log(JSON.parse(sessionStorage.getItem("car_list")));
+    }
+
+    
+
+        
         //모바일 다음 버튼 기능 
         function moNext(){
             if($('.tab').children('button').hasClass('active') == true){
