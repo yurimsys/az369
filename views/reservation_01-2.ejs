@@ -186,7 +186,8 @@
                 success: function (res) {
                     sessionStorage.setItem("car_list", JSON.stringify(res.data));
                     let ctId = res.data[0].ctID
-                    openBus(ctId);
+                    let price = res.data[0].seatPrice;
+                    openBus(ctId,price);
                 }
             });
 
@@ -195,7 +196,7 @@
         var selected_seats_cnt = 0,
             selected_seats = [];
 
-        function openBus(busSeat) {
+        function openBus(busSeat,price) {
             // console.log('evt',evt);
             console.log('busSeat', busSeat);
             var i, tablinks
@@ -210,7 +211,7 @@
             sessionStorage.setItem('ct_id', busSeat);
             //좌석금액 세션에 저장
             // sessionStorage.setItem('seat_price', evt.currentTarget.value);
-            sessionStorage.setItem('seat_price', '3000');
+            sessionStorage.setItem('seat_price', price);
 
             // document.getElementById("bus_seat_layer").style.display = "block";
             // evt.currentTarget.className += " active";
@@ -493,7 +494,6 @@
                 retuTe = reserve_car_info.retuTe,
                 b_name = reserve_car_info.b_name;
                 console.log('============');
-            console.log('요일',getInputDayLabel(deptTe) );
 
             if($('.seatCharts-seat').hasClass('selected') == true){
                 $('header').css('display','none');

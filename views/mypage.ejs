@@ -225,7 +225,7 @@
                                                 <div class="popup_btn_mo">
                                                     <ul>
                                                         <li>
-                                                            <a href="mypage" class=" btn-secondary">닫기</a>
+                                                            <a onclick="javascript:$('#popup').css('display','none')" class=" btn-secondary">닫기</a>
                                                         </li>
 
                                                         <li>
@@ -557,7 +557,7 @@
                     }
 
                     //모바일 예매취소 리스트
-                    //console.log("여기 리스트",res.data);
+                    console.log("여기 리스트",res.data);
                     for (let k = 0; k < res.data.length; k++) {
                         let html = "<dl>";
                         //html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
