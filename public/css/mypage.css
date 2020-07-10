@@ -369,7 +369,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_open2 ul li {float: left; text-align: justify;}
     .popup_open2 ul li:nth-child(1) {width: 37%; color: #222; font-weight: 500;}
     .popup_open2 ul li:nth-child(2) {width: 33%; color: #999; font-weight: 400;}
-    .popup_open2 ul li:nth-child(3) {width: 30%;}
+    .popup_open2 ul li:nth-child(3) {width: 30%; color: #767676;}
     .popup_open2 i {float: right; padding: 17px 0;}
     .list02_mo_list {padding: 0 5%; height: 50px; line-height: 50px;  border: 1px solid #eee; background-color: #fafafa;}
     
