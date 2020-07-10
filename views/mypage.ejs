@@ -148,8 +148,8 @@
                                             <div class="reserve_bar_mo_list">
                                                 <% for(let i=0; i<data.length; i++){ %>
                                                 <label>
-                                                    <input type="radio" class='chk' value='<%=data[i].payDay%>' name="
-                                                        day[]">
+                                                    <input type="radio" class='chk' value='<%=data[i].payDay%>' name="day[]"
+                                                     onclick="resModal(this)">
                                                     <span class="reserve_bar_mo">
                                                         <ul>
                                                             <li>
@@ -532,7 +532,6 @@
             //console.log('sendjson :',sendJson); 
 
             var seatArr = JSON.parse(sendJson);
-            console.log('seatArr :', seatArr);
             $.ajax({
                 url: "api/user/payCancel",
                 method: 'post',
