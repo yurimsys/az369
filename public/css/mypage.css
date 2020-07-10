@@ -266,8 +266,8 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .mypage_nav_mo .tablinks {width: 33.3%; float: left; height: 55px; color: #444;}
     .mypage_nav_mo p { margin: 0 auto; text-align: center; font-size: 16px; color: #767676;}
     /* .mypage_nav_mo button.active {background: #C3A164; border: 1px solid #C3A164; color: #fff;} */
-    .mypage_nav_mo button {border: 1px solid #eee; border-bottom:1px solid #C3A164; background: #f4f4f4; }
-    .mypage_nav_mo button.active {border: 1px solid #C3A164; border-bottom: none; background: #fff; color:#222;}
+    .mypage_nav_mo button {border: 1px solid #eee; border-bottom:1px solid #444; background: #f4f4f4; }
+    .mypage_nav_mo button.active {border: 1px solid #444; border-bottom: none; background: #fff; color:#222;}
     .mypage_nav_mo button.active p {color: #222; font-weight: 500;}
 
     .popup_box{display: none;}
@@ -316,7 +316,6 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .info {padding-top: 0;}
     .info p {font-size: 15px;}
 
-    
     #reserve_list {background: #f8f8f8;}
     .reserve_list_tit {display: none;}
     .reserve_bar {display: none;}
@@ -325,14 +324,16 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .reserve_bar_mo {display: block; width: 100%; padding: 2%; height: 60px; margin: 1% 0; line-height: 60px; vertical-align: middle; border-bottom: 1px solid #eee;}
     
     .reserve_bar_mo ul {width: 100%; display: flex;}
-    .reserve_bar_mo ul li {float: left; text-align: center; font-size: 12px; font-weight: normal; color: #888; line-height: 1.4; flex: 2;}
+    .reserve_bar_mo ul li {float: left; text-align: center; font-size: 12px; font-weight: 300; color: #767676; line-height: 1.4; flex: 2;}
     .reserve_bar_mo ul li:nth-child(4) {flex: 1;}
+    .reserve_bar_mo ul li h6 { font-size: 14px; margin: 0; color: #222; font-weight: 500;}
+    .reserve_bar_mo ul li i {float: right; display: table-cell; vertical-align: middle; padding:12px 0; padding-right: 8px;}
     /* .reserve_bar_mo ul li:nth-child(1) {width: 29%;}
     .reserve_bar_mo ul li:nth-child(2) {width: 34%;}
     .reserve_bar_mo ul li:nth-child(3) {width: 29%;} */
     /* .reserve_bar_mo ul li:last-child {width: 8%;  text-align: center; vertical-align: middle;} */
-    .reserve_bar_mo ul li h6 { font-size: 14px; margin: 0; color: #666; font-weight: bold;}
-    .reserve_bar_mo ul li i {float: right; display: table-cell; vertical-align: middle; padding:12px 0; padding-right: 8px;}
+ 
+    
     
     p.cancel_info {font-size: 14px; line-height: 1.4; width: 90%; margin: 0 auto;  padding: 4% 0 8%;}
     
@@ -403,8 +404,6 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .search_btn {width: 100%; margin: 10px 0; height: 40px; border: 1px solid #999;} 
 
 }
-
-
 
 
 /*320px*/
