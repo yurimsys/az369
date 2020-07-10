@@ -296,9 +296,19 @@
 
     <script>
 
-        
-$(document).ready(function(){
-            nowCarList();
+        $(document).ready(function(){
+            $.ajax({
+                url: "api/user/resCarList",
+                method: "post",
+                dataType: "json",
+                data: { 'sel': $("#depart01 option:selected").val(), 'sel2': $("#depart02 option:selected").val() },
+                success: function (res) {
+                    sessionStorage.setItem("car_list", JSON.stringify(res.data));
+                    let ctId = res.data[0].ctID
+                    openBus(ctId);
+                }
+            });
+            //PC, MOBILE 확인
             var filter = "win16|win32|win64|mac|macintel"; 
             if ( navigator.platform ) { 
                 if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) 
@@ -306,29 +316,10 @@ $(document).ready(function(){
                     //mobile 
                     location.href = "/reservation2";
                     // alert('mobile 접속'); 
-                } else { 
-                    //pc 
-                    // alert('pc 접속'); 
-                } 
-        }
-
-    function nowCarList(){
-        $.ajax({
-                url: "api/user/resCarList",
-                method: "post",
-                dataType: "json",
-                data: { 'sel': $("#depart01 option:selected").val(), 'sel2': $("#depart02 option:selected").val() },
-                success: function (res) {
-                    sessionStorage.setItem("car_list", JSON.stringify(res.data));
                 }
-            });
-            openBus(JSON.parse(sessionStorage.getItem("car_list"))[0].ctID);
-            console.log(JSON.parse(sessionStorage.getItem("car_list")));
-    }
-
+            }
+        })
     
-
-        
         //모바일 다음 버튼 기능 
         function moNext(){
             if($('.tab').children('button').hasClass('active') == true){
@@ -564,9 +555,8 @@ $(document).ready(function(){
         }
     </script>
 
-
-    <!--seletbox js-->
     <script>
+        
         var x, i, j, selElmnt, a, b, c;
         x = document.getElementsByClassName("location_select");
         for (i = 0; i < x.length; i++) {
@@ -676,6 +666,6 @@ $(document).ready(function(){
 
     </script>
 
-</body>
 
+</body>
 </html>

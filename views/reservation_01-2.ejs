@@ -176,15 +176,26 @@
     <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
 
     <script>
+
+        $(document).ready(function(){
+            $.ajax({
+                url: "api/user/resCarList",
+                method: "post",
+                dataType: "json",
+                data: { 'sel': $("#depart01 option:selected").val(), 'sel2': $("#depart02 option:selected").val() },
+                success: function (res) {
+                    sessionStorage.setItem("car_list", JSON.stringify(res.data));
+                    let ctId = res.data[0].ctID
+                    openBus(ctId);
+                }
+            });
+
+        })
         var firstSeatLabel = 1;
         var selected_seats_cnt = 0,
             selected_seats = [];
 
-
-            openBus(JSON.parse(sessionStorage.getItem("car_list"))[0].ctID);
-
-
-            function openBus(busSeat) {
+        function openBus(busSeat) {
             // console.log('evt',evt);
             console.log('busSeat', busSeat);
             var i, tablinks
@@ -201,7 +212,7 @@
             // sessionStorage.setItem('seat_price', evt.currentTarget.value);
             sessionStorage.setItem('seat_price', '3000');
 
-            document.getElementById("bus_seat_layer").style.display = "block";
+            // document.getElementById("bus_seat_layer").style.display = "block";
             // evt.currentTarget.className += " active";
             var firstSeatLabel = 1;
 
