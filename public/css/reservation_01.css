@@ -2,9 +2,9 @@
 
 
 /*reserve_box*/
-.reservation_box { width: 100%; height: auto; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
-.reservation_box ul li {width: 49.5%; float: left; margin-right: 1%;  background: #fff;}
-.reservation_box ul li:nth-child(2) {margin-right: 0;}
+.reservation_box { width: 70%; margin: 0 auto; height: auto; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
+/* .reservation_box ul li {width: 49.5%; float: left; margin-right: 1%;  background: #fff;}
+.reservation_box ul li:nth-child(2) {margin-right: 0;} */
 
 /*왼쪽영역*/
 /* .reserve_left {width: 100%; background: #fff; border: 1px solid #dbdbdb; padding: 25px 30px; height: 650px; border-radius: 4px;}
@@ -132,9 +132,14 @@
 
 
 /*오른쪽영역*/
-.reserve_right { width: 100%; background: #fff; border: 1px solid #dbdbdb; height: 650px; padding: 20px; border-radius: 4px; position: relative;}
-.reserve_right h2 {font-size: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; font-weight: 400;}
-.reserve_right h4 {font-size: 18px; margin-bottom: 12px; font-weight: 500; padding-top: 15px;}
+.reserve_right { width: 100%; margin: 0 auto; background: #fff; border: 1px solid #dbdbdb;border-radius: 4px; position: relative; overflow: hidden; padding: 20px; }
+/* .reserve_right h2 {font-size: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; font-weight: 400; text-align: center; margin-bottom: 20px; color: #444;}
+.reserve_right h2 span {font-size: 15px; margin-right: 10px; color: #a7874c; padding: 2px 5px; border: 1px solid #c3a164; border-radius: 4px;} */
+.bus_info {width: 100%; padding: 15px 20px; background: #f8f8f8; margin-bottom: 15px; overflow: hidden;}
+.bus_info ul {width:80%; margin: 0 auto;}
+.bus_info ul li {float: left; background:#fff; padding: 5px; margin:0; }
+.reserve_right h4 {font-size: 18px; margin-bottom: 5px; font-weight: 500; padding-top: 15px;}
+.bus_info ul li::after {content: ''; width: 1px; height: 15px; background-color: red;}
 p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; position: absolute; top: 50%;transform: translateY(-50%); line-height: 25px;}
 .reserve_right h5 {font-size: 20px; margin-left: 3%; display: inline-block;}
 .reserve_right ul li {background: transparent; margin-left: 3%;}
@@ -142,13 +147,12 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; posit
 /*오른쪽영역 내부*/
 .tabcontent {
   display: none;
-    height: 620px;
   border-top: none;
 }
-.tabcontent h3 {font-family: 'Noto Sans KR', sans-serif; color: #000; font-weight: bold; font-size: 30px;}
-.tabcontent p {color: #555; padding-bottom: 2.5%; border-bottom: 1px solid #ddd; font-size: 18px;}
+/* .tabcontent h3 {color: #222; font-weight: bold; font-size: 30px;} */
+/* .tabcontent p {color: #444; border-bottom: 1px solid #ddd; font-size: 18px;} */
 .tabcontent dl {margin-top: 2%;}
-.tabcontent dt {float: left; width: 18%; padding: 15px 0; font-weight: bold; color: #222;}
+.tabcontent dt {float: left; width: 18%; font-weight: bold; color: #222;}
 .tabcontent dd {float: left; width: 82%; padding: 15px 0;}
 .tabcontent dd span {font-size: 15px; color: #555;}
 
@@ -157,32 +161,32 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; posit
 .tabcontent dt br {display: none;}
 
 /*오른쪽 좌석선택표------------------------------------------*/
-.seat-map {float: left;}
-.select_seat {float: right; width: 48%; padding-left: 4%;}
+/* .seat_wrap {width: 50%; background: red;} */
+.seat-map {position: relative; float: left;} 
+.select_seat { float: right; width: 50%;overflow: hidden;}
 /* .select_seat h4 {width: 100%; font-size: 18px; padding: 0; margin: 0; margin-bottom: 10px; padding: 1%;;} */
 .select_seat h4 span {color: #999;}
 
 /*좌석선택 텍스트*/
-.seat_table {width: 100%; height: auto; overflow: hidden;}
-.seat_table dt {width: 100%; float: left; padding: 0;  margin-bottom: 5px; font-size: 15px; font-weight: normal; color: #222;}
+.seat_table {width: 100%; height: auto; overflow: hidden; position: relative;;}
+.seat_table dt {width: 100%; float: left; padding: 0;  margin-bottom: 3px; font-size: 15px; font-weight: 400; color: #444;}
 .seat_table dd {width: 100%; float: left; padding: 5px 0px; color: #000;  background: #f4f4f4; margin-bottom: 10px;}
 
 /*새로고침버튼*/
 .reload_btn {background: #fff;  cursor: pointer; border: none; width: 100%;}
 .reload_btn img {padding: 5px; border: 1px solid #dbdbdb; float: left; border-radius: 50px;}
-
 .reload_btn p { border-bottom: none; font-size: 14px; color: #999; display: inline-block; margin-left: 8px; float: left; line-height: 33px;}
 
 
 /*하단 예매버튼------------------------------------------*/
-.payment_open {margin: 0 auto; width: calc(100% - 52% - 40px); height: 45px; line-height: 45px; background: #c3a164; color: #fff; border-radius: 4px; display: block; text-align: center; transition: all 0.3s; overflow: hidden;bottom: 25px; position: absolute; right: 20px; font-size: 16px; font-weight: 500;}
-
+.payment_open {margin: 0 auto; width: 20%; height: 45px; line-height: 45px; background: #c3a164; color: #fff; border-radius: 4px; display: block; text-align: center; transition: all 0.3s; overflow: hidden;bottom: 25px; position: absolute; right: 20px; font-size: 16px; font-weight: 500;}
+/* width: calc(100% - 52% - 40px); */
 
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
 .layer:target{display:flex;animation:open 0.3s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
 
-.payment_box{ width: 22%; height: auto; margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 5%;border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.1); padding-bottom: 20px;}
+.payment_box{ width: 22%; height: auto; margin: 0 auto;background:#fff;position:relative; z-index: 1000; top:53%; transform: translateY(-50%); border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.1); padding-bottom: 20px;}
 
 
 /*결제버튼 팝업 내부*/

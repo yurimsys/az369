@@ -1,13 +1,14 @@
 div.seatCharts-container {
-	width: 52%;
+	width: auto;
     margin: 0;
-    background: #f8f8f8;
-    padding: 5% 2%;
+    background-color: #f8f8f8;
+    padding: 20px 30px;
+    position: relative;
 }
 div.seatCharts-cell {
 	width: 16px;
 	margin: 3px;
-	float: left;
+    float: left;
 	text-align: center;
 	outline: none;
 	line-height:16px;
@@ -32,7 +33,6 @@ div.seatCharts-seat:focus {
 	outline: none;
 }
 */
-
 
 div.seatCharts-row {
 	height: 50px;
@@ -74,7 +74,7 @@ li.seatCharts-legendItem {
 /*1200px*/
 @media screen and (max-width: 1200px) {
     div.seatCharts-container {
-	width: 54%;
+	/* width: 54%; */
     margin: 0;
     background: #f8f8f8;
     padding: 5% 2%;
@@ -84,7 +84,7 @@ li.seatCharts-legendItem {
 /*1024px*/
 @media screen and (max-width: 1024px) {
     div.seatCharts-container {
-	width: 54%;
+	/* width: 54%; */
     margin: 0;
     background: #f8f8f8;
     padding: 4% 2%;
@@ -100,6 +100,7 @@ li.seatCharts-legendItem {
 @media screen and (max-width: 768px) {
     div.seatCharts-seat {line-height: 30px; font-size: 17px;}
     div.seatCharts-cell {margin: 5px;}
+    
 }
 
 /*414px*/

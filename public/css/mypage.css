@@ -13,7 +13,7 @@
 .info_title h2 span {font-size: 16px; font-weight: 300; color: #999;}
 .modify_btn { color: #767676; background: #f2f2f2; display: inline-block; height: 40px; line-height: 40px; font-size: 15px; float: right; width:25%; text-align: center; border-radius: 12px; transition: all 0.3s;}
 .modify_btn a {display: block;}
-.modify_btn_mo {display: none;  color: #767676;display: inline-block; height: 30px; line-height: 30px; font-size: 15px; float: right; width:auto; margin-right: 10px;}
+.modify_btn_mo {display: none; }
 .info {text-align: justify; width: 100%; margin-top: 15px; margin-bottom: 50px;}
 /* .info h5 {font-size: 16px; font-weight: normal; margin-bottom: 10px; font-weight: 500; color: #222;}
 .info h5 span {font-size: 16px; color: #999; font-weight: 300;} */
@@ -193,7 +193,15 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
  .popup_box{width: 55%; background:#fff; position:relative; z-index: 1000; top:50%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; padding: 25px 30px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.2);}
  .popup_box h2 {font-size: 22px; font-weight: 500; margin-bottom: 25px; text-align: center;}
 
-.popup_btn { width: 30%; margin: 0 auto; overflow: hidden; margin-top: 30px;}
+ #qrcode {width: 80px; height: 80px; background-color: gold; float: left; position: relative;}
+.qr_info {display: inline-block; left: 50%; transform: translateX(-50%); position: relative; height: auto; border-radius: 12px; margin: 10px 0 20px;}
+/* .qr_info_inner {margin: 10px 0 30px; border-radius: 12px; padding: 10px 15px 8px; padding-right: 80px; box-shadow: 5px 5px 5px rgba(180,180,180,0.2); overflow: hidden; position: relative; left: 50%; transform: translateX(-50%); display: inline-block; border: 1px solid #eee; background-color: #fff;} */
+.qr_info::after {content: ""; display: block; clear: both;}
+.qr_txt {position: relative; font-size: 15px; color: #222; line-height: 1.6; text-align: justify; margin: 0; float: left; margin-left: 25px; font-weight: 400;height: 80px;}
+.qr_txt > p {position: relative; margin-top: 0 !important;top: 50%;transform: translateY(-50%); text-align: justify;}
+.table th {border-top: 1px solid #444;}
+
+.popup_btn { width: 40%; margin: 0 auto; overflow: hidden; margin-top: 30px;}
 .popup_btn li {float: left; width: 49%; margin-right: 1%;}
 .popup_btn li:last-child {margin-right: 0;}
 .popup_btn a {display: block;}
@@ -202,9 +210,6 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 .popup_box p {margin-top:30px; margin-bottom: 0; color:#222;}
 p.cancel_info {margin:2% 0; text-align: center;}
 
-#qrcode {width: 80px; height: 80px; background-color: gold; float: left; position: relative;}
-.qr_info {margin: 10px 0 30px; border-radius: 12px; padding: 10px 15px; padding-right: 80px; box-shadow: 5px 5px 5px rgba(180,180,180,0.2); overflow: hidden; position: relative; left: 50%; transform: translateX(-50%); display: inline-block; border: 1px solid #444; background-color: #fff;}
-.qr_info > p {position: relative; font-size: 15px; color: #444; line-height: 1.6; text-align: justify; margin: 0; float: left; margin-left: 25px; padding:18px 0;}
 
 /*section.sub_wrap 완료*/
 
@@ -256,7 +261,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .box_01 {height: auto; position: relative; width: 100%; overflow: hidden; border-bottom: none;}
     .box_02 {border-top: none; padding-top: 8px;}
     .modify_btn {display: none;}
-    .modify_btn_mo {display: block;}
+    .modify_btn_mo {display: block;  color: #767676;display: inline-block; height: 30px; line-height: 30px; font-size: 15px; float: right; width:auto; margin-right: 10px;}
     .mypage_nav {display: none;}
     .mypage_nav_mo { display: block; width: 100%; overflow: hidden;}
     .mypage_nav_mo .tablinks {width: 33.3%; float: left; height: 55px; color: #444;}
@@ -265,10 +270,15 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .mypage_nav_mo button.active {border: 1px solid #444; border-bottom: none; background: #fff; color:#222;}
     .mypage_nav_mo button.active p {color: #222; font-weight: 500;}
 
+    .qr_info {width: 100%; padding: 0; padding: 0; margin-bottom: 10px; border: none; padding: 10px 0;}
+    #qrcode {width: 100px; height: 100px;}
+    .qr_info > p {text-align: center; margin-left: 0; word-break: keep-all; width: 90%; margin: 0 auto; float: none; clear: both; padding-bottom:0; line-height: 1.8; padding-top: 15px; color: #222; font-size: 15px; font-weight: 400;}
+    #qrcode {left:50%; transform: translateX(-50%);} 
+
     .popup_box{display: none;}
     .layer {width: 100%;}
-    .popup_box_mo {display: block; width: 95%; background: #fff; padding: 15px 20px; position: absolute; z-index: 100000; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px;}
-    .popup_box_mo h2 {font-size: 22px; font-weight: 500; padding-bottom: 20px; text-align: center;}
+    .popup_box_mo {display: block; width: 70%; background: #fff; padding: 22px 15px; position: absolute; z-index: 100000; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px;}
+    .popup_box_mo h2 {font-size: 22px; font-weight: 500; padding-bottom: 18px; text-align: center;}
     .table_mo {display: block;}
     .table_mo {width:100%; overflow: hidden; margin-bottom: 2%; overflow: hidden; border: 1px solid #dbdbdb;}
 
@@ -322,6 +332,8 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .info_title {padding-bottom: 15px;}
     .info {padding-top: 0;}
     .info p {font-size: 15px;}
+    .modify_btn_mo {width:30%; float: right;}
+
 
     .mypage_right {padding: 15px;}
 
@@ -359,32 +371,11 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_box_mo {display: block; width: 95%; background: #fff; height: auto; margin: 0 auto; padding: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); position: absolute; padding: 3% 2%; font-size: 14px; overflow: hidden; border-radius: 4px;}
     .popup_box_mo h2 {text-align: center; margin-bottom: 3.5%; font-size: 18px;}
     .popup_box_mo p {font-size: 13px;}
-    
+    .qr_info {width: 100%; padding: 0; padding: 0; margin-bottom: 10px; border: none; padding: 10px 0;}
+    .qr_info > p {text-align: center; margin-left: 0; word-break: keep-all; width: 90%; margin: 0 auto; float: none; clear: both; padding-bottom:0; line-height: 1.8;}
+    #qrcode {left:50%; transform: translateX(-50%);} 
     
     .table_tit2, .table_tit3 {display: none;}
-    
-    
-    /* .table_mo {display: block;}
-    .table_mo {width:100%; overflow: hidden; margin-bottom: 5%;}
-    .table_mo dl {width: 100%; height: auto; overflow: hidden;}
-    .table_mo dt {width: 35%; float: left; background: #fafafa; height: auto; overflow: hidden; font-weight: 500;}
-    .table_mo dd {width: 65%; float: right;}
-    .table_mo dt, .table_mo dd {
-      padding: 10px 20px;
-      border: 1px solid #eee;
-    } */
-    /* .dl3 dt {height: 72px;} */
-
-  
-    /* .table_mo dl {width: 100%; font-size: 15px; margin:0;}
-    .table_mo dt {width: 30%; float: left; height: 100%; background: #fafafa; font-weight: 400; clear:left; display: block;}
-    .table_mo dd {width: 70%; float: right; }
-    .table_mo dd span {color: #999;}
-    .table_mo dd:after {content:''; display: table; clear: both;}
-    .table_mo dt, .table_mo dd {
-      padding: 10px 20px; border: 1px solid #eee; text-align: justify;}
-    dd br {display: none;} */
-     
     
     .list02 {display: none;}
     .list02_mo {display: block; width: 100%; height: 260px; font-size: 13px;; overflow-x: hidden;}
@@ -442,6 +433,8 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_open3 ul li:nth-child(3),
     .popup_open2 ul li:nth-child(3) {width: 3%;}
     
+
+    .popup_box_mo {overflow: scroll; height: 100%;}
     .popup_box_mo2 .table_mo {height: 300px;}
     
     .mypage_nav_mo p {padding: 5%; font-size: 15px; word-break: break-all;width: 80%;}
@@ -449,11 +442,6 @@ p.cancel_info {margin:2% 0; text-align: center;}
     
     .layer {width: 320px;}
     
-    .time h4 {margin-top: 7%;}
-    
-    .join_box {padding-bottom: 10%;}
-
-    .table_mo {height: 290px; overflow: scroll;}
     
     /*search 박스*/
 
@@ -472,4 +460,9 @@ p.cancel_info {margin:2% 0; text-align: center;}
 
     .reserve_bar_mo ul li:nth-child(3) {width: 28%;}
     .reserve_bar_mo ul li:last-child {display: none;}
+
+    .qr_info > p br {display: none;}
+    .qr_info > p {padding-top: 20px;}
 }
+
+

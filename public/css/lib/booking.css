@@ -2,17 +2,26 @@
 	margin: auto;
     float: left;
 }
-div.seatCharts-seat{
+/* div.seatCharts-seat{
 	width: 46px;
     height: 43px;
     background: url(../../img/reservation/seat_img.png) center no-repeat;
     background-size: contain;
     cursor: pointer;
+} */
+
+div.seatCharts-seat{
+	width: 50px;
+    height: 47px;
+    background: url(../../img/reservation/seat_img.png) center no-repeat;
+    background-size: contain;
+    cursor: pointer;
 }
+
 .seatCharts-row div:first-child{
 	display: none;
 }
-.seatCharts-row div:nth-child(even){
+/* .seatCharts-row div:nth-child(even){
 	width: 46px;
     height: 43px;
 }
@@ -21,8 +30,18 @@ div.seatCharts-seat.selected{
     width: 46px;
     height: 43px;
     background-size: contain;
-}
+} */
 
+.seatCharts-row div:nth-child(even){
+	width: 50px;
+    height: 47px;
+}
+div.seatCharts-seat.selected{
+	background: url(../../img/reservation/seat_img_select.png) center no-repeat;
+    width: 50px;
+    height: 47px;
+    background-size: contain;
+}
 
 /*1024px*/
     @media screen and (max-width: 1024px) {
