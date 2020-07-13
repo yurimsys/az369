@@ -135,8 +135,8 @@
 .reserve_right { width: 100%; margin: 0 auto; background: #fff; border: 1px solid #dbdbdb;border-radius: 4px; position: relative; overflow: hidden; padding: 20px; }
 /* .reserve_right h2 {font-size: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; font-weight: 400; text-align: center; margin-bottom: 20px; color: #444;}
 .reserve_right h2 span {font-size: 15px; margin-right: 10px; color: #a7874c; padding: 2px 5px; border: 1px solid #c3a164; border-radius: 4px;} */
-.bus_info {width: 100%; padding: 15px 20px; background: #f8f8f8; margin-bottom: 15px; overflow: hidden;}
-.bus_info ul {width:80%; margin: 0 auto;}
+.bus_info {width: 100%; padding: 15px 0; background: #f8f8f8; margin-bottom: 15px; overflow: hidden;}
+.bus_info ul {width:80%; margin: 0 auto; background-color: red;}
 .bus_info ul li {float: left; background:#fff; padding: 5px; margin:0; }
 .reserve_right h4 {font-size: 18px; margin-bottom: 5px; font-weight: 500; padding-top: 15px;}
 .bus_info ul li::after {content: ''; width: 1px; height: 15px; background-color: red;}

@@ -879,3 +879,4 @@
 {"message":"::1 - - [13/Jul/2020:01:13:33 +0000] \"POST /api/payment HTTP/1.1\" 302 28 \"http://localhost:8001/reservation\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\"\n","level":"info"}
 {"message":"::1 - - [13/Jul/2020:01:13:33 +0000] \"GET /login HTTP/1.1\" 304 - \"http://localhost:8001/reservation\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\"\n","level":"info"}
 >>>>>>> 28bc1f16b10efb9fe6f8f347daf5c9001af25438
+{"message":"::1 - - [13/Jul/2020:01:15:37 +0000] \"GET /reservation HTTP/1.1\" 200 40340 \"http://localhost:8001/reservation\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\"\n","level":"info"}
