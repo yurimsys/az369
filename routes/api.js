@@ -417,7 +417,8 @@ router.post('/user/carPool', (req, res, next) =>{
                         :preferDays, 
                         :departureTe, 
                         :returnTe)`;
-    let preferDays = req.body['days[]'].join(',');
+    // let preferDays = req.body['days[]'].join(',');
+    let preferDays = req.body.preferDays.join(',');;
     let departureTe = req.body.departureTe;
     let returnTe = req.body.returnTe;
     let joinId = req.body.joinId;
@@ -1349,25 +1350,26 @@ router.post('/user/resCarList', (req, res, next) =>{
                     tB.B_Name as b_name,
                     date_format(tCT.CT_DepartureTe,'%Y.%m.%d %H:%i') as deptTe,
                     date_format(tCT.CT_ReturnTe,'%Y.%m.%d %H:%i') as retuTe,
+                    date_format(tCT.CT_DepartureTe,'%m.%d') as startDay,
+                    date_format(tCT.CT_DepartureTe,'%H:%i') as startTime,
+                    date_format(tCT.CT_ReturnTe,'%H:%i') as returnTime,
                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
                     DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
                     tCT.CT_CarNum as carNum,
+                        (SELECT right(CT_CarNum, 4)) AS backNum,
                     (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as available_seat_cnt,
                     tCY.CY_Totalpassenger as total_passenger,
                     tCY.CY_SeatPrice as seatPrice,
                     tCY.CY_ID,
                     tCY.CY_Ty,
-                    tCY.CY_TotalPassenger,
-                            DATE_ADD(NOW(),INTERVAL +21 MInute),
-                        DATE_ADD(NOW(),INTERVAL +21 DAY),
-                        NOW()
+                    tCY.CY_TotalPassenger
                 FROM tCT 
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID
                 WHERE 
                     tCT.CT_DepartureTe < DATE_ADD(NOW(),INTERVAL +21 DAY) 
-                        AND tCT.CT_DepartureTe > NOW()`
-
+                        AND tCT.CT_DepartureTe > NOW()
+`
         if(req.query.type == 'bus_start'){
             query += `ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
         }else{

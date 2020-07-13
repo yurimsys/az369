@@ -107,9 +107,9 @@
                                     <!-- <h2> <span>버스정보</span> 01.31(월) 평택 22:00 - 동대문 04:00 유림고속(1234)</h2> -->
                                     <div class="bus_info">
                                         <ul>
-                                            <li>01.31(월)</li>
-                                            <li>평택 22:00 - 동대문 04:00</li>
-                                            <li>유림고속(1234)</li>
+                                            <li id='dept_day'>01.31(월)</li>
+                                            <li id='bus_service'>평택 22:00 - 동대문 04:00</li>
+                                            <li id='bus_name'>유림고속(1234)</li>
                                          </ul>
                                     </div>
                                     <!-- <p class="before_p"><img src="/img/reservation/before_p_icon.png" alt=""> 왼쪽을 먼저 선택해주세요.</p> -->
@@ -348,8 +348,6 @@
                 deptTe = reserve_car_info.deptTe,
                 retuTe = reserve_car_info.retuTe,
                 b_name = reserve_car_info.b_name;
-
-
             $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptTe) + ') '));
             $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retuTe) + ') '));
             $("#payment_car_info").text(b_name);
@@ -359,8 +357,16 @@
         }
 
         function openBus(busSeat,price) {
+            let car_info = JSON.parse(sessionStorage.getItem("car_list"));
+            //출발 요일
+            $('#dept_day').text(car_info[0].startDay+'(' +getInputDayLabel(car_info[0].deptTe)+')');
+            //운행 구간
+            let bus_survice = '평택 '+car_info[0].startTime+' - '+'동대문 '+car_info[0].returnTime
+            $('#bus_service').text(bus_survice);
+            $('#bus_name').text(car_info[0].b_name+'('+car_info[0].backNum+')')
+
+
             // console.log('evt',evt);
-            console.log('busSeat', busSeat);
             var i, tablinks
             //좌석 선택시 우측 문구 삭제
             $('.before_p').css('display','none');
@@ -653,8 +659,8 @@
                     "ct_id": ct_id
                 }
             }).done((result) => {
-                console.log(result,'리졸토');
-                console.log(result.price,'프라이스');
+                // console.log(result,'리졸토');
+                // console.log(result.price,'프라이스');
 
                 let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                     ct_id = sessionStorage.getItem("ct_id");
@@ -665,7 +671,7 @@
 
                 sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
 
-                // location.href = "/complate";
+                location.href = "/complate";
             });
         }
 

@@ -153,7 +153,7 @@
                                                 <% for(let i=0; i<data.length; i++){ %>
                                                 <label>
                                                     <input type="radio" class='chk' value='<%=data[i].payDay%>' name="day[]"
-                                                     onclick="resModal(this)">
+                                                     onclick="resModal(this)" data-mob='mobile'>
                                                     <span class="reserve_bar_mo">
                                                         <ul>
                                                             <li>
@@ -188,7 +188,7 @@
                                             <div class="popup_box">
                                                 <h2>예매상세내역 (승차권)</h2>
                                                 <div class="qr_info">
-                                                    <div id="qrcode"></div>
+                                                    <div id='qrcode' class='qrcode'></div>
                                                     <div class="qr_txt">  <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p> </div>
                                                 </div>
                                                 <table class="table">
@@ -226,7 +226,7 @@
                                             <div class="popup_box_mo">
                                                 <h2>예매상세내역 (승차권)</h2>
                                                 <div class="qr_info">
-                                                    <div id="qrcode"></div>
+                                                    <div id='qrcode_mobile' class='qrcode'></div>
                                                     <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권을 보여드리면 장차 탑승이 가능합니다.</p>
                                                 </div>
                                                 <div class="table_mo">
@@ -237,7 +237,7 @@
                                                 <div class="popup_btn_mo">
                                                     <ul>
                                                         <li>
-                                                            <a onclick="javascript:$('#popup').css('display','none')" class=" btn btn-secondary">닫기</a>
+                                                            <a onclick="javascript:$('#popup').css('display','none'); $('header').css('display','block')" class=" btn btn-secondary">닫기</a>
                                                         </li>
 
                                                         <li>
@@ -355,13 +355,6 @@
                                         <div id="popup2" class="layer">
                                             <div class="popup_box_mo popup_box_mo2">
                                                 <h2>예매 및 결제 상세내역</h2>
-                                                <div class="qr_info">
-                                                    <div class="qr_info_inner">
-                                                    <div id="qrcode"></div>
-                                                    <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권을 보여드리면 장차 탑승이 가능합니다.</p>
-                                                    </div>
-                                                </div>
-
                                                 <div class="table_mo">
                                                 </div>
 
@@ -475,11 +468,6 @@
                                         <div id="popup3" class="layer">
                                             <div class="popup_box_mo">
                                                 <h2>취소 및 환불 상세내역</h2>
-                                                <div class="qr_info">
-                                                    <div id="qrcode"></div>
-                                                    <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권을 보여드리면 장차 탑승이 가능합니다.</p>
-                                                </div>
-
                                                 <div class="table_mo">
 
                                                 </div>
@@ -533,9 +521,12 @@
         var tdVal = Array();
 
         function resModal(e) {
+            if(e.dataset.mob == 'mobile'){
+                $('header').css('display','none')
+            }
             $(".cancelRes").empty();
             $(".table_mo").empty();
-            $('#qrcode').empty();
+            $('.qrcode').empty();
             // if ($(".chk").is(":checked") == false) {
             //     alert("취소 항목을 선택해 주세요.");
             //     return;
@@ -620,22 +611,34 @@
 
 
         }
+
         //QR코드 생성 함수
         function qrCodeImg(userInfo){
-            console.log(userInfo,'userInfo');
-            console.log(userInfo.u_id,'uID');
             let qr_text = '{cr_id:'+` ${userInfo.cr_id}`+', u_id: '+`${userInfo.u_id}`+'}';
-            console.log('qr_text',qr_text);
-            var qrcode = new QRCode(document.getElementById("qrcode"), 
-            
-            {
-                text: qr_text,
-                width: 80,
-                height: 80,
-                colorDark : "#000000",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
-            });
+            let $qrcode = $('#qrcode');
+            let $qrcode_mobile = $('#qrcode_mobile');
+            var filter = "win16|win32|win64|mac|macintel"; 
+            if($('.popup_box_mo').css('display') == 'block'){
+                var qrcode = new QRCode(document.getElementById('qrcode_mobile'), 
+                    {
+                        text: qr_text,
+                        width: 80,
+                        height: 80,
+                        colorDark : "#000000",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+            }else{
+                var qrcode = new QRCode(document.getElementById('qrcode'), 
+                    {
+                        text: qr_text,
+                        width: 80,
+                        height: 80,
+                        colorDark : "#000000",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+            }
         }
 
         // //선택예매취소 클릭 후 리스트 보여주기

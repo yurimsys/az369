@@ -350,6 +350,7 @@ var QRCode;
 		 * @param {Object} htOption QRCode Options 
 		 */
 		var Drawing = function (el, htOption) {
+			console.log('el ::', el);
     		this._bIsPainted = false;
     		this._android = _getAndroid();
 		

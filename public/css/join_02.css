@@ -145,7 +145,7 @@
     .join_btn ul li {height: 45px; line-height:45px;}
     
     .day {margin-top: 30px;}
-    .day ul {width: 80%;}
+    .day ul {width: 80%; margin-bottom: 5px;}
     .time ul {width: 100%;}
     .time ul li:nth-child(1) {width: 100%;}
     .time ul li:nth-child(2) {margin-left: 50%; transform: translateX(-50%); padding: 3px 0;}

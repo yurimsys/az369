@@ -43,7 +43,7 @@
                         <form>
                             <ul>
                                 <li>
-                                    <input type="text" id="id" name="아이디" placeholder="아이디">
+                                    <input type="text" id="id" name="아이디" placeholder="아이디" value="admin01">
                                     <div id="overId" style="font-size: 13px; color: green; display: none;">아이디 사용이
                                         가능합니다.</div>
                                     <div id="overId2" style="font-size: 13px; color: red; display: none;">아이디 사용이
@@ -66,11 +66,11 @@
 
 
                                 <li>
-                                    <input type="text" id="name" name="이름" placeholder="이름">
+                                    <input type="text" id="name" name="이름" placeholder="이름" value="admin01">
                                 </li>
 
                                 <li>
-                                    <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
+                                    <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )" value="01012341234">
                                 </li>
 
                                 <li>
@@ -93,11 +93,11 @@
                                 </li>
 
                                 <li>
-                                    <input type="text" id="email" name="이메일" placeholder="이메일주소">
+                                    <input type="text" id="email" name="이메일" placeholder="이메일주소" value="admin01">
                                 </li>
 
                                 <li>
-                                    <input type="text" id="brand" name="브랜드" placeholder="브랜드명">
+                                    <input type="text" id="brand" name="브랜드" placeholder="브랜드명" value="admin01">
                                 </li>
 
                                 <div class="address_form">
@@ -405,7 +405,7 @@
                     detailAddress: $("#detailAddress").val()
                 },
                 success: function (res) {
-                    //console.log("회원가입 시 :::", res.data.insertId);
+                    console.log("회원가입 시 :::", res.data);
                     joinId = res.data.insertId;
                     var orderDetail = [{ name: "findId", value: res.name }, { name: "findName", value: res.id }];
                     sessionStorage.setItem("orderDetail", JSON.stringify(orderDetail));

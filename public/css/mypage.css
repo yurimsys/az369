@@ -374,7 +374,6 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .qr_info {width: 100%; padding: 0; padding: 0; margin-bottom: 10px; border: none; padding: 10px 0;}
     .qr_info > p {text-align: center; margin-left: 0; word-break: keep-all; width: 90%; margin: 0 auto; float: none; clear: both; padding-bottom:0; line-height: 1.8;}
     #qrcode {left:50%; transform: translateX(-50%);} 
-    
     .table_tit2, .table_tit3 {display: none;}
     
     .list02 {display: none;}
