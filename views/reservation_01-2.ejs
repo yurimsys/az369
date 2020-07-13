@@ -68,8 +68,7 @@
                                     </dl>
                                     <dl>
                                         <dt>결제금액</dt>
-                                        <dd id="selected_seats414
-                                                                _price"></dd>
+                                        <dd id="selected_seats_price"></dd>
                                     </dl>
                         
                                     <!--좌석선택 텍스트-->
@@ -97,7 +96,7 @@
 
             </div>
 
-            <div id="payment" class="layer">
+            <div id="payment" class="layer" style="overflow:hidden;">
                 <!--popup PC-->
                 <div class="payment_box">
                     
@@ -205,6 +204,15 @@
             selected_seats = [];
 
         function openBus(busSeat,price) {
+            
+            let car_info = JSON.parse(sessionStorage.getItem("car_list"));
+            //버스 정보
+            let bus_text1 = car_info[0].startDay+'(' +getInputDayLabel(car_info[0].deptDay)+') ';
+            let bus_text2 = '평택 '+car_info[0].startTime+' - '+'동대문 '+car_info[0].returnTime + ' ';
+            let bus_text3 = car_info[0].b_name+'('+car_info[0].backNum+')';
+            $('.bus_info_txt').text(bus_text1 + bus_text2 + bus_text3)
+
+
             // console.log('evt',evt);
             console.log('busSeat', busSeat);
             var i, tablinks
@@ -232,6 +240,7 @@
             var $cart = $('#selected-seats'),
                 $nums = $('#selected_seats_num'),
                 $counter = $('#selected_seats_cnt'),
+                $now_price = $('#selected_seats_price'),
                 $origin_price = $('#original_price'),
                 $sale_price = $('#sale_price'),
                 $payment_seats_cnt = $('#payment_seats_cnt'),
@@ -283,7 +292,7 @@
                             $origin_price.data('price', origin_price);
                             $sale_price.text('-' + formatNumber(origin_price) + '원');
                             $sale_price.data('price', origin_price);
-
+                            $now_price.text(origin_price+'원')
                             return 'selected';
                         } else if (this.status() == 'selected') {
                             selected_seats_cnt = sc.find('selected').length - 1;
@@ -301,7 +310,7 @@
                             $origin_price.data('price', origin_price);
                             $sale_price.text('-' + formatNumber(origin_price) + '원');
                             $sale_price.data('price', origin_price);
-
+                            $now_price.text(origin_price+'원')
                             //seat has been vacated
                             return 'available';
                         } else if (this.status() == 'unavailable') {
@@ -419,6 +428,7 @@
 
         // });
 
+        
         function recalculateTotal(sc) {
             var total = 0;
 
@@ -534,6 +544,7 @@
         }
 
         function getInputDayLabel(date) {
+            console.log('했음',date);
             var week = new Array('일', '월', '화', '수', '목', '금', '토');
             // var today = new Date(date).getDay();
             // var todayLabel = week[today];
