@@ -451,7 +451,7 @@
                             $origin_price.data('price', origin_price);
                             $sale_price.text('-' + formatNumber(origin_price) + '원');
                             $sale_price.data('price', origin_price);
-                            $now_price.text(origin_price+'원')
+                            $now_price.text('　'+origin_price+'원')
                             return 'selected';
                         } else if (this.status() == 'selected') {
                             selected_seats_cnt = sc.find('selected').length - 1;
@@ -469,7 +469,7 @@
                             $origin_price.data('price', origin_price);
                             $sale_price.text('-' + formatNumber(origin_price) + '원');
                             $sale_price.data('price', origin_price);
-                            $now_price.text(origin_price+'원')
+                            $now_price.text('　'+origin_price+'원')
                             //seat has been vacated
                             return 'available';
                         } else if (this.status() == 'unavailable') {
@@ -520,7 +520,7 @@
             sc.find('e.selected').status('available');
             $("#selected_seats_num").text('　');
             $("#selected_seats_cnt").text('　');
-
+            $('#selected_seats_price').text('　');
             // 데이터 가져와서 예약된 좌석 상태 설정.
             var ct_id = sessionStorage.getItem('ct_id');
             $.ajax({

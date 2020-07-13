@@ -69,8 +69,6 @@ div.seatCharts-seat.selected{
 @media screen and (max-width: 375px) {
     div.seatCharts-row{ 
         height: 50px;
-        margin: 1px;
-        margin-left: 10%;
         width: 100%;
     }
 }
