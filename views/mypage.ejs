@@ -506,6 +506,7 @@
             </div>
         </section>
 
+        <script src="/js/qrcode.js"></script>
         <script>
 
             $(window).load(function () {
@@ -534,12 +535,13 @@
         function resModal(e) {
             $(".cancelRes").empty();
             $(".table_mo").empty();
+            $('#qrcode').empty();
             // if ($(".chk").is(":checked") == false) {
             //     alert("취소 항목을 선택해 주세요.");
             //     return;
             // }
+
             $('#popup').css('display', 'block')
-            console.log(e);
             //체크된 레이블 보여주기
             var send_array = Array();
             var send_cnt = 0;
@@ -554,6 +556,9 @@
             //console.log('sendjson :',sendJson); 
 
             var seatArr = JSON.parse(sendJson);
+
+            let qr_info = {};
+
             $.ajax({
                 url: "api/user/payCancel",
                 method: 'post',
@@ -562,9 +567,10 @@
                     'sendArray': seatArr
                 },
                 success: function (res) {
-                    console.log(res);
                     //07.30. 평택 22:00 - 서울동대문 04:00 유림고속(1213)
                     //PC 예매취소 리스트
+                    qr_info.cr_id = res.data[0].CR_ID;
+                    qr_info.u_id = res.session_user;
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<tr val=" + res.data[i].pId + ">";
                         html += "<td>" + res.data[i].PayDay + "</td>";
@@ -604,17 +610,32 @@
                         trVal[k] = res.data[k].pId;
                         tdVal[k] = res.data[k].ctId;
                     }
+                    qrCodeImg(qr_info)
                 }
+                
             })
+            
+            // debugger;
+            
 
-        //     var qrcode = new QRCode(document.getElementById("qrcode"), {
-        //     text: "{id : 20}",
-        //     width: 60,
-        //     height: 60,
-        //     colorDark : "#000000",
-        //     colorLight : "#ffffff",
-        //     correctLevel : QRCode.CorrectLevel.H
-        // });
+
+        }
+        //QR코드 생성 함수
+        function qrCodeImg(userInfo){
+            console.log(userInfo,'userInfo');
+            console.log(userInfo.u_id,'uID');
+            let qr_text = '{cr_id:'+` ${userInfo.cr_id}`+', u_id: '+`${userInfo.u_id}`+'}';
+            console.log('qr_text',qr_text);
+            var qrcode = new QRCode(document.getElementById("qrcode"), 
+            
+            {
+                text: qr_text,
+                width: 80,
+                height: 80,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
         }
 
         // //선택예매취소 클릭 후 리스트 보여주기

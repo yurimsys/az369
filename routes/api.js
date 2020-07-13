@@ -745,6 +745,7 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
     //console.log(seatNum);
     let query = `
                 select
+                    tCR.CR_ID,
                     tCR.CR_CT_ID as ctId,
                     tCR.CR_cDt as payDay,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') AS deptTe,
@@ -786,7 +787,7 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
             if (err) throw err;
 
             // //console.log(findId);
-            res.json( {  data : rows});
+            res.json( {  data : rows, session_user : sessionId});
             console.log("rows :",rows);
         });
 
@@ -1196,7 +1197,7 @@ router.post('/user/resCancelDetailMo', auth.isLoggedIn, (req, res, next) =>{
 
 //결제완료
 router.post('/payment', auth.isLoggedIn, (req, res) =>{
-    
+
     let str_values_list = [],
         str_values ="",
         seatNums = req.body['seatNums'],
@@ -1206,6 +1207,9 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
         price = ((oPrice-sPrice) < 0) ? 0 : (oPrice-sPrice),
         ph_type = '-'; // 무료기간동안만 - 으로 넣음.
     
+    //결제 전 중복확인 쿼리
+    let selectQuery = `SELECT * FROM tCR WHERE tCR.CR_CT_ID = :ct_id and CR_Cancel = 'N' and tCR.CR_SeatNum IN (:seatNums)`;
+
     /**
      * TODO : 무료기간 끝나면 PH_TYPE 값 결제 수단으로 변경해야함.
      */
@@ -1215,47 +1219,65 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
         VALUES
             (:u_id, :pg_id, :price, :oPrice, :sPrice, :ph_type)
     `;
-    
-    //  결제 내역 먼저 추가. 
-    connection.query(ph_query, {
-        u_id    : req.user.U_ID,
-        pg_id   : 1,    // pg_id :  PG 사 결정되면 결제 정보 입력해야함.
-        oPrice  : oPrice,
-        sPrice  : sPrice,
-        price   : (oPrice-sPrice),
-        ph_type : ph_type
-    }, function (err, result){
 
-        let ph_id = result.insertId;
+    //결제 전 중복확인
+    connection.query(selectQuery, {ct_id, seatNums},
+        function(err, rows, fields) {
+            if (err) throw err;                       
+            // //console.log(findId);
+            console.log("rows : ",rows);         
+            
+            if(rows.length == 0){
+                //  결제 내역 먼저 추가. 
+                connection.query(ph_query, {
+                    u_id    : req.user.U_ID,
+                    pg_id   : 1,    // pg_id :  PG 사 결정되면 결제 정보 입력해야함.
+                    oPrice  : oPrice,
+                    sPrice  : sPrice,
+                    price   : (oPrice-sPrice),
+                    ph_type : ph_type
+                }, function (err, result){
 
-        let cr_query = `
-            INSERT INTO tCR
-                (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum)
-            VALUES
-        `;
-        
-        if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
-            seatNums.map((seatNum)=>{
-                str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum})`);
-            });
-            str_values = str_values_list.join(', ');
-        } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
-            str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums})`;
-        }
-    
-        cr_query += str_values;
+                    let ph_id = result.insertId;
 
-        //  예약 정보 추가
-        connection.query(cr_query, null,
-            function(err, result) {
-                if(err) throw err;
+                    let cr_query = `
+                        INSERT INTO tCR
+                            (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum)
+                        VALUES
+                    `;
+                    
+                    if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
+                        seatNums.map((seatNum)=>{
+                            str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum})`);
+                        });
+                        str_values = str_values_list.join(', ');
+                    } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
+                        str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums})`;
+                    }
                 
-                res.json({
-                    ph_type : ph_type,
-                    price : price
+                    cr_query += str_values;
+
+                    //  예약 정보 추가
+                    connection.query(cr_query, null,
+                        function(err, result) {
+                            if(err) throw err;
+                            
+                            res.json({
+                                ph_type : ph_type,
+                                price : price,
+                                data : '1'
+                            });
+                        });
                 });
-            });
-    });
+            }else{
+
+                res.json({data : '1'})
+            }
+
+            
+        }); 
+    
+
     
 });
 //장차예매 리스트
@@ -1275,56 +1297,76 @@ router.post('/user/resDept', auth.isLoggedIn, (req, res, next) =>{
         });       
 });
 
-//장차예매 리스트
-router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
-    // let query2 = `
-    //             SELECT
-    //                 tCT.CT_ID as ctID,
-    //                 tB.B_Name as b_name,
-    //                 date_format(tCT.CT_DepartureTe,'%Y-%m-%d %H:%i') as deptTe,
-    //                 date_format(tCT.CT_ReturnTe,'%Y-%m-%d %H:%i') as retuTe,
-    //                 DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
-    //                 DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
-    //                 tCT.CT_CarNum as carNum,
-    //                 (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as available_seat_cnt,
-    //                 tCY.CY_Totalpassenger as total_passenger,
-    //                 tCY.CY_SeatPrice as seatPrice,
-    //                 tCY.CY_ID,
-    //                 tCY.CY_Ty,
-    //                 tCY.CY_TotalPassenger
-    //             FROM tCT 
-    //                 left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
-    //                 left join tB on tCY.CY_B_ID = tB.B_ID
-    //             WHERE 
-    //                 date_format(CT_DepartureTe,'%H%i') = 2200 AND 
-    //                 date_format(CT_ReturnTe,'%H%i') = 0400 AND 
-    //                 tCT.CT_DepartureTe > now()
-    //             ORDER BY tCT.CT_DepartureTe ASC`;
+// //장차예매 리스트 로그인 포함
+// router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
 
-            // 서비스 후 사용할 쿼리
-            let query = `SELECT
-                            tCT.CT_ID as ctID,
-                            tB.B_Name as b_name,
-                            date_format(tCT.CT_DepartureTe,'%Y.%m.%d %H:%i') as deptTe,
-                            date_format(tCT.CT_ReturnTe,'%Y.%m.%d %H:%i') as retuTe,
-                            DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
-                            DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
-                            tCT.CT_CarNum as carNum,
-                            (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as available_seat_cnt,
-                            tCY.CY_Totalpassenger as total_passenger,
-                            tCY.CY_SeatPrice as seatPrice,
-                            tCY.CY_ID,
-                            tCY.CY_Ty,
-                            tCY.CY_TotalPassenger,
-                                    DATE_ADD(NOW(),INTERVAL +21 MInute),
-                                DATE_ADD(NOW(),INTERVAL +21 DAY),
-                                NOW()
-                        FROM tCT 
-                            left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
-                            left join tB on tCY.CY_B_ID = tB.B_ID
-                        WHERE 
-                            tCT.CT_DepartureTe < DATE_ADD(NOW(),INTERVAL +21 DAY) 
-                                AND tCT.CT_DepartureTe > NOW()`
+//     let query = `SELECT
+//                     tCT.CT_ID as ctID,
+//                     tB.B_Name as b_name,
+//                     date_format(tCT.CT_DepartureTe,'%Y.%m.%d %H:%i') as deptTe,
+//                     date_format(tCT.CT_ReturnTe,'%Y.%m.%d %H:%i') as retuTe,
+//                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
+//                     DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
+//                     tCT.CT_CarNum as carNum,
+//                     (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as available_seat_cnt,
+//                     tCY.CY_Totalpassenger as total_passenger,
+//                     tCY.CY_SeatPrice as seatPrice,
+//                     tCY.CY_ID,
+//                     tCY.CY_Ty,
+//                     tCY.CY_TotalPassenger,
+//                             DATE_ADD(NOW(),INTERVAL +21 MInute),
+//                         DATE_ADD(NOW(),INTERVAL +21 DAY),
+//                         NOW()
+//                 FROM tCT 
+//                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+//                     left join tB on tCY.CY_B_ID = tB.B_ID
+//                 WHERE 
+//                     tCT.CT_DepartureTe < DATE_ADD(NOW(),INTERVAL +21 DAY) 
+//                         AND tCT.CT_DepartureTe > NOW()`
+
+//         if(req.query.type == 'bus_start'){
+//             query += `ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
+//         }else{
+//             query += `AND tCT.CT_DepartureTe > DATE_ADD(NOW(),INTERVAL -20 MINUTE)
+//                         ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
+//         }
+
+//     connection.query(query,
+//         function(err, rows, fields) {
+//             if (err) throw err;                       
+//             // //console.log(findId);
+//             res.json( {  data : rows});
+//             console.log("rows : ",rows);
+            
+//         });
+// });
+
+//장차예매 리스트 로그인 제외
+router.post('/user/resCarList', (req, res, next) =>{
+
+    let query = `SELECT
+                    tCT.CT_ID as ctID,
+                    tB.B_Name as b_name,
+                    date_format(tCT.CT_DepartureTe,'%Y.%m.%d %H:%i') as deptTe,
+                    date_format(tCT.CT_ReturnTe,'%Y.%m.%d %H:%i') as retuTe,
+                    DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
+                    DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
+                    tCT.CT_CarNum as carNum,
+                    (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as available_seat_cnt,
+                    tCY.CY_Totalpassenger as total_passenger,
+                    tCY.CY_SeatPrice as seatPrice,
+                    tCY.CY_ID,
+                    tCY.CY_Ty,
+                    tCY.CY_TotalPassenger,
+                            DATE_ADD(NOW(),INTERVAL +21 MInute),
+                        DATE_ADD(NOW(),INTERVAL +21 DAY),
+                        NOW()
+                FROM tCT 
+                    left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                    left join tB on tCY.CY_B_ID = tB.B_ID
+                WHERE 
+                    tCT.CT_DepartureTe < DATE_ADD(NOW(),INTERVAL +21 DAY) 
+                        AND tCT.CT_DepartureTe > NOW()`
 
         if(req.query.type == 'bus_start'){
             query += `ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
@@ -1341,7 +1383,6 @@ router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
             console.log("rows : ",rows);
             
         });
-        
 });
 
 
