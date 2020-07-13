@@ -508,7 +508,7 @@ router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
                     and tCR.CR_U_ID = :sessionId
                 and tCT.CT_DepartureTe > now() 
                 group by tCR.CR_cDt
-                order by tCT.CT_DepartureTe asc;
+                order by tCT.CT_DepartureTe, tCR.CR_cDt desc;
 
 	`; //서비스 후 > now() 변경
     connection.query(query, { sessionId, crCancel},

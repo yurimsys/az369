@@ -58,11 +58,21 @@ div.seatCharts-seat.selected{
     .seatCharts-row div:nth-child(even){width: 55px; height: 51px;}
 }
 
-/*375px*/
-@media screen and (max-width: 375px) {
+/*414px*/
+@media screen and (max-width: 414px) {
     div .seatCharts-seat,
     div.seatCharts-seat.selected,
     .seatCharts-row div:nth-child(even){width: 48px; height: 44px;}
+}
+
+/*375px*/
+@media screen and (max-width: 375px) {
+    div.seatCharts-row{ 
+        height: 50px;
+        margin: 1px;
+        margin-left: 10%;
+        width: 100%;
+    }
 }
 
 /*320px*/
