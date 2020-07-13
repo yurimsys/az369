@@ -103,15 +103,21 @@
                                 </div>
                             </li>
                             <li> -->
-                                <div class="reserve_right">
-                                    <!-- <h2> <span>버스정보</span> 01.31(월) 평택 22:00 - 동대문 04:00 유림고속(1234)</h2> -->
-                                    <div class="bus_info">
+                                <div class="bus_info"> <div class="bus_info_box">버스정보</div> <div class="bus_info_txt"> 01.31(월) 평택 22:00 - 동대문 04:00<br> 유림고속(1234)</div></div>
+                                    <!-- <div class="bus_info">
                                         <ul>
                                             <li id='dept_day'>01.31(월)</li>
                                             <li id='bus_service'>평택 22:00 - 동대문 04:00</li>
                                             <li id='bus_name'>유림고속(1234)</li>
                                          </ul>
                                     </div>
+                                    <div class="bus_info">
+                                        <div class="bus_info_inner">
+                                            <span>01.31(월)</span>
+                                            <span>평택 22:00 - 동대문 04:00</span>
+                                            <span>유림고속(1234)</span>
+                                        </div>
+                                    </div> -->
                                     <!-- <p class="before_p"><img src="/img/reservation/before_p_icon.png" alt=""> 왼쪽을 먼저 선택해주세요.</p> -->
                                     
                                     <div id="bus_seat_layer" class="tabcontent">
@@ -144,6 +150,10 @@
                                                     <dl>
                                                         <dt>좌석개수</dt>
                                                         <dd id="selected_seats_cnt"></dd>
+                                                    </dl>
+                                                    <dl>
+                                                        <dt>결제금액</dt>
+                                                        <dd id="selected_seats_price"></dd>
                                                     </dl>
                                 
                                                     <button class="reload_btn" onclick="flushSeat()"><img src="/img/reservation/reload.png" alt="새로고침">
@@ -232,8 +242,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-            </div>
+         </div>
             <!-- <div id="qrcode"></div> -->
         </section>
 

@@ -77,17 +77,16 @@ li.seatCharts-legendItem {
 	/* width: 54%; */
     margin: 0;
     background: #f8f8f8;
-    padding: 5% 2%;
+    padding: 3%;
 }
 }
 
 /*1024px*/
 @media screen and (max-width: 1024px) {
     div.seatCharts-container {
-	/* width: 54%; */
     margin: 0;
     background: #f8f8f8;
-    padding: 4% 2%;
+    padding: 3% 2%;
 }
     div.seatCharts-seat {
     line-height: 45px;
@@ -106,40 +105,34 @@ li.seatCharts-legendItem {
 /*414px*/
 @media screen and (max-width: 414px) {
     div.seatCharts-container {
-	width: 100%;
-    margin: 0;
-    background: #f8f8f8;
-    padding: 5% 4%;
+        width: 100%;
+        margin: 0 auto;
+        padding: 10px;
 }
 }
 
 /*375px*/
 @media screen and (max-width: 375px) {
     div.seatCharts-container {
-	width: 100%;
     margin: 0;
-    background: #f8f8f8;
-    padding: 5% 8%;
+    padding: 0;
+    width: auto;
 }
 }
 
 /*365px*/
 @media screen and (max-width: 365px) {
     div.seatCharts-container {
-	width: 100%;
     margin: 0;
-    background: #f8f8f8;
-    padding: 5% 4%;
 }
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
     div.seatCharts-container {
-	width: 100%;
-    margin: 0;
+    width: 100%;
+        margin: 0 auto;
+        padding: 8px 0;
     background: #f8f8f8;
-    padding: 5% 7%;
 }
-    div.seatCharts-cell {margin: 3px;}
 }

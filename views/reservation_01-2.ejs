@@ -43,37 +43,45 @@
                     <div class="bar"></div>
 
                     <div class="reservation_box">
+                        <div class="bus_info"> <div class="bus_info_box">버스정보</div> <div class="bus_info_txt"> 01.31(월)평택 22:00 - 동대문 04:00<br> 유림고속(1234)</div></div>
                         <!--<div id="01" class="tabcontent">-->
                         <div class="container">
                             <!--좌석선택표-->
-                            <div class="seat-map" class="seat-panel"></div>
+                            <div class="seat_wrap">
+                                <div class="seat-map" class="seat-panel"></div>
+                            </div>
                             <div class="select_seat">
-                                <button class="reload_btn_top reload_btn" onclick="flushSeat()"><img
-                                        src="img/reservation/reload.png" alt="새로고침">
+                                <button class="reload_btn_top reload_btn" onclick="flushSeat()"><img src="img/reservation/reload.png"
+                                        alt="새로고침">
                                     <p>좌석 새로고침</p>
                                 </button>
-
+                        
                                 <h4>좌석선택 <span>(최대 4개)</span></h4>
                                 <div class="seat_table">
                                     <dl>
-                                        <dt>선택된 좌석</dt>
+                                        <dt>선택좌석</dt>
                                         <dd id="selected_seats_num">　</dd>
                                     </dl>
                                     <dl>
-                                        <dt>좌석 개수</dt>
+                                        <dt>좌석개수</dt>
                                         <dd id="selected_seats_cnt">　</dd>
                                     </dl>
-
+                                    <dl>
+                                        <dt>결제금액</dt>
+                                        <dd id="selected_seats414
+                                                                _price"></dd>
+                                    </dl>
+                        
                                     <!--좌석선택 텍스트-->
-                                    <button class="reload_btn_bottom reload_btn" onclick="flushSeat()"><img
-                                            src="img/reservation/reload.png" alt="새로고침">
+                                    <button class="reload_btn_bottom reload_btn" onclick="flushSeat()"><img src="img/reservation/reload.png"
+                                            alt="새로고침">
                                         <p>좌석 새로고침</p>
                                     </button>
                                 </div>
-
-
+                        
+                        
                             </div>
-
+                        
                         </div>
 
                     </div>
