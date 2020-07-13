@@ -185,16 +185,11 @@
                                             <!-- 예매취소 후 리스트 @@@@@@@@@@@@@@@@@@@@@@@@@@@222 -->
                                             <!--popup PC-->
                                             <div class="popup_box">
-<<<<<<< HEAD
-                                                <h2>예매상세내역</h2>
-                                                <div id='qrcode'></div>
-=======
                                                 <h2>예매상세내역 (승차권)</h2>
                                                 <div class="qr_info">
                                                     <div id="qrcode"></div>
                                                 <p>장차예매 이용자임을 확인하기 위한  QR코드입니다. <br>QR코드가 있는 승차권을 보여드리면 장차 탑승이 가능합니다.</p>
                                                 </div>
->>>>>>> 8ce7495b540c03d50a471cab8eaaab2a7190090f
                                                 <table class="table">
                                                     <thead>
                                                         <!-- <th>예약번호</th> -->
@@ -525,13 +520,13 @@
         function resModal(e) {
             $(".cancelRes").empty();
             $(".table_mo").empty();
+            $('#qrcode').empty();
             // if ($(".chk").is(":checked") == false) {
             //     alert("취소 항목을 선택해 주세요.");
             //     return;
             // }
 
             $('#popup').css('display', 'block')
-            console.log(e);
             //체크된 레이블 보여주기
             var send_array = Array();
             var send_cnt = 0;
@@ -546,7 +541,6 @@
             //console.log('sendjson :',sendJson); 
 
             var seatArr = JSON.parse(sendJson);
-            console.log(seatArr,'seatArr');
 
             let qr_info = {};
 
@@ -558,10 +552,10 @@
                     'sendArray': seatArr
                 },
                 success: function (res) {
-                    console.log(res);
                     //07.30. 평택 22:00 - 서울동대문 04:00 유림고속(1213)
                     //PC 예매취소 리스트
                     qr_info.cr_id = res.data[0].CR_ID;
+                    qr_info.u_id = res.session_user;
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<tr val=" + res.data[i].pId + ">";
                         html += "<td>" + res.data[i].PayDay + "</td>";
@@ -601,20 +595,28 @@
                         trVal[k] = res.data[k].pId;
                         tdVal[k] = res.data[k].ctId;
                     }
+                    qrCodeImg(qr_info)
                 }
+                
             })
-
+            
+            // debugger;
             
 
 
         }
-
+        //QR코드 생성 함수
         function qrCodeImg(userInfo){
+            console.log(userInfo,'userInfo');
+            console.log(userInfo.u_id,'uID');
+            let qr_text = '{cr_id:'+` ${userInfo.cr_id}`+', u_id: '+`${userInfo.u_id}`+'}';
+            console.log('qr_text',qr_text);
             var qrcode = new QRCode(document.getElementById("qrcode"), 
+            
             {
-                text: userInfo,
-                width: 128,
-                height: 128,
+                text: qr_text,
+                width: 80,
+                height: 80,
                 colorDark : "#000000",
                 colorLight : "#ffffff",
                 correctLevel : QRCode.CorrectLevel.H
