@@ -101,13 +101,26 @@ li.seatCharts-legendItem {
     div.seatCharts-cell {margin: 5px;}
     
 }
+@media screen and (max-width: 767px) {
+    div.seatCharts-container {
+        width:auto; left: 50%; transform: translateX(-50%);}
+}
+
 
 /*414px*/
 @media screen and (max-width: 414px) {
     div.seatCharts-container {
-        width: 100%;
+        width: auto;
         margin: 0 auto;
-        padding: 10px;
+        padding: 15px;
+}
+}
+
+/*414px*/
+@media screen and (max-width: 413px) {
+    div.seatCharts-container {
+        margin: 0 auto;
+        padding: 0;
 }
 }
 
@@ -117,6 +130,7 @@ li.seatCharts-legendItem {
     margin: 0;
     padding: 0;
     width: auto;
+   
 }
 }
 
@@ -132,7 +146,7 @@ li.seatCharts-legendItem {
     div.seatCharts-container {
     width: 100%;
         margin: 0 auto;
-        padding: 8px 0;
+        padding: 15px 12px;
     background: #f8f8f8;
 }
 }
