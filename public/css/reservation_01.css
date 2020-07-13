@@ -2,7 +2,7 @@
 
 
 /*reserve_box*/
-.reservation_box { width: 70%; margin: 0 auto; height: auto; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
+.reservation_box { width: 70%; margin: 0 auto; height: auto; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; position: relative; padding: 25px; border: 1px solid #dbdbdb; border-radius: 4px;}  
 /* .reservation_box ul li {width: 49.5%; float: left; margin-right: 1%;  background: #fff;}
 .reservation_box ul li:nth-child(2) {margin-right: 0;} */
 
@@ -132,17 +132,18 @@
 
 
 /*오른쪽영역*/
-.reserve_right { width: 100%; margin: 0 auto; background: #fff; border: 1px solid #dbdbdb;border-radius: 4px; position: relative; overflow: hidden; padding: 20px; }
-/* .reserve_right h2 {font-size: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; font-weight: 400; text-align: center; margin-bottom: 20px; color: #444;}
-.reserve_right h2 span {font-size: 15px; margin-right: 10px; color: #a7874c; padding: 2px 5px; border: 1px solid #c3a164; border-radius: 4px;} */
-.bus_info {width: 100%; padding: 15px 0; background: #f8f8f8; margin-bottom: 15px; overflow: hidden;}
-.bus_info ul {width:80%; margin: 0 auto; background-color: red;}
-.bus_info ul li {float: left; background:#fff; padding: 5px; margin:0; }
-.reserve_right h4 {font-size: 18px; margin-bottom: 5px; font-weight: 500; padding-top: 15px;}
+/* .reserve_right { width: 100%; margin: 0 auto; background: #fff; border: 1px solid #dbdbdb;border-radius: 4px; position: relative; overflow: hidden;  } */
+.bus_info {font-size: 20px; padding-bottom: 25px; border-bottom: 1px solid #eee; font-weight: 400; text-align: center; margin-bottom: 25px; color: #444;}
+.bus_info_box {font-size: 15px; margin-right: 10px; color: #b99550; padding: 0px 5px; border: 1px solid #c3a164; border-radius: 4px; display: inline-block;}
+.bus_info_txt {display: inline-block;}
+.bus_info_txt br {display: none;}
+
+
+.select_seat h4 {font-size: 18px; font-weight: 500;}
 .bus_info ul li::after {content: ''; width: 1px; height: 15px; background-color: red;}
 p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; position: absolute; top: 50%;transform: translateY(-50%); line-height: 25px;}
-.reserve_right h5 {font-size: 20px; margin-left: 3%; display: inline-block;}
-.reserve_right ul li {background: transparent; margin-left: 3%;}
+.select_seat h5 {font-size: 20px; margin-left: 3%; display: inline-block;}
+/* .reserve_right ul li {background: transparent; margin-left: 3%;} */
 
 /*오른쪽영역 내부*/
 .tabcontent {
@@ -151,7 +152,7 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; posit
 }
 /* .tabcontent h3 {color: #222; font-weight: bold; font-size: 30px;} */
 /* .tabcontent p {color: #444; border-bottom: 1px solid #ddd; font-size: 18px;} */
-.tabcontent dl {margin-top: 2%;}
+.tabcontent dl {margin-top: 15px;}
 .tabcontent dt {float: left; width: 18%; font-weight: bold; color: #222;}
 .tabcontent dd {float: left; width: 82%; padding: 15px 0;}
 .tabcontent dd span {font-size: 15px; color: #555;}
@@ -163,7 +164,7 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; posit
 /*오른쪽 좌석선택표------------------------------------------*/
 /* .seat_wrap {width: 50%; background: red;} */
 .seat-map {position: relative; float: left;} 
-.select_seat { float: right; width: 50%;overflow: hidden;}
+.select_seat { float: right; width: 50%; overflow: hidden;}
 /* .select_seat h4 {width: 100%; font-size: 18px; padding: 0; margin: 0; margin-bottom: 10px; padding: 1%;;} */
 .select_seat h4 span {color: #999;}
 
@@ -173,7 +174,7 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; posit
 .seat_table dd {width: 100%; float: left; padding: 5px 0px; color: #000;  background: #f4f4f4; margin-bottom: 10px;}
 
 /*새로고침버튼*/
-.reload_btn {background: #fff;  cursor: pointer; border: none; width: 100%;}
+.reload_btn {background: #fff;  cursor: pointer; border: none; width: 100%; margin-top: 15px;}
 .reload_btn img {padding: 5px; border: 1px solid #dbdbdb; float: left; border-radius: 50px;}
 .reload_btn p { border-bottom: none; font-size: 14px; color: #999; display: inline-block; margin-left: 8px; float: left; line-height: 33px;}
 
@@ -230,30 +231,7 @@ dl.price_sale {color: #c17e00;}
 
 /*section.sub_wrap 완료*/
 
-
-
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-
 /*반응형*/
-
 /*1200px*/
 @media screen and (max-width: 1200px) {
 
@@ -261,12 +239,12 @@ header .open {
     section.sub_wrap {width:100%;}
     section.sub_wrap .inner_sub_wrap {width: 100%;}
     
-    .reservation_box {width: 95%; margin: 0 auto;}
+    .reservation_box {width: 60%; margin: 0 auto;}
     .payment_open {right: 5%; bottom: 3.2%; width: 200px;}
     
     .payment_box {width: 40%;}
 
-    .select_seat {width: 46%; padding-left: 2%;}
+    .select_seat {width: 50%; padding-left: 2%;}
   }
 
 
@@ -335,6 +313,8 @@ header .open {
     .select_bus h4 {margin-top: 3%;}
     .reserve_left {height: auto; padding: 25px 20px;}
     .reservation_btn_mo {width: 95%;}
+    .bus_info_txt br {display: block;}
+    .bus_info_txt {display: block; margin-top: 10px;}
 }
 
 /* 375px */
