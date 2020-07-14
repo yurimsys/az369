@@ -428,7 +428,12 @@ p.cancel_info {margin:2% 0; text-align: center;}
 
 /*320px*/
 @media screen and (max-width: 320px) {
-    
+    .ui-datepicker{ font-size: 12px; width: 60px; }
+    .ui-datepicker select.ui-datepicker-month{ width:10%; font-size: 3px; }
+    .ui-datepicker select.ui-datepicker-year{ width:30%; font-size: 100px; }
+    #ui-datepicker-div{
+        left: -19px !important;
+    }
     .mypage_right {padding: 10px;}
     .modify_btn_mo {float: left;}
     .popup_open3 ul li:nth-child(1),
