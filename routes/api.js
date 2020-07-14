@@ -1227,7 +1227,7 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
             if (err) throw err;                       
             // //console.log(findId);
             console.log("rows : ",rows);         
-            
+            let one_price = req.body.oPrice / req.body.seatNums.length;
             if(rows.length == 0){
                 //  결제 내역 먼저 추가. 
                 connection.query(ph_query, {
@@ -1243,17 +1243,17 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
 
                     let cr_query = `
                         INSERT INTO tCR
-                            (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum)
+                            (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum, CR_Price)
                         VALUES
                     `;
                     
                     if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
                         seatNums.map((seatNum)=>{
-                            str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum})`);
+                            str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum}, ${one_price})`);
                         });
                         str_values = str_values_list.join(', ');
                     } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
-                        str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums})`;
+                        str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums}, ${oPrice})`;
                     }
                 
                     cr_query += str_values;
