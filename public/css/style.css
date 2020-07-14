@@ -209,7 +209,7 @@ section.gallery {
     margin: 0 auto;
     overflow: hidden;
     margin-top: 2%;
-    margin-bottom: 100px;
+    margin-bottom: 60px;
 }
 
 section.gallery .bar {margin-bottom: 3%;}
@@ -384,29 +384,7 @@ section.video h6 {margin-bottom: -0.5%;}
 	}
 	.slide-arrow.right{left: auto; right: 0;} */
 
-
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-
 /*반응형*/
-
 /*1200px*/
 @media screen and (max-width: 1200px) {
     
