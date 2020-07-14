@@ -65,7 +65,7 @@ section.sub_wrap .bar {
     margin-bottom: 30px;
 }
 /* 소제목1 */
-section.sub_wrap h2 {font-size: 26px;  text-align: center; margin-bottom: 55px; line-height: 1.6; font-family: 'Noto Sans KR', sans-serif; font-weight: 300;}
+section.sub_wrap h2 {font-size: 26px;  text-align: center; margin-bottom: 55px; line-height: 1.6; font-family: 'Noto Sans KR', sans-serif; font-weight: 300; word-break: keep-all;}
 section.sub_wrap h2 span {font-weight: 500;}
 
 
@@ -337,7 +337,6 @@ section.video_list{width: 100%; margin-top: 70px; overflow: hidden;}
     .video_txt {padding: 16px; height: auto;} 
     .video_txt h4 {font-size: 17px;}
     .video_txt p {font-size: 14px;}
-    .video_txt p span {padding: 0 2px;}
     
     
     

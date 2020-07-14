@@ -28,7 +28,7 @@ section.main {
 
 /*section.main 완료*/
 /*section.sub_wrap 시작*/
-
+section.sub_wrap h2 {word-break: keep-all;}
 section.sub_wrap h2 br {display: none;}
 .sub_bg {box-shadow: 20px 20px 20px rgba(180,180,180,0.2);}
 .sub_bg img {width: 100%;}

@@ -59,7 +59,7 @@
 
 /*결제버튼 팝업 내부*/
 /*팝업 타이틀*/
-.payment_tit {margin: 0 auto; text-align: center; color: #222; font-weight: 400; font-size: 24px; padding: 20px 0;}
+.payment_tit {margin: 0 auto; text-align: center; color: #222; font-weight: 600; font-size: 22px; padding: 20px 0;}
 /*팝업 요약*/
 .info_table {width: 100%; overflow: hidden;/* border-bottom: 1px solid #eee;*/ margin-top: 22px; padding: 0 30px; font-size: 15px;}
 .info_table dl {width: 100%; padding: 10px 0; overflow: hidden; border-bottom: 1px solid #eee;}
@@ -145,7 +145,7 @@ dl.price_sale {color: #c17e00;}
     .layer {background: #fff; opacity: 1;}
     /* .payment_box {width: 100%; height: 100%; top:0;}  */
     .payment_box {width: 100%; height: 100%; top:0; transform: none;}
-    .payment_tit {margin-bottom: 20px; padding-top: 0px;}
+    .payment_tit {padding-top: 0px;}
     /* .payment_box_inner {height: 100%; overflow: scroll;} */
     .payment_btn {margin-top: 15px;}
     .reservation_btn_mo {margin-top: 10px;}
