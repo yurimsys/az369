@@ -159,12 +159,16 @@ header .open {
     section.main {width: 100%;}
     section.main .main_bg {background-size: cover;}
 	
-	section.sub_wrap .bar {margin-top: 30px; margin-bottom: 30px;}
+	section.sub_wrap h6 {font-size: 15px;}
+	section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
 	section.sub_wrap h6 {margin-top: 50px;}
-    section.sub_wrap h1 {font-size: 28px;}
+    section.sub_wrap h1 {font-size: 26px;}
+    section.sub_wrap h2 {font-size: 22px; line-height: 1.5; margin-bottom: 50px;}
+    section.sub_wrap h5 {font-size: 20px;}
+    section.sub_wrap h6 {margin-top: 50px;}
     
      section.sub_wrap h2 {font-size: 22px; line-height: 1.5; width: 95%; margin: 0 auto;}
     
@@ -185,7 +189,7 @@ header .open {
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
-    section.sub_wrap h1 {font-size: 24px;}
-     section.sub_wrap h2 {font-size: 20px; padding-bottom: 10%; line-height: 1.5; width: 92%; margin: 0 auto;}
+    section.sub_wrap h1 {font-size: 26px;}
+    section.sub_wrap h2 {font-size: 20px; line-height: 1.5; width: 93%; margin: 0 auto; margin-bottom: 25px;}
 	.sub_info p {font-size: 15px;}
 }
