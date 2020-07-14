@@ -576,6 +576,10 @@
                     "ct_id": ct_id
                 }
             }).done((result) => {
+                if(result.data == 0){
+                    alert(result.seats+' 좌석이 매진입니다. 다른 좌석을 이용해 주세요.')
+                    location.href = "/reservation2";
+                }
                 let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                     ct_id = sessionStorage.getItem("ct_id");
 
@@ -585,7 +589,7 @@
 
                 sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
 
-                location.href = "/complate";
+                // location.href = "/complate";
             });
         }
 

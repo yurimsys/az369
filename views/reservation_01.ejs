@@ -675,9 +675,10 @@
                     "ct_id": ct_id
                 }
             }).done((result) => {
-                // console.log(result,'리졸토');
-                // console.log(result.price,'프라이스');
-
+                if(result.data == 0){
+                    alert(result.seats+' 좌석이 매진입니다. 다른 좌석을 이용해 주세요.')
+                    location.href = "/reservation";
+                }
                 let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                     ct_id = sessionStorage.getItem("ct_id");
 

@@ -1271,8 +1271,12 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
                         });
                 });
             }else{
-
-                res.json({data : '1'})
+                let over_lap = [];
+                for(let i=0; i <rows.length; i++){
+                      over_lap.push(rows[i].CR_SeatNum)
+                }
+                let seat_number = over_lap.join('번,')+'번';
+                res.json({data : '0', seats : seat_number})
             }
 
             

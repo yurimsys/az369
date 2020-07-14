@@ -359,7 +359,7 @@
                                                 </div>
 
                                                 <div class="popup_btn_mo">
-                                                    <a class="btn btn-secondary popup_close1">닫기</a>
+                                                    <a class="btn btn-secondary popup_close1" onclick="javascript:$('header').css('display','block')">닫기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -473,7 +473,7 @@
                                                 </div>
 
                                                 <div class="popup_btn_mo">
-                                                    <a class="btn btn-secondary popup_close1">닫기</a>
+                                                    <a class="btn btn-secondary popup_close1" onclick="javascript:$('header').css('display','block')">닫기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -751,7 +751,6 @@
                 method: "post",
                 dataType: "json",
                 success: function (res) {
-                    //console.log("결제내역@!#@!#@!",res.data)
                     //PC리스트
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<tr>";
@@ -784,15 +783,15 @@
                 dataType: "json",
                 success: function (res) {
                     for (let i = 0; i < res.data.length; i++) {
-                        let html2 = "<div class='list02_mo_list' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
-                        html2 += "<a class='popup_open2'>";
-                        html2 += "<ul class='testcode' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
-                        html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
-                        html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
-                        html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><i class='fas fa-chevron-right'></i></li>";
-                        html2 += "</ul></a>";
-                        html2 += "</div>";
-                        $(".list02_mo").append(html2);
+                        let html = "<div class='list02_mo_list' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
+                        html += "<a class='popup_open2'>";
+                        html += "<ul class='testcode' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
+                        html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
+                        html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
+                        html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><i class='fas fa-chevron-right'></i></li>";
+                        html += "</ul></a>";
+                        html += "</div>";
+                        $(".list02_mo").append(html);
                     }
                 }
             });
@@ -848,6 +847,7 @@
         //모바일 결제내역 상세보기
         $(document).on('click', '.list02_mo_list', function (e) {
             $('#popup2').css('display', 'block');
+            $('header').css('display','none')
             let ctId = e.target.id;
             let phId = e.target.value;
             //console.log(ctId)
@@ -980,6 +980,7 @@
         //모바일 취소 환불 내역 상세보기
         $(document).on('click', '.list03_mo_list', function (e) {
             $('#popup3').css('display', 'block');
+            $('header').css('display','none')
             $('.layer').css('background', 'rgba(0,0,0, 0.5)');
             $.ajax({
                 url: "api/user/resCancelDetailMo",
