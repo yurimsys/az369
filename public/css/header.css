@@ -107,10 +107,10 @@ header .open {
 /*1200px*/
 @media screen and (max-width: 1200px) {
     /*Header*/
-	header {height: 65px; line-height: 65px;}
+	header {height: 65px; line-height: 62px;}
     header .gnb {display: none;}
     header .innerHeader {width: 1200px; position: fixed;}
-    .innerHeader h1.logo { line-height: 58px; margin-left: 15px;}
+    .innerHeader h1.logo { line-height: 55px; margin-left: 15px;}
     .innerHeader h1.logo img {Width: 80%;}
     header.on {height: 65px; line-height: 65px;}
     
