@@ -53,7 +53,9 @@
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
 .layer:target{display:flex;animation:open 0.3s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
-.payment_box{ width: 25%;  height: auto; margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 48%; transform: translateY(-50%); border-radius: 12px; padding-bottom: 20px;}
+.payment_box{ width: 30%; height:85%; overflow: scroll; overflow-x: hidden;  margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 55%; transform: translateY(-50%); border-top-left-radius: 12px; border-bottom-left-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.1); padding-bottom: 20px;}
+.payment_box::-webkit-scrollbar-thumb {background-color: #444;}
+.payment_box::-webkit-scrollbar {margin: 20px 0;}
 
 /*결제버튼 팝업 내부*/
 /*팝업 타이틀*/
@@ -114,8 +116,9 @@ dl.price_sale {color: #c17e00;}
     .reservation_btn_mo ul li a {display: block; border-radius: 4px;}
     .back {border: 1px solid #ddd;}
     .payment_open {background: #C3A164; color: #fff; }
-    .payment_box {width: 40%;}
+    .payment_box {width: 40%; top: 50%; height:95%;}
 }
+
 
 
 /*768px*/

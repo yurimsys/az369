@@ -107,9 +107,9 @@ header .open {
 /*1200px*/
 @media screen and (max-width: 1200px) {
     /*Header*/
-	header {height: 65px; line-height: 62px;}
+	header {height: 65px; line-height: 62px; width: 100%;}
     header .gnb {display: none;}
-    header .innerHeader {width: 1200px; position: fixed;}
+    header .innerHeader {width: 100%; position: fixed;}
     .innerHeader h1.logo { line-height: 55px; margin-left: 15px;}
     .innerHeader h1.logo img {Width: 80%;}
     header.on {height: 65px; line-height: 65px;}
@@ -249,7 +249,6 @@ header .open {
 @media screen and (max-width: 1024px) {
     /*Header*/
     header .gnb {display: none;}
-    header .innerHeader {width: 1024px; position: fixed;}
 
     .gnb_mo_login {margin-top: 3%;}
 }
@@ -259,7 +258,6 @@ header .open {
 @media screen and (max-width: 768px) {
     /*Header*/
     header .gnb {display: none;}
-    header .innerHeader {width: 768px; position: fixed;}
     
     .gnb_mo_login {margin-top: 3.5%;}
 }
@@ -269,7 +267,6 @@ header .open {
 @media screen and (max-width: 414px) {
     /*Header*/
     header .gnb {display: none;}
-    header .innerHeader {width: 414px; position: fixed;}
     /* header .logo img {width: 80%; margin-left: 3%;} */
     
     .gnb_mo_login {margin-top: 6%;}
@@ -278,7 +275,5 @@ header .open {
 @media screen and (max-width: 320px) {
     
     /*Header*/
-    header {width: 320px;}
-    header .innerHeader {width: 320px;}
     .gnb_mo_login a {font-size: 14px;}    
 }
