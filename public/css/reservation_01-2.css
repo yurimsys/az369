@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
+body {background: #fafafa;}
 /*reserve_box*/
-.reservation_box { width: 100%; background: #fff; border: 1px solid #ddd; height: auto; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; padding: 25px; border-radius: 4px;}
+.reservation_box { width: 100%; background: #fff; border: 1px solid #ddd; height: auto; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; padding: 25px; border-radius: 4px; background: #fff;}
 /*오른쪽영역*/
 
 .reservation_box h4 {font-size: 18px; font-weight: 500;}
