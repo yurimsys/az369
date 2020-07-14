@@ -194,7 +194,7 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
  .popup_box h2 {font-size: 22px; font-weight: 500; margin-bottom: 25px; text-align: center;}
 
  #qrcode {width: 80px; height: 80px; background-color: gold; float: left; position: relative;}
-.qr_info {display: inline-block; left: 50%; transform: translateX(-50%); position: relative; height: auto; border-radius: 12px; margin: 10px 0 20px;}
+.qr_info {display: inline-block; left: 50%; transform: translateX(-50%); position: relative; height: auto; border-radius: 12px; margin: 5px 0 15px; border: 1px solid #dbdbdb; padding: 10px 30px 10px 10px;}
 /* .qr_info_inner {margin: 10px 0 30px; border-radius: 12px; padding: 10px 15px 8px; padding-right: 80px; box-shadow: 5px 5px 5px rgba(180,180,180,0.2); overflow: hidden; position: relative; left: 50%; transform: translateX(-50%); display: inline-block; border: 1px solid #eee; background-color: #fff;} */
 .qr_info::after {content: ""; display: block; clear: both;}
 .qr_txt {position: relative; font-size: 15px; color: #222; line-height: 1.6; text-align: justify; margin: 0; float: left; margin-left: 25px; font-weight: 400;height: 80px;}
@@ -270,9 +270,9 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .mypage_nav_mo button.active {border: 1px solid #444; border-bottom: none; background: #fff; color:#222;}
     .mypage_nav_mo button.active p {color: #222; font-weight: 500;}
 
-    .qr_info {width: 100%; padding: 0; padding: 0; margin-bottom: 10px; border: none; padding: 10px 0;}
-    #qrcode {width: 100px; height: 100px;}
-    .qr_info > p {text-align: center; margin-left: 0; word-break: keep-all; width: 90%; margin: 0 auto; float: none; clear: both; padding-bottom:0; line-height: 1.8; padding-top: 15px; color: #222; font-size: 15px; font-weight: 400;}
+    .qr_info {width: 100%; padding: 0; margin:0; border: none; padding: 10px 0 20px;}
+    .qrcode {width: 100px; height: 100px; margin-left: 50%; transform: translateX(-50%); text-align: center;}
+    .qr_info > p {text-align: center; margin-left: 0; word-break: keep-all; width: 90%; margin: 0 auto; float: none; clear: both; padding-bottom:0; line-height: 1.8; padding-top: 0px; color: #222; font-size: 15px; font-weight: 400;}
     #qrcode {left:50%; transform: translateX(-50%);} 
 
     .popup_box{display: none;}
@@ -374,8 +374,8 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_box_mo {display: block; width: 95%; background: #fff; height: auto; margin: 0 auto; padding: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); position: absolute; padding: 3% 2%; font-size: 14px; overflow: hidden; border-radius: 4px;}
     .popup_box_mo h2 {text-align: center; margin-bottom: 3.5%; font-size: 18px;}
     .popup_box_mo p {font-size: 13px;}
-    .qr_info {width: 100%; padding: 0; padding: 0; margin-bottom: 10px; border: none; padding: 10px 0;}
-    .qr_info > p {text-align: center; margin-left: 0; word-break: keep-all; width: 90%; margin: 0 auto; float: none; clear: both; padding-bottom:0; line-height: 1.8;}
+    .qr_info {width: 100%; padding: 0; padding: 0; border: none; padding: 10px 0 20px;}
+    .qr_info > p {text-align: center; margin-left: 0; word-break: keep-all; width: 100%; margin: 0 auto; float: none; clear: both; padding-bottom:0; line-height: 1.8;}
     #qrcode {left:50%; transform: translateX(-50%);} 
     .table_tit2, .table_tit3 {display: none;}
     
@@ -406,10 +406,9 @@ p.cancel_info {margin:2% 0; text-align: center;}
      */
     .mypage_nav button span {margin-left: 60%;}
     /* .tabcontent h4 {font-size: 18px; padding-top: 4%;} */
-    
+    .popup_box_mo {width: 100%; height: 100%; padding: 15px 10px; border-radius: 0;}
     
    .table th, .table td {font-size: 10px; padding: 5px;}
-   .popup_box_mo {padding: 15px 10px; border-radius: 12px;}
    .popup_box_mo h2 {padding-bottom: 15px;}
    .popup_btn_mo ul {width:100%;}
    
@@ -468,7 +467,6 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .reserve_bar_mo ul li:last-child {display: none;}
 
     .qr_info > p br {display: none;}
-    .qr_info > p {padding-top: 20px;}
 }
 
 
