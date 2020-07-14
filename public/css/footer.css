@@ -1,11 +1,17 @@
-footer {width: 100%; background-color: #fafafa; height: 500px; position: relative;}
+footer {width: 100%; background-color: #fafafa; position: relative; padding-bottom: 40px;}
 .footer_inner {Width: 1200px; margin: 0 auto;}
-.footer_info {color: #999; font-size: 14px; line-height: 2.5; font-weight: 200;}
+.footer_info {color: #999; font-size: 14px; line-height: 2.5; font-weight: 300;}
 .footer_info span {color: #444; font-weight: 400; padding-right: 10px;}
 
-.doc-footer .list_info>li+li::before, .doc-footer .list_address>dd::before {display: inline-block; width: 1px; height: 8px; margin: 0 7px 0 10px; background: #eee; content: ''; }
+/* .doc-footer .list_info>li+li::before, .doc-footer .list_address>dd::before {display: inline-block; width: 1px; height: 8px; margin: 0 7px 0 10px; background: #eee; content: ''; } */
 
-
+.footer_corp {padding: 30px 0 15px;}
+.footer_corp a {color: #222;}
+.footer_corp a:hover {color: #767676; transition: all 0.3s;}
+.footer_corp a:nth-child(1)::after,
+.footer_corp a:nth-child(2)::after {display: inline-block; width: 1px; height: 12px; margin: 0 7px 0 12px; background-color: #cbcbcb; content: '';}
+.footer_corp a:nth-child(3) {color: #999;}
+ 
 /* 1200px */
 @media screen and (max-width: 1200px) {
     .footer_inner {width: 100%;}

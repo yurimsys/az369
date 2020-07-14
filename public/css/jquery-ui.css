@@ -326,7 +326,7 @@ a.ui-datepicker-prev.ui-corner-all::before{
 .ui-datepicker td span,
 .ui-datepicker td a {
 	display: block;
-	padding: 14px;
+	padding: 10px 14px;
 	text-align: right;
 	text-decoration: none;
 }
@@ -971,8 +971,9 @@ body .ui-tooltip {
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-  background: #ad863c;
+  background: #c3a164;
 	color: #fff;
+	border-radius: 4px;
 }
 .ui-state-highlight a,
 .ui-widget-content .ui-state-highlight a,
