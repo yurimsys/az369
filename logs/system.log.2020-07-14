@@ -3123,3 +3123,5 @@
 =======
 >>>>>>> f1f39bb332aba14dbd36072f9355bf10cdd1346c
 >>>>>>> 277dae8330ecb8d91d4e14ae815b435248df5ff6
+{"message":"::1 - - [14/Jul/2020:09:16:59 +0000] \"GET /video HTTP/1.1\" 302 60 \"http://localhost:3001/ctd_info\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\"\n","level":"info"}
+{"message":"::1 - - [14/Jul/2020:09:16:59 +0000] \"GET /video/1 HTTP/1.1\" 200 27554 \"http://localhost:3001/ctd_info\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\"\n","level":"info"}
