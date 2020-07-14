@@ -99,7 +99,7 @@ input[type=submit]:hover {
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
 .popup_box{margin:20px; width: 30%; height: auto; background:#fff;position:relative;z-index: 1000; text-align: center;border-radius: 12px; padding: 20px 20px 25px;}
 .popup_box .popup_tit {font-size: 22px; font-weight: 500; line-height: 1.5;padding-bottom: 15px; margin: 0 auto; }
-#applyDate {margin-top:20px; font-size: 20px; color: #444;}
+#applyDate {margin-top: 20px; font-size: 18px; color: #444;font-weight: 400;}
 .popup_box .popup_tit span {font-size: 16px;}
 .popup_box p {text-align: center; font-size: 16px; margin: 0 auto; color: #444; margin-top:5px;} 
 
