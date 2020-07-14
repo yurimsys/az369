@@ -3,8 +3,8 @@
 body {background: #fafafa;}
 /*전체 마이페이지 틀*/
 .mypage_box {position: relative; width: 100%; height: auto; overflow: hidden; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
-.box_01 {width: 25%; margin-right: 1%;  background: #fff; border: 1px solid #dbdbdb; height: 650px; border-radius: 4px; position: relative; float: left; position: relative; box-shadow: 0 20px 20px rgba(180,180,180,0.3);}
-.box_02 {width: 74%;  background: #fff; margin-right: 0; height: 650px; border: 1px solid #dbdbdb; border-radius: 4px; float: right; box-shadow: 0 20px 20px rgba(180,180,180,0.3); }
+.box_01 {width: 25%; margin-right: 1%;  background: #fff; border: 1px solid #dbdbdb; height: 650px; border-radius: 4px; position: relative; float: left; position: relative;}
+.box_02 {width: 74%;  background: #fff; margin-right: 0; height: 650px; border: 1px solid #dbdbdb; border-radius: 4px; float: right;}
 
 /*마이페이지 왼쪽*/
 .mypage_left {width: 100%; height: auto; padding: 20px 30px; overflow: hidden; }
