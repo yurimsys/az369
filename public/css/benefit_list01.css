@@ -32,7 +32,7 @@ section.main {
 
 .main_bg {background: url(/img/benefit_list/benefit_list01_bg.png);
 background-position: center;
-background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s; z-index: -1000;}
+background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 
 @keyframes bg {
 	0% {transform: scale(1.05);}
@@ -98,14 +98,14 @@ section.sub_wrap h5 span {font-weight: 400;}
   font-size: 18px;
 	font-weight: 400;
   border: none;
-	border-bottom: 1px solid #C3A164;
+	border-bottom: 1px solid #444;
 	background: #f6f6f6;
 	
 }
 
 .tab button.active {
 	border: none;
-    border: 1px solid #C3A164;
+    border: 1px solid #444;
 	border-bottom: none /*!important*/;
     background: #fff;
     font-weight: 500;
@@ -120,11 +120,10 @@ section.sub_wrap h5 span {font-weight: 400;}
   /*border: 1px solid #eee;*/
   border-top: none;
   background: #fff;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
   overflow: hidden;
-  border-left: 1px solid #ddd;
-	border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+  border-left: 1px solid #dbdbdb;
+	border-right: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
     border-radius: 0 0 12px 12px;
 }
 
@@ -177,26 +176,27 @@ section.sub_wrap h5 span {font-weight: 400;}
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
 	
-	section.sub_wrap .bar {margin-top: 30px; margin-bottom: 30px;}
+	section.sub_wrap h6 {font-size: 15px;}
+	section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
 	
-    section.sub_wrap h1 {font-size: 28px;}
-     section.sub_wrap h2 {font-size: 22px; padding-bottom: 10%; line-height: 1.5; width: 98%; margin: 0 auto; }
-    section.sub_wrap h5{font-size: 18px; margin-bottom: -1%;}
+    section.sub_wrap h1 {font-size: 26px;}
+    section.sub_wrap h2 {font-size: 22px; line-height: 1.5; margin-bottom: 50px;}
+    section.sub_wrap h5 {font-size: 20px;}
     section.sub_wrap h6 {margin-top: 50px;}
     
     .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
     
     .tab button {width: 50%; height: 50px; line-height: 50px; padding: 0;border: none; font-size: 16px; border: 1px solid #eee;}
-	.tab button.active {border: 1px solid #C3A164; font-weight: 400;}
-    .tabcontent {text-align: center; padding: 0 20px 20px; border: 1px solid #eee;}
-    .tabcontent h3 {padding: 20px 0; border-bottom: 1px solid #eee; line-height: 1.5; font-weight: 500;}
+	.tab button.active {border: 1px solid #444; font-weight: 500;}
+    .tabcontent {text-align: center; padding: 0 15px 20px; border: 1px solid #eee;}
+    .tabcontent h3 {padding: 20px 0; border-bottom: 1px solid #eee; line-height: 1.5; font-weight: 500; font-size: 22px;}
     .tabcontent h3 br {display: block;}
     .tabcontent p {display: none;}
     
     .tabcontent dl {width: 100%; margin: 0 auto; text-align: left; margin-top: 4%;}
-    .tabcontent dt {width: 100%; font-size: 18px; padding-bottom: 0;}
+    .tabcontent dt {width: 100%; font-size: 16px; padding-bottom: 0;}
     .tabcontent dt br {display: none;}
-    .tabcontent dd {width: 100%; padding-top: 5px; padding-bottom: 5%; color: #222;}
+    .tabcontent dd {width: 100%; padding-top: 2px; padding-bottom: 5%; color: #222;}
     .tabcontent dd span {font-size: 15px;}
 }
 
@@ -216,8 +216,8 @@ section.sub_wrap h5 span {font-weight: 400;}
     
     /*section.sub_wrap*/
     section.sub_wrap .inner_sub_wrap {width: 320px;}
-    section.sub_wrap h1 {font-size: 24px;}
-     section.sub_wrap h2 {font-size: 20px; padding-bottom: 10%; line-height: 1.5; width: 92%; margin: 0 auto;}
+    section.sub_wrap h1 {font-size: 26px;}
+    section.sub_wrap h2 {font-size: 20px; line-height: 1.5; width: 93%; margin: 0 auto; margin-bottom: 25px;}
     section.sub_wrap h6 {font-size: 16px;}
     
     .tab button { font-size: 15px;}

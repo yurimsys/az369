@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px; word-break: keep-all;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px; word-wrap: break-word; /* word-break: keep-all; */}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #333;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}

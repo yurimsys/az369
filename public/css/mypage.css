@@ -327,12 +327,15 @@ p.cancel_info {margin:2% 0; text-align: center;}
 /*414px*/
 @media screen and (max-width: 414px) {
     .info_title h2 br  {display: block;}
+    .info_title h2 {width: 50%;}
+    .modify_btn_mo {width: 50%; float:none; right:0;}
+
     .mypage_nav_mo p {font-size:15px;}
     .tabcontent h4 {font-size: 20px;}
     .info_title {padding-bottom: 15px;}
     .info {padding-top: 0;}
     .info p {font-size: 15px;}
-    .modify_btn_mo {width:30%; float: right;}
+    .modify_btn_mo {width:42%;  float: right; text-align: right;}
 
 
     .mypage_right {padding: 15px;}
