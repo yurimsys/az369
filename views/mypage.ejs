@@ -561,6 +561,7 @@
                 success: function (res) {
                     //07.30. 평택 22:00 - 서울동대문 04:00 유림고속(1213)
                     //PC 예매취소 리스트
+                    console.log('res:',res);
                     qr_info.cr_id = res.data[0].CR_ID;
                     qr_info.u_id = res.session_user;
                     for (let i = 0; i < res.data.length; i++) {
