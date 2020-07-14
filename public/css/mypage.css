@@ -30,7 +30,7 @@
 .tabcontent {width: 100%; display: none; overflow: hidden;z-index: 1000;}
 .tabcontent h4 {font-size: 22px; font-weight:500; text-align: center;}
 .tabcontent p {color: #999; margin-bottom: 12px; font-size: 14px; text-align: center; font-weight: 300;}
-/* .logout {width: 85%; background: #fafafa;text-align: center; height: 45px; line-height: 45px; transition: all 0.3s; bottom: 0; margin-bottom: 10%; position: absolute; border-radius: 4px;} */
+/* .logout {width: 85%; background: #f8f8f8\;text-align: center; height: 45px; line-height: 45px; transition: all 0.3s; bottom: 0; margin-bottom: 10%; position: absolute; border-radius: 4px;} */
 .logout {position: absolute; bottom: 20px; width: calc(100% - 60px);} 
 .logout:hover { background: #ddd;}
 .logout a {display: block;}
@@ -127,7 +127,7 @@
 .table_tit3 ul li:nth-child(5) {width: 17%;}
 .table_tit3 ul li:nth-child(6) {width:  17%;} */
 .list02,
-.list03 {background: #fff; height:480px; overflow-y: scroll; border-top: 1px solid #eee; position: relative; width: 100%; background: #fafafa;}
+.list03 {background: #fff; height:480px; overflow-y: scroll; border-top: 1px solid #eee; position: relative; width: 100%; background: #f8f8f8;}
 
 tr.canceled td {background: #eee; border: none; color: #999; text-decoration: line-through;}
 p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
@@ -160,7 +160,7 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
     border: 1px solid #f2f2f2;
      text-align: center;
      padding: 8px 0;
-     background: #fafafa;
+     background: #f8f8f8;
 }
 /* .table tr:hover {background: #fff;} */
 
@@ -191,7 +191,7 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
  .popup_box{width: 55%; background:#fff; position:relative; z-index: 1000; top:50%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; padding: 25px 30px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.2);}
- .popup_box h2 {font-size: 22px; font-weight: 500; margin-bottom: 25px; text-align: center;}
+ .popup_box h2 {font-size: 24px; font-weight: 500; margin-bottom: 25px; text-align: center;}
 
  #qrcode {width: 80px; height: 80px; background-color: gold; float: left; position: relative;}
 .qr_info {display: inline-block; left: 50%; transform: translateX(-50%); position: relative; height: auto; border-radius: 12px; margin: 5px 0 15px; border: 1px solid #dbdbdb; padding: 10px 30px 10px 10px;}
@@ -278,7 +278,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_box{display: none;}
     .layer {width: 100%;}
     .popup_box_mo {display: block; width: 70%; background: #fff; padding: 22px 15px; position: absolute; z-index: 100000; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px;}
-    .popup_box_mo h2 {font-size: 22px; font-weight: 500; padding-bottom: 18px; text-align: center;}
+    /* .popup_box_mo h2 {font-size: 22px; font-weight: 500; padding-bottom: 18px; text-align: center;} */
     .table_mo {display: block;}
     .table_mo {width:100%; overflow: hidden; margin-bottom: 2%; overflow: hidden; border: 1px solid #dbdbdb;}
 
@@ -296,7 +296,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     }
     .detail_table th {
         width: 130px;
-        background: #fafafa;
+        background: #f8f8f8;
         text-align: left;
         font-weight: 400;
     }
@@ -387,7 +387,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_open2 ul li:nth-child(2) {width: 33%; color: #999; font-weight: 400;}
     .popup_open2 ul li:nth-child(3) {width: 30%; color: #767676;}
     .popup_open2 i {float: right; padding: 17px 0;}
-    .list02_mo_list {padding: 0 5%; height: 50px; line-height: 50px;  border: 1px solid #eee; background-color: #fafafa;}
+    .list02_mo_list {padding: 0 5%; height: 50px; line-height: 50px;  border: 1px solid #eee; background-color: #f8f8f8;}
     
     .list03 {display: none;}
     .list03_mo {display: block; width: 100%; height: 260px; font-size: 13px; overflow-x: hidden;}
@@ -396,7 +396,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_open3 ul li:nth-child(2) {width: 33%; color: #999; font-weight: 400;}
     .popup_open3 ul li:nth-child(3) {width: 30%; color: #767676;}
     .popup_open3 i {float: right; padding: 17px 0;}
-    .list03_mo_list {padding: 0 5%; height: 50px; line-height: 50px;  border: 1px solid #eee; background: #fafafa;}
+    .list03_mo_list {padding: 0 5%; height: 50px; line-height: 50px;  border: 1px solid #eee; background: #f8f8f8;}
     
 
     /* dd br {display: block;}
@@ -469,7 +469,6 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .search_btn {width: 100%; margin-top: 3%;}
 
     .reserve_bar_mo ul li:nth-child(3) {width: 28%;}
-    .reserve_bar_mo ul li:last-child {display: none;}
 
     .qr_info > p br {display: none;}
 }
