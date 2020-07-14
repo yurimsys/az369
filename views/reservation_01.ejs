@@ -438,6 +438,7 @@
                                 alert("최대 4개까지 선택가능합니다.");
                                 return this.style();
                             }
+                            
                             selected_seats_cnt = sc.find('selected').length + 1;
                             selected_seats.push(this.settings.label);
                             let origin_price = recalculateTotal(sc) + Number(sessionStorage.getItem("seat_price"));
@@ -454,6 +455,7 @@
                             $now_price.text('　'+origin_price+'원')
                             return 'selected';
                         } else if (this.status() == 'selected') {
+
                             selected_seats_cnt = sc.find('selected').length - 1;
                             let idx = selected_seats.indexOf(this.settings.label);
                             selected_seats.splice(idx, 1);
@@ -471,6 +473,12 @@
                             $sale_price.data('price', origin_price);
                             $now_price.text('　'+origin_price+'원')
                             //seat has been vacated
+                            if(selected_seats_cnt === 0){
+                                $nums.text('　');
+                                $now_price.text('　');
+                                $counter.text('　');
+                            }
+
                             return 'available';
                         } else if (this.status() == 'unavailable') {
                             //seat has been already booked

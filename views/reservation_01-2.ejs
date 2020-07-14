@@ -96,7 +96,7 @@
 
             </div>
 
-            <div id="payment" class="layer" style="overflow:hidden;">
+            <div id="payment" class="layer" style="overflow:scroll;">
                 <!--popup PC-->
                 <div class="payment_box">
                     
@@ -214,7 +214,6 @@
 
 
             // console.log('evt',evt);
-            console.log('busSeat', busSeat);
             var i, tablinks
             //좌석 선택시 우측 문구 삭제
             $('.before_p').css('display','none');
@@ -312,6 +311,11 @@
                             $sale_price.data('price', origin_price);
                             $now_price.text(origin_price+'원')
                             //seat has been vacated
+                            if(selected_seats_cnt === 0){
+                                $nums.text('　');
+                                $now_price.text('　');
+                                $counter.text('　');
+                            }
                             return 'available';
                         } else if (this.status() == 'unavailable') {
                             //seat has been already booked
@@ -452,7 +456,7 @@
             sc.find('e.selected').status('available');
             $("#selected_seats_num").text('　');
             $("#selected_seats_cnt").text('　');
-
+            $('#selected_seats_price').text('　');
             // 데이터 가져와서 예약된 좌석 상태 설정.
             var ct_id = sessionStorage.getItem('ct_id');
             $.ajax({
@@ -503,6 +507,7 @@
         }
         //예매하기 버튼
         function showPayment() {
+            $('.inner_sub_wrap').css('display','none')
             $('header').css('display','none');
             let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                 ct_id = sessionStorage.getItem("ct_id");
@@ -539,12 +544,12 @@
         }
         //취소 버튼
         function payBack(){
+            $('.inner_sub_wrap').css('display','block')
             $('header').css('display','block');
             $('#payment').css('display','none')
         }
 
         function getInputDayLabel(date) {
-            console.log('했음',date);
             var week = new Array('일', '월', '화', '수', '목', '금', '토');
             // var today = new Date(date).getDay();
             // var todayLabel = week[today];
