@@ -11,8 +11,10 @@
 } */
 
 div.seatCharts-seat{
-	width: 50px;
-    height: 47px;
+	/* width: 50px;
+    height: 47px; */
+    width: 70px;
+    height: 66px;
     background: url(../../img/reservation/seat_img.png) center no-repeat;
     background-size: contain;
     cursor: pointer;
@@ -33,13 +35,17 @@ div.seatCharts-seat.selected{
 } */
 
 .seatCharts-row div:nth-child(even){
-	width: 50px;
-    height: 47px;
+	/* width: 50px;
+    height: 47px; */
+    width: 70px;
+    height: 66px;
 }
 div.seatCharts-seat.selected{
 	background: url(../../img/reservation/seat_img_select.png) center no-repeat;
-    width: 50px;
-    height: 47px;
+    /* width: 50px;
+    height: 47px; */
+    width: 70px;
+    height: 66px;
     background-size: contain;
 }
 

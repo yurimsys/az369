@@ -25,7 +25,7 @@ span {padding: 0; margin: 0;}
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 50px;
+    margin-bottom: 70px;
     overflow: hidden;
     
 }
@@ -72,6 +72,11 @@ section.sub_wrap p span {font-weight: 400;}
 .btn-outline-primary {border: 1px solid #dbdbdb; color: #444;transition: all 0.3s;}
 .btn-secondary {background: #eee; color: #767676; border: 1px solid #f8f8f8;} 
  
+/* input ----------------------------------------------------- */
+input {width: 100%; height: 50px; padding: 0 15px; border: 1px solid #eee;}
+input::placeholder {font-size: 14px; font-weight: 300; color: #767676;}
+input:focus, textarea:focus {border: 1px solid #c3a164;}
+
 
 /*반응형 ----------------------------------------------------------------------------*/
 

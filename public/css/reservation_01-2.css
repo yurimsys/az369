@@ -54,13 +54,15 @@ body {background: #fafafa;}
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
 .layer:target{display:flex;animation:open 0.3s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
-.payment_box{ width: 30%; height:85%; overflow: scroll; overflow-x: hidden;  margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 55%; transform: translateY(-50%); border-top-left-radius: 12px; border-bottom-left-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.1); padding-bottom: 20px;}
+.payment_box{ width: 30%; height:82%; overflow: auto; overflow-x: hidden;  margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 55%; transform: translateY(-50%);border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.1); padding-bottom: 20px;}
+.scroll_style::-webkit-scrollbar-track {background-color:transparent;}
 .payment_box::-webkit-scrollbar-thumb {background-color: #444;}
 .payment_box::-webkit-scrollbar {margin: 20px 0;}
 
 /*결제버튼 팝업 내부*/
 /*팝업 타이틀*/
-.payment_tit {margin: 0 auto; text-align: center; color: #222; font-weight: 600; font-size: 22px; padding: 20px 0;}
+.payment_tit {margin: 0 auto; text-align: center; color: #222; font-weight: 600; font-size: 24px; padding-bottom: 18px;}
+
 /*팝업 요약*/
 .info_table {width: 100%; overflow: hidden;/* border-bottom: 1px solid #eee;*/ margin-top: 22px; padding: 0 30px; font-size: 15px;}
 .info_table dl {width: 100%; padding: 10px 0; overflow: hidden; border-bottom: 1px solid #eee;}
@@ -89,7 +91,7 @@ dl.price_sale {color: #c17e00;}
 .payment_btn li:last-child {margin-right: 0;} 
 .payment_close {width: 100%; display: block; height: 50px; line-height: 50px; text-align: center;}
 .payment_close1:hover {background: #fafafa;}
-.payment_close2{bottom:20px;display:block;background:#c3a164; color:#fff;text-align:center; font-weight: 400; float: left; width: 100%; border-radius: 4px;}
+.payment_close2{bottom:20px;display:block;background:#444; color:#fff;text-align:center; font-weight: 400; float: left; width: 100%; border-radius: 4px;}
 /*section.sub_wrap 완료*/
 
 /*반응형*/
@@ -144,8 +146,10 @@ dl.price_sale {color: #c17e00;}
     .reload_btn {margin-top: 2%;}
     .reservation_btn_mo {width: 93%; margin-top: 4%;}
     .layer {background: #fff; opacity: 1;}
-    /* .payment_box {width: 100%; height: 100%; top:0;}  */
-    .payment_box {width: 100%; height: 100%; top:0; transform: none;}
+    /* 모바일 시 스크롤 안보이기 */
+    .payment_box {width: 100%; height: 100%; top:0; transform: none;;}
+    .payment_box::-webkit-scrollbar-thumb {background-color: transparent;}
+    .scroll_style::-webkit-scrollbar {width: 0; height: 20px;}
     .payment_tit {padding-top: 0px;}
     /* .payment_box_inner {height: 100%; overflow: scroll;} */
     .payment_btn {margin-top: 15px;}
