@@ -1,4 +1,4 @@
-@charset "UTF-8";
+`@charset "UTF-8";
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
@@ -195,14 +195,10 @@ header .open {
     /*section.sub_wrap*/
     section.sub_wrap h6 {padding-top: 10%;font-size: 14px;}
     section.sub_wrap h1 {font-size: 24px;}
-    section.sub_wrap h2 {font-size: ;}
     section.sub_wrap h2 span {font-size: 16px;}
     section.sub_wrap p {margin-bottom: 5%;}
 
     table.order th {padding-top: 15px;}
-/*     
-    table.order th {font-size: 17px;}
-    table.order td {font-size: 15px;} */
 
     .mypage_btn {font-size: 15px; height: 45px; line-height: 45px;}
 }

@@ -12,6 +12,8 @@ footer {width: 100%; background-color: #fafafa; position: relative; padding: 20p
 .footer_info a, .footer_info img {margin-left: 5px;}
 .footer_info br {display: none;}
  
+.top {background-color: red; position: fixed;}
+
 
 /* 1200px */
 @media screen and (max-width: 1200px) {
