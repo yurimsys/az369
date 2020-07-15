@@ -182,72 +182,6 @@
                                         <!-- <p class="cancel_info">취소할 예매 목록을 선택하시고 하단의 버튼을 누르시면 예매를 취소하실 수 있습니다.</p> -->
 
                                         <!-- <a class="popup_open" onclick="cancelBtn()">선택예매취소</a> -->
-
-                                        <div id="popup" class="layer">
-                                            <!-- 예매취소 후 리스트 @@@@@@@@@@@@@@@@@@@@@@@@@@@222 -->
-                                            <!--popup PC-->
-                                            <div class="popup_box">
-                                                <h2>예매상세내역 (승차권)</h2>
-                                                <div class="qr_info">
-                                                    <div id='qrcode' class='qrcode'></div>
-                                                    <div class="qr_txt">  <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p> </div>
-                                                </div>
-                                                <table class="table">
-                                                    <thead>
-                                                        <!-- <th>예약번호</th> -->
-                                                        <th>결제날짜</th>
-                                                        <th>예약정보</th>
-                                                        <th>좌석개수</th>
-                                                        <th>결제수단</th>
-                                                        <th>결제금액</th>
-                                                    </thead>
-                                                    <tbody class="cancelRes">
-                                                    </tbody>
-                                                </table>
-
-                                                <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한
-                                                    예매를 취소하겠습니까?</p>
-                                                <div class="popup_btn">
-                                                    <ul>
-                                                        <li>
-                                                            <a onclick="javascript:$('#popup').css('display','none')"
-                                                                class="btn btn-secondary popup_close1">닫기</a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" class="btn btn-primary" onclick="resCancel()">예매
-                                                                취소</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-
-                                            <!--popup mo 768px-->
-                                            <div class="popup_box_mo">
-                                                <h2>예매상세내역 (승차권)</h2>
-                                                <div class="qr_info">
-                                                    <div id='qrcode_mobile' class='qrcode'></div>
-                                                    <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권을 보여드리면 장차 탑승이 가능합니다.</p>
-                                                </div>
-                                                <div class="table_mo">
-                                                </div>
-                                                <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한
-                                                    예매를 취소하겠습니까?</p>
-
-                                                <div class="popup_btn_mo">
-                                                    <ul>
-                                                        <li>
-                                                            <a onclick="javascript:$('#popup').css('display','none'); $('header').css('display','block')" class=" btn btn-secondary">닫기</a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a class="btn btn-primary" onclick="resCancel()">예매 취소</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
 
 
@@ -351,19 +285,6 @@
                                         <div class="list02_mo scroll_style">
 
                                         </div>
-
-                                        <!--두번째 리스트 popup mo-->
-                                        <div id="popup2" class="layer">
-                                            <div class="popup_box_mo popup_box_mo2">
-                                                <h2>예매 및 결제 상세내역</h2>
-                                                <div class="table_mo">
-                                                </div>
-
-                                                <div class="popup_btn_mo">
-                                                    <a class="btn btn-secondary popup_close1" onclick="javascript:$('header').css('display','block')">닫기</a>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
 
                                     <!--환불조회 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22 -->
@@ -463,21 +384,6 @@
                                         <!--세번째 리스트 mo 414px-->
                                         <div class="list03_mo scroll_style">
                                         </div>
-
-                                        <!--세번째 리스트 popup mo-->
-                                        <!--환불완료-->
-                                        <div id="popup3" class="layer">
-                                            <div class="popup_box_mo">
-                                                <h2>취소 및 환불 상세내역</h2>
-                                                <div class="table_mo">
-
-                                                </div>
-
-                                                <div class="popup_btn_mo">
-                                                    <a class="btn btn-secondary popup_close1" onclick="javascript:$('header').css('display','block')">닫기</a>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -518,12 +424,109 @@
         <!--<footer></footer>-->
         <% include templates/footer.ejs %>
     </div>
+
+    <!-- 팝업 @@@@@@@@@@@@@@@ -->
+    <div id="popup" class="layer">
+        <!-- 예매취소 후 리스트 @@@@@@@@@@@@@@@@@@@@@@@@@@@222 -->
+        <!--popup PC-->
+        <div class="popup_box">
+            <h2>예매상세내역 (승차권)</h2>
+            <div class="qr_info">
+                <div id='qrcode' class='qrcode'></div>
+                <div class="qr_txt">  <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p> </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <!-- <th>예약번호</th> -->
+                    <th>결제날짜</th>
+                    <th>예약정보</th>
+                    <th>좌석개수</th>
+                    <th>결제수단</th>
+                    <th>결제금액</th>
+                </thead>
+                <tbody class="cancelRes">
+                </tbody>
+            </table>
+
+            <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한
+                예매를 취소하겠습니까?</p>
+            <div class="popup_btn">
+                <ul>
+                    <li>
+                        <a onclick="javascript:$('#popup').css('display','none')"
+                            class="btn btn-secondary popup_close1">닫기</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="btn btn-primary" onclick="resCancel()">예매
+                            취소</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!--popup mo 768px-->
+        <div class="popup_box_mo">
+            <h2>예매상세내역 (승차권)</h2>
+            <div class="qr_info">
+                <div id='qrcode_mobile' class='qrcode'></div>
+                <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권을 보여드리면 장차 탑승이 가능합니다.</p>
+            </div>
+            <div class="table_mo">
+            </div>
+            <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한
+                예매를 취소하겠습니까?</p>
+
+            <div class="popup_btn_mo">
+                <ul>
+                    <li>
+                        <a onclick="javascript:$('#popup').css('display','none'); $('header').css('display','block'); $('footer').css('display','block');" class=" btn btn-secondary">닫기</a>
+                    </li>
+
+                    <li>
+                        <a class="btn btn-primary" onclick="resCancel()">예매 취소</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--두번째 리스트 popup mo-->
+    <div id="popup2" class="layer">
+        <div class="popup_box_mo popup_box_mo2">
+            <h2>예매 및 결제 상세내역</h2>
+            <div class="table_mo">
+            </div>
+
+            <div class="popup_btn_mo">
+                <a class="btn btn-secondary popup_close1" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');">닫기</a>
+            </div>
+        </div>
+    </div>
+
+    <!--세번째 리스트 popup mo-->
+    <!--환불완료-->
+    <div id="popup3" class="layer">
+        <div class="popup_box_mo">
+            <h2>취소 및 환불 상세내역</h2>
+            <div class="table_mo">
+
+            </div>
+
+            <div class="popup_btn_mo">
+                <a class="btn btn-secondary popup_close1" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');">닫기</a>
+            </div>
+        </div>
+    </div>
+    
     <script>
         var trVal = Array();
         var tdVal = Array();
 
         function resModal(e) {
             if(e.dataset.mob == 'mobile'){
+                $('footer').css('display','none');
                 $('header').css('display','none')
             }
             $(".cancelRes").empty();
@@ -741,8 +744,7 @@
 
         //결제리스트
         $("#tab2").on('click', function () {
-            $('.chkbox2').removeClass('on')
-
+            $('.chkbox2').removeClass('on');
             $('input[type=radio]').prop('checked', false);
             //달력 val 지우기
             $("#deptDay").val('')
@@ -773,7 +775,6 @@
         //결제리스트 모바일
         $("#tab_mo2").on('click', function () {
             $('.chkbox2').removeClass('on')
-            
             //달력 val 지우기
             $("#deptDay").val('')
             $("#endDay").val('')
@@ -850,6 +851,7 @@
         $(document).on('click', '.list02_mo_list', function (e) {
             $('#popup2').css('display', 'block');
             $('header').css('display','none')
+            $('footer').css('display','none');
             let ctId = e.target.id;
             let phId = e.target.value;
             //console.log(ctId)
@@ -983,6 +985,7 @@
         $(document).on('click', '.list03_mo_list', function (e) {
             $('#popup3').css('display', 'block');
             $('header').css('display','none')
+            $('footer').css('display','none');
             $('.layer').css('background', 'rgba(0,0,0, 0.5)');
             $.ajax({
                 url: "api/user/resCancelDetailMo",

@@ -548,7 +548,7 @@
                 res.data.map((seat_num) => {
                     seat_id_list.push(getSeatId(seat_num));
                 });
-
+                console.log('res :',res);
                 sc.find('unavailable').status('available');
                 sc.status(seat_id_list, 'unavailable');
             });
@@ -688,17 +688,19 @@
                 if(result.data == 0){
                     alert(result.seats+' 좌석이 매진입니다. 다른 좌석을 이용해 주세요.')
                     location.href = "/reservation";
-                }
-                let car_list = JSON.parse(sessionStorage.getItem("car_list")),
+                }else{
+                    let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                     ct_id = sessionStorage.getItem("ct_id");
 
-                let payment_result = car_list.find((k) => (k.ctID == ct_id));
-                payment_result.price = result.price;
-                payment_result.ph_type = result.ph_type;
+                    let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                    payment_result.price = result.price;
+                    payment_result.ph_type = result.ph_type;
 
-                sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
+                    sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
 
-                location.href = "/complate";
+                    location.href = "/complate";
+                }
+
             });
         }
 
