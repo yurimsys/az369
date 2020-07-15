@@ -117,128 +117,130 @@
                         </a>
                     </div>
 
-                    <div id="popup" class="layer">
-                        <div class="popup_box">
-                            <div class="popup_tit">제출여부조회 <br>
-                                <div id="applyDate"></div>
-                            </div>
-                            <p>입점상담신청 문의가 성공적으로 보내졌습니다. <br>빠른시일 내에 연락드리겠습니다.</p>
 
-                            <div class="popup_btn btn btn-secondary">
-                                <a href="benefit_application" class="popup_close">닫기</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <script>
-
-            //입점상담신청
-            function applyCon(e) {
-                e.preventDefault(); //다음 이벤트 제거
-                if ($('#name').val() == "" || $('#phone').val() == '' || $('#brand').val() == '' || $('#address').val() == '' || $('#memo').val() == '') {
-                    alert("빈칸을 입력해 주세요");
-                    return false;
-                }
-                $.ajax({
-                    url: "api/user/benefitApply",
-                    dataType: "json",
-                    method: "post",
-                    data: {
-                        name: $("#name").val(),
-                        phone: $("#phone").val(),
-                        brand: $("#brand").val(),
-                        address: $("#address").val(),
-                        memo: $("#memo").val()
-                    }
-                }).done(() => {
-                    alert("신청이 완료되었습니다. \n빠른시일내 연락드리겠습니다.");
-                    location.href = '/benefit_application'
-                })
-            }
-
-            //제출여부조회
-            function lookUp() {
-                if ($('#name2').val() == "" || $('#phone2').val() == '') {
-                    $(".layer").hide();
-                    alert("빈칸을 입력해 주세요");
-                    //return;    
-                    location.reload();
-                }
-
-                $.ajax({
-                    url: "api/user/lookUp",
-                    method: "post",
-                    dataType: "json",
-                    data: {
-                        name: $("#name2").val(),
-                        phone: $("#phone2").val()
-                    },
-                    success: function (res) {
-
-                        if (res.data === undefined) {
-                            alert("이름 혹은 휴대전화가 틀리거나 제출하시지 않으셨습니다.");
-                            location.reload();
-                        } else if (res.data.SI_cDt != "") {
-                            $("#applyDate").text(res.data.SI_cDt);
-                            location.href = "#popup";
-                        }
-                    }
-                });
-            }
-
-        </script>
-
-        <!--//secton.about 완료-->
-
-        <script>
-            $('.btn-example').click(function () {
-                var $href = $(this).attr('href');
-                layer_popup($href);
-            });
-
-            function layer_popup(el) {
-
-                var $el = $(el); //레이어의 id를 $el 변수에 저장
-                var isDim = $el.prev().hasClass('dimBg'); //dimmed 레이어를 감지하기 위한 boolean 변수
-
-                isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
-
-                var $elWidth = ~~($el.outerWidth()),
-                    $elHeight = ~~($el.outerHeight()),
-                    docWidth = $(document).width(),
-                    docHeight = $(document).height();
-
-                // 화면의 중앙에 레이어를 띄운다.
-                if ($elHeight < docHeight || $elWidth < docWidth) {
-                    $el.css({
-                        marginTop: -$elHeight / 2,
-                        marginLeft: -$elWidth / 2
-                    })
-                } else {
-                    $el.css({
-                        top: 0,
-                        left: 0
-                    });
-                }
-
-                $el.find('a.btn-layerClose').click(function () {
-                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
-                    return false;
-                });
-
-                $('.layer .dimBg').click(function () {
-                    $('.dim-layer').fadeOut();
-                    return false;
-                });
-
-            }
-        </script>
+       
 <% include templates/footer.ejs %>
     </div>
 
+    <div id="popup" class="layer">
+        <div class="popup_box">
+            <div class="popup_tit">제출여부조회 <br>
+                <div id="applyDate"></div>
+            </div>
+            <p>입점상담신청 문의가 성공적으로 보내졌습니다. <br>빠른시일 내에 연락드리겠습니다.</p>
+
+            <div class="popup_btn btn btn-secondary">
+                <a href="benefit_application" class="popup_close">닫기</a>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        //입점상담신청
+        function applyCon(e) {
+            e.preventDefault(); //다음 이벤트 제거
+            if ($('#name').val() == "" || $('#phone').val() == '' || $('#brand').val() == '' || $('#address').val() == '' || $('#memo').val() == '') {
+                alert("빈칸을 입력해 주세요");
+                return false;
+            }
+            $.ajax({
+                url: "api/user/benefitApply",
+                dataType: "json",
+                method: "post",
+                data: {
+                    name: $("#name").val(),
+                    phone: $("#phone").val(),
+                    brand: $("#brand").val(),
+                    address: $("#address").val(),
+                    memo: $("#memo").val()
+                }
+            }).done(() => {
+                alert("신청이 완료되었습니다. \n빠른시일내 연락드리겠습니다.");
+                location.href = '/benefit_application'
+            })
+        }
+
+        //제출여부조회
+        function lookUp() {
+            if ($('#name2').val() == "" || $('#phone2').val() == '') {
+                $(".layer").hide();
+                alert("빈칸을 입력해 주세요");
+                //return;    
+                location.reload();
+            }
+
+            $.ajax({
+                url: "api/user/lookUp",
+                method: "post",
+                dataType: "json",
+                data: {
+                    name: $("#name2").val(),
+                    phone: $("#phone2").val()
+                },
+                success: function (res) {
+
+                    if (res.data === undefined) {
+                        alert("이름 혹은 휴대전화가 틀리거나 제출하시지 않으셨습니다.");
+                        location.reload();
+                    } else if (res.data.SI_cDt != "") {
+                        $("#applyDate").text(res.data.SI_cDt);
+                        location.href = "#popup";
+                    }
+                }
+            });
+        }
+
+    </script>
+
+    <!--//secton.about 완료-->
+
+    <script>
+        $('.btn-example').click(function () {
+            var $href = $(this).attr('href');
+            layer_popup($href);
+        });
+
+        function layer_popup(el) {
+
+            var $el = $(el); //레이어의 id를 $el 변수에 저장
+            var isDim = $el.prev().hasClass('dimBg'); //dimmed 레이어를 감지하기 위한 boolean 변수
+
+            isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+
+            var $elWidth = ~~($el.outerWidth()),
+                $elHeight = ~~($el.outerHeight()),
+                docWidth = $(document).width(),
+                docHeight = $(document).height();
+
+            // 화면의 중앙에 레이어를 띄운다.
+            if ($elHeight < docHeight || $elWidth < docWidth) {
+                $el.css({
+                    marginTop: -$elHeight / 2,
+                    marginLeft: -$elWidth / 2
+                })
+            } else {
+                $el.css({
+                    top: 0,
+                    left: 0
+                });
+            }
+
+            $el.find('a.btn-layerClose').click(function () {
+                isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                return false;
+            });
+
+            $('.layer .dimBg').click(function () {
+                $('.dim-layer').fadeOut();
+                return false;
+            });
+
+        }
+    </script>
 
 </body>
 

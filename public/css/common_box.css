@@ -22,11 +22,11 @@ input, button {-webkit-tap-highlight-color: transparent;}
 
 
 /* 공통 속성 영역 : 상단 */
-.wrap {width: 100%; margin: 0 auto; height: auto;}
+.wrap {width: 100%; margin: 0 auto; height: auto;  z-index: -1000;}
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 	  overflow: hidden;
 }
 .inner_sub_wrap {width: 100%;}

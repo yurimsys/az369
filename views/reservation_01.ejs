@@ -180,68 +180,7 @@
                         </ul>
                     </div> -->
 
-                    <div id="payment" class="layer">
-                        <div class="payment_box scroll_style">
-                            <div class="payment_tit">
-                                예매정보 및 결제금액
-                            </div>
-                            <div class="info_table">
-                                <dl>
-                                    <dt>운행지역</dt>
-                                    <dd>평택 - 서울 동대문</dd>
-                                </dl>
-                                <dl class="info_time">
-                                    <dt>출발시간</dt>
-                                    <dd><span class="region">평택</span> <span id="payment_deptTe">2020.02.03(월)
-                                            22:00</span></dd>
-                                    <dd><span class="region">서울 동대문</span> <span id="payment_retuTe">2020.02.04(화)
-                                            04:00</span></dd>
-                                </dl>
-                                <dl>
-                                    <dt>차량정보</dt>
-                                    <dd id="payment_car_info"> - </dd>
-                                </dl>
-                                <dl>
-                                    <dt>좌석개수</dt>
-                                    <dd id="payment_seats_cnt">1개</dd>
-                                </dl>
-                                <dl>
-                                    <dt>좌석번호</dt>
-                                    <dd id="payment_seats_nums">01번</dd>
-                                </dl>
-                            </div>
-                            <div class="price">
-                                <dl class="reserve_price">
-                                    <dt>예매금액</dt>
-                                    <dd id="original_price">0</dd>
-                                </dl>
-                                <dl class="price_sale">
-                                    <dt>할인금액<dt>
-                                    <dd id="sale_price">- 0원</dd>
-                                </dl>
-                                <dl class="total_dl">
-                                    <dt>총 결제금액</dt>
-                                    <dd class="total_price" id='total_price'>0<span>원</span></dd>
-                                </dl>
-                            </div>
 
-                            <div class="notice">
-                                <h5>NOTICE</h5>
-                                <!-- <p>8월 1일 ~ 8월 31일까지 장차이용 무료서비스가 진행중입니다.</p> -->
-                                <p>취소 및 환불은 출발일로부터 <span style="font-weight: 400; color: #222;">3일 전</span>까지 가능합니다.</p>
-                                <p>출발일 3일 전까지 버스를 예매한 적정 인원수가 부족할 경우 차량이 변경될 수 있습니다.</p>
-                            </div>
-
-                            <ul class="payment_btn">
-                                <li>
-                                    <a onclick="javascript:$('#payment').css('display','none')" class="payment_close1 payment_close btn btn-secondary">취소</a>
-                                </li>
-                                <li>
-                                    <a onclick="processPayment()" class="payment_close2 payment_close">결제하기</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
          </div>
             <!-- <div id="qrcode"></div> -->
         </section>
@@ -249,6 +188,69 @@
         <!--//secton.about 완료-->
         <!--<footer></footer>-->
         <% include templates/footer.ejs %>
+    </div>
+
+    <div id="payment" class="layer">
+        <div class="payment_box scroll_style">
+            <div class="payment_tit">
+                예매정보 및 결제금액
+            </div>
+            <div class="info_table">
+                <dl>
+                    <dt>운행지역</dt>
+                    <dd>평택 - 서울 동대문</dd>
+                </dl>
+                <dl class="info_time">
+                    <dt>출발시간</dt>
+                    <dd><span class="region">평택</span> <span id="payment_deptTe">2020.02.03(월)
+                            22:00</span></dd>
+                    <dd><span class="region">서울 동대문</span> <span id="payment_retuTe">2020.02.04(화)
+                            04:00</span></dd>
+                </dl>
+                <dl>
+                    <dt>차량정보</dt>
+                    <dd id="payment_car_info"> - </dd>
+                </dl>
+                <dl>
+                    <dt>좌석개수</dt>
+                    <dd id="payment_seats_cnt">1개</dd>
+                </dl>
+                <dl>
+                    <dt>좌석번호</dt>
+                    <dd id="payment_seats_nums">01번</dd>
+                </dl>
+            </div>
+            <div class="price">
+                <dl class="reserve_price">
+                    <dt>예매금액</dt>
+                    <dd id="original_price">0</dd>
+                </dl>
+                <dl class="price_sale">
+                    <dt>할인금액<dt>
+                    <dd id="sale_price">- 0원</dd>
+                </dl>
+                <dl class="total_dl">
+                    <dt>총 결제금액</dt>
+                    <dd class="total_price" id='total_price'>0<span>원</span></dd>
+                </dl>
+            </div>
+
+            <div class="notice">
+                <h5>NOTICE</h5>
+                <!-- <p>8월 1일 ~ 8월 31일까지 장차이용 무료서비스가 진행중입니다.</p> -->
+                <p>취소 및 환불은 출발일로부터 <span style="font-weight: 400; color: #222;">3일 전</span>까지 가능합니다.</p>
+                <p>출발일 3일 전까지 버스를 예매한 적정 인원수가 부족할 경우 차량이 변경될 수 있습니다.</p>
+            </div>
+
+            <ul class="payment_btn">
+                <li>
+                    <a onclick="javascript:$('#payment').css('display','none')" class="payment_close1 payment_close btn btn-secondary">취소</a>
+                </li>
+                <li>
+                    <a onclick="processPayment()" class="payment_close2 payment_close">결제하기</a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <!--reservation 스크립트-->
