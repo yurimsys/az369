@@ -26,7 +26,7 @@ input, button {-webkit-tap-highlight-color: transparent;}
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
 	  overflow: hidden;
 }
 .inner_sub_wrap {width: 100%;}
