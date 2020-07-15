@@ -184,11 +184,11 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; posit
 .payment_open {margin: 0 auto; width: 20%; height: 45px; line-height: 45px; background: #c3a164; color: #fff; border-radius: 4px; display: block; text-align: center; transition: all 0.3s; overflow: hidden;bottom: 25px; position: absolute; right: 20px; font-size: 16px; font-weight: 500;}
 /* width: calc(100% - 52% - 40px); */
 
-.layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
+.layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%; z-index: 1000000;}
 .layer:target{display:flex;animation:open 0.3s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
 
-.payment_box{ width: 30%; height:auto; overflow: auto; overflow-x: hidden;  margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 55%; transform: translateY(-50%);border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.1); padding-bottom: 20px;}
+.payment_box{ width: 30%; height:auto; overflow: auto; overflow-x: hidden;  margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 50%; transform: translateY(-50%);border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.1); padding-bottom: 20px;}
 .scroll_style::-webkit-scrollbar-track {background-color:transparent;}
 .payment_box::-webkit-scrollbar-thumb {background-color: #444;}
 
@@ -204,19 +204,19 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; posit
 .info_table dd{width: 65%; float: right; color: #222;  text-align: right;}
 
 /*팝업 금액*/
-.price {width: 100%; overflow: hidden; padding: 18px 30px 0;}
+.price {width: 100%; overflow: hidden; padding: 15px 30px 0;}
 .price dl {width: 100%;}
 .price dt {width: 50%; float: left;}
 .price dd {width: 50%; float: right; text-align: right;} 
 dl.reserve_price {color: #999 !important; }
 dl.price_sale {color: #c17e00;}
 /*dl.price_sale dt, dl.price_sale dd {font-weight: bold;}*/
-.total_dl {padding-top: 20px; overflow: hidden; letter-spacing: -0.5px;}
+.total_dl {padding-top: 10px; overflow: hidden; letter-spacing: -0.5px;}
 .total_dl dt {color: #000; line-height: 43px; font-size: 18px;}
 .total_dl dd {color: #000; font-weight: bold;font-size: 26px;}
 .total_dl > span {font-weight: 300; font-size: 18px;}
 
-.notice {padding: 20px 30px; background: #f2f2f2; margin-top: 15px;}
+.notice {padding: 15px 30px; background: #f2f2f2; margin-top: 15px;}
 .notice h5 {font-size: 18px; font-weight: 500; color: #444;}
 .notice p {padding-top: 5px; font-size: 15px; color: #444; font-weight: 300; letter-spacing: -0.25px; line-height: 1.5;}
 .notice p::before {content: '·'; margin-right: 8px; margin-left: -8px;}
