@@ -89,7 +89,7 @@ nav.gnb2 a {display: block;}
 
 /*gnb 자바스크립트*/
 header.on {
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.9));
+    background: rgba(255,255,255,1);
     height: 80px;
 }
 

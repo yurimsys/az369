@@ -1,10 +1,5 @@
-footer {width: 100%; background-color: #fafafa; position: relative; padding: 20px 0 30px;}
+footer {width: 100%; background-color: #fafafa; position: relative; padding: 20px 0 25px; word-break: keep-all;}
 .footer_inner {Width: 1200px; margin: 0 auto;}
-.footer_info {color: #999; font-size: 12px; line-height: 2.4; font-weight: 300;  letter-spacing: 0px;}
-/* .footer_info span {color: #767676; font-weight: 400; padding-right: 10px;} */
-
-/* .doc-footer .list_info>li+li::before, .doc-footer .list_address>dd::before {display: inline-block; width: 1px; height: 8px; margin: 0 7px 0 10px; background: #eee; content: ''; } */
-
 .footer_corp {padding-bottom: 10px;}
 .footer_corp a {color: #222; font-size: 14px;}
 .footer_corp a em {font-weight:500; }
@@ -13,7 +8,9 @@ footer {width: 100%; background-color: #fafafa; position: relative; padding: 20p
 .footer_corp a:nth-child(2)::after,
 .footer_info span::after {display: inline-block; width: 1px; height: 12px; margin: 0 7px 0 12px; background-color: #cbcbcb; content: '';}
 .footer_info span:last-child::after{display: none;}
+.footer_info {color: #999; font-size: 12px; line-height: 2.4; font-weight: 300;  letter-spacing: 0px;}
 .footer_info a, .footer_info img {margin-left: 5px;}
+.footer_info br {display: none;}
  
 
 /* 1200px */
@@ -26,6 +23,7 @@ footer {width: 100%; background-color: #fafafa; position: relative; padding: 20p
     .footer_inner {text-align: center;}
     .footer_corp {padding-bottom: 15px;}
     .footer_info span::after {display: none;}
+    .footer_info br {display: block;}
 }
 
 
