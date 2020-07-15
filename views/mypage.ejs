@@ -620,7 +620,6 @@
             let qr_text = '{cr_id:'+` ${userInfo.cr_id}`+', u_id: '+`${userInfo.u_id}`+'}';
             let $qrcode = $('#qrcode');
             let $qrcode_mobile = $('#qrcode_mobile');
-            var filter = "win16|win32|win64|mac|macintel"; 
             if($('.popup_box_mo').css('display') == 'block'){
                 var qrcode = new QRCode(document.getElementById('qrcode_mobile'), 
                     {

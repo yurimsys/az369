@@ -45,7 +45,7 @@ nav.gnb ul li a {display: block;}
 .innerHeader ul li ul li:hover { color: #333; background: #f5f2eb;}
 
 /*gnb2 - 로그인 회원가입 전화문의*/
-nav.gnb2 {width: 17%; float: right; margin-right:30px; line-height: 80px; font-size: 16px; color: #444;}
+nav.gnb2 {width: 19%; float: right; margin-right:30px; line-height: 80px; font-size: 16px; color: #444;}
 nav.gnb2 ul li {width: 33.3%; float: left; text-align: center; }
 nav.gnb2 a {display: block;}
 
