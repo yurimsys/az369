@@ -25,7 +25,7 @@ span {padding: 0; margin: 0;}
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
     overflow: hidden;
     
 }
@@ -87,6 +87,7 @@ input:focus, textarea:focus {border: 1px solid #c3a164;}
     section.main .inner_main {width: 100%;}
     section.sub_wrap {width:100%;}
     .tnb {width: 100%;}
+    section.sub_wrap {margin-bottom: 40px;}
 }
 
 /*1024px*/

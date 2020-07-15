@@ -513,6 +513,7 @@ section.video h6 {margin-bottom: -0.5%;}
     section.gallery .inner_gallery p {margin-bottom: 5%;}
     .gallery_slide_group, .gallery_slide_viewer {height: 315px;}
     .gallery_slide img {width: 100%;}
+    .directional_nav {width: 100%;}
 
 }
 
@@ -566,6 +567,9 @@ section.video h6 {margin-bottom: -0.5%;}
     section.benefit .benefit_list ul li {width: 100%; height: 430px; margin-bottom: 15px;}
     section.benefit .benefit_01,
     section.benefit .benefit_02 { background-size: cover; background-position: center;height: 100%;}
+    /* .directional_nav {width: 100%; position: relative;}
+    .previous_btn {position: absolute; left: 0;}
+    .next_btn {position: absolute; right: 0;} */
     
     
     /*section.gallery*/
@@ -627,8 +631,6 @@ section.video h6 {margin-bottom: -0.5%;}
     section.main .main_text02 {margin-top: 0%;}
 
     /*main_btn*/
-
-    
     section h3 {font-size: 26px;}
     section h6 {font-size: 14px;}
 
@@ -651,13 +653,12 @@ section.video h6 {margin-bottom: -0.5%;}
     .benefit_list_txt {text-align: center;}
 
     section.benefit .benefit_list ul li {width: 95%; height: 420px; margin: 0 auto; margin-bottom: 15px; margin-left: 2.5%;} 
-
     section.benefit .benefit_01,
     section.benefit .benefit_02 { background-size: cover; height: 450px;} 
     
     
     /*section.gallery*/
-    section.gallery {width: 320px; margin-top: 15%; margin-bottom: 0;}
+    section.gallery {width: 100%; margin-top: 40px; margin-bottom: 0; overflow: hidden;}
     section.gallery p {display: none;}
     section.gallery .bar {margin-bottom: 10%;}
     section.gallery .inner_gallery {width: 100%;}
@@ -675,11 +676,4 @@ section.video h6 {margin-bottom: -0.5%;}
     .video_btn div {margin-top: 65%;}
     .video_btn i {font-size: 17px;}
     .slide-arrow {right: 40px;}
-    
-    /*footer*/
-    footer {width: 100%; margin: 0 auto; margin-top: -50%;}
-    footer .footer_inner {width: 90%; margin: 0 auto;}
-    footer .footer_txt {width: 100%; text-align: center; margin-left: 10%;}
-    footer .footer_txt p {margin: 2% 0;}
-    footer .footer_logo { z-index: 100; margin-right: 55%;}
 }

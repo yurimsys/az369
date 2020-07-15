@@ -13,8 +13,8 @@
 div.seatCharts-seat{
 	/* width: 50px;
     height: 47px; */
-    width: 70px;
-    height: 66px;
+    width: 63px;
+    height: 59px;
     background: url(../../img/reservation/seat_img.png) center no-repeat;
     background-size: contain;
     cursor: pointer;
@@ -37,15 +37,15 @@ div.seatCharts-seat.selected{
 .seatCharts-row div:nth-child(even){
 	/* width: 50px;
     height: 47px; */
-    width: 70px;
-    height: 66px;
+    width: 63px;
+    height: 59px;
 }
 div.seatCharts-seat.selected{
 	background: url(../../img/reservation/seat_img_select.png) center no-repeat;
     /* width: 50px;
     height: 47px; */
-    width: 70px;
-    height: 66px;
+    width: 63px;
+    height: 59px;
     background-size: contain;
 }
 
@@ -71,6 +71,7 @@ div.seatCharts-seat.selected{
     .seatCharts-row div:nth-child(even){width: 48px; height: 44px;}
 }
 
+
 /*375px*/
 @media screen and (max-width: 375px) {
     div.seatCharts-row{ 
@@ -79,9 +80,16 @@ div.seatCharts-seat.selected{
     }
 }
 
-/*320px*/
-@media screen and (max-width: 320px) {
+/*340px*/
+@media screen and (max-width: 340px) {
     div .seatCharts-seat,
     div.seatCharts-seat.selected,
     .seatCharts-row div:nth-child(even){width: 44px; height: 40px;}
+}
+
+/*290px*/
+@media screen and (max-width: 290px) {
+    div .seatCharts-seat,
+    div.seatCharts-seat.selected,
+    .seatCharts-row div:nth-child(even){width: 40px; height: 36px;}
 }

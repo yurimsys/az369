@@ -1,8 +1,9 @@
 @charset "UTF-8";
 
+body {background: #fafafa;}
 
 /*reserve_box*/
-.reservation_box { width: 80%; margin: 0 auto; height: auto; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; position: relative; padding: 25px; border: 1px solid #dbdbdb; border-radius: 4px; background: #fff;}  
+.reservation_box {width: 80%; margin: 0 auto; height: auto; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; position: relative; padding: 25px; border: 1px solid #dbdbdb; border-radius: 4px; background: #fff;}  
 /* .reservation_box ul li {width: 49.5%; float: left; margin-right: 1%;  background: #fff;}
 .reservation_box ul li:nth-child(2) {margin-right: 0;} */
 
@@ -193,7 +194,7 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; posit
 
 /*결제버튼 팝업 내부*/
 /*팝업 타이틀*/
-.payment_tit {margin: 0 auto; text-align: center; color: #222; font-weight: 600; font-size: 24px; padding-bottom: 18px;}
+.payment_tit {margin: 0 auto; text-align: center; color: #222; font-weight: 600; font-size: 24px; padding-top: 18px;}
 
 /*팝업 요약*/
 .info_table {width: 100%; overflow: hidden;/* border-bottom: 1px solid #eee;*/ margin-top: 22px; padding: 0 30px; font-size: 15px;}
@@ -239,12 +240,9 @@ dl.price_sale {color: #c17e00;}
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     section.sub_wrap .inner_sub_wrap {width: 100%;}
-    
-    .reservation_box {width: 60%; margin: 0 auto;}
+    .reservation_box { margin: 0 auto;}
     .payment_open {right: 5%; bottom: 3.2%; width: 200px;}
-    
     .payment_box {width: 40%;}
-
     .select_seat {width: 50%; padding-left: 2%;}
   }
 
