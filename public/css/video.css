@@ -105,15 +105,15 @@ section.video_list{width: 100%; margin-top: 70px; overflow: hidden;}
 
 /*최신 VIDEO 리스트*/
 .video_list ul {width: 100%;  height: auto; margin-top: 26px;}
-.video_list ul li {float: left; position: relative; width: 32%; margin-right: 2%; margin-bottom: 20px; height: auto;  border: 1px solid #dbdbdb; border-radius: 0 0 12px 12px;}
+.video_list ul li {float: left; position: relative; width: 32%; margin-right: 2%; margin-bottom: 20px; height: auto;  border: 1px solid #dbdbdb; border-radius: 12px;}
 .video_list ul li:nth-child(3),
 .video_list ul li:nth-child(6) {margin-right: 0;}
 .video_list ul li:hover
-{box-shadow: 20px 20px 30px rgba(180, 180, 180,0.3);}
+{box-shadow:10px 10px 40px rgba(180, 180, 180,0.2); transition: all 0.4s;}
 
 
 /*최신 VIDEO 리스트 이미지영역*/
-.video_img {width: 100%; float:left; height: 213px; overflow: hidden; position: relative;}
+.video_img {width: 100%; float:left; height: 213px; overflow: hidden; position: relative; border-top-left-radius: 12px; border-top-right-radius: 12px;}
 .video_img iframe {width: 100%; transition: all 0.3s; height: 100%;z-index: -10000; position: absolute;}
 .popup_open:hover iframe {transform: scale(1.05);}
 .video_list ul li iframe {width: 100%;}

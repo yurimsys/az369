@@ -7,14 +7,23 @@ header {width: 100%; height: 80px; position: fixed; z-index: 10000; background-c
     position: relative;
     margin: 0 auto;
     font-size: 18px;
+    transition: all 0.5s;
 }
 
+/* .innerHeader:hover > nav{display:block; }
+.innerHeader:hover {height: 480px;}
+nav.gnb {width: 100%; height: 400px; opacity: 0.8; background-color: teal; display: none; top: 80px; position: absolute;}
+nav.gnb ul {width: 100%; display: flex;}
+nav.gnb ul li {float: left; flex: 1;} */
 
 /*로고*/
 .innerHeader h1.logo {float: left; margin-left: 30px; line-height: 70px; overflow: hidden; transition: .5s all;}
 
+
+
+
 /*nav_gnb*/
-nav.gnb {width: 45%;/* float: left; */margin: 0 auto;} 
+nav.gnb {width: 45%;margin: 0 auto;} 
 nav.gnb ul li {
     float: left;
     margin: 0 auto;

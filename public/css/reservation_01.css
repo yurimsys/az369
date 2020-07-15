@@ -1,9 +1,8 @@
 @charset "UTF-8";
 
-body {background: #fafafa;}
 
 /*reserve_box*/
-.reservation_box { width: 70%; margin: 0 auto; height: auto; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; position: relative; padding: 25px; border: 1px solid #dbdbdb; border-radius: 4px; background: #fff;}  
+.reservation_box { width: 80%; margin: 0 auto; height: auto; overflow: hidden;  animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; position: relative; padding: 25px; border: 1px solid #dbdbdb; border-radius: 4px; background: #fff;}  
 /* .reservation_box ul li {width: 49.5%; float: left; margin-right: 1%;  background: #fff;}
 .reservation_box ul li:nth-child(2) {margin-right: 0;} */
 
@@ -134,9 +133,9 @@ body {background: #fafafa;}
 
 /*오른쪽영역*/
 /* .reserve_right { width: 100%; margin: 0 auto; background: #fff; border: 1px solid #dbdbdb;border-radius: 4px; position: relative; overflow: hidden;  } */
-.bus_info {font-size: 20px; padding-bottom: 25px; border-bottom: 1px solid #eee; font-weight: 400; text-align: center; margin-bottom: 25px; color: #444;}
+.bus_info {padding-bottom: 20px; border-bottom: 1px solid #eee; text-align: center; margin-bottom: 25px; color: #444; }
 .bus_info_box {font-size: 15px; margin-right: 10px; color: #b99550; padding: 0px 5px; border: 1px solid #c3a164; border-radius: 4px; display: inline-block;}
-.bus_info_txt {display: inline-block;}
+.bus_info_txt {display: inline-block; font-size: 20px; font-weight: 500;}
 .bus_info_txt br {display: none;}
 
 
@@ -188,13 +187,13 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; posit
 .layer:target{display:flex;animation:open 0.3s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
 
-.payment_box{ width: 30%; height:85%; overflow: scroll; overflow-x: hidden;  margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 55%; transform: translateY(-50%); border-top-left-radius: 12px; border-bottom-left-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.1); padding-bottom: 20px;}
+.payment_box{ width: 30%; height:82%; overflow: auto; overflow-x: hidden;  margin: 0 auto;background:#fff;position:relative; z-index: 1000; top: 55%; transform: translateY(-50%);border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.1); padding-bottom: 20px;}
+.scroll_style::-webkit-scrollbar-track {background-color:transparent;}
 .payment_box::-webkit-scrollbar-thumb {background-color: #444;}
-.payment_box::-webkit-scrollbar {margin: 20px 0;}
 
 /*결제버튼 팝업 내부*/
 /*팝업 타이틀*/
-.payment_tit {margin: 0 auto; text-align: center; color: #222; font-weight: 600; font-size: 24px; padding-top: 18px;}
+.payment_tit {margin: 0 auto; text-align: center; color: #222; font-weight: 600; font-size: 24px; padding-bottom: 18px;}
 
 /*팝업 요약*/
 .info_table {width: 100%; overflow: hidden;/* border-bottom: 1px solid #eee;*/ margin-top: 22px; padding: 0 30px; font-size: 15px;}
@@ -214,7 +213,7 @@ dl.price_sale {color: #c17e00;}
 .total_dl {padding-top: 20px; overflow: hidden; letter-spacing: -0.5px;}
 .total_dl dt {color: #000; line-height: 43px; font-size: 18px;}
 .total_dl dd {color: #000; font-weight: bold;font-size: 26px;}
-.total_dl dd span {font-weight: 300; font-size: 18px;}
+.total_dl > span {font-weight: 300; font-size: 18px;}
 
 .notice {padding: 20px 30px; background: #fafafa; margin-top: 15px;}
 .notice h5 {font-size: 18px; font-weight: 500; color: #444;}

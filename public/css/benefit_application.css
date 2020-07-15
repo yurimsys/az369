@@ -83,7 +83,7 @@ input[type=submit]:hover {
     transition: all 0.3s;
 }
 
-.apply_form:hover, .apply_check:hover {box-shadow: 20px 20px 30px rgba(180, 180, 180,0.3);}
+.apply_form:hover, .apply_check:hover {box-shadow:0px 5px 20px rgba(180, 180, 180,0.2);}
 
 /*apply_form*/
 .apply_check {margin-bottom: 4%;}
