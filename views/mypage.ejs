@@ -5,6 +5,15 @@
     <% include templates/head.ejs %>
     <link rel="stylesheet" href="/css/common_box.css">
     <link rel="stylesheet" href="/css/mypage.css">
+    <script src="/js/alertify.min.js"></script>
+    <script src="/js/analytics.s"></script>
+
+    <!-- <script src="/js/swal.js"></script>
+    <link rel="stylesheet" href="/css/swal.css"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script> -->
+
+  <link rel="stylesheet" href="/css/alertify.min.css">
+  <link rel="stylesheet" href="/css/alertify.rtl.min.css">
 
     <title>AZ369 - 마이페이지</title>
 
@@ -728,13 +737,26 @@
                         alert("출발 3일전에는 취소가 불가능합니다.");
                         location.href = "mypage";
                     } else {
-                        alert("취소가 완료되었습니다.");
-                        location.href = "mypage";
+                        // alert('예매가 취소되었습니다.')
+                        alertify.alert('Alert Title', 'Alert Message!', function(){ alertify.success('Ok'); });
+
+                        // location.href = "mypage";
                     }
 
                 }
             })
         }
+
+
+
+
+
+
+
+
+
+
+
 
         //현 장차예매 현황 체크박스 지우기
         $("#tab1").on('click', function () {
