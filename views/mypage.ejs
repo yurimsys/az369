@@ -5,15 +5,6 @@
     <% include templates/head.ejs %>
     <link rel="stylesheet" href="/css/common_box.css">
     <link rel="stylesheet" href="/css/mypage.css">
-    <script src="/js/alertify.min.js"></script>
-    <script src="/js/analytics.s"></script>
-
-    <!-- <script src="/js/swal.js"></script>
-    <link rel="stylesheet" href="/css/swal.css"> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script> -->
-
-  <link rel="stylesheet" href="/css/alertify.min.css">
-  <link rel="stylesheet" href="/css/alertify.rtl.min.css">
 
     <title>AZ369 - 마이페이지</title>
 
@@ -194,6 +185,8 @@
                                         <!-- <p class="cancel_info">취소할 예매 목록을 선택하시고 하단의 버튼을 누르시면 예매를 취소하실 수 있습니다.</p> -->
 
                                         <!-- <a class="popup_open" onclick="cancelBtn()">선택예매취소</a> -->
+
+
                                     </div>
 
 
@@ -470,8 +463,7 @@
                     </li>
 
                     <li>
-                        <a href="#" class="btn btn-primary" onclick="resCancel()">예매
-                            취소</a>
+                        <a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a>
                     </li>
                 </ul>
             </div>
@@ -493,11 +485,11 @@
             <div class="popup_btn_mo">
                 <ul>
                     <li>
-                        <a onclick="javascript:$('#popup').css('display','none'); $('header').css('display','block'); $('footer').css('display','block');" class=" btn btn-secondary">닫기</a>
+                        <a onclick="javascript:$('#popup').css('display','none'); $('header').css('display','block')" class=" btn btn-secondary">닫기</a>
                     </li>
 
                     <li>
-                        <a class="btn btn-primary" onclick="resCancel()">예매 취소</a>
+                        <a class="btn btn-primary"onclick="resCancel()">예매취소</a>
                     </li>
                 </ul>
             </div>
@@ -726,7 +718,9 @@
         // }
 
 
-        //예매 취소
+
+
+        // 예매 취소
         function resCancel() {
             $.ajax({
                 url: "api/user/cancelRes",
@@ -754,10 +748,10 @@
 
                         // location.href = "mypage";
                     }
-
                 }
             })
         }
+        
 
 
         //현 장차예매 현황 체크박스 지우기
@@ -1199,9 +1193,11 @@
 
         }
 
-// QR코드
+// QR코드vz
 
     </script>
+
+
 
 
 

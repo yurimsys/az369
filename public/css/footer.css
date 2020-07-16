@@ -1,7 +1,7 @@
 footer {width: 100%; background-color: #fafafa; position: relative; padding: 20px 0 25px; word-break: keep-all;}
 .footer_inner {Width: 1200px; margin: 0 auto;}
 .footer_corp {padding-bottom: 10px;}
-.footer_corp a {color: #222; font-size: 14px;}
+.footer_corp a {color: #444; font-size: 14px;}
 .footer_corp a em {font-weight:500; }
 .footer_corp a:hover {color: #767676; transition: all 0.3s;}
 .footer_corp a:nth-child(1)::after,
