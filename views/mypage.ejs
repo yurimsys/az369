@@ -30,7 +30,17 @@
     <!-- QR코드 -->
     <script src="/js/qrcode.js"></script>
 
-    <script src="https://dl.dropbox.com/s/yrr7z4avnas4a6c/asteroid-alert-min.js"></script>
+   <!-- sweet alert -->
+   <script src="/js/swal.js"></script>
+   <!-- <script src="https://unpkg.com/sweetalert2@latest/dist/sweetalert2.all.js"></script> -->
+   <!-- <link rel="stylesheet" href="/css/swal.css"> -->
+
+   <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+   <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script> -->
+
+   <script src="/js/alert.js"></script>
+   <link rel="stylesheet" href="/css/alert.css">
+
 </head>
 
 <body>
@@ -217,8 +227,7 @@
                                                         </li>
 
                                                         <li>
-                                                            <a href="#" class="btn btn-primary" onclick="resCancel()">예매
-                                                                취소</a>
+                                                            <a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -244,7 +253,7 @@
                                                         </li>
 
                                                         <li>
-                                                            <button class="btn btn-primary" id="myconfirm" onclick="resCancel()">예매 취소</button>
+                                                            <a class="btn btn-primary"onclick="resCancel()">예매취소</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -713,7 +722,14 @@
         // }
 
 
-        //예매 취소
+        function swalAlert() {
+            Swal.fire('출발 3일전에는 취소가 불가능합니다.')
+            if
+            // location.href = "mypage";
+        }
+
+
+        // 예매 취소
         function resCancel() {
             $.ajax({
                 url: "api/user/cancelRes",
@@ -724,24 +740,20 @@
                 success: function (res) {
                     //console.log("업데이트 값",res.data);
                     if (res.data == 0) {
-                        alert("출발 3일전에는 취소가 불가능합니다.");
-                        location.href = "mypage";
-                    } else {
-                        var myconfirm = document.getElementById("myconfirm")
-                        myconfirm.addEventListener("click", function(){
-                            $confirm("Do you want to delete?", "#E74C3C")
-                            .then(() => {
-                                $toast("Deleted", "#E74C3C");
-                            })
-                        })
-
+                        swalAlert();
+                        // alert("출발 3일전에는 취소가 불가능합니다.");
+                        // location.href = "mypage";
+                    } 
+                    else {
+                        Swal('Any fool can use a computer');
                         // location.href = "mypage";
                     }
-
                 }
             })
         }
+        
 
+// Swal.fire('Any fool can use a computer')
 
 
 
@@ -1188,11 +1200,7 @@
 
     </script>
 
-<script type="text/javascript">
 
-
-
-</script>
 
 
 
