@@ -32,6 +32,7 @@
 
    <!-- sweet alert -->
    <script src="/js/swal.js"></script>
+   <link rel="stylesheet" href="/css/swal.">
    <!-- <script src="https://unpkg.com/sweetalert2@latest/dist/sweetalert2.all.js"></script> -->
    <!-- <link rel="stylesheet" href="/css/swal.css"> -->
 
@@ -722,11 +723,6 @@
         // }
 
 
-        function swalAlert() {
-            Swal.fire('출발 3일전에는 취소가 불가능합니다.')
-            if
-            // location.href = "mypage";
-        }
 
 
         // 예매 취소
@@ -740,7 +736,14 @@
                 success: function (res) {
                     //console.log("업데이트 값",res.data);
                     if (res.data == 0) {
-                        swalAlert();
+                        swal({
+                            title: '테스트입니다.',
+                            icon: 'success',
+                            button: '확인해셈',
+                            text: '바랍라발바랍라'
+                        }).then((value)=>{
+                            location.href="mypage"
+                        })
                         // alert("출발 3일전에는 취소가 불가능합니다.");
                         // location.href = "mypage";
                     } 
