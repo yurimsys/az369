@@ -513,6 +513,7 @@
         //예매하기 버튼
         function showPayment() {
             $('.inner_sub_wrap').css('display','none')
+            $('footer').css('display','none');
             $('header').css('display','none');
             let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                 ct_id = sessionStorage.getItem("ct_id");
@@ -552,6 +553,7 @@
             $('.inner_sub_wrap').css('display','block')
             $('header').css('display','block');
             $('#payment').css('display','none')
+            $('footer').css('display','block');
         }
 
         function getInputDayLabel(date) {
