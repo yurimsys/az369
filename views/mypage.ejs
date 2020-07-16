@@ -20,18 +20,35 @@
 
     <!--datepicker 링크-->
     <link rel="stylesheet" href="css/jquery-ui.css">
-    <script src="js/jquery-ui.js"></script>
-    <!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />-->
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
     <!-- datepicker 한국어로 -->
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
 
     <!-- QR코드 -->
     <script src="/js/qrcode.js"></script>
-
-    <!-- SweetAlert -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+    <style>
+        .swal-text{
+            text-align: center;
+        }
+        .swal-icon--success__line{
+            background-color: #C3A164;
+        }
+        .swal-button{
+            background-color: #C3A164;
+        }
+        .swal-modal{
+            border-radius: 12px;
+        }
+        .swal-icon--success__ring{
+            border: none;
+        }
+        .swal-title{
+            padding: 0px 16px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -529,6 +546,7 @@
         var tdVal = Array();
 
         function resModal(e) {
+            console.log('eee :', e);
             if(e.dataset.mob == 'mobile'){
                 $('footer').css('display','none');
                 $('header').css('display','none')
@@ -729,24 +747,31 @@
                 async: false,
                 data: { 'trVal': trVal, 'tdVal': tdVal },
                 success: function (res) {
-                    //console.log("업데이트 값",res.data);
+                    console.log("업데이트 값",res.data);
+                    console.log('데이터!! :', res);
+                    $('.swal-icon--success__ring').css('display','none');
+                    let link = document.createElement('div')
+                        link.innerHTML = "<a href='/'>환불규정 보기</a>"
                     if (res.data == 0) {
-                        // alert("출발 3일전에는 취소가 불가능합니다.");
-                        // swal('heelo')
                         swal({
-                            title: 'Test Alert',
-                            text: 'click plz',
-                            icon: 'success',
-                            button: 'cancel'
+                            title: '취소 실패',
+                            text: '출발일 기준 3일 내 예매취소가 불가능합니다. \n',
+                            content: link,
+                            icon: 'error',
+                            button: '환불규정 보기',
+                            button: '확인'
                         }).then((value)=>{
                             location.href='mypage';
                         })
-                        // location.href = "mypage";
                     } else {
-                        // alert('예매가 취소되었습니다.')
-                        alertify.alert('Alert Title', 'Alert Message!', function(){ alertify.success('Ok'); });
-
-                        // location.href = "mypage";
+                        swal({
+                            title: '예매취소 완료',
+                            text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
+                            icon: 'success',
+                            button: '확인'
+                        }).then((value)=>{
+                            location.href='mypage';
+                        })
                     }
                 }
             })

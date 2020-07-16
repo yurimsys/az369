@@ -801,7 +801,9 @@ router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
                     set CR_Cancel = :crCancel, CR_CancelDt = now()
                     where CR_U_Id = :sessionId and CR_PH_ID IN (:crPId) and
                     CR_CT_ID IN (:crCtId) and tCT.CT_DepartureTe > date_add(now(),interval +4 day);`;
+                    // and tCT.CT_DepartureTe > date_add(now(),interval +4 day);
     //pID  cr_cdt
+    let select_query = `select CR_SeatNum, CR_Price from tCR where CR_PH_ID = :crPId AND CR_CT_ID = :crCtId`
     let sessionId = req.user.U_ID;
     let crCancel = 'Y';
     let crPId = req.body.trVal;
@@ -818,9 +820,22 @@ router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
         function(err, rows, fields) {
             if (err) throw err;
 
+            connection.query(select_query,
+                {
+                    crPId, crCtId
+                },
+                function(err, result, fields){
+                    let over_lap = [];
+                    for(let i=0; i <result.length; i++){
+                          over_lap.push(result[i].CR_SeatNum)
+                    }
+                    let seat_number = over_lap.join('번,')+'번';
+                    res.json({data : rows.affectedRows, seats : seat_number, cancelPay : result.length *result[0].CR_Price})
+
+                })
             // //console.log(findId);
-            res.json( {  data : rows.affectedRows});
-            console.log("rows : ",rows.affectedRows);
+            // res.json( {  data : rows.affectedRows});
+            // console.log("rows : ",rows.affectedRows);
 
         });
 
