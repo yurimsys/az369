@@ -5,15 +5,6 @@
     <% include templates/head.ejs %>
     <link rel="stylesheet" href="/css/common_box.css">
     <link rel="stylesheet" href="/css/mypage.css">
-    <script src="/js/alertify.min.js"></script>
-    <script src="/js/analytics.s"></script>
-
-    <!-- <script src="/js/swal.js"></script>
-    <link rel="stylesheet" href="/css/swal.css"> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script> -->
-
-  <link rel="stylesheet" href="/css/alertify.min.css">
-  <link rel="stylesheet" href="/css/alertify.rtl.min.css">
 
     <title>AZ369 - 마이페이지</title>
 
@@ -38,6 +29,8 @@
 
     <!-- QR코드 -->
     <script src="/js/qrcode.js"></script>
+
+    <script src="https://dl.dropbox.com/s/yrr7z4avnas4a6c/asteroid-alert-min.js"></script>
 </head>
 
 <body>
@@ -251,7 +244,7 @@
                                                         </li>
 
                                                         <li>
-                                                            <a class="btn btn-primary" id="success" onclick="resCancel()">예매 취소</a>
+                                                            <button class="btn btn-primary" id="myconfirm" onclick="resCancel()">예매 취소</button>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -734,8 +727,13 @@
                         alert("출발 3일전에는 취소가 불가능합니다.");
                         location.href = "mypage";
                     } else {
-                        // alert('예매가 취소되었습니다.')
-                        alertify.alert('Alert Title', 'Alert Message!', function(){ alertify.success('Ok'); });
+                        var myconfirm = document.getElementById("myconfirm")
+                        myconfirm.addEventListener("click", function(){
+                            $confirm("Do you want to delete?", "#E74C3C")
+                            .then(() => {
+                                $toast("Deleted", "#E74C3C");
+                            })
+                        })
 
                         // location.href = "mypage";
                     }
@@ -743,14 +741,6 @@
                 }
             })
         }
-
-
-
-
-
-
-
-
 
 
 
@@ -1194,9 +1184,15 @@
 
         }
 
-// QR코드
+// QR코드vz
 
     </script>
+
+<script type="text/javascript">
+
+
+
+</script>
 
 
 
