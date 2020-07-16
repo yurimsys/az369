@@ -38,6 +38,9 @@
 
     <!-- QR코드 -->
     <script src="/js/qrcode.js"></script>
+
+    <!-- SweetAlert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -734,8 +737,17 @@
                 success: function (res) {
                     //console.log("업데이트 값",res.data);
                     if (res.data == 0) {
-                        alert("출발 3일전에는 취소가 불가능합니다.");
-                        location.href = "mypage";
+                        // alert("출발 3일전에는 취소가 불가능합니다.");
+                        // swal('heelo')
+                        swal({
+                            title: 'Test Alert',
+                            text: 'click plz',
+                            icon: 'success',
+                            button: 'cancel'
+                        }).then((value)=>{
+                            location.href='mypage';
+                        })
+                        // location.href = "mypage";
                     } else {
                         // alert('예매가 취소되었습니다.')
                         alertify.alert('Alert Title', 'Alert Message!', function(){ alertify.success('Ok'); });
@@ -746,16 +758,6 @@
                 }
             })
         }
-
-
-
-
-
-
-
-
-
-
 
 
         //현 장차예매 현황 체크박스 지우기
