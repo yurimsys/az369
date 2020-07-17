@@ -6,45 +6,173 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/driver_app.css">
     <script src="/js/jquery-3.3.1.min.js"></script>
+
 </head>
 <body>
 
     <div class="wrap">
+    
+    
+      <div class="tab">
+        <button class="tab_button" onclick="openLocation(event, 'pyeongtaek')" id="defaultOpen">평택 출발</button>
+        <button class="tab_button" onclick="openLocation(event, 'seoul')">동대문 출발</button>
+      </div>
+    
+      <!-- 평택 ㅇ출발 -->
+      <div id="pyeongtaek" class="tabcontent">
+        <div class="bus_info">
+          <h3>운행정보</h3>
+          <dd>평택 21:00 - 서울동대문 04:00</dd>
+          <dd>유림고속 (1111)</dd>
+        </div>
+    
+        <button class="btn qr">QR코드 스캔하기</button>
+
+        <div class="seat-map seatCharts-container">
+        </div>
+        <!--새로고침: 아이콘을 넣어야해서 div로 바뀔예정 -->
+        <div class="btn reload">새로고침</div>
         
+        <button class="btn check">승차완료</button>
+        <button class="btn start" id="myBtn">출발</button>
+ 
+     <div id="myModal" class="modal">
+       <div class="modal-inner">
+         <h3>출발하시겠습니까?</h3>
+        <p>확인을 누르면 현재 운행하는 장차의
+          온라인 예매가 마감됩니다. <br>
+          마감 후 온라인 예매는 불가능해집니다.</p>
+          <div class="modal_inner_btn">
+         <a href="#" class="cancle">취소</a>             
+         <a href="#" class="ok">확인</a>
+        </div>                                       
+       </div>
+     </div>
+ 
+
           
-          <div class="tab">
-            <button class="tab_button" onclick="openCity('pyeongtaek')">평택 출발</button>
-            <button class="tab_button" onclick="openCity('seoul')">동대문 출발</button>
-            <!-- <button class="w3-bar-item w3-button" onclick="openCity('Tokyo')">Tokyo</button> -->
-          </div>
-          
-          <div id="pyeongtaek" class="w3-container city">
-            <h2>평택 좌석 영역</h2>
-            <p>내용내용내용</p>
-          </div>
-          
-          <div id="seoul" class="w3-container city" style="display:none">
-            <h2>동대문 좌석 영역</h2>
-            <p>내용내용내용</p> 
-          </div>
-          
-          <!-- <div id="Tokyo" class="w3-container city" style="display:none">
-            <h2>Tokyo</h2>
-            <p>Tokyo is the capital of Japan.</p>
-          </div> -->
-          
-          <script>
-          function openCity(cityName) {
-            var i;
-            var x = document.getElementsByClassName("city");
-            for (i = 0; i < x.length; i++) {
-              x[i].style.display = "none";  
-            }
-            document.getElementById(cityName).style.display = "block";  
-          }
-          </script>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 서울동대문 출발 -->
+      <div id="seoul" class="tabcontent">
+        <div class="bus_info">
+          <h3>운행정보</h3>
+          <dd>평택 21:00 - 서울동대문 04:00</dd>
+          <dd>유림고속 (1111)</dd>
+        </div>
+    
+        <button class="btn qr">QR코드 스캔하기</button>
+
+        <div class="seat-map seatCharts-container">
+        </div>
+        <!--새로고침: 아이콘을 넣어야해서 div로 바뀔예정 -->
+        <button class="btn reload">새로고침</button>
         
+        <button class="btn check">승차완료</button>
+        <button class="btn start">출발</button>
+        
+      </div>
+    
+
+      <footer>
+        <dd>문의전화 <span>0000 - 0000</span></dd>
+        <dd>(평일 09:00 ~ 18:00, 유료)</dd>
+      </footer>
+    
+    
     </div>
+
+    
     
 </body>
+
+<!-- 평택, 동대문 탭 -->
+<script>
+  function openLocation(evt, locationName) {
+      var i, tabcontent, tab_button;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+      }
+      tab_button = document.getElementsByClassName("tab_button");
+      for (i = 0; i < tab_button.length; i++) {
+        tab_button[i].className = tab_button[i].className.replace(" active", "");
+      }
+      document.getElementById(locationName).style.display = "block";
+      evt.currentTarget.className += " active";
+  }
+
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+
+
+var modal = document.getElementById('myModal');
+ 
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+ 
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("ok")[0];                                          
+ 
+        // When the user clicks on the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+ 
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+ 
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+
+
+
+
+
+
+
+
+//   $(function(){
+//     $('.check').click(function(){
+//         $('.check').css('border','1px solid #B58D45');
+//         $('.check').css('color','#B58D45');
+//         $('.start').css('background','#B58D45');
+//     });
+// });
+
+      $(document).ready(function() {
+        $('.check').on(click, function(){
+          $(this).addClass('clicked')
+        });
+        $()
+      })
+</script>
+
+
+
 </html>
