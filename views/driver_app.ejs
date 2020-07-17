@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/driver_app.css">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+
+    <div class="wrap">
+        
+          
+          <div class="tab">
+            <button class="tab_button" onclick="openCity('pyeongtaek')">평택 출발</button>
+            <button class="tab_button" onclick="openCity('seoul')">동대문 출발</button>
+            <!-- <button class="w3-bar-item w3-button" onclick="openCity('Tokyo')">Tokyo</button> -->
+          </div>
+          
+          <div id="pyeongtaek" class="w3-container city">
+            <h2>평택 좌석 영역</h2>
+            <p>내용내용내용</p>
+          </div>
+          
+          <div id="seoul" class="w3-container city" style="display:none">
+            <h2>동대문 좌석 영역</h2>
+            <p>내용내용내용</p> 
+          </div>
+          
+          <!-- <div id="Tokyo" class="w3-container city" style="display:none">
+            <h2>Tokyo</h2>
+            <p>Tokyo is the capital of Japan.</p>
+          </div> -->
+          
+          <script>
+          function openCity(cityName) {
+            var i;
+            var x = document.getElementsByClassName("city");
+            for (i = 0; i < x.length; i++) {
+              x[i].style.display = "none";  
+            }
+            document.getElementById(cityName).style.display = "block";  
+          }
+          </script>
+        
+    </div>
+    
+</body>
+</html>

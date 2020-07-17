@@ -107,16 +107,16 @@
 
                                     <div class="mypage_nav">
                                         <button class="tablinks" id="tab1" onclick="openList(event, '01')"
-                                            id="defaultOpen"> 현 장차예매 현황 <span><img src="/img/common/right_arrow_g.png"
+                                            id="defaultOpen"> 장차예매현황 <span><img src="/img/common/right_arrow_g.png"
                                                     alt=""></span></button>
 
-                                        <button class="tablinks" id="tab2" onclick="openList(event, '02')"> 예매 및 결제내역
+                                        <button class="tablinks" id="tab2" onclick="openList(event, '02')"> 예매결제내역
                                             <span><img src="/img/common/right_arrow_g.png" alt=""></span></button>
 
-                                        <button class="tablinks" id="tab3" onclick="openList(event, '03')"> 취소 및 환불조회
+                                        <button class="tablinks" id="tab3" onclick="openList(event, '03')"> 취소환불조회
                                             <span><img src="/img/common/right_arrow_g.png" alt=""></span></button>
                                     </div>
-                                    <div class="logout btn btn-secondary"><a href="login">로그아웃</a></div>
+                                    <!-- <div class="logout btn btn-secondary"><a href="login">로그아웃</a></div> -->
                                 </div>
 
                                 <!--왼쪽 목록버튼-->
@@ -147,10 +147,10 @@
 
                                         <div class="reserve_list_tit">
                                             <ul>
-                                                <li>출발날짜</li>
+                                                <li>출발일시</li>
                                                 <li>운행지역</li>
                                                 <li>차량정보</li>
-                                                <li>선택좌석</li>
+                                                <li>예매좌석</li>
                                             </ul>
                                         </div>
                                         <div id="reserve_list" class="scroll_style">
@@ -192,7 +192,7 @@
                                                                 <h6><%=data[i].carName%></h6>
                                                             </li>
                                                             <li>
-                                                                선택좌석
+                                                                예매좌석
                                                                 <h6><%=data[i].seatNum%></h6>
                                                             </li>
                                                             <li><i class="fas fa-chevron-right"></i></li>
@@ -205,9 +205,9 @@
 
                                         </div>
 
-                                        <!-- <p class="cancel_info">취소할 예매 목록을 선택하시고 하단의 버튼을 누르시면 예매를 취소하실 수 있습니다.</p> -->
+                                        <!-- <p class="cancel_info">취소할 예매 목록을 예매하시고 하단의 버튼을 누르시면 예매를 취소하실 수 있습니다.</p> -->
 
-                                        <!-- <a class="popup_open" onclick="cancelBtn()">선택예매취소</a> -->
+                                        <!-- <a class="popup_open" onclick="cancelBtn()">예매예매취소</a> -->
 
 
                                     </div>
@@ -219,8 +219,8 @@
                                     <div id="02" class="tabcontent">
 
                                         <div class="tab_tit">
-                                            <h4>장차예매 및 결제내역</h4>
-                                            <p>오늘날짜기준 최대 6개월까지만 조회가 가능합니다. </p>
+                                            <h4>예매결제내역</h4>
+                                            <p>오늘일시기준 최대 6개월까지만 조회가 가능합니다. </p>
                                         </div>
                                         <!-- search -->
                                         <div class="searchBox">
@@ -287,7 +287,7 @@
                                                         </span>
                                                     </li>
                                                 </ul>
-                                                <button class="search_btn" onclick="payBetween()">날짜조회</button>
+                                                <button class="search_btn" onclick="payBetween()">일시조회</button>
                                             </div>
                                         </div>
 
@@ -297,9 +297,9 @@
                                                 <thead>
                                                     <tr>
                                                         <th>결제일시</th>
-                                                        <th>출발날짜</th>
+                                                        <th>출발일시</th>
                                                         <th>차량정보</th>
-                                                        <th>좌석개수</th>
+                                                        <th>예매좌석</th>
                                                         <th>결제수단</th>
                                                         <th>결제금액</th>
                                                     </tr>
@@ -313,13 +313,26 @@
                                         <div class="list02_mo scroll_style">
 
                                         </div>
+
+                                        <!--두번째 리스트 popup mo-->
+                                        <div id="popup2" class="layer">
+                                            <div class="popup_box_mo popup_box_mo2">
+                                                <h2>예매 결제 상세내역</h2>
+                                                <div class="table_mo">
+                                                </div>
+
+                                                <div class="popup_btn_mo">
+                                                    <a class="btn btn-secondary popup_close1" onclick="javascript:$('header').css('display','block')">닫기</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <!--환불조회 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22 -->
                                     <div id="03" class="tabcontent">
                                         <div class="tab_tit">
-                                            <h4>취소 및 환불조회</h4>
-                                            <p> 오늘날짜기준 최대 6개월까지만 조회가 가능합니다. </p>
+                                            <h4>취소환불조회</h4>
+                                            <p> 오늘일시기준 최대 6개월까지만 조회가 가능합니다. </p>
                                         </div>
 
                                         <!-- search -->
@@ -389,7 +402,7 @@
                                                         </span>
                                                     </li>
                                                 </ul>
-                                                <button class="search_btn" onclick="cancelBetween()">날짜조회</button>
+                                                <button class="search_btn" onclick="cancelBetween()">일시조회</button>
                                             </div>
                                         </div>
 
@@ -398,9 +411,9 @@
                                             <table class="table">
                                                 <tr>
                                                     <th>결제일시</th>
-                                                    <th>출발날짜</th>
-                                                    <th>취소날짜</th>
-                                                    <th>좌석개수</th>
+                                                    <th>출발일시</th>
+                                                    <th>취소일시</th>
+                                                    <th>예매좌석</th>
                                                     <th>결제수단</th>
                                                     <th>환불금액</th>
                                                 </tr>
@@ -412,11 +425,26 @@
                                         <!--세번째 리스트 mo 414px-->
                                         <div class="list03_mo scroll_style">
                                         </div>
+
+                                        <!--세번째 리스트 popup mo-->
+                                        <!--환불완료-->
+                                        <div id="popup3" class="layer">
+                                            <div class="popup_box_mo">
+                                                <h2>취소환불 상세내역</h2>
+                                                <div class="table_mo">
+
+                                                </div>
+
+                                                <div class="popup_btn_mo">
+                                                    <a class="btn btn-secondary popup_close1" onclick="javascript:$('header').css('display','block')">닫기</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <!--768부터적용-->
-                                <div class="logout_mo"><a href="logout">로그아웃</a></div>
+                                <!-- <div class="logout_mo btn btn-secondary" ><a href="logout">로그아웃</a></div> -->
 
 
                             </li>
@@ -457,34 +485,140 @@
     <div id="popup" class="layer">
         <!-- 예매취소 후 리스트 @@@@@@@@@@@@@@@@@@@@@@@@@@@222 -->
         <!--popup PC-->
-        <div class="popup_box">
-            <h2>예매상세내역 (승차권)</h2>
-            <div class="qr_info">
-                <div id='qrcode' class='qrcode'></div>
-                <div class="qr_txt">  <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p> </div>
-            </div>
-            <table class="table">
-                <thead>
-                    <!-- <th>예약번호</th> -->
-                    <th>결제날짜</th>
-                    <th>예약정보</th>
-                    <th>좌석개수</th>
-                    <th>결제수단</th>
-                    <th>결제금액</th>
-                </thead>
-                <tbody class="cancelRes">
-                </tbody>
-            </table>
 
-            <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한
+        
+        <div class="popup_box">
+        
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <h2>승차권</h2>
+                        <div class="qr_info">
+                            <div id='qrcode' class='qrcode'></div>
+                            <div class="qr_txt">
+                                <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p>
+                            </div>
+                        </div>
+                        <table class="detail_table">
+                            <tr>
+                                <th>결제일시</th>
+                                <td>2020.01.01 19:24</td>
+                            </tr>
+                            <tr>
+                                <th>예매정보</th>
+                                <td>2020.01.07 21:00 - 04:00 <span>(평택 - 서울동대문)</span> <br> 유림고속(1111)</td>
+                            </tr>
+                            <tr>
+                                <th>예매좌석</th>
+                                <td>1번</td>
+                            </tr>
+                            <tr>
+                                <th>결제수단</th>
+                                <td>카드결제 (신한)</td>
+                            </tr>
+                            <tr>
+                                <th>결제금액</th>
+                                <td>20,000원</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- <div class="swiper-slide">
+                        <h2>승차권</h2>
+                        <div class="qr_info">
+                            <div id='qrcode' class='qrcode'></div>
+                            <div class="qr_txt">
+                                <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p>
+                            </div>
+                        </div>
+                        <table class="detail_table">
+                            <tr>
+                                <th>결제일시</th>
+                                <td>2020.01.01 19:24</td>
+                            </tr>
+                            <tr>
+                                <th>예매정보</th>
+                                <td>2020.01.07 21:00 - 04:00 <span>(평택 - 서울동대문)</span> <br> 유림고속(1111)</td>
+                            </tr>
+                            <tr>
+                                <th>예매좌석</th>
+                                <td>1번</td>
+                            </tr>
+                            <tr>
+                                <th>결제수단</th>
+                                <td>카드결제 (신한)</td>
+                            </tr>
+                            <tr>
+                                <th>결제금액</th>
+                                <td>20,000원</td>
+                            </tr>
+                        </table>
+                    </div> -->
+                    <div class="swiper-slide">Slide 3</div>
+                    <div class="swiper-slide">Slide 4</div>
+                    
+                </div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        
+
+        
+            <!-- <h2>승차권</h2>
+                    <div class="qr_info">
+                        <div id='qrcode' class='qrcode'></div>
+                        <div class="qr_txt">  <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p> </div>
+                    </div>
+        
+                    
+                    <table class="detail_table">
+                        <tr>
+                            <th>결제일시</th>
+                            <td>2020.01.01 19:24</td>
+                        </tr>
+                        <tr>
+                            <th>예매정보</th>
+                            <td>2020.01.07 21:00 - 04:00 <span>(평택 - 서울동대문)</span> <br> 유림고속(1111)</td>
+                        </tr>
+                        <tr>
+                            <th>예매좌석</th>
+                            <td>1번</td>
+                        </tr>
+                        <tr>
+                            <th>결제수단</th>
+                            <td>카드결제 (신한)</td>
+                        </tr>
+                        <tr>
+                            <th>결제금액</th>
+                            <td>20,000원</td>
+                        </tr>
+                    </table> -->
+        
+        
+            <!--
+                        가로형 table
+                        <table class="table">
+                        <thead>
+                            <th>결제일시</th>
+                            <th>예매정보</th>
+                            <th>예매좌석</th>
+                            <th>결제수단</th>
+                            <th>결제금액</th>
+                        </thead>
+                        <tbody class="cancelRes">
+                        </tbody>
+                    </table> -->
+        
+            <p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한
                 예매를 취소하겠습니까?</p>
             <div class="popup_btn">
                 <ul>
                     <li>
-                        <a onclick="javascript:$('#popup').css('display','none')"
-                            class="btn btn-secondary popup_close1">닫기</a>
+                        <a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary popup_close1">닫기</a>
                     </li>
-
+        
                     <li>
                         <a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a>
                     </li>
@@ -495,14 +629,14 @@
 
         <!--popup mo 768px-->
         <div class="popup_box_mo">
-            <h2>예매상세내역 (승차권)</h2>
+            <h2>승차권</h2>
             <div class="qr_info">
                 <div id='qrcode_mobile' class='qrcode'></div>
                 <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권을 보여드리면 장차 탑승이 가능합니다.</p>
             </div>
             <div class="table_mo">
             </div>
-            <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>선택한
+            <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한
                 예매를 취소하겠습니까?</p>
 
             <div class="popup_btn_mo">
@@ -546,8 +680,17 @@
             </div>
         </div>
     </div>
-    
+    <!-- 스크립트 @@@@@@@@@@@@@@@@@@22 -->
+
     <script>
+
+        var swiper = new Swiper('.swiper-container', {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+
         var trVal = Array();
         var tdVal = Array();
 
@@ -561,7 +704,7 @@
             $(".table_mo").empty();
             $('.qrcode').empty();
             // if ($(".chk").is(":checked") == false) {
-            //     alert("취소 항목을 선택해 주세요.");
+            //     alert("취소 항목을 예매해 주세요.");
             //     return;
             // }
 
@@ -596,27 +739,27 @@
                     console.log('res:',res);
                     qr_info.cr_id = res.data[0].CR_ID;
                     qr_info.u_id = res.session_user;
-                    for (let i = 0; i < res.data.length; i++) {
-                        let html = "<tr val=" + res.data[i].pId + ">";
-                        html += "<td>" + res.data[i].PayDay + "</td>";
-                        html += "<td> " + res.data[i].startDay +"<span> 평택 </span>" + res.data[i].startTime +"<span> - 서울 </span>"+ res.data[i].returnTime +"&nbsp;" +res.data[i].carName+"<span>("+res.data[i].carNum+")</span>"+"</td>";
-                        html += "<td>" + res.data[i].seatCnt + "</td>";
-                        html += "<td>" + res.data[i].payType + "</td>";
-                        html += "<td>" + res.data[i].price + "</td>";
-                        html += "</tr>";
-                        $(".cancelRes").append(html);
-                        trVal[i] = res.data[i].pId;
-                        tdVal[i] = res.data[i].ctId;
-                    }
+                    // for (let i = 0; i < res.data.length; i++) {
+                    //     let html = "<tr val=" + res.data[i].pId + ">";
+                    //     html += "<td>" + res.data[i].PayDay + "</td>";
+                    //     html += "<td> " + res.data[i].startDay +"<span> 평택 </span>" + res.data[i].startTime +"<span> - 서울 </span>"+ res.data[i].returnTime +"&nbsp;" +res.data[i].carName+"<span>("+res.data[i].carNum+")</span>"+"</td>";
+                    //     html += "<td>" + res.data[i].seatCnt + "</td>";
+                    //     html += "<td>" + res.data[i].payType + "</td>";
+                    //     html += "<td>" + res.data[i].price + "</td>";
+                    //     html += "</tr>";
+                    //     $(".cancelRes").append(html);
+                    //     trVal[i] = res.data[i].pId;
+                    //     tdVal[i] = res.data[i].ctId;ㅋ
+                    // }
 
                     //모바일 예매취소 리스트
                     //console.log("여기 리스트",res.data);
                     // for (let k = 0; k < res.data.length; k++) {
                     //     let html = "<dl>";
-                    //     //html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
-                    //     html += "<dt>결제날짜</dt><dd>" + res.data[k].PayDay + "</dd>";
-                    //     html += "<dt>예약정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<span> (평택 - 서울 동대문)</span></dd>";
-                    //     html += "<dt>좌석개수</dt><dd>" + res.data[k].seatCnt + "</dd>";
+                    //     //html += "<dt>예매번호</dt><dd>xxxxxxxxxxx</dd>";
+                    //     html += "<dt>결제일시</dt><dd>" + res.data[k].PayDay + "</dd>";
+                    //     html += "<dt>예매정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<span> (평택 - 서울 동대문)</span></dd>";
+                    //     html += "<dt>예매좌석</dt><dd>" + res.data[k].seatCnt + "</dd>";
                     //     html += "<dt>결제수단</dt><dd>" + res.data[k].payType + "</dd>";
                     //     html += "<dt>결제금액</dt><dd>" + res.data[k].price + "</dd></dl>";
                     //     $(".table_mo").append(html);
@@ -625,10 +768,10 @@
                     // }
                     for (let k = 0; k < res.data.length; k++) {
                         let html = "<table class='detail_table'>";
-                        //html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
-                        html += "<tr><th>결제날짜</th><td>" + res.data[k].PayDay + "</td></tr>";
-                        html += "<tr><th>예약정보</th><td>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<span> <br> (평택 - 서울 동대문)</span></td></tr>";
-                        html += "<tr><th>좌석개수</th><td>" + res.data[k].seatCnt + "</td></tr>";
+                        //html += "<dt>예매번호</dt><dd>xxxxxxxxxxx</dd>";
+                        html += "<tr><th>결제일시</th><td>" + res.data[k].PayDay + "</td></tr>";
+                        html += "<tr><th>예매정보</th><td>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<span> <br> (평택 - 서울 동대문)</span></td></tr>";
+                        html += "<tr><th>예매좌석</th><td>" + res.data[k].seatCnt + "</td></tr>";
                         html += "<tr><th>결제수단</th><td>" + res.data[k].payType + "</td></tr>";
                         html += "<tr><th>결제금액</th><td>" + res.data[k].price + "</td></tr></table>";
                         $(".table_mo").append(html);
@@ -674,13 +817,13 @@
             }
         }
 
-        // //선택예매취소 클릭 후 리스트 보여주기
+        // //예매예매취소 클릭 후 리스트 보여주기
         // function cancelBtn() {
         //     console.log('good');
         //     $(".cancelRes").empty();
         //     $(".table_mo").empty();
         //     if ($(".chk").is(":checked") == false) {
-        //         alert("취소 항목을 선택해 주세요.");
+        //         alert("취소 항목을 예매해 주세요.");
         //         return;
         //     }
         //     location.href = "#popup";
@@ -727,10 +870,10 @@
         //             //console.log("여기 리스트",res.data);
         //             for (let k = 0; k < res.data.length; k++) {
         //                 let html = "<dl>";
-        //                 //html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
-        //                 html += "<dt>결제날짜</dt><dd>" + res.data[k].PayDay + "</dd>";
-        //                 html += "<dl class='dl3'><dt>예약정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<br> <span>(평택 > 서울 동대문)</span></dd></dl>";
-        //                 html += "<dt>좌석개수</dt><dd>" + res.data[k].seatCnt + "</dd>";
+        //                 //html += "<dt>예매번호</dt><dd>xxxxxxxxxxx</dd>";
+        //                 html += "<dt>결제일시</dt><dd>" + res.data[k].PayDay + "</dd>";
+        //                 html += "<dl class='dl3'><dt>예매정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<br> <span>(평택 > 서울 동대문)</span></dd></dl>";
+        //                 html += "<dt>예매좌석</dt><dd>" + res.data[k].seatCnt + "</dd>";
         //                 html += "<dt>결제수단</dt><dd>" + res.data[k].payType + "</dd>";
         //                 html += "<dt>결제금액</dt><dd>" + res.data[k].price + "</dd></dl>";
         //                 $(".table_mo").append(html);
@@ -849,7 +992,7 @@
             });
         });
 
-        //결제리스트 날짜 선택 @@@@@@@
+        //결제리스트 일시 예매 @@@@@@@
         function payBetween() {
             if ($('#deptDay').val() == '' && $('#endDay').val() == '') {
                 return false;
@@ -918,10 +1061,10 @@
                     // location.href = "#popup2"
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<table class='detail_table'>";
-                        //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
+                        //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
                         html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay + "</td></tr>";
-                        html += "<tr><th>예약정보</th><td>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
-                        html += "<tr><th>좌석개수</th><td>" + res.data[i].seatCnt + "</td></tr>";
+                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
+                        html += "<tr><th>예매좌석</th><td>" + res.data[i].seatCnt + "</td></tr>";
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td><tr>";
                         html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);
@@ -987,7 +1130,7 @@
                 }
             });
         });
-        //PC 취소 및 환불 리스트 날짜 검색
+        //PC 취소 및 환불 리스트 일시 검색
         function cancelBetween() {
             if ($('#cancelDeptDay').val() == '' && $('#cancelEndDay').val() == '') {
                 return false;
@@ -1050,11 +1193,11 @@
                     // location.href = "#popup3"
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<table class='detail_table'>";
-                        //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
+                        //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
                         html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay + "</td></tr>";
-                        html += "<tr><th>예약정보</th><td>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
-                        html += "<tr><th>좌석개수</th><td>" + res.data[i].seatCnt + "</td></tr>";
-                        html += "<tr><th>취소날짜</th><td>" + res.data[i].cancelDay + "</td></tr>"
+                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
+                        html += "<tr><th>예매좌석</th><td>" + res.data[i].seatCnt + "</td></tr>";
+                        html += "<tr><th>취소일시</th><td>" + res.data[i].cancelDay + "</td></tr>"
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
                         html += "<tr><th>환불금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);
@@ -1142,7 +1285,7 @@
             //시작일.
             /*$('#searchStartDate').datepicker("option","onClose", function( selectedDate ) {
                 // 시작일 datepicker가 닫힐때
-                // 종료일의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+                // 종료일의 예매할수있는 최소 일시(minDate)를 예매한 시작일로 지정
                 $("#searchEndDate").datepicker( "option", "minDate", selectedDate );
                 $(".searchDate").find(".chkbox2").removeClass("on");
             });
@@ -1151,7 +1294,7 @@
             //종료일.
             /*$('.searchEndDate').datepicker("option","onClose", function( selectedDate ) {
                 // 종료일 datepicker가 닫힐때
-                // 시작일의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정
+                // 시작일의 예매할수있는 최대 일시(maxDate)를 예매한 종료일로 지정
                 $(".searchStartDate").datepicker( "option", "maxDate", selectedDate );
                 $(".searchDate").find(".chkbox2").removeClass("on");
             });*/
@@ -1208,15 +1351,15 @@
             var startDate = $.datepicker.formatDate('yy-mm-dd', today);
             $('.searchStartDate').val(startDate);
 
-            // 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
+            // 종료일은 시작일 이전 일시 예매하지 못하도록 비활성화
             $(".searchEndDate").datepicker("option", "minDate", startDate);
 
-            // 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
+            // 시작일은 종료일 이후 일시 예매하지 못하도록 비활성화
             $(".searchStartDate").datepicker("option", "maxDate", endDate);
 
 
             /*$('#searchEndDate').datepicker({
-                dateFormat: "yy-mm-dd", // 날짜의 형식
+                dateFormat: "yy-mm-dd", // 일시의 형식
                 nextText: ">",
                 prevText: "<"
             });screen
