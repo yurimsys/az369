@@ -484,58 +484,19 @@
 
     <!-- 예매취소 후 리스트 모달 @@@@@@@@@@@@@@@ -->
     <!--popup PC-->
-    <!-- <div id="popup" class="layer">
+    <div id="popup" class="layer">
         <div class="popup_box">
             <div class="swiper-container myswiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <h2>승차권</h2>
-                        <div class="qr_info">
-                            <div id='qrcode' class='qrcode'></div>
-                            <div class="qr_txt">
-                                <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p>
-                            </div>
-                        </div>
-                        <table class="detail_table">
-                            <tr>
-                                <th>결제일시</th>
-                                <td>2020.01.01 19:24</td>
-                            </tr>
-                            <tr>
-                                <th>예매정보</th>
-                                <td>2020.01.07 21:00 - 04:00 <span>(평택 - 서울동대문)</span> <br> 유림고속(1111)</td>
-                            </tr>
-                            <tr>
-                                <th>예매좌석</th>
-                                <td>1번</td>
-                            </tr>
-                            <tr>
-                                <th>결제수단</th>
-                                <td>카드결제 (신한)</td>
-                            </tr>
-                            <tr>
-                                <th>결제금액</th>
-                                <td>20,000원</td>
-                            </tr>
-                        </table>
-                        <p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한
-                            예매를 취소하겠습니까?</p>
-                        <div class="popup_btn">
-                            <ul>
-                                <li>
-                                    <a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary popup_close1">닫기</a>
-                                </li>
-                    
-                                <li>
-                                    <a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>   
-                    
+  
                 </div>
+                <!-- 네비게이션 버튼 -->
+                <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+                <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
             </div>
         </div>
+        
+    </div>
 
 
         <div class="popup_box_mo">
@@ -561,22 +522,8 @@
                 </ul>
             </div>
         </div>
-    </div> -->
-
-    <!-- 팝업 @@@@@@@@@@@@@@@ -->
-    <div id="popup" class="layer">
-        <div class="popup_box">
-            <div class="swiper-container myswiper">
-                <div class="swiper-wrapper">
-  
-
-                </div>
-                <!-- 네비게이션 버튼 -->
-                <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-                <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
-            </div>
-        </div>
     </div>
+
 
 
 
@@ -629,15 +576,7 @@
 
 
 
-    new Swiper('.myswiper', {
-        // 슬라이드 속도 설정
-        // 지정하지 않을시 기본값은 300
-        speed : 300,
-        navigation : { // 네비게이션 설정
-            nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-            prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-        },
-    })
+
 
 
        
@@ -646,7 +585,7 @@
         var tdVal = Array();
 
         function resModal(e) {
-            console.log('eee :', e);
+            $('.swiper-wrapper').empty();
             if(e.dataset.mob == 'mobile'){
                 $('footer').css('display','none');
                 $('header').css('display','none')
@@ -675,7 +614,7 @@
 
             var seatArr = JSON.parse(sendJson);
 
-            let qr_info = {};
+            
 
             $.ajax({
                 url: "api/user/payCancel",
@@ -685,37 +624,26 @@
                     'sendArray': seatArr
                 },
                 success: function (res) {
-                    //07.30. 평택 22:00 - 서울동대문 04:00 유림고속(1213)
-                    //PC 예매취소 리스트
-
-                    // <p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한
-                    //         예매를 취소하겠습니까?</p>
-                    //     <div class="popup_btn">
-                    //         <ul>
-                    //             <li>
-                    //                 <a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary popup_close1">닫기</a>
-                    //             </li>
-                    
-                    //             <li>
-                    //                 <a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a>
-                    //             </li>
-                    //         </ul>
-                    //     </div>
-
                     console.log('res:',res.data);
-                    qr_info.cr_id = res.data[0].CR_ID;
-                    qr_info.u_id = res.session_user;
+                    // trVal[i] = res.data[i].pId;
+                    // tdVal[i] = res.data[i].ctId;
+                    // let qr_info = {};
+                    // qr_info.cr_id = res.data[i].CR_ID;
+                    // qr_info.u_id = res.session_user;
                     let default_html = `<div class="swiper-slide"><h2>승차권</h2><div class="qr_info"> <div id="qrcode" class="qrcode"></div><div class="qr_txt">
                                         <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p></div><table class="detail_table">`;
                     let default_html2 = `</table><p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한 예매를 취소하겠습니까?</p>
                                         <div class="popup_btn"><ul><li><a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary popup_close1">닫기</a>
-                                        </li><li><a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a></li></ul></div></div>`;
+                                        </li><li><a href="#" class="btn btn-primary" onclick="resCancel(this)">예매취소</a></li></ul></div></div>`;
                     for(let i=0; i <res.data.length; i++){
+
+
+                        // qrCodeImg(qr_info)
+
                         let html = default_html;
                             html += '<tr><th>결제일시</th>';
-                            html += '<td>'+res.data[i].payDay2+'</td><tr>'
+                            html += '<td>'+res.data[i].PayDay2+'</td><tr>'
                             html += '<tr><th>예매정보</th>';
-                            // 2020.01.07 21:00 - 04:00 <span>(평택 - 서울동대문)</span> <br> 유림고속(1111)
                             html += '<td>'+res.data[i].deptTe2+' '+res.data[i].startTime+'-'+res.data[i].returnTime+'<span> (평택 - 동대문)</span><br>'+
                                     res.data[i].carName+'('+res.data[i].carNum+')</td><tr>';
                             html += '<tr><th>예매좌석</th>';
@@ -740,7 +668,7 @@
                     //     html += "</tr>";
                     //     $(".cancelRes").append(html);
                     //     trVal[i] = res.data[i].pId;
-                    //     tdVal[i] = res.data[i].ctId;ㅋ
+                    //     tdVal[i] = res.data[i].ctId;
                     // }
 
                     //모바일 예매취소 리스트
@@ -769,16 +697,26 @@
                         trVal[k] = res.data[k].pId;
                         tdVal[k] = res.data[k].ctId;
                     }
-                    // qrCodeImg(qr_info)
+                    
+                    slider();
                 }
                 
             })
-            
-            // debugger;
-            
-
-
         }
+
+        function slider(){
+            new Swiper('.myswiper', {
+                // 슬라이드 속도 설정
+                // 지정하지 않을시 기본값은 300
+                speed : 500,
+                navigation : { // 네비게이션 설정
+                    nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+                    prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+                },
+            })
+        }
+
+
 
         //QR코드 생성 함수
         function qrCodeImg(userInfo){
@@ -808,113 +746,44 @@
             }
         }
 
-        // //예매예매취소 클릭 후 리스트 보여주기
-        // function cancelBtn() {
-        //     console.log('good');
-        //     $(".cancelRes").empty();
-        //     $(".table_mo").empty();
-        //     if ($(".chk").is(":checked") == false) {
-        //         alert("취소 항목을 예매해 주세요.");
-        //         return;
-        //     }
-        //     location.href = "#popup";
-
-        //     //체크된 레이블 보여주기
-        //     var send_array = Array();
-        //     var send_cnt = 0;
-        //     var chkbox = $(".chk");
-        //     for (i = 0; i < chkbox.length; i++) {
-        //         if (chkbox[i].checked == true) {
-        //             send_array[send_cnt] = chkbox[i].value;
-        //             send_cnt++
-        //         }
-        //     }
-        //     var sendJson = JSON.stringify(send_array);
-        //     //console.log('sendjson :',sendJson); 
-
-        //     var seatArr = JSON.parse(sendJson);
-        //     console.log('seatArr :', seatArr);
-        //     $.ajax({
-        //         url: "api/user/payCancel",
-        //         method: 'post',
-        //         dataType: 'json',
-        //         data: {
-        //             'sendArray': seatArr
-        //         },
-        //         success: function (res) {
-        //             // console.log(res);
-        //             //PC 예매취소 리스트
-        //             for (let i = 0; i < res.data.length; i++) {
-        //                 let html = "<tr val=" + res.data[i].pId + ">";
-        //                 html += "<td>" + res.data[i].PayDay + "</td>";
-        //                 html += "<td>" + res.data[i].deptTe + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td>";
-        //                 html += "<td>" + res.data[i].seatCnt + "</td>";
-        //                 html += "<td>" + res.data[i].payType + "</td>";
-        //                 html += "<td>" + res.data[i].price + "</td>";
-        //                 html += "</tr>";
-        //                 $(".cancelRes").append(html);
-        //                 trVal[i] = res.data[i].pId;
-        //                 tdVal[i] = res.data[i].ctId;
-        //             }
-
-        //             //모바일 예매취소 리스트
-        //             //console.log("여기 리스트",res.data);
-        //             for (let k = 0; k < res.data.length; k++) {
-        //                 let html = "<dl>";
-        //                 //html += "<dt>예매번호</dt><dd>xxxxxxxxxxx</dd>";
-        //                 html += "<dt>결제일시</dt><dd>" + res.data[k].PayDay + "</dd>";
-        //                 html += "<dl class='dl3'><dt>예매정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<br> <span>(평택 > 서울 동대문)</span></dd></dl>";
-        //                 html += "<dt>예매좌석</dt><dd>" + res.data[k].seatCnt + "</dd>";
-        //                 html += "<dt>결제수단</dt><dd>" + res.data[k].payType + "</dd>";
-        //                 html += "<dt>결제금액</dt><dd>" + res.data[k].price + "</dd></dl>";
-        //                 $(".table_mo").append(html);
-        //                 trVal[k] = res.data[k].pId;
-        //                 tdVal[k] = res.data[k].ctId;
-        //             }
-        //         }
-        //     })
-        // }
-
-
-
-
         // 예매 취소
-        function resCancel() {
-            $.ajax({
-                url: "api/user/cancelRes",
-                method: 'post',
-                dataType: 'json',
-                async: false,
-                data: { 'trVal': trVal, 'tdVal': tdVal },
-                success: function (res) {
-                    console.log("업데이트 값",res.data);
-                    console.log('데이터!! :', res);
-                    $('.swal-icon--success__ring').css('display','none');
-                    let link = document.createElement('div')
-                        link.innerHTML = "<a href='/'>환불규정 보기</a>"
-                    if (res.data == 0) {
-                        swal({
-                            title: '취소 실패',
-                            text: '출발일 기준 3일 내 예매취소가 불가능합니다. \n',
-                            content: link,
-                            icon: 'error',
-                            button: '환불규정 보기',
-                            button: '확인'
-                        }).then((value)=>{
-                            location.href='mypage';
-                        })
-                    } else {
-                        swal({
-                            title: '예매취소 완료',
-                            text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
-                            icon: 'success',
-                            button: '확인'
-                        }).then((value)=>{
-                            location.href='mypage';
-                        })
-                    }
-                }
-            })
+        function resCancel(e) {
+            console.log('ee:', e);
+            // $.ajax({
+            //     url: "api/user/cancelRes",
+            //     method: 'post',
+            //     dataType: 'json',
+            //     async: false,
+            //     data: { 'trVal': trVal, 'tdVal': tdVal },
+            //     success: function (res) {
+            //         console.log("업데이트 값",res.data);
+            //         console.log('데이터!! :', res);
+            //         $('.swal-icon--success__ring').css('display','none');
+            //         let link = document.createElement('div')
+            //             link.innerHTML = "<a href='/'>환불규정 보기</a>"
+            //         if (res.data == 0) {
+            //             swal({
+            //                 title: '취소 실패',
+            //                 text: '출발일 기준 3일 내 예매취소가 불가능합니다. \n',
+            //                 content: link,
+            //                 icon: 'error',
+            //                 button: '환불규정 보기',
+            //                 button: '확인'
+            //             }).then((value)=>{
+            //                 location.href='mypage';
+            //             })
+            //         } else {
+            //             swal({
+            //                 title: '예매취소 완료',
+            //                 text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
+            //                 icon: 'success',
+            //                 button: '확인'
+            //             }).then((value)=>{
+            //                 location.href='mypage';
+            //             })
+            //         }
+            //     }
+            // })
         }
         
 
