@@ -747,37 +747,68 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
     console.log(seatNum);
     console.log("dddd :", sessionId);
     //console.log(seatNum);
+    // let query = `
+    //             select
+    //                 tCR.CR_ID,
+    //                 tCR.CR_CT_ID as ctId,
+    //                 tCR.CR_cDt as payDay,
+    //                 date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') AS deptTe,
+    //                 date_format(tCT.CT_DepartureTe,'%m.%d') AS startDay,
+    //                 date_format(tCT.CT_ReturnTe,'%m.%d') as returnDay,
+    //                 date_format(tCT.CT_DepartureTe,'%H:%i') as startTime,
+    //                 date_format(tCT.CT_ReturnTe,'%H:%i') as returnTime,
+    //                 date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptTe2,
+    //                 date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
+    //                 tCR.CR_cDt as cDt,
+    //                 tB.B_Name as carName,
+    //                 tCT.CT_CarNum,
+    //                 (SELECT right(CT_CarNum, 4)) AS carNum,
+    //                 tPH.PH_Type as payType,
+    //                 tPH.PH_Price as price,
+    //                 tPH.PH_ID as pId,
+    //                 count(CR_SeatNum) as seatCnt
+    //             from tCT 
+    //                 left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+    //                 left join tB on tCY.CY_B_ID = tB.B_ID 
+    //                 left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+    //                 left join tPH on tPH.PH_ID = tCR.CR_PH_ID
+    //             where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = 'N'
+    //                     and tCR.CR_U_ID = :sessionId and tCR.CR_cDt IN ( :seatNum)
+    //                 and tCT.CT_DepartureTe > NOW()
+    //             group by tCR.CR_cDt
+    //             order by tCT.CT_DepartureTe desc
+    //             `;
+
     let query = `
-                select
+                SELECT 
                     tCR.CR_ID,
                     tCR.CR_CT_ID as ctId,
+                    tPH.PH_ID,
                     tCR.CR_cDt as payDay,
+                    tB.B_Name as carName,
+                    (SELECT right(CT_CarNum, 4)) AS carNum,
+                    tCR.CR_SeatNum,
+                    tPH.PH_Type,
+                    tCR.CR_Price,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') AS deptTe,
                     date_format(tCT.CT_DepartureTe,'%m.%d') AS startDay,
                     date_format(tCT.CT_ReturnTe,'%m.%d') as returnDay,
                     date_format(tCT.CT_DepartureTe,'%H:%i') as startTime,
                     date_format(tCT.CT_ReturnTe,'%H:%i') as returnTime,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptTe2,
-                    date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
-                    tCR.CR_cDt as cDt,
-                    tB.B_Name as carName,
-                    tCT.CT_CarNum,
-                    (SELECT right(CT_CarNum, 4)) AS carNum,
-                    tPH.PH_Type as payType,
-                    tPH.PH_Price as price,
-                    tPH.PH_ID as pId,
-                    count(CR_SeatNum) as seatCnt
-                from tCT 
-                    left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
-                    left join tB on tCY.CY_B_ID = tB.B_ID 
-                    left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
-                    left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = 'N'
-                        and tCR.CR_U_ID = :sessionId and tCR.CR_cDt IN ( :seatNum)
+                    date_format(tCR.CR_cDt,'%y%y.%m.%d %H:%i') as PayDay2
+
+                FROM tCR
+                    INNER JOIN tCT ON tCT.CT_ID = tCR.CR_CT_ID
+                    INNER JOIN tCY ON tCY.CY_ID = tCT.CT_CY_ID
+                    INNER JOIN tB ON tB.B_ID = tCY.CY_B_ID
+                    INNER JOIN tPH ON tPH.PH_ID = tCR.CR_PH_ID
+
+                where 
+                    tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = 'N'
+                    and tCR.CR_U_ID = :sessionId and tCR.CR_cDt IN ( :seatNum)
                     and tCT.CT_DepartureTe > NOW()
-                group by tCR.CR_cDt
-                order by tCT.CT_DepartureTe desc
-                `;
+                    order by tCT.CT_DepartureTe desc`;
     console.log("좌석 :", seatNum);
     console.log("세션 :", sessionId);
 

@@ -27,6 +27,12 @@
     <!-- QR코드 -->
     <script src="/js/qrcode.js"></script>
     
+    <!-- 슬라이드 -->
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+
     <style>
         .swal-text{
             text-align: center;
@@ -53,6 +59,16 @@
         }
         .swal-footer{
             margin-top: 0px;
+        }
+        /* 슬라이드 */
+        .swiper-slide {
+            text-align:center;
+            /* display:flex; 내용을 중앙정렬 하기위해 flex 사용 */
+            align-items:center; /* 위아래 기준 중앙정렬 */
+            justify-content:center; /* 좌우 기준 중앙정렬 */
+        }
+        .swiper-slide img {
+            box-shadow:0 0 5px #555;
         }
     </style>
 </head>
@@ -457,22 +473,7 @@
             </div>
         </section>
 
-        <script src="/js/qrcode.js"></script>
-        <script>
 
-            $(window).load(function () {
-                $('#tab1').addClass('active')
-                $(".trigger_popup_fricc").click(function () {
-                    $('.hover_bkgr_fricc').show();
-                });
-                $('.hover_bkgr_fricc').click(function () {
-                    $('.hover_bkgr_fricc').hide();
-                });
-                $('.popupCloseButton').click(function () {
-                    $('.hover_bkgr_fricc').hide();
-                });
-            });
-        </script>
 
         <!--//secton.about 완료-->
 
@@ -481,17 +482,12 @@
         <% include templates/footer.ejs %>
     </div>
 
-    <!-- 팝업 @@@@@@@@@@@@@@@ -->
-    <div id="popup" class="layer">
-        <!-- 예매취소 후 리스트 @@@@@@@@@@@@@@@@@@@@@@@@@@@222 -->
-        <!--popup PC-->
-
-        
+    <!-- 예매취소 후 리스트 모달 @@@@@@@@@@@@@@@ -->
+    <!--popup PC-->
+    <!-- <div id="popup" class="layer">
         <div class="popup_box">
-        
-            <div class="swiper-container">
+            <div class="swiper-container myswiper">
                 <div class="swiper-wrapper">
-
                     <div class="swiper-slide">
                         <h2>승차권</h2>
                         <div class="qr_info">
@@ -522,112 +518,26 @@
                                 <td>20,000원</td>
                             </tr>
                         </table>
-                    </div>
-
-                    <!-- <div class="swiper-slide">
-                        <h2>승차권</h2>
-                        <div class="qr_info">
-                            <div id='qrcode' class='qrcode'></div>
-                            <div class="qr_txt">
-                                <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p>
-                            </div>
+                        <p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한
+                            예매를 취소하겠습니까?</p>
+                        <div class="popup_btn">
+                            <ul>
+                                <li>
+                                    <a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary popup_close1">닫기</a>
+                                </li>
+                    
+                                <li>
+                                    <a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a>
+                                </li>
+                            </ul>
                         </div>
-                        <table class="detail_table">
-                            <tr>
-                                <th>결제일시</th>
-                                <td>2020.01.01 19:24</td>
-                            </tr>
-                            <tr>
-                                <th>예매정보</th>
-                                <td>2020.01.07 21:00 - 04:00 <span>(평택 - 서울동대문)</span> <br> 유림고속(1111)</td>
-                            </tr>
-                            <tr>
-                                <th>예매좌석</th>
-                                <td>1번</td>
-                            </tr>
-                            <tr>
-                                <th>결제수단</th>
-                                <td>카드결제 (신한)</td>
-                            </tr>
-                            <tr>
-                                <th>결제금액</th>
-                                <td>20,000원</td>
-                            </tr>
-                        </table>
-                    </div> -->
-                    <div class="swiper-slide">Slide 3</div>
-                    <div class="swiper-slide">Slide 4</div>
+                    </div>   
                     
                 </div>
-                <!-- Add Arrows -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-            </div>
-        
-
-        
-            <!-- <h2>승차권</h2>
-                    <div class="qr_info">
-                        <div id='qrcode' class='qrcode'></div>
-                        <div class="qr_txt">  <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p> </div>
-                    </div>
-        
-                    
-                    <table class="detail_table">
-                        <tr>
-                            <th>결제일시</th>
-                            <td>2020.01.01 19:24</td>
-                        </tr>
-                        <tr>
-                            <th>예매정보</th>
-                            <td>2020.01.07 21:00 - 04:00 <span>(평택 - 서울동대문)</span> <br> 유림고속(1111)</td>
-                        </tr>
-                        <tr>
-                            <th>예매좌석</th>
-                            <td>1번</td>
-                        </tr>
-                        <tr>
-                            <th>결제수단</th>
-                            <td>카드결제 (신한)</td>
-                        </tr>
-                        <tr>
-                            <th>결제금액</th>
-                            <td>20,000원</td>
-                        </tr>
-                    </table> -->
-        
-        
-            <!--
-                        가로형 table
-                        <table class="table">
-                        <thead>
-                            <th>결제일시</th>
-                            <th>예매정보</th>
-                            <th>예매좌석</th>
-                            <th>결제수단</th>
-                            <th>결제금액</th>
-                        </thead>
-                        <tbody class="cancelRes">
-                        </tbody>
-                    </table> -->
-        
-            <p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한
-                예매를 취소하겠습니까?</p>
-            <div class="popup_btn">
-                <ul>
-                    <li>
-                        <a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary popup_close1">닫기</a>
-                    </li>
-        
-                    <li>
-                        <a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a>
-                    </li>
-                </ul>
             </div>
         </div>
 
 
-        <!--popup mo 768px-->
         <div class="popup_box_mo">
             <h2>승차권</h2>
             <div class="qr_info">
@@ -651,7 +561,26 @@
                 </ul>
             </div>
         </div>
+    </div> -->
+
+    <!-- 팝업 @@@@@@@@@@@@@@@ -->
+    <div id="popup" class="layer">
+        <div class="popup_box">
+            <div class="swiper-container myswiper">
+                <div class="swiper-wrapper">
+  
+
+                </div>
+                <!-- 네비게이션 버튼 -->
+                <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+                <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+            </div>
+        </div>
     </div>
+
+
+
+    
 
     <!--두번째 리스트 popup mo-->
     <div id="popup2" class="layer">
@@ -680,16 +609,38 @@
             </div>
         </div>
     </div>
-    <!-- 스크립트 @@@@@@@@@@@@@@@@@@22 -->
 
+
+
+    <script src="/js/qrcode.js"></script>
     <script>
-
-        var swiper = new Swiper('.swiper-container', {
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
+        $(window).load(function () {
+            $('#tab1').addClass('active')
+            $(".trigger_popup_fricc").click(function () {
+                $('.hover_bkgr_fricc').show();
+            });
+            $('.hover_bkgr_fricc').click(function () {
+                $('.hover_bkgr_fricc').hide();
+            });
+            $('.popupCloseButton').click(function () {
+                $('.hover_bkgr_fricc').hide();
+            });
         });
+
+
+
+    new Swiper('.myswiper', {
+        // 슬라이드 속도 설정
+        // 지정하지 않을시 기본값은 300
+        speed : 300,
+        navigation : { // 네비게이션 설정
+            nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+            prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+        },
+    })
+
+
+       
 
         var trVal = Array();
         var tdVal = Array();
@@ -736,9 +687,49 @@
                 success: function (res) {
                     //07.30. 평택 22:00 - 서울동대문 04:00 유림고속(1213)
                     //PC 예매취소 리스트
-                    console.log('res:',res);
+
+                    // <p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한
+                    //         예매를 취소하겠습니까?</p>
+                    //     <div class="popup_btn">
+                    //         <ul>
+                    //             <li>
+                    //                 <a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary popup_close1">닫기</a>
+                    //             </li>
+                    
+                    //             <li>
+                    //                 <a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a>
+                    //             </li>
+                    //         </ul>
+                    //     </div>
+
+                    console.log('res:',res.data);
                     qr_info.cr_id = res.data[0].CR_ID;
                     qr_info.u_id = res.session_user;
+                    let default_html = `<div class="swiper-slide"><h2>승차권</h2><div class="qr_info"> <div id="qrcode" class="qrcode"></div><div class="qr_txt">
+                                        <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p></div><table class="detail_table">`;
+                    let default_html2 = `</table><p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한 예매를 취소하겠습니까?</p>
+                                        <div class="popup_btn"><ul><li><a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary popup_close1">닫기</a>
+                                        </li><li><a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a></li></ul></div></div>`;
+                    for(let i=0; i <res.data.length; i++){
+                        let html = default_html;
+                            html += '<tr><th>결제일시</th>';
+                            html += '<td>'+res.data[i].payDay2+'</td><tr>'
+                            html += '<tr><th>예매정보</th>';
+                            // 2020.01.07 21:00 - 04:00 <span>(평택 - 서울동대문)</span> <br> 유림고속(1111)
+                            html += '<td>'+res.data[i].deptTe2+' '+res.data[i].startTime+'-'+res.data[i].returnTime+'<span> (평택 - 동대문)</span><br>'+
+                                    res.data[i].carName+'('+res.data[i].carNum+')</td><tr>';
+                            html += '<tr><th>예매좌석</th>';
+                            html += '<td>'+res.data[i].CR_SeatNum+'번</td><tr>';
+                            html += '<tr><th>결제수단</th>';
+                            html += '<td>'+res.data[i].PH_Type+'</td><tr>';
+                            html += '<tr><th>결제금액</th>';
+                            html += '<td>'+res.data[i].CR_Price+'</td><tr>'
+                            html += default_html2;
+                            $('.swiper-wrapper').append(html);
+                    }
+
+
+
                     // for (let i = 0; i < res.data.length; i++) {
                     //     let html = "<tr val=" + res.data[i].pId + ">";
                     //     html += "<td>" + res.data[i].PayDay + "</td>";
@@ -778,7 +769,7 @@
                         trVal[k] = res.data[k].pId;
                         tdVal[k] = res.data[k].ctId;
                     }
-                    qrCodeImg(qr_info)
+                    // qrCodeImg(qr_info)
                 }
                 
             })
