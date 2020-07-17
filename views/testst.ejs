@@ -130,7 +130,10 @@
   </div> -->
 
     <!-- 팝업 @@@@@@@@@@@@@@@ -->
-    <div id="popup" class="layer" style="display: block;">
+
+  <div onclick="test()">모달 업!!</div>
+
+    <div id="popup" class="layer">
       <div class="popup_box">
           <div class="swiper-container myswiper">
               <div class="swiper-wrapper">
@@ -233,7 +236,11 @@
 </body>
 
 <script>
-    new Swiper('.myswiper', {
+
+    function test(){
+
+        $('#popup').css('display','block')
+        new Swiper('.myswiper', {
       // 슬라이드 속도 설정
       // 지정하지 않을시 기본값은 300
       speed : 300,
@@ -242,5 +249,7 @@
         prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
       },
     });
+    }
+
   </script>
 </html>
