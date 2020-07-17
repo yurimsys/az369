@@ -127,7 +127,7 @@
                                                 <li>출발날짜</li>
                                                 <li>운행지역</li>
                                                 <li>차량정보</li>
-                                                <li>선택좌석</li>
+                                                <li>예매좌석</li>
                                             </ul>
                                         </div>
                                         <div id="reserve_list" class="scroll_style">
@@ -169,7 +169,7 @@
                                                                 <h6><%=data[i].carName%></h6>
                                                             </li>
                                                             <li>
-                                                                선택좌석
+                                                                예매좌석
                                                                 <h6><%=data[i].seatNum%></h6>
                                                             </li>
                                                             <li><i class="fas fa-chevron-right"></i></li>
@@ -276,7 +276,7 @@
                                                         <th>결제일시</th>
                                                         <th>출발날짜</th>
                                                         <th>차량정보</th>
-                                                        <th>좌석개수</th>
+                                                        <th>예매좌석</th>
                                                         <th>결제수단</th>
                                                         <th>결제금액</th>
                                                     </tr>
@@ -290,7 +290,6 @@
                                         <div class="list02_mo scroll_style">
 
                                         </div>
-<<<<<<< HEAD
 
                                         <!--두번째 리스트 popup mo-->
                                         <div id="popup2" class="layer">
@@ -304,8 +303,6 @@
                                                 </div>
                                             </div>
                                         </div>
-=======
->>>>>>> 7ccf95f6a8a181c26a2594fa554548288cf57bfe
                                     </div>
 
                                     <!--환불조회 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22 -->
@@ -393,7 +390,7 @@
                                                     <th>결제일시</th>
                                                     <th>출발날짜</th>
                                                     <th>취소날짜</th>
-                                                    <th>좌석개수</th>
+                                                    <th>예매좌석</th>
                                                     <th>결제수단</th>
                                                     <th>환불금액</th>
                                                 </tr>
@@ -476,10 +473,10 @@
             </div>
             <table class="table">
                 <thead>
-                    <!-- <th>예약번호</th> -->
+                    <!-- <th>예매번호</th> -->
                     <th>결제날짜</th>
-                    <th>예약정보</th>
-                    <th>좌석개수</th>
+                    <th>예매정보</th>
+                    <th>예매좌석</th>
                     <th>결제수단</th>
                     <th>결제금액</th>
                 </thead>
@@ -623,10 +620,10 @@
                     //console.log("여기 리스트",res.data);
                     // for (let k = 0; k < res.data.length; k++) {
                     //     let html = "<dl>";
-                    //     //html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
+                    //     //html += "<dt>예매번호</dt><dd>xxxxxxxxxxx</dd>";
                     //     html += "<dt>결제날짜</dt><dd>" + res.data[k].PayDay + "</dd>";
-                    //     html += "<dt>예약정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<span> (평택 - 서울 동대문)</span></dd>";
-                    //     html += "<dt>좌석개수</dt><dd>" + res.data[k].seatCnt + "</dd>";
+                    //     html += "<dt>예매정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<span> (평택 - 서울 동대문)</span></dd>";
+                    //     html += "<dt>예매좌석</dt><dd>" + res.data[k].seatCnt + "</dd>";
                     //     html += "<dt>결제수단</dt><dd>" + res.data[k].payType + "</dd>";
                     //     html += "<dt>결제금액</dt><dd>" + res.data[k].price + "</dd></dl>";
                     //     $(".table_mo").append(html);
@@ -635,10 +632,10 @@
                     // }
                     for (let k = 0; k < res.data.length; k++) {
                         let html = "<table class='detail_table'>";
-                        //html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
+                        //html += "<dt>예매번호</dt><dd>xxxxxxxxxxx</dd>";
                         html += "<tr><th>결제날짜</th><td>" + res.data[k].PayDay + "</td></tr>";
-                        html += "<tr><th>예약정보</th><td>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<span> <br> (평택 - 서울 동대문)</span></td></tr>";
-                        html += "<tr><th>좌석개수</th><td>" + res.data[k].seatCnt + "</td></tr>";
+                        html += "<tr><th>예매정보</th><td>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<span> <br> (평택 - 서울 동대문)</span></td></tr>";
+                        html += "<tr><th>예매좌석</th><td>" + res.data[k].seatCnt + "</td></tr>";
                         html += "<tr><th>결제수단</th><td>" + res.data[k].payType + "</td></tr>";
                         html += "<tr><th>결제금액</th><td>" + res.data[k].price + "</td></tr></table>";
                         $(".table_mo").append(html);
@@ -737,10 +734,10 @@
         //             //console.log("여기 리스트",res.data);
         //             for (let k = 0; k < res.data.length; k++) {
         //                 let html = "<dl>";
-        //                 //html += "<dt>예약번호</dt><dd>xxxxxxxxxxx</dd>";
+        //                 //html += "<dt>예매번호</dt><dd>xxxxxxxxxxx</dd>";
         //                 html += "<dt>결제날짜</dt><dd>" + res.data[k].PayDay + "</dd>";
-        //                 html += "<dl class='dl3'><dt>예약정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<br> <span>(평택 > 서울 동대문)</span></dd></dl>";
-        //                 html += "<dt>좌석개수</dt><dd>" + res.data[k].seatCnt + "</dd>";
+        //                 html += "<dl class='dl3'><dt>예매정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<br> <span>(평택 > 서울 동대문)</span></dd></dl>";
+        //                 html += "<dt>예매좌석</dt><dd>" + res.data[k].seatCnt + "</dd>";
         //                 html += "<dt>결제수단</dt><dd>" + res.data[k].payType + "</dd>";
         //                 html += "<dt>결제금액</dt><dd>" + res.data[k].price + "</dd></dl>";
         //                 $(".table_mo").append(html);
@@ -921,10 +918,10 @@
                     // location.href = "#popup2"
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<table class='detail_table'>";
-                        //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
+                        //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
                         html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay + "</td></tr>";
-                        html += "<tr><th>예약정보</th><td>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
-                        html += "<tr><th>좌석개수</th><td>" + res.data[i].seatCnt + "</td></tr>";
+                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
+                        html += "<tr><th>예매좌석</th><td>" + res.data[i].seatCnt + "</td></tr>";
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td><tr>";
                         html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);
@@ -1053,10 +1050,10 @@
                     // location.href = "#popup3"
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<table class='detail_table'>";
-                        //html += "<dt>예약번호</dt><dd>xxxxxxxxx</dd>";
+                        //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
                         html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay + "</td></tr>";
-                        html += "<tr><th>예약정보</th><td>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
-                        html += "<tr><th>좌석개수</th><td>" + res.data[i].seatCnt + "</td></tr>";
+                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
+                        html += "<tr><th>예매좌석</th><td>" + res.data[i].seatCnt + "</td></tr>";
                         html += "<tr><th>취소날짜</th><td>" + res.data[i].cancelDay + "</td></tr>"
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
                         html += "<tr><th>환불금액</th><td>" + res.data[i].price + "</td></tr></table>";

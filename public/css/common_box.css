@@ -1,7 +1,5 @@
 /* (section.main 없음) div.box가 있는 ejs의 공통 css입니다. */
 
-
-@charset "UTF-8";
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 

@@ -638,6 +638,12 @@ router.get('/video/:currentPage', function(req, res, next) {
 });
 
 
+//장차 기사전용 앱
+router.get('/driver_app', function(req, res, next) {
+    res.render('driver_app', { sessionUser : req.user });
+});
+
+
 
 
 module.exports = router;
