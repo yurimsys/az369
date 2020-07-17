@@ -209,7 +209,7 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 .popup_btn a {display: block;}
 .layer:target{display:flex;animation:open 0.5s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
-.popup_box p {margin-top:30px; margin-bottom: 0; color:#222;}
+.popup_box p {margin-top:30px; margin-bottom: 0; text-align: center; color:#222;}
 p.cancel_info {margin:2% 0; text-align: center;}
 
 

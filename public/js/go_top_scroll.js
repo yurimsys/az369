@@ -1,7 +1,7 @@
         //기본 스크롤 하이드, 쇼
         $(function() {
             $(window).scroll(function() {
-                console.log('now_scroll ::',$(this).scrollTop());
+                // console.log('now_scroll ::',$(this).scrollTop());
                 //스크롤이 300이상일때 보이기 
                 if ($(this).scrollTop() > 300) {
                     $('#top_scroll').css('display','block');

@@ -433,6 +433,7 @@ router.post('/login',
 router.get('/logout', function(req, res, next){
     req.session.destroy();
     // req.logout();
+    
     res.redirect('/');
 });
 

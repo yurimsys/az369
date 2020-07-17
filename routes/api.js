@@ -641,7 +641,6 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
                 WHERE U_uId =:uUserName`;
 
     let query2 = `UPDATE tU SET 
-                    U_Phone = :uPhone, 
                     U_Brand = :uBrand,
                     U_Zip = :uZip, 
                     U_Addr1 = :uAddr1, 
@@ -669,23 +668,27 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
 
     if(password === "" && uPhone === "" ){
         connection.query(query2,{uBrand, uZip, uAddr1, uAddr2, uUserName},
-            function(){                   
+            function(err, rows){
+                if (err) throw err;                     
                 res.json( {  data : "성공"});
             })
             
     } else if(password != "" && uPhone != "" ) {
         connection.query(query,{hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
-            function(){                   
+            function(err, rows){
+                if (err) throw err;                     
                 res.json( {  data : "성공"});
             })
     } else if(password != "" && uPhone === "" ) {
         connection.query(query3,{hash_pw, uBrand, uZip, uAddr1, uAddr2, uUserName},
-            function(){
+            function(err, rows){
+                if (err) throw err;  
                 res.json( {  data : "성공"});
         })
     } else if(password === "" && uPhone != "" ) {
         connection.query(query4,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
-            function(){
+            function(err, rows){
+                if (err) throw err;  
                 res.json( {  data : "성공"});
         })
     }
