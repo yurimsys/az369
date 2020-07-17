@@ -1,25 +1,94 @@
-/* 장차기사전용 앱 모바일 전용 css입니다 */
-
 @charset "UTF-8";
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px; word-break: keep-all;  background-color: #f2f2f2;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #444;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
 a img {border: none;}
 li {list-style: none;}
 address, em, i {font-style: normal;}
-p {text-align: justify; font-family: inherit; font-size: 16px;}
+p { font-family: inherit; font-size: 14px;}
 span {padding: 0; margin: 0;}
 input, button {-webkit-tap-highlight-color: transparent;}
 *:focus {outline: none;}
 /* ----------------------- */
 
-.wrap {width: 100%; margin: 0 auto; height: auto;} 
+/* 공통속성 */
 
-.tab {width: 100%; display: flex; height: 60px;}
-.tab button {flex: 1; border: none; font-size: 1em;}
+button {border: none; }
+.btn {width: 100%; height: 46px; font-size: 16px; font-weight: 500; border-radius: 6px; color: #444;}
+.modal-inner {width: 80%; margin-left: 50%; margin-top:50%; transform: translate(-50%, -50%); padding: 20px 30px 0; border-radius: 12px;}
+
+
+
+
+.wrap {width: 100%; margin: 0 auto; height: auto;} 
+.tab {display: flex; background-color: #444;height: 60px;}
+  
+  .tab button {
+    background-color: inherit;
+    transition: 0.3s;
+      color: #999;
+    font-size: 18px;
+      font-weight: 500;
+    border: none;
+      background: inherit;
+      flex: 1;
+      
+  }
+  
+  .tab button.active {
+      /* color: #222;
+      background-color: #f2f2f2; */
+      color: #fff;
+      border-bottom: 3px solid #c3a164;
+  }
+  
+  .tabcontent {
+    display: none;
+    height: auto;
+    background: inherit;
+    margin: 30px 20px;
+  }
+  
+  .bus_info {text-align: center; color: #444; font-size: 16px;}
+  .bus_info dd {color: #767676; font-size: 14px;}
+
+  .qr {width: 100%; background-color: #fff; border: 1px solid #444; margin: 30px 0;}
+
+  .seat-map {width: 100%; height: 800px; background: #fff; border: #dbdbdb; border-radius: 12px;}
+  
+  .reload {width: 25%; text-align: center; line-height: 46px; background: #fff; margin-left: 50%; transform: translateX(-50%); margin-top: 20px; margin-bottom: 40px; overflow: hidden; border: 1px solid #b2b2b2; color: #444;}
+  .icon {width: 20px; height: 20px; background: palevioletred; position: relative;}
+  .check {background: #fff; border: 1px solid #444; margin-bottom: 10px;}
+  .start {background: #dbdbdb; color: #fff;}
+  /* background: #c2994d; */
+
+  footer {margin: 0 20px; border-top: 1px solid #e8e8e8; padding: 20px 0; text-align: center; color: #999;}
+  footer dd span {color: #444;}
+
+
+
+  .modal {
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+.modal-inner {text-align: center;}
+.modal-inner h3 {margin-bottom: 15px;}
+.modal-inner p {margin-bottom: 10px; color: #767676;}
+.modal_inner_btn {width: 100%; display: flex; border-top: 1px solid #eee;}
+.modal_inner_btn a {flex: 1; text-align: center; display:block;padding: 20px 0; font-size: 16px;}
+.cancle {color: #767676;}
+.ok {color: #c3a164;}
