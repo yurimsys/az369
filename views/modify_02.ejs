@@ -322,8 +322,13 @@
                 },
                 success: function (res) {
                     //console.log("콘솔 :",res.data)
-                    alert("수정이 완료되었습니다.");
-                    location.href = "mypage";
+                    swal({
+                        title: '내 정보 수정완료',
+                        icon: 'success',
+                        button: '확인'
+                    }).then(function(){
+                        location.href = "mypage";
+                    })
                 }
             })
         }
@@ -362,10 +367,23 @@
                     //console.log("res :",res);
                     //console.log("res.data :", res.data);
                     if (res.data === '실패') {
-                        alert("입력된 비밀번호가 틀립니다.");
-                        location.href = "modify2";
+                        swal({
+                            title: '입력된 비밀번호가 틀립니다.',
+                            icon: 'error',
+                            button: '확인'
+                        }).then(function(){
+                            location.href = "modify2";
+                        })
+
                         //location.href = '/logout';
                     } else if (res.data === "성공") {
+                        swal({
+                            title: '탈퇴완료',
+                            icon: 'success',
+                            button: '확인'
+                        }).then(function(){
+                            location.href = "mypage";
+                        })
                         alert("탈퇴가 완료되었습니다.");
                         location.href = "/";
                     }

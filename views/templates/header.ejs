@@ -49,7 +49,7 @@
             <ul>
                 <% if( sessionUser ) { %>
                 <li><a href="/mypage" style="font-weight:bold"><%= sessionUser.U_Name %> 님</a></li>
-                <li><a href="/logout">로그아웃</a></li>
+                <li><a href="/logout" onclick="logOut()">로그아웃</a></li>
                 <% } else { %>
                 <li><a href="/login">로그인</a></li>
                 <li><a href="/join">회원가입</a></li>
@@ -198,5 +198,9 @@
             });
         }
     });
+
+    function logOut(){
+        localStorage.removeItem('auto_login');
+    }
 </script>
 <!--// header완료-->

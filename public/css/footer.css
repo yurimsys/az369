@@ -12,9 +12,13 @@ footer {width: 100%; background-color: #fafafa; position: relative; padding: 20p
 .footer_info a, .footer_info img {margin-left: 5px;}
 .footer_info br {display: none;}
  
-#top_scroll { position: fixed; display: block; background-color: #fff; width: 50px;height: 50px; right: 5px; bottom:5px; text-align: center; border-radius: 50%;  border: 1px solid #dbdbdb; z-index: 10; font-size: 14px;} 
+#top_scroll { position: fixed; display: block; background-color: #fff; width: 50px;height: 50px; right: 40px; bottom:30px; text-align: center; border-radius: 50%;  border: 1px solid #dbdbdb; z-index: 10; font-size: 14px;} 
 
 #top_scroll img {width: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
+
+#top_scroll:hover{
+    background-color: #dbdbdb;
+}
 
 
 /* 1200px */
@@ -24,6 +28,10 @@ footer {width: 100%; background-color: #fafafa; position: relative; padding: 20p
 
 /* 768px */
 @media screen and (max-width: 768px) {
+    #top_scroll {
+        right: 10px;
+        bottom: 100px;
+    }
     .footer_inner {text-align: center;}
     .footer_corp {padding-bottom: 15px;}
     .footer_info span::after {display: none;}
@@ -34,11 +42,28 @@ footer {width: 100%; background-color: #fafafa; position: relative; padding: 20p
 
 /* 414px */
 @media screen and (max-width: 414px) {
+    #top_scroll {
+        right: 10px;
+        bottom: 40px;
+    }
     .footer_inner {text-align: center; }
+}
+
+/* 375px */
+@media screen and (max-width: 375px) {
+    #top_scroll {
+        right: 12px;
+        bottom: 40px;
+    }
+    .footer_inner { margin-top: 100px; }
 }
 
 /* 320px */
 @media screen and (max-width: 320px) {
+    #top_scroll {
+        right: 10px;
+        bottom: 40px;
+    }
     .footer_inner { margin-top: 100px; }
 }
 
