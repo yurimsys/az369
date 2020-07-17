@@ -12,7 +12,7 @@ img {vertical-align: middle;}
 a img {border: none;}
 li {list-style: none;}
 address, em, i {font-style: normal;}
-p {text-align: justify; font-family: inherit; font-size: 16px;}
+p {font-family: inherit; font-size: 16px;}
 span {padding: 0; margin: 0;}
 input, button {-webkit-tap-highlight-color: transparent;}
 *:focus {outline: none;}
