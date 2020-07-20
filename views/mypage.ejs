@@ -662,6 +662,7 @@
 
         //QR코드 생성 함수
         function qrCodeImg(qrId,userInfo){
+            console.log('qrId',qrId, userInfo);
             let qr_id = qrId;
             let qr_text = userInfo;
             let qrcode = new QRCode(document.getElementById('qrcode'+qr_id), 

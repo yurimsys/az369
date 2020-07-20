@@ -37,8 +37,8 @@
       <div class="btn reload">새로고침</div>
 
       <!-- 하단버튼 -->
-      <button class="btn check check_p" id="check_p">승차완료</button>
-      <button class="btn start start_p" id="start_p">출발</button>
+      <button class="btn check check_p" id="check_p" onclick="busReadyPy(this)">승차완료</button>
+      <button class="btn start start_p" id="start_p" onclick="busStartPy(this)">출발</button>
       <button class="btn start_cancel_p" id="start_cancel_p">출발취소</button>
 
       <!-- 출발 모달창 -->
@@ -48,8 +48,8 @@
           <p>확인을 누르면 현재 운행하는 장차의
             온라인 예매가 마감되어 예매가 불가능해집니다.</p>
           <div class="modal_inner_btn">
-            <a href="#" id="cancel">취소</a>
-            <a href="#" id="yes_p">확인</a>
+            <a onclick="closePy()">취소</a>
+            <a onclick="checkPy()">확인</a>
           </div>
         </div>
       </div>
@@ -91,17 +91,18 @@
       <div class="btn reload">새로고침</div>
 
       <!-- 하단버튼 -->
-      <button class="btn check check_s">승차완료</button>
-      <button class="btn start start_s" id="start1">출발</button>
+      <button class="btn check check_s" id="check_s" onclick="busReadySe(this)">승차완료</button>
+      <button class="btn start start_s" id="start_s"  onclick='busStartSe(this)'>출발</button>
+      <button class="btn start_cancel_s" id="start_cancel_s">출발취소</button>
 
 
       <!-- 출발버튼 클릭 시 모달창 -->
-      <div class="start_modal">
+      <div class="start_modal start_s_modal">
         <div class="modal-inner">
           <h3>출발하시겠습니까?</h3>
           <div class="modal_inner_btn">
-            <a href="#" id="no">취소</a>
-            <a href="#" id="yes">확인</a>
+            <a onclick="closeSe()">취소</a>
+            <a onclick="checkSe()">확인</a>
           </div>
         </div>
       </div>
@@ -138,40 +139,80 @@
 
 
 
-  var cp = document.getElementById('check_p');
-  var sp = document.getElementById('start_p');
-  var scp = document.getElementById('start_cancel_p');
-  var sp_modal = document.getElementById('start_p_modal');
-  var scp_modal = document.getElementById('start_cancel_p_modal');
-  var yes_p = document.getElementById('yes_p');
-  var cancel_p = document.getElementById('cancel_p');
+  // var cp = document.getElementById('check_p');
+  // var sp = document.getElementById('start_p');
+  // var scp = document.getElementById('start_cancel_p');
+  // var sp_modal = document.getElementById('start_p_modal');
+  // var scp_modal = document.getElementById('start_cancel_p_modal');
+  // var yes_p = document.getElementById('yes_p');
+  // var cancel_p = document.getElementById('cancel_p');
 
   
-  
-//   // 하단버튼 이벤트
-//   $(".check_p").click(function () {
-//     $(this).toggleClass("checked"),
-//       $(".start_p").toggleClass("started");
-//   });
 
-//   // 하단버튼 이벤트
-//   $(".check_s").click(function () {
-//     $(this).toggleClass("checked"),
-//       $(".start_s").toggleClass("started");
-//   });
+  // 하단버튼 이벤트
+    function busReadyPy(e){
+        $(e).toggleClass("checked"),
+        $(".start_p").toggleClass("started");
+    }
+
+  // 하단버튼 이벤트
+
+  function busReadySe(e){
+        $(e).toggleClass("checked"),
+        $(".start_s").toggleClass("started");
+    }
+
+    function busStartPy(e){
+        if($('#check_p').hasClass('checked') == false){
+            return false;
+        }else{
+            $('.start_p_modal').css('display','block')
+        }
+    }
+
+    function busStartSe(e){
+        if($('#check_s').hasClass('checked') == false){
+            return false;
+        }else{
+            $('.start_s_modal').css('display','block')
+        }
+    }
+
+
+    function closePy(){
+        $('.start_p_modal').css('display','none')
+    }
+    function closeSe(){
+        $('.start_s_modal').css('display','none')
+    }
+
+
+    function checkPy(){
+        $('.start_p_modal').css('display','none')
+        $('#check_p').css('display','none');
+        $('#start_p').css('display','none');
+        $('#start_cancel_p').css('display','block');
+    }
+
+    function checkSe(){
+        $('.start_s_modal').css('display','none')
+        $('#check_s').css('display','none');
+        $('#start_s').css('display','none');
+        $('#start_cancel_s').css('display','block');
+    }
+
+    $("#yes").click(function(){
+    $(".check_p").css('display', 'none'),
+    $(".start_p").removeClass('start_p'),
+    $(".started").css('display', 'none'),
+    $(".start_cancel_p").css('display', 'block');
+    });
+
+    
 
 
 
-// $("#yes").click(function(){
-//   $(".check_p").css('display', 'none'),
-//   $(".start_p").removeClass('start_p'),
-//   $(".started").css('display', 'none'),
-//   $(".start_cancel_p").css('display', 'block');
-// });
-
-
-
-//   // 출발확인 모달창
+  // 출발확인 모달창
 //   const open = document.getElementById("start_p");
 //   const close = document.getElementById("yes");
 //   const modal = document.querySelector(".start_p_modal");

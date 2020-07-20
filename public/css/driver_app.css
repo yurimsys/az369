@@ -70,7 +70,9 @@ button {border: none; cursor: pointer;}
   footer {margin: 0 20px; border-top: 1px solid #e8e8e8; padding: 20px 0; text-align: center; color: #999;}
   footer dd span {color: #444;}
 
-
+#start_cancel_p, #start_cancel_s{
+  display: none;
+}
 
   .start_modal, .start_cancel_modal {
     display: none; 
