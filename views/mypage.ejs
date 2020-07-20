@@ -295,7 +295,7 @@
                                                         </span>
                                                     </li>
                                                 </ul>
-                                                <button class="search_btn" onclick="payBetween()">일시조회</button>
+                                                <button class="search_btn" onclick="payBetween()">날짜조회</button>
                                             </div>
                                         </div>
 
@@ -410,7 +410,7 @@
                                                         </span>
                                                     </li>
                                                 </ul>
-                                                <button class="search_btn" onclick="cancelBetween()">일시조회</button>
+                                                <button class="search_btn" onclick="cancelBetween()">날짜조회</button>
                                             </div>
                                         </div>
 
@@ -613,7 +613,7 @@
                          <div class="popup_btn">
                            <ul><li><a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');" class="btn btn-secondary popup_close1">닫기</a></li><li>`;
                     for(let i=0; i <res.data.length; i++){
-                        let html = '<div class="swiper-slide"><h2>승차권 '+Number(i+1)+' / <span style="color: #999;">'+res.data.length+'</span></h2><div class="qr_info"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div><div class="qr_txt">';
+                        let html = '<div class="swiper-slide"><h2>승차권 '+Number(i+1)+'  <span style="color: #999;"> / '+res.data.length+'</span></h2><div class="qr_info"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div><div class="qr_txt">';
                             html += '<p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p></div></div><table class="detail_table">';
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[i].PayDay2+'</td><tr>'
@@ -633,7 +633,7 @@
                     }
 
                     for(let j=0; j <res.data.length; j++){
-                        let html = '<div class="swiper-slide"><h2>승차권 '+Number(j+1)+' / <span style="color: #999;">'+res.data.length+'</span></h2><div class="qr_info"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div><div class="qr_txt">';
+                        let html = '<div class="swiper-slide"><h2>승차권 '+Number(j+1)+'<span style="color: #999;"> / '+res.data.length+'</span></h2><div class="qr_info"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div><div class="qr_txt">';
                             html += '<p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p></div><table class="detail_table">';
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[j].PayDay2+'</td><tr>'
