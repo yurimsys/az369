@@ -193,8 +193,10 @@ th, td {padding: 0;}
 .table_mo {display: none;}
 
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
- .popup_box{width:30%; background:#fff; position:relative; z-index: 1000; top:50%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; padding: 25px 30px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.2);}
+ .popup_box{width:30%; background:#fff; position:relative; z-index: 1000; top:50%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.2);}
  .popup_box h2 {font-size: 24px; font-weight: 600; margin-bottom: 15px; text-align: center;}
+
+ .swiper-slide {width: auto; padding: 20px; background-color: red; border-radius: 12px;}
  .qrcode {width: 80px; height: 80px; background-color: gold; float: left; position: relative;}
 .qr_info {display: inline-block; width: 99%; position: relative; height: auto; border-radius: 12px; margin: 5px 0 5px; border: 1px solid #dbdbdb; padding: 10px 30px 10px 10px;}
 /* .qr_info_inner {margin: 10px 0 30px; border-radius: 12px; padding: 10px 15px 8px; padding-right: 80px; box-shadow: 5px 5px 5px rgba(180,180,180,0.2); overflow: hidden; position: relative; left: 50%; transform: translateX(-50%); display: inline-block; border: 1px solid #eee; background-color: #fff;} */
@@ -234,6 +236,7 @@ th, td {padding: 0;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
 .popup_box p {margin-top:15px; margin-bottom: 0; color:#222; text-align: center;}
 p.cancel_info {margin:2% 0; text-align: center;}
+
 
 
 /*section.sub_wrap 완료*/
