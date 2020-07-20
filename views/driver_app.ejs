@@ -32,6 +32,15 @@
 
 
             <!-- 좌석 -->
+            <!-- 좌석범례 -->
+            <div class="seat_legend">
+                <ul>
+                    <li><div class="legend legend01"></div><p>승차확인좌석</p></li>
+                    <li><div class="legend legend02"></div><p>예매좌석</p></li>
+                    <li><div class="legend legend03"></div><p>미예매좌석</p></li>
+                </ul>
+            </div>
+            <!-- 좌석표 -->
             <div class="seat-map seatCharts-container">
             </div>
             <div class="btn reload">새로고침</div>
@@ -46,7 +55,7 @@
                 <div class="modal-inner">
                     <h3>출발하시겠습니까?</h3>
                     <p>확인을 누르면 현재 운행하는 장차의
-                        온라인 예매가 마감되어 예매가 불가능해집니다.</p>
+                        온라인 예매가 마감됩니다. 예매마감 이후 현 장차의 예매가 불가능해집니다.</p>
                     <div class="modal_inner_btn">
                         <a onclick="closePy()" style="color: #767676;">취소</a>
                         <a onclick="checkPy()" style="color: #c3a164;">확인</a>
@@ -86,6 +95,14 @@
 
 
             <!-- 좌석 -->
+            <!-- 좌석범례 -->
+            <div class="seat_legend">
+                <ul>
+                    <li><div class="legend legend01"></div><p>승차확인좌석</p></li>
+                    <li><div class="legend legend02"></div><p>예매좌석</p></li>
+                    <li><div class="legend legend03"></div><p>미예매좌석</p></li>
+                </ul>
+            </div>
             <div class="seat-map seatCharts-container">
             </div>
             <div class="btn reload">새로고침</div>
@@ -100,6 +117,7 @@
             <div class="start_modal start_s_modal">
                 <div class="modal-inner">
                     <h3>출발하시겠습니까?</h3>
+                    <p>확인을 누르면 QR코드 스캔을 사용하실 수 없습니다.</p>
                     <div class="modal_inner_btn">
                         <a onclick="closeSe()" style="color: #767676;">취소</a>
                         <a onclick="checkSe()" style="color: #c3a164;">확인</a>
@@ -112,10 +130,7 @@
         <div class="start_cancel_modal start_cancel_s_modal">
             <div class="modal-inner">
                 <h3>출발취소 하시겠습니까?</h3>
-                <p>확인을 누르면 현재 운행하는 장차의
-                    온라인 예매가 다시 열립니다.<br>
-                    <span>단, 출발시간이 지났을 경우
-                        온라인예매는 자동으로 닫힙니다.</span></p>
+                <p>취소를 누르면 QR코드 스캔을 다시 사용하실 수 있습니다.</p>
                 <div class="modal_inner_btn">
                     <a onclick="closeSe2()" style="color: #767676;">취소</a>
                     <a onclick="cancelSe()" style="color: #c3a164;">확인</a>
