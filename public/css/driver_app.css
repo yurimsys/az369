@@ -3,8 +3,8 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px; word-break: keep-all;  background-color: #f2f2f2;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #444;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px; word-break: keep-all;  }
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #444; background-color: #f2f2f2;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -19,84 +19,106 @@ input, button {-webkit-tap-highlight-color: transparent;}
 
 /* 공통속성 */
 button {border: none; cursor: pointer;}
-.btn {width: 100%; height: 46px; font-size: 16px; font-weight: 500; border-radius: 6px; color: #444;}
-.modal-inner {width: 80%; margin-left: 50%; margin-top:50%; transform: translate(-50%, -50%); padding: 20px 30px 0; border-radius: 12px;}
+.btn {width: 100%; height: 50px; font-size: 16px; font-weight: 600; border-radius: 6px; color: #444;}
+.modal-inner {width: 85%; margin-left: 50%; margin-top:50%; transform: translate(-50%, -50%); padding: 20px 30px 0; border-radius: 12px;}
 
 
-
-
-.wrap {width: 100%; margin: 0 auto; height: auto;} 
-.tab {display: flex; background-color: #444;height: 60px;}
+  .wrap {width: 100%; margin: 0 auto; height: auto;} 
   
+  /* 상단 탭 */
+  .tab {display: flex; background-color: #444;height: 60px;}
   .tab button {
     background-color: inherit;
     transition: 0.3s;
       color: #999;
     font-size: 18px;
-      font-weight: 500;
+      font-weight: 600;
     border: none;
       background: inherit;
       flex: 1;
-      
   }
-  
   .tab button.active {
-      /* color: #222;
-      background-color: #f2f2f2; */
       color: #fff;
       border-bottom: 3px solid #c3a164;
   }
-  
   .tabcontent {
     display: none;
     height: auto;
     background: inherit;
-    margin: 30px 20px;
+    margin: 30px 20px 40px;
   }
   
+  /* 버스정보 */
   .bus_info {text-align: center; color: #444; font-size: 16px;}
   .bus_info dd {color: #767676; font-size: 14px;}
 
   .qr {width: 100%; background-color: #fff; border: 1px solid #444; margin: 30px 0;}
 
+  /* 좌석 */
+/* 좌석 범례 */
+  .seat_legend {width: 100%; height: auto; padding: 10px 15px; background-color: #fff; margin-bottom: 10px; overflow: hidden;}
+  .seat_legend ul {width: 100%;  display: flex;}
+  .seat_legend ul li {float: left; position: relative; flex: auto;}
+  /* .seat_legend ul li:nth-child(1) {width: 35%;}
+  .seat_legend ul li:nth-child(2) {width: 30%;}
+  .seat_legend ul li:nth-child(3) {width: 30%;} */
+  .legend {width: 15px; height: 15px; float: left; margin-right: 5px; border-radius: 4px;}
+  .seat_legend ul li p {line-height: 15px;}
+
+  .legend01 {background: #c3a164;}
+  .legend02 {border: 1px solid #dbdbdb;}
+  .legend03 {background: #aaa;}
+  /* .seat_legend::after {content: ''; display: block; clear: both;} */
+
   .seat-map {width: 100%; height: 800px; background: #fff; border: #dbdbdb; border-radius: 12px;}
-  
+
+  /* 새로고침버튼 */
   .reload {width: 150px; text-align: center; line-height: 46px; background: #fff; margin-left: 50%; transform: translateX(-50%); margin-top: 20px; margin-bottom: 40px; overflow: hidden; border: 1px solid #b2b2b2; color: #444; cursor: pointer;}
   .icon {width: 20px; height: 20px; background: palevioletred; position: relative;}
+
+  /* 하단버튼 */
   .check {background: #fff; border: 1px solid #444; margin-bottom: 10px;}
   .start {background: #dbdbdb; color: #fff;}
-  /* background: #c2994d; */
+  .checked {border: 1px solid #B58D45; color: #B58D45;}
+  .started {background-color: #c3a164;}
+  .cancel_p {background: #fff; border: 1px solid #444; color: #444; display: none;}
+  #start_cancel_p, #start_cancel_s{
+    display: none; background-color: #fff; border: 1px solid #444;}
 
-  footer {margin: 0 20px; border-top: 1px solid #e8e8e8; padding: 20px 0; text-align: center; color: #999;}
-  footer dd span {color: #444;}
-
-#start_cancel_p, #start_cancel_s{
-  display: none;
-}
-
+  /* 모달창 */
   .start_modal, .start_cancel_modal {
-    display: none; 
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-inner {text-align: center;}
-.modal-inner h3 {margin-bottom: 15px;}
-.modal-inner p {margin-bottom: 10px; color: #444;}
-.modal-inner p span {color: #999;}
-.modal_inner_btn {width: 100%; display: flex;}
-.modal_inner_btn a {flex: 1; text-align: center; display:block;padding: 15px 0 20px; font-size: 16px;}
-#no {color: #767676;}
-#yes {color: #c3a164;}
+      display: none; 
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0,0.4);
+  }
+  .modal-inner {text-align: center; background-color: #fff;}
+  .modal-inner h3 {margin-bottom: 10px;}
+  .modal-inner p {margin-bottom: 10px; color: #444;}
+  .modal-inner p span {color: #999;}
+  .modal_inner_btn {width: 100%; display: flex;}
+  .modal_inner_btn a {flex: 1; text-align: center; display:block;padding: 15px 0 20px; font-size: 16px;}
+  
 
 
-.checked {border: 1px solid #B58D45; color: #B58D45;}
-.started {background-color: #c3a164;}
-.cancel_p {background: #fff; border: 1px solid #444; color: #444; display: none;}
+
+
+
+
+
+
+
+    
+
+  /* footer */
+  footer { border-top: 1px solid #e8e8e8; padding: 20px 0; text-align: center; color: #999; font-size: 13px;}
+  footer dd span {color: #767676;}
+
+
+  
