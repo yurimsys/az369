@@ -71,7 +71,7 @@ button {border: none; cursor: pointer;}
   footer dd span {color: #444;}
 
 #start_cancel_p, #start_cancel_s{
-  display: none;
+  display: none; background-color: #fff; border: 1px solid #444;
 }
 
   .start_modal, .start_cancel_modal {
@@ -88,7 +88,7 @@ button {border: none; cursor: pointer;}
 }
 
 .modal-inner {text-align: center;}
-.modal-inner h3 {margin-bottom: 15px;}
+.modal-inner h3 {margin-bottom: 10px;}
 .modal-inner p {margin-bottom: 10px; color: #444;}
 .modal-inner p span {color: #999;}
 .modal_inner_btn {width: 100%; display: flex;}
