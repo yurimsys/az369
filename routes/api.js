@@ -1568,13 +1568,12 @@ router.post('/user/resCarList', (req, res, next) =>{
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID
                 WHERE 
-                    tCT.CT_DepartureTe < DATE_ADD(NOW(),INTERVAL +21 DAY) 
-                        AND tCT.CT_DepartureTe > NOW()
 `
         if(req.query.type == 'bus_start'){
-            query += `ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
+            query += `tCT.CT_DepartureTe > NOW()
+                        ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
         }else{
-            query += `AND tCT.CT_DepartureTe > DATE_ADD(NOW(),INTERVAL -20 MINUTE)
+            query += `tCT.CT_DepartureTe > DATE_ADD(NOW(),INTERVAL -20 MINUTE)
                         ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
         }
 
@@ -1591,7 +1590,7 @@ router.post('/user/resCarList', (req, res, next) =>{
 
 // CT_ID로 예약된 좌석 정보 가져오기
 router.get('/useSeat/:ct_id', auth.isLoggedIn, (req, res, next) =>{
-    let query = `select CR_SeatNum from tCR where CR_CT_ID = :ct_id and CR_Cancel = 'N' `;
+    let query = `select CR_ID, CR_SeatNum from tCR where CR_CT_ID = :ct_id and CR_Cancel = 'N' `;
     let ct_id = req.params.ct_id;
     
     connection.query(query, { ct_id : ct_id },
@@ -3562,6 +3561,21 @@ router.delete('/deleteMc/:mcId',  async function (req, res, next) {
         console.log(err);
         console.log('error fire')
     }
+});
+
+
+//좌석 테스트
+router.post('/seatNow', (req, res, next) =>{
+
+    let query = `select CR_SeatNum from tCR where CR_CT_ID = :ctId and CR_Cancel = 'n'`; 
+    let ctId = req.body.ctId
+    connection.query(query,{ctId},
+      function(err, rows) {
+          if (err) throw err;
+          res.json({ data : rows});
+          console.log("좌석 목록 :",rows);
+      });
+        
 });
 
 module.exports = router;
