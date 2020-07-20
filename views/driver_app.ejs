@@ -1,168 +1,211 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/driver_app.css">
-    <script src="/js/jquery-3.3.1.min.js"></script>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/driver_app.css">
+  <script src="/js/jquery-3.3.1.min.js"></script>
 </head>
+
 <body>
 
-    <div class="wrap">
-    
-    
-      <div class="tab">
-        <button class="tab_button" onclick="openLocation(event, 'pyeongtaek')" id="defaultOpen">평택 출발</button>
-        <button class="tab_button" onclick="openLocation(event, 'seoul')">동대문 출발</button>
+  <div class="wrap">
+
+
+    <div class="tab">
+      <button class="tab_button" onclick="openLocation(event, 'pyeongtaek')" id="defaultOpen">평택 출발</button>
+      <button class="tab_button" onclick="openLocation(event, 'seoul')">동대문 출발</button>
+    </div>
+
+    <!-- 평택 출발 -->
+    <div id="pyeongtaek" class="tabcontent">
+
+      <div class="bus_info">
+        <h3>운행정보</h3>
+        <dd>평택 21:00 - 서울동대문 04:00</dd>
+        <dd>유림고속 (1111)</dd>
       </div>
-    
-      <!-- 평택 ㅇ출발 -->
-      <div id="pyeongtaek" class="tabcontent">
-        <div class="bus_info">
-          <h3>운행정보</h3>
-          <dd>평택 21:00 - 서울동대문 04:00</dd>
-          <dd>유림고속 (1111)</dd>
-        </div>
-    
-        <button class="btn qr">QR코드 스캔하기</button>
 
-        <div class="seat-map seatCharts-container">
-        </div>
-        <!--새로고침: 아이콘을 넣어야해서 div로 바뀔예정 -->
-        <div class="btn reload">새로고침</div>
-        
-        <button class="btn check">승차완료</button>
-        <button class="btn start" id="myBtn">출발</button>
- 
-     <div id="myModal" class="modal">
-       <div class="modal-inner">
-         <h3>출발하시겠습니까?</h3>
-        <p>확인을 누르면 현재 운행하는 장차의
-          온라인 예매가 마감됩니다. <br>
-          마감 후 온라인 예매는 불가능해집니다.</p>
+      <button class="btn qr">QR코드 스캔하기</button>
+
+
+      <!-- 좌석 -->
+      <div class="seat-map seatCharts-container">
+      </div>
+      <div class="btn reload">새로고침</div>
+
+      <!-- 하단버튼 -->
+      <button class="btn check check_p" id="check_p">승차완료</button>
+      <button class="btn start start_p" id="start_p">출발</button>
+      <button class="btn start_cancel_p" id="start_cancel_p">출발취소</button>
+
+      <!-- 출발 모달창 -->
+      <div class="modal start_modal start_p_modal">
+        <div class="modal-inner">
+          <h3>출발하시겠습니까?</h3>
+          <p>확인을 누르면 현재 운행하는 장차의
+            온라인 예매가 마감되어 예매가 불가능해집니다.</p>
           <div class="modal_inner_btn">
-         <a href="#" class="cancle">취소</a>             
-         <a href="#" class="ok">확인</a>
-        </div>                                       
-       </div>
-     </div>
- 
-
-          
+            <a href="#" id="cancel">취소</a>
+            <a href="#" id="yes_p">확인</a>
+          </div>
         </div>
+      </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      <!-- 출발취소 모달창 -->
+      <div class="modal start_cancel_modal start_cancel_p_modal">
+        <div class="modal-inner">
+          <h3>출발취소 하시겠습니까?</h3>
+          <p>확인을 누르면 현재 운행하는 장차의
+            온라인 예매가 다시 열립니다.<br>
+            <span>단, 출발시간이 지났을 경우 
+              온라인예매는 자동으로 닫힙니다.</span></p>
+          <div class="modal_inner_btn">
+            <a href="#" id="no2">취소</a>
+            <a href="#" id="cancel_p">확인</a>
+          </div>
+        </div>
+      </div>
+      
+    </div>
 
 
 
     <!-- 서울동대문 출발 -->
-      <div id="seoul" class="tabcontent">
-        <div class="bus_info">
-          <h3>운행정보</h3>
-          <dd>평택 21:00 - 서울동대문 04:00</dd>
-          <dd>유림고속 (1111)</dd>
-        </div>
-    
-        <button class="btn qr">QR코드 스캔하기</button>
+    <div id="seoul" class="tabcontent">
 
-        <div class="seat-map seatCharts-container">
-        </div>
-        <!--새로고침: 아이콘을 넣어야해서 div로 바뀔예정 -->
-        <button class="btn reload">새로고침</button>
-        
-        <button class="btn check">승차완료</button>
-        <button class="btn start">출발</button>
-        
+      <div class="bus_info">
+        <h3>운행정보</h3>
+        <dd>평택 21:00 - 서울동대문 04:00</dd>
+        <dd>유림고속 (1111)</dd>
       </div>
-    
 
-      <footer>
-        <dd>문의전화 <span>0000 - 0000</span></dd>
-        <dd>(평일 09:00 ~ 18:00, 유료)</dd>
-      </footer>
-    
-    
+      <button class="btn qr">QR코드 스캔하기</button>
+
+
+      <!-- 좌석 -->
+      <div class="seat-map seatCharts-container">
+      </div>
+      <div class="btn reload">새로고침</div>
+
+      <!-- 하단버튼 -->
+      <button class="btn check check_s">승차완료</button>
+      <button class="btn start start_s" id="start1">출발</button>
+
+
+      <!-- 출발버튼 클릭 시 모달창 -->
+      <div class="start_modal">
+        <div class="modal-inner">
+          <h3>출발하시겠습니까?</h3>
+          <div class="modal_inner_btn">
+            <a href="#" id="no">취소</a>
+            <a href="#" id="yes">확인</a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    
-    
+
+    <!-- footer -->
+    <footer>
+      <dd>문의전화 <span>0000 - 0000</span></dd>
+      <dd>(평일 09:00 ~ 18:00, 유료)</dd>
+    </footer>
+  </div>
+
+
+
 </body>
 
 <!-- 평택, 동대문 탭 -->
 <script>
   function openLocation(evt, locationName) {
-      var i, tabcontent, tab_button;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-      }
-      tab_button = document.getElementsByClassName("tab_button");
-      for (i = 0; i < tab_button.length; i++) {
-        tab_button[i].className = tab_button[i].className.replace(" active", "");
-      }
-      document.getElementById(locationName).style.display = "block";
-      evt.currentTarget.className += " active";
+    var i, tabcontent, tab_button;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tab_button = document.getElementsByClassName("tab_button");
+    for (i = 0; i < tab_button.length; i++) {
+      tab_button[i].className = tab_button[i].className.replace(" active", "");
+    }
+    document.getElementById(locationName).style.display = "block";
+    evt.currentTarget.className += " active";
   }
-
-  // Get the element with id="defaultOpen" and click on it
   document.getElementById("defaultOpen").click();
 
 
-var modal = document.getElementById('myModal');
-        var btn = document.getElementById("myBtn");
-        var span = document.getElementsByClassName("ok")[0];                                          
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+
+  var cp = document.getElementById('check_p');
+  var sp = document.getElementById('start_p');
+  var scp = document.getElementById('start_cancel_p');
+  var sp_modal = document.getElementById('start_p_modal');
+  var scp_modal = document.getElementById('start_cancel_p_modal');
+  var yes_p = document.getElementById('yes_p');
+  var cancel_p = document.getElementById('cancel_p');
+
+  
+  
+//   // 하단버튼 이벤트
+//   $(".check_p").click(function () {
+//     $(this).toggleClass("checked"),
+//       $(".start_p").toggleClass("started");
+//   });
+
+//   // 하단버튼 이벤트
+//   $(".check_s").click(function () {
+//     $(this).toggleClass("checked"),
+//       $(".start_s").toggleClass("started");
+//   });
 
 
 
-        $(document).ready(function(){
-
-          $('check').click(function(){
-            $(this).addClass('checked');
-          });
-        });
-
-
-
-
-
-
-
-//   $(function(){
-//     $('.check').click(function(){
-//         $(this).addClass('checked');
-//         $('.start').addClass('active');
-//     });
+// $("#yes").click(function(){
+//   $(".check_p").css('display', 'none'),
+//   $(".start_p").removeClass('start_p'),
+//   $(".started").css('display', 'none'),
+//   $(".start_cancel_p").css('display', 'block');
 // });
 
+
+
+//   // 출발확인 모달창
+//   const open = document.getElementById("start_p");
+//   const close = document.getElementById("yes");
+//   const modal = document.querySelector(".start_p_modal");
+//   open.onclick = () => {
+//     modal.style.display = "block";
+//   };
+//   close.onclick = () => {
+//     modal.style.display = "none";
+//   };
+
+//   var scp_open = document.getElementById("start_cancel_p");
+//   var scp_close = document.getElementById("cancel_p");
+//   var scp_modal = document.querySelector(".start_cancel_p_modal");
+//   var sp = document.getElementById("start_p");
+//   var cp = document.getElementById("check_p");
+//   scp_open.onclick = () => {scp_modal.style.display="block";};
+//   scp_close.onclick = () => {scp_modal.style.display="none", scp_open.style.display="none", sp.style.display="block", cp.style.display="block";}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
-
-
 
 </html>

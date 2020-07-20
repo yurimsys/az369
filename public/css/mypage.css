@@ -184,12 +184,7 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
     display: none;
 }*/
 
-/* 예매상세내역 */
-
-
-
-
-/*선택예매취소 팝업버튼*/
+/* 장차예매현황 -승차권 팝업 */
 .popup_box_mo {display: none;}
 .table_mo {display: none;}
 
@@ -197,12 +192,25 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
  .popup_box{width:30%; background:#fff; position:relative; z-index: 1000; top:50%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; padding: 25px 30px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.2);}
  .popup_box h2 {font-size: 24px; font-weight: 600; margin-bottom: 15px; text-align: center;}
 
- #qrcode {width: 80px; height: 80px; background-color: gold; float: left; position: relative;}
-.qr_info {display: inline-block; width: 100%; position: relative; height: auto; border-radius: 12px; margin: 5px 0 5px; border: 1px solid #dbdbdb; padding: 10px 30px 10px 10px;}
-/* .qr_info_inner {margin: 10px 0 30px; border-radius: 12px; padding: 10px 15px 8px; padding-right: 80px; box-shadow: 5px 5px 5px rgba(180,180,180,0.2); overflow: hidden; position: relative; left: 50%; transform: translateX(-50%); display: inline-block; border: 1px solid #eee; background-color: #fff;} */
+/* swiper 슬라이드 */
+ .swiper-slide {
+    text-align:center;
+    align-items:center;
+    justify-content:center;
+}
+.swiper-slide img {
+    box-shadow:0 0 5px #555;
+}
+
+ .qr_info {width: 100%; padding:15px; margin-bottom: 10px; border-radius: 12px; border: 1px solid #dbdbdb;}
+ #qrcode {width: 80px; height: 80px; background-color: black; float: left;}
+
+
 .qr_info::after {content: ""; display: block; clear: both;}
 .qr_txt {position: relative; font-size: 15px; color: #222; line-height: 1.6; margin: 0; float: left; margin-left: 25px; font-weight: 400;height: 80px; text-align: center;}
 .qr_txt > p {position: relative; margin-top: 0 !important;top: 50%;transform: translateY(-50%);  text-align: center;}
+
+
 .table th {border-top: 1px solid #444;}
 
 .detail_table {
