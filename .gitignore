@@ -1,5 +1,7 @@
 /sessions
 /node_modules
 /_tmp_files
-/logs! _tmp_files  
+logs/
+/logs! _tmp_files 
+ 
  
