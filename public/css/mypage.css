@@ -184,12 +184,7 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
     display: none;
 }*/
 
-/* 예매상세내역 */
-
-
-
-
-/*선택예매취소 팝업버튼*/
+/* 장차예매현황 -승차권 팝업 */
 .popup_box_mo {display: none;}
 .table_mo {display: none;}
 
@@ -203,6 +198,8 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 .qr_info::after {content: ""; display: block; clear: both;}
 .qr_txt {position: relative; font-size: 15px; color: #222; line-height: 1.6; margin: 0; float: left; margin-left: 25px; font-weight: 400;height: 80px; text-align: center;}
 .qr_txt > p {position: relative; margin-top: 0 !important;top: 50%;transform: translateY(-50%);  text-align: center;}
+
+
 .table th {border-top: 1px solid #444;}
 
 .detail_table {
