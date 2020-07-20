@@ -28,7 +28,8 @@
     <script src="/js/qrcode.js"></script>
     
     <!-- 슬라이드 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css"> -->
+    <link rel="stylesheet" href="/css/swiper.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 
     <style>
@@ -594,14 +595,24 @@
                 },
                 success: function (res) {
                     console.log('res :', res);
-                    let default_html = `<div class="swiper-slide"><h2>승차권</h2><div class="qr_info"> <div id='qrcode' class="qrcode"></div><div class="qr_txt">
-                                        <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p></div><table class="detail_table">`;
-                    let default_html2 = `</table><p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한 예매를 취소하겠습니까?</p>
-                                        <div class="popup_btn"><ul><li><a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');" class="btn btn-secondary popup_close1">닫기</a>
-                                        </li><li>`;
+                    let default_html = 
+                    `<div class="swiper-slide">
+                        <h2>승차권 <span>1/2</span></h2>
+                        <div class="qr_info">
+                            <div id='qrcode' class="qrcode"></div>
+                            <div class="qr_txt">
+                            <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p>
+                            </div>
+                        </div>
+                         <table class="detail_table">`;
+                         let default_html2 = `</table>
+                         <p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span>
+                         <br>예매한 예매를 취소하겠습니까?</p>
+                         <div class="popup_btn">
+                           <ul><li><a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');" class="btn btn-secondary popup_close1">닫기</a></li><li>`;
                     for(let i=0; i <res.data.length; i++){
                         let html = '<div class="swiper-slide"><h2>승차권</h2><div class="qr_info"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div><div class="qr_txt">';
-                            html += '<p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p></div><table class="detail_table">';
+                            html += '<p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p></div></div><table class="detail_table">';
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[i].PayDay2+'</td><tr>'
                             html += '<tr><th>예매정보</th>';
@@ -620,7 +631,7 @@
                     }
 
                     for(let j=0; j <res.data.length; j++){
-                        let html = '<div class="swiper-slide"><h2>승차권</h2><div class="qr_info"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div><div class="qr_txt">';
+                        let html = '<div class="swiper-slide"><h2>승차권 1 / <span style="color: #999;">2</span></h2><div class="qr_info"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div><div class="qr_txt">';
                             html += '<p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p></div><table class="detail_table">';
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[j].PayDay2+'</td><tr>'
@@ -634,7 +645,7 @@
                             html += '<tr><th>결제금액</th>';
                             html += '<td>'+res.data[j].CR_Price+'</td><tr>'
                             html += default_html2;
-                            html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-crid='+res.data[j].CR_ID+'>예매취소</a></li></ul></div></div>';
+                            html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-crid='+res.data[j].CR_ID+'>예매취소</a></div></div>';
                             $('.swiper-mobile').append(html);
                             qrCodeImgMo(res.data[j].CR_ID,res.data[j].CR_QrCode)
                     }
