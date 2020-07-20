@@ -46,13 +46,14 @@
                 </ul>
             </div>
             <!-- 좌석표 -->
-            <div id="bus_seat_layer" class="tabcontent">
+            <!-- <div id="bus_seat_layer" class="tabcontent">
                 <div class="container">
-                    <!--좌석선택표-->
                     <div class="seat-map" class="seat-panel"></div>
                 </div>
-            </div>
+            </div> -->
             
+            <div class="seat-map seatCharts-container">
+            </div>
             <div class="btn reload">새로고침</div>
 
             <!-- 하단버튼 -->
@@ -113,15 +114,15 @@
                 </ul>
             </div>
             <!-- 좌석표 -->
-            <div id="bus_seat_layer" class="tabcontent">
+            <!-- <div id="bus_seat_layer" class="tabcontent">
                 <div class="container">
-                    <!--좌석선택표-->
+                    좌석선택표
                     <div class="seat-map" class="seat-panel"></div>
                 </div>
-            </div>
-
-            <!-- <div class="seat-map seatCharts-container">
             </div> -->
+
+            <div class="seat-map seatCharts-container">
+            </div>
             <div class="btn reload">새로고침</div>
 
             <!-- 하단버튼 -->
@@ -218,7 +219,7 @@
         }
         sessionStorage.setItem('ct_id', busSeat);
 
-        document.getElementById("bus_seat_layer").style.display = "block";
+        // document.getElementById("bus_seat_layer").style.display = "block";
         // evt.currentTarget.className += " active";
         var firstSeatLabel = 1;
 
