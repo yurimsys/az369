@@ -36,11 +36,13 @@
     <style>
         .swal-text{
             text-align: center;
+            line-height: 2;
+            color: #444;
         }
         .swal-icon--success__line{
             background-color: #C3A164;
         }
-        .swal-button{
+        .swal-button,.swal-button:hover, .swal-button:not([disabled]):hover {
             background-color: #C3A164;
         }
         .swal-modal{
@@ -634,7 +636,7 @@
 
                     for(let j=0; j <res.data.length; j++){
                         let html = '<div class="swiper-slide"><h2>승차권 '+Number(j+1)+'<span style="color: #999;"> / '+res.data.length+'</span></h2><div class="qr_info"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div><div class="qr_txt">';
-                            html += '<p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p></div><table class="detail_table">';
+                            html += '<p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p></div></div><table class="detail_table">';
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[j].PayDay2+'</td><tr>'
                             html += '<tr><th>예매정보</th>';
@@ -732,7 +734,7 @@
                     } else {
                         swal({
                             title: '예매취소 완료',
-                            text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
+                            text: res.seats+'좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
                             icon: 'success',
                             button: '확인'
                         }).then((value)=>{
