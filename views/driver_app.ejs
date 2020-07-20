@@ -52,7 +52,7 @@
                 </div>
             </div> -->
             
-            <div class="seat-map seatCharts-container">
+            <div class="seat-map-py seatCharts-container">
             </div>
             <div class="btn reload">새로고침</div>
 
@@ -121,8 +121,9 @@
                 </div>
             </div> -->
 
-            <div class="seat-map seatCharts-container">
+            <div class="seat-map-se seatCharts-container">
             </div>
+
             <div class="btn reload">새로고침</div>
 
             <!-- 하단버튼 -->
@@ -171,6 +172,9 @@
 <!-- 평택, 동대문 탭 -->
 <script>
     function openLocation(evt, locationName) {
+        console.log('locationName',locationName);
+        let car_info = JSON.parse(sessionStorage.getItem("car_list"));
+        openBus(car_info[0].ctID,locationName);
         var i, tabcontent, tab_button;
         tabcontent = document.getElementsByClassName("tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
@@ -194,7 +198,7 @@
                 sessionStorage.setItem("car_list", JSON.stringify(res.data));
                 let ctId = res.data[0].ctID;
                 let price = res.data[0].seatPrice;
-                openBus(ctId,price);
+                
             }
         });
     })
@@ -207,8 +211,13 @@
     var seatPrice = 0;
 
 
-    function openBus(busSeat,price) {
-        console.log('good',busSeat, price);
+    function openBus(busSeat,locationName) {
+        let $seat;
+        if(locationName == "pyeongtaek"){
+            $seat = $('.seat-map-py')
+        }else{
+            $seat = $('.seat-map-se')
+        }
         let car_info = JSON.parse(sessionStorage.getItem("car_list"));
 
         var i, tablinks
@@ -229,7 +238,7 @@
         var $cart = $('#selected-seats'),
             $nums = $('#selected_seats_num'),
             $counter = $('#selected_seats_cnt'),
-            sc = $('.seat-map').seatCharts({
+            sc = $seat.seatCharts({
                 map: [
                     'ee_ee',
                     'ee_ee',
@@ -283,7 +292,7 @@
 
 
         //현재 예약된 자석
-        flushSeat();
+        flushSeat(locationName);
     }
 
 
@@ -302,8 +311,15 @@
     }
 
         
-    function flushSeat() {
-        var sc = $('.seat-map').seatCharts();
+    function flushSeat(locationName) {
+        let $seat;
+        if(locationName == "pyeongtaek"){
+            $seat = $('.seat-map-py')
+        }else{
+            $seat = $('.seat-map-se')
+        }
+
+        var sc = $seat.seatCharts();
         selected_seats = [];
         selected_seats_cnt = 0;
         sc.find('e.selected').status('available');
