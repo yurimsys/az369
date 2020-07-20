@@ -304,7 +304,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
 
     .qr_info {width: 100%; padding: 0; margin:0; border: none; padding: 10px 0 20px;}
     .qrcode {width: 100px; height: 100px; margin-left: 50%; transform: translateX(-50%); text-align: center;}
-    .qr_info > p {text-align: center; margin-left: 0; word-break: keep-all; width: 90%; margin: 0 auto; float: none; clear: both; padding-bottom:0; line-height: 1.8; padding-top: 0px; color: #222; font-size: 15px; font-weight: 400; margin-top: 15px;}
+    .qr_info > p {text-align: center; margin-left: 0; word-break: keep-all; width: 90%; margin: 0 auto; float: none; clear: both; padding-bottom:0; line-height: 1.8; padding-top: 0px; color: #222; font-size: 15px; font-weight: 400; margin-top: 15px; text-align: center; top: 0; transform: 0;}
     #qrcode {left:50%; transform: translateX(-50%);} 
 
     .popup_box{display: none;}
