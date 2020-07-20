@@ -28,12 +28,8 @@
     <script src="/js/qrcode.js"></script>
     
     <!-- 슬라이드 -->
-    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css"> -->
-    <link rel="stylesheet" href="/css/swiper.min.css">
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script> -->
-    <script src="/js/swiper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 
     <style>
         .swal-text{
@@ -480,48 +476,27 @@
     <div id="popup" class="layer">
         <div class="popup_box">
             <div class="swiper-container myswiper">
-                <div class="swiper-wrapper">
-    
+                <div class="swiper-wrapper swiper-pc">
+  
                 </div>
                 <!-- 네비게이션 버튼 -->
                 <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
                 <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
             </div>
         </div>
-    
-    </div>
-    
-    
-    <div class="popup_box_mo">
-        <h2>승차권</h2>
-        <div class="qr_info">
-            <div id='qrcode_mobile' class='qrcode'></div>
-            <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권을 보여드리면 장차 탑승이 가능합니다.</p>
-        </div>
-
-        <div class="table_mo"></div>
-
-        <p><span style="color: red;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한
-            예매를 취소하겠습니까?</p>
-    
-        <div class="popup_btn_mo">
-            <ul>
-                <li>
-                    <a onclick="javascript:$('#popup').css('display','none'); $('header').css('display','block')"
-                        class=" btn btn-secondary">닫기</a>
-                </li>
-                <li>
-                    <a class="btn btn-primary" onclick="resCancel()">예매취소</a>
-                </li>
-            </ul>
+        
+        <div class="popup_box_mo">
+            <div class="swiper-container myswiper">
+                <div class="swiper-wrapper swiper-mobile">
+  
+                </div>
+                <!-- 네비게이션 버튼 -->
+                <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+                <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+            </div>
         </div>
 
     </div>
-
-
-
-
-    
 
     <!--두번째 리스트 popup mo-->
     <div id="popup2" class="layer">
@@ -608,7 +583,7 @@
 
             var seatArr = JSON.parse(sendJson);
 
-            
+            console.log('seatArr :', seatArr);
 
             $.ajax({
                 url: "api/user/payCancel",
@@ -618,29 +593,15 @@
                     'sendArray': seatArr
                 },
                 success: function (res) {
-                    console.log('res:',res.data);
-                    // trVal[i] = res.data[i].pId;
-                    // tdVal[i] = res.data[i].ctId;
-                    // let qr_info = {};
-                    // qr_info.cr_id = res.data[i].CR_ID;
-                    // qr_info.u_id = res.session_user;
-                    let default_html = `
-                    <div class="swiper-slide">
-                    <h2>승차권</h2>
-                    <div class="qr_info">
-                    <div id="qrcode" class="qrcode"></div>
-                   dv
-                    </div>
-                    <table class="detail_table">`;
+                    console.log('res :', res);
+                    let default_html = `<div class="swiper-slide"><h2>승차권</h2><div class="qr_info"> <div id='qrcode' class="qrcode"></div><div class="qr_txt">
+                                        <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p></div><table class="detail_table">`;
                     let default_html2 = `</table><p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한 예매를 취소하겠습니까?</p>
-                                        <div class="popup_btn"><ul><li><a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary popup_close1">닫기</a>
-                                        </li><li><a href="#" class="btn btn-primary" onclick="resCancel(this)">예매취소</a></li></ul></div></div>`;
+                                        <div class="popup_btn"><ul><li><a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');" class="btn btn-secondary popup_close1">닫기</a>
+                                        </li><li>`;
                     for(let i=0; i <res.data.length; i++){
-
-
-                        // qrCodeImg(qr_info)
-
-                        let html = default_html;
+                        let html = '<div class="swiper-slide"><h2>승차권</h2><div class="qr_info"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div><div class="qr_txt">';
+                            html += '<p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p></div><table class="detail_table">';
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[i].PayDay2+'</td><tr>'
                             html += '<tr><th>예매정보</th>';
@@ -653,52 +614,33 @@
                             html += '<tr><th>결제금액</th>';
                             html += '<td>'+res.data[i].CR_Price+'</td><tr>'
                             html += default_html2;
-                            $('.swiper-wrapper').append(html);
+                            html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-crid='+res.data[i].CR_ID+'>예매취소</a></li></ul></div></div>';
+                            $('.swiper-pc').append(html);
+                            qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode)
                     }
 
-
-
-                    // for (let i = 0; i < res.data.length; i++) {
-                    //     let html = "<tr val=" + res.data[i].pId + ">";
-                    //     html += "<td>" + res.data[i].PayDay + "</td>";
-                    //     html += "<td> " + res.data[i].startDay +"<span> 평택 </span>" + res.data[i].startTime +"<span> - 서울 </span>"+ res.data[i].returnTime +"&nbsp;" +res.data[i].carName+"<span>("+res.data[i].carNum+")</span>"+"</td>";
-                    //     html += "<td>" + res.data[i].seatCnt + "</td>";
-                    //     html += "<td>" + res.data[i].payType + "</td>";
-                    //     html += "<td>" + res.data[i].price + "</td>";
-                    //     html += "</tr>";
-                    //     $(".cancelRes").append(html);
-                    //     trVal[i] = res.data[i].pId;
-                    //     tdVal[i] = res.data[i].ctId;
-                    // }
-
-                    //모바일 예매취소 리스트
-                    //console.log("여기 리스트",res.data);
-                    // for (let k = 0; k < res.data.length; k++) {
-                    //     let html = "<dl>";
-                    //     //html += "<dt>예매번호</dt><dd>xxxxxxxxxxx</dd>";
-                    //     html += "<dt>결제일시</dt><dd>" + res.data[k].PayDay + "</dd>";
-                    //     html += "<dt>예매정보</dt><dd>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<span> (평택 - 서울 동대문)</span></dd>";
-                    //     html += "<dt>예매좌석</dt><dd>" + res.data[k].seatCnt + "</dd>";
-                    //     html += "<dt>결제수단</dt><dd>" + res.data[k].payType + "</dd>";
-                    //     html += "<dt>결제금액</dt><dd>" + res.data[k].price + "</dd></dl>";
-                    //     $(".table_mo").append(html);
-                    //     trVal[k] = res.data[k].pId;
-                    //     tdVal[k] = res.data[k].ctId;
-                    // }
-                    for (let k = 0; k < res.data.length; k++) {
-                        let html = "<table class='detail_table'>";
-                        //html += "<dt>예매번호</dt><dd>xxxxxxxxxxx</dd>";
-                        html += "<tr><th>결제일시</th><td>" + res.data[k].PayDay + "</td></tr>";
-                        html += "<tr><th>예매정보</th><td>" + res.data[k].deptTe + "\n" + res.data[k].carName + "<span> <br> (평택 - 서울 동대문)</span></td></tr>";
-                        html += "<tr><th>예매좌석</th><td>" + res.data[k].seatCnt + "</td></tr>";
-                        html += "<tr><th>결제수단</th><td>" + res.data[k].payType + "</td></tr>";
-                        html += "<tr><th>결제금액</th><td>" + res.data[k].price + "</td></tr></table>";
-                        $(".table_mo").append(html);
-                        trVal[k] = res.data[k].pId;
-                        tdVal[k] = res.data[k].ctId;
+                    for(let j=0; j <res.data.length; j++){
+                        let html = '<div class="swiper-slide"><h2>승차권</h2><div class="qr_info"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div><div class="qr_txt">';
+                            html += '<p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p></div><table class="detail_table">';
+                            html += '<tr><th>결제일시</th>';
+                            html += '<td>'+res.data[j].PayDay2+'</td><tr>'
+                            html += '<tr><th>예매정보</th>';
+                            html += '<td>'+res.data[j].deptTe2+' '+res.data[j].startTime+'-'+res.data[j].returnTime+'<span> (평택 - 동대문)</span><br>'+
+                                    res.data[j].carName+'('+res.data[j].carNum+')</td><tr>';
+                            html += '<tr><th>예매좌석</th>';
+                            html += '<td>'+res.data[j].CR_SeatNum+'번</td><tr>';
+                            html += '<tr><th>결제수단</th>';
+                            html += '<td>'+res.data[j].PH_Type+'</td><tr>';
+                            html += '<tr><th>결제금액</th>';
+                            html += '<td>'+res.data[j].CR_Price+'</td><tr>'
+                            html += default_html2;
+                            html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-crid='+res.data[j].CR_ID+'>예매취소</a></li></ul></div></div>';
+                            $('.swiper-mobile').append(html);
+                            qrCodeImgMo(res.data[j].CR_ID,res.data[j].CR_QrCode)
                     }
                     
                     slider();
+                    // qrCodeImg();
                 }
                 
             })
@@ -719,71 +661,74 @@
 
 
         //QR코드 생성 함수
-        function qrCodeImg(userInfo){
-            let qr_text = '{cr_id:'+` ${userInfo.cr_id}`+', u_id: '+`${userInfo.u_id}`+'}';
-            let $qrcode = $('#qrcode');
-            let $qrcode_mobile = $('#qrcode_mobile');
-            if($('.popup_box_mo').css('display') == 'block'){
-                var qrcode = new QRCode(document.getElementById('qrcode_mobile'), 
-                    {
-                        text: qr_text,
-                        width: 90,
-                        height: 90,
-                        colorDark : "#000000",
-                        colorLight : "#ffffff",
-                        correctLevel : QRCode.CorrectLevel.H
-                    });
-            }else{
-                var qrcode = new QRCode(document.getElementById('qrcode'), 
-                    {
-                        text: qr_text,
-                        width: 80,
-                        height: 80,
-                        colorDark : "#000000",
-                        colorLight : "#ffffff",
-                        correctLevel : QRCode.CorrectLevel.H
-                    });
-            }
+        function qrCodeImg(qrId,userInfo){
+            let qr_id = qrId;
+            let qr_text = userInfo;
+            let qrcode = new QRCode(document.getElementById('qrcode'+qr_id), 
+                {
+                    text: qr_text,
+                    width: 80,
+                    height: 80,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+            
         }
+
+        //QR코드 생성 함수 모바일
+        function qrCodeImgMo(qrId,userInfo){
+            let qr_id = qrId;
+            let qr_text = userInfo;
+            let qrcode = new QRCode(document.getElementById('qrcodemo'+qr_id), 
+                {
+                    text: qr_text,
+                    width: 100,
+                    height: 100,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+            
+        }
+
 
         // 예매 취소
         function resCancel(e) {
-            console.log('ee:', e);
-            // $.ajax({
-            //     url: "api/user/cancelRes",
-            //     method: 'post',
-            //     dataType: 'json',
-            //     async: false,
-            //     data: { 'trVal': trVal, 'tdVal': tdVal },
-            //     success: function (res) {
-            //         console.log("업데이트 값",res.data);
-            //         console.log('데이터!! :', res);
-            //         $('.swal-icon--success__ring').css('display','none');
-            //         let link = document.createElement('div')
-            //             link.innerHTML = "<a href='/'>환불규정 보기</a>"
-            //         if (res.data == 0) {
-            //             swal({
-            //                 title: '취소 실패',
-            //                 text: '출발일 기준 3일 내 예매취소가 불가능합니다. \n',
-            //                 content: link,
-            //                 icon: 'error',
-            //                 button: '환불규정 보기',
-            //                 button: '확인'
-            //             }).then((value)=>{
-            //                 location.href='mypage';
-            //             })
-            //         } else {
-            //             swal({
-            //                 title: '예매취소 완료',
-            //                 text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
-            //                 icon: 'success',
-            //                 button: '확인'
-            //             }).then((value)=>{
-            //                 location.href='mypage';
-            //             })
-            //         }
-            //     }
-            // })
+            console.log('ee:', e.dataset.crid);
+            $.ajax({
+                url: "api/user/cancelRes",
+                method: 'post',
+                dataType: 'json',
+                async: false,
+                data: { 'cr_id': e.dataset.crid},
+                success: function (res) {
+                    $('.swal-icon--success__ring').css('display','none');
+                    let link = document.createElement('div')
+                        link.innerHTML = "<a href='/'>환불규정 보기</a>"
+                    if (res.data == 0) {
+                        swal({
+                            title: '취소 실패',
+                            text: '출발일 기준 3일 내 예매취소가 불가능합니다. \n',
+                            content: link,
+                            icon: 'error',
+                            button: '환불규정 보기',
+                            button: '확인'
+                        }).then((value)=>{
+                            location.href='mypage';
+                        })
+                    } else {
+                        swal({
+                            title: '예매취소 완료',
+                            text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
+                            icon: 'success',
+                            button: '확인'
+                        }).then((value)=>{
+                            location.href='mypage';
+                        })
+                    }
+                }
+            })
         }
         
 

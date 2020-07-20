@@ -15,6 +15,7 @@ const localAuth = require('../modules/auth');
 const multer = require('multer')
 const path = require('path');
 const fs = require('fs');
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -790,6 +791,7 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     tCR.CR_SeatNum,
                     tPH.PH_Type,
                     tCR.CR_Price,
+                    tCR.CR_QrCode,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') AS deptTe,
                     date_format(tCT.CT_DepartureTe,'%m.%d') AS startDay,
                     date_format(tCT.CT_ReturnTe,'%m.%d') as returnDay,
@@ -833,22 +835,18 @@ router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
     let query = `update tCR
                     inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
                     set CR_Cancel = :crCancel, CR_CancelDt = now()
-                    where CR_U_Id = :sessionId and CR_PH_ID IN (:crPId) and
-                    CR_CT_ID IN (:crCtId) and tCT.CT_DepartureTe > date_add(now(),interval +4 day);`;
+                    where CR_ID = :cr_id AND  CR_U_Id = :sessionId AND
+                    tCT.CT_DepartureTe > date_add(now(),interval +4 day);`;
                     // and tCT.CT_DepartureTe > date_add(now(),interval +4 day);
     //pID  cr_cdt
-    let select_query = `select CR_SeatNum, CR_Price from tCR where CR_PH_ID = :crPId AND CR_CT_ID = :crCtId`
+    let select_query = `select CR_SeatNum, CR_Price from tCR where CR_ID = :cr_id AND tCR.CR_U_ID = :sessionId`;
     let sessionId = req.user.U_ID;
+    let cr_id = req.body.cr_id;
     let crCancel = 'Y';
-    let crPId = req.body.trVal;
-    let crCtId = req.body.tdVal;
-
-    console.log("pId@@@@@@@@ :", crPId);
-    console.log("cDt@@@@@@@@ :", crCtId);
 
     connection.query(query,
         {
-            crCancel, sessionId, crPId, crCtId
+            crCancel, sessionId, cr_id
 
         },
         function(err, rows, fields) {
@@ -856,7 +854,7 @@ router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
 
             connection.query(select_query,
                 {
-                    crPId, crCtId
+                    cr_id, sessionId
                 },
                 function(err, result, fields){
                     let over_lap = [];
@@ -1245,10 +1243,130 @@ router.post('/user/resCancelDetailMo', auth.isLoggedIn, (req, res, next) =>{
         
 }); 
 
+// //결제완료
+// router.post('/payment', auth.isLoggedIn, (req, res) =>{
+
+//     let str_values_list = [],
+//         str_values ="",
+//         seatNums = req.body['seatNums'],
+//         ct_id = req.body.ct_id,
+//         oPrice = req.body.oPrice,
+//         sPrice = req.body.sPrice,
+//         price = ((oPrice-sPrice) < 0) ? 0 : (oPrice-sPrice),
+//         ph_type = '-'; // 무료기간동안만 - 으로 넣음.
+    
+//     //결제 전 중복확인 쿼리
+//     let selectQuery = `SELECT * FROM tCR WHERE tCR.CR_CT_ID = :ct_id and CR_Cancel = 'N' and tCR.CR_SeatNum IN (:seatNums)`;
+
+//     /**
+//      * TODO : 무료기간 끝나면 PH_TYPE 값 결제 수단으로 변경해야함.
+//      */
+//     let ph_query = `
+//         INSERT INTO tPH
+//             (PH_U_ID, PH_PG_ID, PH_Price, PH_OPrice, PH_SPrice, PH_Type)
+//         VALUES
+//             (:u_id, :pg_id, :price, :oPrice, :sPrice, :ph_type)
+//     `;
+
+//     //결제 전 중복확인
+//     connection.query(selectQuery, {ct_id, seatNums},
+//         function(err, rows, fields) {
+//             if (err) throw err;                       
+//             // //console.log(findId);
+//             console.log("rows : ",rows);         
+//             let one_price = req.body.oPrice / req.body.seatNums.length;
+//             if(rows.length == 0){
+//                 //  결제 내역 먼저 추가. 
+//                 connection.query(ph_query, {
+//                     u_id    : req.user.U_ID,
+//                     pg_id   : 1,    // pg_id :  PG 사 결정되면 결제 정보 입력해야함.
+//                     oPrice  : oPrice,
+//                     sPrice  : sPrice,
+//                     price   : (oPrice-sPrice),
+//                     ph_type : ph_type
+//                 }, function (err, result){
+
+//                     let ph_id = result.insertId;
+
+//                     let cr_query = `
+//                         INSERT INTO tCR
+//                             (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum, CR_Price)
+//                         VALUES
+//                     `;
+                    
+//                     if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
+//                         seatNums.map((seatNum)=>{
+//                             str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum}, ${one_price})`);
+//                         });
+//                         str_values = str_values_list.join(', ');
+//                     } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
+//                         str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums}, ${oPrice})`;
+//                     }
+                
+//                     cr_query += str_values;
+
+//                     //  예약 정보 추가
+//                     connection.query(cr_query, null,
+//                         function(err, result) {
+//                             if(err) throw err;
+                            
+//                             let qr_query = 'select CR_ID, CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum FROM tCR where CR_CT_ID = :cr_ct_id AND CR_U_ID = :cr_u_id AND CR_SeatNum IN(:cr_seatnum) AND CR_Cancel = "N" ';
+//                             let qr_update = 'update tCR SET CR_QrCode = :cr_qrcode where CR_ID = :cr_id';
+//                             connection.query(qr_query,
+//                                 {
+//                                     cr_ct_id : req.body.ct_id,
+//                                     cr_u_id : req.user.U_ID,
+//                                     cr_seatnum : req.body.seatNums
+//                                 },
+//                                 function(err, selResult, fields) {
+//                                     if (err) throw err;
+//                                     let cr_qrcode = [];
+//                                     let cr_seat = [];
+//                                     let cr_id = [];
+//                                     if(selResult.length > 1){
+//                                         for(let i=0; i<selResult.length; i++){
+//                                             cr_qrcode.push(selResult[i].CR_ID+'-'+selResult[i].CR_CT_ID+'-'+selResult[i].CR_U_ID+'-'+selResult[i].CR_PH_ID);
+//                                             cr_seat.push(selResult[i].CR_SeatNum);
+//                                             cr_id.push(selResult[i].CR_ID);
+//                                         }
+//                                         console.log('qrcode :',cr_qrcode);
+//                                         console.log('qrcode :',cr_seat);
+//                                     }
+                                    
+                                    
+//                                     res.json({
+//                                         ph_type : ph_type,
+//                                         price : price,
+//                                         data : '1'
+//                                     });    
+//                                 });  
+
+
+//                         });
+//                 });
+
+//             }else{
+//                 let over_lap = [];
+//                 for(let i=0; i <rows.length; i++){
+//                       over_lap.push(rows[i].CR_SeatNum)
+//                 }
+//                 let seat_number = over_lap.join('번,')+'번';
+//                 res.json({data : '0', seats : seat_number})
+//             }
+
+            
+//         }); 
+    
+
+    
+// });
+
+
 //결제완료
 router.post('/payment', auth.isLoggedIn, (req, res) =>{
+    connection.beginTransaction(function(err){
 
-    let str_values_list = [],
+        let str_values_list = [],
         str_values ="",
         seatNums = req.body['seatNums'],
         ct_id = req.body.ct_id,
@@ -1257,68 +1375,97 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
         price = ((oPrice-sPrice) < 0) ? 0 : (oPrice-sPrice),
         ph_type = '-'; // 무료기간동안만 - 으로 넣음.
     
-    //결제 전 중복확인 쿼리
-    let selectQuery = `SELECT * FROM tCR WHERE tCR.CR_CT_ID = :ct_id and CR_Cancel = 'N' and tCR.CR_SeatNum IN (:seatNums)`;
+        //결제 전 중복확인 쿼리
+        let selectQuery = `SELECT * FROM tCR WHERE tCR.CR_CT_ID = :ct_id and CR_Cancel = 'N' and tCR.CR_SeatNum IN (:seatNums)`;
 
-    /**
-     * TODO : 무료기간 끝나면 PH_TYPE 값 결제 수단으로 변경해야함.
-     */
-    let ph_query = `
-        INSERT INTO tPH
-            (PH_U_ID, PH_PG_ID, PH_Price, PH_OPrice, PH_SPrice, PH_Type)
-        VALUES
-            (:u_id, :pg_id, :price, :oPrice, :sPrice, :ph_type)
-    `;
+        /**
+         * TODO : 무료기간 끝나면 PH_TYPE 값 결제 수단으로 변경해야함.
+         */
+        let ph_query = `
+            INSERT INTO tPH
+                (PH_U_ID, PH_PG_ID, PH_Price, PH_OPrice, PH_SPrice, PH_Type)
+            VALUES
+                (:u_id, :pg_id, :price, :oPrice, :sPrice, :ph_type)
+        `;
 
-    //결제 전 중복확인
-    connection.query(selectQuery, {ct_id, seatNums},
-        function(err, rows, fields) {
-            if (err) throw err;                       
-            // //console.log(findId);
-            console.log("rows : ",rows);         
-            let one_price = req.body.oPrice / req.body.seatNums.length;
-            if(rows.length == 0){
-                //  결제 내역 먼저 추가. 
-                connection.query(ph_query, {
-                    u_id    : req.user.U_ID,
-                    pg_id   : 1,    // pg_id :  PG 사 결정되면 결제 정보 입력해야함.
-                    oPrice  : oPrice,
-                    sPrice  : sPrice,
-                    price   : (oPrice-sPrice),
-                    ph_type : ph_type
-                }, function (err, result){
+        //결제 전 중복확인
+        connection.query(selectQuery, {ct_id, seatNums},
+            function(err, rows, fields) {
+                if (err){
+                    connection.rollback(function(){
+                        throw err;
+                    })
+                }       
+                let one_price = req.body.oPrice / req.body.seatNums.length;
+                if(rows.length == 0){
+                    //  결제 내역 먼저 추가. 
+                    connection.query(ph_query, {
+                        u_id    : req.user.U_ID,
+                        pg_id   : 1,    // pg_id :  PG 사 결정되면 결제 정보 입력해야함.
+                        oPrice  : oPrice,
+                        sPrice  : sPrice,
+                        price   : (oPrice-sPrice),
+                        ph_type : ph_type
+                    }, function (err, result){
+                        if (err){
+                            connection.rollback(function(){
+                                throw err;
+                            })
+                        }  
+                        let ph_id = result.insertId;
+                        let origin_qrcode=[];
+                        let hash_qrcode = [];
+                        for(let i =0; i<seatNums.length; i++){
+                            origin_qrcode.push(ct_id+'-'+req.user.U_ID+'-'+ph_id+'-'+seatNums[i]);
+                            hash_qrcode.push(CryptoJS.AES.encrypt(origin_qrcode[i], config.enc_salt).toString());
+                        }
+                        console.log('origin:',origin_qrcode);
+                         
 
-                    let ph_id = result.insertId;
-
-                    let cr_query = `
-                        INSERT INTO tCR
-                            (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum, CR_Price)
-                        VALUES
-                    `;
+                        let cr_query = `
+                            INSERT INTO tCR
+                                (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum, CR_Price, CR_QrCode)
+                            VALUES
+                        `;
+                        
+                        if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
+                            for(let i=0; i<seatNums.length; i++){
+                                str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums[i]}, ${one_price}, '${hash_qrcode[i]}')`)
+                            }
+                            // seatNums.map((seatNum)=>{
+                            //     str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum}, ${one_price}, ${hash_qrcode})`);
+                            // });
+                            str_values = str_values_list.join(', ');
+                        } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
+                            str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums}, ${oPrice}, '${hash_qrcode}')`;
+                        }
                     
-                    if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
-                        seatNums.map((seatNum)=>{
-                            str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum}, ${one_price})`);
-                        });
-                        str_values = str_values_list.join(', ');
-                    } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
-                        str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums}, ${oPrice})`;
-                    }
-                
-                    cr_query += str_values;
+                        cr_query += str_values;
+                        //  예약 정보 추가
+                        connection.query(cr_query, null,
+                            function(err, result) {
+                                if (err){
+                                    connection.rollback(function(){
+                                        throw err;
+                                    })
+                                } 
 
-                    //  예약 정보 추가
-                    connection.query(cr_query, null,
-                        function(err, result) {
-                            if(err) throw err;
-                            
-                            res.json({
-                                ph_type : ph_type,
-                                price : price,
-                                data : '1'
+                                connection.commit(function(err) {
+                                    if (err) {
+                                        return connection.rollback(function() {
+                                            throw err;
+                                        });
+                                    }
+                                    res.json({
+                                        ph_type : ph_type,
+                                        price : price,
+                                        data : '1'
+                                    });    
+                                });
+
                             });
-                        });
-                });
+                    });
+
             }else{
                 let over_lap = [];
                 for(let i=0; i <rows.length; i++){
@@ -1330,10 +1477,11 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
 
             
         }); 
-    
+    })
 
-    
 });
+
+
 //장차예매 리스트
 router.post('/user/resDept', auth.isLoggedIn, (req, res, next) =>{
     let query = `
