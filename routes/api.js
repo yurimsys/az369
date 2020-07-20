@@ -3564,12 +3564,44 @@ router.delete('/deleteMc/:mcId',  async function (req, res, next) {
 });
 
 
-//좌석 테스트
-router.post('/seatNow', (req, res, next) =>{
+// 기사앱 예약된 좌석 정보 가져오기
+router.get('/busSeat/:ct_id', (req, res, next) =>{
+    let query = `select CR_ID, CR_SeatNum from tCR where CR_CT_ID = :ct_id and CR_Cancel = 'N' `;
+    let ct_id = req.params.ct_id;
+    
+    connection.query(query, { ct_id : ct_id },
+        function(err, rows, fields) {
+            if(err) throw err;
+            let seat_list = [];
+            rows.map((data) => {
+                seat_list.push(data.CR_SeatNum);
+            });
+            res.json({ data : seat_list });
 
-    let query = `select CR_SeatNum from tCR where CR_CT_ID = :ctId and CR_Cancel = 'n'`; 
-    let ctId = req.body.ctId
-    connection.query(query,{ctId},
+        })
+ 
+});
+
+
+//기사앱 좌석 클릭시 회원 정보
+router.get('/bus_user_info', (req, res, next) =>{
+
+
+    let ct_id = req.query.ct_id;
+    let cr_seatnum = req.query.cr_seatnum
+    let query = `select 
+                    U_NAME, 
+                    U_PHONE, 
+                    tCR.CR_SeatNum 
+                from tCR 
+                    INNER JOIN tu ON tcr.CR_U_ID = tu.U_ID 
+                WHERE tcr.CR_CT_ID = :ct_id AND 
+                      tcr.CR_SeatNum = :cr_seatnum AND 
+                      tcr.CR_Cancel = 'N';`; 
+    connection.query(query,{
+            ct_id : ct_id,
+            cr_seatnum : cr_seatnum
+        },
       function(err, rows) {
           if (err) throw err;
           res.json({ data : rows});

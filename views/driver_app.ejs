@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/driver_app.css">
+    <!-- 좌석 CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/lib/jquery.seat-charts.css">
+    <link rel="stylesheet" type="text/css" href="/css/lib/booking.css">
+    <!-- 장차예약 PC 화면 CSS -->
+    <link rel="stylesheet" href="/css/reservation_01.css">
     <script src="/js/jquery-3.3.1.min.js"></script>
 </head>
 
@@ -41,8 +46,13 @@
                 </ul>
             </div>
             <!-- 좌석표 -->
-            <div class="seat-map seatCharts-container">
+            <div id="bus_seat_layer" class="tabcontent">
+                <div class="container">
+                    <!--좌석선택표-->
+                    <div class="seat-map" class="seat-panel"></div>
+                </div>
             </div>
+            
             <div class="btn reload">새로고침</div>
 
             <!-- 하단버튼 -->
@@ -93,7 +103,6 @@
 
             <button class="btn qr">QR코드 스캔하기</button>
 
-
             <!-- 좌석 -->
             <!-- 좌석범례 -->
             <div class="seat_legend">
@@ -103,8 +112,16 @@
                     <li><div class="legend legend03"></div><p>미예매좌석</p></li>
                 </ul>
             </div>
-            <div class="seat-map seatCharts-container">
+            <!-- 좌석표 -->
+            <div id="bus_seat_layer" class="tabcontent">
+                <div class="container">
+                    <!--좌석선택표-->
+                    <div class="seat-map" class="seat-panel"></div>
+                </div>
             </div>
+
+            <!-- <div class="seat-map seatCharts-container">
+            </div> -->
             <div class="btn reload">새로고침</div>
 
             <!-- 하단버튼 -->
@@ -167,7 +184,174 @@
     }
     document.getElementById("defaultOpen").click();
 
+    $(document).ready(function(){
+        $.ajax({
+            url: "api/user/resCarList",
+            method: "post",
+            dataType: "json",
+            success: function (res) {
+                sessionStorage.setItem("car_list", JSON.stringify(res.data));
+                let ctId = res.data[0].ctID;
+                let price = res.data[0].seatPrice;
+                openBus(ctId,price);
+            }
+        });
+    })
 
+    
+
+
+    var selected_seats = [];
+    var selected_seats_cnt = 0;
+    var seatPrice = 0;
+
+
+    function openBus(busSeat,price) {
+        console.log('good',busSeat, price);
+        let car_info = JSON.parse(sessionStorage.getItem("car_list"));
+
+        var i, tablinks
+        tablinks = document.getElementsByClassName("tablinks");
+        //alert(seatPrice);
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        sessionStorage.setItem('ct_id', busSeat);
+
+        document.getElementById("bus_seat_layer").style.display = "block";
+        // evt.currentTarget.className += " active";
+        var firstSeatLabel = 1;
+
+
+        //좌석금액 불러오기
+
+        var $cart = $('#selected-seats'),
+            $nums = $('#selected_seats_num'),
+            $counter = $('#selected_seats_cnt'),
+            sc = $('.seat-map').seatCharts({
+                map: [
+                    'ee_ee',
+                    'ee_ee',
+                    'ee_ee',
+                    'ee_ee',
+                    'ee_ee',
+                    'ee_ee',
+                    'ee_ee',
+                    'ee_ee',
+                    'ee_ee',
+                    'ee_ee',
+                    'eeeee',
+                ],
+                seats: {
+                    e: {
+
+                        classes: '일반', //your custom CSS class
+                        category: '일반'
+                    }
+
+                },
+                naming: {
+                    top: false,
+                    getLabel: function (character, row, column) {
+                        return firstSeatLabel++;
+                    },
+                },
+                click: function () {
+                    let bus_seat_number = this.settings.label;
+                    let bus_ct_id = sessionStorage.getItem("ct_id");
+                    if (this.status() == 'available') {
+                        alert('예매되지 않은 좌석입니다.')
+                        // return 'selected';
+                    } 
+                    //스캔 된 좌석
+                    else if (this.status() == 'selected') {
+                        userSeatInfo(bus_ct_id,bus_seat_number);
+                        return 'selected';
+                    } 
+                    //스캔 되지 않은 예매된 좌석
+                    else if (this.status() == 'unavailable') {
+                        
+                        userSeatInfo(bus_ct_id,bus_seat_number);
+                        return 'selected';
+                    } else {
+
+                        return this.style();
+                    }
+                }
+            });
+
+
+        //현재 예약된 자석
+        flushSeat();
+    }
+
+
+    function userSeatInfo(bus_id, seat_number){
+        $.ajax({
+            url: '/api/bus_user_info',
+            method: 'get',
+            data : { 
+                ct_id : bus_id,
+                cr_seatnum : seat_number        
+            },
+            success : function(res){
+                console.log('res :', res.data);
+            }
+        });
+    }
+
+        
+    function flushSeat() {
+        var sc = $('.seat-map').seatCharts();
+        selected_seats = [];
+        selected_seats_cnt = 0;
+        sc.find('e.selected').status('available');
+        // 데이터 가져와서 예약된 좌석 상태 설정.
+        var ct_id = sessionStorage.getItem('ct_id');
+        $.ajax({
+            dataType: "json",
+            method: "GET",
+            url: "/api/busSeat/" + ct_id
+        }).done((res) => {
+            let seat_id_list = [];
+            res.data.map((seat_num) => {
+                seat_id_list.push(getSeatId(seat_num));
+            });
+            sc.find('unavailable').status('available');
+            sc.status(seat_id_list, 'unavailable');
+        });
+    }
+
+    // 45인승 기준 seatId 가져오기
+    function getSeatId(seat_num) {
+        if (seat_num <= 45 && seat_num > 0) {
+
+            let seat_id = "1_1";
+            let row = '',
+                column = '';
+
+            if (seat_num > 40) {
+                row = 11;
+                column = seat_num % 10;
+            } else {
+                if ((seat_num % 4) === 0) {
+                    row = Number.parseInt(seat_num / 4);
+                    column = 4;
+                } else {
+                    row = (Number.parseInt(seat_num / 4)) + 1;
+                    column = seat_num % 4;
+                }
+
+                if (column >= 3) column += 1;
+            }
+
+            seat_id = row + "_" + column;
+            return seat_id;
+        } else {
+            return null;
+        }
+
+    }
 
     // 하단버튼 CSS변경 이벤트 ---------------------
     function busReadyPy(e) {

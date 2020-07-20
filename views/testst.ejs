@@ -2,25 +2,15 @@
 <html lang="ko">
 
 <head>
-    <link rel="stylesheet" href="/css/common_box.css">
+    <!-- <link rel="stylesheet" href="/css/common_box.css"> -->
     <link rel="stylesheet" href="/css/reservation_01.css">
 
     <title>AZ369 - 장차버스예매</title>
 
-    <!--문자인코딩-->
-    <meta name="title" content="AZ369 - 장차버스예매">
-    <meta name="author" content="AZ369">
-    <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
-    <meta name="keywords"
-        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
-    <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
     <!--reservation css link-->
     <link rel="stylesheet" type="text/css" href="/css/lib/jquery.seat-charts.css">
     <link rel="stylesheet" type="text/css" href="/css/lib/booking.css">
-    <!--<link rel="stylesheet" type="text/css" href="/css/lib/bootstrap.min.css">-->
-    <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-theme.css">
-    <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-theme.min.css">
 
 
 </head>
@@ -116,15 +106,22 @@
                         },
                     },
                     click: function () {
+                        let bus_seat_number = this.settings.label;
+                        let bus_ct_id = sessionStorage.getItem("ct_id");
                         if (this.status() == 'available') {
-                            
+                            alert('예매되지 않은 좌석입니다.')
+                            // return 'selected';
+                        } 
+                        //스캔 된 좌석
+                        else if (this.status() == 'selected') {
+                            userSeatInfo(bus_ct_id,bus_seat_number);
                             return 'selected';
-                        } else if (this.status() == 'selected') {
-
-                            return 'available';
-                        } else if (this.status() == 'unavailable') {
-
-                            return 'unavailable';
+                        } 
+                        //스캔 되지 않은 예매된 좌석
+                        else if (this.status() == 'unavailable') {
+                            
+                            userSeatInfo(bus_ct_id,bus_seat_number);
+                            return 'selected';
                         } else {
 
                             return this.style();
@@ -137,6 +134,22 @@
             flushSeat();
         }
 
+
+        function userSeatInfo(bus_id, seat_number){
+            $.ajax({
+                url: '/api/bus_user_info',
+                method: 'get',
+                data : { 
+                    ct_id : bus_id,
+                    cr_seatnum : seat_number        
+                },
+                success : function(res){
+                    console.log('res :', res.data);
+                }
+            });
+        }
+
+        
         function flushSeat() {
             var sc = $('.seat-map').seatCharts();
             selected_seats = [];
@@ -144,16 +157,16 @@
             sc.find('e.selected').status('available');
             // 데이터 가져와서 예약된 좌석 상태 설정.
             var ct_id = sessionStorage.getItem('ct_id');
+            console.log('goood :', ct_id);
             $.ajax({
                 dataType: "json",
                 method: "GET",
-                url: "/api/useSeat/" + ct_id
+                url: "/api/busSeat/" + ct_id
             }).done((res) => {
                 let seat_id_list = [];
                 res.data.map((seat_num) => {
                     seat_id_list.push(getSeatId(seat_num));
                 });
-                console.log('res :',res);
                 sc.find('unavailable').status('available');
                 sc.status(seat_id_list, 'unavailable');
             });
@@ -183,13 +196,14 @@
                 }
 
                 seat_id = row + "_" + column;
-                console.log('seatID',seat_id);
                 return seat_id;
             } else {
                 return null;
             }
 
         }
+
+
     </script>
 
 </body>
