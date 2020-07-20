@@ -1,255 +1,196 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
-  <script src="/js/jquery-3.3.1.min.js"></script>
-  <script src="/js/scrolla.jquery.min.js"></script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="/css/common_box.css">
-  <link rel="stylesheet" href="/css/mypage.css">
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
-  <style>
-    /* .swiper-container {
-      width:600px;
-      height:auto;
-      border:5px solid silver;
-      border-radius:7px;
-      box-shadow:0 0 20px #ccc inset;
-    } */
-    .swiper-slide {
-      text-align:center;
-      /* display:flex; 내용을 중앙정렬 하기위해 flex 사용 */
-      align-items:center; /* 위아래 기준 중앙정렬 */
-      justify-content:center; /* 좌우 기준 중앙정렬 */
-    }
-    .swiper-slide img {
-      box-shadow:0 0 5px #555;
-    }
-  </style>
+    <link rel="stylesheet" href="/css/common_box.css">
+    <link rel="stylesheet" href="/css/reservation_01.css">
+
+    <title>AZ369 - 장차버스예매</title>
+
+    <!--문자인코딩-->
+    <meta name="title" content="AZ369 - 장차버스예매">
+    <meta name="author" content="AZ369">
+    <meta name="description" content="안녕하세요. 보세의류 전문 쇼핑몰 AZ369입니다. 저희 AZ369는 평택 가로수길 센트럴돔과 함께합니다.">
+    <meta name="keywords"
+        content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
+    <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
+
+    <!--reservation css link-->
+    <link rel="stylesheet" type="text/css" href="/css/lib/jquery.seat-charts.css">
+    <link rel="stylesheet" type="text/css" href="/css/lib/booking.css">
+    <!--<link rel="stylesheet" type="text/css" href="/css/lib/bootstrap.min.css">-->
+    <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-theme.min.css">
+
+
 </head>
+
 <body>
-<!-- 
-  <div class="swiper-container myswiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <h2>승차권</h2>
-        <div class="qr_info">
-            <div id='qrcode' class='qrcode'></div>
-            <div class="qr_txt">
-                <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p>
-            </div>
-        </div>
-        <table class="detail_table">
-            <tr>
-                <th>결제일시</th>
-                <td>2020.01.01 19:24</td>
-            </tr>
-            <tr>
-                <th>예매정보</th>
-                <td>2020.01.07 21:00 - 04:00 <span>(평택 - 서울동대문)</span> <br> 유림고속(1111)</td>
-            </tr>
-            <tr>
-                <th>예매좌석</th>
-                <td>1번</td>
-            </tr>
-            <tr>
-                <th>결제수단</th>
-                <td>카드결제 (신한)</td>
-            </tr>
-            <tr>
-                <th>결제금액</th>
-                <td>20,000원</td>
-            </tr>
-        </table>
-        <p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한
-            예매를 취소하겠습니까?</p>
-        <div class="popup_btn">
-            <ul>
-                <li>
-                    <a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary popup_close1">닫기</a>
-                </li>
-    
-                <li>
-                    <a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a>
-                </li>
-            </ul>
-        </div>
-    </div>   
-    <div class="swiper-slide">
-        <h2>승차권2222</h2>
-        <div class="qr_info">
-            <div id='qrcode' class='qrcode'></div>
-            <div class="qr_txt">
-                <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p>
-            </div>
-        </div>
-        <table class="detail_table">
-            <tr>
-                <th>결제일시</th>
-                <td>2020.01.01 19:24</td>
-            </tr>
-            <tr>
-                <th>예매정보</th>
-                <td>2020.01.07 21:00 - 04:00 <span>(평택 - 서울동대문)</span> <br> 유림고속(1111)</td>
-            </tr>
-            <tr>
-                <th>예매좌석</th>
-                <td>1번</td>
-            </tr>
-            <tr>
-                <th>결제수단</th>
-                <td>카드결제 (신한)</td>
-            </tr>
-            <tr>
-                <th>결제금액</th>
-                <td>20,000원</td>
-            </tr>
-        </table>
-        <p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한
-            예매를 취소하겠습니까?</p>
-        <div class="popup_btn">
-            <ul>
-                <li>
-                    <a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary popup_close1">닫기</a>
-                </li>
-    
-                <li>
-                    <a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a>
-                </li>
-            </ul>
+
+    <div id="bus_seat_layer" class="tabcontent">
+        <div class="container">
+            <!--좌석선택표-->
+            <div class="seat-map" class="seat-panel"></div>
         </div>
     </div>
-    </div>
-  
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-  
-  </div> -->
 
-    <!-- 팝업 @@@@@@@@@@@@@@@ -->
+    <!--reservation 스크립트-->
+    <script src="/js/lib/jquery-1.11.0.min.js"></script>
+    <script src="/js/lib/jquery.seat-charts.js"></script>
+    <script src="/js/lib/bootstrap.js"></script>
+    <script src="/js/lib/bootstrap.min.js"></script>
+    <script src="/js/lib/angular.min.js"></script>
+    <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
 
-  <div onclick="test()">모달 업!!</div>
+    <script>
 
-    <div id="popup" class="layer">
-      <div class="popup_box">
-          <div class="swiper-container myswiper">
-              <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                      <h2>승차권</h2>
-                      <div class="qr_info">
-                          <div id='qrcode' class='qrcode'></div>
-                          <div class="qr_txt">
-                              <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p>
-                          </div>
-                      </div>
-                      <table class="detail_table">
-                          <tr>
-                              <th>결제일시</th>
-                              <td>2020.01.01 19:24</td>
-                          </tr>
-                          <tr>
-                              <th>예매정보</th>
-                              <td>2020.01.07 21:00 - 04:00 <span>(평택 - 서울동대문)</span> <br> 유림고속(1111)</td>
-                          </tr>
-                          <tr>
-                              <th>예매좌석</th>
-                              <td>1번</td>
-                          </tr>
-                          <tr>
-                              <th>결제수단</th>
-                              <td>카드결제 (신한)</td>
-                          </tr>
-                          <tr>
-                              <th>결제금액</th>
-                              <td>20,000원</td>
-                          </tr>
-                      </table>
-                      <p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한
-                          예매를 취소하겠습니까?</p>
-                      <div class="popup_btn">
-                          <ul>
-                              <li>
-                                  <a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary popup_close1">닫기</a>
-                              </li>
-                  
-                              <li>
-                                  <a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>   
-                  <div class="swiper-slide">
-                      <h2>승차권2222</h2>
-                      <div class="qr_info">
-                          <div id='qrcode' class='qrcode'></div>
-                          <div class="qr_txt">
-                              <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p>
-                          </div>
-                      </div>
-                      <table class="detail_table">
-                          <tr>
-                              <th>결제일시</th>
-                              <td>2020.01.01 19:24</td>
-                          </tr>
-                          <tr>
-                              <th>예매정보</th>
-                              <td>2020.01.07 21:00 - 04:00 <span>(평택 - 서울동대문)</span> <br> 유림고속(1111)</td>
-                          </tr>
-                          <tr>
-                              <th>예매좌석</th>
-                              <td>1번</td>
-                          </tr>
-                          <tr>
-                              <th>결제수단</th>
-                              <td>카드결제 (신한)</td>
-                          </tr>
-                          <tr>
-                              <th>결제금액</th>
-                              <td>20,000원</td>
-                          </tr>
-                      </table>
-                      <p><span style="color: #C43B0D;">출발일 3일전 ~ 당일은 환불이 불가능합니다.</span> <br>예매한
-                          예매를 취소하겠습니까?</p>
-                      <div class="popup_btn">
-                          <ul>
-                              <li>
-                                  <a onclick="javascript:$('#popup').css('display','none')" class="btn btn-secondary popup_close1">닫기</a>
-                              </li>
-                  
-                              <li>
-                                  <a href="#" class="btn btn-primary" onclick="resCancel()">예매취소</a>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
-              </div>
-              <!-- 네비게이션 버튼 -->
-              <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-              <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
-          </div>
-      </div>
-  </div>
+        $(document).ready(function(){
+            $.ajax({
+                url: "api/user/resCarList",
+                method: "post",
+                dataType: "json",
+                success: function (res) {
+                    sessionStorage.setItem("car_list", JSON.stringify(res.data));
+                    let ctId = res.data[0].ctID;
+                    let price = res.data[0].seatPrice;
+                    openBus(ctId,price);
+                }
+            });
+        })
+
+    
+
+
+        var selected_seats = [];
+        var selected_seats_cnt = 0;
+        var seatPrice = 0;
+
+
+        function openBus(busSeat,price) {
+            let car_info = JSON.parse(sessionStorage.getItem("car_list"));
+
+            var i, tablinks
+            tablinks = document.getElementsByClassName("tablinks");
+            //alert(seatPrice);
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            sessionStorage.setItem('ct_id', busSeat);
+
+            document.getElementById("bus_seat_layer").style.display = "block";
+            // evt.currentTarget.className += " active";
+            var firstSeatLabel = 1;
+
+
+            //좌석금액 불러오기
+
+            var $cart = $('#selected-seats'),
+                $nums = $('#selected_seats_num'),
+                $counter = $('#selected_seats_cnt'),
+                sc = $('.seat-map').seatCharts({
+                    map: [
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'ee_ee',
+                        'eeeee',
+                    ],
+                    seats: {
+                        e: {
+
+                            classes: '일반', //your custom CSS class
+                            category: '일반'
+                        }
+
+                    },
+                    naming: {
+                        top: false,
+                        getLabel: function (character, row, column) {
+                            return firstSeatLabel++;
+                        },
+                    },
+                    click: function () {
+                        if (this.status() == 'available') {
+                            
+                            return 'selected';
+                        } else if (this.status() == 'selected') {
+
+                            return 'available';
+                        } else if (this.status() == 'unavailable') {
+
+                            return 'unavailable';
+                        } else {
+
+                            return this.style();
+                        }
+                    }
+                });
+
+
+            //현재 예약된 자석
+            flushSeat();
+        }
+
+        function flushSeat() {
+            var sc = $('.seat-map').seatCharts();
+            selected_seats = [];
+            selected_seats_cnt = 0;
+            sc.find('e.selected').status('available');
+            // 데이터 가져와서 예약된 좌석 상태 설정.
+            var ct_id = sessionStorage.getItem('ct_id');
+            $.ajax({
+                dataType: "json",
+                method: "GET",
+                url: "/api/useSeat/" + ct_id
+            }).done((res) => {
+                let seat_id_list = [];
+                res.data.map((seat_num) => {
+                    seat_id_list.push(getSeatId(seat_num));
+                });
+                console.log('res :',res);
+                sc.find('unavailable').status('available');
+                sc.status(seat_id_list, 'unavailable');
+            });
+        }
+
+        // 45인승 기준 seatId 가져오기
+        function getSeatId(seat_num) {
+            if (seat_num <= 45 && seat_num > 0) {
+
+                let seat_id = "1_1";
+                let row = '',
+                    column = '';
+
+                if (seat_num > 40) {
+                    row = 11;
+                    column = seat_num % 10;
+                } else {
+                    if ((seat_num % 4) === 0) {
+                        row = Number.parseInt(seat_num / 4);
+                        column = 4;
+                    } else {
+                        row = (Number.parseInt(seat_num / 4)) + 1;
+                        column = seat_num % 4;
+                    }
+
+                    if (column >= 3) column += 1;
+                }
+
+                seat_id = row + "_" + column;
+                console.log('seatID',seat_id);
+                return seat_id;
+            } else {
+                return null;
+            }
+
+        }
+    </script>
 
 </body>
-
-<script>
-
-    function test(){
-
-        $('#popup').css('display','block')
-        new Swiper('.myswiper', {
-      // 슬라이드 속도 설정
-      // 지정하지 않을시 기본값은 300
-      speed : 300,
-      navigation : { // 네비게이션 설정
-        nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-        prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-      },
-    });
-    }
-
-  </script>
 </html>
