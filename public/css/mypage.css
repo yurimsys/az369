@@ -135,9 +135,14 @@ tr.canceled td {background: #eee; border: none; color: #999; text-decoration: li
 p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 
 
+table {border-collapse: collapse;}
+th, td {padding: 0;}
+
+
 .table {
     width: 100%;
-    border-collapse: collapse;
+    border-spacing: 0;
+    border-style: none;
     margin-top: -0.3%;
 }
 
@@ -163,6 +168,7 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
      text-align: center;
      padding: 8px 0;
      background: #f8f8f8;
+    
 }
 
 .table th:first-child,
