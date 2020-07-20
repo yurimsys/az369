@@ -197,8 +197,8 @@ p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
  .popup_box{width:30%; background:#fff; position:relative; z-index: 1000; top:50%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; padding: 25px 30px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.2);}
  .popup_box h2 {font-size: 24px; font-weight: 600; margin-bottom: 15px; text-align: center;}
 
- #qrcode {width: 80px; height: 80px; background-color: gold; float: left; position: relative;}
-.qr_info {display: inline-block; width: 100%; position: relative; height: auto; border-radius: 12px; margin: 5px 0 5px; border: 1px solid #dbdbdb; padding: 10px 30px 10px 10px;}
+ .qrcode {width: 80px; height: 80px; background-color: gold; float: left; position: relative;}
+.qr_info {display: inline-block; width: 99%; position: relative; height: auto; border-radius: 12px; margin: 5px 0 5px; border: 1px solid #dbdbdb; padding: 10px 30px 10px 10px;}
 /* .qr_info_inner {margin: 10px 0 30px; border-radius: 12px; padding: 10px 15px 8px; padding-right: 80px; box-shadow: 5px 5px 5px rgba(180,180,180,0.2); overflow: hidden; position: relative; left: 50%; transform: translateX(-50%); display: inline-block; border: 1px solid #eee; background-color: #fff;} */
 .qr_info::after {content: ""; display: block; clear: both;}
 .qr_txt {position: relative; font-size: 15px; color: #222; line-height: 1.6; margin: 0; float: left; margin-left: 25px; font-weight: 400;height: 80px; text-align: center;}
