@@ -792,12 +792,18 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     tPH.PH_Type,
                     tCR.CR_Price,
                     tCR.CR_QrCode,
+                    DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
+                    DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
+                    DAYOFWEEK(tCR.CR_cDt ) AS payDayWeek,
+                    date_format(tCR.CR_cDt ,'%y%y.%m.%d') as payDayYM,
+                    date_format(tCR.CR_cDt ,'%H:%i') as payDayTm,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') AS deptTe,
                     date_format(tCT.CT_DepartureTe,'%m.%d') AS startDay,
                     date_format(tCT.CT_ReturnTe,'%m.%d') as returnDay,
                     date_format(tCT.CT_DepartureTe,'%H:%i') as startTime,
                     date_format(tCT.CT_ReturnTe,'%H:%i') as returnTime,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptTe2,
+                    date_format(tCT.CT_ReturnTe,'%y%y.%m.%d') as returnTe2,
                     date_format(tCR.CR_cDt,'%y%y.%m.%d %H:%i') as PayDay2
 
                 FROM tCR
@@ -1019,6 +1025,10 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
     let query = `select
                     date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
+                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptYM,
+                    date_format(tCT.CT_DepartureTe,'%H:%i') as deptTM,
+                    DAYOFWEEK(tCT.CT_DepartureTe) AS deptWeek,
+                    DAYOFWEEK(tCT.CT_DepartureTe) AS payWeek,
                     tB.B_Name as carName,
                     tCT.CT_CarNum as carNum,
                     count(CR_SeatNum) as seatCnt,
