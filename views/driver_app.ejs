@@ -176,7 +176,7 @@
     function openLocation(evt, locationName) {
         now_location = locationName;
         let car_info = JSON.parse(sessionStorage.getItem("car_list"));
-        openBus(car_info[0].ctID,locationName);
+        openBus(car_info[0].ctID, locationName);
         
         
         var i, tabcontent, tab_button;
@@ -364,7 +364,6 @@
         }
 
         var sc = $seat.seatCharts();
-        console.log('scsc :',sc);
         selected_seats = [];
         selected_seats_cnt = 0;
         sc.find('e.selected').status('available');
@@ -379,7 +378,7 @@
             res.data.map((seat_num) => {
                 seat_id_list.push(getSeatId(seat_num));
             });
-            console.log('seat_id_list',seat_id_list);
+            // console.log('seat_id_list',seat_id_list);
             sc.find('unavailable').status('available');
             sc.status(seat_id_list, 'unavailable');
             
@@ -396,7 +395,6 @@
                 if(scan_list[i].CR_ScanSe == 'Y'){
                     
                     let seat_scan = getSeatId(scan_list[i].CR_SeatNum);
-                    console.log('seat_scan',seat_scan);
                     $('.seat-map-py #'+seat_scan).removeClass('unavailable');
                     $('.seat-map-se #'+seat_scan).addClass('selected');
                 }
@@ -558,6 +556,13 @@
 
 // WEB -> Android Function Call
 function ScanClick(e) {
+    if(now_location === 'pyeongtaek' && $('.start_cancel_p').css('display') =='block'){
+        alert('출발을 하게되면 스캔기능이 비활성화 됩니다.');
+        return false;
+    }else if(now_location === 'seoul' && $('.start_cancel_s').css('display')=='block'){
+        alert('출발을 하게되면 스캔기능이 비활성화 됩니다.');
+        return false;
+    }
     //평택 OR 서울 지역
     let location = e.dataset.location
         window.Android.ScanClick(location);
