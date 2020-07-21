@@ -6,7 +6,7 @@
 div.seatCharts-seat{
     flex: 1;
     height: 60px;
-    background: url(../../img/reservation/seat_img.png) center no-repeat;
+    background: url(../../img/reservation/seat_img_disable.png) center no-repeat;
     background-size: contain;
     cursor: pointer;
 }
