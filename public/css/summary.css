@@ -57,18 +57,26 @@ header .open {
 /*1200px*/
 @media screen and (max-width: 1200px) {
     .sub_bg {width: 93%; margin: 0 auto;}
+    section.sub_wrap {width: 95%; margin-bottom: 60px;}
+}
+
+/*768PX*/
+@media screen and (max-width: 768px) {
+    .sub_info {margin-top: 35px;}
+    section.sub_wrap h4 {margin-bottom: 20px;}
+    .sub_info ul {margin-top: 25px;}
 }
 
 /*414px*/
 @media screen and (max-width: 414px) {
     section.sub_wrap h2 br {display: block;}
-    .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: justify;}
+    .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: center;}
     .sub_info {margin-top: 35px;}
     .sub_info ul {width: 93%; margin-top: 10px;}
     .sub_info h4 br {display: block;}
-    .sub_info p br {display: none;}
+    /* .sub_info p br {display: none;} */
     .sub_info {width:100%;}
-    .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: justify;}
+    .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: center;}
 }
 
 /*320px*/
