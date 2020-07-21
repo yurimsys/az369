@@ -193,16 +193,18 @@ th, td {padding: 0;}
 .table_mo {display: none;}
 
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
- .popup_box{width:30%; background:#fff; position:relative; z-index: 1000; top:50%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.2); padding: 25px 20px 20px;}
+ .popup_box{width:25%; background:#fff; position:relative; z-index: 1000; top:50%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.2); padding: 20px 20px 25px;}
  .popup_box h2 {font-size: 24px; font-weight: 500; margin-bottom: 20px; text-align: center;}
  .popup_box h2 span {color: #999; font-weight: 300;}
 
  .swiper-slide {width: 99%; padding: 20px; border-radius: 12px; padding: 0; margin: 0 auto;}
  .swiper-wrapper {width: auto;}
 
-.qr_info {display: inline-block; width: 99%; margin: 0 auto; height: auto; border-radius: 12px; padding: 10px; position: relative; overflow: hidden;}
-.qrcode {width: 80px; height: 80px; background-color: black; margin: 0 auto;}
+/* .qr_info {display: inline-block; width: 99%; margin: 0 auto; height: auto; border-radius: 12px; padding: 10px; position: relative; overflow: hidden;} */
 
+.qr_wrap {width: 115px; height: 115px; background-color: #f5f2eb; position: relative; left: 50%; transform: translateX(-50%); margin-bottom: 25px;}
+.qrcode {width: 93px; height: 93px; background-color: black; position: absolute;
+top: 50%; left: 50%; transform: translate(-50%, -50%);}
 
 
 .table th {border-top: 1px solid #444;}
@@ -211,19 +213,21 @@ th, td {padding: 0;}
     width: 99%;
     border: none;
     margin: 0; padding: 0;
-    border: 1px solid #dbdbdb;
+    border-top: 1px solid #444;
+    /* border: 1px solid #dbdbdb; */
 }
 .detail_table td, .detail_table th {
-    padding: 12px 18px;
+    padding: 15px;
     border-bottom: 1px solid #eee;
     vertical-align: middle;
     font-size: 15px;
 }
 .detail_table th {
     width: 130px;
-    background: #fdfbf6;
+    /* background: #fdfbf6; */
     text-align: left;
     font-weight: 400;
+    color: #444;
 }
 .detail_table td {text-align: right;}
 .detail_table td span {color: #999;}
@@ -234,7 +238,8 @@ th, td {padding: 0;}
 .popup_btn a {display: block;}
 .layer:target{display:flex;animation:open 0.5s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
-.popup_box p {margin-top:15px; margin-bottom: 0; color:#222; text-align: center;}
+.popup_box p {font-size: 15px; margin-top:15px; margin-bottom: 0; color:#222; text-align: center; color: #C43B0D;}
+.popup_box p a {color: #999;}
 p.cancel_info {margin:2% 0; text-align: center;}
 
 
