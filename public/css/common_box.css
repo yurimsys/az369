@@ -24,8 +24,8 @@ input, button {-webkit-tap-highlight-color: transparent;}
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
+    overflow: hidden;
     margin-bottom: 60px;
-	  overflow: hidden;
 }
 .inner_sub_wrap {width: 100%;}
 .box {position: relative; padding-top: 120px; overflow: hidden;}
@@ -189,6 +189,7 @@ input[type="submit"] {font-size: 18px;}
 
 /*768px*/
 @media screen and (max-width: 768px) {
+    section.sub_wrap {margin-bottom: 30px;}
     section.sub_wrap h1 {font-size: 35px;}
     section.sub_wrap h2 {font-size: 24px; margin-bottom: 45px;}
 }

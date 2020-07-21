@@ -46,8 +46,8 @@ background-size: cover; width: 100%; height: 500px; animation: bg; animation-del
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
+    overflow: hidden;
     margin-bottom: 60px;
-	overflow: hidden;
 }
 
 section.sub_wrap .bar {
@@ -143,7 +143,7 @@ header .open {
     section.main {width: 100%;}
 
     /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
+    section.sub_wrap {width:100%; margin-bottom: 30px;}
     section.sub_wrap h1 {font-size:35px;}
 	section.sub_wrap h2 { font-size: 26px;}
 	
