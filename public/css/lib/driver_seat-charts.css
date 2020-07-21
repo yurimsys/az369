@@ -37,7 +37,7 @@ div.seatCharts-seat {
 div.seatCharts-row:after {clear: both;}
 
 div.seatCharts-seat.unavailable {
-	background: url(/img/reservation/seat_img_disable.png) center no-repeat;
+	background: url(/img/reservation/seat_img.png) center no-repeat;
     background-size: contain;
     cursor: not-allowed;
 }
