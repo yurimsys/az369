@@ -1,0 +1,55 @@
+div.seatCharts-container {
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    padding: 10px;
+   background-color: #f8f8f8;
+}
+
+
+div.seatCharts-row {
+    height: auto;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-around;
+}
+
+div.seatCharts-cell {
+	flex: 1;
+    margin: 5px;
+    float: left;
+	text-align: center;
+	outline: none;
+}
+div.seatCharts-seat {
+	color: #222;
+    line-height: 35px;
+    font-weight: 500;
+    font-size: 18px;
+	cursor: default;
+}
+
+div.seatCharts-row:after {clear: both;}
+
+div.seatCharts-seat.unavailable {
+	background: url(/img/reservation/seat_img_disable.png) center no-repeat;
+    background-size: contain;
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 375px) {
+    div.seatCharts-cell {margin:2.5px;}
+}
+
+@media screen and (max-width: 320px) {
+    div.seatCharts-cell {margin:1px;}
+    div.seatCharts-seat {font-size: 16px; line-height: 45px;}
+}
+@media screen and (max-width: 319px) {
+    div.seatCharts-cell {margin:0px;}
+}

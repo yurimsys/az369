@@ -16,9 +16,9 @@ div.seatCharts-cell {
 
 }
 div.seatCharts-seat {
-	color: #444;
+	color: #222;
     line-height: 35px;
-    font-weight: bold;
+    font-weight: 500;
     font-size: 18px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
