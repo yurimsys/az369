@@ -50,6 +50,7 @@ div.seatCharts-seat.unavailable {
     div.seatCharts-cell {margin:1px;}
     div.seatCharts-seat {font-size: 16px; line-height: 45px;}
 }
-@media screen and (max-width: 319px) {
-    div.seatCharts-cell {margin:0px;}
+
+@media screen and (max-width: 300px) {
+    div.seatCharts-seat {line-height: 38px;}
 }

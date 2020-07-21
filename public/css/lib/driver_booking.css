@@ -2,19 +2,10 @@
 	margin: auto;
     float: left;
 }
-/* div.seatCharts-seat{
-	width: 46px;
-    height: 43px;
-    background: url(../../img/reservation/seat_img.png) center no-repeat;
-    background-size: contain;
-    cursor: pointer;
-} */
 
 div.seatCharts-seat{
     flex: 1;
     height: 60px;
-    /* width: 65px;
-     */
     background: url(../../img/reservation/seat_img.png) center no-repeat;
     background-size: contain;
     cursor: pointer;
@@ -24,60 +15,15 @@ div.seatCharts-seat{
 
 .seatCharts-row div:nth-child(even){
     flex: 1;
-    /* width: 65px; */
     height: 60px;
 }
 div.seatCharts-seat.selected{
 	background: url(../../img/reservation/seat_img_select.png) center no-repeat;
-    /* width: 50px;
-    height: 47px; */
-    /* width: 65px; */
     flex: 1;
     height: 60px;
     background-size: contain;
 }
 
-/*1024px*/
-    /* @media screen and (max-width: 1024px) {
-    div .seatCharts-seat,
-    .seatCharts-row div:nth-child(even),
-    div.seatCharts-seat.selected {width: 70px; height: 66px;}
-    
-} */
-
-/*768px*/
-/* @media screen and (max-width: 768px) {
-    div .seatCharts-seat,
-    div.seatCharts-seat.selected,
-    .seatCharts-row div:nth-child(even){width: 55px; height: 51px;}
-} */
-
-/*414px*/
-/* @media screen and (max-width: 414px) {
-    div .seatCharts-seat,
-    div.seatCharts-seat.selected,
-    .seatCharts-row div:nth-child(even){width: 48px; height: 44px;}
-} */
-
-
-/*375px*/
-/* @media screen and (max-width: 375px) {
-    div.seatCharts-row{ 
-        height: 50px;
-        width: 100%;
-    }
-} */
-
-/*340px*/
-/* @media screen and (max-width: 340px) {
-    div .seatCharts-seat,
-    div.seatCharts-seat.selected,
-    .seatCharts-row div:nth-child(even){width: 44px; height: 40px;}
-} */
-
-/*290px*/
-/* @media screen and (max-width: 290px) {
-    div .seatCharts-seat,
-    div.seatCharts-seat.selected,
-    .seatCharts-row div:nth-child(even){width: 40px; height: 36px;}
-} */
+@media screen and (max-width: 300px) {
+    div.seatCharts-seat, .seatCharts-row div:nth-child(even), div.seatCharts-seat.selected {height: 50px;}
+}
