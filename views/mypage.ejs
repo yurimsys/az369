@@ -1006,14 +1006,17 @@
                     'phId': e.target.value
                 },
                 success: function (res) {
-                    //console.log("여기데이터 :", res.data);
+                    console.log("여기데이터 :", res.data);
                     $('.table_mo').empty();
                     // location.href = "#popup3"
                     for (let i = 0; i < res.data.length; i++) {
+
+
+
                         let html = "<table class='detail_table'>";
                         //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
-                        html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay + "</td></tr>";
-                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
+                        html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+" )</td></tr>";
+                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
                         html += "<tr><th>좌석번호</th><td>" + res.data[i].seatCnt + "</td></tr>";
                         html += "<tr><th>취소일시</th><td>" + res.data[i].cancelDay + "</td></tr>"
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
