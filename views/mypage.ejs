@@ -160,7 +160,7 @@
                                                 <li>출발일시</li>
                                                 <li>운행지역</li>
                                                 <li>차량정보</li>
-                                                <li>예매좌석</li>
+                                                <li>좌석번호</li>
                                             </ul>
                                         </div>
                                         <div id="reserve_list" class="scroll_style">
@@ -202,7 +202,7 @@
                                                                 <h6><%=data[i].carName%></h6>
                                                             </li>
                                                             <li>
-                                                                예매좌석
+                                                                좌석번호
                                                                 <h6><%=data[i].seatNum%></h6>
                                                             </li>
                                                             <li><i class="fas fa-chevron-right"></i></li>
@@ -230,7 +230,7 @@
 
                                         <div class="tab_tit">
                                             <h4>예매결제내역</h4>
-                                            <p>오늘일시기준 최대 6개월까지만 조회가 가능합니다. </p>
+                                            <p>오늘일자기준 최대 6개월까지만 조회가 가능합니다. </p>
                                         </div>
                                         <!-- search -->
                                         <div class="searchBox">
@@ -332,7 +332,7 @@
                                                 </div>
 
                                                 <div class="popup_btn_mo">
-                                                    <a class="btn btn-secondary popup_close1" onclick="javascript:$('header').css('display','block')">닫기</a>
+                                                    <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block')">닫기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -342,7 +342,7 @@
                                     <div id="03" class="tabcontent">
                                         <div class="tab_tit">
                                             <h4>취소환불조회</h4>
-                                            <p> 오늘일시기준 최대 6개월까지만 조회가 가능합니다. </p>
+                                            <p> 오늘일자기준 최대 6개월까지만 조회가 가능합니다. </p>
                                         </div>
 
                                         <!-- search -->
@@ -423,7 +423,7 @@
                                                     <th>결제일시</th>
                                                     <th>출발일시</th>
                                                     <th>취소일시</th>
-                                                    <th>예매좌석</th>
+                                                    <th>좌석번호</th>
                                                     <th>결제수단</th>
                                                     <th>환불금액</th>
                                                 </tr>
@@ -446,7 +446,7 @@
                                                 </div>
 
                                                 <div class="popup_btn_mo">
-                                                    <a class="btn btn-secondary popup_close1" onclick="javascript:$('header').css('display','block')">닫기</a>
+                                                    <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block')">닫기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -511,7 +511,7 @@
             </div>
 
             <div class="popup_btn_mo">
-                <a class="btn btn-secondary popup_close1" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');">닫기</a>
+                <a class="btn btn-secondary" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');">닫기</a>
             </div>
         </div>
     </div>
@@ -526,7 +526,7 @@
             </div>
 
             <div class="popup_btn_mo">
-                <a class="btn btn-secondary popup_close1" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');">닫기</a>
+                <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');">닫기</a>
             </div>
         </div>
     </div>
@@ -603,7 +603,7 @@
                     console.log('res :', res);
                     let default_html = 
                     `<div class="swiper-slide">
-                        <h2>승차권 <span>1/2</span></h2>
+                        <h2>승차권 <span>1 / 2</span></h2>
                         <div class="qr_info">
                             <div id='qrcode' class="qrcode"></div>
                             <div class="qr_txt">
@@ -614,16 +614,16 @@
                          let default_html2 = `</table>
                          <p>출발일 3일 전 ~ 당일은 예매취소가 불가능합니다.   <a><u> 환불규정</u></a></p>
                          <div class="popup_btn">
-                           <ul><li><a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');" class="btn btn-secondary popup_close1">닫기</a></li><li>`;
+                           <ul><li><a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');" class="btn btn-secondary">닫기</a></li><li>`;
                     for(let i=0; i <res.data.length; i++){
-                        let html = '<div class="swiper-slide"><h2>승차권 '+Number(i+1)+'<span style="color: #999;">/'+res.data.length+'</span></h2><div class="qr_wrap"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div></div>';
+                        let html = '<div class="swiper-slide"><h2>승차권 '+Number(i+1)+' <span style="color: #999;"> / '+res.data.length+'</span></h2><div class="qr_wrap"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div></div>';
                             html += '<table class="detail_table">';
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[i].PayDay2+'</td><tr>'
                             html += '<tr><th>예매정보</th>';
                             html += '<td>'+res.data[i].deptTe2+' '+res.data[i].startTime+'-'+res.data[i].returnTime+'<span> (평택 - 동대문)</span><br>'+
                                     res.data[i].carName+'('+res.data[i].carNum+')</td><tr>';
-                            html += '<tr><th>예매좌석</th>';
+                            html += '<tr><th>좌석번호</th>';
                             html += '<td>'+res.data[i].CR_SeatNum+'번</td><tr>';
                             html += '<tr><th>결제수단</th>';
                             html += '<td>'+res.data[i].PH_Type+'</td><tr>';
@@ -643,7 +643,7 @@
                             html += '<tr><th>예매정보</th>';
                             html += '<td>'+res.data[j].deptTe2+' '+res.data[j].startTime+'-'+res.data[j].returnTime+'<span> (평택 - 동대문)</span><br>'+
                                     res.data[j].carName+'('+res.data[j].carNum+')</td><tr>';
-                            html += '<tr><th>예매좌석</th>';
+                            html += '<tr><th>좌석번호</th>';
                             html += '<td>'+res.data[j].CR_SeatNum+'번</td><tr>';
                             html += '<tr><th>결제수단</th>';
                             html += '<td>'+res.data[j].PH_Type+'</td><tr>';
@@ -884,7 +884,7 @@
                         //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
                         html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay + "</td></tr>";
                         html += "<tr><th>예매정보</th><td>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
-                        html += "<tr><th>예매좌석</th><td>" + res.data[i].seatCnt + "</td></tr>";
+                        html += "<tr><th>좌석번호</th><td>" + res.data[i].seatCnt + "</td></tr>";
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td><tr>";
                         html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);
@@ -1016,7 +1016,7 @@
                         //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
                         html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay + "</td></tr>";
                         html += "<tr><th>예매정보</th><td>" + res.data[i].deptTe + '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
-                        html += "<tr><th>예매좌석</th><td>" + res.data[i].seatCnt + "</td></tr>";
+                        html += "<tr><th>좌석번호</th><td>" + res.data[i].seatCnt + "</td></tr>";
                         html += "<tr><th>취소일시</th><td>" + res.data[i].cancelDay + "</td></tr>"
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
                         html += "<tr><th>환불금액</th><td>" + res.data[i].price + "</td></tr></table>";
@@ -1026,7 +1026,7 @@
             })
         })
 
-        $('.popup_close1').on('click', function () {
+        $('.popup_close').on('click', function () {
             $('#popup2').css('display', 'none');
             $('#popup3').css('display', 'none');
             $('.layer').css('background', '');
