@@ -47,7 +47,7 @@
             <!-- 좌석표 -->
             <div class="seat-map-py seatCharts-container">
             </div>
-            <div class="btn reload">새로고침</div>
+            <div class="btn reload" onclick="reload(this)" id='reloadPy'>새로고침</div>
 
             <!-- 하단버튼 -->
             <button class="btn check check_p" id="check_p" onclick="busReadyPy(this)">승차완료</button>
@@ -61,8 +61,8 @@
                     <p>확인을 누르면 현재 운행하는 장차의
                         온라인 예매가 마감됩니다. 예매마감 이후 현 장차의 예매가 불가능해집니다.</p>
                     <div class="modal_inner_btn">
-                        <a onclick="closePy()" style="color: #767676;">취소</a>
-                        <a onclick="checkPy()" style="color: #c3a164;">확인</a>
+                        <a onclick="closePy()" id='closePy' style="color: #767676;">취소</a>
+                        <a onclick="check(this)" id='checkPy' style="color: #c3a164;">확인</a>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@
             <div class="seat-map-se seatCharts-container">
             </div>
 
-            <div class="btn reload">새로고침</div>
+            <div class="btn reload" onclick="reload(this)" id='reloadSe'>새로고침</div>
 
             <!-- 하단버튼 -->
             <button class="btn check check_s" id="check_s" onclick="busReadySe(this)">승차완료</button>
@@ -124,8 +124,8 @@
                     <h3>출발하시겠습니까?</h3>
                     <p>확인을 누르면 QR코드 스캔을 사용하실 수 없습니다.</p>
                     <div class="modal_inner_btn">
-                        <a onclick="closeSe()" style="color: #767676;">취소</a>
-                        <a onclick="checkSe()" style="color: #c3a164;">확인</a>
+                        <a onclick="closeSe()" id='closeSe' style="color: #767676;">취소</a>
+                        <a onclick="check(this)" id='checkSe' style="color: #c3a164;">확인</a>
                     </div>
                 </div>
             </div>
@@ -189,15 +189,16 @@
     }
     document.getElementById("defaultOpen").click();
 
+    //데이터 로드 및 가져올 데이터 쿼리 타입 설정
     $(document).ready(function(){
+
+        let query_type = localStorage.getItem('query_type')
         $.ajax({
-            url: "api/user/resCarList",
+            url: "api/user/resCarList?type="+query_type,
             method: "post",
             dataType: "json",
             success: function (res) {
                 sessionStorage.setItem("car_list", JSON.stringify(res.data));
-                $('.location_info').text('평택 '+res.data[0].startTime+' - 서울동대문 '+res.data[0].returnTime);
-                $('.bus_name').text(res.data[0].b_name+'('+res.data[0].backNum+')');
             }
         });
     })
@@ -212,12 +213,21 @@
 
     function openBus(busSeat,locationName) {
         let $seat;
-        if(locationName == "pyeongtaek"){
-            $seat = $('.seat-map-py')
-        }else{
-            $seat = $('.seat-map-se')
-        }
         let car_info = JSON.parse(sessionStorage.getItem("car_list"));
+        let $location_info = $('.location_info');
+        let $bus_name = $('.bus_name');
+        console.log('car_info', car_info);
+        if(locationName == "pyeongtaek"){
+            
+            $location_info.text('평택 '+car_info[0].deptYM+' ('+getInputDayLabel(car_info[0].deptDay)+') '+car_info[0].startTime);
+            $bus_name.text(car_info[0].b_name+'('+car_info[0].backNum+')');
+            $seat = $('.seat-map-py');
+        }else{
+            $location_info.text('서울 동대문 '+car_info[0].retuYM+' ('+getInputDayLabel(car_info[0].retnDay)+') '+car_info[0].returnTime);
+            $bus_name.text(car_info[0].b_name+'('+car_info[0].backNum+')');
+            $seat = $('.seat-map-se');
+        }
+        
 
         var i, tablinks
         tablinks = document.getElementsByClassName("tablinks");
@@ -296,8 +306,9 @@
         flushSeat(locationName);
     }
 
-
+    let $user_checked = $('#user_checked');
     function userSeatInfo(bus_id, seat_number, scan_checked){
+        
         $.ajax({
             url: '/api/bus_user_info',
             method: 'get',
@@ -312,9 +323,11 @@
                 $('#user_phone').text(res.data[0].U_PHONE);
                 //클릭한 좌석이 확인된 여부
                 if(scan_checked == 'selected'){
-                    $('#user_checked').text('Y');
+                    $user_checked.css('color','blue')
+                    $user_checked.text('Y');
                 }else{
-                    $('#user_checked').text('N');
+                    $user_checked.css('color','red')
+                    $user_checked.text('N');
                 }
             }
         });
@@ -415,22 +428,26 @@
     }
 
     // 출발확인 팝업 : 확인 ---------------------
-    function checkPy() {
-        $('.start_p_modal').css('display', 'none')
-        $('#check_p').css('display', 'none');
-        $('#start_p').css('display', 'none');
-        $('#start_cancel_p').css('display', 'block');
+    function check(e) {
+        if(e.id === 'checkPy'){
+            $('.start_p_modal').css('display', 'none')
+            $('#check_p').css('display', 'none');
+            $('#start_p').css('display', 'none');
+            $('#start_cancel_p').css('display', 'block');
+        }else{
+            $('.start_s_modal').css('display', 'none')
+            $('#check_s').css('display', 'none');
+            $('#start_s').css('display', 'none');
+            $('#start_cancel_s').css('display', 'block');
+        }
+        localStorage.setItem('query_type','bus_start');
     }
-    function checkSe() {
-        $('.start_s_modal').css('display', 'none')
-        $('#check_s').css('display', 'none');
-        $('#start_s').css('display', 'none');
-        $('#start_cancel_s').css('display', 'block');
-    }
+
 
     // 출발취소확인 팝업 열기 ---------------------
     function busCancelPy(e) {
         $('.start_cancel_p_modal').css('display', 'block')
+        localStorage.removeItem('query_type');
     }
     function busCancelSe(e) {
         $('.start_cancel_s_modal').css('display', 'block')
@@ -461,6 +478,24 @@
         $('#start_s').removeClass('started');
         $('#start_cancel_s').css('display', 'none');
     }
+
+    //새로고침
+    function reload(e){
+        let car_info = JSON.parse(sessionStorage.getItem("car_list"));
+        if(e.id === 'reloadPy'){
+            openBus(car_info[0].ctID,'pyeongtaek');
+        }else{
+            openBus(car_info[0].ctID,'seoul');
+        }
+    }
+
+    //요일 계산 함수
+    function getInputDayLabel(date) {
+        var week = new Array('일', '월', '화', '수', '목', '금', '토');
+        var todayLabel = week[date-1];
+        return todayLabel;
+    }
+
 
 </script>
 

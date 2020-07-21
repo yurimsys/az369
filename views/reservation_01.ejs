@@ -308,8 +308,12 @@
     <script>
 
         $(document).ready(function(){
+            let query_type = localStorage.getItem('query_type')
+            setInterval(() => {
+                localStorage.removeItem('query_type')
+            }, 1000 * 60 * 60);
             $.ajax({
-                url: "api/user/resCarList",
+                url: "api/user/resCarList?type="+query_type,
                 method: "post",
                 dataType: "json",
                 success: function (res) {

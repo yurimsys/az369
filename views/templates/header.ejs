@@ -78,7 +78,7 @@
                     <li><a href="/mypage"><strong
                                 style="font-weight: 500; font-size: 16px;"><u><%= sessionUser.U_Name %>
                                     님</u></strong></a></li>
-                    <li><a href="/logout" style="color: #999;"><u>로그아웃</u></a></li>
+                    <li><a href="/logout" onclick="logOut()" style="color: #999;"><u>로그아웃</u></a></li>
                 </ul>
                 <% } else { %>
                 <a href="/login">장차예매 시 <u>로그인</u>이 필요합니다.</a>
