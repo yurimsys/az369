@@ -173,7 +173,7 @@
                                                 <span class="reserve_bar">
                                                     <ul>
                                                         <li><%=data[i].deptTe%></li>
-                                                        <li> 평택 - 서울 동대문</li>
+                                                        <li> 평택 - 동대문</li>
                                                         <!-- <li><%=data[i].carName%> / <%=data[i].carNum%></li> -->
                                                         <li><%=data[i].carName%></li>
                                                         <li><%=data[i].seatNumMo%></li>
@@ -610,7 +610,7 @@
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[i].payDayYM+' ('+getInputDayLabel(res.data[i].payDayWeek)+') '+res.data[i].payDayTm+'</td><tr>'
                             html += '<tr><th>예매정보</th>';
-                            html += '<td>평택 '+res.data[i].deptTe2+' ('+getInputDayLabel(res.data[i].deptDay)+') '+res.data[i].startTime+'<br>서울 동대문 '+res.data[i].returnTe2+'('
+                            html += '<td>평택 '+res.data[i].deptTe2+' ('+getInputDayLabel(res.data[i].deptDay)+') '+res.data[i].startTime+'<br>동대문 '+res.data[i].returnTe2+'('
                                         +getInputDayLabel(res.data[i].retnDay)+') '+res.data[i].returnTime+'<br>'+res.data[i].carName+'('+res.data[i].carNum+')</td><tr>';
                             html += '<tr><th>예매좌석</th>';
                             html += '<td>'+res.data[i].CR_SeatNum+'번</td><tr>';
@@ -630,7 +630,7 @@
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[j].payDayYM+' ('+getInputDayLabel(res.data[j].payDayWeek)+') '+res.data[j].payDayTm+'</td><tr>'
                             html += '<tr><th>예매정보</th>';
-                            html += '<td>평택 '+res.data[j].deptTe2+' ('+getInputDayLabel(res.data[j].deptDay)+') '+res.data[j].startTime+'<br>서울 동대문 '+res.data[j].returnTe2+'('
+                            html += '<td>평택 '+res.data[j].deptTe2+' ('+getInputDayLabel(res.data[j].deptDay)+') '+res.data[j].startTime+'<br>동대문 '+res.data[j].returnTe2+'('
                                         +getInputDayLabel(res.data[j].retnDay)+') '+res.data[j].returnTime+'<br>'+res.data[j].carName+'('+res.data[j].carNum+')</td><tr>';
                             html += '<tr><th>예매좌석</th>';
                             html += '<td>'+res.data[j].CR_SeatNum+'번</td><tr>';
@@ -881,7 +881,7 @@
                         let html = "<table class='detail_table'>";
                         //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
                         html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+" )</td></tr>";
-                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
+                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 > 동대문)</span></td></tr>";
                         html += "<tr><th>예매좌석</th><td>" + res.data[i].seatCnt + "</td></tr>";
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td><tr>";
                         html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
@@ -1016,7 +1016,7 @@
                         let html = "<table class='detail_table'>";
                         //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
                         html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+" )</td></tr>";
-                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 > 서울 동대문)</span></td></tr>";
+                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 > 동대문)</span></td></tr>";
                         html += "<tr><th>좌석번호</th><td>" + res.data[i].seatCnt + "</td></tr>";
                         html += "<tr><th>취소일시</th><td>" + res.data[i].cancelDay + "</td></tr>"
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
