@@ -1208,6 +1208,10 @@ router.post('/user/resCancelListMo', auth.isLoggedIn, (req, res, next) =>{
 //마이페이지 취소 및 환불조회 상세보기 모바일
 router.post('/user/resCancelDetailMo', auth.isLoggedIn, (req, res, next) =>{
     let query = `select 
+                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptYM,
+                    date_format(tCT.CT_DepartureTe,'%H:%i') as deptTM,
+                    DAYOFWEEK(tCT.CT_DepartureTe) AS deptWeek,
+                    DAYOFWEEK(tCT.CT_DepartureTe) AS payWeek,
                     date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
