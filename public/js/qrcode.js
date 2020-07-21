@@ -38,7 +38,7 @@ var QRCode;
 
 			if (code > 0x10000) {
 				byteArray[0] = 0xF0 | ((code & 0x1C0000) >>> 18);
-				byteArray[1] = 0x80 | ((code & 0x3F000) >>> 12);
+				byteArray[1] = 0x90 | ((code & 0x3F000) >>> 12);
 				byteArray[2] = 0x80 | ((code & 0xFC0) >>> 6);
 				byteArray[3] = 0x80 | (code & 0x3F);
 			} else if (code > 0x800) {

@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px; word-break: keep-all;  }
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px; word-break: keep-all;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #444; background-color: #f2f2f2;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
@@ -11,7 +11,7 @@ img {vertical-align: middle;}
 a img {border: none;}
 li {list-style: none;}
 address, em, i {font-style: normal;}
-p { font-family: inherit; font-size: 14px; }
+p { font-family: inherit; font-size: 13px; font-weight: 500;}
 span {padding: 0; margin: 0;}
 input, button {-webkit-tap-highlight-color: transparent;}
 *:focus {outline: none;}
@@ -114,13 +114,10 @@ button {border: none; cursor: pointer;}
   .popup_box p {text-align: center; font-size: 16px; margin: 0 auto; color: #444; margin-top:5px;} 
 
 
-  .popup_open {margin: 0 auto; width: 200px; height: 50px; line-height: 50px; background: #eee; display: block; text-align: center;}
-
-  .popup_btn {width: 30%; margin: 0 auto; margin-top: 25px; font-size: 15px; height: 45px; line-height: 45px;}
-  .popup_close{display:block;text-align:center;font-size:15px; height: 45px; line-height: 45px;width: 100%;}
-  .layer:target{display:flex;animation:open 0.5s;}
-
-
+/*좌석표------------------------------------------*/
+/* .seat-map {position: relative; float: left;} 
+.select_seat { float: right; width: 50%; overflow: hidden;} */
+.seat-map-py {width: 100%; height: auto;}
 
 
 
