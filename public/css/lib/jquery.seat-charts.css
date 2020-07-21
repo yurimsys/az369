@@ -1,5 +1,6 @@
 div.seatCharts-container {
-	width: auto;
+    width: auto;
+    height: auto;
     margin: 0;
     background-color: #f8f8f8;
     padding: 20px 30px;
@@ -20,11 +21,9 @@ div.seatCharts-seat {
     line-height: 35px;
     font-weight: 500;
     font-size: 18px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
 	cursor: default;
 }
+
 div.seatCharts-seat:focus {
 	border: none;
 }
@@ -101,44 +100,94 @@ li.seatCharts-legendItem {
     div.seatCharts-cell {margin: 5px;}
     
 }
-@media screen and (max-width: 767px) {
+/* @media screen and (max-width: 767px) {
     div.seatCharts-container {
         width:auto; left: 50%; transform: translateX(-50%);}
+} */
+
+/* 419 이하 */
+@media screen and (max-width: 419px) {
+
+    div.seatCharts-seat {line-height: 43px;}
+
+    div.seatCharts-container {
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        position: relative;
+        margin: 0 auto;
+        padding: 10px;
+       background-color: #f8f8f8;
+    }
+    div.seatCharts-row {
+        height: auto;
+        width: 100%;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: space-around;
+    }
+    
+    div.seatCharts-cell {
+        flex: 1;
+        margin: 5px;
+        float: left;
+        text-align: center;
+        outline: none;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    div.seatCharts-cell {margin:1px;}
+    div.seatCharts-seat {font-size: 16px; line-height: 45px;}
+}
+
+@media screen and (max-width: 300px) {
+    div.seatCharts-seat {line-height: 38px;}
 }
 
 
+
+
+
+
+
+
+
+
 /*414px*/
-@media screen and (max-width: 414px) {
+/* @media screen and (max-width: 414px) {
     div.seatCharts-container {
         width: auto;
         margin: 0 auto;
         padding: 15px;
 }
-}
+} */
 
 /*413px*/
-@media screen and (max-width: 413px) {
+/* @media screen and (max-width: 413px) {
     div.seatCharts-container {
         margin: 0 auto;
 }
-}
+} */
 
 /*375px*/
-@media screen and (max-width: 375px) {
+/* @media screen and (max-width: 375px) {
     div.seatCharts-container {
     margin: 0;
     width: auto;
    
 }
-}
+} */
 
 /*338px*/
-@media screen and (max-width:338px) {
+/* @media screen and (max-width:338px) {
     div.seatCharts-container {
         padding: 0;
     margin: 0;
 }
-}
+} */
 
 /*320px*/
 /* @media screen and (max-width: 320px) {
@@ -148,12 +197,12 @@ li.seatCharts-legendItem {
 }
 } */
 
-@media screen and (max-width: 320px) {
+/* @media screen and (max-width: 320px) {
     div.seatCharts-container {
         padding: 10px 0;
     }
-}
+} */
 /*290px*/
-@media screen and (max-width: 290px) {
+/* @media screen and (max-width: 290px) {
     div.seatCharts-seat {line-height: 30px; font-size: 15px;}
-}
+} */

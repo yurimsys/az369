@@ -42,8 +42,8 @@ section.main {
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom: 90px;
-	overflow: hidden;
+    overflow: hidden;
+    margin-bottom: 60px;
 }
 
 .tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%); }
@@ -282,7 +282,7 @@ section.video_list{width: 100%; margin-top: 70px; overflow: hidden;}
     section.main {width: 100%;}
     
     /*section.sub_wrap*/
-    section.sub_wrap {width:100%;}
+    section.sub_wrap {width:100%; margin-bottom: 30px;}
     section.sub_wrap h1 {font-size: 35px;}
     section.sub_wrap h2 {margin-bottom:50px; font-size: 24px;}
     section.sub_wrap h2 span {font-size: 20px;}

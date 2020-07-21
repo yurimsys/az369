@@ -107,7 +107,7 @@ button {border: none; cursor: pointer;}
   
 
   .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
-  .popup_box{margin:20px; margin-top: 70%; width: 90%; height: auto; background:#fff;position:relative;z-index: 1000; text-align: center;border-radius: 12px; padding: 20px 20px 25px;}
+  .popup_box{margin:20px; margin-top: 70%; width: 90%; height: auto; background:#fff;position:relative;z-index: 1000; text-align: center;border-radius: 12px; padding: 20px 20px 0;}
   .popup_box .popup_tit {font-size: 24px; font-weight: 600; line-height: 1.5;padding-bottom: 15px; margin: 0 auto; }
   #applyDate {margin-top: 20px; font-size: 18px; color: #444;font-weight: 400;}
   .popup_box .popup_tit span {font-size: 16px;}
@@ -117,11 +117,12 @@ button {border: none; cursor: pointer;}
 /*좌석표------------------------------------------*/
 /* .seat-map {position: relative; float: left;} 
 .select_seat { float: right; width: 50%; overflow: hidden;} */
-.seat-map-py {width: 100%; height: auto;}
+/* .seat-map-py {width: 100%; height: auto;} */
 
-
-
-
+.popup_box table {width: 100%; font-size: 16px;}
+.popup_box th {width: 50%;text-align: right; padding: 2px 10px; font-weight: 400; color: #767676;}
+.popup_box td {width: 50%; text-align: left; padding: 2px 10px; color: #222; font-weight: 400;}
+.popup_btn a {display: block; padding: 20px 0 25px; color: #c3a164;}
 
     
 

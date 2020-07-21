@@ -25,9 +25,8 @@ span {padding: 0; margin: 0;}
 section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
-    margin-bottom:60px;
     overflow: hidden;
-    
+    margin-bottom: 60px;
 }
 .inner_sub_wrap {width: 100%;}
 /* tnb영역 */
@@ -97,11 +96,10 @@ input:focus, textarea:focus {border: 1px solid #c3a164;}
 
 /*768px*/
 @media screen and (max-width: 768px) {
-   
+    section.sub_wrap {margin-bottom: 30px;}
     section.sub_wrap h6 {margin-top: 60px;}
     section.sub_wrap h1 {font-size: 35px;}
     section.sub_wrap h2 {font-size: 24px; margin-bottom: 45px;}
-    
     .sub_info ul {width: 100%;}    
 }
 
