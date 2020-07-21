@@ -50,9 +50,9 @@
             <div class="btn reload" onclick="reload(this)" id='reloadPy'>새로고침</div>
 
             <!-- 하단버튼 -->
-            <button class="btn check check_p" id="check_p" onclick="busReadyPy(this)">승차완료</button>
-            <button class="btn start start_p" id="start_p" onclick="busStartPy(this)">출발</button>
-            <button class="btn start_cancel_p" id="start_cancel_p" onclick='busCancelPy(this)'>출발취소</button>
+            <button class="btn check check_p" id="check_p" onclick="busReady(this)">승차완료</button>
+            <button class="btn start start_p" id="start_p" onclick="busStart(this)">출발</button>
+            <button class="btn start_cancel_p" id="start_cancel_p" onclick='busCancel(this)'>출발취소</button>
 
             <!-- 출발 모달창 -->
             <div class="start_modal start_p_modal">
@@ -61,8 +61,8 @@
                     <p>확인을 누르면 현재 운행하는 장차의
                         온라인 예매가 마감됩니다. 예매마감 이후 현 장차의 예매가 불가능해집니다.</p>
                     <div class="modal_inner_btn">
-                        <a onclick="closePy()" id='closePy' style="color: #767676;">취소</a>
-                        <a onclick="check(this)" id='checkPy' style="color: #c3a164;">확인</a>
+                        <a onclick="startModalCancel(this)" id='startModalCancelPy' style="color: #767676;">취소</a>
+                        <a onclick="startModalCheck(this)" id='startModalCheckPy' style="color: #c3a164;">확인</a>
                     </div>
                 </div>
             </div>
@@ -76,8 +76,8 @@
                         <span>단, 출발시간이 지났을 경우
                             온라인예매는 자동으로 닫힙니다.</span></p>
                     <div class="modal_inner_btn">
-                        <a onclick="closePy2()" style="color: #767676;">취소</a>
-                        <a onclick="cancelPy()" style="color: #c3a164;">확인</a>
+                        <a onclick="cancelModalClose(this)" id='cancelModalClosePy' style="color: #767676;">취소</a>
+                        <a onclick="cancelModalCheck(this)" id='cancelModalCheckPy' style="color: #c3a164;">확인</a>
                     </div>
                 </div>
             </div>
@@ -113,9 +113,9 @@
             <div class="btn reload" onclick="reload(this)" id='reloadSe'>새로고침</div>
 
             <!-- 하단버튼 -->
-            <button class="btn check check_s" id="check_s" onclick="busReadySe(this)">승차완료</button>
-            <button class="btn start start_s" id="start_s" onclick='busStartSe(this)'>출발</button>
-            <button class="btn start_cancel_s" id="start_cancel_s" onclick='busCancelSe(this)'>출발취소</button>
+            <button class="btn check check_s" id="check_s" onclick="busReady(this)">승차완료</button>
+            <button class="btn start start_s" id="start_s" onclick='busStart(this)'>출발</button>
+            <button class="btn start_cancel_s" id="start_cancel_s" onclick='busCancel(this)'>출발취소</button>
 
 
             <!-- 출발버튼 클릭 시 모달창 -->
@@ -124,8 +124,8 @@
                     <h3>출발하시겠습니까?</h3>
                     <p>확인을 누르면 QR코드 스캔을 사용하실 수 없습니다.</p>
                     <div class="modal_inner_btn">
-                        <a onclick="closeSe()" id='closeSe' style="color: #767676;">취소</a>
-                        <a onclick="check(this)" id='checkSe' style="color: #c3a164;">확인</a>
+                        <a onclick="startModalCancel(this)" id='startModalCancelSe' style="color: #767676;">취소</a>
+                        <a onclick="startModalCheck(this)" id='startModalCheckSe' style="color: #c3a164;">확인</a>
                     </div>
                 </div>
             </div>
@@ -137,8 +137,8 @@
                 <h3>출발취소 하시겠습니까?</h3>
                 <p>취소를 누르면 QR코드 스캔을 다시 사용하실 수 있습니다.</p>
                 <div class="modal_inner_btn">
-                    <a onclick="closeSe2()" style="color: #767676;">취소</a>
-                    <a onclick="cancelSe()" style="color: #c3a164;">확인</a>
+                    <a onclick="cancelModalClose(this)" id='cancelModalCloseSe' style="color: #767676;">취소</a>
+                    <a onclick="cancelModalCheck(this)" id='cancelModalCheckSe' style="color: #c3a164;">확인</a>
                 </div>
             </div>
         </div>
@@ -301,7 +301,6 @@
                 }
             });
 
-
         //현재 예약된 자석
         flushSeat(locationName);
     }
@@ -393,43 +392,60 @@
 
     }
 
-    // 하단버튼 CSS변경 이벤트 ---------------------
-    function busReadyPy(e) {
-        $(e).toggleClass("checked"),
+    // 승차 완료 버튼
+    function busReady(e) {
+        //승차 완료 클릭시 출발 버튼 활성화
+        if(e.id === 'check_p'){
+            $(e).toggleClass("checked"),
             $(".start_p").toggleClass("started");
-    }
-    function busReadySe(e) {
-        $(e).toggleClass("checked"),
+        }else{
+            $(e).toggleClass("checked"),
             $(".start_s").toggleClass("started");
-    }
-
-    // 출발확인 팝업 열기 ---------------------
-    function busStartPy(e) {
-        if ($('#check_p').hasClass('checked') == false) {
-            return false;
-        } else {
-            $('.start_p_modal').css('display', 'block')
-        }
-    }
-    function busStartSe(e) {
-        if ($('#check_s').hasClass('checked') == false) {
-            return false;
-        } else {
-            $('.start_s_modal').css('display', 'block')
         }
     }
 
-    // 출발확인 팝업 : 취소 ---------------------
-    function closePy() {
-        $('.start_p_modal').css('display', 'none')
-    }
-    function closeSe() {
-        $('.start_s_modal').css('display', 'none')
+
+    // 버스 출발 버튼
+    function busStart(e) {
+        //출발 클릭시 QR코드 비활성화 경고 및 재확인 팝업
+        if(e.id === 'start_p'){
+            if ($('#check_p').hasClass('checked') == false) {
+                return false;
+            } else {
+                $('.start_p_modal').css('display', 'block')
+            }
+        }else{
+            if ($('#check_s').hasClass('checked') == false) {
+                return false;
+            } else {
+                $('.start_s_modal').css('display', 'block')
+            }
+        }
     }
 
-    // 출발확인 팝업 : 확인 ---------------------
-    function check(e) {
-        if(e.id === 'checkPy'){
+    // 출발 취소 버튼
+    function busCancel(e) {
+        //출발 취소 확인 모달 활성화
+        if(e.id === 'start_cancel_p'){
+            $('.start_cancel_p_modal').css('display', 'block')
+        }else{
+            $('.start_cancel_s_modal').css('display', 'block')
+        }
+    }
+
+
+    // 출발확인 모달 : 취소 ---------------------
+    function startModalCancel(e) {
+        if(e.id === 'startModalCancelPy'){
+            $('.start_p_modal').css('display', 'none')
+        }else{
+            $('.start_s_modal').css('display', 'none')
+        }
+    }
+
+    // 출발확인 모달 : 확인 ---------------------
+    function startModalCheck(e) {
+        if(e.id === 'startModalCheckPy'){
             $('.start_p_modal').css('display', 'none')
             $('#check_p').css('display', 'none');
             $('#start_p').css('display', 'none');
@@ -444,39 +460,33 @@
     }
 
 
-    // 출발취소확인 팝업 열기 ---------------------
-    function busCancelPy(e) {
-        $('.start_cancel_p_modal').css('display', 'block')
-        localStorage.removeItem('query_type');
+    // 출발취소 모달 : 모달 닫기 -----
+    function cancelModalClose(e) {
+        if(e.id === 'cancelModalClosePy'){
+            $('.start_cancel_p_modal').css('display', 'none')
+        }else{
+            $('.start_cancel_s_modal').css('display', 'none')
+        }
     }
-    function busCancelSe(e) {
-        $('.start_cancel_s_modal').css('display', 'block')
-    }
-
-    // 출발취소확인 팝업 취소 ---------------------
-    function closePy2() {
-        $('.start_cancel_p_modal').css('display', 'none')
-    }
-    function closeSe2() {
-        $('.start_cancel_s_modal').css('display', 'none')
-    }
-
-    // 출발확인 팝업 : 확인 ---------------------
-    function cancelPy() {
-        $('.start_cancel_p_modal').css('display', 'none')
-        $('#check_p').css('display', 'block');
-        $('#check_p').removeClass('checked');
-        $('#start_p').css('display', 'block');
-        $('#start_p').removeClass('started');
-        $('#start_cancel_p').css('display', 'none');
-    }
-    function cancelSe() {
-        $('.start_cancel_s_modal').css('display', 'none')
-        $('#check_s').css('display', 'block');
-        $('#check_s').removeClass('checked');
-        $('#start_s').css('display', 'block');
-        $('#start_s').removeClass('started');
-        $('#start_cancel_s').css('display', 'none');
+    // 출발취소 모달 : 취소 완료 ----
+    function cancelModalCheck(e) {
+        if(e.id === 'cancelModalCheckPy'){
+            //출발 취소시 다시 예약 가능하도록 쿼리문 변경
+            localStorage.removeItem('query_type');
+            $('.start_cancel_p_modal').css('display', 'none')
+            $('#check_p').css('display', 'block');
+            $('#check_p').removeClass('checked');
+            $('#start_p').css('display', 'block');
+            $('#start_p').removeClass('started');
+            $('#start_cancel_p').css('display', 'none');
+        }else{
+            $('.start_cancel_s_modal').css('display', 'none')
+            $('#check_s').css('display', 'block');
+            $('#check_s').removeClass('checked');
+            $('#start_s').css('display', 'block');
+            $('#start_s').removeClass('started');
+            $('#start_cancel_s').css('display', 'none');
+        }
     }
 
     //새로고침
