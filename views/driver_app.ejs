@@ -29,8 +29,8 @@
 
             <div class="bus_info">
                 <h3>운행정보</h3>
-                <dd>평택 21:00 - 서울동대문 04:00</dd>
-                <dd>유림고속 (1111)</dd>
+                <dd class='location_info'>평택 21:00 - 서울동대문 04:00</dd>
+                <dd class='bus_name'>유림고속 (1111)</dd>
             </div>
 
             <button class="btn qr">QR코드 스캔하기</button>
@@ -46,12 +46,6 @@
                 </ul>
             </div>
             <!-- 좌석표 -->
-            <!-- <div id="bus_seat_layer" class="tabcontent">
-                <div class="container">
-                    <div class="seat-map" class="seat-panel"></div>
-                </div>
-            </div> -->
-            
             <div class="seat-map-py seatCharts-container">
             </div>
             <div class="btn reload">새로고침</div>
@@ -98,8 +92,8 @@
 
             <div class="bus_info">
                 <h3>운행정보</h3>
-                <dd>평택 21:00 - 서울동대문 04:00</dd>
-                <dd>유림고속 (1111)</dd>
+                <dd class='location_info'>평택 21:00 - 서울동대문 04:00</dd>
+                <dd class='bus_name'>유림고속 (1111)</dd>
             </div>
 
             <button class="btn qr">QR코드 스캔하기</button>
@@ -114,13 +108,6 @@
                 </ul>
             </div>
             <!-- 좌석표 -->
-            <!-- <div id="bus_seat_layer" class="tabcontent">
-                <div class="container">
-                    좌석선택표
-                    <div class="seat-map" class="seat-panel"></div>
-                </div>
-            </div> -->
-
             <div class="seat-map-se seatCharts-container">
             </div>
 
@@ -164,7 +151,22 @@
             <dd>(평일 09:00 ~ 18:00, 유료)</dd>
         </footer>
     </div>
-
+    <div id="popup" class="layer">
+        <div class="popup_box">
+            <div class="popup_tit">예약자 정보</div>
+            <table>
+                <tbody>
+                    <tr><th>좌석번호</th><td id='user_seat_number'>1번</td></tr>
+                    <tr><th>이름</th><td id='user_name'>김정우</td></tr>
+                    <tr><th>휴대번호</th><td id='user_phone'>01012341234</td></tr>
+                    <tr><th>승차여부</th><td id='user_checked'>N</td></tr>
+                </tbody>
+            </table>
+            <div class="popup_btn btn btn-secondary">
+                <a onclick="javascript:$('#popup').css('display','none')" class="popup_close">닫기</a>
+            </div>
+        </div>
+    </div>
 
 
 </body>
@@ -172,7 +174,6 @@
 <!-- 평택, 동대문 탭 -->
 <script>
     function openLocation(evt, locationName) {
-        console.log('locationName',locationName);
         let car_info = JSON.parse(sessionStorage.getItem("car_list"));
         openBus(car_info[0].ctID,locationName);
         var i, tabcontent, tab_button;
@@ -196,9 +197,8 @@
             dataType: "json",
             success: function (res) {
                 sessionStorage.setItem("car_list", JSON.stringify(res.data));
-                let ctId = res.data[0].ctID;
-                let price = res.data[0].seatPrice;
-                
+                $('.location_info').text('평택 '+res.data[0].startTime+' - 서울동대문 '+res.data[0].returnTime);
+                $('.bus_name').text(res.data[0].b_name+'('+res.data[0].backNum+')');
             }
         });
     })
@@ -269,20 +269,22 @@
                 click: function () {
                     let bus_seat_number = this.settings.label;
                     let bus_ct_id = sessionStorage.getItem("ct_id");
+                    let scan_checked;
                     if (this.status() == 'available') {
-                        alert('예매되지 않은 좌석입니다.')
+                        // alert('예매되지 않은 좌석입니다.')
                         // return 'selected';
                     } 
                     //스캔 된 좌석
                     else if (this.status() == 'selected') {
-                        userSeatInfo(bus_ct_id,bus_seat_number);
+                        scan_checked = 'selected'
+                        userSeatInfo(bus_ct_id,bus_seat_number,scan_checked);
                         return 'selected';
                     } 
                     //스캔 되지 않은 예매된 좌석
                     else if (this.status() == 'unavailable') {
-                        
-                        userSeatInfo(bus_ct_id,bus_seat_number);
-                        return 'selected';
+                        scan_checked = 'unavailable'
+                        userSeatInfo(bus_ct_id,bus_seat_number,scan_checked);
+                        return 'unavailable';
                     } else {
 
                         return this.style();
@@ -296,7 +298,7 @@
     }
 
 
-    function userSeatInfo(bus_id, seat_number){
+    function userSeatInfo(bus_id, seat_number, scan_checked){
         $.ajax({
             url: '/api/bus_user_info',
             method: 'get',
@@ -305,7 +307,16 @@
                 cr_seatnum : seat_number        
             },
             success : function(res){
-                console.log('res :', res.data);
+                $('#popup').css('display','block')
+                $('#user_seat_number').text(res.data[0].CR_SeatNum);
+                $('#user_name').text(res.data[0].U_NAME);
+                $('#user_phone').text(res.data[0].U_PHONE);
+                //클릭한 좌석이 확인된 여부
+                if(scan_checked == 'selected'){
+                    $('#user_checked').text('Y');
+                }else{
+                    $('#user_checked').text('N');
+                }
             }
         });
     }

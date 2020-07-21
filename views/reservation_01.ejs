@@ -360,6 +360,7 @@
                 deptTe = reserve_car_info.deptTe,
                 retuTe = reserve_car_info.retuTe,
                 b_name = reserve_car_info.b_name;
+                console.log('deptTe',deptTe);
             $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptTe) + ') '));
             $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retuTe) + ') '));
             $("#payment_car_info").text(b_name);

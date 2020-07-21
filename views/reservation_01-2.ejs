@@ -536,7 +536,7 @@
                     console.log(car_list);
                 let deptDay = reserve_car_info.deptDay;
                 let retnDay = reserve_car_info.retnDay
-                console.log('요일');
+                console.log('요일',deptDay);
                 // debugger;
                 $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptDay) + ') '));
                 $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retnDay) + ') '));
