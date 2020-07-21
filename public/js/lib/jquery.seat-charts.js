@@ -27,7 +27,13 @@
 					top    : true,
 					left   : true,
 					getId  : function(character, row, column) {
-						return row + '_' + column;
+						if(now_location === 'pyeongtaek'){
+							return row + '_' + column+'py';
+						}else{
+							return row + '_' + column+'se';
+						}
+						
+						
 					},
 					getLabel : function (character, row, column) {
 						return column;
@@ -306,7 +312,6 @@
 								
 						})(fn, fn.node()));
 						//.appendTo(seatCharts.find('.' + row));
-
 				}
 			})(fn, settings);
 			
@@ -412,6 +417,7 @@
 							character : character
 						});
 
+						
 						seatIds.push(id);
 						return seats[id].node();
 						

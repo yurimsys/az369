@@ -3623,7 +3623,102 @@ router.get('/bus_user_info', (req, res, next) =>{
           res.json({ data : rows});
           console.log("좌석 목록 :",rows);
       });
-        
 });
+
+//기사 앱 QRcode 확인
+router.post('/bus_qrcode_scan', async (req, res, done) =>{
+    connection.beginTransaction(function(err){
+        let query = `SELECT 
+                        tCT.CT_ReturnTe, 
+                        tCR.CR_ScanPy, 
+                        tCR.CR_ScanSe,
+                        tCR.CR_SeatNum,
+                        DATE_ADD(CT_ReturnTe,INTERVAL +3 HOUR) AS scanTime,
+                        NOW() AS nowTime 
+                    FROM tCT
+                        INNER JOIN tCR ON tCT.CT_ID = tCR.CR_CT_ID
+                    WHERE 
+                        tCR.CR_QrCode = :qr_code`;    
+
+        let qr_code = req.body.qr_code;
+        let location_type = req.body.location;
+        // let qr_code = "U2FsdGVkX19yHb02okBVfySGG5UNUQ05JvwAZS4ysyQ=";
+        // let location_type = 'seoul'
+        
+        connection.query(query, { qr_code : qr_code },
+            function(err, rows){
+            if(err) throw err;``
+            if(rows.length == 1){
+            //마지막 출발시간이 현재 시간보다 작으면 기간지난 qrcode
+                if(rows[0].scanTime < rows[0].nowTime){
+                    res.json({data : '3'})
+                    return false;
+                }
+                let update_query = `UPDATE tCR SET `;
+                if(location_type === 'pyeongtaek'){
+                    if(rows[0].CR_ScanPy === 'Y'){
+                        //이미 스캔되었습니다.
+                        res.json({data : '2'})
+                        return false;
+                    }
+                    update_query += ` CR_ScanPy = 'Y'`;
+                }else if(location_type === 'seoul'){
+                    if(rows[0].CR_ScanSe === 'Y'){
+                        //이미 스캔되었습니다.
+                        res.json({data : '2'})
+                        return false;
+                    }
+                    update_query += ` CR_ScanSe = 'Y'`;
+                }
+                update_query += ` WHERE CR_QrCode = :qr_code`;
+                
+                connection.query(update_query,{qr_code : qr_code},
+                    function(err, result){
+                        if (err){
+                            connection.rollback(function(){
+                                throw err;
+                            })
+                        }
+                        connection.commit(function(err) {
+                            if (err) {
+                                return connection.rollback(function() {
+                                    throw err;
+                                });
+                            }
+                            //입력 성공
+                            res.json({
+                                data : '1',
+                                seatNum : rows[0].CR_SeatNum
+                            });    
+                        });
+                })
+
+            }else{
+                //잘못된 qrcode
+                res.json({data : '0'})
+            }
+        })
+    })
+    
+});
+
+//스캔 좌석 표시
+router.get('/bus_scan_seat', (req, res, next) =>{
+
+    let query = `SELECT 
+                    tcr.CR_SeatNum, 
+                    tcr.CR_ScanPy, 
+                    tcr.CR_ScanSe 
+                FROM tcr 
+                WHERE tcr.CR_ScanPy = 'Y' OR 
+                      tcr.CR_ScanSe = 'Y'`; 
+    connection.query(query,
+      function(err, rows) {
+          if (err) throw err;
+          res.json({ data : rows});
+          console.log("좌석 목록 :",rows);
+      });
+});
+
 
 module.exports = router;
