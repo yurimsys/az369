@@ -117,7 +117,7 @@ button {border: none; cursor: pointer;}
 /*좌석표------------------------------------------*/
 /* .seat-map {position: relative; float: left;} 
 .select_seat { float: right; width: 50%; overflow: hidden;} */
-.seat-map-py {width: 100%; height: auto;}
+/* .seat-map-py {width: 100%; height: auto;} */
 
 
 
