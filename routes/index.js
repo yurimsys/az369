@@ -644,7 +644,21 @@ router.get('/driver_app', function(req, res, next) {
     res.render('driver_app');
 });
 
+// footer 버튼 이동 페이지
+// 서비스 이용약관
+router.get('/service', function(req, res, next) {
+    res.render('service');
+});
 
+// 개인정보처리방침
+router.get('/privacy', function(req, res, next) {
+    res.render('privacy');
+});
+
+// 환불규정
+router.get('/refund', function(req, res, next) {
+    res.render('refund');
+});
 
 
 module.exports = router;
