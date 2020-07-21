@@ -127,6 +127,7 @@ header .open {
     .gnb_mo_login {background: #fff; margin-top: 2%; padding: 10px 0; color: #222; letter-spacing: -0.25px;}
     .gnb_mo_login ul {width: 100%; overflow: hidden;}
     .gnb_mo_login ul li {float: left;}
+    .gnb_mo_login p {text-align: left; line-height: normal;}
 
 
 
@@ -182,6 +183,8 @@ header .open {
         opacity: 1;
         transition: all 0.5s;
     }
+
+    .gnb_mo a {display: block;}
 
     .gnb_mo > ul {
         position: absolute;

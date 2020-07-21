@@ -638,12 +638,6 @@ router.get('/video/:currentPage', function(req, res, next) {
       });
 });
 
-
-//장차 기사전용 앱
-router.get('/driver_app', function(req, res, next) {
-    res.render('driver_app');
-});
-
 // footer 버튼 이동 페이지
 // 서비스 이용약관
 router.get('/service', function(req, res, next) {
@@ -659,6 +653,16 @@ router.get('/privacy', function(req, res, next) {
 router.get('/refund', function(req, res, next) {
     res.render('refund');
 });
+
+
+
+
+
+//장차 기사전용 앱
+router.get('/driver_app', function(req, res, next) {
+    res.render('driver_app');
+});
+
 
 
 module.exports = router;
