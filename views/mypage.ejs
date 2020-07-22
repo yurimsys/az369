@@ -699,7 +699,6 @@
 
         // 예매 취소
         function resCancel(e) {
-            console.log('ee:', e.dataset.crid);
             $.ajax({
                 url: "api/user/cancelRes",
                 method: 'post',
@@ -721,7 +720,18 @@
                         }).then((value)=>{
                             location.href='mypage';
                         })
-                    } else {
+                    } else if(res.data == 200){
+
+                        swal({
+                            title: '취소 실패',
+                            text: '승차하신 좌석은 취소가 불가능 합니다.',
+                            icon: 'error',
+                            button: '확인'
+                        }).then((value)=>{
+                            location.href='mypage';
+                        })
+
+                    }else {
                         swal({
                             title: '예매취소 완료',
                             text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
@@ -764,12 +774,17 @@
                 success: function (res) {
                     //PC리스트
                     for (let i = 0; i < res.data.length; i++) {
+                        let origin_seat = res.data[i].seatNumMo.data
+                        var seatNum = String.fromCharCode.apply(null, origin_seat);
+                        // let seatList = decodeURIComponent(seatNum).join('번');
+                        console.log('seatList',seatNum);
+                        console.log('sease',decodeURIComponent(seatNum));
                         let html = "<tr>";
                         html += "<td>" + res.data[i].PayDay + "</td>";
                         html += "<td>" + res.data[i].deptTe + "</td>";
                         // html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
                         html += "<td>" + res.data[i].carName + "</td>";
-                        html += "<td>" + res.data[i].seatCnt + "</td>";
+                        html += "<td>" + seatNum+ "</td>";
                         html += "<td>" + (res.data[i].payType || "-") + "</td>";
                         html += "<td>" + (res.data[i].price || 0) + "</td>";
                         html += "</tr>";
@@ -876,11 +891,13 @@
                     $('.table_mo').empty();
                     // location.href = "#popup2"
                     for (let i = 0; i < res.data.length; i++) {
+                        let origin_seat = res.data[i].seatNumMo.data
+                        var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<table class='detail_table'>";
                         //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
                         html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+" )</td></tr>";
                         html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 > 동대문)</span></td></tr>";
-                        html += "<tr><th>예매좌석</th><td>" + res.data[i].seatCnt + "</td></tr>";
+                        html += "<tr><th>예매좌석</th><td>" + seatNum + "</td></tr>";
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td><tr>";
                         html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);
@@ -909,7 +926,7 @@
                         html += "<td>" + res.data[i].PayDay + "</td>";
                         html += "<td>" + res.data[i].deptTe + "</td>";
                         html += "<td>" + res.data[i].cancelDay + "</td>";
-                        html += "<td>" + res.data[i].seatCnt + "</td>";
+                        html += "<td>" + res.data[i].CR_SeatNum+ "</td>";
                         html += "<td>" + res.data[i].payType + "</td>";
                         html += "<td>" + res.data[i].price + "</td>";
                         html += "</tr>";
@@ -1015,7 +1032,7 @@
                         //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
                         html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+" )</td></tr>";
                         html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 > 동대문)</span></td></tr>";
-                        html += "<tr><th>좌석번호</th><td>" + res.data[i].seatCnt + "</td></tr>";
+                        html += "<tr><th>좌석번호</th><td>" + res.data[i].CR_SeatNum + "</td></tr>";
                         html += "<tr><th>취소일시</th><td>" + res.data[i].cancelDay + "</td></tr>"
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
                         html += "<tr><th>환불금액</th><td>" + res.data[i].price + "</td></tr></table>";

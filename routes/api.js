@@ -836,58 +836,128 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
 
 });
 
+// //예매취소
+// router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
+//     let query = `update tCR
+//                     inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
+//                     set CR_Cancel = :crCancel, CR_CancelDt = now()
+//                     where CR_ID = :cr_id AND  CR_U_Id = :sessionId AND
+//                     tCT.CT_DepartureTe > date_add(now(),interval +4 day);`;
+//                     // and tCT.CT_DepartureTe > date_add(now(),interval +4 day);
+//     //pID  cr_cdt
+//     let select_query = `select CR_SeatNum, CR_Price from tCR where CR_ID = :cr_id AND tCR.CR_U_ID = :sessionId`;
+//     let sessionId = req.user.U_ID;
+//     let cr_id = req.body.cr_id;
+//     let crCancel = 'Y';
+
+//     connection.query(query,
+//         {
+//             crCancel, sessionId, cr_id
+
+//         },
+//         function(err, rows, fields) {
+//             if (err) throw err;
+
+//             connection.query(select_query,
+//                 {
+//                     cr_id, sessionId
+//                 },
+//                 function(err, result, fields){
+//                     let over_lap = [];
+//                     for(let i=0; i <result.length; i++){
+//                           over_lap.push(result[i].CR_SeatNum)
+//                     }
+//                     let seat_number = over_lap.join('번,')+'번';
+//                     res.json({data : rows.affectedRows, seats : seat_number, cancelPay : result.length *result[0].CR_Price})
+
+//                 })
+//             // //console.log(findId);
+//             // res.json( {  data : rows.affectedRows});
+//             // console.log("rows : ",rows.affectedRows);
+
+//         });
+
+// });
 //예매취소
-router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
-    let query = `update tCR
-                    inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
-                    set CR_Cancel = :crCancel, CR_CancelDt = now()
+router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
+    connection.beginTransaction(function(err){
+        let query = `update tCR
+                        inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
+                        set CR_Cancel = :crCancel, CR_CancelDt = now()
                     where CR_ID = :cr_id AND  CR_U_Id = :sessionId AND
-                    tCT.CT_DepartureTe > date_add(now(),interval +4 day);`;
-                    // and tCT.CT_DepartureTe > date_add(now(),interval +4 day);
-    //pID  cr_cdt
-    let select_query = `select CR_SeatNum, CR_Price from tCR where CR_ID = :cr_id AND tCR.CR_U_ID = :sessionId`;
-    let sessionId = req.user.U_ID;
-    let cr_id = req.body.cr_id;
-    let crCancel = 'Y';
+                        tCT.CT_DepartureTe > date_add(now(),interval +4 day);`;
+                // and tCT.CT_DepartureTe > date_add(now(),interval +4 day);
+        //pID  cr_cdt
+        let select_query = `select CR_SeatNum, CR_Price from tCR where CR_ID = :cr_id AND tCR.CR_U_ID = :sessionId`;
+        let scan_query = ` SELECT CR_ScanPy FROM tCR WHERE tCR.CR_ID = :cr_id AND tCR.CR_U_ID =:sessionId `
+        let sessionId = req.user.U_ID;
+        let cr_id = req.body.cr_id;
+        let crCancel = 'Y'; 
+       
+        connection.query(scan_query, {
+            sessionId : sessionId,
+            cr_id : cr_id
+        
+        },function(err, selRow){
+            if(err) throw err;
+            if(selRow[0].CR_ScanPy == 'Y'){
+                res.json({data : '200'})
+            }else{
+                connection.query(query,
+                    {
+                        crCancel, sessionId, cr_id
+            
+                    },function(err, rows, fields) {
+                        if (err){
+                            connection.rollback(function(){
+                                throw err;
+                            })
+                        }
+                        connection.query(select_query,
+                            {
+                                cr_id, sessionId
+                            },
+                            function(err, result, fields){
+                                if (err){
+                                    connection.rollback(function(){
+                                        throw err;
+                                    })
+                                }
+                                let over_lap = [];
+                                for(let i=0; i <result.length; i++){
+                                      over_lap.push(result[i].CR_SeatNum)
+                                }
+                                let seat_number = over_lap.join('번,')+'번';
+                                connection.commit(function(err) {
+                                    if (err) {
+                                        return connection.rollback(function() {
+                                            throw err;
+                                        });
+                                    }
+                                    res.json({data : rows.affectedRows, seats : seat_number, cancelPay : result.length *result[0].CR_Price})
+                                });
+                                
+            
+                            })
+                    });
+            }
 
-    connection.query(query,
-        {
-            crCancel, sessionId, cr_id
-
-        },
-        function(err, rows, fields) {
-            if (err) throw err;
-
-            connection.query(select_query,
-                {
-                    cr_id, sessionId
-                },
-                function(err, result, fields){
-                    let over_lap = [];
-                    for(let i=0; i <result.length; i++){
-                          over_lap.push(result[i].CR_SeatNum)
-                    }
-                    let seat_number = over_lap.join('번,')+'번';
-                    res.json({data : rows.affectedRows, seats : seat_number, cancelPay : result.length *result[0].CR_Price})
-
-                })
-            // //console.log(findId);
-            // res.json( {  data : rows.affectedRows});
-            // console.log("rows : ",rows.affectedRows);
-
-        });
-
+        })
+    })
+    
 });
 
 //마이페이지 예매 및 결제내역
 router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
+    // count(CR_SeatNum) as seatCnt,
     let query = `select 
                     date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     tB.B_Name as carName,
                     tCT.CT_CarNum as carNum,
-                    count(CR_SeatNum) as seatCnt,
+                    
+                    (select group_concat( ' ', CR_SeatNum)) as seatNumMo,
                     tPH.PH_Type as payType,
                     tPH.PH_Price as price,
                     tCR.CR_CT_ID as crCTID,
@@ -1031,7 +1101,7 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
                     DAYOFWEEK(tCT.CT_DepartureTe) AS payWeek,
                     tB.B_Name as carName,
                     tCT.CT_CarNum as carNum,
-                    count(CR_SeatNum) as seatCnt,
+                    (select group_concat( ' ', CR_SeatNum)) as seatNumMo,
                     tPH.PH_Type as payType,
                     tPH.PH_Price as price,
                     CR_cDt as crCdt,
@@ -1078,7 +1148,7 @@ router.get('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
                         date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                         date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
                         tCR.CR_CancelDt as cancelDay,
-                        count(CR_SeatNum) as seatCnt,
+                        CR_SeatNum,
                         tPH.PH_Type as payType,
                         tPH.PH_Price as price,
                         CR_CT_ID as ctId,
@@ -1215,7 +1285,7 @@ router.post('/user/resCancelDetailMo', auth.isLoggedIn, (req, res, next) =>{
                     date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
-                    count(CR_SeatNum) as seatCnt,
+                    CR_SeatNum ,
                     tPH.PH_Type as payType,
                     tPH.PH_Price as price,
                     tB.B_Name as carName,
@@ -1516,7 +1586,7 @@ router.post('/user/resDept', auth.isLoggedIn, (req, res, next) =>{
 
 //장차예매 리스트 로그인 제외
 router.post('/user/resCarList',(req, res, next) =>{
-
+    let next_bus = req.body.next_bus;
     let query = `SELECT
                     tCT.CT_ID as ctID,
                     tB.B_Name as b_name,
@@ -1543,14 +1613,16 @@ router.post('/user/resCarList',(req, res, next) =>{
                 WHERE 
 `
         if(req.query.type == 'bus_start'){
-            query += `tCT.CT_DepartureTe > NOW()
-                        ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
+            query += `tCT.CT_DepartureTe > NOW() AND
+                        tct.CT_DepartureTe > :next_bus
+                    ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
+
         }else{
-            query += `tCT.CT_DepartureTe > DATE_ADD(NOW(),INTERVAL -20 MINUTE)
+            query += `tCT.CT_DepartureTe > NOW()
                         ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
         }
 
-    connection.query(query,
+    connection.query(query, { next_bus : next_bus},
         function(err, rows, fields) {
             if (err) throw err;                       
             // //console.log(findId);
