@@ -1513,52 +1513,9 @@ router.post('/user/resDept', auth.isLoggedIn, (req, res, next) =>{
         });       
 });
 
-// //장차예매 리스트 로그인 포함
-// router.post('/user/resCarList', auth.isLoggedIn, (req, res, next) =>{
-
-//     let query = `SELECT
-//                     tCT.CT_ID as ctID,
-//                     tB.B_Name as b_name,
-//                     date_format(tCT.CT_DepartureTe,'%Y.%m.%d %H:%i') as deptTe,
-//                     date_format(tCT.CT_ReturnTe,'%Y.%m.%d %H:%i') as retuTe,
-//                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
-//                     DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
-//                     tCT.CT_CarNum as carNum,
-//                     (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as available_seat_cnt,
-//                     tCY.CY_Totalpassenger as total_passenger,
-//                     tCY.CY_SeatPrice as seatPrice,
-//                     tCY.CY_ID,
-//                     tCY.CY_Ty,
-//                     tCY.CY_TotalPassenger,
-//                             DATE_ADD(NOW(),INTERVAL +21 MInute),
-//                         DATE_ADD(NOW(),INTERVAL +21 DAY),
-//                         NOW()
-//                 FROM tCT 
-//                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
-//                     left join tB on tCY.CY_B_ID = tB.B_ID
-//                 WHERE 
-//                     tCT.CT_DepartureTe < DATE_ADD(NOW(),INTERVAL +21 DAY) 
-//                         AND tCT.CT_DepartureTe > NOW()`
-
-//         if(req.query.type == 'bus_start'){
-//             query += `ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
-//         }else{
-//             query += `AND tCT.CT_DepartureTe > DATE_ADD(NOW(),INTERVAL -20 MINUTE)
-//                         ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
-//         }
-
-//     connection.query(query,
-//         function(err, rows, fields) {
-//             if (err) throw err;                       
-//             // //console.log(findId);
-//             res.json( {  data : rows});
-//             console.log("rows : ",rows);
-            
-//         });
-// });
 
 //장차예매 리스트 로그인 제외
-router.post('/user/resCarList', (req, res, next) =>{
+router.post('/user/resCarList',(req, res, next) =>{
 
     let query = `SELECT
                     tCT.CT_ID as ctID,
@@ -3638,6 +3595,7 @@ router.post('/bus_qrcode_scan', async (req, res, done) =>{
                     FROM tCT
                         INNER JOIN tCR ON tCT.CT_ID = tCR.CR_CT_ID
                     WHERE 
+                        tCR.CR_Cancel = 'N' AND
                         tCR.CR_QrCode = :qr_code`;    
 
         let qr_code = req.body.qr_code;

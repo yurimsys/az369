@@ -27,12 +27,15 @@
 					top    : true,
 					left   : true,
 					getId  : function(character, row, column) {
-						if(now_location === 'pyeongtaek'){
+						if(now_location === 'default'){
+							return row + '_' + column;
+						}
+						else if(now_location === 'pyeongtaek'){
 							return row + '_' + column+'py';
-						}else{
+						}
+						else if(now_location === 'seoul'){
 							return row + '_' + column+'se';
 						}
-						
 						
 					},
 					getLabel : function (character, row, column) {
