@@ -3,7 +3,11 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
 /*reset*/
-* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px; word-break: keep-all;}
+* {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px; word-break: keep-all;  -webkit-touch-callout:none;
+    -webkit-touch-select:none;
+    -ms-user-select:none;
+    -moz-user-select:none;
+    -webkit-user-select:none;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #444; background-color: #f2f2f2;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
@@ -134,3 +138,78 @@ button {border: none; cursor: pointer;}
   .seat_legend {padding:12px 5px;}
 }
   
+.scan-alert {
+  position: relative;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 1px;
+  
+  display: none;
+}
+.scan-close {
+  padding: 0;
+  cursor: pointer;
+  float: right;
+  background: transparent;
+  border: 0;
+  float: right;
+  font-size: 2.5rem;
+  line-height: 0.5;
+  
+}
+/* 스캔 성공 */
+.scan-alert-check{
+  background-color: #E0EEDF;
+  border: 1.5px solid #4C9545;
+}
+.scan-alert-check-text{
+  color: #4C9545;
+  font-weight: bold;
+}
+.scan-close-check{
+  color: #4C9545;
+}
+
+/* 스캔 오류 */
+.scan-alert-error{
+  background-color: #EEDFDF;
+  border: 1.5px solid #C43B0D;
+}
+.scan-alert-error-text{
+  color: #C43B0D;
+  font-weight: bold;
+}
+.scan-close-error{
+  color: #C43B0D;
+}
+
+.swal-text{
+  text-align: center;
+  line-height: 2;
+  color: #444;
+}
+.swal-icon--success__line{
+  background-color: #C3A164;
+}
+.swal-button,.swal-button:hover, .swal-button:not([disabled]):hover {
+  background-color: #C3A164;
+}
+.swal-modal{
+  border-radius: 12px;
+}
+.swal-icon--success__ring{
+  border: none;
+}
+.swal-title{
+  padding: 0px 16px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+.swal-content{
+  margin-top: 15px;
+}
+.swal-footer{
+  margin-top: 0px;
+}

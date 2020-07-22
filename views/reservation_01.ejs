@@ -306,9 +306,10 @@
     </script>
 
     <script>
-
+        let now_location = 'default';
         $(document).ready(function(){
-            let query_type = localStorage.getItem('query_type')
+            let query_type = localStorage.getItem('query_type');
+            
             setInterval(() => {
                 localStorage.removeItem('query_type')
             }, 1000 * 60 * 60);
@@ -374,6 +375,7 @@
         }
 
         function openBus(busSeat,price) {
+            
             let car_info = JSON.parse(sessionStorage.getItem("car_list"));
             //버스 정보
             let bus_text1 = car_info[0].startDay+'(' +getInputDayLabel(car_info[0].deptTe)+') ';
@@ -553,7 +555,6 @@
                 res.data.map((seat_num) => {
                     seat_id_list.push(getSeatId(seat_num));
                 });
-                console.log('res :',res);
                 sc.find('unavailable').status('available');
                 sc.status(seat_id_list, 'unavailable');
             });
