@@ -21,34 +21,34 @@
 
     //데이터 로드 및 가져올 데이터 쿼리 타입 설정
     $(document).ready(function(){        
-
-        //시간 지나면 원래 쿼리문으로 활성
-        setInterval(() => {
-            localStorage.removeItem('query_type')
-            localStorage.removeItem('next_bus')
-        }, 1000 * 60 * 60 * 2);
-
+        // document.getElementById("defaultOpenPy").click();
         dataLoad();
-        document.getElementById("defaultOpenPy").click();
+        
     })
 
-
     function dataLoad(){
-        let query_type = localStorage.getItem('query_type');
-        let next_bus = localStorage.getItem('next_bus');
         $.ajax({
-            url: "api/user/resCarList?type="+query_type,
+            url: "/api/driver_seat",
             method: "post",
             dataType: "json",
-            data: {"next_bus" : next_bus, "bus_type" : 'driver_list'},
             success: function (res) {
                 sessionStorage.setItem("dirver_car_list", JSON.stringify(res.data));
                 sessionStorage.setItem('scan_list', JSON.stringify(res.scan_seat));
-                if(res.data[0].CT_PyStart === 'Y'){
+                if(res.data[0].CT_PyStart === 'Y' && res.data[0].CT_SeStart === 'N'){
                     document.getElementById("defaultOpenSe").click();
                     $('.start_p').css('display','none');
                     $('.check_p').css('display','none');
                     $('.start_cancel_p').css('display','block');
+                }else if(res.data[0].CT_PyStart === 'Y' && res.data[0].CT_SeStart === 'Y'){
+                    document.getElementById("defaultOpenSe").click();
+                    $('.start_p').css('display','none');
+                    $('.check_p').css('display','none');
+                    $('.start_cancel_p').css('display','block');
+                    $('.start_s').css('display','none');
+                    $('.check_s').css('display','none');
+                    $('.start_cancel_s').css('display','block');
+                }else{
+                    document.getElementById("defaultOpenPy").click();
                 }
             }
         });
@@ -280,7 +280,6 @@
     function reload(e){
         sessionStorage.removeItem('scan_list');
         sessionStorage.removeItem('dirver_car_list');
-        let car_info = JSON.parse(sessionStorage.getItem("dirver_car_list"));
         //새로고침 버튼 클릭시
         if(e.id === 'reloadPy'){
             dataLoad();
@@ -354,20 +353,31 @@
     // 출발 취소 버튼
     function busCancel(e) {
         let cancel_info = JSON.parse(sessionStorage.getItem("dirver_car_list"));
-        localStorage.removeItem('next_bus');
         //출발 취소 확인 모달 활성화
         if(e.id === 'start_cancel_p'){
-            $('.start_cancel_p_modal').css('display', 'block')
-            $.ajax({
-                url: '/api/bus_cancel',
-                method: 'put',
-                dataType: 'json',
-                data: { 'ct_id' : cancel_info[0].ctID, 'location' : 'py'},
-                success: function(res){
+            if($('.start_cancel_s').css('display') == 'block'){
+                swal({
+                    title: '취소 오류',
+                    text: '서울이 현재 출발 중 입니다.',
+                    icon: 'error',
+                    button: '확인'
+                }).then(function(){
+                    return false;
+                })
+            }else{
+                $('.start_cancel_p_modal').css('display', 'block')
+                $.ajax({
+                    url: '/api/bus_cancel',
+                    method: 'put',
+                    dataType: 'json',
+                    data: { 'ct_id' : cancel_info[0].ctID, 'location' : 'py'},
+                    success: function(res){
+    
+                    }
+    
+                });
+            }
 
-                }
-
-            });
         }else{
             $('.start_cancel_s_modal').css('display', 'block')
             $.ajax({
@@ -401,9 +411,6 @@
             $('#check_p').css('display', 'none');
             $('#start_p').css('display', 'none');
             $('#start_cancel_p').css('display', 'block');
-            //평택 출발시 예매 쿼리 변경
-            localStorage.setItem('query_type','bus_start');
-            localStorage.setItem('next_bus',JSON.parse(sessionStorage.getItem("dirver_car_list"))[0].deptTe);
             $.ajax({
                 url: '/api/bus_start',
                 method: 'put',
@@ -443,9 +450,6 @@
     // 출발취소 모달 : 취소 완료 ----
     function cancelModalCheck(e) {
         if(e.id === 'cancelModalCheckPy'){
-            //출발 취소시 다시 예약 가능하도록 쿼리문 변경
-            localStorage.removeItem('query_type');
-            localStorage.removeItem('next_bus');
             $('.start_cancel_p_modal').css('display', 'none')
             $('#check_p').css('display', 'block');
             $('#check_p').removeClass('checked');
@@ -475,7 +479,6 @@
     // WEB -> Android Function Call
     function ScanClick(e) {
         let location = e.dataset.location
-            
         if(now_location === 'pyeongtaek' && $('.start_cancel_p').css('display') =='block'){
             swal({
                 title: '스캔 실패',
@@ -490,6 +493,13 @@
                 icon: 'error',
                 button: '확인'
             })
+        }else if(now_location === 'seoul' && $('.start_cancel_p').css('display')=='none'){
+            swal({
+                title: '스캔 실패',
+                text: '평택에서 미출발 시 스캔이 불가능 합니다.',
+                icon: 'error',
+                button: '확인'
+            })
         }else{
             window.Android.ScanClick(location);
         }
@@ -499,6 +509,7 @@
 
     // Android -> Web Function Call
     function ReadQR(code,location) {
+        let car_info = JSON.parse(sessionStorage.getItem("dirver_car_list"));
         $('#scan_alert_check').css('display','none');
         $('#scan_alert_error').css('display','none');
         $.ajax({
@@ -507,7 +518,8 @@
             dataType: 'json',
             data: {
                 'qr_code' : code,
-                'location' : location
+                'location' : location,
+                'cr_id' : car_info[0].ctID
             },
             success: function(res){
                 let qr_info;

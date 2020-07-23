@@ -186,18 +186,10 @@
     <script>
         let now_location = 'default';
         $(document).ready(function(){
-            let query_type = localStorage.getItem('query_type');
-            let next_bus = localStorage.getItem('next_bus');
-            setInterval(() => {
-                localStorage.removeItem('query_type')
-                localStorage.removeItem('next_bus')
-            }, 1000 * 60 * 60);
-
             $.ajax({
-                url: "api/user/resCarList?type="+query_type,
+                url: "api/user/resCarList",
                 method: "post",
                 dataType: "json",
-                data: { 'next_bus' : next_bus, 'bus_type' : 'bus_list'},
                 success: function (res) {
                     sessionStorage.setItem("car_list", JSON.stringify(res.data));
                     let ctId = res.data[0].ctID
@@ -519,41 +511,63 @@
         }
         //예매하기 버튼
         function showPayment() {
-            $('.inner_sub_wrap').css('display','none')
-            $('footer').css('display','none');
-            $('header').css('display','none');
-            let car_list = JSON.parse(sessionStorage.getItem("car_list")),
-                ct_id = sessionStorage.getItem("ct_id");
 
-            let reserve_car_info = car_list.find((k) => (k.ctID == ct_id)),
-                deptTe = reserve_car_info.deptTe,
-                retuTe = reserve_car_info.retuTe,
-                b_name = reserve_car_info.b_name;
-                console.log('============');
+            $.ajax({
+                    method: "get",
+                    dataType: "json",
+                    url: "/api/bus_check",
+                    data : {'ct_id' : JSON.parse(sessionStorage.getItem("car_list"))[0].ctID},
+                    success: function(res){
+                        if(res.data == 500){
+                            swal({
+                                title: '예매 실패',
+                                text: '선택하신 버스는 이미 출발하였습니다. 다른 버스를 이용해 주세요.',
+                                icon: 'error',
+                                button: '확인'
+                            }).then(function(){
+                                location.href = "/reservation2";
+                            }) 
+                        }else{
+                            $('.inner_sub_wrap').css('display','none')
+                            $('footer').css('display','none');
+                            $('header').css('display','none');
+                            let car_list = JSON.parse(sessionStorage.getItem("car_list")),
+                                ct_id = sessionStorage.getItem("ct_id");
 
-            if($('.seatCharts-seat').hasClass('selected') == true){
-                $('header').css('display','none');
-                let car_list = JSON.parse(sessionStorage.getItem("car_list")),
-                    ct_id = sessionStorage.getItem("ct_id");
+                            let reserve_car_info = car_list.find((k) => (k.ctID == ct_id)),
+                                deptTe = reserve_car_info.deptTe,
+                                retuTe = reserve_car_info.retuTe,
+                                b_name = reserve_car_info.b_name;
+                                // console.log('============');
 
-                let reserve_car_info = car_list.find((k) => (k.ctID == ct_id)),
-                    deptTe = reserve_car_info.deptTe,
-                    retuTe = reserve_car_info.retuTe,
-                    b_name = reserve_car_info.b_name;
-                    console.log(car_list);
-                let deptDay = reserve_car_info.deptDay;
-                let retnDay = reserve_car_info.retnDay
-                console.log('요일',deptDay);
-                // debugger;
-                $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptDay) + ') '));
-                $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retnDay) + ') '));
-                $("#payment_car_info").text(b_name);
+                            if($('.seatCharts-seat').hasClass('selected') == true){
+                                $('header').css('display','none');
+                                let car_list = JSON.parse(sessionStorage.getItem("car_list")),
+                                    ct_id = sessionStorage.getItem("ct_id");
 
-                $('#payment').css('display','block')
-            }else{
-                alert('좌석을 선택해 주세요.');
-                return false;
-            }
+                                let reserve_car_info = car_list.find((k) => (k.ctID == ct_id)),
+                                    deptTe = reserve_car_info.deptTe,
+                                    retuTe = reserve_car_info.retuTe,
+                                    b_name = reserve_car_info.b_name;
+                                    // console.log(car_list);
+                                let deptDay = reserve_car_info.deptDay;
+                                let retnDay = reserve_car_info.retnDay
+                                // console.log('요일',deptDay);
+                                // debugger;
+                                $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptDay) + ') '));
+                                $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retnDay) + ') '));
+                                $("#payment_car_info").text(b_name);
+
+                                $('#payment').css('display','block')
+                            }else{
+                                alert('좌석을 선택해 주세요.');
+                                return false;
+                            }
+                        }
+                    }
+                });
+
+
         }
         //취소 버튼
         function payBack(){
@@ -592,19 +606,37 @@
                 }
             }).done((result) => {
                 if(result.data == 0){
-                    alert(result.seats+' 좌석이 매진입니다. 다른 좌석을 이용해 주세요.')
-                    location.href = "/reservation2";
+                    swal({
+                        title: '예매 실패',
+                        text: result.seats+' 좌석이 매진입니다. 다른 좌석을 이용해 주세요.',
+                        icon: 'error',
+                        button: '확인'
+                    }).then(function(){
+                        location.href = "/reservation2";
+                    })
                 }
-                let car_list = JSON.parse(sessionStorage.getItem("car_list")),
+                else if(result.data == 500){
+                    swal({
+                        title: '예매 실패',
+                        text: '선택하신 버스는 이미 출발하였습니다. 다른 버스를 이용해 주세요.',
+                        icon: 'error',
+                        button: '확인'
+                    }).then(function(){
+                        location.href = "/reservation2";
+                    })
+                }else{
+                    let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                     ct_id = sessionStorage.getItem("ct_id");
 
-                let payment_result = car_list.find((k) => (k.ctID == ct_id));
-                payment_result.price = result.price;
-                payment_result.ph_type = result.ph_type;
+                    let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                    payment_result.price = result.price;
+                    payment_result.ph_type = result.ph_type;
 
-                sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
+                    sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
 
-                location.href = "/complate";
+                    location.href = "/complate";
+                }
+
             });
         }
 
