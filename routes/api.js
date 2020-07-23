@@ -1624,6 +1624,8 @@ router.post('/user/resCarList',(req, res, next) =>{
     let driver_query = `SELECT
                             tCT.CT_ID as ctID,
                             tB.B_Name as b_name,
+                            tCT.CT_PyStart,
+                            tCT.CT_SeStart,
                             date_format(tCT.CT_DepartureTe,'%Y.%m.%d %H:%i') as deptTe,
                             date_format(tCT.CT_DepartureTe,'%Y.%m.%d') as deptYM,
                             date_format(tCT.CT_ReturnTe,'%Y.%m.%d %H:%i') as retuTe,
@@ -1664,8 +1666,8 @@ router.post('/user/resCarList',(req, res, next) =>{
                                         WHERE 
                                             tCR.CR_CT_ID = :driver_ctid AND
                                             tCR.CR_Cancel = 'N' AND
-                                            tCR.CR_ScanPy = 'Y' OR 
-                                            tCR.CR_ScanSe = 'Y'`; 
+                                            (tCR.CR_ScanPy = 'Y' OR 
+                                            tCR.CR_ScanSe = 'Y')`; 
                 
                 connection.query(driver_scan_query, {driver_ctid : driver_ctid},
                     function(err, result, fields) {
@@ -1693,26 +1695,6 @@ router.post('/user/resCarList',(req, res, next) =>{
 
 });
 
-//스캔 좌석 표시
-router.get('/bus_scan_seat', (req, res, next) =>{
-
-    
-
-    let query = `SELECT 
-                    tCR.CR_SeatNum, 
-                    tCR.CR_ScanPy, 
-                    tCR.CR_ScanSe 
-                FROM tcr 
-                WHERE 
-                    tCR.CR_ScanPy = 'Y' OR 
-                    tCR.CR_ScanSe = 'Y'`; 
-    connection.query(query,
-      function(err, rows) {
-          if (err) throw err;
-          res.json({ data : rows});
-          console.log("좌석 목록 :",rows);
-      });
-});
 
 
 // CT_ID로 예약된 좌석 정보 가져오기
@@ -3754,8 +3736,6 @@ router.post('/bus_qrcode_scan', async (req, res, done) =>{
 
         let qr_code = req.body.qr_code;
         let location_type = req.body.location;
-        // let qr_code = "U2FsdGVkX19yHb02okBVfySGG5UNUQ05JvwAZS4ysyQ=";
-        // let location_type = 'seoul'
         
         connection.query(query, { qr_code : qr_code },
             function(err, rows){
@@ -3814,6 +3794,45 @@ router.post('/bus_qrcode_scan', async (req, res, done) =>{
     
 });
 
+//기사앱 출발시 평택,서울 출발확인 컬럼 변경
+router.put('/bus_start', (req, res, done) =>{
+    let ct_id = req.body.ct_id;
+    let location = req.body.location;
+    let query = `UPDATE tCT SET `;
+
+    if(location == 'py'){
+        query += `CT_PyStart = 'Y'`;
+    }else{
+        query += `CT_SeStart = 'Y'`;
+    }
+    query += ` WHERE CT_ID = :ct_id`;
+
+    connection.query(query, {ct_id : ct_id},
+        function(err, rows) {
+            if (err) throw err;
+            res.json({ data : '1'});
+    });
+});
+
+//기사앱 출발취소시 평택,서울 출발확인 컬럼 변경
+router.put('/bus_cancel', (req, res, done) =>{
+    let ct_id = req.body.ct_id;
+    let location = req.body.location;
+    let query = `UPDATE tCT SET `;
+
+    if(location == 'py'){
+        query += `CT_PyStart = 'N'`;
+    }else{
+        query += `CT_SeStart = 'N'`;
+    }
+    query += ` WHERE CT_ID = :ct_id`;
+
+    connection.query(query, {ct_id : ct_id},
+        function(err, rows) {
+            if (err) throw err;
+            res.json({ data : '1'});
+    });
+});
 
 
 

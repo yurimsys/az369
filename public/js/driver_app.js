@@ -44,7 +44,12 @@
             success: function (res) {
                 sessionStorage.setItem("dirver_car_list", JSON.stringify(res.data));
                 sessionStorage.setItem('scan_list', JSON.stringify(res.scan_seat));
-                
+                if(res.data[0].CT_PyStart === 'Y'){
+                    document.getElementById("defaultOpenSe").click();
+                    $('.start_p').css('display','none');
+                    $('.check_p').css('display','none');
+                    $('.start_cancel_p').css('display','block');
+                }
             }
         });
         
@@ -90,10 +95,7 @@
 
         //좌석금액 불러오기
 
-        var $cart = $('#selected-seats'),
-            $nums = $('#selected_seats_num'),
-            $counter = $('#selected_seats_cnt'),
-            sc = $seat.seatCharts({
+        var sc = $seat.seatCharts({
                 map: [
                     'ee_ee',
                     'ee_ee',
@@ -351,11 +353,33 @@
 
     // 출발 취소 버튼
     function busCancel(e) {
+        let cancel_info = JSON.parse(sessionStorage.getItem("dirver_car_list"));
+        localStorage.removeItem('next_bus');
         //출발 취소 확인 모달 활성화
         if(e.id === 'start_cancel_p'){
             $('.start_cancel_p_modal').css('display', 'block')
+            $.ajax({
+                url: '/api/bus_cancel',
+                method: 'put',
+                dataType: 'json',
+                data: { 'ct_id' : cancel_info[0].ctID, 'location' : 'py'},
+                success: function(res){
+
+                }
+
+            });
         }else{
             $('.start_cancel_s_modal').css('display', 'block')
+            $.ajax({
+                url: '/api/bus_cancel',
+                method: 'put',
+                dataType: 'json',
+                data: { 'ct_id' : cancel_info[0].ctID, 'location' : 'se'},
+                success: function(res){
+
+                }
+
+            });
         }
     }
 
@@ -371,6 +395,7 @@
 
     // 출발확인 모달 : 확인 ---------------------
     function startModalCheck(e) {
+        let start_info = JSON.parse(sessionStorage.getItem("dirver_car_list"));
         if(e.id === 'startModalCheckPy'){
             $('.start_p_modal').css('display', 'none')
             $('#check_p').css('display', 'none');
@@ -379,11 +404,29 @@
             //평택 출발시 예매 쿼리 변경
             localStorage.setItem('query_type','bus_start');
             localStorage.setItem('next_bus',JSON.parse(sessionStorage.getItem("dirver_car_list"))[0].deptTe);
+            $.ajax({
+                url: '/api/bus_start',
+                method: 'put',
+                dataType: 'json',
+                data: { 'ct_id' : start_info[0].ctID, 'location' : 'py'},
+                success: function(res){
+                }
+
+            });
         }else{
             $('.start_s_modal').css('display', 'none')
             $('#check_s').css('display', 'none');
             $('#start_s').css('display', 'none');
             $('#start_cancel_s').css('display', 'block');
+            $.ajax({
+                url: '/api/bus_start',
+                method: 'put',
+                dataType: 'json',
+                data: { 'ct_id' : start_info[0].ctID, 'location' : 'se'},
+                success: function(res){
+                }
+
+            });
         }
         
     }
