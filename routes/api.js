@@ -890,59 +890,76 @@ router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
         //pID  cr_cdt
         let select_query = `select CR_SeatNum, CR_Price from tCR where CR_ID = :cr_id AND tCR.CR_U_ID = :sessionId`;
         let scan_query = ` SELECT CR_ScanPy FROM tCR WHERE tCR.CR_ID = :cr_id AND tCR.CR_U_ID =:sessionId `
+        let start_query = `SELECT 
+                                tCT.CT_PyStart, 
+                                tCT.CT_ID 
+                            FROM tCT 
+                            INNER JOIN tCR ON tCR.CR_CT_ID = tCT.CT_ID 
+                            WHERE tCR.CR_ID = :cr_id`;
         let sessionId = req.user.U_ID;
         let cr_id = req.body.cr_id;
         let crCancel = 'Y'; 
-       
-        connection.query(scan_query, {
-            sessionId : sessionId,
-            cr_id : cr_id
-        
-        },function(err, selRow){
-            if(err) throw err;
-            if(selRow[0].CR_ScanPy == 'Y'){
-                res.json({data : '200'})
-            }else{
-                connection.query(query,
-                    {
-                        crCancel, sessionId, cr_id
-            
-                    },function(err, rows, fields) {
-                        if (err){
-                            connection.rollback(function(){
-                                throw err;
-                            })
-                        }
-                        connection.query(select_query,
-                            {
-                                cr_id, sessionId
-                            },
-                            function(err, result, fields){
-                                if (err){
-                                    connection.rollback(function(){
-                                        throw err;
-                                    })
-                                }
-                                let over_lap = [];
-                                for(let i=0; i <result.length; i++){
-                                      over_lap.push(result[i].CR_SeatNum)
-                                }
-                                let seat_number = over_lap.join('번,')+'번';
-                                connection.commit(function(err) {
-                                    if (err) {
-                                        return connection.rollback(function() {
-                                            throw err;
-                                        });
-                                    }
-                                    res.json({data : rows.affectedRows, seats : seat_number, cancelPay : result.length *result[0].CR_Price})
-                                });
-                                
-            
-                            })
-                    });
-            }
 
+        connection.query(start_query,{cr_id : cr_id},
+            function(err, startRow){
+                if(err) throw err;
+                if(startRow[0].CT_PyStart === 'Y'){
+                    res.json({data : '201'})
+                }else{
+                    connection.query(scan_query, {
+                        sessionId : sessionId,
+                        cr_id : cr_id
+                    
+                    },function(err, selRow){
+                        if(err) throw err;
+                        if(selRow[0].CR_ScanPy == 'Y'){
+                            res.json({data : '200'})
+                        }else{
+                            connection.query(query,
+                                {
+                                    crCancel, sessionId, cr_id
+                        
+                                },function(err, rows, fields) {
+                                    if (err){
+                                        connection.rollback(function(){
+                                            throw err;
+                                        })
+                                    }
+                                    connection.query(select_query,
+                                        {
+                                            cr_id, sessionId
+                                        },
+                                        function(err, result, fields){
+                                            if (err){
+                                                connection.rollback(function(){
+                                                    throw err;
+                                                })
+                                            }
+                                            let over_lap = [];
+                                            for(let i=0; i <result.length; i++){
+                                                  over_lap.push(result[i].CR_SeatNum)
+                                            }
+                                            let seat_number = over_lap.join('번,')+'번';
+                                            connection.commit(function(err) {
+                                                if (err) {
+                                                    return connection.rollback(function() {
+                                                        throw err;
+                                                    });
+                                                }
+                                                res.json({data : rows.affectedRows, seats : seat_number, cancelPay : result.length *result[0].CR_Price})
+                                            });
+                                            
+                        
+                                        })
+                                });
+                        }
+            
+                    })
+                }
         })
+
+       
+
     })
     
 });
@@ -1614,7 +1631,7 @@ router.post('/user/resCarList',(req, res, next) =>{
         //평택에서 출발시 다음 예매 정보 표시
         if(req.query.type == 'bus_start'){
             query += `tCT.CT_DepartureTe > NOW() AND
-                        tct.CT_DepartureTe > :next_bus
+                        tCT.CT_DepartureTe > :next_bus
                     ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
 
         }else{
@@ -3703,10 +3720,10 @@ router.get('/bus_user_info', (req, res, next) =>{
                     U_PHONE, 
                     tCR.CR_SeatNum 
                 from tCR 
-                    INNER JOIN tu ON tcr.CR_U_ID = tu.U_ID 
-                WHERE tcr.CR_CT_ID = :ct_id AND 
-                      tcr.CR_SeatNum = :cr_seatnum AND 
-                      tcr.CR_Cancel = 'N';`; 
+                    INNER JOIN tu ON tCR.CR_U_ID = tU.U_ID 
+                WHERE tCR.CR_CT_ID = :ct_id AND 
+                      tCR.CR_SeatNum = :cr_seatnum AND 
+                      tCR.CR_Cancel = 'N';`; 
     connection.query(query,{
             ct_id : ct_id,
             cr_seatnum : cr_seatnum

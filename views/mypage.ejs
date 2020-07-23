@@ -731,7 +731,30 @@
                             location.href='mypage';
                         })
 
-                    }else {
+                    }else if(res.data == 200){
+
+                        swal({
+                            title: '취소 실패',
+                            text: '승차하신 좌석은 취소가 불가능 합니다.',
+                            icon: 'error',
+                            button: '확인'
+                        }).then((value)=>{
+                            location.href='mypage';
+                        })
+
+                    }else if(res.data == 201){
+
+                        swal({
+                            title: '취소 실패',
+                            text: '출발한 버스는 예매 취소가 불가능 합니다.',
+                            icon: 'error',
+                            button: '확인'
+                        }).then((value)=>{
+                            location.href='mypage';
+                        })
+
+                        }
+                    else {
                         swal({
                             title: '예매취소 완료',
                             text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
