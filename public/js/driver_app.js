@@ -40,21 +40,13 @@
             url: "api/user/resCarList?type="+query_type,
             method: "post",
             dataType: "json",
-            data: {"next_bus" : next_bus},
+            data: {"next_bus" : next_bus, "bus_type" : 'driver_list'},
             success: function (res) {
                 sessionStorage.setItem("dirver_car_list", JSON.stringify(res.data));
+                sessionStorage.setItem('scan_list', JSON.stringify(res.scan_seat));
                 
             }
         });
-
-        $.ajax({
-            url : '/api/bus_scan_seat',
-            method: 'get',
-            success: function(res){
-                sessionStorage.setItem('scan_list', JSON.stringify(res.data));
-            }
-        });
-        
         
     }
 
@@ -66,7 +58,6 @@
     function openBus(busSeat,locationName) {
         // alert(busSeat+'%'+locationName);
         //스캔 한 값 표시
-        let scan_list = JSON.parse(sessionStorage.getItem("scan_list"));
         let $seat;
         let car_info = JSON.parse(sessionStorage.getItem("dirver_car_list"));
         let $location_info = $('.location_info');

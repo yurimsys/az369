@@ -1600,7 +1600,7 @@ router.post('/user/resCarList',(req, res, next) =>{
                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
                     DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
                     tCT.CT_CarNum as carNum,
-                        (SELECT right(CT_CarNum, 4)) AS backNum,
+                    (SELECT right(CT_CarNum, 4)) AS backNum,
                     (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as available_seat_cnt,
                     tCY.CY_Totalpassenger as total_passenger,
                     tCY.CY_SeatPrice as seatPrice,
@@ -1610,8 +1610,8 @@ router.post('/user/resCarList',(req, res, next) =>{
                 FROM tCT 
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID
-                WHERE 
-`
+                WHERE `;
+        //평택에서 출발시 다음 예매 정보 표시
         if(req.query.type == 'bus_start'){
             query += `tCT.CT_DepartureTe > NOW() AND
                         tct.CT_DepartureTe > :next_bus
@@ -1621,15 +1621,97 @@ router.post('/user/resCarList',(req, res, next) =>{
             query += `tCT.CT_DepartureTe > NOW()
                         ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`
         }
+    let driver_query = `SELECT
+                            tCT.CT_ID as ctID,
+                            tB.B_Name as b_name,
+                            date_format(tCT.CT_DepartureTe,'%Y.%m.%d %H:%i') as deptTe,
+                            date_format(tCT.CT_DepartureTe,'%Y.%m.%d') as deptYM,
+                            date_format(tCT.CT_ReturnTe,'%Y.%m.%d %H:%i') as retuTe,
+                            date_format(tCT.CT_ReturnTe,'%Y.%m.%d') as retuYM,
+                            date_format(tCT.CT_DepartureTe,'%m.%d') as startDay,
+                            date_format(tCT.CT_DepartureTe,'%H:%i') as startTime,
+                            date_format(tCT.CT_ReturnTe,'%H:%i') as returnTime,
+                            DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
+                            DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
+                            tCT.CT_CarNum as carNum,
+                            (SELECT right(CT_CarNum, 4)) AS backNum,
+                            (select count(tCR.CR_SeatNum) from tCR where tCR.CR_CT_ID =tCT.CT_ID AND CR_Cancel = 'N') as available_seat_cnt,
+                            tCY.CY_Totalpassenger as total_passenger,
+                            tCY.CY_SeatPrice as seatPrice,
+                            tCY.CY_ID,
+                            tCY.CY_Ty,
+                            tCY.CY_TotalPassenger
+                        FROM tCT 
+                            left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                            left join tB on tCY.CY_B_ID = tB.B_ID
+                        WHERE
+                            tCT.CT_ReturnTe > date_add(now(),INTERVAL + 5 HOUR)
+                            ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`;
 
-    connection.query(query, { next_bus : next_bus},
-        function(err, rows, fields) {
-            if (err) throw err;                       
-            // //console.log(findId);
-            res.json( {  data : rows});
-            console.log("rows : ",rows);
-            
-        });
+    //기사앱 쿼리
+    if(req.body.bus_type === "driver_list"){
+        connection.query(driver_query,
+            function(err, rows, fields) {
+                if (err) throw err;                       
+                // //console.log(findId);
+                let driver_ctid = rows[0].ctID;
+                let driver_scan_query = `SELECT 
+                                            tCR.CR_CT_ID,
+                                            tCR.CR_SeatNum, 
+                                            tCR.CR_ScanPy, 
+                                            tCR.CR_ScanSe 
+                                        FROM tCR 
+                                        WHERE 
+                                            tCR.CR_CT_ID = :driver_ctid AND
+                                            tCR.CR_Cancel = 'N' AND
+                                            tCR.CR_ScanPy = 'Y' OR 
+                                            tCR.CR_ScanSe = 'Y'`; 
+                
+                connection.query(driver_scan_query, {driver_ctid : driver_ctid},
+                    function(err, result, fields) {
+                        if (err) throw err;                       
+        
+                        res.json( {data : rows, scan_seat : result});
+                        
+                    });
+
+                
+            });
+
+    //장차 예매 페이지 쿼리
+    }else{
+        connection.query(query, { next_bus : next_bus},
+            function(err, rows, fields) {
+                if (err) throw err;                       
+
+                res.json( {  data : rows});
+                console.log("장차예매 페이지 rows : ",rows);
+                
+            });
+    }
+
+
+});
+
+//스캔 좌석 표시
+router.get('/bus_scan_seat', (req, res, next) =>{
+
+    
+
+    let query = `SELECT 
+                    tCR.CR_SeatNum, 
+                    tCR.CR_ScanPy, 
+                    tCR.CR_ScanSe 
+                FROM tcr 
+                WHERE 
+                    tCR.CR_ScanPy = 'Y' OR 
+                    tCR.CR_ScanSe = 'Y'`; 
+    connection.query(query,
+      function(err, rows) {
+          if (err) throw err;
+          res.json({ data : rows});
+          console.log("좌석 목록 :",rows);
+      });
 });
 
 
@@ -3732,23 +3814,7 @@ router.post('/bus_qrcode_scan', async (req, res, done) =>{
     
 });
 
-//스캔 좌석 표시
-router.get('/bus_scan_seat', (req, res, next) =>{
 
-    let query = `SELECT 
-                    tcr.CR_SeatNum, 
-                    tcr.CR_ScanPy, 
-                    tcr.CR_ScanSe 
-                FROM tcr 
-                WHERE tcr.CR_ScanPy = 'Y' OR 
-                      tcr.CR_ScanSe = 'Y'`; 
-    connection.query(query,
-      function(err, rows) {
-          if (err) throw err;
-          res.json({ data : rows});
-          console.log("좌석 목록 :",rows);
-      });
-});
 
 
 module.exports = router;

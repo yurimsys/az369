@@ -320,7 +320,7 @@
                 url: "api/user/resCarList?type="+query_type,
                 method: "post",
                 dataType: "json",
-                data: { 'next_bus' : next_bus},
+                data: { 'next_bus' : next_bus, 'bus_type' : 'bus_list'},
                 success: function (res) {
                     sessionStorage.setItem("car_list", JSON.stringify(res.data));
                     let ctId = res.data[0].ctID;
