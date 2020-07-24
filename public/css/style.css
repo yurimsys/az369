@@ -631,7 +631,7 @@ section.video h6 {margin-bottom: -0.5%;}
     section h6 {font-size: 14px;}
 
     /*section.about*/
-    section.about {width: 320px; margin-top: 40px;}
+    section.about {width:100%; margin-top: 40px;}
     section.about .bar {margin-top: 10px; margin-bottom: 25px;}
     section.about .about_text {margin: 0 auto; text-align: center;}
     section.about .about_text h5 {width: 100%; font-size: 16px;}
@@ -659,14 +659,14 @@ section.video h6 {margin-bottom: -0.5%;}
     section.gallery .bar {margin-bottom: 10%;}
     section.gallery .inner_gallery {width: 100%;}
     section.gallery .inner_gallery p {display: none}
-    .gallery_slide {width: 320px;}
+    .gallery_slide {width: 100%;}
     .gallery_slide_group, .gallery_slide_viewer {height: 150px;}
     .previous_btn {left: 23%;}
     .next_btn {right: 23%;}
     
     /*section.video*/
-    section.video {width: 320px; padding: 8% 0;}
-    .inner_video {width: 320px; margin: 0 auto;}
+    section.video {width: 100%; padding: 8% 0;}
+    .inner_video {width: 100%; margin: 0 auto;}
     .video-slider {height: 280px;}
     .video_slide {height: 180px;}
     .video_btn div {margin-top: 65%;}

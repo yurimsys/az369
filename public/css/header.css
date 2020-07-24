@@ -17,8 +17,10 @@ nav.gnb ul {width: 100%; display: flex;}
 nav.gnb ul li {float: left; flex: 1;} */
 
 /*로고*/
-.innerHeader h1.logo {float: left; margin-left: 30px; line-height: 65px; overflow: hidden; transition: .5s all;}
 
+.logo_mo {display: none;}
+
+.innerHeader h1.logo {float: left; margin-left: 30px; line-height: 80px; overflow: hidden; transition: .5s all;}
 
 
 
@@ -119,7 +121,10 @@ header .open {
 	header {height: 65px; line-height: 62px; width: 100%;}
     header .gnb {display: none;}
     header .innerHeader {width: 100%; position: fixed;}
-    .innerHeader h1.logo { line-height: 55px; margin-left: 15px;}
+    .logo_pc {display: none;}
+    .logo_mo {display: block;}
+
+    .innerHeader h1.logo { line-height: 65px; margin-left:20px;}
     .innerHeader h1.logo img {Width: 80%;}
     header.on {height: 65px; line-height: 65px;}
     
