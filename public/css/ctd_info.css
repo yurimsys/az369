@@ -80,7 +80,7 @@ section.sub_wrap h5 br {display: none;}
 .sub_list ul li span {color: #999;}
 .list_bar {background-color: red; width: 20px;border-bottom: 1px solid #dbdbdb; margin: 20px 0; position: relative;}
 .sub_list h3 {font-size:20px; line-height: 1.5;}
-.list_txt p {float: left; width: 100%; text-align: justify; font-size: 15px;}
+.list_txt p { width: 100%; font-size: 15px; text-align: left;}
 
 
 /*반응형*/
