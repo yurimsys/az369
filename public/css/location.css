@@ -19,7 +19,7 @@ section.main {
 
 section.sub_wrap h2 br {display: none;}
 section.sub_wrap h5 br {display: none;}
-.sub_map {width: 100%; height: 450px; box-shadow: 0 0 15px rgba(0,0,0,0.3);}
+.sub_map {width: 100%; height: 450px;}
 
 /*sib_contents*/
 .sub_contents {width: 100%; margin: 0 auto; overflow: hidden; margin-top: 50px; padding-bottom: 10px;}

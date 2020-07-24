@@ -20,9 +20,11 @@ section.main {
 section.sub_wrap h2 br {display: none;}
 section.sub_wrap h5 br {display: none;}
 
-.mySlides {display: none;}
+.mySlides {display: none; }
+.mySlides img {border-radius: 12px;}
 
 .slideshow-container {
+    
 	width: 100%;
     position: relative;
     height: auto;

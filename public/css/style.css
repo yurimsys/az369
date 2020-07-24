@@ -12,7 +12,7 @@ img {vertical-align: middle;}
 a img {border: none;}
 li {list-style: none;}
 address, em, i {font-style: normal;}
-p {font-family: inherit; font-size: 16px; color: #444;}
+p {font-family: inherit; font-size: 16px; color: #76;}
 
 .wrap {
     width: 100%;
@@ -137,14 +137,17 @@ section.about {
     background: #fff;
 }
 
+section.about .bar {margin-bottom: 40px;}
 
-section.about ul li {float: left; width: 47%;}Z
-section.about .about_img {overflow: hidden;}
+
+section.about ul li {float: left; width: 47%;}
+section.about .about_img {overflow: hidden; border-radius: 12px;}
 section.about .about_img img {width: 100%;}
-section.about .about_text {margin-left: 8%; margin-top: 3.5%;}
-section.about .about_text h4 {color: #444; font-weight: 400; font-size: 24px; line-height: 1.6; letter-spacing: -0.px;}
-section.about .about_text p {margin-top: 25px; line-height: 1.6;}
-section.about .about_btn {width: 180px; height: 45px; line-height: 45px; text-align: center;border: 1px solid #dbdbdb; border-radius: 4px; display: inline-block; transition: all 0.4s; margin-top: 50px; color: #222;}
+section.about .about_text {margin-left: 8%; margin-top: 20px;}
+section.about .about_text h4 {color: #222; font-weight: 400; font-size: 24px; line-height: 1.5; }
+section.about .about_text h4 span {font-weight: 600;}
+section.about .about_text p {margin-top: 20px; line-height: 1.7; color: #767676;}
+section.about .about_btn {width: 180px; height: 45px; line-height: 45px; text-align: center;border: 1px solid #dbdbdb; border-radius: 4px; display: inline-block; transition: all 0.4s; margin-top: 40px; color: #222;}
 section.about .about_btn a {display: block;}
 section.about .about_btn:hover {background: #c3a164; color: #fff; border: 1px solid #c3a164;}
 
@@ -178,8 +181,8 @@ section.benefit P {text-align: center; margin-bottom: 30px;}
 
 .benefit_txt {width: 100%; padding: 10px 5px;}
 
-.benefit_img {height: 380px; overflow: hidden;}
-.benefit_img_01 {background: url(/img/main/benefit_vehicle.png); background-size: cover; background-position: bottom;}
+.benefit_img {height: 380px; overflow: hidden; border-radius: 12px;}
+.benefit_img_01 {background: url(/img/main/benefit_ctd.png); background-size: cover; background-position: bottom;}
 .benefit_img_02 {background: url(/img/main/benefit_menber.png); background-size: cover; background-position: bottom;}
 .benefit_img_03 {background: url(/img/main/benefit_vehicle.png); background-size: cover; background-position: bottom;}
 
@@ -192,12 +195,11 @@ section.gallery {
     width: 100%;
     margin: 0 auto;
     overflow: hidden;
-    margin-top: 50px;
+    margin-top:60px;
     padding-bottom: 30px;
-     padding-top: 30px;
 }
 
-section.gallery p {text-align: center; margin: 0; margin-bottom: 30px;}
+section.gallery p {text-align: center; margin: 0; margin-bottom: 40px;}
 
 
 .gallery_slider {
@@ -209,6 +211,7 @@ section.gallery p {text-align: center; margin: 0; margin-bottom: 30px;}
   height: 550px;
   overflow: hidden;
   position: relative;
+  border-radius: 12px;
 }
 
 .gallery_slide_group {
