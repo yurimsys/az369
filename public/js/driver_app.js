@@ -1,26 +1,4 @@
-     //데이터 로드 및 가져올 데이터 쿼리 타입 설정
-        $(document).ready(function(){
-
-            let query_type = localStorage.getItem('query_type')
-            $.ajax({
-                url: "api/user/resCarList?type="+query_type,
-                method: "post",
-                dataType: "json",
-                success: function (res) {
-                    sessionStorage.setItem("dirver_car_list", JSON.stringify(res.data));
-                }
-            });
-    
-            $.ajax({
-                url : '/api/bus_scan_seat',
-                method: 'get',
-                success: function(res){
-                    sessionStorage.setItem('scan_list', JSON.stringify(res.data));
-                }
-            })
-        })
-
-    
+//평택, 동대문 탭
     let now_location;
     function openLocation(evt, locationName) {
         now_location = locationName;
@@ -40,12 +18,42 @@
         document.getElementById(locationName).style.display = "block";
         evt.currentTarget.className += " active";
     }
-    document.getElementById("defaultOpen").click();
 
+    //데이터 로드 및 가져올 데이터 쿼리 타입 설정
+    $(document).ready(function(){        
+        // document.getElementById("defaultOpenPy").click();
+        dataLoad();
+        
+    })
 
-
-    // console.log('now :', now_location);
-
+    function dataLoad(){
+        $.ajax({
+            url: "/api/driver_seat",
+            method: "post",
+            dataType: "json",
+            success: function (res) {
+                sessionStorage.setItem("dirver_car_list", JSON.stringify(res.data));
+                sessionStorage.setItem('scan_list', JSON.stringify(res.scan_seat));
+                if(res.data[0].CT_PyStart === 'Y' && res.data[0].CT_SeStart === 'N'){
+                    document.getElementById("defaultOpenSe").click();
+                    $('.start_p').css('display','none');
+                    $('.check_p').css('display','none');
+                    $('.start_cancel_p').css('display','block');
+                }else if(res.data[0].CT_PyStart === 'Y' && res.data[0].CT_SeStart === 'Y'){
+                    document.getElementById("defaultOpenSe").click();
+                    $('.start_p').css('display','none');
+                    $('.check_p').css('display','none');
+                    $('.start_cancel_p').css('display','block');
+                    $('.start_s').css('display','none');
+                    $('.check_s').css('display','none');
+                    $('.start_cancel_s').css('display','block');
+                }else{
+                    document.getElementById("defaultOpenPy").click();
+                }
+            }
+        });
+        
+    }
 
     var selected_seats = [];
     var selected_seats_cnt = 0;
@@ -53,9 +61,8 @@
 
 
     function openBus(busSeat,locationName) {
-       
+        // alert(busSeat+'%'+locationName);
         //스캔 한 값 표시
-        let scan_list = JSON.parse(sessionStorage.getItem("scan_list"));
         let $seat;
         let car_info = JSON.parse(sessionStorage.getItem("dirver_car_list"));
         let $location_info = $('.location_info');
@@ -88,10 +95,7 @@
 
         //좌석금액 불러오기
 
-        var $cart = $('#selected-seats'),
-            $nums = $('#selected_seats_num'),
-            $counter = $('#selected_seats_cnt'),
-            sc = $seat.seatCharts({
+        var sc = $seat.seatCharts({
                 map: [
                     'ee_ee',
                     'ee_ee',
@@ -148,7 +152,28 @@
             });
 
         //현재 예약된 자석
+        // scanSeatList();
         flushSeat(locationName);
+    }
+
+    function scanSeatList(){
+        let scan_list = JSON.parse(sessionStorage.getItem("scan_list"));
+        //평택 스캔 현황
+        for(let i=0; i<scan_list.length; i++){
+            if(scan_list[i].CR_ScanPy == 'Y'){
+                let seat_scan = getSeatId(scan_list[i].CR_SeatNum);
+                $('.seat-map-py #'+seat_scan).removeClass('unavailable');
+                $('.seat-map-py #'+seat_scan).addClass('selected');
+            }
+        }
+        //서울 스캔 현황
+        for(let i=0; i<scan_list.length; i++){
+            if(scan_list[i].CR_ScanSe == 'Y'){
+                let seat_scan = getSeatId(scan_list[i].CR_SeatNum);
+                $('.seat-map-se #'+seat_scan).removeClass('unavailable');
+                $('.seat-map-se #'+seat_scan).addClass('selected');
+            }
+        }
     }
 
 
@@ -210,30 +235,13 @@
             // console.log('seat_id_list',seat_id_list);
             sc.find('unavailable').status('available');
             sc.status(seat_id_list, 'unavailable');
-            
-            //평택 스캔 현황
-            for(let i=0; i<scan_list.length; i++){
-                if(scan_list[i].CR_ScanPy == 'Y'){
-                    let seat_scan = getSeatId(scan_list[i].CR_SeatNum);
-                    $('.seat-map-py #'+seat_scan).removeClass('unavailable');
-                    $('.seat-map-py #'+seat_scan).addClass('selected');
-                }
-            }
-            //서울 스캔 현황
-            for(let i=0; i<scan_list.length; i++){
-                if(scan_list[i].CR_ScanSe == 'Y'){
-                    
-                    let seat_scan = getSeatId(scan_list[i].CR_SeatNum);
-                    $('.seat-map-py #'+seat_scan).removeClass('unavailable');
-                    $('.seat-map-se #'+seat_scan).addClass('selected');
-                }
-            }
+            scanSeatList();
+
         });
     }
 
     // 45인승 기준 seatId 가져오기
     function getSeatId(seat_num) {
-
         if (seat_num <= 45 && seat_num > 0) {
 
             let seat_id = "1_1";
@@ -268,6 +276,30 @@
 
     }
 
+    //새로고침
+    function reload(e){
+        sessionStorage.removeItem('scan_list');
+        sessionStorage.removeItem('dirver_car_list');
+        //새로고침 버튼 클릭시
+        if(e.id === 'reloadPy'){
+            dataLoad();
+            flushSeat('pyeongtaek');
+        }else if(e.id === 'reloadSe'){
+            dataLoad();
+            flushSeat('seoul');
+        }
+        //스캔확인 시
+        if(e === 'pyeongtaek'){
+            dataLoad();
+            flushSeat('pyeongtaek');
+        }else if(e === 'seoul'){
+            dataLoad();
+            flushSeat('seoul');
+        }
+    }
+
+
+
     // 승차 완료 버튼
     function busReady(e) {
         //승차 완료 클릭시 출발 버튼 활성화
@@ -275,8 +307,18 @@
             $(e).toggleClass("checked"),
             $(".start_p").toggleClass("started");
         }else{
-            $(e).toggleClass("checked"),
-            $(".start_s").toggleClass("started");
+            if($('.start_cancel_p').css('display') == 'none'){
+                swal({
+                    title: '승차완료 오류',
+                    text: '평택에서 먼저 출발을 클릭해 주세요.',
+                    icon: 'error',
+                    button: '확인'
+                })
+            }else{
+                $(e).toggleClass("checked"),
+                $(".start_s").toggleClass("started");
+            }
+
         }
     }
 
@@ -294,18 +336,60 @@
             if ($('#check_s').hasClass('checked') == false) {
                 return false;
             } else {
-                $('.start_s_modal').css('display', 'block')
+                if($('.start_cancel_p').css('display') == 'none'){
+                    swal({
+                        title: '출발 오류',
+                        text: '평택에서 먼저 출발을 클릭해 주세요.',
+                        icon: 'error',
+                        button: '확인'
+                    })
+                }else{
+                    $('.start_s_modal').css('display', 'block')
+                }
             }
         }
     }
 
     // 출발 취소 버튼
     function busCancel(e) {
+        let cancel_info = JSON.parse(sessionStorage.getItem("dirver_car_list"));
         //출발 취소 확인 모달 활성화
         if(e.id === 'start_cancel_p'){
-            $('.start_cancel_p_modal').css('display', 'block')
+            if($('.start_cancel_s').css('display') == 'block'){
+                swal({
+                    title: '취소 오류',
+                    text: '서울이 현재 출발 중 입니다.',
+                    icon: 'error',
+                    button: '확인'
+                }).then(function(){
+                    return false;
+                })
+            }else{
+                $('.start_cancel_p_modal').css('display', 'block')
+                $.ajax({
+                    url: '/api/bus_cancel',
+                    method: 'put',
+                    dataType: 'json',
+                    data: { 'ct_id' : cancel_info[0].ctID, 'location' : 'py'},
+                    success: function(res){
+    
+                    }
+    
+                });
+            }
+
         }else{
             $('.start_cancel_s_modal').css('display', 'block')
+            $.ajax({
+                url: '/api/bus_cancel',
+                method: 'put',
+                dataType: 'json',
+                data: { 'ct_id' : cancel_info[0].ctID, 'location' : 'se'},
+                success: function(res){
+
+                }
+
+            });
         }
     }
 
@@ -321,18 +405,37 @@
 
     // 출발확인 모달 : 확인 ---------------------
     function startModalCheck(e) {
+        let start_info = JSON.parse(sessionStorage.getItem("dirver_car_list"));
         if(e.id === 'startModalCheckPy'){
             $('.start_p_modal').css('display', 'none')
             $('#check_p').css('display', 'none');
             $('#start_p').css('display', 'none');
             $('#start_cancel_p').css('display', 'block');
+            $.ajax({
+                url: '/api/bus_start',
+                method: 'put',
+                dataType: 'json',
+                data: { 'ct_id' : start_info[0].ctID, 'location' : 'py'},
+                success: function(res){
+                }
+
+            });
         }else{
             $('.start_s_modal').css('display', 'none')
             $('#check_s').css('display', 'none');
             $('#start_s').css('display', 'none');
             $('#start_cancel_s').css('display', 'block');
+            $.ajax({
+                url: '/api/bus_start',
+                method: 'put',
+                dataType: 'json',
+                data: { 'ct_id' : start_info[0].ctID, 'location' : 'se'},
+                success: function(res){
+                }
+
+            });
         }
-        localStorage.setItem('query_type','bus_start');
+        
     }
 
 
@@ -347,8 +450,6 @@
     // 출발취소 모달 : 취소 완료 ----
     function cancelModalCheck(e) {
         if(e.id === 'cancelModalCheckPy'){
-            //출발 취소시 다시 예약 가능하도록 쿼리문 변경
-            localStorage.removeItem('query_type');
             $('.start_cancel_p_modal').css('display', 'none')
             $('#check_p').css('display', 'block');
             $('#check_p').removeClass('checked');
@@ -365,15 +466,7 @@
         }
     }
 
-    //새로고침
-    function reload(e){
-        let car_info = JSON.parse(sessionStorage.getItem("dirver_car_list"));
-        if(e.id === 'reloadPy'){
-            openBus(car_info[0].ctID,'pyeongtaek');
-        }else{
-            openBus(car_info[0].ctID,'seoul');
-        }
-    }
+
 
     //요일 계산 함수
     function getInputDayLabel(date) {
@@ -383,87 +476,88 @@
     }
 
 
-// WEB -> Android Function Call
-function ScanClick(e) {
-    if(now_location === 'pyeongtaek' && $('.start_cancel_p').css('display') =='block'){
-        swal({
-            title: '스캔 실패',
-            text: '출발을 하게되면 스캔기능이 비활성화 됩니다.',
-            icon: 'error',
-            button: '확인'
-        })
-    }else if(now_location === 'seoul' && $('.start_cancel_s').css('display')=='block'){
-        swal({
-            title: '스캔 실패',
-            text: '출발을 하게되면 스캔기능이 비활성화 됩니다.',
-            icon: 'error',
-            button: '확인'
-        })
-    }
-    //평택 OR 서울 지역
-    let location = e.dataset.location
-        window.Android.ScanClick(location);
-    }
-
-// Android -> Web Function Call
-function ReadQR(code,location) {
-    $.ajax({
-        url: '/api/bus_qrcode_scan',
-        method: 'post',
-        dataType: 'json',
-        data: {
-            'qr_code' : code,
-            'location' : location
-        },
-        success: function(res){
-            let qr_info;
-            //qrcode 없음
-            if(res.data == 0){
-                qr_info = 0;
-                window.Android.CheckQR(qr_info);
-                $('#scan_alert').css('display','block');
-                $('#scan_alert').addClass('scan-alert-error');
-                $('#scan_alert-text').addClass('scan-alert-error-text');
-                $('#scan_alert-text').text('잘못된 QR코드 입니다.')
-                $('#scan_alert-close').addClass('scan-close-error');
-            }
-            //qrcode 스캔 성공
-            else if(res.data == 1){
-                qr_info = 1;
-                window.Android.CheckQR(qr_info);
-                $('#scan_alert').css('display','block');
-                $('#scan_alert').addClass('scan-alert-check');
-                $('#scan_alert-text').addClass('scan-alert-check-text');
-                $('#scan_alert-text').text(res.seatNum+'번 좌석이 스캔되었습니다.')
-                $('#scan_alert-close').addClass('scan-close-check');
-            }
-            //이미 스캔되어있음
-            else if(res.data == 2){
-                qr_info = 2;
-                window.Android.CheckQR(qr_info);
-                $('#scan_alert').css('display','block');
-                $('#scan_alert').addClass('scan-alert-error');
-                $('#scan_alert-text').addClass('scan-alert-error-text');
-                $('#scan_alert-text').text('이미 스캔된 QR코드 입니다.')
-                $('#scan_alert-close').addClass('scan-close-error');
-            }
-            //qrcode 기간이 지남 
-            else{
-                qr_info = 3;
-                window.Android.CheckQR(qr_info);
-                $('#scan_alert').css('display','block');
-                $('#scan_alert').addClass('scan-alert-error');
-                $('#scan_alert-text').addClass('scan-alert-error-text');
-                $('#scan_alert-text').text('기간만료된 QR코드 입니다.')
-                $('#scan_alert-close').addClass('scan-close-error');
-            }
+    // WEB -> Android Function Call
+    function ScanClick(e) {
+        let location = e.dataset.location
+        if(now_location === 'pyeongtaek' && $('.start_cancel_p').css('display') =='block'){
+            swal({
+                title: '스캔 실패',
+                text: '출발을 하게되면 스캔기능이 비활성화 됩니다.',
+                icon: 'error',
+                button: '확인'
+            })
+        }else if(now_location === 'seoul' && $('.start_cancel_s').css('display')=='block'){
+            swal({
+                title: '스캔 실패',
+                text: '출발을 하게되면 스캔기능이 비활성화 됩니다.',
+                icon: 'error',
+                button: '확인'
+            })
+        }else if(now_location === 'seoul' && $('.start_cancel_p').css('display')=='none'){
+            swal({
+                title: '스캔 실패',
+                text: '평택에서 미출발 시 스캔이 불가능 합니다.',
+                icon: 'error',
+                button: '확인'
+            })
+        }else{
+            window.Android.ScanClick(location);
         }
+        //평택 OR 서울 지역
 
-    });
+    }
 
-    // document.getElementById('qrCode').innerHTML = "QR code : " + code;
-}
+    // Android -> Web Function Call
+    function ReadQR(code,location) {
+        let car_info = JSON.parse(sessionStorage.getItem("dirver_car_list"));
+        $('#scan_alert_check').css('display','none');
+        $('#scan_alert_error').css('display','none');
+        $.ajax({
+            url: '/api/bus_qrcode_scan',
+            method: 'post',
+            dataType: 'json',
+            data: {
+                'qr_code' : code,
+                'location' : location,
+                'cr_id' : car_info[0].ctID
+            },
+            success: function(res){
+                let qr_info;
+                //qrcode 없음
+                if(res.data == 0){
+                    qr_info = 0;
+                    window.Android.CheckQR(qr_info);
+                    $('#scan_alert_error').css('display','block');
+                    $('#scan_alert_text_error').text('잘못된 QR코드 입니다.')
+                }
+                //qrcode 스캔 성공
+                else if(res.data == 1){
+                    qr_info = 1;
+                    window.Android.CheckQR(qr_info);
+                    $('#scan_alert_check').css('display','block');
+                    $('#scan_alert_text_check').text(res.seatNum+'번 좌석이 스캔되었습니다.')
+                    reload(location);
+                }
+                //이미 스캔되어있음
+                else if(res.data == 2){
+                    qr_info = 2;
+                    window.Android.CheckQR(qr_info);
+                    $('#scan_alert_error').css('display','block');
+                    $('#scan_alert_text_error').text('이미 스캔된 QR코드 입니다.')
+                }
+                //qrcode 기간이 지남 
+                else{
+                    qr_info = 3;
+                    window.Android.CheckQR(qr_info);
+                    $('#scan_alert_error').css('display','block');
+                    $('#scan_alert_text_error').text('기간만료된 QR코드 입니다.')
+                }
+            }
 
+        });
+
+        // document.getElementById('qrCode').innerHTML = "QR code : " + code;
+    }
 
 // ScanClick -> 스캐너 호출
 // CheckQR(String) -> 결과 전송

@@ -507,7 +507,7 @@ router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
                 from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                     where tCR.CR_CT_ID =tCT.CT_ID AND tCR.CR_Cancel = :crCancel
                     and tCR.CR_U_ID = :sessionId
-                and tCT.CT_DepartureTe > now() 
+                and tCT.CT_ReturnTe > date_add(now(),interval +4 HOUR)
                 group by tCR.CR_cDt
                 order by tCT.CT_DepartureTe, tCR.CR_cDt desc;
 

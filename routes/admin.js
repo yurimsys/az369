@@ -68,35 +68,30 @@ router.get('/signage_brand', function(req, res, next) {
 
 
 //비지니스 테이블
-router.get('/business', auth.isLoggedIn, function(req, res, next) {
+router.get('/az369_business', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        console.log('good');
         var pageSetting = {
-            title: '광고관리',
-            description: '센트럴돔 내 사이니지 광고를 관리하는 페이지 입니다.',
-            layout: 'admin/templates/admin_footer'
+            title: '운송사 관리',
+            description: '장차서비스 운송사 관리페이지',
+            layout: 'admin/templates/admin_layout'
         };
-        res.render('admin/admin_business',pageSetting);
+        res.render('admin/admin_az369_business',pageSetting);
     }
 });
 
 
 //비지니스 테이블
-router.get('/business/List', auth.isLoggedIn, function(req, res, next) {
+router.get('/b', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
     }else{
-        //let query = `SELECT * FROM tB limit :now, :page`;
-        let query = `SELECT * FROM tB limit 8000`; 
-        //let page =  Number(req.query.length);
-        //let now = Number(req.query.start);
+        let query = `SELECT * FROM tB`; 
         connection.query(query,
             function(err, rows, fields) {
                 if (err) throw err;
                 res.json({data : rows});
-              console.log("비지니스",rows);
         });
         
     }
