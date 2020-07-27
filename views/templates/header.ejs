@@ -38,13 +38,14 @@
                 <li><a href="/video" class="gnb_link">소개영상</a>
                     <ul>
                         <li><a href="/video">소개영상</a></li>
-                        
-                    </ul></li>
+
+                    </ul>
+                </li>
             </ul>
         </nav>
 
 
-        
+
 
         <nav class="gnb2">
             <ul>
@@ -75,14 +76,14 @@
         <ul>
             <li class="gnb_mo_login">
                 <% if( sessionUser ){ %>
+                <strong style="font-weight: 500; font-size: 16px;"><%= sessionUser.U_Name %>
+                        님</strong>
                 <ul>
-                    <li><a href="/mypage"><strong
-                                style="font-weight: 500; font-size: 16px;"><u><%= sessionUser.U_Name %>
-                                    님</u></strong></a></li>
-                    <li><a href="/logout" onclick="logOut()" style="color: #999;"><u>로그아웃</u></a></li>
+                    <li><a href="/mypage">마이페이지</a></li>
+                    <li><a href="/logout" onclick="logOut()">로그아웃</a></li>
                 </ul>
                 <% } else { %>
-                <a href="/login" style="color: #999;">장차예매는 <u>로그인</u>이 필요합니다.</a>
+                <a href="/login" style="color: #767676;">장차예매는 <u>로그인</u>이 필요합니다.</a>
                 <% } %>
             </li>
             <li>
@@ -200,7 +201,7 @@
         }
     });
 
-    function logOut(){
+    function logOut() {
         localStorage.removeItem('auto_login');
     }
 </script>

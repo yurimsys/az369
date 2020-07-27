@@ -336,8 +336,8 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .logout_mo a {display: block;}
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     .info_title h2 br  {display: block;}
     .info_title h2 {width: 50%;}
     .modify_btn_mo {width: 50%; float:none; right:0;}
@@ -444,21 +444,33 @@ p.cancel_info {margin:2% 0; text-align: center;}
     #ui-datepicker-div{
         left: -19px !important;
     }
+
+    #reserve_list label span {height: 60px; line-height: 60px; padding: 13px 3px;}
+    .reserve_bar_mo ul li:nth-child(1) {width: 28%;}
+    .reserve_bar_mo ul li:nth-child(2)  {width: 40%;}
+    .reserve_bar_mo ul li:nth-child(3) {width: 32%;}
+    .reserve_bar_mo ul li:last-child {display: none;}
+    
+
     .mypage_right {padding: 10px;}
     .modify_btn_mo {float: left;}
     .popup_open3 ul li:nth-child(1),
-    .popup_open2 ul li:nth-child(1) {width: 49%;}
+    .popup_open2 ul li:nth-child(1) {width: 50%; text-align: center;}
     .popup_open3 ul li:nth-child(2),
-    .popup_open2 ul li:nth-child(2) {width: 48%;}
+    .popup_open2 ul li:nth-child(2) {width: 50%; text-align: center;}
+    /* .popup_open3 ul li:nth-child(3),
+    .popup_open2 ul li:nth-child(3) {width: 3%;} */
     .popup_open3 ul li:nth-child(3),
-    .popup_open2 ul li:nth-child(3) {width: 3%;}
+    .popup_open2 ul li:nth-child(3) {display: none;}
     
 
-    .popup_box_mo {overflow: scroll; height: 100%;}
+    .popup_box_mo {overflow: scroll; height: 100%; width: 100%;}
     .popup_box_mo2 .table_mo {height: 300px;}
+    .swiper-slide .swiper-slide-active {width: 100%;}
     
     .mypage_nav_mo p {padding: 5%; font-size: 15px; word-break: break-all;width: 80%;}
     .mypage_nav_mo .tablinks { padding: 5px; height: auto;}
+    .popup_btn {width: 100%;}
     
     .layer {width: 320px;}
     
@@ -483,4 +495,9 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .qr_info > p br {display: none;}
 }
 
+/*280px*/
+@media screen and (max-width: 280px) {
+    .popup_box_mo {width: 280px;}
+    .swiper-slide, .swiper-slide-active {width: 100%;}
+}
 
