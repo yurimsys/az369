@@ -23,8 +23,19 @@
     $(document).ready(function(){        
         // document.getElementById("defaultOpenPy").click();
         dataLoad();
+        setInterval(() => {
+            sessionStorage.removeItem('scan_list');
+            sessionStorage.removeItem('dirver_car_list');
+            dataLoad();
+        }, 1000*60*3);
+        
         
     })
+
+    function closeAlert(){
+        $('.scan-alert').css('display','none')
+        
+    }
 
     function dataLoad(){
         $.ajax({
@@ -40,6 +51,7 @@
                     $('.check_p').css('display','none');
                     $('.start_cancel_p').css('display','block');
                 }else if(res.data[0].CT_PyStart === 'Y' && res.data[0].CT_SeStart === 'Y'){
+                    
                     document.getElementById("defaultOpenSe").click();
                     $('.start_p').css('display','none');
                     $('.check_p').css('display','none');
@@ -91,7 +103,6 @@
         // document.getElementById("bus_seat_layer").style.display = "block";
         // evt.currentTarget.className += " active";
         var firstSeatLabel = 1;
-
 
         //좌석금액 불러오기
 
@@ -210,7 +221,6 @@
     function flushSeat(locationName) {
 
         let $seat;
-        let scan_list = JSON.parse(sessionStorage.getItem("scan_list"));
         if(locationName == "pyeongtaek"){
             $seat = $('.seat-map-py')
         }else{
@@ -397,9 +407,9 @@
     // 출발확인 모달 : 취소 ---------------------
     function startModalCancel(e) {
         if(e.id === 'startModalCancelPy'){
-            $('.start_p_modal').css('display', 'none')
+            $('.start_p_modal').css('display', 'none');
         }else{
-            $('.start_s_modal').css('display', 'none')
+            $('.start_s_modal').css('display', 'none');
         }
     }
 
@@ -407,7 +417,7 @@
     function startModalCheck(e) {
         let start_info = JSON.parse(sessionStorage.getItem("dirver_car_list"));
         if(e.id === 'startModalCheckPy'){
-            $('.start_p_modal').css('display', 'none')
+            $('.start_p_modal').css('display', 'none');
             $('#check_p').css('display', 'none');
             $('#start_p').css('display', 'none');
             $('#start_cancel_p').css('display', 'block');
@@ -509,7 +519,9 @@
 
     // Android -> Web Function Call
     function ReadQR(code,location) {
+        
         let car_info = JSON.parse(sessionStorage.getItem("dirver_car_list"));
+        
         $('#scan_alert_check').css('display','none');
         $('#scan_alert_error').css('display','none');
         $.ajax({
@@ -552,6 +564,7 @@
                     $('#scan_alert_error').css('display','block');
                     $('#scan_alert_text_error').text('기간만료된 QR코드 입니다.')
                 }
+                setTimeout(closeAlert,5000);
             }
 
         });
