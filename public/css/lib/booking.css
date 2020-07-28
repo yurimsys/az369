@@ -15,7 +15,7 @@ div.seatCharts-seat{
     height: 47px; */
     width: 58px;
     height: 54px;
-    background: url(../../img/reservation/seat_img.png) center no-repeat;
+    background: url(/img/reservation/seat_img.png) center no-repeat;
     background-size: contain;
     cursor: pointer;
 }
@@ -41,7 +41,7 @@ div.seatCharts-seat.selected{
     height: 54px;
 }
 div.seatCharts-seat.selected{
-	background: url(../../img/reservation/seat_img_select.png) center no-repeat;
+	background: url(/img/reservation/seat_img_select.png) center no-repeat;
     /* width: 50px;
     height: 47px; */
     width: 58px;

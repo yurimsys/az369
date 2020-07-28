@@ -111,7 +111,11 @@ button {border: none; cursor: pointer;}
   
 
   .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
+<<<<<<< HEAD
+  .popup_box{margin:20px; margin-top: 50%; transform: translateY(-50%); width: 90%; height: auto; background:#fff;position:relative;z-index: 1000; text-align: center;border-radius: 12px; padding: 20px 20px 0;}
+=======
   .popup_box{margin:20px; top: 50%; transform: translateY(-50%); width: 90%; height: auto; background:#fff;position:relative;z-index: 1000; text-align: center;border-radius: 12px; padding: 20px 20px 0;}
+>>>>>>> 970136f04d21f3dde6288e53789d923a41ae20a9
   .popup_box .popup_tit {font-size: 24px; font-weight: 600; line-height: 1.5;padding-bottom: 15px; margin: 0 auto; }
   #applyDate {margin-top: 20px; font-size: 18px; color: #444;font-weight: 400;}
   .popup_box .popup_tit span {font-size: 16px;}
