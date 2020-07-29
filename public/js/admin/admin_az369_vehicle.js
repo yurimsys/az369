@@ -1,75 +1,27 @@
 
-
 $(document).ready(function(){
+
+    $.ajax({
+        method: "get",
+        dataType : "JSON",
+        url: "/api/business_list",
+        success: function (res){
+
+
+            for (let i=0; i<res.data.length; i++){
+                let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"</option>";
+
+                $('#business_list').append(html);
+            }
+        }
+    });
+
+
+
+    
     init();
 }) 
 function init(){
-    // 브랜드 Data Load
-    $.ajax({
-        method: "get",
-        dataType : "JSON",
-        url: "/api/bsList",
-        success: function (res){
-            
-            let brand_list = res.data.map((data) =>{
-                return { id : data.BS_ID, text : data.BS_NameKor}
-            });
-            console.log('brsan', brand_list);
-            $(".selectBrand").select2(
-                {
-                    placeholder: '브랜드 선택',
-                    data: brand_list,
-                    width: 'resolve'
-                }
-            );
-        }
-    })
-    
-    // 광고업종 Data Load
-    $.ajax({
-        method: "get",
-        dataType : "JSON",
-        url: "/api/categoryLV1",
-        success: function (res){
-            let categoryLV1 = res.data.map((data) =>{
-                return { id : data.BCR_LV1_BC_ID, text : data.BC_NameKor}
-            });
-
-            $('.selectAdCategory').select2(
-                {
-                    placeholder: '업종 선택',
-                    data: categoryLV1,
-                    width: 'resolve'
-                }
-            );
-        }
-    });
-
-    // 광고위치 Data Load
-    $.ajax({
-        method: "get",
-        dataType : "JSON",
-        url: "/api/adtype",
-        success: function (res){           
-            let adtype = res.data.map((data) =>{
-                return { id : data.ADY_ID, text : data.ADY_Location}
-            });
-
-            $('.selectAdType').select2(
-                {
-                    placeholder: '위치 선택',
-                    data: adtype,
-                    width: 'resolve'
-                }
-            );
-        }
-    });
-
-    // 광고기간 DateBox
-    $(".ad_duration_start, .ad_duration_final").dxDateBox({
-        type: "date",
-        dateSerializationFormat : "yyyy-MM-dd"
-    });
 
     // 신규모드로 실행
     objectInfo("new");
@@ -81,47 +33,45 @@ let objectInfo = function (mode = "modify", row_data) {
         ad_duration_final_instance = $(".object-info .ad_duration_final").dxDateBox("instance");
 
     if( mode === "new"){
-        if($('#object_detail_group').css('display') == 'none'){
+        if($('.brand_info').css('display') == 'none'){
             folding();
         }
+        
         action_btns_instance.removeClass('action-modify');
         action_btns_instance.addClass('action-new');
         
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-modify, .btn-delete').addClass('disabled');
-        // todo : object reset
-        $('.object-info #ad_id').text("");
-        $('.object-info .ad_content_url').text("");
-        $(".object-info .inputAdFiles").val('');
-        $(".object-info .inputAdTitle").val('');
-        $(".object-info .select2").val(null).trigger('change');
-        ad_duration_start_instance.reset();
-        ad_duration_final_instance.reset();
+
+        $('#business_list').val('null');
+        $('#car_number').val('');
+        $('#driver_name').val('');
+        $('#driver_phone').val('');
+        $("#py_start").val('');
+        $("#se_start").val('');
 
         sessionStorage.removeItem('row_data');
     } else if( mode === "modify"){
+        console.log('row_data',row_data);
         action_btns_instance.removeClass('action-new');
         action_btns_instance.addClass('action-modify');
         
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-save').addClass('disabled');
-        
-        $('.object-info #ad_id').text(row_data.ad_id);
-        $('.object-info .selectBrand').val(row_data.selectBrand).trigger('change');
-        $('.object-info .ad_content_url').text(row_data.ad_content_url);
-        $('.object-info .selectAdCategory').val(row_data.selectAdCategory).trigger('change');
-        $('.object-info .selectAdType').val(row_data.selectAdType).trigger('change');
-        $('.object-info .inputAdTitle').val(row_data.inputAdTitle);
-        ad_duration_start_instance.option("value", row_data.ad_duration_start);
-        ad_duration_final_instance.option("value", row_data.ad_duration_final);
-
+        // console.log(row_data.login_id);
+        $('#business_list').val(row_data.CY_ID);
+        $('#car_number').val(row_data.CarNum);
+        $('#driver_name').val(row_data.CT_DriverName);
+        $('#driver_phone').val(row_data.CT_DriverPhone);
+        $("#py_start").val(row_data.CT_DepartureTe);
+        $("#se_start").val(row_data.CT_ReturnTe);
         sessionStorage.setItem('row_data', JSON.stringify(row_data) );
     }
 }
 
 let tableInit = function (data) {
     $("#mgmt-table").dxDataGrid({
-        dataSource: "/api/ad",
+        dataSource: "/api/vehicle",
         showBorders: true,
         renderAsync: true,
         allowColumnReordering: true,
@@ -150,7 +100,7 @@ let tableInit = function (data) {
         },
         onSelectionChanged : function(e) {
             console.log('selection changed', e);
-            sessionStorage.setItem("row_data_list", e.selectedRowsData.map(data => data.AD_ID));
+            sessionStorage.setItem("row_data_list", e.selectedRowsData.map(data => data.CT_ID));
             let dataGrid = e.component;
             
             let informer = e.element.find(".selectedActionBtns");
@@ -161,39 +111,49 @@ let tableInit = function (data) {
             
             selectedActionBtns.css('display', (isSelected) ? "flex" : "none");
             selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
-            console.log('셀렉트');
         },
         onCellClick : function(e){
             console.log('cell click'.e);
         },
-        //셀 호버 이벤트
         // onCellHoverChanged : function(e){
-        //     setTimeout(2000,console.log('ID :', e.value))
+            
+        //     if(e.rowType == 'data'){
+                
+        //         let testC = e.cellElement.parent()[0]
+        //         console.log(testC);
+        //         $(testC).addClass('data_hover')
+                
+        //     }
         //     setTimeout(() => {
         //         if(e.columnIndex == 1){
-        //             console.log('ID :', e.value);
+        //             console.log('ID :', e);
 
                     
         //         }
         //     }, 2000);
         //     // console.log('ID :', e);
+        //     // setTimeout(2000,$(testC).removeClass('data_hover'));
         // },
+
+        onRowHoverChanged : function(e){
+            console.log('성공?');
+        },
 
         onRowClick : function(e) {
             console.log('row click', e.data);
             // selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
             e.rowElement.css("border-left", "2px solid #f2f2f2");
-            // debugger;
+
             let row_data = {};
-            row_data.ad_id = e.data.AD_ID;
-            row_data.selectBrand = e.data.BS_ID;
-            row_data.ad_content_url = e.data.AD_ContentURL;
-            row_data.selectAdCategory = e.data.AD_BC_ID;
-            row_data.selectAdType = e.data.AD_ADY_ID;
-            row_data.inputAdTitle = e.data.AD_Title;
-            row_data.ad_duration_start = e.data.AD_DtS;
-            row_data.ad_duration_final = e.data.AD_DtF;
-            if($('#object_detail_group').css('display') == 'none'){
+            row_data.CT_ID = e.data.CT_ID;
+            row_data.CY_ID = e.data.CY_ID;
+            row_data.B_Name = e.data.B_Name;
+            row_data.CarNum = e.data.CT_CarNum;
+            row_data.CT_DriverName = e.data.CT_DriverName;
+            row_data.CT_DriverPhone = e.data.CT_DriverPhone;
+            row_data.CT_DepartureTe = e.data.CT_DepartureTe;
+            row_data.CT_ReturnTe = e.data.CT_ReturnTe;
+            if($('.brand_info').css('display') == 'none'){
                 folding();
             }
             objectInfo("modify", row_data);
@@ -207,7 +167,7 @@ let tableInit = function (data) {
           },
           onExporting: function(e) {
             var workbook = new ExcelJS.Workbook();
-            var worksheet = workbook.addWorksheet('광고관리');
+            var worksheet = workbook.addWorksheet('배차관리');
             
             DevExpress.excelExporter.exportDataGrid({
               component: e.component,
@@ -215,24 +175,24 @@ let tableInit = function (data) {
               autoFilterEnabled: true
             }).then(function() {
               workbook.xlsx.writeBuffer().then(function(buffer) {
-                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), '광고관리.xlsx');
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), '배차관리.xlsx');
               });
             });
             e.cancel = true;
           },
         columns: [
             //cssClass : 'tooltip'
-            { dataField: "AD_ID", caption: "ID", width : 70, sortOrder : "desc"},
-            { dataField: "BS_NameKor", caption: "브랜드"},
-            { dataField: "BC_NameKor", caption: "광고업종"},
-            { dataField: "ADY_Location", caption: "광고위치"},
-            { dataField: "AD_Title", caption: "광고제목"},
-            { dataField: "AD_ContentURL", caption: "URL"},
-            { dataField: "AD_DtS", caption: "광고시작일", dataType: "date"},
-            { dataField: "AD_DtF", caption: "광고종료일", dataType: "date"},
-            { dataField: "AD_BC_ID", visible: false },
-            { dataField: "BS_ID", visible: false },
-            { dataField: "AD_ADY_ID", visible: false },
+            { dataField: "CT_ID", caption: "ID", width : 70, sortOrder : "desc"},
+            { dataField: "B_Name", caption: "운송사명"},
+            { dataField: "CT_CarNum", caption: "차량번호"},
+            { dataField: "CY_Ty", caption: "버스타입"},
+            { dataField: "CT_DriverName", caption: "기사명"},
+            { dataField: "CT_DriverPhone", caption: "기사번호"},
+            { dataField: "CY_SeatPrice", caption: "좌석가격"},
+            { dataField: "CT_DepartureTe", caption: "평택 출발시간"},
+            { dataField: "CT_ReturnTe", caption: "서울 출발시간"},
+            { dataField: "CT_PyStart", caption: "평택 출발확인"},
+            { dataField: "CT_SeStart", caption: "서울 출발확인"}
         ],
         // onSelectionChanged: function (selectedItems) {
         //     debugger;
@@ -306,36 +266,37 @@ $(document).ready(()=>{
 
 // 검색창 초기화
 function resetSearch() {
-    $(".select2").val(null).trigger('change');
-    let ad_duration_start_instance = $(".object-search-popup .ad_duration_start").dxDateBox("instance"),
-    ad_duration_final_instance = $(".object-search-popup .ad_duration_final").dxDateBox("instance");
-    ad_duration_start_instance.reset();
-    ad_duration_final_instance.reset();
+    // $(".select2").val(null).trigger('change');
+    // let ad_duration_start_instance = $(".object-search-popup .ad_duration_start").dxDateBox("instance"),
+    // ad_duration_final_instance = $(".object-search-popup .ad_duration_final").dxDateBox("instance");
+    // ad_duration_start_instance.reset();
+    // ad_duration_final_instance.reset();
 }
 
 
 tableInit();
+//신규 등록 저장
 function saveAD(){
+
     let update_data = {
-        adBsId : $(".object-info .selectBrand").val(),
-        adAdyId : $(".object-info .selectAdType").val(),
-        adBcId : $(".object-info .selectAdCategory").val(),
-        adTitle : $(".object-info .inputAdTitle").val(),
-        adDtS : $(".object-info .ad_duration_start").dxDateBox("instance").option().value,
-        adDtF : $(".object-info .ad_duration_final").dxDateBox("instance").option().value
+        cy_id : $("#business_list option:selected").attr('value'),
+        car_num : $("#car_number").val(),
+        driver_name : $('#driver_name').val(),
+        driver_phone : $('#driver_phone').val(),
+        py_start : $('#py_start').val(),
+        se_start : $('#se_start').val()
     }
 
-    let form_data = new FormData(document.forms[0]);
-    for ( let i in update_data) form_data.append(i, update_data[i]);
-    console.log('for',form_data);
-    let api_url  = '/api/ad';
+    // console.log('updat22222e :',update_data);
+    
+    // let form_data = new FormData(document.forms[0]);
+    // for ( let i in update_data) form_data.append(i, update_data[i]);
+    let api_url  = '/api/vehicle';
     $.ajax({
         dataType : 'JSON',
         type : "POST",
         url : api_url,
-        data : form_data,
-        contentType : false,
-        processData : false,
+        data : update_data,
         success : function (res) {
             console.log('ajax result');
             console.log(res);
@@ -347,11 +308,12 @@ function saveAD(){
 function deleteAD(mode = 'single') {
     if(mode === 'single'){
 
-        let id = JSON.parse( sessionStorage.getItem('row_data') ).ad_id;
+        let id = JSON.parse( sessionStorage.getItem('row_data') ).CT_ID;
+        console.log(id,'삭제 아이디');
         $.ajax({
             dataType : 'JSON',
             type : "DELETE",
-            url : '/api/ad/'+id,
+            url : '/api/vehicle/'+id,
             success : function (res) {
                 console.log('ajax result');
                 console.log(res);
@@ -363,12 +325,12 @@ function deleteAD(mode = 'single') {
         let id_list = {
             row_ids : sessionStorage.getItem('row_data_list')
         }
-        
+        console.log(id_list,'삭제 아이디들');
         $.ajax({
             dataType : 'JSON',
             type : "DELETE",
             data : id_list,
-            url : '/api/ad/',
+            url : '/api/vehicle',
             success : function (res) {
                 console.log('ajax result');
                 console.log(res);
@@ -379,29 +341,26 @@ function deleteAD(mode = 'single') {
     }
 }
 function updateAD(){
-    let id = JSON.parse( sessionStorage.getItem('row_data') ).ad_id;
+    let id = JSON.parse( sessionStorage.getItem('row_data') ).CT_ID;
     let update_data = {
-        adBsId : $(".object-info .selectBrand").val(),
-        adAdyId : $(".object-info .selectAdType").val(),
-        adBcId : $(".object-info .selectAdCategory").val(),
-        adTitle : $(".object-info .inputAdTitle").val(),
-        adDtS : $(".object-info .ad_duration_start").dxDateBox("instance").option().value,
-        adDtF : $(".object-info .ad_duration_final").dxDateBox("instance").option().value,
-        adUrl : $('#ad_content_url').text().replace(/\/img\/ad\//,'')
+        cy_id : $("#business_list option:selected").attr('value'),
+        car_num : $("#car_number").val(),
+        driver_name : $('#driver_name').val(),
+        driver_phone : $('#driver_phone').val(),
+        py_start : $('#py_start').val(),
+        se_start : $('#se_start').val()
     }
 
     let form_data = new FormData(document.forms[0]);
     for ( let i in update_data) form_data.append(i, update_data[i]);
 
-    let api_url  = '/api/ad/'+id;
+    let api_url  = '/api/vehicle/'+id;
 
     $.ajax({
         dataType : 'JSON',
         type : "PUT",
         url : api_url,
-        data : form_data,
-        contentType : false,
-        processData : false,
+        data : update_data,
         success : function (res) {
             console.log('ajax result');
             console.log(res);
@@ -424,38 +383,75 @@ $(".action-btns .btn").click(clickActionBtn);
 // 상세 검색 버튼 기능
 // 초기화
 function searchPopupReset(){
-    $("#object-search-popup .select2").val(null).trigger('change');
-    let ad_duration_start_instance = $("#object-search-popup .ad_duration_start").dxDateBox("instance"),
-    ad_duration_final_instance = $("#object-search-popup .ad_duration_final").dxDateBox("instance");
-    ad_duration_start_instance.reset();
-    ad_duration_final_instance.reset();
-    $("#object-search-popup .inputAdTitle").val('');
+    // $("#object-search-popup .select2").val(null).trigger('change');
+    // let ad_duration_start_instance = $("#object-search-popup .ad_duration_start").dxDateBox("instance"),
+    // ad_duration_final_instance = $("#object-search-popup .ad_duration_final").dxDateBox("instance");
+    // ad_duration_start_instance.reset();
+    // ad_duration_final_instance.reset();
+    // $("#object-search-popup .inputAdTitle").val('');
+    $('#search_login_id').val('');
+    $('#search_login_pw').val('');
+    $('#search_ceo_name').val('');
+    $('#search_ceo_phone').val('');
+    $("#search_lv1_category").val('null');
+    $("#search_lv2_category").val('null');
+    $('#search_floor').val('null');
+    $('#search_store_number').val('null');
+    $('#search_brand_ko').val('');
+    $('#search_brand_contents_ko').val('');
+    $('#search_brand_contents_en').val('');
+    $('#search_brand_phone').val('');
+    $('#search_address').val('');
+    $('#search_detailAddress').val('');
+    $('#search_main_open').val('');
+    $('#search_main_close').val('');
+    $('#search_sub_open').val('');
+    $('#search_sub_close').val('');
+    $('#search_break_open').val('');
+    $('#search_break_close').val('');
+    $('#search_personal_day_ko').val('');
 }
 // 닫기
 function searchPopupClose() {
     $("#object-search-popup").hide();
-}
+}0
 function searchPopupShow() {
     $('#object-search-popup').css('left','430px')
     $('#object-search-popup').css('top','300px')
     $("#object-search-popup").show();
 }
+
 // 검색
 function searchPopupAction() {
+    
     let condition_data = {
         searchType : $("#object_search_info #searchType").is(":checked"),
-        adBsId : $("#object_search_info .selectBrand").val(),
-        adAdyId : $("#object_search_info .selectAdType").val(),
-        adBcId : $("#object_search_info .selectAdCategory").val(),
-        adTitle : $("#object_search_info .inputAdTitle").val(),
-        adDtS : $("#object_search_info .ad_duration_start").dxDateBox("instance").option().value,
-        adDtF : $("#object_search_info .ad_duration_final").dxDateBox("instance").option().value
+        bsLoginId : $("#search_login_id").val(),
+        bsCeo : $("#search_ceo_name").val(),
+        bsCeoPhone : $('#search_ceo_phone').val(),
+        bsBcId : $("#search_lv1_category").val(),
+        bsBcId2 : $("#search_lv2_category").val(),
+        bsStoreNumber : $('#search_store_number').val(),
+        bsFloor : $('#search_floor').val(),
+        bsNameKo : $('#search_brand_ko').val(),
+        bsContentsKo : $('#search_brand_contents_ko').val(),
+        bsPhone : $('#search_brand_phone').val(),
+        bsAddr1Ko : $('#search_address').val(), 
+        bsAddr2Ko : $('#search_detailAddress').val(),
+        bsMainOpen : $('#search_main_open').val(),
+        bsMainClose : $('#search_main_close').val(),
+        bsSubOpen : $('#search_sub_open').val(),
+        bsSubClose : $('#search_sub_close').val(),
+        bsBreakOpen : $('#search_break_open').val(),
+        bsBreakClose : $('#search_break_close').val(),
+        bsPersonalKo : $('#search_personal_day_ko').val(),
+        
     };
-
+    console.log(condition_data);
     $.ajax({
         type : "GET",
         dataType : 'JSON',
-        url : '/api/ad',
+        url : '/api/brandListOverLap?type=admin',
         data : condition_data,
         success : function (res) {
             
@@ -469,12 +465,30 @@ function searchPopupAction() {
 //상세정보 토글
 
 function folding(){
-    console.log($('#folding').text());
-    if($('#folding').text() == 'ㅡ'){
-        $('#folding').text('+')
-    }else{
-        $('#folding').text('ㅡ')
-    }
     $('#object_detail_group').slideToggle('fast')
+    
+    
 }
 
+//데이트 피커
+const example = {
+    data() {
+        const min = new Date()
+        min.setDate(min.getDate() - 7)
+        min.setHours(9)
+        min.setMinutes(0)
+        min.setSeconds(0)
+        const max = new Date()
+        max.setDate(max.getDate() + 70)
+        max.setHours(18)
+        max.setMinutes(0)
+        max.setSeconds(0)
+        return {
+            minDatetime: min,
+            maxDatetime: max
+        }
+    }
+}
+
+const app = new Vue(example)
+app.$mount('#app')

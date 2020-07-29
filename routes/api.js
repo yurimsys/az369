@@ -4028,4 +4028,160 @@ router.put('/bus_cancel', (req, res, done) =>{
     });
 });
 
+//장차 관리자 페이지 API
+
+router.get('/vehicle',function(req,res){
+    let query = `SELECT * FROM tCT 
+                    INNER JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
+                    INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID`
+    
+    connection.query(query,
+        function(err,rows){
+            if(err) throw err;
+            res.json({data : rows});
+    })
+})
+
+router.get('/business_list',function(req,res){
+    let query = `SELECT * FROM tCY
+                INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID`
+    
+    connection.query(query,
+        function(err,rows){
+            if(err) throw err;
+            res.json({data : rows});
+    })
+})
+
+//배차 등록
+router.post('/vehicle',async function(req,res){
+    let query = `INSERT INTO tCT(
+                    CT_CY_ID, 
+                    CT_DepartureTe, 
+                    CT_ReturnTe, 
+                    CT_CarNum, 
+                    CT_DriverName, 
+                    CT_DriverPhone
+                    )
+                VALUES( :cy_id, :py_start, :se_start, :car_num, :driver_name, :driver_phone ) `
+
+    let cy_id = req.body.cy_id,
+        py_start = req.body.py_start,
+        se_start = req.body.se_start,
+        car_num = req.body.car_num,
+        driver_name = req.body.driver_name,
+        driver_phone = req.body.driver_phone
+    
+    connection.query(query, { cy_id, py_start, se_start, car_num, driver_name, driver_phone},
+        function(err,rows){
+            if (err){
+                connection.rollback(function(){
+                    res.json({data : 300});
+                    throw err;
+                })
+            }
+            connection.commit(function(err) {
+                if (err) {
+                    return connection.rollback(function() {
+                        res.json({data : 300});
+                        throw err;
+                    });
+                }
+                res.json({data : 200});    
+            });
+    })
+})
+//배차 수정
+router.put('/vehicle/:ctid',async function(req,res){
+    let query = `UPDATE tCT SET
+                    CT_CY_ID = :cy_id,
+                    CT_DepartureTe = :py_start,
+                    CT_ReturnTe = :se_start,
+                    CT_CarNum = :car_num,
+                    CT_DriverName = :driver_name,
+                    CT_DriverPhone = :driver_phone
+                WHERE CT_ID = :ct_id        
+    `
+    
+    let cy_id = req.body.cy_id,
+        ct_id = req.params.ctid,
+        py_start = req.body.py_start,
+        se_start = req.body.se_start,
+        car_num = req.body.car_num,
+        driver_name = req.body.driver_name,
+        driver_phone = req.body.driver_phone
+    
+    connection.query(query, { cy_id, py_start, se_start, car_num, driver_name, driver_phone, ct_id},
+        function(err,rows){
+            if (err){
+                connection.rollback(function(){
+                    res.json({data : 300});
+                    throw err;
+                })
+            }
+            connection.commit(function(err) {
+                if (err) {
+                    return connection.rollback(function() {
+                        res.json({data : 300});
+                        throw err;
+                    });
+                }
+                res.json({data : 200});    
+            });
+    })
+})
+
+//배차 삭제
+router.delete('/vehicle/:ctid',async function(req,res){
+    let query = `delete from tCT where CT_ID = :ct_id `
+
+    let ct_id = req.params.ctid
+    
+    connection.query(query, {ct_id},
+        function(err,rows){
+            if (err){
+                connection.rollback(function(){
+                    res.json({data : 300});
+                    throw err;
+                })
+            }
+            connection.commit(function(err) {
+                if (err) {
+                    return connection.rollback(function() {
+                        res.json({data : 300});
+                        throw err;
+                    });
+                }
+                res.json({data : 200});    
+            });
+    })
+});
+
+//배차 다중 삭제
+router.delete('/vehicle',async function(req,res){
+    
+    let ct_id = req.body.row_ids
+    let query = `delete from tCT where CT_ID IN (:ct_id)`
+
+    connection.query(query,{ct_id},
+        function(err,rows){
+            if (err){
+                connection.rollback(function(){
+                    res.json({data : 300});
+                    throw err;
+                })
+            }
+            connection.commit(function(err) {
+                if (err) {
+                    return connection.rollback(function() {
+                        res.json({data : 300});
+                        throw err;
+                    });
+                }
+                res.json({data : 200});    
+            });
+    })
+});
+
+
 module.exports = router;

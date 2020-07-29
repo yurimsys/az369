@@ -23,19 +23,7 @@
     $(document).ready(function(){        
         // document.getElementById("defaultOpenPy").click();
         dataLoad();
-        setInterval(() => {
-            sessionStorage.removeItem('scan_list');
-            sessionStorage.removeItem('dirver_car_list');
-            dataLoad();
-        }, 1000*60*3);
-        
-        
     })
-
-    function closeAlert(){
-        $('.scan-alert').css('display','none')
-        
-    }
 
     function dataLoad(){
         $.ajax({
@@ -564,12 +552,18 @@
                     $('#scan_alert_error').css('display','block');
                     $('#scan_alert_text_error').text('기간만료된 QR코드 입니다.')
                 }
-                setTimeout(closeAlert,5000);
             }
 
         });
 
         // document.getElementById('qrCode').innerHTML = "QR code : " + code;
+    }
+
+    //회원 전화번호 안드로이드로 전송
+    function CallUser(e){
+        let phone_number = e.text;
+        console.log('phone :',phone_number); 
+        window.Android.CallUser(phone_number);
     }
 
 // ScanClick -> 스캐너 호출

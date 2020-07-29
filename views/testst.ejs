@@ -2,209 +2,87 @@
 <html lang="ko">
 
 <head>
-    <!-- <link rel="stylesheet" href="/css/common_box.css"> -->
-    <link rel="stylesheet" href="/css/reservation_01.css">
 
-    <title>AZ369 - 장차버스예매</title>
-
-
-    <!--reservation css link-->
-    <link rel="stylesheet" type="text/css" href="/css/lib/jquery.seat-charts.css">
-    <link rel="stylesheet" type="text/css" href="/css/lib/booking.css">
-
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
 
 </head>
 
 <body>
 
-    <div id="bus_seat_layer" class="tabcontent">
-        <div class="container">
-            <!--좌석선택표-->
-            <div class="seat-map" class="seat-panel"></div>
-        </div>
-    </div>
+    <div id="app" class="container">
+    
+        <section>
 
-    <!--reservation 스크립트-->
-    <script src="/js/lib/jquery-1.11.0.min.js"></script>
-    <script src="/js/lib/jquery.seat-charts.js"></script>
-    <script src="/js/lib/bootstrap.js"></script>
-    <script src="/js/lib/bootstrap.min.js"></script>
-    <script src="/js/lib/angular.min.js"></script>
-    <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
+            <b-field label="Select datetime">
+                <b-datetimepicker
+                    placeholder="Click to select..."
+                    :min-datetime="minDatetime"
+                    :max-datetime="maxDatetime">
+                </b-datetimepicker>
+            </b-field>
+        </section>
+    
+    </div>
+                    
+
+    <script src="https://unpkg.com/vue"></script>
+    <!-- Full bundle -->
+    <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+
+    <!-- Individual components
+    <script src="https://unpkg.com/buefy/dist/components/table"></script>
+    <script src="https://unpkg.com/buefy/dist/components/input"></script> -->
 
     <script>
+        // const example = {
+        //     data() {
+        //         return {
+        //             showWeekNumber: false,
+        //             formatAmPm: false,
+        //             enableSeconds: false
+        //         }
+        //     },
+        //     computed: {
+        //         format() {
+        //             return this.formatAmPm ? '12' : '24'
+        //         }
+        //     }
+        // }
 
-        $(document).ready(function(){
-            $.ajax({
-                url: "api/user/resCarList",
-                method: "post",
-                dataType: "json",
-                success: function (res) {
-                    sessionStorage.setItem("car_list", JSON.stringify(res.data));
-                    let ctId = res.data[0].ctID;
-                    let price = res.data[0].seatPrice;
-                    openBus(ctId,price);
-                }
-            });
-        })
-
-    
-
-
-        var selected_seats = [];
-        var selected_seats_cnt = 0;
-        var seatPrice = 0;
+        // const app = new Vue(example)
+        // app.$mount('#app')
+        </script>
 
 
-        function openBus(busSeat,price) {
-            let car_info = JSON.parse(sessionStorage.getItem("car_list"));
 
-            var i, tablinks
-            tablinks = document.getElementsByClassName("tablinks");
-            //alert(seatPrice);
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
+
+<script>
+    const example = {
+        data() {
+            const min = new Date()
+            min.setDate(min.getDate() - 7)
+            min.setHours(9)
+            min.setMinutes(0)
+            min.setSeconds(0)
+            const max = new Date()
+            max.setDate(max.getDate() + 70)
+            max.setHours(18)
+            max.setMinutes(0)
+            max.setSeconds(0)
+            return {
+                minDatetime: min,
+                maxDatetime: max
             }
-            sessionStorage.setItem('ct_id', busSeat);
-
-            document.getElementById("bus_seat_layer").style.display = "block";
-            // evt.currentTarget.className += " active";
-            var firstSeatLabel = 1;
-
-
-            //좌석금액 불러오기
-
-            var $cart = $('#selected-seats'),
-                $nums = $('#selected_seats_num'),
-                $counter = $('#selected_seats_cnt'),
-                sc = $('.seat-map').seatCharts({
-                    map: [
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'eeeee',
-                    ],
-                    seats: {
-                        e: {
-
-                            classes: '일반', //your custom CSS class
-                            category: '일반'
-                        }
-
-                    },
-                    naming: {
-                        top: false,
-                        getLabel: function (character, row, column) {
-                            return firstSeatLabel++;
-                        },
-                    },
-                    click: function () {
-                        let bus_seat_number = this.settings.label;
-                        let bus_ct_id = sessionStorage.getItem("ct_id");
-                        if (this.status() == 'available') {
-                            alert('예매되지 않은 좌석입니다.')
-                            // return 'selected';
-                        } 
-                        //스캔 된 좌석
-                        else if (this.status() == 'selected') {
-                            userSeatInfo(bus_ct_id,bus_seat_number);
-                            return 'selected';
-                        } 
-                        //스캔 되지 않은 예매된 좌석
-                        else if (this.status() == 'unavailable') {
-                            
-                            userSeatInfo(bus_ct_id,bus_seat_number);
-                            return 'selected';
-                        } else {
-
-                            return this.style();
-                        }
-                    }
-                });
-
-
-            //현재 예약된 자석
-            flushSeat();
         }
+    }
 
-
-        function userSeatInfo(bus_id, seat_number){
-            $.ajax({
-                url: '/api/bus_user_info',
-                method: 'get',
-                data : { 
-                    ct_id : bus_id,
-                    cr_seatnum : seat_number        
-                },
-                success : function(res){
-                    console.log('res :', res.data);
-                }
-            });
-        }
-
+    const app = new Vue(example)
+    app.$mount('#app')
         
-        function flushSeat() {
-            var sc = $('.seat-map').seatCharts();
-            selected_seats = [];
-            selected_seats_cnt = 0;
-            sc.find('e.selected').status('available');
-            // 데이터 가져와서 예약된 좌석 상태 설정.
-            var ct_id = sessionStorage.getItem('ct_id');
-            console.log('goood :', ct_id);
-            $.ajax({
-                dataType: "json",
-                method: "GET",
-                url: "/api/busSeat/" + ct_id
-            }).done((res) => {
-                let seat_id_list = [];
-                res.data.map((seat_num) => {
-                    seat_id_list.push(getSeatId(seat_num));
-                });
-                sc.find('unavailable').status('available');
-                sc.status(seat_id_list, 'unavailable');
-            });
-        }
-
-        // 45인승 기준 seatId 가져오기
-        function getSeatId(seat_num) {
-            if (seat_num <= 45 && seat_num > 0) {
-
-                let seat_id = "1_1";
-                let row = '',
-                    column = '';
-
-                if (seat_num > 40) {
-                    row = 11;
-                    column = seat_num % 10;
-                } else {
-                    if ((seat_num % 4) === 0) {
-                        row = Number.parseInt(seat_num / 4);
-                        column = 4;
-                    } else {
-                        row = (Number.parseInt(seat_num / 4)) + 1;
-                        column = seat_num % 4;
-                    }
-
-                    if (column >= 3) column += 1;
-                }
-
-                seat_id = row + "_" + column;
-                return seat_id;
-            } else {
-                return null;
-            }
-
-        }
-
-
-    </script>
-
+</script>
+        
 </body>
 </html>

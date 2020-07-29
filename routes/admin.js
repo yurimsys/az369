@@ -66,6 +66,32 @@ router.get('/signage_brand', function(req, res, next) {
     res.render('admin/admin_signage_brand', pageSetting);
 });
 
+// 
+//배차관리 페이지
+// router.get('/az369_vehicle',auth.isLoggedIn, function(req, res, next) {
+//     if(req.user.U_isAdmin === 'n'){
+//         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+//     }else{
+//         var pageSetting = {
+//             title: '배차 관리',
+//             description: '장차서비스 배차 관리페이지',
+//             layout: 'admin/templates/admin_layout'
+//         };
+//         res.render('admin/admin_az369_vehicle',pageSetting);
+//     }
+// });
+
+router.get('/az369_vehicle', function(req, res, next) {
+
+    var pageSetting = {
+        title: '배차 관리',
+        description: '장차서비스 배차 관리페이지',
+        layout: 'admin/templates/admin_layout'
+    };
+    res.render('admin/admin_az369_vehicle',pageSetting);
+    
+});
+
 
 //비지니스 테이블
 router.get('/az369_business', auth.isLoggedIn, function(req, res, next) {

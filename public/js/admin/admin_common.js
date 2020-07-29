@@ -24,6 +24,22 @@
     $("#sidebar-menu a").each(function() {
       var pageUrl = window.location.href.split(/[?#]/)[0];
       if (this.href == pageUrl) {
+        
+        $('.metismenu').css('display','none');
+        $(this).parent().parent().css('display','block');
+        if($(this).parent().parent().hasClass('side-vehicle') == true){
+          $('#nav_vehicle').addClass('active');
+        }
+        else if($(this).parent().parent().hasClass('side-user') == true){
+          $('#nav_user').addClass('active');
+        }
+        else if($(this).parent().parent().hasClass('side-payment') == true){
+          $('#nav_payment').addClass('active');
+        }
+        else if($(this).parent().parent().hasClass('side-signage') == true){
+          $('#nav_signage').addClass('active');
+        }
+
         $(this).addClass("active");
         $(this)
           .parent()
@@ -70,6 +86,7 @@
   function initMenuItem() {
     $(".navbar-nav a").each(function() {
       var pageUrl = window.location.href.split(/[?#]/)[0];
+      console.log('page',pageUrl);
       if (this.href == pageUrl) {
         $(this).addClass("active");
         $(this)
