@@ -197,9 +197,9 @@ body,html{
     width: 60px;
     height: 60px;
     line-height: 55px;
-    background-image: linear-gradient(280deg, #ffffff, #f2f2f2);
+    background-image: linear-gradient(280deg, #ffffff, #e2e2e2);
     box-shadow: 10px 10px 10px rgba(0,0,0,0.05), -10px -10px 10px rgba(255,255,255,0.05);
-    border: solid 1.5px rgba(255,255,255,0.5);
+    border: solid 2px rgba(255,255,255,0.8);
     border-radius: 12px;
     position: relative;
     font-size: 20px;
@@ -317,7 +317,7 @@ h1 span {font-size: 36px; font-weight: 400;}
     font-size: 26px;
     line-height: 40px;
     font-weight: 400;
-    color: #ccc;
+    color: #eee;
 }
 /* 날짜 및 시간 */
 .date {margin-top: 14px; line-height: 1.4;}
