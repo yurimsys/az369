@@ -288,7 +288,7 @@
                                                         <th>결제일시</th>
                                                         <th>출발일시</th>
                                                         <th>차량정보</th>
-                                                        <th>예매좌석</th>
+                                                        <th>좌석번호</th>
                                                         <th>결제수단</th>
                                                         <th>결제금액</th>
                                                     </tr>
@@ -571,7 +571,7 @@
                 success: function (res) {
                     let default_html = 
                     `<div class="swiper-slide">
-                        <h2>승차권 <span>1 / 2</span></h2>
+                        <h2>TICKET <span>1 / 2</span></h2>
                         <div class="qr_info">
                             <div id='qrcode' class="qrcode"></div>
                             <div class="qr_txt">
@@ -584,14 +584,14 @@
                          <div class="popup_btn">
                            <ul><li><a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');" class="btn btn-secondary">닫기</a></li><li>`;
                     for(let i=0; i <res.data.length; i++){
-                        let html = '<div class="swiper-slide"><h2>승차권 '+Number(i+1)+' <span style="color: #999;"> / '+res.data.length+'</span></h2><div class="qr_wrap"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div></div>';
+                        let html = '<div class="swiper-slide"><h2>TICKET '+Number(i+1)+' <span style="color: #999; font-family: inherit"> / '+res.data.length+'</span></h2><div class="qr_wrap"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div></div>';
                             html += '<table class="detail_table">';
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[i].payDayYM+' ('+getInputDayLabel(res.data[i].payDayWeek)+') '+res.data[i].payDayTm+'</td><tr>'
                             html += '<tr><th>예매정보</th>';
                             html += '<td>평택 '+res.data[i].deptTe2+' ('+getInputDayLabel(res.data[i].deptDay)+') '+res.data[i].startTime+'<br>동대문 '+res.data[i].returnTe2+'('
                                         +getInputDayLabel(res.data[i].retnDay)+') '+res.data[i].returnTime+'<br>'+res.data[i].carName+'('+res.data[i].carNum+')</td><tr>';
-                            html += '<tr><th>예매좌석</th>';
+                            html += '<tr><th>좌석번호</th>';
                             html += '<td>'+res.data[i].CR_SeatNum+'번</td><tr>';
                             html += '<tr><th>결제수단</th>';
                             html += '<td>'+res.data[i].PH_Type+'</td><tr>';
@@ -604,14 +604,14 @@
                     }
 
                     for(let j=0; j <res.data.length; j++){
-                        let html = '<div class="swiper-slide"><h2>승차권 '+Number(j+1)+'<span style="color: #999;"> / '+res.data.length+'</span></h2><div class="qr_wrap"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div></div>';
+                        let html = '<div class="swiper-slide"><h2>TICKET '+Number(j+1)+'<span style="color: #999;"> / '+res.data.length+'</span></h2><div class="qr_wrap"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div></div>';
                             html += '<table class="detail_table">';
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[j].payDayYM+' ('+getInputDayLabel(res.data[j].payDayWeek)+') '+res.data[j].payDayTm+'</td><tr>'
                             html += '<tr><th>예매정보</th>';
                             html += '<td>평택 '+res.data[j].deptTe2+' ('+getInputDayLabel(res.data[j].deptDay)+') '+res.data[j].startTime+'<br>동대문 '+res.data[j].returnTe2+'('
                                         +getInputDayLabel(res.data[j].retnDay)+') '+res.data[j].returnTime+'<br>'+res.data[j].carName+'('+res.data[j].carNum+')</td><tr>';
-                            html += '<tr><th>예매좌석</th>';
+                            html += '<tr><th>좌석번호</th>';
                             html += '<td>'+res.data[j].CR_SeatNum+'번</td><tr>';
                             html += '<tr><th>결제수단</th>';
                             html += '<td>'+res.data[j].PH_Type+'</td><tr>';
@@ -900,7 +900,7 @@
                         //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
                         html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+" )</td></tr>";
                         html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 > 동대문)</span></td></tr>";
-                        html += "<tr><th>예매좌석</th><td>" + seatNum + "</td></tr>";
+                        html += "<tr><th>좌석번호</th><td>" + seatNum + "</td></tr>";
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td><tr>";
                         html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);

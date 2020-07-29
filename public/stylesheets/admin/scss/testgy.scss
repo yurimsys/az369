@@ -1,0 +1,15 @@
+.wrap {width: 100%; height: 100%; margin: 0 auto; padding: 0;}
+
+
+$main_color : #c3a164;
+
+@mixin primary($w, $h, $r) {width: $w; height: $h; line-height: $h; border-radius: $r; background-color: $main_color; text-align: center; cursor: pointer;
+}
+
+
+.box {@include primary(200px, 50px, 12px); @include large-text();}
+
+@mixin large-text {
+    color: red;
+    &::after{content: '!!';}
+// } 이거 왜 안됨 ㅠ
