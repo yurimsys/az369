@@ -92,6 +92,18 @@ router.get('/az369_vehicle', function(req, res, next) {
     
 });
 
+router.get('/az369_reservation', function(req, res, next) {
+
+    var pageSetting = {
+        title: '예약 관리',
+        description: '장차서비스 예약 관리페이지',
+        layout: 'admin/templates/admin_layout'
+    };
+    res.render('admin/admin_az369_reservation',pageSetting);
+    
+});
+
+
 
 //비지니스 테이블
 router.get('/az369_business', auth.isLoggedIn, function(req, res, next) {

@@ -1,6 +1,14 @@
 
 $(document).ready(function(){
 
+
+
+
+
+    
+    init();
+}) 
+function init(){
     $.ajax({
         method: "get",
         dataType : "JSON",
@@ -12,25 +20,26 @@ $(document).ready(function(){
                 let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"</option>";
 
                 $('#business_list').append(html);
+                $('#search_business_list').append(html);
             }
         }
     });
 
-
-
-    
-    init();
-}) 
-function init(){
-
     // 신규모드로 실행
-    objectInfo("new");
+    // objectInfo("new");
+        // 광고기간 DateBox
+        $(".py_start, .se_start, .search_py_start, .search_se_start").dxDateBox({
+            type: "datetime",
+            displayFormat: 'yyyy-MM-dd HH:mm',
+            dateSerializationFormat : "yyyy-MM-dd HH:mm",
+        });
 }
+
 
 let objectInfo = function (mode = "modify", row_data) {
     let action_btns_instance = $(".object-info .action-btns"),
-        ad_duration_start_instance = $(".object-info .ad_duration_start").dxDateBox("instance"),
-        ad_duration_final_instance = $(".object-info .ad_duration_final").dxDateBox("instance");
+        py_start_instance = $(".object-info .py_start").dxDateBox("instance"),
+        se_start_instance = $(".object-info .se_start").dxDateBox("instance");
 
     if( mode === "new"){
         if($('.brand_info').css('display') == 'none'){
@@ -47,8 +56,13 @@ let objectInfo = function (mode = "modify", row_data) {
         $('#car_number').val('');
         $('#driver_name').val('');
         $('#driver_phone').val('');
-        $("#py_start").val('');
-        $("#se_start").val('');
+        // $("#py_start").val('');
+        // $("#se_start").val('');
+        $('#py_start_check').val('N');
+        $('#se_start_check').val('N');
+
+        py_start_instance.reset();
+        se_start_instance.reset();
 
         sessionStorage.removeItem('row_data');
     } else if( mode === "modify"){
@@ -63,8 +77,14 @@ let objectInfo = function (mode = "modify", row_data) {
         $('#car_number').val(row_data.CarNum);
         $('#driver_name').val(row_data.CT_DriverName);
         $('#driver_phone').val(row_data.CT_DriverPhone);
-        $("#py_start").val(row_data.CT_DepartureTe);
-        $("#se_start").val(row_data.CT_ReturnTe);
+        // $("#py_start").val(row_data.CT_DepartureTe);
+        // $("#se_start").val(row_data.CT_ReturnTe);
+        $('#py_start_check').val(row_data.CT_PyStart);
+        $('#se_start_check').val(row_data.CT_SeStart);
+
+        py_start_instance.option("value", row_data.CT_DepartureTe);
+        se_start_instance.option("value", row_data.CT_ReturnTe);
+
         sessionStorage.setItem('row_data', JSON.stringify(row_data) );
     }
 }
@@ -153,6 +173,8 @@ let tableInit = function (data) {
             row_data.CT_DriverPhone = e.data.CT_DriverPhone;
             row_data.CT_DepartureTe = e.data.CT_DepartureTe;
             row_data.CT_ReturnTe = e.data.CT_ReturnTe;
+            row_data.CT_PyStart = e.data.CT_PyStart;
+            row_data.CT_SeStart = e.data.CT_SeStart;
             if($('.brand_info').css('display') == 'none'){
                 folding();
             }
@@ -267,10 +289,10 @@ $(document).ready(()=>{
 // 검색창 초기화
 function resetSearch() {
     // $(".select2").val(null).trigger('change');
-    // let ad_duration_start_instance = $(".object-search-popup .ad_duration_start").dxDateBox("instance"),
-    // ad_duration_final_instance = $(".object-search-popup .ad_duration_final").dxDateBox("instance");
-    // ad_duration_start_instance.reset();
-    // ad_duration_final_instance.reset();
+    let search_py_start_instance = $(".object-info .search_py_start").dxDateBox("instance"),
+    search_se_start_instance = $(".object-info .search_se_start").dxDateBox("instance");
+    search_py_start_instance.reset();
+    search_se_start_instance.reset();
 }
 
 
@@ -283,8 +305,10 @@ function saveAD(){
         car_num : $("#car_number").val(),
         driver_name : $('#driver_name').val(),
         driver_phone : $('#driver_phone').val(),
-        py_start : $('#py_start').val(),
-        se_start : $('#se_start').val()
+        py_start : $(".object-info .py_start").dxDateBox("instance").option().value,
+        se_start : $(".object-info .se_start").dxDateBox("instance").option().value,
+        py_start_check : $("#py_start_check option:selected").attr('value'),
+        se_start_check : $("#se_start_check option:selected").attr('value')
     }
 
     // console.log('updat22222e :',update_data);
@@ -347,8 +371,10 @@ function updateAD(){
         car_num : $("#car_number").val(),
         driver_name : $('#driver_name').val(),
         driver_phone : $('#driver_phone').val(),
-        py_start : $('#py_start').val(),
-        se_start : $('#se_start').val()
+        py_start : $(".object-info .py_start").dxDateBox("instance").option().value,
+        se_start : $(".object-info .se_start").dxDateBox("instance").option().value,
+        py_start_check : $("#py_start_check option:selected").attr('value'),
+        se_start_check : $("#se_start_check option:selected").attr('value')
     }
 
     let form_data = new FormData(document.forms[0]);
@@ -383,33 +409,19 @@ $(".action-btns .btn").click(clickActionBtn);
 // 상세 검색 버튼 기능
 // 초기화
 function searchPopupReset(){
-    // $("#object-search-popup .select2").val(null).trigger('change');
-    // let ad_duration_start_instance = $("#object-search-popup .ad_duration_start").dxDateBox("instance"),
-    // ad_duration_final_instance = $("#object-search-popup .ad_duration_final").dxDateBox("instance");
-    // ad_duration_start_instance.reset();
-    // ad_duration_final_instance.reset();
-    // $("#object-search-popup .inputAdTitle").val('');
-    $('#search_login_id').val('');
-    $('#search_login_pw').val('');
-    $('#search_ceo_name').val('');
-    $('#search_ceo_phone').val('');
-    $("#search_lv1_category").val('null');
-    $("#search_lv2_category").val('null');
-    $('#search_floor').val('null');
-    $('#search_store_number').val('null');
-    $('#search_brand_ko').val('');
-    $('#search_brand_contents_ko').val('');
-    $('#search_brand_contents_en').val('');
-    $('#search_brand_phone').val('');
-    $('#search_address').val('');
-    $('#search_detailAddress').val('');
-    $('#search_main_open').val('');
-    $('#search_main_close').val('');
-    $('#search_sub_open').val('');
-    $('#search_sub_close').val('');
-    $('#search_break_open').val('');
-    $('#search_break_close').val('');
-    $('#search_personal_day_ko').val('');
+    let search_py_start_instance = $("#object-search-popup .search_py_start").dxDateBox("instance"),
+    search_se_start_instance = $("#object-search-popup .search_se_start").dxDateBox("instance");
+    search_py_start_instance.reset();
+    search_se_start_instance.reset();
+
+    $('#search_business_list').val('null');
+    $('#search_car_number').val('');
+    $('#search_driver_name').val('');
+    $('#search_driver_phone').val('');
+    // $("#search_py_start").val('');
+    // $("#search_se_start").val('');
+    $('#search_py_start_check').val('null');
+    $('#search_se_start_check').val('null');
 }
 // 닫기
 function searchPopupClose() {
@@ -426,32 +438,19 @@ function searchPopupAction() {
     
     let condition_data = {
         searchType : $("#object_search_info #searchType").is(":checked"),
-        bsLoginId : $("#search_login_id").val(),
-        bsCeo : $("#search_ceo_name").val(),
-        bsCeoPhone : $('#search_ceo_phone').val(),
-        bsBcId : $("#search_lv1_category").val(),
-        bsBcId2 : $("#search_lv2_category").val(),
-        bsStoreNumber : $('#search_store_number').val(),
-        bsFloor : $('#search_floor').val(),
-        bsNameKo : $('#search_brand_ko').val(),
-        bsContentsKo : $('#search_brand_contents_ko').val(),
-        bsPhone : $('#search_brand_phone').val(),
-        bsAddr1Ko : $('#search_address').val(), 
-        bsAddr2Ko : $('#search_detailAddress').val(),
-        bsMainOpen : $('#search_main_open').val(),
-        bsMainClose : $('#search_main_close').val(),
-        bsSubOpen : $('#search_sub_open').val(),
-        bsSubClose : $('#search_sub_close').val(),
-        bsBreakOpen : $('#search_break_open').val(),
-        bsBreakClose : $('#search_break_close').val(),
-        bsPersonalKo : $('#search_personal_day_ko').val(),
-        
+        cy_id : $("#search_business_list option:selected").attr('value'),
+        car_num : $("#search_car_number").val(),
+        driver_name : $('#search_driver_name').val(),
+        driver_phone : $('#search_driver_phone').val(),
+        py_start : $("#object-search-popup .search_py_start").dxDateBox("instance").option().value,
+        se_start : $("#object-search-popup .search_se_start").dxDateBox("instance").option().value,
+        py_start_check : $("#search_py_start_check option:selected").attr('value'),
+        se_start_check : $("#search_se_start_check option:selected").attr('value'),
     };
-    console.log(condition_data);
     $.ajax({
         type : "GET",
         dataType : 'JSON',
-        url : '/api/brandListOverLap?type=admin',
+        url : '/api/vehicle?type=search',
         data : condition_data,
         success : function (res) {
             
@@ -469,26 +468,3 @@ function folding(){
     
     
 }
-
-//데이트 피커
-const example = {
-    data() {
-        const min = new Date()
-        min.setDate(min.getDate() - 7)
-        min.setHours(9)
-        min.setMinutes(0)
-        min.setSeconds(0)
-        const max = new Date()
-        max.setDate(max.getDate() + 70)
-        max.setHours(18)
-        max.setMinutes(0)
-        max.setSeconds(0)
-        return {
-            minDatetime: min,
-            maxDatetime: max
-        }
-    }
-}
-
-const app = new Vue(example)
-app.$mount('#app')

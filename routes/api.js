@@ -4034,23 +4034,67 @@ router.get('/vehicle',function(req,res){
     let query = `SELECT * FROM tCT 
                     INNER JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
                     INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID`
+    let req_type = req.query.type
+
+    if(req_type === 'search'){
+        let condition_list = [];
+        if( req.query.cy_id != 'null'){
+            condition_list.push(`CT_CY_ID = ${req.query.cy_id}`);
+        }
+        if( req.query.car_num ){
+            condition_list.push(`CT_CarNum like '%${req.query.car_num}%'`);
+        }
+        if( req.query.driver_name ){
+            condition_list.push(`CT_DriverName like '%${req.query.driver_name}%'`);
+        }
+        if( req.query.driver_phone ){
+            condition_list.push(`CT_DriverPhone like '%${req.query.driver_phone}%'`);
+        }
+        if( req.query.py_start ){
+            condition_list.push(`CT_DepartureTe like '%${req.query.py_start}%'`);
+        }
+        if( req.query.se_start ){
+            condition_list.push(`CT_ReturnTe like '%${req.query.se_start}%'`);
+        }
+        if( req.query.py_start_check != 'null'){
+            condition_list.push(`CT_PyStart = '${req.query.py_start_check}'`);
+        }
+        if( req.query.se_start_check != 'null' ){
+            condition_list.push(`CT_SeStart = '${req.query.se_start_check}'`);
+        }
+
+        let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
+        if( condition_list.length > 0){
+            let condition_stmt = ' WHERE '+condition_list.join(searchType);
+            query += condition_stmt;
+        }
+        connection.query(query,
+            function(err,rows){
+                if(err) throw err;
+                res.json({data : rows});
+        })
+
+    }else{
+        connection.query(query,
+            function(err,rows){
+                if(err) throw err;
+                res.json({data : rows});
+        })
+    }
     
-    connection.query(query,
-        function(err,rows){
-            if(err) throw err;
-            res.json({data : rows});
-    })
+
 })
 
 router.get('/business_list',function(req,res){
     let query = `SELECT * FROM tCY
                 INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID`
-    
+
     connection.query(query,
         function(err,rows){
             if(err) throw err;
             res.json({data : rows});
     })
+
 })
 
 //배차 등록
@@ -4061,18 +4105,22 @@ router.post('/vehicle',async function(req,res){
                     CT_ReturnTe, 
                     CT_CarNum, 
                     CT_DriverName, 
-                    CT_DriverPhone
+                    CT_DriverPhone,
+                    CT_PyStart,
+                    CT_SeStart
                     )
-                VALUES( :cy_id, :py_start, :se_start, :car_num, :driver_name, :driver_phone ) `
+                VALUES( :cy_id, :py_start, :se_start, :car_num, :driver_name, :driver_phone, :py_start_check, :se_start_check) `
 
     let cy_id = req.body.cy_id,
         py_start = req.body.py_start,
         se_start = req.body.se_start,
         car_num = req.body.car_num,
         driver_name = req.body.driver_name,
-        driver_phone = req.body.driver_phone
+        driver_phone = req.body.driver_phone,
+        py_start_check = req.body.py_start_check,
+        se_start_check = req.body.se_start_check
     
-    connection.query(query, { cy_id, py_start, se_start, car_num, driver_name, driver_phone},
+    connection.query(query, { cy_id, py_start, se_start, car_num, driver_name, driver_phone, py_start_check, se_start_check},
         function(err,rows){
             if (err){
                 connection.rollback(function(){
@@ -4099,7 +4147,9 @@ router.put('/vehicle/:ctid',async function(req,res){
                     CT_ReturnTe = :se_start,
                     CT_CarNum = :car_num,
                     CT_DriverName = :driver_name,
-                    CT_DriverPhone = :driver_phone
+                    CT_DriverPhone = :driver_phone,
+                    CT_PyStart = :py_start_check,
+                    CT_SeStart = :se_start_check
                 WHERE CT_ID = :ct_id        
     `
     
@@ -4109,9 +4159,11 @@ router.put('/vehicle/:ctid',async function(req,res){
         se_start = req.body.se_start,
         car_num = req.body.car_num,
         driver_name = req.body.driver_name,
-        driver_phone = req.body.driver_phone
+        driver_phone = req.body.driver_phone,
+        py_start_check = req.body.py_start_check,
+        se_start_check = req.body.se_start_check
     
-    connection.query(query, { cy_id, py_start, se_start, car_num, driver_name, driver_phone, ct_id},
+    connection.query(query, { cy_id, py_start, se_start, car_num, driver_name, driver_phone, py_start_check, se_start_check, ct_id},
         function(err,rows){
             if (err){
                 connection.rollback(function(){
@@ -4182,6 +4234,47 @@ router.delete('/vehicle',async function(req,res){
             });
     })
 });
+
+//예약 관리 리스트
+
+router.get('/reservation_list',function(req,res){
+    let query = `SELECT 
+                    CR_ID,
+                    CR_CT_ID,
+                    CR_U_ID,
+                    U_Name,
+                    U_Email,
+                    U_Phone,
+                    U_Brand,
+                    U_Zip,
+                    U_Addr1,
+                    U_Addr2,
+                    CR_SeatNum,
+                    CR_Price,
+                    CR_ScanPy,
+                    CR_ScanSe,
+                    CR_Cancel,
+                    CR_CancelDt,
+                    CR_cDt,
+                    CT_ID,
+                    CT_DepartureTe,
+                    CT_ReturnTe,
+                    CT_CarNum,
+                    U_uId
+                FROM tCR
+                    INNER JOIN tCT ON tCR.CR_CT_ID = tCT.CT_ID
+                    INNER JOIN tU ON tCR.CR_U_ID = tU.U_ID`
+    
+    connection.query(query,
+        function(err,rows){
+            if(err) throw err;
+            res.json({data : rows});
+    })
+})
+
+
+
+
 
 
 module.exports = router;
