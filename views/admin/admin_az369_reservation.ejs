@@ -26,7 +26,7 @@
 				<div class="col-4">
 					<div class="float-right action-btns action-new">
 						<div name="new" class="btn btn-new px-4" onclick=objectInfo("new")>신규</div>
-						<div name="modify" class="btn btn-modify px-4 disabled">수정</div>
+						<div name="modify" id='modify' class="btn btn-modify px-4 disabled">수정</div>
 						<div name="save" class="btn btn-save px-4">저장</div>
 						<div name="delete" class="btn btn-delete px-4 disabled yr_modal_delete" data-toggle="modal" data-target="#deleteModal">삭제
 						</div>
@@ -53,7 +53,7 @@
 								<input type='number' id='u_id' class='long_box'>
 							</div>
 							<div>
-								<label class='info_name'>CT_ID</label>
+								<label class='info_name'>운송사</label>
 								<select class='long_box' id='ct_id' aria-readonly="true">
 									<option value="null">배차 선택</option>
 								</select>

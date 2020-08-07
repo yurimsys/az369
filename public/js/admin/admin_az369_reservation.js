@@ -1,22 +1,7 @@
 
 $(document).ready(function(){
 
-    $.ajax({
-        method: "get",
-        dataType : "JSON",
-        url: "/api/vehicle/list",
-        success: function (res){
-            for (let i=0; i<res.data.length; i++){
-                let html = "<option value="+res.data[i].CT_ID+" data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
-                $('#ct_id').append(html);
-            }
 
-                let html = "<option value="+res.data[0].B_NAME+">"+res.data[0].B_NAME+"</option>";
-                $('#search_ct_id').append(html);
-            
-
-        }
-    });
 
 
 
@@ -31,10 +16,24 @@ function init(){
         type: "date",
         dateSerializationFormat : "yyyy-MM-dd",
     });
+    // $.ajax({
+    //     method: "get",
+    //     dataType : "JSON",
+    //     url: "/api/vehicle/list?type=default",
+    //     success: function (res){
+    //         // $('#ct_id').empty();
+    //         // let default_html = '<option value="null">배차 선택</option>'
+    //         // $('#ct_id').append(default_html);
+    //         for (let i=0; i<res.data.length; i++){
+    //             let html = "<option value="+res.data[i].CT_ID+" data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+    //             $('#ct_id').append(html);
+    //         }
 
-    // $(".search_py_start, .search_se_start").dxDateBox({
-    //     type: "date",
-    //     dateSerializationFormat : "yyyy-MM-dd",
+    //             let html = "<option value="+res.data[0].B_NAME+">"+res.data[0].B_NAME+"</option>";
+    //             $('#search_ct_id').append(html);
+            
+
+    //     }
     // });
 
 }
@@ -43,6 +42,25 @@ let objectInfo = function (mode = "modify", row_data) {
     let action_btns_instance = $(".object-info .action-btns")
 
     if( mode === "new"){
+        $.ajax({
+            method: "get",
+            dataType : "JSON",
+            url: "/api/vehicle/list?type=default",
+            success: function (res){
+                $('#ct_id').empty();
+                let default_html = '<option value="null">배차 선택</option>'
+                $('#ct_id').append(default_html);
+                for (let i=0; i<res.data.length; i++){
+                    let html = "<option value="+res.data[i].CT_ID+" data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+                    $('#ct_id').append(html);
+                }
+    
+                    let html = "<option value="+res.data[0].B_NAME+">"+res.data[0].B_NAME+"</option>";
+                    $('#search_ct_id').append(html);
+            }
+        });
+
+
         if($('.brand_info').css('display') == 'none'){
             folding();
         }
@@ -76,7 +94,7 @@ let objectInfo = function (mode = "modify", row_data) {
         $("#py_scan").val('null');
         $("#se_scan").val('null');
         $('#res_day').val('');
-
+        // init();
         sessionStorage.removeItem('row_data');
     } else if( mode === "modify"){
         // console.log('row_data',row_data);
@@ -156,6 +174,21 @@ let tableInit = function (data) {
             selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
         },
         onRowClick : function(e) {
+            console.log('goood?',e.data.CR_CT_ID);
+            $.ajax({
+                method: "get",
+                dataType : "JSON",
+                url: "/api/vehicle/list",
+                success: function (res){
+                    
+                    for (let i=0; i<res.data.length; i++){
+                        let html = "<option value="+res.data[i].CT_ID+" data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+                        $('#ct_id').append(html);
+                    }
+        
+                }
+            });
+            // init();
             // console.log('row click', e.data);
             // selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
             e.rowElement.css("border-left", "2px solid #f2f2f2");
@@ -474,7 +507,6 @@ function searchPopupAction() {
         
         
     };
-    console.log(condition_data);
     $.ajax({
         type : "GET",
         dataType : 'JSON',
@@ -494,9 +526,9 @@ function searchPopupAction() {
 function folding(){
     $('#object_detail_group').slideToggle('fast')
     
-    
 }
 
+//좌석금액 불러오기
 var selected_seats = [];
 var selected_seats_cnt = 0;
 var seatPrice = 0;
@@ -505,7 +537,6 @@ let now_location = 'default';
 function openBus(busSeat) {
     var firstSeatLabel = 1;
     let user_id = busSeat;
-    //좌석금액 불러오기
 
     $('.seat-map').seatCharts({
             map: [

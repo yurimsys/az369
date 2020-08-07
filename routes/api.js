@@ -4033,6 +4033,7 @@ router.put('/bus_cancel', (req, res, done) =>{
 router.get('/vehicle',function(req,res){
     let query = `SELECT 
                     CT_ID,
+                    CY_ID,
                     (SELECT COUNT(CR_SeatNum) FROM tcr  WHERE CR_Cancel = 'N' 
                     AND tcr.CR_CT_ID = tct.CT_ID) AS COUNT,
                     CT_CY_ID,
@@ -4380,8 +4381,13 @@ router.get('/vehicle/list', function(req,res){
                 FROM tct 
                     INNER JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
                     INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID
-                WHERE tCT.CT_DepartureTe > DATE_ADD(NOW(),INTERVAL -40 HOUR_MINUTE)
-                AND tCT.CT_PyStart = 'N'`
+                WHERE tCT.CT_PyStart = 'N'`
+    if(req.query.type === 'default'){
+        query += ' AND tCT.CT_DepartureTe > DATE_ADD(NOW(),INTERVAL -40 HOUR_MINUTE)'
+    }else{
+        query = query;
+    }
+
     connection.query(query,
         function(err, rows){
             if(err) throw err;
@@ -4474,12 +4480,18 @@ router.put('/reservation/:crid', async function(req,res){
                     CR_Cancel = :cr_cancel,
                     CR_ScanPy = :py_scan,
                     CR_ScanSe = :se_scan
-                WHERE CR_ID = :cr_id
+                
                     `
     let cr_cancel = req.body.cr_cancel,
         py_scan = req.body.py_scan,
         se_scan = req.body.se_scan,
         cr_id = req.params.crid;
+
+    if(cr_cancel === 'Y'){
+        query += ',CR_CancelDt = now() WHERE CR_ID = :cr_id';
+    }else{
+        query += ' WHERE CR_ID = :cr_id';
+    }
 
     connection.query(query, {cr_cancel, py_scan, se_scan, cr_id},
         function(err, rows){

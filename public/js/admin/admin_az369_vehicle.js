@@ -1,11 +1,6 @@
 
 $(document).ready(function(){
 
-
-
-
-
-    
     init();
 }) 
 function init(){
@@ -66,7 +61,7 @@ let objectInfo = function (mode = "modify", row_data) {
 
         sessionStorage.removeItem('row_data');
     } else if( mode === "modify"){
-        // console.log('row_data',row_data);
+        console.log('row_data',row_data);
         action_btns_instance.removeClass('action-new');
         action_btns_instance.addClass('action-modify');
         
