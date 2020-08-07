@@ -615,6 +615,22 @@ router.get('/benefit_4', function(req, res, next) {
     res.render('benefit_list04', { sessionUser : req.user });
 });
 
+// footer 버튼 이동 페이지
+// 서비스 이용약관
+router.get('/', function(req, res, next) {
+    res.render('service');
+});
+
+// 개인정보처리방침
+router.get('/privacy', function(req, res, next) {
+    res.render('privacy');
+});
+
+// 환불규정
+router.get('/refund', function(req, res, next) {
+    res.render('refund');
+});
+
 //테스트
 router.get('/daytest', function(req, res, next) {
     res.render('daytest', { sessionUser : req.user });
@@ -642,21 +658,7 @@ router.get('/video/:currentPage', function(req, res, next) {
       });
 });
 
-// footer 버튼 이동 페이지
-// 서비스 이용약관
-router.get('/service', function(req, res, next) {
-    res.render('service');
-});
 
-// 개인정보처리방침
-router.get('/privacy', function(req, res, next) {
-    res.render('privacy');
-});
-
-// 환불규정
-router.get('/refund', function(req, res, next) {
-    res.render('refund');
-});
 
 
 
