@@ -26,7 +26,7 @@
 				<div class="col-4">
 					<div class="float-right action-btns action-new">
 						<div name="new" class="btn btn-new px-4" onclick=objectInfo("new")>신규</div>
-						<div name="modify" class="btn btn-modify px-4 disabled">수정</div>
+						<div name="modify" id='modify' class="btn btn-modify px-4 disabled">수정</div>
 						<div name="save" class="btn btn-save px-4">저장</div>
 						<div name="delete" class="btn btn-delete px-4 disabled yr_modal_delete" data-toggle="modal" data-target="#deleteModal">삭제
 						</div>
@@ -39,61 +39,103 @@
 
 		<div id="object_detail_group" class="brand_info">
 			<form enctype="multipart/form-data">
-			<!-- 좌측 -->
+				<!-- 좌측 -->
 				<div class='info_left'>
-					
-					<div>
-						<label class='info_name'>운송사명</label>
-						<!-- <span id="ad_id"></span> -->
-						<select class='long_box' id="business_list">
-							<option value='null'>운송사 선택</option>
-						</select>
-						<!-- <input type='text' id='business_id' class='long_box'> -->
+					<!-- 새로이 등록하는 항목 -->
+					<div id='new_test'>
+							<div>
+								<label class='info_name'>CR_ID</label>
+								<!-- <span id="ad_id"></span> -->
+								<input type='text' id='cr_id' class='long_box' readonly>
+							</div>
+							<div>
+								<label class='info_name'>U_ID</label>
+								<input type='number' id='u_id' class='long_box'>
+							</div>
+							<div>
+								<label class='info_name'>운송사</label>
+								<select class='long_box' id='ct_id' aria-readonly="true">
+									<option value="null">배차 선택</option>
+								</select>
+							</div>
+							<div>
+								<label class='info_name'>좌석번호</label>
+								<!-- <span id="ad_id"></span> -->
+								<input type='number' id='seat_num' class='long_box'>
+							</div>
 					</div>
-					<div>
-						<label class='info_name'>차량번호</label>
-						<input type='text' id='car_number' class='long_box'>
-					</div>
-					<div>
-						<label class='info_name'>기사명</label>
-						<input type='text' id='driver_name' class='long_box'>
-					</div>
-					<div>
-						<label class='info_name'>기사번호</label>
-						<!-- <span id="ad_id"></span> -->
-						<input type='number' id='driver_phone' class='long_box'>
-					</div>
+					<!-- 등록 여기까지 -->
+					<!-- <div> -->
+						<div id='new_test2'>
+							<hr class="info_line">
+							<div>
+								<label class='info_name'>좌석금액</label>
+								<input type="text" id='seat_price' class='long_box'  readonly>
+							</div>
+							<div>
+								<label class='info_name'>회원 이름</label>
+								<input type='text' id='user_name' class='long_box' readonly>
+							</div>
+
+						</div>
 				</div>
-			<!-- 중간 -->
-				<div class='info_center'>
-					
-					<div style="display: inline-flex;">
-						<label class='info_name' style="width: 40%;">평택 출발시간</label>	
-						<div type="" class="form-control inputAdTitle py_start" id="py_start" style="width: 300px;"></div>
-						<!-- <input type='text' id='py_start' class='long_box py_start'> -->
-					</div>
-					<div style="display: inline-flex;">
-						<label class='info_name' style="width: 40%;">서울 출발시간</label>
-						<div type="" class="form-control inputAdTitle se_start" id="se_start" style="width: 300px;"></div>
-						<!-- <input type='text' id='se_start' class='long_box se_start'> -->
-					</div>
-				</div>
-				<div class='info_right'>
-					<div>
-						<label class='info_name'>평택 출발확인</label>
-						<select class='long_box' id="py_start_check">
-							<option value='N'>N</option>
-							<option value='Y'>Y</option>
-						</select>
-					</div>
-					<div>
-						<label class='info_name'>서울 출발확인</label>
-						<select class='long_box' id="se_start_check">
-							<option value='N'>N</option>
-							<option value='Y'>Y</option>
-						</select>
-					</div>
-				</div>
+					<!-- 중간 -->
+						<div class='info_center'>
+							<div>
+								<label class='info_name'>회원 전화번호</label>
+								<input type='text' id='user_phone' class='long_box' readonly>
+							</div>
+							<div>
+								<label class='info_name'>회원 브랜드</label>
+								<input type='text' id='user_brand' class='long_box' readonly>
+							</div>
+							<div>
+								<label class='info_name'>회원주소</label>
+								<input type="text" id='user_addr1' class='long_box' readonly>
+							</div>
+							<div>
+								<label class='info_name'>상세주소</label>
+								<input type="text" id='user_addr2' class='long_box' readonly>
+							</div>
+							<hr class="info_line">
+							<div>
+								<label class='info_name'>평택 출발시간</label>
+								<input type="text" class='long_box' id='py_start' readonly>
+							</div>
+							<div>
+								<label class='info_name'>서울 출발시간</label>
+								<input type="text" class='long_box' id='se_start' readonly>
+							</div>
+						</div>
+						<div class='info_right'>
+							<div>
+								<label class='info_name'>예매일</label>
+								<input type="text" class='long_box' id='res_day' readonly>
+							</div>
+							<div>
+								<label class='info_name'>취소여부</label>
+								<select class='long_box' id='cr_cancel'>
+									<option value="Y">Y</option>
+									<option value="N">N</option>
+								</select>
+							</div>
+
+							<div>
+								<label class='info_name'>평택스캔</label>
+								<select class='long_box' id='py_scan'>
+									<option value="Y">Y</option>
+									<option value="N">N</option>
+								</select>
+							</div>
+							<div>
+								<label class='info_name'>서울스캔</label>
+								<select class='long_box' id='se_scan'>
+									<option value="Y">Y</option>
+									<option value="N">N</option>
+								</select>
+							</div>
+						</div>
+					<!-- </div> -->
 			</form>
 		</div>
 	</div>
@@ -211,67 +253,101 @@
 				</div>
 			</div>
 			<div class="form-group row">
+				<label class="col-3 col-form-label">회원 이름</label>
+				<div class="col-9">
+					<input type="text" class="form-control inputAdTitle" id="search_user_name">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">회원 전화번호</label>
+				<div class="col-9">
+					<input type="number" class="form-control inputAdTitle" id="search_user_phone">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">회원브랜드</label>
+				<div class="col-9">
+					<input type="text" class="form-control inputAdTitle" id="search_user_brand">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">회원주소</label>
+				<div class="col-9">
+					<input type="text" class="form-control inputAdTitle" id="search_user_addr1">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">상세주소</label>
+				<div class="col-9">
+					<input type="text" class="form-control inputAdTitle" id="search_user_addr2">
+				</div>
+			</div>
+			<div class="form-group row">
 				<label class="col-3 col-form-label">운송사명</label>
 				<div class="col-9">
-					<select id='search_business_list' class="form-control select2" style="width:100%">
-						<option value="null">대분류 선택</option>
+					<select id='search_ct_id' class="form-control select2" style="width:100%">
+						<option value="null">선택</option>
 					</select>
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">차량번호</label>
+				<label class="col-3 col-form-label">좌석번호</label>
 				<div class="col-9">
-					<input type="text" class="form-control inputAdTitle" id="search_car_number">
+					<input type="number" class="form-control inputAdTitle" id="search_seat_num">
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">기사명</label>
+				<label class="col-3 col-form-label">좌석금액</label>
 				<div class="col-9">
-					<input type="text" class="form-control inputAdTitle" id="search_driver_name">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label class="col-3 col-form-label">기사번호</label>
-				<div class="col-9">
-					<input type="number" class="form-control inputAdTitle" id="search_driver_phone">
-				</div>
-
-			</div>
-			<div class="form-group row">
-				<label class="col-3 col-form-label">평택 출발시간</label>
-				<div class="col-9">
-					<div type=""  class="form-control inputAdTitle search_py_start" id="search_py_start"></div>
-					<!-- <input type="number" class="form-control inputAdTitle search_py_start" id="search_py_start"> -->
-				</div>
-
-			</div>
-			<div class="form-group row">
-				<label class="col-3 col-form-label">서울 출발시간</label>
-				<div class="col-9">
-					<div type="" class="form-control inputAdTitle search_se_start" id="search_se_start"></div>
-					<!-- <input type="number" class="form-control inputAdTitle search_se_start" id="search_se_start"> -->
+					<input type="number" class="form-control inputAdTitle" id="search_seat_price">
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label class="col-3 col-form-label">평택 출발확인</label>
+				<label class="col-3 col-form-label">예매일</label>
 				<div class="col-9">
-					<!-- <input type="hidden" class="form-control select2 selectAdType" style="width:100%;"/> -->
-					<select id='search_py_start_check' class="form-control select2" style="width:100%">
-						<option value='null'>선택</option>
-						<option value='Y'>Y</option>
-						<option value='N'>N</option>
+					<div type="" class="form-control col search_res_day" id="search_res_day"></div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">평택 출발날짜</label>
+				<div class="col-9">
+					<div type="" class="form-control col search_py_start" id="search_py_start"></div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">서울 출발날짜</label>
+				<div class="col-9">
+					<div type="" class="form-control col search_se_start" id="search_se_start"></div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">취소여부</label>
+				<div class="col-9">
+					<select id='search_cr_cancel' class="form-control select2" style="width:100%">
+						<option value="null">선택</option>
+						<option value="Y">Y</option>
+						<option value="N">N</option>
 					</select>
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">서울 출발확인</label>
+				<label class="col-3 col-form-label">평택 스캔확인</label>
 				<div class="col-9">
-					<!-- <input type="hidden" class="form-control select2 selectAdType" style="width:100%;"/> -->
-					<select id='search_se_start_check' class="form-control select2" style="width:100%">
-						<option value='null'>선택</option>
-						<option value='Y'>Y</option>
-						<option value='N'>N</option>
+					<select id='search_py_scan' class="form-control select2" style="width:100%">
+						<option value="null">선택</option>
+						<option value="Y">Y</option>
+						<option value="N">N</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">서울 스캔확인</label>
+				<div class="col-9">
+					<select id='search_se_scan' class="form-control select2" style="width:100%">
+						<option value="null">선택</option>
+						<option value="Y">Y</option>
+						<option value="N">N</option>
 					</select>
 				</div>
 			</div>
@@ -309,10 +385,8 @@
 		</div>
 	</div>
 </div>
-
-
 <%- contentFor('FooterJs') %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.0.1/exceljs.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
-<script src="/js/admin/admin_az369_vehicle.js"></script>
+<script src="/js/admin/admin_az369_reservation.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.2/jszip.min.js"></script> -->

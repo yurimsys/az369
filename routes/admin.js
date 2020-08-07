@@ -92,8 +92,21 @@ router.get('/az369_vehicle', function(req, res, next) {
     
 });
 
+//장차 예약 관리 테이블
+router.get('/az369_reservation', function(req, res, next) {
 
-//비지니스 테이블
+    var pageSetting = {
+        title: '예약 관리',
+        description: '장차서비스 예약 관리페이지',
+        layout: 'admin/templates/admin_layout'
+    };
+    res.render('admin/admin_az369_reservation',pageSetting);
+    
+});
+
+
+
+//장차 운송사 테이블
 router.get('/az369_business', auth.isLoggedIn, function(req, res, next) {
     if(req.user.U_isAdmin === 'n'){
         res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
@@ -106,6 +119,18 @@ router.get('/az369_business', auth.isLoggedIn, function(req, res, next) {
         res.render('admin/admin_az369_business',pageSetting);
     }
 });
+
+//장차 회원 관리
+router.get('/az369_user', function(req, res) {
+
+    var pageSetting = {
+        title: '회원 관리',
+        description: '장차서비스 회원 관리페이지',
+        layout: 'admin/templates/admin_layout'
+    };
+    res.render('admin/admin_az369_user',pageSetting);
+});
+
 
 
 //비지니스 테이블

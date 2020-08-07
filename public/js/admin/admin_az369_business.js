@@ -621,6 +621,3 @@ function folding(){
     
 }
 
-$(function() {
-    $('.timepicker').timepicker();
-});

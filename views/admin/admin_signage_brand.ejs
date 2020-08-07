@@ -140,29 +140,30 @@
 
 			<!-- 우측 -->
 				<div class='info_right'>
-					<div>
-						<label class='info_name'>평일 영업시간</label>
-						<input type='text' class='short_box timepicker' id='main_open'>
+					<div style="display: inline-flex;">
+						<label class='info_name' style="width: 95%;">평일 영업시간</label>
+						<div type="" class="form-control inputAdTitle main_open" id="main_open"></div>
 						&nbsp;~&nbsp;
-						<input type="text" class='short_box timepicker' id='main_close'>
+						<div type="" class="form-control inputAdTitle main_close" id="main_close"></div>
 					</div>
-					<div>
-						<label class='info_name'>주말 영업시간</label>
-						<input type='text' class='short_box timepicker' id='sub_open'>
+					<div style="display: inline-flex;">
+						<label class='info_name' style="width: 95%;">주말 영업시간</label>
+						<div type="" class="form-control inputAdTitle sub_open" id="sub_open"></div>
 						&nbsp;~&nbsp;
-						<input type="text" class='short_box timepicker' id='sub_close'>
+						<div type="" class="form-control inputAdTitle sub_close" id="sub_close"></div>
 					</div>
-					<div >
-						<label class='info_name'>점심시간</label>
-						<input type='text' class='short_box timepicker' id='break_open'>
+					<div style="display: inline-flex;">
+						<label class='info_name' style="width: 95%;">점심시간</label>
+						<div type="" class="form-control inputAdTitle break_open" id="break_open"></div>
+						<!-- <input type='text' class='short_box timepicker' id='break_open'> -->
 						&nbsp;~&nbsp;
-						<input type="text" class='short_box timepicker' id='break_close'>
+						<div type="" class="form-control inputAdTitle break_close" id="break_close"></div>
 					</div>
 					<div>
 						<label class='info_name'>휴무일</label>
-						<input type='text' class='long_box timepicker' id='personal_day_ko' placeholder="한글">
+						<input type='text' class='long_box' id='personal_day_ko' placeholder="한글">
 						<label class='info_name'></label>
-						<input type="text" class='long_box timepicker' id='personal_day_en' placeholder="영문">
+						<input type="text" class='long_box' id='personal_day_en' placeholder="영문">
 					</div>
 					<hr class='info_line'>
 					<div>
@@ -330,7 +331,6 @@
 						<option value="null">대분류 선택</option>
 					</select>
 				</div>
-
 			</div>
 			<div class="form-group row">
 				<label class="col-3 col-form-label">중분류</label>
@@ -394,25 +394,26 @@
 			<div class="form-group row">
 				<label class="col-3 col-form-label">평일 오픈</label>
 				<div class="col-9 form-row mx-0">
-					<input type="text" id='search_main_open' class="form-control col timepicker">
+					<div type="" class="form-control inputAdTitle search_main_open" id="search_main_open"></div>
 					<span class="col-1 text-center">&#126;</span>
-					<input type="text" id='search_main_close' class="form-control col timepicker">
+					<div type="" class="form-control inputAdTitle search_main_close" id="search_main_close"></div>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-3 col-form-label">주말 오픈</label>
 				<div class="col-9 form-row mx-0">
-					<input type="" id='search_sub_open' class="form-control col timepicker">
+					<div type="" class="form-control inputAdTitle search_sub_open" id="search_sub_open"></div>
+					<!-- <input type="" id='search_sub_open' class="form-control col timepicker"> -->
 					<span class="col-1 text-center">&#126;</span>
-					<input type="" id='search_sub_close' class="form-control col timepicker">
+					<div type="" class="form-control inputAdTitle search_sub_close" id="search_sub_close"></div>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-3 col-form-label">점심시간</label>
 				<div class="col-9 form-row mx-0">
-					<input type="" id='search_break_open' class="form-control col timepicker">
+					<div type="" class="form-control inputAdTitle search_break_open" id="search_break_open"></div>
 					<span class="col-1 text-center">&#126;</span>
-					<input type="" id='search_break_close' class="form-control col timepicker">
+					<div type="" class="form-control inputAdTitle search_break_close" id="search_break_close"></div>
 				</div>
 			</div>
 			<div class="form-group row">

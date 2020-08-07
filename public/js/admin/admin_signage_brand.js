@@ -47,6 +47,12 @@ $(document).ready(function(){
     init();
 }) 
 function init(){
+    // 광고기간 DateBox
+    $(".main_open, .main_close, .sub_open, .sub_close, .break_open, .break_close, .search_main_open, .search_main_close, .search_sub_open, .search_sub_close, .search_break_open, .search_break_close").dxDateBox({
+        type: "time",
+        displayFormat: 'HH:mm',
+        dateSerializationFormat : "HH:mm",
+    });
 
     // 신규모드로 실행
     objectInfo("new");
@@ -54,8 +60,12 @@ function init(){
 
 let objectInfo = function (mode = "modify", row_data) {
     let action_btns_instance = $(".object-info .action-btns"),
-        ad_duration_start_instance = $(".object-info .ad_duration_start").dxDateBox("instance"),
-        ad_duration_final_instance = $(".object-info .ad_duration_final").dxDateBox("instance");
+        main_open_instance = $(".object-info .main_open").dxDateBox("instance"),
+        main_close_instance = $(".object-info .main_close").dxDateBox("instance"),
+        sub_open_instance = $(".object-info .sub_open").dxDateBox("instance"),
+        sub_close_instance = $(".object-info .sub_close").dxDateBox("instance"),
+        break_open_instance = $(".object-info .break_open").dxDateBox("instance"),
+        break_close_instance = $(".object-info .break_close").dxDateBox("instance");
 
     if( mode === "new"){
         if($('.brand_info').css('display') == 'none'){
@@ -85,16 +95,16 @@ let objectInfo = function (mode = "modify", row_data) {
         $('#detailAddress').val('');
         $('#address_en').val('');
         $('#detail_address_en').val('');
-        $('#main_open').val('');
-        $('#main_close').val('');
-        $('#sub_open').val('');
-        $('#sub_close').val('');
-        $('#break_open').val('');
-        $('#break_close').val('');
         $('#personal_day_ko').val('');
         $('#personal_day_en').val('');
         $('#img_url').text('');
         $('#tumb_url').text('');
+        main_open_instance.reset()
+        main_close_instance.reset()
+        sub_open_instance.reset() 
+        sub_close_instance.reset() 
+        break_open_instance.reset() 
+        break_close_instance.reset()
 
         // ad_duration_start_instance.reset();
         // ad_duration_final_instance.reset();
@@ -124,16 +134,24 @@ let objectInfo = function (mode = "modify", row_data) {
         $('#detailAddress').val(row_data.detailAddress);
         $('#address_en').val(row_data.address_en);
         $('#detail_address_en').val(row_data.detail_address_en);
-        $('#main_open').val(row_data.main_open);
-        $('#main_close').val(row_data.main_close);
-        $('#sub_open').val(row_data.sub_open);
-        $('#sub_close').val(row_data.sub_close);
-        $('#break_open').val(row_data.break_open);
-        $('#break_close').val(row_data.break_close);
+        // $('#main_open').val(row_data.main_open);
+        // $('#main_close').val(row_data.main_close);
+        // $('#sub_open').val(row_data.sub_open);
+        // $('#sub_close').val(row_data.sub_close);
+        // $('#break_open').val(row_data.break_open);
+        // $('#break_close').val(row_data.break_close);
         $('#personal_day_ko').val(row_data.personal_day_ko);
         $('#personal_day_en').val(row_data.personal_day_en);
         $('#img_url').text(row_data.img_url)
         $('#tumb_url').text(row_data.tumb_url)
+        
+        main_open_instance.option("value", row_data.main_open);
+        main_close_instance.option("value", row_data.main_close); 
+        sub_open_instance.option("value", row_data.sub_open); 
+        sub_close_instance.option("value", row_data.sub_close);
+        break_open_instance.option("value", row_data.break_open); 
+        break_close_instance.option("value", row_data.break_close);
+
         sessionStorage.setItem('row_data', JSON.stringify(row_data) );
     }
 }
@@ -209,7 +227,7 @@ let tableInit = function (data) {
         },
 
         onRowClick : function(e) {
-            console.log('row click', e.data);
+            // console.log('row click', e.data);
             // selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
             e.rowElement.css("border-left", "2px solid #f2f2f2");
 
@@ -402,12 +420,12 @@ function saveAD(){
         bsAddr2Ko : $('#detailAddress').val(),
         bsAddr1En : $('#address_en').val(), 
         bsAddr2En : $('#detail_address_en').val(), 
-        bsMainOpen : $('#main_open').val(),
-        bsMainClose : $('#main_close').val(),
-        bsSubOpen : $('#sub_open').val(),
-        bsSubClose : $('#sub_close').val(),
-        bsBreakOpen : $('#break_open').val(),
-        bsBreakClose : $('#break_close').val(),
+        bsMainOpen : $(".object-info .main_open").dxDateBox("instance").option().value,
+        bsMainClose : $(".object-info .main_close").dxDateBox("instance").option().value,
+        bsSubOpen : $(".object-info .sub_open").dxDateBox("instance").option().value,
+        bsSubClose : $(".object-info .sub_close").dxDateBox("instance").option().value,
+        bsBreakOpen : $(".object-info .break_open").dxDateBox("instance").option().value,
+        bsBreakClose : $(".object-info .break_close").dxDateBox("instance").option().value,
         bsPersonalKo : $('#personal_day_ko').val(),
         bsPersonalEn : $('#personal_day_en').val(),
         bsStoreNumber : $('#store_number').val()
@@ -487,12 +505,12 @@ function updateAD(){
         bsAddr2Ko : $('#detailAddress').val(),
         bsAddr1En : $('#address_en').val(), 
         bsAddr2En : $('#detail_address_en').val(), 
-        bsMainOpen : $('#main_open').val(),
-        bsMainClose : $('#main_close').val(),
-        bsSubOpen : $('#sub_open').val(),
-        bsSubClose : $('#sub_close').val(),
-        bsBreakOpen : $('#break_open').val(),
-        bsBreakClose : $('#break_close').val(),
+        bsMainOpen : $(".object-info .main_open").dxDateBox("instance").option().value,
+        bsMainClose : $(".object-info .main_close").dxDateBox("instance").option().value,
+        bsSubOpen : $(".object-info .sub_open").dxDateBox("instance").option().value,
+        bsSubClose : $(".object-info .sub_close").dxDateBox("instance").option().value,
+        bsBreakOpen : $(".object-info .break_open").dxDateBox("instance").option().value,
+        bsBreakClose : $(".object-info .break_close").dxDateBox("instance").option().value,
         bsPersonalKo : $('#personal_day_ko').val(),
         bsPersonalEn : $('#personal_day_en').val(),
         bsStoreNumber : $('#store_number').val(),
@@ -534,12 +552,15 @@ $(".action-btns .btn").click(clickActionBtn);
 // 상세 검색 버튼 기능
 // 초기화
 function searchPopupReset(){
-    // $("#object-search-popup .select2").val(null).trigger('change');
-    // let ad_duration_start_instance = $("#object-search-popup .ad_duration_start").dxDateBox("instance"),
-    // ad_duration_final_instance = $("#object-search-popup .ad_duration_final").dxDateBox("instance");
-    // ad_duration_start_instance.reset();
-    // ad_duration_final_instance.reset();
-    // $("#object-search-popup .inputAdTitle").val('');
+    let action_btns_instance = $(".object-search-popup .action-btns"),
+    search_main_open_instance = $(".object-search-popup .search_main_open").dxDateBox("instance"),
+    search_main_close_instance = $(".object-search-popup .search_main_close").dxDateBox("instance"),
+    search_sub_open_instance = $(".object-search-popup .search_sub_open").dxDateBox("instance"),
+    search_sub_close_instance = $(".object-search-popup .search_sub_close").dxDateBox("instance"),
+    search_break_open_instance = $(".object-search-popup .search_break_open").dxDateBox("instance"),
+    search_break_close_instance = $(".object-search-popup .search_break_close").dxDateBox("instance");
+
+
     $('#search_login_id').val('');
     $('#search_login_pw').val('');
     $('#search_ceo_name').val('');
@@ -554,12 +575,13 @@ function searchPopupReset(){
     $('#search_brand_phone').val('');
     $('#search_address').val('');
     $('#search_detailAddress').val('');
-    $('#search_main_open').val('');
-    $('#search_main_close').val('');
-    $('#search_sub_open').val('');
-    $('#search_sub_close').val('');
-    $('#search_break_open').val('');
-    $('#search_break_close').val('');
+    search_main_open_instance.reset();
+    search_main_close_instance.reset();
+    search_sub_open_instance.reset();
+    search_sub_close_instance.reset();
+    search_break_open_instance.reset();
+    search_break_close_instance.reset(); 
+
     $('#search_personal_day_ko').val('');
 }
 // 닫기
@@ -589,12 +611,12 @@ function searchPopupAction() {
         bsPhone : $('#search_brand_phone').val(),
         bsAddr1Ko : $('#search_address').val(), 
         bsAddr2Ko : $('#search_detailAddress').val(),
-        bsMainOpen : $('#search_main_open').val(),
-        bsMainClose : $('#search_main_close').val(),
-        bsSubOpen : $('#search_sub_open').val(),
-        bsSubClose : $('#search_sub_close').val(),
-        bsBreakOpen : $('#search_break_open').val(),
-        bsBreakClose : $('#search_break_close').val(),
+        bsMainOpen : $(".object-search-popup .search_main_open").dxDateBox("instance").option().value,
+        bsMainClose : $(".object-search-popup .search_main_close").dxDateBox("instance").option().value,
+        bsSubOpen : $(".object-search-popup .search_sub_open").dxDateBox("instance").option().value,
+        bsSubClose : $(".object-search-popup .search_sub_close").dxDateBox("instance").option().value,
+        bsBreakOpen : $(".object-search-popup .search_break_open").dxDateBox("instance").option().value,
+        bsBreakClose : $(".object-search-popup .search_break_close").dxDateBox("instance").option().value,
         bsPersonalKo : $('#search_personal_day_ko').val(),
         
     };
@@ -602,7 +624,7 @@ function searchPopupAction() {
     $.ajax({
         type : "GET",
         dataType : 'JSON',
-        url : '/api/brandListOverLap?type=admin',
+        url : '/api/brandListOverLap?type=search',
         data : condition_data,
         success : function (res) {
             
@@ -714,7 +736,3 @@ $('#floor, #search_floor').click(function(event){
 
 
 })
-
-$(function() {
-    $('.timepicker').timepicker();
-});
