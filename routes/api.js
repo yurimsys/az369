@@ -1832,7 +1832,7 @@ router.post('/user/resCarList',(req, res, next) =>{
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID
                 WHERE 
-                    tCT.CT_DepartureTe > NOW()
+                    tCT.CT_DepartureTe > DATE_ADD(NOW(),INTERVAL -40 HOUR_MINUTE)
                 ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`;
 
     connection.query(query,
@@ -2190,7 +2190,7 @@ router.get('/brandListOverLap', function(req, res, next) {
                         `
 
         // 관리 페이지 상세검색
-        if(req_type === 'admin'){
+        if(req_type === 'search'){
             let condition_list = [];
             //아이디
             if(req.query.bsLoginId){
@@ -4031,9 +4031,29 @@ router.put('/bus_cancel', (req, res, done) =>{
 //장차 관리자 페이지 API
 
 router.get('/vehicle',function(req,res){
-    let query = `SELECT * FROM tCT 
-                    INNER JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
-                    INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID`
+    let query = `SELECT 
+                    CT_ID,
+                    (SELECT COUNT(CR_SeatNum) FROM tcr  WHERE CR_Cancel = 'N' 
+                    AND tcr.CR_CT_ID = tct.CT_ID) AS COUNT,
+                    CT_CY_ID,
+                    B_Name,
+                    CT_CarNum,
+                    CY_Ty,
+                    CT_DriverName,
+                    CT_DriverPhone,
+                    CY_SeatPrice,
+                    CT_DepartureTe,
+                    CT_ReturnTe,
+                    CT_PyStart,
+                    CT_SeStart
+                FROM tct 
+                    left JOIN tcr ON tcr.CR_CT_ID = tct.CT_ID
+                    inner JOIN tCY ON tCT.CT_CY_ID = tcy.CY_ID
+                    inner JOIN tB ON tCY.CY_B_ID = tB.B_ID`
+
+    // let query = `SELECT * FROM tCT 
+    //                 INNER JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
+    //                 INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID`
     let req_type = req.query.type
 
     if(req_type === 'search'){
@@ -4066,7 +4086,9 @@ router.get('/vehicle',function(req,res){
         let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
         if( condition_list.length > 0){
             let condition_stmt = ' WHERE '+condition_list.join(searchType);
-            query += condition_stmt;
+            query += condition_stmt + ' GROUP BY tct.CT_ID';
+        }else{
+            query += ' GROUP BY tct.CT_ID';
         }
         connection.query(query,
             function(err,rows){
@@ -4075,6 +4097,7 @@ router.get('/vehicle',function(req,res){
         })
 
     }else{
+        query += ' GROUP BY tct.CT_ID';
         connection.query(query,
             function(err,rows){
                 if(err) throw err;
@@ -4124,19 +4147,22 @@ router.post('/vehicle',async function(req,res){
         function(err,rows){
             if (err){
                 connection.rollback(function(){
+                    console.log('ERROR ! :', err);
                     res.json({data : 300});
-                    throw err;
+                    // throw err;
                 })
+            }else{
+                connection.commit(function(err) {
+                    if (err) {
+                        return connection.rollback(function() {
+                            res.json({data : 300});
+                            throw err;
+                        });
+                    }
+                    res.json({data : 200});    
+                });
             }
-            connection.commit(function(err) {
-                if (err) {
-                    return connection.rollback(function() {
-                        res.json({data : 300});
-                        throw err;
-                    });
-                }
-                res.json({data : 200});    
-            });
+   
     })
 })
 //배차 수정
@@ -4167,19 +4193,21 @@ router.put('/vehicle/:ctid',async function(req,res){
         function(err,rows){
             if (err){
                 connection.rollback(function(){
+                    console.log('ERROR ! :',err);
                     res.json({data : 300});
-                    throw err;
+                    // throw err;
                 })
+            }else{
+                connection.commit(function(err) {
+                    if (err) {
+                        return connection.rollback(function() {
+                            res.json({data : 300});
+                            throw err;
+                        });
+                    }
+                    res.json({data : 200});    
+                });
             }
-            connection.commit(function(err) {
-                if (err) {
-                    return connection.rollback(function() {
-                        res.json({data : 300});
-                        throw err;
-                    });
-                }
-                res.json({data : 200});    
-            });
     })
 })
 
@@ -4193,19 +4221,22 @@ router.delete('/vehicle/:ctid',async function(req,res){
         function(err,rows){
             if (err){
                 connection.rollback(function(){
+                    console.log('ERROR ! :',err);
                     res.json({data : 300});
-                    throw err;
+                    // throw err;
                 })
+            }else{
+                connection.commit(function(err) {
+                    if (err) {
+                        return connection.rollback(function() {
+                            res.json({data : 300});
+                            throw err;
+                        });
+                    }
+                    res.json({data : 200});    
+                });
             }
-            connection.commit(function(err) {
-                if (err) {
-                    return connection.rollback(function() {
-                        res.json({data : 300});
-                        throw err;
-                    });
-                }
-                res.json({data : 200});    
-            });
+
     })
 });
 
@@ -4219,19 +4250,22 @@ router.delete('/vehicle',async function(req,res){
         function(err,rows){
             if (err){
                 connection.rollback(function(){
+                    console.log('ERROR ! :', err);
                     res.json({data : 300});
-                    throw err;
+                    // throw err;
                 })
+            }else{
+                connection.commit(function(err) {
+                    if (err) {
+                        return connection.rollback(function() {
+                            res.json({data : 300});
+                            throw err;
+                        });
+                    }
+                    res.json({data : 200});    
+                });
             }
-            connection.commit(function(err) {
-                if (err) {
-                    return connection.rollback(function() {
-                        res.json({data : 300});
-                        throw err;
-                    });
-                }
-                res.json({data : 200});    
-            });
+
     })
 });
 
@@ -4244,6 +4278,7 @@ router.get('/reservation_list',function(req,res){
                     CR_U_ID,
                     U_Name,
                     U_Email,
+                    B_Name,
                     U_Phone,
                     U_Brand,
                     U_Zip,
@@ -4263,18 +4298,498 @@ router.get('/reservation_list',function(req,res){
                     U_uId
                 FROM tCR
                     INNER JOIN tCT ON tCR.CR_CT_ID = tCT.CT_ID
-                    INNER JOIN tU ON tCR.CR_U_ID = tU.U_ID`
-    
+                    INNER JOIN tU ON tCR.CR_U_ID = tU.U_ID
+                    INNER JOIN tCY ON tCY.CY_ID = tCT.CT_CY_ID
+                    INNER JOIN tB ON tB.B_ID = tCY.CY_B_ID`
+    if(req.query.type == 'search'){
+        let condition_list = [];
+        if( req.query.search_user_name){
+            condition_list.push(`U_Name like '%${req.query.search_user_name}%'`);
+        }
+        if( req.query.search_user_phone){
+            condition_list.push(`U_Phone like '%${req.query.search_user_phone}%'`);
+        }
+        if( req.query.search_user_brand){
+            condition_list.push(`U_Brand like '%${req.query.search_user_brand}%'`);
+        }
+        if( req.query.search_user_addr1){
+            condition_list.push(`U_Addr1 like '%${req.query.search_user_addr1}%'`);
+        }
+        if( req.query.search_user_addr2){
+            condition_list.push(`U_Addr2 like '%${req.query.search_user_addr2}%'`);
+        }
+        if( req.query.search_ct_id != 'null'){
+            condition_list.push(`B_Name like '%${req.query.search_ct_id}%'`);
+        }
+        if( req.query.search_seat_num){
+            condition_list.push(`CR_SeatNum = '${req.query.search_seat_num}'`);
+        }
+        if( req.query.search_seat_price){
+            condition_list.push(`CR_Price = '${req.query.search_seat_price}'`);
+        }
+        if( req.query.search_res_day){
+            condition_list.push(`CR_cDt like '%${req.query.search_res_day}%'`);
+        }
+        if( req.query.search_py_start){
+            condition_list.push(`CT_DepartureTe like '%${req.query.search_py_start}%'`);
+        }
+        if( req.query.search_se_start){
+            condition_list.push(`CT_ReturnTe like '%${req.query.search_se_start}%'`);
+        }
+        if( req.query.search_cr_cancel != 'null' ){
+            condition_list.push(`CR_Cancel = '${req.query.search_cr_cancel}'`);
+        }
+        if( req.query.search_py_scan != 'null' ){
+            condition_list.push(`CR_ScanPy = '${req.query.search_py_scan}'`);
+        }
+        if( req.query.search_se_scan != 'null' ){
+            condition_list.push(`CR_ScanSe = '${req.query.search_se_scan}'`);
+        }
+
+
+        let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
+        if( condition_list.length > 0){
+            let condition_stmt = ' WHERE '+condition_list.join(searchType);
+            query += condition_stmt;
+        }
+        connection.query(query,
+            function(err,rows){
+                if(err) throw err;
+                res.json({data : rows});
+        })
+
+    }else{
+
+        connection.query(query,
+            function(err,rows){
+                if(err) throw err;
+                res.json({data : rows});
+            })
+    }
+
+})
+
+//운송사 리스트
+router.get('/vehicle/list', function(req,res){
+    let query = `SELECT 
+                    tCT.CT_ID, 
+                    tB.B_NAME, 
+                    tCT.CT_DepartureTe,
+                    tCY.CY_SeatPrice,
+                    date_format(tCT.CT_DepartureTe ,'%y%y.%m.%d %H') as deptTime
+                FROM tct 
+                    INNER JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
+                    INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID
+                WHERE tCT.CT_DepartureTe > DATE_ADD(NOW(),INTERVAL -40 HOUR_MINUTE)
+                AND tCT.CT_PyStart = 'N'`
     connection.query(query,
-        function(err,rows){
+        function(err, rows){
             if(err) throw err;
             res.json({data : rows});
+
     })
 })
 
+//예약 등록
+router.post('/reservation',async function(req,res){
+    connection.beginTransaction(function(err){
+
+        let pay_query = `INSERT INTO tPH(
+                            PH_U_ID,
+                            PH_PG_ID,
+                            PH_Price,
+                            PH_OPrice,
+                            PH_SPrice
+                        )
+                        VALUES( :u_id, 1, :seat_price, :seat_price, 0)`;
+
+        let ph_id_query = 'SELECT PH_ID FROM tPH ORDER BY PH_ID DESC LIMIT 1';
+
+        let res_query = `INSERT INTO tCR(
+                        CR_CT_ID, 
+                        CR_U_ID, 
+                        CR_PH_ID, 
+                        CR_SeatNum,
+                        CR_Price,
+                        CR_QrCOde 
+                        )
+                    VALUES( :ct_id, :u_id, :ph_id, :seat_num, :seat_price, :hash_qrcode) `;
 
 
+        let ct_id = req.body.ct_id,
+            u_id = req.body.u_id,
+            seat_num = req.body.seat_num,
+            seat_price = req.body.seat_price;
+        
+        connection.query(pay_query, {u_id, seat_price},
+            function(err,rows){
+                if (err){
+                    connection.rollback(function(){
+                        console.log('ERROR ! :', err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                    connection.query(ph_id_query, function(err, select_result){
+                        if(err) throw err;
+                        let ph_id = select_result[0].PH_ID;
 
+                        let origin_qrcode;
+                        let hash_qrcode;
 
+                        origin_qrcode = (ct_id+'-'+u_id+'-'+ph_id+'-'+seat_num);
+                        hash_qrcode = (CryptoJS.AES.encrypt(origin_qrcode, config.enc_salt).toString());
+                        
+                        connection.query(res_query,{ct_id, u_id, ph_id, seat_num, seat_price, hash_qrcode},
+                            function(err, result){
+                                if (err){
+                                    connection.rollback(function(){
+                                        console.log('ERROR ! :',err);
+                                        res.json({data : 300});
+                                        // throw err;
+                                    })
+                                }else{
+                                    connection.commit(function(err) {
+                                        if (err) {
+                                            return connection.rollback(function() {
+                                                res.json({data : 300});
+                                                throw err;
+                                            });
+                                        }
+                                        res.json({data : 200});    
+                                    });
+                                }
+
+                            })
+                    })
+                }
+
+        })
+    })
+})
+
+//예약 수정
+router.put('/reservation/:crid', async function(req,res){
+    let query = `UPDATE tCR SET
+                    CR_Cancel = :cr_cancel,
+                    CR_ScanPy = :py_scan,
+                    CR_ScanSe = :se_scan
+                WHERE CR_ID = :cr_id
+                    `
+    let cr_cancel = req.body.cr_cancel,
+        py_scan = req.body.py_scan,
+        se_scan = req.body.se_scan,
+        cr_id = req.params.crid;
+
+    connection.query(query, {cr_cancel, py_scan, se_scan, cr_id},
+        function(err, rows){
+            if (err){
+                connection.rollback(function(){
+                    console.log('ERROR ! :', err);
+                    res.json({data : 300});
+                    // throw err;
+                })
+            }else{
+                connection.commit(function(err) {
+                    if (err) {
+                        return connection.rollback(function() {
+                            res.json({data : 300});
+                            throw err;
+                        });
+                    }
+                    res.json({data : 200});    
+                });
+            }
+    })
+
+})
+//예약 한개 삭제
+router.delete('/reservation/:crid', async function(req,res){
+    connection.beginTransaction(function(err){
+        let query = `delete from tCR where CR_ID = :cr_id`
+
+        let cr_id = req.params.crid;
+
+        connection.query(query, {cr_id},
+            function(err, rows){
+                if (err){
+                    connection.rollback(function(){
+                        console.log('ERROR ! :', err);
+                        res.json({data : 300});
+                    })
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+
+        })
+    })
+})
+
+//예약 다중 삭제
+router.delete('/reservation',async function(req,res){
+    connection.beginTransaction(function(err){
+        let cr_id = req.body.row_ids
+        let query = `delete from tCR where CR_ID IN (${cr_id})`;
+
+        connection.query(query,
+            function(err,rows){
+                if (err){
+                    connection.rollback(function(){
+                        console.log('ERROR ! :', err);
+                        res.json({data : 300});
+                    })
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+
+        })
+    })
+});
+
+//장차 회원 리스트
+router.get('/member', function(req,res){
+    
+    let query = `SELECT * FROM tU`;
+
+    if(req.query.type === 'search'){
+        let condition_list = [];
+        if( req.query.u_login_id){
+            condition_list.push(`U_uId like '%${req.query.u_login_id}%'`);
+        }
+        if( req.query.u_name){
+            condition_list.push(`U_Name like '%${req.query.u_name}%'`);
+        }
+        if( req.query.u_email){
+            condition_list.push(`U_Email like '%${req.query.u_email}%'`);
+        }
+        if( req.query.u_phone){
+            condition_list.push(`U_Phone like '%${req.query.u_phone}%'`);
+        }
+        if( req.query.u_brand){
+            condition_list.push(`U_Brand like '%${req.query.u_brand}%'`);
+        }
+        if( req.query.u_admin != 'null'){
+            condition_list.push(`U_isAdmin = '${req.query.u_admin}'`);
+        }
+        if( req.query.postcode){
+            condition_list.push(`U_Zip like '%${req.query.postcode}%'`);
+        }
+        if( req.query.address){
+            condition_list.push(`U_Addr1 like '%${req.query.address}%'`);
+        }
+        if( req.query.detailAddress){
+            condition_list.push(`U_Addr2 like '%${req.query.detailAddress}%'`);
+        }
+        if( req.query.u_cdt){
+            condition_list.push(`U_cDt like '%${req.query.u_cdt}%'`);
+        }
+
+        let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
+        if( condition_list.length > 0){
+            let condition_stmt = ' WHERE '+condition_list.join(searchType);
+            query += condition_stmt;
+        }
+
+        connection.query(query,
+            function(err, rows){
+            if(err) throw err;
+
+            res.json({data : rows})
+        })
+
+    }else{
+        connection.query(query,
+            function(err, rows){
+            if(err) throw err;
+
+            res.json({data : rows})
+        })
+    }
+});
+
+//장차 신규 회원 등록
+router.post('/member', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `insert into tU (
+                                U_uId, 
+                                U_Name,
+                                U_Email, 
+                                U_Phone, 
+                                U_Brand, 
+                                U_Zip, 
+                                U_Addr1, 
+                                U_Addr2,
+                                U_isAdmin
+                                ) 
+                        values( 
+                            :u_login_id,  
+                            :u_name,  
+                            :u_email,  
+                            :u_phone, 
+                            :u_brand, 
+                            :postcode,  
+                            :address,  
+                            :detailAddress,  
+                            :u_admin)`;
+
+        let u_login_id = req.body.u_login_id,
+            u_name = req.body.u_name,
+            u_email = req.body.u_email,
+            u_phone = req.body.u_phone,
+            u_brand = req.body.u_brand,
+            postcode = req.body.postcode,
+            address = req.body.address,
+            detailAddress = req.body.detailAddress,
+            u_admin = req.body.u_admin;
+
+        connection.query(query, 
+                {u_login_id, u_name, u_email, u_phone, u_brand, postcode, address, detailAddress, u_admin},
+            function(err, rows){
+                if (err){
+                    connection.rollback(function(){
+                        console.log('err! :',err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+
+        })
+    })
+})
+
+//장차 회원 정보 수정
+router.put('/member/:uid', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `UPDATE tU SET
+                        U_uId = :u_login_id,
+                        U_Name = :u_name,
+                        U_Email = :u_email,
+                        U_Phone = :u_phone,
+                        U_Brand = :u_brand,
+                        U_Zip = :postcode,
+                        U_Addr1 = :address,
+                        U_Addr2 = :detailAddress,
+                        U_isAdmin = :u_admin
+                        WHERE U_ID = :u_id `;
+        let u_login_id = req.body.u_login_id,
+            u_name = req.body.u_name,
+            u_email = req.body.u_email,
+            u_phone = req.body.u_phone,
+            u_brand = req.body.u_brand,
+            postcode = req.body.postcode,
+            address = req.body.address,
+            detailAddress = req.body.detailAddress,
+            u_admin = req.body.u_admin,
+            u_id = req.params.uid;    
+
+        connection.query(query,{u_login_id, u_name, u_email, u_phone, u_brand, postcode, address, detailAddress, u_admin, u_id}, 
+            function(err,rows){
+                if (err){
+                    connection.rollback(function(){
+                        console.log('ERROR ! :', err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                
+                connection.commit(function(err) {
+                    if (err) {
+                        return connection.rollback(function() {
+                            res.json({data : 300});
+                            throw err;
+                        });
+                    }
+                    res.json({data : 200});    
+                });
+            }
+        })
+    })
+})
+
+//특정 회원 정보 삭제
+router.delete('/member/:uid', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `DELETE FROM tU where U_ID = :u_id`;
+        let u_id = req.params.uid;
+        connection.query(query,{u_id}, 
+            function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('ERROR ! :', err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+        })
+    })
+})
+
+//선택된 다수의 회원 삭제
+router.delete('/member', async function(req, res){
+    connection.beginTransaction(function(err){
+        let u_id = req.body.row_ids;
+        let query = `DELETE FROM tU where U_ID IN (${u_id})`;
+
+        connection.query(query, 
+            function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('err!!!!',err);
+                        res.json({data : 300});
+                    //    throw err;
+                    })
+                    
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                console.log('ERROR :', err);
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+        })
+    })
+
+})
 
 module.exports = router;

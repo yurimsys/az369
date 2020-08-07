@@ -27,12 +27,12 @@ function init(){
 
     // 신규모드로 실행
     // objectInfo("new");
-        // 광고기간 DateBox
-        $(".py_start, .se_start, .search_py_start, .search_se_start").dxDateBox({
-            type: "datetime",
-            displayFormat: 'yyyy-MM-dd HH:mm',
-            dateSerializationFormat : "yyyy-MM-dd HH:mm",
-        });
+    // 광고기간 DateBox
+    $(".py_start, .se_start, .search_py_start, .search_se_start").dxDateBox({
+        type: "datetime",
+        displayFormat: 'yyyy-MM-dd HH:mm',
+        dateSerializationFormat : "yyyy-MM-dd HH:mm",
+    });
 }
 
 
@@ -66,7 +66,7 @@ let objectInfo = function (mode = "modify", row_data) {
 
         sessionStorage.removeItem('row_data');
     } else if( mode === "modify"){
-        console.log('row_data',row_data);
+        // console.log('row_data',row_data);
         action_btns_instance.removeClass('action-new');
         action_btns_instance.addClass('action-modify');
         
@@ -132,8 +132,15 @@ let tableInit = function (data) {
             selectedActionBtns.css('display', (isSelected) ? "flex" : "none");
             selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
         },
+        //좌석 현황 클릭시 모달 오픈
         onCellClick : function(e){
-            console.log('cell click'.e);
+            if (e.columnIndex == 5) {  
+                openBus(e.data.CT_ID);
+                //좌석 현황 오픈
+                $('#object-seat-popup').css('left','430px')
+                $('#object-seat-popup').css('top','300px')
+                $("#object-seat-popup").show();
+            } 
         },
         // onCellHoverChanged : function(e){
             
@@ -155,12 +162,12 @@ let tableInit = function (data) {
         //     // setTimeout(2000,$(testC).removeClass('data_hover'));
         // },
 
-        onRowHoverChanged : function(e){
-            console.log('성공?');
-        },
+        // onRowHoverChanged : function(e){
+        //     console.log('성공?');
+        // },
 
         onRowClick : function(e) {
-            console.log('row click', e.data);
+            // console.log('row click', e.data);
             // selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
             e.rowElement.css("border-left", "2px solid #f2f2f2");
 
@@ -208,6 +215,7 @@ let tableInit = function (data) {
             { dataField: "B_Name", caption: "운송사명"},
             { dataField: "CT_CarNum", caption: "차량번호"},
             { dataField: "CY_Ty", caption: "버스타입"},
+            { dataField: "COUNT", caption: "예약된 인원"},
             { dataField: "CT_DriverName", caption: "기사명"},
             { dataField: "CT_DriverPhone", caption: "기사번호"},
             { dataField: "CY_SeatPrice", caption: "좌석가격"},
@@ -311,10 +319,6 @@ function saveAD(){
         se_start_check : $("#se_start_check option:selected").attr('value')
     }
 
-    // console.log('updat22222e :',update_data);
-    
-    // let form_data = new FormData(document.forms[0]);
-    // for ( let i in update_data) form_data.append(i, update_data[i]);
     let api_url  = '/api/vehicle';
     $.ajax({
         dataType : 'JSON',
@@ -467,4 +471,135 @@ function folding(){
     $('#object_detail_group').slideToggle('fast')
     
     
+}
+
+//현재 좌석 예약 정보
+var selected_seats = [];
+var selected_seats_cnt = 0;
+var seatPrice = 0;
+let now_location = 'default';
+
+function openBus(busSeat) {
+    sessionStorage.setItem('ct_id', busSeat);
+    var firstSeatLabel = 1;
+
+    //좌석금액 불러오기
+
+    $('.seat-map').seatCharts({
+            map: [
+                'ee_ee',
+                'ee_ee',
+                'ee_ee',
+                'ee_ee',
+                'ee_ee',
+                'ee_ee',
+                'ee_ee',
+                'ee_ee',
+                'ee_ee',
+                'ee_ee',
+                'eeeee',
+            ],
+            seats: {
+                e: {
+
+                    classes: '일반', //your custom CSS class
+                    category: '일반'
+                }
+
+            },
+            naming: {
+                top: false,
+                getLabel: function (character, row, column) {
+                    return firstSeatLabel++;
+                },
+            },
+            click: function () {
+                let scan_checked;
+                if (this.status() == 'available') {
+                    // alert('예매되지 않은 좌석입니다.')
+                    // return 'selected';
+                } 
+                //스캔 된 좌석
+                else if (this.settings.$node.hasClass('selected')) {
+                    scan_checked = 'selected'
+                    // userSeatInfo(bus_ct_id,bus_seat_number,scan_checked);
+                    
+                    return 'selected';
+                } 
+                //스캔 되지 않은 예매된 좌석
+                else if (this.status() == 'unavailable') {
+                    // console.log('this',this);
+                    scan_checked = 'unavailable'
+                    return 'unavailable';
+                } else {
+
+                    return this.style();
+                }
+            }
+        });
+
+    //현재 예약된 자석
+    // scanSeatList();
+    flushSeat();
+}
+
+
+function flushSeat() {
+
+    let $seat = $('.seat-map')
+    var sc = $seat.seatCharts();
+    selected_seats = [];
+    selected_seats_cnt = 0;
+    sc.find('e.selected').status('available');
+    // 데이터 가져와서 예약된 좌석 상태 설정.
+    var ct_id = sessionStorage.getItem('ct_id');
+    $.ajax({
+        dataType: "json",
+        method: "GET",
+        url: "/api/busSeat/" + ct_id
+    }).done((res) => {
+        let seat_id_list = [];
+        res.data.map((seat_num) => {
+            seat_id_list.push(getSeatId(seat_num));
+        });
+        // console.log('seat_id_list',seat_id_list);
+        sc.find('unavailable').status('available');
+        sc.status(seat_id_list, 'unavailable');
+
+    });
+}
+
+
+// 45인승 기준 seatId 가져오기
+function getSeatId(seat_num) {
+    if (seat_num <= 45 && seat_num > 0) {
+
+        let seat_id = "1_1";
+        let row = '',
+            column = '';
+
+        if (seat_num > 40) {
+            row = 11;
+            column = seat_num % 10;
+        } else {
+            if ((seat_num % 4) === 0) {
+                row = Number.parseInt(seat_num / 4);
+                column = 4;
+            } else {
+                row = (Number.parseInt(seat_num / 4)) + 1;
+                column = seat_num % 4;
+            }
+
+            if (column >= 3) column += 1;
+        }
+        seat_id = row + "_" + column;
+        return seat_id;
+    } else {
+        return null;
+    }
+
+}
+
+function seatClose(){
+    $("#object-seat-popup").hide();   
 }
