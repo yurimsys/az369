@@ -67,18 +67,19 @@ body {background: #fafafa;}
 .info_table {width: 100%; overflow: hidden;/* border-bottom: 1px solid #eee;*/ margin-top: 22px; padding: 0 30px; font-size: 15px;}
 .info_table dl {width: 100%; padding: 10px 0; overflow: hidden; border-bottom: 1px solid #eee;}
 .info_table dl:last-child {border-bottom: 1px solid #444; padding-bottom: 15px;}
-.info_table dt {width: 35%; float: left; color: #767676; font-size: 300;}
+.info_table dt {width: 35%; float: left; color: #505050; font-size: 300;}
 .info_table dd{width: 65%; float: right; color: #222;  text-align: right;}
 /*팝업 금액*/
 .price {width: 100%; overflow: hidden; padding: 18px 30px 0;}
 .price dl {width: 100%;}
 .price dt {width: 50%; float: left;}
 .price dd {width: 50%; float: right; text-align: right;} 
+.price dt, .price dd {padding: 1px 0;}
 dl.reserve_price {color: #999 !important; }
 dl.price_sale {color: #c17e00;}
 .total_dl {padding-top: 20px; overflow: hidden; letter-spacing: -0.5px;}
 .total_dl dt {color: #000; line-height: 43px; font-size: 18px;}
-.total_dl dd {color: #000; font-weight: bold;font-size: 26px;}
+.total_dl dd {color: #000; font-weight: bold;font-size: 24px;}
 .total_dl dd span {font-weight: 300; font-size: 18px;}
 .notice {padding: 20px 30px; background: #f4f4f4; margin-top: 15px;}
 .notice h5 {font-size: 18px; font-weight: 500; color: #444;}
@@ -92,6 +93,33 @@ dl.price_sale {color: #c17e00;}
 .payment_close {width: 100%; display: block; height: 50px; line-height: 50px; text-align: center;}
 .payment_close1:hover {background: #fafafa;}
 .payment_close2{bottom:20px;display:block;background:#444; color:#fff;text-align:center; font-weight: 400; float: left; width: 100%; border-radius: 4px;}
+
+
+select::-ms-expand {
+  display: none;
+}
+
+.payment_select {padding: 15px 30px 0; overflow: hidden;}
+
+.payment_select label {color: #505050; font-size: 15px; line-height: 50px;}
+select { 
+  width: 200px;
+   height: 50px;
+   padding-left: 16px;
+  font-family: inherit; 
+  background: url('/img/common/select_arrow.png') no-repeat 95% 50%; 
+  border: 1px solid #dbdbdb;
+  border-radius: 4px; 
+  -webkit-appearance: none; 
+  -moz-appearance: none;
+  appearance: none;
+  float: right;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.payment_select option {color: #505050; padding: 20px;}
+
 /*section.sub_wrap 완료*/
 
 /*반응형*/
@@ -169,6 +197,10 @@ dl.price_sale {color: #c17e00;}
   .reservation_box {width: 100%; margin: 0 auto; margin-right: 5%; }
   .payment_box {width: 100%;;}
   .payment_box_inner {height: 100%; overflow: scroll;}
+  .info_table{padding: 0 25px;}
+   .price {padding: 20px 25px 0px;} 
+   .total_dl {padding-top: 10px;}
+  .payment_select {padding: 15px 25px;}
 }
 
 /*320px*/
@@ -187,5 +219,5 @@ dl.price_sale {color: #c17e00;}
     .notice h5 {margin-bottom: 10px;}
     .notice p {padding: 0; margin-bottom: 0;}
     .payment_btn {padding: 0; width: 93%; margin: 0 auto; margin-top: 10px;}
-    .reservation_btn_mo ul li, .payment_close1, .payment_close2 {height: 45px; line-height: 45px; font-size: 16px;}
+    .reservation_btn_mo ul li, .payment_close1, .payment_close2, .payment_close {height: 45px; line-height: 45px; font-size: 16px;}
 }
