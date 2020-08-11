@@ -216,9 +216,9 @@ dl.price_sale {color: #c17e00;}
 .total_dl dd {color: #000; font-weight: bold;font-size: 26px;}
 .total_dl > span {font-weight: 300; font-size: 18px;}
 
-.notice {padding: 15px 30px; background: #f2f2f2; margin-top: 15px;}
-.notice h5 {font-size: 18px; font-weight: 500; color: #444;}
-.notice p {padding-top: 5px; font-size: 15px; color: #444; font-weight: 300; letter-spacing: -0.25px; line-height: 1.5;}
+.notice {padding: 15px 30px; background: #f2f2f2; margin-top: 15px; font-size: 15px;}
+.notice h5 {font-weight: 500; color: #444;}
+.notice p {padding-top: 5px; color: #444; font-weight: 300; letter-spacing: -0.25px; line-height: 1.5;}
 .notice p::before {content: '·'; margin-right: 8px; margin-left: -8px;}
 
 /*팝업하단버튼*/
