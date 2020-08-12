@@ -569,6 +569,7 @@
                     'sendArray': seatArr
                 },
                 success: function (res) {
+                    console.log('res',res.data);
                     let default_html = 
                     `<div class="swiper-slide">
                         <h2>TICKET <span>1 / 2</span></h2>
@@ -598,7 +599,7 @@
                             html += '<tr><th>결제금액</th>';
                             html += '<td>'+res.data[i].CR_Price+'원</td><tr>'
                             html += default_html2;
-                            html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-crid='+res.data[i].CR_ID+'>예매취소</a></li></ul></div></div>';
+                            html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-pgid='+res.data[i].PH_PG_ID+' data-crid='+res.data[i].CR_ID+'>예매취소</a></li></ul></div></div>';
                             $('.swiper-pc').append(html);
                             qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode)
                     }
@@ -618,7 +619,7 @@
                             html += '<tr><th>결제금액</th>';
                             html += '<td>'+res.data[j].CR_Price+'원</td><tr>'
                             html += default_html2;
-                            html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-crid='+res.data[j].CR_ID+'>예매취소</a></div></div>';
+                            html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-pgid='+res.data[j].PH_PG_ID+' data-crid='+res.data[j].CR_ID+'>예매취소</a></div></div>';
                             $('.swiper-mobile').append(html);
                             qrCodeImgMo(res.data[j].CR_ID,res.data[j].CR_QrCode)
                     }
@@ -679,6 +680,8 @@
 
         // 예매 취소
         function resCancel(e) {
+            console.log('데이터 :', e.dataset.pgid);
+            
             $.ajax({
                 url: "api/user/cancelRes",
                 method: 'post',
@@ -735,14 +738,42 @@
 
                         }
                     else {
-                        swal({
-                            title: '예매취소 완료',
-                            text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
-                            icon: 'success',
-                            button: '확인'
-                        }).then((value)=>{
-                            location.href='mypage';
-                        })
+                        var resultcode = null;
+                        let cancel_data = {}
+                            cancel_data.cancelAmt = '10',
+                            cancel_data.svcCd = '01',
+                            cancel_data.tid = e.dataset.pgid,
+                            cancel_data.partialCancelCode = '0',
+                            cancel_data.mid = 'testpay01m',
+                            cancel_data.cancelPwd = '123456',
+                            cancel_data.cancelMsg = '환불테스트'
+
+                            console.log('loglog :',cancel_data);
+                        // $.ajax({
+                        //     type : "POST",
+                        //     url : "https://api.innopay.co.kr/api/cancelApi",
+                        //     async : true,
+                        //     data : cancel_data,
+                        //     contentType: "application/json; charset=utf-8",
+                        //     dataType : "json",
+                        //     success : function(data){
+                        //         console.log(data);
+                        //         swal({
+                        //             title: '예매취소 완료',
+                        //             text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
+                        //             icon: 'success',
+                        //             button: '확인'
+                        //         }).then((value)=>{
+                        //             location.href='mypage';
+                        //         })
+
+                        //     },
+                        //     error : function(data){
+                        //         console.log(data);   
+                        //         alert("통신에러");
+                        //     }
+                        // });
+
                     }
                 }
             })

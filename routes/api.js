@@ -792,6 +792,7 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     tPH.PH_Type,
                     tCR.CR_Price,
                     tCR.CR_QrCode,
+                    PH_PG_ID,
                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
                     DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
                     DAYOFWEEK(tCR.CR_cDt ) AS payDayWeek,
@@ -1592,12 +1593,21 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
         ct_id = req.body.ct_id,
         oPrice = req.body.oPrice,
         sPrice = req.body.sPrice,
-        price = ((oPrice-sPrice) < 0) ? 0 : (oPrice-sPrice),
+        price = ((oPrice-sPrice) < 0) ? 0 : (oPrice-sPrice);
         // ph_type = '-'; // 무료기간동안만 - 으로 넣음.
-        ph_type = req.body.payType,
-        pg_id = req.body.tid
+        let ph_type;
+        let pg_id;
         let u_id = req.user.U_ID //등록할 회원 아이디
-        
+        if(req.body.payType == '01'){
+            ph_type = '신용카드'
+        }else{
+            ph_type = '-'
+        }
+        if(req.body.tid != undefined){
+            pg_id = req.body.tid;
+        }else{
+            pg_id = '1';
+        }
         //결제 전 중복확인 쿼리
         let selectQuery = `SELECT * FROM tCR WHERE tCR.CR_CT_ID = :ct_id and CR_Cancel = 'N' and tCR.CR_SeatNum IN (:seatNums)`;
 

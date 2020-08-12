@@ -36,6 +36,9 @@ router.get('/pay_test',function(req, res){
     res.render('pay_test');
 })
 
+router.get('/pay_cancel',function(req, res){
+    res.render('pay_cancel');
+})
 
 router.get('/testst',function(req, res, next){
     res.render('testst');

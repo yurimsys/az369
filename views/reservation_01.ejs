@@ -267,11 +267,9 @@
 
             <div class="payment_select">
                 <label for="select">결제수단</label>
-                <select>
-                    <option selected>선택</option>
-                    <option>옵션1</option>
-                    <option>옵션2</option>
-                    <option>옵션3</option>
+                <select id='pay_type'>
+                    <option value='null'>선택</option>
+                    <option value='CARD'>신용카드</option>
                 </select>
             </div>
             
@@ -294,62 +292,19 @@
         </div>
     </div>
    
-    <!--reservation 스크립트-->
+    <!-- 이노페이 -->
     <script type="text/javascript" src="https://pg.innopay.co.kr/ipay/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="https://pg.innopay.co.kr/ipay/js/innopay-2.0.js" charset="utf-8"></script>
+    <!--reservation 스크립트-->
     <script src="/js/lib/jquery-1.11.0.min.js"></script>
     <script src="/js/lib/jquery.seat-charts.js"></script>
     <script src="/js/lib/bootstrap.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/lib/angular.min.js"></script>
     <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
-    
-    <script>
-
-
-        // })
-
-        // $.ajax({
-        //     url: 'api/user/resDept',
-        //     method: 'post',
-        //     dataType: 'json',
-        //     success: function (res) {
-        //         for (let i = 0; i < res.data.length; i++) {
-        //             let html = "<option value=" + res.data[i].deptTe + ">평택 " + res.data[i].deptTe2 + "</option>"
-        //             $('#depart01').append(html);
-        //         }
-        //     }
-        // })
-        
-        // $('#timeSelect01, #timeSelect02').click(function () {
-        //     if($('#depart01').val() == 0 || $('#depart02').val() == 0){
-        //         return false;
-        //     }
-        //     $(".tab").empty();
-        //     $.ajax({
-        //         url: "api/user/resCarList",
-        //         method: "post",
-        //         dataType: "json",
-        //         data: { 'sel': $("#depart01 option:selected").val(), 'sel2': $("#depart02 option:selected").val() },
-        //         success: function (res) {
-        //             for (let i = 0; i < res.data.length; i++) {
-        //                 let html = "<button class='tablinks' onclick='openBus(event, \"" + res.data[i].ctID + "\")' value=" + res.data[i].seatPrice + ">";
-        //                 html += "<span class='select_bus_time'>" + res.data[i].deptTe.split(' ', 1).toString() + '\t(' + getInputDayLabel(res.data[i].deptTe) + ")</span>";
-        //                 // html += "<span class='select_bus_name'>"+res.data[i].b_name+'\n'+"("+res.data[i].carNum+")</span>";
-        //                 html += "<span class='select_bus_name'>" + res.data[i].b_name + "</span>";
-        //                 html += " <span class='select_bus_seat'>" + (res.data[i].total_passenger - res.data[i].available_seat_cnt) + "</span>";
-        //                 html += "<span class='select_bus_seat' style='color:#999999;'>"+" / " + res.data[i].total_passenger +"</span>";
-        //                 $(".tab").append(html);
-        //             }
-
-        //             sessionStorage.setItem("car_list", JSON.stringify(res.data));
-        //         }
-        //     });
-        // })
-
-    </script>
 
     <script>
+        const user_name = "<%=sessionUser.U_Name%>";
         let now_location = 'default';
         $(document).ready(function(){
  
@@ -432,6 +387,7 @@
             }
         }
 
+        
         function openBus(busSeat,price) {
             
             let car_info = JSON.parse(sessionStorage.getItem("car_list"));
@@ -440,7 +396,9 @@
             let bus_text2 = '평택 '+car_info[0].startTime+' - '+'동대문 '+car_info[0].returnTime + ' ';
             let bus_text3 = car_info[0].b_name+'('+car_info[0].backNum+')';
             $('.bus_info_txt').text(bus_text1 + bus_text2 + bus_text3)
-
+            console.log('bustext1',bus_text1);
+            console.log('bustext2',bus_text2);
+            console.log('bustext3',bus_text3);
             // console.log('evt',evt);
             var i, tablinks
             //좌석 선택시 우측 문구 삭제
@@ -751,11 +709,6 @@
 
 
         function processPayment() {
-            window.addEventListener("beforeunload", function (event) {
-
-                event.returnValue = "진짜 나감?";
-
-                });
             let origin_price = $("#original_price").data('price');
             //할인 가격
             // let sale_price = $("#sale_price").data('price');
@@ -763,55 +716,63 @@
             let ct_id = sessionStorage.getItem("ct_id");
             let seatPrice = sessionStorage.getItem("seatPrice")
             // location.href='/pay_test';
-            $.ajax({
-                url : '/api/temporary_seat',
-                method : 'post',
-                dataType : 'JSON',
-                data : {
-                    "seatNums": selected_seats,
-                    "ct_id": ct_id
-                    },
-                success: function(res){
-                    if(res.data != "success"){
-                        alert('중복좌석')
-                        // location.reload();
-                    }else{
-                    	// 결제요청 함수
-                        innopay.goPay({
-                        //// 필수 파라미터
-                        PayMethod: "CARD",		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY)
-                        MID: "testpay01m",							// 가맹점 MID
-                        MerchantKey: "Ma29gyAFhvv/+e4/AHpV6pISQIvSKziLIbrNoXPbRS5nfTx2DOs8OJve+NzwyoaQ8p9Uy1AN4S1I0Um5v7oNUg==",	// 가맹점 라이센스키
-                        GoodsName: "장차 좌석",		// 상품명
-                        Amt: "100",							// 결제금액(과세)
-                        BuyerName: "김정우",		// 고객명
-                        BuyerTel: "01012341234",				// 고객전화번호
-                        BuyerEmail: "email@eamil",			// 고객이메일
-                        ResultYN: "Y",				// 결제결과창 출력유뮤
-                        Moid:'testpay01m01234567890',			// 가맹점에서 생성한 주문번호 셋팅
-                        //// 선택 파라미터
-                        // ReturnURL:frm.ReturnURL.value,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
-            //			ArsConnType:'02', 							///* ARS 결제 연동시 필수 01:호전환, 02(가상번호), 03:대표번호 */
+            if($("#pay_type option:selected").attr('value') == 'null'){
+                alert('결제수단을 선택해 주세요.');
+                return false;
+            }else{
+                $.ajax({
+                    url : '/api/temporary_seat',
+                    method : 'post',
+                    dataType : 'JSON',
+                    data : {
+                        "seatNums": selected_seats,
+                        "ct_id": ct_id
+                        },
+                    success: function(res){
+                        if(res.data != "success"){
+                            alert('선택된 좌석이 이미 예매되있습니다.')
+                            location.reload();
+                        }else{
+                            // 결제요청 함수
+                            innopay.goPay({
+                            //// 필수 파라미터
+                            PayMethod: $("#pay_type option:selected").attr('value'),		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY)
+                            MID: "testpay01m",							// 가맹점 MID
+                            MerchantKey: "Ma29gyAFhvv/+e4/AHpV6pISQIvSKziLIbrNoXPbRS5nfTx2DOs8OJve+NzwyoaQ8p9Uy1AN4S1I0Um5v7oNUg==",	// 가맹점 라이센스키
+                            GoodsName: "장차 좌석",		// 상품명
+                            Amt: "10",							// 결제금액(과세)
+                            BuyerName: user_name,		// 고객명
+                            BuyerTel: "01012341234",				// 고객전화번호
+                            BuyerEmail: "email@eamil",			// 고객이메일
+                            ResultYN: "Y",				// 결제결과창 출력유뮤
+                            Moid:'testpay01m01234567890',			// 가맹점에서 생성한 주문번호 셋팅
+                            //// 선택 파라미터
+                            // ReturnURL:frm.ReturnURL.value,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
+                //			ArsConnType:'02', 							///* ARS 결제 연동시 필수 01:호전환, 02(가상번호), 03:대표번호 */
 
-            //			FORWARD:'',									// 결제창 연동방식 (X:레이어, 기본값)
-            //			GoodsCnt:'',									// 상품갯수 (가맹점 참고용)
-            //			MallReserved:'',								// 가맹점 데이터
-            //			OfferingPeriod:'',								// 제공기간
-            //			DutyFreeAmt:'',								// 결제금액(복합과세/면세 가맹점의 경우 금액설정)
-            //			EncodingType:'utf-8',						// 가맹점 서버 인코딩 타입 (utf-8, euc-kr)
-            //			MallIP:'',											// 가맹점 서버 IP
-            //			UserIP:'',											// 고객 PC IP
-            //			mallUserID:'',									// 가맹점 고객ID
-            //			User_ID:'',										// Innopay에 등록된 영업사원ID
-                        Currency:''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
-                    });
-                    }
+                //			FORWARD:'',									// 결제창 연동방식 (X:레이어, 기본값)
+                //			GoodsCnt:'',									// 상품갯수 (가맹점 참고용)
+                //			MallReserved:'',								// 가맹점 데이터
+                //			OfferingPeriod:'',								// 제공기간
+                //			DutyFreeAmt:'',								// 결제금액(복합과세/면세 가맹점의 경우 금액설정)
+                //			EncodingType:'utf-8',						// 가맹점 서버 인코딩 타입 (utf-8, euc-kr)
+                //			MallIP:'',											// 가맹점 서버 IP
+                //			UserIP:'',											// 고객 PC IP
+                //			mallUserID:'',									// 가맹점 고객ID
+                //			User_ID:'',										// Innopay에 등록된 영업사원ID
+                            Currency:''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
+                        });
+                        }
 
-                }					
-            });
+                    }					
+                });
+            }
+   
     
 
         }
+
+        
 
         //결제 리턴값
         function innopay_result(data){
@@ -831,13 +792,14 @@
             let EPayCl   = data.EPayCl;
             let payType = data.AcquCardCode;    // 결제 타입 ex) 신용카드 01 계좌이체 02 DB 입력
             console.log('success : ', data);
-            alert("["+resultcode+"]"+resultmsg);
-
+            // alert("["+resultcode+"]"+resultmsg);
+            alert(resultcode);
             let origin_price = $("#original_price").data('price');
             let sale_price = 0;
             let ct_id = sessionStorage.getItem("ct_id");
             let seatPrice = sessionStorage.getItem("seatPrice")
-            if(resultcode === 3001){
+            if(resultcode == '3001'){
+                alert('에이작스')
                 $.ajax({
                     method: "POST",
                     dataType: "json",
@@ -859,6 +821,7 @@
                             icon: 'error',
                             button: '확인'
                         }).then(function(){
+                            processCancel();
                             location.href = "/reservation";
                         })
                     }
@@ -869,6 +832,7 @@
                             icon: 'error',
                             button: '확인'
                         }).then(function(){
+                            processCancel();
                             location.href = "/reservation";
                         })
                     }
@@ -877,9 +841,15 @@
                         let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                         ct_id = sessionStorage.getItem("ct_id");
 
+                        let bus_text1 = car_list[0].startDay+'(' +getInputDayLabel(car_list[0].deptTe)+') ';
+                        let bus_text2 = '평택 '+car_list[0].startTime+' - '+'동대문 '+car_list[0].returnTime + ' ';
+
                         let payment_result = car_list.find((k) => (k.ctID == ct_id));
-                        payment_result.price = result.price;
+                        payment_result.price = $('#selected_seats_price').text().trim();
+                        payment_result.seat = $('#selected_seats_num').text().trim();
                         payment_result.ph_type = result.ph_type;
+                        payment_result.start_day = bus_text1 + bus_text2;
+                        
 
                         sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
 
@@ -889,7 +859,7 @@
                 });
             }else{
                 
-                // alert('결제 실패!');
+                alert('결제 실패!');
                 processCancel();
             }
         }
