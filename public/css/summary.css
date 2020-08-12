@@ -15,10 +15,8 @@ section.main {
 }
 /*section.main 완료*/
 /*section.sub_wrap 시작*/
-/* .sub_bg { box-shadow: 20px 20px 20px rgba(180,180,180,0.2); } */
+
 .sub_bg img {width: 100%;border-radius: 12px;}
-
-
 
 /*sub_info*/
 .sub_info {width: 100%; text-align: center; margin-top:50px;}
@@ -33,8 +31,7 @@ section.main {
 /*반응형*/
 /*1200px*/
 @media screen and (max-width: 1200px) {
-    .sub_bg {width: 93%; margin: 0 auto;}
-    section.sub_wrap {width: 95%; margin-bottom: 60px;}
+    .sub_bg {width: 95%; margin: 0 auto;}
 }
 
 /*768PX*/

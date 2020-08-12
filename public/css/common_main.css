@@ -109,7 +109,7 @@ input:focus, textarea:focus {border: 1px solid #c3a164;}
     section.sub_wrap h6 {font-size: 15px;}
 	section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
     section.sub_wrap h1 {font-size: 30px;}
-    ㄴ{font-size: 20px; line-height: 1.5; margin-bottom: 30px;}
+    /* ㄴ{font-size: 20px; line-height: 1.5; margin-bottom: 30px;} */
     section.sub_wrap h5 {font-size: 20px;}
     section.sub_wrap h4 {font-size: 18px; width: 93%;}
     section.sub_wrap p {font-size: 15px; }

@@ -119,8 +119,8 @@ input[type=submit]:hover {
 /*반응형*/
 /*1200px*/
 @media screen and (max-width: 1200px) {
-    .sub_form {width: 93%; margin: 0 auto;}
-    .sub_contents {width: 93%;}
+    .sub_form {width: 95%; margin: 0 auto;}
+    .sub_contents {width: 95%;}
 }
 
 /*1024px*/

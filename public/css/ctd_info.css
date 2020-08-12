@@ -96,7 +96,6 @@ section.sub_wrap h5 br {display: none;}
 /*1024px*/
 @media screen and (max-width: 1024px) {
     .dot {margin-bottom: 3px;}
-    /* .slide_btn {width: 23%;} */
     .ctd_btn {background-color: #C3A164; color: #fff; font-weight: 400;}
 }
 

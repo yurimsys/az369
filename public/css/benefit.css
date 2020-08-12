@@ -47,7 +47,7 @@ section.sub_wrap h5 br {display: none;}
 .benefit_list .txt p br {display: none;}
 .benefit_list .txt {font-weight: 500; font-size: 15px; color: #222;}
 .list_bar {width: 20px; border-bottom: 1px solid #dbdbdb; margin: 20px 0;}
-.benefit_btn {font-size: 18px; transition: all 0.2s;}
+.benefit_btn {font-size: 15px; transition: all 0.2s;}
 
 /* .benefit_btn {display: inline-block; transition: all 0.4s; margin-top: 10px; color: #222; font-weight: 500; font-size: 15px; overflow: hidden;} */
 /* .benefit_list ul li:nth-child(1):hover,
@@ -77,13 +77,9 @@ section.sub_wrap h5 br {display: none;}
 .call_txt h3 {font-size: 20px; font-weight:300;}
 .call_txt p {font-size: 24px; color:#fff !important; margin-top: 3px; font-weight: 600 !important; text-align: center; }
 
-
-
 .apply_btn {text-align: center;  margin: 0 auto;margin-top: 40px; width: 30%; height: 50px; line-height: 50px;}
 
 .apply_btn a {display: block;}
-
-
 /*section.sub_wrap 완료*/
 
 /*반응형*/
@@ -93,21 +89,12 @@ section.sub_wrap h5 br {display: none;}
     .sub_contents {width: 100%;}
 }
     
-/*1024px*/
-@media screen and (max-width: 1024px) {
-    
-    .benefit_list ul li {height: 450px;}
-    .benefit_list ul li .txt p br {display: none;}
-    .benefit_list ul li .txt p {width: 95%;}
-	.benefit_list ul li .txt {padding: 0 8%;}
-}
-
 
 /*768px*/
 @media screen and (max-width: 768px) {
     .benefit_list{ padding: 10px 15px 30px;}
 	.benefit_list ul li .txt {padding-top: 20px;}
-	.benefit_list ul li h3 {font-size: 24px;}
+	.benefit_list ul li h3 {padding-top: 8px;}
     .benefit_list {margin: 0; margin: 0 auto;}
     .benefit_list ul li {width: 49.5%; margin-right: 1%; margin-bottom: 2%;}
     .benefit_list ul li:nth-child(3) {margin-right: 1%;}
@@ -117,20 +104,17 @@ section.sub_wrap h5 br {display: none;}
     .benefit_list ul li:nth-child(8) {margin-right: 0;}
     .benefit_list ul li:last-child {display: none;}
     .benefit_list ul li .txt p {width: 100%;}
-    
     .benefit_list ul li {height: 460px;}
     .apply_btn {background: #C3A164; color: #fff; width: 50%;}
-    
 
 }
 
-/*425px*/
-@media screen and (max-width: 425px) {
+/*450px*/
+@media screen and (max-width: 450px) {
 
     .benefit_list h3 {font-size: 24px;}
     .benefit_list {margin: 0; margin: 0 auto;}
     .benefit_list ul li {margin: 0; width: 95%; margin-bottom: 20px; margin-left: 50%; transform: translateX(-50%);}
-    
     .benefit_list ul li:nth-child(7),
     .benefit_list ul li:nth-child(8) {margin-bottom: 5%;}
     .benefit_list ul li:last-child {display: block;}
