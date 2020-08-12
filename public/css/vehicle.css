@@ -101,7 +101,7 @@ section.sub_wrap h2 br {display: none;}
     .sub_list {padding: 30px 25px;}
     .sub_list ul li {padding: 20px 25px 30px;}
      
-    .vehicle_btn {width:95%; margin: 0 auto; margin-left: 50%; transform: translateX(-50%); padding-bottom: 4px;}
+    .vehicle_btn {width:95%; margin: 0 auto; margin-left: 50%; transform: translateX(-50%); padding-bottom: 4px; margin-top: 20px;}
     .vehicle_btn ul li {height: 50px; line-height: 50px; width: 49.5%;}
    
 }   

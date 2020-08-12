@@ -343,7 +343,7 @@ section.video_list{width: 100%; margin-top: 70px; overflow: hidden;}
     /*팝업영역*/
     .popup_box_inner {padding: 10px 15px 20px; width: 100%; height: 100%;}
     .popup_box_header {height: 60px;}
-    .popup_close {height: 60px; line-height: 60px; margin-right: 1%;}
+    .popup_close {height: 60px; line-height: 60px; margin-right: -10px;}
     .video_slide {width: 100%; height: 210px;}
     .mySlides {height: auto;}
     /*팝업 내 텍스트*/
