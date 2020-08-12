@@ -89,8 +89,8 @@
     section.sub_wrap h2 {margin-bottom: 25px; font-size: 22px;}
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*425px*/
+@media screen and (max-width: 425px) {
     .withdrawal_box {width: 95%;}
     .modify_box {margin: 0 auto; padding: 8% 5%;}
     .withdrawal_box_txt {width: 85%;}

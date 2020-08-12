@@ -5,7 +5,7 @@
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.5px; word-break: keep-all;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
+body {margin: 0; font-size: 16px; line-height: 1.8; color: #191919;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
@@ -194,8 +194,8 @@ input[type="submit"] {font-size: 18px;}
     section.sub_wrap h2 {font-size: 24px; margin-bottom: 45px;}
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*425px*/
+@media screen and (max-width: 425px) {
    .tab ul li  {height:50px; font-size: 15px; line-height: 50px;}
     section.sub_wrap h6 {font-size: 15px;}
     section.sub_wrap h1 {font-size: 30px;}

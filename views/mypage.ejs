@@ -571,7 +571,7 @@
                 success: function (res) {
                     let default_html = 
                     `<div class="swiper-slide">
-                        <h2>TICKET <span>1 / 2</span></h2>
+                        <h2>승차권 <span>1 / 2</span></h2>
                         <div class="qr_info">
                             <div id='qrcode' class="qrcode"></div>
                             <div class="qr_txt">
@@ -580,11 +580,11 @@
                         </div>
                          <table class="detail_table">`;
                          let default_html2 = `</table>
-                         <p>출발일 3일 전 ~ 당일은 예매취소가 불가능합니다.   <a><u> 환불규정</u></a></p>
+                         <p>예매취소는 개별로만 가능하오니 좌석번호를 꼭 확인해주세요. <br> 출발일 3일 전 ~ 당일은 예매취소가 불가능합니다.  <a><u> 환불규정</u></a></p>
                          <div class="popup_btn">
                            <ul><li><a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');" class="btn btn-secondary">닫기</a></li><li>`;
                     for(let i=0; i <res.data.length; i++){
-                        let html = '<div class="swiper-slide"><h2>TICKET '+Number(i+1)+' <span style="color: #999; font-family: inherit"> / '+res.data.length+'</span></h2><div class="qr_wrap"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div></div>';
+                        let html = '<div class="swiper-slide"><h2>승차권 '+Number(i+1)+' <span style="color: #999; font-family: inherit"> / '+res.data.length+'</span></h2><div class="qr_wrap"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div></div>';
                             html += '<table class="detail_table">';
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[i].payDayYM+' ('+getInputDayLabel(res.data[i].payDayWeek)+') '+res.data[i].payDayTm+'</td><tr>'
@@ -604,7 +604,7 @@
                     }
 
                     for(let j=0; j <res.data.length; j++){
-                        let html = '<div class="swiper-slide"><h2>TICKET '+Number(j+1)+'<span style="color: #999;"> / '+res.data.length+'</span></h2><div class="qr_wrap"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div></div>';
+                        let html = '<div class="swiper-slide"><h2>승차권 '+Number(j+1)+'<span style="color: #999;"> / '+res.data.length+'</span></h2><div class="qr_wrap"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div></div>';
                             html += '<table class="detail_table">';
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[j].payDayYM+' ('+getInputDayLabel(res.data[j].payDayWeek)+') '+res.data[j].payDayTm+'</td><tr>'

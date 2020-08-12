@@ -21,39 +21,16 @@ section.main {
 
 
 /*sub_info*/
-.sub_info {width: 100%; text-align: center; margin-top:55px;}
-.sub_info ul {width: 50%; padding: 0; overflow: hidden; margin: 0 auto; margin-top: 40px;}
-.sub_info ul li {float: left; width: 49%; overflow: hidden;  transition: all 0.3s; margin-right: 2%;}
-.sub_info ul li{width: 49%; margin-right: 1%; height: 50px; line-height: 50px; border-radius: 4px;}
+.sub_info {width: 100%; text-align: center; margin-top:50px;}
+.sub_info ul { width: 50%; padding: 0; overflow: hidden; margin: 0 auto; margin-top: 40px;}
+.sub_info ul li {float: left; width: 49%; overflow: hidden;  transition: all 0.3s; margin-right: 2%;height: 50px; line-height: 50px; border-radius: 4px;}
 .sub_info ul li:nth-child(2) {margin-right: 0;}
 .sub_info .info_btn a {display: block;}
 .sub_info p {text-align: center;}
 
-/*section.sub_wrap 완료*/
-
-
-/*모바일 메뉴*/
-header .open {
-    /*버거버튼 클래스*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
-
-.gnb_mo {
-    /*모바일 네비 전체*/
-    width: 0;
-    height: 0;
-    display: none;
-    opacity: 0;
-    z-index: -9999;
-}
 
 
 /*반응형*/
-
 /*1200px*/
 @media screen and (max-width: 1200px) {
     .sub_bg {width: 93%; margin: 0 auto;}
@@ -67,8 +44,8 @@ header .open {
     .sub_info ul {margin-top: 25px;}
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*425px*/
+@media screen and (max-width: 425px) {
     section.sub_wrap h2 br {display: block;}
     .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: center;}
     .sub_info {margin-top: 35px;}

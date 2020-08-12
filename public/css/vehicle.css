@@ -84,8 +84,8 @@ section.sub_wrap h2 br {display: none;}
     .reservation {background: #c3a164; border: #c3a164; color: #fff;}
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*425px*/
+@media screen and (max-width: 425px) {
     
     /*main*/
     section.main {width: 100%;}

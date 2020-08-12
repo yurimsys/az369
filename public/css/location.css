@@ -72,8 +72,8 @@ header .open {
 
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*425px*/
+@media screen and (max-width: 425px) {
     .sub_contents {margin-top: 40px; width: 90%;}
     .sub_contents ul li:nth-child(1) {padding-bottom: 20px;}
     .sub_contents ul li p { text-align: justify; padding: 0;}

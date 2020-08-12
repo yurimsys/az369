@@ -86,8 +86,8 @@ header .open {
     .etrans label {font-size: 14px;}
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*425px*/
+@media screen and (max-width: 425px) {
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
