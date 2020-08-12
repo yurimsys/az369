@@ -32,6 +32,10 @@ const storage = multer.diskStorage({
   })
 const upload = multer({storage: storage})
 
+router.get('/pay_test',function(req, res){
+    res.render('pay_test');
+})
+
 
 router.get('/testst',function(req, res, next){
     res.render('testst');
@@ -414,6 +418,7 @@ router.get('/az369_survey_intro', function(req,res){
 
 router.get('/login', function(req, res, next){
     if(req.user !== undefined){
+        
         res.redirect('/');
     } else {
         // 로그인시 ID, PW 가 틀렸을 경우 FlashMessage

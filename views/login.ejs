@@ -138,6 +138,7 @@
     <% if( loginFailMsg ) { %>
     <script>
         // alert("<%= loginFailMsg %>")
+        localStorage.removeItem('auto_login');
         swal({
             title: '로그인 실패',
             text: '아이디 혹은 비밀번호 오류 입니다.',
@@ -146,6 +147,7 @@
         })
     </script>
     <% }%>
+    
 </body>
 
 </html>

@@ -11,6 +11,40 @@ function init(){
         type: "date",
         dateSerializationFormat : "yyyy-MM-dd"
     });
+    $.ajax({
+        url: '/api/business',
+        method: 'get',
+        dataType : 'json',
+        success : function(res){
+
+            let brand_list = res.data.map((data) =>{
+                return { id : data.B_ID, text : data.B_Name}
+            });
+            
+            $("#car_list").select2(
+                {
+                    placeholder: '운송사 선택',
+                    data: brand_list,
+                    width: 'resolve'
+                }
+            );
+
+            $("#search_car_list").select2(
+                {
+                    placeholder: '운송사 선택',
+                    data: brand_list,
+                    width: 'resolve'
+                }
+            );
+
+            // for(let i=0; i <res.data.length; i++){
+            //     let html = "<option value="+res.data[i].B_ID+">"+res.data[i].B_Name+"</option>"  
+            //     // $('#car_list').append(html);
+            //     $('#search_car_list').append(html);
+                
+            // }
+        }
+    });
 }
 
 
@@ -28,14 +62,13 @@ let objectInfo = function (mode = "modify", row_data) {
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-modify, .btn-delete').addClass('disabled');
 
-        $('#business_id').val('');
-        $('#business_name').val('');
-        $('#business_phone').val('');
-        $('#business_fax').val('');
-        $('#business_email').val('');
-        $('#postcode').val('');
-        $('#address').val('');
-        $('#detailAddress').val('');
+        $('#car_id').val('');
+        $(".object-info .select2").val(null).trigger('change');
+        // $('#car_list').val('null');
+        $('#car_type').val('');
+        $('#all_seat').val('');
+        $('#service_seat').val('');
+        $('#seat_price').val('');
 
         sessionStorage.removeItem('row_data');
     } else if( mode === "modify"){
@@ -45,15 +78,14 @@ let objectInfo = function (mode = "modify", row_data) {
         
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-save').addClass('disabled');
-        console.log('row_data', row_data);
-        $('#business_id').val(row_data.B_ID);
-        $('#business_name').val(row_data.B_Name);
-        $('#business_phone').val(row_data.B_Tel);
-        $('#business_fax').val(row_data.B_Fax);
-        $('#business_email').val(row_data.B_Email);
-        $('#postcode').val(row_data.B_Zip);
-        $('#address').val(row_data.B_Addr1);
-        $('#detailAddress').val(row_data.B_Addr2);
+
+        $('#car_id').val(row_data.CY_ID);
+        $('.object-info #car_list').val(row_data.CY_B_ID).trigger('change');
+        // $('#car_list').val(row_data.CY_B_ID);
+        $('#car_type').val(row_data.CY_Ty);
+        $('#all_seat').val(row_data.CY_TotalPassenger);
+        $('#service_seat').val(row_data.CY_ServicePassenger);
+        $('#seat_price').val(row_data.CY_SeatPrice);
 
         sessionStorage.setItem('row_data', JSON.stringify(row_data) );
     }
@@ -61,7 +93,7 @@ let objectInfo = function (mode = "modify", row_data) {
 
 let tableInit = function (data) {
     $("#mgmt-table").dxDataGrid({
-        dataSource: "/api/business",
+        dataSource: "/api/vehicle_type",
         showBorders: true,
         renderAsync: true,
         allowColumnReordering: true,
@@ -90,7 +122,7 @@ let tableInit = function (data) {
         },
         onSelectionChanged : function(e) {
             console.log('selection changed', e);
-            sessionStorage.setItem("row_data_list", e.selectedRowsData.map(data => data.B_ID));
+            sessionStorage.setItem("row_data_list", e.selectedRowsData.map(data => data.CY_ID));
             let dataGrid = e.component;
             
             let informer = e.element.find(".selectedActionBtns");
@@ -108,15 +140,12 @@ let tableInit = function (data) {
             e.rowElement.css("border-left", "2px solid #f2f2f2");
 
             let row_data = {};
-            row_data.B_ID = e.data.B_ID;
-            row_data.B_Name = e.data.B_Name;
-            row_data.B_Tel = e.data.B_Tel;
-            row_data.B_Fax = e.data.B_Fax;
-            row_data.B_Email = e.data.B_Email;
-            row_data.B_Zip = e.data.B_Zip;
-            row_data.B_Addr1 = e.data.B_Addr1;
-            row_data.B_Addr2 = e.data.B_Addr2;
-            row_data.B_cDt = e.data.B_cDt;
+            row_data.CY_ID = e.data.CY_ID;
+            row_data.CY_B_ID = e.data.CY_B_ID;
+            row_data.CY_Ty = e.data.CY_Ty;
+            row_data.CY_TotalPassenger = e.data.CY_TotalPassenger;
+            row_data.CY_ServicePassenger = e.data.CY_ServicePassenger;
+            row_data.CY_SeatPrice = e.data.CY_SeatPrice;
             if($('.brand_info').css('display') == 'none'){
                 folding();
             }
@@ -131,7 +160,7 @@ let tableInit = function (data) {
           },
           onExporting: function(e) {
             var workbook = new ExcelJS.Workbook();
-            var worksheet = workbook.addWorksheet('운송사관리');
+            var worksheet = workbook.addWorksheet('차량 타입 관리');
             
             DevExpress.excelExporter.exportDataGrid({
               component: e.component,
@@ -139,23 +168,20 @@ let tableInit = function (data) {
               autoFilterEnabled: true
             }).then(function() {
               workbook.xlsx.writeBuffer().then(function(buffer) {
-                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), '운송사 관리.xlsx');
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), '차량타입 관리.xlsx');
               });
             });
             e.cancel = true;
           },
         columns: [
             //cssClass : 'tooltip'
-            { dataField: "B_ID", caption: "ID", width : 70, sortOrder : "desc"},
+            { dataField: "CY_ID", caption: "ID", width : 70, sortOrder : "desc"},
             { dataField: "B_Name", caption: "운송사명"},
-            { dataField: "B_Tel", caption: "전화번호"},
-            { dataField: "B_Fax", caption: "팩스번호"},
-            { dataField: "B_Email", caption: "이메일"},
-            { dataField: "B_Zip", caption: "우편번호"},
-            { dataField: "B_Addr1", caption: "도로명주소"},
-            { dataField: "B_Addr2", caption: "상세주소"},
-            { dataField: "B_cDt", caption: "등록일"},
-            { dataField: "B_uDt", caption: "수정일"}
+            { dataField: "CY_Ty", caption: "차량타입"},
+            { dataField: "CY_TotalPassenger", caption: "전체 좌석"},
+            { dataField: "CY_ServicePassenger", caption: "실제 좌석"},
+            { dataField: "CY_SeatPrice", caption: "좌석 가격"},
+            { dataField: "CY_cDt", caption: "생성일"}
         ],
         onContentReady: function(e) {
             let informer = e.element.find(".informer");
@@ -234,16 +260,14 @@ tableInit();
 function saveAD(){
 
     let update_data = {
-        b_name : $("#business_name").val(),
-        b_phone : $('#business_phone').val(),
-        b_fax : $('#business_fax').val(),
-        b_email : $('#business_email').val(),
-        b_zip : $('#postcode').val(),
-        b_addr1 : $('#address').val(),
-        b_addr2 : $('#detailAddress').val(),
+        cy_list : $("#car_list option:selected").attr('value'),
+        cy_type : $('#car_type').val(),
+        cy_total : $('#all_seat').val(),
+        cy_service : $('#service_seat').val(),
+        cy_price : $('#seat_price').val()
     }
 
-    let api_url  = '/api/business';
+    let api_url  = '/api/vehicle_type';
     $.ajax({
         dataType : 'JSON',
         type : "POST",
@@ -260,12 +284,12 @@ function saveAD(){
 function deleteAD(mode = 'single') {
     if(mode === 'single'){
 
-        let id = JSON.parse( sessionStorage.getItem('row_data') ).B_ID;
+        let id = JSON.parse( sessionStorage.getItem('row_data') ).CY_ID;
         console.log(id,'삭제 아이디');
         $.ajax({
             dataType : 'JSON',
             type : "DELETE",
-            url : '/api/business/'+id,
+            url : '/api/vehicle_type/'+id,
             success : function (res) {
                 console.log('ajax result');
                 console.log(res);
@@ -281,7 +305,7 @@ function deleteAD(mode = 'single') {
             dataType : 'JSON',
             type : "DELETE",
             data : id_list,
-            url : '/api/business',
+            url : '/api/vehicle_type',
             success : function (res) {
                 console.log('ajax result');
                 console.log(res);
@@ -292,21 +316,19 @@ function deleteAD(mode = 'single') {
     }
 }
 function updateAD(){
-    let id = JSON.parse( sessionStorage.getItem('row_data') ).B_ID;
+    let id = JSON.parse( sessionStorage.getItem('row_data') ).CY_ID;
     let update_data = {
-        b_name : $("#business_name").val(),
-        b_phone : $('#business_phone').val(),
-        b_fax : $('#business_fax').val(),
-        b_email : $('#business_email').val(),
-        b_zip : $('#postcode').val(),
-        b_addr1 : $('#address').val(),
-        b_addr2 : $('#detailAddress').val(),
+        cy_list : $("#car_list option:selected").attr('value'),
+        cy_type : $('#car_type').val(),
+        cy_total : $('#all_seat').val(),
+        cy_service : $('#service_seat').val(),
+        cy_price : $('#seat_price').val()
     }
 
     // let form_data = new FormData(document.forms[0]);
     // for ( let i in update_data) form_data.append(i, update_data[i]);
 
-    let api_url  = '/api/business/'+id;
+    let api_url  = '/api/vehicle_type/'+id;
 
     $.ajax({
         dataType : 'JSON',
@@ -338,13 +360,11 @@ function searchPopupReset(){
     let search_detailAddress_instance = $("#object-search-popup .search_cdt").dxDateBox("instance")
     search_detailAddress_instance.reset();
 
-    $("#search_business_name").val(),
-    $('#search_business_phone').val(),
-    $('#search_business_fax').val(),
-    $('#search_business_email').val(),
-    $('#search_postcode').val(),
-    $('#search_address').val(),
-    $('#search_detailAddress').val()
+    $("#search_car_list").val('null')
+    $('#search_car_type').val('')
+    $('#search_all_seat').val('')
+    $('#search_service_seat').val('')
+    $('#search_seat_price').val('')
 }
 // 닫기
 function searchPopupClose() {
@@ -358,22 +378,18 @@ function searchPopupShow() {
 
 // 검색
 function searchPopupAction() {
-    
     let condition_data = {
         searchType : $("#object_search_info #searchType").is(":checked"),
-        b_name : $("#search_business_name").val(),
-        b_phone : $('#search_business_phone').val(),
-        b_fax : $('#search_business_fax').val(),
-        b_email : $('#search_business_email').val(),
-        b_zip : $('#search_postcode').val(),
-        b_addr1 : $('#search_address').val(),
-        b_addr2 : $('#search_detailAddress').val(),
-        b_cdt : $("#object-search-popup .search_cdt").dxDateBox("instance").option().value
+        cy_list : $("#search_car_list option:selected").attr('value'),
+        cy_type : $('#search_car_type').val(),
+        cy_total : $('#search_all_seat').val(),
+        cy_service : $('#search_service_seat').val(),
+        cy_price : $('#search_seat_price').val()
     };
     $.ajax({
         type : "GET",
         dataType : 'JSON',
-        url : '/api/business?type=search',
+        url : '/api/vehicle_type?type=search',
         data : condition_data,
         success : function (res) {
             

@@ -594,51 +594,51 @@
             // let sale_price = $("#sale_price").data('price');
             let sale_price = 0;
             let ct_id = sessionStorage.getItem("ct_id");
+            location.href = '/pay_test';
+            // $.ajax({
+            //     method: "POST",
+            //     dataType: "json",
+            //     url: "/api/payment",
+            //     data: {
+            //         "seatNums": selected_seats,
+            //         "oPrice": origin_price,
+            //         "sPrice": sale_price,
+            //         "ct_id": ct_id
+            //     }
+            // }).done((result) => {
+            //     if(result.data == 0){
+            //         swal({
+            //             title: '예매 실패',
+            //             text: result.seats+' 좌석이 매진입니다. 다른 좌석을 이용해 주세요.',
+            //             icon: 'error',
+            //             button: '확인'
+            //         }).then(function(){
+            //             location.href = "/reservation2";
+            //         })
+            //     }
+            //     else if(result.data == 500){
+            //         swal({
+            //             title: '예매 실패',
+            //             text: '선택하신 버스는 이미 출발하였습니다. 다른 버스를 이용해 주세요.',
+            //             icon: 'error',
+            //             button: '확인'
+            //         }).then(function(){
+            //             location.href = "/reservation2";
+            //         })
+            //     }else{
+            //         let car_list = JSON.parse(sessionStorage.getItem("car_list")),
+            //         ct_id = sessionStorage.getItem("ct_id");
 
-            $.ajax({
-                method: "POST",
-                dataType: "json",
-                url: "/api/payment",
-                data: {
-                    "seatNums": selected_seats,
-                    "oPrice": origin_price,
-                    "sPrice": sale_price,
-                    "ct_id": ct_id
-                }
-            }).done((result) => {
-                if(result.data == 0){
-                    swal({
-                        title: '예매 실패',
-                        text: result.seats+' 좌석이 매진입니다. 다른 좌석을 이용해 주세요.',
-                        icon: 'error',
-                        button: '확인'
-                    }).then(function(){
-                        location.href = "/reservation2";
-                    })
-                }
-                else if(result.data == 500){
-                    swal({
-                        title: '예매 실패',
-                        text: '선택하신 버스는 이미 출발하였습니다. 다른 버스를 이용해 주세요.',
-                        icon: 'error',
-                        button: '확인'
-                    }).then(function(){
-                        location.href = "/reservation2";
-                    })
-                }else{
-                    let car_list = JSON.parse(sessionStorage.getItem("car_list")),
-                    ct_id = sessionStorage.getItem("ct_id");
+            //         let payment_result = car_list.find((k) => (k.ctID == ct_id));
+            //         payment_result.price = result.price;
+            //         payment_result.ph_type = result.ph_type;
 
-                    let payment_result = car_list.find((k) => (k.ctID == ct_id));
-                    payment_result.price = result.price;
-                    payment_result.ph_type = result.ph_type;
+            //         sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
 
-                    sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
+            //         location.href = "/complate";
+            //     }
 
-                    location.href = "/complate";
-                }
-
-            });
+            // });
         }
 
 
