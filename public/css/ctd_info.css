@@ -7,7 +7,7 @@ section.main {
     height: 450px;
     overflow: hidden;
 }
-.main_bg { background: url(/img/sub_main_bg/sub01_main_bg.jpg) no-repeat; background-position: bottom; background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
+.main_bg { background: url(/img/gnb_01/sub01_main_bg.png) no-repeat; background-position: bottom; background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 
 @keyframes bg {
 	0% {transform: scale(1.05);}
@@ -32,7 +32,7 @@ section.sub_wrap h5 br {display: none;}
     
 }
 
-.slide_btn {width: 18%; height: auto; position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);}
+.slide_btn {width:30%; height: auto; position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);}
 /* Next & previous buttons */
 .prev, .next {
 	cursor: pointer;
@@ -50,7 +50,7 @@ section.sub_wrap h5 br {display: none;}
 	cursor: pointer;
 	height: 8px;
 	width: 8px;
-    margin: 0 2px;
+    margin: 0 4px;
     background: #eee;;
 	border-radius: 50%;
 	display: inline-block;
@@ -70,6 +70,7 @@ section.sub_wrap h5 br {display: none;}
 
 /*sub_info*/
 .sub_info {width: 100%; margin: 0 auto; text-align: center; margin-top: 50px;}
+/* .sub_info h4 br {display: none;} */
 
 .sub_info p br {display: none;}
 .ctd_btn { text-align: center;  margin: 0 auto;  overflow: hidden;  transition: all 0.3s; width: 30%; height: 50px; line-height: 50px;  font-size: 16px; margin-top: 40px; border-radius: 4px;}
@@ -95,7 +96,7 @@ section.sub_wrap h5 br {display: none;}
 /*1024px*/
 @media screen and (max-width: 1024px) {
     .dot {margin-bottom: 3px;}
-    .slide_btn {width: 23%;}
+    /* .slide_btn {width: 23%;} */
     .ctd_btn {background-color: #C3A164; color: #fff; font-weight: 400;}
 }
 
@@ -105,9 +106,11 @@ section.sub_wrap h5 br {display: none;}
     .sub_list h3 br {display: none;}
     .list_bar {margin: 15px 0;}
     .sub_info p br {display: none; text-align: justify;}
-    .slide_btn {width: 30%;}
+    .slide_btn {width: 100%;}
     .sub_list ul {flex-direction: column;}
     .sub_list ul li {margin-right: 0; margin-bottom: 15px;}
+    .sub_info h4 br {display: none;}
+    .sub_info h4 {width: 95%; margin: 0 auto;}
     
 }
 
@@ -115,7 +118,7 @@ section.sub_wrap h5 br {display: none;}
 @media screen and (max-width: 450px) {
     .sub_info h3 {width: 100%;}
     section.sub_wrap h4 br {display: none;}
-	.sub_info h4 br {display: block;}
+	
 	.list_title br {display: none;}
     .list_txt p {float: none; width: 100%;}
     .slide_btn {width: 93%;}

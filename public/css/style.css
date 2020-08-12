@@ -23,7 +23,7 @@ p {font-family: inherit; font-size: 16px; color: #767676;}
 section.main {
     position: relative;
     width: 100%;
-    height: 1080px;
+    height:750px;
     overflow: hidden;
 }
 
@@ -58,9 +58,7 @@ section.main {
 .main_text h1 span {display: none;}
 .main_text p { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.9); width: 100%; overflow: hidden; position: relative; font-weight: 300;}
 
-.mainlides {
-	display: none;
-}
+.mainlides {display: none;}
 
 .slideshow-container {
 	width: 100%;
@@ -83,17 +81,9 @@ section.main {
 }
 
 .main_next {right: 0;}
- 
-/* .main_prev:hover, .main_next:hover {
-	background-color: rgba(0,0,0,0.5);
-} */
 
-.dot {
-	display: none;
-}
-/* .active, .dot:hover {
-	background-color: #a0772b;
-} */
+
+.dot {display: none;}
 .main_ani {
 	-webkit-animation-name: main_ani;
 	-webkit-animation-duration: 5s;
@@ -104,8 +94,6 @@ section.main {
   0% {opacity: 1; transform: scale(1.05);}
     100% {opacity: 1; transform: scale(1);}
 }
-
-
 /*section.main 완료*/
 /*section.about 시작*/
 
@@ -533,6 +521,7 @@ section.video h6 {margin-bottom: -0.5%;}
     /* .main_ani img {width: 100%; height: 100%;} */
     .main_text h2 {line-height: 1.6;}
     .main_text h2 br {display: block;}
+    .main_btn {top: 200px; width:180px; padding: 0;}
 
     /*main 타이틀*/
     .main_text {text-shadow: 0 0 10px rgba(0,0,0,0.5);}
@@ -543,9 +532,6 @@ section.video h6 {margin-bottom: -0.5%;}
     section.main .main_text02 {margin-top: 0%;}
     .main_text h1 span {display: block}
 
-    .main_btn {top: 180px;}
-    
-    
     /*section.about*/
     section.about { margin: 10% 0 13%;}
     section.about .inner_about {width: 100%; margin: 0 auto; padding: 0 3%;}

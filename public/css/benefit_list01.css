@@ -30,7 +30,7 @@ section.main {
     overflow: hidden;
 }
 
-.main_bg {background: url(/img/benefit_list/benefit_list01_bg.png);
+.main_bg {background: url(/img/gnb_02/benefit_list01_bg.png);
 background-position: center;
 background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 

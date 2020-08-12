@@ -9,7 +9,7 @@ section.main {
     overflow: hidden;
 }
 
-.main_bg {background: url(/img/vehicle/vehicle_main_bg2.png);
+.main_bg {background: url(/img/gnb_03/vehicle_main_bg2.png);
     background-position: bottom;
     background-size: cover; 
     width: 100%;
@@ -90,7 +90,7 @@ section.sub_wrap h2 br {display: none;}
     /*main*/
     section.main {width: 100%;}
     .main_bg {
-        background: url(/img/vehicle/vehicle_main_bg2.png);
+        background: url(/img/gnb_03/vehicle_main_bg2.png);
         background-size: cover;
         background-repeat: no-repeat;
         background-position: right;
