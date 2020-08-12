@@ -50,8 +50,8 @@
 }
 
 
-/*425px*/
-@media screen and (max-width: 425px) {
+/*450px*/
+@media screen and (max-width: 450px) {
 
     .join_box {padding: 8% 5%;}
     .join_box h3 {font-size: 15px; color: #444; margin-bottom: 7px;}

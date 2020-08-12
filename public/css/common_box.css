@@ -194,8 +194,8 @@ input[type="submit"] {font-size: 18px;}
     section.sub_wrap h2 {font-size: 24px; margin-bottom: 45px;}
 }
 
-/*425px*/
-@media screen and (max-width: 425px) {
+/*450px*/
+@media screen and (max-width: 450px) {
    .tab ul li  {height:50px; font-size: 15px; line-height: 50px;}
     section.sub_wrap h6 {font-size: 15px;}
     section.sub_wrap h1 {font-size: 30px;}

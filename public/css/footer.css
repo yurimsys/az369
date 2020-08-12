@@ -41,8 +41,8 @@ footer {width: 100%; background-color: #fafafa; position: relative; padding: 35p
 }
 
 
-/* 425px */
-@media screen and (max-width: 425px) {
+/* 450px */
+@media screen and (max-width: 450px) {
     #top_scroll {
         right: 10px;
         bottom: 40px;

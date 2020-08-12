@@ -309,8 +309,8 @@ section.video_list{width: 100%; margin-top: 70px; overflow: hidden;}
     
 }
 
-/*425px*/
-@media screen and (max-width: 425px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     
     /*main*/
     section.main {width: 100%; background-position: right;}

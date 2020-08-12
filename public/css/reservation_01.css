@@ -348,8 +348,8 @@ select {
     .reservation_btn_mo {width: 60%;}
 }
 
-/*425px*/
-@media screen and (max-width: 425px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     section.sub_wrap h6 {padding-top: 20px; margin-bottom: -2.5%;}
     section.sub_wrap h1 {font-size: 30px; margin-bottom: 3%;}
     section.sub_wrap .bar {display: none;}

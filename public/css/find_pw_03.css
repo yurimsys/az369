@@ -26,8 +26,8 @@
     .find_img img {width: 14%;}
 }
 
-/*425px*/
-@media screen and (max-width: 425px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     .find_box_inner {margin: 0 auto; padding:12% 5% 10%;}
     .find_box_inner h3 {font-size: 22px; margin-top: 15px; line-height: 1.6;}
 	.find_box_inner h3 br {display: block;}

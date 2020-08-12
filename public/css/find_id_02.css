@@ -35,8 +35,8 @@
     .find_box_inner h3 {margin-top: 25px;}
 }
 
-/*425px*/
-@media screen and (max-width: 425px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     .find_box_inner {margin: 0 auto; padding:12% 5% 10%;}
     .find_id_btn {margin-top: 40px; font-size: 16px; height: 45px; line-height: 45px;}
     .find_box_inner p {font-size: 15px;}

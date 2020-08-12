@@ -58,8 +58,8 @@
     .login_btn {width: 100%;}
 }
 
-/*425px*/
-@media screen and (max-width: 425px) {
+/*450px*/
+@media screen and (max-width: 450px) {
 
     .box {padding-top: 80px;}
 

@@ -80,8 +80,8 @@ td br {display: none;}
     footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
-/*425px*/
-@media screen and (max-width: 425px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     
     table.order {width: 100%;}
     

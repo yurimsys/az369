@@ -48,8 +48,8 @@
     .find_box_inner {margin: 0 auto; padding: 6% 8%;}
 }
 
-/*425px*/
-@media screen and (max-width: 425px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     .find_box_inner {margin: 0 auto; padding:12% 5% 10%;}
     .find_box p {font-size: 15px; margin-bottom: 15px; text-align: justify;}
 

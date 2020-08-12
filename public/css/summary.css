@@ -44,8 +44,8 @@ section.main {
     .sub_info ul {margin-top: 25px;}
 }
 
-/*425px*/
-@media screen and (max-width: 425px) {
+/*450ㄴpx*/
+@media screen and (max-width: 450px) {
     section.sub_wrap h2 br {display: block;}
     .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: center;}
     .sub_info {margin-top: 35px;}

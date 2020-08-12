@@ -137,8 +137,8 @@
     .join_box {padding: 30px 60px;}
 }
 
-/*425px*/
-@media screen and (max-width: 425px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     section.sub_wrap p {font-size: 14px; text-align: center; margin-bottom: 3%;}
     .join_box .join_process {font-size: 14px;}
     .join_box {padding: 5%; margin: 0 auto;}

@@ -111,8 +111,8 @@ section.sub_wrap h5 br {display: none;}
     
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     .sub_info h3 {width: 100%;}
     section.sub_wrap h4 br {display: none;}
 	.sub_info h4 br {display: block;}
