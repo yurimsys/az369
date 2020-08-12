@@ -9,8 +9,7 @@
 
 .join_box h2 {text-align: center; font-size: 24px; margin-bottom: 30px; font-weight: 500;}
 
-.join_box form { width: 100%; margin: 0 auto;}
-
+.join_box form {width: 100%; margin: 0 auto;}
 
 /*인증번호받기*/
 #phone_check {margin-top: 5px;}
@@ -137,8 +136,8 @@
     .join_box {padding: 30px 60px;}
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     section.sub_wrap p {font-size: 14px; text-align: center; margin-bottom: 3%;}
     .join_box .join_process {font-size: 14px;}
     .join_box {padding: 5%; margin: 0 auto;}

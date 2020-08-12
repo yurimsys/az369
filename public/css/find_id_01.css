@@ -73,8 +73,8 @@ header .open {
     .find_box_inner {margin: 0 auto; padding: 6% 8%;}
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     .find_box_inner {margin: 0 auto; padding:12% 5% 10%;}
     .find_box p {font-size: 15px; margin-bottom: 15px; text-align: justify;}
     .find_id_btn {width: 100%; margin-top: 10%; font-size: 16px; height: 40px; line-height: 40px;}

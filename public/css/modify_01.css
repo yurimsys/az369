@@ -45,8 +45,8 @@
     .modify_box {padding: 5% 20%;}
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     .modify_box {margin: 0 auto; padding: 8% 5%;}
     .modify_box p {color: #444; font-size: 15px; text-align: justify; margin-bottom: 12px;}
     .modify_btn {width: 100%;}

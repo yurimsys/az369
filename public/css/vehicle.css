@@ -9,7 +9,7 @@ section.main {
     overflow: hidden;
 }
 
-.main_bg {background: url(/img/vehicle/vehicle_main_bg2.png);
+.main_bg {background: url(/img/gnb_03/vehicle_main_bg2.png);
     background-position: bottom;
     background-size: cover; 
     width: 100%;
@@ -84,13 +84,13 @@ section.sub_wrap h2 br {display: none;}
     .reservation {background: #c3a164; border: #c3a164; color: #fff;}
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     
     /*main*/
     section.main {width: 100%;}
     .main_bg {
-        background: url(/img/vehicle/vehicle_main_bg2.png);
+        background: url(/img/gnb_03/vehicle_main_bg2.png);
         background-size: cover;
         background-repeat: no-repeat;
         background-position: right;

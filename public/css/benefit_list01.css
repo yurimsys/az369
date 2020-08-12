@@ -30,7 +30,7 @@ section.main {
     overflow: hidden;
 }
 
-.main_bg {background: url(/img/benefit_list/benefit_list01_bg.png);
+.main_bg {background: url(/img/gnb_02/benefit_list01_bg.png);
 background-position: center;
 background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 
@@ -147,12 +147,12 @@ section.sub_wrap h5 span {font-weight: 400;}
 /*1200px*/
 @media screen and (max-width: 1200px) {
 	.tnb {width: 100%;}
-    .tab {width: 93%; margin: 0 auto;}
-    .tabcontent {width: 93%; margin: 0 auto;}
+    .tab {width: 95%; margin: 0 auto;}
+    .tabcontent {width: 95%; margin: 0 auto;}
     section.sub_wrap {width:100%;}
     
     /*sub_contents*/
-    .sub_contents {width: 93%;}
+    .sub_contents {width: 95%;}
 }
     
 
@@ -169,8 +169,8 @@ section.sub_wrap h5 span {font-weight: 400;}
 
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     
     /*main*/
     /*section.sub_wrap*/

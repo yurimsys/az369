@@ -84,26 +84,43 @@
                                         <!-- <h5><%= sessionUser.U_Name %>님
                                             <span>(<%= sessionUser.U_uId %>)</span></h5> -->
 
+                                            <dl>
+                                                <dt><img src="/img/mypage/info_icon01.png" alt="브랜드샵 아이콘"></dt>
+                                                <dd>
+                                                    <%= sessionUser.U_Brand %></dd>
+                                                   </dl>
+                                            <dl>
+                                                <dt><img src="/img/mypage/info_icon02.png" alt="@ 아이콘"></dt>
+                                                <dd>
+                                                    <%= sessionUser.U_Email %>
+                                                </dd>
+                                            </dl>
+                                            <dl>
+                                                <dt><img src="/img/mypage/info_icon03.png" alt="휴대폰 아이콘" style="padding-left: 3px;"></dt>
+                                                <dd>
+                                                    <%= sessionUser.U_Phone %>
+                                                </dd>
+                                            </dl>
 
-                                        <p>
+                                        <!-- <p>
                                             <%= sessionUser.U_Brand %>
                                             <br>
                                             <%= sessionUser.U_Email %>
                                             <br>
                                             <%= sessionUser.U_Phone %>
-                                        </p>
+                                        </p> -->
                                     </div>
 
                                     <div class="mypage_nav">
                                         <button class="tablinks" id="tab1" onclick="openList(event, '01')"
-                                            id="defaultOpen"> 장차예매현황 <span><img src="/img/common/right_arrow_g.png"
+                                            id="defaultOpen"> 장차예매현황 <span><img src="/img/common/gray_arrow.png"
                                                     alt=""></span></button>
 
                                         <button class="tablinks" id="tab2" onclick="openList(event, '02')"> 예매결제내역
-                                            <span><img src="/img/common/right_arrow_g.png" alt=""></span></button>
+                                            <span><img src="/img/common/gray_arrow.png" alt=""></span></button>
 
                                         <button class="tablinks" id="tab3" onclick="openList(event, '03')"> 취소환불조회
-                                            <span><img src="/img/common/right_arrow_g.png" alt=""></span></button>
+                                            <span><img src="/img/common/gray_arrow.png" alt=""></span></button>
                                     </div>
                                     <!-- <div class="logout btn btn-secondary"><a href="login">로그아웃</a></div> -->
                                 </div>
@@ -306,7 +323,7 @@
                                         <!--두번째 리스트 popup mo-->
                                         <div id="popup2" class="layer">
                                             <div class="popup_box_mo popup_box_mo2">
-                                                <h2>예매 결제 상세내역</h2>
+                                                <h3>예매 결제 상세내역</h3>
                                                 <div class="table_mo">
                                                 </div>
 
@@ -419,7 +436,7 @@
                                         <!--환불완료-->
                                         <div id="popup3" class="layer">
                                             <div class="popup_box_mo">
-                                                <h2>취소환불 상세내역</h2>
+                                                <h3>취소환불 상세내역</h3>
                                                 <div class="table_mo">
 
                                                 </div>
@@ -485,7 +502,7 @@
     <!--두번째 리스트 popup mo-->
     <div id="popup2" class="layer">
         <div class="popup_box_mo popup_box_mo2">
-            <h2>예매 및 결제 상세내역</h2>
+            <h3>예매 및 결제 상세내역</h3>
             <div class="table_mo">
             </div>
 
@@ -499,7 +516,7 @@
     <!--환불완료-->
     <div id="popup3" class="layer">
         <div class="popup_box_mo">
-            <h2>취소 및 환불 상세내역</h2>
+            <h3>취소 및 환불 상세내역</h3>
             <div class="table_mo">
 
             </div>
@@ -572,7 +589,7 @@
                     console.log('res',res.data);
                     let default_html = 
                     `<div class="swiper-slide">
-                        <h2>TICKET <span>1 / 2</span></h2>
+                        <h3>승차권 <span>1 / 2</span></h3>
                         <div class="qr_info">
                             <div id='qrcode' class="qrcode"></div>
                             <div class="qr_txt">
@@ -581,11 +598,11 @@
                         </div>
                          <table class="detail_table">`;
                          let default_html2 = `</table>
-                         <p>출발일 3일 전 ~ 당일은 예매취소가 불가능합니다.   <a><u> 환불규정</u></a></p>
+                         <p>예매취소는 개별로만 가능하오니 좌석번호를 꼭 확인해주세요. <br> 출발일 3일 전 ~ 당일은 예매취소가 불가능합니다.  <a><u> 환불규정</u></a></p>
                          <div class="popup_btn">
                            <ul><li><a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');" class="btn btn-secondary">닫기</a></li><li>`;
                     for(let i=0; i <res.data.length; i++){
-                        let html = '<div class="swiper-slide"><h2>TICKET '+Number(i+1)+' <span style="color: #999; font-family: inherit"> / '+res.data.length+'</span></h2><div class="qr_wrap"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div></div>';
+                        let html = '<div class="swiper-slide"><h3>승차권 '+Number(i+1)+' <span style="color: #999; font-family: inherit"> / '+res.data.length+'</span></h3><div class="qr_wrap"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div></div>';
                             html += '<table class="detail_table">';
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[i].payDayYM+' ('+getInputDayLabel(res.data[i].payDayWeek)+') '+res.data[i].payDayTm+'</td><tr>'
@@ -605,7 +622,7 @@
                     }
 
                     for(let j=0; j <res.data.length; j++){
-                        let html = '<div class="swiper-slide"><h2>TICKET '+Number(j+1)+'<span style="color: #999;"> / '+res.data.length+'</span></h2><div class="qr_wrap"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div></div>';
+                        let html = '<div class="swiper-slide"><h3>승차권 '+Number(j+1)+'<span style="color: #999;"> / '+res.data.length+'</span></h3><div class="qr_wrap"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div></div>';
                             html += '<table class="detail_table">';
                             html += '<tr><th>결제일시</th>';
                             html += '<td>'+res.data[j].payDayYM+' ('+getInputDayLabel(res.data[j].payDayWeek)+') '+res.data[j].payDayTm+'</td><tr>'

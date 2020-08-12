@@ -10,18 +10,20 @@ body {background: #fafafa;}
 /*마이페이지 왼쪽*/
 .mypage_left {width: 100%; height: auto; padding: 20px 30px; overflow: hidden; }
 /*왼쪽 상단*/
-.info_title {width: 100%; overflow: hidden; padding-bottom: 20px; border-bottom: 1px solid #eee;}
+.info_title {width: 100%; overflow: hidden;}
 .info_title h2 {font-size: 20px; font-weight: 500; display: inline-block; float: left; width: 70%;line-height: 1.5;} 
 .info_title h2 span {font-size: 16px; font-weight: 300; color: #999;}
 .modify_btn { color: #767676; background: #f2f2f2; display: inline-block; height: 40px; line-height: 40px; font-size: 15px; float: right; width:25%; text-align: center; border-radius: 12px; transition: all 0.3s;}
 .modify_btn a {display: block;}
 .modify_btn_mo {display: none; }
-.info {text-align: justify; width: 100%; margin-top: 15px; margin-bottom: 50px;}
-/* .info h5 {font-size: 16px; font-weight: normal; margin-bottom: 10px; font-weight: 500; color: #222;}
-.info h5 span {font-size: 16px; color: #999; font-weight: 300;} */
-.info p {color: #444; font-size: 15px; line-height: 2;}
+
+.info {text-align: justify; width: 100%; margin-top: 20px; padding: 20px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee;}
+.info dl {width: 100%; }
+.info dt {width: 30px; float: left;}
+.info dd {width: calc(100% - 30px); padding-top: 3px; font-size: 15px;}
+
 /* 왼쪽 하단 버튼*/
-.mypage_nav {overflow: hidden;}
+.mypage_nav {overflow: hidden; margin-top: 15px;}
 .mypage_nav button { width: 100%; height: 45px; line-height:45px; border: none; float: left; padding: 0; margin: 0; background: #fff; font-size: 16px; cursor: pointer; text-align: justify; transition: all 0.3s; color: #999; font-weight: 400;}
 .mypage_nav button span {float: right;}
 .mypage_nav button.active {color: #222; font-weight: 500; padding: 0;}
@@ -194,36 +196,32 @@ th, td {padding: 0;}
 
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
  .popup_box{width:25%; background:#fff; position:relative; z-index: 1000; top:50%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.3); padding: 20px 20px 25px;}
- .popup_box h2 {font-size: 24px; font-weight: 500; margin-bottom: 20px; text-align: center;}
- .popup_box h2 span {color: #999; font-weight: 300;}
+ .popup_box h3 {font-size: 24px; margin-bottom: 20px; text-align: center;font-weight: 600; font-size: 24px; padding-top: 6px;}
+ .popup_box h3 span {color: #999; font-weight: 300;}
 
  .swiper-slide {width: 99%; padding: 20px; border-radius: 12px; padding: 0; margin: 0 auto;}
  .swiper-wrapper {width: auto;}
  /* .swiper-slide h2 {font-weight: 500; font-size: 28px;} */
  /* 
  .swiper-slide h2 span {font-family: 'Noto Sans KR', sans-serif;} */
- .swiper-slide h2 {font-family: 'PT Serif', serif; font-weight: bold; font-size: 30px;}
  
-
-/* .qr_info {display: inline-block; width: 99%; margin: 0 auto; height: auto; border-radius: 12px; padding: 10px; position: relative; overflow: hidden;} */
-
-.qr_wrap {width: 115px; height: 115px; background-color: #f5f2eb; position: relative; left: 50%; transform: translateX(-50%); margin-bottom:25px;}
+.qr_wrap {width: 115px; height: 115px; background-color: #faf9f7; position: relative; left: 50%; transform: translateX(-50%); margin-bottom:25px;}
 .qrcode {width: 93px; height: 93px; background-color: black; position: absolute;
 top: 50%; left: 50%; transform: translate(-50%, -50%);}
 
 
-.table th {border-top: 1px solid #444;}
+/* .table th {border-top: 1px solid #191919;} */
 
 .detail_table {
     width: 99%;
     border: none;
     margin: 0; padding: 0;
-    border-top: 1px solid #444;
+    border-top: 1px solid #191919;
     background-color: #fff;
     /* border: 1px solid #dbdbdb; */
 }
 .detail_table td, .detail_table th {
-    padding: 15px;
+    padding:12px;
     border-bottom: 1px solid #eee;
     vertical-align: middle;
     font-size: 15px;
@@ -233,18 +231,19 @@ top: 50%; left: 50%; transform: translate(-50%, -50%);}
     /* background: #fdfbf6; */
     text-align: left;
     font-weight: 400;
-    color: #444;
+    color: #505050;
+    /* background-color: #f7f7fa; */
 }
 .detail_table td {text-align: right;}
 .detail_table td span {color: #999;}
 
-.popup_btn { width: 80%; margin: 0 auto; overflow: hidden; margin-top: 40px;}
+.popup_btn { width: 70%; margin: 0 auto; overflow: hidden; margin-top:40px;}
 .popup_btn li {float: left; width: 49%; margin-right: 1%;}
 .popup_btn li:last-child {margin-right: 0;}
 .popup_btn a {display: block;}
 .layer:target{display:flex;animation:open 0.5s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
-.popup_box p {font-size: 15px; margin-top:15px; margin-bottom: 0; color:#222; text-align: center; color: #999; font-size: 200;}
+.popup_box p {font-size: 15px; margin-top:20px; margin-bottom: 0; columns: #767676; text-align: center; font-size: 200;}
 .popup_box p a {color: #999; font-weight: 500;}
 p.cancel_info {margin:2% 0; text-align: center;}
 
@@ -276,9 +275,10 @@ p.cancel_info {margin:2% 0; text-align: center;}
 @media screen and (max-width: 1200px) {
   /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    .inner_sub_wrap {width: 100%; padding: 0 15px; margin: 0 auto;}
+    /* .inner_su1b_wrap {width: 100%;  margin: 0 auto;} */
     .layer .popup_box{width: 40%; margin-top: 10px; overflow: scroll;}
     .swiper-slide {width: auto;}
+    .inner_sub_wrap {width: 98%; margin: 0 auto;}
 }
 
 
@@ -286,22 +286,28 @@ p.cancel_info {margin:2% 0; text-align: center;}
 @media screen and (max-width: 1024px) {
     .box_01, .box_02 {height: 650px;}
     .info h5 {font-size: 18px;}
+    .info dt {display: none;}
+    .info dd {width: 100%;}
+    .mypage_left {padding: 20px 16px;}
 }
 
 
 /*768px*/
 @media screen and (max-width: 768px) {
+    section.sub_wrap {width: 95%;}
     /* 상단영역 */
     .box_01, .box_02 {float: none; width: 100%; overflow: hidden;}
     .mypage_box .logout {display: none;}
-    .mypage_left {height: auto;}
+    .mypage_left {height: auto; padding: 20px;}
     section.sub_wrap h2 {margin-bottom: 0; font-size: 20px;}
-    .info {margin-bottom: 0; padding:10px 0 15px;}
+    .info {border-bottom: none;}
+    .info dl {padding: 2px 0;}
+    .info dl dt {display: block;}
     .info_title h2 br  {display: none;}
     .box_01 {height: auto; position: relative; width: 100%; overflow: hidden; border-bottom: none;}
     .box_02 {border-top: none; padding-top: 8px;}
     .modify_btn {display: none;}
-    .modify_btn_mo {display: block;  color: #767676;display: inline-block; height: 30px; line-height: 30px; font-size: 15px; float: right; width:auto; margin-right: 10px;}
+    .modify_btn_mo {display: block;  color: #999;display: inline-block; height: 30px; line-height: 30px; font-size: 15px; float: right; width:auto; margin-right: 10px;}
     .mypage_nav {display: none;}
     .mypage_nav_mo { display: block; width: 100%; overflow: hidden;}
     .mypage_nav_mo .tablinks {width: 33.3%; float: left; height: 55px; color: #444;}
@@ -312,8 +318,8 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_box{display: none;}
     .layer {width: 100%;}
     .popup_box_mo {display: block; width: 60%; background: #fff; padding: 20px 15px; position: absolute; z-index: 100000; top: 53%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; overflow: scroll;}
-    .popup_box_mo h2 {text-align: center; margin-bottom: 25px; font-size: 22px;}
-    .popup_box_mo p {margin-top: 15px; text-align: center; font-size: 14px;  color: #999; font-weight: 200;}
+    .popup_box_mo h3 {text-align: center; margin-bottom: 20px; font-size: 22px; padding-top: 8px;}
+    .popup_box_mo p {margin-top: 20px; text-align: center; font-size: 15px;}
     .popup_box_mo p a {color: #999; margin-left: 5px; font-weight: 500;}
     .table_mo {display: block;}
     .table_mo {width:100%; overflow: hidden; margin-bottom: 2%; overflow: hidden;}
@@ -322,10 +328,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     
     .popup_btn {margin-top: 40px; width: 70%;}
     .popup_btn_mo a {display: block; height: 45px; line-height: 45px;}
-    /* .popup_btn_mo ul {width: 100%; margin:0 auto; display: flex;}
-    .popup_btn_mo ul li {float: left; flex: 1; margin-right: 5px;}
-    .popup_btn_mo ul li:nth-child(2) {margin-right: 0;} */
-
+    .qr_wrap {margin-bottom: 20px;}
 
     #reserve_list {width: 100%; height: 280px;}
     .reserve_list_tit ul li {float: left; width: 25%;}
@@ -349,8 +352,6 @@ p.cancel_info {margin:2% 0; text-align: center;}
 
     .mypage_nav_mo p {font-size:15px;}
     .tabcontent h4 {font-size: 20px;}
-    .info_title {padding-bottom: 15px;}
-    .info {padding-top: 0;}
     .info p {font-size: 15px;}
     .modify_btn_mo {width:42%; float: right; text-align: right;}
 
@@ -389,7 +390,8 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_box{display: none;}
     .layer {width: 100%;}
     .popup_box_mo {display: block; width: 95%; background: #fff; height: 1000px; overflow: scroll; margin: 0 auto; top: 0; left:0; transform: none; position: absolute; font-size: 14px;border-radius: 4px;}
-    .popup_box_mo h2 {text-align: center; font-size: 20px; margin-bottom: 10px;}
+    .swiper-slide h2 {text-align: center; padding: 8px 0;}
+    /* .popup_box_mo h2 {text-align: center; background-color: red;} */
     .popup_box_mo p {font-size: 13px;}
     .qr_info {margin-top: 0;}
     .table_tit2, .table_tit3 {display: none;}
@@ -412,7 +414,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_open3 ul li:nth-child(3) {width: 15%; color: #767676;}
     .popup_open3 i {float: right; padding: 17px 0;}
     .list03_mo_list {padding: 0 5%; height: 50px; line-height: 50px;  border: 1px solid #eee; background: #f8f8f8;}
-    
+    .popup_btn {margin-top: 30px; width: 90%;}
 
     /* dd br {display: block;}
     .popup_btn_mo {width: 100%; margin: 0 auto; margin-top: 5%;}
@@ -424,7 +426,6 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_box_mo {width: 100%; height: 100%; padding: 15px 10px; border-radius: 0;}
     
    .table th, .table td {font-size: 10px; padding: 5px;}
-   .popup_box_mo h2 {padding-bottom: 15px;}
    .popup_btn_mo ul {width:100%;}
    
     
@@ -471,6 +472,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
 
     .popup_box_mo {overflow: scroll; height: 100%; width: 100%;}
     .popup_box_mo2 .table_mo {height: 300px;}
+    .popup_box_mo p br {display: none;}
     .swiper-slide .swiper-slide-active {width: 100%;}
     
     .mypage_nav_mo p {padding: 5%; font-size: 15px; word-break: break-all;width: 80%;}

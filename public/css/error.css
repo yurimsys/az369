@@ -103,8 +103,8 @@ section.sub_wrap p {text-align: center; margin-top: 3%; font-size: 18px;}
     footer .footer_logo { z-index: 100; margin-right: 55%;}
 }
 
-/*414px*/
-@media screen and (max-width: 414px) {
+/*450px*/
+@media screen and (max-width: 450px) {
     
     .box {position: relative; padding-top: 15; overflow: hidden; width: 90%; margin: 0 auto;}
 
