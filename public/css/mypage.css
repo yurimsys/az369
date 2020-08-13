@@ -201,7 +201,7 @@ th, td {padding: 0;}
  .popup_box{width:28%; background:#fff; position:relative; z-index: 1000; top:53%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.3); padding: 20px 30px 25px; overflow: hidden;}
 
 .ticket_modal h3 {font-size: 24px; text-align: center; margin-bottom: 18px;}
-.time_info {width: 100%;; background-color: #f7f7fa; border-radius: 12px; padding: 20px 0; overflow: hidden; display: flex;}
+.time_info {width: 100%;; background-color: #faf7f3; border-radius: 12px; padding: 20px 0; overflow: hidden; display: flex;}
 
 .time_info > div {flex: 1;}
 .time_info > div:nth-child(1) {border-right: 1px solid #dbdbdb;}
@@ -211,6 +211,8 @@ th, td {padding: 0;}
 .time_info_time ul li {float: left;}
 .time_info_time ul li:nth-child(1), .time_info_time ul li:nth-child(3) {width: 45%; text-align: center;}
 .time_info_time ul li:nth-child(2) {width: 10%; text-align: center; padding-top: 10px; }
+.time_info_time ul li dt {font-size: 15px;}
+.time_info_time ul li dd {font-size: 18px; font-weight: 500;color: #694b14; }
 
 .payment_info {width: 100%; font-size: 15px; display: table; margin: 20px 0;}
 .payment_info th, .payment_info td {padding: 2px 0;}
