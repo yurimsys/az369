@@ -561,8 +561,9 @@
                 <input type="checkbox" id="ex_chk5" class="check-all">
                 <label for="ex_chk5">전체선택</label>
             </div>
-    
             <a href="#" class="cancel_btn select_cancel">선택 예매취소</a>
+    
+            
 
             <div class="qrcode_list scroll_style">
                 <ul id='res_seat_list'>
@@ -576,13 +577,40 @@
                 </ul>
             </div>
     
-            <p>출발 3일 전 ~ 당일은 예매취소가 불가능합니다. <a href="refund"><u>환불규정보기</u></a></p>
+            <p>QR코드 이미지를 누르시면 이미지가 커집니다. <br>
+            출발 3일 전 ~ 당일은 예매취소가 불가능합니다. <a href="refund"><u>환불규정보기</u></a></p>
     
                    
     
             <a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');"
                 class=" close_btn btn-secondary">닫기</a>
         </div>
+
+        <script>
+            /*agreement 전체동의 체크*/
+            $(document).ready(function () {
+    
+                $('#chk01').click(function(){
+                    if($("#ex_chk1").is(":checked") == true && $("#ex_chk2").is(":checked") == true){
+                        $("#ex_chk3").prop('checked', true);
+                    }else if($("#ex_chk1").is(":checked") == false && $("#ex_chk2").is(":checked") == true){
+                        $("#ex_chk3").prop('checked', false);
+                    }
+                })
+    
+                $('#chk02').click(function(){
+                    if($("#ex_chk1").is(":checked") == true && $("#ex_chk2").is(":checked") == true){
+                        $("#ex_chk3").prop('checked', true);
+                    }else if($("#ex_chk1").is(":checked") == true && $("#ex_chk2").is(":checked") == false){
+                        $("#ex_chk3").prop('checked', false);
+                    }
+                })
+    
+                $('.check-all').click(function () {
+                    $('.ab').prop('checked', this.checked);
+                });
+            });
+        </script>
     
     </div>
 

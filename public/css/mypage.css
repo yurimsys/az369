@@ -226,17 +226,23 @@ th, td {padding: 0;}
 .checks {line-height: 50px;  padding: 12px 0;}
 .qrcode_list span {margin-left: 10px; font-weight: 600;}
 
-.ticket_modal p {text-align: left !important; margin-top: 20px; font-size: 14px;}
+.ticket_modal p {text-align: left !important; margin-top: 15px; font-size: 14px;}
 .ticket_modal p a {margin-left: 5px;}
 
 /* .cancel_btn_list {width: 183px;  margin: 0 auto; overflow: hidden; margin-top: 20px;}
 .cancel_btn_list ul li {float: left; position: relative;} */
-.select_cancel { padding: 0 16px; display: block; width: auto; height: 40px; line-height: 40px; padding: 0 16px; border: 1px solid #dbdbdb; font-size: 15px; border-radius: 4px; background-color: red;}
+.select_cancel { padding: 0 16px; display: block; width: auto; height: 40px; line-height: 40px; padding: 0 16px; border: 1px solid #dbdbdb; font-size: 15px; border-radius: 4px;}
 
 
 .all_cancel {margin-right: 8px;}
 
 a.close_btn  {display: block; width:100%; border-radius: 4px; height: 48px; line-height: 48px; text-align: center; margin-top: 20px; border: 1px solid #999; overflow: hidden;} 
+
+.check_all_btn {padding: 0; width: 30%;float: left; height: 48px; line-height:40px;}
+.select_cancel {float: right;}
+
+
+
 
 
 .detail_table {
