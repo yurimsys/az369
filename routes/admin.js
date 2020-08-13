@@ -104,7 +104,17 @@ router.get('/az369_reservation', function(req, res, next) {
     
 });
 
+//장차 차량 유형 관리 테이블
+router.get('/az369_vehicle_type', function(req, res, next) {
 
+    var pageSetting = {
+        title: '차량 타입 관리',
+        description: '장차서비스 차량 타입 관리페이지',
+        layout: 'admin/templates/admin_layout'
+    };
+    res.render('admin/admin_az369_vehicle_type',pageSetting);
+    
+});
 
 //장차 운송사 테이블
 router.get('/az369_business', auth.isLoggedIn, function(req, res, next) {

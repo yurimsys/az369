@@ -12,7 +12,7 @@ function init(){
 
 
             for (let i=0; i<res.data.length; i++){
-                let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+"</option>";
+                let html = "<option value="+res.data[i].CY_ID+">"+res.data[i].B_Name+" "+res.data[i].CY_Ty+"</option>";
 
                 $('#business_list').append(html);
                 $('#search_business_list').append(html);

@@ -792,6 +792,7 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     tPH.PH_Type,
                     tCR.CR_Price,
                     tCR.CR_QrCode,
+                    PH_PG_ID,
                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
                     DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
                     DAYOFWEEK(tCR.CR_cDt ) AS payDayWeek,
@@ -1481,8 +1482,121 @@ router.get('/bus_check', auth.isLoggedIn, function(req, res){
 
 })
 
+//결제 버튼 클릭시 해당 좌석 비활성화
+router.post('/temporary_seat', async function(req, res){
+    connection.beginTransaction(function(err){
+
+        let u_id = req.user.U_ID //등록할 회원 아이디
+        let seatNums = req.body['seatNums']; // 등록할 좌석
+        let ct_id = req.body.ct_id // 등록할 장차
+        let str_values_list = [];
+        let str_values ="";
+        let overlap_query = `SELECT CR_ID FROM tCR 
+                                WHERE CR_CT_ID = ${ct_id} AND 
+                                CR_Cancel = 'N' AND
+                                CR_U_ID = ${u_id} AND
+                                CR_SeatNum IN (${seatNums})
+                                `
+
+        let cr_query = `
+            INSERT INTO tCR
+                (CR_CT_ID, CR_U_ID, CR_SeatNum)
+            VALUES
+        `;
+        
+        if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
+            for(let i=0; i<seatNums.length; i++){
+                str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${seatNums[i]})`)
+            }
+            str_values = str_values_list.join(', ');
+        } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
+            str_values = `(${ct_id}, ${req.user.U_ID}, ${seatNums})`;
+        }
+
+        cr_query += str_values;
+
+
+        connection.query(overlap_query,function(err, rows){
+            if(err) throw err;
+            if(rows.length > 0){
+                //좌석이 이미 예약인 경우
+                res.json({data : rows});
+            }else{
+                connection.query(cr_query, null,
+                    function(err, result) {
+                        if (err){
+                            connection.rollback(function(){
+                                res.json({data : 201});
+                            })
+                        } 
+                        
+                        connection.commit(function(err) {
+                            if (err) {
+                                return connection.rollback(function() {
+                                    throw err;
+                                });
+                            }
+                            res.json({data : 'success'});    
+                        });
+        
+                    });
+            }
+        })
+    })
+})
+
+//결제 버튼 클릭시 해당 좌석 비활성화 삭제@@
+router.delete('/temporary_seat_delete', async function(req, res){
+    connection.beginTransaction(function(err){
+
+        let u_id = req.user.U_ID //등록할 회원 아이디
+        let seatNums = req.body['seatNums']; // 등록할 좌석
+        let ct_id = req.body.ct_id // 등록할 장차
+        let pay_check = req.body.pay_check;
+
+        let query = `DELETE FROM tCR WHERE 
+                        CR_CT_ID = ${ct_id} AND 
+                        CR_U_ID = ${u_id} AND
+                        CR_Cancel = 'N' AND
+                        CR_SeatNum IN (${seatNums})`
+
+        if(pay_check == ""){
+            if(seatNums != undefined){
+                connection.query(query, 
+                    function(err, result) {
+                        if (err){
+                            connection.rollback(function(){
+                                res.json({data : 201});
+                            })
+                        } 
+        
+                        connection.commit(function(err) {
+                            if (err) {
+                                return connection.rollback(function() {
+                                    throw err;
+                                });
+                            }
+                            res.json({data : 'success'});    
+                        });
+        
+                    });
+            }else{
+                res.json({data : 202});
+            }
+        }else{
+            res.redirect('/complete');
+        }
+
+
+
+            
+    })
+})
+
+
+
 //결제완료
-router.post('/payment', auth.isLoggedIn, (req, res) =>{
+router.post('/payment', auth.isLoggedIn, async (req, res) =>{
     connection.beginTransaction(function(err){
 
         let str_values_list = [],
@@ -1491,9 +1605,21 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
         ct_id = req.body.ct_id,
         oPrice = req.body.oPrice,
         sPrice = req.body.sPrice,
-        price = ((oPrice-sPrice) < 0) ? 0 : (oPrice-sPrice),
-        ph_type = '-'; // 무료기간동안만 - 으로 넣음.
-    
+        price = ((oPrice-sPrice) < 0) ? 0 : (oPrice-sPrice);
+        // ph_type = '-'; // 무료기간동안만 - 으로 넣음.
+        let ph_type;
+        let pg_id;
+        let u_id = req.user.U_ID //등록할 회원 아이디
+        if(req.body.payType == '01'){
+            ph_type = '신용카드'
+        }else{
+            ph_type = '-'
+        }
+        if(req.body.tid != undefined){
+            pg_id = req.body.tid;
+        }else{
+            pg_id = '1';
+        }
         //결제 전 중복확인 쿼리
         let selectQuery = `SELECT * FROM tCR WHERE tCR.CR_CT_ID = :ct_id and CR_Cancel = 'N' and tCR.CR_SeatNum IN (:seatNums)`;
 
@@ -1504,108 +1630,124 @@ router.post('/payment', auth.isLoggedIn, (req, res) =>{
          */
         let ph_query = `
             INSERT INTO tPH
-                (PH_U_ID, PH_PG_ID, PH_Price, PH_OPrice, PH_SPrice, PH_Type)
+                (PH_U_ID, PH_PG_ID ,PH_Price, PH_OPrice, PH_SPrice, PH_Type)
             VALUES
                 (:u_id, :pg_id, :price, :oPrice, :sPrice, :ph_type)
         `;
 
-        connection.query(checkQuery, {ct_id : ct_id},
-            function(err, checkRow){
-                if (err) throw err;
-                if(checkRow[0].CT_PyStart === 'Y'){
-                    res.json({data : '500'});
-                }else{
-                    //결제 전 중복확인
-                    connection.query(selectQuery, {ct_id, seatNums},
-                        function(err, rows, fields) {
-                            if (err){
-                                connection.rollback(function(){
-                                    throw err;
-                                })
-                            }       
-                            let one_price = req.body.oPrice / req.body.seatNums.length;
-                            if(rows.length == 0){
-                                //  결제 내역 먼저 추가. 
-                                connection.query(ph_query, {
-                                    u_id    : req.user.U_ID,
-                                    pg_id   : 1,    // pg_id :  PG 사 결정되면 결제 정보 입력해야함.
-                                    oPrice  : oPrice,
-                                    sPrice  : sPrice,
-                                    price   : (oPrice-sPrice),
-                                    ph_type : ph_type
-                                }, function (err, result){
+        let delete_query = `DELETE FROM tCR WHERE 
+                                CR_CT_ID = ${ct_id} AND 
+                                CR_U_ID = ${u_id} AND
+                                CR_Cancel = 'N' AND
+                                CR_SeatNum IN (${seatNums})`
+        
+        connection.query(delete_query, function(err){
+            if(err){
+                connection.rollback(function(){
+                    res.json({data : '502'})
+                })
+            }else{
+                connection.query(checkQuery, {ct_id : ct_id},
+                    function(err, checkRow){
+                        if (err) throw err;
+                        if(checkRow[0].CT_PyStart === 'Y'){
+                            res.json({data : '500'});
+                        }else{
+                            //결제 전 중복확인
+                            connection.query(selectQuery, {ct_id, seatNums},
+                                function(err, rows, fields) {
                                     if (err){
                                         connection.rollback(function(){
                                             throw err;
                                         })
-                                    }  
-                                    let ph_id = result.insertId;
-                                    let origin_qrcode=[];
-                                    let hash_qrcode = [];
-                                    for(let i =0; i<seatNums.length; i++){
-                                        origin_qrcode.push(ct_id+'-'+req.user.U_ID+'-'+ph_id+'-'+seatNums[i]);
-                                        hash_qrcode.push(CryptoJS.AES.encrypt(origin_qrcode[i], config.enc_salt).toString());
-                                    }
-                                    console.log('origin:',origin_qrcode);
-                                    
-
-                                    let cr_query = `
-                                        INSERT INTO tCR
-                                            (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum, CR_Price, CR_QrCode)
-                                        VALUES
-                                    `;
-                                    
-                                    if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
-                                        for(let i=0; i<seatNums.length; i++){
-                                            str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums[i]}, ${one_price}, '${hash_qrcode[i]}')`)
-                                        }
-                                        // seatNums.map((seatNum)=>{
-                                        //     str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum}, ${one_price}, ${hash_qrcode})`);
-                                        // });
-                                        str_values = str_values_list.join(', ');
-                                    } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
-                                        str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums}, ${oPrice}, '${hash_qrcode}')`;
-                                    }
-                                
-                                    cr_query += str_values;
-                                    //  예약 정보 추가
-                                    connection.query(cr_query, null,
-                                        function(err, result) {
+                                    }       
+                                    let one_price = req.body.oPrice / req.body.seatNums.length;
+                                    if(rows.length == 0){
+                                        //  결제 내역 먼저 추가. 
+                                        connection.query(ph_query, {
+                                            u_id    : req.user.U_ID,
+                                            oPrice  : oPrice,
+                                            sPrice  : sPrice,
+                                            price   : (oPrice-sPrice),
+                                            ph_type : ph_type,
+                                            pg_id   : pg_id
+                                        }, function (err, result){
                                             if (err){
                                                 connection.rollback(function(){
                                                     throw err;
                                                 })
-                                            } 
-
-                                            connection.commit(function(err) {
-                                                if (err) {
-                                                    return connection.rollback(function() {
-                                                        throw err;
-                                                    });
+                                            }  
+                                            let ph_id = result.insertId;
+                                            let origin_qrcode=[];
+                                            let hash_qrcode = [];
+                                            for(let i =0; i<seatNums.length; i++){
+                                                origin_qrcode.push(ct_id+'-'+req.user.U_ID+'-'+ph_id+'-'+seatNums[i]);
+                                                hash_qrcode.push(CryptoJS.AES.encrypt(origin_qrcode[i], config.enc_salt).toString());
+                                            }
+                                            console.log('origin:',origin_qrcode);
+                                            
+        
+                                            let cr_query = `
+                                                INSERT INTO tCR
+                                                    (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum, CR_Price, CR_QrCode)
+                                                VALUES
+                                            `;
+                                            
+                                            if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
+                                                for(let i=0; i<seatNums.length; i++){
+                                                    str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums[i]}, ${one_price}, '${hash_qrcode[i]}')`)
                                                 }
-                                                res.json({
-                                                    ph_type : ph_type,
-                                                    price : price,
-                                                    data : '1'
-                                                });    
-                                            });
-
+                                                // seatNums.map((seatNum)=>{
+                                                //     str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum}, ${one_price}, ${hash_qrcode})`);
+                                                // });
+                                                str_values = str_values_list.join(', ');
+                                            } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
+                                                str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums}, ${oPrice}, '${hash_qrcode}')`;
+                                            }
+                                        
+                                            cr_query += str_values;
+                                            //  예약 정보 추가
+                                            connection.query(cr_query, null,
+                                                function(err, result) {
+                                                    if (err){
+                                                        connection.rollback(function(){
+                                                            throw err;
+                                                        })
+                                                    } 
+        
+                                                    connection.commit(function(err) {
+                                                        if (err) {
+                                                            return connection.rollback(function() {
+                                                                throw err;
+                                                            });
+                                                        }
+                                                        res.json({
+                                                            ph_type : ph_type,
+                                                            price : price,
+                                                            data : '1'
+                                                        });    
+                                                    });
+        
+                                                });
                                         });
-                                });
-
-                        }else{
-                            let over_lap = [];
-                            for(let i=0; i <rows.length; i++){
-                                over_lap.push(rows[i].CR_SeatNum)
-                            }
-                            let seat_number = over_lap.join('번,')+'번';
-                            res.json({data : '0', seats : seat_number})
+        
+                                }else{
+                                    let over_lap = [];
+                                    for(let i=0; i <rows.length; i++){
+                                        over_lap.push(rows[i].CR_SeatNum)
+                                    }
+                                    let seat_number = over_lap.join('번,')+'번';
+                                    res.json({data : '0', seats : seat_number})
+                                }
+        
+                                
+                            }); 
                         }
-
-                        
-                    }); 
-                }
+                })
+            }
         })
+
+
 
 
     })
@@ -1890,7 +2032,7 @@ router.post('/user/resCarList',(req, res, next) =>{
 
 
 // CT_ID로 예약된 좌석 정보 가져오기
-router.get('/useSeat/:ct_id', auth.isLoggedIn, (req, res, next) =>{
+router.get('/useSeat/:ct_id', (req, res, next) =>{
     let query = `select CR_ID, CR_SeatNum from tCR where CR_CT_ID = :ct_id and CR_Cancel = 'N' `;
     let ct_id = req.params.ct_id;
     
@@ -3895,7 +4037,7 @@ router.get('/bus_user_info', (req, res, next) =>{
                     U_PHONE, 
                     tCR.CR_SeatNum 
                 from tCR 
-                    INNER JOIN tu ON tCR.CR_U_ID = tU.U_ID 
+                    INNER JOIN tU ON tCR.CR_U_ID = tU.U_ID 
                 WHERE tCR.CR_CT_ID = :ct_id AND 
                       tCR.CR_SeatNum = :cr_seatnum AND 
                       tCR.CR_Cancel = 'N';`; 
@@ -4034,8 +4176,8 @@ router.get('/vehicle',function(req,res){
     let query = `SELECT 
                     CT_ID,
                     CY_ID,
-                    (SELECT COUNT(CR_SeatNum) FROM tcr  WHERE CR_Cancel = 'N' 
-                    AND tcr.CR_CT_ID = tct.CT_ID) AS COUNT,
+                    (SELECT COUNT(CR_SeatNum) FROM tCR  WHERE CR_Cancel = 'N' 
+                    AND tCR.CR_CT_ID = tCT.CT_ID) AS COUNT,
                     CT_CY_ID,
                     B_Name,
                     CT_CarNum,
@@ -4047,9 +4189,9 @@ router.get('/vehicle',function(req,res){
                     CT_ReturnTe,
                     CT_PyStart,
                     CT_SeStart
-                FROM tct 
-                    left JOIN tcr ON tcr.CR_CT_ID = tct.CT_ID
-                    inner JOIN tCY ON tCT.CT_CY_ID = tcy.CY_ID
+                FROM tCT 
+                    left JOIN tCR ON tCR.CR_CT_ID = tCT.CT_ID
+                    inner JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
                     inner JOIN tB ON tCY.CY_B_ID = tB.B_ID`
 
     // let query = `SELECT * FROM tCT 
@@ -4087,9 +4229,9 @@ router.get('/vehicle',function(req,res){
         let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
         if( condition_list.length > 0){
             let condition_stmt = ' WHERE '+condition_list.join(searchType);
-            query += condition_stmt + ' GROUP BY tct.CT_ID';
+            query += condition_stmt + ' GROUP BY tCT.CT_ID';
         }else{
-            query += ' GROUP BY tct.CT_ID';
+            query += ' GROUP BY tCT.CT_ID';
         }
         connection.query(query,
             function(err,rows){
@@ -4098,7 +4240,7 @@ router.get('/vehicle',function(req,res){
         })
 
     }else{
-        query += ' GROUP BY tct.CT_ID';
+        query += ' GROUP BY tCT.CT_ID';
         connection.query(query,
             function(err,rows){
                 if(err) throw err;
@@ -4109,6 +4251,7 @@ router.get('/vehicle',function(req,res){
 
 })
 
+//배차 운송사 목록
 router.get('/business_list',function(req,res){
     let query = `SELECT * FROM tCY
                 INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID`
@@ -4118,7 +4261,6 @@ router.get('/business_list',function(req,res){
             if(err) throw err;
             res.json({data : rows});
     })
-
 })
 
 //배차 등록
@@ -4272,7 +4414,7 @@ router.delete('/vehicle',async function(req,res){
 
 //예약 관리 리스트
 
-router.get('/reservation_list',function(req,res){
+router.get('/reservation',function(req,res){
     let query = `SELECT 
                     CR_ID,
                     CR_CT_ID,
@@ -4296,7 +4438,8 @@ router.get('/reservation_list',function(req,res){
                     CT_DepartureTe,
                     CT_ReturnTe,
                     CT_CarNum,
-                    U_uId
+                    U_uId,
+                    CR_Memo
                 FROM tCR
                     INNER JOIN tCT ON tCR.CR_CT_ID = tCT.CT_ID
                     INNER JOIN tU ON tCR.CR_U_ID = tU.U_ID
@@ -4346,7 +4489,9 @@ router.get('/reservation_list',function(req,res){
         if( req.query.search_se_scan != 'null' ){
             condition_list.push(`CR_ScanSe = '${req.query.search_se_scan}'`);
         }
-
+        if( req.query.search_cr_memop){
+            condition_list.push(`CR_Memo like '%${req.query.search_cr_memo}%'`);
+        }
 
         let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
         if( condition_list.length > 0){
@@ -4378,7 +4523,7 @@ router.get('/vehicle/list', function(req,res){
                     tCT.CT_DepartureTe,
                     tCY.CY_SeatPrice,
                     date_format(tCT.CT_DepartureTe ,'%y%y.%m.%d %H') as deptTime
-                FROM tct 
+                FROM tCT 
                     INNER JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
                     INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID
                 WHERE tCT.CT_PyStart = 'N'`
@@ -4396,7 +4541,7 @@ router.get('/vehicle/list', function(req,res){
     })
 })
 
-//예약 등록
+//관리자 페이지 예약 등록
 router.post('/reservation',async function(req,res){
     connection.beginTransaction(function(err){
 
@@ -4479,13 +4624,14 @@ router.put('/reservation/:crid', async function(req,res){
     let query = `UPDATE tCR SET
                     CR_Cancel = :cr_cancel,
                     CR_ScanPy = :py_scan,
-                    CR_ScanSe = :se_scan
-                
+                    CR_ScanSe = :se_scan,
+                    CR_Memo = :cr_memo
                     `
     let cr_cancel = req.body.cr_cancel,
         py_scan = req.body.py_scan,
         se_scan = req.body.se_scan,
-        cr_id = req.params.crid;
+        cr_id = req.params.crid,
+        cr_memo = req.body.cr_memo
 
     if(cr_cancel === 'Y'){
         query += ',CR_CancelDt = now() WHERE CR_ID = :cr_id';
@@ -4493,7 +4639,7 @@ router.put('/reservation/:crid', async function(req,res){
         query += ' WHERE CR_ID = :cr_id';
     }
 
-    connection.query(query, {cr_cancel, py_scan, se_scan, cr_id},
+    connection.query(query, {cr_cancel, py_scan, se_scan, cr_id, cr_memo},
         function(err, rows){
             if (err){
                 connection.rollback(function(){
@@ -4803,5 +4949,435 @@ router.delete('/member', async function(req, res){
     })
 
 })
+
+//운송사 목록
+router.get('/business',function(req,res){
+    let query = `SELECT * FROM tB`
+    if(req.query.type === 'search'){
+        let condition_list = [];
+        if( req.query.b_name){
+            condition_list.push(`B_Name like '%${req.query.b_name}%'`);
+        }
+        if( req.query.b_phone){
+            condition_list.push(`B_Tel like '%${req.query.b_phone}%'`);
+        }
+        if( req.query.b_fax){
+            condition_list.push(`B_Fax like '%${req.query.b_fax}%'`);
+        }
+        if( req.query.b_email){
+            condition_list.push(`B_Email like '%${req.query.b_email}%'`);
+        }
+        if( req.query.b_zip){
+            condition_list.push(`B_Zip like '%${req.query.b_zip}%'`);
+        }
+        if( req.query.b_addr1){
+            condition_list.push(`B_Addr1 = '${req.query.b_addr1}'`);
+        }
+        if( req.query.b_addr2){
+            condition_list.push(`B_Addr2 like '%${req.query.b_addr2}%'`);
+        }
+        if( req.query.b_cdt){
+            condition_list.push(`B_cDt like '%${req.query.b_cdt}%'`);
+        }
+
+        let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
+        if( condition_list.length > 0){
+            let condition_stmt = ' WHERE '+condition_list.join(searchType);
+            query += condition_stmt;
+        }
+
+        connection.query(query,
+            function(err, rows){
+            if(err) throw err;
+
+            res.json({data : rows})
+        })
+
+    }else{
+        connection.query(query,
+            function(err,rows){
+                if(err) throw err;
+                res.json({data : rows});
+        })
+    }
+
+})
+
+//운송사 신규 등록
+router.post('/business', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `insert into tB (
+                                B_Name,
+                                B_Tel, 
+                                B_Fax, 
+                                B_Email, 
+                                B_Zip, 
+                                B_Addr1, 
+                                B_Addr2
+                                ) 
+                        values( 
+                            :b_name,  
+                            :b_phone,  
+                            :b_fax,  
+                            :b_email, 
+                            :b_zip, 
+                            :b_addr1,  
+                            :b_addr2)`;
+
+        let b_name = req.body.b_name,
+            b_phone = req.body.b_phone,
+            b_fax = req.body.b_fax,
+            b_email = req.body.b_email,
+            b_zip = req.body.b_zip,
+            b_addr1 = req.body.b_addr1,
+            b_addr2 = req.body.b_addr2;
+
+        connection.query(query, 
+                {b_name, b_phone, b_fax, b_email, b_zip, b_addr1, b_addr2},
+            function(err, rows){
+                if (err){
+                    connection.rollback(function(){
+                        console.log('err! :',err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+
+        })
+    })
+})
+
+//운송사 정보 수정
+router.put('/business/:bid', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `UPDATE tB SET
+                        B_Name = :b_name,
+                        B_Tel = :b_phone,
+                        B_Fax = :b_fax,
+                        B_Email = :b_email,
+                        B_Zip = :b_zip,
+                        B_Addr1 = :b_addr1,
+                        B_Addr2 = :b_addr2,
+                        B_uDt = now()
+                    WHERE B_ID = :b_id `;
+
+        let b_name = req.body.b_name,
+            b_phone = req.body.b_phone,
+            b_fax = req.body.b_fax,
+            b_email = req.body.b_email,
+            b_zip = req.body.b_zip,
+            b_addr1 = req.body.b_addr1,
+            b_addr2 = req.body.b_addr2,
+            b_id = req.params.bid;    
+
+        connection.query(query,{b_name, b_phone, b_fax, b_email, b_zip, b_addr1, b_addr2, b_id}, 
+            function(err,rows){
+                if (err){
+                    connection.rollback(function(){
+                        console.log('ERROR ! :', err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                
+                connection.commit(function(err) {
+                    if (err) {
+                        return connection.rollback(function() {
+                            res.json({data : 300});
+                            throw err;
+                        });
+                    }
+                    res.json({data : 200});    
+                });
+            }
+        })
+    })
+})
+
+//특정 운송사 정보 삭제
+router.delete('/business/:bid', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `DELETE FROM tB where B_ID = :b_id`;
+        let b_id = req.params.bid;
+        connection.query(query,{b_id}, 
+            function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('ERROR ! :', err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+        })
+    })
+})
+
+//선택된 다수의 회원 삭제
+router.delete('/business', async function(req, res){
+    connection.beginTransaction(function(err){
+        let b_id = req.body.row_ids;
+        let query = `DELETE FROM tB where B_ID IN (${b_id})`;
+
+        connection.query(query, 
+            function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('err!!!!',err);
+                        res.json({data : 300});
+                    //    throw err;
+                    })
+                    
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                console.log('ERROR :', err);
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+        })
+    })
+
+})
+
+//차량 타입 목록
+router.get('/vehicle_type',function(req,res){
+    let query = `SELECT * FROM tCY INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID`
+    let cy_list = req.body.cy_list,
+        cy_type = req.body.cy_type,
+        cy_total = req.body.cy_total,
+        cy_service = req.body.cy_service,
+        cy_price = req.body.cy_price;
+
+    if(req.query.type === 'search'){
+        let condition_list = [];
+        if( req.query.cy_list != 'null'){
+            condition_list.push(`CY_B_ID = ${req.query.cy_list}`);
+        }
+        if( req.query.cy_type){
+            condition_list.push(`CY_Ty like '%${req.query.cy_type}%'`);
+        }
+        if( req.query.cy_total){
+            condition_list.push(`CY_TotalPassenger like '%${req.query.cy_total}%'`);
+        }
+        if( req.query.cy_service){
+            condition_list.push(`CY_ServicePassenger like '%${req.query.cy_service}%'`);
+        }
+        if( req.query.cy_price){
+            condition_list.push(`CY_SeatPrice like '%${req.query.cy_price}%'`);
+        }
+
+        let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
+        if( condition_list.length > 0){
+            let condition_stmt = ' WHERE '+condition_list.join(searchType);
+            query += condition_stmt;
+        }
+
+        connection.query(query,
+            function(err, rows){
+            if(err) throw err;
+
+            res.json({data : rows})
+        })
+
+    }else{
+        connection.query(query,
+            function(err,rows){
+                if(err) throw err;
+                res.json({data : rows});
+        })
+    }
+
+})
+
+//차량타입 신규 등록
+router.post('/vehicle_type', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `insert into tCY (
+                                CY_B_ID,
+                                CY_Ty, 
+                                CY_TotalPassenger, 
+                                CY_ServicePassenger, 
+                                CY_SeatPrice
+                                ) 
+                        values( 
+                            :cy_list,  
+                            :cy_type,  
+                            :cy_total,  
+                            :cy_service, 
+                            :cy_price)`;
+
+        let cy_list = req.body.cy_list,
+            cy_type = req.body.cy_type,
+            cy_total = req.body.cy_total,
+            cy_service = req.body.cy_service,
+            cy_price = req.body.cy_price;
+
+        connection.query(query, 
+                {cy_list, cy_type, cy_total, cy_service, cy_price},
+            function(err, rows){
+                if (err){
+                    connection.rollback(function(){
+                        console.log('err! :',err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+
+        })
+    })
+})
+
+//운송사 정보 수정
+router.put('/vehicle_type/:cyid', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `UPDATE tCY SET
+                        CY_B_ID = :cy_list,
+                        CY_Ty = :cy_type,
+                        CY_Totalpassenger = :cy_total,
+                        CY_ServicePassenger = :cy_service,
+                        CY_SeatPrice = :cy_price,
+                        CY_uDt = now()
+                    WHERE CY_ID = :cy_id `;
+
+        let cy_list = req.body.cy_list,
+            cy_type = req.body.cy_type,
+            cy_total = req.body.cy_total,
+            cy_service = req.body.cy_service,
+            cy_price = req.body.cy_price,
+            cy_id = req.params.cyid;
+
+        connection.query(query,{cy_list, cy_type, cy_total, cy_service, cy_price, cy_id}, 
+            function(err,rows){
+                if (err){
+                    connection.rollback(function(){
+                        console.log('ERROR ! :', err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                
+                connection.commit(function(err) {
+                    if (err) {
+                        return connection.rollback(function() {
+                            res.json({data : 300});
+                            throw err;
+                        });
+                    }
+                    res.json({data : 200});    
+                });
+            }
+        })
+    })
+})
+
+//특정 운송사 정보 삭제
+router.delete('/vehicle_type/:cyid', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `DELETE FROM tCY where CY_ID = :cy_id`;
+        let cy_id = req.params.cy_id;
+        connection.query(query,{cy_id}, 
+            function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('ERROR ! :', err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+        })
+    })
+})
+
+//선택된 다수의 회원 삭제
+router.delete('/vehicle_type', async function(req, res){
+    connection.beginTransaction(function(err){
+        let cy_id = req.body.row_ids;
+        let query = `DELETE FROM tCY where CY_ID IN (${cy_id})`;
+
+        connection.query(query, 
+            function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('err!!!!',err);
+                        res.json({data : 300});
+                    //    throw err;
+                    })
+                    
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                console.log('ERROR :', err);
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+        })
+    })
+
+})
+
+//차량 타입 목록
+router.get('/user_list',function(req,res){
+
+    let query = `SELECT U_ID, U_Name, U_Phone FROM tU`
+
+    connection.query(query,
+        function(err,rows){
+            if(err) throw err;
+            res.json({data : rows});
+    })
+    
+
+})
+
 
 module.exports = router;

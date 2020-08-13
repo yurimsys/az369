@@ -50,12 +50,16 @@
 							</div>
 							<div>
 								<label class='info_name'>U_ID</label>
-								<input type='number' id='u_id' class='long_box'>
+								<select class='long_box select2' id='u_id' aria-readonly="true">
+									<!-- <option value="null">배차 선택</option> -->
+									<option></option>
+								</select>
 							</div>
 							<div>
 								<label class='info_name'>운송사</label>
-								<select class='long_box' id='ct_id' aria-readonly="true">
-									<option value="null">배차 선택</option>
+								<select class='long_box select2' id='ct_id' aria-readonly="true">
+									<!-- <option value="null">배차 선택</option> -->
+									<option></option>
 								</select>
 							</div>
 							<div>
@@ -133,6 +137,11 @@
 									<option value="Y">Y</option>
 									<option value="N">N</option>
 								</select>
+							</div>
+							<hr class="info_line">
+							<div>
+								<label class='info_name'>비고</label>
+								<input type="text" class='long_box' id='cr_memo'>
 							</div>
 						</div>
 					<!-- </div> -->
@@ -286,7 +295,8 @@
 				<label class="col-3 col-form-label">운송사명</label>
 				<div class="col-9">
 					<select id='search_ct_id' class="form-control select2" style="width:100%">
-						<option value="null">선택</option>
+						<!-- <option value="null">선택</option> -->
+						<option></option>
 					</select>
 				</div>
 			</div>
@@ -302,7 +312,6 @@
 					<input type="number" class="form-control inputAdTitle" id="search_seat_price">
 				</div>
 			</div>
-
 			<div class="form-group row">
 				<label class="col-3 col-form-label">예매일</label>
 				<div class="col-9">
@@ -324,7 +333,7 @@
 			<div class="form-group row">
 				<label class="col-3 col-form-label">취소여부</label>
 				<div class="col-9">
-					<select id='search_cr_cancel' class="form-control select2" style="width:100%">
+					<select id='search_cr_cancel' class="form-control" style="width:100%">
 						<option value="null">선택</option>
 						<option value="Y">Y</option>
 						<option value="N">N</option>
@@ -334,7 +343,7 @@
 			<div class="form-group row">
 				<label class="col-3 col-form-label">평택 스캔확인</label>
 				<div class="col-9">
-					<select id='search_py_scan' class="form-control select2" style="width:100%">
+					<select id='search_py_scan' class="form-control" style="width:100%">
 						<option value="null">선택</option>
 						<option value="Y">Y</option>
 						<option value="N">N</option>
@@ -344,11 +353,17 @@
 			<div class="form-group row">
 				<label class="col-3 col-form-label">서울 스캔확인</label>
 				<div class="col-9">
-					<select id='search_se_scan' class="form-control select2" style="width:100%">
+					<select id='search_se_scan' class="form-control" style="width:100%">
 						<option value="null">선택</option>
 						<option value="Y">Y</option>
 						<option value="N">N</option>
 					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">비고</label>
+				<div class="col-9">
+					<input type="number" class="form-control inputAdTitle" id="search_cr_memo">
 				</div>
 			</div>
 		</form>
@@ -381,6 +396,28 @@
 		<div class="search-footer row" style="background-color: #ffffff;">
 			<div class="col-12">
 				<button class="btn btn-search" onclick="seatClose()">닫기</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 전체 좌석현황 모달 -->
+<div class="card object-search-popup" id="object-res-seat-popup" style="display: none;">
+	<div class="card-header object-search-header">
+		<div class="row">
+			<div class="col-8 search-header-title">
+				<a data-toggle="collapse" href="#object_search_info"><span class="title">좌석현황</span></a>
+			</div>
+		</div>
+	</div>
+	<div id="object_search_info" class="card-body collapse show">
+		<div class='detail_search_form'>
+            <div class="res-seat-map seatCharts-container">
+            </div>
+		</div>
+		<div class="search-footer row" style="background-color: #ffffff;">
+			<div class="col-12">
+				<button class="btn btn-search" onclick="ResseatClose()">닫기</button>
 			</div>
 		</div>
 	</div>
