@@ -198,7 +198,7 @@ th, td {padding: 0;}
 
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
 
- .popup_box{width:25%; background:#fff; position:relative; z-index: 1000; top:53%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: 85%; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.3); padding: 20px 30px 25px;}
+ .popup_box{width:30%; background:#fff; position:relative; z-index: 1000; top:53%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: 80%; box-shadow: 0 0 20px rgba(0,0,0,0.3); padding: 20px 30px 25px; overflow: scroll; overflow-x: hidden; }
  /* .popup_box h3 {font-size: 24px; margin-bottom: 20px; text-align: center;font-weight: 600; font-size: 24px; padding-top: 6px;}
  .popup_box h3 span {color: #999; font-weight: 300;} */
 
@@ -215,8 +215,8 @@ top: 50%; left: 50%; transform: translate(-50%, -50%);} */
 
 .time_info > div {flex: 1;}
 .time_info > div:nth-child(1) {border-right: 1px solid #dbdbdb;}
-.time_info_date { display: inline-block; margin-left: 50%; transform: translateX(-50%);}
-.time_info_time {width: 90%; margin: 0 auto;}
+.time_info_date { display: inline-block; padding-left: 30px;}
+.time_info_time {width: 100%; margin: 0 auto;}
 .time_info_time ul li {float: left;}
 .time_info_time ul li:nth-child(1), .time_info_time ul li:nth-child(3) {width: 45%; text-align: center;}
 .time_info_time ul li:nth-child(2) {width: 10%; text-align: center; padding-top: 10px; }
@@ -226,7 +226,7 @@ top: 50%; left: 50%; transform: translate(-50%, -50%);} */
 .payment_info th {width: 30%; text-align: left; float: left; font-weight: normal; color: #505050;}
 .payment_info td {width: 70%; text-align: right; float: right; color: #191919;}
 
-.qrcode_list {width: 100%; height: 302px; overflow: scroll; overflow-x: hidden; border-top: 1px solid #eee; border-bottom: 1px solid #eee;}
+.qrcode_list {width: 100%; border-top: 1px solid #eee; border-bottom: 1px solid #eee;}
 .qrcode_list ul li {width:100%; border-bottom: 1px solid #eee; position: relative; overflow: hidden;}
 /* .qrcode_list ul li:nth-child(1) {border-top: 1px solid #eee;} */
 .qrcode {width: 50px; height: 50px; background-color: black;float: right; margin-right: 16px;}
