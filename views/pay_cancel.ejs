@@ -76,33 +76,48 @@
 <script type="text/javascript">
 
 function tableToJSON(table) {
-	var obj = {};
-	var row, rows = table.rows;
-	for (var i=0, iLen=rows.length; i<iLen; i++) {
-	  row = rows[i];
-	  obj[document.getElementsByTagName("input")[i].getAttribute('name')] = document.getElementsByTagName("input")[i].value;
-	}
-	console.log(obj);
-	return JSON.stringify(obj);
+	// var obj = {};
+    // var row, 
+    //     rows = table.rows;
+	// for (var i=0, iLen=rows.length; i<iLen; i++) {
+	//   row = rows[i];
+	//   obj[document.getElementsByTagName("input")[i].getAttribute('name')] = document.getElementsByTagName("input")[i].value;
+	// }
+    // console.log('good',obj);
+    let cancel_data = {}
+        cancel_data.mid = 'testpay01m',
+        cancel_data.tid = 'testpay01m01082008121307346478',
+        cancel_data.svcCd = '01',
+        cancel_data.partialCancelCode = '0',
+        cancel_data.cancelAmt = '10',
+        cancel_data.cancelMsg = '환불테스트',
+        cancel_data.cancelPwd = '123456'
+        
+    return JSON.stringify(cancel_data);
+    console.log('can', cancel_data);
+
 }
 
 function send(){
-    console.log('test !',tableToJSON(document.getElementById('payTable')));
+    console.log('test !',tableToJSON());
     var resultcode = null;
-    let cancel_data = {}
-        cancel_data.cancelAmt = '10',
-        cancel_data.svcCd = '01',
-        cancel_data.tid = 'testpay01m01082008121307346478',
-        cancel_data.partialCancelCode = '0',
-        cancel_data.mid = 'testpay01m',
-        cancel_data.cancelPwd = '123456',
-        cancel_data.cancelMsg = '환불테스트'
+    // let cancel_data = {}
+    //     cancel_data.mid = 'testpay01m',
+    //     cancel_data.tid = 'testpay01m01082008121307346478',
+    //     cancel_data.svcCd = '01',
+    //     cancel_data.partialCancelCode = '0',
+    //     cancel_data.cancelAmt = '10',
+    //     cancel_data.cancelMsg = '환불테스트',
+    //     cancel_data.cancelPwd = '123456'
+        
+    // JSON.stringify(cancel_data);
+    // console.log('can', cancel_data);
 
     $.ajax({
         type : "POST",
         url : "https://api.innopay.co.kr/api/cancelApi",
         async : true,
-        data : cancel_data,
+        data : tableToJSON(),
         contentType: "application/json; charset=utf-8",
         dataType : "json",
         success : function(data){

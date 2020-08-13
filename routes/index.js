@@ -468,6 +468,8 @@ router.get('/reservation', auth.isLoggedIn, function(req,res, next){
             if (err) throw err;
             console.log(rows);
             res.render('reservation_01', {sessionUser: req.user, timeone : rows[0], timetwo : rows[1]});
+            
+            
     });  
 });
 
@@ -492,7 +494,7 @@ router.get('/reservation', auth.isLoggedIn, function(req,res, next){
 //     });  
 // });
 
-router.get('/complate', auth.isLoggedIn, function(req, res, next){
+router.get('/complete', auth.isLoggedIn, function(req, res, next){
     res.render('reservation_02', {sessionUser: req.user} );
 });
 

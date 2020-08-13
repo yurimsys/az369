@@ -329,6 +329,8 @@
                     // alert('mobile 접속'); 
                 }
             }
+
+            // exitTest();
         })
 
     
@@ -396,9 +398,6 @@
             let bus_text2 = '평택 '+car_info[0].startTime+' - '+'동대문 '+car_info[0].returnTime + ' ';
             let bus_text3 = car_info[0].b_name+'('+car_info[0].backNum+')';
             $('.bus_info_txt').text(bus_text1 + bus_text2 + bus_text3)
-            console.log('bustext1',bus_text1);
-            console.log('bustext2',bus_text2);
-            console.log('bustext3',bus_text3);
             // console.log('evt',evt);
             var i, tablinks
             //좌석 선택시 우측 문구 삭제
@@ -692,6 +691,7 @@
         //결제창 닫기
         function processCancel(){
             $('#payment').css('display','none');
+            let pay_check = sessionStorage.getItem('pay_complete');
             let ct_id = sessionStorage.getItem("ct_id");
             $.ajax({
                 url : '/api/temporary_seat_delete',
@@ -699,7 +699,8 @@
                 dataType : 'JSON',
                 data : {
                     "seatNums": selected_seats,
-                    "ct_id": ct_id
+                    "ct_id": ct_id,
+                    "pay_check" : pay_check
                 },
                 success: function(res){
                     // console.log('res!',res);
@@ -715,6 +716,7 @@
             let sale_price = 0;
             let ct_id = sessionStorage.getItem("ct_id");
             let seatPrice = sessionStorage.getItem("seatPrice")
+            
             // location.href='/pay_test';
             if($("#pay_type option:selected").attr('value') == 'null'){
                 alert('결제수단을 선택해 주세요.');
@@ -740,12 +742,12 @@
                             MID: "testpay01m",							// 가맹점 MID
                             MerchantKey: "Ma29gyAFhvv/+e4/AHpV6pISQIvSKziLIbrNoXPbRS5nfTx2DOs8OJve+NzwyoaQ8p9Uy1AN4S1I0Um5v7oNUg==",	// 가맹점 라이센스키
                             GoodsName: "장차 좌석",		// 상품명
-                            Amt: "10",							// 결제금액(과세)
+                            Amt: "135",							// 결제금액(과세)
                             BuyerName: user_name,		// 고객명
                             BuyerTel: "01012341234",				// 고객전화번호
                             BuyerEmail: "email@eamil",			// 고객이메일
                             ResultYN: "Y",				// 결제결과창 출력유뮤
-                            Moid:'testpay01m01234567890',			// 가맹점에서 생성한 주문번호 셋팅
+                            Moid:'testpay01m0123456789',			// 가맹점에서 생성한 주문번호 셋팅
                             //// 선택 파라미터
                             // ReturnURL:frm.ReturnURL.value,			// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
                 //			ArsConnType:'02', 							///* ARS 결제 연동시 필수 01:호전환, 02(가상번호), 03:대표번호 */
@@ -772,7 +774,6 @@
 
         }
 
-        
 
         //결제 리턴값
         function innopay_result(data){
@@ -793,13 +794,14 @@
             let payType = data.AcquCardCode;    // 결제 타입 ex) 신용카드 01 계좌이체 02 DB 입력
             console.log('success : ', data);
             // alert("["+resultcode+"]"+resultmsg);
-            alert(resultcode);
+            // alert(resultcode);
             let origin_price = $("#original_price").data('price');
             let sale_price = 0;
             let ct_id = sessionStorage.getItem("ct_id");
             let seatPrice = sessionStorage.getItem("seatPrice")
             if(resultcode == '3001'){
-                alert('에이작스')
+                sessionStorage.setItem('pay_complete',"complete");
+                // alert('에이작스')
                 $.ajax({
                     method: "POST",
                     dataType: "json",
@@ -850,19 +852,44 @@
                         payment_result.ph_type = result.ph_type;
                         payment_result.start_day = bus_text1 + bus_text2;
                         
-
                         sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
+                        location.href = "/complete";
 
-                        location.href = "/complate";
+                        
                     }
 
                 });
             }else{
                 
-                alert('결제 실패!');
+                alert('결제가 실패되었습니다.');
                 processCancel();
             }
         }
+
+        //창 강제 종료시 임시 예약 데이터 제거
+        // window.addEventListener('beforeunload',function(e){
+        //     processCancel();
+        // })
+
+        window.onbeforeunload = function(){
+            processCancel();
+        }
+
+        // window.onpageshow = function (event) {
+        //     if (event.persisted) {
+        //         // 뒤로가기로 페이지 로드 시
+        //         document.location.reload();
+        //     }
+        //     else {
+        //         // 새로운 페이지 로드 시
+        //     }
+        // }
+        
+        $(window).bind('pageshow', function(event){
+            if(event.originalEvent && event.originalEvent.persisted){
+                location.reload();
+            }
+        });
 
 
 

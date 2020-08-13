@@ -538,7 +538,7 @@ function searchPopupAction() {
     $.ajax({
         type : "GET",
         dataType : 'JSON',
-        url : '/api/reservation_list?type=search',
+        url : '/api/reservation?type=search',
         data : condition_data,
         success : function (res) {
             

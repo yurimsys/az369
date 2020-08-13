@@ -596,6 +596,7 @@
             $('header').css('display','block');
             $('#payment').css('display','none')
             $('footer').css('display','block');
+            let pay_check = sessionStorage.getItem('pay_complete');
             let ct_id = sessionStorage.getItem("ct_id");
             $.ajax({
                 url : '/api/temporary_seat_delete',
@@ -603,7 +604,8 @@
                 dataType : 'JSON',
                 data : {
                     "seatNums": selected_seats,
-                    "ct_id": ct_id
+                    "ct_id": ct_id,
+                    "pay_check" : pay_check
                 },
                 success: function(res){
                     // console.log('res!',res);
@@ -644,7 +646,7 @@
                             MID: "testpay01m",							// 가맹점 MID
                             MerchantKey: "Ma29gyAFhvv/+e4/AHpV6pISQIvSKziLIbrNoXPbRS5nfTx2DOs8OJve+NzwyoaQ8p9Uy1AN4S1I0Um5v7oNUg==",	// 가맹점 라이센스키
                             GoodsName: "장차 좌석",		// 상품명
-                            Amt: "20",							// 결제금액(과세)
+                            Amt: "135",							// 결제금액(과세)
                             BuyerName: user_name,		// 고객명
                             BuyerTel: "01012341234",				// 고객전화번호
                             BuyerEmail: "email@eamil",			// 고객이메일
@@ -690,15 +692,14 @@
             let errormsg = data.ErrorMsg;		// 에러메세지(상위기관)
             let EPayCl   = data.EPayCl;
             let payType = data.AcquCardCode;    // 결제 타입 ex) 신용카드 01 계좌이체 02 DB 입력
-            console.log('success : ', data);
+            // console.log('success : ', data);
             // alert("["+resultcode+"]"+resultmsg);
-            alert(resultcode);
             let origin_price = $("#original_price").data('price');
             let sale_price = 0;
             let ct_id = sessionStorage.getItem("ct_id");
             let seatPrice = sessionStorage.getItem("seatPrice")
             if(resultcode == '3001'){
-                alert('에이작스')
+                sessionStorage.setItem('pay_complete',"complete");
                 $.ajax({
                     method: "POST",
                     dataType: "json",
@@ -749,10 +750,8 @@
                         payment_result.ph_type = result.ph_type;
                         payment_result.start_day = bus_text1 + bus_text2;
                         
-
                         sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
-
-                        location.href = "/complate";
+                        location.href = "/complete";
                     }
 
                 });
@@ -761,7 +760,14 @@
                 alert('결제 실패!');
                 processCancel();
             }
-            }
+        }
+
+
+        //창 강제 종료시 임시 예약 데이터 제거
+
+        window.onbeforeunload = function(){
+            processCancel();
+        }
 
     </script>
 

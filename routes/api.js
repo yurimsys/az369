@@ -1529,7 +1529,7 @@ router.post('/temporary_seat', async function(req, res){
                                 res.json({data : 201});
                             })
                         } 
-        
+                        
                         connection.commit(function(err) {
                             if (err) {
                                 return connection.rollback(function() {
@@ -1552,6 +1552,7 @@ router.delete('/temporary_seat_delete', async function(req, res){
         let u_id = req.user.U_ID //등록할 회원 아이디
         let seatNums = req.body['seatNums']; // 등록할 좌석
         let ct_id = req.body.ct_id // 등록할 장차
+        let pay_check = req.body.pay_check;
 
         let query = `DELETE FROM tCR WHERE 
                         CR_CT_ID = ${ct_id} AND 
@@ -1559,24 +1560,35 @@ router.delete('/temporary_seat_delete', async function(req, res){
                         CR_Cancel = 'N' AND
                         CR_SeatNum IN (${seatNums})`
 
-        connection.query(query, 
-            function(err, result) {
-                if (err){
-                    connection.rollback(function(){
-                        res.json({data : 201});
-                    })
-                } 
-
-                connection.commit(function(err) {
-                    if (err) {
-                        return connection.rollback(function() {
-                            throw err;
+        if(pay_check == ""){
+            if(seatNums != undefined){
+                connection.query(query, 
+                    function(err, result) {
+                        if (err){
+                            connection.rollback(function(){
+                                res.json({data : 201});
+                            })
+                        } 
+        
+                        connection.commit(function(err) {
+                            if (err) {
+                                return connection.rollback(function() {
+                                    throw err;
+                                });
+                            }
+                            res.json({data : 'success'});    
                         });
-                    }
-                    res.json({data : 'success'});    
-                });
+        
+                    });
+            }else{
+                res.json({data : 202});
+            }
+        }else{
+            res.redirect('/complete');
+        }
 
-            });
+
+
             
     })
 })
@@ -4025,7 +4037,7 @@ router.get('/bus_user_info', (req, res, next) =>{
                     U_PHONE, 
                     tCR.CR_SeatNum 
                 from tCR 
-                    INNER JOIN tu ON tCR.CR_U_ID = tU.U_ID 
+                    INNER JOIN tU ON tCR.CR_U_ID = tU.U_ID 
                 WHERE tCR.CR_CT_ID = :ct_id AND 
                       tCR.CR_SeatNum = :cr_seatnum AND 
                       tCR.CR_Cancel = 'N';`; 
@@ -4164,8 +4176,8 @@ router.get('/vehicle',function(req,res){
     let query = `SELECT 
                     CT_ID,
                     CY_ID,
-                    (SELECT COUNT(CR_SeatNum) FROM tcr  WHERE CR_Cancel = 'N' 
-                    AND tcr.CR_CT_ID = tct.CT_ID) AS COUNT,
+                    (SELECT COUNT(CR_SeatNum) FROM tCR  WHERE CR_Cancel = 'N' 
+                    AND tCR.CR_CT_ID = tCT.CT_ID) AS COUNT,
                     CT_CY_ID,
                     B_Name,
                     CT_CarNum,
@@ -4177,9 +4189,9 @@ router.get('/vehicle',function(req,res){
                     CT_ReturnTe,
                     CT_PyStart,
                     CT_SeStart
-                FROM tct 
-                    left JOIN tcr ON tcr.CR_CT_ID = tct.CT_ID
-                    inner JOIN tCY ON tCT.CT_CY_ID = tcy.CY_ID
+                FROM tCT 
+                    left JOIN tCR ON tCR.CR_CT_ID = tCT.CT_ID
+                    inner JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
                     inner JOIN tB ON tCY.CY_B_ID = tB.B_ID`
 
     // let query = `SELECT * FROM tCT 
@@ -4217,9 +4229,9 @@ router.get('/vehicle',function(req,res){
         let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
         if( condition_list.length > 0){
             let condition_stmt = ' WHERE '+condition_list.join(searchType);
-            query += condition_stmt + ' GROUP BY tct.CT_ID';
+            query += condition_stmt + ' GROUP BY tCT.CT_ID';
         }else{
-            query += ' GROUP BY tct.CT_ID';
+            query += ' GROUP BY tCT.CT_ID';
         }
         connection.query(query,
             function(err,rows){
@@ -4228,7 +4240,7 @@ router.get('/vehicle',function(req,res){
         })
 
     }else{
-        query += ' GROUP BY tct.CT_ID';
+        query += ' GROUP BY tCT.CT_ID';
         connection.query(query,
             function(err,rows){
                 if(err) throw err;
@@ -4511,7 +4523,7 @@ router.get('/vehicle/list', function(req,res){
                     tCT.CT_DepartureTe,
                     tCY.CY_SeatPrice,
                     date_format(tCT.CT_DepartureTe ,'%y%y.%m.%d %H') as deptTime
-                FROM tct 
+                FROM tCT 
                     INNER JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
                     INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID
                 WHERE tCT.CT_PyStart = 'N'`

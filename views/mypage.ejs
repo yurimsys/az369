@@ -693,7 +693,28 @@
             
         }
 
+        function cnacelInfo(string) {
+            // var obj = {};
+            // var row, 
+            //     rows = table.rows;
+            // for (var i=0, iLen=rows.length; i<iLen; i++) {
+            //   row = rows[i];
+            //   obj[document.getElementsByTagName("input")[i].getAttribute('name')] = document.getElementsByTagName("input")[i].value;
+            // }
+            // console.log('good',obj);
+            let cancel_data = {}
+                cancel_data.mid = 'testpay01m',
+                cancel_data.tid = string,
+                cancel_data.svcCd = '01',
+                cancel_data.partialCancelCode = '0',
+                cancel_data.cancelAmt = '135',
+                cancel_data.cancelMsg = '환불테스트',
+                cancel_data.cancelPwd = '123456'
+                
+            return JSON.stringify(cancel_data);
+            console.log('can', cancel_data);
 
+        }
 
         // 예매 취소
         function resCancel(e) {
@@ -756,40 +777,41 @@
                         }
                     else {
                         var resultcode = null;
-                        let cancel_data = {}
-                            cancel_data.cancelAmt = '10',
-                            cancel_data.svcCd = '01',
-                            cancel_data.tid = e.dataset.pgid,
-                            cancel_data.partialCancelCode = '0',
-                            cancel_data.mid = 'testpay01m',
-                            cancel_data.cancelPwd = '123456',
-                            cancel_data.cancelMsg = '환불테스트'
+                        // let cancel_data = {}
+                        //     cancel_data.cancelAmt = '10',
+                        //     cancel_data.svcCd = '01',
+                        //     cancel_data.tid = e.dataset.pgid,
+                        //     cancel_data.partialCancelCode = '0',
+                        //     cancel_data.mid = 'testpay01m',
+                        //     cancel_data.cancelPwd = '123456',
+                        //     cancel_data.cancelMsg = '환불테스트'
 
-                            console.log('loglog :',cancel_data);
-                        // $.ajax({
-                        //     type : "POST",
-                        //     url : "https://api.innopay.co.kr/api/cancelApi",
-                        //     async : true,
-                        //     data : cancel_data,
-                        //     contentType: "application/json; charset=utf-8",
-                        //     dataType : "json",
-                        //     success : function(data){
-                        //         console.log(data);
-                        //         swal({
-                        //             title: '예매취소 완료',
-                        //             text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
-                        //             icon: 'success',
-                        //             button: '확인'
-                        //         }).then((value)=>{
-                        //             location.href='mypage';
-                        //         })
+                        //     console.log('loglog :',cancel_data);
+                        // cnacelInfo(e.dataset.pgid)
+                        $.ajax({
+                            type : "POST",
+                            url : "https://api.innopay.co.kr/api/cancelApi",
+                            async : true,
+                            data : cnacelInfo(e.dataset.pgid),
+                            contentType: "application/json; charset=utf-8",
+                            dataType : "json",
+                            success : function(data){
+                                console.log(data);
+                                swal({
+                                    title: '예매취소 완료',
+                                    text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
+                                    icon: 'success',
+                                    button: '확인'
+                                }).then((value)=>{
+                                    location.href='mypage';
+                                })
 
-                        //     },
-                        //     error : function(data){
-                        //         console.log(data);   
-                        //         alert("통신에러");
-                        //     }
-                        // });
+                            },
+                            error : function(data){
+                                // console.log(data);   
+                                alert("취소 오류 고객센터에 문의해 주세요.");
+                            }
+                        });
 
                     }
                 }

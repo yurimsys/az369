@@ -87,6 +87,7 @@
     <script>
 
         $(document).ready(function () {
+            sessionStorage.removeItem("pay_complete");
             /*agreement 전체동의 체크*/
             $('.check-all').click(function () {
                 $('.ab').prop('checked', this.checked);
@@ -102,6 +103,7 @@
             sessionStorage.removeItem("payment_result");
             sessionStorage.removeItem("ct_id");
             sessionStorage.removeItem("car_list");
+            
         });
     </script>
 </body>
