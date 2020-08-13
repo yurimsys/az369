@@ -196,26 +196,17 @@ th, td {padding: 0;}
 .popup_box_mo {display: none;}
 .table_mo {display: none;}
 
-.layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
+.layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%; z-index: 100000000;}
 
  .popup_box{width:28%; background:#fff; position:relative; z-index: 1000; top:53%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.3); padding: 20px 30px 25px; overflow: hidden;}
- /* .popup_box h3 {font-size: 24px; margin-bottom: 20px; text-align: center;font-weight: 600; font-size: 24px; padding-top: 6px;}
- .popup_box h3 span {color: #999; font-weight: 300;} */
-
- /* .swiper-slide {width: 99%; padding: 20px; border-radius: 12px; padding: 0; margin: 0 auto;}
- .swiper-wrapper {width: auto;}
-.qr_wrap {width: 115px; height: 115px; background-color: #faf9f7; position: relative; left: 50%; transform: translateX(-50%); margin-bottom:25px;}
-.qrcode {width: 93px; height: 93px; background-color: black; position: absolute;
-top: 50%; left: 50%; transform: translate(-50%, -50%);} */
-/* .table th {border-top: 1px solid #191919;} */
-
 
 .ticket_modal h3 {font-size: 24px; text-align: center; margin-bottom: 18px;}
 .time_info {width: 100%;; background-color: #f7f7fa; border-radius: 12px; padding: 20px 0; overflow: hidden; display: flex;}
 
 .time_info > div {flex: 1;}
 .time_info > div:nth-child(1) {border-right: 1px solid #dbdbdb;}
-.time_info_date { display: inline-block; margin-left: 50%; transform: translateX(-50%);}
+.time_info_date {width: 100%; text-align: center;}
+.time_info_date dd:nth-child(1)::after {content: '~'; margin-left: 5px; margin-right: -10px;}
 .time_info_time {width: 100%; margin: 0 auto;}
 .time_info_time ul li {float: left;}
 .time_info_time ul li:nth-child(1), .time_info_time ul li:nth-child(3) {width: 45%; text-align: center;}
@@ -241,15 +232,7 @@ top: 50%; left: 50%; transform: translate(-50%, -50%);} */
 .cancel_btn_list a { height: 40px; line-height: 40px; padding: 0 16px; display: block; border: 1px solid #dbdbdb; font-size: 15px; border-radius: 4px;}
 .all_cancel {margin-right: 8px;}
 
-a.close_btn  {display: block; width:100%; border-radius: 4px; height: 48px; line-height: 48px; text-align: center; margin-top: 20px; border: 1px solid #dbdbdb; overflow: hidden;} 
-
-
-
-
-
-
-
-
+a.close_btn  {display: block; width:100%; border-radius: 4px; height: 48px; line-height: 48px; text-align: center; margin-top: 20px; border: 1px solid #999; overflow: hidden;} 
 
 
 .detail_table {
@@ -313,7 +296,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
   /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
     /* .inner_su1b_wrap {width: 100%;  margin: 0 auto;} */
-    .layer .popup_box{width: 40%; margin-top: 30px; overflow: scroll;}
+    .layer .popup_box{width: 45%;}
     .swiper-slide {width: auto;}
     .inner_sub_wrap {width: 98%; margin: 0 auto;}
 }
@@ -326,6 +309,8 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .info dt {display: none;}
     .info dd {width: 100%;}
     .mypage_left {padding: 20px 16px;}
+
+    .layer .popup_box{width: 50%;}
 }
 
 
@@ -352,7 +337,8 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .mypage_nav_mo button {border: 1px solid #eee; border-bottom:1px solid #444; background: #f4f4f4; }
     .mypage_nav_mo button.active {border: 1px solid #444; border-bottom: none; background: #fff; color:#222;}
     .mypage_nav_mo button.active p {color: #222; font-weight: 500;}
-    .popup_box{display: none;}
+    /* .popup_box{display: none;} */
+    .layer .popup_box{width: 60%;}
     .layer {width: 100%;}
     .popup_box_mo {display: block; width: 60%; background: #fff; padding: 20px 15px; position: absolute; z-index: 100000; top: 53%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; overflow: scroll;}
     .popup_box_mo h3 {text-align: center; margin-bottom: 20px; font-size: 22px; padding-top: 8px;}
@@ -380,6 +366,17 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .logout_mo {display: block; width:25%; margin: 0 auto; margin-bottom: 20px;  overflow: hidden; text-align: center; margin-top: 70px; height: 40px; line-height: 40px;}
     .logout_mo a {display: block;}
 }
+
+/*650px*/
+/* @media screen and (max-width: 650px) {
+    .layer .popup_box{width: 80%; height:95%; }
+    .time_info > div { width: 80%; margin: 0 auto;}
+    .time_info > div:nth-child(1) {border-right: none; border-bottom: 1px solid #eee;}
+    .time_info {flex-direction: column; padding: 15px 0;}
+    .time_info_date {padding-bottom: 15px;}
+    .time_info_time {padding-top: 15px;}
+} */
+
 
 /*450px*/
 @media screen and (max-width: 450px) {
@@ -424,10 +421,14 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_close1, .popup_close2 {width: 100%; float: left;}
     .popup_close1 {margin-right: 1%;}
     
-    .popup_box{display: none;}
     .layer {width: 100%;}
+    .layer .popup_box {width: 100%; height: 100%; overflow: scroll; overflow-x: hidden; left: 0; top: 0; transform: translate(0%,0%); border-radius: 0;}
+    .qrcode_list {height: auto;overflow: hidden;}
     .popup_box_mo {display: block; width: 95%; background: #fff; height: 1000px; overflow: scroll; margin: 0 auto; top: 0; left:0; transform: none; position: absolute; font-size: 14px;border-radius: 4px;}
-    .swiper-slide h2 {text-align: center; padding: 8px 0;}
+
+    .ticket_modal {padding: 23px 15px 15px;}
+    a.close_btn {margin-top: 30px; }
+    /* .swiper-slide h2 {text-align: center; padding: 8px 0;} */
     /* .popup_box_mo h2 {text-align: center; background-color: red;} */
     .popup_box_mo p {font-size: 13px;}
     .qr_info {margin-top: 0;}
@@ -460,7 +461,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
      */
     .mypage_nav button span {margin-left: 60%;}
     /* .tabcontent h4 {font-size: 18px; padding-top: 4%;} */
-    .popup_box_mo {width: 100%; height: 100%; padding: 15px 10px; border-radius: 0;}
+    .popup_box_mo {width: 100%; height: 100%; padding: 15px; border-radius: 0;}
     
    .table th, .table td {font-size: 10px; padding: 5px;}
    .popup_btn_mo ul {width:100%;}
@@ -516,11 +517,16 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .mypage_nav_mo .tablinks { padding: 5px; height: auto;}
     .popup_btn {width: 100%;}
     
-    .layer {width: 320px;}
-    
-    
-    /*search 박스*/
+    /* 승차권 */
+    .time_info > div { width: 80%; margin: 0 auto;}
+    .time_info > div:nth-child(1) {border-right: none; border-bottom: 1px solid #eee;}
+    .time_info {flex-direction: column; padding: 15px 0;}
+    .time_info_date {padding-bottom: 15px;}
+    .time_info_time {padding-top: 15px;}
+    .ticket_modal p {text-align: center !important;}
+    .cancel_btn_list {margin-top:25px;}
 
+    /*search 박스*/
     .searchDate ul {
         flex:none;
         width: 100%;
