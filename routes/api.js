@@ -817,7 +817,9 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = 'N'
                     and tCR.CR_U_ID = :sessionId and tCR.CR_cDt IN ( :seatNum)
                     and tCT.CT_DepartureTe > NOW()
-                    order by tCT.CT_DepartureTe desc`;
+                    order by tCR.CR_SeatNum
+                    `;
+                    // order by tCT.CT_DepartureTe desc
     console.log("좌석 :", seatNum);
     console.log("세션 :", sessionId);
 
