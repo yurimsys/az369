@@ -474,29 +474,138 @@
 
     <!-- 예매취소 후 리스트 모달 @@@@@@@@@@@@@@@ -->
     <!--popup PC-->
-    <div id="popup" class="layer">
+    <!-- <div id="popup" class="layer">
         <div class="popup_box">
             <div class="swiper-container myswiper">
                 <div class="swiper-wrapper swiper-pc">
-  
                 </div>
-                <!-- 네비게이션 버튼 -->
-                <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-                <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
         
         <div class="popup_box_mo">
             <div class="swiper-container myswiper">
                 <div class="swiper-wrapper swiper-mobile">
-  
                 </div>
-                <!-- 네비게이션 버튼 -->
-                <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-                <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
+    </div> -->
 
+    <div id="popup" class="layer">
+        <div class="popup_box ticket_modal">
+            <h3>승차권</h3>
+            <div class="time_info">
+                
+                        <div>
+                            <div class="time_info_date">
+                                <dd>2020.01.01 (월)</dd>
+                                <dd> 2020.01.02 (화)</dd>
+                            </div>
+                        </div>
+                  
+                        <div>
+                            <div class="time_info_time">
+                            <ul>
+                                <li>
+                                    <dt>평택</dt>
+                                    <dd>23:00</dd>
+                                </li>
+                                <li>
+                                    <img src="/img/reservation/location_icon.png" alt="">
+                                </li>
+                                <li>
+                                    <dt>동대문</dt>
+                                    <dd>04:00</dd>
+                                </li>
+                            </ul>
+                        </div>
+                        </div>
+                
+
+
+                <!-- <ul>
+                    <li>
+                        <dd>2020.01.01 (월) ~</dd>
+                        <dd>2020.01.02 (화)</dd>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>평택</dt>
+                            <dd>23:00</dd>
+                        </dl>
+                        <dl><img src="/img/reservation/location_icon.png" alt=""></dl>
+                        <dl>
+                            <dt>동대문</dt>
+                            <dd>04:00</dd>
+                        </dl>
+                    </li>
+                </ul> -->
+            </div>
+            <table class="payment_info">
+                <tr>
+                    <th>결제일시</th>
+                    <td>2020.01.01 (월) 13:00</td>
+                </tr>
+                <tr>
+                    <th>결제수단</th>
+                    <td>신용카드 (국민 - 일시불)</td>
+                </tr>
+                <tr>
+                    <th>결제금액</th>
+                    <td>20,000원</td>
+                </tr>
+            </table>
+    
+            <div class="qrcode_list scroll_style">
+                <ul>
+                    <li>
+                        <div class="checks etrans" id='chk01'>
+                            <input type="checkbox" id="ex_chk1" class="ab">
+                            <label for="ex_chk1">좌석번호<span>1</span></label>
+                            <div class="qrcode"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="checks etrans" id='chk02'>
+                            <input type="checkbox" id="ex_chk2" class="ab">
+                            <label for="ex_chk2">좌석번호<span>2</span></label>
+                            <div class="qrcode"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="checks etrans" id='chk03'>
+                            <input type="checkbox" id="ex_chk3" class="ab">
+                            <label for="ex_chk3">좌석번호<span>3</span></label>
+                            <div class="qrcode"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="checks etrans" id='chk04'>
+                            <input type="checkbox" id="ex_chk4" class="ab">
+                            <label for="ex_chk4">좌석번호<span>4</span></label>
+                            <div class="qrcode"></div>
+                        </div>
+                    </li>
+    
+                </ul>
+            </div>
+    
+            <p>출발 3일 전 ~ 당일은 예매취소가 불가능합니다. <a href="refund"><u>환불규정보기</u></a></p>
+    
+            <div class="cancel_btn_list">
+                <ul>
+                    <li><a href="#" class="cancel_btn all_cancel">전체취소</a></li>
+                    <li><a href="#" class="cancel_btn select_cancle">선택취소</a></li>
+                </ul>
+            </div>
+    
+            <a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');"
+                class=" close_btn btn-secondary">닫기</a>
+        </div>
+    
     </div>
 
     <!--두번째 리스트 popup mo-->
@@ -597,7 +706,7 @@
                         </div>
                          <table class="detail_table">`;
                          let default_html2 = `</table>
-                         <p>예매취소는 개별로만 가능하오니 좌석번호를 꼭 확인해주세요. <br> 출발일 3일 전 ~ 당일은 예매취소가 불가능합니다.  <a><u> 환불규정</u></a></p>
+                         <p>예매취소는 개별로만 가능하오니 좌석번호를 꼭 확인해주세요. <br> 출발 3일 전 ~ 당일은 예매취소가 불가능합니다.  <a><u> 환불규정</u></a></p>
                          <div class="popup_btn">
                            <ul><li><a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');" class="btn btn-secondary">닫기</a></li><li>`;
                     for(let i=0; i <res.data.length; i++){
