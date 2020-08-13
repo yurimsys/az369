@@ -41,7 +41,7 @@ section.main {
     .sub_info ul {margin-top: 25px;}
 }
 
-/*450ㄴpx*/
+/*450px*/
 @media screen and (max-width: 450px) {
     section.sub_wrap h2 br {display: block;}
     .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: center;}
@@ -53,7 +53,7 @@ section.main {
     .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: center;}
 }
 
-/*320px*/
+/*375px*/
 @media screen and (max-width: 320px) {
-    section.sub_wrap h2 br {display: block;}
+    .sub_info p {text-align: left;}
 }
