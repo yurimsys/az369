@@ -47,9 +47,10 @@
 								<label class='info_name'>CR_ID</label>
 								<!-- <span id="ad_id"></span> -->
 								<input type='text' id='cr_id' class='long_box' readonly>
+								
 							</div>
 							<div>
-								<label class='info_name'>U_ID</label>
+								<label class='info_name'>회원명</label>
 								<select class='long_box select2' id='u_id' aria-readonly="true">
 									<!-- <option value="null">배차 선택</option> -->
 									<option></option>
@@ -65,7 +66,7 @@
 							<div>
 								<label class='info_name'>좌석번호</label>
 								<!-- <span id="ad_id"></span> -->
-								<input type='number' id='seat_num' class='long_box'>
+								<input type='text' id='seat_num' class='long_box' readonly>
 							</div>
 					</div>
 					<!-- 등록 여기까지 -->
@@ -139,6 +140,14 @@
 								</select>
 							</div>
 							<hr class="info_line">
+							<div>
+								<label class='info_name'>결제상태</label>
+								<select class='long_box' id='cr_state'>
+									<option value="결제대기">결제대기</option>
+									<option value='결제완료'>결제완료</option>
+									<option value='결제취소'>결제취소</option>
+								</select>
+							</div>
 							<div>
 								<label class='info_name'>비고</label>
 								<input type="text" class='long_box' id='cr_memo'>

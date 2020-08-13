@@ -498,34 +498,52 @@
         <div class="popup_box ticket_modal scroll_style">
             <h3>승차권</h3>
             <div class="time_info">
-                <div>
-                    <div class="time_info_date">
-                        <dd>2020.01.01 (월)</dd>
-                        <dd> 2020.01.02 (화)</dd>
-                    </div>
-                </div>
-    
-                <div>
-                    <div class="time_info_time">
-                        <ul>
-                            <li>
-                                <dt>평택</dt>
-                                <dd>23:00</dd>
-                            </li>
-                            <li>
-                                <img src="/img/mypage/info_arrow.png" alt="">
-                            </li>
-                            <li>
-                                <dt>동대문</dt>
-                                <dd>04:00</dd>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-    
+                
+                        <!-- <div>
+                            <div class="time_info_date">
+                                <dd>2020.01.01 (월)</dd>
+                                <dd> 2020.01.02 (화)</dd>
+                            </div>
+                        </div>
+                  
+                        <div>
+                            <div class="time_info_time">
+                                <ul>
+                                    <li>
+                                        <dt>평택</dt>
+                                        <dd>23:00</dd>
+                                    </li>
+                                    <li>
+                                        <img src="/img/mypage/info_arrow.png" alt="">
+                                    </li>
+                                    <li>
+                                        <dt>동대문</dt>
+                                        <dd>04:00</dd>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> -->
+                
+                <!-- <ul>
+                    <li>
+                        <dd>2020.01.01 (월) ~</dd>
+                        <dd>2020.01.02 (화)</dd>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>평택</dt>
+                            <dd>23:00</dd>
+                        </dl>
+                        <dl><img src="/img/reservation/location_icon.png" alt=""></dl>
+                        <dl>
+                            <dt>동대문</dt>
+                            <dd>04:00</dd>
+                        </dl>
+                    </li>
+                </ul> -->
             </div>
             <table class="payment_info">
-                <tr>
+                <!-- <tr>
                     <th>결제일시</th>
                     <td>2020.01.01 (월) 13:00</td>
                 </tr>
@@ -536,7 +554,7 @@
                 <tr>
                     <th>결제금액</th>
                     <td>20,000원</td>
-                </tr>
+                </tr> -->
             </table>
 
             <div class="checks etrans check_all_btn" id='chk05'>
@@ -547,36 +565,14 @@
             <a href="#" class="cancel_btn select_cancel">선택 예매취소</a>
 
             <div class="qrcode_list scroll_style">
-                <ul>
-                    <li>
+                <ul id='res_seat_list'>
+                    <!-- <li>
                         <div class="checks etrans" id='chk01'>
-                            <input type="checkbox" id="ex_chk1" class="ab">
+                            <input type="checkbox" id="ex_chk1">
                             <label for="ex_chk1">좌석번호<span>1</span></label>
                             <div class="qrcode"></div>
                         </div>
-                    </li>
-                    <li>
-                        <div class="checks etrans" id='chk02'>
-                            <input type="checkbox" id="ex_chk2" class="ab">
-                            <label for="ex_chk2">좌석번호<span>2</span></label>
-                            <div class="qrcode"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="checks etrans" id='chk03'>
-                            <input type="checkbox" id="ex_chk3" class="ab">
-                            <label for="ex_chk3">좌석번호<span>3</span></label>
-                            <div class="qrcode"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="checks etrans" id='chk04'>
-                            <input type="checkbox" id="ex_chk4" class="ab">
-                            <label for="ex_chk4">좌석번호<span>4</span></label>
-                            <div class="qrcode"></div>
-                        </div>
-                    </li>
-    
+                    </li>     -->
                 </ul>
             </div>
     
@@ -677,80 +673,79 @@
                     'sendArray': seatArr
                 },
                 success: function (res) {
-                    console.log('res',res.data);
-                    let default_html = 
-                    `<div class="swiper-slide">
-                        <h3>승차권 <span>1 / 2</span></h3>
-                        <div class="qr_info">
-                            <div id='qrcode' class="qrcode"></div>
-                            <div class="qr_txt">
-                            
-                            </div>
-                        </div>
-                         <table class="detail_table">`;
-                         let default_html2 = `</table>
-                         <p>예매취소는 개별로만 가능하오니 좌석번호를 꼭 확인해주세요. <br> 출발 3일 전 ~ 당일은 예매취소가 불가능합니다.  <a><u> 환불규정</u></a></p>
-                         <div class="popup_btn">
-                           <ul><li><a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');" class="btn btn-secondary">닫기</a></li><li>`;
-                    for(let i=0; i <res.data.length; i++){
-                        let html = '<div class="swiper-slide"><h3>승차권 '+Number(i+1)+' <span style="color: #999; font-family: inherit"> / '+res.data.length+'</span></h3><div class="qr_wrap"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div></div>';
-                            html += '<table class="detail_table">';
-                            html += '<tr><th>결제일시</th>';
-                            html += '<td>'+res.data[i].payDayYM+' ('+getInputDayLabel(res.data[i].payDayWeek)+') '+res.data[i].payDayTm+'</td><tr>'
-                            html += '<tr><th>예매정보</th>';
-                            html += '<td>평택 '+res.data[i].deptTe2+' ('+getInputDayLabel(res.data[i].deptDay)+') '+res.data[i].startTime+'<br>동대문 '+res.data[i].returnTe2+'('
-                                        +getInputDayLabel(res.data[i].retnDay)+') '+res.data[i].returnTime+'<br>'+res.data[i].carName+'('+res.data[i].carNum+')</td><tr>';
-                            html += '<tr><th>좌석번호</th>';
-                            html += '<td>'+res.data[i].CR_SeatNum+'번</td><tr>';
-                            html += '<tr><th>결제수단</th>';
-                            html += '<td>'+res.data[i].PH_Type+'</td><tr>';
-                            html += '<tr><th>결제금액</th>';
-                            html += '<td>'+res.data[i].CR_Price+'원</td><tr>'
-                            html += default_html2;
-                            html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-pgid='+res.data[i].PH_PG_ID+' data-crid='+res.data[i].CR_ID+'>예매취소</a></li></ul></div></div>';
-                            $('.swiper-pc').append(html);
-                            qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode)
+                    console.log(res.data);
+                    $('.time_info').empty();
+                    $('.payment_info').empty();
+                    $('#res_seat_list').empty();
+
+                    let top_html = "<div><div class='time_info_date'><dd>"+res.data[0].deptTe2+" ("+getInputDayLabel(res.data[0].deptDay)+")</dd>";
+                        top_html += "<dd>"+res.data[0].returnTe2+" ("+getInputDayLabel(res.data[0].retnDay)+")</dd></div></div>";
+                        top_html += "<div><div class='time_info_time'><ul><li><dt>평택</dt><dd>"+res.data[0].startTime+"</dd></li>";
+                        top_html += "<li><img src='/img/mypage/info_arrow.png'></li><li><dt>동대문</dt><dd>"+res.data[0].returnTime+"</dd></li></ul></div></div>";
+
+                    $('.time_info').append(top_html);
+
+                    let mid_html = "<tr><th>결제일시</th><td>"+res.data[0].payDayYM+' ('+getInputDayLabel(res.data[0].payDayWeek)+') '+res.data[0].payDayTm+"</td></tr>";
+                        mid_html += "<tr><th>결제수단</th><td>"+res.data[0].PH_Type+"</td></tr>";
+                        mid_html += "<tr><th>결제금액</th><td>"+res.data[0].CR_Price+"원</td></tr>";
+
+                    $('.payment_info').append(mid_html);
+
+                    for(let i=0; i<res.data.length; i++){
+                        let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
+                            bot_html += "<input type='checkbox' id=seat_chk"+res.data[i].CR_ID+">";
+                            bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
+                            bot_html += "<div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div>"
+                        $('#res_seat_list').append(bot_html);
+                        qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode)
                     }
 
+
+                    // for(let i=0; i <res.data.length; i++){
+                    //     let html = '<div class="swiper-slide"><h3>승차권 '+Number(i+1)+' <span style="color: #999; font-family: inherit"> / '+res.data.length+'</span></h3><div class="qr_wrap"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div></div>';
+                    //         html += '<table class="detail_table">';
+                    //         html += '<tr><th>결제일시</th>';
+                    //         html += '<td>'+res.data[i].payDayYM+' ('+getInputDayLabel(res.data[i].payDayWeek)+') '+res.data[i].payDayTm+'</td><tr>'
+                    //         html += '<tr><th>예매정보</th>';
+                    //         html += '<td>평택 '+res.data[i].deptTe2+' ('+getInputDayLabel(res.data[i].deptDay)+') '+res.data[i].startTime+'<br>동대문 '+res.data[i].returnTe2+'('
+                    //                     +getInputDayLabel(res.data[i].retnDay)+') '+res.data[i].returnTime+'<br>'+res.data[i].carName+'('+res.data[i].carNum+')</td><tr>';
+                    //         html += '<tr><th>좌석번호</th>';
+                    //         html += '<td>'+res.data[i].CR_SeatNum+'번</td><tr>';
+                    //         html += '<tr><th>결제수단</th>';
+                    //         html += '<td>'+res.data[i].PH_Type+'</td><tr>';
+                    //         html += '<tr><th>결제금액</th>';
+                    //         html += '<td>'+res.data[i].CR_Price+'원</td><tr>'
+                    //         html += default_html2;
+                    //         html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-pgid='+res.data[i].PH_PG_ID+' data-crid='+res.data[i].CR_ID+'>예매취소</a></li></ul></div></div>';
+                    //         $('.swiper-pc').append(html);
+                    //         qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode)
+                    // }
+
                     for(let j=0; j <res.data.length; j++){
-                        let html = '<div class="swiper-slide"><h3>승차권 '+Number(j+1)+'<span style="color: #999;"> / '+res.data.length+'</span></h3><div class="qr_wrap"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div></div>';
-                            html += '<table class="detail_table">';
-                            html += '<tr><th>결제일시</th>';
-                            html += '<td>'+res.data[j].payDayYM+' ('+getInputDayLabel(res.data[j].payDayWeek)+') '+res.data[j].payDayTm+'</td><tr>'
-                            html += '<tr><th>예매정보</th>';
-                            html += '<td>평택 '+res.data[j].deptTe2+' ('+getInputDayLabel(res.data[j].deptDay)+') '+res.data[j].startTime+'<br>동대문 '+res.data[j].returnTe2+'('
-                                        +getInputDayLabel(res.data[j].retnDay)+') '+res.data[j].returnTime+'<br>'+res.data[j].carName+'('+res.data[j].carNum+')</td><tr>';
-                            html += '<tr><th>좌석번호</th>';
-                            html += '<td>'+res.data[j].CR_SeatNum+'번</td><tr>';
-                            html += '<tr><th>결제수단</th>';
-                            html += '<td>'+res.data[j].PH_Type+'</td><tr>';
-                            html += '<tr><th>결제금액</th>';
-                            html += '<td>'+res.data[j].CR_Price+'원</td><tr>'
-                            html += default_html2;
-                            html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-pgid='+res.data[j].PH_PG_ID+' data-crid='+res.data[j].CR_ID+'>예매취소</a></div></div>';
-                            $('.swiper-mobile').append(html);
-                            qrCodeImgMo(res.data[j].CR_ID,res.data[j].CR_QrCode)
+                        // let html = '<div class="swiper-slide"><h3>승차권 '+Number(j+1)+'<span style="color: #999;"> / '+res.data.length+'</span></h3><div class="qr_wrap"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div></div>';
+                        //     html += '<table class="detail_table">';
+                        //     html += '<tr><th>결제일시</th>';
+                        //     html += '<td>'+res.data[j].payDayYM+' ('+getInputDayLabel(res.data[j].payDayWeek)+') '+res.data[j].payDayTm+'</td><tr>'
+                        //     html += '<tr><th>예매정보</th>';
+                        //     html += '<td>평택 '+res.data[j].deptTe2+' ('+getInputDayLabel(res.data[j].deptDay)+') '+res.data[j].startTime+'<br>동대문 '+res.data[j].returnTe2+'('
+                        //                 +getInputDayLabel(res.data[j].retnDay)+') '+res.data[j].returnTime+'<br>'+res.data[j].carName+'('+res.data[j].carNum+')</td><tr>';
+                        //     html += '<tr><th>좌석번호</th>';
+                        //     html += '<td>'+res.data[j].CR_SeatNum+'번</td><tr>';
+                        //     html += '<tr><th>결제수단</th>';
+                        //     html += '<td>'+res.data[j].PH_Type+'</td><tr>';
+                        //     html += '<tr><th>결제금액</th>';
+                        //     html += '<td>'+res.data[j].CR_Price+'원</td><tr>'
+                        //     html += default_html2;
+                        //     html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-pgid='+res.data[j].PH_PG_ID+' data-crid='+res.data[j].CR_ID+'>예매취소</a></div></div>';
+                        //     $('.swiper-mobile').append(html);
+                        //     qrCodeImgMo(res.data[j].CR_ID,res.data[j].CR_QrCode)
                     }
                     
-                    slider();
+                    // slider();
                 }
                 
             })
         }
-
-        function slider(){
-            new Swiper('.myswiper', {
-                // 슬라이드 속도 설정
-                // 지정하지 않을시 기본값은 300
-                speed : 500,
-                navigation : { // 네비게이션 설정
-                    nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-                    prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-                },
-            })
-        }
-
-
 
         //QR코드 생성 함수
         function qrCodeImg(qrId,userInfo){
@@ -775,14 +770,26 @@
             let qrcode = new QRCode(document.getElementById('qrcodemo'+qr_id), 
                 {
                     text: qr_text,
-                    width: 93,
-                    height: 93,
+                    width: 100,
+                    height: 100,
                     colorDark : "#000000",
                     colorLight : "#ffffff",
                     correctLevel : QRCode.CorrectLevel.H
                 });
             
         }
+
+        // function slider(){
+        //     new Swiper('.myswiper', {
+        //         // 슬라이드 속도 설정
+        //         // 지정하지 않을시 기본값은 300
+        //         speed : 500,
+        //         navigation : { // 네비게이션 설정
+        //             nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+        //             prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+        //         },
+        //     })
+        // }
 
         function cnacelInfo(string) {
             // var obj = {};
@@ -803,13 +810,13 @@
                 cancel_data.cancelPwd = '123456'
                 
             return JSON.stringify(cancel_data);
-            console.log('can', cancel_data);
+            // console.log('can', cancel_data);
 
         }
 
         // 예매 취소
         function resCancel(e) {
-            console.log('데이터 :', e.dataset.pgid);
+            // console.log('데이터 :', e.dataset.pgid);
             
             $.ajax({
                 url: "api/user/cancelRes",
@@ -941,8 +948,8 @@
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
                         // let seatList = decodeURIComponent(seatNum).join('번');
-                        console.log('seatList',seatNum);
-                        console.log('sease',decodeURIComponent(seatNum));
+                        // console.log('seatList',seatNum);
+                        // console.log('sease',decodeURIComponent(seatNum));
                         let html = "<tr>";
                         html += "<td>" + res.data[i].PayDay + "</td>";
                         html += "<td>" + res.data[i].deptTe + "</td>";
@@ -1051,7 +1058,6 @@
                     'phId': phId
                 },
                 success: function (res) {
-                    console.log('res L',res.data);
                     $('.table_mo').empty();
                     // location.href = "#popup2"
                     for (let i = 0; i < res.data.length; i++) {
@@ -1185,7 +1191,7 @@
                     'phId': e.target.value
                 },
                 success: function (res) {
-                    console.log("여기데이터 :", res.data);
+                    // console.log("여기데이터 :", res.data);
                     $('.table_mo').empty();
                     // location.href = "#popup3"
                     for (let i = 0; i < res.data.length; i++) {

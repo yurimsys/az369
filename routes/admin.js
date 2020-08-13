@@ -141,6 +141,16 @@ router.get('/az369_user', function(req, res) {
     res.render('admin/admin_az369_user',pageSetting);
 });
 
+//장차 회원 관리
+router.get('/az369_payment', function(req, res) {
+
+    var pageSetting = {
+        title: '장차 결제 관리',
+        description: '장차서비스 결제 관리페이지',
+        layout: 'admin/templates/admin_layout'
+    };
+    res.render('admin/admin_az369_payment',pageSetting);
+});
 
 
 //비지니스 테이블
