@@ -232,7 +232,7 @@ th, td {padding: 0;}
 .cancel_btn_list a { height: 40px; line-height: 40px; padding: 0 16px; display: block; border: 1px solid #dbdbdb; font-size: 15px; border-radius: 4px;}
 .all_cancel {margin-right: 8px;}
 
-a.close_btn  {display: block; width:100%; border-radius: 4px; height: 48px; line-height: 48px; text-align: center; margin-top: 20px; border: 1px solid #dbdbdb; overflow: hidden;} 
+a.close_btn  {display: block; width:100%; border-radius: 4px; height: 48px; line-height: 48px; text-align: center; margin-top: 20px; border: 1px solid #999; overflow: hidden;} 
 
 
 .detail_table {
@@ -427,7 +427,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_box_mo {display: block; width: 95%; background: #fff; height: 1000px; overflow: scroll; margin: 0 auto; top: 0; left:0; transform: none; position: absolute; font-size: 14px;border-radius: 4px;}
 
     .ticket_modal {padding: 23px 15px 15px;}
-    a.close_btn {margin-top: 30px;}
+    a.close_btn {margin-top: 30px; }
     /* .swiper-slide h2 {text-align: center; padding: 8px 0;} */
     /* .popup_box_mo h2 {text-align: center; background-color: red;} */
     .popup_box_mo p {font-size: 13px;}
