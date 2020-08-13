@@ -693,7 +693,7 @@
                     'sendArray': seatArr
                 },
                 success: function (res) {
-                    // console.log('res',res.data);
+                    console.log('res',res.data);
                     let default_html = 
                     `<div class="swiper-slide">
                         <h3>승차권 <span>1 / 2</span></h3>
@@ -754,20 +754,6 @@
             })
         }
 
-        function slider(){
-            new Swiper('.myswiper', {
-                // 슬라이드 속도 설정
-                // 지정하지 않을시 기본값은 300
-                speed : 500,
-                navigation : { // 네비게이션 설정
-                    nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-                    prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-                },
-            })
-        }
-
-
-
         //QR코드 생성 함수
         function qrCodeImg(qrId,userInfo){
             let qr_id = qrId;
@@ -799,6 +785,18 @@
                 });
             
         }
+
+        // function slider(){
+        //     new Swiper('.myswiper', {
+        //         // 슬라이드 속도 설정
+        //         // 지정하지 않을시 기본값은 300
+        //         speed : 500,
+        //         navigation : { // 네비게이션 설정
+        //             nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+        //             prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+        //         },
+        //     })
+        // }
 
         function cnacelInfo(string) {
             // var obj = {};
