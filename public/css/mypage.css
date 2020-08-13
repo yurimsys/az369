@@ -47,7 +47,7 @@ body {background: #fafafa;}
 /*reserve_list - 예약바 리스트*/
 #reserve_list {width: 100%; height: 490px; background: #f8f8f8; border: 1px solid #eee; overflow: scroll; overflow-x: hidden;}
 /*reserve_list 예약바*/
-.reserve_bar { width: 100%; font-weight: 300;padding: 0; border: 1px solid #f8f8f8;}
+.reserve_bar { width: 100%; padding: 0; border: 1px solid #f8f8f8;}
 .reserve_bar ul li {float: left; width: 25%; text-align: center; }
 #reserve_list label input {display: none;}
 #reserve_list label span {
@@ -59,16 +59,16 @@ body {background: #fafafa;}
     line-height: 50px;
     padding: 0;
     margin: 0;
-    font-weight: 300;
-    color: #444;
+    font-weight: 400;
+    color: #505050;
     font-size: 15px;
     border-radius: 5px;
     cursor: pointer;
 }
-#reserve_list label span:hover {background-color: #fff; color: #222;}
-#reserve_list label input:checked ~ span {/*color: #fff;*/ color: #222; font-weight: 500; background: #fff; border: 1px solid #444;}
+#reserve_list label span:hover {background-color: #fff; color: #191919;}
+#reserve_list label input:checked ~ span {/*color: #fff;*/ color: #191919; font-weight: 500; background: #fff; border: 1px solid #444;}
 
-.cancel_btn a {display: inline-block; font-size: 14px;  color: #555;}
+.cancel_btn a {display: inline-block; font-size: 14px;  color: #191919;}
 
 /*tab 02 - 예매 및 결제내역*/
 
@@ -201,7 +201,7 @@ th, td {padding: 0;}
  .popup_box{width:28%; background:#fff; position:relative; z-index: 1000; top:53%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.3); padding: 20px 30px 25px; overflow: hidden;}
 
 .ticket_modal h3 {font-size: 24px; text-align: center; margin-bottom: 18px;}
-.time_info {width: 100%;; background-color: #f7f7fa; border-radius: 12px; padding: 20px 0; overflow: hidden; display: flex;}
+.time_info {width: 100%;; background-color: #faf7f3; border-radius: 12px; padding: 20px 0; overflow: hidden; display: flex;}
 
 .time_info > div {flex: 1;}
 .time_info > div:nth-child(1) {border-right: 1px solid #dbdbdb;}
@@ -211,6 +211,8 @@ th, td {padding: 0;}
 .time_info_time ul li {float: left;}
 .time_info_time ul li:nth-child(1), .time_info_time ul li:nth-child(3) {width: 45%; text-align: center;}
 .time_info_time ul li:nth-child(2) {width: 10%; text-align: center; padding-top: 10px; }
+.time_info_time ul li dt {font-size: 15px;}
+.time_info_time ul li dd {font-size: 18px; font-weight: 500;color: #271d0a; }
 
 .payment_info {width: 100%; font-size: 15px; display: table; margin: 20px 0;}
 .payment_info th, .payment_info td {padding: 2px 0;}
@@ -224,15 +226,23 @@ th, td {padding: 0;}
 .checks {line-height: 50px;  padding: 12px 0;}
 .qrcode_list span {margin-left: 10px; font-weight: 600;}
 
-.ticket_modal p {text-align: left !important; margin-top: 20px; font-size: 14px;}
+.ticket_modal p {text-align: left !important; margin-top: 15px; font-size: 14px;}
 .ticket_modal p a {margin-left: 5px;}
 
-.cancel_btn_list {width: 183px;  margin: 0 auto; overflow: hidden; margin-top: 20px;}
-.cancel_btn_list ul li {float: left; position: relative;}
-.cancel_btn_list a { height: 40px; line-height: 40px; padding: 0 16px; display: block; border: 1px solid #dbdbdb; font-size: 15px; border-radius: 4px;}
+/* .cancel_btn_list {width: 183px;  margin: 0 auto; overflow: hidden; margin-top: 20px;}
+.cancel_btn_list ul li {float: left; position: relative;} */
+.select_cancel { padding: 0 16px; display: block; width: auto; height: 40px; line-height: 40px; padding: 0 16px; border: 1px solid #dbdbdb; font-size: 15px; border-radius: 4px;}
+
+
 .all_cancel {margin-right: 8px;}
 
 a.close_btn  {display: block; width:100%; border-radius: 4px; height: 48px; line-height: 48px; text-align: center; margin-top: 20px; border: 1px solid #999; overflow: hidden;} 
+
+.check_all_btn {padding: 0; width: 30%;float: left; height: 48px; line-height:40px;}
+.select_cancel {float: right;}
+
+
+
 
 
 .detail_table {
