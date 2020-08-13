@@ -11,7 +11,8 @@ function init(){
         type: "date",
         dateSerializationFormat : "yyyy-MM-dd",
     });
-
+    
+    // $('.select2').css('heigth','30px');
     $.ajax({
         url: '/api/user_list',
         method: 'get',
@@ -26,10 +27,9 @@ function init(){
                 {
                     placeholder: '회원 선택',
                     data: user_list,
-                    width: 'resolve'
+                    width: 'calc(77% - 30px)'
                 }
             );
-
         }
     });
 
@@ -55,7 +55,7 @@ let objectInfo = function (mode = "modify", row_data) {
                     {
                         placeholder: '운송사 선택',
                         // data: brand_list,
-                        width: 'resolve'
+                        width: 'calc(77% - 30px)'
                     }
                 );
                 $("#search_ct_id").select2(
@@ -113,6 +113,7 @@ let objectInfo = function (mode = "modify", row_data) {
         $("#se_scan").val('null');
         $('#res_day').val('');
         $('#cr_memo').val('');
+        $('#cr_state').val('');
         // init();
         sessionStorage.removeItem('row_data');
     } else if( mode === "modify"){
@@ -147,6 +148,8 @@ let objectInfo = function (mode = "modify", row_data) {
         $("#se_scan").val(row_data.CR_ScanSe);
         $('#res_day').val(row_data.CR_cDt);
         $('#cr_memo').val(row_data.CR_Memo);
+        $('#cr_state').val(row_data.CR_PayState);
+        
 
         sessionStorage.setItem('row_data', JSON.stringify(row_data) );
     }
@@ -232,6 +235,9 @@ let tableInit = function (data) {
             row_data.CT_ReturnTe = e.data.CT_ReturnTe;
             row_data.CR_cDt = e.data.CR_cDt;
             row_data.CR_Memo = e.data.CR_Memo;
+            row_data.CR_PayState = e.data.CR_PayState;
+            row_data.PH_PG_ID = e.data.PH_PG_ID;
+            row_data.PH_ID = e.data.PH_ID;
             
             if($('.brand_info').css('display') == 'none'){
                 folding();
@@ -282,9 +288,35 @@ let tableInit = function (data) {
             { dataField: "CT_DepartureTe", caption: "평택 출발시간"},
             { dataField: "CT_ReturnTe", caption: "서울 출발시간"},
             { dataField: "CR_Price", caption: "좌석 금액"},
-            { dataField: "CR_Cancel", caption: "취소여부"},
-            { dataField: "CR_ScanPy", caption: "평택 스캔확인"},
-            { dataField: "CR_ScanSe", caption: "서울 스캔확인"},
+            { dataField: "CR_PayState", caption: "결제 상태"},
+            { dataField: "CR_Cancel", caption: "취소여부", 
+                    cellTemplate : function(element, info){
+                        if(info.value == 'Y'){
+                            element.append('<div>'+info.value +'</div>').css('color','red')
+                        }else{
+                            element.append('<div>'+info.value +'</div>')
+                        }
+                    }
+            },
+            { dataField: "CR_ScanPy", caption: "평택 스캔확인",
+                    cellTemplate : function(element, info){
+                        console.log('infoT',info.value);
+                        if(info.value == 'Y'){
+                            element.append('<div>'+info.text +'</div>').css('color','blue')
+                        }else{
+                            element.append('<div>'+info.text +'</div>')
+                        }
+                    }
+            },
+            { dataField: "CR_ScanSe", caption: "서울 스캔확인",
+                    cellTemplate : function(element, info){
+                        if(info.value == 'Y'){
+                            element.append('<div>'+info.text +'</div>').css('color','blue')
+                        }else{
+                            element.append('<div>'+info.text +'</div>')
+                        }
+                    }
+            },
             { dataField: "CR_cDt", caption: "예매일"},
             { dataField: "U_Email", caption: "회원 이메일"},
             { dataField: "U_Brand", caption: "회원 브랜드"},
@@ -385,6 +417,7 @@ function saveAD(){
         ct_id : $("#ct_id option:selected").attr('value'),
         u_id : $("#u_id").val(),
         seat_num : $('#seat_num').val(),
+        seatNums : selected_seats,
         seat_price : $("#ct_id option:selected").attr('data-price')
     }
 
@@ -392,6 +425,7 @@ function saveAD(){
     
     // let form_data = new FormData(document.forms[0]);
     // for ( let i in update_data) form_data.append(i, update_data[i]);
+    console.log('입력!!',selected_seats);
     let api_url = '/api/reservation';
     $.ajax({
         dataType : 'JSON',
@@ -441,14 +475,61 @@ function deleteAD(mode = 'single') {
         });
     }
 }
+
+//결제취소 JSON 값
+function cnacelInfo(string) {
+    // var obj = {};
+    // var row, 
+    //     rows = table.rows;
+    // for (var i=0, iLen=rows.length; i<iLen; i++) {
+    //   row = rows[i];
+    //   obj[document.getElementsByTagName("input")[i].getAttribute('name')] = document.getElementsByTagName("input")[i].value;
+    // }
+    // console.log('good',obj);
+    let cancel_data = {}
+        cancel_data.mid = 'testpay01m',
+        cancel_data.tid = string,
+        cancel_data.svcCd = '01',
+        cancel_data.partialCancelCode = '0',
+        cancel_data.cancelAmt = '135',
+        cancel_data.cancelMsg = '환불테스트',
+        cancel_data.cancelPwd = '123456'
+        
+    return JSON.stringify(cancel_data);
+    // console.log('can', cancel_data);
+
+}
+
 function updateAD(){
     let id = JSON.parse( sessionStorage.getItem('row_data') ).CR_ID;
     let update_data = {
         cr_cancel : $("#cr_cancel option:selected").attr('value'),
         py_scan : $("#py_scan option:selected").attr('value'),
         se_scan : $("#se_scan option:selected").attr('value'),
-        cr_memo : $('#cr_memo').val()
+        cr_memo : $('#cr_memo').val(),
+        cr_state : $("#cr_state option:selected").attr('value'),
     }
+
+    if($("#cr_cancel option:selected").attr('value') == 'Y'){
+        $.ajax({
+            type : "POST",
+            url : "https://api.innopay.co.kr/api/cancelApi",
+            async : true,
+            data : cnacelInfo(JSON.parse( sessionStorage.getItem('row_data') ).PH_PG_ID),
+            contentType: "application/json; charset=utf-8",
+            dataType : "json",
+            success : function(data){
+                console.log(data);
+                alert('결제 취소 완료');
+        
+            },
+            error : function(data){
+                alert("취소 오류 고객센터에 문의해 주세요.");
+            }
+        });
+    }
+
+
 
     let form_data = new FormData(document.forms[0]);
     for ( let i in update_data) form_data.append(i, update_data[i]);
@@ -466,6 +547,17 @@ function updateAD(){
             $("#mgmt-table").dxDataGrid("instance").refresh();
         }
     })
+
+
+
+
+    
+
+
+
+
+
+
 }
 function clickActionBtn(e){
     if( $(e.target).hasClass('disabled') ) return false;
@@ -608,14 +700,23 @@ function openBus(busSeat,type) {
             click: function () {
                 let scan_checked;
                 if (this.status() == 'available') {
-                    console.log('this !', this);
-                    
-                    $('#seat_num').val(this.settings.label);
-                    return 'available'
+                    if (selected_seats_cnt >= 4) {
+                        alert("최대 4개까지 선택가능합니다.");
+                        return this.style();
+                    }
+                    selected_seats_cnt = $seat_map.find('selected').length + 1;
+                    selected_seats.push(this.settings.label);
+                    $('#seat_num').val('　'.concat(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : '')));
+                    return 'selected'
                 } 
-                else if (this.settings.$node.hasClass('selected')) {
-                    alert('boooo')
-                    return 'selected';
+                else if (this.status() == 'selected') {
+
+                    selected_seats_cnt = $seat_map.find('selected').length - 1;
+                    let idx = selected_seats.indexOf(this.settings.label);
+                              selected_seats.splice(idx, 1);
+
+                    $('#seat_num').val('　'.concat(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : '')));
+                    return 'available';
                 } 
                 //스캔 되지 않은 예매된 좌석
                 else if (this.status() == 'unavailable') {
@@ -720,3 +821,7 @@ $('#ct_id').on('select2:select',function(e){
     openBus(res_ct_id,type);
     
 });
+
+
+
+

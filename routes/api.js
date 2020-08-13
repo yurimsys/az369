@@ -884,7 +884,7 @@ router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
     connection.beginTransaction(function(err){
         let query = `update tCR
                         inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
-                        set CR_Cancel = :crCancel, CR_CancelDt = now()
+                        set CR_Cancel = :crCancel, CR_CancelDt = now(), CR_PayState = '결제취소'
                     where CR_ID = :cr_id AND  CR_U_Id = :sessionId AND
                         tCT.CT_DepartureTe > date_add(now(),interval +4 day);`;
                 // and tCT.CT_DepartureTe > date_add(now(),interval +4 day);
@@ -1689,20 +1689,20 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
         
                                             let cr_query = `
                                                 INSERT INTO tCR
-                                                    (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum, CR_Price, CR_QrCode)
+                                                    (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum, CR_Price, CR_QrCode, CR_PayState)
                                                 VALUES
                                             `;
                                             
                                             if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
                                                 for(let i=0; i<seatNums.length; i++){
-                                                    str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums[i]}, ${one_price}, '${hash_qrcode[i]}')`)
+                                                    str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums[i]}, ${one_price}, '${hash_qrcode[i]}', '결제완료')`)
                                                 }
                                                 // seatNums.map((seatNum)=>{
                                                 //     str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum}, ${one_price}, ${hash_qrcode})`);
                                                 // });
                                                 str_values = str_values_list.join(', ');
                                             } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
-                                                str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums}, ${oPrice}, '${hash_qrcode}')`;
+                                                str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums}, ${oPrice}, '${hash_qrcode}', '결제완료')`;
                                             }
                                         
                                             cr_query += str_values;
@@ -1974,6 +1974,7 @@ router.post('/user/resCarList',(req, res, next) =>{
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID
                 WHERE 
+                    tCT.CT_PyStart = 'N' AND
                     tCT.CT_DepartureTe > DATE_ADD(NOW(),INTERVAL -40 HOUR_MINUTE)
                 ORDER BY tCT.CT_DepartureTe ASC LIMIT 1`;
 
@@ -1981,7 +1982,7 @@ router.post('/user/resCarList',(req, res, next) =>{
         function(err, rows, fields) {
             if (err) throw err;           
             //기사가 평택을 출발했을때 다음 예매정보 표시            
-            if(rows[0].CT_PyStart === 'Y'){
+            if(rows.length != 0 && rows[0].CT_PyStart === 'Y'){
                 let next_bus = rows[0].deptTe;
                 let next_query = `SELECT
                                 tCT.CT_ID as ctID,
@@ -4433,18 +4434,23 @@ router.get('/reservation',function(req,res){
                     CR_ScanSe,
                     CR_Cancel,
                     CR_CancelDt,
+                    CR_PayState,
                     CR_cDt,
                     CT_ID,
                     CT_DepartureTe,
                     CT_ReturnTe,
                     CT_CarNum,
                     U_uId,
-                    CR_Memo
+                    CR_Memo,
+                    PH_PG_ID,
+                    PH_ID
                 FROM tCR
                     INNER JOIN tCT ON tCR.CR_CT_ID = tCT.CT_ID
                     INNER JOIN tU ON tCR.CR_U_ID = tU.U_ID
                     INNER JOIN tCY ON tCY.CY_ID = tCT.CT_CY_ID
-                    INNER JOIN tB ON tB.B_ID = tCY.CY_B_ID`
+                    INNER JOIN tB ON tB.B_ID = tCY.CY_B_ID
+                    INNER JOIN tPH ON tPH.PH_ID = tCR.CR_PH_ID
+                    `
     if(req.query.type == 'search'){
         let condition_list = [];
         if( req.query.search_user_name){
@@ -4550,9 +4556,10 @@ router.post('/reservation',async function(req,res){
                             PH_PG_ID,
                             PH_Price,
                             PH_OPrice,
-                            PH_SPrice
+                            PH_SPrice,
+                            PH_Type
                         )
-                        VALUES( :u_id, 1, :seat_price, :seat_price, 0)`;
+                        VALUES( :u_id, 1, :ph_price, :ph_price, 0, '후불결제')`;
 
         let ph_id_query = 'SELECT PH_ID FROM tPH ORDER BY PH_ID DESC LIMIT 1';
 
@@ -4562,18 +4569,23 @@ router.post('/reservation',async function(req,res){
                         CR_PH_ID, 
                         CR_SeatNum,
                         CR_Price,
-                        CR_QrCOde 
+                        CR_QrCOde,
+                        CR_Memo,
+                        CR_PayState 
                         )
-                    VALUES( :ct_id, :u_id, :ph_id, :seat_num, :seat_price, :hash_qrcode) `;
-
+                    VALUES  `;
 
         let ct_id = req.body.ct_id,
             u_id = req.body.u_id,
-            seat_num = req.body.seat_num,
             seat_price = req.body.seat_price;
-        
-        connection.query(pay_query, {u_id, seat_price},
-            function(err,rows){
+        let str_values_list = [];
+        let str_values = "";
+        let seatNums = req.body['seatNums']; // 등록할 좌석
+        let ph_price = (seat_price * seatNums.length);
+
+
+        connection.query(pay_query, {u_id, ph_price},
+            function(err,pay_result){
                 if (err){
                     connection.rollback(function(){
                         console.log('ERROR ! :', err);
@@ -4581,40 +4593,51 @@ router.post('/reservation',async function(req,res){
                         // throw err;
                     })
                 }else{
-                    connection.query(ph_id_query, function(err, select_result){
-                        if(err) throw err;
-                        let ph_id = select_result[0].PH_ID;
+                    //입력된 결제 아이디 값
+                    let ph_id = pay_result.insertId;
 
-                        let origin_qrcode;
-                        let hash_qrcode;
+                    let origin_qrcode = [];
+                    let hash_qrcode = [];
 
-                        origin_qrcode = (ct_id+'-'+u_id+'-'+ph_id+'-'+seat_num);
-                        hash_qrcode = (CryptoJS.AES.encrypt(origin_qrcode, config.enc_salt).toString());
-                        
-                        connection.query(res_query,{ct_id, u_id, ph_id, seat_num, seat_price, hash_qrcode},
-                            function(err, result){
-                                if (err){
-                                    connection.rollback(function(){
-                                        console.log('ERROR ! :',err);
-                                        res.json({data : 300});
-                                        // throw err;
-                                    })
-                                }else{
-                                    connection.commit(function(err) {
-                                        if (err) {
-                                            return connection.rollback(function() {
-                                                res.json({data : 300});
-                                                throw err;
-                                            });
-                                        }
-                                        res.json({data : 200});    
-                                    });
-                                }
+                    for(let i =0; i<seatNums.length; i++){
+                        origin_qrcode.push(ct_id+'-'+u_id+'-'+ph_id+'-'+seatNums[i]);
+                        hash_qrcode.push(CryptoJS.AES.encrypt(origin_qrcode[i], config.enc_salt).toString());
+                    }
 
-                            })
-                    })
+                    if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
+                        for(let i=0; i<seatNums.length; i++){
+                            str_values_list.push(`(${ct_id}, ${u_id}, ${ph_id}, ${seatNums[i]}, ${seat_price}, '${hash_qrcode[i]}', '후불결제', '결제대기')`)
+                        }
+                        str_values = str_values_list.join(', ');
+                    } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
+                        str_values = `(${ct_id}, ${u_id}, ${ph_id}, ${seatNums}, ${seat_price}, '${hash_qrcode}', '후불결제', '결제대기')`;
+                    }
+                
+                    res_query += str_values;
+
+
+                    connection.query(res_query, null,
+                        function(err, result){
+                            if (err){
+                                connection.rollback(function(){
+                                    console.log('ERROR ! :',err);
+                                    res.json({data : 300});
+                                    // throw err;
+                                })
+                            }else{
+                                connection.commit(function(err) {
+                                    if (err) {
+                                        return connection.rollback(function() {
+                                            res.json({data : 300});
+                                            throw err;
+                                        });
+                                    }
+                                    res.json({data : 200});    
+                                });
+                            }
+
+                        })
                 }
-
         })
     })
 })
@@ -4625,13 +4648,15 @@ router.put('/reservation/:crid', async function(req,res){
                     CR_Cancel = :cr_cancel,
                     CR_ScanPy = :py_scan,
                     CR_ScanSe = :se_scan,
-                    CR_Memo = :cr_memo
+                    CR_Memo = :cr_memo,
+                    CR_PayState = :cr_state
                     `
     let cr_cancel = req.body.cr_cancel,
         py_scan = req.body.py_scan,
         se_scan = req.body.se_scan,
         cr_id = req.params.crid,
-        cr_memo = req.body.cr_memo
+        cr_memo = req.body.cr_memo,
+        cr_state = req.body.cr_state;
 
     if(cr_cancel === 'Y'){
         query += ',CR_CancelDt = now() WHERE CR_ID = :cr_id';
@@ -4639,7 +4664,7 @@ router.put('/reservation/:crid', async function(req,res){
         query += ' WHERE CR_ID = :cr_id';
     }
 
-    connection.query(query, {cr_cancel, py_scan, se_scan, cr_id, cr_memo},
+    connection.query(query, {cr_cancel, py_scan, se_scan, cr_id, cr_memo, cr_state},
         function(err, rows){
             if (err){
                 connection.rollback(function(){

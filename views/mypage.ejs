@@ -586,7 +586,7 @@
                     'sendArray': seatArr
                 },
                 success: function (res) {
-                    console.log('res',res.data);
+                    // console.log('res',res.data);
                     let default_html = 
                     `<div class="swiper-slide">
                         <h3>승차권 <span>1 / 2</span></h3>
@@ -712,13 +712,13 @@
                 cancel_data.cancelPwd = '123456'
                 
             return JSON.stringify(cancel_data);
-            console.log('can', cancel_data);
+            // console.log('can', cancel_data);
 
         }
 
         // 예매 취소
         function resCancel(e) {
-            console.log('데이터 :', e.dataset.pgid);
+            // console.log('데이터 :', e.dataset.pgid);
             
             $.ajax({
                 url: "api/user/cancelRes",
@@ -850,8 +850,8 @@
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
                         // let seatList = decodeURIComponent(seatNum).join('번');
-                        console.log('seatList',seatNum);
-                        console.log('sease',decodeURIComponent(seatNum));
+                        // console.log('seatList',seatNum);
+                        // console.log('sease',decodeURIComponent(seatNum));
                         let html = "<tr>";
                         html += "<td>" + res.data[i].PayDay + "</td>";
                         html += "<td>" + res.data[i].deptTe + "</td>";
@@ -960,7 +960,6 @@
                     'phId': phId
                 },
                 success: function (res) {
-                    console.log('res L',res.data);
                     $('.table_mo').empty();
                     // location.href = "#popup2"
                     for (let i = 0; i < res.data.length; i++) {
@@ -1094,7 +1093,7 @@
                     'phId': e.target.value
                 },
                 success: function (res) {
-                    console.log("여기데이터 :", res.data);
+                    // console.log("여기데이터 :", res.data);
                     $('.table_mo').empty();
                     // location.href = "#popup3"
                     for (let i = 0; i < res.data.length; i++) {

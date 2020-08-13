@@ -14,7 +14,7 @@ function init(){
             let brand_list = res.data.map((data) =>{
                 return { id : data.BS_ID, text : data.BS_NameKor}
             });
-            console.log('brsan', brand_list);
+            // console.log('brsan', brand_list);
             $(".selectBrand").select2(
                 {
                     placeholder: '브랜드 선택',
@@ -44,7 +44,7 @@ function init(){
             );
         }
     });
-
+    
     // 광고위치 Data Load
     $.ajax({
         method: "get",
