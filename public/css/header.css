@@ -236,7 +236,7 @@ header .open {
         content: '';
         width: 21px;
         height: 12px;
-        background: url(img/index_img/mob_gnb_arrow.png) no-repeat center/cover;
+        background: url(img/common/select_arrow.png) no-repeat center/cover;
         right: 20px;
         top: 50%;
         transform: translateY(-50%);

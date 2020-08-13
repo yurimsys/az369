@@ -68,7 +68,6 @@ body {background: #fafafa;}
 #reserve_list label span:hover {background-color: #fff; color: #222;}
 #reserve_list label input:checked ~ span {/*color: #fff;*/ color: #222; font-weight: 500; background: #fff; border: 1px solid #444;}
 
-.cancel_btn {float: right; margin-top: 1%;}
 .cancel_btn a {display: inline-block; font-size: 14px;  color: #555;}
 
 /*tab 02 - 예매 및 결제내역*/
@@ -136,6 +135,9 @@ tr.canceled td {background: #eee; border: none; color: #999; text-decoration: li
 p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 
 
+
+
+
 table {border-collapse: collapse;}
 th, td {padding: 0;}
 
@@ -195,22 +197,60 @@ th, td {padding: 0;}
 .table_mo {display: none;}
 
 .layer{display:none;justify-content:center;align-items:center;background:rgba(0,0,0, 0.5);position:fixed;left:0;right:0;top:0;bottom:0; width: 100%;}
- .popup_box{width:25%; background:#fff; position:relative; z-index: 1000; top:50%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.3); padding: 20px 20px 25px;}
- .popup_box h3 {font-size: 24px; margin-bottom: 20px; text-align: center;font-weight: 600; font-size: 24px; padding-top: 6px;}
- .popup_box h3 span {color: #999; font-weight: 300;}
 
- .swiper-slide {width: 99%; padding: 20px; border-radius: 12px; padding: 0; margin: 0 auto;}
+ .popup_box{width:25%; background:#fff; position:relative; z-index: 1000; top:53%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: 85%; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.3); padding: 20px 30px 25px;}
+ /* .popup_box h3 {font-size: 24px; margin-bottom: 20px; text-align: center;font-weight: 600; font-size: 24px; padding-top: 6px;}
+ .popup_box h3 span {color: #999; font-weight: 300;} */
+
+ /* .swiper-slide {width: 99%; padding: 20px; border-radius: 12px; padding: 0; margin: 0 auto;}
  .swiper-wrapper {width: auto;}
- /* .swiper-slide h2 {font-weight: 500; font-size: 28px;} */
- /* 
- .swiper-slide h2 span {font-family: 'Noto Sans KR', sans-serif;} */
- 
 .qr_wrap {width: 115px; height: 115px; background-color: #faf9f7; position: relative; left: 50%; transform: translateX(-50%); margin-bottom:25px;}
 .qrcode {width: 93px; height: 93px; background-color: black; position: absolute;
-top: 50%; left: 50%; transform: translate(-50%, -50%);}
-
-
+top: 50%; left: 50%; transform: translate(-50%, -50%);} */
 /* .table th {border-top: 1px solid #191919;} */
+
+
+.ticket_modal h3 {font-size: 24px; text-align: center; margin-bottom: 18px;}
+.time_info {width: 100%;; background-color: #f7f7fa; border-radius: 12px; padding: 20px 0; overflow: hidden; display: flex;}
+
+.time_info > div {flex: 1;}
+.time_info > div:nth-child(1) {border-right: 1px solid #dbdbdb;}
+.time_info_date { display: inline-block; margin-left: 50%; transform: translateX(-50%);}
+.time_info_time {width: 90%; margin: 0 auto;}
+.time_info_time ul li {float: left;}
+.time_info_time ul li:nth-child(1), .time_info_time ul li:nth-child(3) {width: 45%; text-align: center;}
+.time_info_time ul li:nth-child(2) {width: 10%; text-align: center; padding-top: 10px; }
+
+.payment_info {width: 100%; font-size: 15px; display: table; margin: 20px 0;}
+.payment_info th, .payment_info td {padding: 2px 0;}
+.payment_info th {width: 30%; text-align: left; float: left; font-weight: normal; color: #505050;}
+.payment_info td {width: 70%; text-align: right; float: right; color: #191919;}
+
+.qrcode_list {width: 100%; height: 302px; overflow: scroll; overflow-x: hidden; border-top: 1px solid #eee; border-bottom: 1px solid #eee;}
+.qrcode_list ul li {width:100%; border-bottom: 1px solid #eee; position: relative; overflow: hidden;}
+/* .qrcode_list ul li:nth-child(1) {border-top: 1px solid #eee;} */
+.qrcode {width: 50px; height: 50px; background-color: black;float: right; margin-right: 16px;}
+.checks {line-height: 50px;  padding: 12px 0;}
+.qrcode_list span {margin-left: 10px; font-weight: 600;}
+
+.ticket_modal p {text-align: left !important; margin-top: 20px; font-size: 14px;}
+.ticket_modal p a {margin-left: 5px;}
+
+.cancel_btn_list {width: 183px;  margin: 0 auto; overflow: hidden; margin-top: 20px;}
+.cancel_btn_list ul li {float: left; position: relative;}
+.cancel_btn_list a { height: 40px; line-height: 40px; padding: 0 16px; display: block; border: 1px solid #dbdbdb; font-size: 15px; border-radius: 4px;}
+.all_cancel {margin-right: 8px;}
+
+a.close_btn  {display: block; width:100%; border-radius: 4px; height: 48px; line-height: 48px; text-align: center; margin-top: 20px; border: 1px solid #dbdbdb; overflow: hidden;} 
+
+
+
+
+
+
+
+
+
 
 .detail_table {
     width: 99%;
@@ -218,7 +258,6 @@ top: 50%; left: 50%; transform: translate(-50%, -50%);}
     margin: 0; padding: 0;
     border-top: 1px solid #191919;
     background-color: #fff;
-    /* border: 1px solid #dbdbdb; */
 }
 .detail_table td, .detail_table th {
     padding:12px;
@@ -228,11 +267,9 @@ top: 50%; left: 50%; transform: translate(-50%, -50%);}
 }
 .detail_table th {
     width: 100px;
-    /* background: #fdfbf6; */
     text-align: left;
     font-weight: 400;
     color: #505050;
-    /* background-color: #f7f7fa; */
 }
 .detail_table td {text-align: right;}
 .detail_table td span {color: #999;}
@@ -243,7 +280,7 @@ top: 50%; left: 50%; transform: translate(-50%, -50%);}
 .popup_btn a {display: block;}
 .layer:target{display:flex;animation:open 0.5s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
-.popup_box p {font-size: 15px; margin-top:20px; margin-bottom: 0; columns: #767676; text-align: center; font-size: 200;}
+/* .popup_box p {font-size: 15px; margin-top:20px; margin-bottom: 0; columns: #767676; text-align: center; font-size: 200;} */
 .popup_box p a {color: #999; font-weight: 500;}
 p.cancel_info {margin:2% 0; text-align: center;}
 
