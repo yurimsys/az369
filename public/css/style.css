@@ -23,7 +23,7 @@ p {font-family: inherit; font-size: 16px; color: #767676;}
 section.main {
     position: relative;
     width: 100%;
-    height:750px;
+    height:800px;
     overflow: hidden;
 }
 
@@ -165,7 +165,7 @@ section.benefit P {text-align: center; margin-bottom: 30px;}
 /* .benefit_list ul li:hover img {transform: scale(1.05);} */
 .benefit_txt {position: relative; overflow: hidden; margin-top: 10px;}
 .benefit_txt h5 {font-size: 16px; font-weight: 300;}
-.benefit_txt h4 {font-size: 22px; font-weight: 600; float: left;}
+.benefit_txt h4 {font-size: 22px; font-weight: 500; float: left;}
 .benefit_txt h4 img {margin-left: 4px; padding-bottom: 3px;}
 
 .benefit_txt {width: 100%; padding: 10px 5px;}

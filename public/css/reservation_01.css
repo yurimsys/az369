@@ -212,12 +212,12 @@ dl.reserve_price {color: #767676 !important; }
 dl.price_sale {color: #c17e00;}
 /*dl.price_sale dt, dl.price_sale dd {font-weight: bold;}*/
 .total_dl {padding-top: 4px; overflow: hidden;}
-.total_dl dt {color: #191919; line-height: 43px; font-size: 18px;}
+.total_dl dt {color: #191919; line-height: 43px; font-size: 16px;}
 .total_dl dd {color: #191919; font-weight: 800; font-size: 24px;}
 
 .notice {padding: 16px 30px; background: #f2f2f2; margin-top: 20px; font-size: 18px;}
 .notice p {padding-top: 4px; font-weight: 300; letter-spacing: -0.25px; line-height: 1.5; font-size: 13px;margin-left: 8px;}
-.notice p::before {content: '·'; margin-right: 8px; margin-left: -8px;}
+.notice p::before {content: '·'; margin-right: 8px; margin-left: -16px;}
 
 select::-ms-expand {display: none;}
 .payment_select {padding: 15px 30px 0; overflow: hidden;}

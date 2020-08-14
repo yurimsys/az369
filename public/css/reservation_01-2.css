@@ -132,7 +132,7 @@ select {
 @media screen and (max-width: 1024px) {
     .payment_box {width: auto;}
     .reserve_right {display: none;}
-    .reservation_box {width: 90%; margin: 0 auto;}
+    .reservation_box {width: 95%; margin: 0 auto;}
     .reservation_box > ul > li {float: none; width: 100%;}
     .reservation_box h4 {font-size: 22px; margin-bottom: 15px;}
     .seat_table dt {width: 100%; float: left; padding: 0;  margin-bottom: 5px; font-size: 15px; font-weight: normal; color: #222;}
