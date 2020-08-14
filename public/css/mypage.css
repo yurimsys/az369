@@ -204,7 +204,7 @@ th, td {padding: 0;}
 .time_info {width: 100%;; background-color: #faf7f3; border-radius: 12px; padding: 20px 0; overflow: hidden; display: flex;}
 
 .time_info > div {flex: 1;}
-.time_info > div:nth-child(1) {border-right: 1px solid #dbdbdb;}
+.time_info > div:nth-child(1) {border-right: 1px solid #e7e3dd;}
 .time_info_date {width: 100%; text-align: center;}
 .time_info_date dd:nth-child(1)::after {content: '~'; margin-left: 5px; margin-right: -10px;}
 .time_info_time {width: 100%; margin: 0 auto;}
@@ -215,7 +215,7 @@ th, td {padding: 0;}
 .time_info_time ul li dd {font-size: 18px; font-weight: 500;color: #271d0a; }
 
 .payment_info {width: 100%; font-size: 15px; display: table; margin: 20px 0;}
-.payment_info th, .payment_info td {padding: 2px 0;}
+.payment_info th, .payment_info td {padding: 2px 5px;}
 .payment_info th {width: 30%; text-align: left; float: left; font-weight: normal; color: #505050;}
 .payment_info td {width: 70%; text-align: right; float: right; color: #191919;}
 
@@ -226,8 +226,72 @@ th, td {padding: 0;}
 .checks {line-height: 50px;  padding: 12px 0;}
 .qrcode_list span {margin-left: 10px; font-weight: 600;}
 
+.overlay {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    align-items: center;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  
+  .overlay img{
+    max-width: 90%;
+    max-height: 90%;
+    width: auto;
+    height: auto;
+    transform: scale(0.95);
+    transition: transform .3s;
+  }
+  
+  .overlay:target {
+    visibility: visible;
+    outline: none;
+    cursor: default;
+  }
+  
+  .overlay:target img {
+      transform: scale(1);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 .ticket_modal p {text-align: left !important; margin-top: 15px; font-size: 14px;}
 .ticket_modal p a {margin-left: 5px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* .cancel_btn_list {width: 183px;  margin: 0 auto; overflow: hidden; margin-top: 20px;}
 .cancel_btn_list ul li {float: left; position: relative;} */
@@ -240,11 +304,7 @@ a.close_btn  {display: block; width:100%; border-radius: 4px; height: 48px; line
 
 .check_all_btn {padding: 0; width: 30%;float: left; height: 48px; line-height:40px;}
 .select_cancel {float: right;}
-
-
-
-
-
+nod
 .detail_table {
     width: 99%;
     border: none;

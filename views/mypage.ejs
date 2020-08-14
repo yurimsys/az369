@@ -113,7 +113,7 @@
 
                                     <div class="mypage_nav">
                                         <button class="tablinks" id="tab1" onclick="openList(event, '01')"
-                                            id="defaultOpen"> 장차예매현황 <span><img src="/img/common/gray_arrow.png"
+                                            id="defaultOpen"> 승차권 확인<span><img src="/img/common/gray_arrow.png"
                                                     alt=""></span></button>
 
                                         <button class="tablinks" id="tab2" onclick="openList(event, '02')"> 예매결제내역
@@ -128,7 +128,7 @@
                                 <!--왼쪽 목록버튼-->
                                 <div class="mypage_nav_mo">
                                     <button class="tablinks" onclick="openList(event, '01')" id="defaultOpen">
-                                        <p>장차예매현황</p>
+                                        <p>승차권 확인</p>
                                     </button>
 
                                     <button class="tablinks" id="tab_mo2" onclick="openList(event, '02')">
@@ -148,7 +148,7 @@
 
                                     <!--첫번째 리스트 PC-->
                                     <div id="01" class="tabcontent">
-                                        <h4>장차예매현황</h4>
+                                        <h4>승차권 확인</h4>
                                         <p>현재 예매중인 장차내역입니다.</p>
 
                                         <div class="reserve_list_tit">
@@ -571,21 +571,25 @@
                         <div class="checks etrans" id='chk01'>
                             <input type="checkbox" id="ex_chk1">
                             <label for="ex_chk1">좌석번호<span>1</span></label>
-                            <div class="qrcode"></div>
+                            <a href="#img-id"><div class="qrcode"></div></a>
+                            <a href="#_" class="overlay" id="img-id"><div class="qrcode-full"></div></a>
                         </div>
                     </li>     -->
                 </ul>
             </div>
     
-            <p>QR코드 이미지를 누르시면 이미지가 커집니다. <br>
+            <p>QR코드를 누르시면 이미지가 커집니다. <br>
             출발 3일 전 ~ 당일은 예매취소가 불가능합니다. <a href="refund"><u>환불규정보기</u></a></p>
-    
-                   
     
             <a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');"
                 class=" close_btn btn-secondary">닫기</a>
         </div>
 
+
+
+
+
+        
         <script>
             /*agreement 전체동의 체크*/
             $(document).ready(function () {
@@ -644,7 +648,7 @@
 
 
 
-    <script src="/js/qrcode.js"></script>
+    <!-- <script src="/js/qrcode.js"></script>S -->
     <script>
         $(window).load(function () {
             $('#tab1').addClass('active')
@@ -723,7 +727,10 @@
                         let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
                             bot_html += "<input type='checkbox' id=seat_chk"+res.data[i].CR_ID+">";
                             bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
-                            bot_html += "<div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div>"
+                            bot_html += "<a href='#img-id'><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a> <a href='#' class='overlay' id='img-id'><div class='qrcode-full'></div></a>"
+
+                            // <a href="#img-id"><div class="qrcode"></div></a>
+                            
                         $('#res_seat_list').append(bot_html);
                         qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode)
                     }
@@ -782,8 +789,8 @@
             let qrcode = new QRCode(document.getElementById('qrcode'+qr_id), 
                 {
                     text: qr_text,
-                    width: 93,
-                    height: 93,
+                    width: 50,
+                    height: 50,
                     colorDark : "#000000",
                     colorLight : "#ffffff",
                     correctLevel : QRCode.CorrectLevel.H
