@@ -714,7 +714,7 @@
                             bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
                             bot_html += "<div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div>"
                         $('#res_seat_list').append(bot_html);
-                        qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode)
+                        // qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode)
                     }
 
                 }
@@ -735,37 +735,37 @@
             }
         }
 
-        //QR코드 생성 함수
-        function qrCodeImg(qrId,userInfo){
-            let qr_id = qrId;
-            let qr_text = userInfo;
-            let qrcode = new QRCode(document.getElementById('qrcode'+qr_id), 
-                {
-                    text: qr_text,
-                    width: 50,
-                    height: 50,
-                    colorDark : "#000000",
-                    colorLight : "#ffffff",
-                    correctLevel : QRCode.CorrectLevel.H
-                });
+        // //QR코드 생성 함수
+        // function qrCodeImg(qrId,userInfo){
+        //     let qr_id = qrId;
+        //     let qr_text = userInfo;
+        //     let qrcode = new QRCode(document.getElementById('qrcode'+qr_id), 
+        //         {
+        //             text: qr_text,
+        //             width: 50,
+        //             height: 50,
+        //             colorDark : "#000000",
+        //             colorLight : "#ffffff",
+        //             correctLevel : QRCode.CorrectLevel.H
+        //         });
             
-        }
+        // }
 
-        //QR코드 생성 함수 모바일
-        function qrCodeImgMo(qrId,userInfo){
-            let qr_id = qrId;
-            let qr_text = userInfo;
-            let qrcode = new QRCode(document.getElementById('qrcodemo'+qr_id), 
-                {
-                    text: qr_text,
-                    width: 100,
-                    height: 100,
-                    colorDark : "#000000",
-                    colorLight : "#ffffff",
-                    correctLevel : QRCode.CorrectLevel.H
-                });
+        // //QR코드 생성 함수 모바일
+        // function qrCodeImgMo(qrId,userInfo){
+        //     let qr_id = qrId;
+        //     let qr_text = userInfo;
+        //     let qrcode = new QRCode(document.getElementById('qrcodemo'+qr_id), 
+        //         {
+        //             text: qr_text,
+        //             width: 100,
+        //             height: 100,
+        //             colorDark : "#000000",
+        //             colorLight : "#ffffff",
+        //             correctLevel : QRCode.CorrectLevel.H
+        //         });
             
-        }
+        // }
 
         // function slider(){
         //     new Swiper('.myswiper', {
