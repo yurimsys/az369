@@ -1096,8 +1096,8 @@
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<table class='detail_table'>";
                         //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
-                        html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+" )</td></tr>";
-                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 > 동대문)</span></td></tr>";
+                        html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+")</td></tr>";
+                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 - 동대문)</span></td></tr>";
                         html += "<tr><th>좌석번호</th><td>" + seatNum + "</td></tr>";
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td><tr>";
                         html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
@@ -1231,8 +1231,8 @@
 
                         let html = "<table class='detail_table'>";
                         //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
-                        html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+" )</td></tr>";
-                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 > 동대문)</span></td></tr>";
+                        html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+")</td></tr>";
+                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 - 동대문)</span></td></tr>";
                         html += "<tr><th>좌석번호</th><td>" + res.data[i].CR_SeatNum + "</td></tr>";
                         html += "<tr><th>취소일시</th><td>" + res.data[i].cancelDay + "</td></tr>"
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
