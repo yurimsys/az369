@@ -120,10 +120,8 @@ let tableInit = function (data) {
 
         onRowClick : function(e) {
             userSeat(e.data.PH_ID);
-            $('#object-res-seat-popup').css('left','430px')
-            $('#object-res-seat-popup').css('top','300px')
-            $("#object-res-seat-popup").show();
-            console.log('row click', e.data);
+
+            // console.log('row click', e.data);
             // selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
             e.rowElement.css("border-left", "2px solid #f2f2f2");
 
@@ -175,7 +173,6 @@ let tableInit = function (data) {
             { dataField: "PH_Type", caption: "결제수단"},
             { dataField: "CR_PayState", caption: "결제여부",
                 cellTemplate : function(element, info){
-                    console.log('info',info.value);
                     if(info.value == '결제취소'){
                         element.append('<div>'+info.value +'</div>').css('color','red')
                     }else{
@@ -422,7 +419,10 @@ function folding(){
 function ResseatClose(){
     $("#object-res-seat-popup").hide();   
 }
-
+function ResNoseatClose(){
+    $("#object-res-noseat-popup").hide();   
+}
+//회원 예매 목록
 function userSeat(ph_id) {
     $('#popup').css('display', 'block')
     console.log('ph_id',ph_id);
@@ -436,36 +436,48 @@ function userSeat(ph_id) {
         dataType : 'json',
         data : {"ph_id" : ph_id},
         success: function(res){
-            console.log('res',res.data);
-
+            
             $('.time_info').empty();
             $('.payment_info').empty();
             $('#res_seat_list').empty();
+            console.log('res.data', res.data.length);
+            if(res.data.length != 0){
+                console.log('gppod');
+                $('#object-res-seat-popup').css('left','430px')
+                $('#object-res-seat-popup').css('top','300px')
+                $("#object-res-seat-popup").show();
 
-            let top_html = "<div><div class='time_info_date'><dd>"+res.data[0].deptTe2+" ("+getInputDayLabel(res.data[0].deptDay)+")</dd>";
+                let top_html = "<div><div class='time_info_date'><dd>"+res.data[0].deptTe2+" ("+getInputDayLabel(res.data[0].deptDay)+")</dd>";
                 top_html += "<dd>"+res.data[0].returnTe2+" ("+getInputDayLabel(res.data[0].retnDay)+")</dd></div></div>";
                 top_html += "<div><div class='time_info_time'><ul style='list-style:none;'><li><dt>평택</dt><dd>"+res.data[0].startTime+"</dd></li>";
                 top_html += "<li><img src='/img/mypage/info_arrow.png'></li><li><dt>동대문</dt><dd>"+res.data[0].returnTime+"</dd></li></ul></div></div>";
 
-            $('.time_info').append(top_html);
+                $('.time_info').append(top_html);
 
-            let mid_html = "<tr><th>결제일시</th><td>"+res.data[0].payDayYM+' ('+getInputDayLabel(res.data[0].payDayWeek)+') '+res.data[0].payDayTm+"</td></tr>";
-                mid_html += "<tr><th>결제수단</th><td>"+res.data[0].PH_Type+"</td></tr>";
-                mid_html += "<tr><th>결제금액</th><td>"+(res.data[0].CR_Price * res.data.length)+"원</td></tr>";
+                let mid_html = "<tr><th>결제일시</th><td>"+res.data[0].payDayYM+' ('+getInputDayLabel(res.data[0].payDayWeek)+') '+res.data[0].payDayTm+"</td></tr>";
+                    mid_html += "<tr><th>결제수단</th><td>"+res.data[0].PH_Type+"</td></tr>";
+                    mid_html += "<tr><th>결제금액</th><td>"+(res.data[0].CR_Price * res.data.length)+"원</td></tr>";
 
-            $('.payment_info').append(mid_html);
+                $('.payment_info').append(mid_html);
 
-            for(let i=0; i<res.data.length; i++){
-                let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
-                    bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+">";
-                    bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label></div>";
+                for(let i=0; i<res.data.length; i++){
+                    let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
+                        bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+">";
+                        bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label></div>";
 
-                  
                     
-                $('#res_seat_list').append(bot_html);
-                  // <a href="#img-id"><div class="qrcode"></div></a>
-                let qr_type = 'default'
+                        
+                    $('#res_seat_list').append(bot_html);
+                }
+            }else{
+                console.log('baad');
+                $('#object-res-noseat-popup').css('left','430px')
+                $('#object-res-noseat-popup').css('top','300px')
+                $("#object-res-noseat-popup").show();
             }
+
+
+            
 
         }					
     });

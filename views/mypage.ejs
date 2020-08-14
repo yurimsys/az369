@@ -719,9 +719,9 @@
 
                     for(let i=0; i<res.data.length; i++){
                         let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
-                            bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-pgid="+res.data[i].PH_PG_ID+">";
+                            bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+">";
                             bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
-                            bot_html += "<a onclick='qrcode_full_open(this)' id='qrcode_full_btn' value="+res.data[i].CR_ID+" data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].CR_QrCode+" data-seatnum="+res.data[i].CR_SeatNum+"><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a></div>"
+                            bot_html += "<a onclick='qrcode_full_open(this)' id='qrcode_full_btn' value="+res.data[i].CR_ID+" data-pgid="+res.data[i].CR_QrCode+" data-seatnum="+res.data[i].CR_SeatNum+"><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a></div>"
 
                           
                             
@@ -863,10 +863,12 @@
                 chk_pg_id = $('#'+chk_id).data('pgid');
                 chk_u_id = $('#'+chk_id).data('uid');
                 
+                
             });
 
             console.log('check?',checkBoxArr);
             console.log('data',chk_pg_id);
+            console.log('daaaa',chk_u_id);
 
 
             $.ajax({
