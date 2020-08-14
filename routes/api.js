@@ -5253,10 +5253,74 @@ router.get('/admin_payment',function(req, res){
         })
     }
 
-
-
 })
 
+
+//차량 타입 목록
+router.get('/payment_list',function(req,res){
+
+    let query = `SELECT 
+                    CR_ID,
+                    CR_CT_ID,
+                    CR_U_ID,
+                    U_Name,
+                    U_Email,
+                    B_Name,
+                    U_Phone,
+                    U_Brand,
+                    U_Zip,
+                    U_Addr1,
+                    U_Addr2,
+                    CR_SeatNum,
+                    CR_Price,
+                    CR_ScanPy,
+                    CR_ScanSe,
+                    CR_Cancel,
+                    CR_CancelDt,
+                    CR_PayState,
+                    CR_cDt,
+                    CT_ID,
+                    CT_DepartureTe,
+                    CT_ReturnTe,
+                    CT_CarNum,
+                    U_uId,
+                    CR_Memo,
+                    PH_PG_ID,
+                    PH_ID,
+                    PH_Type,
+                    DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
+                    DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
+                    DAYOFWEEK(tCR.CR_cDt ) AS payDayWeek,
+                    date_format(tCR.CR_cDt ,'%y%y.%m.%d') as payDayYM,
+                    date_format(tCR.CR_cDt ,'%H:%i') as payDayTm,
+                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') AS deptTe,
+                    date_format(tCT.CT_DepartureTe,'%m.%d') AS startDay,
+                    date_format(tCT.CT_ReturnTe,'%m.%d') as returnDay,
+                    date_format(tCT.CT_DepartureTe,'%H:%i') as startTime,
+                    date_format(tCT.CT_ReturnTe,'%H:%i') as returnTime,
+                    date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptTe2,
+                    date_format(tCT.CT_ReturnTe,'%y%y.%m.%d') as returnTe2,
+                    date_format(tCR.CR_cDt,'%y%y.%m.%d %H:%i') as PayDay2
+                FROM tCR
+                    INNER JOIN tCT ON tCR.CR_CT_ID = tCT.CT_ID
+                    INNER JOIN tU ON tCR.CR_U_ID = tU.U_ID
+                    INNER JOIN tCY ON tCY.CY_ID = tCT.CT_CY_ID
+                    INNER JOIN tB ON tB.B_ID = tCY.CY_B_ID
+                    INNER JOIN tPH ON tPH.PH_ID = tCR.CR_PH_ID
+                WHERE PH_ID = :ph_id`
+
+    let ph_id = req.query.ph_id;
+
+    console.log('ph',ph_id);
+
+    connection.query(query, {ph_id},
+        function(err, rows){
+            if(err) throw err;
+            res.json({data : rows});
+        })
+    
+
+})
 
 
 module.exports = router;

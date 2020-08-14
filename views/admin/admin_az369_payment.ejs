@@ -275,8 +275,9 @@
 		</div>
 	</div>
 	<div id="object_search_info" class="card-body collapse show">
-		<div class='detail_search_form'>
+		<div class='detail_search_form' style="height: 600px; overflow: hidden;">
             <div class="user_seat_list">
+
                 <div class='time_info'>
                 </div>
                 <table class="payment_info">
@@ -286,7 +287,22 @@
                     <input type="checkbox" id="ex_chk5" class="check-all">
                     <label for="ex_chk5">전체선택</label>
                 </div>
-                <a onclick="resCancel(this)" class="cancel_btn select_cancel">선택 예매취소</a>
+				<a onclick="resCancel(this)" class="cancel_btn select_cancel">선택 예매취소</a>
+
+
+				<div class="qrcode_list scroll_style">
+					<ul id='res_seat_list'>
+						<li>
+							<!-- <div class="checks etrans" id='chk01'>
+								<input type="checkbox" id="ex_chk1">
+								<label for="ex_chk1">좌석번호<span>1</span></label>
+								<a onclick="qrcode_full_open(this)" id="qrcode_full_btn">
+									<div class="qrcode"></div></a>
+							</div> -->
+						</li>
+					</ul>
+				</div>
+
             </div>
 		</div>
 		<div class="search-footer row" style="background-color: #ffffff;">

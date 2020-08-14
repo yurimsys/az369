@@ -115,6 +115,7 @@ let tableInit = function (data) {
         },
 
         onRowClick : function(e) {
+            userSeat(e.data.PH_ID);
             $('#object-res-seat-popup').css('left','430px')
             $('#object-res-seat-popup').css('top','300px')
             $("#object-res-seat-popup").show();
@@ -413,25 +414,29 @@ function folding(){
     
     
 }
+function ResseatClose(){
+    $("#object-res-seat-popup").hide();   
+}
 
-
-function resModal(e) {
+function userSeat(ph_id) {
     $('#popup').css('display', 'block')
-
+    console.log('ph_id',ph_id);
+    let ph_data = {
+        ph_data : ph_id
+    }
+        
     $.ajax({
-        url: "api/payment_list",
-        method: 'post',
-        dataType: 'json',
-        data: {
-            'phid': phid
-        },
-        success: function (res) {
-            console.log(res.data);
-            $('.user_seat_list').empty();
+        url : '/api/payment_list',
+        method : 'get',
+        dataType : 'json',
+        data : {"ph_id" : ph_id},
+        success: function(res){
+            console.log('res',res.data);
+
 
             let top_html = "<div><div class='time_info_date'><dd>"+res.data[0].deptTe2+" ("+getInputDayLabel(res.data[0].deptDay)+")</dd>";
                 top_html += "<dd>"+res.data[0].returnTe2+" ("+getInputDayLabel(res.data[0].retnDay)+")</dd></div></div>";
-                top_html += "<div><div class='time_info_time'><ul><li><dt>평택</dt><dd>"+res.data[0].startTime+"</dd></li>";
+                top_html += "<div><div class='time_info_time'><ul style='list-style:none;'><li><dt>평택</dt><dd>"+res.data[0].startTime+"</dd></li>";
                 top_html += "<li><img src='/img/mypage/info_arrow.png'></li><li><dt>동대문</dt><dd>"+res.data[0].returnTime+"</dd></li></ul></div></div>";
 
             $('.time_info').append(top_html);
@@ -445,19 +450,24 @@ function resModal(e) {
             for(let i=0; i<res.data.length; i++){
                 let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
                     bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-pgid="+res.data[i].PH_PG_ID+">";
-                    bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
-                    bot_html += "<a onclick='qrcode_full_open(this)' id='qrcode_full_btn' value="+res.data[i].CR_ID+" data-pgid="+res.data[i].CR_QrCode+" data-seatnum="+res.data[i].CR_SeatNum+"><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a></div>"
+                    bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label></div>";
 
                   
                     
                 $('#res_seat_list').append(bot_html);
                   // <a href="#img-id"><div class="qrcode"></div></a>
                 let qr_type = 'default'
-                qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode, qr_type)
             }
 
-        }
-        
-    })
+        }					
+    });
+    
+
 }
 
+//요일 계산 함수
+function getInputDayLabel(date) {
+    var week = new Array('일', '월', '화', '수', '목', '금', '토');
+    var todayLabel = week[date-1];
+    return todayLabel;
+}
