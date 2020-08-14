@@ -721,7 +721,7 @@
                         let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
                             bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-pgid="+res.data[i].PH_PG_ID+">";
                             bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
-                            bot_html += "<a onclick='qrcode_full_open(this)' id='qrcode_full_btn' value="+res.data[i].CR_ID+" data-pgid="+res.data[i].CR_QrCode+" data-seatnum="+res.data[i].CR_SeatNum+"><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a></div>"
+                            bot_html += "<a onclick='qrcode_full_open(this)' id='qrcode_full_btn' value="+res.data[i].CR_ID+" data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].CR_QrCode+" data-seatnum="+res.data[i].CR_SeatNum+"><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a></div>"
 
                           
                             
@@ -856,10 +856,12 @@
             }
             var checkBoxArr = [];
             let chk_pg_id;
+            let chk_u_id;
             $("input[name=seat_chk]:checked").each(function(i){
                 checkBoxArr.push($(this).val());
-                let chk_id = this.id
+                let chk_id = this.id;
                 chk_pg_id = $('#'+chk_id).data('pgid');
+                chk_u_id = $('#'+chk_id).data('uid');
                 
             });
 
@@ -872,7 +874,7 @@
                 method: 'post',
                 dataType: 'json',
                 async: false,
-                data: { 'cr_id': checkBoxArr},
+                data: { 'cr_id': checkBoxArr, 'u_id' : chk_u_id},
                 success: function (res) {
                     $('#popup').css('display','none');
                     $('.swal-icon--success__ring').css('display','none');

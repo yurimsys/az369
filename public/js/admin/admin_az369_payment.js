@@ -2,6 +2,10 @@
 $(document).ready(function(){
 
     init();
+
+    $('.check-all').click(function () {
+        $('.ab').prop('checked', this.checked);
+    });
 }) 
 function init(){
 
@@ -171,6 +175,7 @@ let tableInit = function (data) {
             { dataField: "PH_Type", caption: "결제수단"},
             { dataField: "CR_PayState", caption: "결제여부",
                 cellTemplate : function(element, info){
+                    console.log('info',info.value);
                     if(info.value == '결제취소'){
                         element.append('<div>'+info.value +'</div>').css('color','red')
                     }else{
@@ -433,6 +438,9 @@ function userSeat(ph_id) {
         success: function(res){
             console.log('res',res.data);
 
+            $('.time_info').empty();
+            $('.payment_info').empty();
+            $('#res_seat_list').empty();
 
             let top_html = "<div><div class='time_info_date'><dd>"+res.data[0].deptTe2+" ("+getInputDayLabel(res.data[0].deptDay)+")</dd>";
                 top_html += "<dd>"+res.data[0].returnTe2+" ("+getInputDayLabel(res.data[0].retnDay)+")</dd></div></div>";
@@ -449,7 +457,7 @@ function userSeat(ph_id) {
 
             for(let i=0; i<res.data.length; i++){
                 let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
-                    bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-pgid="+res.data[i].PH_PG_ID+">";
+                    bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+">";
                     bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label></div>";
 
                   
@@ -462,8 +470,147 @@ function userSeat(ph_id) {
         }					
     });
     
-
 }
+
+        // 예매 취소
+        function resCancel(e) {
+            $("#ex_chk5").prop('checked', false);
+            // console.log('데이터 :', e.dataset.pgid);
+            if($('input:checkbox[name=seat_chk]:checked').length == 0){
+                alert('취소할 좌석을 선택해 주세요.')
+                return false;
+            }
+            var checkBoxArr = [];
+            let chk_pg_id;
+            let chk_u_id;
+            $("input[name=seat_chk]:checked").each(function(i){
+                checkBoxArr.push($(this).val());
+                let chk_id = this.id
+                chk_pg_id = $('#'+chk_id).data('pgid');
+                chk_u_id = $('#'+chk_id).data('uid');
+            });
+
+            console.log('check?',checkBoxArr);
+            console.log('data',chk_pg_id);
+
+
+            $.ajax({
+                url: "/api/user/cancelRes",
+                method: 'post',
+                dataType: 'json',
+                async: false,
+                data: { 'cr_id': checkBoxArr, "u_id" : chk_u_id},
+                success: function (res) {
+                    $('#popup').css('display','none');
+                    $('.swal-icon--success__ring').css('display','none');
+                    let link = document.createElement('div')
+                        link.innerHTML = "<a href='/'>환불규정 보기</a>"
+                    if (res.data == 0) {
+                        swal({
+                            title: '취소 실패',
+                            text: '출발일 기준 3일 내 예매취소가 불가능합니다. \n',
+                            content: link,
+                            icon: 'error',
+                            button: '환불규정 보기',
+                            button: '확인'
+                        }).then((value)=>{
+                            location.href='mypage';
+                        })
+                    } else if(res.data == 200){
+
+                        swal({
+                            title: '취소 실패',
+                            text: '승차하신 좌석은 취소가 불가능 합니다.',
+                            icon: 'error',
+                            button: '확인'
+                        }).then((value)=>{
+                            location.href='mypage';
+                        })
+
+                    }else if(res.data == 200){
+
+                        swal({
+                            title: '취소 실패',
+                            text: '승차하신 좌석은 취소가 불가능 합니다.',
+                            icon: 'error',
+                            button: '확인'
+                        }).then((value)=>{
+                            location.href='mypage';
+                        })
+
+                    }else if(res.data == 201){
+
+                        swal({
+                            title: '취소 실패',
+                            text: '출발한 버스는 예매 취소가 불가능 합니다.',
+                            icon: 'error',
+                            button: '확인'
+                        }).then((value)=>{
+                            location.href='mypage';
+                        })
+
+                        }
+                    else {
+                        var resultcode = null;
+                        let cancel_data = {}
+                            cancel_data.cancelAmt = '10',
+                            cancel_data.svcCd = '01',
+                            cancel_data.tid = e.dataset.pgid,
+                            cancel_data.partialCancelCode = '0',
+                            cancel_data.mid = 'testpay01m',
+                            cancel_data.cancelPwd = '123456',
+                            cancel_data.cancelMsg = '환불테스트'
+
+                            console.log('loglog :',cancel_data);
+                        $.ajax({
+                            type : "POST",
+                            url : "https://api.innopay.co.kr/api/cancelApi",
+                            async : true,
+                            data : cnacelInfo(chk_pg_id),
+                            contentType: "application/json; charset=utf-8",
+                            dataType : "json",
+                            success : function(data){
+                                console.log('취소결과',data);
+                                
+                                alert('취소완료!');
+                                ResseatClose();
+                                location.reload();
+
+                            },
+                            error : function(data){
+                                // console.log(data);   
+                                alert("취소 오류 고객센터에 문의해 주세요.");
+                            }
+                        });
+
+                    }
+                }
+            })
+        }
+
+    function cnacelInfo(string) {
+            // var obj = {};
+            // var row, 
+            //     rows = table.rows;
+            // for (var i=0, iLen=rows.length; i<iLen; i++) {
+            //   row = rows[i];
+            //   obj[document.getElementsByTagName("input")[i].getAttribute('name')] = document.getElementsByTagName("input")[i].value;
+            // }
+            // console.log('good',obj);
+            let cancel_data = {}
+                cancel_data.mid = 'testpay01m',
+                cancel_data.tid = string,
+                cancel_data.svcCd = '01',
+                cancel_data.partialCancelCode = '0',
+                cancel_data.cancelAmt = '135',
+                cancel_data.cancelMsg = '환불테스트',
+                cancel_data.cancelPwd = '123456'
+                
+            return JSON.stringify(cancel_data);
+            // console.log('can', cancel_data);
+
+    }
+
 
 //요일 계산 함수
 function getInputDayLabel(date) {
@@ -471,3 +618,15 @@ function getInputDayLabel(date) {
     var todayLabel = week[date-1];
     return todayLabel;
 }
+
+    //체크박스 활성화
+    function seatCheck(e){
+
+        if($('input:checkbox[name=seat_chk]:checked').length < $("input:checkbox[name=seat_chk]").length){
+            $("#ex_chk5").prop('checked', false);
+            return false;
+        }else if($('input:checkbox[name=seat_chk]:checked').length == $("input:checkbox[name=seat_chk]").length){
+            $("#ex_chk5").prop('checked', true);
+            return false;
+        }
+    }

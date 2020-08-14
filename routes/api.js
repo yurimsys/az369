@@ -793,6 +793,7 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     tCR.CR_Price,
                     tCR.CR_QrCode,
                     PH_PG_ID,
+                    CR_U_ID,
                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
                     DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
                     DAYOFWEEK(tCR.CR_cDt ) AS payDayWeek,
@@ -899,7 +900,7 @@ router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
                             FROM tCT 
                             INNER JOIN tCR ON tCR.CR_CT_ID = tCT.CT_ID 
                             WHERE tCR.CR_ID IN (:cr_id)`;
-        let sessionId = req.user.U_ID;
+        let sessionId = req.body.u_id
         let cr_id = req.body.cr_id;
         let crCancel = 'Y'; 
 
@@ -5204,6 +5205,7 @@ router.get('/admin_payment',function(req, res){
                 FROM tPH 
                     INNER JOIN tU ON tU.U_ID = tPH.PH_U_ID
                     INNER JOIN tCR ON tCR.CR_PH_ID = tPH.PH_ID
+                    
                 `
 
     if(req.query.type === 'search'){
@@ -5256,7 +5258,7 @@ router.get('/admin_payment',function(req, res){
 })
 
 
-//차량 타입 목록
+//회원 예매 목록
 router.get('/payment_list',function(req,res){
 
     let query = `SELECT 
@@ -5307,7 +5309,7 @@ router.get('/payment_list',function(req,res){
                     INNER JOIN tCY ON tCY.CY_ID = tCT.CT_CY_ID
                     INNER JOIN tB ON tB.B_ID = tCY.CY_B_ID
                     INNER JOIN tPH ON tPH.PH_ID = tCR.CR_PH_ID
-                WHERE PH_ID = :ph_id`
+                WHERE PH_ID = :ph_id AND CR_Cancel = 'N'`
 
     let ph_id = req.query.ph_id;
 
