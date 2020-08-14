@@ -275,14 +275,14 @@
 		</div>
 	</div>
 	<div id="object_search_info" class="card-body collapse show">
-		<div class='detail_search_form' style="height: 500px; overflow: hidden;">
+		<div class='detail_search_form' style="height: auto; overflow: hidden;">
             <div class="user_seat_list">
 
                 <div class='time_info'>
                 </div>
                 <table class="payment_info">
                 </table>
-            
+			
                 <div class="checks etrans check_all_btn" id='chk05'>
                     <input type="checkbox" id="ex_chk5" class="check-all">
                     <label for="ex_chk5">전체선택</label>
@@ -308,6 +308,27 @@
 		<div class="search-footer row" style="background-color: #ffffff;">
 			<div class="col-12">
 				<button class="btn btn-search" onclick="ResseatClose()">닫기</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 회원 좌석현황 모달 -->
+<div class="card object-search-popup" id="object-res-noseat-popup" style="display: none;">
+	<div class="card-header object-search-header">
+		<div class="row">
+			<div class="col-8 search-header-title">
+				<a data-toggle="collapse" href="#object_search_info"><span class="title">좌석현황</span></a>
+			</div>
+		</div>
+	</div>
+	<div id="object_search_info" class="card-body collapse show">
+		<div class='detail_search_form' style=" overflow: hidden; line-height: 5; ">
+			이미 결제 취소된 회원 입니다.
+		</div>
+		<div class="search-footer row" style="background-color: #ffffff;">
+			<div class="col-12">
+				<button class="btn btn-search" onclick="ResNoseatClose()">닫기</button>
 			</div>
 		</div>
 	</div>
