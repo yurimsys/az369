@@ -807,6 +807,7 @@
             // console.log('데이터 :', e.dataset.pgid);
             if($('input:checkbox[name=seat_chk]:checked').length == 0){
                 alert('취소할 좌석을 선택해 주세요.')
+                return false;
             }
             var checkBoxArr = [];
             let chk_pg_id;
@@ -828,6 +829,7 @@
                 async: false,
                 data: { 'cr_id': checkBoxArr},
                 success: function (res) {
+                    $('#popup').css('display','none');
                     $('.swal-icon--success__ring').css('display','none');
                     let link = document.createElement('div')
                         link.innerHTML = "<a href='/'>환불규정 보기</a>"
@@ -897,7 +899,7 @@
                             dataType : "json",
                             success : function(data){
                                 console.log('취소결과',data);
-                                $('#popup').css('display','none');
+                                
                                 swal({
                                     title: '예매취소 완료',
                                     text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',

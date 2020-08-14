@@ -307,28 +307,33 @@
         const user_name = "<%=sessionUser.U_Name%>";
         let now_location = 'default';
         $(document).ready(function(){
- 
-            $.ajax({
-                url: "api/user/resCarList",
-                method: "post",
-                dataType: "json",
-                success: function (res) {
-                    sessionStorage.setItem("car_list", JSON.stringify(res.data));
-                    let ctId = res.data[0].ctID;
-                    let price = res.data[0].seatPrice;
-                    openBus(ctId,price);
+            if(location.search == '?pay_test'){
+                $.ajax({
+                    url: "api/user/resCarList",
+                    method: "post",
+                    dataType: "json",
+                    success: function (res) {
+                        sessionStorage.setItem("car_list", JSON.stringify(res.data));
+                        let ctId = res.data[0].ctID;
+                        let price = res.data[0].seatPrice;
+                        openBus(ctId,price);
+                    }
+                });
+                //PC, MOBILE 확인
+                var filter = "win16|win32|win64|mac|macintel"; 
+                if ( navigator.platform ) { 
+                    if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) 
+                    { 
+                        //mobile 
+                        location.href = "/reservation2";
+                        // alert('mobile 접속'); 
+                    }
                 }
-            });
-            //PC, MOBILE 확인
-            var filter = "win16|win32|win64|mac|macintel"; 
-            if ( navigator.platform ) { 
-                if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) 
-                { 
-                    //mobile 
-                    location.href = "/reservation2";
-                    // alert('mobile 접속'); 
-                }
+            }else{
+                console.log('nodata');
             }
+ 
+
 
             // exitTest();
         })
