@@ -887,25 +887,29 @@ router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
         let query = `update tCR
                         inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
                         set CR_Cancel = :crCancel, CR_CancelDt = now(), CR_PayState = '결제취소'
-                    where CR_ID = :cr_id AND  CR_U_Id = :sessionId AND
+                    where CR_ID IN (:cr_id) AND  CR_U_Id = :sessionId AND
                         tCT.CT_DepartureTe > date_add(now(),interval +4 day);`;
                 // and tCT.CT_DepartureTe > date_add(now(),interval +4 day);
         //pID  cr_cdt
-        let select_query = `select CR_SeatNum, CR_Price from tCR where CR_ID = :cr_id AND tCR.CR_U_ID = :sessionId`;
-        let scan_query = ` SELECT CR_ScanPy FROM tCR WHERE tCR.CR_ID = :cr_id AND tCR.CR_U_ID =:sessionId `
+        let select_query = `select CR_SeatNum, CR_Price from tCR where CR_ID IN (:cr_id) AND tCR.CR_U_ID = :sessionId`;
+        let scan_query = ` SELECT CR_ScanPy FROM tCR WHERE tCR.CR_ID IN (:cr_id) AND tCR.CR_U_ID =:sessionId `
         let start_query = `SELECT 
                                 tCT.CT_PyStart, 
                                 tCT.CT_ID 
                             FROM tCT 
                             INNER JOIN tCR ON tCR.CR_CT_ID = tCT.CT_ID 
-                            WHERE tCR.CR_ID = :cr_id`;
+                            WHERE tCR.CR_ID IN (:cr_id)`;
         let sessionId = req.user.U_ID;
         let cr_id = req.body.cr_id;
         let crCancel = 'Y'; 
 
+
         connection.query(start_query,{cr_id : cr_id},
             function(err, startRow){
-                if(err) throw err;
+                if(err){
+                    console.log('err',err);
+                    res.json({data : '변수오류'})
+                }
                 if(startRow[0].CT_PyStart === 'Y'){
                     res.json({data : '201'})
                 }else{
@@ -4662,6 +4666,7 @@ router.put('/reservation/:crid', async function(req,res){
 
     if(cr_cancel === 'Y'){
         query += ',CR_CancelDt = now() WHERE CR_ID = :cr_id';
+        cr_state = '결제취소';
     }else{
         query += ' WHERE CR_ID = :cr_id';
     }
@@ -5405,6 +5410,30 @@ router.get('/user_list',function(req,res){
     
 
 })
+
+//결제 리스트
+router.get('/payment',function(req, res){
+    let query = `SELECT 
+                    PH_ID,
+                    U_Name,
+                    PH_PG_ID,
+                    U_Phone,
+                    PH_PG_Name,
+                    PH_Price,
+                    CR_PayState,
+                    PH_Type,
+                    CR_cDt
+                FROM tPH 
+                    INNER JOIN tU ON tU.U_ID = tPH.PH_U_ID
+                    INNER JOIN tCR ON tCR.CR_PH_ID = tPH.PH_ID
+                GROUP BY PH_ID`
+
+    connection.query(query, function(err, rows){
+        if(err) throw err;
+        res.json({data : rows})
+    })
+})
+
 
 
 module.exports = router;
