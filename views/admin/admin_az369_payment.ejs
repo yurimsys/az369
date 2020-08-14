@@ -1,0 +1,268 @@
+<%- contentFor('HeaderCss') %>
+
+<%- contentFor('Body') %>
+<section class="main-container">
+	<!--Page Title-->
+	<div class="header">
+		<div class="header-content d-flex">
+			<div class="page-title">
+				<%= title %>
+			</div>
+			<div class="page-title-desc">
+				<% if(description) {%>
+					<%=description %>
+				<% } %>
+			</div>
+		</div>
+	</div>
+	<!--/Page Title-->
+	<!-- 상세정보 -->
+	<div class="card object-info">
+		<div class="card-header">
+			<div class="row">
+				<div class="col-8">
+					<a data-toggle="collapse" href="#object_detail_group"><span class="title">상세정보</span></a>
+				</div>
+				<div class="col-4">
+					<div class="float-right action-btns action-new">
+						<div name="new" class="btn btn-new px-4" onclick=objectInfo("new")>신규</div>
+						<div name="modify" class="btn btn-modify px-4 disabled">수정</div>
+						<div name="save" class="btn btn-save px-4">저장</div>
+						<div name="delete" class="btn btn-delete px-4 disabled yr_modal_delete" data-toggle="modal" data-target="#deleteModal">삭제
+						</div>
+						<div name="folder" class="btn btn-folder px-4" id="folding" onclick="folding()"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="object_detail_group" class="brand_info">
+			<form enctype="multipart/form-data">
+			<!-- 좌측 -->
+				<div class='info_left'>
+					<div>
+						<label class='info_name'>PH_ID</label>
+						<input type='text' id='ph_id' class='long_box' readonly>
+					</div>
+					<div>
+						<label class='info_name'>회원이름</label>
+						<input type='text' id='u_name' class='long_box' readonly>
+                    </div>
+                    <div>
+						<label class='info_name'>전화번호</label>
+						<input type='text' id='u_phone' class='long_box' readonly>
+					</div>
+
+				</div>
+			<!-- 중간 -->
+				<div class='info_center'>
+					<div>
+						<label class='info_name'>PG사명</label>
+						<input type='number' id='pg_name' class='long_box' readonly>
+					</div>
+					<div>
+						<label class='info_name'>거래번호</label>
+						<input type='number' id='pg_id' class='long_box' readonly>
+					</div>
+                    <div>
+						<label class='info_name'>결제금액</label>
+						<input type='number' id='ph_price' class='long_box' readonly>
+					</div>
+                </div>
+            <!-- 우측 -->
+                <div class='info_right'>
+					<div>
+						<label class='info_name'>결제수단</label>
+						<input type='number' id='ph_type' class='long_box' readonly>
+					</div>
+					<div>
+						<label class='info_name'>결제여부</label>
+						<input type='number' id='pay_state' class='long_box' readonly>
+					</div>
+                    <div>
+						<label class='info_name'>결제일시</label>
+						<input type='number' id='cr_cdt' class='long_box' readonly>
+					</div>
+                </div>
+			</form>
+		</div>
+	</div>
+	<!-- /상세정보 -->
+	<!-- <div class="btn" data-toggle="modal" data-target="#deleteModal">검색 모달</div> -->
+	
+	<!-- 테이블 -->
+	<div class="card object-table">
+		<div class="card-body container-flud">
+			<div id="mgmt-table"></div>
+		</div>
+	</div>
+	<!-- /테이블 -->
+
+</section>
+
+<%- contentFor('Modal') %>
+<!-- 삭제 Modal -->
+<div class="modal fade" id="deleteModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+	aria-labelledby="ModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalTitle"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="material-icons">close</span>
+				</button>
+			</div>
+			<div class="modal-body text-center">
+				선택하신 운송사를 삭제하시겠습니까?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteAD()">삭제</button>
+				<button type="button" class="btn btn-normal" data-dismiss="modal">취소</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Confirm Modal -->
+<div class="modal fade" id="confirmModal" data-backdrop="static" tabindex="-1" role="dialog"
+	aria-labelledby="ModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalTitle"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="material-icons">close</span>
+				</button>
+			</div>
+			<div class="modal-body text-center message">
+				등록하시겠습니까?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-normal" data-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-success" data-dismiss="modal">확인</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 이미지 관리 모달 -->
+<div class="modal fade" id="imgModal" data-backdrop="static" tabindex="-1" role="dialog"
+	aria-labelledby="ModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalTitle"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="material-icons">close</span>
+				</button>
+			</div>
+			<div class="modal-body text-center message">
+				등록하시겠습니까?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-normal" data-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-success" data-dismiss="modal">확인</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 상세검색 -->
+<div class="card object-search-popup" id="object-search-popup" style="display: none;">
+	<div class="card-header object-search-header">
+		<div class="row">
+			<div class="col-8 search-header-title">
+				<a data-toggle="collapse" href="#object_search_info"><span class="title">상세검색</span></a>
+			</div>
+			<div class="col-4">
+				<div class="float-right action-btns action-new">
+					<div name="reset" class="btn btn-reset px-4" onclick="searchPopupReset()">초기화</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="object_search_info" class="card-body collapse show">
+		<div class='detail_search_form'>
+		<form style="padding: 10px;">
+			
+			<!-- <div class="form-group row">
+				<label class="col-3 col-form-label">ID</label>
+				<div class="col-9">
+					<input type="text" class="form-control" id="inputID" />
+				</div>
+			</div> -->
+			<div class="form-group row">
+				<label class="col-3 col-form-label pt-0">검색조건</label>
+				<div class="col-9 align-self-center">
+					<input type="checkbox" id="searchType" switch="success" checked/>
+					<label class="m-0" for="searchType" data-on-label="AND" data-off-label="OR"></label>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">회원이름</label>
+				<div class="col-9">
+                    <input type="number" class="form-control inputAdTitle" id="search_u_name">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">전화번호</label>
+				<div class="col-9">
+					<input type="number" class="form-control inputAdTitle" id="search_u_phone">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">PG사명</label>
+				<div class="col-9">
+					<input type="text" class="form-control inputAdTitle" id='search_pg_name'>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">거래번호</label>
+				<div class="col-9">
+					<input type="text" class="form-control inputAdTitle" id='search_pg_id'>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-3 col-form-label">결제금액</label>
+				<div class="col-9">
+					<input type="number" class="form-control inputAdTitle" id='search_ph_price'>
+				</div>
+            </div>
+            <div class="form-group row">
+				<label class="col-3 col-form-label">결제수단</label>
+				<div class="col-9">
+					<input type="text" class="form-control inputAdTitle" id='search_ph_type'>
+				</div>
+            </div>
+            <div class="form-group row">
+				<label class="col-3 col-form-label">결제여부</label>
+				<div class="col-9">
+					<input type="text" class="form-control inputAdTitle" id='search_pay_state'>
+				</div>
+            </div>
+            <div class="form-group row">
+				<label class="col-3 col-form-label">결제일시</label>
+				<div class="col-9">
+					<input type="text" class="form-control inputAdTitle" id='search_cr_cdt'>
+				</div>
+			</div>
+		</form>
+	</div>
+		<div class="search-footer row" style="background-color: #ffffff;">
+			<div class="col-4 pr-1">
+				<button class="btn btn-close" onclick="searchPopupClose()">닫기</button>
+			</div>
+			<div class="col-8">
+				<button class="btn btn-search" onclick="searchPopupAction()">검색</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%- contentFor('FooterJs') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.0.1/exceljs.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+<script src="/js/admin/admin_az369_vehicle_type.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.2/jszip.min.js"></script> -->

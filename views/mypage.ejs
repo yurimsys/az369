@@ -29,9 +29,9 @@
     
     <!-- 슬라이드 -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css"> -->
-    <link rel="stylesheet" href="/css/swiper.min.css">
+    <!-- <link rel="stylesheet" href="/css/swiper.min.css"> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script> -->
-    <script src="/js/swiper.min.js"></script>
+    <!-- <script src="/js/swiper.min.js"></script> -->
 
     <style>
         .swal-text{text-align: center;line-height: 2;color: #444;}
@@ -561,7 +561,7 @@
                 <input type="checkbox" id="ex_chk5" class="check-all">
                 <label for="ex_chk5">전체선택</label>
             </div>
-            <a href="#" class="cancel_btn select_cancel">선택 예매취소</a>
+            <a onclick="resCancel(this)" class="cancel_btn select_cancel">선택 예매취소</a>
     
             
 
@@ -569,7 +569,7 @@
                 <ul id='res_seat_list'>
                     <!-- <li>
                         <div class="checks etrans" id='chk01'>
-                            <input type="checkbox" id="ex_chk1">
+                            <input type="checkbox" id="ex_chk1" >
                             <label for="ex_chk1">좌석번호<span>1</span></label>
                             <a href="#img-id"><div class="qrcode"></div></a>
                             <a href="#_" class="overlay" id="img-id"><div class="qrcode-full"></div></a>
@@ -586,35 +586,6 @@
         </div>
 
 
-
-
-
-        
-        <script>
-            /*agreement 전체동의 체크*/
-            $(document).ready(function () {
-    
-                $('#chk01').click(function(){
-                    if($("#ex_chk1").is(":checked") == true && $("#ex_chk2").is(":checked") == true){
-                        $("#ex_chk3").prop('checked', true);
-                    }else if($("#ex_chk1").is(":checked") == false && $("#ex_chk2").is(":checked") == true){
-                        $("#ex_chk3").prop('checked', false);
-                    }
-                })
-    
-                $('#chk02').click(function(){
-                    if($("#ex_chk1").is(":checked") == true && $("#ex_chk2").is(":checked") == true){
-                        $("#ex_chk3").prop('checked', true);
-                    }else if($("#ex_chk1").is(":checked") == true && $("#ex_chk2").is(":checked") == false){
-                        $("#ex_chk3").prop('checked', false);
-                    }
-                })
-    
-                $('.check-all').click(function () {
-                    $('.ab').prop('checked', this.checked);
-                });
-            });
-        </script>
     
     </div>
 
@@ -650,6 +621,18 @@
 
     <!-- <script src="/js/qrcode.js"></script>S -->
     <script>
+
+        /*agreement 전체동의 체크*/
+        $(document).ready(function () {
+
+            $('.check-all').click(function () {
+                $('.ab').prop('checked', this.checked);
+            });
+
+
+        });
+
+
         $(window).load(function () {
             $('#tab1').addClass('active')
             $(".trigger_popup_fricc").click(function () {
@@ -662,16 +645,18 @@
                 $('.hover_bkgr_fricc').hide();
             });
         });
+        
 
         function resModal(e) {
-            $('.swiper-wrapper').empty();
+            // $('.swiper-wrapper').empty();
+            $("#ex_chk5").prop('checked', false);
             if(e.dataset.mob == 'mobile'){
                 $('footer').css('display','none');
                 $('header').css('display','none');
                 $('#top_scroll').css('display','none');
             }
-            $(".cancelRes").empty();
-            $(".table_mo").empty();
+            // $(".cancelRes").empty();
+            // $(".table_mo").empty();
             $('.qrcode').empty();
             // if ($(".chk").is(":checked") == false) {
             //     alert("취소 항목을 예매해 주세요.");
@@ -693,7 +678,6 @@
             //console.log('sendjson :',sendJson); 
 
             var seatArr = JSON.parse(sendJson);
-
 
 
             // <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p>
@@ -719,100 +703,71 @@
 
                     let mid_html = "<tr><th>결제일시</th><td>"+res.data[0].payDayYM+' ('+getInputDayLabel(res.data[0].payDayWeek)+') '+res.data[0].payDayTm+"</td></tr>";
                         mid_html += "<tr><th>결제수단</th><td>"+res.data[0].PH_Type+"</td></tr>";
-                        mid_html += "<tr><th>결제금액</th><td>"+res.data[0].CR_Price+"원</td></tr>";
+                        mid_html += "<tr><th>결제금액</th><td>"+(res.data[0].CR_Price * res.data.length)+"원</td></tr>";
 
                     $('.payment_info').append(mid_html);
 
                     for(let i=0; i<res.data.length; i++){
                         let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
-                            bot_html += "<input type='checkbox' id=seat_chk"+res.data[i].CR_ID+">";
+                            bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-pgid="+res.data[i].PH_PG_ID+">";
                             bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
                             bot_html += "<a href='#img-id'><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a> <a href='#' class='overlay' id='img-id'><div class='qrcode-full'></div></a>"
 
                             // <a href="#img-id"><div class="qrcode"></div></a>
                             
                         $('#res_seat_list').append(bot_html);
-                        qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode)
+                        // qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode)
                     }
 
-
-                    // for(let i=0; i <res.data.length; i++){
-                    //     let html = '<div class="swiper-slide"><h3>승차권 '+Number(i+1)+' <span style="color: #999; font-family: inherit"> / '+res.data.length+'</span></h3><div class="qr_wrap"> <div id="qrcode'+res.data[i].CR_ID+'" class="qrcode"></div></div>';
-                    //         html += '<table class="detail_table">';
-                    //         html += '<tr><th>결제일시</th>';
-                    //         html += '<td>'+res.data[i].payDayYM+' ('+getInputDayLabel(res.data[i].payDayWeek)+') '+res.data[i].payDayTm+'</td><tr>'
-                    //         html += '<tr><th>예매정보</th>';
-                    //         html += '<td>평택 '+res.data[i].deptTe2+' ('+getInputDayLabel(res.data[i].deptDay)+') '+res.data[i].startTime+'<br>동대문 '+res.data[i].returnTe2+'('
-                    //                     +getInputDayLabel(res.data[i].retnDay)+') '+res.data[i].returnTime+'<br>'+res.data[i].carName+'('+res.data[i].carNum+')</td><tr>';
-                    //         html += '<tr><th>좌석번호</th>';
-                    //         html += '<td>'+res.data[i].CR_SeatNum+'번</td><tr>';
-                    //         html += '<tr><th>결제수단</th>';
-                    //         html += '<td>'+res.data[i].PH_Type+'</td><tr>';
-                    //         html += '<tr><th>결제금액</th>';
-                    //         html += '<td>'+res.data[i].CR_Price+'원</td><tr>'
-                    //         html += default_html2;
-                    //         html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-pgid='+res.data[i].PH_PG_ID+' data-crid='+res.data[i].CR_ID+'>예매취소</a></li></ul></div></div>';
-                    //         $('.swiper-pc').append(html);
-                    //         qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode)
-                    // }
-
-                    for(let j=0; j <res.data.length; j++){
-                        // let html = '<div class="swiper-slide"><h3>승차권 '+Number(j+1)+'<span style="color: #999;"> / '+res.data.length+'</span></h3><div class="qr_wrap"> <div id="qrcodemo'+res.data[j].CR_ID+'" class="qrcode"></div></div>';
-                        //     html += '<table class="detail_table">';
-                        //     html += '<tr><th>결제일시</th>';
-                        //     html += '<td>'+res.data[j].payDayYM+' ('+getInputDayLabel(res.data[j].payDayWeek)+') '+res.data[j].payDayTm+'</td><tr>'
-                        //     html += '<tr><th>예매정보</th>';
-                        //     html += '<td>평택 '+res.data[j].deptTe2+' ('+getInputDayLabel(res.data[j].deptDay)+') '+res.data[j].startTime+'<br>동대문 '+res.data[j].returnTe2+'('
-                        //                 +getInputDayLabel(res.data[j].retnDay)+') '+res.data[j].returnTime+'<br>'+res.data[j].carName+'('+res.data[j].carNum+')</td><tr>';
-                        //     html += '<tr><th>좌석번호</th>';
-                        //     html += '<td>'+res.data[j].CR_SeatNum+'번</td><tr>';
-                        //     html += '<tr><th>결제수단</th>';
-                        //     html += '<td>'+res.data[j].PH_Type+'</td><tr>';
-                        //     html += '<tr><th>결제금액</th>';
-                        //     html += '<td>'+res.data[j].CR_Price+'원</td><tr>'
-                        //     html += default_html2;
-                        //     html += '<a href="#" class="btn btn-primary" onclick="resCancel(this)" data-pgid='+res.data[j].PH_PG_ID+' data-crid='+res.data[j].CR_ID+'>예매취소</a></div></div>';
-                        //     $('.swiper-mobile').append(html);
-                        //     qrCodeImgMo(res.data[j].CR_ID,res.data[j].CR_QrCode)
-                    }
-                    
-                    // slider();
                 }
                 
             })
         }
 
-        //QR코드 생성 함수
-        function qrCodeImg(qrId,userInfo){
-            let qr_id = qrId;
-            let qr_text = userInfo;
-            let qrcode = new QRCode(document.getElementById('qrcode'+qr_id), 
-                {
-                    text: qr_text,
-                    width: 50,
-                    height: 50,
-                    colorDark : "#000000",
-                    colorLight : "#ffffff",
-                    correctLevel : QRCode.CorrectLevel.H
-                });
-            
+        //체크박스 활성화
+        function seatCheck(e){
+
+            if($('input:checkbox[name=seat_chk]:checked').length < $("input:checkbox[name=seat_chk]").length){
+                console.log('확22인');
+                $("#ex_chk5").prop('checked', false);
+                return false;
+            }else if($('input:checkbox[name=seat_chk]:checked').length == $("input:checkbox[name=seat_chk]").length){
+                $("#ex_chk5").prop('checked', true);
+                return false;
+            }
         }
 
-        //QR코드 생성 함수 모바일
-        function qrCodeImgMo(qrId,userInfo){
-            let qr_id = qrId;
-            let qr_text = userInfo;
-            let qrcode = new QRCode(document.getElementById('qrcodemo'+qr_id), 
-                {
-                    text: qr_text,
-                    width: 100,
-                    height: 100,
-                    colorDark : "#000000",
-                    colorLight : "#ffffff",
-                    correctLevel : QRCode.CorrectLevel.H
-                });
+        // //QR코드 생성 함수
+        // function qrCodeImg(qrId,userInfo){
+        //     let qr_id = qrId;
+        //     let qr_text = userInfo;
+        //     let qrcode = new QRCode(document.getElementById('qrcode'+qr_id), 
+        //         {
+        //             text: qr_text,
+        //             width: 50,
+        //             height: 50,
+        //             colorDark : "#000000",
+        //             colorLight : "#ffffff",
+        //             correctLevel : QRCode.CorrectLevel.H
+        //         });
             
-        }
+        // }
+
+        // //QR코드 생성 함수 모바일
+        // function qrCodeImgMo(qrId,userInfo){
+        //     let qr_id = qrId;
+        //     let qr_text = userInfo;
+        //     let qrcode = new QRCode(document.getElementById('qrcodemo'+qr_id), 
+        //         {
+        //             text: qr_text,
+        //             width: 100,
+        //             height: 100,
+        //             colorDark : "#000000",
+        //             colorLight : "#ffffff",
+        //             correctLevel : QRCode.CorrectLevel.H
+        //         });
+            
+        // }
 
         // function slider(){
         //     new Swiper('.myswiper', {
@@ -852,13 +807,28 @@
         // 예매 취소
         function resCancel(e) {
             // console.log('데이터 :', e.dataset.pgid);
-            
+            if($('input:checkbox[name=seat_chk]:checked').length == 0){
+                alert('취소할 좌석을 선택해 주세요.')
+            }
+            var checkBoxArr = [];
+            let chk_pg_id;
+            $("input[name=seat_chk]:checked").each(function(i){
+                checkBoxArr.push($(this).val());
+                let chk_id = this.id
+                chk_pg_id = $('#'+chk_id).data('pgid');
+                
+            });
+
+            console.log('check?',checkBoxArr);
+            console.log('data',chk_pg_id);
+
+
             $.ajax({
                 url: "api/user/cancelRes",
                 method: 'post',
                 dataType: 'json',
                 async: false,
-                data: { 'cr_id': e.dataset.crid},
+                data: { 'cr_id': checkBoxArr},
                 success: function (res) {
                     $('.swal-icon--success__ring').css('display','none');
                     let link = document.createElement('div')
@@ -910,26 +880,26 @@
                         }
                     else {
                         var resultcode = null;
-                        // let cancel_data = {}
-                        //     cancel_data.cancelAmt = '10',
-                        //     cancel_data.svcCd = '01',
-                        //     cancel_data.tid = e.dataset.pgid,
-                        //     cancel_data.partialCancelCode = '0',
-                        //     cancel_data.mid = 'testpay01m',
-                        //     cancel_data.cancelPwd = '123456',
-                        //     cancel_data.cancelMsg = '환불테스트'
+                        let cancel_data = {}
+                            cancel_data.cancelAmt = '10',
+                            cancel_data.svcCd = '01',
+                            cancel_data.tid = e.dataset.pgid,
+                            cancel_data.partialCancelCode = '0',
+                            cancel_data.mid = 'testpay01m',
+                            cancel_data.cancelPwd = '123456',
+                            cancel_data.cancelMsg = '환불테스트'
 
-                        //     console.log('loglog :',cancel_data);
-                        // cnacelInfo(e.dataset.pgid)
+                            console.log('loglog :',cancel_data);
                         $.ajax({
                             type : "POST",
                             url : "https://api.innopay.co.kr/api/cancelApi",
                             async : true,
-                            data : cnacelInfo(e.dataset.pgid),
+                            data : cnacelInfo(chk_pg_id),
                             contentType: "application/json; charset=utf-8",
                             dataType : "json",
                             success : function(data){
-                                console.log(data);
+                                console.log('취소결과',data);
+                                $('#popup').css('display','none');
                                 swal({
                                     title: '예매취소 완료',
                                     text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
