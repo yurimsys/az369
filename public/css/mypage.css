@@ -200,7 +200,7 @@ th, td {padding: 0;}
 
  .popup_box{width:28%; background:#fff; position:relative; z-index: 1000; top:53%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.3); padding: 20px 30px 25px; overflow: hidden;}
 
-.ticket_modal h3 {font-size: 24px; text-align: center; margin-bottom: 18px;}
+.ticket_modal h3,#qrcode_full_modal h3 {font-size: 24px; text-align: center; margin-bottom: 18px;}
 .time_info {width: 100%;; background-color: #faf7f3; border-radius: 12px; padding: 20px 0; overflow: hidden; display: flex;}
 
 .time_info > div {flex: 1;}
@@ -219,52 +219,17 @@ th, td {padding: 0;}
 .payment_info th {width: 30%; text-align: left; float: left; font-weight: normal; color: #505050;}
 .payment_info td {width: 70%; text-align: right; float: right; color: #191919;}
 
-.qrcode_list {width: 100%; border-top: 1px solid #dbdbdb; border-bottom: 1px solid #dbdbdb;  overflow: scroll; overflow-x: hidden; height: 240px;}
+.qrcode_list {width: 100%; overflow: scroll; overflow-x: hidden; height: 240px; border-top: 1px solid #dbdbdb;}
 .qrcode_list ul li {width:100%; border-bottom: 1px solid #eee; position: relative; overflow: hidden;}
-/* .qrcode_list ul li:nth-child(1) {border-top: 1px solid #eee;} */
-.qrcode {width: 50px; height: 50px; background-color: black;float: right; margin-right: 16px;}
+.qrcode_list ul li:nth-child(1) {border-top: 1px solid #eee;}
+.qrcode {width: 50px; height: 50px; background-color: black;float: right; margin-right: 16px; z-index: 1000000;}
 .checks {line-height: 50px;  padding: 12px 0;}
 .qrcode_list span {margin-left: 10px; font-weight: 600;}
 
-.overlay {
-    position: fixed;
-    z-index: 99;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.9);
-    display: flex;
-    align-items: center;
-    text-align: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity .3s;
-  }
-  
-  .overlay img{
-    max-width: 90%;
-    max-height: 90%;
-    width: auto;
-    height: auto;
-    transform: scale(0.95);
-    transition: transform .3s;
-  }
-  
-  .overlay:target {
-    visibility: visible;
-    outline: none;
-    cursor: default;
-  }
-  
-  .overlay:target img {
-      transform: scale(1);
-  }
-
-
-
-
-
+#qrcode_full_modal {display: none;}
+.qrcode-full {width: 150px; height: 150px; background:#000; margin-left: 50%; transform: translateX(-50%); padding:10px; margin-top: 30px; margin-bottom: 20px;}
+#qrcode_full_modal > p {font-size: 16px; text-align: center; color: #505050;padding-bottom: 10px;}
+#qrcode_full_modal > p > span {margin-left: 8px; font-weight: 600; color:#191919;}
 
 
 

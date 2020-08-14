@@ -494,100 +494,125 @@
         </div>
     </div> -->
 
+    <!-- <div id="popup1" class="layer1"> -->
+    
+<!-- </div> -->
+
     <div id="popup" class="layer">
+        
+        <div class="popup_box" id="qrcode_full_modal">
+            <h3>QR코드 확인</h3>
+            <div class="qrcode-full"></div>
+            <p>좌석번호<span>1</span></p>
+            <a onclick="javascript:$('#qrcode_full_modal').css('display','none');$('.ticket_modal').css('display','block');"
+                class=" close_btn btn-secondary">뒤로</a>
+        </div>
         <div class="popup_box ticket_modal scroll_style">
             <h3>승차권</h3>
             <div class="time_info">
-                
-                        <!-- <div>
-                            <div class="time_info_date">
-                                <dd>2020.01.01 (월)</dd>
-                                <dd> 2020.01.02 (화)</dd>
-                            </div>
-                        </div>
-                  
-                        <div>
-                            <div class="time_info_time">
-                                <ul>
-                                    <li>
-                                        <dt>평택</dt>
-                                        <dd>23:00</dd>
-                                    </li>
-                                    <li>
-                                        <img src="/img/mypage/info_arrow.png" alt="">
-                                    </li>
-                                    <li>
-                                        <dt>동대문</dt>
-                                        <dd>04:00</dd>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div> -->
-                
+        
+                <!-- <div>
+                                    <div class="time_info_date">
+                                        <dd>2020.01.01 (월)</dd>
+                                        <dd> 2020.01.02 (화)</dd>
+                                    </div>
+                                </div>
+                          
+                                <div>
+                                    <div class="time_info_time">
+                                        <ul>
+                                            <li>
+                                                <dt>평택</dt>
+                                                <dd>23:00</dd>
+                                            </li>
+                                            <li>
+                                                <img src="/img/mypage/info_arrow.png" alt="">
+                                            </li>
+                                            <li>
+                                                <dt>동대문</dt>
+                                                <dd>04:00</dd>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div> -->
+        
                 <!-- <ul>
-                    <li>
-                        <dd>2020.01.01 (월) ~</dd>
-                        <dd>2020.01.02 (화)</dd>
-                    </li>
-                    <li>
-                        <dl>
-                            <dt>평택</dt>
-                            <dd>23:00</dd>
-                        </dl>
-                        <dl><img src="/img/reservation/location_icon.png" alt=""></dl>
-                        <dl>
-                            <dt>동대문</dt>
-                            <dd>04:00</dd>
-                        </dl>
-                    </li>
-                </ul> -->
+                            <li>
+                                <dd>2020.01.01 (월) ~</dd>
+                                <dd>2020.01.02 (화)</dd>
+                            </li>
+                            <li>
+                                <dl>
+                                    <dt>평택</dt>
+                                    <dd>23:00</dd>
+                                </dl>
+                                <dl><img src="/img/reservation/location_icon.png" alt=""></dl>
+                                <dl>
+                                    <dt>동대문</dt>
+                                    <dd>04:00</dd>
+                                </dl>
+                            </li>
+                        </ul> -->
             </div>
             <table class="payment_info">
                 <!-- <tr>
-                    <th>결제일시</th>
-                    <td>2020.01.01 (월) 13:00</td>
-                </tr>
-                <tr>
-                    <th>결제수단</th>
-                    <td>신용카드 (국민 - 일시불)</td>
-                </tr>
-                <tr>
-                    <th>결제금액</th>
-                    <td>20,000원</td>
-                </tr> -->
+                            <th>결제일시</th>
+                            <td>2020.01.01 (월) 13:00</td>
+                        </tr>
+                        <tr>
+                            <th>결제수단</th>
+                            <td>신용카드 (국민 - 일시불)</td>
+                        </tr>
+                        <tr>
+                            <th>결제금액</th>
+                            <td>20,000원</td>
+                        </tr> -->
             </table>
-
+        
             <div class="checks etrans check_all_btn" id='chk05'>
                 <input type="checkbox" id="ex_chk5" class="check-all">
                 <label for="ex_chk5">전체선택</label>
             </div>
             <a onclick="resCancel(this)" class="cancel_btn select_cancel">선택 예매취소</a>
-    
-            
-
+        
+        
+        
             <div class="qrcode_list scroll_style">
                 <ul id='res_seat_list'>
-                    <!-- <li>
+                    <li>
                         <div class="checks etrans" id='chk01'>
-                            <input type="checkbox" id="ex_chk1" >
+                            <input type="checkbox" id="ex_chk1">
                             <label for="ex_chk1">좌석번호<span>1</span></label>
-                            <a href="#img-id"><div class="qrcode"></div></a>
-                            <a href="#_" class="overlay" id="img-id"><div class="qrcode-full"></div></a>
+                            <a onclick="qrcode_full_open(this)" id="qrcode_full_btn">
+                                <!-- <a onclick="javascript:$('.ticket_modal').css('display', 'none'); $('#qrcode_full_modal').css('display', 'block');"> -->
+                                <div class="qrcode"></div></a>
                         </div>
-                    </li>     -->
+                    </li>
                 </ul>
             </div>
-    
             <p>QR코드를 누르시면 이미지가 커집니다. <br>
-            출발 3일 전 ~ 당일은 예매취소가 불가능합니다. <a href="refund"><u>환불규정보기</u></a></p>
-    
+                출발 3일 전 ~ 당일은 예매취소가 불가능합니다. <a href="refund"><u>환불규정보기</u></a></p>
+        
             <a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');"
                 class=" close_btn btn-secondary">닫기</a>
         </div>
+        
+    </div>
 
+    <!-- qr코드 확대 팝업 -->
+    <script>
+        function qrcode_full_open(e) {
+        if(e.id === 'qrcode_full_btn'){
+            $('.ticket_modal').css('display', 'none');
+            $('#qrcode_full_modal').css('display', 'block');
+        }else{
+            $('#qrcode_full_modal').css('display', 'block');
+        }
+    }
+    </script>
 
     
-    </div>
+
 
     <!--두번째 리스트 popup mo-->
     <div id="popup2" class="layer">
@@ -711,11 +736,12 @@
                         let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
                             bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-pgid="+res.data[i].PH_PG_ID+">";
                             bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
-                            bot_html += "<a href='#img-id'><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a> <a href='#' class='overlay' id='img-id'><div class='qrcode-full'></div></a>"
+                            bot_html += "<a onclick='qrcode_full_open(this)' id='qrcode_full_btn'><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a></div>"
 
-                            // <a href="#img-id"><div class="qrcode"></div></a>
+                          
                             
                         $('#res_seat_list').append(bot_html);
+                          // <a href="#img-id"><div class="qrcode"></div></a>
                         // qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode)
                     }
 
