@@ -288,7 +288,15 @@ let tableInit = function (data) {
             { dataField: "CT_DepartureTe", caption: "평택 출발시간"},
             { dataField: "CT_ReturnTe", caption: "서울 출발시간"},
             { dataField: "CR_Price", caption: "좌석 금액"},
-            { dataField: "CR_PayState", caption: "결제 상태"},
+            { dataField: "CR_PayState", caption: "결제여부",
+                cellTemplate : function(element, info){
+                    if(info.value == '결제취소'){
+                        element.append('<div>'+info.value +'</div>').css('color','red')
+                    }else{
+                        element.append('<div>'+info.value +'</div>')
+                    }
+                }
+            },
             { dataField: "CR_Cancel", caption: "취소여부", 
                     cellTemplate : function(element, info){
                         if(info.value == 'Y'){
