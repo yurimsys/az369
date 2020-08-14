@@ -1499,10 +1499,16 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
         let ph_type;
         let pg_id;
         let u_id = req.user.U_ID //등록할 회원 아이디
+        let cr_memo;
         if(req.body.payType == '01'){
-            ph_type = '신용카드'
+            ph_type = '신용카드';
+            cr_memo = "";
+        }else if(req.body.payType == '무료예매'){
+            ph_type = 'free';
+            cr_memo = '무료예매';
         }else{
-            ph_type = '-'
+            ph_type = '-';
+            cr_memo = "";
         }
         if(req.body.tid != undefined){
             pg_id = req.body.tid;
@@ -1578,20 +1584,20 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
         
                                             let cr_query = `
                                                 INSERT INTO tCR
-                                                    (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum, CR_Price, CR_QrCode, CR_PayState)
+                                                    (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum, CR_Price, CR_QrCode, CR_Memo, CR_PayState)
                                                 VALUES
                                             `;
                                             
                                             if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
                                                 for(let i=0; i<seatNums.length; i++){
-                                                    str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums[i]}, ${one_price}, '${hash_qrcode[i]}', '결제완료')`)
+                                                    str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums[i]}, ${one_price}, '${hash_qrcode[i]}', '${cr_memo}','결제완료')`)
                                                 }
                                                 // seatNums.map((seatNum)=>{
                                                 //     str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum}, ${one_price}, ${hash_qrcode})`);
                                                 // });
                                                 str_values = str_values_list.join(', ');
                                             } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
-                                                str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums}, ${oPrice}, '${hash_qrcode}', '결제완료')`;
+                                                str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums}, ${oPrice}, '${hash_qrcode}', '${cr_memo}','결제완료')`;
                                             }
                                         
                                             cr_query += str_values;
@@ -5184,7 +5190,7 @@ router.get('/user_list',function(req,res){
 })
 
 //결제 리스트
-router.get('/payment',function(req, res){
+router.get('/admin_payment',function(req, res){
     let query = `SELECT 
                     PH_ID,
                     U_Name,

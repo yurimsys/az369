@@ -66,7 +66,7 @@ let objectInfo = function (mode = "modify", row_data) {
 
 let tableInit = function (data) {
     $("#mgmt-table").dxDataGrid({
-        dataSource: "/api/payment",
+        dataSource: "/api/admin_payment",
         showBorders: true,
         renderAsync: true,
         allowColumnReordering: true,
@@ -392,7 +392,7 @@ function searchPopupAction() {
     $.ajax({
         type : "GET",
         dataType : 'JSON',
-        url : '/api/payment?type=search',
+        url : '/api/admin_payment?type=search',
         data : condition_data,
         success : function (res) {
             

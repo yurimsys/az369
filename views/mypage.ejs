@@ -199,7 +199,7 @@
                                                             </li>
                                                             <li>
                                                                 좌석번호
-                                                                <h6><%=data[i].seatNum%></h6>
+                                                                <h6><%=data[i].seatNumMo%></h6>
                                                             </li>
                                                             <li><i class="fas fa-chevron-right"></i></li>
                                                         </ul>
@@ -502,8 +502,9 @@
         
         <div class="popup_box" id="qrcode_full_modal">
             <h3>QR코드 확인</h3>
-            <div class="qrcode-full"></div>
-            <p>좌석번호<span>1</span></p>
+            <div class="qrcode-full" id='qrcode-full'></div>
+            <br>
+            <p>좌석번호<span id="qr_seat_sum">1</span></p>
             <a onclick="javascript:$('#qrcode_full_modal').css('display','none');$('.ticket_modal').css('display','block');"
                 class=" close_btn btn-secondary">뒤로</a>
         </div>
@@ -580,13 +581,12 @@
             <div class="qrcode_list scroll_style">
                 <ul id='res_seat_list'>
                     <li>
-                        <div class="checks etrans" id='chk01'>
+                        <!-- <div class="checks etrans" id='chk01'>
                             <input type="checkbox" id="ex_chk1">
                             <label for="ex_chk1">좌석번호<span>1</span></label>
                             <a onclick="qrcode_full_open(this)" id="qrcode_full_btn">
-                                <!-- <a onclick="javascript:$('.ticket_modal').css('display', 'none'); $('#qrcode_full_modal').css('display', 'block');"> -->
                                 <div class="qrcode"></div></a>
-                        </div>
+                        </div> -->
                     </li>
                 </ul>
             </div>
@@ -598,22 +598,7 @@
         </div>
         
     </div>
-
-    <!-- qr코드 확대 팝업 -->
-    <script>
-        function qrcode_full_open(e) {
-        if(e.id === 'qrcode_full_btn'){
-            $('.ticket_modal').css('display', 'none');
-            $('#qrcode_full_modal').css('display', 'block');
-        }else{
-            $('#qrcode_full_modal').css('display', 'block');
-        }
-    }
-    </script>
-
     
-
-
     <!--두번째 리스트 popup mo-->
     <div id="popup2" class="layer">
         <div class="popup_box_mo popup_box_mo2">
@@ -736,13 +721,14 @@
                         let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
                             bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-pgid="+res.data[i].PH_PG_ID+">";
                             bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
-                            bot_html += "<a onclick='qrcode_full_open(this)' id='qrcode_full_btn'><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a></div>"
+                            bot_html += "<a onclick='qrcode_full_open(this)' id='qrcode_full_btn' value="+res.data[i].CR_ID+" data-pgid="+res.data[i].CR_QrCode+" data-seatnum="+res.data[i].CR_SeatNum+"><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a></div>"
 
                           
                             
                         $('#res_seat_list').append(bot_html);
                           // <a href="#img-id"><div class="qrcode"></div></a>
-                        // qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode)
+                        let qr_type = 'default'
+                        qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode, qr_type)
                     }
 
                 }
@@ -754,7 +740,6 @@
         function seatCheck(e){
 
             if($('input:checkbox[name=seat_chk]:checked').length < $("input:checkbox[name=seat_chk]").length){
-                console.log('확22인');
                 $("#ex_chk5").prop('checked', false);
                 return false;
             }else if($('input:checkbox[name=seat_chk]:checked').length == $("input:checkbox[name=seat_chk]").length){
@@ -762,22 +747,54 @@
                 return false;
             }
         }
+        //qrcode 확대
+        function qrcode_full_open(e) {
+            $('#qr_seat_sum').empty();
 
-        // //QR코드 생성 함수
-        // function qrCodeImg(qrId,userInfo){
-        //     let qr_id = qrId;
-        //     let qr_text = userInfo;
-        //     let qrcode = new QRCode(document.getElementById('qrcode'+qr_id), 
-        //         {
-        //             text: qr_text,
-        //             width: 50,
-        //             height: 50,
-        //             colorDark : "#000000",
-        //             colorLight : "#ffffff",
-        //             correctLevel : QRCode.CorrectLevel.H
-        //         });
+            $('#qr_seat_sum').text(e.dataset.seatnum)
+            let cr_id = $('#'+e.id).attr('value');
+            let qr_type = 'full'
+            qrCodeImg(cr_id, e.dataset.pgid, qr_type)
+            if(e.id === 'qrcode_full_btn'){
+                $('.ticket_modal').css('display', 'none');
+                $('#qrcode_full_modal').css('display', 'block');
+            }else{
+                $('#qrcode_full_modal').css('display', 'block');
+            }
+        }
+
+        // qrcode-full
+        //QR코드 생성 함수
+        function qrCodeImg(qrId,userInfo,type){
             
-        // }
+            $('#qrcode-full').empty();
+            let qr_id = qrId;
+            let qr_text = userInfo;
+            if(type == 'default'){
+                let qrcode = new QRCode(document.getElementById('qrcode'+qr_id), 
+                {
+                    text: qr_text,
+                    width: 50,
+                    height: 50,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+            }else{
+                let qrcode = new QRCode(document.getElementById('qrcode-full'), 
+                {
+                    text: qr_text,
+                    width: 150,
+                    height: 150,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+            }
+
+            
+        }
+
 
         // //QR코드 생성 함수 모바일
         // function qrCodeImgMo(qrId,userInfo){

@@ -227,7 +227,7 @@ th, td {padding: 0;}
 .qrcode_list span {margin-left: 10px; font-weight: 600;}
 
 #qrcode_full_modal {display: none;}
-.qrcode-full {width: 150px; height: 150px; background:#000; margin-left: 50%; transform: translateX(-50%); padding:10px; margin-top: 30px; margin-bottom: 20px;}
+.qrcode-full {width: 150px; height: 150px;  margin-left: 50%; transform: translateX(-50%); padding:10px; margin-top: 30px; margin-bottom: 20px;}
 #qrcode_full_modal > p {font-size: 16px; text-align: center; color: #505050;padding-bottom: 10px;}
 #qrcode_full_modal > p > span {margin-left: 8px; font-weight: 600; color:#191919;}
 
