@@ -14,7 +14,7 @@ $danger_color               : #f6633c;
 $normal_color               : #222222;
 
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; background-repeat: no-repeat;
-    user-select:none; -webkit-user-drag: none;}
+    user-select:none; -webkit-user-drag: none; font-size: 14px;}
 
 // Icon ----------------
 .material-icons {
@@ -54,13 +54,12 @@ $normal_color               : #222222;
         padding: 0 25px;
         
         .sub-title {
-            font-size: 26px;
+            font-size: 24px;
             color : #e2e2e2;
-            font-weight: 300;
-            height: 70px;
-            margin-top: 30px;
+            font-weight: 500;
+            padding: 30px 0 20px;
             margin-bottom: 20px;
-            border-bottom: 1px solid #999999;
+            border-bottom: 1px solid #6d6666;
         }
 
         .active {
@@ -71,8 +70,9 @@ $normal_color               : #222222;
                 text-decoration: none;
                 color : $sidebar-active-color;
             }
-            padding: 12px 0;
+            padding:8px 0;
             font-family: 'Noto Sans KR';
+            color: #999;
         }
     }
 }
@@ -83,8 +83,8 @@ $normal_color               : #222222;
     &:after {
         content: '';
         display: block;
-        margin-top: 12px;
-        height: 4px;
+        margin-top: 14px;
+        height: 3px;
         background-color: $gold_color;
     }
 }
@@ -120,11 +120,12 @@ $normal_color               : #222222;
             margin-bottom: 0;
             .gnb_link {
                 cursor: pointer;
-                width : 70px;
+                width : auto;
+                padding: 0 16px;
                 height: 24px;
-                font-size: 16px;
+                font-size: 15px;
                 color: #999999;
-                border-left: 2px solid #f2f2f2; 
+                border-left: 2px solid #f4f4f4; 
                 
                 &.active {
                     line-height: 1.5;
@@ -152,8 +153,8 @@ $normal_color               : #222222;
 // Card --------------------------
 .card-header{
     background-color: #554b58;
-    padding-top: 0.3rem;
-    padding-bottom: 0.3rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.2rem;
     font-weight: 500;
 
     span.title{
@@ -210,9 +211,10 @@ $normal_color               : #222222;
 .card-body {
     padding : 1rem;
     .form-group {
-        margin-bottom: 0.5rem;
+        margin-bottom: 1.5px;
     }
 }
+.form-control {height: 30px;}
 
 // Card End ----------------------
 // Page Title --------------------
@@ -251,10 +253,12 @@ $normal_color               : #222222;
     .object-info {
         .card-body {
             span {
-                line-height: 2rem;
+                line-height: 30px;
             }
         }
     }
+    .select2-selection--single {height: 30px !important;}
+    .select2-selection__arrow {width: 20px !important; height: 30px !important; margin-right: 8px;}
     
     .object-info {
         margin-bottom: 10px;
@@ -405,6 +409,7 @@ $normal_color               : #222222;
 
 .info_name{
     width: 23%;
+    font-size: 14px;
 }
 
 .info_left{
@@ -429,6 +434,8 @@ $normal_color               : #222222;
     width: calc(77% - 30px);
     height: 30px;
 }
+
+input::placeholder, select {color: #999; padding-left: 12px;;}
 
 
 .long_box_time { width: calc(77% - 30px); height: 30px; margin-bottom: 1%;;}
