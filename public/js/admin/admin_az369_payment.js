@@ -115,6 +115,9 @@ let tableInit = function (data) {
         },
 
         onRowClick : function(e) {
+            $('#object-res-seat-popup').css('left','430px')
+            $('#object-res-seat-popup').css('top','300px')
+            $("#object-res-seat-popup").show();
             console.log('row click', e.data);
             // selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
             e.rowElement.css("border-left", "2px solid #f2f2f2");
@@ -410,3 +413,51 @@ function folding(){
     
     
 }
+
+
+function resModal(e) {
+    $('#popup').css('display', 'block')
+
+    $.ajax({
+        url: "api/payment_list",
+        method: 'post',
+        dataType: 'json',
+        data: {
+            'phid': phid
+        },
+        success: function (res) {
+            console.log(res.data);
+            $('.user_seat_list').empty();
+
+            let top_html = "<div><div class='time_info_date'><dd>"+res.data[0].deptTe2+" ("+getInputDayLabel(res.data[0].deptDay)+")</dd>";
+                top_html += "<dd>"+res.data[0].returnTe2+" ("+getInputDayLabel(res.data[0].retnDay)+")</dd></div></div>";
+                top_html += "<div><div class='time_info_time'><ul><li><dt>평택</dt><dd>"+res.data[0].startTime+"</dd></li>";
+                top_html += "<li><img src='/img/mypage/info_arrow.png'></li><li><dt>동대문</dt><dd>"+res.data[0].returnTime+"</dd></li></ul></div></div>";
+
+            $('.time_info').append(top_html);
+
+            let mid_html = "<tr><th>결제일시</th><td>"+res.data[0].payDayYM+' ('+getInputDayLabel(res.data[0].payDayWeek)+') '+res.data[0].payDayTm+"</td></tr>";
+                mid_html += "<tr><th>결제수단</th><td>"+res.data[0].PH_Type+"</td></tr>";
+                mid_html += "<tr><th>결제금액</th><td>"+(res.data[0].CR_Price * res.data.length)+"원</td></tr>";
+
+            $('.payment_info').append(mid_html);
+
+            for(let i=0; i<res.data.length; i++){
+                let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
+                    bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-pgid="+res.data[i].PH_PG_ID+">";
+                    bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
+                    bot_html += "<a onclick='qrcode_full_open(this)' id='qrcode_full_btn' value="+res.data[i].CR_ID+" data-pgid="+res.data[i].CR_QrCode+" data-seatnum="+res.data[i].CR_SeatNum+"><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a></div>"
+
+                  
+                    
+                $('#res_seat_list').append(bot_html);
+                  // <a href="#img-id"><div class="qrcode"></div></a>
+                let qr_type = 'default'
+                qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode, qr_type)
+            }
+
+        }
+        
+    })
+}
+
