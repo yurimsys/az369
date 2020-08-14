@@ -90,7 +90,7 @@
                                                     <%= sessionUser.U_Brand %></dd>
                                                    </dl>
                                             <dl>
-                                                <dt><img src="/img/mypage/info_icon02.png" alt="@ 아이콘"></dt>
+                                                <dt><img src="/img/mypage/info_icon02.png" alt="이메일 아이콘"></dt>
                                                 <dd>
                                                     <%= sessionUser.U_Email %>
                                                 </dd>
@@ -1015,7 +1015,7 @@
                         html += "<ul class='testcode' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
                         html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
                         html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
-                        html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><i class='fas fa-chevron-right'></i></li>";
+                        html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><img src='/img/common/reserve_bar_arrow.png'></li>";
                         html += "</ul></a>";
                         html += "</div>";
                         $(".list02_mo").append(html);
@@ -1061,7 +1061,7 @@
                         html2 += "<ul>";
                         html2 += "<li class='text' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
                         html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
-                        html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><i class='fas fa-chevron-right'></i></li>";
+                        html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><img src='/img/common/reserve_bar_arrow.png'></li>";
                         html2 += "</ul></a>";
                         html2 += "</div>";
                         $(".list02_mo").append(html2);
@@ -1157,7 +1157,7 @@
                         html2 += "<ul>";
                         html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">" + res.data[k].deptTe + "</li>";
                         html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">평택 - 서울동대문</li>";
-                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + "><i class='fas fa-chevron-right'></i></li>";
+                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + "><img src='/img/common/reserve_bar_arrow.png'></li>";
                         html2 += "</ul></a></div>";
                         $(".list03_mo").append(html2);
                     }
