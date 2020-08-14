@@ -152,7 +152,6 @@ $normal_color               : #222222;
 // Card --------------------------
 .card-header{
     background-color: #554b58;
-    padding-left: 30px;
     padding-top: 0.3rem;
     padding-bottom: 0.3rem;
     font-weight: 500;
@@ -479,18 +478,19 @@ input[type="number"]::-webkit-inner-spin-button {
  .popup_box{width:28%; background:#fff; position:relative; z-index: 1000; top:53%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.3); padding: 20px 30px 25px; overflow: hidden;}
 
 .ticket_modal h3,#qrcode_full_modal h3 {font-size: 24px; text-align: center; margin-bottom: 18px;}
-.time_info {width: 100%;; background-color: #faf7f3; border-radius: 12px; padding: 20px 0; overflow: hidden; display: flex;}
+.time_info {width: 100%;; background-color: #faf7f3; border-radius: 12px; padding:15px 0; overflow: hidden; display: flex;}
 
 .time_info > div {flex: 1;}
 .time_info > div:nth-child(1) {border-right: 1px solid #e7e3dd;}
-.time_info_date {width: 100%; text-align: center;}
-.time_info_date dd:nth-child(1)::after {content: '~'; margin-left: 5px; margin-right: -10px;}
+.time_info_date {width: 100%; text-align: center; margin-top: 10px; font-size: 15px;}
+.time_info_date dd:nth-child(1)::after {content: '~'; margin-left: 5px; margin-right: -15px;}
+.time_info_date dd:nth-child(2) {margin-bottom: 0 !important;}
 .time_info_time {width: 100%; margin: 0 auto;}
 .time_info_time ul li {float: left;}
 .time_info_time ul li:nth-child(1), .time_info_time ul li:nth-child(3) {width: 45%; text-align: center;}
 .time_info_time ul li:nth-child(2) {width: 10%; text-align: center; padding-top: 10px; }
-.time_info_time ul li dt {font-size: 15px;}
-.time_info_time ul li dd {font-size: 18px; font-weight: 500;color: #271d0a; }
+.time_info_time ul li dt {font-size: 14px; font-weight: normal;}
+.time_info_time ul li dd {font-size: 15px; font-weight: 500;color: #271d0a; }
 
 .payment_info {width: 100%; font-size: 15px; display: table; margin: 20px 0;}
 .payment_info th, .payment_info td {padding: 2px 5px;}
@@ -501,7 +501,8 @@ input[type="number"]::-webkit-inner-spin-button {
 .qrcode_list ul li {width:100%; border-bottom: 1px solid #eee; position: relative; overflow: hidden;}
 .qrcode_list ul li:nth-child(1) {border-top: 1px solid #eee;}
 .qrcode {width: 50px; height: 50px; background-color: black;float: right; margin-right: 16px; z-index: 1000000;}
-.checks {line-height: 50px;  padding: 12px 0;}
+.checks {line-height: 30px;  padding: 12px 0;}
+.checks label {margin-bottom: 0; margin-left: 8px; font-size: 14px; line-height: 0px;}
 .qrcode_list span {margin-left: 10px; font-weight: 600;}
 
 #qrcode_full_modal {display: none;}
@@ -512,10 +513,15 @@ input[type="number"]::-webkit-inner-spin-button {
 .ticket_modal p {text-align: left !important; margin-top: 15px; font-size: 14px;}
 .ticket_modal p a {margin-left: 5px;}
 
-.select_cancel { padding: 0 16px; display: block; width: auto; height: 40px; line-height: 40px; padding: 0 16px; border: 1px solid #dbdbdb; font-size: 15px; border-radius: 4px;}
+.select_cancel { padding: 0 16px; display: block; width: auto; height: 30px; line-height: 30px; padding: 0 16px; border: 1px solid #dbdbdb; font-size: 14px; border-radius: 4px; margin-bottom: 10px;}
 
 .select_cancel {float: right;}
 
-.check-all{margin: 0px;}
+.check_all_btn{padding: 0px; margin: 0; line-height: 30px; width: calc(100% - 121px - 8px); float: left; font-size: 14px; margin-bottom: 10px;}
+input[type=checkbox], input[type=radio] {width: 16px; height: 16px; top: 5px;}
 
-.etrans{padding: 0px; margin: 0; background-color: red;}
+ /*스크롤 --------------------------------*/
+ .scroll_style::-webkit-scrollbar {width: 2px;}
+ .scroll_style::-webkit-scrollbar-track {background-color: #eee;}
+ .scroll_style::-webkit-scrollbar-button {display: none;}
+ .scroll_style::-webkit-scrollbar-thumb {background-color: #C3A164;}
