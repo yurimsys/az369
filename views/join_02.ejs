@@ -77,7 +77,7 @@
                                 </li>
 
                                 <li>
-                                    <input type="number" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
+                                    <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
                                 </li>
 
                                 <li>
@@ -246,10 +246,26 @@
 
             $("#phone_check").keyup(checkPhoneNumber);
 
+            //하이픈 제거
+            var replaceNotInt = /[^0-9]/gi;
+
+            $("#phone").on("focusout", function() {
+                var x = $(this).val();
+                if (x.length > 0) {
+                    if (x.match(replaceNotInt)) {
+                    x = x.replace(replaceNotInt, "");
+                    }
+                    $(this).val(x);
+                }
+            }).on("keyup", function() {
+                $(this).val($(this).val().replace(replaceNotInt, ""));
+            });
+
         });
 
         function sendSmsButton() {
             let phone_number = $("#phone").val();
+            console.log('ph',phone_number.replace(/-/g,''));
             phone_number = phone_number.replace(/-/g, "");
 
             $.ajax({
