@@ -342,7 +342,7 @@ function searchPopupReset(){
     $('#search_video_channel').val('');
     $('#search_video_title').val('');
     $('#search_video_contents').val('');
-    $('#search_video_recommend').val('N');
+    $('#search_video_recommend').val('null');
     search_video_cdt_instance.reset();
 }
 // 닫기
