@@ -47,38 +47,38 @@
 					</div>
 					<div>
 						<label class='info_name'>URL</label>
-						<input type='text' id='car_number' class='long_box'>
+						<input type='text' id='video_url' class='long_box'>
 					</div>
 					<div>
 						<label class='info_name'>채널명</label>
-						<input type='text' id='driver_name' class='long_box'>
+						<input type='text' id='video_channel' class='long_box'>
 					</div>
 				</div>
 			<!-- 중간 -->
 				<div class='info_center'>
                     <div>
 						<label class='info_name'>영상 제목</label>
-						<input type='text' id='car_number' class='long_box'>
+						<input type='text' id='video_title' class='long_box'>
 					</div>
 					<div>
 						<label class='info_name'>영상 소개글</label>
                         <!-- <input type='text' id='driver_name' class='long_box'> -->
-                        <textarea class="long_box"></textarea>
+                        <textarea class="long_box" id='video_contents'></textarea>
 					</div>
 					
 
 				</div>
 				<div class='info_right'>
 					<div>
-						<label class='info_name'>서울 출발확인</label>
-						<select class='long_box' id="se_start_check">
-							<option value='N'>N</option>
-							<option value='Y'>Y</option>
+						<label class='info_name'>추천영상</label>
+						<select class='long_box' id="video_recommend">
+							<option value='0'>N</option>
+							<option value='1'>Y</option>
 						</select>
                     </div>
 					<div style="display: inline-flex;">
-						<label class='info_name' style="width: 40%;">서울 출발시간</label>
-						<div type="" class="form-control inputAdTitle se_start" id="se_start" style="width: 300px;"></div>
+						<label class='info_name' style="width: 40%;">등록일</label>
+						<div type="" class="form-control inputAdTitle video_cdt" id="video_cdt" style="width: 300px;"></div>
 						<!-- <input type='text' id='se_start' class='long_box se_start'> -->
 					</div>
 				</div>
@@ -199,67 +199,45 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">운송사명</label>
+				<label class="col-3 col-form-label">URL</label>
 				<div class="col-9">
-					<select id='search_business_list' class="form-control select2" style="width:100%">
-						<option value="null">대분류 선택</option>
-					</select>
+					<input type="text" class="form-control inputAdTitle" id="search_video_url">
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">차량번호</label>
+				<label class="col-3 col-form-label">채널명</label>
 				<div class="col-9">
-					<input type="text" class="form-control inputAdTitle" id="search_car_number">
+					<input type="text" class="form-control inputAdTitle" id="search_video_channel">
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">기사명</label>
+				<label class="col-3 col-form-label">영상 제목</label>
 				<div class="col-9">
-					<input type="text" class="form-control inputAdTitle" id="search_driver_name">
+					<input type="text" class="form-control inputAdTitle" id="search_video_title">
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">기사번호</label>
+				<label class="col-3 col-form-label">영상 소개글</label>
 				<div class="col-9">
-					<input type="number" class="form-control inputAdTitle" id="search_driver_phone">
+					<input type="number" class="form-control inputAdTitle" id="search_video_contents">
 				</div>
 
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">평택 출발시간</label>
+				<label class="col-3 col-form-label">등록일</label>
 				<div class="col-9">
-					<div type=""  class="form-control inputAdTitle search_py_start" id="search_py_start"></div>
+					<div type=""  class="form-control inputAdTitle search_video_cdt" id="search_video_cdt"></div>
 					<!-- <input type="number" class="form-control inputAdTitle search_py_start" id="search_py_start"> -->
 				</div>
 
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">서울 출발시간</label>
+				<label class="col-3 col-form-label">추천영상</label>
 				<div class="col-9">
-					<div type="" class="form-control inputAdTitle search_se_start" id="search_se_start"></div>
-					<!-- <input type="number" class="form-control inputAdTitle search_se_start" id="search_se_start"> -->
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-3 col-form-label">평택 출발확인</label>
-				<div class="col-9">
-					<!-- <input type="hidden" class="form-control select2 selectAdType" style="width:100%;"/> -->
-					<select id='search_py_start_check' class="form-control select2" style="width:100%">
+					<select id='search_video_recommend' class="form-control select2" style="width:100%">
 						<option value='null'>선택</option>
-						<option value='Y'>Y</option>
-						<option value='N'>N</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-group row">
-				<label class="col-3 col-form-label">서울 출발확인</label>
-				<div class="col-9">
-					<!-- <input type="hidden" class="form-control select2 selectAdType" style="width:100%;"/> -->
-					<select id='search_se_start_check' class="form-control select2" style="width:100%">
-						<option value='null'>선택</option>
-						<option value='Y'>Y</option>
-						<option value='N'>N</option>
+						<option value='1'>Y</option>
+						<option value='0'>N</option>
 					</select>
 				</div>
 			</div>
