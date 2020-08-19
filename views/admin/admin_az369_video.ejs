@@ -72,8 +72,8 @@
 					<div>
 						<label class='info_name'>추천영상</label>
 						<select class='long_box' id="video_recommend">
-							<option value='0'>N</option>
-							<option value='1'>Y</option>
+							<option value='N'>N</option>
+							<option value='Y'>Y</option>
 						</select>
                     </div>
 					<div>
@@ -112,7 +112,7 @@
 				</button>
 			</div>
 			<div class="modal-body text-center">
-				선택하신 차량을 삭제하시겠습니까?
+				선택하신 유튜브 영상을 삭제하시겠습니까?
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteAD()">삭제</button>
@@ -236,8 +236,8 @@
 				<div class="col-9">
 					<select id='search_video_recommend' class="form-control select2" style="width:100%">
 						<option value='null'>선택</option>
-						<option value='1'>Y</option>
-						<option value='0'>N</option>
+						<option value='Y'>Y</option>
+						<option value='N'>N</option>
 					</select>
 				</div>
 			</div>
@@ -254,31 +254,8 @@
 	</div>
 </div>
 
-<!-- 좌석현황 모달 -->
-<div class="card object-search-popup" id="object-seat-popup" style="display: none;">
-	<div class="card-header object-search-header">
-		<div class="row">
-			<div class="col-8 search-header-title">
-				<a data-toggle="collapse" href="#object_search_info"><span class="title">좌석현황</span></a>
-			</div>
-		</div>
-	</div>
-	<div id="object_search_info" class="card-body collapse show">
-		<div class='detail_search_form'>
-            <div class="seat-map seatCharts-container">
-            </div>
-		</div>
-		<div class="search-footer row" style="background-color: #ffffff;">
-			<div class="col-12">
-				<button class="btn btn-search" onclick="seatClose()">닫기</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
 <%- contentFor('FooterJs') %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.0.1/exceljs.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
-<script src="/js/admin/admin_az369_vehicle.js"></script>
+<script src="/js/admin/admin_az369_video.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.2/jszip.min.js"></script> -->
