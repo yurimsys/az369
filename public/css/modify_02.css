@@ -48,7 +48,7 @@
 @keyframes open {from {opacity:0;} to {opacity:1;}}
 
 /*회원탈퇴 팝업 내부*/
-.withdrawal_box {width: 33%; height: auto; margin: 0 auto; background:#fff;position:relative; z-index: 1000; margin: 0 auto; margin-top: 2%; overflow: hidden; border-radius: 12px; padding:30px 30px;}
+.withdrawal_box {width: 33%; height: auto; margin: 0 auto; background:#fff;position:relative; z-index: 1000; margin: 0 auto; margin-top: 15%; overflow: hidden; border-radius: 12px; padding:30px 30px;}
 .withdrawal_tit {font-size: 22px; font-weight: 500; line-height: 1.5;padding-bottom: 15px; text-align: center; }
 
 .withdrawal_box_txt {width: 90%; margin: 0 auto; margin-top: 12px;}

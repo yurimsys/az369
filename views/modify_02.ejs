@@ -157,7 +157,7 @@
 
                                         <ul class="withdrawal_btn">
                                             <li>
-                                                <a href="modify2" class="withdrawal_close1">취소</a></li>
+                                                <a onclick="javascript:$('#withdrawal').css('display','none'); $('footer').css('background','')" class="withdrawal_close1">취소</a></li>
 
                                             <li><a onclick="delUser()" class="withdrawal_close2" style='background-color: #C3A164;'>탈퇴하기</a></li>
                                         </ul>
@@ -184,7 +184,7 @@
 
                                         <ul class="withdrawal_btn">
                                             <li>
-                                                <a href="modify2" class="withdrawal_close1 btn btn-secondary">취소</a></li>
+                                                <a onclick="javascript:$('#withdrawal2').css('display','none'); $('footer').css('background','')" class="withdrawal_close1 btn btn-secondary">취소</a></li>
                                             <li>
                                                 <a href="mypage" class="withdrawal_close2 btn btn-primary">장차예매현황</a></li>
                                         </ul>
@@ -355,16 +355,21 @@
         }
         //회원 탈퇴 분기점
         function selDelBtn() {
+            $('footer').css('background', 'rgba(0,0,0, -0.5)');
             $.ajax({
                 url: "api/user/delchoice",
                 dataType: "json",
                 method: "get",
                 success: function (res) {
-                    //console.log(res.data.length);
+                    //예매가 남아있을때
                     if (res.data.length != 0) {
-                        location.href = "#withdrawal2";
+                        // location.href = "#withdrawal2";
+                        $("#withdrawal2").css('display','block');
+
+                    //예매가 없을때
                     } else if (res.data.length === 0) {
-                        location.href = "#withdrawal";
+                        $("#withdrawal").css('display','block');
+                        // location.href = "#withdrawal";
                     }
                 }
             })
