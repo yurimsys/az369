@@ -1951,7 +1951,7 @@ router.post('/video/count', function(req, res, next) {
 
 //추천 비디오
 router.get('/video/best', function(req, res, next) {
-    let query = `select * from tYL where YL_d_order order by rand() limit 1`; 
+    let query = `select * from tYL where YL_d_order = 'Y' order by rand() limit 1`; 
     connection.query(query,
       function(err, rows, fields) {
           if (err) throw err;
@@ -5330,7 +5330,7 @@ router.get('/video',function(req, res){
                     YL_id, 
                     YL_url, 
                     YL_title, 
-                    left(YL_description,10) as YL_description, 
+                    left(YL_description,10) as contents, 
                     YL_description,
                     YL_ch_name, 
                     YL_d_order, 
@@ -5339,35 +5339,29 @@ router.get('/video',function(req, res){
 
     if(req.query.type === 'search'){
         let condition_list = [];
-        if( req.query.u_name){
-            condition_list.push(`U_Name like '%${req.query.u_name}%'`);
+        if( req.query.search_){
+            condition_list.push(`YL_url like '%${req.query.search_}%'`);
         }
-        if( req.query.u_phone){
-            condition_list.push(`U_Phone like '%${req.query.u_phone}%'`);
+        if( req.query.video_title){
+            condition_list.push(`YL_title like '%${req.query.video_title}%'`);
         }
-        if( req.query.pg_name){
-            condition_list.push(`PH_PG_Name like '%${req.query.pg_name}%'`);
+        if( req.query.video_contents){
+            condition_list.push(`YL_description like '%${req.query.video_contents}%'`);
         }
-        if( req.query.pg_id){
-            condition_list.push(`PH_PG_ID like '%${req.query.pg_id}%'`);
+        if( req.query.video_channel){
+            condition_list.push(`YL_ch_name like '%${req.query.video_channel}%'`);
         }
-        if( req.query.ph_price){
-            condition_list.push(`PH_Price like '%${req.query.ph_price}%'`);
+        if( req.query.video_recommend){
+            condition_list.push(`YL_d_order like '%${req.query.video_recommend}%'`);
         }
-        if( req.query.ph_type){
-            condition_list.push(`PH_Type like '%${req.query.ph_type}%'`);
-        }
-        if( req.query.pay_state){
-            condition_list.push(`CR_PayState like '%${req.query.pay_state}%'`);
-        }
-        if( req.query.u_cdt){
-            condition_list.push(`CR_cDt like '%${req.query.u_cdt}%'`);
+        if( req.query.video_cdt){
+            condition_list.push(`YL_dDt like '%${req.query.video_cdt}%'`);
         }
 
         let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
         if( condition_list.length > 0){
             let condition_stmt = ' WHERE '+condition_list.join(searchType);
-            query += condition_stmt + ' GROUP BY PH_ID'
+            query += condition_stmt;
         }
 
         connection.query(query,
@@ -5386,5 +5380,159 @@ router.get('/video',function(req, res){
 })
 
 
+
+//유튜브 신규 등록
+router.post('/video', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `insert into tYL (
+                                YL_url, 
+                                YL_title, 
+                                YL_description, 
+                                YL_ch_name,
+                                YL_d_order,
+                                YL_dDt
+                                ) 
+                        values( 
+                            :video_url,  
+                            :video_title,  
+                            :video_contents,  
+                            :video_channel,
+                            :video_recommend,
+                            :video_cdt)`;
+
+        let video_url = req.body.video_url,
+            video_title = req.body.video_title,
+            video_contents = req.body.video_contents,
+            video_channel = req.body.video_channel,
+            video_recommend = req.body.video_recommend,
+            video_cdt = req.body.video_cdt;
+
+        connection.query(query, 
+                {video_url, video_title, video_contents, video_channel, video_recommend, video_cdt},
+            function(err, rows){
+                if (err){
+                    connection.rollback(function(){
+                        console.log('err! :',err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+
+        })
+    })
+})
+
+//유튜브 정보 수정
+router.put('/video/:ylid', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `UPDATE tYL SET
+                        YL_url = :video_url,
+                        YL_title = :video_title,
+                        YL_description = :video_contents,
+                        YL_ch_name = :video_channel,
+                        YL_d_order = :video_recommend,
+                        YL_dDt = :video_cdt
+                    WHERE YL_id = :yl_id `;
+
+        let video_url = req.body.video_url,
+            video_title = req.body.video_title,
+            video_contents = req.body.video_contents,
+            video_channel = req.body.video_channel,
+            video_recommend = req.body.video_recommend,
+            video_cdt = req.body.video_cdt;
+        let yl_id = req.params.ylid;
+        connection.query(query,{video_url, video_title, video_contents, video_channel, video_recommend, video_cdt, yl_id}, 
+            function(err,rows){
+                if (err){
+                    connection.rollback(function(){
+                        console.log('ERROR ! :', err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                
+                connection.commit(function(err) {
+                    if (err) {
+                        return connection.rollback(function() {
+                            res.json({data : 300});
+                            throw err;
+                        });
+                    }
+                    res.json({data : 200});    
+                });
+            }
+        })
+    })
+})
+
+//특정 운송사 정보 삭제
+router.delete('/video/:ylid', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `DELETE FROM tYL where YL_id = :yl_id`;
+        let yl_id = req.params.ylid;
+        connection.query(query,{yl_id}, 
+            function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('ERROR ! :', err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+        })
+    })
+})
+
+//선택된 다수의 회원 삭제
+router.delete('/video', async function(req, res){
+    connection.beginTransaction(function(err){
+        let yl_id = req.body.row_ids;
+        let query = `DELETE FROM tYL where YL_id IN (${yl_id})`;
+
+        connection.query(query, 
+            function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('err!!!!',err);
+                        res.json({data : 300});
+                    //    throw err;
+                    })
+                    
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                console.log('ERROR :', err);
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+        })
+    })
+
+})
 
 module.exports = router;
