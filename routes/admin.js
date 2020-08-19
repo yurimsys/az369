@@ -81,39 +81,45 @@ router.get('/signage_brand', function(req, res, next) {
 //     }
 // });
 
-router.get('/az369_vehicle', function(req, res, next) {
-
-    var pageSetting = {
-        title: '배차 관리',
-        description: '장차서비스 배차 관리페이지',
-        layout: 'admin/templates/admin_layout'
-    };
-    res.render('admin/admin_az369_vehicle',pageSetting);
-    
+router.get('/az369_vehicle', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        var pageSetting = {
+            title: '배차 관리',
+            description: '장차서비스 배차 관리페이지',
+            layout: 'admin/templates/admin_layout'
+        };
+        res.render('admin/admin_az369_vehicle',pageSetting);
+    }
 });
 
 //장차 예약 관리 테이블
-router.get('/az369_reservation', function(req, res, next) {
-
-    var pageSetting = {
-        title: '예약 관리',
-        description: '장차서비스 예약 관리페이지',
-        layout: 'admin/templates/admin_layout'
-    };
-    res.render('admin/admin_az369_reservation',pageSetting);
-    
+router.get('/az369_reservation', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        var pageSetting = {
+            title: '예약 관리',
+            description: '장차서비스 예약 관리페이지',
+            layout: 'admin/templates/admin_layout'
+        };
+        res.render('admin/admin_az369_reservation',pageSetting);
+    }
 });
 
 //장차 차량 유형 관리 테이블
-router.get('/az369_vehicle_type', function(req, res, next) {
-
-    var pageSetting = {
-        title: '차량 타입 관리',
-        description: '장차서비스 차량 타입 관리페이지',
-        layout: 'admin/templates/admin_layout'
-    };
-    res.render('admin/admin_az369_vehicle_type',pageSetting);
-    
+router.get('/az369_vehicle_type', auth.isLoggedIn, function(req, res, next) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        var pageSetting = {
+            title: '차량 타입 관리',
+            description: '장차서비스 차량 타입 관리페이지',
+            layout: 'admin/templates/admin_layout'
+        };
+        res.render('admin/admin_az369_vehicle_type',pageSetting);
+    }
 });
 
 //장차 운송사 테이블
@@ -131,36 +137,45 @@ router.get('/az369_business', auth.isLoggedIn, function(req, res, next) {
 });
 
 //장차 회원 관리
-router.get('/az369_user', function(req, res) {
-
-    var pageSetting = {
-        title: '회원 관리',
-        description: '장차서비스 회원 관리페이지',
-        layout: 'admin/templates/admin_layout'
-    };
-    res.render('admin/admin_az369_user',pageSetting);
+router.get('/az369_user', auth.isLoggedIn, function(req, res) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        var pageSetting = {
+            title: '회원 관리',
+            description: '장차서비스 회원 관리페이지',
+            layout: 'admin/templates/admin_layout'
+        };
+        res.render('admin/admin_az369_user',pageSetting);
+    }
 });
 
 //장차 회원 관리
-router.get('/az369_payment', function(req, res) {
-
-    var pageSetting = {
-        title: '장차 결제 관리',
-        description: '장차서비스 결제 관리페이지',
-        layout: 'admin/templates/admin_layout'
-    };
-    res.render('admin/admin_az369_payment',pageSetting);
+router.get('/az369_payment', auth.isLoggedIn, function(req, res) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        var pageSetting = {
+            title: '장차 결제 관리',
+            description: '장차서비스 결제 관리페이지',
+            layout: 'admin/templates/admin_layout'
+        };
+        res.render('admin/admin_az369_payment',pageSetting);
+    }
 });
 
 //장차 회원 관리
-router.get('/az369_video', function(req, res) {
-
-    var pageSetting = {
-        title: '장차 유튜브 관리',
-        description: '장차서비스 유튜브 관리페이지',
-        layout: 'admin/templates/admin_layout'
-    };
-    res.render('admin/admin_az369_video',pageSetting);
+router.get('/az369_video', auth.isLoggedIn, function(req, res) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        var pageSetting = {
+            title: '장차 유튜브 관리',
+            description: '장차서비스 유튜브 관리페이지',
+            layout: 'admin/templates/admin_layout'
+        };
+        res.render('admin/admin_az369_video',pageSetting);
+    }
 });
 
 

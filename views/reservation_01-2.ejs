@@ -88,11 +88,15 @@
                 </div>
                 <div class="reservation_btn_mo">
                     <ul>
-                        <li><a href="reservation" class="back">뒤로</a></li>
+                        <li><a href="/" class="back">뒤로</a></li>
                         <li><a onclick="showPayment()" class="payment_open">예매하기</a></li>
                     </ul>
                 </div>
-
+                <div class="reservation_btn_mo no_data_seat">
+                    <ul>
+                        <li style="width: 100%;"><a href="/" class="back">뒤로</a></li>
+                    </ul>
+                </div>
 
 
             </div>
@@ -205,6 +209,14 @@
                 method: "post",
                 dataType: "json",
                 success: function (res) {
+                    if(res.data.length == 0){
+                        $('.container').css('display','none');
+                        $('.reservation_btn_mo').css('display','none');
+                        $('.no_data_seat').css('display','block');
+                    }else{
+                        $('.no_data_seat').css('display','none');
+                    }
+
                     sessionStorage.setItem("car_list", JSON.stringify(res.data));
                     let ctId = res.data[0].ctID
                     let price = res.data[0].seatPrice;

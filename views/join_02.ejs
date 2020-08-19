@@ -16,6 +16,13 @@
         content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
+    <style>
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -70,7 +77,7 @@
                                 </li>
 
                                 <li>
-                                    <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
+                                    <input type="number" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
                                 </li>
 
                                 <li>
@@ -325,15 +332,20 @@
                 var pwd1 = $("#password").val();
                 var pwd2 = $("#password2").val();
                 if (pwd1 != "" || pwd2 != "") {
-                    if (pwd1 == pwd2) {
+                    if(pwd2.length > 2){
+                        if (pwd1 == pwd2) {
                         $("#alert-success").css('display', 'block')
                         $("#alert-danger").css('display', 'none')
                         $("#submit").removeAttr("disabled");
-                    } else {
-                        $("#alert-success").css('display', 'none')
-                        $("#alert-danger").css('display', 'block')
-                        $("#submit").attr("disabled", "disabled");
+                        } else {
+                            $("#alert-success").css('display', 'none')
+                            $("#alert-danger").css('display', 'block')
+                            $("#submit").attr("disabled", "disabled");
+                        }
                     }
+                }
+                if(pwd2.length == 0){
+                    $("#alert-danger").css('display', 'none');
                 }
             });
         });
