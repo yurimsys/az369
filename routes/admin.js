@@ -152,6 +152,20 @@ router.get('/az369_payment', function(req, res) {
     res.render('admin/admin_az369_payment',pageSetting);
 });
 
+//장차 회원 관리
+router.get('/az369_video', function(req, res) {
+
+    var pageSetting = {
+        title: '장차 유튜브 관리',
+        description: '장차서비스 유튜브 관리페이지',
+        layout: 'admin/templates/admin_layout'
+    };
+    res.render('admin/admin_az369_video',pageSetting);
+});
+
+
+
+
 
 //비지니스 테이블
 router.get('/b', auth.isLoggedIn, function(req, res, next) {

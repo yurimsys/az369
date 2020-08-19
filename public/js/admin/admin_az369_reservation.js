@@ -67,14 +67,16 @@ let objectInfo = function (mode = "modify", row_data) {
                 );
                 let default_html = '<option value="null">배차 선택</option>'
                 $('#ct_id').append(default_html);
-                for (let i=0; i<res.data.length; i++){
-                    let html = "<option value="+res.data[i].CT_ID+" onclick='test(this)' data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
-                    $('#ct_id').append(html);
+                if(res.data.length > 0){
+                    for (let i=0; i<res.data.length; i++){
+                        let html = "<option value="+res.data[i].CT_ID+" onclick='test(this)' data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+                        $('#ct_id').append(html);
+                    }
+        
+                        let html = "<option value="+res.data[0].B_NAME+">"+res.data[0].B_NAME+"</option>";
+                        $('#search_ct_id').append(default_html);
+                        $('#search_ct_id').append(html);
                 }
-    
-                    let html = "<option value="+res.data[0].B_NAME+">"+res.data[0].B_NAME+"</option>";
-                    $('#search_ct_id').append(default_html);
-                    $('#search_ct_id').append(html);
             }
         });
 

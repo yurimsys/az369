@@ -5324,5 +5324,67 @@ router.get('/payment_list',function(req,res){
 
 })
 
+//유튜브 리스트
+router.get('/video',function(req, res){
+    let query = `select 
+                    YL_id, 
+                    YL_url, 
+                    YL_title, 
+                    left(YL_description,10) as YL_description, 
+                    YL_description,
+                    YL_ch_name, 
+                    YL_d_order, 
+                    YL_dDt 
+                from tYL`
+
+    if(req.query.type === 'search'){
+        let condition_list = [];
+        if( req.query.u_name){
+            condition_list.push(`U_Name like '%${req.query.u_name}%'`);
+        }
+        if( req.query.u_phone){
+            condition_list.push(`U_Phone like '%${req.query.u_phone}%'`);
+        }
+        if( req.query.pg_name){
+            condition_list.push(`PH_PG_Name like '%${req.query.pg_name}%'`);
+        }
+        if( req.query.pg_id){
+            condition_list.push(`PH_PG_ID like '%${req.query.pg_id}%'`);
+        }
+        if( req.query.ph_price){
+            condition_list.push(`PH_Price like '%${req.query.ph_price}%'`);
+        }
+        if( req.query.ph_type){
+            condition_list.push(`PH_Type like '%${req.query.ph_type}%'`);
+        }
+        if( req.query.pay_state){
+            condition_list.push(`CR_PayState like '%${req.query.pay_state}%'`);
+        }
+        if( req.query.u_cdt){
+            condition_list.push(`CR_cDt like '%${req.query.u_cdt}%'`);
+        }
+
+        let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
+        if( condition_list.length > 0){
+            let condition_stmt = ' WHERE '+condition_list.join(searchType);
+            query += condition_stmt + ' GROUP BY PH_ID'
+        }
+
+        connection.query(query,
+            function(err, rows){
+            if(err) throw err;
+
+            res.json({data : rows})
+        })
+    }else{
+        connection.query(query, function(err, rows){
+            if(err) throw err;
+            res.json({data : rows})
+        })
+    }
+
+})
+
+
 
 module.exports = router;
