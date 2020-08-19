@@ -434,11 +434,12 @@ $normal_color               : #222222;
     width: calc(77% - 30px);
     height: 30px;
 }
+.long_box_time { width: calc(77% - 30px); height: 30px; margin-bottom: 1%;}
 
-input::placeholder, select {color: #999; padding-left: 12px;;}
+input::placeholder, select {color: #999; padding-left: 12px;}
 
 
-.long_box_time { width: calc(77% - 30px); height: 30px; margin-bottom: 1%;;}
+
 .dx-texteditor-input-container{height: 30px;;}
 
 .short_box{
