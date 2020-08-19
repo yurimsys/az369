@@ -335,10 +335,11 @@
 
             if(location.search == '?pay_test'){
                 sessionStorage.setItem('isTest','test');
+                $('#pay_type option[value="free"]').remove();
             }else{
                 sessionStorage.removeItem('isTest','test');
+                $('#pay_type option[value="CARD"]').remove();
             }
-            // exitTest();
         })
 
     
