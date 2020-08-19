@@ -306,6 +306,7 @@
 
     <script>
         const user_name = "<%=sessionUser.U_Name%>";
+        const user_id = "<%=sessionUser.U_ID%>"
         let now_location = 'default';
         $(document).ready(function(){
 
@@ -707,7 +708,8 @@
                 data : {
                     "seatNums": selected_seats,
                     "ct_id": ct_id,
-                    "pay_check" : pay_check
+                    "pay_check" : pay_check,
+                    "user_id" : user_id
                 },
                 success: function(res){
                     // console.log('res!',res);
@@ -737,7 +739,8 @@
                         dataType : 'JSON',
                         data : {
                             "seatNums": selected_seats,
-                            "ct_id": ct_id
+                            "ct_id": ct_id,
+                            "user_id" : user_id
                             },
                         success: function(res){
                             if(res.data != "success"){
@@ -753,6 +756,7 @@
                                         "oPrice": origin_price,
                                         "sPrice": sale_price,
                                         "ct_id": ct_id,
+                                        "user_id" : user_id,
                                         "payType" : '무료예매'
                                     }
                                 }).done((result) => {
@@ -826,6 +830,7 @@
                         dataType : 'JSON',
                         data : {
                             "seatNums": selected_seats,
+                            "user_id" : user_id,
                             "ct_id": ct_id
                             },
                         success: function(res){
@@ -908,7 +913,8 @@
                         "sPrice": sale_price,
                         "ct_id": ct_id,
                         "tid" : tid,
-                        "payType" : payType
+                        "payType" : payType,
+                        "user_id" : user_id
                     }
                 }).done((result) => {
                     $('#payment').css('display','none');
@@ -970,16 +976,6 @@
         window.onbeforeunload = function(){
             processCancel();
         }
-
-        // window.onpageshow = function (event) {
-        //     if (event.persisted) {
-        //         // 뒤로가기로 페이지 로드 시
-        //         document.location.reload();
-        //     }
-        //     else {
-        //         // 새로운 페이지 로드 시
-        //     }
-        // }
         
         $(window).bind('pageshow', function(event){
             if(event.originalEvent && event.originalEvent.persisted){

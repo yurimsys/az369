@@ -1376,7 +1376,7 @@ router.get('/bus_check', auth.isLoggedIn, function(req, res){
 router.post('/temporary_seat', async function(req, res){
     connection.beginTransaction(function(err){
 
-        let u_id = req.user.U_ID //등록할 회원 아이디
+        let u_id = req.body.user_id; //등록할 회원 아이디
         let seatNums = req.body['seatNums']; // 등록할 좌석
         let ct_id = req.body.ct_id // 등록할 장차
         let str_values_list = [];
@@ -1439,47 +1439,86 @@ router.post('/temporary_seat', async function(req, res){
 router.delete('/temporary_seat_delete', async function(req, res){
     connection.beginTransaction(function(err){
 
-        let u_id = req.user.U_ID //등록할 회원 아이디
-        let seatNums = req.body['seatNums']; // 등록할 좌석
-        let ct_id = req.body.ct_id // 등록할 장차
-        let pay_check = req.body.pay_check;
-
-        let query = `DELETE FROM tCR WHERE 
-                        CR_CT_ID = ${ct_id} AND 
-                        CR_U_ID = ${u_id} AND
-                        CR_Cancel = 'N' AND
-                        CR_SeatNum IN (${seatNums})`
-
-        if(pay_check == ""){
-            if(seatNums != undefined){
-                connection.query(query, 
-                    function(err, result) {
-                        if (err){
-                            connection.rollback(function(){
-                                res.json({data : 201});
-                            })
-                        } 
-        
-                        connection.commit(function(err) {
-                            if (err) {
-                                return connection.rollback(function() {
-                                    throw err;
-                                });
-                            }
-                            res.json({data : 'success'});    
-                        });
-        
-                    });
-            }else{
-                res.json({data : 202});
-            }
+        if(err){
+            console.log('ERR !',err);
+            res.json({data :  '302'});
         }else{
-            res.redirect('/complete');
-        }
-
-
-
+            let u_id = req.body.user_id; //등록할 회원 아이디
+            let seatNums = req.body['seatNums']; // 등록할 좌석
+            let ct_id = req.body.ct_id // 등록할 장차
+            let pay_check = req.body.pay_check;
+    
+            let query = `DELETE FROM tCR WHERE 
+                            CR_CT_ID = ${ct_id} AND 
+                            CR_U_ID = ${u_id} AND
+                            CR_Cancel = 'N' AND
+                            CR_SeatNum IN (${seatNums})`
+    
+            if(pay_check == ""){
+                if(seatNums != undefined){
+                    connection.query(query, 
+                        function(err, result) {
+                            if (err){
+                                connection.rollback(function(){
+                                    res.json({data : 201});
+                                })
+                            } 
             
+                            connection.commit(function(err) {
+                                if (err) {
+                                    return connection.rollback(function() {
+                                        throw err;
+                                    });
+                                }
+                                res.json({data : 'success'});    
+                            });
+            
+                        });
+                }else{
+                    res.json({data : 202});
+                }
+            }else{
+                res.redirect('/complete');
+            }
+        }
+    })
+})
+
+//인터넷 창 강제 조료시 해당 좌석 비활성화 삭제 아이폰용
+router.delete('/temporary_seat_delete_ios', async function(req, res){
+    connection.beginTransaction(function(err){
+
+        if(err){
+            console.log('ERR !',err);
+            res.json({data :  '302'});
+        }else{
+            let u_id = req.body.user_id; //등록할 회원 아이디
+    
+            let query = `DELETE FROM tCR WHERE 
+                            CR_U_ID = ${u_id} AND
+                            CR_Cancel = 'N' AND
+                            CR_PH_ID IS NULL`
+    
+            connection.query(query, 
+                function(err, result) {
+                    if (err){
+                        connection.rollback(function(){
+                            res.json({data : 201});
+                        })
+                    } 
+    
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                throw err;
+                            });
+                        }
+                        res.json({data : 'success'});    
+                    });
+    
+                });
+               
+        }
     })
 })
 
@@ -1499,7 +1538,7 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
         // ph_type = '-'; // 무료기간동안만 - 으로 넣음.
         let ph_type;
         let pg_id;
-        let u_id = req.user.U_ID //등록할 회원 아이디
+        let u_id = req.body.user_id //등록할 회원 아이디
         let cr_memo;
         if(req.body.payType == '01'){
             ph_type = '신용카드';
@@ -5351,7 +5390,7 @@ router.get('/video',function(req, res){
         if( req.query.video_channel){
             condition_list.push(`YL_ch_name like '%${req.query.video_channel}%'`);
         }
-        if( req.query.video_recommend){
+        if( req.query.video_recommend != 'null'){
             condition_list.push(`YL_d_order like '%${req.query.video_recommend}%'`);
         }
         if( req.query.video_cdt){
