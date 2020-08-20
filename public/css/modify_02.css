@@ -22,8 +22,7 @@
 
 /*폼 버튼영역*/
 /*인증번호받기*/
-.check_btn, .btn-add {width: 29%; height: 50px; line-height: 50px; float: left; cursor: pointer; text-align: center;}
-.check_btn {width: 29%; height: 50px; line-height: 50px; float: left;  cursor: pointer; font-weight: 400;}
+
 #phone_check {margin-top: 1%;}
 #phone_check_box {
   font-size: 16px;
@@ -33,8 +32,7 @@
 }
 #phone_check_box {display: none;}
 
-/*우편번호찾기*/
-#postcode {width: 70%; float: left; margin-right: 1%;}
+
 
 /*회원탈퇴버튼*/
 .withdrawal_open { display: inline-block; margin-top: 70px; margin-left: 50%; transform: translateX(-50%); color: #999; font-weight: 300;}
@@ -99,8 +97,6 @@
     
     .modify_form {border-bottom: 1px solid #eee;}
     .modify_form:nth-child(3) {border-bottom: 0; padding-bottom: 0;}
-    #phone, #postcode {width: 60%;}
-    .check_btn, .modify_box button {width: 39%; font-size: 15px;}
     .withdrawal_box{margin-top: 40%;}
 }
 

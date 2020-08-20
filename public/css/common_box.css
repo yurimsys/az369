@@ -45,8 +45,8 @@ section.sub_wrap h1 {
 .btn {text-align: center; border-radius: 4px; height: 50px; line-height: 50px; font-size: 15px;}
 .btn-primary {border: 1px solid #C3A164; background: #c3a164; color: #fff; font-weight: 400;}
 .btn-outline-primary {border: 1px solid #dbdbdb; color: #444;transition: all 0.3s;}
-.btn-secondary {border: 1px solid #999; color: #191919;background: #fff;} 
- .btn-light {border: 1px solid #444; color: #191919;background: #fff;} 
+.btn-secondary {border: 1px solid #444; color: #191919;background: #fff;} 
+ .btn-light {border: 1px solid #dbdbdb; color: #505050;background: #fff;} 
 
  /*스크롤 --------------------------------*/
 .scroll_style::-webkit-scrollbar {width: 2px;}
@@ -64,6 +64,9 @@ input:focus {border: 1px solid #c3a164;}
 #phone {width:calc(100% - 146px); float: left; margin-right: 8px;}
 .check_btn {width: 138px; height: 50px; line-height: 50px; float: left; cursor: pointer;}
 #phone_check {margin-top: 1%;}
+#postcode {width: calc(100% - 146px); margin-right: 8px; float: left;} 
+.btn-add {width: 138px; height: 50px; line-height: 50px; cursor: pointer; float:left; background: #fff; border: 1px solid #444; font-weight: 400;  font-size: 16px; color: #222; border-radius: 4px; text-align: center;} 
+
 
 /* box 애니메이션 --------------------------------------------- */
 @keyframes box {
@@ -206,11 +209,6 @@ input[type="submit"] {font-size: 18px;}
 
 /*320px*/
 @media screen and (max-width: 320px) {
-  
-    
     .gnb_mo_login a {font-size: 13px;}
     section.sub_wrap h1 {font-size: 26px;}
-    /* #phone {width: 56%;}
-    .check_btn {width: 43%; font-size: 15px;} */
-    
 }

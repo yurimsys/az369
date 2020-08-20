@@ -27,8 +27,8 @@
 
 /*우편번호찾기*/
 .address_form input {margin-bottom: 5px;}
-#postcode {width: calc(100% - 146px); margin-right: 8px; float: left;;} 
-.btn-add {width: 138px; height: 50px; line-height: 50px; cursor: pointer; float:left; background: #fff; border: 1px solid #444; font-weight: 400;  font-size: 16px; color: #222; border-radius: 4px;}
+
+
 
 /*------------------------*/
 
