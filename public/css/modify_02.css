@@ -102,6 +102,7 @@
     .modify_form:nth-child(3) {border-bottom: 0; padding-bottom: 0;}
     #phone, #postcode {width: 60%;}
     .check_btn, .modify_box button {width: 39%; font-size: 15px;}
+    .withdrawal_box{margin-top: 40%;}
 }
 
 /*320px*/
@@ -120,4 +121,5 @@
     
     .check_btn, .modify_box button {font-size: 14px;}
     .password::placeholder {font-size: 12px;}
+    .withdrawal_box{margin-top: 30%;}
 }
