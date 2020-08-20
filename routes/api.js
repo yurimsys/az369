@@ -840,48 +840,6 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
 
 });
 
-// //예매취소
-// router.post('/user/cancelRes', auth.isLoggedIn, (req, res, next) =>{
-//     let query = `update tCR
-//                     inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
-//                     set CR_Cancel = :crCancel, CR_CancelDt = now()
-//                     where CR_ID = :cr_id AND  CR_U_Id = :sessionId AND
-//                     tCT.CT_DepartureTe > date_add(now(),interval +4 day);`;
-//                     // and tCT.CT_DepartureTe > date_add(now(),interval +4 day);
-//     //pID  cr_cdt
-//     let select_query = `select CR_SeatNum, CR_Price from tCR where CR_ID = :cr_id AND tCR.CR_U_ID = :sessionId`;
-//     let sessionId = req.user.U_ID;
-//     let cr_id = req.body.cr_id;
-//     let crCancel = 'Y';
-
-//     connection.query(query,
-//         {
-//             crCancel, sessionId, cr_id
-
-//         },
-//         function(err, rows, fields) {
-//             if (err) throw err;
-
-//             connection.query(select_query,
-//                 {
-//                     cr_id, sessionId
-//                 },
-//                 function(err, result, fields){
-//                     let over_lap = [];
-//                     for(let i=0; i <result.length; i++){
-//                           over_lap.push(result[i].CR_SeatNum)
-//                     }
-//                     let seat_number = over_lap.join('번,')+'번';
-//                     res.json({data : rows.affectedRows, seats : seat_number, cancelPay : result.length *result[0].CR_Price})
-
-//                 })
-//             // //console.log(findId);
-//             // res.json( {  data : rows.affectedRows});
-//             // console.log("rows : ",rows.affectedRows);
-
-//         });
-
-// });
 //예매취소
 router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
     connection.beginTransaction(function(err){
@@ -889,9 +847,8 @@ router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
                         inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
                         set CR_Cancel = :crCancel, CR_CancelDt = now(), CR_PayState = '결제취소'
                     where CR_ID IN (:cr_id) AND  CR_U_Id = :sessionId AND
-                        tCT.CT_DepartureTe > date_add(now(),interval +4 day);`;
-                // and tCT.CT_DepartureTe > date_add(now(),interval +4 day);
-        //pID  cr_cdt
+                        tCT.CT_DepartureTe > date_add(now(),interval +3 day);`;
+                        
         let select_query = `select CR_SeatNum, CR_Price from tCR where CR_ID IN (:cr_id) AND tCR.CR_U_ID = :sessionId`;
         let scan_query = ` SELECT CR_ScanPy FROM tCR WHERE tCR.CR_ID IN (:cr_id) AND tCR.CR_U_ID =:sessionId `
         let start_query = `SELECT 

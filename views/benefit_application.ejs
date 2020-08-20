@@ -246,6 +246,9 @@
                         location.reload();
                     } else if (res.data.SI_cDt != "") {
                         $("#applyDate").text(res.data.SI_cDt);
+                        $('footer').css('z-index','-1000');
+                        $('header').css('z-index','1000');
+                        $('.layer').css('z-index','2000')
                         location.href = "#popup";
                     }
                 }

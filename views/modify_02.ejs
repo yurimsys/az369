@@ -355,7 +355,10 @@
         }
         //회원 탈퇴 분기점
         function selDelBtn() {
-            $('footer').css('background', 'rgba(0,0,0, -0.5)');
+            // $('footer').css('background', 'rgba(0,0,0, -0.5)');
+            $('footer').css('z-index','-1000');
+            $('header').css('z-index','1000');
+            $('.layer').css('z-index','2000');
             $.ajax({
                 url: "api/user/delchoice",
                 dataType: "json",
