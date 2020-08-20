@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+/* .wrap {background: #f8f8f8;} */
+
+/*section.main*/
+section.main {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+.main_bg { background: #eee; width: 100%; height: 250px;}
+
+section.wrap_terms {
+    width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 100px 0 60px;
+    font-size: 15px;
+    color: #505050;
+    line-height: 25px;
+}
+.wrap_terms h2 {font-size: 32px; font-weight: 500; text-align: center; margin-bottom: 50px; color: #191919;}
+.wrap_terms h3 {font-size: 22px; font-weight: 500; margin-top: 40px; margin-bottom: 15px; color: #191919;}
+.wrap_terms p {margin-bottom: 10px;}
+.wrap_terms dl {margin-top: 6px;}
+.wrap_terms dt {margin-bottom: 2px;}
+
+.wrap_terms h6 {text-align: center; color: #C3A164; font-weight: 500; font-size: 15px; margin-bottom: 8px;}
+.wrap_terms .bar {
+    border-bottom: 1px solid #c3a164; 
+    width: 25px; 
+    margin: 0 auto;
+    margin-top:15px;
+    margin-bottom: 30px;
+}
+
+
+@media screen and (max-width: 1200px) {
+    section.wrap_terms {width: 100%; padding: 100px 60px 60px;}
+}
+
+@media screen and (max-width: 450px) {
+    section.wrap_terms { padding: 80px 30px 60px;}
+}
+
+@media screen and (max-width: 375px) {
+    section.wrap_terms { padding: 80px 20px 60px;}
+    .wrap_terms h2 {font-size: 26px;}
+    .wrap_terms h3 {font-size: 20px;}
+}
