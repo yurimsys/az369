@@ -306,6 +306,7 @@
 
     <script>
         const user_name = "<%=sessionUser.U_Name%>";
+        const user_id = "<%=sessionUser.U_ID%>"
         let now_location = 'default';
         $(document).ready(function(){
 
@@ -334,10 +335,11 @@
 
             if(location.search == '?pay_test'){
                 sessionStorage.setItem('isTest','test');
+                $('#pay_type option[value="free"]').remove();
             }else{
                 sessionStorage.removeItem('isTest','test');
+                $('#pay_type option[value="CARD"]').remove();
             }
-            // exitTest();
         })
 
     
@@ -707,7 +709,8 @@
                 data : {
                     "seatNums": selected_seats,
                     "ct_id": ct_id,
-                    "pay_check" : pay_check
+                    "pay_check" : pay_check,
+                    "user_id" : user_id
                 },
                 success: function(res){
                     // console.log('res!',res);
@@ -737,7 +740,8 @@
                         dataType : 'JSON',
                         data : {
                             "seatNums": selected_seats,
-                            "ct_id": ct_id
+                            "ct_id": ct_id,
+                            "user_id" : user_id
                             },
                         success: function(res){
                             if(res.data != "success"){
@@ -753,6 +757,7 @@
                                         "oPrice": origin_price,
                                         "sPrice": sale_price,
                                         "ct_id": ct_id,
+                                        "user_id" : user_id,
                                         "payType" : '무료예매'
                                     }
                                 }).done((result) => {
@@ -826,6 +831,7 @@
                         dataType : 'JSON',
                         data : {
                             "seatNums": selected_seats,
+                            "user_id" : user_id,
                             "ct_id": ct_id
                             },
                         success: function(res){
@@ -840,7 +846,7 @@
                                 MID: "testpay01m",							// 가맹점 MID
                                 MerchantKey: "Ma29gyAFhvv/+e4/AHpV6pISQIvSKziLIbrNoXPbRS5nfTx2DOs8OJve+NzwyoaQ8p9Uy1AN4S1I0Um5v7oNUg==",	// 가맹점 라이센스키
                                 GoodsName: "장차 좌석",		// 상품명
-                                Amt: "135",							// 결제금액(과세)
+                                Amt: "200",							// 결제금액(과세)
                                 BuyerName: user_name,		// 고객명
                                 BuyerTel: "01012341234",				// 고객전화번호
                                 BuyerEmail: "email@eamil",			// 고객이메일
@@ -908,7 +914,8 @@
                         "sPrice": sale_price,
                         "ct_id": ct_id,
                         "tid" : tid,
-                        "payType" : payType
+                        "payType" : payType,
+                        "user_id" : user_id
                     }
                 }).done((result) => {
                     $('#payment').css('display','none');
@@ -970,16 +977,6 @@
         window.onbeforeunload = function(){
             processCancel();
         }
-
-        // window.onpageshow = function (event) {
-        //     if (event.persisted) {
-        //         // 뒤로가기로 페이지 로드 시
-        //         document.location.reload();
-        //     }
-        //     else {
-        //         // 새로운 페이지 로드 시
-        //     }
-        // }
         
         $(window).bind('pageshow', function(event){
             if(event.originalEvent && event.originalEvent.persisted){

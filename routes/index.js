@@ -40,14 +40,6 @@ router.get('/pay_cancel',function(req, res){
     res.render('pay_cancel');
 })
 
-router.get('/testst',function(req, res, next){
-    res.render('testst');
-})
-
-router.get('/testgy',function(req, res, next){
-    res.render('testgy');
-})
-
 
 
 router.get('/sign', function(req, res, next) {

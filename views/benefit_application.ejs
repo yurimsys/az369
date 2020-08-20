@@ -161,6 +161,37 @@
     </div>
     <script>
 
+        $(document).ready(function(){
+            
+            //하이픈 제거
+            var replaceNotInt = /[^0-9]/gi;
+
+            $("#phone").on("focusout", function() {
+                var x = $(this).val();
+                if (x.length > 0) {
+                    if (x.match(replaceNotInt)) {
+                    x = x.replace(replaceNotInt, "");
+                    }
+                    $(this).val(x);
+                }
+            }).on("keyup", function() {
+                $(this).val($(this).val().replace(replaceNotInt, ""));
+            });
+
+            $("#phone2").on("focusout", function() {
+                var x = $(this).val();
+                if (x.length > 0) {
+                    if (x.match(replaceNotInt)) {
+                    x = x.replace(replaceNotInt, "");
+                    }
+                    $(this).val(x);
+                }
+            }).on("keyup", function() {
+                $(this).val($(this).val().replace(replaceNotInt, ""));
+            });
+
+        })
+
         //입점상담신청
         function applyCon(e) {
             e.preventDefault(); //다음 이벤트 제거

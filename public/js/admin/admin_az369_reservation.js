@@ -308,9 +308,10 @@ let tableInit = function (data) {
                         }
                     }
             },
+            { dataField: "CR_CancelDt", caption: "취소일자"},
             { dataField: "CR_ScanPy", caption: "평택 스캔확인",
                     cellTemplate : function(element, info){
-                        console.log('infoT',info.value);
+                        // console.log('infoT',info.value);
                         if(info.value == 'Y'){
                             element.append('<div>'+info.text +'</div>').css('color','blue')
                         }else{
@@ -435,7 +436,7 @@ function saveAD(){
     
     // let form_data = new FormData(document.forms[0]);
     // for ( let i in update_data) form_data.append(i, update_data[i]);
-    console.log('입력!!',selected_seats);
+    // console.log('입력!!',selected_seats);
     let api_url = '/api/reservation';
     $.ajax({
         dataType : 'JSON',
@@ -460,8 +461,8 @@ function deleteAD(mode = 'single') {
             type : "DELETE",
             url : '/api/reservation/'+id,
             success : function (res) {
-                console.log('ajax result');
-                console.log(res);
+                // console.log('ajax result');
+                // console.log(res);
                 objectInfo('new');
                 $("#mgmt-table").dxDataGrid("instance").refresh();
             }
@@ -477,8 +478,8 @@ function deleteAD(mode = 'single') {
             data : id_list,
             url : '/api/reservation',
             success : function (res) {
-                console.log('ajax result');
-                console.log(res);
+                // console.log('ajax result');
+                // console.log(res);
                 objectInfo('new');
                 $("#mgmt-table").dxDataGrid("instance").refresh();
             }
@@ -529,7 +530,7 @@ function updateAD(){
             contentType: "application/json; charset=utf-8",
             dataType : "json",
             success : function(data){
-                console.log(data);
+                // console.log(data);
                 alert('결제 취소 완료');
         
             },
@@ -552,20 +553,11 @@ function updateAD(){
         url : api_url,
         data : update_data,
         success : function (res) {
-            console.log('ajax result');
-            console.log(res);
+            // console.log('ajax result');
+            // console.log(res);
             $("#mgmt-table").dxDataGrid("instance").refresh();
         }
     })
-
-
-
-
-    
-
-
-
-
 
 
 }
@@ -772,7 +764,7 @@ function flushSeat(seat_number,type) {
             res.data.map((seat_num) => {
                 seat_id_list.push(getSeatId(seat_num));
             });
-            console.log('seat!!',seat_id_list);
+            // console.log('seat!!',seat_id_list);
             sc.find('unavailable').status('available');
             sc.status(seat_id_list, 'unavailable');
         });
@@ -827,7 +819,7 @@ $('#ct_id').on('select2:select',function(e){
     
     let type = 'res-user-seat'
     let res_ct_id = e.params.data.id;
-    console.log('type :', res_ct_id);
+    // console.log('type :', res_ct_id);
     openBus(res_ct_id,type);
     
 });

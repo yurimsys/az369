@@ -202,22 +202,24 @@ let tableInit = function (data) {
                              .text("")
                         );
                 }
-            }, {
-                location: "before",
-                template: function(){
-                    return $("<div/>")
-                        .addClass("selectedActionBtns")
-                        .append(
-                            $("<div />")
-                            .addClass("selectRowCount")
-                            .text(""),
-                            $("<div />")
-                            .addClass("btn btn-delete py-0")
-                            .text("삭제")
-                            .attr("onClick", "deleteAD('multi')")
-                        );
-                }
-            }, {
+            }, 
+            // {
+            //     location: "before",
+            //     template: function(){
+            //         return $("<div/>")
+            //             .addClass("selectedActionBtns")
+            //             .append(
+            //                 $("<div />")
+            //                 .addClass("selectRowCount")
+            //                 .text(""),
+            //                 $("<div />")
+            //                 .addClass("btn btn-delete py-0")
+            //                 .text("삭제")
+            //                 .attr("onClick", "deleteAD('multi')")
+            //             );
+            //     }
+            // }, 
+            {
                 location: "after",
                 template: function(){
                     return $("<div/>")

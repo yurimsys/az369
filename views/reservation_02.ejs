@@ -87,10 +87,6 @@
 
         $(document).ready(function () {
             sessionStorage.removeItem("pay_complete");
-            /*agreement 전체동의 체크*/
-            $('.check-all').click(function () {
-                $('.ab').prop('checked', this.checked);
-            });
 
             let payment_result = JSON.parse(sessionStorage.getItem("payment_result"));
             console.log(payment_result);
