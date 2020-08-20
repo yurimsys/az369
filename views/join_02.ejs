@@ -271,7 +271,7 @@
 
         function sendSmsButton() {
             let phone_number = $("#phone").val();
-            console.log('ph',phone_number.replace(/-/g,''));
+            // console.log('ph',phone_number.replace(/-/g,''));
             phone_number = phone_number.replace(/-/g, "");
 
             $.ajax({
@@ -444,7 +444,7 @@
                     detailAddress: $("#detailAddress").val()
                 },
                 success: function (res) {
-                    console.log("회원가입 시 :::", res.data);
+                    // console.log("회원가입 시 :::", res.data);
                     joinId = res.data.insertId;
                     var orderDetail = [{ name: "findId", value: res.name }, { name: "findName", value: res.id }];
                     sessionStorage.setItem("orderDetail", JSON.stringify(orderDetail));
