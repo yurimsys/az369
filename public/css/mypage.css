@@ -209,12 +209,12 @@ th, td {padding: 0;}
 .time_info_time ul li dt {font-size: 15px;}
 .time_info_time ul li dd {font-size: 18px; font-weight: 500;color: #271d0a; }
 
-.payment_info {width: 100%; font-size: 15px; display: table; margin: 20px 0;}
+.payment_info {width: 100%; font-size: 15px; display: table; margin: 16px 0 24px;}
 .payment_info th, .payment_info td {padding: 2px 5px;}
 .payment_info th {width: 30%; text-align: left; float: left; font-weight: normal; color: #505050;}
 .payment_info td {width: 70%; text-align: right; float: right; color: #191919;}
 
-.qrcode_list {width: 100%; overflow-x: hidden; height: 240px; border-top: 1px solid #dbdbdb;}
+.qrcode_list {width: 100%; overflow-x: hidden; height: 240px; border-top: 1px solid #eee;}
 .qrcode_list ul li {width:100%; border-bottom: 1px solid #eee; position: relative; overflow: hidden;}
 /* .qrcode_list ul li:nth-child(1) {border-top: 1px solid #eee;} */
 .qrcode {width: 50px; height: 50px; background-color: black;float: right; margin-right: 16px; z-index: 1000000;}

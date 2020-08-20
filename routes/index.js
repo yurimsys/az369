@@ -642,19 +642,23 @@ router.get('/benefit_4', function(req, res, next) {
 
 // footer 버튼 이동 페이지
 // 서비스 이용약관
-router.get('/', function(req, res, next) {
-    res.render('service');
+router.get('/service', function(req, res, next) {
+    res.render('footer_page_service', { sessionUser : req.user });
 });
+
 
 // 개인정보처리방침
 router.get('/privacy', function(req, res, next) {
-    res.render('privacy');
+    res.render('footer_page_privacy', { sessionUser : req.user });
 });
 
 // 환불규정
 router.get('/refund', function(req, res, next) {
-    res.render('refund');
+    res.render('footer_page_refund', { sessionUser : req.user });
 });
+
+
+
 
 //테스트
 router.get('/daytest', function(req, res, next) {
