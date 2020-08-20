@@ -429,7 +429,7 @@ router.get('/login', function(req, res, next){
 router.get('/a', function(req, res, next){
     if(req.user !== undefined){
         
-        res.redirect('/');
+        res.redirect('/reservation');
     } else {
         // 로그인시 ID, PW 가 틀렸을 경우 FlashMessage
         let fmsg = req.flash("error");
