@@ -87,18 +87,27 @@
                                             <dl>
                                                 <dt><img src="/img/mypage/info_icon01.png" alt="브랜드샵 아이콘"></dt>
                                                 <dd>
-                                                    <%= sessionUser.U_Brand %></dd>
+                                                    <% if(sessionUser) {%>
+                                                        <%= sessionUser.U_Brand %>    
+                                                    <% }%>
+                                                    　
+                                                　</dd>
                                                    </dl>
                                             <dl>
                                                 <dt><img src="/img/mypage/info_icon02.png" alt="이메일 아이콘"></dt>
                                                 <dd>
-                                                    <%= sessionUser.U_Email %>
+                                                    <% if(sessionUser) {%>
+                                                        <%= sessionUser.U_Email %>    
+                                                    <% }%>
+                                                    　
                                                 </dd>
                                             </dl>
                                             <dl>
                                                 <dt><img src="/img/mypage/info_icon03.png" alt="휴대폰 아이콘" style="padding-left: 3px;"></dt>
-                                                <dd>
-                                                    <%= sessionUser.U_Phone %>
+                                                <dd> <% if(sessionUser) {%>
+                                                        <%= sessionUser.U_Phone %>　
+                                                    <% }%>
+                                                    　
                                                 </dd>
                                             </dl>
 
