@@ -415,13 +415,17 @@
                 alert("아이디 중복입니다.")
                 return;
             }
-            if ($('#id').val() == "" || $('#password').val() == '' || $('#password2').val() == '' || $('#name').val() == '' || $('#phone').val() == '' || $('#brand').val() == '' ||
-                $('#postcode').val() == '' || $('#address').val() == '' || $('#detailAddress').val() == '' || $('#email').val() == '') {
+            // if ($('#id').val() == "" || $('#password').val() == '' || $('#password2').val() == '' || $('#name').val() == '' || $('#phone').val() == '' || $('#brand').val() == '' ||
+            //     $('#postcode').val() == '' || $('#address').val() == '' || $('#detailAddress').val() == '' || $('#email').val() == '') {
+            //     alert("빈칸을 입력해 주세요");
+            //     return;
+            // }
+            // if ($(".chk").is(':checked') == false || $("#select01 option:selected").val() == '0' || $("#select02 option:selected").val() == '0') {
+            //     alert("장차 선호날짜와 시간을 선택해주세요.");
+            //     return;
+            // }
+            if ($('#id').val() == "" || $('#password').val() == '' || $('#password2').val() == '' || $('#name').val() == '' || $('#phone').val() == '') {
                 alert("빈칸을 입력해 주세요");
-                return;
-            }
-            if ($(".chk").is(':checked') == false || $("#select01 option:selected").val() == '0' || $("#select02 option:selected").val() == '0') {
-                alert("장차 선호날짜와 시간을 선택해주세요.");
                 return;
             }
             $.ajax({
@@ -445,43 +449,42 @@
                     var orderDetail = [{ name: "findId", value: res.name }, { name: "findName", value: res.id }];
                     sessionStorage.setItem("orderDetail", JSON.stringify(orderDetail));
 
-                    //장차선호 날짜
-                    var send_array = Array();
-                    var send_cnt = 0;
-                    var chkbox = $(".chk");
-                    for (i = 0; i < chkbox.length; i++) {
-                        if (chkbox[i].checked == true) {
-                            send_array[send_cnt] = chkbox[i].value;
-                            send_cnt++
-                        }
-                    }
-                    var sendJson = JSON.stringify(send_array);
-                    //console.log('sendjson :',sendJson); 
-
-                    var seatArr = JSON.parse(sendJson);
-                    //console.log('seatArr :', seatArr);  
-                    //선호 시간                                            
-                    var sel = $("#select01 option:selected").val();
-                    var sel2 = $('#select02 option:selected').val();
-                    //console.log("시간 :", sel, sel2);                        
-
-                    $.ajax({
-                        url: "api/user/carPool",
-                        dataType: "json",
-                        method: "post",
-                        data: {
-                            'joinId': joinId,
-                            'departureTe': $("#select01 option:selected").val(),
-                            'returnTe': $("#select02 option:selected").val(),
-                            'preferDays': seatArr
-                        },
-                        success: function (res) {
-                            if (res.data === '성공') {
-                                location.href = "join3"
+                    if ($(".chk").is(':checked') == true || $("#select01 option:selected").val() != '0' || $("#select02 option:selected").val() != '0') {
+                        //장차선호 날짜
+                        var send_array = Array();
+                        var send_cnt = 0;
+                        var chkbox = $(".chk");
+                        for (i = 0; i < chkbox.length; i++) {
+                            if (chkbox[i].checked == true) {
+                                send_array[send_cnt] = chkbox[i].value;
+                                send_cnt++
                             }
-
                         }
-                    });
+                        var sendJson = JSON.stringify(send_array);
+                        //console.log('sendjson :',sendJson); 
+
+                        var seatArr = JSON.parse(sendJson);
+                        $.ajax({
+                            url: "api/user/carPool",
+                            dataType: "json",
+                            method: "post",
+                            data: {
+                                'joinId': joinId,
+                                'departureTe': $("#select01 option:selected").val(),
+                                'returnTe': $("#select02 option:selected").val(),
+                                'preferDays': seatArr
+                            },
+                            success: function (res) {
+                                if (res.data === '성공') {
+                                    location.href = "join3"
+                                }
+
+                            }
+                        });
+                    }else{
+                        location.href = "join3"
+                    }
+
 
                 }
             });
