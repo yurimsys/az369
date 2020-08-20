@@ -6,7 +6,7 @@ footer {width: 100%; background-color: #fafafa; position: relative; padding: 35p
 .footer_corp a:hover {color: #767676; transition: all 0.3s;}
 .footer_corp a:nth-child(1)::after,
 .footer_corp a:nth-child(2)::after,
-.footer_info span::after {display: inline-block; width: 1px; height: 12px; margin: 0 7px 0 12px; background-color: #cbcbcb; content: '';}
+.footer_info span::after {display: inline-block; width: 1px; height: 10px; margin: 0 7px 0 10px; background-color: #dbdbdb; content: '';}
 .footer_info span:last-child::after{display: none;}
 .footer_info {color: #999; font-size: 12px; line-height: 25px; font-weight: 300;}
 .footer_info a, .footer_info img {margin-left: 5px;}
