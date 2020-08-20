@@ -48,6 +48,7 @@
 
                         <!-- <h3>회원정보를 입력해주세요.</h3> -->
                         <form>
+                            <h3>필수항목 <span>*</span></h3>
                             <ul>
                                 <li>
                                     <input type="text" id="id" name="아이디" placeholder="아이디">
@@ -55,7 +56,6 @@
                                         가능합니다.</div>
                                     <div id="overId2" style="font-size: 13px; color: red; display: none;">아이디 사용이
                                         불가능합니다.</div>
-
                                 </li>
 
                                 <li>
@@ -66,15 +66,17 @@
                                 <li>
                                     <input type="password" id="password2" name="패스워드" placeholder="비밀번호 확인">
                                     <div class="alert alert-success" id="alert-success"
-                                        style="font-size: 13px; color: green; display: none;">비밀번호가 일치합니다.</div>
+                                        style="font-size: 13px; color: green;font-weight: 400; display: none;">비밀번호가 일치합니다.</div>
                                     <div class="alert alert-danger" id="alert-danger"
-                                        style="font-size: 13px; color: red; display: none; margin-bottom: 3px 0;">비밀번호가 일치하지 않습니다.</div>
+                                        style="font-size: 13px; color: red; font-weight: 400; display: none; margin-bottom: 3px 0;">비밀번호가 일치하지 않습니다.</div>
                                 </li>
 
 
                                 <li>
                                     <input type="text" id="name" name="이름" placeholder="이름">
                                 </li>
+
+                               
 
                                 <li>
                                     <input type="text" id="phone" name="phone" placeholder="휴대전화번호 ( ' - ' 생략 )">
@@ -94,11 +96,15 @@
                                         style="font-size: 13px; display: none; color: #AD863C; font-weight: bold;">인증번호의
                                         유효시간은 30분입니다. <br> 인증번호가 전송이 안된 경우 입력하신 번호를 확인해주세요.</div>
                                     <div class="text-alert" id="alert_msg_fail"
-                                        style="font-size: 13px; color: red; display: none;"></div>
+                                        style="font-size: 13px; color: red; display: none; font-weight: 400;"></div>
                                     <div class="text-alert" id="alert_msg_success"
-                                        style="font-size: 13px; color: green; display: none;">*인증번호가 확인되었습니다.</div>
+                                        style="font-size: 13px; color: green; display: none; font-weight: 400;">*인증번호가 확인되었습니다.</div>
                                 </li>
+                            </ul>
 
+                            <h3>선택항목</h3>
+                            <ul>
+                                
                                 <li>
                                     <input type="text" id="email" name="이메일" placeholder="이메일주소">
                                 </li>

@@ -1,15 +1,18 @@
 @charset "UTF-8";
 
 /*join_box*/
-.join_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; padding: 30px 24%;}
+.join_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; padding: 30px 24%; }
 
 /*회원가입과정*/
-.join_box .join_process {text-align: center; color: #999999; font-weight: 300; font-size: 16px; margin-bottom: 5px;}
+.join_box .join_process {text-align: center; color: #999999; font-size: 15px; margin-bottom: 5px;}
 .join_box .join_process span {color: #C3A164; font-weight: 400;}
 
-.join_box h2 {text-align: center; font-size: 24px; margin-bottom: 30px; font-weight: 500;}
+.join_box h2 {text-align: center; font-size: 24px; font-weight: 500; padding-bottom: 10px;}
 
-.join_box form {width: 100%; margin: 0 auto;}
+.join_box h3 {font-size: 18px; font-weight: 500; margin-bottom: 12px; display: block; margin-top: 30px; padding-left: 5px;}
+.join_box h3 span {color: #C3A164;}
+.join_box form {width: 100%; margin: 0 auto; padding-bottom: 30px;}
+.join_box ul {overflow: hidden;}
 
 /*인증번호받기*/
 #phone_check {margin-top: 5px;}
@@ -24,14 +27,14 @@
 
 /*우편번호찾기*/
 .address_form input {margin-bottom: 5px;}
-#postcode {width: 70%; margin-right: 1%; float: left;;} 
-.btn-add {width: 29%; height: 50px; line-height: 50px; cursor: pointer; float:left; background: #fff; border: 1px solid #999; font-weight: 400;  font-size: 16px; color: #222; border-radius: 4px;}
+#postcode {width: calc(100% - 146px); margin-right: 8px; float: left;;} 
+.btn-add {width: 138px; height: 50px; line-height: 50px; cursor: pointer; float:left; background: #fff; border: 1px solid #444; font-weight: 400;  font-size: 16px; color: #222; border-radius: 4px;}
 
 /*------------------------*/
 
 /*선호도조사 폼*/
-.survey_box {height: auto;  padding-top:40px; text-align: center;}
-.survey_box h3 { color: #222; font-size: 20px; font-weight:600; text-align: center;} 
+.survey_box {height: auto;  padding-top:24px; text-align: center; border-top: 1px solid #eee;}
+.survey_box h3 { color: #222; font-size: 20px; font-weight:600; text-align: center;margin-top: 10px; margin-bottom: 0;} 
 .survey_box p {color: #999; font-size: 15px; text-align: center; margin-bottom: 30px;}
 .survey_box h4 {margin-bottom: 12px; font-weight:500;}
 
@@ -124,7 +127,7 @@
 /*하단 버튼*/
 .join_btn {width: 100%; margin: 0 auto; margin-top: 40px; overflow: hidden;}
 .join_btn ul {width: 100%;}
-.join_btn ul li {margin-right: 1%; text-align: center; height: 50px; line-height: 50px; width: 49%; float: left;}
+.join_btn ul li {margin-right: 1%; text-align: center; height: 50px; line-height: 50px; width: 49.5%; float: left;}
 .join_btn ul li a {display: block;}
 .join_btn ul li:nth-child(2) {margin-right: 0;}
 /*section.sub_wrap 완료*/
@@ -134,29 +137,34 @@
 /*768px*/
 @media screen and (max-width: 768px) {
     .join_box {padding: 30px 60px;}
+    section.sub_wrap h2 {margin-bottom: 0;}
+    .join_box h3 {margin-top: 24px;}
+    .survey_box h3 {margin-top: 0;}
+    .survey_box p {margin-bottom: 24px;}
+    .time {margin-top: 24px; padding-bottom: 20px;}
 }
 
 /*450px*/
 @media screen and (max-width: 450px) {
-    section.sub_wrap p {font-size: 14px; text-align: center; margin-bottom: 3%;}
+    section.sub_wrap p {font-size: 14px; text-align: center;}
     .join_box .join_process {font-size: 14px;}
     .join_box {padding: 5%; margin: 0 auto;}
     .join_btn ul li {height: 45px; line-height:45px;}
     
-    .day {margin-top: 30px;}
     .day ul {width: 80%; margin-bottom: 5px;}
     .time ul {width: 100%;}
     .time ul li:nth-child(1) {width: 100%;}
-    .time ul li:nth-child(2) {margin-left: 50%; transform: translateX(-50%); padding: 3px 0;}
-    .time ul li:nth-child(2) img {transform: rotate(-90deg);}
+    .time ul li:nth-child(2) {margin-left: 50%; transform: translateX(-50%); padding: 3px 0; height: 40px; line-height: 40px;}
+    .time ul li:nth-child(2) img {transform: rotate(-90deg); margin-top: -8px;}
     .time ul li:nth-child(3) {width: 100%;}
     
-    .time {font-size: 15px;}
+    .time {font-size: 15px; padding-bottom: 40px;}
     .survey_box h3 {font-size: 20px; width: 100%; text-align: center; letter-spacing: -1.2px;}
     
-    #phone, #postcode {width: 60%;}
+    .join_btn {margin-top: 0;}
+    /* #phone, #postcode {width: 60%;}
     .check_btn, .btn-add {width: 39%; font-size: 15px;}
-  .join_btn {position: relative; overflow: hidden; padding-top: 40px;}
+  .join_btn {position: relative; overflow: hidden; padding-top: 40px;} */
 }
 
 
