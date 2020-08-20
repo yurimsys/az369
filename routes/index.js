@@ -426,9 +426,33 @@ router.get('/login', function(req, res, next){
     }
 });
 
+router.get('/a', function(req, res, next){
+    if(req.user !== undefined){
+        
+        res.redirect('/');
+    } else {
+        // 로그인시 ID, PW 가 틀렸을 경우 FlashMessage
+        let fmsg = req.flash("error");
+        let loginFailMsg = '';
+        if( fmsg.length > 0){
+            loginFailMsg = fmsg[0];       
+        }
+        res.render('login', {sessionUser : req.user, loginFailMsg : loginFailMsg});
+    }
+});
+
+//기존 로그인 시 경로
+// router.post('/login', 
+//     passport.authenticate('local', {
+//         successRedirect: '/',
+//         failureRedirect: '/login',
+//         failureFlash: true       
+//     }) 
+// );
+
 router.post('/login', 
     passport.authenticate('local', {
-        successRedirect: '/',
+        successRedirect: '/reservation',
         failureRedirect: '/login',
         failureFlash: true       
     }) 
