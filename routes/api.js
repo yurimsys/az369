@@ -620,18 +620,46 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     let uZip = req.body.postcode;
     let uAddr1 = req.body.address;
     let uAddr2 = req.body.detailAddress;
+    let uEmail = req.body.u_email;
     let password = req.body.pw;
     let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString();
     
-    console.log("유저아이디 :", uUserName);
-    console.log("password :", password);
-    console.log("hash :", hash_pw);
-    console.log("phone ::", uPhone);
-    console.log("uZip :", uZip);
-    console.log("uAddr1 :", uAddr1);
-    console.log("uAddr2 ::", uAddr2);
+    let query = `UPDATE tU SET `;
 
-    let query = `UPDATE tU SET 
+    let condition_list = [];
+    if( uUserName ){
+        condition_list.push(`U_Name = '${uUserName}'`);
+    }
+    if( uPhone){
+        condition_list.push(`U_Phone = '%${uPhone}%'`);
+    }
+    if( uBrand ){
+        condition_list.push(`U_Brand = '${uBrand}'`);
+    }
+    if( uZip){
+        condition_list.push(`U_Zip = '${uZip}'`);
+    }
+    if( uAddr1 ){
+        condition_list.push(`U_Addr1 = '${uAddr1}'`);
+    }
+    if( uAddr2){
+        condition_list.push(`U_Addr2 = '${uAddr2}'`);
+    }
+    if( uEmail){
+        condition_list.push(`U_Email = '${uEmail}'`);
+    }
+    if( password){
+        condition_list.push(`U_Pw = '${hash_pw}'`);
+    }
+
+    if( condition_list.length > 0){
+        
+        let condition_stmt = condition_list
+        // condition_stmt.substr(0, condition_stmt.length -1);
+        query += condition_stmt + ` WHERE U_uId = '${uUserName}'`
+    }
+
+    let query5 = `UPDATE tU SET 
                     U_Pw = :hash_pw, 
                     U_Phone = :uPhone, 
                     U_Brand = :uBrand,
@@ -667,32 +695,39 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
                     U_uDt = now() 
                 WHERE U_uId =:uUserName`;
 
-    if(password === "" && uPhone === "" ){
-        connection.query(query2,{uBrand, uZip, uAddr1, uAddr2, uUserName},
-            function(err, rows){
-                if (err) throw err;                     
-                res.json( {  data : "성공"});
-            })
+    connection.query(query,
+        function(err, rows){
+            res.json( {  data : "성공"});
+    })
+
+
+
+    // if(password === "" && uPhone === "" ){
+    //     connection.query(query2,{uBrand, uZip, uAddr1, uAddr2, uUserName},
+    //         function(err, rows){
+    //             if (err) throw err;                     
+    //             res.json( {  data : "성공"});
+    //         })
             
-    } else if(password != "" && uPhone != "" ) {
-        connection.query(query,{hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
-            function(err, rows){
-                if (err) throw err;                     
-                res.json( {  data : "성공"});
-            })
-    } else if(password != "" && uPhone === "" ) {
-        connection.query(query3,{hash_pw, uBrand, uZip, uAddr1, uAddr2, uUserName},
-            function(err, rows){
-                if (err) throw err;  
-                res.json( {  data : "성공"});
-        })
-    } else if(password === "" && uPhone != "" ) {
-        connection.query(query4,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
-            function(err, rows){
-                if (err) throw err;  
-                res.json( {  data : "성공"});
-        })
-    }
+    // } else if(password != "" && uPhone != "" ) {
+    //     connection.query(query,{hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
+    //         function(err, rows){
+    //             if (err) throw err;                     
+    //             res.json( {  data : "성공"});
+    //         })
+    // } else if(password != "" && uPhone === "" ) {
+    //     connection.query(query3,{hash_pw, uBrand, uZip, uAddr1, uAddr2, uUserName},
+    //         function(err, rows){
+    //             if (err) throw err;  
+    //             res.json( {  data : "성공"});
+    //     })
+    // } else if(password === "" && uPhone != "" ) {
+    //     connection.query(query4,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
+    //         function(err, rows){
+    //             if (err) throw err;  
+    //             res.json( {  data : "성공"});
+    //     })
+    // }
 });
 
 
