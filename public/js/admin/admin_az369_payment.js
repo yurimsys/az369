@@ -111,17 +111,33 @@ let tableInit = function (data) {
             selectedActionBtns.css('display', (isSelected) ? "flex" : "none");
             selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
         },
-        onCellClick : function(e){
-            console.log('cell click'.e);
-        },
-        onRowHoverChanged : function(e){
-            console.log('성공?');
-        },
-
+        // onCellClick : function(e){
+        //     console.log('cell click'.e);
+        // },
         onRowClick : function(e) {
             userSeat(e.data.PH_ID);
 
-            // console.log('row click', e.data);
+            console.log('row click', e);
+
+            let ph_id = e.data.PH_ID;
+            let ph_pay_state;
+            $.ajax({
+                url : '/api/payment_cancel',
+                method : 'get',
+                dataType : 'JSON',
+                async : false,
+                data : {'ph_id' : ph_id},
+                success: function(res){
+                        //  console.log('res',res.data);
+                        if(res.data == 0){
+                            ph_pay_state='결제취소';
+                        }else{
+                            ph_pay_state='결제완료';
+                        }
+                }					
+            });
+            console.log('ph',ph_pay_state);
+            
             // selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
             e.rowElement.css("border-left", "2px solid #f2f2f2");
 
@@ -133,7 +149,7 @@ let tableInit = function (data) {
             row_data.PH_PG_ID = e.data.PH_PG_ID;
             row_data.PH_Price = e.data.PH_Price;
             row_data.PH_Type = e.data.PH_Type;
-            row_data.CR_PayState = e.data.CR_PayState;
+            row_data.CR_PayState = ph_pay_state;
             row_data.CR_cDt = e.data.CR_cDt;
             if($('.brand_info').css('display') == 'none'){
                 folding();
@@ -173,11 +189,29 @@ let tableInit = function (data) {
             { dataField: "PH_Type", caption: "결제수단"},
             { dataField: "CR_PayState", caption: "결제여부",
                 cellTemplate : function(element, info){
-                    if(info.value == '결제취소'){
-                        element.append('<div>'+info.value +'</div>').css('color','red')
-                    }else{
-                        element.append('<div>'+info.value +'</div>')
-                    }
+                    // console.log('info',info.data.PH_ID);
+                    let ph_id = info.data.PH_ID;
+                    $.ajax({
+                        url : '/api/payment_cancel',
+                        method : 'get',
+                        dataType : 'JSON',
+                        data : {'ph_id' : ph_id},
+                        success: function(res){
+                                //  console.log('res',res.data);
+                                if(res.data == 0){
+                                    element.append('<div>결제취소</div>').css('color','red')
+                                    return dataField='결제취소';
+                                }else{
+                                    element.append('<div>결제완료</div>')            
+                                    return dataField='결제완료';
+                                }
+                        }					
+                    });
+                    // if(info.value == '결제취소'){
+                    //     element.append('<div>'+info.value +'</div>').css('color','red')
+                    // }else{
+                    //     element.append('<div>'+info.value +'</div>')
+                    // }
                 }
             },
             { dataField: "CR_cDt", caption: "결제일시"}
@@ -427,7 +461,7 @@ function ResNoseatClose(){
 //회원 예매 목록
 function userSeat(ph_id) {
     $('#popup').css('display', 'block')
-    console.log('ph_id',ph_id);
+    // console.log('ph_id',ph_id);
     let ph_data = {
         ph_data : ph_id
     }
@@ -442,11 +476,10 @@ function userSeat(ph_id) {
             $('.time_info').empty();
             $('.payment_info').empty();
             $('#res_seat_list').empty();
-            console.log('res.data', res.data.length);
+            // console.log('res.data', res.data.length);
             if(res.data.length != 0){
-                console.log('gppod');
-                $('#object-res-seat-popup').css('left','430px')
-                $('#object-res-seat-popup').css('top','300px')
+                $('#object-res-seat-popup').css('left','530px')
+                $('#object-res-seat-popup').css('top','100px')
                 $("#object-res-seat-popup").show();
 
                 let top_html = "<div><div class='time_info_date'><dd>"+res.data[0].deptTe2+" ("+getInputDayLabel(res.data[0].deptDay)+")</dd>";

@@ -4202,6 +4202,7 @@ router.get('/reservation',function(req,res){
                     CR_CT_ID,
                     CR_U_ID,
                     U_Name,
+                    U_uId,
                     U_Email,
                     B_Name,
                     U_Phone,
@@ -4427,6 +4428,8 @@ router.post('/reservation',async function(req,res){
 router.put('/reservation/:crid', async function(req,res){
     let query = `UPDATE tCR SET
                     CR_Cancel = :cr_cancel,
+                    CR_CT_ID = :ct_id,
+                    CR_SeatNum = :seatNums,
                     CR_ScanPy = :py_scan,
                     CR_ScanSe = :se_scan,
                     CR_Memo = :cr_memo,
@@ -4437,7 +4440,9 @@ router.put('/reservation/:crid', async function(req,res){
         se_scan = req.body.se_scan,
         cr_id = req.params.crid,
         cr_memo = req.body.cr_memo,
-        cr_state = req.body.cr_state;
+        cr_state = req.body.cr_state,
+        ct_id = req.body.ct_id,
+        seatNums = req.body.seatNums
 
     if(cr_cancel === 'Y'){
         query += ',CR_CancelDt = now() WHERE CR_ID = :cr_id';
@@ -4446,12 +4451,12 @@ router.put('/reservation/:crid', async function(req,res){
         query += ' WHERE CR_ID = :cr_id';
     }
 
-    connection.query(query, {cr_cancel, py_scan, se_scan, cr_id, cr_memo, cr_state},
+    connection.query(query, {cr_cancel, ct_id, seatNums, py_scan, se_scan, cr_id, cr_memo, cr_state},
         function(err, rows){
             if (err){
                 connection.rollback(function(){
                     console.log('ERROR ! :', err);
-                    res.json({data : 300});
+                    res.json({data : 304});
                     // throw err;
                 })
             }else{
@@ -5316,8 +5321,17 @@ router.get('/payment_list',function(req,res){
             if(err) throw err;
             res.json({data : rows});
         })
-    
+})
 
+//결제 여부 분기
+
+router.get('/payment_cancel', function(req,res){
+    let query = `SELECT * FROM tCR WHERE CR_PH_ID = :ph_id AND CR_Cancel = 'N'`
+    let ph_id = req.query.ph_id;
+    connection.query(query, {ph_id},
+        function(err, rows){
+            res.json({data : rows.length});
+    })
 })
 
 //유튜브 리스트
