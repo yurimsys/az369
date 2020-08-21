@@ -620,18 +620,46 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     let uZip = req.body.postcode;
     let uAddr1 = req.body.address;
     let uAddr2 = req.body.detailAddress;
+    let uEmail = req.body.u_email;
     let password = req.body.pw;
     let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString();
     
-    console.log("유저아이디 :", uUserName);
-    console.log("password :", password);
-    console.log("hash :", hash_pw);
-    console.log("phone ::", uPhone);
-    console.log("uZip :", uZip);
-    console.log("uAddr1 :", uAddr1);
-    console.log("uAddr2 ::", uAddr2);
+    let query = `UPDATE tU SET `;
 
-    let query = `UPDATE tU SET 
+    let condition_list = [];
+    if( uUserName ){
+        condition_list.push(`U_Name = '${uUserName}'`);
+    }
+    if( uPhone){
+        condition_list.push(`U_Phone = '%${uPhone}%'`);
+    }
+    if( uBrand ){
+        condition_list.push(`U_Brand = '${uBrand}'`);
+    }
+    if( uZip){
+        condition_list.push(`U_Zip = '${uZip}'`);
+    }
+    if( uAddr1 ){
+        condition_list.push(`U_Addr1 = '${uAddr1}'`);
+    }
+    if( uAddr2){
+        condition_list.push(`U_Addr2 = '${uAddr2}'`);
+    }
+    if( uEmail){
+        condition_list.push(`U_Email = '${uEmail}'`);
+    }
+    if( password){
+        condition_list.push(`U_Pw = '${hash_pw}'`);
+    }
+
+    if( condition_list.length > 0){
+        
+        let condition_stmt = condition_list
+        // condition_stmt.substr(0, condition_stmt.length -1);
+        query += condition_stmt + ` WHERE U_uId = '${uUserName}'`
+    }
+
+    let query5 = `UPDATE tU SET 
                     U_Pw = :hash_pw, 
                     U_Phone = :uPhone, 
                     U_Brand = :uBrand,
@@ -667,32 +695,39 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
                     U_uDt = now() 
                 WHERE U_uId =:uUserName`;
 
-    if(password === "" && uPhone === "" ){
-        connection.query(query2,{uBrand, uZip, uAddr1, uAddr2, uUserName},
-            function(err, rows){
-                if (err) throw err;                     
-                res.json( {  data : "성공"});
-            })
+    connection.query(query,
+        function(err, rows){
+            res.json( {  data : "성공"});
+    })
+
+
+
+    // if(password === "" && uPhone === "" ){
+    //     connection.query(query2,{uBrand, uZip, uAddr1, uAddr2, uUserName},
+    //         function(err, rows){
+    //             if (err) throw err;                     
+    //             res.json( {  data : "성공"});
+    //         })
             
-    } else if(password != "" && uPhone != "" ) {
-        connection.query(query,{hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
-            function(err, rows){
-                if (err) throw err;                     
-                res.json( {  data : "성공"});
-            })
-    } else if(password != "" && uPhone === "" ) {
-        connection.query(query3,{hash_pw, uBrand, uZip, uAddr1, uAddr2, uUserName},
-            function(err, rows){
-                if (err) throw err;  
-                res.json( {  data : "성공"});
-        })
-    } else if(password === "" && uPhone != "" ) {
-        connection.query(query4,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
-            function(err, rows){
-                if (err) throw err;  
-                res.json( {  data : "성공"});
-        })
-    }
+    // } else if(password != "" && uPhone != "" ) {
+    //     connection.query(query,{hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
+    //         function(err, rows){
+    //             if (err) throw err;                     
+    //             res.json( {  data : "성공"});
+    //         })
+    // } else if(password != "" && uPhone === "" ) {
+    //     connection.query(query3,{hash_pw, uBrand, uZip, uAddr1, uAddr2, uUserName},
+    //         function(err, rows){
+    //             if (err) throw err;  
+    //             res.json( {  data : "성공"});
+    //     })
+    // } else if(password === "" && uPhone != "" ) {
+    //     connection.query(query4,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
+    //         function(err, rows){
+    //             if (err) throw err;  
+    //             res.json( {  data : "성공"});
+    //     })
+    // }
 });
 
 
@@ -4202,6 +4237,7 @@ router.get('/reservation',function(req,res){
                     CR_CT_ID,
                     CR_U_ID,
                     U_Name,
+                    U_uId,
                     U_Email,
                     B_Name,
                     U_Phone,
@@ -4427,6 +4463,8 @@ router.post('/reservation',async function(req,res){
 router.put('/reservation/:crid', async function(req,res){
     let query = `UPDATE tCR SET
                     CR_Cancel = :cr_cancel,
+                    CR_CT_ID = :ct_id,
+                    CR_SeatNum = :seatNums,
                     CR_ScanPy = :py_scan,
                     CR_ScanSe = :se_scan,
                     CR_Memo = :cr_memo,
@@ -4437,7 +4475,9 @@ router.put('/reservation/:crid', async function(req,res){
         se_scan = req.body.se_scan,
         cr_id = req.params.crid,
         cr_memo = req.body.cr_memo,
-        cr_state = req.body.cr_state;
+        cr_state = req.body.cr_state,
+        ct_id = req.body.ct_id,
+        seatNums = req.body.seatNums
 
     if(cr_cancel === 'Y'){
         query += ',CR_CancelDt = now() WHERE CR_ID = :cr_id';
@@ -4446,12 +4486,12 @@ router.put('/reservation/:crid', async function(req,res){
         query += ' WHERE CR_ID = :cr_id';
     }
 
-    connection.query(query, {cr_cancel, py_scan, se_scan, cr_id, cr_memo, cr_state},
+    connection.query(query, {cr_cancel, ct_id, seatNums, py_scan, se_scan, cr_id, cr_memo, cr_state},
         function(err, rows){
             if (err){
                 connection.rollback(function(){
                     console.log('ERROR ! :', err);
-                    res.json({data : 300});
+                    res.json({data : 304});
                     // throw err;
                 })
             }else{
@@ -5316,8 +5356,17 @@ router.get('/payment_list',function(req,res){
             if(err) throw err;
             res.json({data : rows});
         })
-    
+})
 
+//결제 여부 분기
+
+router.get('/payment_cancel', function(req,res){
+    let query = `SELECT * FROM tCR WHERE CR_PH_ID = :ph_id AND CR_Cancel = 'N'`
+    let ph_id = req.query.ph_id;
+    connection.query(query, {ph_id},
+        function(err, rows){
+            res.json({data : rows.length});
+    })
 })
 
 //유튜브 리스트

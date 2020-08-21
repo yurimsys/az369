@@ -389,7 +389,9 @@ function updateAD(){
         success : function (res) {
             console.log('ajax result');
             console.log(res);
+
             $("#mgmt-table").dxDataGrid("instance").refresh();
+            
         }
     })
 }
@@ -475,6 +477,7 @@ var seatPrice = 0;
 let now_location = 'default';
 
 function openBus(busSeat) {
+    $('.seatCharts-container').css('background-color','white');
     sessionStorage.setItem('ct_id', busSeat);
     var firstSeatLabel = 1;
 

@@ -111,6 +111,12 @@
                                     <input type="text" id="brand" name="brand" value='<%= sessionUser.U_Brand%>'
                                         placeholder="새 브랜드명">
                                 </li>
+                                <!-- 새 이메일주소 -->
+                                <li>
+                                    <label for="u_email"></label>
+                                    <input type="text" id="u_email" name="u_email" value='<%= sessionUser.U_Email%>'
+                                        placeholder="새 이메일">
+                                </li>
 
                                 <!--새 매장주소-->
                                 <li>
@@ -216,6 +222,10 @@
         $(document).ready(() => {
             //본인인증
             $("div.check_btn").click((e) => {
+                if ($('#phone').val() == "") {
+                    alert("휴대전화 번호를 입력해 주세요.")
+                    return;
+                }
                 e.preventDefault();
                 sendSmsButton();
                 return false;
@@ -363,7 +373,8 @@
                 data: {
                     pw: $("#password").val(), phone: $("#phone").val(),
                     brand: $("#brand").val(), postcode: $("#postcode").val(),
-                    address: $("#address").val(), detailAddress: $("#detailAddress").val()
+                    address: $("#address").val(), detailAddress: $("#detailAddress").val(),
+                    u_email : $('#u_email').val()
                 },
                 success: function (res) {
                     //console.log("콘솔 :",res.data)
@@ -435,10 +446,10 @@
                             icon: 'success',
                             button: '확인'
                         }).then(function(){
-                            location.href = "mypage";
+                            location.href = "/";
                         })
-                        alert("탈퇴가 완료되었습니다.");
-                        location.href = "/";
+                        // alert("탈퇴가 완료되었습니다.");
+                        // location.href = "/";
                     }
 
 

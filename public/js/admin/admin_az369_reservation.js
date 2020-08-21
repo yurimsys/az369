@@ -2,6 +2,8 @@
 $(document).ready(function(){
     
     init();
+        //운송사 선택 후 좌석 창 오픈
+
 }) 
 function init(){
 
@@ -32,6 +34,9 @@ function init(){
             );
         }
     });
+
+ 
+
 
 }
 
@@ -118,14 +123,42 @@ let objectInfo = function (mode = "modify", row_data) {
         $('#cr_state').val('');
         // init();
         sessionStorage.removeItem('row_data');
-    } else if( mode === "modify"){
+
+        $('#ct_id').on('select2:select',function(e){
+            $('.object-info #ct_id').trigger('change');
+            console.log('e',e);
+            //좌석 현황 오픈
+            let type = 'res-user-seat'
+            let res_ct_id = e.params.data.id;
+            let ct_id = $('#ct_id').val();
+            
+            if(res_ct_id == 'null'){
+                return false;
+            }
+            if($('#ct_id').length == 1){
+                openBus(ct_id,type);
+            }
+            $('#object-res-seat-popup').css('left','50%')
+            $('#object-res-seat-popup').css('top','10%')
+            $("#object-res-seat-popup").show();
+            
+        
+            console.log('type :', res_ct_id);
+            openBus(res_ct_id,type);
+            
+        });
+
+        
+
+
+    } else if( mode === "modify"){        
         console.log('row_data',row_data);
         $('#new_test2').css('display','block');
         $('.info_center').css('display','block');
         $('.info_right').css('display','block');
-        $('#ct_id').attr('disabled', 'true');
+        // $('#ct_id').attr('disabled', 'true');
         $('#u_id').attr('disabled',true);
-        $('#seat_num').attr('readonly',true);
+        // $('#seat_num').attr('readonly',true);
         action_btns_instance.removeClass('action-new');
         action_btns_instance.addClass('action-modify');
         
@@ -152,7 +185,7 @@ let objectInfo = function (mode = "modify", row_data) {
         $('#cr_memo').val(row_data.CR_Memo);
         $('#cr_state').val(row_data.CR_PayState);
         
-
+        sessionStorage.setItem('select_ct_id',row_data.CR_SeatNum);
         sessionStorage.setItem('row_data', JSON.stringify(row_data) );
     }
 }
@@ -201,22 +234,20 @@ let tableInit = function (data) {
             selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
         },
         onRowClick : function(e) {
+            // $('#ct_id').select2('destroy');
             $.ajax({
                 method: "get",
                 dataType : "JSON",
                 url: "/api/vehicle/list",
                 success: function (res){
                     
-                    for (let i=0; i<res.data.length; i++){
-                        let html = "<option value="+res.data[i].CT_ID+" data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
-                        $('#ct_id').append(html);
-                    }
+                    // for (let i=0; i<res.data.length; i++){
+                    //     let html = "<option value="+res.data[i].CT_ID+" data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+                    //     $('#ct_id').append(html);
+                    // }
         
                 }
             });
-            // init();
-            // console.log('row click', e.data);
-            // selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
             e.rowElement.css("border-left", "2px solid #f2f2f2");
 
             let row_data = {};
@@ -224,6 +255,7 @@ let tableInit = function (data) {
             row_data.CR_CT_ID = e.data.CR_CT_ID;
             row_data.CR_U_ID = e.data.CR_U_ID;
             row_data.U_Name = e.data.U_Name;
+            row_data.U_uId = e.data.U_uId;
             row_data.U_Phone = e.data.U_Phone;
             row_data.U_Brand = e.data.U_Brand;
             row_data.U_Addr1 = e.data.U_Addr1;
@@ -247,8 +279,8 @@ let tableInit = function (data) {
             objectInfo("modify", row_data);
         },
         onCellClick : function(e){
-            if (e.columnIndex == 5) {  
-                // console.log('open',e.data.CR_SeatNum);
+            $('#seat_num').empty();
+            if (e.columnIndex == 6) {  
                 let type = 'user-seat'
                 openBus(e.data.CR_SeatNum,type);
                 //좌석 현황 오픈
@@ -283,6 +315,7 @@ let tableInit = function (data) {
             //cssClass : 'tooltip'
             { dataField: "CR_ID", caption: "ID", width : 70, sortOrder : "desc"},
             { dataField: "U_Name", caption: "회원명"},
+            { dataField: "U_uId", caption: "회원 아이디"},
             { dataField: "U_Phone", caption: "회원 전화번호"},
             { dataField: "B_Name", caption: "운송사명"},
             { dataField: "CR_SeatNum", caption: "예약 좌석"},
@@ -339,14 +372,6 @@ let tableInit = function (data) {
             { dataField: "CR_U_ID", visible: false },
             { dataField: "CT_ID", visible: false }
         ],
-        // onSelectionChanged: function (selectedItems) {
-        //     debugger;
-        //     var data = selectedItems.selectedRowsData[0];
-        //     console.log(selectedItems.selectedRowsData[0]);
-        //     console.log('321321321321');
-        //     console.log(selectedItems.selectedRowsData[5]);
-            
-        // },
         onContentReady: function(e) {
             let informer = e.element.find(".informer");
             informer.find(".totalCount").text(e.component.totalCount()+" 개");
@@ -433,7 +458,7 @@ function saveAD(){
     }
 
     // console.log('updat22222e :',update_data);
-    
+    console.log('cons',$('#seat_num').val());
     // let form_data = new FormData(document.forms[0]);
     // for ( let i in update_data) form_data.append(i, update_data[i]);
     // console.log('입력!!',selected_seats);
@@ -489,14 +514,6 @@ function deleteAD(mode = 'single') {
 
 //결제취소 JSON 값
 function cnacelInfo(string) {
-    // var obj = {};
-    // var row, 
-    //     rows = table.rows;
-    // for (var i=0, iLen=rows.length; i<iLen; i++) {
-    //   row = rows[i];
-    //   obj[document.getElementsByTagName("input")[i].getAttribute('name')] = document.getElementsByTagName("input")[i].value;
-    // }
-    // console.log('good',obj);
     let cancel_data = {}
         cancel_data.mid = 'testpay01m',
         cancel_data.tid = string,
@@ -514,6 +531,8 @@ function cnacelInfo(string) {
 function updateAD(){
     let id = JSON.parse( sessionStorage.getItem('row_data') ).CR_ID;
     let update_data = {
+        ct_id : $("#ct_id option:selected").attr('value'),
+        seatNums : selected_seats,
         cr_cancel : $("#cr_cancel option:selected").attr('value'),
         py_scan : $("#py_scan option:selected").attr('value'),
         se_scan : $("#se_scan option:selected").attr('value'),
@@ -553,8 +572,11 @@ function updateAD(){
         url : api_url,
         data : update_data,
         success : function (res) {
-            // console.log('ajax result');
-            // console.log(res);
+            console.log('ajax result');
+            console.log(res);
+            if(res.data == '304'){
+                alert('변경할 좌석은 한좌석만 선택해 주세요.');
+            }
             $("#mgmt-table").dxDataGrid("instance").refresh();
         }
     })
@@ -657,6 +679,7 @@ var seatPrice = 0;
 let now_location = 'default';
 
 function openBus(busSeat,type) {
+    $('.seatCharts-container').css('background-color','white');
     var firstSeatLabel = 1;
     let user_id = busSeat;
     let $seat_map;
@@ -700,12 +723,13 @@ function openBus(busSeat,type) {
                 },
             },
             click: function () {
-                let scan_checked;
+                // $('#seat_num').text(' ');
+                // flushSeat(user_id,type);
                 if (this.status() == 'available') {
-                    if (selected_seats_cnt >= 4) {
-                        alert("최대 4개까지 선택가능합니다.");
-                        return this.style();
-                    }
+                    // if (selected_seats_cnt >= 4) {
+                    //     alert("최대 4개까지 선택가능합니다.");
+                    //     return this.style();
+                    // }
                     selected_seats_cnt = $seat_map.find('selected').length + 1;
                     selected_seats.push(this.settings.label);
                     $('#seat_num').val('　'.concat(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : '')));
@@ -718,6 +742,14 @@ function openBus(busSeat,type) {
                               selected_seats.splice(idx, 1);
 
                     $('#seat_num').val('　'.concat(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : '')));
+
+
+                    console.log('현재 수',$('#seat_num').val());
+                    if($('#seat_num').val() == "　"){
+                        let select_ct_id = sessionStorage.getItem('select_ct_id');
+                        $('#seat_num').val(select_ct_id);
+                    }
+                    
                     return 'available';
                 } 
                 //스캔 되지 않은 예매된 좌석
@@ -810,20 +842,26 @@ function ResseatClose(){
     $("#object-res-seat-popup").hide();   
 }
 
-//운송사 선택 후 좌석 창 오픈
-$('#ct_id').on('select2:select',function(e){
-    //좌석 현황 오픈
+
+
+$('#ct_id').on('click',function(){
+    console.log('goood?',$('#ct_id').val());
+
+    let type = 'res-user-seat'
+    let ct_id = $('#ct_id').val();
+    
+    if(ct_id == 'null'){
+        return false;
+    }
+    if($('#ct_id').length == 1){
+        openBus(ct_id,type);
+    }
     $('#object-res-seat-popup').css('left','50%')
     $('#object-res-seat-popup').css('top','10%')
     $("#object-res-seat-popup").show();
     
-    let type = 'res-user-seat'
-    let res_ct_id = e.params.data.id;
-    // console.log('type :', res_ct_id);
-    openBus(res_ct_id,type);
-    
-});
+    openBus(ct_id,type);
 
 
-
+})
 
