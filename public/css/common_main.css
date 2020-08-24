@@ -122,7 +122,8 @@ input:focus, textarea:focus {border: 1px solid #c3a164;}
 
 /*375px*/
 @media screen and (max-width: 375px) {
-    section.sub_wrap p {text-align: justify; word-break: normal;}
+    section.sub_wrap p { word-break: normal;}
+    /* text-align: justify; */
     .none_br {display: none;}
 }
 

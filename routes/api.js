@@ -627,9 +627,9 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     let query = `UPDATE tU SET `;
 
     let condition_list = [];
-    if( uUserName ){
-        condition_list.push(`U_Name = '${uUserName}'`);
-    }
+    // if( uUserName ){
+    //     condition_list.push(`U_Name = '${uUserName}'`);
+    // }
     if( uPhone){
         condition_list.push(`U_Phone = '%${uPhone}%'`);
     }
