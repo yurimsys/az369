@@ -259,18 +259,16 @@ a.slide_btn {
     z-index:1000;
     top: 50px;
   }
-
   #info_modal h2 {
     font-size: 24px; 
     text-align: center;
     font-weight: 500;
     margin-bottom: 15px; 
   }
-  
  .modal_content {
      position: relative;
      padding: 15px 15px 0;
-     width: 20%;
+     width: 350px;
     margin:100px auto;
     background:#fff;
     border: 1px solid #191919;
@@ -278,21 +276,15 @@ a.slide_btn {
      box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
      overflow: hidden;
   }
-
-.info_modal_img { margin: 0 auto; background: #f8f8f8;}
-.info_modal_img img {display: block; margin: 0 auto;}
-
-.info_modal_btn {width: 100%; line-height: 36px; padding: 15px 0;overflow: hidden;}
-
-  #info_modal button {
-   display: block; float: right; right: 0; width: 57px; height: 36px; font-size: 13px; background: #fff; border: 1px solid #dbdbdb; border-radius: 4px;
-cursor: pointer;
-  }
+  .info_modal_img { margin: 0 auto; background: #f8f8f8;}
+  .info_modal_img img {display: block; margin: 0 auto;}
+  .info_modal_btn {width: 100%; line-height: 36px; padding: 15px 0;overflow: hidden;}
+  #info_modal button {display: block; float: right; right: 0; width: 57px; height: 36px; font-size: 13px; background: #fff; border: 1px solid #dbdbdb; border-radius: 4px;cursor: pointer;}
   #info_modal button:hover {background: #f8f8f8;}
   
 
   /* 오늘하루 그만보기 체크박스 */
-  .info_check {position: relative; float: left;}
+  .info_check {position: relative; float: left; margin-left: 5px;}
   .info_check input[type="checkbox"] {
     position: absolute;
     width: 1px;
@@ -312,11 +304,7 @@ cursor: pointer;
     -ms-user-select: none;
     line-height: 20px;
   }
-  
-  .info_check.etrans input[type="checkbox"]:checked + label {
-    font-weight: 500; color: #191919;
-  }
-  
+  .info_check.etrans input[type="checkbox"]:checked + label {font-weight: 500; color: #191919;}
   .info_check input[type="checkbox"] + label:before {
     content: ' ';
     display: inline-block;
@@ -332,10 +320,8 @@ cursor: pointer;
     box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
   }
   .info_check input[type="checkbox"] + label:active:before,
-  .info_check input[type="checkbox"]:checked + label:active:before {
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+  .info_check input[type="checkbox"]:checked + label:active:before {box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
   }
-  
   .info_check input[type="checkbox"]:checked + label:before {  
     content: '\2714';
     color: #99a1a7;
@@ -344,10 +330,7 @@ cursor: pointer;
     border-color: #adb8c0;
     box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
   }
-  
-  .info_check.etrans input[type="checkbox"] + label {
-    padding-left: 26px; color: #191919; font-size: 13px; 
-  }
+  .info_check.etrans input[type="checkbox"] + label {padding-left: 26px; color: #191919; font-size: 13px;}
   .info_check.etrans input[type="checkbox"] + label:before {
     position: absolute;
     left: 0;
@@ -359,7 +342,6 @@ cursor: pointer;
     -webkit-transition: all .12s, border-color .08s;
     transition: all .12s, border-color .08s;
   }
-  
   .info_check.etrans input[type="checkbox"]:checked + label:before {
     position: absolute;
     content: "";
@@ -376,7 +358,6 @@ cursor: pointer;
     -webkit-transform:rotate(45deg);
     transform:rotate(45deg);
   }
-  
   .no-csstransforms .checks.etrans input[type="checkbox"]:checked + label:before {
     content: "\2714";
     top: 0;
@@ -387,7 +368,6 @@ cursor: pointer;
     text-align: center;
     border: 1px solid #ad863c;
   }
-  
   input[type="submit"] {font-size: 18px;}
 
 
@@ -559,6 +539,9 @@ cursor: pointer;
 
 /*450px*/
 @media screen and (max-width: 450px) {
+
+  .modal_content {width: 95%; margin: 40px auto;}
+  #info_modal button {width: 94px; height: 40px;}
     
     /*main 이미지*/
     section.main {width: 100%; height: 480px;}
@@ -612,6 +595,8 @@ cursor: pointer;
 
 /*375px*/
 @media screen and (max-width: 375px) {
+
+  .modal_content {width: 98%; margin:20px auto;}
     /*main 이미지*/
     section.main {width: 100%; height: auto;}
     .main_slideshow-container .main_Slide01,
