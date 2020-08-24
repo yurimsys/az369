@@ -18,6 +18,36 @@
         content="센트럴돔, 보세의류, 쇼핑몰, 보세의류 쇼핑몰, 평택, 평택 가로수길, 평택 센트럴돔, 소사벌, 비전동, 장차, 입점신청, 입점, az369, AZ369">
     <meta property="og:image" content="http://az369.com/img/main/main_slide01.png" />
 
+    <style>
+        #info_modal {
+          position: absolute;;
+          width:100%;
+          height:100%;
+          z-index:1000;
+          top: 100px;
+        }
+        
+        #info_modal h2 {
+          margin:0;   
+        }
+        
+        #info_modal button {
+          display:inline-block;
+          width:100px;
+          margin-left:calc(100% - 100px - 10px);
+        }
+        
+        #info_modal .modal_content {
+          width:350px;
+          margin:100px auto;
+          padding:20px 10px;
+          background:#fff;
+          border:2px solid #666;
+        }
+        
+        </style>
+
+
 </head>
 
 <body>
@@ -336,13 +366,72 @@
         </section>
         <!--secton.gallery 완료-->
         <!--<footer></footer>-->
+
         
         <% include templates/footer.ejs %>
 
     </div>
 
+    <div id="info_modal">
+        <div class="modal_content">
+            <h2>공지사항</h2>
+           
+            <div><img src='/img/ad/ad_main_left2.png'></div>
+           
+            <input type="checkbox" name='popup_check' id='popup_check'>
+            <label for='popup_check'>오늘 하루 그만 보기</label>
+            <button type="button" id="modal_close_btn" onclick="closeModal()">닫기</button>
+        </div>
+        <div class="modal_layer"></div>
+    </div>
+
+
     <!--gallery 슬라이드-->
     <script>
+
+        $(document).ready(function(){
+
+            function getCookie(name) {
+                var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+                return value? value[2] : null;
+            }
+
+            //현재 쿠키값 가져오기
+            let my_cookie = getCookie('popup_check');
+            // console.log('mycookie',my_cookie);
+
+            if(my_cookie == 'true'){
+                $("#info_modal").css('display','none')
+            }else{
+                $("#info_modal").css('display','block')
+            }
+
+        })
+
+        //쿠키 설정 setDate = 일 기준 setTime = 초 기준
+        function setCookie ( name, value, expiredays ) {
+            var todayDate = new Date();
+            todayDate.setDate( todayDate.getDate() + expiredays );
+            document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+        }
+
+        //모달 닫기
+        function closeModal(){
+            $('#info_modal').css('display','none');
+            let pop_test = $('input[name=popup_check]:checked').length;
+            
+            if(pop_test == 1){
+                //쿠키 설정 key, value, day
+                setCookie('popup_check','true',1);
+            }
+        }
+
+        //쿠키 삭제
+        function deleteCookie(name) {
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+
+        // deleteCookie('popup_check');
 
         $('.gallery_slider').each(function () {
             var $this = $(this);

@@ -72,6 +72,11 @@ router.get('/addList', function(req, res, next) {
 });
 
 
+//인덱스 팝업 테스트
+router.get('/pop_test',function(req,res){
+    res.render('pop_test');
+})
+
 
 
 //////@@@@@ 의향서

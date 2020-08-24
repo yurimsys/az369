@@ -37,7 +37,7 @@ section.main {
 /*768PX*/
 @media screen and (max-width: 768px) {
     .sub_info {margin-top: 35px;}
-    section.sub_wrap h4 {margin-bottom:}
+    /* section.sub_wrap h4 {margin-bottom:} */
     .sub_info ul {margin-top: 25px;}
     .sub_info p {text-align: left; width: 95%; margin: 0 auto;}
     .sub_info p br {display: none;}
