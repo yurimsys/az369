@@ -655,79 +655,14 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
     if( condition_list.length > 0){
         
         let condition_stmt = condition_list
-        // condition_stmt.substr(0, condition_stmt.length -1);
         query += condition_stmt + ` WHERE U_uId = '${uUserName}'`
     }
-
-    let query5 = `UPDATE tU SET 
-                    U_Pw = :hash_pw, 
-                    U_Phone = :uPhone, 
-                    U_Brand = :uBrand,
-                    U_Zip = :uZip, 
-                    U_Addr1 = :uAddr1, 
-                    U_Addr2 = :uAddr2, 
-                    U_uDt = now() 
-                WHERE U_uId =:uUserName`;
-
-    let query2 = `UPDATE tU SET 
-                    U_Brand = :uBrand,
-                    U_Zip = :uZip, 
-                    U_Addr1 = :uAddr1, 
-                    U_Addr2 = :uAddr2, 
-                    U_uDt = now() 
-                WHERE U_uId =:uUserName`;
-
-    let query3 = `UPDATE tU SET  
-                    U_Pw = :hash_pw, 
-                    U_Brand = :uBrand,
-                    U_Zip = :uZip, 
-                    U_Addr1 = :uAddr1, 
-                    U_Addr2 = :uAddr2, 
-                    U_uDt = now() 
-                WHERE U_uId =:uUserName`;
-
-    let query4 = `UPDATE tU SET 
-                    U_Phone = :uPhone, 
-                    U_Brand = :uBrand,
-                    U_Zip = :uZip, 
-                    U_Addr1 = :uAddr1, 
-                    U_Addr2 = :uAddr2, 
-                    U_uDt = now() 
-                WHERE U_uId =:uUserName`;
 
     connection.query(query,
         function(err, rows){
             res.json( {  data : "성공"});
     })
 
-
-
-    // if(password === "" && uPhone === "" ){
-    //     connection.query(query2,{uBrand, uZip, uAddr1, uAddr2, uUserName},
-    //         function(err, rows){
-    //             if (err) throw err;                     
-    //             res.json( {  data : "성공"});
-    //         })
-            
-    // } else if(password != "" && uPhone != "" ) {
-    //     connection.query(query,{hash_pw, uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
-    //         function(err, rows){
-    //             if (err) throw err;                     
-    //             res.json( {  data : "성공"});
-    //         })
-    // } else if(password != "" && uPhone === "" ) {
-    //     connection.query(query3,{hash_pw, uBrand, uZip, uAddr1, uAddr2, uUserName},
-    //         function(err, rows){
-    //             if (err) throw err;  
-    //             res.json( {  data : "성공"});
-    //     })
-    // } else if(password === "" && uPhone != "" ) {
-    //     connection.query(query4,{uPhone, uBrand, uZip, uAddr1, uAddr2, uUserName},
-    //         function(err, rows){
-    //             if (err) throw err;  
-    //             res.json( {  data : "성공"});
-    //     })
-    // }
 });
 
 
@@ -782,38 +717,6 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
     let seatNum = req.body.sendArray;
     console.log(seatNum);
     console.log("dddd :", sessionId);
-    //console.log(seatNum);
-    // let query = `
-    //             select
-    //                 tCR.CR_ID,
-    //                 tCR.CR_CT_ID as ctId,
-    //                 tCR.CR_cDt as payDay,
-    //                 date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') AS deptTe,
-    //                 date_format(tCT.CT_DepartureTe,'%m.%d') AS startDay,
-    //                 date_format(tCT.CT_ReturnTe,'%m.%d') as returnDay,
-    //                 date_format(tCT.CT_DepartureTe,'%H:%i') as startTime,
-    //                 date_format(tCT.CT_ReturnTe,'%H:%i') as returnTime,
-    //                 date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptTe2,
-    //                 date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
-    //                 tCR.CR_cDt as cDt,
-    //                 tB.B_Name as carName,
-    //                 tCT.CT_CarNum,
-    //                 (SELECT right(CT_CarNum, 4)) AS carNum,
-    //                 tPH.PH_Type as payType,
-    //                 tPH.PH_Price as price,
-    //                 tPH.PH_ID as pId,
-    //                 count(CR_SeatNum) as seatCnt
-    //             from tCT 
-    //                 left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
-    //                 left join tB on tCY.CY_B_ID = tB.B_ID 
-    //                 left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
-    //                 left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-    //             where tCR.CR_CT_ID = tCT.CT_ID AND tCR.CR_Cancel = 'N'
-    //                     and tCR.CR_U_ID = :sessionId and tCR.CR_cDt IN ( :seatNum)
-    //                 and tCT.CT_DepartureTe > NOW()
-    //             group by tCR.CR_cDt
-    //             order by tCT.CT_DepartureTe desc
-    //             `;
 
     let query = `
                 SELECT 
