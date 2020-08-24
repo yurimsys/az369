@@ -204,8 +204,8 @@ input[type="submit"] {font-size: 18px;}
     section.sub_wrap h1 {font-size: 30px;}
     input::placeholder {font-size: 13px;}
     /* #phone {width: 60%;}
-    .check_btn {width: 39%; font-size: 15px;}
-} */
+    .check_btn {width: 39%; font-size: 15px;} */
+}
 
 /*320px*/
 @media screen and (max-width: 320px) {

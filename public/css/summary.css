@@ -37,8 +37,10 @@ section.main {
 /*768PX*/
 @media screen and (max-width: 768px) {
     .sub_info {margin-top: 35px;}
-    section.sub_wrap h4 {margin-bottom: 20px;}
+    section.sub_wrap h4 {margin-bottom:}
     .sub_info ul {margin-top: 25px;}
+    .sub_info p {text-align: left; width: 95%; margin: 0 auto;}
+    .sub_info p br {display: none;}
 }
 
 /*450px*/
@@ -48,9 +50,10 @@ section.main {
     .sub_info {margin-top: 35px;}
     .sub_info ul {width: 93%; margin-top: 10px;}
     .sub_info h4 br {display: block;}
-    /* .sub_info p br {display: none;} */
+    
     .sub_info {width:100%;}
     .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: center;}
+    
 }
 
 /*375px*/
