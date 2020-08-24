@@ -26,6 +26,7 @@ module.exports = {
     enc_salt : '!@#yurimsys#@!',
     path : {
         ad_image : path.join(__dirname, '..', '/public/img/ad'),
-        bs_image : path.join(__dirname, '..', '/public/img')
+        bs_image : path.join(__dirname, '..', '/public/img'),
+        info_image : path.join(__dirname, '..', '/public/img/info')
     }
 }

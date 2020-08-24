@@ -3043,6 +3043,8 @@ router.delete('/tbs', async function(req, res, next) {
     }
 });
 ///////////////광고
+
+
 //광고 등록
 router.post('/ad', upload.any(), async function (req, res, next) {
     try {
@@ -5482,5 +5484,67 @@ router.delete('/video', async function(req, res){
     })
 
 })
+
+
+
+//광고 등록
+router.post('/info', upload.any(), async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+
+
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+        res.json({result : 0});
+    }
+
+    connection.beginTransaction(function(err){
+        let query = `INSERT INTO tINFO(
+                    INFO_Title, INFO_Url, INFO_Start, INFO_End) 
+                VALUES(:info_title, :info_url, :info_start, :info_end) `;
+        // 광고입력
+        if(req.files.length === 0) throw Error('Non include files');
+        // let content_type = req.files[0].mimetype.split('/')[0];
+        let filename = req.files[0].filename;
+        let old_path = req.files[0].path;
+        let new_path = path.join(config.path.info_image , filename);
+
+        let info_url = '/img/info'+filename;''
+        let info_title = req.body.title,
+        info_start = req.body.start,
+        info_end = req.body.end;
+
+        fs.rename(old_path, new_path, (err) => {
+            if (err) throw err;
+            fs.stat(new_path, (err, stats) => {
+                if (err) throw err;
+                console.log(`stats: ${JSON.stringify(stats)}`);
+            });
+        });
+
+        connection.query(query,{info_title, info_url, info_start, info_end},
+            function(err,rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('err!',err);
+                        res.json({data : 301});
+                    })
+                }else{
+                    connection.commit(function(err){
+                        if(err){
+                            return connection.rollback(function(){
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});
+                    })
+                }
+        })
+    })
+
+});
 
 module.exports = router;
