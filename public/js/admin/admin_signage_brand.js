@@ -134,12 +134,6 @@ let objectInfo = function (mode = "modify", row_data) {
         $('#detailAddress').val(row_data.detailAddress);
         $('#address_en').val(row_data.address_en);
         $('#detail_address_en').val(row_data.detail_address_en);
-        // $('#main_open').val(row_data.main_open);
-        // $('#main_close').val(row_data.main_close);
-        // $('#sub_open').val(row_data.sub_open);
-        // $('#sub_close').val(row_data.sub_close);
-        // $('#break_open').val(row_data.break_open);
-        // $('#break_close').val(row_data.break_close);
         $('#personal_day_ko').val(row_data.personal_day_ko);
         $('#personal_day_en').val(row_data.personal_day_en);
         $('#img_url').text(row_data.img_url)
@@ -635,13 +629,6 @@ function searchPopupAction() {
     })
 }
 
-//상세정보 토글
-
-function folding(){
-    $('#object_detail_group').slideToggle('fast')
-    
-    
-}
 
 //대분류 카테고리
 function LV1Cat(e){     

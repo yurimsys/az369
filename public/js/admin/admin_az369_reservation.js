@@ -164,9 +164,10 @@ let objectInfo = function (mode = "modify", row_data) {
         
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-save').addClass('disabled');
-        $('#cr_id').val(row_data.CR_ID);
+        // $('#cr_id').val(row_data.CR_ID);
         // $('#u_id').val(row_data.CR_U_ID);
         // $('#ct_id').val(row_data.CR_CT_ID);
+        console.log('row_data',row_data.CR_CT_ID);
         $('.object-info #ct_id').val(row_data.CR_CT_ID).trigger('change');
         $('.object-info #u_id').val(row_data.CR_U_ID).trigger('change');
         $('#seat_num').val(row_data.CR_SeatNum);
@@ -187,6 +188,9 @@ let objectInfo = function (mode = "modify", row_data) {
         
         sessionStorage.setItem('select_ct_id',row_data.CR_SeatNum);
         sessionStorage.setItem('row_data', JSON.stringify(row_data) );
+        console.log('둘');
+
+
     }
 }
 
@@ -235,16 +239,19 @@ let tableInit = function (data) {
         },
         onRowClick : function(e) {
             // $('#ct_id').select2('destroy');
+            console.log('하나');
+            $('#ct_id').empty();
             $.ajax({
                 method: "get",
                 dataType : "JSON",
+                async : false,
                 url: "/api/vehicle/list",
                 success: function (res){
                     
-                    // for (let i=0; i<res.data.length; i++){
-                    //     let html = "<option value="+res.data[i].CT_ID+" data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
-                    //     $('#ct_id').append(html);
-                    // }
+                    for (let i=0; i<res.data.length; i++){
+                        let html = "<option value="+res.data[i].CT_ID+" data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+                        $('#ct_id').append(html);
+                    }
         
                 }
             });
@@ -665,12 +672,6 @@ function searchPopupAction() {
     })
 }
 
-//상세정보 토글
-
-function folding(){
-    $('#object_detail_group').slideToggle('fast')
-    
-}
 
 //좌석금액 불러오기
 var selected_seats = [];
