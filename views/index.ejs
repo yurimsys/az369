@@ -304,11 +304,11 @@
 
     <!-- 공지사항  모달  -->
     <div id="info_modal" style="display: none;">
-        <div class="modal_content">
+        <!-- <div class="modal_content">
             <h2>공지사항</h2>
     
             <div class="info_modal_img">
-                <!-- <img src='/img/ad/ad_main_left2.png'> -->
+                <img src='/img/ad/ad_main_left2.png'>
             </div>
             <div class="info_modal_btn">
                 <div class="info_check etrans check_all_btn">
@@ -318,7 +318,7 @@
                 </div>
                 <button type="button" id="modal_close_btn" onclick="closeModal()">닫기</button>
             </div>
-        </div>
+        </div> -->
     </div>
 
 
@@ -337,14 +337,26 @@
                         $("#info_modal").css('display','none')
                     }else{
                         if(res.data[0].IF_Redirect != ""){
-                            $('.info_modal_img').empty();
-                            let html = "<a href=/"+res.data[0].IF_Redirect+"><img src="+res.data[0].IF_Url+"></a>"
-                            $('.info_modal_img').append(html);
+                            $('#info_modal').empty();
+                            let html = "<div class='modal_content'><h2>공지사항</h2>";
+                                html += "<div class='info_modal_img'><a href=/"+res.data[0].IF_Redirect+"><img src="+res.data[0].IF_Url+"></a></div>";
+                                html += "<div class='info_modal_btn'><div class='info_check etrans check_all_btn'>";
+                                html += "<input type='checkbox' id='popup_check' name='popup_check' class='check-all'><label for='popup_check'>오늘 하루 그만 보기</label></div>";
+                                html += "<button type='button' id='modal_close_btn' onclick='closeModal()'>닫기</button></div></div>";
+
+
+                            $('#info_modal').append(html);
 
                         }else{
-                            $('.info_modal_img').empty();
-                            let html = "<img src="+res.data[0].IF_Url+">"
-                            $('.info_modal_img').append(html);
+
+                            $('#info_modal').empty();
+                            let html = "<div class='modal_content'><h2>공지사항</h2>";
+                                html += "<div class='info_modal_img'><img src="+res.data[0].IF_Url+"></div>";
+                                html += "<div class='info_modal_btn'><div class='info_check etrans check_all_btn'>";
+                                html += "<input type='checkbox' id='popup_check' name='popup_check' class='check-all'><label for='popup_check'>오늘 하루 그만 보기</label></div>";
+                                html += "<button type='button' id='modal_close_btn' onclick='closeModal()'>닫기</button></div></div>";
+
+                            $('#info_modal').append(html);
                         }
                     }
                 }					
