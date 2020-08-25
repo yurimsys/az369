@@ -188,7 +188,7 @@ let objectInfo = function (mode = "modify", row_data) {
         
         sessionStorage.setItem('select_ct_id',row_data.CR_SeatNum);
         sessionStorage.setItem('row_data', JSON.stringify(row_data) );
-        console.log('둘');
+        // console.log('둘');
 
 
     }
@@ -239,7 +239,7 @@ let tableInit = function (data) {
         },
         onRowClick : function(e) {
             // $('#ct_id').select2('destroy');
-            console.log('하나');
+            // console.log('하나');
             $('#ct_id').empty();
             $.ajax({
                 method: "get",
