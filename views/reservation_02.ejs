@@ -89,7 +89,7 @@
             sessionStorage.removeItem("pay_complete");
 
             let payment_result = JSON.parse(sessionStorage.getItem("payment_result"));
-            console.log(payment_result);
+            // console.log(payment_result);
             $("#order_price").text(payment_result.price);
             $('#order_seat').text(payment_result.seat);
             $("#order_ph_type").text(payment_result.ph_type);

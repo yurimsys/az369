@@ -71,12 +71,9 @@ router.get('/addList', function(req, res, next) {
     res.render('signageAdd');
 });
 
-
-//인덱스 팝업 테스트
-router.get('/pop_test',function(req,res){
-    res.render('pop_test');
+router.get('/retest',function(req,res){
+    res.redirect('mypage');
 })
-
 
 
 //////@@@@@ 의향서

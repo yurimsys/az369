@@ -1,58 +1,59 @@
 
-$(document).ready(function(){
 
+$(document).ready(function(){
     init();
 }) 
 function init(){
-    // 광고기간 DateBox
-    $(".video_cdt, .search_video_cdt").dxDateBox({
-        type: "datetime",
-        displayFormat: 'yyyy-MM-dd HH:mm',
-        dateSerializationFormat : "yyyy-MM-dd HH:mm",
-    });
-}
 
+    // 광고기간 DateBox
+    $(".info_start, .info_end, .search_info_start, .search_info_end").dxDateBox({
+        type: "date",
+        dateSerializationFormat : "yyyy-MM-dd",
+    });
+
+    // 신규모드로 실행
+    objectInfo("new");
+
+}
 
 let objectInfo = function (mode = "modify", row_data) {
     let action_btns_instance = $(".object-info .action-btns"),
-    video_cdt_instance = $(".object-info .video_cdt").dxDateBox("instance");
+        info_start_instance = $(".object-info .info_start").dxDateBox("instance"),
+        info_end_instance = $(".object-info .info_end").dxDateBox("instance");
 
     if( mode === "new"){
-        if($('.brand_info').css('display') == 'none'){
+        if($('#object_detail_group').css('display') == 'none'){
             folding();
         }
-        
         action_btns_instance.removeClass('action-modify');
         action_btns_instance.addClass('action-new');
         
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-modify, .btn-delete').addClass('disabled');
-
-        $('#video_id').val('');
-        $('#video_url').val('');
-        $('#video_channel').val('');
-        $('#video_title').val('');
-        $('#video_contents').val('');
-        $('#video_recommend').val('N');
-        video_cdt_instance.reset();
-
+        // todo : object reset
+        $('.object-info #info_id').text("");
+        $('.object-info #info_title').val("");
+        $(".object-info #info_url").text('');
+        $('.object-info #info_redirect').val("");
+        $(".object-info .select2").val('Y').trigger('change');
+        info_start_instance.reset();
+        info_end_instance.reset();
+        
         sessionStorage.removeItem('row_data');
     } else if( mode === "modify"){
-        console.log('row_data',row_data);
         action_btns_instance.removeClass('action-new');
         action_btns_instance.addClass('action-modify');
         
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-save').addClass('disabled');
 
-        $('#video_id').val(row_data.YL_id);
-        $('#video_url').val(row_data.YL_url);
-        $('#video_channel').val(row_data.YL_ch_name);
-        $('#video_title').val(row_data.YL_title)
-        $('#video_contents').val(row_data.YL_description);
-        $('#video_recommend').val(row_data.YL_d_order);
-
-        video_cdt_instance.option("value", row_data.YL_dDt);
+        $('.object-info #info_id').text(row_data.IF_ID);
+        $('.object-info #info_title').val(row_data.IF_Title);
+        $(".object-info #info_url").text(row_data.IF_Url);
+        $('.object-info #info_redirect').val(row_data.IF_Redirect);
+        $(".object-info .select2").val(row_data.IF_State).trigger('change');
+        info_start_instance.option("value", row_data.IF_Start);
+        info_end_instance.option("value", row_data.IF_End);
 
         sessionStorage.setItem('row_data', JSON.stringify(row_data) );
     }
@@ -60,7 +61,7 @@ let objectInfo = function (mode = "modify", row_data) {
 
 let tableInit = function (data) {
     $("#mgmt-table").dxDataGrid({
-        dataSource: "/api/video",
+        dataSource: "/api/info",
         showBorders: true,
         renderAsync: true,
         allowColumnReordering: true,
@@ -89,7 +90,7 @@ let tableInit = function (data) {
         },
         onSelectionChanged : function(e) {
             console.log('selection changed', e);
-            sessionStorage.setItem("row_data_list", e.selectedRowsData.map(data => data.YL_id));
+            sessionStorage.setItem("row_data_list", e.selectedRowsData.map(data => data.IF_ID));
             let dataGrid = e.component;
             
             let informer = e.element.find(".selectedActionBtns");
@@ -100,21 +101,23 @@ let tableInit = function (data) {
             
             selectedActionBtns.css('display', (isSelected) ? "flex" : "none");
             selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
+            console.log('셀렉트');
         },
+
         onRowClick : function(e) {
             // console.log('row click', e.data);
             // selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
             e.rowElement.css("border-left", "2px solid #f2f2f2");
-
+            // debugger;
             let row_data = {};
-            row_data.YL_id = e.data.YL_id;
-            row_data.YL_url = e.data.YL_url;
-            row_data.YL_title = e.data.YL_title;
-            row_data.YL_description = e.data.YL_description;
-            row_data.YL_ch_name = e.data.YL_ch_name;
-            row_data.YL_d_order = e.data.YL_d_order;
-            row_data.YL_dDt = e.data.YL_dDt;
-            if($('.brand_info').css('display') == 'none'){
+            row_data.IF_ID = e.data.IF_ID;
+            row_data.IF_Title = e.data.IF_Title;
+            row_data.IF_Url = e.data.IF_Url;
+            row_data.IF_Redirect = e.data.IF_Redirect;
+            row_data.IF_Start = e.data.IF_Start;
+            row_data.IF_End = e.data.IF_End;
+            row_data.IF_State = e.data.IF_State;
+            if($('#object_detail_group').css('display') == 'none'){
                 folding();
             }
             objectInfo("modify", row_data);
@@ -128,7 +131,7 @@ let tableInit = function (data) {
           },
           onExporting: function(e) {
             var workbook = new ExcelJS.Workbook();
-            var worksheet = workbook.addWorksheet('유튜브 관리');
+            var worksheet = workbook.addWorksheet('공지사항 관리');
             
             DevExpress.excelExporter.exportDataGrid({
               component: e.component,
@@ -136,21 +139,22 @@ let tableInit = function (data) {
               autoFilterEnabled: true
             }).then(function() {
               workbook.xlsx.writeBuffer().then(function(buffer) {
-                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), '유튜브 관리.xlsx');
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), '공지사항 관리.xlsx');
               });
             });
             e.cancel = true;
           },
         columns: [
             //cssClass : 'tooltip'
-            { dataField: "YL_id", caption: "ID", width : 70, sortOrder : "desc"},
-            { dataField: "YL_url", caption: "URL"},
-            { dataField: "YL_title", caption: "영상 제목"},
-            { dataField: "contents", caption: "영상 소개글"},
-            { dataField: "YL_ch_name", caption: "채널명"},
-            { dataField: "YL_d_order", caption: "추천영상"},
-            { dataField: "YL_dDt", caption: "등록일"},
+            { dataField: "IF_ID", caption: "ID", width : 70, sortOrder : "desc"},
+            { dataField: "IF_Title", caption: "제목"},
+            { dataField: "IF_Url", caption: "이미지 URL"},
+            { dataField: "IF_Redirect", caption: "연결 URL"},
+            { dataField: "IF_Start", caption: "시작시간"},
+            { dataField: "IF_End", caption: "종료시간"},
+            { dataField: "IF_State", caption: "사용여부"},
         ],
+
         onContentReady: function(e) {
             let informer = e.element.find(".informer");
             informer.find(".totalCount").text(e.component.totalCount()+" 개");
@@ -215,31 +219,35 @@ $(document).ready(()=>{
 
 // 검색창 초기화
 function resetSearch() {
-    // $(".select2").val(null).trigger('change');
-    let search_video_cdt_instance = $(".object-info .search_video_cdt").dxDateBox("instance")
-    search_video_cdt_instance.reset();
+    $(".select2").val(null).trigger('change');
+    let ad_duration_start_instance = $(".object-search-popup .ad_duration_start").dxDateBox("instance"),
+    ad_duration_final_instance = $(".object-search-popup .ad_duration_final").dxDateBox("instance");
+    ad_duration_start_instance.reset();
+    ad_duration_final_instance.reset();
 }
 
-tableInit();
 
-//신규 등록 저장
+tableInit();
 function saveAD(){
     let update_data = {
-        video_id : $("#video_id").val(),
-        video_url : $('#video_url').val(),
-        video_channel : $('#video_channel').val(),
-        video_cdt : $(".object-info .video_cdt").dxDateBox("instance").option().value,
-        video_title : $('#video_title').val(),
-        video_contents : $('#video_contents').val(),
-        video_recommend : $("#video_recommend option:selected").attr('value')
+        info_title : $(".object-info .info_title").val(),
+        info_redirect : $(".object-info .info_redirect").val(),
+        info_start : $(".object-info .info_start").dxDateBox("instance").option().value,
+        info_end : $(".object-info .info_end").dxDateBox("instance").option().value,
+        info_state : $(".object-info .info_state").val()
     }
 
-    let api_url  = '/api/video';
+    let form_data = new FormData(document.forms[0]);
+    for ( let i in update_data) form_data.append(i, update_data[i]);
+    let api_url  = '/api/info';
+    console.log('form',form_data);
     $.ajax({
         dataType : 'JSON',
         type : "POST",
         url : api_url,
-        data : update_data,
+        data : form_data,
+        contentType : false,
+        processData : false,
         success : function (res) {
             console.log('ajax result');
             console.log(res);
@@ -251,15 +259,14 @@ function saveAD(){
 function deleteAD(mode = 'single') {
     if(mode === 'single'){
 
-        let id = JSON.parse( sessionStorage.getItem('row_data') ).YL_id;
-        console.log(id,'삭제 아이디');
+        let id = JSON.parse( sessionStorage.getItem('row_data') ).IF_ID;
         $.ajax({
             dataType : 'JSON',
             type : "DELETE",
-            url : '/api/video/'+id,
+            url : '/api/info/'+id,
             success : function (res) {
-                // console.log('ajax result');
-                // console.log(res);
+                console.log('ajax result');
+                console.log(res);
                 objectInfo('new');
                 $("#mgmt-table").dxDataGrid("instance").refresh();
             }
@@ -268,12 +275,12 @@ function deleteAD(mode = 'single') {
         let id_list = {
             row_ids : sessionStorage.getItem('row_data_list')
         }
-        console.log(id_list,'삭제 아이디들');
+        
         $.ajax({
             dataType : 'JSON',
             type : "DELETE",
             data : id_list,
-            url : '/api/video',
+            url : '/api/info/',
             success : function (res) {
                 console.log('ajax result');
                 console.log(res);
@@ -284,27 +291,27 @@ function deleteAD(mode = 'single') {
     }
 }
 function updateAD(){
-    let id = JSON.parse( sessionStorage.getItem('row_data') ).YL_id;
+    let id = JSON.parse( sessionStorage.getItem('row_data') ).IF_ID;
     let update_data = {
-        video_id : $("#video_id").val(),
-        video_url : $('#video_url').val(),
-        video_channel : $('#video_channel').val(),
-        video_cdt : $(".object-info .video_cdt").dxDateBox("instance").option().value,
-        video_title : $('#video_title').val(),
-        video_contents : $('#video_contents').val(),
-        video_recommend : $("#video_recommend option:selected").attr('value')
+        info_title : $(".object-info .info_title").val(),
+        info_redirect : $(".object-info .info_redirect").val(),
+        info_start : $(".object-info .info_start").dxDateBox("instance").option().value,
+        info_end : $(".object-info .info_end").dxDateBox("instance").option().value,
+        info_state : $(".object-info .info_state").val()
     }
 
     let form_data = new FormData(document.forms[0]);
     for ( let i in update_data) form_data.append(i, update_data[i]);
 
-    let api_url  = '/api/video/'+id;
+    let api_url  = '/api/info/'+id;
 
     $.ajax({
         dataType : 'JSON',
         type : "PUT",
         url : api_url,
-        data : update_data,
+        data : form_data,
+        contentType : false,
+        processData : false,
         success : function (res) {
             console.log('ajax result');
             console.log(res);
@@ -327,43 +334,40 @@ $(".action-btns .btn").click(clickActionBtn);
 // 상세 검색 버튼 기능
 // 초기화
 function searchPopupReset(){
-    let search_video_cdt_instance = $("#object-search-popup .search_video_cdt").dxDateBox("instance");
-
-    $('#search_video_id').val('');
-    $('#search_video_url').val('');
-    $('#search_video_channel').val('');
-    $('#search_video_title').val('');
-    $('#search_video_contents').val('');
-    $('#search_video_recommend').val('null');
-    search_video_cdt_instance.reset();
+    $("#object-search-popup .select2").val('Y').trigger('change');
+    let search_info_start_instance = $("#object-search-popup .search_info_start").dxDateBox("instance"),
+    search_info_end_instance = $("#object-search-popup .search_info_end").dxDateBox("instance");
+    search_info_start_instance.reset();
+    search_info_end_instance.reset();
+    $("#object_search_info .search_info_title").val('')
+    $("#object_search_info .search_info_url").val('')
+    $("#object_search_info .search_info_redirect").val('');
 }
 // 닫기
 function searchPopupClose() {
     $("#object-search-popup").hide();
-}0
+}
 function searchPopupShow() {
     $('#object-search-popup').css('left','430px')
     $('#object-search-popup').css('top','300px')
     $("#object-search-popup").show();
 }
-
 // 검색
 function searchPopupAction() {
-    
     let condition_data = {
-        video_url : $('#search_video_url').val(),
-        video_channel : $('#search_video_channel').val(),
-        video_cdt : $(".object-search-popup .search_video_cdt").dxDateBox("instance").option().value,
-        video_title : $('#search_video_title').val(),
-        video_contents : $('#search_video_contents').val(),
-        video_recommend : $("#search_video_recommend option:selected").attr('value')
-
-
+        searchType : $("#object_search_info #searchType").is(":checked"),
+        info_title : $("#object_search_info .search_info_title").val(),
+        info_url : $("#object_search_info .search_info_url").val(),
+        info_redirect : $("#object_search_info .search_info_redirect").val(),
+        info_start : $("#object_search_info .search_info_start").dxDateBox("instance").option().value,
+        info_end : $("#object_search_info .search_info_end").dxDateBox("instance").option().value,
+        info_state : $("#object-search-popup .search_info_state").val()
     };
+
     $.ajax({
         type : "GET",
         dataType : 'JSON',
-        url : '/api/video?type=search',
+        url : '/api/info?type=search',
         data : condition_data,
         success : function (res) {
             
@@ -377,7 +381,12 @@ function searchPopupAction() {
 //상세정보 토글
 
 function folding(){
+    console.log($('#folding').text());
+    if($('#folding').text() == 'ㅡ'){
+        $('#folding').text('+')
+    }else{
+        $('#folding').text('ㅡ')
+    }
     $('#object_detail_group').slideToggle('fast')
-    
-    
 }
+

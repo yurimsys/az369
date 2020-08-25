@@ -169,7 +169,7 @@
             //요일 최대선호도 구하기
             var arr = [$('#mon').text(), $('#tue').text(), $('#wed').text(), $('#thu').text(), $('#fri').text()];
             var max = Math.max.apply(null, arr);
-            console.log(max);
+            // console.log(max);
 
             //평택출발시간 최대선호도 구하기
             var arr2 = [$('#dept2000').text(), $('#dept2100').text(), $('#dept2200').text(), $('#dept2300').text()];
@@ -219,9 +219,9 @@
                 max3 = '05:00'
             }
 
-            console.log("선호 날짜 :", max)
-            console.log("선호 평택출발시간 :", max2)
-            console.log("선호 서울출발시간 :", max3)
+            // console.log("선호 날짜 :", max)
+            // console.log("선호 평택출발시간 :", max2)
+            // console.log("선호 서울출발시간 :", max3)
 
             let html = "<tr>";
             html += "<td>" + max + "</td>";

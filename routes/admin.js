@@ -144,6 +144,19 @@ router.get('/az369_video', auth.isLoggedIn, function(req, res) {
     }
 });
 
+//장차 유튜브 관리 페이지
+router.get('/az369_info', auth.isLoggedIn, function(req, res) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        var pageSetting = {
+            title: '장차 공지사항 관리',
+            description: '장차서비스 공지사항 관리페이지',
+            layout: 'admin/templates/admin_layout'
+        };
+        res.render('admin/admin_az369_info',pageSetting);
+    }
+});
 
 
 //선호도 조사
