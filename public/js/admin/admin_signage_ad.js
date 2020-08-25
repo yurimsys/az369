@@ -466,15 +466,5 @@ function searchPopupAction() {
     })
 }
 
-//상세정보 토글
 
-function folding(){
-    console.log($('#folding').text());
-    if($('#folding').text() == 'ㅡ'){
-        $('#folding').text('+')
-    }else{
-        $('#folding').text('ㅡ')
-    }
-    $('#object_detail_group').slideToggle('fast')
-}
 

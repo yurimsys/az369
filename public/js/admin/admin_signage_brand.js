@@ -635,13 +635,6 @@ function searchPopupAction() {
     })
 }
 
-//상세정보 토글
-
-function folding(){
-    $('#object_detail_group').slideToggle('fast')
-    
-    
-}
 
 //대분류 카테고리
 function LV1Cat(e){     

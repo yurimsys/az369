@@ -1,4 +1,19 @@
 
+
+//상세정보 토글
+
+function folding(){
+  if($('#object_detail_group').css('display') != 'none'){
+      $('#folding').removeClass('btn-folder');
+      $('#folding').addClass('btn-folder-active');
+  }else if($('#object_detail_group').css('display') == 'none'){
+      $('#folding').addClass('btn-folder');
+      $('#folding').removeClass('btn-folder-active');
+  }
+  $('#object_detail_group').slideToggle('fast')
+}
+
+
 (function($) {
   "use strict";
 

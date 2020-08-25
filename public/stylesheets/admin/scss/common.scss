@@ -178,11 +178,11 @@ $normal_color               : #222222;
         .btn-delete {
             color: #f6633c;
         }
-        .btn-folder {
-            background:url("/img/admin/open_btn.png") no-repeat;
-            width: 20px;
-            height: 20px;
-        }
+        // .btn-folder {
+        //     background:url("/img/admin/open_btn.png") no-repeat;
+        //     width: 20px;
+        //     height: 20px;
+        // }
     }
     .action-btns.action-modify{
         .btn {
@@ -200,12 +200,25 @@ $normal_color               : #222222;
         .btn-delete {
             color: #ff5d33;
         }
-        .btn-folder {
-            background:url("/img/admin/close_btn.png") no-repeat;
-            width: 20px;
-            height: 20px;
-        }
+        // .btn-folder {
+        //     background:url("/img/admin/close_btn.png") no-repeat;
+        //     width: 20px;
+        //     height: 20px;
+        // }
     }
+}
+
+.btn-folder-active{
+    background:url("/img/admin/open_btn.png") no-repeat;
+    width: 20px;
+    height: 20px;
+}
+.btn-folder{
+    background:url("/img/admin/close_btn.png") no-repeat;
+    width: 20px;
+    height: 20px;
+
+
 }
 
 .card-body {
