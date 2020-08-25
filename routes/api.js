@@ -5526,7 +5526,7 @@ router.get('/info',function(req, res){
     }else if(req.query.type === 'info_list'){
         query += ` WHERE IF_End >= NOW() AND
                          IF_State = 'Y'
-                    ORDER BY tif.IF_Start ASC
+                    ORDER BY IF_Start ASC
                 LIMIT 1`;
 
         connection.query(query,
