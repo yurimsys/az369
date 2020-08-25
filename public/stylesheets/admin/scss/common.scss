@@ -179,7 +179,7 @@ $normal_color               : #222222;
             color: #f6633c;
         }
         .btn-folder {
-            background-color: red;
+            background:url("/img/admin/open_btn.png") no-repeat;
             width: 20px;
             height: 20px;
         }
@@ -201,7 +201,7 @@ $normal_color               : #222222;
             color: #ff5d33;
         }
         .btn-folder {
-            background-color: red;
+            background:url("/img/admin/close_btn.png") no-repeat;
             width: 20px;
             height: 20px;
         }
