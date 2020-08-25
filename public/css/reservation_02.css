@@ -86,7 +86,7 @@ td br {display: none;}
     table.order {width: 100%;}
     
     /*section.sub_wrap*/
-
+    .reservation_box p br {display: none;}
     
     .reservation_box {padding: 8% 6%;}
      section.sub_wrap h2 {font-size: 20px; line-height: 1.5; text-align: center;  margin-bottom: 5%;} 
