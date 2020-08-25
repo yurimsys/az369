@@ -562,7 +562,7 @@
     //회원 전화번호 안드로이드로 전송
     function CallUser(e){
         let phone_number = e.text;
-        console.log('phone :',phone_number); 
+        // console.log('phone :',phone_number); 
         window.Android.CallUser(phone_number);
     }
 

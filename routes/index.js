@@ -71,6 +71,9 @@ router.get('/addList', function(req, res, next) {
     res.render('signageAdd');
 });
 
+router.get('/retest',function(req,res){
+    res.redirect('mypage');
+})
 
 
 //////@@@@@ 의향서

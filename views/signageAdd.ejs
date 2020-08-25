@@ -248,9 +248,9 @@ let lv1Cat, lv2Cat, storeNum
     function selectFloor(e){
         $('#storeNum').empty();
         let floorStatus = JSON.parse(localStorage.getItem('floor'))
-        console.log($(e).children('input').attr('id'))
+        // console.log($(e).children('input').attr('id'))
         for(let i=0; i<floorStatus.length; i++){
-            console.log(floorStatus[i].LS_Floor);
+            // console.log(floorStatus[i].LS_Floor);
             if(floorStatus[i].LS_Floor == $(e).children('input').attr('id')){
                 let html = "<div onclick='selectStoreNumber(this)'>";
                     html += "<input type='radio' id="+floorStatus[i].LS_Number+" name='storeNumber' value="+floorStatus[i].LS_Number+">"
@@ -311,7 +311,7 @@ let lv1Cat, lv2Cat, storeNum
     }
 
    let getBSID = urlParam()
-   console.log(getBSID[0])
+//    console.log(getBSID[0])
 
     // document.bForm.action = '/api/modifyBusiness/'+getBSID[0]
 </script>

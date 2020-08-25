@@ -195,49 +195,6 @@
             </div>
         </section>
 
-        <!--//secton.about 완료-->
-        <!--secton.benefit 시작-->
-
-        <!-- <section class="benefit">
-            <div class="benefit_bg"></div>
-            <div class="inner_benefit">
-                <div class="benefit_tit">
-                    <h6>AZ369 혜택</h6>
-                    <h3>BENEFIT</h3>
-                    <div class="bar"></div>
-                    <p>AZ369가 입점주분들께 드리는 <br> 다양한 혜택들을 소개합니다.</p>
-                </div>
-
-                <div class="benefit_list">
-                    <ul><a href="benefit">
-                            <li>
-                                <div class="benefit_01">
-                                    <div class="benefit_list_img"><img src="/img/main/benefit_list01.png" alt=""></div>
-                                    <div class="benefit_list_txt">
-                                        <h5>함께하면 <br>더 행복해지는 혜택</h5>
-                                        <h4>MEMBER</h4>
-                                        <div class="benefit_btn">자세히 보기</div>
-                                    </div>
-                                </div>
-                            </li>
-                        </a>
-                        <a href="vehicle">
-                            <li>
-                                <div class="benefit_02">
-                                    <div class="benefit_list_txt">
-                                        <h5>
-                                            평택 센트럴돔<br>서울 동대문상가
-                                        </h5>
-                                        <h4 style="font-family: 'Noto Sans KR', sans-serif;">장차운행</h4>
-                                        <div class="benefit_btn">자세히 보기</div>
-                                    </div>
-                                </div>
-                            </li>
-                        </a>
-                    </ul>
-                </div>
-            </div>
-        </section> -->
         <section class="benefit">
             <div class="benefit_bg"></div>
             <div class="inner_benefit">
@@ -350,10 +307,13 @@
         <div class="modal_content">
             <h2>공지사항</h2>
     
-            <div class="info_modal_img"><img src='/img/ad/ad_main_left2.png'></div>
+            <div class="info_modal_img">
+                <!-- <img src='/img/ad/ad_main_left2.png'> -->
+            </div>
             <div class="info_modal_btn">
                 <div class="info_check etrans check_all_btn">
-                    <input type="checkbox" id="popup_check" class="check-all">
+                    
+                    <input type="checkbox" id="popup_check" name='popup_check' class="check-all">
                     <label for="popup_check">오늘 하루 그만 보기</label>
                 </div>
                 <button type="button" id="modal_close_btn" onclick="closeModal()">닫기</button>
@@ -366,6 +326,29 @@
     <script>
 
         $(document).ready(function(){
+
+            $.ajax({
+                url : '/api/info?type=info_list',
+                method : 'get',
+                dataType : 'json',
+                success: function(res){
+                    console.log('res!!',res.data);
+                    if(res.data.length == 0){
+                        $("#info_modal").css('display','none')
+                    }else{
+                        if(res.data[0].IF_Redirect != ""){
+                            $('.info_modal_img').empty();
+                            let html = "<a href=/"+res.data[0].IF_Redirect+"><img src="+res.data[0].IF_Url+"></a>"
+                            $('.info_modal_img').append(html);
+
+                        }else{
+                            $('.info_modal_img').empty();
+                            let html = "<img src="+res.data[0].IF_Url+">"
+                            $('.info_modal_img').append(html);
+                        }
+                    }
+                }					
+            });
 
             function getCookie(name) {
                 var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');

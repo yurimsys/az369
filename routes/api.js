@@ -5482,28 +5482,77 @@ router.delete('/video', async function(req, res){
                 }
         })
     })
+})
+
+//공지사항 리스트
+router.get('/info',function(req, res){
+    let query = `select 
+                    * 
+                from tIF`
+
+    if(req.query.type === 'search'){
+        let condition_list = [];
+        if( req.query.info_title){
+            condition_list.push(`IF_Title like '%${req.query.info_title}%'`);
+        }
+        if( req.query.info_url){
+            condition_list.push(`IF_Url like '%${req.query.info_url}%'`);
+        }
+        if( req.query.info_redirect){
+            condition_list.push(`IF_Redirect like '%${req.query.info_redirect}%'`);
+        }
+        if( req.query.info_start){
+            condition_list.push(`IF_Start >= '${req.query.info_start}'`);
+        }
+        if( req.query.info_end){
+            condition_list.push(`IF_End <= '${req.query.info_end}'`);
+        }
+        if( req.query.info_state != 'null'){
+            condition_list.push(`IF_State = '${req.query.info_state}'`);
+        }
+
+        let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
+        if( condition_list.length > 0){
+            let condition_stmt = ' WHERE '+condition_list.join(searchType);
+            query += condition_stmt;
+        }
+
+        connection.query(query,
+            function(err, rows){
+            if(err) throw err;
+
+            res.json({data : rows})
+        })
+    }else if(req.query.type === 'info_list'){
+        query += ` WHERE IF_End >= NOW() AND
+                         IF_State = 'Y'
+                    ORDER BY tif.IF_Start ASC
+                LIMIT 1`;
+
+        connection.query(query,
+            function(err, rows){
+            if(err) throw err;
+
+            res.json({data : rows})
+        })
+
+        
+    }else{
+        connection.query(query, function(err, rows){
+            if(err) throw err;
+            res.json({data : rows})
+        })
+    }
 
 })
 
 
-
-//광고 등록
+//공지사항 등록
 router.post('/info', upload.any(), async function (req, res, next) {
-    try {
-        let pool = await mssql.connect(dbconf.mssql)
-
-
-
-    } catch (err) {
-        console.log(err);
-        console.log('error fire')
-        res.json({result : 0});
-    }
-
     connection.beginTransaction(function(err){
-        let query = `INSERT INTO tINFO(
-                    INFO_Title, INFO_Url, INFO_Start, INFO_End) 
-                VALUES(:info_title, :info_url, :info_start, :info_end) `;
+        let query = `INSERT INTO tIF(
+                    IF_Title, IF_Url, IF_Redirect, IF_Start, IF_End, IF_State) 
+                VALUES(:info_title, :info_url, :info_redirect, :info_start, :info_end, :info_state) `;
         // 광고입력
         if(req.files.length === 0) throw Error('Non include files');
         // let content_type = req.files[0].mimetype.split('/')[0];
@@ -5511,10 +5560,12 @@ router.post('/info', upload.any(), async function (req, res, next) {
         let old_path = req.files[0].path;
         let new_path = path.join(config.path.info_image , filename);
 
-        let info_url = '/img/info'+filename;''
-        let info_title = req.body.title,
-        info_start = req.body.start,
-        info_end = req.body.end;
+        let info_url = '/img/info/'+filename;''
+        let info_title = req.body.info_title,
+            info_redirect = req.body.info_redirect,
+            info_start = req.body.info_start,
+            info_end = req.body.info_end,
+            info_state = req.body.info_state;
 
         fs.rename(old_path, new_path, (err) => {
             if (err) throw err;
@@ -5524,7 +5575,7 @@ router.post('/info', upload.any(), async function (req, res, next) {
             });
         });
 
-        connection.query(query,{info_title, info_url, info_start, info_end},
+        connection.query(query,{info_title, info_url, info_redirect, info_start, info_end, info_state},
             function(err,rows){
                 if(err){
                     connection.rollback(function(){
@@ -5546,5 +5597,138 @@ router.post('/info', upload.any(), async function (req, res, next) {
     })
 
 });
+
+//공지사항 수정
+router.put('/info/:ifid', upload.any(), async function (req, res, next) {
+    connection.beginTransaction(function(err){
+        let query = `UPDATE tIF SET 
+                        IF_Title = :info_title,
+                        IF_Start = :info_start,
+                        IF_Redirect = :info_redirect,
+                        IF_End = :info_end,
+                        IF_State = :info_state 
+                    `;
+
+        let info_url;
+        let filename;
+        let old_path;
+        let new_path;
+        // 광고입력
+        if(req.files.length === 0){
+            // throw Error('Non include files');
+            console.log('Non include files',Error);
+            query += ' WHERE IF_ID = :if_id'
+        }else{
+            
+            filename = req.files[0].filename;
+            old_path = req.files[0].path;
+            new_path = path.join(config.path.info_image , filename);
+            //파일 경로 지정
+            fs.rename(old_path, new_path, (err) => {
+                if (err) throw err;
+                fs.stat(new_path, (err, stats) => {
+                    if (err) throw err;
+                    console.log(`stats: ${JSON.stringify(stats)}`);
+                });
+            });
+
+            query += ` ,IF_Url = :info_url WHERE IF_ID = :if_id`
+            info_url = '/img/info/'+filename;
+        } 
+
+        console.log('info',info_url);
+        let if_id = req.params.ifid;
+        let info_title = req.body.info_title,
+            info_redirect = req.body.info_redirect,
+            info_start = req.body.info_start,
+            info_end = req.body.info_end,
+            info_state = req.body.info_state;
+
+
+
+        connection.query(query,{info_title, info_url, info_redirect, info_start, info_end, if_id, info_state},
+            function(err,rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('err!',err);
+                        res.json({data : 301});
+                    })
+                }else{
+                    connection.commit(function(err){
+                        if(err){
+                            return connection.rollback(function(){
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});
+                    })
+                }
+        })
+    })
+
+});
+
+
+//특정 공지사항 정보 삭제
+router.delete('/info/:ifid', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `DELETE FROM tIF where IF_ID = :if_id`;
+        let if_id = req.params.ifid;
+        connection.query(query,{if_id}, 
+            function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('ERROR ! :', err);
+                        res.json({data : 300});
+                        // throw err;
+                    })
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+        })
+    })
+})
+
+//선택된 다수의 공지사항 삭제
+router.delete('/info', async function(req, res){
+    connection.beginTransaction(function(err){
+        let if_id = req.body.row_ids;
+        let query = `DELETE FROM tIF where IF_ID IN (${if_id})`;
+
+        connection.query(query, 
+            function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('err!!!!',err);
+                        res.json({data : 300});
+                    //    throw err;
+                    })
+                    
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                console.log('ERROR :', err);
+                                res.json({data : 300});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+        })
+    })
+})
+
+
 
 module.exports = router;

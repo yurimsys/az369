@@ -875,9 +875,9 @@
                 
             });
 
-            console.log('check?',checkBoxArr);
-            console.log('data',chk_pg_id);
-            console.log('daaaa',chk_u_id);
+            // console.log('check?',checkBoxArr);
+            // console.log('data',chk_pg_id);
+            // console.log('daaaa',chk_u_id);
 
 
             $.ajax({
@@ -947,7 +947,7 @@
                             cancel_data.cancelPwd = '123456',
                             cancel_data.cancelMsg = '환불테스트'
 
-                            console.log('loglog :',cancel_data);
+                            // console.log('loglog :',cancel_data);
                         $.ajax({
                             type : "POST",
                             url : "https://api.innopay.co.kr/api/cancelApi",
@@ -956,7 +956,7 @@
                             contentType: "application/json; charset=utf-8",
                             dataType : "json",
                             success : function(data){
-                                console.log('취소결과',data);
+                                // console.log('취소결과',data);
                                 
                                 swal({
                                     title: '예매취소 완료',
