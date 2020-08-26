@@ -111,11 +111,13 @@ let tableInit = function (data) {
             selectedActionBtns.css('display', (isSelected) ? "flex" : "none");
             selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
         },
-        // onCellClick : function(e){
-        //     console.log('cell click'.e);
-        // },
+        onCellClick : function(e){
+            if (e.columnIndex == 5) {  
+                userSeat(e.data.PH_ID);
+            } 
+        },
         onRowClick : function(e) {
-            userSeat(e.data.PH_ID);
+            
 
             console.log('row click', e);
 
@@ -491,7 +493,7 @@ function userSeat(ph_id) {
                 for(let i=0; i<res.data.length; i++){
                     let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
                         bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+">";
-                        bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label></div>";
+                        bot_html += "<label for=seat_chk"+res.data[i].CR_ID+" style='cursor:pointer;'>좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label></div>";
 
                     
                         
@@ -503,9 +505,6 @@ function userSeat(ph_id) {
                 $('#object-res-noseat-popup').css('top','300px')
                 $("#object-res-noseat-popup").show();
             }
-
-
-            
 
         }					
     });
@@ -591,17 +590,6 @@ function userSeat(ph_id) {
 
                         }
                     else {
-                        var resultcode = null;
-                        let cancel_data = {}
-                            cancel_data.cancelAmt = '10',
-                            cancel_data.svcCd = '01',
-                            cancel_data.tid = e.dataset.pgid,
-                            cancel_data.partialCancelCode = '0',
-                            cancel_data.mid = 'testpay01m',
-                            cancel_data.cancelPwd = '123456',
-                            cancel_data.cancelMsg = '환불테스트'
-
-                            console.log('loglog :',cancel_data);
                         $.ajax({
                             type : "POST",
                             url : "https://api.innopay.co.kr/api/cancelApi",
@@ -642,7 +630,7 @@ function userSeat(ph_id) {
                 cancel_data.tid = string,
                 cancel_data.svcCd = '01',
                 cancel_data.partialCancelCode = '0',
-                cancel_data.cancelAmt = '135',
+                cancel_data.cancelAmt = '200',
                 cancel_data.cancelMsg = '환불테스트',
                 cancel_data.cancelPwd = '123456'
                 

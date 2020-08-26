@@ -302,7 +302,7 @@
     <script src="/js/lib/bootstrap.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/lib/angular.min.js"></script>
-    <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
+    <!-- <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script> -->
 
     <script>
         const user_name = "<%=sessionUser.U_Name%>";
@@ -884,14 +884,15 @@
             // Sample
             let mid = data.MID;					// 가맹점 MID
             let tid = data.TID;					// 거래고유번호 DB입력
-            let amt = data.Amt;					// 금액
+            let amt = data.Amt;					// 금액 영수증* 공급금액 부가세 합계금액
             let moid = data.MOID;				// 주문번호
-            let authdate = data.AuthDate;		// 승인일자
-            let authcode = data.AuthCode;		// 승인번호
+            let authdate = data.AuthDate;		// 승인일자 영수증*
+            let authcode = data.AuthCode;		// 승인번호 영수증*
             let resultcode = data.ResultCode;	// 결과코드(PG)
             let resultmsg = data.ResultMsg;		// 결과메세지(PG)
             let errorcode = data.ErrorCode;		// 에러코드(상위기관)
             let errormsg = data.ErrorMsg;		// 에러메세지(상위기관)
+                                                // 구매자명 영수증*
             let EPayCl   = data.EPayCl;
             let payType = data.AcquCardCode;    // 결제 타입 ex) 신용카드 01 계좌이체 02 DB 입력
             // console.log('success : ', data);

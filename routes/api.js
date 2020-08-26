@@ -1439,7 +1439,7 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
             ph_type = '신용카드';
             cr_memo = "";
         }else if(req.body.payType == '무료예매'){
-            ph_type = 'free';
+            ph_type = '무료에매';
             cr_memo = '무료예매';
         }else{
             ph_type = '-';
@@ -4109,9 +4109,9 @@ router.delete('/vehicle/:ctid',async function(req,res){
 router.delete('/vehicle',async function(req,res){
     
     let ct_id = req.body.row_ids
-    let query = `delete from tCT where CT_ID IN (:ct_id)`
+    let query = `delete from tCT where CT_ID IN (${ct_id})`
 
-    connection.query(query,{ct_id},
+    connection.query(query,
         function(err,rows){
             if (err){
                 connection.rollback(function(){

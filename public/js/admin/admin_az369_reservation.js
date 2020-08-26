@@ -1,6 +1,5 @@
 
 $(document).ready(function(){
-    
     init();
         //운송사 선택 후 좌석 창 오픈
 
@@ -164,12 +163,9 @@ let objectInfo = function (mode = "modify", row_data) {
         
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-save').addClass('disabled');
-        // $('#cr_id').val(row_data.CR_ID);
-        // $('#u_id').val(row_data.CR_U_ID);
-        // $('#ct_id').val(row_data.CR_CT_ID);
-        console.log('row_data',row_data.CR_CT_ID);
         $('.object-info #ct_id').val(row_data.CR_CT_ID).trigger('change');
         $('.object-info #u_id').val(row_data.CR_U_ID).trigger('change');
+        $('#cr_id').val(row_data.CR_ID);
         $('#seat_num').val(row_data.CR_SeatNum);
         $("#user_name").val(row_data.U_Name);
         $("#user_phone").val(row_data.U_Phone);
@@ -249,12 +245,31 @@ let tableInit = function (data) {
                 success: function (res){
                     
                     for (let i=0; i<res.data.length; i++){
-                        let html = "<option value="+res.data[i].CT_ID+" data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+                        let html = "<option value="+res.data[i].CT_ID+" onclick='testGood(this)' data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
                         $('#ct_id').append(html);
                     }
         
                 }
             });
+
+            // let type = 'res-user-seat'
+            // let res_ct_id = e.data.CR_CT_ID;
+            // let ct_id = $('#ct_id').val();
+            
+            // openBus(res_ct_id,type);
+            // $('#object-res-seat-popup').css('left','50%')
+            // $('#object-res-seat-popup').css('top','10%')
+            // $("#object-res-seat-popup").show();
+
+            // if(res_ct_id == 'null'){
+            //     return false;
+            // }
+            // if($('#ct_id').length == 1){
+                
+            // }
+            console.log('eparam:',);
+
+
             e.rowElement.css("border-left", "2px solid #f2f2f2");
 
             let row_data = {};
@@ -526,7 +541,7 @@ function cnacelInfo(string) {
         cancel_data.tid = string,
         cancel_data.svcCd = '01',
         cancel_data.partialCancelCode = '0',
-        cancel_data.cancelAmt = '135',
+        cancel_data.cancelAmt = '200',
         cancel_data.cancelMsg = '환불테스트',
         cancel_data.cancelPwd = '123456'
         
@@ -656,8 +671,8 @@ function searchPopupAction() {
         search_se_scan : $("#search_se_scan option:selected").attr('value'),
         search_cr_memo : $('#search_cr_memo').val()
         
-        
     };
+
     $.ajax({
         type : "GET",
         dataType : 'JSON',
@@ -680,6 +695,8 @@ var seatPrice = 0;
 let now_location = 'default';
 
 function openBus(busSeat,type) {
+    console.log('busset',busSeat);
+    console.log('type',type);
     $('.seatCharts-container').css('background-color','white');
     var firstSeatLabel = 1;
     let user_id = busSeat;
@@ -845,24 +862,24 @@ function ResseatClose(){
 
 
 
-$('#ct_id').on('click',function(){
-    console.log('goood?',$('#ct_id').val());
+// $('#ct_id').on('click',function(){
+//     console.log('goood?',$('#ct_id').val());
 
-    let type = 'res-user-seat'
-    let ct_id = $('#ct_id').val();
+//     let type = 'res-user-seat'
+//     let ct_id = $('#ct_id').val();
     
-    if(ct_id == 'null'){
-        return false;
-    }
-    if($('#ct_id').length == 1){
-        openBus(ct_id,type);
-    }
-    $('#object-res-seat-popup').css('left','50%')
-    $('#object-res-seat-popup').css('top','10%')
-    $("#object-res-seat-popup").show();
+//     if(ct_id == 'null'){
+//         return false;
+//     }
+//     if($('#ct_id').length == 1){
+//         openBus(ct_id,type);
+//     }
+//     $('#object-res-seat-popup').css('left','50%')
+//     $('#object-res-seat-popup').css('top','10%')
+//     $("#object-res-seat-popup").show();
     
-    openBus(ct_id,type);
+//     openBus(ct_id,type);
 
 
-})
+// })
 
