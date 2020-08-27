@@ -785,7 +785,11 @@ router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
                         inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
                         set CR_Cancel = :crCancel, CR_CancelDt = now(), CR_PayState = '결제취소'
                     where CR_ID IN (:cr_id) AND  CR_U_Id = :sessionId AND
-                        tCT.CT_DepartureTe > date_add(now(),interval +3 day);`;
+                        tCT.CT_DepartureTe > date_add(now(),interval +3 day)`;
+        let admin_query = `update tCR
+                                inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
+                                set CR_Cancel = :crCancel, CR_CancelDt = now(), CR_PayState = '결제취소'
+                                where CR_ID IN (:cr_id) AND  CR_U_Id = :sessionId`;
                         
         let select_query = `select CR_SeatNum, CR_Price from tCR where CR_ID IN (:cr_id) AND tCR.CR_U_ID = :sessionId`;
         let scan_query = ` SELECT CR_ScanPy FROM tCR WHERE tCR.CR_ID IN (:cr_id) AND tCR.CR_U_ID =:sessionId `
@@ -798,70 +802,87 @@ router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
         let sessionId = req.body.u_id
         let cr_id = req.body.cr_id;
         let crCancel = 'Y'; 
-
-
-        connection.query(start_query,{cr_id : cr_id},
-            function(err, startRow){
-                if(err){
-                    console.log('err',err);
-                    res.json({data : '변수오류'})
-                }
-                if(startRow[0].CT_PyStart === 'Y'){
-                    res.json({data : '201'})
-                }else{
-                    connection.query(scan_query, {
-                        sessionId : sessionId,
-                        cr_id : cr_id
-                    
-                    },function(err, selRow){
-                        if(err) throw err;
-                        if(selRow[0].CR_ScanPy == 'Y'){
-                            res.json({data : '200'})
-                        }else{
-                            connection.query(query,
-                                {
-                                    crCancel, sessionId, cr_id
-                        
-                                },function(err, rows, fields) {
-                                    if (err){
-                                        connection.rollback(function(){
-                                            throw err;
-                                        })
-                                    }
-                                    connection.query(select_query,
-                                        {
-                                            cr_id, sessionId
-                                        },
-                                        function(err, result, fields){
-                                            if (err){
-                                                connection.rollback(function(){
-                                                    throw err;
-                                                })
-                                            }
-                                            let over_lap = [];
-                                            for(let i=0; i <result.length; i++){
-                                                  over_lap.push(result[i].CR_SeatNum)
-                                            }
-                                            let seat_number = over_lap.join('번,')+'번';
-                                            connection.commit(function(err) {
-                                                if (err) {
-                                                    return connection.rollback(function() {
-                                                        throw err;
-                                                    });
-                                                }
-                                                res.json({data : rows.affectedRows, seats : seat_number, cancelPay : result.length *result[0].CR_Price})
-                                            });
-                                            
-                        
-                                        })
+        if(req.query.type == 'admin'){
+            connection.query(admin_query, {crCancel, sessionId, cr_id}, 
+                function(err, rows){
+                    if(err){
+                        connection.rollback(function(){
+                            console.log('ERROR ', err);
+                            res.json({data : '302'});
+                        })
+                    }else{
+                        connection.commit(function(err) {
+                            if (err) {
+                                return connection.rollback(function() {
+                                    throw err;
                                 });
-                        }
-            
-                    })
-                }
-        })
-
-       
+                            }
+                            res.json({data : '201'})
+                        });
+                    }
+            })
+        }else{
+            connection.query(start_query,{cr_id : cr_id},
+                function(err, startRow){
+                    if(err){
+                        console.log('err',err);
+                        res.json({data : '변수오류'})
+                    }
+                    if(startRow[0].CT_PyStart === 'Y'){
+                        res.json({data : '201'})
+                    }else{
+                        connection.query(scan_query, {
+                            sessionId : sessionId,
+                            cr_id : cr_id
+                        
+                        },function(err, selRow){
+                            if(err) throw err;
+                            if(selRow[0].CR_ScanPy == 'Y'){
+                                res.json({data : '200'})
+                            }else{
+                                connection.query(query,
+                                    {
+                                        crCancel, sessionId, cr_id
+                            
+                                    },function(err, rows, fields) {
+                                        if (err){
+                                            connection.rollback(function(){
+                                                throw err;
+                                            })
+                                        }
+                                        connection.query(select_query,
+                                            {
+                                                cr_id, sessionId
+                                            },
+                                            function(err, result, fields){
+                                                if (err){
+                                                    connection.rollback(function(){
+                                                        throw err;
+                                                    })
+                                                }
+                                                let over_lap = [];
+                                                for(let i=0; i <result.length; i++){
+                                                      over_lap.push(result[i].CR_SeatNum)
+                                                }
+                                                let seat_number = over_lap.join('번,')+'번';
+                                                connection.commit(function(err) {
+                                                    if (err) {
+                                                        return connection.rollback(function() {
+                                                            throw err;
+                                                        });
+                                                    }
+                                                    res.json({data : rows.affectedRows, seats : seat_number, cancelPay : result.length *result[0].CR_Price})
+                                                });
+                                                
+                            
+                                            })
+                                    });
+                            }
+                
+                        })
+                    }
+            })
+        }
 
     })
     
@@ -3826,7 +3847,8 @@ router.post('/bus_qrcode_scan', async (req, res, done) =>{
                     function(err, result){
                         if (err){
                             connection.rollback(function(){
-                                throw err;
+                                console.log('error :', err);
+                                res.json({data : 301});
                             })
                         }
                         connection.commit(function(err) {
@@ -4537,7 +4559,8 @@ router.get('/member', function(req,res){
 router.post('/member', async function(req, res){
     connection.beginTransaction(function(err){
         let query = `insert into tU (
-                                U_uId, 
+                                U_uId,
+                                U_Pw, 
                                 U_Name,
                                 U_Email, 
                                 U_Phone, 
@@ -4548,7 +4571,8 @@ router.post('/member', async function(req, res){
                                 U_isAdmin
                                 ) 
                         values( 
-                            :u_login_id,  
+                            :u_login_id,
+                            :hash_pw,  
                             :u_name,  
                             :u_email,  
                             :u_phone, 
@@ -4567,9 +4591,11 @@ router.post('/member', async function(req, res){
             address = req.body.address,
             detailAddress = req.body.detailAddress,
             u_admin = req.body.u_admin;
-
+        
+        let u_pw = '1234';
+        let hash_pw = CryptoJS.AES.encrypt(u_pw, config.enc_salt).toString()
         connection.query(query, 
-                {u_login_id, u_name, u_email, u_phone, u_brand, postcode, address, detailAddress, u_admin},
+                {u_login_id, hash_pw, u_name, u_email, u_phone, u_brand, postcode, address, detailAddress, u_admin},
             function(err, rows){
                 if (err){
                     connection.rollback(function(){

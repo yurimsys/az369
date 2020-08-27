@@ -118,7 +118,6 @@ let tableInit = function (data) {
         },
         onRowClick : function(e) {
             
-
             console.log('row click', e);
 
             let ph_id = e.data.PH_ID;
@@ -448,10 +447,10 @@ function searchPopupAction() {
 }
 
 function ResseatClose(){
-    $("#object-res-seat-popup").hide();   
+    $("#object-res-seat-popup").hide();
 }
 function ResNoseatClose(){
-    $("#object-res-noseat-popup").hide();   
+    $("#object-res-noseat-popup").hide();
 }
 //회원 예매 목록
 function userSeat(ph_id) {
@@ -534,7 +533,7 @@ function userSeat(ph_id) {
 
 
             $.ajax({
-                url: "/api/user/cancelRes",
+                url: "/api/user/cancelRes?type=admin",
                 method: 'post',
                 dataType: 'json',
                 async: false,
@@ -542,101 +541,50 @@ function userSeat(ph_id) {
                 success: function (res) {
                     $('#popup').css('display','none');
                     $('.swal-icon--success__ring').css('display','none');
-                    let link = document.createElement('div')
-                        link.innerHTML = "<a href='/'>환불규정 보기</a>"
-                    if (res.data == 0) {
-                        swal({
-                            title: '취소 실패',
-                            text: '출발일 기준 3일 내 예매취소가 불가능합니다. \n',
-                            content: link,
-                            icon: 'error',
-                            button: '환불규정 보기',
-                            button: '확인'
-                        }).then((value)=>{
-                            location.href='mypage';
-                        })
-                    } else if(res.data == 200){
+                    $.ajax({
+                        type : "POST",
+                        url : "https://api.innopay.co.kr/api/cancelApi",
+                        async : true,
+                        data : cnacelInfo(chk_pg_id),
+                        contentType: "application/json; charset=utf-8",
+                        dataType : "json",
+                        success : function(data){
+                            console.log('취소결과',data);
+                            
+                            alert('취소완료!');
+                            ResseatClose();
+                            location.reload();
 
-                        swal({
-                            title: '취소 실패',
-                            text: '승차하신 좌석은 취소가 불가능 합니다.',
-                            icon: 'error',
-                            button: '확인'
-                        }).then((value)=>{
-                            location.href='mypage';
-                        })
-
-                    }else if(res.data == 200){
-
-                        swal({
-                            title: '취소 실패',
-                            text: '승차하신 좌석은 취소가 불가능 합니다.',
-                            icon: 'error',
-                            button: '확인'
-                        }).then((value)=>{
-                            location.href='mypage';
-                        })
-
-                    }else if(res.data == 201){
-
-                        swal({
-                            title: '취소 실패',
-                            text: '출발한 버스는 예매 취소가 불가능 합니다.',
-                            icon: 'error',
-                            button: '확인'
-                        }).then((value)=>{
-                            location.href='mypage';
-                        })
-
+                        },
+                        error : function(data){
+                            // console.log(data);   
+                            alert("취소 오류 고객센터에 문의해 주세요.");
                         }
-                    else {
-                        $.ajax({
-                            type : "POST",
-                            url : "https://api.innopay.co.kr/api/cancelApi",
-                            async : true,
-                            data : cnacelInfo(chk_pg_id),
-                            contentType: "application/json; charset=utf-8",
-                            dataType : "json",
-                            success : function(data){
-                                console.log('취소결과',data);
-                                
-                                alert('취소완료!');
-                                ResseatClose();
-                                location.reload();
-
-                            },
-                            error : function(data){
-                                // console.log(data);   
-                                alert("취소 오류 고객센터에 문의해 주세요.");
-                            }
-                        });
-
-                    }
+                    });
                 }
             })
         }
 
     function cnacelInfo(string) {
-            // var obj = {};
-            // var row, 
-            //     rows = table.rows;
-            // for (var i=0, iLen=rows.length; i<iLen; i++) {
-            //   row = rows[i];
-            //   obj[document.getElementsByTagName("input")[i].getAttribute('name')] = document.getElementsByTagName("input")[i].value;
-            // }
-            // console.log('good',obj);
-            let cancel_data = {}
-                cancel_data.mid = 'testpay01m',
-                cancel_data.tid = string,
-                cancel_data.svcCd = '01',
-                cancel_data.partialCancelCode = '0',
-                cancel_data.cancelAmt = '200',
-                cancel_data.cancelMsg = '환불테스트',
-                cancel_data.cancelPwd = '123456'
-                
-            return JSON.stringify(cancel_data);
-            // console.log('can', cancel_data);
-
+        // var obj = {};
+        // var row, 
+        //     rows = table.rows;
+        // for (var i=0, iLen=rows.length; i<iLen; i++) {
+        //   row = rows[i];
+        //   obj[document.getElementsByTagName("input")[i].getAttribute('name')] = document.getElementsByTagName("input")[i].value;
+        // }
+        // console.log('good',obj);
+        let cancel_data = {}
+            cancel_data.mid = 'testpay01m',
+            cancel_data.tid = string,
+            cancel_data.svcCd = '01',
+            cancel_data.partialCancelCode = '0',
+            cancel_data.cancelAmt = '200',
+            cancel_data.cancelMsg = '환불테스트',
+            cancel_data.cancelPwd = '123456'
+            
+        return JSON.stringify(cancel_data);
+        // console.log('can', cancel_data);
     }
 
 

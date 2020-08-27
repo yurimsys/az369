@@ -296,6 +296,7 @@ function saveAD(){
         success : function (res) {
             console.log('ajax result');
             console.log(res);
+            alert('기본 비밀번호는 1234 입니다');
             objectInfo('new');
             $("#mgmt-table").dxDataGrid("instance").refresh();
         }
