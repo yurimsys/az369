@@ -16,6 +16,7 @@ const multer = require('multer')
 const path = require('path');
 const fs = require('fs');
 const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
+const { throws } = require('assert');
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -5755,6 +5756,162 @@ router.delete('/info', async function(req, res){
     })
 })
 
+//입점 상담 신청 리스트
+router.get('/benefit', function(req, res){
+    let query = `SELECT 
+                    SI_ID,
+                    SI_Name,
+                    SI_Phone,
+                    SI_Brand,
+                    SI_Addr1,
+                    SI_Addr2,
+                    SI_Content,
+                    left(SI_Content,10) as contents,
+                    SI_cDt,
+                    SI_Read 
+                FROM tSI`;
+    if(req.query.type == 'search'){
+        let condition_list = [];
+        if( req.query.benefit_name){
+            condition_list.push(`SI_Name like '%${req.query.benefit_name}%'`);
+        }
+        if( req.query.benefit_phone){
+            condition_list.push(`SI_Phone like '%${req.query.benefit_phone}%'`);
+        }
+        if( req.query.benefit_brand){
+            condition_list.push(`SI_Brand like '%${req.query.benefit_brand}%'`);
+        }
+        if( req.query.benefit_addr1){
+            condition_list.push(`SI_Addr1 like '%${req.query.benefit_addr1}%'`);
+        }
+        if( req.query.benefit_addr2){
+            condition_list.push(`SI_Addr2 like '%${req.query.benefit_addr2}%'`);
+        }
+        if( req.query.benefit_content){
+            condition_list.push(`SI_Content like '%${req.query.benefit_content}%'`);
+        }
+        if( req.query.benefit_check != 'null'){
+            condition_list.push(`SI_Read = '${req.query.benefit_check}'`);
+        }
+        if( req.query.benefit_day){
+            condition_list.push(`SI_cDt like '%${req.query.benefit_day}%'`);
+        }
+        let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
+        if( condition_list.length > 0){
+            let condition_stmt = ' WHERE '+condition_list.join(searchType);
+            query += condition_stmt;
+        }
+
+        connection.query(query,
+            function(err, rows){
+            if(err) throw err;
+
+            res.json({data : rows})
+        })
+    }
+    else{
+        connection.query(query,function(err, rows){
+            if(err) throw err;
+            res.json({data : rows})
+        })
+    }
+})
+
+//신청서 읽음 처리
+router.put('/benefit/:siid', async function(req, res){
+
+    connection.beginTransaction(function(err){
+        let query = `UPDATE tSI SET SI_Read = :benefit_check WHERE SI_ID = :si_id`;
+        let benefit_check = req.body.benefit_check;
+        let si_id = req.params.siid;
+        connection.query(query, {benefit_check, si_id}, 
+            function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('err!!!!',err);
+                        res.json({data : '500'});
+                    })
+                    
+                }else{
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                console.log('ERROR :', err);
+                                res.json({data : '500'});
+                                throw err;
+                            });
+                        }
+                        res.json({data : 200});    
+                    });
+                }
+        })
+    })
+})
+
+//신청서 삭제
+router.delete('/benefit/:siid', async function(req, res){
+    connection.beginTransaction(function(err){
+        let query = `DELETE FROM tSI WHERE SI_ID = :si_id`;
+        let si_id = req.params.siid;
+        connection.query(query,{si_id},
+            function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('error', err);
+                        res.json({data : '500'});
+                    })
+                }else{
+                    connection.commit(function(err){
+                        if(err){
+                            return connection.rollback(function(){
+                                console.log('error', err);
+                                res.json({data : '500'});
+                                throw err;
+                            })
+                        }
+                        res.json({data : 200});
+                    })
+                }
+    
+        })
+    })
+})
+
+//신청서 다중 삭제
+router.delete('/benefit', async function(req, res){
+    connection.beginTransaction(function(err){
+        let si_id = req.body.row_ids;
+        let query = `DELETE FROM tSI WHERE SI_ID IN (${si_id})`
+        connection.query(query,function(err, rows){
+            if(err){
+                connection.rollback(function(){
+                    console.log('error', err);
+                    res.json({data : '500'});
+                })
+            }else{
+                connection.commit(function(err){
+                    if(err){
+                        return connection.rollback(function(){
+                            console.log('error', err);
+                            res.json({data : '500'});
+                            throw err;
+                        })
+                    }
+                    res.json({data : 200});
+                })
+            }
+        })
+    })
+})
+
+//신청서 읽지않은 수
+router.get('/benefit_length', function(req,res){
+    let query = `SELECT COUNT(SI_READ) as count FROM tSI WHERE SI_READ = 'n'`
+    connection.query(query, function(err, rows){
+        if(err) throw err;
+        res.json({data : rows});
+    })
+})
 
 
 module.exports = router;

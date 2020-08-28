@@ -13,6 +13,19 @@ function folding(){
   $('#object_detail_group').slideToggle('fast')
 }
 
+//신청서 알림 현황
+function benefitRead(){
+    $.ajax({
+        url : '/api/benefit_length',
+        method : 'get',
+        dataType : 'json',
+        success: function(res){
+            $('#benefit_length').text(res.data[0].count)
+        }					
+    });
+}
+
+benefitRead();benefitRead();
 
 (function($) {
   "use strict";
