@@ -1073,14 +1073,17 @@
                     'endDay': $("#endDay").val()
                 },
                 success: function (res) {
-                    //console.log('resData ::::', res.data);
+                    console.log('resData ::::', res.data[0].seatNumMo.data);
+                    
                     for (let i = 0; i < res.data.length; i++) {
+                        let origin_seat = res.data[i].seatNumMo.data
+                        var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<tr>";
                         html += "<td>" + res.data[i].PayDay + "</td>";
                         html += "<td>" + res.data[i].deptTe + "</td>";
                         // html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
                         html += "<td>" + res.data[i].carName + "</td>";
-                        html += "<td>" + res.data[i].seatCnt + "</td>";
+                        html += "<td>" + seatNum + "</td>";
                         html += "<td>" + (res.data[i].payType || "-") + "</td>";
                         html += "<td>" + (res.data[i].price || 0) + "</td>";
                         html += "</tr>";
@@ -1155,11 +1158,13 @@
                 dataType: "json",
                 success: function (res) {
                     for (let i = 0; i < res.data.length; i++) {
+                        let origin_seat = res.data[i].seatNumMo.data
+                        var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<tr>";
                         html += "<td>" + res.data[i].PayDay + "</td>";
                         html += "<td>" + res.data[i].deptTe + "</td>";
                         html += "<td>" + res.data[i].cancelDay + "</td>";
-                        html += "<td>" + res.data[i].CR_SeatNum+ "</td>";
+                        html += "<td>" + seatNum+ "</td>";
                         html += "<td>" + res.data[i].payType + "</td>";
                         html += "<td>" + res.data[i].price + "</td>";
                         html += "</tr>";
@@ -1213,11 +1218,13 @@
                 },
                 success: function (res) {
                     for (let i = 0; i < res.data.length; i++) {
+                        let origin_seat = res.data[i].seatNumMo.data
+                        var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<tr>";
                         html += "<td>" + res.data[i].PayDay + "</td>";
                         html += "<td>" + res.data[i].deptTe + "</td>";
                         html += "<td>" + res.data[i].cancelDay + "</td>";
-                        html += "<td>" + res.data[i].seatCnt + "</td>";
+                        html += "<td>" + seatNum + "</td>";
                         html += "<td>" + res.data[i].payType + "</td>";
                         html += "<td>" + res.data[i].price + "</td>";
                         html += "</tr>";
@@ -1258,12 +1265,14 @@
                     $('.table_mo').empty();
                     // location.href = "#popup3"
                     for (let i = 0; i < res.data.length; i++) {
+                        let origin_seat = res.data[i].seatNumMo.data
+                        var seatNum = String.fromCharCode.apply(null, origin_seat);
 
                         let html = "<table class='detail_table'>";
                         //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
                         html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+")</td></tr>";
                         html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 - 동대문)</span></td></tr>";
-                        html += "<tr><th>좌석번호</th><td>" + res.data[i].CR_SeatNum + "</td></tr>";
+                        html += "<tr><th>좌석번호</th><td>" + seatNum + "</td></tr>";
                         html += "<tr><th>취소일시</th><td>" + res.data[i].cancelDay + "</td></tr>"
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
                         html += "<tr><th>환불금액</th><td>" + res.data[i].price + "</td></tr></table>";

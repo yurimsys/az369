@@ -2,7 +2,6 @@
 $(document).ready(function(){
     init();
         //운송사 선택 후 좌석 창 오픈
-
 }) 
 function init(){
 
@@ -34,8 +33,31 @@ function init(){
         }
     });
 
- 
-
+    //배차 선택시 좌석 모달 팝업
+    $('#ct_id').on('select2:select',function(e){
+        console.log('e',e);
+        $('.object-info #ct_id').trigger('change');
+        
+        //좌석 현황 오픈
+        let type = 'res-user-seat'
+        let res_ct_id = e.params.data.id;
+        let ct_id = $('#ct_id').val();
+        
+        if(res_ct_id == 'null'){
+            return false;
+        }
+        if($('#ct_id').length == 1){
+            openBus(ct_id,type);
+        }
+        $('#object-res-seat-popup').css('left','50%')
+        $('#object-res-seat-popup').css('top','10%')
+        $("#object-res-seat-popup").show();
+    
+        console.log('type :', res_ct_id);
+        console.log('good :', type);
+        openBus(res_ct_id,type);
+        
+    });
 
 }
 
@@ -51,9 +73,7 @@ let objectInfo = function (mode = "modify", row_data) {
 
                 $('#ct_id').empty();
                 $('#search_ct_id').empty();
-                let brand_list = res.data.map((data) =>{
-                    return { id : data.CT_ID, text : data.B_NAME}
-                });
+
                 // console.log('brsan', brand_list);
                 $("#ct_id").select2(
                     {
@@ -122,36 +142,12 @@ let objectInfo = function (mode = "modify", row_data) {
         $('#cr_state').val('');
         // init();
         sessionStorage.removeItem('row_data');
-
-        $('#ct_id').on('select2:select',function(e){
-            $('.object-info #ct_id').trigger('change');
-            console.log('e',e);
-            //좌석 현황 오픈
-            let type = 'res-user-seat'
-            let res_ct_id = e.params.data.id;
-            let ct_id = $('#ct_id').val();
-            
-            if(res_ct_id == 'null'){
-                return false;
-            }
-            if($('#ct_id').length == 1){
-                openBus(ct_id,type);
-            }
-            $('#object-res-seat-popup').css('left','50%')
-            $('#object-res-seat-popup').css('top','10%')
-            $("#object-res-seat-popup").show();
-            
+        $('.object-info seelct2').on('click',function(){
+            console.log('goood?');
+        })
         
-            console.log('type :', res_ct_id);
-            openBus(res_ct_id,type);
-            
-        });
-
-        
-
-
     } else if( mode === "modify"){        
-        console.log('row_data',row_data);
+        // console.log('row_data',row_data);
         $('#new_test2').css('display','block');
         $('.info_center').css('display','block');
         $('.info_right').css('display','block');
@@ -237,39 +233,34 @@ let tableInit = function (data) {
             // $('#ct_id').select2('destroy');
             // console.log('하나');
             $('#ct_id').empty();
+            let local_date = new Date();
+            let local_year = local_date.getFullYear();
+            let local_month = local_date.getMonth()+1 < 10 ? '0'+Number(local_date.getMonth()+1) : Number(local_date.getMonth()+1);
+            let local_day = local_date.getDate();
+            let local_hour = local_date.getHours();
+            let local_minutes = local_date.getMinutes();
+            let local_times = local_year+'-'+local_month+'-'+local_day+' '+local_hour+':'+local_minutes;
             $.ajax({
                 method: "get",
                 dataType : "JSON",
                 async : false,
                 url: "/api/vehicle/list",
                 success: function (res){
-                    
                     for (let i=0; i<res.data.length; i++){
-                        let html = "<option value="+res.data[i].CT_ID+" onclick='testGood(this)' data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+                        let html;
+                        //이전 예매정보일때
+                        if((res.data[i].CT_DepartureTe < local_times) == false){
+                            html = "<option value="+res.data[i].CT_ID+" onclick='testGood(this)' data-price="+res.data[0].CY_SeatPrice+" >"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+                        }else{
+                            html = "<option value="+res.data[i].CT_ID+" onclick='testGood(this)' data-price="+res.data[0].CY_SeatPrice+" disabled = 'disabled'>"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+                        }
+
                         $('#ct_id').append(html);
                     }
         
                 }
             });
-
-            // let type = 'res-user-seat'
-            // let res_ct_id = e.data.CR_CT_ID;
-            // let ct_id = $('#ct_id').val();
-            
-            // openBus(res_ct_id,type);
-            // $('#object-res-seat-popup').css('left','50%')
-            // $('#object-res-seat-popup').css('top','10%')
-            // $("#object-res-seat-popup").show();
-
-            // if(res_ct_id == 'null'){
-            //     return false;
-            // }
-            // if($('#ct_id').length == 1){
-                
-            // }
-            console.log('eparam:',);
-
-
+            selected_seats = [];
             e.rowElement.css("border-left", "2px solid #f2f2f2");
 
             let row_data = {};
@@ -299,6 +290,7 @@ let tableInit = function (data) {
                 folding();
             }
             objectInfo("modify", row_data);
+
         },
         onCellClick : function(e){
             $('#seat_num').empty();
@@ -552,16 +544,22 @@ function cnacelInfo(string) {
 
 function updateAD(){
     let id = JSON.parse( sessionStorage.getItem('row_data') ).CR_ID;
+    let seat_num_list;
+    if(selected_seats == 0){
+        seat_num_list = $('#seat_num').val();
+    }else{
+        seat_num_list = selected_seats;
+    }
     let update_data = {
         ct_id : $("#ct_id option:selected").attr('value'),
-        seatNums : selected_seats,
+        seatNums : seat_num_list,
         cr_cancel : $("#cr_cancel option:selected").attr('value'),
         py_scan : $("#py_scan option:selected").attr('value'),
         se_scan : $("#se_scan option:selected").attr('value'),
         cr_memo : $('#cr_memo').val(),
         cr_state : $("#cr_state option:selected").attr('value'),
     }
-
+    console.log('fwefew',update_data.seatNums);
     if($("#cr_cancel option:selected").attr('value') == 'Y'){
         $.ajax({
             type : "POST",
@@ -695,8 +693,8 @@ var seatPrice = 0;
 let now_location = 'default';
 
 function openBus(busSeat,type) {
-    console.log('busset',busSeat);
-    console.log('type',type);
+    // console.log('busset',busSeat);
+    // console.log('type',type);
     $('.seatCharts-container').css('background-color','white');
     var firstSeatLabel = 1;
     let user_id = busSeat;
@@ -744,10 +742,7 @@ function openBus(busSeat,type) {
                 // $('#seat_num').text(' ');
                 // flushSeat(user_id,type);
                 if (this.status() == 'available') {
-                    // if (selected_seats_cnt >= 4) {
-                    //     alert("최대 4개까지 선택가능합니다.");
-                    //     return this.style();
-                    // }
+
                     selected_seats_cnt = $seat_map.find('selected').length + 1;
                     selected_seats.push(this.settings.label);
                     $('#seat_num').val('　'.concat(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : '')));
@@ -883,3 +878,17 @@ function ResseatClose(){
 
 // })
 
+
+$("#ct_id")
+    .on("change", function(e) { console.log("change "+JSON.stringify({val:e.val, added:e.added, removed:e.removed})); })
+    .on("select2:opening", function() { console.log("opening"); })
+    .on("select2:open", function() { console.log("open"); })
+    .on("select2:select", function() { console.log("select!!!"); })
+    .on("select2:close", function(e) { console.log("close",e); })
+    .on("select2:highlight", function(e) { console.log ("highlighted val="+ e.val+" choice="+ JSON.stringify(e.choice));})
+    .on("select2:selecting", function(e) { console.log ("selecting val="+ e.val+" choice="+ JSON.stringify(e.choice));})
+    .on("select2:removing", function(e) { console.log ("removing val="+ e.val+" choice="+ JSON.stringify(e.choice));})
+    .on("select2:removed", function(e) { console.log ("removed val="+ e.val+" choice="+ JSON.stringify(e.choice));})
+    .on("select2:loaded", function(e) { console.log ("loaded (data property omitted for brevity)");})
+    .on("select2:focus", function(e) { console.log ("focus");})
+    .on("select2:blur", function(e) { console.log ("blur");});

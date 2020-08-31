@@ -988,6 +988,7 @@ router.post('/user/resPayBetween',  auth.isLoggedIn, (req, res, next) =>{
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     tB.B_Name as carName,
                     tCT.CT_CarNum as carNum,
+                    (select group_concat( ' ', CR_SeatNum)) as seatNumMo,
                     count(CR_SeatNum) as seatCnt,
                     tPH.PH_Type as payType,
                     tPH.PH_Price as price,
@@ -1004,7 +1005,7 @@ router.post('/user/resPayBetween',  auth.isLoggedIn, (req, res, next) =>{
                     tCR.CR_CT_ID = tCT.CT_ID and 
                     tCR.CR_U_ID = :sessionId and 
                     tCR.CR_cDt between date(:deptDay) and 
-                    date(:endDay)+1
+                    DATE_ADD(:endDay, INTERVAL 1 DAY)
                 group by tCR.CR_cDt
                 order by no desc
              `;
@@ -1091,6 +1092,7 @@ router.get('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
                         date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
                         tCR.CR_CancelDt as cancelDay,
                         CR_SeatNum,
+                        (select group_concat( ' ', CR_SeatNum)) as seatNumMo,
                         tPH.PH_Type as payType,
                         tPH.PH_Price as price,
                         CR_CT_ID as ctId,
@@ -1137,6 +1139,7 @@ router.post('/user/resCancelListBetween', auth.isLoggedIn, (req, res, next) =>{
                         date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                         date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
                         count(CR_SeatNum) as seatCnt,
+                        (select group_concat( ' ', CR_SeatNum)) as seatNumMo,
                         tPH.PH_Type as payType,
                         CR_CT_ID as ctId,
                         CR_PH_ID as phId,
@@ -1151,7 +1154,7 @@ router.post('/user/resCancelListBetween', auth.isLoggedIn, (req, res, next) =>{
                         tCR.CR_Cancel = :crCancel and 
                         tCR.CR_U_ID = :sessionId and 
                         tCR.CR_CancelDt between date(:cancelDeptDay) AND 
-                        date(:cancelEndDay)+1
+                        DATE_ADD(:cancelEndDay, INTERVAL 1 DAY)
                     group by tCR.CR_cDt
                     order by cancelDay desc
 	                `;
@@ -1215,7 +1218,7 @@ router.post('/user/resCancelListMo', auth.isLoggedIn, (req, res, next) =>{
             
         });
         
-}); 
+});
 
 //마이페이지 취소 및 환불조회 상세보기 모바일
 router.post('/user/resCancelDetailMo', auth.isLoggedIn, (req, res, next) =>{
@@ -1227,13 +1230,14 @@ router.post('/user/resCancelDetailMo', auth.isLoggedIn, (req, res, next) =>{
                     date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
+                    (select group_concat( ' ', CR_SeatNum)) as seatNumMo,
                     CR_SeatNum ,
                     tPH.PH_Type as payType,
                     tPH.PH_Price as price,
                     tB.B_Name as carName,
                     CR_CT_ID as ctId,
-                    CR_PH_ID as phId	
-                from tCT 
+                    CR_PH_ID as phId
+                from tCT
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID 
                     left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
@@ -1254,7 +1258,7 @@ router.post('/user/resCancelDetailMo', auth.isLoggedIn, (req, res, next) =>{
     console.log("ctId :", ctId);
     console.log("phId :", phId);
 
-    connection.query(query, 
+    connection.query(query,  
         {          
             sessionId, crCancel, ctId, phId
                                 
