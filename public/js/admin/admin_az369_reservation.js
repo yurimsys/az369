@@ -236,7 +236,7 @@ let tableInit = function (data) {
             let local_date = new Date();
             let local_year = local_date.getFullYear();
             let local_month = local_date.getMonth()+1 < 10 ? '0'+Number(local_date.getMonth()+1) : Number(local_date.getMonth()+1);
-            let local_day = local_date.getDate();
+            let local_day = local_date.getDate() < 10 ? '0'+local_date.getDate() : local_date.getDate();
             let local_hour = local_date.getHours();
             let local_minutes = local_date.getMinutes();
             let local_times = local_year+'-'+local_month+'-'+local_day+' '+local_hour+':'+local_minutes;
@@ -246,6 +246,8 @@ let tableInit = function (data) {
                 async : false,
                 url: "/api/vehicle/list",
                 success: function (res){
+                    console.log('res !!', res.data);
+                    console.log('time !!', local_times);
                     for (let i=0; i<res.data.length; i++){
                         let html;
                         //이전 예매정보일때
