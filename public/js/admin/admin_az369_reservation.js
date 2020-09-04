@@ -1,7 +1,11 @@
 
 $(document).ready(function(){
     init();
-        //운송사 선택 후 좌석 창 오픈
+        
+
+
+
+
 }) 
 function init(){
 
@@ -33,31 +37,9 @@ function init(){
         }
     });
 
-    //배차 선택시 좌석 모달 팝업
-    $('#ct_id').on('select2:select',function(e){
-        console.log('e',e);
-        $('.object-info #ct_id').trigger('change');
-        
-        //좌석 현황 오픈
-        let type = 'res-user-seat'
-        let res_ct_id = e.params.data.id;
-        let ct_id = $('#ct_id').val();
-        
-        if(res_ct_id == 'null'){
-            return false;
-        }
-        if($('#ct_id').length == 1){
-            openBus(ct_id,type);
-        }
-        $('#object-res-seat-popup').css('left','50%')
-        $('#object-res-seat-popup').css('top','10%')
-        $("#object-res-seat-popup").show();
-    
-        console.log('type :', res_ct_id);
-        console.log('good :', type);
-        openBus(res_ct_id,type);
-        
-    });
+
+
+
 
 }
 
@@ -65,41 +47,32 @@ let objectInfo = function (mode = "modify", row_data) {
     let action_btns_instance = $(".object-info .action-btns")
 
     if( mode === "new"){
+    //운송사 인풋 박스 클릭시!!
+
+        input_html = "<input type='text' id='input_ct_id' class='long_box' placeholder='차량 선택' onclick='openSelect()' readonly>"
+        $('#ct_id').select2('destroy');
+        $('#ct_id').before(input_html);
+        $('#ct_id').remove();
+        $('#input_ct_id').val('');
+
         $.ajax({
             method: "get",
             dataType : "JSON",
             url: "/api/vehicle/list?type=default",
             success: function (res){
 
-                $('#ct_id').empty();
                 $('#search_ct_id').empty();
-
-                // console.log('brsan', brand_list);
-                $("#ct_id").select2(
-                    {
-                        placeholder: '운송사 선택',
-                        // data: brand_list,
-                        width: 'calc(77% - 30px)'
-                    }
-                );
-                $("#search_ct_id").select2(
-                    {
-                        placeholder: '운송사 선택',
-                        // data: brand_list,
-                        width: 'resolve'
-                    }
-                );
-                let default_html = '<option value="null">배차 선택</option>'
-                $('#ct_id').append(default_html);
+                let default_html = '<option value="null">차량 선택</option>'
+                // $('#ct_id').append(default_html);
                 if(res.data.length > 0){
                     for (let i=0; i<res.data.length; i++){
                         let html = "<option value="+res.data[i].CT_ID+" onclick='test(this)' data-price="+res.data[0].CY_SeatPrice+">"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
-                        $('#ct_id').append(html);
+                        // $('#ct_id').append(html);
                     }
         
-                        let html = "<option value="+res.data[0].B_NAME+">"+res.data[0].B_NAME+"</option>";
-                        $('#search_ct_id').append(default_html);
-                        $('#search_ct_id').append(html);
+                    let html = "<option value="+res.data[0].B_NAME+">"+res.data[0].B_NAME+"</option>";
+                    $('#search_ct_id').append(default_html);
+                    $('#search_ct_id').append(html);
                 }
             }
         });
@@ -147,19 +120,28 @@ let objectInfo = function (mode = "modify", row_data) {
         })
         
     } else if( mode === "modify"){        
-        // console.log('row_data',row_data);
+        
+        console.log('log', row_data);
         $('#new_test2').css('display','block');
         $('.info_center').css('display','block');
         $('.info_right').css('display','block');
-        // $('#ct_id').attr('disabled', 'true');
         $('#u_id').attr('disabled',true);
-        // $('#seat_num').attr('readonly',true);
         action_btns_instance.removeClass('action-new');
         action_btns_instance.addClass('action-modify');
         
         action_btns_instance.find('.btn').removeClass('disabled');
         action_btns_instance.find('.btn-save').addClass('disabled');
-        $('.object-info #ct_id').val(row_data.CR_CT_ID).trigger('change');
+        let bus_info = '　'+row_data.B_Name + ' ' + row_data.CT_DepartureTe.slice('0','13')+'시';
+        let bus_ct_id = row_data.CR_CT_ID;
+        let input_html = "<input type='text' id='input_ct_id' class='long_box' placeholder='차량 선택' onclick='openSelect()' readonly>"
+        $('#ct_id').select2('destroy');
+        $('#ct_id').before(input_html);
+        
+        //운송사 정보
+        $('#input_ct_id').val(bus_info);
+        $('#input_ct_id').data('ctid',bus_ct_id);
+        $('#ct_id').remove();
+
         $('.object-info #u_id').val(row_data.CR_U_ID).trigger('change');
         $('#cr_id').val(row_data.CR_ID);
         $('#seat_num').val(row_data.CR_SeatNum);
@@ -180,8 +162,6 @@ let objectInfo = function (mode = "modify", row_data) {
         
         sessionStorage.setItem('select_ct_id',row_data.CR_SeatNum);
         sessionStorage.setItem('row_data', JSON.stringify(row_data) );
-        // console.log('둘');
-
 
     }
 }
@@ -216,7 +196,6 @@ let tableInit = function (data) {
             placeholder: "Search..."
         },
         onSelectionChanged : function(e) {
-            // console.log('selection changed', e);
             sessionStorage.setItem("row_data_list", e.selectedRowsData.map(data => data.CR_ID));
             let dataGrid = e.component;
             
@@ -230,38 +209,7 @@ let tableInit = function (data) {
             selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
         },
         onRowClick : function(e) {
-            // $('#ct_id').select2('destroy');
-            // console.log('하나');
-            $('#ct_id').empty();
-            let local_date = new Date();
-            let local_year = local_date.getFullYear();
-            let local_month = local_date.getMonth()+1 < 10 ? '0'+Number(local_date.getMonth()+1) : Number(local_date.getMonth()+1);
-            let local_day = local_date.getDate() < 10 ? '0'+local_date.getDate() : local_date.getDate();
-            let local_hour = local_date.getHours();
-            let local_minutes = local_date.getMinutes();
-            let local_times = local_year+'-'+local_month+'-'+local_day+' '+local_hour+':'+local_minutes;
-            $.ajax({
-                method: "get",
-                dataType : "JSON",
-                async : false,
-                url: "/api/vehicle/list",
-                success: function (res){
-                    console.log('res !!', res.data);
-                    console.log('time !!', local_times);
-                    for (let i=0; i<res.data.length; i++){
-                        let html;
-                        //이전 예매정보일때
-                        if((res.data[i].CT_DepartureTe < local_times) == false){
-                            html = "<option value="+res.data[i].CT_ID+" onclick='testGood(this)' data-price="+res.data[0].CY_SeatPrice+" >"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
-                        }else{
-                            html = "<option value="+res.data[i].CT_ID+" onclick='testGood(this)' data-price="+res.data[0].CY_SeatPrice+" disabled = 'disabled'>"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
-                        }
 
-                        $('#ct_id').append(html);
-                    }
-        
-                }
-            });
             selected_seats = [];
             e.rowElement.css("border-left", "2px solid #f2f2f2");
 
@@ -269,6 +217,7 @@ let tableInit = function (data) {
             row_data.CR_ID = e.data.CR_ID;
             row_data.CR_CT_ID = e.data.CR_CT_ID;
             row_data.CR_U_ID = e.data.CR_U_ID;
+            row_data.B_Name = e.data.B_Name;
             row_data.U_Name = e.data.U_Name;
             row_data.U_uId = e.data.U_uId;
             row_data.U_Phone = e.data.U_Phone;
@@ -287,6 +236,7 @@ let tableInit = function (data) {
             row_data.CR_PayState = e.data.CR_PayState;
             row_data.PH_PG_ID = e.data.PH_PG_ID;
             row_data.PH_ID = e.data.PH_ID;
+            row_data.PH_CodeType = e.data.PH_CodeType;
             
             if($('.brand_info').css('display') == 'none'){
                 folding();
@@ -466,15 +416,15 @@ tableInit();
 function saveAD(){
 
     let update_data = {
-        ct_id : $("#ct_id option:selected").attr('value'),
+        ct_id : $('#input_ct_id').data('ctid'),
         u_id : $("#u_id").val(),
         seat_num : $('#seat_num').val(),
         seatNums : selected_seats,
-        seat_price : $("#ct_id option:selected").attr('data-price')
+        seat_price : $('#input_ct_id').data('price')
     }
 
-    // console.log('updat22222e :',update_data);
-    console.log('cons',$('#seat_num').val());
+    console.log('updat22222e :',update_data);
+    // console.log('cons',$('#seat_num').val());
     // let form_data = new FormData(document.forms[0]);
     // for ( let i in update_data) form_data.append(i, update_data[i]);
     // console.log('입력!!',selected_seats);
@@ -529,18 +479,18 @@ function deleteAD(mode = 'single') {
 }
 
 //결제취소 JSON 값
-function cnacelInfo(string) {
-    let cancel_data = {}
-        cancel_data.mid = 'testpay01m',
-        cancel_data.tid = string,
-        cancel_data.svcCd = '01',
-        cancel_data.partialCancelCode = '0',
-        cancel_data.cancelAmt = '200',
-        cancel_data.cancelMsg = '환불테스트',
-        cancel_data.cancelPwd = '123456'
+function cancelInfo(string, codeString) {
+
+    let cancel_data = {}                        //전체 필수 값 !!!!
+        cancel_data.mid = 'testpay01m',         //이노페이에서 발급한 상점아이디
+        cancel_data.tid = string,               //거래고유번호
+        cancel_data.svcCd = `${codeString}`,    //취소 결과 코드 ex) 신용카드 : 01, 계좌이체 : 02, 간편결제 : 16
+        cancel_data.partialCancelCode = '0',    //전체취소 : 0, 부분취소 : 1  (부분취소 사용 가능 가맹점만 사용 가능)
+        cancel_data.cancelAmt = '700',          //취소 금액
+        cancel_data.cancelMsg = '환불테스트',   //취소사유
+        cancel_data.cancelPwd = '123456'        //취소비밀번호
         
     return JSON.stringify(cancel_data);
-    // console.log('can', cancel_data);
 
 }
 
@@ -553,7 +503,7 @@ function updateAD(){
         seat_num_list = selected_seats;
     }
     let update_data = {
-        ct_id : $("#ct_id option:selected").attr('value'),
+        ct_id : $('#input_ct_id').data('ctid'),
         seatNums : seat_num_list,
         cr_cancel : $("#cr_cancel option:selected").attr('value'),
         py_scan : $("#py_scan option:selected").attr('value'),
@@ -561,17 +511,19 @@ function updateAD(){
         cr_memo : $('#cr_memo').val(),
         cr_state : $("#cr_state option:selected").attr('value'),
     }
-    console.log('fwefew',update_data.seatNums);
+    // console.log('fwefew',update_data.seatNums);
+    // console.log('good?',JSON.parse( sessionStorage.getItem('row_data') ).PH_CodeType);
     if($("#cr_cancel option:selected").attr('value') == 'Y'){
+        console.log('log!!',cancelInfo(JSON.parse( sessionStorage.getItem('row_data') ).PH_PG_ID, JSON.parse( sessionStorage.getItem('row_data') ).PH_CodeType ));
         $.ajax({
             type : "POST",
             url : "https://api.innopay.co.kr/api/cancelApi",
             async : true,
-            data : cnacelInfo(JSON.parse( sessionStorage.getItem('row_data') ).PH_PG_ID),
+            data : cancelInfo(JSON.parse( sessionStorage.getItem('row_data') ).PH_PG_ID, JSON.parse( sessionStorage.getItem('row_data') ).PH_CodeType ),
             contentType: "application/json; charset=utf-8",
             dataType : "json",
             success : function(data){
-                // console.log(data);
+                console.log(data);
                 alert('결제 취소 완료');
         
             },
@@ -631,8 +583,8 @@ function searchPopupReset(){
     $('#search_user_brand').val('');
     $('#search_user_addr1').val('');
     $("#search_user_addr2").val('');
-    $("#object-search-popup .select2").val(null).trigger('change');
-    // $("#search_ct_id").val('null');
+    // $("#object-search-popup .select2").val(null).trigger('change');
+    $("#search_ct_id").val('null');
     $('#search_seat_num').val('');
     $('#search_seat_price').val('');
     $('#search_cr_cancel').val('null');
@@ -759,7 +711,7 @@ function openBus(busSeat,type) {
                     $('#seat_num').val('　'.concat(selected_seats.join('번, ') + ((selected_seats.length > 0) ? '번' : '')));
 
 
-                    console.log('현재 수',$('#seat_num').val());
+                    // console.log('현재 수',$('#seat_num').val());
                     if($('#seat_num').val() == "　"){
                         let select_ct_id = sessionStorage.getItem('select_ct_id');
                         $('#seat_num').val(select_ct_id);
@@ -857,40 +809,91 @@ function ResseatClose(){
     $("#object-res-seat-popup").hide();   
 }
 
+    //배차 클릭시 모달창 띄우고 셀렉트 박스 제거
+    var dummyOption;
+    function seatModalOpen(obj){
+        var selectedOption = obj.options[obj.selectedIndex];
 
+        console.log('test',selectedOption);
+        let res_ct_id = selectedOption.value;
+        let res_ct_text = selectedOption.text;
+        let res_ct_price = selectedOption.dataset.price;
+        let type = 'res-user-seat'
 
-// $('#ct_id').on('click',function(){
-//     console.log('goood?',$('#ct_id').val());
+        //셀렉트 박스 초기화
+        obj.selectedIndex = 0;
 
-//     let type = 'res-user-seat'
-//     let ct_id = $('#ct_id').val();
+        //셀렉트 박스 제거 후 인풋 박스로 교체
+        let input_html = "<input type='text' id='input_ct_id' class='long_box' placeholder='차량 선택' onclick='openSelect()' readonly>"
+        $('#ct_id').select2('destroy');
+        $('#ct_id').before(input_html);
+        $('#input_ct_id').val('　'+res_ct_text);
+        $('#input_ct_id').data('ctid',res_ct_id);
+        $('#input_ct_id').data('price',res_ct_price);
+        $('#ct_id').remove();
+        $('#title_info').text('　'+res_ct_text);
+
+        //모달창 띄우기
+        $('#object-res-seat-popup').css('left','50%');
+        $('#object-res-seat-popup').css('top','10%');
+        $("#object-res-seat-popup").show();
+
+        openBus(res_ct_id,type);
     
-//     if(ct_id == 'null'){
-//         return false;
-//     }
-//     if($('#ct_id').length == 1){
-//         openBus(ct_id,type);
-//     }
-//     $('#object-res-seat-popup').css('left','50%')
-//     $('#object-res-seat-popup').css('top','10%')
-//     $("#object-res-seat-popup").show();
-    
-//     openBus(ct_id,type);
+    }
 
+    function openSelect(){
+        // $('#input_ct_id').remove();
+        // alert('셀렉트 박스 추가 해 야 함')
 
-// })
+        //시간 설정 변수
+        let local_date = new Date();
+        let local_year = local_date.getFullYear();
+        let local_month = local_date.getMonth()+1 < 10 ? '0'+Number(local_date.getMonth()+1) : Number(local_date.getMonth()+1);
+        let local_day = local_date.getDate() < 10 ? '0'+local_date.getDate() : local_date.getDate();
+        let local_hour = local_date.getHours();
+        let local_minutes = local_date.getMinutes();
+        let local_times = local_year+'-'+local_month+'-'+local_day+' '+local_hour+':'+local_minutes;
 
+        //상세정보 운송사 셀렉트 박스
+        let default_html = "<select class='long_box select2' id='ct_id' aria-readonly='true' onchange='seatModalOpen(this)' ><option></option></select>"
+        $('#input_ct_id').after(default_html);
+        $('#input_ct_id').remove();
+        $('#ct_id').empty();
+        //검색창 운송사 셀렉트 박스
+        let search_default_html = '<option value="null">배차 선택</option>';
+        $.ajax({
+            method: "get",
+            dataType : "JSON",
+            async : false,
+            url: "/api/vehicle/list",
+            success: function (res){
+                $('#ct_id').append(search_default_html);
+                $("#ct_id").select2(
+                    {
+                        placeholder: '운송사 선택',
+                        width: 'calc(77% - 30px)'
+                    }
+                );
+                $("#search_ct_id").select2(
+                    {
+                        placeholder: '운송사 선택',
+                        // data: brand_list,
+                        width: 'resolve'
+                    }
+                );
+                for (let i=0; i<res.data.length; i++){
+                    let html;
+                    //이전 예매정보일때
+                    if((res.data[i].CT_DepartureTe < local_times) == false){
+                        html = "<option value="+res.data[i].CT_ID+" onclick='testGood(this)' data-price="+res.data[0].CY_SeatPrice+" >"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+                    }else{
+                        html = "<option value="+res.data[i].CT_ID+" onclick='testGood(this)' data-price="+res.data[0].CY_SeatPrice+" disabled = 'disabled'>"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+                    }
+                    $('#ct_id').append(html);
+                }
+            }
+        });
+    }
+  
 
-$("#ct_id")
-    .on("change", function(e) { console.log("change "+JSON.stringify({val:e.val, added:e.added, removed:e.removed})); })
-    .on("select2:opening", function() { console.log("opening"); })
-    .on("select2:open", function() { console.log("open"); })
-    .on("select2:select", function() { console.log("select!!!"); })
-    .on("select2:close", function(e) { console.log("close",e); })
-    .on("select2:highlight", function(e) { console.log ("highlighted val="+ e.val+" choice="+ JSON.stringify(e.choice));})
-    .on("select2:selecting", function(e) { console.log ("selecting val="+ e.val+" choice="+ JSON.stringify(e.choice));})
-    .on("select2:removing", function(e) { console.log ("removing val="+ e.val+" choice="+ JSON.stringify(e.choice));})
-    .on("select2:removed", function(e) { console.log ("removed val="+ e.val+" choice="+ JSON.stringify(e.choice));})
-    .on("select2:loaded", function(e) { console.log ("loaded (data property omitted for brevity)");})
-    .on("select2:focus", function(e) { console.log ("focus");})
-    .on("select2:blur", function(e) { console.log ("blur");});

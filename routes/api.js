@@ -733,6 +733,7 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     tCR.CR_QrCode,
                     PH_PG_ID,
                     CR_U_ID,
+                    PH_CodeType,
                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
                     DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
                     DAYOFWEEK(tCR.CR_cDt ) AS payDayWeek,
@@ -1304,10 +1305,9 @@ router.post('/temporary_seat', async function(req, res){
         let ct_id = req.body.ct_id // 등록할 장차
         let str_values_list = [];
         let str_values ="";
-        let overlap_query = `SELECT CR_ID FROM tCR 
+        let overlap_query = `SELECT CR_ID, CR_U_ID FROM tCR 
                                 WHERE CR_CT_ID = ${ct_id} AND 
                                 CR_Cancel = 'N' AND
-                                CR_U_ID = ${u_id} AND
                                 CR_SeatNum IN (${seatNums})
                                 `
 
@@ -1319,11 +1319,11 @@ router.post('/temporary_seat', async function(req, res){
         
         if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
             for(let i=0; i<seatNums.length; i++){
-                str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${seatNums[i]})`)
+                str_values_list.push(`(${ct_id}, ${u_id}, ${seatNums[i]})`)
             }
             str_values = str_values_list.join(', ');
         } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
-            str_values = `(${ct_id}, ${req.user.U_ID}, ${seatNums})`;
+            str_values = `(${ct_id}, ${u_id}, ${seatNums})`;
         }
 
         cr_query += str_values;
@@ -1331,9 +1331,12 @@ router.post('/temporary_seat', async function(req, res){
 
         connection.query(overlap_query,function(err, rows){
             if(err) throw err;
-            if(rows.length > 0){
-                //좌석이 이미 예약인 경우
-                res.json({data : rows});
+            if(rows.length > 0 && rows[0].CR_U_ID == u_id){
+                //사용자가 예약한 좌석이면
+                res.json({data : "continue"});
+            }else if(rows.length > 0 && rows[0].CR_U_ID != u_id){
+                //사용자가 예약한 좌석이 아니면
+                res.json({data : "fail"})
             }else{
                 connection.query(cr_query, null,
                     function(err, result) {
@@ -1463,16 +1466,30 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
         let pg_id;
         let u_id = req.body.user_id //등록할 회원 아이디
         let cr_memo;
-        if(req.body.payType == '01'){
+        let cancel_type;
+        if(req.body.cancel_type == 'CARD'){
             ph_type = '신용카드';
             cr_memo = "";
-        }else if(req.body.payType == '무료예매'){
+            cancel_type = "01";
+        }else if(req.body.cancel_type == 'free'){
             ph_type = '무료에매';
             cr_memo = '무료예매';
-        }else{
-            ph_type = '-';
+            cancel_type = "00";
+        }else if(req.body.cancel_type == "BANK"){
+            ph_type = '계좌이체';
             cr_memo = "";
+            cancel_type = "02";
+        }else if(req.body.cancel_type == "VBANK"){
+            ph_type = '무통장입금';
+            cr_memo = "";
+            cancel_type = "04";
+        }else if(req.body.cancel_type == "EPAY"){
+            ph_type = req.body.EPayType;
+            cr_memo = "";
+            cancel_type = "16";
         }
+
+
         if(req.body.tid != undefined){
             pg_id = req.body.tid;
         }else{
@@ -1488,9 +1505,9 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
          */
         let ph_query = `
             INSERT INTO tPH
-                (PH_U_ID, PH_PG_ID ,PH_Price, PH_OPrice, PH_SPrice, PH_Type)
+                (PH_U_ID, PH_PG_ID ,PH_Price, PH_OPrice, PH_SPrice, PH_Type, PH_CodeType)
             VALUES
-                (:u_id, :pg_id, :price, :oPrice, :sPrice, :ph_type)
+                (:u_id, :pg_id, :price, :oPrice, :sPrice, :ph_type, :cancel_type)
         `;
 
         let delete_query = `DELETE FROM tCR WHERE 
@@ -1528,7 +1545,8 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                             sPrice  : sPrice,
                                             price   : (oPrice-sPrice),
                                             ph_type : ph_type,
-                                            pg_id   : pg_id
+                                            pg_id   : pg_id,
+                                            cancel_type : cancel_type
                                         }, function (err, result){
                                             if (err){
                                                 connection.rollback(function(){
@@ -1843,7 +1861,17 @@ router.get('/auth/phone', async ( req, res ) => {
 
 //비디오 팝업
 router.post('/user/videoPopup', (req, res, next) =>{
-    let query = `select * from tYL where YL_id = :youId`;
+    let query = `select 
+                        YL_id,
+                        YL_url,
+                        YL_title,
+                        YL_description,
+                        YL_ch_name,
+                        YL_d_order,
+                        DATE_FORMAT(YL_dDt, '%y%y-%m-%d') YL_dDt
+                FROM tYL 
+                WHERE 
+                    YL_id = :youId`;
     let youId = req.body.youId;
 
     connection.query(query,
@@ -1892,7 +1920,18 @@ router.post('/video/count', function(req, res, next) {
 
 //추천 비디오
 router.get('/video/best', function(req, res, next) {
-    let query = `select * from tYL where YL_d_order = 'Y' order by rand() limit 1`; 
+    let query = `SELECT 
+                        YL_id,
+                        YL_url,
+                        YL_title,
+                        YL_description,
+                        YL_ch_name,
+                        YL_d_order,
+                        DATE_FORMAT(YL_dDt, '%y%y-%m-%d') YL_dDt
+                FROM tYL
+                    WHERE 
+                        YL_d_order = 'Y' 
+                    ORDER BY rand() limit 1`; 
     connection.query(query,
       function(err, rows, fields) {
           if (err) throw err;
@@ -3986,7 +4025,8 @@ router.get('/reservation',function(req,res){
                     U_uId,
                     CR_Memo,
                     PH_PG_ID,
-                    PH_ID
+                    PH_ID,
+                    PH_CodeType
                 FROM tCR
                     INNER JOIN tCT ON tCR.CR_CT_ID = tCT.CT_ID
                     INNER JOIN tU ON tCR.CR_U_ID = tU.U_ID
@@ -5056,6 +5096,7 @@ router.get('/payment_list',function(req,res){
                     PH_PG_ID,
                     PH_ID,
                     PH_Type,
+                    PH_CodeType,
                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
                     DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
                     DAYOFWEEK(tCR.CR_cDt ) AS payDayWeek,

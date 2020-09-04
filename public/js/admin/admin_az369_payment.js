@@ -491,7 +491,7 @@ function userSeat(ph_id) {
 
                 for(let i=0; i<res.data.length; i++){
                     let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
-                        bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+">";
+                        bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+" data-pgpaytype="+res.data[i].PH_CodeType+">";
                         bot_html += "<label for=seat_chk"+res.data[i].CR_ID+" style='cursor:pointer;'>좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label></div>";
 
                     
@@ -521,11 +521,13 @@ function userSeat(ph_id) {
             var checkBoxArr = [];
             let chk_pg_id;
             let chk_u_id;
+            let chk_pg_pay_type;
             $("input[name=seat_chk]:checked").each(function(i){
                 checkBoxArr.push($(this).val());
                 let chk_id = this.id
                 chk_pg_id = $('#'+chk_id).data('pgid');
                 chk_u_id = $('#'+chk_id).data('uid');
+                chk_pg_pay_type = $('#'+chk_id).data('pgpaytype');
             });
 
             console.log('check?',checkBoxArr);
@@ -545,7 +547,7 @@ function userSeat(ph_id) {
                         type : "POST",
                         url : "https://api.innopay.co.kr/api/cancelApi",
                         async : true,
-                        data : cnacelInfo(chk_pg_id),
+                        data : cancelInfo(chk_pg_id,chk_pg_pay_type),
                         contentType: "application/json; charset=utf-8",
                         dataType : "json",
                         success : function(data){
@@ -565,7 +567,7 @@ function userSeat(ph_id) {
             })
         }
 
-    function cnacelInfo(string) {
+    function cancelInfo(string, codeString) {
         // var obj = {};
         // var row, 
         //     rows = table.rows;
@@ -577,9 +579,9 @@ function userSeat(ph_id) {
         let cancel_data = {}
             cancel_data.mid = 'testpay01m',
             cancel_data.tid = string,
-            cancel_data.svcCd = '01',
+            cancel_data.svcCd = `${codeString}`,
             cancel_data.partialCancelCode = '0',
-            cancel_data.cancelAmt = '200',
+            cancel_data.cancelAmt = '400',
             cancel_data.cancelMsg = '환불테스트',
             cancel_data.cancelPwd = '123456'
             

@@ -626,7 +626,17 @@ router.get('/video', function(req, res, next) {
 
 //비디오 페이징
 router.get('/video/:currentPage', function(req, res, next) {
-    let query = `SELECT * FROM tYL order by YL_dDt desc limit :beginRow, :rowPerPage`; 
+    let query = `SELECT 		
+                        YL_id,
+                        YL_url,
+                        YL_title,
+                        YL_description,
+                        YL_ch_name,
+                        YL_d_order,
+                        DATE_FORMAT(YL_dDt, '%y%y-%m-%d') YL_dDt 
+                FROM tYL 
+                    ORDER BY YL_dDt desc 
+                        limit :beginRow, :rowPerPage`; 
     let currentPage = req.params.currentPage;
     console.log("커런트 페이지지ㅣ ::", currentPage);
     //페이지 내 보여줄 수
