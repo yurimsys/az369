@@ -4111,6 +4111,7 @@ router.get('/vehicle/list', function(req,res){
                     tB.B_NAME, 
                     tCT.CT_DepartureTe,
                     tCY.CY_SeatPrice,
+                    DATE_ADD(CT_DepartureTe,INTERVAL +60 HOUR_MINUTE) as dept,
                     date_format(tCT.CT_DepartureTe ,'%y%y.%m.%d %H') as deptTime
                 FROM tCT 
                     INNER JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
