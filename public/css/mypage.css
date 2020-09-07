@@ -4,8 +4,8 @@ body {background: #fafafa;}
 
 /*전체 마이페이지 틀*/
 .mypage_box {position: relative; width: 100%; height: auto; overflow: hidden; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
-.box_01 {width: 25%; margin-right: 1%;  background: #fff; border: 1px solid #dbdbdb; height: 650px; border-radius: 4px; position: relative; float: left; position: relative;}
-.box_02 {width: 74%;  background: #fff; margin-right: 0; height: 650px; border: 1px solid #dbdbdb; border-radius: 4px; float: right;}
+.box_01 {width: 22%; margin-right: 1%;  background: #fff; border: 1px solid #dbdbdb; height: 650px; border-radius: 4px; position: relative; float: left; position: relative;}
+.box_02 {width: 77%;  background: #fff; margin-right: 0; height: 650px; border: 1px solid #dbdbdb; border-radius: 4px; float: right;}
 
 /*마이페이지 왼쪽*/
 .mypage_left {width: 100%; height: auto; padding: 20px 30px; overflow: hidden; }
@@ -105,52 +105,22 @@ body {background: #fafafa;}
 .clearfix input {width: 100%; border-radius: 4px; height: 35px;  background: #f4f4f4;}
 .search_btn {width: 20%; float:left; height: 35px; background: #fff; border-radius: 4px; border: 1px solid #444; font-size: 14px; float: right; color: #222; font-weight: 400; cursor: pointer;}
 
-
-/*두번째 테이블 타이틀 간격*/
-/* .table_tit2 {border: none; border-top: 1px solid #eee; text-align: center; background: #f8f8f8; height: 50px; line-height: 50px; width: 100%;}
-.table_tit2 ul {width: 100%;}
-.table_tit2 ul li {float: left;}
-.table_tit2 ul li:nth-child(1) {width: 16%;}
-.table_tit2 ul li:nth-child(2) {width: 20%;}
-.table_tit2 ul li:nth-child(3) {width: 22%;}
-.table_tit2 ul li:nth-child(4) {width: 10%;}
-.table_tit2 ul li:nth-child(5) {width: 16%;}
-.table_tit2 ul li:nth-child(6) {width: 16%;} */
-
-
-/*세번째 테이블 타이틀 간격*/
-/* .table_tit3 {border: none; border-top: 1px solid #eee; text-align: center; background: #f8f8f8; height: 50px; line-height: 50px; width: 100%; }
-.table_tit3 ul {width: 100%;}
-.table_tit3 ul li {float: left; position: relative;}
-.table_tit3 ul li:nth-child(1) {width: 17%;}
-.table_tit3 ul li:nth-child(2) {width: 22%;}
-.table_tit3 ul li:nth-child(3) {width: 17%;}
-.table_tit3 ul li:nth-child(4) {width: 10%;}
-.table_tit3 ul li:nth-child(5) {width: 17%;}
-.table_tit3 ul li:nth-child(6) {width:  17%;} */
 .list02,
 .list03 {background: #fff; height:480px; overflow-y: scroll; border-top: 1px solid #eee; position: relative; width: 100%; background: #f8f8f8;}
 
 tr.canceled td {background: #eee; border: none; color: #999; text-decoration: line-through;}
 p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 
-
-
-
-
 table {border-collapse: collapse;}
 th, td {padding: 0;}
-
-
 .table {
     width: 100%;
     border-spacing: 0;
     border-style: none;
     margin-top: -0.3%;
 }
-
 .table th {
-    color: #222;
+    color: #191919;
     background: #fff;
     text-align: center;
     height: 45px;
@@ -158,34 +128,27 @@ th, td {padding: 0;}
     font-weight: 400;
     font-size: 15px;
     position: sticky; top:0;
-    border-bottom: 1px solid #dbdbdb;
+    border-bottom: 1px solid #eee;
 }
-
 .table td {
     font-size: 15px;
     background: #fff;
-    color: #444;
+    color: #505050;
     font-weight: 300;
-    border-bottom: 1px solid #f2f2f2;
+    border-bottom: 1px solid #eee;
      text-align: center;
-     padding: 8px 0;
+     padding: 12px 0;
      background: #f8f8f8;
-    
 }
 
 .table th:first-child,
-.table td:first-child {
-    border-left: 0;
-}
-
+.table td:first-child {border-left: 0;}
 .table th:last-child,
-.table td:last-child {
-    border-right: 0;
-}
+.table td:last-child {border-right: 0;}
+.table tr td:first-child {text-align: center;}
 
-.table tr td:first-child {
-    text-align: center;
-}
+.Receipt {padding: 5px 10px; font-size: 13px; color: #191919; border-radius: 4px;}
+
 
 /* 장차예매현황 -승차권 팝업 */
 .popup_box_mo {display: none;}
@@ -375,8 +338,9 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_close {margin-top: 25px;}
     
     .popup_btn {margin-top: 40px; width: 70%;}
-    .popup_btn_mo a {display: block; height: 45px; line-height: 45px;}
-    .qr_wrap {margin-bottom: 20px;}
+    .receipt {padding: 8px 16px 6px; border-radius: 4px; display: inline-block; float: right; margin-bottom: 30px; margin-top: 5px;}
+    .popup_btn_mo a {display: block; height: 45px; line-height: 45px; overflow: hidden;; width: 100%;}
+    .qr_wrap {margin-bottom: 20px; overflow: hidden;}
 
     #reserve_list {width: 100%; height: 280px;}
     .reserve_list_tit ul li {float: left; width: 25%;}
