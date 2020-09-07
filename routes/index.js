@@ -40,35 +40,16 @@ router.get('/pay_cancel',function(req, res){
     res.render('pay_cancel');
 })
 
-
-
+//사이니지 메인화면
 router.get('/sign', function(req, res, next) {
     res.render('signage');
 });
 
-
+//장차 메인화면
 router.get('/', function(req, res, next) {
     console.log('req info : ', req);
     console.log('sessionID info : ', req.sessionID);
     res.render('index', { sessionUser : req.user });
-});
-
-router.get('/search', function(req, res, next) {
-    res.render('search', { sessionUser : req.user });
-});
-
-
-//매장관리자 페이지
-router.get('/list', function(req, res, next) {
-
-    res.render('signageBList');
-});
-
-
-//매장등록 페이지
-router.get('/addList', function(req, res, next) {
-
-    res.render('signageAdd');
 });
 
 //////@@@@@ 의향서
@@ -462,10 +443,10 @@ router.get('/logout', function(req, res, next){
     res.redirect('/');
 });
 
-
+//다중 쿼리 처리
 router.get('/reservation', auth.isLoggedIn, function(req,res, next){
     let query = `select 
-                    DISTINCT  date_format(CT_DepartureTe,'%H%i') as pyeongDept,
+                    DISTINCT date_format(CT_DepartureTe,'%H%i') as pyeongDept,
                     date_format(CT_DepartureTe,'%H:%i') as pyeongDept2
                 from tCT
                     WHERE tCT.CT_DepartureTe > NOW();
@@ -485,50 +466,6 @@ router.get('/reservation', auth.isLoggedIn, function(req,res, next){
             
     });  
 });
-
-// router.get('/reservation_test', auth.isLoggedIn, function(req,res, next){
-//     let query = `select 
-//                     DISTINCT  date_format(CT_DepartureTe,'%H%i') as pyeongDept,
-//                     date_format(CT_DepartureTe,'%H:%i') as pyeongDept2
-//                 from tCT
-//                     WHERE tCT.CT_DepartureTe > NOW();
-
-//                 select 
-//                     DISTINCT date_format(CT_ReturnTe, '%H%i') as seoulDept,
-//                     date_format(CT_ReturnTe, '%H:%i') as seoulDept2
-//                 from tCT
-//                     WHERE tCT.CT_DepartureTe > NOW()`;
-                    
-//     connection.query(query,
-//         function(err, rows, fields) {
-//             if (err) throw err;
-//             console.log(rows);
-//             res.render('reservation_01', {sessionUser: req.user, timeone : rows[0], timetwo : rows[1]});
-            
-            
-//     });  
-// });
-
-// router.get('/reservation', function(req,res, next){
-//     let query = `select 
-//                     DISTINCT  date_format(CT_DepartureTe,'%H%i') as pyeongDept,
-//                     date_format(CT_DepartureTe,'%H:%i') as pyeongDept2
-//                 from tCT
-//                     WHERE tCT.CT_DepartureTe > NOW();
-
-//                 select 
-//                     DISTINCT date_format(CT_ReturnTe, '%H%i') as seoulDept,
-//                     date_format(CT_ReturnTe, '%H:%i') as seoulDept2
-//                 from tCT
-//                     WHERE tCT.CT_DepartureTe > NOW()`;
-                    
-//     connection.query(query,
-//         function(err, rows, fields) {
-//             if (err) throw err;
-//             console.log(rows);
-//             res.render('reservation_01', {sessionUser: req.user, timeone : rows[0], timetwo : rows[1]});
-//     });  
-// });
 
 router.get('/complete', auth.isLoggedIn, function(req, res, next){
     res.render('reservation_02', {sessionUser: req.user} );
@@ -554,14 +491,17 @@ router.get('/mypage',  auth.isLoggedIn, function(req, res, next) {
                     tCR.CR_cDt as payDay,
                     (select group_concat(CR_SeatNum)) as seatNum,
                     (select group_concat(CR_SeatNum ORDER BY CR_SeatNum asc,'번' ) ) as seatNumMo
-                from tCT left join tCY on tCT.CT_CY_ID = tCY.CY_ID left join tB on tCY.CY_B_ID = tB.B_ID left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
-                    where tCR.CR_CT_ID =tCT.CT_ID AND tCR.CR_Cancel = :crCancel
-                    and tCR.CR_U_ID = :sessionId
-                and tCT.CT_ReturnTe > date_add(now(),interval +4 HOUR)
+                from tCT 
+                    left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
+                    left join tB on tCY.CY_B_ID = tB.B_ID 
+                    left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
+                where 
+                    tCR.CR_CT_ID =tCT.CT_ID AND 
+                    tCR.CR_Cancel = :crCancel and 
+                    tCR.CR_U_ID = :sessionId and 
+                    now() < date_add(CT_ReturnTe,interval +4 HOUR)
                 group by tCR.CR_cDt
-                order by tCT.CT_DepartureTe, tCR.CR_cDt desc;
-
-	`; //서비스 후 > now() 변경
+                order by tCT.CT_DepartureTe, tCR.CR_cDt desc`; //서비스 후 > now() 변경
     connection.query(query, { sessionId, crCancel},
       function(err, rows, fields) {
           if (err) throw err;
@@ -679,14 +619,6 @@ router.get('/refund', function(req, res, next) {
 });
 
 
-
-
-//테스트
-router.get('/daytest', function(req, res, next) {
-    res.render('daytest', { sessionUser : req.user });
-});
-
-
 //비디오 페이징
 router.get('/video', function(req, res, next) {
     res.redirect('/video/1')
@@ -694,7 +626,17 @@ router.get('/video', function(req, res, next) {
 
 //비디오 페이징
 router.get('/video/:currentPage', function(req, res, next) {
-    let query = `SELECT * FROM tYL order by YL_dDt desc limit :beginRow, :rowPerPage`; 
+    let query = `SELECT 		
+                        YL_id,
+                        YL_url,
+                        YL_title,
+                        YL_description,
+                        YL_ch_name,
+                        YL_d_order,
+                        DATE_FORMAT(YL_dDt, '%y%y-%m-%d') YL_dDt 
+                FROM tYL 
+                    ORDER BY YL_dDt desc 
+                        limit :beginRow, :rowPerPage`; 
     let currentPage = req.params.currentPage;
     console.log("커런트 페이지지ㅣ ::", currentPage);
     //페이지 내 보여줄 수
@@ -707,12 +649,6 @@ router.get('/video/:currentPage', function(req, res, next) {
           console.log("user",rows);
       });
 });
-
-
-
-
-
-
 
 //장차 기사전용 앱
 router.get('/driver_app', function(req, res, next) {

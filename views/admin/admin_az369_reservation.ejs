@@ -57,11 +57,11 @@
 								</select>
 							</div>
 							<div>
-								<label class='info_name'>운송사</label>
-								<select class='long_box select2' id='ct_id' aria-readonly="true">
-									<!-- <option value="null">배차 선택</option> -->
+								<label class='info_name'>차량정보</label>
+								<input type='text' id='input_ct_id' class='long_box' onclick="openSelect()" placeholder="차량 선택" readonly>
+								<!-- <select class='long_box select2' id='ct_id' aria-readonly="true">
 									<option></option>
-								</select>
+								</select> -->
 							</div>
 							<div>
 								<label class='info_name'>좌석번호</label>
@@ -393,7 +393,7 @@
 	<div class="card-header object-search-header">
 		<div class="row">
 			<div class="col-8 search-header-title">
-				<a data-toggle="collapse" href="#object_search_info"><span class="title">좌석현황</span></a>
+				<a data-toggle="collapse" href="#object_search_info"><span class="title">예매된 좌석</span></a>
 			</div>
 		</div>
 	</div>
@@ -414,8 +414,8 @@
 <div class="card object-search-popup" id="object-res-seat-popup" style="display: none;">
 	<div class="card-header object-search-header">
 		<div class="row">
-			<div class="col-8 search-header-title">
-				<a data-toggle="collapse" href="#object_search_info"><span class="title">좌석현황</span></a>
+			<div class="col-10 search-header-title">
+				<div><span class="title">전체 좌석현황</span><span class="title" id='title_info'></span></div>
 			</div>
 		</div>
 	</div>

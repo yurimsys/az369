@@ -158,6 +158,20 @@ router.get('/az369_info', auth.isLoggedIn, function(req, res) {
     }
 });
 
+//장차 입점신청 관리 페이지
+router.get('/az369_benefit', auth.isLoggedIn, function(req, res) {
+    if(req.user.U_isAdmin === 'n'){
+        res.send("<script type='text/javascript'>alert('접속권한이 없습니다.'); location.href='/';</script>");
+    }else{
+        var pageSetting = {
+            title: '장차 입점신청 관리',
+            description: '장차서비스 입점신청 관리페이지',
+            layout: 'admin/templates/admin_layout'
+        };
+        res.render('admin/admin_az369_benefit',pageSetting);
+    }
+});
+
 
 //선호도 조사
 //Preference 메인화면

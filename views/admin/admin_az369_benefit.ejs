@@ -24,16 +24,12 @@
 					<a data-toggle="collapse" href="#object_detail_group"><span class="title">상세정보</span></a>
 				</div>
 				<div class="col-4">
-					<!-- <div class="float-right action-btns action-new">
-						<div name="new" class="btn btn-new px-4" onclick=objectInfo("new")>신규</div>
-						<div name="modify" class="btn btn-modify px-4 disabled" disabled="true">수정</div>
-						<div name="save" class="btn btn-save px-4">저장</div>
-						<div name="delete" class="btn btn-delete px-4 disabled yr_modal_delete" data-toggle="modal" data-target="#deleteModal" disabled="fade">삭제
-						</div>
-						<div name="folder" class="btn btn-folder px-4" id="folding" onclick="folding()"></div>
-                    </div> -->
-                    <div class="float-right action-btns action-new">
+					<div class="float-right action-btns action-new">
 						<div name="new" class="btn btn-new px-4" onclick=objectInfo("new")>리셋</div>
+						<div name="modify" class="btn btn-modify px-4 disabled">수정</div>
+						<!-- <div name="save" class="btn btn-save px-4">저장</div> -->
+						<div name="delete" class="btn btn-delete px-4 disabled yr_modal_delete" data-toggle="modal" data-target="#deleteModal">삭제
+						</div>
 						<div name="folder" class="btn btn-folder px-4" id="folding" onclick="folding()"></div>
 					</div>
 				</div>
@@ -44,54 +40,59 @@
 		<div id="object_detail_group" class="brand_info">
 			<form enctype="multipart/form-data">
 			<!-- 좌측 -->
-				<div class='info_left'>
-					<div>
-						<label class='info_name'>PH_ID</label>
-						<input type='text' id='ph_id' class='long_box' readonly>
+            <div class='info_left'>
+                <div>
+                    <label class='info_name'>ID</label>
+						<input type='text' id='benefit_id' class='long_box' readonly>
 					</div>
 					<div>
-						<label class='info_name'>회원이름</label>
-						<input type='text' id='u_name' class='long_box' readonly>
-                    </div>
-                    <div>
-						<label class='info_name'>전화번호</label>
-						<input type='text' id='u_phone' class='long_box' readonly>
+						<label class='info_name'>고객 이름</label>
+						<input type='text' id='benefit_name' class='long_box'readonly>
 					</div>
-
+					<div>
+						<label class='info_name'>고객 번호</label>
+						<input type='text' id='benefit_phone' class='long_box'readonly>
+					</div>
 				</div>
 			<!-- 중간 -->
 				<div class='info_center'>
-					<div>
-						<label class='info_name'>PG사명</label>
-						<input type='text' id='pg_name' class='long_box' readonly>
-					</div>
-					<div>
-						<label class='info_name'>거래번호</label>
-						<input type='text' id='pg_id' class='long_box' readonly>
-					</div>
                     <div>
-						<label class='info_name'>결제금액</label>
-						<input type='text' id='ph_price' class='long_box' readonly>
-					</div>
-                </div>
-            <!-- 우측 -->
-                <div class='info_right'>
-					<div>
-						<label class='info_name'>결제수단</label>
-						<input type='text' id='ph_type' class='long_box' readonly>
-					</div>
-					<div>
-						<label class='info_name'>결제여부</label>
-						<input type='text' id='pay_state' class='long_box' readonly>
-					</div>
+						<label class='info_name'>고객 브랜드</label>
+						<input type='text' id='benefit_brand' class='long_box'readonly>
+                    </div>
                     <div>
-						<label class='info_name'>결제일시</label>
-						<input type='text' id='cr_cdt' class='long_box' readonly>
+						<label class='info_name'>고객 주소</label>
+						<input type='text' id='benefit_addr1' class='long_box'readonly>
+                    </div>
+                    <div>
+						<label class='info_name'>상세주소</label>
+						<input type='text' id='benefit_addr2' class='long_box'readonly>
 					</div>
-                </div>
+				</div>
+				<div class='info_right'>
+
+				
+                    <div>
+						<label class='info_name'>확인 여부</label>
+						<select class='long_box' id="benefit_check">
+                            <option value='n'>미확인</option>
+							<option value='y'>확인</option>
+						</select>
+                    </div>
+                    <div>
+						<label class='info_name'>문의 날짜</label>
+						<input type='text' id='benefit_day' class='long_box' readonly>
+                    </div>
+                    <div>
+						<label class='info_name'>문의내용</label>
+                        <!-- <input type='text' id='driver_name' class='long_box'> -->
+                        <textarea class="long_box" id='benefit_content' readonly></textarea>
+					</div>
+				</div>
 			</form>
 		</div>
 	</div>
+
 	<!-- /상세정보 -->
 	<!-- <div class="btn" data-toggle="modal" data-target="#deleteModal">검색 모달</div> -->
 	
@@ -118,7 +119,7 @@
 				</button>
 			</div>
 			<div class="modal-body text-center">
-				선택하신 운송사를 삭제하시겠습니까?
+				선택하신 신청서를 삭제하시겠습니까?
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteAD()">삭제</button>
@@ -205,52 +206,56 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">회원이름</label>
+				<label class="col-3 col-form-label">이름</label>
 				<div class="col-9">
-                    <input type="number" class="form-control inputAdTitle" id="search_u_name">
+					<input type="text" class="form-control inputAdTitle" id="search_benefit_name">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-3 col-form-label">전화번호</label>
 				<div class="col-9">
-					<input type="number" class="form-control inputAdTitle" id="search_u_phone">
+					<input type="text" class="form-control inputAdTitle" id="search_benefit_phone">
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">PG사명</label>
+				<label class="col-3 col-form-label">브랜드</label>
 				<div class="col-9">
-					<input type="text" class="form-control inputAdTitle" id='search_pg_name'>
+					<input type="text" class="form-control inputAdTitle" id="search_benefit_brand">
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">거래번호</label>
+				<label class="col-3 col-form-label">주소</label>
 				<div class="col-9">
-					<input type="text" class="form-control inputAdTitle" id='search_pg_id'>
+					<input type="number" class="form-control inputAdTitle" id="search_benefit_addr1">
 				</div>
-			</div>
+            </div>
+            <div class="form-group row">
+				<label class="col-3 col-form-label">상세주소</label>
+				<div class="col-9">
+					<input type="number" class="form-control inputAdTitle" id="search_benefit_addr2">
+				</div>
+            </div>
+            <div class="form-group row">
+				<label class="col-3 col-form-label">문의내용</label>
+				<div class="col-9">
+					<input type="number" class="form-control inputAdTitle" id="search_benefit_content">
+				</div>
+            </div>
 			<div class="form-group row">
-				<label class="col-3 col-form-label">결제금액</label>
+				<label class="col-3 col-form-label">확인여부</label>
 				<div class="col-9">
-					<input type="number" class="form-control inputAdTitle" id='search_ph_price'>
+					<select id='search_benefit_check' class="form-control select2" style="width:100%">
+						<option value='null'>선택</option>
+						<option value='y'>확인</option>
+						<option value='n'>미확인</option>
+					</select>
 				</div>
             </div>
             <div class="form-group row">
-				<label class="col-3 col-form-label">결제수단</label>
+				<label class="col-3 col-form-label">등록일</label>
 				<div class="col-9">
-					<input type="text" class="form-control inputAdTitle" id='search_ph_type'>
+					<div type=""  class="form-control inputAdTitle search_benefit_day" id="search_benefit_day"></div>
 				</div>
-            </div>
-            <div class="form-group row">
-				<label class="col-3 col-form-label">결제여부</label>
-				<div class="col-9">
-					<input type="text" class="form-control inputAdTitle" id='search_pay_state'>
-				</div>
-            </div>
-            <div class="form-group row">
-                <label class="col-3 col-form-label">결제일시</label>
-                <div class="col-9">
-					<div type="" class="form-control col search_cr_cdt" id="search_cr_cdt"></div>
-                </div>
 			</div>
 		</form>
 	</div>
@@ -265,78 +270,8 @@
 	</div>
 </div>
 
-<!-- 회원 좌석현황 모달 -->
-<div class="card object-search-popup" id="object-res-seat-popup" style="display: none;">
-	<div class="card-header object-search-header">
-		<div class="row">
-			<div class="col-8 search-header-title">
-				<a data-toggle="collapse" href="#object_search_info"><span class="title">좌석현황</span></a>
-			</div>
-		</div>
-	</div>
-	<div id="object_search_info" class="card-body collapse show">
-		<div class='detail_search_form' style="height: auto; overflow: hidden;">
-            <div class="user_seat_list">
-
-                <div class='time_info'>
-                </div>
-                <table class="payment_info">
-                </table>
-			
-                <div class="checks etrans check_all_btn" id='chk05'>
-                    <input type="checkbox" id="ex_chk5" class="check-all">
-                    <label for="ex_chk5" style="cursor: pointer;">전체선택</label>
-                </div>
-				<a onclick="resCancel(this)" class="cancel_btn select_cancel" style="cursor: pointer;">선택 예매취소</a>
-
-
-				<div class="qrcode_list scroll_style">
-					<ul id='res_seat_list'>
-						<li>
-							<!-- <div class="checks etrans" id='chk01'>
-								<input type="checkbox" id="ex_chk1">
-								<label for="ex_chk1">좌석번호<span>1</span></label>
-								<a onclick="qrcode_full_open(this)" id="qrcode_full_btn">
-									<div class="qrcode"></div></a>
-							</div> -->
-						</li>
-					</ul>
-				</div>
-
-            </div>
-		</div>
-		<div class="search-footer row" style="background-color: #ffffff;">
-			<div class="col-12">
-				<button class="btn btn-search" onclick="ResseatClose()">닫기</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- 회원 좌석현황 모달 -->
-<div class="card object-search-popup" id="object-res-noseat-popup" style="display: none;">
-	<div class="card-header object-search-header">
-		<div class="row">
-			<div class="col-8 search-header-title">
-				<a data-toggle="collapse" href="#object_search_info"><span class="title">좌석현황</span></a>
-			</div>
-		</div>
-	</div>
-	<div id="object_search_info" class="card-body collapse show">
-		<div class='detail_search_form' style=" overflow: hidden; line-height: 5; ">
-			이미 결제 취소된 회원 입니다.
-		</div>
-		<div class="search-footer row" style="background-color: #ffffff;">
-			<div class="col-12">
-				<button class="btn btn-search" onclick="ResNoseatClose()">닫기</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
 <%- contentFor('FooterJs') %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.0.1/exceljs.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
-<script src="/js/admin/admin_az369_payment.js"></script>
+<script src="/js/admin/admin_az369_benefit.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.2/jszip.min.js"></script> -->

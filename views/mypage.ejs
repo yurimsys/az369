@@ -722,7 +722,7 @@
                     'sendArray': seatArr
                 },
                 success: function (res) {
-                    console.log(res.data);
+                    // console.log(res.data);
                     $('.time_info').empty();
                     $('.payment_info').empty();
                     $('#res_seat_list').empty();
@@ -742,7 +742,7 @@
 
                     for(let i=0; i<res.data.length; i++){
                         let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
-                            bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+">";
+                            bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+" data-pgpaytype="+res.data[i].PH_CodeType+">";
                             bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
                             bot_html += "<a onclick='qrcode_full_open(this)' id='qrcode_full_btn' value="+res.data[i].CR_ID+" data-pgid="+res.data[i].CR_QrCode+" data-seatnum="+res.data[i].CR_SeatNum+"><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a></div>"
 
@@ -847,26 +847,18 @@
         //     })
         // }
 
-        function cnacelInfo(string) {
-            // var obj = {};
-            // var row, 
-            //     rows = table.rows;
-            // for (var i=0, iLen=rows.length; i<iLen; i++) {
-            //   row = rows[i];
-            //   obj[document.getElementsByTagName("input")[i].getAttribute('name')] = document.getElementsByTagName("input")[i].value;
-            // }
-            // console.log('good',obj);
-            let cancel_data = {}
-                cancel_data.mid = 'testpay01m',
-                cancel_data.tid = string,
-                cancel_data.svcCd = '01',
-                cancel_data.partialCancelCode = '0',
-                cancel_data.cancelAmt = '200',
-                cancel_data.cancelMsg = '환불테스트',
-                cancel_data.cancelPwd = '123456'
+        function cancelInfo(string, codeString) {
+
+            let cancel_data = {}                        //전체 필수 값 !!!!
+                cancel_data.mid = 'testpay01m',         //이노페이에서 발급한 상점아이디
+                cancel_data.tid = string,               //거래고유번호
+                cancel_data.svcCd = `${codeString}`,    //취소 결과 코드 ex) 신용카드 : 01, 계좌이체 : 02, 간편결제 : 16
+                cancel_data.partialCancelCode = '0',    //전체취소 : 0, 부분취소 : 1  (부분취소 사용 가능 가맹점만 사용 가능)
+                cancel_data.cancelAmt = '700',          //취소 금액
+                cancel_data.cancelMsg = '환불테스트',   //취소사유
+                cancel_data.cancelPwd = '123456'        //취소비밀번호                                
                 
             return JSON.stringify(cancel_data);
-            // console.log('can', cancel_data);
 
         }
 
@@ -878,13 +870,15 @@
                 return false;
             }
             var checkBoxArr = [];
-            let chk_pg_id;
-            let chk_u_id;
+            let chk_pg_id; //PG사 결제 고유 아이디
+            let chk_u_id; // 결제 회원 아이디
+            let chk_pg_pay_type; // 결제 취소 코드
             $("input[name=seat_chk]:checked").each(function(i){
                 checkBoxArr.push($(this).val());
                 let chk_id = this.id;
                 chk_pg_id = $('#'+chk_id).data('pgid');
                 chk_u_id = $('#'+chk_id).data('uid');
+                chk_pg_pay_type = $('#'+chk_id).data('pgpaytype');
                 
                 
             });
@@ -951,26 +945,16 @@
 
                         }
                     else {
-                        var resultcode = null;
-                        let cancel_data = {}
-                            cancel_data.cancelAmt = '10',
-                            cancel_data.svcCd = '01',
-                            cancel_data.tid = e.dataset.pgid,
-                            cancel_data.partialCancelCode = '0',
-                            cancel_data.mid = 'testpay01m',
-                            cancel_data.cancelPwd = '123456',
-                            cancel_data.cancelMsg = '환불테스트'
-
-                            // console.log('loglog :',cancel_data);
+                        // console.log('취소 요청값 :', cancelInfo(chk_pg_id,chk_pg_pay_type));
                         $.ajax({
                             type : "POST",
                             url : "https://api.innopay.co.kr/api/cancelApi",
                             async : true,
-                            data : cnacelInfo(chk_pg_id),
+                            data : cancelInfo(chk_pg_id,chk_pg_pay_type),
                             contentType: "application/json; charset=utf-8",
                             dataType : "json",
                             success : function(data){
-                                // console.log('취소결과',data);
+                                console.log('취소결과',data);
                                 
                                 swal({
                                     title: '예매취소 완료',
@@ -1087,14 +1071,17 @@
                     'endDay': $("#endDay").val()
                 },
                 success: function (res) {
-                    //console.log('resData ::::', res.data);
+                    console.log('resData ::::', res.data[0].seatNumMo.data);
+                    
                     for (let i = 0; i < res.data.length; i++) {
+                        let origin_seat = res.data[i].seatNumMo.data
+                        var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<tr>";
                         html += "<td>" + res.data[i].PayDay + "</td>";
                         html += "<td>" + res.data[i].deptTe + "</td>";
                         // html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
                         html += "<td>" + res.data[i].carName + "</td>";
-                        html += "<td>" + res.data[i].seatCnt + "</td>";
+                        html += "<td>" + seatNum + "</td>";
                         html += "<td>" + (res.data[i].payType || "-") + "</td>";
                         html += "<td>" + (res.data[i].price || 0) + "</td>";
                         html += "</tr>";
@@ -1169,11 +1156,13 @@
                 dataType: "json",
                 success: function (res) {
                     for (let i = 0; i < res.data.length; i++) {
+                        let origin_seat = res.data[i].seatNumMo.data
+                        var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<tr>";
                         html += "<td>" + res.data[i].PayDay + "</td>";
                         html += "<td>" + res.data[i].deptTe + "</td>";
                         html += "<td>" + res.data[i].cancelDay + "</td>";
-                        html += "<td>" + res.data[i].CR_SeatNum+ "</td>";
+                        html += "<td>" + seatNum+ "</td>";
                         html += "<td>" + res.data[i].payType + "</td>";
                         html += "<td>" + res.data[i].price + "</td>";
                         html += "</tr>";
@@ -1227,11 +1216,13 @@
                 },
                 success: function (res) {
                     for (let i = 0; i < res.data.length; i++) {
+                        let origin_seat = res.data[i].seatNumMo.data
+                        var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<tr>";
                         html += "<td>" + res.data[i].PayDay + "</td>";
                         html += "<td>" + res.data[i].deptTe + "</td>";
                         html += "<td>" + res.data[i].cancelDay + "</td>";
-                        html += "<td>" + res.data[i].seatCnt + "</td>";
+                        html += "<td>" + seatNum + "</td>";
                         html += "<td>" + res.data[i].payType + "</td>";
                         html += "<td>" + res.data[i].price + "</td>";
                         html += "</tr>";
@@ -1272,14 +1263,14 @@
                     $('.table_mo').empty();
                     // location.href = "#popup3"
                     for (let i = 0; i < res.data.length; i++) {
-
-
+                        let origin_seat = res.data[i].seatNumMo.data
+                        var seatNum = String.fromCharCode.apply(null, origin_seat);
 
                         let html = "<table class='detail_table'>";
                         //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
                         html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+")</td></tr>";
                         html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 - 동대문)</span></td></tr>";
-                        html += "<tr><th>좌석번호</th><td>" + res.data[i].CR_SeatNum + "</td></tr>";
+                        html += "<tr><th>좌석번호</th><td>" + seatNum + "</td></tr>";
                         html += "<tr><th>취소일시</th><td>" + res.data[i].cancelDay + "</td></tr>"
                         html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
                         html += "<tr><th>환불금액</th><td>" + res.data[i].price + "</td></tr></table>";
@@ -1420,7 +1411,7 @@
             //var day = today.getDate();
 
             var endDate = $.datepicker.formatDate('yy-mm-dd', today);
-            $('.searchEndDate').val(endDate);
+            $('.searchEndDate').val(endDate);   
 
             if (str == 'd') {
                 today.setDate(today.getDate() - num);
@@ -1450,7 +1441,6 @@
 
         }
 
-// QR코드vz
 
     </script>
 
