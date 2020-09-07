@@ -317,9 +317,21 @@
                                                         <th>좌석번호</th>
                                                         <th>결제수단</th>
                                                         <th>결제금액</th>
+                                                        <th>영수증</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id='payList'>
+                                                <!-- <tbody id='payList'>
+                                                </tbody> -->
+                                                <tbody>
+                                                    <tr>
+                                                        <td>2020.01.01</td>
+                                                        <td>2020.01.01 22:00</td>
+                                                        <td>유림고속(1111)</td>
+                                                        <td>11, 12, 13, 14</td>
+                                                        <td>신용카드</td>
+                                                        <td>20,000원</td>
+                                                        <td><a class="Receipt  btn-light">영수증 출력</a></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -335,9 +347,11 @@
                                                 <h3>예매 결제 상세내역</h3>
                                                 <div class="table_mo">
                                                 </div>
-
+                                                <div>
+                                                <a class="receipt btn-light">영수증 출력</a>
+                                            </div>
                                                 <div class="popup_btn_mo">
-                                                    <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block')">닫기</a>
+                                                    <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block')" >닫기</a>
                                                 </div>
                                             </div>
                                         </div>
