@@ -787,16 +787,16 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
 router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
     connection.beginTransaction(function(err){
         let query = `update tCR
-                        inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
-                        set CR_Cancel = :crCancel, CR_CancelDt = now(), CR_PayState = '결제취소'
+                        INNER JOIN tCT on tCR.CR_CT_ID = tCT.CT_ID
+                        SET CR_Cancel = :crCancel, CR_CancelDt = now(), CR_PayState = '결제취소'
                     where CR_ID IN (:cr_id) AND  CR_U_Id = :sessionId AND
                         tCT.CT_DepartureTe > date_add(now(),interval +3 day)`;
         let admin_query = `update tCR
-                                inner join tCT on tCR.CR_CT_ID = tCT.CT_ID
+                                INNER JOIN tCT on tCR.CR_CT_ID = tCT.CT_ID
                                 set CR_Cancel = :crCancel, CR_CancelDt = now(), CR_PayState = '결제취소'
                                 where CR_ID IN (:cr_id) AND  CR_U_Id = :sessionId`;
                         
-        let select_query = `select CR_SeatNum, CR_Price from tCR where CR_ID IN (:cr_id) AND tCR.CR_U_ID = :sessionId`;
+        let select_query = `SELECT CR_SeatNum, CR_Price FROM tCR where CR_ID IN (:cr_id) AND tCR.CR_U_ID = :sessionId`;
         let scan_query = ` SELECT CR_ScanPy FROM tCR WHERE tCR.CR_ID IN (:cr_id) AND tCR.CR_U_ID =:sessionId `
         let start_query = `SELECT 
                                 tCT.CT_PyStart, 
@@ -907,6 +907,8 @@ router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
                     tPH.PH_Price as price,
                     tCR.CR_CT_ID as crCTID,
                     tCR.CR_PH_ID as crPHID,
+                    PH_PG_ID,
+                    PH_CodeType,
                     tCR.CR_cDt as no	
                 from tCT
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
@@ -948,6 +950,7 @@ router.post('/user/resPayMo',  auth.isLoggedIn, (req, res, next) =>{
                     tPH.PH_Type as payType,
                     tPH.PH_Price as price,
                     CR_cDt as crCdt,
+                    PH_PG_ID,
                     tCR.CR_CT_ID as crCTID,
                     tCR.CR_PH_ID as crPHID,
                     tCR.CR_cDt as no
@@ -1050,6 +1053,8 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
                     (select group_concat( ' ', CR_SeatNum)) as seatNumMo,
                     tPH.PH_Type as payType,
                     tPH.PH_Price as price,
+                    PH_PG_ID,
+                    PH_CodeType,
                     CR_cDt as crCdt,
                     tCR.CR_CT_ID as crCTID,
                     tCR.CR_PH_ID as crPHID
@@ -1482,7 +1487,7 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
         }else if(req.body.cancel_type == "VBANK"){
             ph_type = '무통장입금';
             cr_memo = "";
-            cancel_type = "04";
+            cancel_type = "03";
         }else if(req.body.cancel_type == "EPAY"){
             ph_type = req.body.EPayType;
             cr_memo = "";
@@ -1540,7 +1545,7 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                     if(rows.length == 0){
                                         //  결제 내역 먼저 추가. 
                                         connection.query(ph_query, {
-                                            u_id    : req.user.U_ID,
+                                            u_id    : u_id,
                                             oPrice  : oPrice,
                                             sPrice  : sPrice,
                                             price   : (oPrice-sPrice),
@@ -1552,12 +1557,12 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                                 connection.rollback(function(){
                                                     throw err;
                                                 })
-                                            }  
+                                            }
                                             let ph_id = result.insertId;
                                             let origin_qrcode=[];
                                             let hash_qrcode = [];
                                             for(let i =0; i<seatNums.length; i++){
-                                                origin_qrcode.push(ct_id+'-'+req.user.U_ID+'-'+ph_id+'-'+seatNums[i]);
+                                                origin_qrcode.push(ct_id+'-'+u_id+'-'+ph_id+'-'+seatNums[i]);
                                                 hash_qrcode.push(CryptoJS.AES.encrypt(origin_qrcode[i], config.enc_salt).toString());
                                             }
                                             console.log('origin:',origin_qrcode);
@@ -1571,14 +1576,14 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                             
                                             if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
                                                 for(let i=0; i<seatNums.length; i++){
-                                                    str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums[i]}, ${one_price}, '${hash_qrcode[i]}', '${cr_memo}','결제완료')`)
+                                                    str_values_list.push(`(${ct_id}, ${u_id}, ${ph_id}, ${seatNums[i]}, ${one_price}, '${hash_qrcode[i]}', '${cr_memo}','결제완료')`)
                                                 }
                                                 // seatNums.map((seatNum)=>{
                                                 //     str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum}, ${one_price}, ${hash_qrcode})`);
                                                 // });
                                                 str_values = str_values_list.join(', ');
                                             } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
-                                                str_values = `(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNums}, ${oPrice}, '${hash_qrcode}', '${cr_memo}','결제완료')`;
+                                                str_values = `(${ct_id}, ${u_id}, ${ph_id}, ${seatNums}, ${oPrice}, '${hash_qrcode}', '${cr_memo}','결제완료')`;
                                             }
                                         
                                             cr_query += str_values;
@@ -1588,9 +1593,8 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                                     if (err){
                                                         connection.rollback(function(){
                                                             throw err;
-                                                        })
-                                                    } 
-        
+                                                       })
+                                                    }
                                                     connection.commit(function(err) {
                                                         if (err) {
                                                             return connection.rollback(function() {
@@ -1603,7 +1607,6 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                                             data : '1'
                                                         });    
                                                     });
-        
                                                 });
                                         });
         
@@ -1615,7 +1618,6 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                     let seat_number = over_lap.join('번,')+'번';
                                     res.json({data : '0', seats : seat_number})
                                 }
-        
                                 
                             }); 
                         }
@@ -1946,7 +1948,7 @@ router.get('/video/best', function(req, res, next) {
 router.get('/categoryLV1', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
-        new mssql.Request().query('select distinct(BCR_LV1_BC_ID), BC_NameEng, BC_NameKor from tBCR inner join tBC on tBCR.BCR_LV1_BC_ID = tBC.BC_ID', (err, result) => {
+        new mssql.Request().query('select distinct(BCR_LV1_BC_ID), BC_NameEng, BC_NameKor from tBCR INNER join tBC on tBCR.BCR_LV1_BC_ID = tBC.BC_ID', (err, result) => {
             res.json({ data : result.recordset });
         })
     });
@@ -1956,7 +1958,7 @@ router.get('/categoryLV1', function(req, res, next) {
 router.get('/categoryLV2', function(req, res, next) {
     mssql.connect(dbconf.mssql, function (err, result){
         if(err) throw err;
-        new mssql.Request().query('select * from tBC inner join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID', (err, result) => {
+        new mssql.Request().query('select * from tBC INNER join tBCR on tBC.BC_ID = tBCR.BCR_LV2_BC_ID', (err, result) => {
             res.json({ data : result.recordset });
         })
     });
@@ -2005,11 +2007,11 @@ router.get('/brandList', function(req, res, next) {
                 LS_Sector, 
                 LS_Floor 
             from tBCR 
-                inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID 
-                inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
-                inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID 
-                inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
-                inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
+                INNER join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID 
+                INNER join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
+                INNER join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID 
+                INNER join tLS on tLS.LS_Number = tBSxtLS.LS_Number
+                INNER join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID`,
         (err, result) => {
             res.json({ data : result.recordset });
         })
@@ -2040,8 +2042,8 @@ router.get('/storeInfo', function(req, res, next) {
                 BC_NameKor, 
                 BC_NameEng 
             FROM tBSxtLS 
-                inner join tBS on tBSxtLS.BS_ID = tBS.BS_ID 
-                inner join tBC on tBC.BC_ID = tBS.BS_BC_ID`, 
+                INNER join tBS on tBSxtLS.BS_ID = tBS.BS_ID 
+                INNER join tBC on tBC.BC_ID = tBS.BS_BC_ID`, 
         (err, result) => {
             res.json({ data : result.recordset });
         })
@@ -2090,11 +2092,11 @@ router.get('/brandListOverLap', function(req, res, next) {
                         LS_Sector,
                         LS_Floor 
                     from tBCR 
-                        inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID 
-                        inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
-                        inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID 
-                        inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
-                        inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID
+                        INNER join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID 
+                        INNER join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
+                        INNER join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID 
+                        INNER join tLS on tLS.LS_Number = tBSxtLS.LS_Number
+                        INNER join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID
                         `
 
         // 관리 페이지 상세검색
@@ -2307,11 +2309,11 @@ router.get('/bsList/:bsId', async function(req,res){
                         LS_Sector, 
                         LS_Floor 
                     from tBCR 
-                        inner join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID 
-                        inner join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
-                        inner join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID 
-                        inner join tLS on tLS.LS_Number = tBSxtLS.LS_Number
-                        inner join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID where tBS.BS_ID = @bsId`)
+                        INNER join tBSxtBCR on tBCR.BCR_ID = tBSxtBCR.BCR_ID 
+                        INNER join tBS on tBS.BS_ID = tBSxtBCR.BS_ID
+                        INNER join tBSxtLS on tBSxtLS.BS_ID = tBS.BS_ID 
+                        INNER join tLS on tLS.LS_Number = tBSxtLS.LS_Number
+                        INNER join tBC on tBC.BC_ID = tBCR.BCR_LV2_BC_ID where tBS.BS_ID = @bsId`)
         console.log(result.recordset);
     } catch (err) {
         console.log(err);
@@ -3773,8 +3775,8 @@ router.get('/vehicle',function(req,res){
                     CT_SeStart
                 FROM tCT 
                     left JOIN tCR ON tCR.CR_CT_ID = tCT.CT_ID
-                    inner JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
-                    inner JOIN tB ON tCY.CY_B_ID = tB.B_ID`
+                    INNER JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
+                    INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID`
 
     // let query = `SELECT * FROM tCT 
     //                 INNER JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
@@ -4111,6 +4113,7 @@ router.get('/vehicle/list', function(req,res){
                     tB.B_NAME, 
                     tCT.CT_DepartureTe,
                     tCY.CY_SeatPrice,
+                    DATE_ADD(CT_DepartureTe,INTERVAL +60 HOUR_MINUTE) as dept,
                     date_format(tCT.CT_DepartureTe ,'%y%y.%m.%d %H') as deptTime
                 FROM tCT 
                     INNER JOIN tCY ON tCT.CT_CY_ID = tCY.CY_ID
@@ -5750,6 +5753,10 @@ router.get('/benefit_length', function(req,res){
         if(err) throw err;
         res.json({data : rows});
     })
+})
+
+router.post('/other_api', function(req, res){
+
 })
 
 

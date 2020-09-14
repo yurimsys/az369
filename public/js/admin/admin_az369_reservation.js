@@ -851,10 +851,9 @@ function ResseatClose(){
         let local_year = local_date.getFullYear();
         let local_month = local_date.getMonth()+1 < 10 ? '0'+Number(local_date.getMonth()+1) : Number(local_date.getMonth()+1);
         let local_day = local_date.getDate() < 10 ? '0'+local_date.getDate() : local_date.getDate();
-        let local_hour = local_date.getHours();
-        let local_minutes = local_date.getMinutes();
+        let local_hour = local_date.getHours() < 10 ? '0'+local_date.getHours() : local_date.getHours();
+        let local_minutes = local_date.getMinutes() < 10 ? '0'+local_date.getMinutes() : local_date.getMinutes();
         let local_times = local_year+'-'+local_month+'-'+local_day+' '+local_hour+':'+local_minutes;
-
         //상세정보 운송사 셀렉트 박스
         let default_html = "<select class='long_box select2' id='ct_id' aria-readonly='true' onchange='seatModalOpen(this)' ><option></option></select>"
         $('#input_ct_id').after(default_html);
@@ -882,13 +881,19 @@ function ResseatClose(){
                         width: 'resolve'
                     }
                 );
+
+                // debugger;
                 for (let i=0; i<res.data.length; i++){
                     let html;
                     //이전 예매정보일때
-                    if((res.data[i].CT_DepartureTe < local_times) == false){
-                        html = "<option value="+res.data[i].CT_ID+" onclick='testGood(this)' data-price="+res.data[0].CY_SeatPrice+" >"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+                    console.log('test,',res.data[i].CT_DepartureTe);
+                    if((res.data[i].dept < local_times) == false){
+                        // debugger;
+                        console.log('출발시간 :',res.data[i].CT_DepartureTe);
+                        console.log('현재시간 :', local_times);
+                        html = "<option value="+res.data[i].CT_ID+" data-price="+res.data[0].CY_SeatPrice+" >"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
                     }else{
-                        html = "<option value="+res.data[i].CT_ID+" onclick='testGood(this)' data-price="+res.data[0].CY_SeatPrice+" disabled = 'disabled'>"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
+                        html = "<option value="+res.data[i].CT_ID+" data-price="+res.data[0].CY_SeatPrice+" disabled = 'disabled'>"+res.data[i].B_NAME+" "+res.data[i].deptTime+"시</option>";
                     }
                     $('#ct_id').append(html);
                 }

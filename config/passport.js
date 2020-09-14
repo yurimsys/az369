@@ -61,7 +61,7 @@ connection.config.queryFormat = function (query, values) {
     }.bind(this));
 };
 passport.use(new LocalStrategy({ usernameField: 'id' }, (username, password, done) => {
-    let query = "SELECT u_id, U_uId, u_pw, u_isAdmin  from tU where U_uId = :id";
+    let query = "SELECT U_ID, U_uId, U_Pw, U_isAdmin  FROM tU where U_uId = :id";
     //let query2 = 'select u_id, U_uId, u_pw, u_isAdmin from tU where U_uId = :id';
         connection.query(query, { id: username }, (err, rows) =>{
             if (err) {return done(err);}
@@ -70,25 +70,26 @@ passport.use(new LocalStrategy({ usernameField: 'id' }, (username, password, don
             let user = rows[0];
 
             
-            if( CryptoJS.AES.decrypt(user.u_pw, config.enc_salt).toString(CryptoJS.enc.Utf8) !== password ){
+            if( CryptoJS.AES.decrypt(user.U_Pw, config.enc_salt).toString(CryptoJS.enc.Utf8) !== password ){
                 return done( null, false, {message: "ID와 Password를 확인해주세요"} );
             }else {
                 return done( null , user );
             }
         }
-        
     );
 }));
 
 passport.serializeUser((user, done) => {
-    console.log("serializeUser");console.log(user);
-    done(null, user.u_id);
+    console.log("serializeUser");
+    console.log(user);
+    done(null, user.U_ID);
 });
 
 passport.deserializeUser((id, done) => {
-    let query = `SELECT * from tU where u_id = ${id}`;
+    let query = `SELECT * from tU where U_ID = ${id}`;
     connection.query(query, (err, rows) =>{
-        console.log("deserializeUser");console.log(rows[0]);
+        console.log("deserializeUser");
+        console.log(rows[0]);
         let user = rows[0];
         done( null , user );
     });

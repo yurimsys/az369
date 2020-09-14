@@ -510,84 +510,85 @@ function userSeat(ph_id) {
     
 }
 
-        // 예매 취소
-        function resCancel(e) {
-            $("#ex_chk5").prop('checked', false);
-            // console.log('데이터 :', e.dataset.pgid);
-            if($('input:checkbox[name=seat_chk]:checked').length == 0){
-                alert('취소할 좌석을 선택해 주세요.')
-                return false;
-            }
-            var checkBoxArr = [];
-            let chk_pg_id;
-            let chk_u_id;
-            let chk_pg_pay_type;
-            $("input[name=seat_chk]:checked").each(function(i){
-                checkBoxArr.push($(this).val());
-                let chk_id = this.id
-                chk_pg_id = $('#'+chk_id).data('pgid');
-                chk_u_id = $('#'+chk_id).data('uid');
-                chk_pg_pay_type = $('#'+chk_id).data('pgpaytype');
-            });
-
-            console.log('check?',checkBoxArr);
-            console.log('data',chk_pg_id);
-
-
-            $.ajax({
-                url: "/api/user/cancelRes?type=admin",
-                method: 'post',
-                dataType: 'json',
-                async: false,
-                data: { 'cr_id': checkBoxArr, "u_id" : chk_u_id},
-                success: function (res) {
-                    $('#popup').css('display','none');
-                    $('.swal-icon--success__ring').css('display','none');
-                    $.ajax({
-                        type : "POST",
-                        url : "https://api.innopay.co.kr/api/cancelApi",
-                        async : true,
-                        data : cancelInfo(chk_pg_id,chk_pg_pay_type),
-                        contentType: "application/json; charset=utf-8",
-                        dataType : "json",
-                        success : function(data){
-                            console.log('취소결과',data);
-                            
-                            alert('취소완료!');
-                            ResseatClose();
-                            location.reload();
-
-                        },
-                        error : function(data){
-                            // console.log(data);   
-                            alert("취소 오류 고객센터에 문의해 주세요.");
-                        }
-                    });
-                }
-            })
-        }
-
-    function cancelInfo(string, codeString) {
-        // var obj = {};
-        // var row, 
-        //     rows = table.rows;
-        // for (var i=0, iLen=rows.length; i<iLen; i++) {
-        //   row = rows[i];
-        //   obj[document.getElementsByTagName("input")[i].getAttribute('name')] = document.getElementsByTagName("input")[i].value;
-        // }
-        // console.log('good',obj);
-        let cancel_data = {}
-            cancel_data.mid = 'testpay01m',
-            cancel_data.tid = string,
-            cancel_data.svcCd = `${codeString}`,
-            cancel_data.partialCancelCode = '0',
-            cancel_data.cancelAmt = '400',
-            cancel_data.cancelMsg = '환불테스트',
-            cancel_data.cancelPwd = '123456'
-            
-        return JSON.stringify(cancel_data);
-        // console.log('can', cancel_data);
+// 예매 취소
+function resCancel(e) {
+    $("#ex_chk5").prop('checked', false);
+    // console.log('데이터 :', e.dataset.pgid);
+    if($('input:checkbox[name=seat_chk]:checked').length == 0){
+        alert('취소할 좌석을 선택해 주세요.')
+        return false;
     }
+    var checkBoxArr = [];
+    let chk_pg_id;
+    let chk_u_id;
+    let chk_pg_pay_type;
+    $("input[name=seat_chk]:checked").each(function(i){
+        checkBoxArr.push($(this).val());
+        let chk_id = this.id
+        chk_pg_id = $('#'+chk_id).data('pgid');
+        chk_u_id = $('#'+chk_id).data('uid');
+        chk_pg_pay_type = $('#'+chk_id).data('pgpaytype');
+    });
+
+    console.log('check?',checkBoxArr);
+    console.log('data',chk_pg_id);
+
+
+    $.ajax({
+        url: "/api/user/cancelRes?type=admin",
+        method: 'post',
+        dataType: 'json',
+        async: false,
+        data: { 'cr_id': checkBoxArr, "u_id" : chk_u_id},
+        success: function (res) {
+            $('#popup').css('display','none');
+            $('.swal-icon--success__ring').css('display','none');
+            $.ajax({
+                type : "POST",
+                url : "https://api.innopay.co.kr/api/cancelApi",
+                async : true,
+                data : cancelInfo(chk_pg_id,chk_pg_pay_type),
+                contentType: "application/json; charset=utf-8",
+                dataType : "json",
+                success : function(data){
+                    console.log('취소결과',data);
+                    
+                    alert('취소완료!');
+                    ResseatClose();
+                    location.reload();
+
+                },
+                error : function(data){
+                    // console.log(data);   
+                    alert("취소 오류 고객센터에 문의해 주세요.");
+                }
+            });
+        }
+    })
+}
+
+//결제 취소 요청 값!
+function cancelInfo(string, codeString) {
+    // var obj = {};
+    // var row, 
+    //     rows = table.rows;
+    // for (var i=0, iLen=rows.length; i<iLen; i++) {
+    //   row = rows[i];
+    //   obj[document.getElementsByTagName("input")[i].getAttribute('name')] = document.getElementsByTagName("input")[i].value;
+    // }
+    // console.log('good',obj);
+    let cancel_data = {}
+        cancel_data.mid = 'testpay01m',
+        cancel_data.tid = string,
+        cancel_data.svcCd = `${codeString}`,
+        cancel_data.partialCancelCode = '0',
+        cancel_data.cancelAmt = '700',
+        cancel_data.cancelMsg = '환불테스트',
+        cancel_data.cancelPwd = '123456'
+        
+    return JSON.stringify(cancel_data);
+    // console.log('can', cancel_data);
+}
 
 
 //요일 계산 함수
@@ -597,14 +598,14 @@ function getInputDayLabel(date) {
     return todayLabel;
 }
 
-    //체크박스 활성화
-    function seatCheck(e){
+//체크박스 활성화
+function seatCheck(e){
 
-        if($('input:checkbox[name=seat_chk]:checked').length < $("input:checkbox[name=seat_chk]").length){
-            $("#ex_chk5").prop('checked', false);
-            return false;
-        }else if($('input:checkbox[name=seat_chk]:checked').length == $("input:checkbox[name=seat_chk]").length){
-            $("#ex_chk5").prop('checked', true);
-            return false;
-        }
+    if($('input:checkbox[name=seat_chk]:checked').length < $("input:checkbox[name=seat_chk]").length){
+        $("#ex_chk5").prop('checked', false);
+        return false;
+    }else if($('input:checkbox[name=seat_chk]:checked').length == $("input:checkbox[name=seat_chk]").length){
+        $("#ex_chk5").prop('checked', true);
+        return false;
     }
+}

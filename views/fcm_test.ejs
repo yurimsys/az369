@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 구글 CDN  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <link rel="manifest" href="/manifest.json"> -->
+    <link rel="manifest" href="/manifest.json"/>
+</head>
+<body>
+    테스트 입니다.!!!
+    <input type='text' id='token' style="width: 1300px;">
+    <input type='text' id='test1'>
+</body>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<!-- <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script> -->
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+<script src='https://www.gstatic.com/firebasejs/7.18.0/firebase-messaging.js'></script>
+<script>
+    //FCM 발신자 정보
+    const config = {
+        apiKey: "AIzaSyDy88Mo-KWvj_WNnlprZr1zKhq21wZ1BPE",
+        authDomain: "fir-yr.firebaseapp.com",
+        databaseURL: "https://fir-yr.firebaseio.com",
+        projectId: "fir-yr",
+        storageBucket: "fir-yr.appspot.com",
+        messagingSenderId: "599369257577",
+        appId: "1:599369257577:web:b57b36079d6ab7c98ec8f8",
+        measurementId: "G-KKSCT6H5YJ"
+    };
+    //firebase 정보 저장
+    let fcm = firebase.initializeApp(config);
+    const messaging = firebase.messaging();
+    //token값 알아내기
+    messaging.requestPermission()
+        .then(function(){
+            console.log("Have permission");
+            
+            return messaging.getToken();
+        })
+        .then(function(token){
+            console.log(token);
+            // alert(token)
+            // alert(token)
+            $('#token').val(token)
+        })
+        .catch(function(arr){
+            console.log("Error Occured");
+            console.log('err',arr);
+        });
+        
+    //메세지 수신 부분
+    messaging.onMessage(function(payload){
+        console.log('onMessage: ', payload);
+        //제목에 표시할 값
+        var title = payload.data.title;
+        //내용에 표시할 값
+        var options = {
+            body: payload.data.message,
+            icon: payload.data.icon
+
+        };
+        console.log('option',options);
+
+        //전송받은 전체 값 아이콘, 이미지, 클릭 이벤트 등등
+        var notification = new Notification(title,options);
+
+        // console.log('noti',notification);
+        // window.open(payload.data.click_action);
+
+        //페이지 이동
+        // location.href= payload.data.click_action;
+        //새창 열기
+        // window.open(payload.data.click_action)
+
+        //알림창 클릭시 이벤트
+        console.log('noti',notification);
+        notification.onclick = function(event){
+            //.......
+            window.open(payload.data.click_action);
+        }
+
+    });
+
+</script>
+
+</html>
