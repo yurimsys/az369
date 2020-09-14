@@ -32,6 +32,10 @@ const storage = multer.diskStorage({
   })
 const upload = multer({storage: storage})
 
+router.get('/fcm_test',function(req, res){
+    res.render('fcm_test');
+})
+
 router.get('/pay_test',function(req, res){
     res.render('pay_test');
 })
