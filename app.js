@@ -22,7 +22,20 @@ const indexRouter = require('./routes/index'),
 const multer = require('multer');
 const { logger, stream }  = require('./config/winston');
 const app = express();
-    
+
+const fs = require('fs');
+const https = require('https');
+const PORT = 3000;
+
+//인증서 경로
+const optionsForHTTPS = {
+    ca : fs.readFileSync('ssl_key/ca_bundle.crt'),
+    key : fs.readFileSync('ssl_key/private.key'),
+    cert : fs.readFileSync('ssl_key/certificate.crt')
+    // key : fs.readFileSync('C:/WorkSpace/firebase_test/real_keys/private.key'),
+    // cert : fs.readFileSync('C:/WorkSpace/firebase_test/real_keys/private.crt')
+};
+
     
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -127,5 +140,12 @@ app.use(function(err, req, res, next) {
   res.end();
   
 });
+
+// 지정된 3000 포트로 https 연결
+https.createServer(optionsForHTTPS, app).listen(PORT, function(){
+    console.log('HTTPS Server Start PORT:' + PORT);
+});
+
+
 
 module.exports = app;
