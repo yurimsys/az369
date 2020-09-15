@@ -25,7 +25,7 @@ const app = express();
 
 const fs = require('fs');
 const https = require('https');
-const PORT = 3000;
+const PORT = 443;
 
 //인증서 경로
 const optionsForHTTPS = {
@@ -146,6 +146,9 @@ https.createServer(optionsForHTTPS, app).listen(PORT, function(){
     console.log('HTTPS Server Start PORT:' + PORT);
 });
 
-
+// https.createServer(optionsForHTTPS, (req, res) => {
+//     res.writeHead(200);
+//     // res.end('hello world\n');
+//   }).listen(8000);
 
 module.exports = app;
