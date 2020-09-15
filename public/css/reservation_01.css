@@ -200,8 +200,8 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; posit
 .info_table {width: 100%; overflow: hidden;/* border-bottom: 1px solid #eee;*/padding: 0 30px; font-size: 15px;}
 .info_table dl {width: 100%; padding: 8px 0; overflow: hidden; border-bottom: 1px solid #eee;}
 .info_table dl:last-child {border-bottom: 1px solid #191919; padding-bottom: 15px;}
-.info_table dt {width: 35%; float: left; color: #767676; font-size: 300;}
-.info_table dd{width: 65%; float: right; color: #191919;  text-align: right;}
+.info_table dt {width: 35%; float: left; color: #505050;}
+.info_table dd{width: 65%; float: right; color: #191919;  text-align: right; padding: 2px 0;}
 
 /*팝업 금액*/
 .price {width: 100%; overflow: hidden; padding: 15px 30px 0; font-size: 15px;}
@@ -209,7 +209,7 @@ p.before_p {text-align: center; width: 100%; color: #999; font-size: 16px; posit
 .price dt {width: 50%; float: left;}
 .price dd {width: 50%; float: right; text-align: right;} 
 dl.reserve_price {color: #767676 !important; }
-dl.price_sale {color: #c17e00;}
+dl.price_sale {color: #C3A164;}
 /*dl.price_sale dt, dl.price_sale dd {font-weight: bold;}*/
 .total_dl {padding-top: 4px; overflow: hidden;}
 .total_dl dt {color: #191919; line-height: 43px; font-size: 16px;}

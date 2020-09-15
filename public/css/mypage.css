@@ -159,9 +159,10 @@ th, td {padding: 0;}
  .popup_box{width:28%; background:#fff; position:relative; z-index: 1000; top:53%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.3); padding: 20px 30px 25px; overflow: hidden;}
 
 .ticket_modal h3,#qrcode_full_modal h3 {font-size: 24px; text-align: center; margin-bottom: 18px;}
-.time_info {width: 100%;; background-color: #faf7f3; border-radius: 12px; padding: 20px 0; overflow: hidden; display: flex;}
+.time_info {width: 100%;; background-color: #faf7f3; border-radius: 4px; padding: 20px 0; overflow: hidden; display: flex;}
 
-.time_info > div {flex: 1;}
+.time_info > div:nth-child(1) {flex: 1;}
+.time_info > div:nth-child(2) {flex: 1.2;}
 .time_info > div:nth-child(1) {border-right: 1px solid #e7e3dd;}
 .time_info_date {width: 100%; text-align: center;}
 .time_info_date dd:nth-child(1)::after {content: '~'; margin-left: 5px; margin-right: -10px;}
@@ -169,15 +170,15 @@ th, td {padding: 0;}
 .time_info_time ul li {float: left;}
 .time_info_time ul li:nth-child(1), .time_info_time ul li:nth-child(3) {width: 45%; text-align: center;}
 .time_info_time ul li:nth-child(2) {width: 10%; text-align: center; padding-top: 10px; }
-.time_info_time ul li dt {font-size: 15px;}
-.time_info_time ul li dd {font-size: 18px; font-weight: 500;color: #271d0a; }
+.time_info_time ul li dt {font-size: 15px; color: #505050;}
+.time_info_time ul li dd {font-size: 18px; font-weight: 500;color: #191919; }
 
 .payment_info {width: 100%; font-size: 15px; display: table; margin: 16px 0 24px;}
 .payment_info th, .payment_info td {padding: 2px 5px;}
 .payment_info th {width: 30%; text-align: left; float: left; font-weight: normal; color: #505050;}
 .payment_info td {width: 70%; text-align: right; float: right; color: #191919;}
 
-.qrcode_list {width: 100%; overflow-x: hidden; height: 240px; border-top: 1px solid #eee;}
+.qrcode_list {width: 100%; overflow-x: hidden; height: 240px; border-top: 1px solid #dbdbdb;}
 .qrcode_list ul li {width:100%; border-bottom: 1px solid #eee; position: relative; overflow: hidden;}
 /* .qrcode_list ul li:nth-child(1) {border-top: 1px solid #eee;} */
 .qrcode {width: 50px; height: 50px; background-color: black;float: right; margin-right: 16px; z-index: 1000000;}
@@ -194,26 +195,9 @@ th, td {padding: 0;}
 .ticket_modal p a {margin-left: 5px;}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* .cancel_btn_list {width: 183px;  margin: 0 auto; overflow: hidden; margin-top: 20px;}
 .cancel_btn_list ul li {float: left; position: relative;} */
-.select_cancel { padding: 0 16px; display: block; width: auto; height: 40px; line-height: 40px; padding: 0 16px; border: 1px solid #dbdbdb; font-size: 15px; border-radius: 4px;}
+.select_cancel { padding: 0 16px; display: block; width: auto; height: 40px; line-height: 40px; padding: 0 16px; border: 1px solid #dbdbdb; border-radius: 4px; font-size: 14px;}
 
 
 .all_cancel {margin-right: 8px;}
@@ -234,7 +218,6 @@ a.close_btn  {display: block; width:100%; border-radius: 4px; height: 48px; line
     padding:12px;
     border-bottom: 1px solid #eee;
     vertical-align: middle;
-    font-size: 15px;
 }
 .detail_table th {
     width: 100px;
