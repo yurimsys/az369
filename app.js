@@ -23,18 +23,18 @@ const multer = require('multer');
 const { logger, stream }  = require('./config/winston');
 const app = express();
 
-const fs = require('fs');
-const https = require('https');
-const PORT = 443;
+// const fs = require('fs');
+// const https = require('https');
+// const PORT = 443;
 
-//인증서 경로
-const optionsForHTTPS = {
-    ca : fs.readFileSync(path.resolve(__dirname,"ssl_key/ca_bundle.crt")),
-    key : fs.readFileSync(path.resolve(__dirname,'ssl_key/private.key')),
-    cert : fs.readFileSync(path.resolve(__dirname,'ssl_key/certificate.crt'))
-    // key : fs.readFileSync('C:/WorkSpace/firebase_test/real_keys/private.key'),
-    // cert : fs.readFileSync('C:/WorkSpace/firebase_test/real_keys/private.crt')
-};
+// //인증서 경로
+// const optionsForHTTPS = {
+//     ca : fs.readFileSync(path.resolve(__dirname,"ssl_key/ca_bundle.crt")),
+//     key : fs.readFileSync(path.resolve(__dirname,'ssl_key/private.key')),
+//     cert : fs.readFileSync(path.resolve(__dirname,'ssl_key/certificate.crt'))
+//     // key : fs.readFileSync('C:/WorkSpace/firebase_test/real_keys/private.key'),
+//     // cert : fs.readFileSync('C:/WorkSpace/firebase_test/real_keys/private.crt')
+// };
 
     
 // view engine setup
@@ -141,10 +141,10 @@ app.use(function(err, req, res, next) {
   
 });
 
-// 지정된 3000 포트로 https 연결
-https.createServer(optionsForHTTPS, app).listen(PORT, function(){
-    console.log('HTTPS Server Start PORT:' + PORT);
-});
+// // 지정된 3000 포트로 https 연결
+// https.createServer(optionsForHTTPS, app).listen(PORT, function(){
+//     console.log('HTTPS Server Start PORT:' + PORT);
+// });
 
 // https.createServer(optionsForHTTPS, (req, res) => {
 //     res.writeHead(200);
