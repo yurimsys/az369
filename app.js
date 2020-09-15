@@ -29,9 +29,9 @@ const PORT = 443;
 
 //인증서 경로
 const optionsForHTTPS = {
-    ca : fs.readFileSync('ssl_key/ca_bundle.crt'),
-    key : fs.readFileSync('ssl_key/private.key'),
-    cert : fs.readFileSync('ssl_key/certificate.crt')
+    ca : fs.readFileSync("./ssl_key/ca_bundle.crt"),
+    key : fs.readFileSync('./ssl_key/private.key'),
+    cert : fs.readFileSync('./ssl_key/certificate.crt')
     // key : fs.readFileSync('C:/WorkSpace/firebase_test/real_keys/private.key'),
     // cert : fs.readFileSync('C:/WorkSpace/firebase_test/real_keys/private.crt')
 };
