@@ -29,9 +29,9 @@ const PORT = 443;
 
 //인증서 경로
 const optionsForHTTPS = {
-    ca : fs.readFileSync("/home/hosting_users/yurimsys12/apps/yurimsys12_az369/ssl_key/ca_bundle.crt"),
-    key : fs.readFileSync('/home/hosting_users/yurimsys12/apps/yurimsys12_az369/ssl_key/private.key'),
-    cert : fs.readFileSync('/home/hosting_users/yurimsys12/apps/yurimsys12_az369/ssl_key/certificate.crt')
+    ca : fs.readFileSync(path.resolve(__dirname,"./ssl_key/ca_bundle.crt")),
+    key : fs.readFileSync(path.resolve(__dirname,'./ssl_key/private.key')),
+    cert : fs.readFileSync(path.resolve(__dirname,'./ssl_key/certificate.crt'))
     // key : fs.readFileSync('C:/WorkSpace/firebase_test/real_keys/private.key'),
     // cert : fs.readFileSync('C:/WorkSpace/firebase_test/real_keys/private.crt')
 };
