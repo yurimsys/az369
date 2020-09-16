@@ -13,17 +13,17 @@ body {background: #fafafa;}
 .info_title {width: 100%; overflow: hidden;}
 .info_title h2 {font-size: 20px; font-weight: 500; display: inline-block; float: left; width: 70%;line-height: 1.5;} 
 .info_title h2 span {font-size: 16px; font-weight: 300; color: #999;}
-.modify_btn { color: #767676; background: #f2f2f2; display: inline-block; height: 40px; line-height: 40px; font-size: 15px; float: right; width:25%; text-align: center; border-radius: 12px; transition: all 0.3s;}
+.modify_btn { color: #767676; background: #f2f2f2; display: inline-block; height: 40px; line-height: 40px; font-size: 14px; float: right; width:25%; text-align: center; border-radius: 12px; transition: all 0.3s;}
 .modify_btn a {display: block;}
 .modify_btn_mo {display: none; }
 
 .info {text-align: justify; width: 100%; margin-top: 20px; padding: 20px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee;}
 .info dl {width: 100%; }
 .info dt {width: 30px; float: left;}
-.info dd {width: calc(100% - 30px); padding-top: 3px; font-size: 15px;}
+.info dd {width: calc(100% - 30px); padding-top: 3px; font-size: 14px;}
 
 /* 왼쪽 하단 버튼*/
-.mypage_nav {overflow: hidden; margin-top: 15px;}
+.mypage_nav {overflow: hidden; margin-top: 14px;}
 .mypage_nav button { width: 100%; height: 45px; line-height:45px; border: none; float: left; padding: 0; margin: 0; background: #fff; font-size: 16px; cursor: pointer; text-align: justify; transition: all 0.3s; color: #999; font-weight: 400;}
 .mypage_nav button span {float: right;}
 .mypage_nav button.active {color: #222; font-weight: 500; padding: 0;}
@@ -43,9 +43,9 @@ body {background: #fafafa;}
 /*reserve_list 타이틀*/
 .reserve_list_tit {overflow: auto; width: 100%; margin: 0 auto;}
 .reserve_list_tit ul {width: 100%; display: flex;}
-.reserve_list_tit ul li {float: left; flex:1; text-align: center; height: 45px; line-height: 45px; background: #fff; color: #222; font-weight: 400;border-top: 1px solid #eee; border-bottom: 1px solid #eee; font-size: 15px;}
+.reserve_list_tit ul li {float: left; flex:1; text-align: center; height: 45px; line-height: 45px; background: #fff; color: #222; font-weight: 400;border-top: 1px solid #eee; border-bottom: 1px solid #eee; font-size: 14px;}
 /*reserve_list - 예약바 리스트*/
-#reserve_list {width: 100%; height: 490px; background: #f8f8f8; border: 1px solid #eee; overflow: scroll; overflow-x: hidden;}
+#reserve_list {width: 100%; height: 490px; background: #f8f8f8; border: 1px solid #eee; border-top: 1px solid #ccc; overflow: scroll; overflow-x: hidden;}
 /*reserve_list 예약바*/
 .reserve_bar { width: 100%; padding: 0; border: 1px solid #f8f8f8;}
 .reserve_bar ul li {float: left; width: 25%; text-align: center; }
@@ -61,7 +61,7 @@ body {background: #fafafa;}
     margin: 0;
     font-weight: 400;
     color: #505050;
-    font-size: 15px;
+    font-size: 14px;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -93,7 +93,7 @@ body {background: #fafafa;}
 .searchDate li:last-child {margin-right: 0;}
 .searchDate li .chkbox {display:block;text-align:center;}
 .searchDate li .chkbox input {position:absolute; display: none;}
-.searchDate li .chkbox label {display:block; height:35px; width: 100%;  line-height:35px; font-size: 15px; color:#444; text-align:center; text-decoration:none;cursor:pointer;background:#fff; border: 1px solid #dbdbdb; border-radius: 4px; float: left; position: relative;}
+.searchDate li .chkbox label {display:block; height:35px; width: 100%;  line-height:35px; font-size: 14px; color:#444; text-align:center; text-decoration:none;cursor:pointer;background:#fff; border: 1px solid #dbdbdb; border-radius: 4px; float: left; position: relative;}
 .searchDate li .chkbox.on label {background:#444; color: #fff; border: none;}
 
 .demi{display:inline-block; vertical-align:middle;}
@@ -107,9 +107,6 @@ body {background: #fafafa;}
 
 .list02,
 .list03 {background: #fff; height:480px; overflow-y: scroll; border-top: 1px solid #eee; position: relative; width: 100%; background: #f8f8f8;}
-
-tr.canceled td {background: #eee; border: none; color: #999; text-decoration: line-through;}
-p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 
 table {border-collapse: collapse;}
 th, td {padding: 0;}
@@ -126,20 +123,22 @@ th, td {padding: 0;}
     height: 45px;
     line-height: 45px;
     font-weight: 400;
-    font-size: 15px;
-    position: sticky; top:0;
-    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    position: sticky; top: 0;
 }
 .table td {
-    font-size: 15px;
+    font-size: 14px;
     background: #fff;
     color: #505050;
     font-weight: 300;
     border-bottom: 1px solid #eee;
      text-align: center;
      padding: 12px 0;
-     background: #f8f8f8;
+     background-color: #f8f8f8;
 }
+
+tr.canceled td {background: #eee; border: none; color: #999; text-decoration: line-through;}
+p.line02_info {float: left; margin:0;  color: #777; margin-top: 1%;}
 
 .table th:first-child,
 .table td:first-child {border-left: 0;}
@@ -170,10 +169,10 @@ th, td {padding: 0;}
 .time_info_time ul li {float: left;}
 .time_info_time ul li:nth-child(1), .time_info_time ul li:nth-child(3) {width: 45%; text-align: center;}
 .time_info_time ul li:nth-child(2) {width: 10%; text-align: center; padding-top: 10px; }
-.time_info_time ul li dt {font-size: 15px; color: #505050;}
+.time_info_time ul li dt {font-size: 14px; color: #505050;}
 .time_info_time ul li dd {font-size: 18px; font-weight: 500;color: #191919; }
 
-.payment_info {width: 100%; font-size: 15px; display: table; margin: 16px 0 24px;}
+.payment_info {width: 100%; font-size: 14px; display: table; margin: 16px 0 24px;}
 .payment_info th, .payment_info td {padding: 2px 5px;}
 .payment_info th {width: 30%; text-align: left; float: left; font-weight: normal; color: #505050;}
 .payment_info td {width: 70%; text-align: right; float: right; color: #191919;}
@@ -191,7 +190,7 @@ th, td {padding: 0;}
 #qrcode_full_modal > p {font-size: 16px; text-align: center; color: #505050;padding-bottom: 10px;}
 #qrcode_full_modal > p > span {margin-left: 8px; font-weight: 600; color:#191919;}
 
-.ticket_modal p {text-align: left !important; margin-top: 15px; font-size: 14px;}
+.ticket_modal p {text-align: left !important; margin-top: 14px; font-size: 14px;}
 .ticket_modal p a {margin-left: 5px;}
 
 
@@ -234,9 +233,9 @@ a.close_btn  {display: block; width:100%; border-radius: 4px; height: 48px; line
 .popup_btn a {display: block;}
 .layer:target{display:flex;animation:open 0.5s;}
 @keyframes open {from {opacity:0;} to {opacity:1;}}
-/* .popup_box p {font-size: 15px; margin-top:20px; margin-bottom: 0; columns: #767676; text-align: center; font-size: 200;} */
 .popup_box p a {color: #999; font-weight: 500;}
 p.cancel_info {margin:2% 0; text-align: center;}
+
 
 
 
@@ -300,7 +299,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .box_01 {height: auto; position: relative; width: 100%; overflow: hidden; border-bottom: none;}
     .box_02 {border-top: none; padding-top: 8px;}
     .modify_btn {display: none;}
-    .modify_btn_mo {display: block;  color: #999;display: inline-block; height: 30px; line-height: 30px; font-size: 15px; float: right; width:auto; margin-right: 10px;}
+    .modify_btn_mo {display: block;  color: #999;display: inline-block; height: 30px; line-height: 30px; font-size: 14px; float: right; width:auto; margin-right: 10px;}
     .mypage_nav {display: none;}
     .mypage_nav_mo { display: block; width: 100%; overflow: hidden;}
     .mypage_nav_mo .tablinks {width: 33.3%; float: left; height: 55px; color: #444;}
@@ -311,9 +310,9 @@ p.cancel_info {margin:2% 0; text-align: center;}
     /* .popup_box{display: none;} */
     .layer .popup_box{width: 60%;}
     .layer {width: 100%;}
-    .popup_box_mo {display: block; width: 60%; background: #fff; padding: 20px 15px; position: absolute; z-index: 100000; top: 53%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; overflow: scroll;}
+    .popup_box_mo {display: block; width: 60%; background: #fff; padding: 20px 14px; position: absolute; z-index: 100000; top: 53%; left: 50%; transform: translate(-50%, -50%); border-radius: 12px; overflow: scroll;}
     .popup_box_mo h3 {text-align: center; margin-bottom: 20px; font-size: 22px; padding-top: 8px;}
-    .popup_box_mo p {margin-top: 20px; text-align: center; font-size: 15px;}
+    .popup_box_mo p {margin-top: 20px; text-align: center; font-size: 14px;}
     .popup_box_mo p a {color: #999; margin-left: 5px; font-weight: 500;}
     .table_mo {display: block;}
     .table_mo {width:100%; overflow: hidden; margin-bottom: 2%; overflow: hidden;}
@@ -344,9 +343,9 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .layer .popup_box{width: 80%; height:95%; }
     .time_info > div { width: 80%; margin: 0 auto;}
     .time_info > div:nth-child(1) {border-right: none; border-bottom: 1px solid #eee;}
-    .time_info {flex-direction: column; padding: 15px 0;}
-    .time_info_date {padding-bottom: 15px;}
-    .time_info_time {padding-top: 15px;}
+    .time_info {flex-direction: column; padding: 14px 0;}
+    .time_info_date {padding-bottom: 14px;}
+    .time_info_time {padding-top: 14px;}
 } */
 
 
@@ -356,13 +355,13 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .info_title h2 {width: 50%;}
     .modify_btn_mo {width: 50%; float:none; right:0;}
 
-    .mypage_nav_mo p {font-size:15px;}
+    .mypage_nav_mo p {font-size:14px;}
     .tabcontent h4 {font-size: 20px;}
-    .info p {font-size: 15px;}
+    .info p {font-size: 14px;}
     .modify_btn_mo {width:42%; float: right; text-align: right;}
 
 
-    .mypage_right {padding: 15px;}
+    .mypage_right {padding: 14px;}
 
     #reserve_list {background: #f8f8f8;}
     .reserve_list_tit {display: none;}
@@ -398,7 +397,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .qrcode_list {height: auto;overflow: hidden;}
     .popup_box_mo {display: block; width: 95%; background: #fff; height: 1000px; overflow: scroll; margin: 0 auto; top: 0; left:0; transform: none; position: absolute; font-size: 14px;border-radius: 4px;}
 
-    .ticket_modal {padding: 23px 15px 15px;}
+    .ticket_modal {padding: 23px 14px 14px;}
     a.close_btn {margin-top: 30px; }
     .popup_box_mo p {font-size: 13px;}
     .qr_info {margin-top: 0;}
@@ -414,7 +413,7 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .list02_mo_list,.list03_mo_list  {padding: 0 5%; height: 50px; line-height: 50px;  border: 1px solid #eee; background-color: #f8f8f8;}
     .popup_btn {margin-top: 30px; width: 90%;}
     .mypage_nav button span {margin-left: 60%;}
-    .popup_box_mo {width: 100%; height: 100%; padding: 15px; border-radius: 0;}
+    .popup_box_mo {width: 100%; height: 100%; padding: 14px; border-radius: 0;}
     
    .table th, .table td {font-size: 10px; padding: 5px;}
    .popup_btn_mo ul {width:100%;}
@@ -461,16 +460,16 @@ p.cancel_info {margin:2% 0; text-align: center;}
     .popup_box_mo p br {display: none;}
     .swiper-slide .swiper-slide-active {width: 100%;}
     
-    .mypage_nav_mo p {padding: 5%; font-size: 15px; word-break: break-all;width: 80%;}
+    .mypage_nav_mo p {padding: 5%; font-size: 14px; word-break: break-all;width: 80%;}
     .mypage_nav_mo .tablinks { padding: 5px; height: auto;}
     .popup_btn {width: 100%;}
     
     /* 승차권 */
     .time_info > div { width: 80%; margin: 0 auto;}
     .time_info > div:nth-child(1) {border-right: none; border-bottom: 1px solid #eee;}
-    .time_info {flex-direction: column; padding: 15px 0;}
-    .time_info_date {padding-bottom: 15px;}
-    .time_info_time {padding-top: 15px;}
+    .time_info {flex-direction: column; padding: 14px 0;}
+    .time_info_date {padding-bottom: 14px;}
+    .time_info_time {padding-top: 14px;}
     .ticket_modal p {text-align: center !important;}
     .cancel_btn_list {margin-top:25px;}
 

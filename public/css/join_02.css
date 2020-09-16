@@ -34,9 +34,9 @@
 
 /*선호도조사 폼*/
 .survey_box {height: auto;  padding-top:24px; text-align: center; border-top: 1px solid #eee;}
-.survey_box h3 { color: #222; font-size: 20px; font-weight:600; text-align: center;margin-top: 10px; margin-bottom: 0;} 
+.survey_box h3 { color: #222; font-size: 20px; font-weight:600; text-align: center;margin-top: 10px; margin-bottom: 4px;} 
 .survey_box p {color: #999; font-size: 15px; text-align: center; margin-bottom: 30px;}
-.survey_box h4 {margin-bottom: 12px; font-weight:500;}
+.survey_box h4 {margin-bottom: 16px; font-weight:500;}
 
 /*선호도조사 - 요일*/
 .day {width: 100%; height: auto; overflow: hidden;}
@@ -51,7 +51,7 @@
     padding: 18%;
     background: #fff;
     border: 1px solid #dbdbdb;
-    color: #999;
+    color: #505050;
     font-weight: 400;
     font-size: 15px;
     border-radius: 4px;
@@ -91,11 +91,10 @@
   cursor: pointer;
   user-select: none;
   padding-left: 15px;
-  color:#444;
+  color:#505050;
 }
 
 .select-selected {
-  background-color: #fff;
   color: #222;
  font-weight:400;
  font-size: 15px;
@@ -105,7 +104,7 @@
 
 .select-items {
   position: relative;
-  background-color: #fafafa;
+  background-color: #fff;
   border: 1px solid #eee;
   color: #444;
   font-size: 15px;
@@ -116,7 +115,7 @@
 }
 .select-hide {display: none;}
 .select-items div:hover, .same-as-selected {
-  background-color: #f8f7f5;
+  background-color: #f8f8f8;
 }
 
 
@@ -125,7 +124,7 @@
 
 
 /*하단 버튼*/
-.join_btn {width: 100%; margin: 0 auto; margin-top: 40px; overflow: hidden;}
+.join_btn {width:40%; margin: 0 auto; margin-top: 20px; overflow: hidden;}
 .join_btn ul {width: 100%;}
 .join_btn ul li {margin-right: 1%; text-align: center; height: 50px; line-height: 50px; width: 49.5%; float: left;}
 .join_btn ul li a {display: block;}

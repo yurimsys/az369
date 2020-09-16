@@ -52,10 +52,8 @@
                             <ul>
                                 <li>
                                     <input type="text" id="id" name="아이디" placeholder="아이디">
-                                    <div id="overId" style="font-size: 13px; color: green; display: none;">아이디 사용이
-                                        가능합니다.</div>
-                                    <div id="overId2" style="font-size: 13px; color: red; display: none;">아이디 사용이
-                                        불가능합니다.</div>
+                                    <div id="overId" style="font-size: 13px; color: green; display: none; padding:5px 0 10px;">사용가능한 아이디입니다.</div>
+                                    <div id="overId2" style="font-size: 13px; color: red; display: none; padding:5px 0 10px;">사용 불가능한 아이디입니다.</div>
                                 </li>
 
                                 <li>
@@ -66,9 +64,9 @@
                                 <li>
                                     <input type="password" id="password2" name="패스워드" placeholder="비밀번호 확인">
                                     <div class="alert alert-success" id="alert-success"
-                                        style="font-size: 13px; color: green;font-weight: 400; display: none;">비밀번호가 일치합니다.</div>
+                                        style="font-size: 13px; color: green;font-weight: 400; display: none; padding:5px 0 10px;">비밀번호가 일치합니다.</div>
                                     <div class="alert alert-danger" id="alert-danger"
-                                        style="font-size: 13px; color: red; font-weight: 400; display: none; margin-bottom: 3px 0;">비밀번호가 일치하지 않습니다.</div>
+                                        style="font-size: 13px; color: red; font-weight: 400; display: none; margin-bottom: 3px 0; padding:5px 0 10px;">비밀번호가 일치하지 않습니다.</div>
                                 </li>
 
 
@@ -115,11 +113,11 @@
 
                                 <div class="address_form">
                                     <input type="text" id="postcode" name="postcode" placeholder="매장 우편번호"
-                                        style="background: #eee;">
+                                        style="background: #f2f2f2;"  disabled >
                                     <button type="button" onclick="execDaumPostcode()" value="우편번호 찾기"
                                         class="btn-add btn-light btn round">우편번호찾기</button><br>
                                     <input type="text" id="address" name="address" placeholder="매장주소"
-                                        style="background: #eee;"><br>
+                                        style="background: #f2f2f2;"  disabled ><br>
                                     <input type="text" id="detailAddress" name="detailAddress" placeholder="매장상세주소">
                                     <input type="text" id="extraAddress" name="extraAddress" hidden=""> <!-- 기본정보  -->
                                     <input type="text" id="roadAddress" name="roadAddress" hidden="">
