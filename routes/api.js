@@ -1472,6 +1472,17 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
         let u_id = req.body.user_id //등록할 회원 아이디
         let cr_memo;
         let cancel_type;
+        let cardName;
+        let bankNum = req.body.bank_number
+
+        if(req.body.card_name == undefined){
+            cardName = req.body.bank_name;
+        }
+
+        if(req.body.bank_name == undefined){
+            cardName = req.body.card_name;
+        }
+
         if(req.body.cancel_type == 'CARD'){
             ph_type = '신용카드';
             cr_memo = "";
@@ -1510,9 +1521,9 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
          */
         let ph_query = `
             INSERT INTO tPH
-                (PH_U_ID, PH_PG_ID ,PH_Price, PH_OPrice, PH_SPrice, PH_Type, PH_CodeType)
+                (PH_U_ID, PH_PG_ID ,PH_Price, PH_OPrice, PH_SPrice, PH_Type, PH_CodeType, PH_CardName, PH_VankNumber)
             VALUES
-                (:u_id, :pg_id, :price, :oPrice, :sPrice, :ph_type, :cancel_type)
+                (:u_id, :pg_id, :price, :oPrice, :sPrice, :ph_type, :cancel_type, :cardName, :bankNum)
         `;
 
         let delete_query = `DELETE FROM tCR WHERE 
@@ -1551,7 +1562,9 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                             price   : (oPrice-sPrice),
                                             ph_type : ph_type,
                                             pg_id   : pg_id,
-                                            cancel_type : cancel_type
+                                            cancel_type : cancel_type,
+                                            cardName : cardName,
+                                            bankNum : bankNum
                                         }, function (err, result){
                                             if (err){
                                                 connection.rollback(function(){
