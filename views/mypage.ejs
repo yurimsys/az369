@@ -850,7 +850,8 @@
             let cancel_data = {}                        //전체 필수 값 !!!!
                 cancel_data.mid = 'testpay01m',         //이노페이에서 발급한 상점아이디
                 cancel_data.tid = string,               //거래고유번호
-                cancel_data.svcCd = `${codeString}`,    //취소 결과 코드 ex) 신용카드 : 01, 계좌이체 : 02, 간편결제 : 16
+                // cancel_data.svcCd = `${codeString}`,    //취소 결과 코드 ex) 신용카드 : 01, 계좌이체 : 02, 간편결제 : 16
+                cancel_data.svcCd = codeString.toString(),    //취소 결과 코드 ex) 신용카드 : 01, 계좌이체 : 02, 간편결제 : 16
                 cancel_data.partialCancelCode = cancelType,    //전체취소 : 0, 부분취소 : 1  (부분취소 사용 가능 가맹점만 사용 가능)
                 cancel_data.cancelAmt = ph_pay,          //취소 금액
                 cancel_data.cancelMsg = '환불테스트',   //취소사유

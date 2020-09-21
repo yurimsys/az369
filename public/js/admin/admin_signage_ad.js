@@ -329,20 +329,20 @@ function saveAD(){
     for ( let i in update_data) form_data.append(i, update_data[i]);
     console.log('for',form_data);
     let api_url  = '/api/ad';
-    $.ajax({
-        dataType : 'JSON',
-        type : "POST",
-        url : api_url,
-        data : form_data,
-        contentType : false,
-        processData : false,
-        success : function (res) {
-            console.log('ajax result');
-            console.log(res);
-            objectInfo('new');
-            $("#mgmt-table").dxDataGrid("instance").refresh();
-        }
-    })
+    // $.ajax({
+    //     dataType : 'JSON',
+    //     type : "POST",
+    //     url : api_url,
+    //     data : form_data,
+    //     contentType : false,
+    //     processData : false,
+    //     success : function (res) {
+    //         console.log('ajax result');
+    //         console.log(res);
+    //         objectInfo('new');
+    //         $("#mgmt-table").dxDataGrid("instance").refresh();
+    //     }
+    // })
 }
 function deleteAD(mode = 'single') {
     if(mode === 'single'){

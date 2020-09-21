@@ -1803,7 +1803,16 @@ router.post('/user/resCarList',(req, res, next) =>{
                 connection.query(query,
                     function(err, rows){
                         if (err) throw err;
-                        res.json({data : rows});
+                        function getInputDayLabel(date) {
+                            console.log('data',date);
+                            var week = new Array('일', '월', '화', '수', '목', '금', '토');
+                            var today = new Date(date).getDay();
+                            console.log('today',today);
+                            var todayLabel = week[today];
+                            return todayLabel;
+                        }
+                        console.log('get',getInputDayLabel(rows[0].deptTe));
+                        res.json({data : rows, dept : getInputDayLabel(rows[0].deptTe), return : getInputDayLabel(rows[0].retuTe)});
                 })
             }
             
