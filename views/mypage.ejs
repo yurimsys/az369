@@ -320,9 +320,9 @@
                                                         <th>영수증</th>
                                                     </tr>
                                                 </thead>
-                                                <!-- <tbody id='payList'>
-                                                </tbody> -->
-                                                <tbody>
+                                                <tbody id='payList'>
+                                                </tbody>
+                                                <!-- <tbody>
                                                     <tr>
                                                         <td>2020.01.01</td>
                                                         <td>2020.01.01 22:00</td>
@@ -330,9 +330,9 @@
                                                         <td>11, 12, 13, 14</td>
                                                         <td>신용카드</td>
                                                         <td>20,000원</td>
-                                                        <td><a class="Receipt  btn-light">영수증 출력</a></td>
+                                                        <td><a class="Receipt btn-light">영수증 출력</a></td>
                                                     </tr>
-                                                </tbody>
+                                                </tbody> -->
                                             </table>
                                         </div>
                                         <!--두번째 리스트 mo 414px-->
@@ -347,11 +347,11 @@
                                                 <h3>예매 결제 상세내역</h3>
                                                 <div class="table_mo">
                                                 </div>
-                                                <div>
-                                                <a class="receipt btn-light">영수증 출력</a>
-                                            </div>
+                                                <div id='mobile_bill'>
+                                                    <!-- <a class="receipt btn-light">영수증 출력</a> -->
+                                                </div>
                                                 <div class="popup_btn_mo">
-                                                    <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block')" >닫기</a>
+                                                    <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');" >닫기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1002,6 +1002,7 @@
                 method: "post",
                 dataType: "json",
                 success: function (res) {
+                    console.log('res',res.data);
                     //PC리스트
                     for (let i = 0; i < res.data.length; i++) {
                         let origin_seat = res.data[i].seatNumMo.data
@@ -1017,6 +1018,7 @@
                         html += "<td>" + seatNum+ "</td>";
                         html += "<td>" + (res.data[i].payType || "-") + "</td>";
                         html += "<td>" + (res.data[i].price || 0) + "</td>";
+                        html += "<td><a class='Receipt btn-light' value="+res.data[i].PH_PG_ID+" data-phtype="+res.data[i].PH_CodeType+" onclick='openBill(this)'>영수증 출력</a></td>";
                         html += "</tr>";
                         $("#payList").append(html);
                     }
@@ -1048,9 +1050,21 @@
                         html += "</div>";
                         $(".list02_mo").append(html);
                     }
+
                 }
             });
         });
+
+
+        function openBill(e){	
+            let pg_ph_id = $(e).attr('value');	
+            let pg_ph_type = e.dataset.phtype;	
+            if(pg_ph_type == '03' || pg_ph_type == '00'){	
+                alert('무료예매 및 무통장 입금은 영수증 출력이 불가능 합니다.');	
+                return false;	
+            }	
+            window.open("https://pg.innopay.co.kr/pay/issue/TransIssue.jsp?TID="+pg_ph_id,"new","width=450,height=700,top=50,left=100");	
+        }
 
         //결제리스트 날짜 조회 @@@@@@@
         function payBetween() {
@@ -1121,6 +1135,7 @@
                 },
                 success: function (res) {
                     $('.table_mo').empty();
+                    $('#mobile_bill').empty();
                     // location.href = "#popup2"
                     for (let i = 0; i < res.data.length; i++) {
                         let origin_seat = res.data[i].seatNumMo.data
@@ -1134,6 +1149,8 @@
                         html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);
                     }
+                    let bill_html = "<a class='receipt btn-light' value="+res.data[0].PH_PG_ID+" data-phtype="+res.data[0].PH_CodeType+"  onclick='openBill(this)'>영수증 출력</a>"	
+                    $('#mobile_bill').append(bill_html);
                 }
             })
         })
