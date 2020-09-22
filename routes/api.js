@@ -409,12 +409,12 @@ router.post('/user/join', (req, res, next) =>{
 
 //회원가입 페이지 장차선호
 router.post('/user/carPool', (req, res, next) =>{
-    let query = `insert into tCP(
+    let query = `INSERT INTO tCP(
                         CP_U_ID, 
                         CP_PreferDays, 
                         CP_DepartureTe, 
                         CP_ReturnTe) 
-                    values( 
+                    VALUES( 
                         :joinId, 
                         :preferDays, 
                         :departureTe, 
@@ -441,7 +441,12 @@ router.post('/user/carPool', (req, res, next) =>{
 
 //아이디 찾기
 router.post('/user/findId', (req, res, next) =>{
-    let query = `select U_uId from tU where U_Name =:uName and U_Phone =:uPhone limit 1`;
+    let query = `SELECT 
+                        U_uId 
+                    FROM tU 
+                    WHERE U_Name =:uName AND 
+                          U_Phone =:uPhone 
+                    limit 1`;
     
     console.log(req.body);
 
@@ -463,7 +468,13 @@ router.post('/user/findId', (req, res, next) =>{
 
 //비밀번호 찾기
 router.post('/user/findPw', (req, res, next) =>{
-    let query = "select U_uId, U_Name from tU where U_uId =:uId and U_Phone =:uPhone limit 1";
+    let query = `select 
+                        U_uId, 
+                        U_Name 
+                    FROM tU 
+                    WHERE U_uId =:uId AND 
+                          U_Phone =:uPhone 
+                    limit 1`;
     
     console.log(req.body);
 
@@ -485,7 +496,9 @@ router.post('/user/findPw', (req, res, next) =>{
 
 //비밀번호 찾기 후 수정
 router.post('/user/modifyPw', (req, res, next) =>{
-    let query = "update tU set U_Pw = :hash_pw where U_uId = :uUserName";
+    let query = `UPDATE tU set 
+                        U_Pw = :hash_pw 
+                    WHERE U_uId = :uUserName`;
     
     let password = req.body.password;
     let hash_pw = CryptoJS.AES.encrypt(password, config.enc_salt).toString();
@@ -511,7 +524,7 @@ router.post('/user/modifyPw', (req, res, next) =>{
 
 //입점신청 
 router.post('/user/benefitApply', (req, res, next) =>{
-    let query = `insert into tSI (
+    let query = `INSERT INTO tSI (
                         SI_Name, 
                         SI_Phone, 
                         SI_Brand, 
@@ -562,7 +575,12 @@ router.post('/user/benefitApply', (req, res, next) =>{
 
 //입점신청 조회
 router.post('/user/lookUp', (req, res, next) =>{
-    let query = `select SI_cDt from tSI where SI_Name = :siName and SI_Phone = :siPhone limit 1`;
+    let query = `SELECT 
+                        SI_cDt 
+                    FROM tSI 
+                    WHERE SI_Name = :siName AND 
+                          SI_Phone = :siPhone 
+                    limit 1`;
     
     console.log(req.body);
 
@@ -592,7 +610,11 @@ router.post('/user/confirm', auth.isLoggedIn, (req, res, done) =>{
     //let hash_pw = CryptoJS.AES.encrypt(uPw, config.enc_salt).toString();
     console.log("비밀번호",uPw);
     console.log("내 아이이디 :",req.user.U_uId);
-    let query = "select U_Pw from tU where U_uId =:uId and U_Pw =:uPw";
+    let query = `SELECT 
+                        U_Pw 
+                    FROM tU 
+                    WHERE U_uId =:uId and 
+                          U_Pw =:uPw`;
     
     connection.query(query, 
         {          
@@ -669,7 +691,9 @@ router.post('/user/modifyInfo', auth.isLoggedIn, (req, res, next) =>{
 
 //회원탈퇴
 router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
-    let query = `delete from tU where U_uId = :uUserName`;    
+    let query = `DELETE 
+                        FROM tU 
+                        WHERE U_uId = :uUserName`;    
     let uUserName = req.user.U_uId;
     let uPw = req.body.pw;
     console.log("id :", uUserName);
@@ -690,11 +714,12 @@ router.post('/user/deleteUser', auth.isLoggedIn, (req, res, done) =>{
 //회원 예약유무 
 router.get('/user/delchoice',  auth.isLoggedIn, (req, res, next) =>{
    
-    let query = `select * from tCR 
-                    where 
-                        CR_U_ID = :sessionId AND 
-                        CR_Cancel = 'N' AND 
-                        (select CT_DepartureTe from tCT where tCT.CT_ID = tCR.CR_CT_ID) > now()`;
+    let query = `SELECT 
+                        * 
+                    FROM tCR 
+                    WHERE CR_U_ID = :sessionId AND 
+                          CR_Cancel = 'N' AND 
+                          (select CT_DepartureTe from tCT where tCT.CT_ID = tCR.CR_CT_ID) > now()`;
     let sessionId = req.user.U_ID;
 
     console.log(req.body);
@@ -746,21 +771,22 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     date_format(tCT.CT_ReturnTe,'%H:%i') as returnTime,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptTe2,
                     date_format(tCT.CT_ReturnTe,'%y%y.%m.%d') as returnTe2,
-                    date_format(tCR.CR_cDt,'%y%y.%m.%d %H:%i') as PayDay2
-
+                    date_format(tCR.CR_cDt,'%y%y.%m.%d %H:%i') as PayDay2,
+                    CR_PayState,
+                    PH_CardName,
+                    PH_VankNumber
                 FROM tCR
                     INNER JOIN tCT ON tCT.CT_ID = tCR.CR_CT_ID
                     INNER JOIN tCY ON tCY.CY_ID = tCT.CT_CY_ID
                     INNER JOIN tB ON tB.B_ID = tCY.CY_B_ID
                     INNER JOIN tPH ON tPH.PH_ID = tCR.CR_PH_ID
-
-                where 
+                WHERE 
                     tCR.CR_CT_ID = tCT.CT_ID AND 
-                    tCR.CR_Cancel = 'N' and 
-                    tCR.CR_U_ID = :sessionId and 
-                    tCR.CR_cDt IN ( :seatNum) and
+                    tCR.CR_Cancel = 'N' AND 
+                    tCR.CR_U_ID = :sessionId AND
+                    tCR.CR_cDt IN ( :seatNum) AND
                     now() < date_add(CT_ReturnTe,interval +4 HOUR)
-                    order by tCR.CR_SeatNum
+                    ORDER BY tCR.CR_SeatNum
                     `;
                     // and tCT.CT_DepartureTe > NOW()
                     // order by tCT.CT_DepartureTe desc
@@ -786,18 +812,33 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
 //예매취소
 router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
     connection.beginTransaction(function(err){
-        let query = `update tCR
-                        INNER JOIN tCT on tCR.CR_CT_ID = tCT.CT_ID
-                        SET CR_Cancel = :crCancel, CR_CancelDt = now(), CR_PayState = '결제취소'
-                    where CR_ID IN (:cr_id) AND  CR_U_Id = :sessionId AND
-                        tCT.CT_DepartureTe > date_add(now(),interval +3 day)`;
-        let admin_query = `update tCR
+        let query = `UPDATE tCR
+                            INNER JOIN tCT on tCR.CR_CT_ID = tCT.CT_ID
+                            SET CR_Cancel = :crCancel, 
+                                CR_CancelDt = now(), 
+                                CR_PayState = '결제취소'
+                            WHERE CR_ID IN (:cr_id) AND  
+                                CR_U_Id = :sessionId AND
+                                tCT.CT_DepartureTe > date_add(now(),interval +3 day)`;
+        let admin_query = `UPDATE tCR
                                 INNER JOIN tCT on tCR.CR_CT_ID = tCT.CT_ID
-                                set CR_Cancel = :crCancel, CR_CancelDt = now(), CR_PayState = '결제취소'
-                                where CR_ID IN (:cr_id) AND  CR_U_Id = :sessionId`;
+                                SET CR_Cancel = :crCancel, 
+                                    CR_CancelDt = now(), 
+                                    CR_PayState = '결제취소'
+                                WHERE CR_ID IN (:cr_id) AND  
+                                      CR_U_Id = :sessionId`;
                         
-        let select_query = `SELECT CR_SeatNum, CR_Price FROM tCR where CR_ID IN (:cr_id) AND tCR.CR_U_ID = :sessionId`;
-        let scan_query = ` SELECT CR_ScanPy FROM tCR WHERE tCR.CR_ID IN (:cr_id) AND tCR.CR_U_ID =:sessionId `
+        let select_query = `SELECT 
+                                CR_SeatNum, 
+                                CR_Price 
+                            FROM tCR 
+                            WHERE CR_ID IN (:cr_id) AND 
+                                  tCR.CR_U_ID = :sessionId`;
+        let scan_query = ` SELECT 
+                                CR_ScanPy 
+                            FROM tCR 
+                            WHERE tCR.CR_ID IN (:cr_id) AND 
+                                  tCR.CR_U_ID =:sessionId `
         let start_query = `SELECT 
                                 tCT.CT_PyStart, 
                                 tCT.CT_ID 
@@ -897,7 +938,7 @@ router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
 router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
     // count(CR_SeatNum) as seatCnt,
-    let query = `select 
+    let query = `SELECT 
                     date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     tB.B_Name as carName,
@@ -910,15 +951,15 @@ router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
                     PH_PG_ID,
                     PH_CodeType,
                     tCR.CR_cDt as no	
-                from tCT
+                FROM tCT
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID 
                     left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                     left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                where tCR.CR_CT_ID = tCT.CT_ID and 
-                    tCR.CR_U_ID = :sessionId
-                group by tCR.CR_cDt
-                order by no desc
+                WHERE tCR.CR_CT_ID = tCT.CT_ID and 
+                      tCR.CR_U_ID = :sessionId
+                GROUP BY tCR.CR_cDt
+                ORDER BY no DESC
              `;
     
     console.log(req.body);
@@ -941,7 +982,7 @@ router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
 //마이페이지 예매 및 결제내역 모바일
 router.post('/user/resPayMo',  auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
-    let query = `select 
+    let query = `SELECT 
                     date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     tB.B_Name as carName,
@@ -954,16 +995,16 @@ router.post('/user/resPayMo',  auth.isLoggedIn, (req, res, next) =>{
                     tCR.CR_CT_ID as crCTID,
                     tCR.CR_PH_ID as crPHID,
                     tCR.CR_cDt as no
-                from tCT 
+                FROM tCT 
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID 
                     left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                     left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                where 
+                WHERE 
                     tCR.CR_CT_ID = tCT.CT_ID and 
                     tCR.CR_U_ID = :sessionId
-                group by tCR.CR_cDt
-                order by no desc
+                GROUP BY tCR.CR_cDt
+                ORDER BY no DESC
              `;
     
     console.log(req.body);
@@ -989,7 +1030,7 @@ router.post('/user/resPayBetween',  auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
     let deptDay = req.body.deptDay;
     let endDay = req.body.endDay;
-    let query = `select 
+    let query = `SELECT 
                     date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     tB.B_Name as carName,
@@ -1002,18 +1043,18 @@ router.post('/user/resPayBetween',  auth.isLoggedIn, (req, res, next) =>{
                     tCR.CR_CT_ID as crCTID,
                     tCR.CR_PH_ID as crPHID,
                     tCR.CR_cDt as no
-                from tCT 
+                FROM tCT 
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID 
                     left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                     left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                where 
-                    tCR.CR_CT_ID = tCT.CT_ID and 
-                    tCR.CR_U_ID = :sessionId and 
-                    tCR.CR_cDt between date(:deptDay) and 
+                WHERE 
+                    tCR.CR_CT_ID = tCT.CT_ID AND 
+                    tCR.CR_U_ID = :sessionId AND 
+                    tCR.CR_cDt between date(:deptDay) AND 
                     DATE_ADD(:endDay, INTERVAL 1 DAY)
-                group by tCR.CR_cDt
-                order by no desc
+                GROUP BY tCR.CR_cDt
+                ORDER BY no DESC
              `;
     
     console.log(req.body);
@@ -1041,7 +1082,7 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
     let moCtId = req.body.ctId;
     let moPhId = req.body.phId;
-    let query = `select
+    let query = `SELECT
                     date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptYM,
@@ -1058,18 +1099,18 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
                     CR_cDt as crCdt,
                     tCR.CR_CT_ID as crCTID,
                     tCR.CR_PH_ID as crPHID
-                from tCT 
+                FROM tCT 
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID 
                     left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                     left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                where 
-                    tCR.CR_CT_ID = tCT.CT_ID and 
-                    tCR.CR_CT_ID = :moCtId and 
-                    tCR.CR_PH_ID = :moPhId and 
+                WHERE 
+                    tCR.CR_CT_ID = tCT.CT_ID AND
+                    tCR.CR_CT_ID = :moCtId AND
+                    tCR.CR_PH_ID = :moPhId AND 
                     tCR.CR_U_ID = :sessionId
-                group by tCR.CR_cDt
-                order by PayDay desc
+                GROUP BY tCR.CR_cDt
+                ORDER BY PayDay DESC
              `;
     
     console.log("넘겨받은 ct :", moCtId);
@@ -1094,7 +1135,7 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
 
 //마이페이지 취소 및 환불조회
 router.get('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
-    let query = `   select
+    let query = `   SELECT
                         date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                         date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                         date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
@@ -1105,17 +1146,17 @@ router.get('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
                         tPH.PH_Price as price,
                         CR_CT_ID as ctId,
                         CR_PH_ID as phId
-                    from tCT 
+                    FROM tCT 
                         left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                         left join tB on tCY.CY_B_ID = tB.B_ID 
                         left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                         left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                    where 
+                    WHERE 
                         tCR.CR_CT_ID = tCT.CT_ID AND 
-                        tCR.CR_Cancel = :crCancel and 
+                        tCR.CR_Cancel = :crCancel AND
                         tCR.CR_U_ID = :sessionId
-                    group by tCR.CR_cDt
-                    order by PayDay desc`;
+                    GROUP BY tCR.CR_cDt
+                    ORDER BY PayDay DESC`;
 
     let sessionId = req.user.U_ID;
     let crCancel = 'Y';
@@ -1142,7 +1183,7 @@ router.get('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
 router.post('/user/resCancelListBetween', auth.isLoggedIn, (req, res, next) =>{
     let cancelDeptDay = req.body.cancelDeptDay
     let cancelEndDay = req.body.cancelEndDay
-    let query = `   select 
+    let query = `   SELECT 
                         date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                         date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                         date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
@@ -1152,19 +1193,19 @@ router.post('/user/resCancelListBetween', auth.isLoggedIn, (req, res, next) =>{
                         CR_CT_ID as ctId,
                         CR_PH_ID as phId,
                         tPH.PH_Price as price	
-                    from tCT 
+                    FROM tCT 
                         left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                         left join tB on tCY.CY_B_ID = tB.B_ID 
                         left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                         left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                    where 
+                    WHERE 
                         tCR.CR_CT_ID = tCT.CT_ID AND 
-                        tCR.CR_Cancel = :crCancel and 
-                        tCR.CR_U_ID = :sessionId and 
+                        tCR.CR_Cancel = :crCancel AND 
+                        tCR.CR_U_ID = :sessionId AND 
                         tCR.CR_CancelDt between date(:cancelDeptDay) AND 
                         DATE_ADD(:cancelEndDay, INTERVAL 1 DAY)
-                    group by tCR.CR_cDt
-                    order by cancelDay desc
+                    GROUP BY tCR.CR_cDt
+                    ORDER BY cancelDay DESC
 	                `;
 
     let sessionId = req.user.U_ID;
@@ -1187,7 +1228,7 @@ router.post('/user/resCancelListBetween', auth.isLoggedIn, (req, res, next) =>{
 
 //마이페이지 취소 및 환불조회 모바일
 router.post('/user/resCancelListMo', auth.isLoggedIn, (req, res, next) =>{
-    let query = `select 
+    let query = `SELECT 
                     date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                     date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
@@ -1196,17 +1237,17 @@ router.post('/user/resCancelListMo', auth.isLoggedIn, (req, res, next) =>{
                     tPH.PH_Price as price,
                     CR_CT_ID as ctId,
                     CR_PH_ID as phId	
-                from tCT 
+                FROM tCT 
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID 
                     left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                     left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                where 
+                WHERE 
                     tCR.CR_CT_ID = tCT.CT_ID AND 
-                    tCR.CR_Cancel = :crCancel and 
+                    tCR.CR_Cancel = :crCancel AND 
                     tCR.CR_U_ID = :sessionId
-                group by tCR.CR_cDt
-                order by PayDay desc`;
+                GROUP BY tCR.CR_cDt
+                ORDER BY PayDay DESC`;
 
     let sessionId = req.user.U_ID;
     let crCancel = 'Y';
@@ -1230,7 +1271,7 @@ router.post('/user/resCancelListMo', auth.isLoggedIn, (req, res, next) =>{
 
 //마이페이지 취소 및 환불조회 상세보기 모바일
 router.post('/user/resCancelDetailMo', auth.isLoggedIn, (req, res, next) =>{
-    let query = `select 
+    let query = `SELECT 
                     date_format(tCT.CT_DepartureTe,'%y%y.%m.%d') as deptYM,
                     date_format(tCT.CT_DepartureTe,'%H:%i') as deptTM,
                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptWeek,
@@ -1245,19 +1286,19 @@ router.post('/user/resCancelDetailMo', auth.isLoggedIn, (req, res, next) =>{
                     tB.B_Name as carName,
                     CR_CT_ID as ctId,
                     CR_PH_ID as phId
-                from tCT
+                FROM tCT
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
                     left join tB on tCY.CY_B_ID = tB.B_ID 
                     left join tCR on tCR.CR_CT_ID = tCT.CT_ID 
                     left join tPH on tPH.PH_ID = tCR.CR_PH_ID
-                where 
+                WHERE 
                     tCR.CR_CT_ID = tCT.CT_ID AND 
                     tCR.CR_Cancel = :crCancel and 
                     tCR.CR_U_ID = :sessionId and 
                     CR_CT_ID = :ctId and 
                     CR_PH_ID = :phId
-                group by tCR.CR_cDt
-                order by PayDay desc`;
+                GROUP BY tCR.CR_cDt
+                ORDER BY PayDay DESC`;
 
     let sessionId = req.user.U_ID;
     let crCancel = 'Y';
@@ -1286,7 +1327,10 @@ router.post('/user/resCancelDetailMo', auth.isLoggedIn, (req, res, next) =>{
 router.get('/bus_check', auth.isLoggedIn, function(req, res){
 
     //결제 전 버스출발 확인 쿼리
-    let checkQuery = `SELECT tCT.CT_PyStart FROM tCT WHERE CT_ID = :ct_id`;
+    let checkQuery = `SELECT 
+                            tCT.CT_PyStart 
+                        FROM tCT 
+                        WHERE CT_ID = :ct_id`;
     let ct_id = req.query.ct_id;
 
     connection.query(checkQuery, {ct_id : ct_id},
@@ -1310,11 +1354,14 @@ router.post('/temporary_seat', async function(req, res){
         let ct_id = req.body.ct_id // 등록할 장차
         let str_values_list = [];
         let str_values ="";
-        let overlap_query = `SELECT CR_ID, CR_U_ID FROM tCR 
-                                WHERE CR_CT_ID = ${ct_id} AND 
-                                CR_Cancel = 'N' AND
-                                CR_SeatNum IN (${seatNums})
-                                `
+        let overlap_query = `SELECT 
+                                CR_ID, 
+                                CR_U_ID 
+                             FROM tCR 
+                             WHERE CR_CT_ID = ${ct_id} AND 
+                                   CR_Cancel = 'N' AND
+                                   CR_SeatNum IN (${seatNums})
+                                `;
 
         let cr_query = `
             INSERT INTO tCR
@@ -1448,12 +1495,40 @@ router.delete('/temporary_seat_delete_ios', async function(req, res){
                     });
     
                 });
-               
         }
     })
 })
 
-
+//무통장 입금, 후불 결제 등 예매 직후 시간부터 하루내에 결제가 이루어 지지 않으면 예매 취소
+function cancelNonDeposit(){
+    connection.beginTransaction(function(err){
+        if(err) throw err;
+        let query = `UPDATE tCR SET
+                            CR_Cancel = 'Y',
+                            CR_CancelDt = NOW(),
+                            CR_PayState = '결제취소'
+                        WHERE CR_PayState = '결제대기' AND
+                              date_add(CR_cDt, INTERVAL + 24 HOUR) < NOW()`
+        connection.query(query,function(err, rows){
+            if(err){
+                connection.rollback(function(){
+                    console.log('Err',err);
+                })
+            }else{
+                connection.commit(function(err) {
+                    if (err) {
+                        return connection.rollback(function() {
+                            throw err;
+                        });
+                    }
+                    console.log('Success');
+                });
+            }
+        })
+    })
+}
+//1시간마다 실행
+setInterval(cancelNonDeposit, 1000 * 60 * 60);
 
 //결제완료
 router.post('/payment', auth.isLoggedIn, async (req, res) =>{
@@ -1470,10 +1545,11 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
         let ph_type;
         let pg_id;
         let u_id = req.body.user_id //등록할 회원 아이디
-        let cr_memo;
-        let cancel_type;
-        let cardName;
-        let bankNum = req.body.bank_number
+        let cr_memo; // 메모
+        let cancel_type; // 취소코드
+        let cardName; //카드사, 은행사명
+        let bankNum = req.body.bank_number; //가상계좌
+        let payState;
 
         if(req.body.card_name == undefined){
             cardName = req.body.bank_name;
@@ -1487,22 +1563,27 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
             ph_type = '신용카드';
             cr_memo = "";
             cancel_type = "01";
+            payState = "결제완료"
         }else if(req.body.cancel_type == 'free'){
             ph_type = '무료에매';
             cr_memo = '무료예매';
             cancel_type = "00";
+            payState = "결제완료"
         }else if(req.body.cancel_type == "BANK"){
             ph_type = '계좌이체';
             cr_memo = "";
             cancel_type = "02";
+            payState = "결제완료"
         }else if(req.body.cancel_type == "VBANK"){
             ph_type = '무통장입금';
             cr_memo = "";
             cancel_type = "03";
+            payState = "결제대기"
         }else if(req.body.cancel_type == "EPAY"){
             ph_type = req.body.EPayType;
             cr_memo = "";
             cancel_type = "16";
+            payState = "결제완료"
         }
 
 
@@ -1589,14 +1670,14 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                             
                                             if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
                                                 for(let i=0; i<seatNums.length; i++){
-                                                    str_values_list.push(`(${ct_id}, ${u_id}, ${ph_id}, ${seatNums[i]}, ${one_price}, '${hash_qrcode[i]}', '${cr_memo}','결제완료')`)
+                                                    str_values_list.push(`(${ct_id}, ${u_id}, ${ph_id}, ${seatNums[i]}, ${one_price}, '${hash_qrcode[i]}', '${cr_memo}','${payState}')`)
                                                 }
                                                 // seatNums.map((seatNum)=>{
                                                 //     str_values_list.push(`(${ct_id}, ${req.user.U_ID}, ${ph_id}, ${seatNum}, ${one_price}, ${hash_qrcode})`);
                                                 // });
                                                 str_values = str_values_list.join(', ');
                                             } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
-                                                str_values = `(${ct_id}, ${u_id}, ${ph_id}, ${seatNums}, ${oPrice}, '${hash_qrcode}', '${cr_memo}','결제완료')`;
+                                                str_values = `(${ct_id}, ${u_id}, ${ph_id}, ${seatNums}, ${oPrice}, '${hash_qrcode}', '${cr_memo}','${payState}')`;
                                             }
                                         
                                             cr_query += str_values;
@@ -3634,9 +3715,8 @@ router.get('/busSeat/:ct_id', (req, res, next) =>{
 //기사앱 좌석 클릭시 회원 정보
 router.get('/bus_user_info', (req, res, next) =>{
 
-
     let ct_id = req.query.ct_id;
-    let cr_seatnum = req.query.cr_seatnum
+    let cr_seatnum = req.query.cr_seatnum;
     let query = `select 
                     U_NAME, 
                     U_PHONE, 
@@ -3645,7 +3725,7 @@ router.get('/bus_user_info', (req, res, next) =>{
                     INNER JOIN tU ON tCR.CR_U_ID = tU.U_ID 
                 WHERE tCR.CR_CT_ID = :ct_id AND 
                       tCR.CR_SeatNum = :cr_seatnum AND 
-                      tCR.CR_Cancel = 'N';`; 
+                      tCR.CR_Cancel = 'N'`; 
     connection.query(query,{
             ct_id : ct_id,
             cr_seatnum : cr_seatnum
@@ -3666,7 +3746,8 @@ router.post('/bus_qrcode_scan', async (req, res, done) =>{
                         tCR.CR_ScanSe,
                         tCR.CR_SeatNum,
                         DATE_ADD(CT_ReturnTe,INTERVAL +3 HOUR) AS scanTime,
-                        NOW() AS nowTime 
+                        NOW() AS nowTime,
+                        CR_PayState
                     FROM tCT
                         INNER JOIN tCR ON tCT.CT_ID = tCR.CR_CT_ID
                     WHERE 
@@ -3680,9 +3761,15 @@ router.post('/bus_qrcode_scan', async (req, res, done) =>{
         
         connection.query(query, { qr_code : qr_code, cr_id : cr_id },
             function(err, rows){
-            if(err) throw err;``
+            if(err) throw err;
             if(rows.length == 1){
-            //마지막 출발시간이 현재 시간보다 작으면 기간지난 qrcode
+                //무통장 입금 안된경우
+                if(rows[0].CR_PayState == '결제대기'){
+                    res.json({data : '0'})
+                    return false;
+                }
+
+                //마지막 출발시간이 현재 시간보다 작으면 기간지난 qrcode
                 if(rows[0].scanTime < rows[0].nowTime){
                     res.json({data : '3'})
                     return false;
@@ -4048,6 +4135,7 @@ router.get('/reservation',function(req,res){
                     CT_CarNum,
                     U_uId,
                     CR_Memo,
+                    PH_Type,
                     PH_PG_ID,
                     PH_ID,
                     PH_CodeType
@@ -5122,6 +5210,8 @@ router.get('/payment_list',function(req,res){
                     PH_ID,
                     PH_Type,
                     PH_CodeType,
+                    PH_CardName,
+                    PH_VankNumber,
                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
                     DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
                     DAYOFWEEK(tCR.CR_cDt ) AS payDayWeek,

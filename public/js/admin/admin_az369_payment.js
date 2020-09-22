@@ -189,30 +189,37 @@ let tableInit = function (data) {
             { dataField: "PH_Price", caption: "결제금액"},
             { dataField: "PH_Type", caption: "결제수단"},
             { dataField: "CR_PayState", caption: "결제여부",
-                cellTemplate : function(element, info){
-                    // console.log('info',info.data.PH_ID);
-                    let ph_id = info.data.PH_ID;
-                    $.ajax({
-                        url : '/api/payment_cancel',
-                        method : 'get',
-                        dataType : 'JSON',
-                        data : {'ph_id' : ph_id},
-                        success: function(res){
-                                //  console.log('res',res.data);
-                                if(res.data == 0){
-                                    element.append('<div>결제취소</div>').css('color','red')
-                                    return dataField='결제취소';
-                                }else{
-                                    element.append('<div>결제완료</div>')            
-                                    return dataField='결제완료';
-                                }
-                        }					
-                    });
+                // cellTemplate : function(element, info){
+                //     // console.log('info',info.data.PH_ID);
+                //     let ph_id = info.data.PH_ID;
+                //     $.ajax({
+                //         url : '/api/payment_cancel',
+                //         method : 'get',
+                //         dataType : 'JSON',
+                //         data : {'ph_id' : ph_id},
+                //         success: function(res){
+                //                 //  console.log('res',res.data);
+                //                 if(res.data == 0){
+                //                     element.append('<div>결제취소</div>').css('color','red')
+                //                     return dataField='결제취소';
+                //                 }else{
+                //                     element.append('<div>결제완료</div>')            
+                //                     return dataField='결제완료';
+                //                 }
+                //         }					
+                //     });
                     // if(info.value == '결제취소'){
                     //     element.append('<div>'+info.value +'</div>').css('color','red')
                     // }else{
                     //     element.append('<div>'+info.value +'</div>')
                     // }
+                // }
+                cellTemplate : function(element, info){
+                    if(info.value == '결제취소'){
+                        element.append('<div>'+info.value +'</div>').css('color','red')
+                    }else{
+                        element.append('<div>'+info.value +'</div>')
+                    }
                 }
             },
             { dataField: "CR_cDt", caption: "결제일시"}
@@ -482,10 +489,12 @@ function userSeat(ph_id) {
                 top_html += "<li><img src='/img/mypage/info_arrow.png'></li><li><dt>동대문</dt><dd>"+res.data[0].returnTime+"</dd></li></ul></div></div>";
 
                 $('.time_info').append(top_html);
-
+                let vank_num = res.data[0].PH_VankNumber == null ?  "" : "<tr><td style='width:100%'>"+res.data[0].PH_CardName+" "+res.data[0].PH_VankNumber+"</td></tr>";
                 let mid_html = "<tr><th>결제일시</th><td>"+res.data[0].payDayYM+' ('+getInputDayLabel(res.data[0].payDayWeek)+') '+res.data[0].payDayTm+"</td></tr>";
                     mid_html += "<tr><th>결제수단</th><td>"+res.data[0].PH_Type+"</td></tr>";
+                    mid_html += vank_num;
                     mid_html += "<tr><th>결제금액</th><td>"+(res.data[0].CR_Price * res.data.length)+"원</td></tr>";
+                    mid_html += "<tr><th>결제상태</th><td>"+res.data[0].CR_PayState+"</td></tr>";
 
                 $('.payment_info').append(mid_html);
 

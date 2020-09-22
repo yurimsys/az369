@@ -232,6 +232,7 @@ let tableInit = function (data) {
             row_data.CT_DepartureTe = e.data.CT_DepartureTe;
             row_data.CT_ReturnTe = e.data.CT_ReturnTe;
             row_data.CR_cDt = e.data.CR_cDt;
+            row_data.PH_Type = e.data.PH_Type;
             row_data.CR_Memo = e.data.CR_Memo;
             row_data.CR_PayState = e.data.CR_PayState;
             row_data.PH_PG_ID = e.data.PH_PG_ID;
@@ -289,6 +290,7 @@ let tableInit = function (data) {
             { dataField: "CT_DepartureTe", caption: "평택 출발시간"},
             { dataField: "CT_ReturnTe", caption: "서울 출발시간"},
             { dataField: "CR_Price", caption: "좌석 금액"},
+            { dataField: "PH_Type", caption: "결제수단"},
             { dataField: "CR_PayState", caption: "결제여부",
                 cellTemplate : function(element, info){
                     if(info.value == '결제취소'){
@@ -299,33 +301,33 @@ let tableInit = function (data) {
                 }
             },
             { dataField: "CR_Cancel", caption: "취소여부", 
-                    cellTemplate : function(element, info){
-                        if(info.value == 'Y'){
-                            element.append('<div>'+info.value +'</div>').css('color','red')
-                        }else{
-                            element.append('<div>'+info.value +'</div>')
-                        }
+                cellTemplate : function(element, info){
+                    if(info.value == 'Y'){
+                        element.append('<div>'+info.value +'</div>').css('color','red')
+                    }else{
+                        element.append('<div>'+info.value +'</div>')
                     }
+                }
             },
             { dataField: "CR_CancelDt", caption: "취소일자"},
             { dataField: "CR_ScanPy", caption: "평택 스캔확인",
-                    cellTemplate : function(element, info){
-                        // console.log('infoT',info.value);
-                        if(info.value == 'Y'){
-                            element.append('<div>'+info.text +'</div>').css('color','blue')
-                        }else{
-                            element.append('<div>'+info.text +'</div>')
-                        }
+                cellTemplate : function(element, info){
+                    // console.log('infoT',info.value);
+                    if(info.value == 'Y'){
+                        element.append('<div>'+info.text +'</div>').css('color','blue')
+                    }else{
+                        element.append('<div>'+info.text +'</div>')
                     }
+                }
             },
             { dataField: "CR_ScanSe", caption: "서울 스캔확인",
-                    cellTemplate : function(element, info){
-                        if(info.value == 'Y'){
-                            element.append('<div>'+info.text +'</div>').css('color','blue')
-                        }else{
-                            element.append('<div>'+info.text +'</div>')
-                        }
+                cellTemplate : function(element, info){
+                    if(info.value == 'Y'){
+                        element.append('<div>'+info.text +'</div>').css('color','blue')
+                    }else{
+                        element.append('<div>'+info.text +'</div>')
                     }
+                }
             },
             { dataField: "CR_cDt", caption: "예매일"},
             { dataField: "U_Email", caption: "회원 이메일"},
@@ -479,14 +481,14 @@ function deleteAD(mode = 'single') {
 }
 
 //결제취소 JSON 값
-function cancelInfo(string, codeString) {
+function cancelInfo(string, codeString, ph_pay) {
 
     let cancel_data = {}                        //전체 필수 값 !!!!
         cancel_data.mid = 'testpay01m',         //이노페이에서 발급한 상점아이디
         cancel_data.tid = string,               //거래고유번호
         cancel_data.svcCd = `${codeString}`,    //취소 결과 코드 ex) 신용카드 : 01, 계좌이체 : 02, 간편결제 : 16
         cancel_data.partialCancelCode = '0',    //전체취소 : 0, 부분취소 : 1  (부분취소 사용 가능 가맹점만 사용 가능)
-        cancel_data.cancelAmt = '700',          //취소 금액
+        cancel_data.cancelAmt = ph_pay,          //취소 금액
         cancel_data.cancelMsg = '환불테스트',   //취소사유
         cancel_data.cancelPwd = '123456'        //취소비밀번호
         
@@ -514,12 +516,12 @@ function updateAD(){
     // console.log('fwefew',update_data.seatNums);
     // console.log('good?',JSON.parse( sessionStorage.getItem('row_data') ).PH_CodeType);
     if($("#cr_cancel option:selected").attr('value') == 'Y'){
-        console.log('log!!',cancelInfo(JSON.parse( sessionStorage.getItem('row_data') ).PH_PG_ID, JSON.parse( sessionStorage.getItem('row_data') ).PH_CodeType ));
+        // console.log('log!!',cancelInfo(JSON.parse( sessionStorage.getItem('row_data') ).PH_PG_ID, JSON.parse( sessionStorage.getItem('row_data') ).PH_CodeType ));
         $.ajax({
             type : "POST",
             url : "https://api.innopay.co.kr/api/cancelApi",
             async : true,
-            data : cancelInfo(JSON.parse( sessionStorage.getItem('row_data') ).PH_PG_ID, JSON.parse( sessionStorage.getItem('row_data') ).PH_CodeType ),
+            data : cancelInfo(JSON.parse( sessionStorage.getItem('row_data') ).PH_PG_ID, JSON.parse( sessionStorage.getItem('row_data') ).PH_CodeType, JSON.parse( sessionStorage.getItem('row_data') ).CR_Price ),
             contentType: "application/json; charset=utf-8",
             dataType : "json",
             success : function(data){
