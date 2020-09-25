@@ -1730,10 +1730,10 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
 //장차예매 리스트
 router.post('/user/resDept', auth.isLoggedIn, (req, res, next) =>{
     let query = `
-                select 
+                SELECT 
                     distinct date_format(CT_DepartureTe,'%H%i') as deptTe, 
                     date_format(CT_DepartureTe,'%H:%i') as deptTe2
-                 from tCT`;
+                FROM tCT`;
 
     connection.query(query,
         function(err, rows, fields) {
@@ -5257,7 +5257,7 @@ router.get('/payment_cancel', function(req,res){
 
 //유튜브 리스트
 router.get('/video',function(req, res){
-    let query = `select 
+    let query = `SELECT 
                     YL_id, 
                     YL_url, 
                     YL_title, 
@@ -5266,7 +5266,7 @@ router.get('/video',function(req, res){
                     YL_ch_name, 
                     YL_d_order, 
                     YL_dDt 
-                from tYL`
+                FROM tYL`
 
     if(req.query.type === 'search'){
         let condition_list = [];
@@ -5315,7 +5315,7 @@ router.get('/video',function(req, res){
 //유튜브 신규 등록
 router.post('/video', async function(req, res){
     connection.beginTransaction(function(err){
-        let query = `insert into tYL (
+        let query = `INSERT INTO tYL (
                                 YL_url, 
                                 YL_title, 
                                 YL_description, 
@@ -5323,7 +5323,7 @@ router.post('/video', async function(req, res){
                                 YL_d_order,
                                 YL_dDt
                                 ) 
-                        values( 
+                        VALUES( 
                             :video_url,  
                             :video_title,  
                             :video_contents,  
@@ -5467,9 +5467,9 @@ router.delete('/video', async function(req, res){
 
 //공지사항 리스트
 router.get('/info',function(req, res){
-    let query = `select 
+    let query = `SELECT 
                     * 
-                from tIF`
+                FROM tIF`
 
     if(req.query.type === 'search'){
         let condition_list = [];

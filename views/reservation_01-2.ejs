@@ -220,6 +220,8 @@
                     }
 
                     sessionStorage.setItem("car_list", JSON.stringify(res.data));
+                    sessionStorage.setItem("deptTime",JSON.stringify(res.dept));
+                    sessionStorage.setItem("returnTime",JSON.stringify(res.return));
                     let ctId = res.data[0].ctID
                     let price = res.data[0].seatPrice;
                     openBus(ctId,price);
@@ -481,23 +483,26 @@
                             let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                                 ct_id = sessionStorage.getItem("ct_id");
 
-                            let reserve_car_info = car_list.find((k) => (k.ctID == ct_id)),
-                                deptTe = reserve_car_info.deptTe,
-                                retuTe = reserve_car_info.retuTe,
-                                b_name = reserve_car_info.b_name;
-                                // console.log('============');
+                            // let reserve_car_info = car_list.find((k) => (k.ctID == ct_id)),
+                            //     deptTe = reserve_car_info.deptTe,
+                            //     retuTe = reserve_car_info.retuTe,
+                            //     b_name = reserve_car_info.b_name;
+                            //     // console.log('============');
 
-                                // $('header').css('display','none');
+                            //     // $('header').css('display','none');
                          
-                                let deptDay = reserve_car_info.deptDay;
-                                let retnDay = reserve_car_info.retnDay
+                            //     let deptDay = reserve_car_info.deptDay;
+                            //     let retnDay = reserve_car_info.retnDay
                                 // console.log('요일',deptDay);
                                 // debugger;
-                                $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptDay) + ') '));
-                                $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retnDay) + ') '));
-                                $("#payment_car_info").text(b_name);
+                                // $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptDay) + ') '));
+                                // $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retnDay) + ') '));
+                                // $("#payment_car_info").text(b_name);
+                            $("#payment_deptTe").text(car_list[0].deptTe.split(' ').join('(' +JSON.parse(sessionStorage.getItem("deptTime")) + ') '));
+                            $("#payment_retuTe").text(car_list[0].retuTe.split(' ').join('(' + JSON.parse(sessionStorage.getItem("returnTime")) + ') '));
+                            $("#payment_car_info").text(car_list[0].b_name);
 
-                                $('#payment').css('display','block')
+                            $('#payment').css('display','block')
                             
                         }
                     }
@@ -596,10 +601,13 @@
                             let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                             ct_id = sessionStorage.getItem("ct_id");
 
-                            let bus_text1 = car_list[0].startDay+'(' +getInputDayLabel(car_list[0].deptDay)+') ';
+                            // let bus_text1 = car_list[0].startDay+'(' +getInputDayLabel(car_list[0].deptDay)+') ';
+                            let bus_text1 = car_list[0].startDay+'(' +JSON.parse(sessionStorage.getItem("deptTime"))+') ';
                             let bus_text2 = '평택 '+car_list[0].startTime+' - '+'동대문 '+car_list[0].returnTime + ' ';
 
-                            let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                            // let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                            let payment_result = JSON.parse(sessionStorage.getItem("car_list"))[0];
+
                             payment_result.price = $('#selected_seats_price').text().trim();
                             payment_result.seat = $('#selected_seats_num').text().trim();
                             payment_result.ph_type = result.ph_type;
@@ -786,10 +794,12 @@
                         let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                         ct_id = sessionStorage.getItem("ct_id");
 
-                        let bus_text1 = car_list[0].startDay+'(' +getInputDayLabel(car_list[0].deptDay)+') ';
+                        // let bus_text1 = car_list[0].startDay+'(' +getInputDayLabel(car_list[0].deptDay)+') ';
+                        let bus_text1 = car_list[0].startDay+'(' +JSON.parse(sessionStorage.getItem("deptTime"))+') ';
                         let bus_text2 = '평택 '+car_list[0].startTime+' - '+'동대문 '+car_list[0].returnTime + ' ';
 
-                        let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                        // let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                        let payment_result = car_list[0];
                         payment_result.price = $('#selected_seats_price').text().trim();
                         payment_result.seat = $('#selected_seats_num').text().trim();
                         payment_result.ph_type = result.ph_type;
@@ -826,10 +836,12 @@
                     let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                     ct_id = sessionStorage.getItem("ct_id");
 
-                    let bus_text1 = car_list[0].startDay+'(' +getInputDayLabel(car_list[0].deptTe)+') ';
+                    // let bus_text1 = car_list[0].startDay+'(' +getInputDayLabel(car_list[0].deptTe)+') ';
+                    let bus_text1 = car_list[0].startDay+'(' +JSON.parse(sessionStorage.getItem("deptTime"))+') ';
                     let bus_text2 = '평택 '+car_list[0].startTime+' - '+'동대문 '+car_list[0].returnTime + ' ';
 
-                    let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                    // let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                    let payment_result = car_list[0];
                     payment_result.price = $('#selected_seats_price').text().trim();
                     payment_result.seat = $('#selected_seats_num').text().trim();
                     payment_result.ph_type = result.ph_type;
@@ -842,7 +854,7 @@
                         icon: 'success',
                         button: '확인'
                     }).then(function(){
-                        processCancel();
+                        // processCancel();
                         location.href = "/complete";
                     })
                 });
@@ -872,10 +884,12 @@
                     let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                     ct_id = sessionStorage.getItem("ct_id");
 
-                    let bus_text1 = car_list[0].startDay+'(' +getInputDayLabel(car_list[0].deptTe)+') ';
+                    // let bus_text1 = car_list[0].startDay+'(' +getInputDayLabel(car_list[0].deptTe)+') ';
+                    let bus_text1 = car_list[0].startDay+'(' +JSON.parse(sessionStorage.getItem("deptTime"))+') ';
                     let bus_text2 = '평택 '+car_list[0].startTime+' - '+'동대문 '+car_list[0].returnTime + ' ';
 
-                    let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                    // let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                    let payment_result = car_list[0];
                     payment_result.price = $('#selected_seats_price').text().trim();
                     payment_result.seat = $('#selected_seats_num').text().trim();
                     payment_result.ph_type = result.ph_type;
