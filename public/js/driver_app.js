@@ -528,7 +528,7 @@
                     qr_info = 0;
                     window.Android.CheckQR(qr_info);
                     $('#scan_alert_error').css('display','block');
-                    $('#scan_alert_text_error').text('결제가 되지않았거나 잘못된 QR코드 입니다.')
+                    $('#scan_alert_text_error').text('잘못된 QR코드 입니다.')
                 }
                 //qrcode 스캔 성공
                 else if(res.data == 1){

@@ -189,38 +189,39 @@ let tableInit = function (data) {
             { dataField: "PH_Price", caption: "결제금액"},
             { dataField: "PH_Type", caption: "결제수단"},
             { dataField: "CR_PayState", caption: "결제여부",
-                // cellTemplate : function(element, info){
-                //     // console.log('info',info.data.PH_ID);
-                //     let ph_id = info.data.PH_ID;
-                //     $.ajax({
-                //         url : '/api/payment_cancel',
-                //         method : 'get',
-                //         dataType : 'JSON',
-                //         data : {'ph_id' : ph_id},
-                //         success: function(res){
-                //                 //  console.log('res',res.data);
-                //                 if(res.data == 0){
-                //                     element.append('<div>결제취소</div>').css('color','red')
-                //                     return dataField='결제취소';
-                //                 }else{
-                //                     element.append('<div>결제완료</div>')            
-                //                     return dataField='결제완료';
-                //                 }
-                //         }					
-                //     });
-                    // if(info.value == '결제취소'){
-                    //     element.append('<div>'+info.value +'</div>').css('color','red')
-                    // }else{
-                    //     element.append('<div>'+info.value +'</div>')
-                    // }
-                // }
                 cellTemplate : function(element, info){
+                    // console.log('info',info.data.PH_ID);
+                    // let ph_id = info.data.PH_ID;
+                    // $.ajax({
+                    //     url : '/api/payment_cancel',
+                    //     method : 'get',
+                    //     dataType : 'JSON',
+                    //     data : {'ph_id' : ph_id},
+                    //     success: function(res){
+                    //         console.log('id',ph_id);
+                    //              console.log('res',res.data);
+                    //             if(res.data == 0){
+                    //                 element.append('<div>결제취소</div>').css('color','red')
+                    //                 return dataField='결제취소';
+                    //             }else{
+                    //                 element.append('<div>결제완료</div>')            
+                    //                 return dataField='결제완료';
+                    //             }
+                    //     }					
+                    // });
                     if(info.value == '결제취소'){
                         element.append('<div>'+info.value +'</div>').css('color','red')
                     }else{
                         element.append('<div>'+info.value +'</div>')
                     }
                 }
+                // cellTemplate : function(element, info){
+                //     if(info.value == '결제취소'){
+                //         element.append('<div>'+info.value +'</div>').css('color','red')
+                //     }else{
+                //         element.append('<div>'+info.value +'</div>')
+                //     }
+                // }
             },
             { dataField: "CR_cDt", caption: "결제일시"}
         ],
@@ -453,10 +454,10 @@ function searchPopupAction() {
     })
 }
 
-function ResseatClose(){
+function resSeatClose(){
     $("#object-res-seat-popup").hide();
 }
-function ResNoseatClose(){
+function resNoseatClose(){
     $("#object-res-noseat-popup").hide();
 }
 //회원 예매 목록
@@ -563,7 +564,7 @@ function resCancel(e) {
                     console.log('취소결과',data);
                     
                     alert('취소완료!');
-                    ResseatClose();
+                    resSeatClose();
                     location.reload();
 
                 },
