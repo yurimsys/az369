@@ -1892,8 +1892,13 @@ router.post('/user/resCarList',(req, res, next) =>{
                             var todayLabel = week[today];
                             return todayLabel;
                         }
-                        console.log('get',getInputDayLabel(rows[0].deptTe));
-                        res.json({data : rows, dept : getInputDayLabel(rows[0].deptTe), return : getInputDayLabel(rows[0].retuTe)});
+                        if(rows.length == 0){
+                            res.json({data : rows});    
+                        }else{
+                            console.log('get',getInputDayLabel(rows[0].deptTe));
+                            res.json({data : rows, dept : getInputDayLabel(rows[0].deptTe), return : getInputDayLabel(rows[0].retuTe)});
+                        }
+                        
                 })
             }
             
@@ -5871,5 +5876,8 @@ router.post('/other_api', function(req, res){
 
 })
 
+router.get('https://admin.menuplus.kr/api/noti',function(req, res){
+    console.log('req',req);
+})
 
 module.exports = router;

@@ -129,12 +129,12 @@ let tableInit = function (data) {
                 async : false,
                 data : {'ph_id' : ph_id},
                 success: function(res){
-                        //  console.log('res',res.data);
-                        if(res.data == 0){
-                            ph_pay_state='결제취소';
-                        }else{
-                            ph_pay_state='결제완료';
-                        }
+                    //  console.log('res',res.data);
+                    if(res.data == 0){
+                        ph_pay_state='결제취소';
+                    }else{
+                        ph_pay_state='결제완료';
+                    }
                 }					
             });
             console.log('ph',ph_pay_state);
@@ -166,7 +166,7 @@ let tableInit = function (data) {
           },
           onExporting: function(e) {
             var workbook = new ExcelJS.Workbook();
-            var worksheet = workbook.addWorksheet('배차관리');
+            var worksheet = workbook.addWorksheet('결제 관리');
             
             DevExpress.excelExporter.exportDataGrid({
               component: e.component,
@@ -174,7 +174,7 @@ let tableInit = function (data) {
               autoFilterEnabled: true
             }).then(function() {
               workbook.xlsx.writeBuffer().then(function(buffer) {
-                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), '장차 회원관리.xlsx');
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), '장차 결제관리.xlsx');
               });
             });
             e.cancel = true;
@@ -501,7 +501,7 @@ function userSeat(ph_id) {
 
                 for(let i=0; i<res.data.length; i++){
                     let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
-                        bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+" data-pgpaytype="+res.data[i].PH_CodeType+">";
+                        bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+" data-pgpaytype="+res.data[i].PH_CodeType+" data-seatprice="+res.data[i].CR_Price+">";
                         bot_html += "<label for=seat_chk"+res.data[i].CR_ID+" style='cursor:pointer;'>좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label></div>";
 
                     
@@ -528,28 +528,32 @@ function resCancel(e) {
         alert('취소할 좌석을 선택해 주세요.')
         return false;
     }
-    var checkBoxArr = [];
+    var check_box_arr = [];
     let chk_pg_id;
     let chk_u_id;
     let chk_pg_pay_type;
-    $("input[name=seat_chk]:checked").each(function(i){
-        checkBoxArr.push($(this).val());
+    let seat_pay;
+    let ph_pay;
+    $("input[name=seat_chk]:checked").each(function(){
+        check_box_arr.push($(this).val());
         let chk_id = this.id
         chk_pg_id = $('#'+chk_id).data('pgid');
         chk_u_id = $('#'+chk_id).data('uid');
         chk_pg_pay_type = $('#'+chk_id).data('pgpaytype');
+        seat_pay = $('#'+chk_id).data('seatprice');
     });
 
-    console.log('check?',checkBoxArr);
+    console.log('check?',check_box_arr);
     console.log('data',chk_pg_id);
-
-
+    ph_pay = seat_pay * check_box_arr.length;
+    // console.log('ph_pay',ph_pay);
+    // alert(ph_pay);
     $.ajax({
         url: "/api/user/cancelRes?type=admin",
         method: 'post',
         dataType: 'json',
         async: false,
-        data: { 'cr_id': checkBoxArr, "u_id" : chk_u_id},
+        data: { 'cr_id': check_box_arr, "u_id" : chk_u_id},
         success: function (res) {
             $('#popup').css('display','none');
             $('.swal-icon--success__ring').css('display','none');
@@ -557,20 +561,20 @@ function resCancel(e) {
                 type : "POST",
                 url : "https://api.innopay.co.kr/api/cancelApi",
                 async : true,
-                data : cancelInfo(chk_pg_id,chk_pg_pay_type),
+                data : cancelInfo(chk_pg_id,chk_pg_pay_type,ph_pay),
                 contentType: "application/json; charset=utf-8",
                 dataType : "json",
                 success : function(data){
                     console.log('취소결과',data);
                     
                     alert('취소완료!');
-                    resSeatClose();
+                    // resSeatClose();
                     location.reload();
 
                 },
                 error : function(data){
-                    // console.log(data);   
-                    alert("취소 오류 고객센터에 문의해 주세요.");
+                    console.log(data);
+                    alert("취소 오류");
                 }
             });
         }
@@ -578,7 +582,7 @@ function resCancel(e) {
 }
 
 //결제 취소 요청 값!
-function cancelInfo(string, codeString) {
+function cancelInfo(string, codeString, ph_pay) {
     // var obj = {};
     // var row, 
     //     rows = table.rows;
@@ -588,11 +592,11 @@ function cancelInfo(string, codeString) {
     // }
     // console.log('good',obj);
     let cancel_data = {}
-        cancel_data.mid = 'testpay01m',
+        cancel_data.mid = 'arstest01m',
         cancel_data.tid = string,
-        cancel_data.svcCd = `${codeString}`,
+        cancel_data.svcCd = codeString.toString(),
         cancel_data.partialCancelCode = '0',
-        cancel_data.cancelAmt = '700',
+        cancel_data.cancelAmt = ph_pay,
         cancel_data.cancelMsg = '환불테스트',
         cancel_data.cancelPwd = '123456'
         
@@ -600,9 +604,9 @@ function cancelInfo(string, codeString) {
     // console.log('can', cancel_data);
 }
 
-
 //요일 계산 함수
 function getInputDayLabel(date) {
+    console.log('date :',date);
     var week = new Array('일', '월', '화', '수', '목', '금', '토');
     var todayLabel = week[date-1];
     return todayLabel;
@@ -617,5 +621,11 @@ function seatCheck(e){
     }else if($('input:checkbox[name=seat_chk]:checked').length == $("input:checkbox[name=seat_chk]").length){
         $("#ex_chk5").prop('checked', true);
         return false;
+    }
+}
+
+function showPay(){
+    if($('#payState').val() == "impt"){
+    
     }
 }

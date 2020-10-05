@@ -858,7 +858,7 @@
                                 // 결제요청 함수
                                 // console.log('test',$("#pay_type option:selected").attr('value'));
                                 let ph_price = Number(sessionStorage.getItem('seat_price')) * $('#selected_seats_cnt').text();
-                                console.log('glog',ph_price.toString());
+                                // console.log('glog',ph_price.toString());
                                 innopay.goPay({
                                     //// 필수 파라미터
                                     PayMethod: $("#pay_type option:selected").attr('value'),		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY)
@@ -990,6 +990,15 @@
                         
                         sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
                         location.href = "/complete";
+
+                        // $.ajax({
+                        //     url : 'https://admin.menuplus.kr/api/noti',
+                        //     method : 'GET',
+                        //     dataType : 'json',
+                        //     success: function(res){
+                        //         console.log('res@@@',res);                                     
+                        //     }					
+                        // });
                     }
                 })
                 // .done((result) => {

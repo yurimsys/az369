@@ -465,7 +465,7 @@
                                                 </div>
 
                                                 <div class="popup_btn_mo">
-                                                    <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block')">닫기</a>
+                                                    <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');">닫기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -623,7 +623,7 @@
     </div>
     
     <!--두번째 리스트 popup mo-->
-    <div id="popup2" class="layer">
+    <!-- <div id="popup2" class="layer">
         <div class="popup_box_mo popup_box_mo2">
             <h3>예매 및 결제 상세내역</h3>
             <div class="table_mo">
@@ -633,11 +633,11 @@
                 <a class="btn btn-secondary" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');">닫기</a>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!--세번째 리스트 popup mo-->
     <!--환불완료-->
-    <div id="popup3" class="layer">
+    <!-- <div id="popup3" class="layer">
         <div class="popup_box_mo">
             <h3>취소 및 환불 상세내역</h3>
             <div class="table_mo">
@@ -648,7 +648,7 @@
                 <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');">닫기</a>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 
@@ -709,12 +709,9 @@
                 }
             }
             var sendJson = JSON.stringify(send_array);
-            //console.log('sendjson :',sendJson); 
-
+            //선택한 좌석목록
             var seatArr = JSON.parse(sendJson);
 
-
-            // <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p>
             $.ajax({
                 url: "api/user/payCancel",
                 method: 'post',
@@ -853,7 +850,7 @@
         function cancelInfo(string, codeString, cancelType ,ph_pay) {
             console.log('string',ph_pay, "gdfgfd",cancelType);
             let cancel_data = {}                        //전체 필수 값 !!!!
-                cancel_data.mid = 'testpay01m',         //이노페이에서 발급한 상점아이디
+                cancel_data.mid = 'arstest01m',         //이노페이에서 발급한 상점아이디
                 cancel_data.tid = string,               //거래고유번호
                 // cancel_data.svcCd = `${codeString}`,    //취소 결과 코드 ex) 신용카드 : 01, 계좌이체 : 02, 간편결제 : 16
                 cancel_data.svcCd = codeString.toString(),    //취소 결과 코드 ex) 신용카드 : 01, 계좌이체 : 02, 간편결제 : 16

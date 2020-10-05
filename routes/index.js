@@ -464,7 +464,7 @@ router.get('/reservation', auth.isLoggedIn, function(req,res, next){
     connection.query(query,
         function(err, rows, fields) {
             if (err) throw err;
-            console.log(rows);
+            console.log('장차 정보',rows);
             res.render('reservation_01', {sessionUser: req.user, timeone : rows[0], timetwo : rows[1]});
             
             
