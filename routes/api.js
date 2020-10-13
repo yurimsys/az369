@@ -5872,12 +5872,7 @@ router.get('/benefit_length', function(req,res){
     })
 })
 
-router.post('/other_api', function(req, res){
 
-})
 
-router.get('https://admin.menuplus.kr/api/noti',function(req, res){
-    console.log('req',req);
-})
 
 module.exports = router;

@@ -991,20 +991,9 @@
                         sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
                         location.href = "/complete";
 
-                        // $.ajax({
-                        //     url : 'https://admin.menuplus.kr/api/noti',
-                        //     method : 'GET',
-                        //     dataType : 'json',
-                        //     success: function(res){
-                        //         console.log('res@@@',res);                                     
-                        //     }					
-                        // });
                     }
                 })
-                // .done((result) => {
-                    
 
-                // });
             //무통장 입금일때
             }else if(resultcode == '4100'){
                 sessionStorage.setItem('pay_complete',"complete");
@@ -1044,7 +1033,7 @@
                         sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
                         swal({
                             title: '무통장 입금',
-                            text: '금일 내에 입금이 완료되지 않으면 예매는 자동적으로 취소됩니다.',
+                            text: '예매일 기준 24시간 내에 입금이 완료되지 않으면 예매는 자동적으로 취소됩니다.',
                             icon: 'success',
                             button: '확인'
                         }).then(function(){

@@ -1,5 +1,9 @@
 //*** 중앙 svg 스크립트 ***
+// $("body").contextmenu( function() {
 
+//     return false;
+    
+//     });
     //이미지 확대
     let img_L = 0;
     let img_T = 0;
@@ -49,8 +53,15 @@
 
     //터치 종료
     function cancelEnd(e){
+        e.preventDefault();
+        // let scale_end = JSON.parse(localStorage.getItem('scale_end'))
+        // console.log('끝났더', scale_end[0].ev);
+        // console.log('끝났더222', scale_end[0]);
+        // zoom(scale_end[0].ev, scale_end[1].up_scale, scale_end[2].now_floor);
+
         m_left = [];
         m_top = [];
+        // localStorage.removeItem('scale_end');
     }
     
 
@@ -273,7 +284,7 @@
     $('.floorBtn div').on('click',function(e){
         let nowFloor = e.target.id;
         localStorage.removeItem('scale_down');
-        localStorage.removeItem('scale_test'); 
+        localStorage.removeItem('scale_up'); 
         $('.floorBtn div').removeClass('floorSelect');
         $('#'+nowFloor).addClass('floorSelect');
         if(nowFloor == 'floor1Btn'){
@@ -305,7 +316,6 @@
         }
     })    
     
-
 
 
     
@@ -395,7 +405,7 @@
 
     //핀치줌 이벤트
     function pointermove_handler(ev) {
-        
+        ev.preventDefault();
         for (var i = 0; i < evCache.length; i++) {
             if (ev.pointerId == evCache[i].pointerId) {
                 evCache[i] = ev;
@@ -424,34 +434,36 @@
             let up_scale;
             let down_scale;
 
-            move_scale = (location_y + location_x) / 2000;
-            
+            //줌한 값 
+            // console.log('test',location_x + location_y);
+            move_scale = (location_x + location_y) / 2000;
+
             down_scale = Number(now_scale) - move_scale
-            
             up_scale = Number(now_scale) + move_scale
             
-            
+            // console.log('move_scale',move_scale);
             //줌인
             if (prevDiff > 0) {
                 if (move_scale > prevDiff) {
                     
                     //현재 확대할 줌이 현재 사이즈 보다 클때 줌 
-                    if(Number(up_scale) > Number(localStorage.getItem('scale_test'))){
-                        
-                        zoom(ev, up_scale, now_floor)
+                    if(Number(up_scale) > Number(localStorage.getItem('scale_up'))){
+                        // zoom(ev, up_scale, now_floor)
+                
                         //현재 사이즈 값 로컬에 저장
-                        localStorage.setItem('scale_test',up_scale)
+                        localStorage.setItem('scale_up',up_scale);
+                        setTimeout(zoom(ev, up_scale, now_floor), 500);
                     }
                 }
 
                 //줌 아웃
-
                 if (move_scale < prevDiff) {
                     //현재 축소할 줌이 현재 사이즈 보다 클때 축소 
                     if(Number(down_scale) > Number(localStorage.getItem('scale_down'))){
-                        localStorage.setItem('scale_down',down_scale)
                         //현재 사이즈 값 로컬에 저장
-                        zoom(ev, down_scale, now_floor)
+                        localStorage.setItem('scale_down',down_scale);
+                        setTimeout(zoom(ev, down_scale, now_floor), 500);
+                        // zoom(ev, down_scale, now_floor);
                     }
                 }
             }
@@ -459,35 +471,41 @@
         }
     }
 
+    
     //확대할 줌
     function zoom(ev, now_scale,now_floor){
-            //svg파일 좌표 지정
-            ev.currentTarget.style.left = '0px';
-            ev.currentTarget.style.top = '0px';
+        ev.preventDefault();
+        // console.log('ZOOM!! now_Scale',now_scale);
+        // console.log('ZOOM!! now_Scale',ev);
+        //svg파일 좌표 지정 지울 시 확대 후 움직이지 않음
+        ev.currentTarget.style.left = '0px';
+        ev.currentTarget.style.top = '0px';
 
-            $('#'+now_floor+'Fstore_name text').css('font-size','14px');
-            $('#'+now_floor+'Fstore_name text').show();
+        $('#'+now_floor+'Fstore_name text').css('font-size','14px');
+        $('#'+now_floor+'Fstore_name text').show();
+        
+        //확대크기 지정
+        ev.currentTarget.style.transform = 'scale('+now_scale+')';
+        //이전 확대,축소값 제거
+        localStorage.removeItem('scale_down');
+        localStorage.removeItem('scale_up');
+        // localStorage.removeItem('scale_end');
+        //확대가 3배가 이상일때 3배로 고정
+        if(now_scale >= 3){
+            ev.currentTarget.style.transform = 'scale(3.0)';
+            return false;
 
-            //확대크기 지정
-            ev.currentTarget.style.transform = 'scale('+now_scale+')';
-            localStorage.removeItem('scale_down');
-            localStorage.removeItem('scale_test');
-            //확대가 3배가 이상일때 3배로 고정
-            if(now_scale >= 3){
-                ev.currentTarget.style.transform = 'scale(3.0)';
-                return;
-
-            //1배 이하일때 1배로 고정 및 좌표값 삭제
-            }else if(now_scale <= 1){
-                $('#'+now_floor+'Fstore_name text').hide();
-                // ev.currentTarget.style.transform = 'scale(1.0)';
-                zoomReset();
-                ev.currentTarget.style.left = '';
-                ev.currentTarget.style.top = '';
-                return;
-            }
-
-
+        //1배 이하일때 1배로 고정 및 좌표값 삭제
+        }else if(now_scale <= 1.1){
+            ev.preventDefault();
+            $('#'+now_floor+'Fstore_name text').hide();
+            // ev.currentTarget.style.transform = 'scale(1.0)';
+            ev.currentTarget.style.transform = 'scale(1.0)';
+            // zoomReset();
+            ev.currentTarget.style.left = '';
+            ev.currentTarget.style.top = '';
+            return false;
+        }
 
     }
 
@@ -504,7 +522,7 @@
         for (var i = 0; i < evCache.length; i++) {
             if (evCache[i].pointerId == ev.pointerId) {
                 evCache.splice(i, 1);
-                break;
+                break;  
             }
         }
     }

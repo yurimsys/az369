@@ -206,7 +206,7 @@ $(document).ready(function(){
     setInterval(function(){
         dustInterval = this;
         dustInterval.dustState();
-    },3600000)  
+    },3600000)
 
 //날짜 함수
     function dayCount(){
