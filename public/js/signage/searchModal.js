@@ -374,7 +374,10 @@ function searchModalInit(){
     function storeLocation(e){
         let storeArea = e.id.replace(/area/g,'')
         $('#myModal').css('display','none');
-        
+        //키보드 닫기
+        searchModalInit();
+        //검색 내역 초기화
+        searchCancel();
         $('.floorBtn div').removeClass('floorSelect');
         $brandInfoCenter.css('display','none');
         $brandMenuCenter.css('display','none');
@@ -427,7 +430,7 @@ function searchModalInit(){
         
         //2층
             else if(storeArea>= 2001 && storeArea<= 2102){
-                // console.log('2층')
+                console.log('2층')
                 $2f_store_path.css('fill','#E2E2E2');
                 $center_left_1f.css('display','none');
                 $center_left_2f.css('display','block');
@@ -438,7 +441,7 @@ function searchModalInit(){
                     let storeName = $(this);
                     let storeNumber;
                     //svg텍스트가 선택한 브랜드 명과 같으면
-                    if(storeName.text() == $('#h'+e.id+'-2').text()){
+                    if(storeName.text() == $('#h'+storeArea+'-2').text()){
                         //해당 아이디를 가져옴
                         storeNumber = $(this).attr('id').substring('1','5');
                         $('#h'+storeNumber).css('fill','#a91179');
@@ -631,7 +634,6 @@ function searchModalInit(){
         
         }
  
-        
         for(let i=0; i<eventTwo.length; i++){
             let languageType2 = $eng.hasClass('choose') ? eventTwo[i].M_NameKor : eventTwo[i].M_NameEng;
             let languageName2 = $eng.hasClass('choose') ? eventTwo[0].MC_NameKor : eventTwo[0].MC_NameEng;
@@ -641,6 +643,7 @@ function searchModalInit(){
             $event_menu_two.append(html);
             $('#eventMenuTwoName').text(languageName2);
         }
+        
         for(let i=0; i<resultNormal.length; i++){
             let languageType3 = $eng.hasClass('choose') ? resultNormal[i].M_NameKor : resultNormal[i].M_NameEng;
             let html = '<li><dl>';

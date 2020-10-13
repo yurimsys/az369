@@ -37,6 +37,7 @@ arr.forEach(function (item) {
 let searchResult = new Array();
 // 검색창 값 입력 이벤트 처리
 $('#searchBrandName').bind('input', function (e) {
+    // $('.keyboard').css('display','block');
     // 검색창 reset 버튼 노출
     if (e.target.value != '') {
         $('.searchCancel').css('display', 'block')
@@ -169,4 +170,5 @@ function searchCancel() {
     $('.searchCancel').css('display', 'none')
     $('#searchBrandName').val('')
     Keyboard._cheonjiinInit();
+    console.log('실행');
 }

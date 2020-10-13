@@ -2662,11 +2662,11 @@ router.post('/tbs', upload.any(), async function (req, res, next) {
         if(req.files.length === 0) throw Error('Non include files');
         //입력된 파일들과 새로운 경로로 저장
         let content_type = req.files[0].mimetype.split('/')[0];
-        let tumb_name = req.files[0].filename;
-        let img_name = req.files[1].filename;
+        let img_name = req.files[0].filename;
+        let tumb_name = req.files[1].filename;
         //이전 저장소
-        let old_tumb_path = req.files[0].path;
-        let old_img_path = req.files[1].path;
+        let old_img_path = req.files[0].path;
+        let old_tumb_path = req.files[1].path;
         //새 저장소
         let new_tumb_path = path.join(config.path.bs_image , tumb_name);
         let new_img_path = path.join(config.path.bs_image , img_name);
@@ -2688,12 +2688,12 @@ router.post('/tbs', upload.any(), async function (req, res, next) {
         });
 
         
-        let mainDtS = '2020-05-18 '+ req.body.bsMainOpen;
-        let mainDtF = '2020-05-18 '+ req.body.bsMainClose;
-        let subDtS = '2020-05-18 '+req.body.bsSubOpen
-        let subDtF = '2020-05-18 '+req.body.bsSubClose
-        let breakS = '2020-05-18 '+req.body.bsBreakOpen
-        let breakF = '2020-05-18 '+req.body.bsBreakClose
+        let mainDtS = '2020-01-01 '+ req.body.bsMainOpen;
+        let mainDtF = '2020-01-01 '+ req.body.bsMainClose;
+        let subDtS = '2020-01-01 '+req.body.bsSubOpen
+        let subDtF = '2020-01-01 '+req.body.bsSubClose
+        let breakS = '2020-01-01 '+req.body.bsBreakOpen
+        let breakF = '2020-01-01 '+req.body.bsBreakClose
 
         // 매장입력 BS_BC_ID == lv1Cat
         let result = await pool.request()
@@ -2721,12 +2721,12 @@ router.post('/tbs', upload.any(), async function (req, res, next) {
             .input('BS_PersonalDayEng', mssql.NVarChar, req.body.bsPersonalEn)
             .input('BS_ThumbnailUrl', mssql.NVarChar, '/img/'+req.files[1].originalname)
             .input('BS_ImageUrl', mssql.NVarChar, '/img/'+req.files[0].originalname)
-            .query(`insert into tBS(
+            .query(`INSERT INTO tBS(
                                 BS_BC_ID, BS_LoginID, BS_LoginPW, BS_CEO, BS_NameKor, BS_NameEng, BS_ContentsKor, BS_ContentsEng, 
                                 BS_Phone, BS_CEOPhone, BS_Addr1Kor, BS_Addr2Kor, BS_Addr1Eng, BS_Addr2Eng, BS_MainDtS, BS_MainDtF,
                                 BS_SubDtS, BS_SubDtF, BS_BreakDtS, BS_BreakDtF,BS_PersonalDayKor, BS_PersonalDayEng, BS_ThumbnailUrl,
                                 BS_ImageUrl)
-                        values(@BS_BC_ID, @BS_LoginID, @BS_LoginPW, @BS_CEO, @BS_NameKor, @BS_NameEng, @BS_ContentsKor,
+                        VALUES(@BS_BC_ID, @BS_LoginID, @BS_LoginPW, @BS_CEO, @BS_NameKor, @BS_NameEng, @BS_ContentsKor,
                                 @BS_ContentsEng, @BS_Phone, @BS_CEOPhone, @BS_Addr1Kor, @BS_Addr2Kor, @BS_Addr1Eng, @BS_Addr2Eng, @BS_MainDtS, 
                                 @BS_MainDtF, @BS_SubDtS, @BS_SubDtF, @BS_BreakDtS, @BS_BreakDtF, @BS_PersonalDayKor, @BS_PersonalDayEng,
                                 @BS_ThumbnailUrl, @BS_ImageUrl)`);
