@@ -183,6 +183,7 @@ let tableInit = function (data) {
             //cssClass : 'tooltip'
             { dataField: "PH_ID", caption: "ID", width : 70, sortOrder : "desc"},
             { dataField: "U_Name", caption: "회원이름"},
+            { dataField: "U_uId", caption: "회원아이디"},
             { dataField: "U_Phone", caption: "전화번호"},
             { dataField: "PH_PG_Name", caption: "PG사명"},
             { dataField: "PH_PG_ID", caption: "거래번호"},

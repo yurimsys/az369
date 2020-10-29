@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <div>업데이트 형</div>
+    <table border="1" style="border-collapse: collapse; width:500px">
+        <thead>
+            <th>아이디</th>
+            <th>그룹</th>
+            <th>순서</th>
+            <th>댑스</th>
+            <th>예시</th>
+        </thead>
+        <tbody id="board_table">
+            <!-- <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td id="3" onclick="selectBoard(this)">1B</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td onclick="selectBoard(this)">&emsp;&nbsp;RE 1B</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td onclick="selectBoard(this)">&emsp;&nbsp;&emsp;&nbsp;RE 1B-1</td>
+            </tr> -->
+        </tbody>
+    </table>
+
+    <p>입력할 게시물 or 댓글 아이디</p>
+    <div><input type="text" id="board_name" readonly placeholder="답글 달 게시물" style="color: red; font-size: 15px; font-weight: bold;"><input type="text" id="board_text"></div>
+    <button type="button" onclick="submitBoard()">입력</button>
+    <button type="button" onclick="reset()">초기화</button>
+</body>
+<script>
+
+
+
+    function loadBoard(){
+        $.ajax({
+            url : '/api/board/',
+            method : 'get',
+            dataType : 'json',
+            success: function(res){
+                let html = "";
+                for(let i=0; i<res.data.length; i++){
+                    html += "<tr><td>"+res.data[i].B_ID+"</td>"
+                    html += "<td>"+res.data[i].B_Group+"</td>"
+                    html += "<td>"+res.data[i].B_Index+"</td>"
+                    html += "<td>"+res.data[i].B_Depth+"</td>"
+                    html += "<td onclick='selectBoard(this)' style='cursor: pointer' id="+res.data[i].B_ID+" data-depth="+res.data[i].B_Depth+">"+res.data[i].B_Ex+"</td></tr>"
+                }
+                console.log('html',html);
+                $('#board_table').append(html);
+            }					
+        });
+    }
+    loadBoard();
+    function selectBoard(e){
+        console.log('e',e.dataset.depth);
+        $('#board_name').val(e.id)
+        $('#board_name').data('depthlv',e.dataset.depth)
+    }
+
+    function reset(){
+        
+        $('#board_name').val('');
+        $('#board_text').val('')
+    }
+
+    function submitBoard(){
+        let comment_type = "";
+        console.log('das',$('#board_name').data('depthlv'));
+        if($('#board_name').val() == ""){
+            comment_type = 'default_cmt';
+        }else if($('#board_name').data('depthlv') == 0){
+            comment_type = 'first_cmt';
+        }else if($('#board_name').data('depthlv') == 0){
+            comment_type = 'first_cmt';
+        }else if($('#board_name').data('depthlv') >= 1){
+            comment_type = 'other_cmt';
+        }
+        console.log('comment',comment_type);
+        $.ajax({
+            url : '/api/board/'+comment_type,
+            method : 'post',
+            dataType : 'json',
+            data : {
+                board_id : $('#board_name').val(),
+                board_text : $('#board_text').val(),
+                },
+            success: function(res){
+                $('#board_table').empty();
+                reset();
+                loadBoard();
+            }					
+        });
+    }
+</script>
+</html>

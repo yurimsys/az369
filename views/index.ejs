@@ -380,9 +380,10 @@
 
         })
 
-        //쿠키 설정 setDate = 일 기준 setTime = 초 기준
+        //쿠키 설정 
         function setCookie ( name, value, expiredays ) {
             var todayDate = new Date();
+            //setDate = 일 기준 setTime = 초 기준
             todayDate.setDate( todayDate.getDate() + expiredays );
             document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
         }

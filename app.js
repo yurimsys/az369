@@ -23,20 +23,6 @@ const multer = require('multer');
 const { logger, stream }  = require('./config/winston');
 const app = express();
 
-// const fs = require('fs');
-// const https = require('https');
-// const PORT = 443;
-
-// //인증서 경로
-// const optionsForHTTPS = {
-//     ca : fs.readFileSync(path.resolve(__dirname,"ssl_key/ca_bundle.crt")),
-//     key : fs.readFileSync(path.resolve(__dirname,'ssl_key/private.key')),
-//     cert : fs.readFileSync(path.resolve(__dirname,'ssl_key/certificate.crt'))
-//     // key : fs.readFileSync('C:/WorkSpace/firebase_test/real_keys/private.key'),
-//     // cert : fs.readFileSync('C:/WorkSpace/firebase_test/real_keys/private.crt')
-// };
-
-    
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -110,45 +96,34 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  let apiError = err;
+    let apiError = err;
 
-  if(!err.status){
-      apiError = createError(err);
-  }
-  let errObj = {
-      user : req.user,
-      req: {
-          headers: req.headers,
-          query : req.query,
-          body : req.body,
-          route: req.route
-      },
-      error: {
-          message: apiError.message,
-          stack: apiError.status
-      }
-  }
+    if(!err.status){
+        apiError = createError(err);
+    }
+    let errObj = {
+        user : req.user,
+        req: {
+            headers: req.headers,
+            query : req.query,
+            body : req.body,
+            route: req.route
+        },
+        error: {
+            message: apiError.message,
+            stack: apiError.status
+        }
+    }
   
 
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  
-  console.log(err);
-  console.log(err.message);
-  // render the error page
-  res.status(err.status || 500);
-  res.end();
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    console.log(err);
+    console.log(err.message);
+    // render the error page
+    res.status(err.status || 500);
+    res.end();
   
 });
-
-// // 지정된 3000 포트로 https 연결
-// https.createServer(optionsForHTTPS, app).listen(PORT, function(){
-//     console.log('HTTPS Server Start PORT:' + PORT);
-// });
-
-// https.createServer(optionsForHTTPS, (req, res) => {
-//     res.writeHead(200);
-//     // res.end('hello world\n');
-//   }).listen(8000);
-
 module.exports = app;

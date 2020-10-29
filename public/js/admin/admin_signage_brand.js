@@ -147,6 +147,14 @@ let objectInfo = function (mode = "modify", row_data) {
         break_close_instance.option("value", row_data.break_close);
 
         sessionStorage.setItem('row_data', JSON.stringify(row_data) );
+        var chtest = true;
+        $('#brand_ko').change(function(){
+            chtest = false;
+        });
+
+        if(chtest == false){
+            alert('변경')
+        }
     }
 }
 
@@ -425,11 +433,10 @@ function saveAD(){
         bsStoreNumber : $('#store_number').val()
     }
 
-
-
     let form_data = new FormData(document.forms[0]);
     for ( let i in update_data) form_data.append(i, update_data[i]);
-
+  
+    console.log('log!!',form_data);
     let api_url  = '/api/tbs';
     $.ajax({
         dataType : 'JSON',
@@ -533,7 +540,7 @@ function updateAD(){
 }
 function clickActionBtn(e){
     if( $(e.target).hasClass('disabled') ) return false;
-
+    console.log('e',e.target);
     if(e.target.getAttribute('name') == "modify"){
         updateAD();
     } else if(e.target.getAttribute('name') == "save"){

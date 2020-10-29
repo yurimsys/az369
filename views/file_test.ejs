@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <input type='text' id='menu' placeholder="상품명">
+    <input type="button" value="파일 선택" onclick="document.getElementById('imgFile').click()">
+    <input type="file" id="imgFile" name="imgFile"  onchange="javascript:document.getElementById('imgFileName').value = this.value"  accept="image/*" hidden>
+    <input type='text' id='imgFileName' readonly>
+    <button type="button" onclick="submitFile()">등록하기</button>
+    <div id='list_test'>
+        <table>
+            <tbody id='table_test'>
+            </tbody>
+        </table>
+    </div>
+    <button type="button" onclick="saveFile()">GO!</button>
+</body>
+<script>
+    // for (var key of form_data.keys()) {
+
+    // console.log('key',key);
+
+    // }
+
+    // for (var value of form_data.values()) {
+
+    // console.log('value',value);
+
+    // }
+    // // var my_tbody = document.getElementById('my-tbody');
+    // // if (my_tbody.rows.length < 1) return;
+    // // // my_tbody.deleteRow(0); // 상단부터 삭제
+
+    // // let tag = $('#table_test');
+    // // tag.removeChild(tag.childNodes[0])
+    // let idx = obj_test.findIndex(function(item){return item.test === "test"})
+    // if (idx > -1){
+    //     obj_test.splice(idx,1)
+    // };
+
+    
+    let $menu = $('#menu');
+    let $imgFileName = $('#imgFileName');
+    let $imgFile = $("#imgFile");
+    let test_form = new FormData();
+    let $table_test = $('#table_test');
+
+    //전송할 메뉴정보 객체 배열
+    let menu_obj = {};
+
+    function submitFile(){
+        //상품명 미 입력시 경고
+        if($menu.val() == ""){
+            alert('상품명을 입력해 주세요');
+            return false;
+        }
+        //업로드 할 이미지의 상품명
+        let img_name = $menu.val();
+        
+        //이미지 파일을 등록했을때 폼데이터에 입력
+        if($("#imgFile")[0].files[0] != undefined){
+            //생성한 폼 데이터에 파일 저장
+            test_form.append(img_name,$("#imgFile")[0].files[0]);
+        }
+
+        //전송할 메뉴 정보 추가
+        menu_obj[$menu.val()] = {'kor_menu' : $menu.val(), 'eng_menu' : $menu.val()};
+
+
+        // console.log('파일1',$("#imgFile")[0]);
+        // console.log('파일2',$("#imgFile")[0].files[0]);
+
+        console.log('menu_obj',menu_obj);
+
+
+
+        //아래 테이블 로우 추가
+        let html = "<tr><td>"+$menu.val()+"</td><td>"+$imgFileName.val()+"</td><td><button data-menuname="+img_name+" onclick='cancel(this)'>취소</button></td></tr>";
+        $table_test.append(html);
+
+        
+        //상품명, 파일 주소, input file 초기화
+        $menu.val("");
+        $imgFile.val("")
+        $imgFileName.val("");
+        
+    }
+
+    //추가한 상품 개별 삭제
+    function cancel(e){
+        //객체에 해당 하는 상품메뉴 제거
+        delete menu_obj[e.dataset.menuname];
+
+        //해당 상품 로우 삭제
+        e.parentNode.parentNode.parentNode.removeChild(e.parentNode.parentNode)
+
+        //폼데이터 내의 저장되어 있는 파일 삭제
+        test_form.delete(e.dataset.menuname)
+    }
+
+    //상품 등록
+    function saveFile(){
+        
+        // for ( let i in menu_obj) test_form.append(i, menu_obj[i]);
+        let test = "good";
+        test_form.append(test,JSON.stringify(menu_obj));
+        $.ajax({
+            url : '/api/filesave',
+            type : 'post',
+            dataType : 'josn',
+            data : test_form,
+            contentType : false,
+            processData : false,
+            success: function(res){
+                console.log('res',res);
+            }					
+        });
+    }
+
+</script>
+</html>

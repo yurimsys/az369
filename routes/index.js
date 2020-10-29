@@ -660,5 +660,12 @@ router.get('/driver_app', function(req, res, next) {
 });
 
 
+router.get('/file',function(req, res){
+    res.render('file_test');
+})
+
+router.get('/board',function(req, res){
+    res.render('board_test');
+})
 
 module.exports = router;

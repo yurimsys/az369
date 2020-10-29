@@ -17,6 +17,7 @@ const path = require('path');
 const fs = require('fs');
 const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 const { throws } = require('assert');
+const { json } = require('body-parser');
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -1593,7 +1594,13 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
             pg_id = '1';
         }
         //결제 전 중복확인 쿼리
-        let selectQuery = `SELECT * FROM tCR WHERE tCR.CR_CT_ID = :ct_id and CR_Cancel = 'N' and tCR.CR_SeatNum IN (:seatNums)`;
+        let selectQuery = `SELECT 
+                                    *    
+                            FROM tCR 
+                            WHERE 1=1 
+                                AND tCR.CR_CT_ID = :ct_id 
+                                AND CR_Cancel = 'N' 
+                                AND tCR.CR_SeatNum IN (:seatNums)`;
 
         //결제 전 버스출발 확인 쿼리
         let checkQuery = `SELECT tCT.CT_PyStart FROM tCT WHERE CT_ID = :ct_id`;
@@ -5118,6 +5125,7 @@ router.get('/user_list',function(req,res){
 router.get('/admin_payment',function(req, res){
     let query = `SELECT 
                     PH_ID,
+                    U_uId,
                     U_Name,
                     PH_PG_ID,
                     U_Phone,
@@ -5873,6 +5881,109 @@ router.get('/benefit_length', function(req,res){
 })
 
 
+router.post('/filesave', upload.any(), async function (req, res, next) {
+    // console.log('good');
+    // let json_test = req.files[0].fieldname;
+    // console.log('json',json_test);
+    // console.log('json stringfy',JSON.stringify(json_test));
+    // for (var key in json_test){
+    //     console.log("attr: " + key + ", value: " + json_test[key]);
+    // }
+    console.log('goodbye',req.body);
+    let test = 'good'
+})
 
 
+//게시물 등록
+router.post('/board/:cmt', async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let cmt_type = req.params.cmt;
+        let board_id = req.body.board_id;
+        let board_text = req.body.board_text;
+
+        if(cmt_type == "default_cmt"){
+            await pool.request()
+            .input('board_text', mssql.NVarChar, req.body.board_text)
+            .query(`INSERT INTO board 
+                        VALUES(
+                            (select CASE  WHEN MAX(B_Group) IS NULL THEN 1 ELSE MAX(B_Group)+1 END FROM board),
+                            0,
+                            0,
+                            @board_text
+                            )`
+                    );
+
+        }else if(cmt_type == "first_cmt"){
+            await pool.request()
+            .input('board_id', mssql.Int, req.body.board_id)
+            .input('board_text', mssql.NVarChar, req.body.board_text)
+            .query(`UPDATE board 
+                            SET B_Index = B_Index+1 
+                            WHERE 
+                                B_Group = (SELECT B_Group FROM board WHERE B_ID = @board_id) AND 
+                                B_Index > 0
+                    `
+                    );
+            await pool.request()
+            .input('board_id', mssql.Int, req.body.board_id)
+            .input('board_text', mssql.NVarChar, req.body.board_text)
+            .query(`INSERT INTO board 
+                        VALUES(
+                            (SELECT B_Group FROM board WHERE B_ID = @board_id),
+                            1,
+                            1,
+                            @board_text
+                            )`
+                    );
+
+        }else{
+            await pool.request()
+            .input('board_id', mssql.Int, req.body.board_id)
+            .input('board_text', mssql.NVarChar, req.body.board_text)
+            .query(`UPDATE board 
+                        SET B_Index = B_Index+1 
+                        WHERE 
+                            B_Group = (SELECT B_Group FROM board WHERE B_ID = @board_id) AND 
+                            B_Index > (SELECT B_Index FROM board WHERE B_ID = @board_id)
+                            `
+                    );
+            await pool.request()
+            .input('board_id', mssql.Int, req.body.board_id)
+            .input('board_text', mssql.NVarChar, req.body.board_text)
+            .query(`INSERT INTO board 
+                            VALUES (
+                                (SELECT B_Group FROM board WHERE B_ID = @board_id),
+                                (SELECT B_Index+1 FROM board WHERE B_ID = @board_id),
+                                (SELECT B_Depth+1 FROM board WHERE B_ID = @board_id),
+                                @board_text
+                                ) `
+                    );
+        }
+
+ 
+        res.json({data:'1'})
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+});
+
+
+router.get('/board', function(req, res, next) {
+    mssql.connect(dbconf.mssql, function (err, result){
+        if(err) throw err;
+
+        let query = `select B_ID, B_Group, B_Index, B_Depth, B_Ex from board order by B_Group desc, B_Index`
+
+        // 관리 페이지 상세검색
+        new mssql.Request().query(query,
+            (err, result)=>{
+                console.log('result',result);
+                res.json({data : result.recordset})
+        })
+
+    });
+});
 module.exports = router;

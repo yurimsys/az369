@@ -1032,13 +1032,14 @@
                 success: function (res) {
                     // console.log('res',res.data);
                     //PC리스트
+                    let html = "";
                     for (let i = 0; i < res.data.length; i++) {
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
                         // let seatList = decodeURIComponent(seatNum).join('번');
                         // console.log('seatList',seatNum);
                         // console.log('sease',decodeURIComponent(seatNum));
-                        let html = "<tr>";
+                        html += "<tr>";
                         html += "<td>" + res.data[i].PayDay + "</td>";
                         html += "<td>" + res.data[i].deptTe + "</td>";
                         // html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
@@ -1048,8 +1049,9 @@
                         html += "<td>" + (res.data[i].price || 0) + "</td>";
                         html += "<td><a class='Receipt btn-light' value="+res.data[i].PH_PG_ID+" data-phtype="+res.data[i].PH_CodeType+" onclick='openBill(this)'>영수증 출력</a></td>";
                         html += "</tr>";
-                        $("#payList").append(html);
+                        
                     }
+                    $("#payList").append(html);
                 }
             });
         });
@@ -1069,13 +1071,13 @@
                 success: function (res) {
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<div class='list02_mo_list' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
-                        html += "<a class='popup_open2'>";
-                        html += "<ul class='testcode' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
-                        html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
-                        html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
-                        html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><img src='/img/common/reserve_bar_arrow.png'></li>";
-                        html += "</ul></a>";
-                        html += "</div>";
+                            html += "<a class='popup_open2'>";
+                            html += "<ul class='testcode' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
+                            html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
+                            html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
+                            html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><img src='/img/common/reserve_bar_arrow.png'></li>";
+                            html += "</ul></a>";
+                            html += "</div>";
                         $(".list02_mo").append(html);
                     }
 
@@ -1117,26 +1119,26 @@
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<tr>";
-                        html += "<td>" + res.data[i].PayDay + "</td>";
-                        html += "<td>" + res.data[i].deptTe + "</td>";
-                        // html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
-                        html += "<td>" + res.data[i].carName + "</td>";
-                        html += "<td>" + seatNum + "</td>";
-                        html += "<td>" + (res.data[i].payType || "-") + "</td>";
-                        html += "<td>" + (res.data[i].price || 0) + "</td>";
-                        html += "</tr>";
+                            html += "<td>" + res.data[i].PayDay + "</td>";
+                            html += "<td>" + res.data[i].deptTe + "</td>";
+                            // html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
+                            html += "<td>" + res.data[i].carName + "</td>";
+                            html += "<td>" + seatNum + "</td>";
+                            html += "<td>" + (res.data[i].payType || "-") + "</td>";
+                            html += "<td>" + (res.data[i].price || 0) + "</td>";
+                            html += "</tr>";
                         $("#payList").append(html);
                     }
                     //모바일 부분 @@@@@@@@@@@@@@@@@@@@@@@@@
                     for (let i = 0; i < res.data.length; i++) {
                         let html2 = "<div class='list02_mo_list' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
-                        html2 += "<a class='popup_open2'>";
-                        html2 += "<ul>";
-                        html2 += "<li class='text' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
-                        html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
-                        html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><img src='/img/common/reserve_bar_arrow.png'></li>";
-                        html2 += "</ul></a>";
-                        html2 += "</div>";
+                            html2 += "<a class='popup_open2'>";
+                            html2 += "<ul>";
+                            html2 += "<li class='text' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
+                            html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
+                            html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><img src='/img/common/reserve_bar_arrow.png'></li>";
+                            html2 += "</ul></a>";
+                            html2 += "</div>";
                         $(".list02_mo").append(html2);
                     }
                 }
@@ -1169,12 +1171,12 @@
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<table class='detail_table'>";
-                        //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
-                        html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+")</td></tr>";
-                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 - 동대문)</span></td></tr>";
-                        html += "<tr><th>좌석번호</th><td>" + seatNum + "</td></tr>";
-                        html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td><tr>";
-                        html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
+                            //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
+                            html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+")</td></tr>";
+                            html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 - 동대문)</span></td></tr>";
+                            html += "<tr><th>좌석번호</th><td>" + seatNum + "</td></tr>";
+                            html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td><tr>";
+                            html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);
                     }
                     let bill_html = "<a class='receipt btn-light' value="+res.data[0].PH_PG_ID+" data-phtype="+res.data[0].PH_CodeType+"  onclick='openBill(this)'>영수증 출력</a>"	
@@ -1202,13 +1204,13 @@
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<tr>";
-                        html += "<td>" + res.data[i].PayDay + "</td>";
-                        html += "<td>" + res.data[i].deptTe + "</td>";
-                        html += "<td>" + res.data[i].cancelDay + "</td>";
-                        html += "<td>" + seatNum+ "</td>";
-                        html += "<td>" + res.data[i].payType + "</td>";
-                        html += "<td>" + res.data[i].price + "</td>";
-                        html += "</tr>";
+                            html += "<td>" + res.data[i].PayDay + "</td>";
+                            html += "<td>" + res.data[i].deptTe + "</td>";
+                            html += "<td>" + res.data[i].cancelDay + "</td>";
+                            html += "<td>" + seatNum+ "</td>";
+                            html += "<td>" + res.data[i].payType + "</td>";
+                            html += "<td>" + res.data[i].price + "</td>";
+                            html += "</tr>";
                         $("#cancelList").append(html);
                     }
                 }
@@ -1231,12 +1233,12 @@
                     //console.log("모바일 취소 리스트 :", res.data);
                     for (let k = 0; k < res.data.length; k++) {
                         let html2 = "<div class='list03_mo_list' id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">";
-                        html2 += "<a class='popup_open3'>";
-                        html2 += "<ul>";
-                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">" + res.data[k].deptTe + "</li>";
-                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">평택 - 서울동대문</li>";
-                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + "><img src='/img/common/reserve_bar_arrow.png'></li>";
-                        html2 += "</ul></a></div>";
+                            html2 += "<a class='popup_open3'>";
+                            html2 += "<ul>";
+                            html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">" + res.data[k].deptTe + "</li>";
+                            html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">평택 - 서울동대문</li>";
+                            html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + "><img src='/img/common/reserve_bar_arrow.png'></li>";
+                            html2 += "</ul></a></div>";
                         $(".list03_mo").append(html2);
                     }
                 }
@@ -1262,24 +1264,24 @@
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<tr>";
-                        html += "<td>" + res.data[i].PayDay + "</td>";
-                        html += "<td>" + res.data[i].deptTe + "</td>";
-                        html += "<td>" + res.data[i].cancelDay + "</td>";
-                        html += "<td>" + seatNum + "</td>";
-                        html += "<td>" + res.data[i].payType + "</td>";
-                        html += "<td>" + res.data[i].price + "</td>";
-                        html += "</tr>";
+                            html += "<td>" + res.data[i].PayDay + "</td>";
+                            html += "<td>" + res.data[i].deptTe + "</td>";
+                            html += "<td>" + res.data[i].cancelDay + "</td>";
+                            html += "<td>" + seatNum + "</td>";
+                            html += "<td>" + res.data[i].payType + "</td>";
+                            html += "<td>" + res.data[i].price + "</td>";
+                            html += "</tr>";
                         $("#cancelList").append(html);
                     }
                     ///모바일 부분@@@@@@@@@@@@@@@@@@@@@@@@@
                     for (let k = 0; k < res.data.length; k++) {
                         let html2 = "<div class='list03_mo_list' id=" + res.data[k].ctId + " val=" + res.data[k].phId + ">";
-                        html2 += "<a class='popup_open3'>";
-                        html2 += "<ul>";
-                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">" + res.data[k].deptTe + "</li>";
-                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">평택 - 서울동대문</li>";
-                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + "><i class='fas fa-chevron-right'></i></li>";
-                        html2 += "</ul></a></div>";
+                            html2 += "<a class='popup_open3'>";
+                            html2 += "<ul>";
+                            html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">" + res.data[k].deptTe + "</li>";
+                            html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">평택 - 서울동대문</li>";
+                            html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + "><i class='fas fa-chevron-right'></i></li>";
+                            html2 += "</ul></a></div>";
                         $(".list03_mo").append(html2);
                     }
                 }
@@ -1310,13 +1312,13 @@
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
 
                         let html = "<table class='detail_table'>";
-                        //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
-                        html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+")</td></tr>";
-                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 - 동대문)</span></td></tr>";
-                        html += "<tr><th>좌석번호</th><td>" + seatNum + "</td></tr>";
-                        html += "<tr><th>취소일시</th><td>" + res.data[i].cancelDay + "</td></tr>"
-                        html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
-                        html += "<tr><th>환불금액</th><td>" + res.data[i].price + "</td></tr></table>";
+                            //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
+                            html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+")</td></tr>";
+                            html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 - 동대문)</span></td></tr>";
+                            html += "<tr><th>좌석번호</th><td>" + seatNum + "</td></tr>";
+                            html += "<tr><th>취소일시</th><td>" + res.data[i].cancelDay + "</td></tr>"
+                            html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
+                            html += "<tr><th>환불금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);
                     }
                 }

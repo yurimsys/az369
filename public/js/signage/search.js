@@ -57,30 +57,33 @@ $('#searchBrandName').bind('input', function (e) {
     searchResult = [];
     // 문자열 검색 || 초성검색
     arr
-        .filter(function (item) {
-            return item.name.includes(allText) || item.diassembled.includes(korText);
-        })
-        // 검색결과 ul 아래에 li 로 추가
-        .forEach(function (item) {
-            let searchJson = new Object();
-            searchJson.name = item.name
-            searchResult.push(searchJson)
-        });
+    .filter(function (item) {
+        return item.name.includes(allText) || item.diassembled.includes(korText);
+    })
+    // 검색결과 ul 아래에 li 로 추가
+    .forEach(function (item) {
+        let searchJson = new Object();
+        searchJson.name = item.name
+        searchResult.push(searchJson)
+    });
     $('.searchResult').empty();
+
+    let html = "";
     for (let i = 0; i < jsonBrand.length; i++) {
         let lanType1 = $('#eng').hasClass('choose') ? jsonBrand[i].BS_NameKor : jsonBrand[i].BS_NameEng;
         let lanType2 = $('#eng').hasClass('choose') ? jsonBrand[i].BC_NameKor : jsonBrand[i].BC_NameEng; 
-
-        for (let j = 0; j < searchResult.length; j++) {
+        let searchResult_length = searchResult.length;
+        
+        for (let j = 0; j < searchResult_length; j++) {
             if (jsonBrand[i].BS_NameKor === searchResult[j].name || jsonBrand[i].BS_NameEng === searchResult[j].name) {
-                let html = "<div class='brandList' id=" + jsonBrand[i].BS_ID + " onclick='brandClick(this)' data-lv1CategoryId=" + jsonBrand[i].BCR_LV1_BC_ID + "><div class='categoryImg_wrap'><div class='categoryImg'><img src=" + jsonBrand[i].BS_ThumbnailUrl + "></div></div>";
+                html += "<div class='brandList' id=" + jsonBrand[i].BS_ID + " onclick='brandClick(this)' data-lv1CategoryId=" + jsonBrand[i].BCR_LV1_BC_ID + "><div class='categoryImg_wrap'><div class='categoryImg'><img src=" + jsonBrand[i].BS_ThumbnailUrl + "></div></div>";
                 html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">'
                 html += "<ul><li><div class='searchBrand'>" + lanType1 + "</div>";
-                html += "<h4 class='searchLocation'>" + jsonBrand[i].LS_Floor + ".<span class='searchLocation'>" + lanType2 + "</span></h4><div class='searchTime'>영업시간 " + jsonBrand[i].BS_MainDtS.substring(0, 5) + " ~ " + jsonBrand[i].BS_MainDtF.substring(0, 5) + "</div></li></ul>";
-                $('.searchResult').append(html)
+                html += "<h4 class='searchLocation'>" + jsonBrand[i].LS_Floor + ".<span class='searchLocation'>" + lanType2 + "</span></h4><div class='searchTime'>영업시간 " + jsonBrand[i].BS_MainDtS.substring(0, 5) + " ~ " + jsonBrand[i].BS_MainDtF.substring(0, 5) + "</div></li></ul></div>";
             }
         }
     }
+    $('.searchResult').append(html);
 });
 
 
