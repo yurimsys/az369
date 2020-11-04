@@ -630,6 +630,10 @@ router.get('/video', function(req, res, next) {
 
 //비디오 페이징
 router.get('/video/:currentPage', function(req, res, next) {
+    let page_query = `SELECT 		
+                            CEIL(COUNT(*)/6) AS page
+                        FROM tYL `
+
     let query = `SELECT 		
                         YL_id,
                         YL_url,
@@ -646,17 +650,38 @@ router.get('/video/:currentPage', function(req, res, next) {
     //페이지 내 보여줄 수
     let rowPerPage = 6;
     let beginRow = (currentPage-1)* rowPerPage;
-    //사용자가 임의로 currentPage을 1밑으로 입력한 경우 무조건 az369/video/1로 돌아간다.
-    if(beginRow < 1){
-        beginRow = 1;
-    }
     console.log('API beginRow :',beginRow);
-    connection.query(query, {beginRow, rowPerPage},
-      function(err, rows, fields) {
-          if (err) throw err;
-          res.render('video', { data : rows,sessionUser: req.user });
-          console.log("user",rows);
-      });
+    
+
+
+    connection.query(page_query,
+        function(err, result, fields) {
+            if (err) throw err;
+            console.log("API Page",result[0].page);
+            let lastPage = result[0].page;
+            //사용자가 임의로 currentPage을 1밑으로 입력한 경우 무조건 az369/video/1로 돌아간다.        
+            if(beginRow < 0){
+                beginRow = 1;
+                res.redirect('/video/1');
+            }
+            //전체 페이지 수 보다 높은 페이지 수를 입력한 경우
+            if(currentPage > lastPage){
+                res.redirect('/video/1');
+            }
+
+            connection.query(query, {beginRow, rowPerPage},
+                function(err, rows, fields) {
+                    if (err) throw err;
+                    res.render('video', { data : rows,sessionUser: req.user });
+                    console.log("user",rows);
+                });
+
+
+        });
+
+
+    
+
 });
 
 //장차 기사전용 앱
