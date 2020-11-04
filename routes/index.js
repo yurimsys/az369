@@ -651,15 +651,25 @@ router.get('/video/:currentPage', function(req, res, next) {
     let rowPerPage = 6;
     let beginRow = (currentPage-1)* rowPerPage;
     console.log('API beginRow :',beginRow);
+
+    //문자열 확인 함수
+    function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
+
     
     if(currentPage > 10000){
         return res.redirect('/video/1');
     }
-
+    
+    if(isNumber(currentPage) == false){
+        return res.redirect('/video/1');
+    }
 
     connection.query(page_query,
         function(err, result, fields) {
-            if (err) throw err;
+            if (err) {
+                // throw err;
+                return res.redirect('/video/1');
+            }
             console.log("API Page",result[0].page);
             let lastPage = result[0].page;
             //사용자가 임의로 currentPage을 1밑으로 입력한 경우 무조건 az369/video/1로 돌아간다.        
@@ -674,7 +684,10 @@ router.get('/video/:currentPage', function(req, res, next) {
 
             connection.query(query, {beginRow, rowPerPage},
                 function(err, rows, fields) {
-                    if (err) throw err;
+                    if (err){
+                        return res.redirect('/video/1');
+                        throw err;
+                    } 
                     res.render('video', { data : rows,sessionUser: req.user });
                     console.log("user",rows);
                 });
