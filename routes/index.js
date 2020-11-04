@@ -642,10 +642,15 @@ router.get('/video/:currentPage', function(req, res, next) {
                     ORDER BY YL_dDt desc 
                         limit :beginRow, :rowPerPage`; 
     let currentPage = req.params.currentPage;
-    console.log("커런트 페이지지ㅣ ::", currentPage);
+    console.log("API currentPage :", currentPage);
     //페이지 내 보여줄 수
     let rowPerPage = 6;
     let beginRow = (currentPage-1)* rowPerPage;
+    //사용자가 임의로 currentPage을 1밑으로 입력한 경우 무조건 az369/video/1로 돌아간다.
+    if(beginRow < 1){
+        beginRow = 1;
+    }
+    console.log('API beginRow :',beginRow);
     connection.query(query, {beginRow, rowPerPage},
       function(err, rows, fields) {
           if (err) throw err;
@@ -668,4 +673,7 @@ router.get('/board',function(req, res){
     res.render('board_test');
 })
 
+router.get('/editor',function(req,res){
+    res.render('editor')
+})
 module.exports = router;

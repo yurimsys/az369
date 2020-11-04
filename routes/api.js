@@ -5986,4 +5986,107 @@ router.get('/board', function(req, res, next) {
 
     });
 });
+
+router.get('/boardTwo', function(req, res, next) {
+    mssql.connect(dbconf.mssql, function (err, result){
+        if(err) throw err;
+
+        let query = `WITH sorted AS
+                            (
+                            SELECT 
+                                right(cast (1000000 + (select coalesce(max(t2.id),t.id) 
+                                            from tree_table t2 
+                                            where t2.parent_id = t.id )as varchar(max)),6) 
+                                AS [sort_key],
+                                t.id,
+                                t.parent_id,
+                                t.name
+                            FROM
+                                tree_table t
+                            ),
+                            rcte AS (
+                                SELECT *, 
+                                    id AS top_parent_Id    -- Added this
+                                FROM  sorted t
+                                WHERE 
+                                    t.parent_id = 0
+                                UNION ALL
+                                SELECT 
+                                    r.sort_key + t.sort_key,
+                                    t.id,
+                                    t.parent_id,
+                                    t.name,
+                                    r.Top_parent_Id
+                                FROM
+                                    sorted t
+                                JOIN
+                                    rcte r ON r.id = t.parent_id
+                            )
+                        
+                            SELECT 
+                                rcte.
+                                *
+                            FROM rcte
+                            -- added following line
+                            INNER JOIN (SELECT top_parent_id, MAX(id) AS MaxId FROM rcte GROUP BY top_parent_id) AS Parent_Sort 
+                                ON rcte.top_parent_Id = Parent_sort.top_parent_Id   
+                            ORDER BY 
+                                Parent_sort.MaxID DESC,  -- added this
+                                stuff(replicate(cast ('9' as varchar(max)), 
+                                (select max(len(r2.sort_key)) from rcte r2)),
+                                1,
+                                len(sort_key), sort_key) 
+                            DESC;
+                        `
+        // 관리 페이지 상세검색
+        new mssql.Request().query(query,
+            (err, result)=>{
+                console.log('result',result.recordset);
+                res.json({data : result.recordset})
+        })
+
+    });
+});
+
+//게시물 등록
+router.post('/boardTwo/:cmt', async function (req, res, next) {
+    try {
+        let pool = await mssql.connect(dbconf.mssql)
+
+        let cmt_type = req.params.cmt;
+        let parent_id = req.body.parent_id;
+        let name = req.body.board_text;
+
+        if(cmt_type == "default_cmt"){
+            await pool.request()
+            .input('id', mssql.Int)
+            .input('parent_id', mssql.Int)
+            .input('name', mssql.NVarChar, name)
+            .query(`INSERT INTO tree_table 
+                        VALUES(
+                            (SELECT CASE  WHEN MAX(id) IS NULL THEN 1 ELSE MAX(id)+1 END FROM tree_table),
+                            0,
+                            @name
+                            )`
+                    );
+
+        }else{
+            await pool.request()
+            .input('id', mssql.Int)
+            .input('parent_id', mssql.Int, parent_id)
+            .input('name', mssql.NVarChar, name)
+            .query(`INSERT INTO tree_table 
+                        VALUES(
+                            (SELECT CASE  WHEN MAX(id) IS NULL THEN 1 ELSE MAX(id)+1 END FROM tree_table),
+                            @parent_id,
+                            @name
+                            )`
+                    );
+        }
+        res.json({data:'1'})
+    } catch (err) {
+        console.log(err);
+        console.log('error fire')
+    }
+});
 module.exports = router;
