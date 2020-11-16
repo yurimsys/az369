@@ -112,7 +112,7 @@ let tableInit = function (data) {
             selectedActionBtns.parent().css("border-left", "2px solid #f2f2f2");
         },
         onCellClick : function(e){
-            if (e.columnIndex == 5) {  
+            if (e.columnIndex == 6) {  
                 userSeat(e.data.PH_ID);
             } 
         },
@@ -593,12 +593,12 @@ function cancelInfo(string, codeString, ph_pay) {
     // }
     // console.log('good',obj);
     let cancel_data = {}
-        cancel_data.mid = 'arstest01m',
+        cancel_data.mid = 'pgaz369azm',
         cancel_data.tid = string,
         cancel_data.svcCd = codeString.toString(),
         cancel_data.partialCancelCode = '0',
         cancel_data.cancelAmt = ph_pay,
-        cancel_data.cancelMsg = '환불테스트',
+        cancel_data.cancelMsg = '결제 취소',
         cancel_data.cancelPwd = '123456'
         
     return JSON.stringify(cancel_data);

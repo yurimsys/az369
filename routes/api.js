@@ -6090,13 +6090,17 @@ router.post('/boardTwo/:cmt', async function (req, res, next) {
     }
 });
 
-router.post('/return_card', function(res, req){
-    console.log('req :', req);
-    res.send('0000');
+
+//카드 리턴값
+router.post('/return_card', (req, res, next) =>{
+    console.log('request :', req);
+    res.send("0000")
 });
 
-router.post('/return_bank', function(res, req){
+
+router.post('/return_bank', function(req, res){
     console.log('req :', req);
-    res.send('0000');
+    let data = "0000"
+    res.send(data);
 });
 module.exports = router;
