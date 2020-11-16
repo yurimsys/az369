@@ -6092,5 +6092,11 @@ router.post('/boardTwo/:cmt', async function (req, res, next) {
 
 router.post('/return_card', function(res, req){
     console.log('req :', req);
+    res.send('0000');
+});
+
+router.post('/return_bank', function(res, req){
+    console.log('req :', req);
+    res.send('0000');
 });
 module.exports = router;
