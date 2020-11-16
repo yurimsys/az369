@@ -6089,4 +6089,8 @@ router.post('/boardTwo/:cmt', async function (req, res, next) {
         console.log('error fire')
     }
 });
+
+router.post('/return_card', function(res, req){
+    console.log('req :', req);
+});
 module.exports = router;

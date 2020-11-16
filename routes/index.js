@@ -657,10 +657,12 @@ router.get('/video/:currentPage', function(req, res, next) {
 
     
     if(currentPage > 10000){
+        console.log('페이지 이동이 전체 페이지보다 큰 경우');
         return res.redirect('/video/1');
     }
     
     if(isNumber(currentPage) == false){
+        console.log('페이지 이동을 문자열로 입력한 경우');
         return res.redirect('/video/1');
     }
 
@@ -675,6 +677,7 @@ router.get('/video/:currentPage', function(req, res, next) {
             //사용자가 임의로 currentPage을 1밑으로 입력한 경우 무조건 az369/video/1로 돌아간다.        
             if(beginRow < 0){
                 // beginRow = 1;
+                
                 return res.redirect('/video/1');
             }
             //전체 페이지 수 보다 높은 페이지 수를 입력한 경우
@@ -695,9 +698,6 @@ router.get('/video/:currentPage', function(req, res, next) {
 
         });
 
-
-    
-
 });
 
 //장차 기사전용 앱
@@ -705,16 +705,8 @@ router.get('/driver_app', function(req, res, next) {
     res.render('driver_app');
 });
 
-
+//파일 업로드 테스트
 router.get('/file',function(req, res){
     res.render('file_test');
-})
-
-router.get('/board',function(req, res){
-    res.render('board_test');
-})
-
-router.get('/editor',function(req,res){
-    res.render('editor')
 })
 module.exports = router;

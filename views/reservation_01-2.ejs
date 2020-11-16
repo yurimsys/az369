@@ -57,7 +57,7 @@
                                     <p>좌석 새로고침</p>
                                 </button>
                         
-                                <h4>좌석선택 <span>(최대 4개)</span></h4>
+                                <h4>좌석선택 <span>(최대 2개)</span></h4>
                                 <div class="seat_table">
                                     <dl>
                                         <dt>선택좌석</dt>
@@ -157,7 +157,7 @@
                                 <option value='CARD'>신용카드</option>
                                 <option value='BANK'>계좌이체</option>
                                 <option value='VBANK'>무통장입금</option>
-                                <option value='EPAY'>간편결제</option>
+                                <!-- <option value='EPAY'>간편결제</option> -->
                             </select>
                         </div>
 
@@ -318,8 +318,8 @@
                     },
                     click: function () {
                         if (this.status() == 'available') {
-                            if (selected_seats_cnt >= 4) {
-                                alert("최대 4개까지 선택가능합니다.");
+                            if (selected_seats_cnt >= 2) {
+                                alert("최대 2개까지 선택가능합니다.");
                                 return this.style();
                             }
                             selected_seats_cnt = sc.find('selected').length + 1;
@@ -586,9 +586,9 @@
                             innopay.goPay({
                                 //// 필수 파라미터
                                 PayMethod: $("#pay_type option:selected").attr('value'),		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY)
-                                MID: "testpay01m",							// 가맹점 MID
-                                MerchantKey: "Ma29gyAFhvv/+e4/AHpV6pISQIvSKziLIbrNoXPbRS5nfTx2DOs8OJve+NzwyoaQ8p9Uy1AN4S1I0Um5v7oNUg==",	// 가맹점 라이센스키
-                                GoodsName: "장차 좌석",		            // 상품명
+                                MID: "pgaz369azm",							// 가맹점 MID
+                                MerchantKey: "fx/UT4tcb5VWxP24BXiwH0stdJnNxFf6GpdFdvd42Bmwnurd/1QgGPORTIfioiAVy/B0cx6j5spsDwAfGsleuQ==",	// 가맹점 라이센스키
+                                GoodsName: "좌석"+$('#selected_seats_num').text().trim(),	            // 상품명
                                 Amt: ph_price.toString(),							    // 결제금액(과세)
                                 BuyerName: user_name,		            // 고객명
                                 BuyerTel: "01012341234",				// 고객전화번호
