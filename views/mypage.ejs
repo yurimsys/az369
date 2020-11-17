@@ -734,6 +734,7 @@
 
                     let vank_num = res.data[0].PH_VankNumber == null ?  "" : "<tr><td style='width:100%'>"+res.data[0].PH_CardName+" "+res.data[0].PH_VankNumber+"</td></tr>";
                     let mid_html = "<tr><th>결제일시</th><td>"+res.data[0].payDayYM+' ('+getInputDayLabel(res.data[0].payDayWeek)+') '+res.data[0].payDayTm+"</td></tr>";
+                        mid_html += "<tr><th>주문번호</th><td>"+res.data[0].PH_OrderNumber+"</td></tr>";
                         mid_html += "<tr><th>결제수단</th><td>"+res.data[0].PH_Type+"</td></tr>";
                         mid_html += vank_num;
                         mid_html += "<tr><th>결제금액</th><td>"+(res.data[0].CR_Price * res.data.length)+"원</td></tr>";

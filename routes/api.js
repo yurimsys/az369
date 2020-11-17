@@ -756,6 +756,7 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     tCR.CR_SeatNum,
                     tPH.PH_Type,
                     tCR.CR_Price,
+                    PH_OrderNumber,
                     tCR.CR_QrCode,
                     PH_PG_ID,
                     CR_U_ID,
