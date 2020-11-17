@@ -129,7 +129,7 @@ let tableInit = function (data) {
                 async : false,
                 data : {'ph_id' : ph_id},
                 success: function(res){
-                    //  console.log('res',res.data);
+                     console.log('res',res.data);
                     if(res.data == 0){
                         ph_pay_state='결제취소';
                     }else{
@@ -150,7 +150,8 @@ let tableInit = function (data) {
             row_data.PH_PG_ID = e.data.PH_PG_ID;
             row_data.PH_Price = e.data.PH_Price;
             row_data.PH_Type = e.data.PH_Type;
-            row_data.CR_PayState = ph_pay_state;
+            // row_data.CR_PayState = ph_pay_state;
+            row_data.CR_PayState = e.data.CR_PayState;
             row_data.CR_cDt = e.data.CR_cDt;
             if($('.brand_info').css('display') == 'none'){
                 folding();

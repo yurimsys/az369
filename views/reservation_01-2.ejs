@@ -155,8 +155,8 @@
                                 <option value='null'>선택</option>
                                 <!-- <option value='free'>무료예매</option> -->
                                 <option value='CARD'>신용카드</option>
-                                <!-- <option value='BANK'>계좌이체</option>
-                                <option value='VBANK'>무통장입금</option> -->
+                                <option value='BANK'>계좌이체</option>
+                                <option value='VBANK'>무통장입금</option>
                                 <!-- <option value='EPAY'>간편결제</option> -->
                             </select>
                         </div>
@@ -203,7 +203,8 @@
 
     <script>
         const user_name = "<%=sessionUser.U_Name%>";
-        const user_id = "<%=sessionUser.U_ID%>"
+        const user_id = "<%=sessionUser.U_ID%>";
+        const user_phone = "<%=sessionUser.U_Phone%>";
         let now_location = 'default';
         $(document).ready(function(){
             $.ajax({
@@ -549,7 +550,23 @@
         }
 
 
+        //주문번호 생성
+        function getOrderNumber(){
+            //주문 번호
+            let order_number;
+            $.ajax({
+                url : '/api/ordernumber',
+                method : 'get',
+                dataType : 'json',
+                async: false,
+                success: function(res){
+                    order_number = res.data
+                }					
+            });
+            return order_number;
+        }
 
+        //결제 진행
         function processPayment() {
             let origin_price = $("#original_price").data('price');
             // let sale_price = $("#sale_price").data('price');
@@ -571,16 +588,7 @@
                         "user_id" : user_id
                         },
                     success: function(res){
-                        if(res.data != "success"){
-                            swal({
-                                title: '예매 실패',
-                                text: '선택하신 좌석은 다른 고객이 예매하였습니다 다른 좌석을 선택해 주세요.',
-                                icon: 'error',
-                                button: '확인'
-                            }).then(function(){
-                                location.reload();
-                            })
-                        }else{
+                        if(res.data == "success" || res.data == 'continue'){
                             let ph_price = Number(sessionStorage.getItem('seat_price')) * $('#selected_seats_cnt').text();
                             // 결제요청 함수
                             innopay.goPay({
@@ -591,10 +599,10 @@
                                 GoodsName: "좌석"+$('#selected_seats_num').text().trim(),	            // 상품명
                                 Amt: ph_price.toString(),							    // 결제금액(과세)
                                 BuyerName: user_name,		            // 고객명
-                                BuyerTel: "01012341234",				// 고객전화번호
-                                BuyerEmail: "email@eamil",			    // 고객이메일
+                                BuyerTel: user_phone,				// 고객전화번호
+                                BuyerEmail: "",			    // 고객이메일
                                 ResultYN: "Y",				            // 결제결과창 출력유뮤
-                                Moid:'testpay01m01234567890',			// 가맹점에서 생성한 주문번호 셋팅
+                                Moid:getOrderNumber(),			// 가맹점에서 생성한 주문번호 셋팅
 
                                 //// 선택 파라미터
                                 // ReturnURL:frm.ReturnURL.value,		// 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
@@ -612,6 +620,15 @@
                                 //User_ID:'',							// Innopay에 등록된 영업사원ID
                                 Currency:''								// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
                             });
+                        }else{
+                            swal({
+                                title: '예매 실패',
+                                text: '선택하신 좌석은 다른 고객이 예매하였습니다 다른 좌석을 선택해 주세요.',
+                                icon: 'error',
+                                button: '확인'
+                            }).then(function(){
+                                location.reload();
+                            })
                         }
 
                     }					
@@ -688,6 +705,7 @@
                         "sPrice": sale_price,
                         "ct_id": ct_id,
                         "tid" : tid,
+                        "moid" : moid,
                         "payType" : payType,
                         "user_id" : user_id,
                         "cancel_type" : cancel_type,
@@ -753,6 +771,7 @@
                         "sPrice": sale_price,
                         "ct_id": ct_id,
                         "tid" : tid,
+                        "moid" : moid,
                         "payType" : payType,
                         "user_id" : user_id,
                         "cancel_type" : cancel_type,
@@ -802,6 +821,7 @@
                         "sPrice": sale_price,
                         "ct_id": ct_id,
                         "tid" : tid,
+                        "moid" : moid,
                         "payType" : payType,
                         "user_id" : user_id,
                         "cancel_type" : cancel_type,

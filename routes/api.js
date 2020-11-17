@@ -810,6 +810,40 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
 
 });
 
+router.get('/user/canceltype', auth.isLoggedIn, (req, res)=>{
+    let ph_id = req.query.ph_id;
+    let query = `SELECT COUNT(*) as count FROM tCR WHERE CR_PH_ID = :ph_id`;
+
+    connection.query(query, 
+        {
+            ph_id : ph_id
+        },
+        function(err, rows, fields) {
+            if (err) throw err;
+
+            res.json({data : rows})
+        });
+})
+
+// 무통장 입금 결제 상태 확인
+router.get('/user/vVank', auth.isLoggedIn, async (req, res) =>{
+    let vVank_query = `SELECT * FROM tCR WHERE CR_ID IN (:cr_id)`;
+    let cr_id = req.query.cr_id;
+    connection.query(vVank_query, 
+        {
+            cr_id : cr_id
+        },
+        function(err, rows, fields) {
+            if (err) throw err;
+
+            if(rows[0].CR_PayState == '결제대기'){
+                res.json({data : '결제대기'});
+            }else{
+                res.json({data : '결제완료'});
+            }
+        });
+})
+
 //예매취소
 router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
     connection.beginTransaction(function(err){
@@ -846,6 +880,8 @@ router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
                             FROM tCT 
                             INNER JOIN tCR ON tCR.CR_CT_ID = tCT.CT_ID 
                             WHERE tCR.CR_ID IN (:cr_id)`;
+
+        
         let sessionId = req.body.u_id
         let cr_id = req.body.cr_id;
         let crCancel = 'Y'; 
@@ -1346,6 +1382,52 @@ router.get('/bus_check', auth.isLoggedIn, function(req, res){
 
 })
 
+router.get('/ordernumber', function(req, res){
+
+    let query = `SELECT * FROM tph ORDER BY tph.PH_ID DESC LIMIT 1`;
+
+    connection.query(query,
+        function(err, result){
+            if (err) throw err;
+            //주문 번호
+            let order_number;
+            let default_number = result[0].PH_OrderNumber
+                    
+            //기본값이 null 일때
+            if(default_number == null){
+                //처음 주문번호로 시작
+                default_number = 1;
+                //주문번호 생성
+                order_number = getToday() + default_number.toString().padStart(6,'0');
+            }else{
+                //날짜가 다른경우
+                if(default_number.substr('0','6') != getToday()){
+                    //다시 처음 주문번호로 시작
+                    default_number = 1;
+                    order_number = getToday() + default_number.toString().padStart(6,'0');
+                }
+                //당일 추가 주문 건
+                else{
+                    //Number 치환 후 + 1
+                    default_number = (Number(default_number.substr('6','6').replace(/(^0+)/, ""))+1)
+                    order_number = getToday() + default_number.toString().padStart(6,'0');
+                }
+            }
+
+            res.json({data : order_number})
+    })
+})
+
+//현재 날짜 계산
+function getToday(){
+    var date = new Date();
+    var year_toString = date.getFullYear().toString();
+    var year = year_toString.substr(2,4)
+    var month = ("0" + (1 + date.getMonth())).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+    return year + month + day;
+}
+
 //결제 버튼 클릭시 해당 좌석 비활성화
 router.post('/temporary_seat', async function(req, res){
     connection.beginTransaction(function(err){
@@ -1394,6 +1476,7 @@ router.post('/temporary_seat', async function(req, res){
                 connection.query(cr_query, null,
                     function(err, result) {
                         if (err){
+                            console.log('error :', err);
                             connection.rollback(function(){
                                 res.json({data : 201});
                             })
@@ -1401,6 +1484,7 @@ router.post('/temporary_seat', async function(req, res){
                         
                         connection.commit(function(err) {
                             if (err) {
+                                console.log('error :', err);
                                 return connection.rollback(function() {
                                     throw err;
                                 });
@@ -1537,10 +1621,11 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
 
         let str_values_list = [],
         str_values ="",
-        seatNums = req.body['seatNums'],
-        ct_id = req.body.ct_id,
-        oPrice = req.body.oPrice,
-        sPrice = req.body.sPrice,
+        seatNums = req.body['seatNums'], // 선택 좌석
+        ct_id = req.body.ct_id, // 차량 ID
+        oPrice = req.body.oPrice, // 원가격
+        sPrice = req.body.sPrice, // 세일가격
+        moid = req.body.moid, // 주문번호
         price = ((oPrice-sPrice) < 0) ? 0 : (oPrice-sPrice);
         // ph_type = '-'; // 무료기간동안만 - 으로 넣음.
         let ph_type;
@@ -1551,6 +1636,7 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
         let cardName; //카드사, 은행사명
         let bankNum = req.body.bank_number; //가상계좌
         let payState;
+        
 
         if(req.body.card_name == undefined){
             cardName = req.body.bank_name;
@@ -1609,9 +1695,9 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
          */
         let ph_query = `
             INSERT INTO tPH
-                (PH_U_ID, PH_PG_ID ,PH_Price, PH_OPrice, PH_SPrice, PH_Type, PH_CodeType, PH_CardName, PH_VankNumber)
+                (PH_U_ID, PH_PG_ID, PH_OrderNumber, PH_Price, PH_OPrice, PH_SPrice, PH_Type, PH_CodeType, PH_CardName, PH_VankNumber)
             VALUES
-                (:u_id, :pg_id, :price, :oPrice, :sPrice, :ph_type, :cancel_type, :cardName, :bankNum)
+                (:u_id, :pg_id, :moid, :price, :oPrice, :sPrice, :ph_type, :cancel_type, :cardName, :bankNum)
         `;
 
         let delete_query = `DELETE FROM tCR WHERE 
@@ -1645,6 +1731,7 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                         //  결제 내역 먼저 추가. 
                                         connection.query(ph_query, {
                                             u_id    : u_id,
+                                            moid    : moid,
                                             oPrice  : oPrice,
                                             sPrice  : sPrice,
                                             price   : (oPrice-sPrice),
@@ -6093,14 +6180,43 @@ router.post('/boardTwo/:cmt', async function (req, res, next) {
 
 //카드 리턴값
 router.post('/return_card', (req, res, next) =>{
-    console.log('request :', req);
+    console.log('카드결제 연동값 :', req.boy);
     res.send("0000")
 });
 
+//가상계좌 리턴값
+router.post('/return_vbank', async function(req, res){
+    console.log('가상계좌 연동값 :', req.body);
+    
+    if(req.body.pgResultMsg == '가상계좌입금 성공'){
+        connection.beginTransaction(function(err){
+            let query = `UPDATE tCR
+                                INNER JOIN tPH ON tCR.CR_PH_ID = tPH.PH_ID
+                            SET CR_PayState = "결제완료"
+                            WHERE tPH.PH_PG_ID = '${req.body.tid}'`
+            connection.query(query,function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('error', err);
+                    })
+                }else{
+                    connection.commit(function(err){
+                        if(err){
+                            return connection.rollback(function(){
+                                console.log('error', err);
+                            })
+                        }
+                        res.send("0000");
+                    })
+                }
+            })
+        })
+    }
+});
 
-router.post('/return_bank', function(req, res){
-    console.log('req :', req);
-    let data = "0000"
-    res.send(data);
+//계좌이체 리턴값
+router.post('/return_bank', async function(req, res){
+    console.log('계좌이체 연동 값 :', req.body);
+    res.send("0000");
 });
 module.exports = router;
