@@ -1124,11 +1124,14 @@
         function openBill(e){	
             let pg_ph_id = $(e).attr('value');	
             let pg_ph_type = e.dataset.phtype;	
-            if(pg_ph_type == '03' || pg_ph_type == '00'){	
-                alert('무료예매 및 무통장 입금은 영수증 출력이 불가능 합니다.');	
-                return false;	
-            }	
-            window.open("https://pg.innopay.co.kr/pay/issue/TransIssue.jsp?TID="+pg_ph_id,"new","width=450,height=700,top=50,left=100");	
+            if(pg_ph_type == '03'){	
+                window.open("https://pg.innopay.co.kr/pay/issue/TransIssue.jsp?TID="+pg_ph_id+"&svcCd=03","new","width=450,height=700,top=50,left=100");	
+            }else if(pg_ph_type == '02'){
+                window.open("https://pg.innopay.co.kr/pay/issue/TransIssue.jsp?TID="+pg_ph_id+"&svcCd=02","new","width=450,height=700,top=50,left=100");	
+            }else{
+                window.open("https://pg.innopay.co.kr/pay/issue/TransIssue.jsp?TID="+pg_ph_id,"new","width=450,height=700,top=50,left=100");	
+            }
+            
         }
 
         //결제리스트 날짜 조회 @@@@@@@
