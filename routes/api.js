@@ -1391,28 +1391,40 @@ router.get('/ordernumber', function(req, res){
             if (err) throw err;
             //주문 번호
             let order_number;
-            let default_number = result[0].PH_OrderNumber
+            let default_number;
                     
-            //기본값이 null 일때
-            if(default_number == null){
+            //데이터가 완전히 없을때
+            if(result.length == 0){
                 //처음 주문번호로 시작
                 default_number = 1;
                 //주문번호 생성
                 order_number = getToday() + default_number.toString().padStart(6,'0');
             }else{
-                //날짜가 다른경우
-                if(default_number.substr('0','6') != getToday()){
-                    //다시 처음 주문번호로 시작
+                default_number = result[0].PH_OrderNumber
+
+                //기본값이 null 일때
+                if(default_number == null){
+                    //처음 주문번호로 시작
                     default_number = 1;
+                    //주문번호 생성
                     order_number = getToday() + default_number.toString().padStart(6,'0');
-                }
-                //당일 추가 주문 건
-                else{
-                    //Number 치환 후 + 1
-                    default_number = (Number(default_number.substr('6','6').replace(/(^0+)/, ""))+1)
-                    order_number = getToday() + default_number.toString().padStart(6,'0');
+                }else{
+                    //날짜가 다른경우
+                    if(default_number.substr('0','6') != getToday()){
+                        //다시 처음 주문번호로 시작
+                        default_number = 1;
+                        order_number = getToday() + default_number.toString().padStart(6,'0');
+                    }
+                    //당일 추가 주문 건
+                    else{
+                        //Number 치환 후 + 1
+                        default_number = (Number(default_number.substr('6','6').replace(/(^0+)/, ""))+1)
+                        order_number = getToday() + default_number.toString().padStart(6,'0');
+                    }
                 }
             }
+
+
 
             res.json({data : order_number})
     })
