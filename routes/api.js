@@ -1384,7 +1384,7 @@ router.get('/bus_check', auth.isLoggedIn, function(req, res){
 
 router.get('/ordernumber', function(req, res){
 
-    let query = `SELECT * FROM tPH ORDER BY tph.PH_ID DESC LIMIT 1`;
+    let query = `SELECT * FROM tPH ORDER BY PH_ID DESC LIMIT 1`;
 
     connection.query(query,
         function(err, result){
