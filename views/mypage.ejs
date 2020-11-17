@@ -981,17 +981,6 @@
                                 location.href='mypage';
                             })
 
-                        }else if(res.data == 200){
-
-                            swal({
-                                title: '취소 실패',
-                                text: '승차하신 좌석은 취소가 불가능 합니다.',
-                                icon: 'error',
-                                button: '확인'
-                            }).then((value)=>{
-                                location.href='mypage';
-                            })
-
                         }else if(res.data == 201){
 
                             swal({
@@ -1065,7 +1054,7 @@
                 method: "post",
                 dataType: "json",
                 success: function (res) {
-                    // console.log('res',res.data);
+                    console.log('res',res.data[0].CR_PayState);
                     //PC리스트
                     let html = "";
                     for (let i = 0; i < res.data.length; i++) {
@@ -1082,7 +1071,7 @@
                         html += "<td>" + seatNum+ "</td>";
                         html += "<td>" + (res.data[i].payType || "-") + "</td>";
                         html += "<td>" + (res.data[i].price || 0) + "</td>";
-                        html += "<td><a class='Receipt btn-light' value="+res.data[i].PH_PG_ID+" data-phtype="+res.data[i].PH_CodeType+" onclick='openBill(this)'>영수증 출력</a></td>";
+                        html += "<td><a class='Receipt btn-light' value="+res.data[i].PH_PG_ID+" data-phtype="+res.data[i].PH_CodeType+" data-paystate="+res.data[i].CR_PayState+" onclick='openBill(this)'>영수증 출력</a></td>";
                         html += "</tr>";
                         
                     }
@@ -1121,20 +1110,32 @@
         });
 
 
+        //영수증 오픈
         function openBill(e){	
+            //클릭한 tID 가져오기
             let pg_ph_id = $(e).attr('value');	
+            //클릭한 결제 타입 가져오기
             let pg_ph_type = e.dataset.phtype;	
+            let pay_state = e.dataset.paystate;
+            
+            if(pay_state == '결제대기'){
+                alert('입금 후 영수증 출력이 가능 합니다.')
+                return false;
+            }
+            //가상계좌 일 경우 svcCd=03 으로 설정
             if(pg_ph_type == '03'){	
                 window.open("https://pg.innopay.co.kr/pay/issue/TransIssue.jsp?TID="+pg_ph_id+"&svcCd=03","new","width=450,height=700,top=50,left=100");	
+            //계좌이체 일 경우 svcCd=02 으로 설정
             }else if(pg_ph_type == '02'){
                 window.open("https://pg.innopay.co.kr/pay/issue/TransIssue.jsp?TID="+pg_ph_id+"&svcCd=02","new","width=450,height=700,top=50,left=100");	
+            //그 외 신용카드 및 간편결제는 해당 tID만 넣으면 된다.
             }else{
                 window.open("https://pg.innopay.co.kr/pay/issue/TransIssue.jsp?TID="+pg_ph_id,"new","width=450,height=700,top=50,left=100");	
             }
             
         }
 
-        //결제리스트 날짜 조회 @@@@@@@
+        //결제리스트 날짜 조회
         function payBetween() {
             if ($('#deptDay').val() == '' && $('#endDay').val() == '') {
                 return false;
@@ -1151,8 +1152,7 @@
                     'endDay': $("#endDay").val()
                 },
                 success: function (res) {
-                    // console.log('resData ::::', res.data[0].seatNumMo.data);
-                    
+                    //PC 부분
                     for (let i = 0; i < res.data.length; i++) {
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
@@ -1167,7 +1167,7 @@
                             html += "</tr>";
                         $("#payList").append(html);
                     }
-                    //모바일 부분 @@@@@@@@@@@@@@@@@@@@@@@@@
+                    //모바일 부분
                     for (let i = 0; i < res.data.length; i++) {
                         let html2 = "<div class='list02_mo_list' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
                             html2 += "<a class='popup_open2'>";
@@ -1217,7 +1217,7 @@
                             html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);
                     }
-                    let bill_html = "<a class='receipt btn-light' value="+res.data[0].PH_PG_ID+" data-phtype="+res.data[0].PH_CodeType+"  onclick='openBill(this)'>영수증 출력</a>"	
+                    let bill_html = "<a class='receipt btn-light' value="+res.data[0].PH_PG_ID+" data-phtype="+res.data[0].PH_CodeType+" data-paystate="+res.data[i].CR_PayState+"  onclick='openBill(this)'>영수증 출력</a>"	
                     $('#mobile_bill').append(bill_html);
                 }
             })

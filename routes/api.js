@@ -743,7 +743,7 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
     let sessionId = req.user.U_ID;
     let seatNum = req.body.sendArray;
     console.log(seatNum);
-    console.log("dddd :", sessionId);
+    console.log("sessionId :", sessionId);
 
     let query = `
                 SELECT 
@@ -988,6 +988,7 @@ router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
                     tCR.CR_PH_ID as crPHID,
                     PH_PG_ID,
                     PH_CodeType,
+                    CR_PayState,
                     tCR.CR_cDt as no	
                 FROM tCT
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
@@ -1133,6 +1134,7 @@ router.post('/user/resPayDetailMo',  auth.isLoggedIn, (req, res, next) =>{
                     tPH.PH_Type as payType,
                     tPH.PH_Price as price,
                     PH_PG_ID,
+                    CR_PayState,
                     PH_CodeType,
                     CR_cDt as crCdt,
                     tCR.CR_CT_ID as crCTID,
