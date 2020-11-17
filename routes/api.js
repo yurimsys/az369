@@ -1179,7 +1179,6 @@ router.get('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
                         date_format(tCR.CR_cDt,'%y%y.%m.%d') as PayDay,
                         date_format(tCT.CT_DepartureTe,'%y%y.%m.%d %H:%i') as deptTe,
                         date_format(tCR.CR_CancelDt,'%y%y.%m.%d %H:%i') as cancelDay,
-                        tCR.CR_CancelDt as cancelDay,
                         CR_SeatNum,
                         (select group_concat( ' ', CR_SeatNum)) as seatNumMo,
                         tPH.PH_Type as payType,
