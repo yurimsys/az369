@@ -1608,10 +1608,9 @@ function cancelNonDeposit(){
                             CR_CancelDt = NOW(),
                             CR_PayState = '결제취소'
                         WHERE CR_PayState = '결제대기' AND
+                            DATE_ADD(CR_cDt, INTERVAL + 24 HOUR) < NOW()
+                    `
                               
-                              DATE_ADD(CR_cDt, INTERVAL + 3 minute) < NOW()
-                              `
-                            //   date_add(CR_cDt, INTERVAL + 24 HOUR) < NOW()
         connection.query(query,function(err, rows){
             if(err){
                 connection.rollback(function(){
@@ -1631,7 +1630,7 @@ function cancelNonDeposit(){
     })
 }
 //1시간마다 실행
-setInterval(cancelNonDeposit, 1000 * 60 * 60);
+setInterval(cancelNonDeposit, 1000 * 60 * 30);
 
 //가상계좌 입금이 24시간 이내 되지 않는 경우 이노페이 API 통해 취소
 router.get('/vbankinterval', function(req, res){
@@ -1639,10 +1638,9 @@ router.get('/vbankinterval', function(req, res){
                         INNER JOIN tPH ON tCR.CR_PH_ID = tPH.PH_ID
                     WHERE PH_Type = '무통장입금' AND 
                             CR_PayState = '결제대기' AND
-                            
-                            DATE_ADD(CR_cDt, INTERVAL + 3 minute) < NOW()
+                            DATE_ADD(CR_cDt, INTERVAL + 1 HOUR) < NOW()
                     GROUP BY PH_BankNumber`
-                    // DATE_ADD(CR_cDt, INTERVAL + 1 HOUR) < NOW()
+                    
     connection.query(query, function(err, rows){
         if(err) throw err;
         res.json({data : rows})

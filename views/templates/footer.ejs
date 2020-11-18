@@ -79,7 +79,6 @@
             method : 'get',
             dataType : 'json',
             success: function(res){
-                console.log('res :', res.data.length);
                 if(res.data.length > 0){
                     let tid = res.data[0].PH_PG_ID               // 결제 고유번호
                     let order_num = res.data[0].PH_OrderNumber   // 주문번호
@@ -93,7 +92,7 @@
         });
     }
 
-    setInterval(cancelVBankAPI, 1000 * 6);
+    setInterval(cancelVBankAPI, 1000 * 60 * 30);
 
     //가상계좌 취소 요청값
     function vBankCancel(tid, moid, pay, vbank_code, vbank_num){

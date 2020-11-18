@@ -811,7 +811,7 @@
             //계좌 이체 일때
             }else if(resultcode == '4000'){
                 sessionStorage.setItem('pay_complete',"complete");
-                console.log('data',data.VbankName, data.VbankNum);
+                // console.log('data',data.VbankName, data.VbankNum);
                 // alert('에이작스')
                 $.ajax({
                     method: "POST",
