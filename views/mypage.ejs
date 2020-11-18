@@ -665,7 +665,6 @@
 
         });
 
-
         $(window).load(function () {
             $('#tab1').addClass('active')
             $(".trigger_popup_fricc").click(function () {
@@ -732,11 +731,11 @@
 
                     $('.time_info').append(top_html);
 
-                    let vank_num = res.data[0].PH_VankNumber == null ?  "" : "<tr><td style='width:100%'>"+res.data[0].PH_CardName+" "+res.data[0].PH_VankNumber+"</td></tr>";
+                    let bank_num = res.data[0].PH_BankNumber == null ?  "" : "<tr><td style='width:100%'>"+res.data[0].PH_CardName+" "+res.data[0].PH_BankNumber+"</td></tr>";
                     let mid_html = "<tr><th>결제일시</th><td>"+res.data[0].payDayYM+' ('+getInputDayLabel(res.data[0].payDayWeek)+') '+res.data[0].payDayTm+"</td></tr>";
                         mid_html += "<tr><th>주문번호</th><td>"+res.data[0].PH_OrderNumber+"</td></tr>";
                         mid_html += "<tr><th>결제수단</th><td>"+res.data[0].PH_Type+"</td></tr>";
-                        mid_html += vank_num;
+                        mid_html += bank_num;
                         mid_html += "<tr><th>결제금액</th><td>"+(res.data[0].CR_Price * res.data.length)+"원</td></tr>";
                         mid_html += "<tr><th>결제상태</th><td>"+res.data[0].CR_PayState+"</td></tr>";
 
@@ -744,7 +743,7 @@
  
                     for(let i=0; i<res.data.length; i++){
                         let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
-                            bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+" data-pgpaytype="+res.data[i].PH_CodeType+" data-seatprice="+res.data[i].CR_Price+" data-phid="+res.data[i].PH_ID+">";
+                            bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+" data-pgpaytype="+res.data[i].PH_CodeType+" data-seatprice="+res.data[i].CR_Price+" data-phid="+res.data[i].PH_ID+" data-ordernum="+res.data[i].PH_OrderNumber+" data-vbanknum="+res.data[i].PH_BankNumber+" data-vbankcd="+res.data[i].PH_BankCode+">";
                             bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
                             bot_html += "<a onclick='qrcode_full_open(this)' id='qrcode_full_btn' value="+res.data[i].CR_ID+" data-pgid="+res.data[i].CR_QrCode+" data-seatnum="+res.data[i].CR_SeatNum+"><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a></div>"
                             
@@ -849,7 +848,38 @@
             });
             return cancel_type;
         }
+
+        //가상계좌 취소 요청값
+        function vBankCancel(tid, moid, pay, vbank_code, vbank_num){
+            let vBank_data = {}
+                vBank_data.mid = 'pgaz369azm'
+                vBank_data.licenseKey = 'fx/UT4tcb5VWxP24BXiwH0stdJnNxFf6GpdFdvd42Bmwnurd/1QgGPORTIfioiAVy/B0cx6j5spsDwAfGsleuQ=='
+                vBank_data.tid = tid
+                vBank_data.moid = moid
+                vBank_data.amt = pay
+                vBank_data.vbankBankCode = vbank_code
+                vBank_data.vbankNum = vbank_num
+
+            return JSON.stringify(vBank_data); 
+        }
         
+        //가상계좌 취소 요청
+        function vBank(chk_pg_id, order_num, ph_pay, vbank_code, vbank_num){
+            $.ajax({
+                type : "POST",
+                url : "https://api.innopay.co.kr/api/vbankCancel",
+                async : true,
+                data : vBankCancel(chk_pg_id, order_num, ph_pay, vbank_code, vbank_num),
+                contentType: "application/json; charset=utf-8",
+                dataType : "json",
+                success : function(data){
+                    // console.log(data);
+                },
+                error : function(data){
+                    // console.log(data);   
+                }
+            });
+        }
 
         // 예매 취소
         function resCancel(e) {
@@ -859,13 +889,16 @@
                 return false;
             }
             var checkBoxArr = []; //예매한 좌석 cr_id
-            let chk_pg_id; //PG사 결제 고유 아이디
+            let chk_pg_id; //PG사 결제 고유 아이디 tid
             let chk_u_id; // 결제 회원 아이디
             let chk_pg_pay_type; // 결제 취소 코드
             let seatPay; //선택된 좌석 금액
             let ph_pay; //취소할 금액
             let cancelType; //전체취소 or 부분취소
-            let ph_id;
+            let ph_id; //결제 고유 아이디 ph_id
+            let order_num; //주문번호
+            let vbank_num; //가상계좌 번호
+            let vbank_cd; //가상계좌 은행코드
             $("input[name=seat_chk]:checked").each(function(i){
                 checkBoxArr.push($(this).val());
                 let chk_id = this.id;
@@ -874,17 +907,19 @@
                 chk_pg_pay_type = $('#'+chk_id).data('pgpaytype');
                 seatPay = $('#'+chk_id).data('seatprice');
                 ph_id = $('#'+chk_id).data('phid');
+                order_num = $('#'+chk_id).data('ordernum');
+                vbank_num = $('#'+chk_id).data('vbanknum');
+                vbank_cd = $('#'+chk_id).data('vbankcd');
                 
             });
-            
             ph_pay = seatPay * checkBoxArr.length;
             let all_res_seat = $('#res_seat_list').children('li').length;
-            
-            // if($("input:checkbox[id='ex_chk5']").is(":checked") == true){
-            //     cancelType = "0"
-            // }else{
-            //     cancelType = "1"
-            // }
+            if($("input:checkbox[id='ex_chk5']").is(":checked") == true){
+                cancelType = "0"
+            }else{
+                cancelType = "1"
+            }
+
             if(getCancelType(ph_id) > $("input[name=seat_chk]:checked").length){
                 cancelType = "1"
             }else{
@@ -893,13 +928,14 @@
             // 무통장 입금일때 api 처리
             if(chk_pg_pay_type == '03' && cancelType == '0'){   
                 $.ajax({
-                    url : '/api/user/vVank',
+                    url : '/api/user/vBank',
                     method : 'get',
                     dataType : 'json',
                     data : {'cr_id': checkBoxArr},
                     success: function(res){
                         if(res.data == '결제대기'){
                             cancelPayApi(checkBoxArr, chk_u_id, cancelType, ph_pay, chk_pg_id, chk_pg_pay_type)
+                            vBank(chk_pg_id, order_num.toString(), ph_pay.toString(), vbank_cd, vbank_num.toString())
                         }else{
                             $('#popup').css('display','none');	            
                             swal({	

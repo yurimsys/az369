@@ -776,7 +776,8 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     date_format(tCR.CR_cDt,'%y%y.%m.%d %H:%i') as PayDay2,
                     CR_PayState,
                     PH_CardName,
-                    PH_VankNumber
+                    PH_BankNumber,
+                    PH_BankCode
                 FROM tCR
                     INNER JOIN tCT ON tCT.CT_ID = tCR.CR_CT_ID
                     INNER JOIN tCY ON tCY.CY_ID = tCT.CT_CY_ID
@@ -827,10 +828,10 @@ router.get('/user/canceltype', auth.isLoggedIn, (req, res)=>{
 })
 
 // 무통장 입금 결제 상태 확인
-router.get('/user/vVank', auth.isLoggedIn, async (req, res) =>{
-    let vVank_query = `SELECT * FROM tCR WHERE CR_ID IN (:cr_id)`;
+router.get('/user/vBank', auth.isLoggedIn, async (req, res) =>{
+    let vBank_query = `SELECT * FROM tCR WHERE CR_ID IN (:cr_id)`;
     let cr_id = req.query.cr_id;
-    connection.query(vVank_query, 
+    connection.query(vBank_query, 
         {
             cr_id : cr_id
         },
@@ -1607,7 +1608,10 @@ function cancelNonDeposit(){
                             CR_CancelDt = NOW(),
                             CR_PayState = '결제취소'
                         WHERE CR_PayState = '결제대기' AND
-                              date_add(CR_cDt, INTERVAL + 24 HOUR) < NOW()`
+                              
+                              DATE_ADD(CR_cDt, INTERVAL + 3 minute) < NOW()
+                              `
+                            //   date_add(CR_cDt, INTERVAL + 24 HOUR) < NOW()
         connection.query(query,function(err, rows){
             if(err){
                 connection.rollback(function(){
@@ -1629,6 +1633,23 @@ function cancelNonDeposit(){
 //1시간마다 실행
 setInterval(cancelNonDeposit, 1000 * 60 * 60);
 
+//가상계좌 입금이 24시간 이내 되지 않는 경우 이노페이 API 통해 취소
+router.get('/vbankinterval', function(req, res){
+    let query = `SELECT * FROM tCR 
+                        INNER JOIN tPH ON tCR.CR_PH_ID = tPH.PH_ID
+                    WHERE PH_Type = '무통장입금' AND 
+                            CR_PayState = '결제대기' AND
+                            
+                            DATE_ADD(CR_cDt, INTERVAL + 3 minute) < NOW()
+                    GROUP BY PH_BankNumber`
+                    // DATE_ADD(CR_cDt, INTERVAL + 1 HOUR) < NOW()
+    connection.query(query, function(err, rows){
+        if(err) throw err;
+        res.json({data : rows})
+
+    })
+})
+
 //결제완료
 router.post('/payment', auth.isLoggedIn, async (req, res) =>{
     connection.beginTransaction(function(err){
@@ -1649,7 +1670,8 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
         let cancel_type; // 취소코드
         let cardName; //카드사, 은행사명
         let bankNum = req.body.bank_number; //가상계좌
-        let payState;
+        let payState; //결제 상태
+        let bank_cd = req.body.bankCd; // 은행코드
         
 
         if(req.body.card_name == undefined){
@@ -1709,9 +1731,9 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
          */
         let ph_query = `
             INSERT INTO tPH
-                (PH_U_ID, PH_PG_ID, PH_OrderNumber, PH_Price, PH_OPrice, PH_SPrice, PH_Type, PH_CodeType, PH_CardName, PH_VankNumber)
+                (PH_U_ID, PH_PG_ID, PH_OrderNumber, PH_Price, PH_OPrice, PH_SPrice, PH_Type, PH_CodeType, PH_CardName, PH_BankNumber, PH_BankCode)
             VALUES
-                (:u_id, :pg_id, :moid, :price, :oPrice, :sPrice, :ph_type, :cancel_type, :cardName, :bankNum)
+                (:u_id, :pg_id, :moid, :price, :oPrice, :sPrice, :ph_type, :cancel_type, :cardName, :bankNum, :bank_cd)
         `;
 
         let delete_query = `DELETE FROM tCR WHERE 
@@ -1753,7 +1775,8 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                             pg_id   : pg_id,
                                             cancel_type : cancel_type,
                                             cardName : cardName,
-                                            bankNum : bankNum
+                                            bankNum : bankNum,
+                                            bank_cd : bank_cd
                                         }, function (err, result){
                                             if (err){
                                                 connection.rollback(function(){
@@ -5325,7 +5348,7 @@ router.get('/payment_list',function(req,res){
                     PH_Type,
                     PH_CodeType,
                     PH_CardName,
-                    PH_VankNumber,
+                    PH_BankNumber,
                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
                     DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
                     DAYOFWEEK(tCR.CR_cDt ) AS payDayWeek,

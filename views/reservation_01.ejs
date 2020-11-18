@@ -832,6 +832,7 @@
         //결제 리턴값
         function innopay_result(data){
             // console.log('data',data);
+            // console.log('data',data.VBankCd);
             var a = JSON.stringify(data);
             // Sample
             let mid = data.MID;					// 가맹점 MID
@@ -844,7 +845,7 @@
             let resultmsg = data.ResultMsg;		// 결과메세지(PG)
             let errorcode = data.ErrorCode;		// 에러코드(상위기관)
             let errormsg = data.ErrorMsg;		// 에러메세지(상위기관)
-                                                // 구매자명 영수증*
+            let bank_code = data.VBankCd;       // 은행코드 ( 가상계좌 용 )
             let ePayCl   = data.EPayCl;         // 간편결제 종류 01 : 카카오, 02 : LPay, 03: Payco, 04:SSG, 06: 네이버페이
             let payType = data.AcquCardCode;    // 결제 타입 ex) 신용카드 01 계좌이체 02 DB 입력
             let cancel_type = $('#pay_type option:selected').val(); // 결제수단
@@ -899,6 +900,7 @@
                         "ct_id": ct_id,
                         "tid" : tid,
                         "moid" : moid,
+                        "bankCd" : bank_code,
                         "payType" : payType,
                         "user_id" : user_id,
                         "cancel_type" : cancel_type,
@@ -941,6 +943,7 @@
                         "ct_id": ct_id,
                         "tid" : tid,
                         "moid" : moid,
+                        "bankCd" : bank_code,
                         "payType" : payType,
                         "user_id" : user_id,
                         "cancel_type" : cancel_type,
@@ -994,6 +997,7 @@
                         "ct_id": ct_id,
                         "tid" : tid,
                         "moid" : moid,
+                        "bankCd" : bank_code,
                         "payType" : payType,
                         "user_id" : user_id,
                         "cancel_type" : cancel_type,

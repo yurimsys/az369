@@ -653,7 +653,7 @@
             let resultmsg = data.ResultMsg;		// 결과메세지(PG)
             let errorcode = data.ErrorCode;		// 에러코드(상위기관)
             let errormsg = data.ErrorMsg;		// 에러메세지(상위기관)
-
+            let bank_code = data.VBankCd;       // 은행코드 ( 가상계좌 용 )
             let EPayCl   = data.EPayCl;
             let payType = data.AcquCardCode;    // 매입사 코드 (카드사 별 코드)
             let cancel_type = $('#pay_type option:selected').val(); // 결제수단
@@ -706,6 +706,7 @@
                         "ct_id": ct_id,
                         "tid" : tid,
                         "moid" : moid,
+                        "bankCd" : bank_code,
                         "payType" : payType,
                         "user_id" : user_id,
                         "cancel_type" : cancel_type,
@@ -772,6 +773,7 @@
                         "ct_id": ct_id,
                         "tid" : tid,
                         "moid" : moid,
+                        "bankCd" : bank_code,
                         "payType" : payType,
                         "user_id" : user_id,
                         "cancel_type" : cancel_type,
@@ -822,6 +824,7 @@
                         "ct_id": ct_id,
                         "tid" : tid,
                         "moid" : moid,
+                        "bankCd" : bank_code,
                         "payType" : payType,
                         "user_id" : user_id,
                         "cancel_type" : cancel_type,
