@@ -1082,6 +1082,9 @@ router.post('/user/resPayBetween',  auth.isLoggedIn, (req, res, next) =>{
                     CR_cDt as crCdt,
                     tCR.CR_CT_ID as crCTID,
                     tCR.CR_PH_ID as crPHID,
+                    PH_PG_ID,
+                    PH_CodeType,
+                    CR_PayState,
                     tCR.CR_cDt as no
                 FROM tCT 
                     left join tCY on tCT.CT_CY_ID = tCY.CY_ID 
@@ -1196,7 +1199,7 @@ router.get('/user/resCancelList', auth.isLoggedIn, (req, res, next) =>{
                         tCR.CR_Cancel = :crCancel AND
                         tCR.CR_U_ID = :sessionId
                     GROUP BY tCR.CR_cDt
-                    ORDER BY PayDay DESC`;
+                    ORDER BY cancelDay DESC`;
 
     let sessionId = req.user.U_ID;
     let crCancel = 'Y';

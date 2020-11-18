@@ -1153,6 +1153,7 @@
             //클릭한 결제 타입 가져오기
             let pg_ph_type = e.dataset.phtype;	
             let pay_state = e.dataset.paystate;
+
             if(pg_ph_type == '03' && (pay_state == '결제대기' || pay_state == '결제취소')){
                 alert('결제되지 않은 무통장 입금은 영수증 출력이 불가능 합니다.')
                 return false;
@@ -1188,32 +1189,37 @@
                 },
                 success: function (res) {
                     //PC 부분
+                    let pc_html = "";
                     for (let i = 0; i < res.data.length; i++) {
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
-                        let html = "<tr>";
-                            html += "<td>" + res.data[i].PayDay + "</td>";
-                            html += "<td>" + res.data[i].deptTe + "</td>";
+                            pc_html += "<tr>";
+                            pc_html += "<td>" + res.data[i].PayDay + "</td>";
+                            pc_html += "<td>" + res.data[i].deptTe + "</td>";
                             // html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
-                            html += "<td>" + res.data[i].carName + "</td>";
-                            html += "<td>" + seatNum + "</td>";
-                            html += "<td>" + (res.data[i].payType || "-") + "</td>";
-                            html += "<td>" + (res.data[i].price || 0) + "</td>";
-                            html += "</tr>";
-                        $("#payList").append(html);
+                            pc_html += "<td>" + res.data[i].carName + "</td>";
+                            pc_html += "<td>" + seatNum + "</td>";
+                            pc_html += "<td>" + (res.data[i].payType || "-") + "</td>";
+                            pc_html += "<td>" + (res.data[i].price || 0) + "</td>";
+                            pc_html += "<td><a class='Receipt btn-light' value="+res.data[i].PH_PG_ID+" data-phtype="+res.data[i].PH_CodeType+" data-paystate="+res.data[i].CR_PayState+" onclick='openBill(this)'>영수증 출력</a></td>";
+                            pc_html += "</tr>";
+                        
                     }
+                    $("#payList").append(pc_html);
+
                     //모바일 부분
+                    let mo_html = "";
                     for (let i = 0; i < res.data.length; i++) {
-                        let html2 = "<div class='list02_mo_list' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
-                            html2 += "<a class='popup_open2'>";
-                            html2 += "<ul>";
-                            html2 += "<li class='text' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
-                            html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
-                            html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><img src='/img/common/reserve_bar_arrow.png'></li>";
-                            html2 += "</ul></a>";
-                            html2 += "</div>";
-                        $(".list02_mo").append(html2);
+                            mo_html += "<div class='list02_mo_list' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
+                            mo_html += "<a class='popup_open2'>";
+                            mo_html += "<ul>";
+                            mo_html += "<li class='text' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
+                            mo_html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
+                            mo_html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><img src='/img/common/reserve_bar_arrow.png'></li>";
+                            mo_html += "</ul></a>";
+                            mo_html += "</div>";
                     }
+                    $(".list02_mo").append(mo_html);
                 }
             })
         }
