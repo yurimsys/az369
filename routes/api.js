@@ -846,132 +846,288 @@ router.get('/user/vBank', auth.isLoggedIn, async (req, res) =>{
         });
 })
 
-//예매취소
-router.post('/user/cancelRes', auth.isLoggedIn, async (req, res, done) =>{
-    connection.beginTransaction(function(err){
-        let query = `UPDATE tCR
+//좌석 예매 취소 api
+router.post('/cancel-seat', auth.isLoggedIn, async (req, res) =>{
+
+    //관리자 페이지에서 취소하기 위한 쿼리
+    let admin_query = `UPDATE tCR
                             INNER JOIN tCT on tCR.CR_CT_ID = tCT.CT_ID
-                            SET CR_Cancel = :crCancel, 
+                            SET CR_Cancel = 'Y', 
                                 CR_CancelDt = now(), 
                                 CR_PayState = '결제취소'
                             WHERE CR_ID IN (:cr_id) AND  
-                                CR_U_Id = :sessionId AND
-                                tCT.CT_DepartureTe > date_add(now(),interval +3 day)`;
-        let admin_query = `UPDATE tCR
+                                    CR_U_Id = :sessionId`;
+
+    //예매 취소 쿼리
+    let cancel_seat_query = `UPDATE tCR
                                 INNER JOIN tCT on tCR.CR_CT_ID = tCT.CT_ID
-                                SET CR_Cancel = :crCancel, 
+                                SET CR_Cancel = 'Y', 
                                     CR_CancelDt = now(), 
                                     CR_PayState = '결제취소'
                                 WHERE CR_ID IN (:cr_id) AND  
-                                      CR_U_Id = :sessionId`;
-                        
-        let select_query = `SELECT 
+                                    CR_U_Id = :sessionId 
+                                    `;
+
+                            // AND
+                            // tCT.CT_DepartureTe > date_add(now(),interval +3 day)
+
+    //취소한 좌석과 금액을 구하는 쿼리
+    let select_query = `SELECT 
                                 CR_SeatNum, 
                                 CR_Price 
                             FROM tCR 
                             WHERE CR_ID IN (:cr_id) AND 
-                                  tCR.CR_U_ID = :sessionId`;
-        let scan_query = ` SELECT 
-                                CR_ScanPy 
-                            FROM tCR 
-                            WHERE tCR.CR_ID IN (:cr_id) AND 
-                                  tCR.CR_U_ID =:sessionId `
-        let start_query = `SELECT 
-                                tCT.CT_PyStart, 
-                                tCT.CT_ID 
-                            FROM tCT 
-                            INNER JOIN tCR ON tCR.CR_CT_ID = tCT.CT_ID 
-                            WHERE tCR.CR_ID IN (:cr_id)`;
+                                tCR.CR_U_ID = :sessionId`;
+    
+    // 예매 취소할 user의 id 
+    let sessionId = req.body.u_id 
+    // 예매 취소할 좌석의 id
+    let cr_id = req.body.cr_id;
 
-        
-        let sessionId = req.body.u_id
-        let cr_id = req.body.cr_id;
-        let crCancel = 'Y'; 
-        if(req.query.type == 'admin'){
-            connection.query(admin_query, {crCancel, sessionId, cr_id}, 
-                function(err, rows){
-                    if(err){
-                        connection.rollback(function(){
-                            console.log('ERROR ', err);
-                            res.json({data : '302'});
-                        })
-                    }else{
-                        connection.commit(function(err) {
-                            if (err) {
-                                return connection.rollback(function() {
-                                    throw err;
-                                });
-                            }
-                            res.json({data : '201'})
+    //관리자 페이지에서 사용할 좌석예매 취소 쿼리
+    if(req.query.type == 'admin'){
+        connection.query(admin_query, {sessionId, cr_id}, 
+            function(err, rows){
+                if(err){
+                    connection.rollback(function(){
+                        console.log('/cancel-seat , admin_query ERROR', err);
+                        res.json({data : '302'});
+                    })
+                }
+                //업데이트 성공 시
+                connection.commit(function(err) {
+                    if (err) {
+                        return connection.rollback(function() {
+                            throw err;
                         });
                     }
-            })
-        }else{
-            connection.query(start_query,{cr_id : cr_id},
-                function(err, startRow){
-                    if(err){
-                        console.log('err',err);
-                        res.json({data : '변수오류'})
-                    }
-                    if(startRow[0].CT_PyStart === 'Y'){
-                        res.json({data : '201'})
-                    }else{
-                        connection.query(scan_query, {
-                            sessionId : sessionId,
-                            cr_id : cr_id
-                        
-                        },function(err, selRow){
-                            if(err) throw err;
-                            if(selRow[0].CR_ScanPy == 'Y'){
-                                res.json({data : '200'})
-                            }else{
-                                connection.query(query,
-                                    {
-                                        crCancel, sessionId, cr_id
-                            
-                                    },function(err, rows, fields) {
-                                        if (err){
-                                            connection.rollback(function(){
-                                                throw err;
-                                            })
-                                        }
-                                        connection.query(select_query,
-                                            {
-                                                cr_id, sessionId
-                                            },
-                                            function(err, result, fields){
-                                                if (err){
-                                                    connection.rollback(function(){
-                                                        throw err;
-                                                    })
-                                                }
-                                                let over_lap = [];
-                                                for(let i=0; i <result.length; i++){
-                                                      over_lap.push(result[i].CR_SeatNum)
-                                                }
-                                                let seat_number = over_lap.join('번,')+'번';
-                                                connection.commit(function(err) {
-                                                    if (err) {
-                                                        return connection.rollback(function() {
-                                                            throw err;
-                                                        });
-                                                    }
-                                                    res.json({data : rows.affectedRows, seats : seat_number, cancelPay : result.length *result[0].CR_Price})
-                                                });
-                                                
-                            
-                                            })
-                                    });
-                            }
+                    res.json({data : '201'})
+                });
                 
+        })
+    }else{
+        //트랜잭션 시작
+        connection.beginTransaction(function(err){
+            //예매 취소 쿼리 시작
+            connection.query(cancel_seat_query,
+                {
+                    cr_id, sessionId
+        
+                },function(err, rows, fields) {
+                    if (err){
+                        connection.rollback(function(){
+                            console.log('/cancel-seat , cancel_seat_query ERROR', err);
                         })
                     }
+                    //취소한 좌석과 금액을 구하는 쿼리
+                    connection.query(select_query,
+                        {
+                            cr_id, sessionId
+                        },
+                        function(err, result, fields){
+                            if (err){
+                                connection.rollback(function(){
+                                    console.log('/cancel-seat , select_query ERROR', err);
+                                })
+                            }
+                            //취소한 좌석
+                            let over_lap = [];
+                            for(let i=0; i <result.length; i++){
+                                over_lap.push(result[i].CR_SeatNum)
+                            }
+                            // 취소후 사용자에게 보여줄 취소한 좌석
+                            let seat_number = over_lap.join('번,')+'번';
+                            // 취소한 금액
+                            let refund_pay = result.length *result[0].CR_Price
+
+                            connection.commit(function(err) {
+                                if (err) {
+                                    return connection.rollback(function() {
+                                        throw err;
+                                    });
+                                }
+
+                                res.json({seats : seat_number, cancelPay : refund_pay})
+                            });
+                            
+        
+                        })
+                });
+        })
+    }
+})
+
+
+//예매 취소 전 가능 여부 확인 API
+router.post('/user/cancelRes', async (req, res, done) =>{
+
+
+
+    //해당 좌석이 입금이 되지 않은 가상계좌일 경우 확인 쿼리
+    let vBank_query = `SELECT 
+                            CR_PayState 
+                        FROM tCR
+                        INNER JOIN tCT on tCR.CR_CT_ID = tCT.CT_ID
+                        WHERE CR_ID IN (:cr_id) AND  
+                        CR_U_Id = :sessionId `  
+    
+    //해당 좌석이 3일 이내 취소하려는지 확인 쿼리
+    let day_query = `SELECT 
+                        COUNT(*) count 
+                    FROM tCR
+                    INNER JOIN tCT on tCR.CR_CT_ID = tCT.CT_ID
+                    WHERE CR_ID IN (:cr_id) AND  
+                            CR_U_Id = :sessionId AND
+                            CT_DepartureTe > date_add(now(),INTERVAL +3 DAY)`;
+                            
+    //해당 좌석 출발하였는지 확인 쿼리
+    let start_query = `SELECT 
+                            tCT.CT_PyStart, 
+                            tCT.CT_ID 
+                        FROM tCT 
+                        INNER JOIN tCR ON tCR.CR_CT_ID = tCT.CT_ID 
+                        WHERE tCR.CR_ID IN (:cr_id)`;
+
+           
+    //해당 좌석이 승차를 했는지 확인 하는 쿼리
+    let scan_query = `SELECT 
+                            CR_ScanPy 
+                        FROM tCR 
+                        WHERE tCR.CR_ID IN (:cr_id) AND 
+                              tCR.CR_U_ID =:sessionId `;
+
+    
+    let sessionId = req.body.u_id
+    let cr_id = req.body.cr_id;
+
+    connection.beginTransaction(function(err){
+
+        //해당 좌석이 입금이 되지않은 가상계좌인지
+        connection.query(vBank_query, 
+            {
+                sessionId : sessionId,
+                cr_id : cr_id
+            },
+            function(err, vBank_row){
+                //에러시 롤백 
+                if (err){
+                    connection.rollback(function(){
+                        console.log('/user/cancelRes , vBank_query ERROR', err);
+                    })
+                }
+                if(vBank_row[0].CR_PayState == '결제대기'){
+                    connection.commit(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                throw err;
+                            });
+                        }
+                        //3일 이내 취소 불가능
+                        res.json({data : '200'})
+                    });
+                }else{
+                    //3일 이전에 취소하는 건지
+                    connection.query(day_query,
+                        {
+                            sessionId : sessionId,
+                            cr_id : cr_id
+                        },
+                        function(err, day_rows){
+                            //에러시 롤백 
+                            if (err){
+                                connection.rollback(function(){
+                                    console.log('/user/cancelRes , day_query ERROR', err);
+                                })
+                            }
+                            if(day_rows[0].count == 0){
+                                connection.commit(function(err) {
+                                    if (err) {
+                                        return connection.rollback(function() {
+                                            throw err;
+                                        });
+                                    }
+                                    //3일 이내 취소 불가능
+                                    res.json({data : '201'})
+                                });
+                                
+                            }else{
+                                //해당 좌석이 출발했는지 확인
+                                connection.query(start_query,
+                                    {
+                                        sessionId : sessionId,
+                                        cr_id : cr_id
+                                    },
+                                    function(err, startRow){
+                                        //에러시 롤백 
+                                        if (err){
+                                            connection.rollback(function(){
+                                                console.log('/user/cancelRes , start_query ERROR', err);
+                                            })
+                                        }
+                                        //버스가 평택에서 출발을 했으면 201 반환
+                                        if(startRow[0].CT_PyStart === 'Y'){
+                                            connection.commit(function(err) {
+                                                if (err) {
+                                                    return connection.rollback(function() {
+                                                        throw err;
+                                                    });
+                                                }
+                                                //이미 출발함
+                                                res.json({data : '202'})
+                                            });
+                                        }else{
+                                            //해당 좌석이 승차를 확인했는지
+                                            connection.query(scan_query, 
+                                                {
+                                                    sessionId : sessionId,
+                                                    cr_id : cr_id
+                                                },
+                                                function(err, scan_row){
+                                                    //에러시 롤백 
+                                                    if (err){
+                                                        connection.rollback(function(){
+                                                            console.log('/user/cancelRes , scan_query ERROR', err);
+                                                        })
+                                                    }
+                                                    //승차가 완료되었으면 취소 불가능
+                                                    if(scan_row[0].CR_ScanPy == 'Y'){
+                                                        connection.commit(function(err) {
+                                                            if (err) {
+                                                                return connection.rollback(function() {
+                                                                    throw err;
+                                                                });
+                                                            }
+                                                            //승차 완료됨
+                                                            res.json({data : '203'})
+                                                        });
+                                                    }else{
+
+                                                        //아무런 제약이 없을때 200을 반환한다.
+                                                        connection.commit(function(err) {
+                                                            if (err) {
+                                                                return connection.rollback(function() {
+                                                                    throw err;
+                                                                });
+                                                            }
+                                                            //취소 가능
+                                                            res.json({data : '200'})
+                                                        });
+                                                        
+                                                    }
+
+                                                })
+                                        }
+
+                                    })
+                            }
+                    })
+                }
             })
-        }
 
     })
-    
 });
+
+
 
 //마이페이지 예매 및 결제내역
 router.post('/user/resPay',  auth.isLoggedIn, (req, res, next) =>{
@@ -1763,6 +1919,8 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                             throw err;
                                         })
                                     }       
+
+
                                     let one_price = req.body.oPrice / req.body.seatNums.length;
                                     if(rows.length == 0){
                                         //  결제 내역 먼저 추가. 

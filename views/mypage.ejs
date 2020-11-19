@@ -817,7 +817,7 @@
             
         }
 
-        // 취소 정보
+        // 이노페이 결제취소 정보
         function cancelInfo(string, codeString, cancelType ,ph_pay) {
             let cancel_data = {}                        //전체 필수 값 !!!!
                 cancel_data.mid = 'pgaz369azm',         //이노페이에서 발급한 상점아이디
@@ -881,7 +881,7 @@
             });
         }
 
-        // 예매 취소
+        // 예매 취소전 결제 모듈 확인 및 예외처리
         function resCancel(e) {
             // console.log('데이터 :', e.dataset.pgid);
             if($('input:checkbox[name=seat_chk]:checked').length == 0){
@@ -899,6 +899,8 @@
             let order_num; //주문번호
             let vbank_num; //가상계좌 번호
             let vbank_cd; //가상계좌 은행코드
+
+            //해당 체크박스의 값들 도출
             $("input[name=seat_chk]:checked").each(function(i){
                 checkBoxArr.push($(this).val());
                 let chk_id = this.id;
@@ -914,11 +916,11 @@
             });
             ph_pay = seatPay * checkBoxArr.length;
             let all_res_seat = $('#res_seat_list').children('li').length;
-            if($("input:checkbox[id='ex_chk5']").is(":checked") == true){
-                cancelType = "0"
-            }else{
-                cancelType = "1"
-            }
+            // if($("input:checkbox[id='ex_chk5']").is(":checked") == true){
+            //     cancelType = "0"
+            // }else{
+            //     cancelType = "1"
+            // }
 
             if(getCancelType(ph_id) > $("input[name=seat_chk]:checked").length){
                 cancelType = "1"
@@ -943,15 +945,15 @@
                                 text: '무통장 입금을 하신 고객님 께서는 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',	
                                 icon: 'error',	
                                 button: '확인'	
-                                }).then((value)=>{	
-                                    location.href='mypage';	
-                                })	
+                            })
+                            .then((value)=>{	
+                                location.href='mypage';	
+                            })	
                         }
                     }					
                 });
-            
-            //무통장 부분 취소일떄 경우 안내 메세지 표시
             }
+            //무통장 부분 취소일떄 경우 안내 메세지 표시
             else if(chk_pg_pay_type == '03' && cancelType == '1'){
                 $('#popup').css('display','none');	            
                     swal({	
@@ -959,9 +961,10 @@
                         text: '무통장 입금은 부분취소를 지원하지 않습니다. 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',	
                         icon: 'error',	
                         button: '확인'	
-                        }).then((value)=>{	
-                            location.href='mypage';	
-                        })	
+                    })
+                    .then((value)=>{	
+                        location.href='mypage';	
+                    })	
             }
             //계좌이채 부분 취소일때 안내 메세지 표시
             else if(chk_pg_pay_type == '02' && cancelType == '1'){
@@ -971,9 +974,10 @@
                         text: '계죄이체는 부분취소를 지원하지 않습니다. 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',	
                         icon: 'error',	
                         button: '확인'	
-                        }).then((value)=>{	
-                            location.href='mypage';	
-                        })	
+                    })
+                    .then((value)=>{	
+                        location.href='mypage';	
+                    })	
             }
             //그 외 결제수단은 api처리	
             else{
@@ -982,86 +986,115 @@
             
         }
 
-        //취소 API
+        //취소 가능 여부 확인 API
         function cancelPayApi(checkBoxArr, chk_u_id, cancelType, ph_pay, chk_pg_id, chk_pg_pay_type){
+
+            // 우선 취소할 수 있는 좌석인지 확인을 해야한다.
+            // 아래 else 문에서 취소가 가능하기에 이때 이노페이 API를 요청해야한다.
+            // 이노페이 API가 오류가 나타나면 고객센터 문의 알림을 띄우며 예매취소 API를 요청하지 않는다.
+            // 이노페이 API 응답이 성공할 시 좌석예매 API를 진행한다.
+
+            //취소 가능 여부 확인
             $.ajax({
-                    url: "api/user/cancelRes",
-                    method: 'post',
-                    dataType: 'json',
-                    async: false,
-                    data: { 'cr_id': checkBoxArr, 'u_id' : chk_u_id},
-                    success: function (res) {
-                        $('#popup').css('display','none');
-                        $('.swal-icon--success__ring').css('display','none');
-                        let link = document.createElement('div')
-                            link.innerHTML = "<a href='/'>환불규정 보기</a>"
-                        if (res.data == 0) {
-                            swal({
-                                title: '취소 실패',
-                                text: '출발일 기준 3일 내 예매취소가 불가능합니다. \n',
-                                content: link,
-                                icon: 'error',
-                                button: '환불규정 보기',
-                                button: '확인'
-                            }).then((value)=>{
-                                location.href='mypage';
-                            })
-                        } else if(res.data == 200){
-
-                            swal({
-                                title: '취소 실패',
-                                text: '승차하신 좌석은 취소가 불가능 합니다.',
-                                icon: 'error',
-                                button: '확인'
-                            }).then((value)=>{
-                                location.href='mypage';
-                            })
-
-                        }else if(res.data == 201){
-
-                            swal({
-                                title: '취소 실패',
-                                text: '출발한 버스는 예매 취소가 불가능 합니다.',
-                                icon: 'error',
-                                button: '확인'
-                            }).then((value)=>{
-                                location.href='mypage';
-                            })
-
-                            }
-                        else {
-                            // console.log('취소 요청값 :', cancelInfo(chk_pg_id,chk_pg_pay_type))
-                            // console.log('cancelType',cancelType);
-                            $.ajax({
-                                type : "POST",
-                                url : "https://api.innopay.co.kr/api/cancelApi",
-                                async : true,
-                                data : cancelInfo(chk_pg_id, chk_pg_pay_type, cancelType, ph_pay),
-                                contentType: "application/json; charset=utf-8",
-                                dataType : "json",
-                                success : function(data){
-                                    // console.log('취소결과',data);
-                                    
-                                    swal({
-                                        title: '예매취소 완료',
-                                        text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
-                                        icon: 'success',
-                                        button: '확인'
-                                    }).then((value)=>{
-                                        location.href='mypage';
-                                    })
-
-                                },
-                                error : function(data){
-                                    // console.log(data);   
-                                    alert("취소 오류 고객센터에 문의해 주세요.");
-                                }
-                            });
-
-                        }
+                url: "api/user/cancelRes",
+                method: 'post',
+                dataType: 'json',
+                async: false,
+                data: { 'cr_id': checkBoxArr, 'u_id' : chk_u_id},
+                success: function (res) {
+                    $('#popup').css('display','none');
+                    $('.swal-icon--success__ring').css('display','none');
+                    //환불규정으로 가는 링크 생성
+                    let link = document.createElement('div')
+                        link.innerHTML = "<a href='/refund'>환불규정 보기</a>"
+                    if(res.data == 201) {
+                        swal({
+                            title: '취소 실패',
+                            text: '출발일 기준 3일 내 예매취소가 불가능합니다. \n',
+                            content: link,
+                            icon: 'error',
+                            button: '환불규정 보기',
+                            button: '확인'
+                        })
+                        .then((value)=>{
+                            location.href='mypage';
+                        })
                     }
-                })
+                    else if(res.data == 202){
+                        swal({
+                            title: '취소 실패',
+                            text: '출발한 버스는 예매 취소가 불가능 합니다.',
+                            icon: 'error',
+                            button: '확인'
+                        })
+                        .then((value)=>{
+                            location.href='mypage';
+                        })
+
+                    }
+                    else if(res.data == 203){
+                        swal({
+                            title: '취소 실패',
+                            text: '승차하신 좌석은 취소가 불가능 합니다.',
+                            icon: 'error',
+                            button: '확인'
+                        })
+                        .then((value)=>{
+                            location.href='mypage';
+                        })
+
+                    }
+                    //취소 가능할 때
+                    else {
+                        //이노페이 결제취소 요청 
+                        innopayCancelAPI(checkBoxArr, chk_u_id, cancelType, ph_pay, chk_pg_id, chk_pg_pay_type)
+                    }
+                }
+            })
         }
+
+        //좌석 예매 취소 함수
+        function cancelSeatAPI(checkBoxArr, chk_u_id){
+            $.ajax({
+                url : '/api/cancel-seat',
+                method : 'post',
+                dataType : 'json',
+                data: { 
+                    'cr_id': checkBoxArr, // 취소할 좌석
+                    'u_id' : chk_u_id     // 취소할 좌석의 user 아이디
+                },
+                success: function(res){
+                    swal({
+                        title: '예매취소 완료',
+                        text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
+                        icon: 'success',
+                        button: '확인'
+                    }).then((value)=>{
+                        location.href='mypage';
+                    })
+                }					
+            });
+        }
+
+        //이노페이 결제 취소 요청 API
+        function innopayCancelAPI(checkBoxArr, chk_u_id, cancelType, ph_pay, chk_pg_id, chk_pg_pay_type){
+            $.ajax({
+                type : "POST",
+                url : "https://api.innopay.co.kr/api/cancelApi",
+                async : true,
+                data : cancelInfo(chk_pg_id, chk_pg_pay_type, cancelType, ph_pay),
+                contentType: "application/json; charset=utf-8",
+                dataType : "json",
+                success : function(data){
+                    console.log('data !', data);
+                    cancelSeatAPI(checkBoxArr, chk_u_id);
+                },
+                error : function(data){
+                    alert("취소 오류 고객센터에 문의해 주세요.");
+                }
+            });
+        }
+
 
         //요일 계산 함수
         function getInputDayLabel(date) {
