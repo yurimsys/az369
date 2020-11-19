@@ -1765,7 +1765,8 @@ function cancelNonDeposit(){
         let query = `UPDATE tCR SET
                             CR_Cancel = 'Y',
                             CR_CancelDt = NOW(),
-                            CR_PayState = '결제취소'
+                            CR_PayState = '결제취소',
+                            CR_Memo = ''
                         WHERE CR_PayState = '결제대기' AND
                             DATE_ADD(CR_cDt, INTERVAL + 24 HOUR) < NOW()
                     `
@@ -1797,7 +1798,7 @@ router.get('/vbankinterval', function(req, res){
                         INNER JOIN tPH ON tCR.CR_PH_ID = tPH.PH_ID
                     WHERE PH_Type = '무통장입금' AND 
                             CR_PayState = '결제대기' AND
-                            DATE_ADD(CR_cDt, INTERVAL + 1 HOUR) < NOW()
+                            DATE_ADD(CR_cDt, INTERVAL + 24 HOUR) < NOW()
                     GROUP BY PH_BankNumber`
                     
     connection.query(query, function(err, rows){
@@ -4433,7 +4434,10 @@ router.get('/reservation',function(req,res){
                     PH_Type,
                     PH_PG_ID,
                     PH_ID,
-                    PH_CodeType
+                    PH_CodeType,
+                    PH_OrderNumber,
+                    PH_BankNumber,
+                    PH_BankCode
                 FROM tCR
                     INNER JOIN tCT ON tCR.CR_CT_ID = tCT.CT_ID
                     INNER JOIN tU ON tCR.CR_U_ID = tU.U_ID
@@ -4525,9 +4529,10 @@ router.get('/vehicle/list', function(req,res){
                     INNER JOIN tB ON tCY.CY_B_ID = tB.B_ID
                 WHERE tCT.CT_PyStart = 'N'`
     if(req.query.type === 'default'){
-        query += ' AND tCT.CT_DepartureTe > DATE_ADD(NOW(),INTERVAL -40 HOUR_MINUTE)'
-    }else{
         query = query;
+    }else{
+        
+        query += ' AND tCT.CT_DepartureTe > DATE_ADD(NOW(),INTERVAL -40 HOUR_MINUTE)'
     }
 
     connection.query(query,
@@ -4545,12 +4550,13 @@ router.post('/reservation',async function(req,res){
         let pay_query = `INSERT INTO tPH(
                             PH_U_ID,
                             PH_PG_ID,
+                            PH_OrderNumber,
                             PH_Price,
                             PH_OPrice,
                             PH_SPrice,
                             PH_Type
                         )
-                        VALUES( :u_id, 1, :ph_price, :ph_price, 0, '후불결제')`;
+                        VALUES( :u_id, 1, :moid, :ph_price, :ph_price, 0, '후불결제')`;
 
         let ph_id_query = 'SELECT PH_ID FROM tPH ORDER BY PH_ID DESC LIMIT 1';
 
@@ -4572,10 +4578,11 @@ router.post('/reservation',async function(req,res){
         let str_values_list = [];
         let str_values = "";
         let seatNums = req.body['seatNums']; // 등록할 좌석
+        let moid = req.body.moid; //주문 번호
         let ph_price = (seat_price * seatNums.length);
 
 
-        connection.query(pay_query, {u_id, ph_price},
+        connection.query(pay_query, {u_id, moid, ph_price},
             function(err,pay_result){
                 if (err){
                     connection.rollback(function(){
@@ -4656,7 +4663,15 @@ router.put('/reservation/:crid', async function(req,res){
     if(cr_cancel === 'Y'){
         query += ',CR_CancelDt = now() WHERE CR_ID = :cr_id';
         cr_state = '결제취소';
-    }else{
+    }else if(cr_cancel === 'N' && cr_state == '결제대기'){
+        cr_state = '결제대기';
+        query += ' WHERE CR_ID = :cr_id';
+    }
+    else if(cr_cancel === 'N'){
+        cr_state = '결제완료';
+        query += ' WHERE CR_ID = :cr_id';
+    }
+    else{
         query += ' WHERE CR_ID = :cr_id';
     }
 
@@ -5404,24 +5419,42 @@ router.get('/user_list',function(req,res){
 
 })
 
-//결제 리스트
+//장차 결제 리스트 및 검색
 router.get('/admin_payment',function(req, res){
-    let query = `SELECT 
-                    PH_ID,
-                    U_uId,
-                    U_Name,
-                    PH_PG_ID,
-                    U_Phone,
-                    PH_PG_Name,
-                    PH_Price,
-                    CR_PayState,
-                    PH_Type,
-                    CR_cDt
-                FROM tPH 
-                    INNER JOIN tU ON tU.U_ID = tPH.PH_U_ID
-                    INNER JOIN tCR ON tCR.CR_PH_ID = tPH.PH_ID
+    // let query = `SELECT 
+    //                 PH_ID,
+    //                 U_uId,
+    //                 U_Name,
+    //                 PH_PG_ID,
+    //                 U_Phone,
+    //                 PH_PG_Name,
+    //                 PH_Price,
+    //                 CR_PayState,
+    //                 PH_Type,
+    //                 CR_cDt
+    //             FROM tPH 
+    //                 INNER JOIN tU ON tU.U_ID = tPH.PH_U_ID
+    //                 INNER JOIN tCR ON tCR.CR_PH_ID = tPH.PH_ID
                     
-                `
+    //             `
+    
+    //부분 취소 후 결제여부가 결제취소로 뜨는걸 방지하기 위해 정렬 후 그룹바이
+    let query = `SELECT * FROM (SELECT 
+                                    PH_ID,
+                                    U_uId,
+                                    U_Name,
+                                    PH_PG_ID,
+                                    U_Phone,
+                                    PH_PG_Name,
+                                    PH_Price,
+                                    CR_PayState,
+                                    PH_Type,
+                                    CR_cDt
+                                FROM tPH 
+                                    INNER JOIN tU ON tU.U_ID = tPH.PH_U_ID
+                                    INNER JOIN tCR ON tCR.CR_PH_ID = tPH.PH_ID
+                                    ORDER BY CR_PayState ASC) sort`
+
 
     if(req.query.type === 'search'){
         let condition_list = [];
@@ -5453,7 +5486,7 @@ router.get('/admin_payment',function(req, res){
         let searchType = (req.query.searchType == "true") ? " AND " : " OR ";
         if( condition_list.length > 0){
             let condition_stmt = ' WHERE '+condition_list.join(searchType);
-            query += condition_stmt + ' GROUP BY PH_ID'
+            query += condition_stmt + ' GROUP BY sort.PH_ID'
         }
 
         connection.query(query,
@@ -5463,7 +5496,7 @@ router.get('/admin_payment',function(req, res){
             res.json({data : rows})
         })
     }else{
-        query += ' GROUP BY PH_ID'
+        query += ' GROUP BY sort.PH_ID'
         connection.query(query, function(err, rows){
             if(err) throw err;
             res.json({data : rows})
@@ -5505,9 +5538,11 @@ router.get('/payment_list',function(req,res){
                     PH_PG_ID,
                     PH_ID,
                     PH_Type,
+                    PH_OrderNumber,
                     PH_CodeType,
                     PH_CardName,
                     PH_BankNumber,
+                    PH_BankCode,
                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
                     DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
                     DAYOFWEEK(tCR.CR_cDt ) AS payDayWeek,
