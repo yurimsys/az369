@@ -849,6 +849,20 @@ router.get('/user/vBank', auth.isLoggedIn, async (req, res) =>{
 //좌석 예매 취소 api
 router.post('/cancel-seat', auth.isLoggedIn, async (req, res) =>{
 
+    // 예매 취소할 user의 id 
+    let sessionId = req.body.u_id 
+    // 예매 취소할 좌석의 id
+    let cr_id = req.body.cr_id;
+    // 취소 상태값
+    let cancel_type = req.body.cancelType;
+    // 취소결과값
+    let cancel_name;
+    if(cancel_type == 1){
+        cancel_name = '부분취소'
+    }else{
+        cancel_name = '전체취소'
+    }
+
     //관리자 페이지에서 취소하기 위한 쿼리
     let admin_query = `UPDATE tCR
                             INNER JOIN tCT on tCR.CR_CT_ID = tCT.CT_ID
@@ -868,8 +882,13 @@ router.post('/cancel-seat', auth.isLoggedIn, async (req, res) =>{
                                     CR_U_Id = :sessionId 
                                     `;
 
-                            // AND
-                            // tCT.CT_DepartureTe > date_add(now(),interval +3 day)
+    // cencel_type 이 1일 경우에 사용                         
+    //취소 컬럼 업데이트 (부분취소 or 전체취소)
+    let part_cancel_query = `UPDATE tCR
+                                SET CR_Memo = '${cancel_name}'
+                            WHERE CR_PH_ID = (SELECT * FROM (SELECT CR_PH_ID FROM tCR WHERE CR_ID IN (:cr_id) LIMIT 1) AS part) AND
+                                  CR_U_ID = :sessionId
+                            `
 
     //취소한 좌석과 금액을 구하는 쿼리
     let select_query = `SELECT 
@@ -879,10 +898,7 @@ router.post('/cancel-seat', auth.isLoggedIn, async (req, res) =>{
                             WHERE CR_ID IN (:cr_id) AND 
                                 tCR.CR_U_ID = :sessionId`;
     
-    // 예매 취소할 user의 id 
-    let sessionId = req.body.u_id 
-    // 예매 취소할 좌석의 id
-    let cr_id = req.body.cr_id;
+
 
     //관리자 페이지에서 사용할 좌석예매 취소 쿼리
     if(req.query.type == 'admin'){
@@ -894,15 +910,23 @@ router.post('/cancel-seat', auth.isLoggedIn, async (req, res) =>{
                         res.json({data : '302'});
                     })
                 }
-                //업데이트 성공 시
-                connection.commit(function(err) {
-                    if (err) {
-                        return connection.rollback(function() {
-                            throw err;
+                //취소상태 업데이트
+                connection.query(part_cancel_query, 
+                    {
+                        cr_id, 
+                        sessionId
+                    },function(err, part_result){
+                        //업데이트 성공 시
+                        connection.commit(function(err) {
+                            if (err) {
+                                return connection.rollback(function() {
+                                    throw err;
+                                });
+                            }
+                            res.json({data : '201'})
                         });
-                    }
-                    res.json({data : '201'})
-                });
+                    })
+
                 
         })
     }else{
@@ -930,27 +954,32 @@ router.post('/cancel-seat', auth.isLoggedIn, async (req, res) =>{
                                     console.log('/cancel-seat , select_query ERROR', err);
                                 })
                             }
-                            //취소한 좌석
-                            let over_lap = [];
-                            for(let i=0; i <result.length; i++){
-                                over_lap.push(result[i].CR_SeatNum)
-                            }
-                            // 취소후 사용자에게 보여줄 취소한 좌석
-                            let seat_number = over_lap.join('번,')+'번';
-                            // 취소한 금액
-                            let refund_pay = result.length *result[0].CR_Price
-
-                            connection.commit(function(err) {
-                                if (err) {
-                                    return connection.rollback(function() {
-                                        throw err;
-                                    });
+                            //취소상태 업데이트
+                            connection.query(part_cancel_query, 
+                                {
+                                    cr_id, sessionId
                                 }
+                                ,function(err, part_result){
+                                    //취소한 좌석
+                                    let over_lap = [];
+                                    for(let i=0; i <result.length; i++){
+                                        over_lap.push(result[i].CR_SeatNum)
+                                    }
+                                    // 취소후 사용자에게 보여줄 취소한 좌석
+                                    let seat_number = over_lap.join('번,')+'번';
+                                    // 취소한 금액
+                                    let refund_pay = result.length *result[0].CR_Price
 
-                                res.json({seats : seat_number, cancelPay : refund_pay})
-                            });
-                            
-        
+                                    connection.commit(function(err) {
+                                        if (err) {
+                                            return connection.rollback(function() {
+                                                throw err;
+                                            });
+                                        }
+
+                                        res.json({seats : seat_number, cancelPay : refund_pay})
+                                    });
+                                });
                         })
                 });
         })
@@ -960,8 +989,6 @@ router.post('/cancel-seat', auth.isLoggedIn, async (req, res) =>{
 
 //예매 취소 전 가능 여부 확인 API
 router.post('/user/cancelRes', async (req, res, done) =>{
-
-
 
     //해당 좌석이 입금이 되지 않은 가상계좌일 경우 확인 쿼리
     let vBank_query = `SELECT 
@@ -979,6 +1006,11 @@ router.post('/user/cancelRes', async (req, res, done) =>{
                     WHERE CR_ID IN (:cr_id) AND  
                             CR_U_Id = :sessionId AND
                             CT_DepartureTe > date_add(now(),INTERVAL +3 DAY)`;
+
+    //해당 좌석이 계좌이체 인지 확인 쿼리
+    let bank_query = `SELECT PH_Type FROM tPH
+                            INNER JOIN tCR ON tPH.PH_ID = tCR.CR_PH_ID
+                        WHERE CR_ID IN (:cr_id)`                            
                             
     //해당 좌석 출발하였는지 확인 쿼리
     let start_query = `SELECT 
@@ -987,7 +1019,6 @@ router.post('/user/cancelRes', async (req, res, done) =>{
                         FROM tCT 
                         INNER JOIN tCR ON tCR.CR_CT_ID = tCT.CT_ID 
                         WHERE tCR.CR_ID IN (:cr_id)`;
-
            
     //해당 좌석이 승차를 했는지 확인 하는 쿼리
     let scan_query = `SELECT 
@@ -1022,7 +1053,7 @@ router.post('/user/cancelRes', async (req, res, done) =>{
                                 throw err;
                             });
                         }
-                        //3일 이내 취소 불가능
+                        //결제대기 상태일땐 어느때나 취소가 가능
                         res.json({data : '200'})
                     });
                 }else{
@@ -1051,73 +1082,98 @@ router.post('/user/cancelRes', async (req, res, done) =>{
                                 });
                                 
                             }else{
-                                //해당 좌석이 출발했는지 확인
-                                connection.query(start_query,
+                                //해당 좌석이 계좌이체인지 확인하는 쿼리
+                                connection.query(bank_query,
                                     {
-                                        sessionId : sessionId,
                                         cr_id : cr_id
-                                    },
-                                    function(err, startRow){
-                                        //에러시 롤백 
-                                        if (err){
+                                    }
+                                    ,function(err, bank_row){
+                                        if(err){
                                             connection.rollback(function(){
-                                                console.log('/user/cancelRes , start_query ERROR', err);
+                                                console.log('/user/cancelRes , bank_row ERROR', err);
                                             })
                                         }
-                                        //버스가 평택에서 출발을 했으면 201 반환
-                                        if(startRow[0].CT_PyStart === 'Y'){
+                                        //계좌이체 이면 204를 반환
+                                        if(bank_row[0].PH_Type === '계좌이체'){
                                             connection.commit(function(err) {
                                                 if (err) {
                                                     return connection.rollback(function() {
                                                         throw err;
                                                     });
                                                 }
-                                                //이미 출발함
-                                                res.json({data : '202'})
+                                                res.json({data : '204'})
                                             });
-                                        }else{
-                                            //해당 좌석이 승차를 확인했는지
-                                            connection.query(scan_query, 
+                                        }
+                                        else{
+                                            //해당 좌석이 출발했는지 확인
+                                            connection.query(start_query,
                                                 {
                                                     sessionId : sessionId,
                                                     cr_id : cr_id
                                                 },
-                                                function(err, scan_row){
+                                                function(err, start_row){
                                                     //에러시 롤백 
                                                     if (err){
                                                         connection.rollback(function(){
-                                                            console.log('/user/cancelRes , scan_query ERROR', err);
+                                                            console.log('/user/cancelRes , start_query ERROR', err);
                                                         })
                                                     }
-                                                    //승차가 완료되었으면 취소 불가능
-                                                    if(scan_row[0].CR_ScanPy == 'Y'){
+                                                    //버스가 평택에서 출발을 했으면 201 반환
+                                                    if(start_row[0].CT_PyStart === 'Y'){
                                                         connection.commit(function(err) {
                                                             if (err) {
                                                                 return connection.rollback(function() {
                                                                     throw err;
                                                                 });
                                                             }
-                                                            //승차 완료됨
-                                                            res.json({data : '203'})
+                                                            //이미 출발함
+                                                            res.json({data : '202'})
                                                         });
                                                     }else{
-
-                                                        //아무런 제약이 없을때 200을 반환한다.
-                                                        connection.commit(function(err) {
-                                                            if (err) {
-                                                                return connection.rollback(function() {
-                                                                    throw err;
-                                                                });
-                                                            }
-                                                            //취소 가능
-                                                            res.json({data : '200'})
-                                                        });
-                                                        
+                                                        //해당 좌석이 승차를 확인했는지
+                                                        connection.query(scan_query, 
+                                                            {
+                                                                sessionId : sessionId,
+                                                                cr_id : cr_id
+                                                            },
+                                                            function(err, scan_row){
+                                                                //에러시 롤백 
+                                                                if (err){
+                                                                    connection.rollback(function(){
+                                                                        console.log('/user/cancelRes , scan_query ERROR', err);
+                                                                    })
+                                                                }
+                                                                //승차가 완료되었으면 취소 불가능
+                                                                if(scan_row[0].CR_ScanPy == 'Y'){
+                                                                    connection.commit(function(err) {
+                                                                        if (err) {
+                                                                            return connection.rollback(function() {
+                                                                                throw err;
+                                                                            });
+                                                                        }
+                                                                        //승차 완료됨
+                                                                        res.json({data : '203'})
+                                                                    });
+                                                                }else{
+            
+                                                                    //아무런 제약이 없을때 200을 반환한다.
+                                                                    connection.commit(function(err) {
+                                                                        if (err) {
+                                                                            return connection.rollback(function() {
+                                                                                throw err;
+                                                                            });
+                                                                        }
+                                                                        //취소 가능
+                                                                        res.json({data : '200'})
+                                                                    });
+                                                                    
+                                                                }
+            
+                                                            })
                                                     }
-
+            
                                                 })
                                         }
-
                                     })
                             }
                     })
@@ -1766,7 +1822,7 @@ function cancelNonDeposit(){
                             CR_Cancel = 'Y',
                             CR_CancelDt = NOW(),
                             CR_PayState = '결제취소',
-                            CR_Memo = ''
+                            CR_Memo = '자동취소'
                         WHERE CR_PayState = '결제대기' AND
                             DATE_ADD(CR_cDt, INTERVAL + 24 HOUR) < NOW()
                     `
@@ -5421,23 +5477,6 @@ router.get('/user_list',function(req,res){
 
 //장차 결제 리스트 및 검색
 router.get('/admin_payment',function(req, res){
-    // let query = `SELECT 
-    //                 PH_ID,
-    //                 U_uId,
-    //                 U_Name,
-    //                 PH_PG_ID,
-    //                 U_Phone,
-    //                 PH_PG_Name,
-    //                 PH_Price,
-    //                 CR_PayState,
-    //                 PH_Type,
-    //                 CR_cDt
-    //             FROM tPH 
-    //                 INNER JOIN tU ON tU.U_ID = tPH.PH_U_ID
-    //                 INNER JOIN tCR ON tCR.CR_PH_ID = tPH.PH_ID
-                    
-    //             `
-    
     //부분 취소 후 결제여부가 결제취소로 뜨는걸 방지하기 위해 정렬 후 그룹바이
     let query = `SELECT * FROM (SELECT 
                                     PH_ID,
@@ -5447,15 +5486,42 @@ router.get('/admin_payment',function(req, res){
                                     U_Phone,
                                     PH_PG_Name,
                                     PH_Price,
+                                    (CR_Price * (SELECT COUNT(*) FROM tCR
+                                            WHERE CR_PH_ID = PH_ID AND 
+                                            CASE WHEN CR_PayState = '결제취소' 
+                                                 THEN CR_PayState = '결제취소' 
+                                                 WHEN CR_PayState = '결제완료'
+                                                 THEN CR_PayState = '0'
+                                                 WHEN PH_Type = '후불결제'
+                                                 THEN CR_PayState = '0'
+                                                 WHEN PH_Type = '무통장입금'
+                                                 THEN CR_PayState = '0'
+                                                 ELSE CR_PayState = '결제대기'
+                                                 END)) AS cancel_pay,
+                                                
+                                    (PH_Price - CR_Price * (SELECT COUNT(*) FROM tCR 
+                                            WHERE CR_PH_ID = PH_ID AND 
+                                            CASE WHEN CR_PayState = '결제취소' 
+                                                 THEN CR_PayState = '결제취소' 
+                                                 WHEN CR_PayState = '결제완료'
+                                                 THEN CR_PayState = '0'
+                                                 ELSE CR_PayState = '결제대기'
+                                                 END)) AS last_pay,
                                     CR_PayState,
                                     PH_Type,
-                                    CR_cDt
+                                    CR_Memo,
+                                    CR_cDt,
+                                    PH_OrderNumber
                                 FROM tPH 
                                     INNER JOIN tU ON tU.U_ID = tPH.PH_U_ID
                                     INNER JOIN tCR ON tCR.CR_PH_ID = tPH.PH_ID
                                     ORDER BY CR_PayState ASC) sort`
 
+                                    // (CR_Price * (SELECT COUNT(*) FROM tCR WHERE CR_PH_ID = PH_ID AND CR_PayState = '결제취소')) AS cancel_pay,
+                                    // (PH_Price - CR_Price * (SELECT COUNT(*) FROM tCR WHERE CR_PH_ID = PH_ID AND CR_PayState = '결제취소')) AS last_pay,
 
+
+    // 검색일 경우 쿼리 추가                                    
     if(req.query.type === 'search'){
         let condition_list = [];
         if( req.query.u_name){
@@ -5562,7 +5628,7 @@ router.get('/payment_list',function(req,res){
                     INNER JOIN tCY ON tCY.CY_ID = tCT.CT_CY_ID
                     INNER JOIN tB ON tB.B_ID = tCY.CY_B_ID
                     INNER JOIN tPH ON tPH.PH_ID = tCR.CR_PH_ID
-                WHERE PH_ID = :ph_id AND CR_Cancel = 'N'`
+                WHERE PH_ID = :ph_id`
 
     let ph_id = req.query.ph_id;
 

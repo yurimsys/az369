@@ -186,9 +186,11 @@
                 { dataField: "U_Name", caption: "회원이름"},
                 { dataField: "U_uId", caption: "회원아이디"},
                 { dataField: "U_Phone", caption: "전화번호"},
-                { dataField: "PH_PG_Name", caption: "PG사명"},
+                { dataField: "PH_OrderNumber", caption: "주문번호"},
                 { dataField: "PH_PG_ID", caption: "거래번호"},
                 { dataField: "PH_Price", caption: "결제금액"},
+                { dataField: "cancel_pay", caption: "취소금액"},
+                { dataField: "last_pay", caption: "정산금액"},
                 { dataField: "PH_Type", caption: "결제수단"},
                 { dataField: "CR_PayState", caption: "결제여부",
                     cellTemplate : function(element, info){
@@ -225,7 +227,9 @@
                     //     }
                     // }
                 },
-                { dataField: "CR_cDt", caption: "결제일시"}
+                { dataField: "CR_Memo", caption: "취소상태"},
+                { dataField: "CR_cDt", caption: "결제일시"},
+                { dataField: "PH_PG_Name", caption: "PG사명"}
             ],
             onContentReady: function(e) {
                 let informer = e.element.find(".informer");
@@ -504,15 +508,30 @@
 
                     $('.payment_info').append(mid_html);
 
+                    //좌석 리스트
+                    let bot_html = "";
+                    //취소 좌석 비활성화 변수
+                    let chk_dis = "";
+                    //취소 자석 안내문구
+                    let chk_dis_memo = "";
                     for(let i=0; i<res.data.length; i++){
-                        let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
-                        bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+" data-pgpaytype="+res.data[i].PH_CodeType+" data-seatprice="+res.data[i].CR_Price+" data-phid="+res.data[i].PH_ID+" data-ordernum="+res.data[i].PH_OrderNumber+" data-vbanknum="+res.data[i].PH_BankNumber+" data-vbankcd="+res.data[i].PH_BankCode+">";
-                        bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
+                        if(res.data[i].CR_Cancel == 'Y'){
 
+                            bot_html += "<li style='background-color: #BDBDBD'>";
+                            chk_dis = 'disabled';
+                            chk_dis_memo = "취소된 좌석";
+                        }else{
+                            chk_dis = '';
+                            bot_html += "<li>";
+                        }
+
+                        bot_html += "<div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
+                        bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+" data-pgpaytype="+res.data[i].PH_CodeType+" data-seatprice="+res.data[i].CR_Price+" data-phid="+res.data[i].PH_ID+" data-ordernum="+res.data[i].PH_OrderNumber+" data-vbanknum="+res.data[i].PH_BankNumber+" data-vbankcd="+res.data[i].PH_BankCode+" data-canceltype="+res.data[i].CR_Cancel+" "+chk_dis+">";
+                        bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span>   "+chk_dis_memo+"</label>";
                         
-                            
-                        $('#res_seat_list').append(bot_html);
                     }
+                    console.log('bot',bot_html);
+                    $('#res_seat_list').append(bot_html);
                 }
                 //좌석이 없으면 이미 취소된 좌석입니다 문구 표현
                 else{
@@ -657,6 +676,11 @@
             cancelType = "0"
         }
 
+        //후불결제 취소
+        if(chk_pg_id == '1' ){
+            cancelSeatAPI(check_box_arr, chk_u_id, cancelType)
+            return false;
+        }
         // 무통장 입금일때 api 처리
         //미 입금 시 전체 취소
         if(chk_pg_pay_type == '03' && cancelType == '0'){   
@@ -668,6 +692,7 @@
                 success: function(res){
                     alert(cancelType)
                     if(res.data == '결제대기'){
+                        console.log('여기냐');
                         cancelSeatAPI(check_box_arr, chk_u_id)
                         vBank(chk_pg_id, order_num.toString(), ph_pay.toString(), vbank_cd, vbank_num.toString())
                     }else{
@@ -692,6 +717,7 @@
         }
         //그 외 결제수단은 api처리	
         else{
+            console.log('아님여기냐');
             //결제 취소 우선 진행
             innopayCancelAPI(check_box_arr, chk_u_id, cancelType, ph_pay, chk_pg_id, chk_pg_pay_type)
             
@@ -700,13 +726,17 @@
     }
 
     //좌석 예약 취소
-    function cancelSeatAPI(check_box_arr, chk_u_id){
+    function cancelSeatAPI(check_box_arr, chk_u_id, cancelType){
         $.ajax({
             url: "/api/cancel-seat?type=admin",
             method: 'post',
             dataType: 'json',
             async: false,
-            data: { 'cr_id': check_box_arr, "u_id" : chk_u_id},
+            data: { 
+                'cr_id': check_box_arr, 
+                "u_id" : chk_u_id, 
+                "cancelType" : cancelType  //부분취소 여부
+            },
             success: function (res) {
                 alert('취소완료');
                 location.reload();
@@ -736,7 +766,7 @@
                 
                 // resSeatClose();
                 //좌석 취소
-                cancelSeatAPI(check_box_arr, chk_u_id);
+                cancelSeatAPI(check_box_arr, chk_u_id, cancelType);
                 location.reload();
 
             },
@@ -774,7 +804,10 @@
 
     //체크박스 활성화
     function seatCheck(e){
-
+        console.log('e',e.dataset.canceltype);
+        if(e.dataset.canceltype == 'Y'){
+            return false
+        }
         if($('input:checkbox[name=seat_chk]:checked').length < $("input:checkbox[name=seat_chk]").length){
             $("#ex_chk5").prop('checked', false);
             return false;

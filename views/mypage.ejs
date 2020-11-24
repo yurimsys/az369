@@ -937,10 +937,10 @@
                             cancelPayApi(checkBoxArr, chk_u_id, cancelType, ph_pay, chk_pg_id, chk_pg_pay_type)
                             vBank(chk_pg_id, order_num.toString(), ph_pay.toString(), vbank_cd, vbank_num.toString())
                         }else{
-                            $('#popup').css('display','none');	            
+                            $('#popup').css('display','none');
                             swal({	
                                 title: '고객센터 문의',	
-                                text: '무통장 입금을 하신 고객님 께서는 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',	
+                                text: '가상계좌(무통장 입금)을 하신 고객님 께서는 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',	
                                 icon: 'error',	
                                 button: '확인'	
                             })
@@ -956,7 +956,7 @@
                 $('#popup').css('display','none');	            
                     swal({	
                         title: '고객센터 문의',	
-                        text: '무통장 입금은 부분취소를 지원하지 않습니다. 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',	
+                        text: '가상계좌(무통장 입금)을 하신 고객님 께서는 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',	
                         icon: 'error',	
                         button: '확인'	
                     })
@@ -964,19 +964,38 @@
                         location.href='mypage';	
                     })	
             }
-            //계좌이채 부분 취소일때 안내 메세지 표시
-            else if(chk_pg_pay_type == '02' && cancelType == '1'){
-                $('#popup').css('display','none');	            
-                    swal({	
-                        title: '고객센터 문의',	
-                        text: '계죄이체는 부분취소를 지원하지 않습니다. 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',	
-                        icon: 'error',	
-                        button: '확인'	
-                    })
-                    .then((value)=>{	
-                        location.href='mypage';	
-                    })	
+            else if(chk_pg_id == '1'){
+                $('#popup').css('display','none');
+                cancelSeatAPI(checkBoxArr, chk_u_id, cancelType)
             }
+            // //계좌이채 부분 취소일때 안내 메세지 표시
+            // else if(chk_pg_pay_type == '02'){
+            //     $('#popup').css('display','none');	            
+            //         swal({	
+            //             title: '고객센터 문의',	
+            //             text: '계죄이체는 취소를 지원하지 않습니다. 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',	
+            //             icon: 'error',	
+            //             button: '확인'	
+            //         })
+            //         .then((value)=>{	
+            //             location.href='mypage';	
+            //         })	
+            // }
+
+
+            // //계좌이채 부분 취소일때 안내 메세지 표시
+            // else if(chk_pg_pay_type == '02' && cancelType == '1'){
+            //     $('#popup').css('display','none');	            
+            //         swal({	
+            //             title: '고객센터 문의',	
+            //             text: '계죄이체는 부분취소를 지원하지 않습니다. 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',	
+            //             icon: 'error',	
+            //             button: '확인'	
+            //         })
+            //         .then((value)=>{	
+            //             location.href='mypage';	
+            //         })	
+            // }
             //그 외 결제수단은 api처리	
             else{
                 cancelPayApi(checkBoxArr, chk_u_id, cancelType, ph_pay, chk_pg_id, chk_pg_pay_type)
@@ -1042,6 +1061,18 @@
                         })
 
                     }
+                    else if(res.data == 204){
+                        swal({
+                            title: '고객센터 문의',
+                            text: '계죄이체는 취소를 지원하지 않습니다. 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',
+                            icon: 'error',
+                            button: '확인'
+                        })
+                        .then((value)=>{
+                            location.href='mypage';
+                        })
+
+                    }
                     //취소 가능할 때
                     else {
                         //이노페이 결제취소 요청 
@@ -1052,14 +1083,15 @@
         }
 
         //좌석 예매 취소 함수
-        function cancelSeatAPI(checkBoxArr, chk_u_id){
+        function cancelSeatAPI(checkBoxArr, chk_u_id, cancelType){
             $.ajax({
                 url : '/api/cancel-seat',
                 method : 'post',
                 dataType : 'json',
                 data: { 
-                    'cr_id': checkBoxArr, // 취소할 좌석
-                    'u_id' : chk_u_id     // 취소할 좌석의 user 아이디
+                    'cr_id': checkBoxArr,      // 취소할 좌석
+                    'u_id' : chk_u_id,         // 취소할 좌석의 user 아이디
+                    "cancelType" : cancelType  //부분취소 여부
                 },
                 success: function(res){
                     swal({
@@ -1090,7 +1122,7 @@
                     if(data.resultCode == '2026'){
                         alert("취소 오류 고객센터에 문의해 주세요.");
                     }else{
-                        cancelSeatAPI(checkBoxArr, chk_u_id);
+                        cancelSeatAPI(checkBoxArr, chk_u_id, cancelType);
                     }
                     
                 },
@@ -1192,8 +1224,13 @@
             let pg_ph_type = e.dataset.phtype;	
             let pay_state = e.dataset.paystate;
 
+            // alert(pg_ph_type)
             if(pg_ph_type == '03' && (pay_state == '결제대기' || pay_state == '결제취소')){
-                alert('결제되지 않은 무통장 입금은 영수증 출력이 불가능 합니다.')
+                alert('입금이 되지 않은 가상계좌(무통장 입금)은 영수증 출력이 불가능 합니다.')
+                return false;
+            }
+            if(pg_ph_type == 'null'){
+                alert('후불결제는 입금 전 영수증 출력이 불가능 합니다.')
                 return false;
             }
             //가상계좌 일 경우 svcCd=03 으로 설정

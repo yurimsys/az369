@@ -271,7 +271,7 @@
                     <option value='null'>선택</option>
                     <option value='CARD'>신용카드</option>
                     <option value='BANK'>계좌이체</option>
-                    <option value='VBANK'>무통장입금</option>
+                    <option value='VBANK'>가상계좌</option>
                     <!-- <option value='EPAY'>간편결제</option> -->
                 </select>
             </div>
@@ -968,7 +968,7 @@
                         
                         sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
                         swal({
-                            title: '무통장 입금',
+                            title: '가상계좌(무통장 입금)',
                             text: '예매일 기준 24시간 내에 입금이 완료되지 않으면 예매는 자동적으로 취소됩니다.',
                             icon: 'success',
                             button: '확인'
