@@ -5667,8 +5667,8 @@ router.get('/video',function(req, res){
 
     if(req.query.type === 'search'){
         let condition_list = [];
-        if( req.query.search_){
-            condition_list.push(`YL_url like '%${req.query.search_}%'`);
+        if( req.query.video_url){
+            condition_list.push(`YL_url like '%${req.query.video_url}%'`);
         }
         if( req.query.video_title){
             condition_list.push(`YL_title like '%${req.query.video_title}%'`);

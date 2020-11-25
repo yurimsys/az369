@@ -527,7 +527,7 @@
 
                         bot_html += "<div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
                         bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+" data-pgpaytype="+res.data[i].PH_CodeType+" data-seatprice="+res.data[i].CR_Price+" data-phid="+res.data[i].PH_ID+" data-ordernum="+res.data[i].PH_OrderNumber+" data-vbanknum="+res.data[i].PH_BankNumber+" data-vbankcd="+res.data[i].PH_BankCode+" data-canceltype="+res.data[i].CR_Cancel+" "+chk_dis+">";
-                        bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span>   "+chk_dis_memo+"</label>";
+                        bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span>   "+chk_dis_memo+"</label></div></li>";
                         
                     }
                     console.log('bot',bot_html);
@@ -540,43 +540,10 @@
                     $('#object-res-noseat-popup').css('top','300px')
                     $("#object-res-noseat-popup").show();
                 }
-
             }					
         });
         
     }
-
-
-    // // 예매 취소
-    // function resCancel(e) {
-    //     $("#ex_chk5").prop('checked', false);
-    //     // console.log('데이터 :', e.dataset.pgid);
-    //     if($('input:checkbox[name=seat_chk]:checked').length == 0){
-    //         alert('취소할 좌석을 선택해 주세요.')
-    //         return false;
-    //     }
-    //     var check_box_arr = [];
-    //     let chk_pg_id;
-    //     let chk_u_id;
-    //     let chk_pg_pay_type;
-    //     let seat_pay;
-    //     let ph_pay;
-    //     $("input[name=seat_chk]:checked").each(function(){
-    //         check_box_arr.push($(this).val());
-    //         let chk_id = this.id
-    //         chk_pg_id = $('#'+chk_id).data('pgid');
-    //         chk_u_id = $('#'+chk_id).data('uid');
-    //         chk_pg_pay_type = $('#'+chk_id).data('pgpaytype');
-    //         seat_pay = $('#'+chk_id).data('seatprice');
-    //     });
-
-    //     console.log('check?',check_box_arr);
-    //     console.log('data',chk_pg_id);
-    //     ph_pay = seat_pay * check_box_arr.length;
-    //     // console.log('ph_pay',ph_pay);
-    //     // alert(ph_pay)
-    // }
-
     
     //예약한 좌석의 수 구하기
     function getCancelType(ph_id){
