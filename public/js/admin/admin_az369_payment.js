@@ -730,11 +730,16 @@
             dataType : "json",
             success : function(data){
                 console.log('취소결과',data);
-                
+                if(data.resultMsg == '2001'){
+                    cancelSeatAPI(check_box_arr, chk_u_id, cancelType);
+                }else{
+                    alert('취소 오류 이노페이 관리페이지에서 직접 취소 해주세요.')
+                    
+                }
                 // resSeatClose();
                 //좌석 취소
-                cancelSeatAPI(check_box_arr, chk_u_id, cancelType);
                 location.reload();
+                
 
             },
             error : function(data){

@@ -238,6 +238,7 @@
                 row_data.PH_PG_ID = e.data.PH_PG_ID;
                 row_data.PH_ID = e.data.PH_ID;
                 row_data.PH_CodeType = e.data.PH_CodeType;
+                row_data.CR_PH_ID = e.data.CR_PH_ID;
                 
                 if($('.brand_info').css('display') == 'none'){
                     folding();
@@ -342,7 +343,8 @@
                 { dataField: "CR_Memo", caption: "비고"},
                 { dataField: "CR_CT_ID", visible: false },
                 { dataField: "CR_U_ID", visible: false },
-                { dataField: "CT_ID", visible: false }
+                { dataField: "CT_ID", visible: false },
+                { dataField: "CR_PH_ID", visible: false },
             ],
             onContentReady: function(e) {
                 let informer = e.element.find(".informer");
@@ -503,76 +505,77 @@
         }
     }
 
-    //결제취소 JSON 값
-    function cancelInfo(string, codeString, cancelType, ph_pay) {
+    // //결제취소 JSON 값
+    // function cancelInfo(string, codeString, cancelType, ph_pay) {
 
-        let cancel_data = {}                        //전체 필수 값 !!!!
-            cancel_data.mid = 'pgaz369azm',         //이노페이에서 발급한 상점아이디
-            cancel_data.tid = string,               //거래고유번호
-            cancel_data.svcCd = `${codeString}`,    //취소 결과 코드 ex) 신용카드 : 01, 계좌이체 : 02, 간편결제 : 16
-            cancel_data.partialCancelCode = cancelType,    //전체취소 : 0, 부분취소 : 1  (부분취소 사용 가능 가맹점만 사용 가능)
-            cancel_data.cancelAmt = ph_pay,          //취소 금액
-            cancel_data.cancelMsg = '환불테스트',   //취소사유
-            cancel_data.cancelPwd = '123456'        //취소비밀번호
+    //     let cancel_data = {}                        //전체 필수 값 !!!!
+    //         cancel_data.mid = 'pgaz369azm',         //이노페이에서 발급한 상점아이디
+    //         cancel_data.tid = string,               //거래고유번호
+    //         cancel_data.svcCd = `${codeString}`,    //취소 결과 코드 ex) 신용카드 : 01, 계좌이체 : 02, 간편결제 : 16
+    //         cancel_data.partialCancelCode = cancelType,    //전체취소 : 0, 부분취소 : 1  (부분취소 사용 가능 가맹점만 사용 가능)
+    //         cancel_data.cancelAmt = ph_pay,          //취소 금액
+    //         cancel_data.cancelMsg = '환불테스트',   //취소사유
+    //         cancel_data.cancelPwd = '123456'        //취소비밀번호
             
-        console.log('test', cancel_data);
-        return JSON.stringify(cancel_data);
+    //     console.log('test', cancel_data);
+    //     return JSON.stringify(cancel_data);
 
-    }
+    // }
 
-        //가상계좌 취소 요청값
-        function vBankCancel(tid, moid, pay, vbank_code, vbank_num){
-            let vBank_data = {}
-                vBank_data.mid = 'pgaz369azm'
-                vBank_data.licenseKey = 'fx/UT4tcb5VWxP24BXiwH0stdJnNxFf6GpdFdvd42Bmwnurd/1QgGPORTIfioiAVy/B0cx6j5spsDwAfGsleuQ=='
-                vBank_data.tid = tid
-                vBank_data.moid = moid
-                vBank_data.amt = pay
-                vBank_data.vbankBankCode = vbank_code
-                vBank_data.vbankNum = vbank_num
+    //     //가상계좌 취소 요청값
+    //     function vBankCancel(tid, moid, pay, vbank_code, vbank_num){
+    //         let vBank_data = {}
+    //             vBank_data.mid = 'pgaz369azm'
+    //             vBank_data.licenseKey = 'fx/UT4tcb5VWxP24BXiwH0stdJnNxFf6GpdFdvd42Bmwnurd/1QgGPORTIfioiAVy/B0cx6j5spsDwAfGsleuQ=='
+    //             vBank_data.tid = tid
+    //             vBank_data.moid = moid
+    //             vBank_data.amt = pay
+    //             vBank_data.vbankBankCode = vbank_code
+    //             vBank_data.vbankNum = vbank_num
 
-            return JSON.stringify(vBank_data); 
-        }
+    //         return JSON.stringify(vBank_data); 
+    //     }
         
-        //가상계좌 취소 요청
-        function vBank(chk_pg_id, order_num, ph_pay, vbank_code, vbank_num){
-            $.ajax({
-                type : "POST",
-                url : "https://api.innopay.co.kr/api/vbankCancel",
-                async : true,
-                data : vBankCancel(chk_pg_id, order_num, ph_pay, vbank_code, vbank_num),
-                contentType: "application/json; charset=utf-8",
-                dataType : "json",
-                success : function(data){
-                    // console.log(data);
-                },
-                error : function(data){
-                    // console.log(data);   
-                }
-            });
-        }
+    //     //가상계좌 취소 요청
+    //     function vBank(chk_pg_id, order_num, ph_pay, vbank_code, vbank_num){
+    //         $.ajax({
+    //             type : "POST",
+    //             url : "https://api.innopay.co.kr/api/vbankCancel",
+    //             async : true,
+    //             data : vBankCancel(chk_pg_id, order_num, ph_pay, vbank_code, vbank_num),
+    //             contentType: "application/json; charset=utf-8",
+    //             dataType : "json",
+    //             success : function(data){
+    //                 // console.log(data);
+    //             },
+    //             error : function(data){
+    //                 // console.log(data);   
+    //             }
+    //         });
+    //     }
 
         
 
-    //결제 상태 구하기
-    function getCancelType(ph_id){
-        let cancel_type;
-        $.ajax({
-            url : '/api/user/canceltype',
-            method : 'get',
-            dataType : 'json',
-            async : false,
-            data : {ph_id : ph_id},
-            success: function(res){
-                cancel_type = res.data[0].count
-            }					
-        });
-        return cancel_type;
-    }
+    // //결제 상태 구하기
+    // function getCancelType(ph_id){
+    //     let cancel_type;
+    //     $.ajax({
+    //         url : '/api/user/canceltype',
+    //         method : 'get',
+    //         dataType : 'json',
+    //         async : false,
+    //         data : {ph_id : ph_id},
+    //         success: function(res){
+    //             cancel_type = res.data[0].count
+    //         }					
+    //     });
+    //     return cancel_type;
+    // }
 
 
     //회원 좌석 예약 수정 예약 상태만 수정 함 결제 취소는 결제 관리 페이지에서 진행!!
     function updateAD(){
+        let ph_id = JSON.parse( sessionStorage.getItem('row_data') ).CR_PH_ID;
         let id = JSON.parse( sessionStorage.getItem('row_data') ).CR_ID;
         let seat_num_list;
         if(selected_seats == 0){
@@ -588,6 +591,7 @@
             se_scan : $("#se_scan option:selected").attr('value'),
             cr_memo : $('#cr_memo').val(),
             cr_state : $("#cr_state option:selected").attr('value'),
+            ph_id    : ph_id
         }
 
         // 예약 관리 페이지는 장차 좌석의 후불 결제 예약 및 좌석 별 취소 기능을 지원합니다.
@@ -664,31 +668,31 @@
         // }
     }
 
-    //이노페이 결제 취소 API
-    function innopayCancelAPI(t_id, cancel_cd, cancelType, cancel_pay, update_data, id){
-        $.ajax({
-            type : "POST",
-            url : "https://api.innopay.co.kr/api/cancelApi",
-            async : true,
-            data : cancelInfo(t_id, cancel_cd, cancelType, cancel_pay),
-            contentType: "application/json; charset=utf-8",
-            dataType : "json",
-            success : function(data){
-                console.log('결과값',data);
-                if(data.resultCode == '2026'){
-                    alert("취소 오류 이노페이 고객센터에 문의해 주세요.");
-                }else{
+    // //이노페이 결제 취소 API
+    // function innopayCancelAPI(t_id, cancel_cd, cancelType, cancel_pay, update_data, id){
+    //     $.ajax({
+    //         type : "POST",
+    //         url : "https://api.innopay.co.kr/api/cancelApi",
+    //         async : true,
+    //         data : cancelInfo(t_id, cancel_cd, cancelType, cancel_pay),
+    //         contentType: "application/json; charset=utf-8",
+    //         dataType : "json",
+    //         success : function(data){
+    //             console.log('결과값',data);
+    //             if(data.resultCode == '2026'){
+    //                 alert("취소 오류 이노페이 고객센터에 문의해 주세요.");
+    //             }else{
                     
-                    updateAPI(update_data,id);
-                }
+    //                 updateAPI(update_data,id);
+    //             }
                 
         
-            },
-            error : function(data){
-                alert("취소 오류 이노페이 고객센터에 문의해 주세요.");
-            }
-        });
-    }
+    //         },
+    //         error : function(data){
+    //             alert("취소 오류 이노페이 고객센터에 문의해 주세요.");
+    //         }
+    //     });
+    // }
 
 
 

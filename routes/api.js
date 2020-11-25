@@ -4464,6 +4464,7 @@ router.get('/reservation',function(req,res){
                     CR_ID,
                     CR_CT_ID,
                     CR_U_ID,
+                    CR_PH_ID,
                     U_Name,
                     U_uId,
                     U_Email,
@@ -4698,6 +4699,18 @@ router.post('/reservation',async function(req,res){
 
 //예약 수정
 router.put('/reservation/:crid', async function(req,res){
+
+    let cr_cancel = req.body.cr_cancel,
+        py_scan = req.body.py_scan,
+        se_scan = req.body.se_scan,
+        cr_id = req.params.crid,
+        cr_memo,
+        cr_state = req.body.cr_state,
+        ct_id = req.body.ct_id,
+        seatNums = req.body.seatNums,
+        ph_id = req.body.ph_id
+        
+    //전체적인 수정 쿼리
     let query = `UPDATE tCR SET
                     CR_Cancel = :cr_cancel,
                     CR_CT_ID = :ct_id,
@@ -4707,49 +4720,87 @@ router.put('/reservation/:crid', async function(req,res){
                     CR_Memo = :cr_memo,
                     CR_PayState = :cr_state
                     `
-    let cr_cancel = req.body.cr_cancel,
-        py_scan = req.body.py_scan,
-        se_scan = req.body.se_scan,
-        cr_id = req.params.crid,
-        cr_memo = req.body.cr_memo,
-        cr_state = req.body.cr_state,
-        ct_id = req.body.ct_id,
-        seatNums = req.body.seatNums
+    //취소상태를 전체취소, 부분취소를 나누기 위해 현 좌석 상태 확인 쿼리
+    let cancel_type_query = `SELECT CR_Memo FROM tCR WHERE CR_PH_ID = ${ph_id}`
 
-    if(cr_cancel === 'Y'){
-        query += ',CR_CancelDt = now() WHERE CR_ID = :cr_id';
-        cr_state = '결제취소';
-    }else if(cr_cancel === 'N' && cr_state == '결제대기'){
-        cr_state = '결제대기';
-        query += ' WHERE CR_ID = :cr_id';
-    }
-    else if(cr_cancel === 'N'){
-        cr_state = '결제완료';
-        query += ' WHERE CR_ID = :cr_id';
-    }
-    else{
-        query += ' WHERE CR_ID = :cr_id';
-    }
+    let cancel_update_query = `UPDATE tCR SET
+                                    CR_Memo = :cr_memo
+                                WHERE CR_PH_ID = ${ph_id}`
+    
 
-    connection.query(query, {cr_cancel, ct_id, seatNums, py_scan, se_scan, cr_id, cr_memo, cr_state},
-        function(err, rows){
-            if (err){
-                connection.rollback(function(){
-                    console.log('ERROR ! :', err);
-                    res.json({data : 304});
-                    // throw err;
-                })
-            }else{
-                connection.commit(function(err) {
-                    if (err) {
-                        return connection.rollback(function() {
-                            res.json({data : 300});
-                            throw err;
-                        });
+
+    connection.beginTransaction(function(err){
+        connection.query(cancel_type_query,
+            function(err, cancel_type_result){
+
+                //좌석예매를 취소하는 경우
+                if(cr_cancel === 'Y'){
+                    query += ',CR_CancelDt = now() WHERE CR_ID = :cr_id';
+                    cr_state = '결제취소';
+
+                    //예매된 좌석이 하나밖에 없을때
+                    if(cancel_type_result.length == 1){
+                        cr_memo = '전체취소';
                     }
-                    res.json({data : 200});    
-                });
-            }
+                    //하나보다 클때
+                    else if(cancel_type_result.length > 1){
+                        if(cancel_type_result[0].CR_Memo == '' && cancel_type_result[1].CR_Memo == ''){
+                            cr_memo = '부분취소';
+                        }
+
+                        if(cancel_type_result[0].CR_Memo == '부분취소' ||cancel_type_result[1].CR_Memo == '부분취소'){
+                            cr_memo = '전체취소';
+                        }
+                    }
+
+                //좌석예매를 수정하는 경우
+                }else if(cr_cancel === 'N' && cr_state == '결제대기'){
+                    cr_state = '결제대기';
+                    cr_memo = '';
+                    query += ' WHERE CR_ID = :cr_id';
+                }
+                else if(cr_cancel === 'N'){
+                    cr_state = '결제완료';
+                    cr_memo = '';
+                    query += ' WHERE CR_ID = :cr_id';
+                }
+                else{
+                    cr_memo = '';
+                    query += ' WHERE CR_ID = :cr_id';
+                }
+                //데이터 업데이트 진행
+                connection.query(query, {cr_cancel, ct_id, seatNums, py_scan, se_scan, cr_id, cr_memo, cr_state},
+                    function(err, rows){
+                        if (err){
+                            connection.rollback(function(){
+                                console.log('/reservation, query ERROR', err);
+                                res.json({data : 304});
+                                // throw err;
+                            })
+                        }else{
+                            //CR_Memo 취소 상태 전체 변경
+                            connection.query(cancel_update_query, {cr_memo},
+                                function(err, cancel_update_result){
+                                    if(err){
+                                        return connection.rollback(function() {
+                                            console.log('/reservation, cancel_update_query ERROR', err);
+                                            res.json({data : 300});
+                                        });
+                                    }
+                                    connection.commit(function(err) {
+                                        if (err) {
+                                            return connection.rollback(function() {
+                                                res.json({data : 300});
+                                                throw err;
+                                            });
+                                        }
+                                        res.json({data : 200});    
+                                    });
+                                })
+                        }
+                })
+        })
+
     })
 
 })
