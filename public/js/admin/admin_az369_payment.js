@@ -166,8 +166,8 @@
                 allowExportSelectedData: true
             },
             onExporting: function(e) {
-                var workbook = new ExcelJS.Workbook();
-                var worksheet = workbook.addWorksheet('결제 관리');
+                let workbook = new ExcelJS.Workbook();
+                let worksheet = workbook.addWorksheet('결제 관리');
                 
                 DevExpress.excelExporter.exportDataGrid({
                 component: e.component,
@@ -228,6 +228,34 @@
                     // }
                 },
                 { dataField: "CR_Memo", caption: "취소상태"},
+                { dataField: "PH_PayConfirm", caption: "정산상태",
+                    cellTemplate : function(element, info){
+                        // console.log('info',info.data.PH_ID);
+                        // let ph_id = info.data.PH_ID;
+                        // $.ajax({
+                        //     url : '/api/payment_cancel',
+                        //     method : 'get',
+                        //     dataType : 'JSON',
+                        //     data : {'ph_id' : ph_id},
+                        //     success: function(res){
+                        //         console.log('id',ph_id);
+                        //              console.log('res',res.data);
+                        //             if(res.data == 0){
+                        //                 element.append('<div>결제취소</div>').css('color','red')
+                        //                 return dataField='결제취소';
+                        //             }else{
+                        //                 element.append('<div>결제완료</div>')            
+                        //                 return dataField='결제완료';
+                        //             }
+                        //     }					
+                        // });
+                        if(info.value == 'Y'){
+                            element.append('<div>정산완료</div>').css('color','blue')
+                        }else{
+                            element.append('<div>미정산</div>')
+                        }
+                    }
+                },
                 { dataField: "CR_cDt", caption: "결제일시"},
                 { dataField: "PH_PG_Name", caption: "PG사명"}
             ],
@@ -236,7 +264,7 @@
                 informer.find(".totalCount").text(e.component.totalCount()+" 개");
             },
             onToolbarPreparing: function(e) {
-                var dataGrid = e.component;
+                let dataGrid = e.component;
                 e.toolbarOptions.items.unshift({
                     location: "before",
                     template: function(){
@@ -295,106 +323,55 @@
         search_popup_element.css("top", rect.top+'px');
     });
 
+    //현재 날짜 계산
+    function pgGetToday(){
+        let date = new Date();
+        let year_toString = date.getFullYear().toString();
+        let year = year_toString.substr(0,4)
+        let month = ("0" + (1 + date.getMonth())).slice(-2);
+        let day = ("0" + date.getDate()).slice(-2);
+        let day2 = ("0" + date.getDate());
+        console.log('day:',day);
+        console.log('day2:',day2);
+        let result = year+"-"+month+"-"+ day;
+        return result;
+    }
 
     tableInit();
-    //신규 등록 저장
+    //금일 정산하기
     function saveAD(){
+        //요일 계산
+        let week = ['일', '월', '화', '수', '목', '금', '토'];
+        let dayOfWeek = week[new Date(pgGetToday()).getDay()];
 
-        let update_data = {
-            u_login_id : $("#u_login_id").val(),
-            u_name : $('#u_name').val(),
-            u_email : $('#u_email').val(),
-            u_phone : $('#u_phone').val(),
-            u_brand : $('#u_brand').val(),
-            u_admin : $("#u_admin option:selected").attr('value'),
-            postcode : $('#postcode').val(),
-            address : $('#address').val(),
-            detailAddress : $('#detailAddress').val(),
+        //주말 평일 나누는 분기
+        if(dayOfWeek == "토" || dayOfWeek == "일"){
+            alert('주말에는 정산 내역이 없습니다.');
+            return false;
+        }else{
+            let ph_id_arr = [];
+            $.ajax({
+                url : '/api/pay-calculate',
+                method : 'get',
+                dataType : 'json',
+                async : false,
+                success: function(res){
+                    for(let i=0; i<res.length; i++){
+                        ph_id_arr.push(res[i].PH_ID)
+                    }
+                    console.log('res',res);                         
+                }					
+            });
+            alert(ph_id_arr+'번 PH_ID의 내역이 정산 되었습니다.')
         }
 
-        // console.log('updat22222e :',update_data);
-        
-        // let form_data = new FormData(document.forms[0]);
-        // for ( let i in update_data) form_data.append(i, update_data[i]);
-        let api_url  = '/api/member';
-        // $.ajax({
-        //     dataType : 'JSON',
-        //     type : "POST",
-        //     url : api_url,
-        //     data : update_data,
-        //     success : function (res) {
-        //         console.log('ajax result');
-        //         console.log(res);
-        //         objectInfo('new');
-        //         $("#mgmt-table").dxDataGrid("instance").refresh();
-        //     }
-        // })
     }
-    function deleteAD(mode = 'single') {
-        // if(mode === 'single'){
 
-        //     let id = JSON.parse( sessionStorage.getItem('row_data') ).U_ID;
-        //     console.log(id,'삭제 아이디');
-        //     $.ajax({
-        //         dataType : 'JSON',
-        //         type : "DELETE",
-        //         url : '/api/member/'+id,
-        //         success : function (res) {
-        //             console.log('ajax result');
-        //             console.log(res);
-        //             objectInfo('new');
-        //             $("#mgmt-table").dxDataGrid("instance").refresh();
-        //         }
-        //     });
-        // } else if(mode === "multi"){
-        //     let id_list = {
-        //         row_ids : sessionStorage.getItem('row_data_list')
-        //     }
-        //     console.log(id_list,'삭제 아이디들');
-        //     $.ajax({
-        //         dataType : 'JSON',
-        //         type : "DELETE",
-        //         data : id_list,
-        //         url : '/api/member',
-        //         success : function (res) {
-        //             console.log('ajax result');
-        //             console.log(res);
-        //             objectInfo('new');
-        //             $("#mgmt-table").dxDataGrid("instance").refresh();
-        //         }
-        //     });
-        // }
+    function deleteAD(mode = 'single') {
+
     }
     function updateAD(){
-        let id = JSON.parse( sessionStorage.getItem('row_data') ).U_ID;
-        let update_data = {
-            u_login_id : $("#u_login_id").val(),
-            u_name : $('#u_name').val(),
-            u_email : $('#u_email').val(),
-            u_phone : $('#u_phone').val(),
-            u_brand : $('#u_brand').val(),
-            u_admin : $("#u_admin option:selected").attr('value'),
-            postcode : $('#postcode').val(),
-            address : $('#address').val(),
-            detailAddress : $('#detailAddress').val(),
-        }
 
-        let form_data = new FormData(document.forms[0]);
-        for ( let i in update_data) form_data.append(i, update_data[i]);
-
-        let api_url  = '/api/member/'+id;
-
-        // $.ajax({
-        //     dataType : 'JSON',
-        //     type : "PUT",
-        //     url : api_url,
-        //     data : update_data,
-        //     success : function (res) {
-        //         console.log('ajax result');
-        //         console.log(res);
-        //         $("#mgmt-table").dxDataGrid("instance").refresh();
-        //     }
-        // })
     }
     function clickActionBtn(e){
         if( $(e.target).hasClass('disabled') ) return false;
@@ -530,7 +507,7 @@
                         bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span>   "+chk_dis_memo+"</label></div></li>";
                         
                     }
-                    console.log('bot',bot_html);
+                    // console.log('bot',bot_html);
                     $('#res_seat_list').append(bot_html);
                 }
                 //좌석이 없으면 이미 취소된 좌석입니다 문구 표현
@@ -603,7 +580,7 @@
             alert('취소할 좌석을 선택해 주세요.')
             return false;
         }
-        var check_box_arr = []; //예매한 좌석 cr_id
+        let check_box_arr = []; //예매한 좌석 cr_id
         let chk_pg_id; //PG사 결제 고유 아이디 tid
         let chk_u_id; // 결제 회원 아이디
         let chk_pg_pay_type; // 결제 취소 코드
@@ -676,12 +653,12 @@
             alert('무통장 입금은 취소를 지원하지 않습니다. 직접 해당 좌석을 환불해 주시고 예약 관리 페이지에서 예매 취소를 해주세요');
             location.reload();
         }
-        //계좌이채 부분 취소일때 안내 메세지 표시
-        else if(chk_pg_pay_type == '02' && cancelType == '1'){
-            $('#popup').css('display','none');	
-            alert('계죄이체는 부분취소를 지원하지 않습니다. 직접 해당 좌석을 환불해 주시고 예약 관리 페이지에서 예매 취소를 해주세요');
-            location.reload();            
-        }
+        // //계좌이채 부분 취소일때 안내 메세지 표시
+        // else if(chk_pg_pay_type == '02' && cancelType == '1'){
+        //     $('#popup').css('display','none');	
+        //     alert('계죄이체는 부분취소를 지원하지 않습니다. 직접 해당 좌석을 환불해 주시고 예약 관리 페이지에서 예매 취소를 해주세요');
+        //     location.reload();            
+        // }
         //그 외 결제수단은 api처리	
         else{
             console.log('아님여기냐');
@@ -730,7 +707,7 @@
             dataType : "json",
             success : function(data){
                 console.log('취소결과',data);
-                if(data.resultMsg == '2001'){
+                if(data.resultCode == '2001' ||data.resultCode == '2211'){
                     cancelSeatAPI(check_box_arr, chk_u_id, cancelType);
                 }else{
                     alert('취소 오류 이노페이 관리페이지에서 직접 취소 해주세요.')
@@ -769,8 +746,8 @@
 
     //요일 계산 함수
     function getInputDayLabel(date) {
-        var week = new Array('일', '월', '화', '수', '목', '금', '토');
-        var todayLabel = week[date-1];
+        let week = new Array('일', '월', '화', '수', '목', '금', '토');
+        let todayLabel = week[date-1];
         return todayLabel;
     }
 
@@ -794,3 +771,13 @@
         
         }
     }
+
+    // //현재 날짜 계산
+    // function pgGetToday(){
+    //     let date = new Date();
+    //     let year_toString = date.getFullYear().toString();
+    //     let year = year_toString.substr(0,4)
+    //     let month = ("0" + (1 + date.getMonth())).slice(-2);
+    //     let day = ("0" + date.getDate()).slice(-2);
+    //     return year + month + day;
+    // }

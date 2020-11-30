@@ -13,12 +13,18 @@ const LocalStrategy = require('passport-local').Strategy;
 const sms = require('../modules/sms');
 const localAuth = require('../modules/auth');
 const multer = require('multer')
+const bodyParser = require('body-parser');
 const path = require('path');
 const fs = require('fs');
 const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 const { throws } = require('assert');
 const { json } = require('body-parser');
-
+const api_request = require('request'); 
+const sync_request = require('sync-request');
+//디코딩 모듈
+const iconv = require('iconv-lite');
+//특정 시간 실행 모듈
+const schedule = require('node-schedule');
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
     
@@ -1845,24 +1851,78 @@ function cancelNonDeposit(){
         })
     })
 }
-//1시간마다 실행
-setInterval(cancelNonDeposit, 1000 * 60 * 30);
 
-//가상계좌 입금이 24시간 이내 되지 않는 경우 이노페이 API 통해 취소
-router.get('/vbankinterval', function(req, res){
+//미입금의 가상계좌 내용 이노페이에 취소 요청
+function vBankInterval(){
     let query = `SELECT * FROM tCR 
-                        INNER JOIN tPH ON tCR.CR_PH_ID = tPH.PH_ID
-                    WHERE PH_Type = '무통장입금' AND 
-                            CR_PayState = '결제대기' AND
-                            DATE_ADD(CR_cDt, INTERVAL + 24 HOUR) < NOW()
-                    GROUP BY PH_BankNumber`
-                    
+                    INNER JOIN tPH ON tCR.CR_PH_ID = tPH.PH_ID
+                WHERE PH_Type = '무통장입금' AND 
+                        CR_PayState = '결제대기' AND
+                        DATE_ADD(CR_cDt, INTERVAL + 24 HOUR) < NOW()        
+                GROUP BY PH_BankNumber`
+                
     connection.query(query, function(err, rows){
         if(err) throw err;
-        res.json({data : rows})
+        // res.json({data : rows})
+        console.log('rows',rows);
+        if(rows.length > 0){
+            let tid = rows[0].PH_PG_ID               // 결제 고유번호
+            let moid = rows[0].PH_OrderNumber   // 주문번호
+            let pay = rows[0].PH_OPrice              // 결제 가격
+            let vbank_code = rows[0].PH_BankCode   // 은행코드
+            let vbank_num = rows[0].PH_BankNumber // 가상계좌 번호
+                
+            //post 요청 
+            //중요 !! async 동기 요청을 하기 때문에 request-sync 모듈을 사용함!
+            //참조 https://github.com/request/request-promise
+            let sync_res = sync_request('POST','https://api.innopay.co.kr/api/vbankCancel', {
+                json: { 
+                    "mid" : "pgaz369azm", //상점 아이디
+                    "licenseKey": "fx/UT4tcb5VWxP24BXiwH0stdJnNxFf6GpdFdvd42Bmwnurd/1QgGPORTIfioiAVy/B0cx6j5spsDwAfGsleuQ==", // 라이센스 키
+                    "tid" : tid, // 결제 고유번호
+                    "moid" : moid, // 주문번호
+                    "amt" : pay, // 결제 가격
+                    "vbankBankCode" : vbank_code, // 은행코드
+                    "vbankNum" : vbank_num // 가상계좌 번호
+                }
+           })
+           let test_user = JSON.parse(sync_res.getBody('utf-8'));
+           console.log('test',test_user);
+        }else{
+            console.log('취소할 24시간이 지난 가상계좌는 없음');
+        }
 
     })
+}
+
+//노드 스케쥴 선언
+var schedule_rule = new schedule.RecurrenceRule(); 
+//매시간 0분에 실행 선언
+schedule_rule.minute = 0;
+//매시간 정각에 취소 실행
+let cancel_non_deposit = schedule.scheduleJob(schedule_rule, () => {
+    cancelNonDeposit();
+    vBankInterval();
+    console.log('미입금 취소!')
 })
+
+// //가상계좌 입금이 24시간 이내 되지 않는 경우 이노페이 API 통해 취소
+// router.get('/vbankinterval', function(req, res){
+//     let query = `SELECT * FROM tCR 
+//                         INNER JOIN tPH ON tCR.CR_PH_ID = tPH.PH_ID
+//                     WHERE PH_Type = '무통장입금' AND 
+//                             CR_PayState = '결제대기' AND
+//                             DATE_ADD(CR_cDt, INTERVAL + 24 HOUR) < NOW()
+//                     GROUP BY PH_BankNumber`
+                    
+//     connection.query(query, function(err, rows){
+//         if(err) throw err;
+//         res.json({data : rows})
+
+//     })
+// })
+
+
 
 //결제완료
 router.post('/payment', auth.isLoggedIn, async (req, res) =>{
@@ -4757,6 +4817,9 @@ router.put('/reservation/:crid', async function(req,res){
                 }else if(cr_cancel === 'N' && cr_state == '결제대기'){
                     cr_state = '결제대기';
                     cr_memo = '';
+                    // if(req.body.cr_memo == '후불결제'){
+                    //     cr_memo = '후불결제';    
+                    // }
                     query += ' WHERE CR_ID = :cr_id';
                 }
                 else if(cr_cancel === 'N'){
@@ -5562,6 +5625,7 @@ router.get('/admin_payment',function(req, res){
                                     PH_Type,
                                     CR_Memo,
                                     CR_cDt,
+                                    PH_PayConfirm,
                                     PH_OrderNumber
                                 FROM tPH 
                                     INNER JOIN tU ON tU.U_ID = tPH.PH_U_ID
@@ -6567,4 +6631,134 @@ router.post('/return_bank', async function(req, res){
     console.log('계좌이체 연동 값 :', req.body);
     res.send("0000");
 });
+
+//관리 페이지에서 정산 요청
+router.get('/pay-calculate', function(req,res){
+    payCalculate()
+        .then(result => res.send(result))
+        .catch(err => console.log('promise Error :',err))
+        // console.log('result',result);
+
+})
+
+//관리 페이지에서 정산 요청 단순 async/await 방법
+// router.get('/pay-calculate', async function(req,res){
+//     let await_result = await payCalculate();
+//     res.json({data : await_result})
+// })
+ 
+//이노페이 정산 요청
+function payCalculate(){
+    //request의 요청할 값들
+    let data_obj = {
+        uri:'https://api.innopay.co.kr/api/settlmntDownload.do', 
+        method: 'POST',
+        form: {
+          "mid" : "pgaz369azm", //상점 아이디
+          "merchantKey": "fx/UT4tcb5VWxP24BXiwH0stdJnNxFf6GpdFdvd42Bmwnurd/1QgGPORTIfioiAVy/B0cx6j5spsDwAfGsleuQ==", // 라이센스 키
+          "settlmntDt" : pgGetToday(), // 정산할 날짜
+        // "settlmntDt" : "20201128", // 정산할 날짜
+          "groupYn" : 'N' // N : 개별 상점 정산내역, Y : 전체 상점 정산내역 (az369는 전체 상점 내역을 지원 안함)
+        },
+        headers: {
+            'Content-Type': 'text/html; charset=utf-8' //요청할 값의 타입 
+        }
+        ,
+        encoding: null //인코딩 안함
+    }
+
+    console.log('pgGetToday :',pgGetToday());
+
+
+    //정산이 된 고유번호 배열
+    let pg_number = [];
+
+    return new Promise(resolve=>{
+        //post 요청 
+        api_request.post(data_obj, function(err, res, body){
+            if(err){
+                console.log('err',err);  
+            }
+            //디코딩
+            let utf8_str = iconv.decode(body,'euc-kr');
+            //띄어쓰기 삭제
+            let pg_data = utf8_str.trim();
+            //객체로 변환
+            var result = pg_data.split(/\r?\n/).map(x => x.split('|').reduce((a, o, i) => {
+                                a['type' + i] = o;
+                                return a;
+                            }, {}));
+            //변환된 값 확인
+            console.log('body',result);
+
+
+
+            //반복문을 통해 배열에 해당 거래고유 번호 삽입
+            for(i=0; i<result.length; i++){
+                pg_number.push(result[i].type2)
+            }
+
+            console.log('rows',pg_number);
+            
+            //DB 정산확인 컬럼을 Y로 변경
+            let udt_query = `UPDATE tPH SET
+                                    PH_PayConfirm = 'Y'
+                                WHERE PH_PG_ID IN (:pg_number)`
+            //정산된 결제내역의 ID 가져오기
+            let sel_query = `SELECT PH_ID FROM tPH 
+                                WHERE PH_PG_ID IN (:pg_number)`
+
+            connection.beginTransaction(function(err){
+                if(err) throw err;
+                connection.query(udt_query, 
+                    {
+                        pg_number : pg_number
+                    }, function(err, rows){
+                    if(err){
+                        connection.rollback(function(){
+                            console.log('정산확인 에러 , udt_query ERROR', err);
+                        })
+                    }
+                    //정산확인 된 결제내역 찾기
+                    connection.query(sel_query, 
+                        {
+                            pg_number : pg_number
+                        },function(err, sel_rows){
+                        //업데이트 성공 시
+                        connection.commit(function(err) {
+                            if (err) {
+                                return connection.rollback(function() {
+                                    throw err;
+                                });
+                            }
+                            console.log('정산 확인 완료',rows);
+                            console.log('정산 확인 완료',sel_rows);
+                            //정산 결과를 반환
+                            resolve(sel_rows);
+                        });
+                    })
+                })
+            })
+        })
+    })
+}
+// payCalculate();
+//현재 날짜 계산
+function pgGetToday(){
+    var date = new Date();
+    var year_toString = date.getFullYear().toString();
+    var year = year_toString.substr(0,4) 
+    var month = ("0" + (1 + date.getMonth())).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+    return year + month + day;
+}
+
+//                              초 | 분 | 시간 | 일 | 월 | 요일 0~7 (0과 7일 일요일 임) 
+//                              아래 방식으로 하면 월~금 20:00:00에 실행
+// const j = schedule.scheduleJob('00 00 20 * * 1-5', () => {
+const j = schedule.scheduleJob('00 00 10 * * 1-5', () => {
+    payCalculate();
+    console.log('Cron-style Scheduling')
+})
+
 module.exports = router;

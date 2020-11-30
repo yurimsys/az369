@@ -147,6 +147,7 @@
                                     <button class="tablinks" id="tab_mo3" onclick="openList(event, '03')">
                                         <p>취소환불조회</p>
                                     </button>
+                            
                                 </div>
                             </li>
 
@@ -925,8 +926,11 @@
             }else{
                 cancelType = "0"
             }
+            console.log('test',chk_pg_pay_type);
+            console.log('good',cancelType);
             // 무통장 입금일때 api 처리
             if(chk_pg_pay_type == '03' && cancelType == '0'){   
+                console.log('통과');
                 $.ajax({
                     url : '/api/user/vBank',
                     method : 'get',
@@ -934,7 +938,9 @@
                     data : {'cr_id': checkBoxArr},
                     success: function(res){
                         if(res.data == '결제대기'){
-                            cancelPayApi(checkBoxArr, chk_u_id, cancelType, ph_pay, chk_pg_id, chk_pg_pay_type)
+                            $('#popup').css('display','none');
+                            let msgType = "입금 전 취소"
+                            cancelSeatAPI(checkBoxArr, chk_u_id, cancelType, msgType)
                             vBank(chk_pg_id, order_num.toString(), ph_pay.toString(), vbank_cd, vbank_num.toString())
                         }else{
                             $('#popup').css('display','none');
@@ -950,6 +956,7 @@
                         }
                     }					
                 });
+                return false;
             }
             //무통장 부분 취소일떄 경우 안내 메세지 표시
             else if(chk_pg_pay_type == '03' && cancelType == '1'){
@@ -963,10 +970,13 @@
                     .then((value)=>{	
                         location.href='mypage';	
                     })	
+                return false;
             }
+            //후불결제 일경우
             else if(chk_pg_id == '1'){
                 $('#popup').css('display','none');
-                cancelSeatAPI(checkBoxArr, chk_u_id, cancelType)
+                let msgType = "입금 전 취소"
+                cancelSeatAPI(checkBoxArr, chk_u_id, cancelType, msgType)
             }
             // //계좌이채 부분 취소일때 안내 메세지 표시
             // else if(chk_pg_pay_type == '02'){
@@ -1083,7 +1093,9 @@
         }
 
         //좌석 예매 취소 함수
-        function cancelSeatAPI(checkBoxArr, chk_u_id, cancelType){
+        function cancelSeatAPI(checkBoxArr, chk_u_id, cancelType, msgType){
+            //취소 메시지
+            let cancel_msg;
             $.ajax({
                 url : '/api/cancel-seat',
                 method : 'post',
@@ -1094,9 +1106,10 @@
                     "cancelType" : cancelType  //부분취소 여부
                 },
                 success: function(res){
+                    msgType = "입금 전 취소" ? cancel_msg = "" : cancel_msg = "환불금액 : " +res.cancelPay +'원';
                     swal({
                         title: '예매취소 완료',
-                        text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
+                        text: res.seats+' 좌석이 취소완료되었습니다. \n '+cancel_msg,
                         icon: 'success',
                         button: '확인'
                     }).then((value)=>{
@@ -1116,13 +1129,13 @@
                 contentType: "application/json; charset=utf-8",
                 dataType : "json",
                 success : function(data){
-                    // console.log('data !', data);
+                    console.log('data !', data);
                     //resultCode == 2001 일때 정상 취소결과
                     //역환 발생 오류 이노페이 측에 문의해야 함
                     if(data.resultCode != '2026'){
-                        alert("취소 오류 고객센터에 문의해 주세요.");
-                    }else{
                         cancelSeatAPI(checkBoxArr, chk_u_id, cancelType);
+                    }else{
+                        alert("취소 오류 고객센터에 문의해 주세요.");
                     }
                     
                 },
@@ -1160,7 +1173,7 @@
                 method: "post",
                 dataType: "json",
                 success: function (res) {
-                    // console.log('res',res.data[0].CR_PayState);
+                    console.log('res',res.data);
                     //PC리스트
                     let html = "";
                     for (let i = 0; i < res.data.length; i++) {
@@ -1642,12 +1655,6 @@
 
 
     </script>
-
-
-
-
-
-
 </body>
 
 </html>
