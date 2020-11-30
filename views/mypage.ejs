@@ -925,12 +925,12 @@
                 cancelType = "1"
             }else{
                 cancelType = "0"
-            }
-            console.log('test',chk_pg_pay_type);
-            console.log('good',cancelType);
+            // }
+            // console.log('test',chk_pg_pay_type);
+            // console.log('good',cancelType);
             // 무통장 입금일때 api 처리
             if(chk_pg_pay_type == '03' && cancelType == '0'){   
-                console.log('통과');
+                // console.log('통과');
                 $.ajax({
                     url : '/api/user/vBank',
                     method : 'get',
@@ -1129,7 +1129,7 @@
                 contentType: "application/json; charset=utf-8",
                 dataType : "json",
                 success : function(data){
-                    console.log('data !', data);
+                    // console.log('data !', data);
                     //resultCode == 2001 일때 정상 취소결과
                     //역환 발생 오류 이노페이 측에 문의해야 함
                     if(data.resultCode != '2026'){
@@ -1173,7 +1173,7 @@
                 method: "post",
                 dataType: "json",
                 success: function (res) {
-                    console.log('res',res.data);
+                    // console.log('res',res.data);
                     //PC리스트
                     let html = "";
                     for (let i = 0; i < res.data.length; i++) {
