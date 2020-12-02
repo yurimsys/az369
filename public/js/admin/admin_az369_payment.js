@@ -191,7 +191,7 @@
                 { dataField: "PH_PG_ID", caption: "거래번호"},
                 { dataField: "PH_Price", caption: "결제금액"},
                 { dataField: "cancel_pay", caption: "취소금액"},
-                { dataField: "last_pay", caption: "정산금액"},
+                { dataField: "last_pay", caption: "최종금액"},
                 { dataField: "PH_Type", caption: "결제수단"},
                 { dataField: "CR_PayState", caption: "결제여부",
                     cellTemplate : function(element, info){
@@ -257,6 +257,7 @@
                         }
                     }
                 },
+                { dataField: "PH_PayAmount", caption: "실제정산금액"},
                 { dataField: "CR_cDt", caption: "결제일시"},
                 { dataField: "PH_PG_Name", caption: "PG사명"}
             ],
@@ -476,13 +477,17 @@
                 success: function(res){
                     console.log('resL',res);
                     console.log('res[0].type0',res[0].type0);
-                    if(res[0].type0 != "0001"){
+                    if(res.length == 0){
+                        alert(req_day+'날은 정산내역이 없습니다.')
+                    }
+                    else if(res[0].type0 == "0000"){
                         for(let i=0; i<res.length; i++){
                             ph_id_arr.push(res[i].PH_ID)
                         }
                         alert(req_day+'일'+'\n'+ph_id_arr+'번 PH_ID의 내역이 정산 되었습니다.')
                         $("#mgmt-table").dxDataGrid("instance").refresh();
-                    }else{
+                    }
+                    else{
                         alert(req_day+'날은 정산내역이 없습니다.')
                     }
                 }					

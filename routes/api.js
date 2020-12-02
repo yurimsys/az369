@@ -5625,6 +5625,7 @@ router.get('/admin_payment',function(req, res){
                                                  END)) AS last_pay,
                                     CR_PayState,
                                     PH_Type,
+                                    PH_PayAmount,
                                     CR_Memo,
                                     CR_cDt,
                                     PH_PayConfirm,
@@ -6712,7 +6713,7 @@ function payCalculate(day_param){
             console.log('body',result);
 
             //정산내역이 있는 경우 처리
-            if(result[0].type0 != "0001"){
+            if(result[0].type0 == "0000"){
 
                 //정산금액이 양수인 것들 (실제 정산으로 들어갈 데이터) 해당 데이터에 type29 실제 정산금액을 넣어야 함
                 let int_obj = result.filter(data => data.type15 > 0);
