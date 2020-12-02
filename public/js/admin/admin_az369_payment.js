@@ -13,10 +13,11 @@
         // 신규모드로 실행
         // objectInfo("new");
         // 광고기간 DateBox
-        $(".search_cr_cdt").dxDateBox({
+        $(".search_cr_cdt, .pg_get_day").dxDateBox({
             type: "date",
             dateSerializationFormat : "yyyy-MM-dd"
         });
+        
     }
 
 
@@ -323,49 +324,9 @@
         search_popup_element.css("top", rect.top+'px');
     });
 
-    //현재 날짜 계산
-    function pgGetToday(){
-        let date = new Date();
-        let year_toString = date.getFullYear().toString();
-        let year = year_toString.substr(0,4)
-        let month = ("0" + (1 + date.getMonth())).slice(-2);
-        let day = ("0" + date.getDate()).slice(-2);
-        let day2 = ("0" + date.getDate());
-        console.log('day:',day);
-        console.log('day2:',day2);
-        let result = year+"-"+month+"-"+ day;
-        return result;
-    }
 
+    //그리드 함수 실행
     tableInit();
-    //금일 정산하기
-    function saveAD(){
-        //요일 계산
-        let week = ['일', '월', '화', '수', '목', '금', '토'];
-        let dayOfWeek = week[new Date(pgGetToday()).getDay()];
-
-        //주말 평일 나누는 분기
-        if(dayOfWeek == "토" || dayOfWeek == "일"){
-            alert('주말에는 정산 내역이 없습니다.');
-            return false;
-        }else{
-            let ph_id_arr = [];
-            $.ajax({
-                url : '/api/pay-calculate',
-                method : 'get',
-                dataType : 'json',
-                async : false,
-                success: function(res){
-                    for(let i=0; i<res.length; i++){
-                        ph_id_arr.push(res[i].PH_ID)
-                    }
-                    console.log('res',res);                         
-                }					
-            });
-            alert(ph_id_arr+'번 PH_ID의 내역이 정산 되었습니다.')
-        }
-
-    }
 
     function deleteAD(mode = 'single') {
 
@@ -399,16 +360,136 @@
             $('#search_pay_state').val('');
             search_cr_cdt_instance.reset();
     }
-    // 닫기
-    function searchPopupClose() {
-        $("#object-search-popup").hide();
-    }0
+    
+    //검색 팝업
     function searchPopupShow() {
         $('#object-search-popup').css('left','430px')
         $('#object-search-popup').css('top','300px')
         $("#object-search-popup").show();
     }
+    // 검색 닫기
+    function searchPopupClose() {
+        $("#object-search-popup").hide();
+    }
 
+    //PG 정산하기 팝업
+    function payPopupShow(){
+        $('#object-pay-popup').css('left','430px')
+        $('#object-pay-popup').css('top','300px')
+        $("#object-pay-popup").show();
+        
+    }
+    //정산 모달 닫기 
+    function payPopupClose() {
+        $("#object-pay-popup").hide();
+    }
+    //현재 날짜 계산
+    function pgGetToday(){
+        let date = new Date();
+        let year_toString = date.getFullYear().toString();
+        let year = year_toString.substr(0,4)
+        let month = ("0" + (1 + date.getMonth())).slice(-2);
+        let day = ("0" + date.getDate()).slice(-2);
+        let result = year+"-"+month+"-"+ day;
+        console.log('result',result);
+        return result;
+    }
+    
+    //정산일시 박스 초기화
+    function pgPopupReset(){
+        console.log('초기화하기');
+        let obj_pg_get_day = $(".object-search-popup .pg_get_day").dxDateBox("instance");
+        obj_pg_get_day.reset();
+    }
+
+    //정산일 날짜 구하기
+    function getDay(e){
+        console.log('e!!!',e.dataset.selectday);
+        
+        let obj_pg_get_day = $(".object-search-popup .pg_get_day").dxDateBox("instance");
+
+        //클릭한 버튼의 값
+        let select_day = e.dataset.selectday;
+
+        if(select_day == 'daynow'){
+            console.log('테스트',pgGetToday());
+            obj_pg_get_day.option("value", pgGetToday());
+        }else if(select_day == 'dayone'){
+            console.log('테스트',dateAddDel(pgGetToday(),-1,'d'));
+            obj_pg_get_day.option("value", dateAddDel(pgGetToday(),-1,'d'));
+        }else if(select_day == 'daytwo'){
+            console.log('테스트',dateAddDel(pgGetToday(),-2,'d'));
+            obj_pg_get_day.option("value", dateAddDel(pgGetToday(),-2,'d'));
+        }
+        
+    }
+
+    //날짜 더히기 빼기 함수
+    function dateAddDel(sDate, nNum, type) {
+        var yy = parseInt(sDate.substr(0, 4), 10);
+        var mm = parseInt(sDate.substr(5, 2), 10);
+        var dd = parseInt(sDate.substr(8), 10);
+        
+        if (type == "d") {
+            d = new Date(yy, mm - 1, dd + nNum);
+        }
+        else if (type == "m") {
+            d = new Date(yy, mm - 1, dd + (nNum * 31));
+        }
+        else if (type == "y") {
+            d = new Date(yy + nNum, mm - 1, dd);
+        }
+     
+        yy = d.getFullYear();
+        mm = d.getMonth() + 1; mm = (mm < 10) ? '0' + mm : mm;
+        dd = d.getDate(); dd = (dd < 10) ? '0' + dd : dd;
+     
+        return '' + yy + '-' +  mm  + '-' + dd;
+    }
+
+    //정산요청하기
+    function payPopupAction(){
+        // console.log('good',$(".object-search-popup .pg_get_day").dxDateBox("instance").option().value);
+        //요일 계산
+        let req_day = $(".object-search-popup .pg_get_day").dxDateBox("instance").option().value;
+
+        if(req_day == null){
+            alert('정산일시를 지정해 주세요.');
+            return false;
+        }
+
+        let week = ['일', '월', '화', '수', '목', '금', '토'];
+        let dayOfWeek = week[new Date(req_day).getDay()];
+        console.log('보낼 값 -제거',req_day.replace(/-/g,''));
+        // 주말 평일 나누는 분기
+        if(dayOfWeek == "토" || dayOfWeek == "일"){
+            alert('주말에는 정산 내역이 없습니다.');
+            return false;
+        }else{
+            let ph_id_arr = [];
+            $.ajax({
+                url : '/api/pay-calculate',
+                method : 'get',
+                dataType : 'json',
+                data : {"req_day" : req_day.replace(/-/g,'')},
+                async : false,
+                success: function(res){
+                    console.log('resL',res);
+                    console.log('res[0].type0',res[0].type0);
+                    if(res[0].type0 != "0001"){
+                        for(let i=0; i<res.length; i++){
+                            ph_id_arr.push(res[i].PH_ID)
+                        }
+                        alert(req_day+'일'+'\n'+ph_id_arr+'번 PH_ID의 내역이 정산 되었습니다.')
+                        $("#mgmt-table").dxDataGrid("instance").refresh();
+                    }else{
+                        alert(req_day+'날은 정산내역이 없습니다.')
+                    }
+                }					
+            });
+        }
+    }
+    
     // 검색
     function searchPopupAction() {
         
@@ -443,13 +524,10 @@
     function resNoseatClose(){
         $("#object-res-noseat-popup").hide();
     }
+
     //회원 예매 목록
     function userSeat(ph_id) {
         $('#popup').css('display', 'block')
-        // console.log('ph_id',ph_id);
-        let ph_data = {
-            ph_data : ph_id
-        }
             
         $.ajax({
             url : '/api/payment_list',
@@ -636,7 +714,6 @@
                 success: function(res){
                     alert(cancelType)
                     if(res.data == '결제대기'){
-                        console.log('여기냐');
                         cancelSeatAPI(check_box_arr, chk_u_id)
                         vBank(chk_pg_id, order_num.toString(), ph_pay.toString(), vbank_cd, vbank_num.toString())
                     }else{
@@ -765,19 +842,3 @@
             return false;
         }
     }
-
-    function showPay(){
-        if($('#payState').val() == "impt"){
-        
-        }
-    }
-
-    // //현재 날짜 계산
-    // function pgGetToday(){
-    //     let date = new Date();
-    //     let year_toString = date.getFullYear().toString();
-    //     let year = year_toString.substr(0,4)
-    //     let month = ("0" + (1 + date.getMonth())).slice(-2);
-    //     let day = ("0" + date.getDate()).slice(-2);
-    //     return year + month + day;
-    // }

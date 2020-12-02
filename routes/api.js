@@ -853,7 +853,7 @@ router.get('/user/vBank', auth.isLoggedIn, async (req, res) =>{
 })
 
 //좌석 예매 취소 api
-router.post('/cancel-seat', auth.isLoggedIn, async (req, res) =>{
+router.post('/  ', auth.isLoggedIn, async (req, res) =>{
 
     // 예매 취소할 user의 id 
     let sessionId = req.body.u_id 
@@ -891,9 +891,9 @@ router.post('/cancel-seat', auth.isLoggedIn, async (req, res) =>{
     // cencel_type 이 1일 경우에 사용                         
     //취소 컬럼 업데이트 (부분취소 or 전체취소)
     let part_cancel_query = `UPDATE tCR
-                                SET CR_Memo = '${cancel_name}'
-                            WHERE CR_PH_ID = (SELECT * FROM (SELECT CR_PH_ID FROM tCR WHERE CR_ID IN (:cr_id) LIMIT 1) AS part) AND
-                                  CR_U_ID = :sessionId
+                                    SET CR_Memo = '${cancel_name}'
+                                WHERE CR_PH_ID = (SELECT * FROM (SELECT CR_PH_ID FROM tCR WHERE CR_ID IN (:cr_id) LIMIT 1) AS part) AND
+                                    CR_U_ID = :sessionId
                             `
 
     //취소한 좌석과 금액을 구하는 쿼리
@@ -4804,13 +4804,15 @@ router.put('/reservation/:crid', async function(req,res){
                     }
                     //하나보다 클때
                     else if(cancel_type_result.length > 1){
-                        if(cancel_type_result[0].CR_Memo == '' && cancel_type_result[1].CR_Memo == ''){
-                            cr_memo = '부분취소';
-                        }
+                        // if(cancel_type_result[0].CR_Memo == '' && cancel_type_result[1].CR_Memo == ''){
+                        //     cr_memo = '부분취소';
+                        // }
 
-                        if(cancel_type_result[0].CR_Memo == '부분취소' ||cancel_type_result[1].CR_Memo == '부분취소'){
-                            cr_memo = '전체취소';
-                        }
+                        // if(cancel_type_result[0].CR_Memo == '부분취소' ||cancel_type_result[1].CR_Memo == '부분취소'){
+                        //     cr_memo = '전체취소';
+                        // }
+                        //부분취소는 무조건 정산으로 들어가기 때문에 한번이라도 부분취소를 하게 되면 부분취소로 변경
+                        cr_memo = '부분취소';
                     }
 
                 //좌석예매를 수정하는 경우
@@ -5668,18 +5670,22 @@ router.get('/admin_payment',function(req, res){
         if( condition_list.length > 0){
             let condition_stmt = ' WHERE '+condition_list.join(searchType);
             query += condition_stmt + ' GROUP BY sort.PH_ID'
+        }else{
+            query += ' GROUP BY sort.PH_ID'
         }
+        
 
         connection.query(query,
             function(err, rows){
             if(err) throw err;
-
+            // console.log('rows:',rows);
             res.json({data : rows})
         })
     }else{
         query += ' GROUP BY sort.PH_ID'
         connection.query(query, function(err, rows){
             if(err) throw err;
+            // console.log('rows:',rows);
             res.json({data : rows})
         })
     }
@@ -6634,7 +6640,8 @@ router.post('/return_bank', async function(req, res){
 
 //관리 페이지에서 정산 요청
 router.get('/pay-calculate', function(req,res){
-    payCalculate()
+    console.log('req!!',req.query.req_day);
+    payCalculate(req.query.req_day)
         .then(result => res.send(result))
         .catch(err => console.log('promise Error :',err))
         // console.log('result',result);
@@ -6648,7 +6655,19 @@ router.get('/pay-calculate', function(req,res){
 // })
  
 //이노페이 정산 요청
-function payCalculate(){
+function payCalculate(day_param){
+    
+    //day_param은 결제 관리 페이지에서 요청한 날짜
+    //요청할 날짜
+    let settlmntDt;
+    //결제 관리 페이지에서 요청한 날짜가 있는 경우
+    if(day_param){
+        settlmntDt = day_param;
+    }
+    //서버단에서만 실행될 경우 금일 날짜로 요청
+    else{
+        settlmntDt = pgGetToday();
+    }
     //request의 요청할 값들
     let data_obj = {
         uri:'https://api.innopay.co.kr/api/settlmntDownload.do', 
@@ -6656,23 +6675,24 @@ function payCalculate(){
         form: {
           "mid" : "pgaz369azm", //상점 아이디
           "merchantKey": "fx/UT4tcb5VWxP24BXiwH0stdJnNxFf6GpdFdvd42Bmwnurd/1QgGPORTIfioiAVy/B0cx6j5spsDwAfGsleuQ==", // 라이센스 키
-          "settlmntDt" : pgGetToday(), // 정산할 날짜
-        // "settlmntDt" : "20201128", // 정산할 날짜
+          "settlmntDt" : settlmntDt, // 정산할 날짜
           "groupYn" : 'N' // N : 개별 상점 정산내역, Y : 전체 상점 정산내역 (az369는 전체 상점 내역을 지원 안함)
         },
         headers: {
             'Content-Type': 'text/html; charset=utf-8' //요청할 값의 타입 
-        }
-        ,
+        },
         encoding: null //인코딩 안함
     }
 
-    console.log('pgGetToday :',pgGetToday());
-
+    //정산관리 API에 요청할 날짜 확인
+    console.log('pgGetToday :',settlmntDt);
 
     //정산이 된 고유번호 배열
     let pg_number = [];
+    //정산이 된 실제정산 금액
+    let pg_pay = [];
 
+    // '/pay-calculate' GET 요청에서 리턴값을 받을수 있도록 프로미스를 사용
     return new Promise(resolve=>{
         //post 요청 
         api_request.post(data_obj, function(err, res, body){
@@ -6683,62 +6703,98 @@ function payCalculate(){
             let utf8_str = iconv.decode(body,'euc-kr');
             //띄어쓰기 삭제
             let pg_data = utf8_str.trim();
-            //객체로 변환
-            var result = pg_data.split(/\r?\n/).map(x => x.split('|').reduce((a, o, i) => {
+            //수직선으로 구분된 텍스트 형식의 데이터를 객체로 변환
+            let result = pg_data.split(/\r?\n/).map(x => x.split('|').reduce((a, o, i) => {
                                 a['type' + i] = o;
                                 return a;
                             }, {}));
             //변환된 값 확인
             console.log('body',result);
 
+            //정산내역이 있는 경우 처리
+            if(result[0].type0 != "0001"){
 
+                //정산금액이 양수인 것들 (실제 정산으로 들어갈 데이터) 해당 데이터에 type29 실제 정산금액을 넣어야 함
+                let int_obj = result.filter(data => data.type15 > 0);
+                //재가공한 데이터
+                let final_obj = [];
+                console.log('int_test',int_obj);
+                for(let pi=0; pi<int_obj.length; pi++){
+                    //위에서 실제 DB에 저장된 주문번호를 통해 빈복문을 돌려 계산
+                    //해당 승인번호를 가진 객체 찾기
+                    let obj_test = result.filter(data => data.type17 == int_obj[pi].type17);
 
-            //반복문을 통해 배열에 해당 거래고유 번호 삽입
-            for(i=0; i<result.length; i++){
-                pg_number.push(result[i].type2)
-            }
+                    console.log('obj_test',obj_test);
 
-            console.log('rows',pg_number);
-            
-            //DB 정산확인 컬럼을 Y로 변경
-            let udt_query = `UPDATE tPH SET
-                                    PH_PayConfirm = 'Y'
-                                WHERE PH_PG_ID IN (:pg_number)`
-            //정산된 결제내역의 ID 가져오기
-            let sel_query = `SELECT PH_ID FROM tPH 
-                                WHERE PH_PG_ID IN (:pg_number)`
-
-            connection.beginTransaction(function(err){
-                if(err) throw err;
-                connection.query(udt_query, 
-                    {
-                        pg_number : pg_number
-                    }, function(err, rows){
-                    if(err){
-                        connection.rollback(function(){
-                            console.log('정산확인 에러 , udt_query ERROR', err);
-                        })
+                    //실제 정산금액
+                    let type_pay =  0;
+                    
+                    //해당 승인번호를 가진 객체들의 정산금액을 서로 더해 실제 정산금액을 구함
+                    for(let i=0; i<obj_test.length; i++){
+                        type_pay += Number(obj_test[i].type15);
                     }
-                    //정산확인 된 결제내역 찾기
-                    connection.query(sel_query, 
-                        {
-                            pg_number : pg_number
-                        },function(err, sel_rows){
-                        //업데이트 성공 시
-                        connection.commit(function(err) {
-                            if (err) {
-                                return connection.rollback(function() {
-                                    throw err;
-                                });
-                            }
-                            console.log('정산 확인 완료',rows);
-                            console.log('정산 확인 완료',sel_rows);
-                            //정산 결과를 반환
-                            resolve(sel_rows);
-                        });
+                    //key type29 값 추가
+                    int_obj[pi].type29 = `${type_pay}`;
+                    
+                    //해당 배열의 수 만큼 다시 객체 배열 생성
+                    final_obj.push(int_obj[pi]);
+                }
+
+                console.log('final_result',final_obj);
+                
+                //반복문을 통해 배열에 해당 거래고유 번호 삽입 type2에 거래 고유번호가 있음
+                for(i=0; i<final_obj.length; i++){
+                    pg_number.push(final_obj[i].type2);
+                    pg_pay.push(final_obj[i].type29);
+                }
+
+                console.log('rows',pg_number);
+                console.log('rows',pg_pay);
+                // //DB 정산확인 컬럼을 Y로 변경
+                // let udt_query = `UPDATE tPH SET
+                //                         PH_PayConfirm = 'Y'
+                //                     WHERE PH_PG_ID IN (:pg_number)`
+                //정산된 결제내역의 ID 가져오기
+                let sel_query = `SELECT PH_ID FROM tPH 
+                                    WHERE PH_PG_ID IN (:pg_number)`
+                
+                let ex_query = '';
+                for(let i=0; i<pg_number.length; i++){
+                    ex_query += `UPDATE tPH SET PH_PayConfirm = 'Y', PH_PayAmount = '${pg_pay[i]}' WHERE PH_PG_ID = '${pg_number[i]}';`
+                }
+                connection.beginTransaction(function(err){
+                    if(err) throw err;
+                    connection.query(ex_query,
+                        function(err, rows){
+                        if(err){
+                            connection.rollback(function(){
+                                console.log('정산확인 에러 , ex_query ERROR', err);
+                            })
+                        }
+                        //정산확인 된 결제내역 찾기
+                        connection.query(sel_query, 
+                            {
+                                pg_number : pg_number
+                            },function(err, sel_rows){
+                            //업데이트 성공 시 커밋하여 트랜잭션 종료
+                            connection.commit(function(err) {
+                                if (err) {
+                                    return connection.rollback(function() {
+                                        throw err;
+                                    });
+                                }
+                                console.log('정산 확인 완료',rows);
+                                console.log('정산 확인 완료',sel_rows);
+                                //정산 결과를 반환함
+                                resolve(sel_rows);
+                                // resolve(result);
+                            });
+                        })
                     })
                 })
-            })
+            }else{
+                resolve(result);
+            }
         })
     })
 }
@@ -6754,11 +6810,11 @@ function pgGetToday(){
 }
 
 //                              초 | 분 | 시간 | 일 | 월 | 요일 0~7 (0과 7일 일요일 임) 
-//                              아래 방식으로 하면 월~금 20:00:00에 실행
-// const j = schedule.scheduleJob('00 00 20 * * 1-5', () => {
-const j = schedule.scheduleJob('00 00 10 * * 1-5', () => {
+//                              아래 방식으로 하면 월~금 10:00:00에 실행
+// const j = schedule.scheduleJob('00 45 14 * * 1-5', () => {
+    const j = schedule.scheduleJob('00 00 10 * * 1-5', () => {
     payCalculate();
-    console.log('Cron-style Scheduling')
+    console.log('자동정산 실행')
 })
 
 module.exports = router;
