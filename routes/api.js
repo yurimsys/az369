@@ -853,7 +853,7 @@ router.get('/user/vBank', auth.isLoggedIn, async (req, res) =>{
 })
 
 //좌석 예매 취소 api
-router.post('/  ', auth.isLoggedIn, async (req, res) =>{
+router.post('/cancel-seat', auth.isLoggedIn, async (req, res) =>{
 
     // 예매 취소할 user의 id 
     let sessionId = req.body.u_id 
