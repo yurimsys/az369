@@ -477,18 +477,15 @@
                 success: function(res){
                     console.log('resL',res);
                     console.log('res[0].type0',res[0].type0);
-                    if(res.length == 0){
+                    if(res[0].type0 == "0001"){
                         alert(req_day+'날은 정산내역이 없습니다.')
                     }
-                    else if(res[0].type0 == "0000"){
+                    else{
                         for(let i=0; i<res.length; i++){
                             ph_id_arr.push(res[i].PH_ID)
                         }
                         alert(req_day+'일'+'\n'+ph_id_arr+'번 PH_ID의 내역이 정산 되었습니다.')
                         $("#mgmt-table").dxDataGrid("instance").refresh();
-                    }
-                    else{
-                        alert(req_day+'날은 정산내역이 없습니다.')
                     }
                 }					
             });
