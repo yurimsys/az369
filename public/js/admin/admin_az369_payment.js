@@ -4,11 +4,27 @@
         init();
 
         $('.check-all').click(function () {
-            $('.ab').prop('checked', this.checked);
+            console.log('nunu',this);
+            let all_this = this
+            $('.ab').each(function(e){
+                // console.log('e',e);
+                if($('.ab').attr('disabled') == "disabled" ){
+                    console.log('first');
+                    $('.check-all').prop('checked', false);
+                }else{
+                    if(this.disabled == false){
+                        //this의 id를 추출해 전체선택의 체크값으로 변경함
+                        $('input:checkbox[id='+this.id+']').prop('checked',all_this.checked)
+                    }else{
+                        return false;
+                    }
+                    // $('.ab').prop('checked', this.checked);
+                    
+                }
+            })
         });
     }) 
     function init(){
-
 
         // 신규모드로 실행
         // objectInfo("new");
@@ -17,10 +33,9 @@
             type: "date",
             dateSerializationFormat : "yyyy-MM-dd"
         });
-        
     }
 
-
+    let ck_count = 0;
     let objectInfo = function (mode = "modify", row_data) {
         let action_btns_instance = $(".object-info .action-btns");
 
@@ -68,7 +83,6 @@
             sessionStorage.setItem('row_data', JSON.stringify(row_data) );
         }
     }
-
     let tableInit = function (data) {
         $("#mgmt-table").dxDataGrid({
             dataSource: "/api/admin_payment",
@@ -99,7 +113,7 @@
                 placeholder: "Search..."
             },
             onSelectionChanged : function(e) {
-                console.log('selection changed', e);
+                // console.log('selection changed', e);
                 sessionStorage.setItem("row_data_list", e.selectedRowsData.map(data => data.U_ID));
                 let dataGrid = e.component;
                 
@@ -231,25 +245,6 @@
                 { dataField: "CR_Memo", caption: "취소상태"},
                 { dataField: "PH_PayConfirm", caption: "정산상태",
                     cellTemplate : function(element, info){
-                        // console.log('info',info.data.PH_ID);
-                        // let ph_id = info.data.PH_ID;
-                        // $.ajax({
-                        //     url : '/api/payment_cancel',
-                        //     method : 'get',
-                        //     dataType : 'JSON',
-                        //     data : {'ph_id' : ph_id},
-                        //     success: function(res){
-                        //         console.log('id',ph_id);
-                        //              console.log('res',res.data);
-                        //             if(res.data == 0){
-                        //                 element.append('<div>결제취소</div>').css('color','red')
-                        //                 return dataField='결제취소';
-                        //             }else{
-                        //                 element.append('<div>결제완료</div>')            
-                        //                 return dataField='결제완료';
-                        //             }
-                        //     }					
-                        // });
                         if(info.value == 'Y'){
                             element.append('<div>정산완료</div>').css('color','blue')
                         }else{
@@ -261,6 +256,52 @@
                 { dataField: "CR_cDt", caption: "결제일시"},
                 { dataField: "PH_PG_Name", caption: "PG사명"}
             ],
+            //하단 합계
+            summary: {
+                recalculateWhileEditing: true,
+                totalItems: [
+                    {
+                        name: "payConfirm",
+                        showInColumn: "PH_PayConfirm",
+                        displayFormat: "정산수: {0} 건",
+                        summaryType: "custom"
+                    },  
+                    {
+                        column: "PH_PayAmount",
+                        displayFormat: "실제정산금액: {0} 원",
+                        summaryType: "sum"
+                    },
+                    {
+                        column: "PH_Price",
+                        displayFormat: "결제금액: {0} 원",
+                        summaryType: "sum"
+                    },
+                    {
+                        column: "cancel_pay",
+                        displayFormat: "취소금액: {0} 원",
+                        summaryType: "sum"
+                    },
+                    {
+                        column: "last_pay",
+                        displayFormat: "최종금액: {0} 원",
+                        summaryType: "sum"
+                    }
+                ],
+                calculateCustomSummary: function (options) {
+                        if (options.name == "payConfirm") {
+                            if (options.summaryProcess === "start") {
+                                options.totalValue = 0;
+                            }
+
+                            if (options.summaryProcess === "calculate") {
+                                //정산인 된것만 카운트 ++
+                                if(options.value.PH_PayConfirm == 'Y'){
+                                    options.totalValue++;
+                                }
+                            }
+                        }
+                }
+            },
             onContentReady: function(e) {
                 let informer = e.element.find(".informer");
                 informer.find(".totalCount").text(e.component.totalCount()+" 개");
@@ -282,22 +323,6 @@
                             );
                     }
                 }, 
-                // {
-                //     location: "before",
-                //     template: function(){
-                //         return $("<div/>")
-                //             .addClass("selectedActionBtns")
-                //             .append(
-                //                 $("<div />")
-                //                 .addClass("selectRowCount")
-                //                 .text(""),
-                //                 $("<div />")
-                //                 .addClass("btn btn-delete py-0")
-                //                 .text("삭제")
-                //                 .attr("onClick", "deleteAD('multi')")
-                //             );
-                //     }
-                // }, 
                 {
                     location: "after",
                     template: function(){
@@ -314,7 +339,6 @@
 
         });
     }
-
 
     // 상세 검색창 설정
     $(document).ready(()=>{
@@ -459,41 +483,42 @@
             return false;
         }
 
-        let week = ['일', '월', '화', '수', '목', '금', '토'];
-        let dayOfWeek = week[new Date(req_day).getDay()];
-        console.log('보낼 값 -제거',req_day.replace(/-/g,''));
-        // 주말 평일 나누는 분기
-        if(dayOfWeek == "토" || dayOfWeek == "일"){
-            alert('주말에는 정산 내역이 없습니다.');
-            return false;
-        }else{
-            let ph_id_arr = [];
-            $.ajax({
-                url : '/api/pay-calculate',
-                method : 'get',
-                dataType : 'json',
-                data : {"req_day" : req_day.replace(/-/g,'')},
-                async : false,
-                success: function(res){
-                    console.log('resL',res);
-                    if(res[0]){
-                        if(res[0].type0 == "0001"){
-                            alert(req_day+'날은 정산내역이 없습니다.')
-                        }
-                        else{
-                            for(let i=0; i<res.length; i++){
-                                ph_id_arr.push(res[i].PH_ID)
-                            }
-                            alert(req_day+'일'+'\n'+ph_id_arr+'번 PH_ID의 내역이 정산 되었습니다.')
-                            $("#mgmt-table").dxDataGrid("instance").refresh();
-                        }
-                    }else{
+        // let week = ['일', '월', '화', '수', '목', '금', '토'];
+        // let dayOfWeek = week[new Date(req_day).getDay()];
+        // console.log('보낼 값 -제거',req_day.replace(/-/g,''));
+        // // 주말 평일 나누는 분기
+        // if(dayOfWeek == "토" || dayOfWeek == "일"){
+        //     alert('주말에는 정산 내역이 없습니다.');
+        //     return false;
+        // }
+
+        //정산된 좌석을 표시할 변수
+        let ph_id_arr = [];
+        $.ajax({
+            url : '/api/pay-calculate',
+            method : 'get',
+            dataType : 'json',
+            data : {"req_day" : req_day.replace(/-/g,'')},
+            async : false,
+            success: function(res){
+                console.log('resL',res);
+                if(res[0]){
+                    if(res[0].type0 == "0001"){
                         alert(req_day+'날은 정산내역이 없습니다.')
                     }
-                    
-                }					
-            });
-        }
+                    else{
+                        for(let i=0; i<res.length; i++){
+                            ph_id_arr.push(res[i].PH_ID)
+                        }
+                        alert(req_day+'일'+'\n'+ph_id_arr+'번 PH_ID의 내역이 정산 되었습니다.')
+                        $("#mgmt-table").dxDataGrid("instance").refresh();
+                    }
+                }else{
+                    alert(req_day+'날은 정산내역이 없습니다.')
+                }
+                
+            }					
+        });
     }
     
     // 검색
@@ -526,6 +551,8 @@
 
     function resSeatClose(){
         $("#object-res-seat-popup").hide();
+        //전체선택 원상복귀
+        $('.check-all').prop('checked', false);
     }
     function resNoseatClose(){
         $("#object-res-noseat-popup").hide();
@@ -704,6 +731,12 @@
             cancelType = "0"
         }
 
+        console.log('check_box_arr',check_box_arr);
+        console.log('chk_u_id', chk_u_id);
+        console.log('cancelType',cancelType);
+        console.log('ph_pay', ph_pay);
+        console.log('chk_pg_id', chk_pg_id);
+        console.log('chk_pg_pay_type', chk_pg_pay_type);
         //후불결제 취소
         if(chk_pg_id == '1' ){
             cancelSeatAPI(check_box_arr, chk_u_id, cancelType)
@@ -836,14 +869,20 @@
 
     //체크박스 활성화
     function seatCheck(e){
-        console.log('e',e.dataset.canceltype);
+        console.log('e',e);
         if(e.dataset.canceltype == 'Y'){
             return false
         }
+        $('.ab').each(function(e){
+            console.log('fuce',e);
+            console.log('this',this);
+        })
         if($('input:checkbox[name=seat_chk]:checked').length < $("input:checkbox[name=seat_chk]").length){
+            console.log('첫');
             $("#ex_chk5").prop('checked', false);
             return false;
         }else if($('input:checkbox[name=seat_chk]:checked').length == $("input:checkbox[name=seat_chk]").length){
+            console.log('둘');
             $("#ex_chk5").prop('checked', true);
             return false;
         }

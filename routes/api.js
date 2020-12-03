@@ -5588,7 +5588,6 @@ router.get('/user_list',function(req,res){
             res.json({data : rows});
     })
     
-
 })
 
 //장차 결제 리스트 및 검색
@@ -6813,7 +6812,7 @@ function pgGetToday(){
 //                              초 | 분 | 시간 | 일 | 월 | 요일 0~7 (0과 7일 일요일 임) 
 //                              아래 방식으로 하면 월~금 10:00:00에 실행
 // const j = schedule.scheduleJob('00 45 14 * * 1-5', () => {
-    const j = schedule.scheduleJob('00 00 10 * * 1-5', () => {
+    const j = schedule.scheduleJob('00 00 10 * * 1-7', () => {
     payCalculate();
     console.log('자동정산 실행')
 })
