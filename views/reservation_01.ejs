@@ -760,7 +760,6 @@
             return order_number;
         }
 
-        // console.log('테스트 :', getOrderNumber());
         //결제 진행
         function processPayment() {
             let origin_price = $("#original_price").data('price');
@@ -1059,11 +1058,11 @@
             processCancel();
         }
         
-        $(window).bind('pageshow', function(event){
-            if(event.originalEvent && event.originalEvent.persisted){
-                location.reload();
-            }
-        });
+        // $(window).bind('pageshow', function(event){
+        //     if(event.originalEvent && event.originalEvent.persisted){
+        //         location.reload();
+        //     }
+        // });
 
 
 

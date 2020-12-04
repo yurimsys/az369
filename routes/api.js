@@ -1060,6 +1060,7 @@ router.post('/user/cancelRes', async (req, res, done) =>{
                             });
                         }
                         //결제대기 상태일땐 어느때나 취소가 가능
+                        console.log('/user/cancelRes    200');
                         res.json({data : '200'})
                     });
                 }else{
@@ -1084,6 +1085,7 @@ router.post('/user/cancelRes', async (req, res, done) =>{
                                         });
                                     }
                                     //3일 이내 취소 불가능
+                                    console.log('/user/cancelRes    201');
                                     res.json({data : '201'})
                                 });
                                 
@@ -1107,6 +1109,7 @@ router.post('/user/cancelRes', async (req, res, done) =>{
                                                         throw err;
                                                     });
                                                 }
+                                                console.log('/user/cancelRes    204');
                                                 res.json({data : '204'})
                                             });
                                         }
@@ -1133,6 +1136,7 @@ router.post('/user/cancelRes', async (req, res, done) =>{
                                                                 });
                                                             }
                                                             //이미 출발함
+                                                            console.log('/user/cancelRes    202');
                                                             res.json({data : '202'})
                                                         });
                                                     }else{
@@ -1158,6 +1162,7 @@ router.post('/user/cancelRes', async (req, res, done) =>{
                                                                             });
                                                                         }
                                                                         //승차 완료됨
+                                                                        console.log('/user/cancelRes    203');
                                                                         res.json({data : '203'})
                                                                     });
                                                                 }else{
@@ -1170,6 +1175,7 @@ router.post('/user/cancelRes', async (req, res, done) =>{
                                                                             });
                                                                         }
                                                                         //취소 가능
+                                                                        console.log('/user/cancelRes    200');
                                                                         res.json({data : '200'})
                                                                     });
                                                                     
