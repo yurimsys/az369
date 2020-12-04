@@ -762,6 +762,7 @@
 
         //결제 진행
         function processPayment() {
+            
             let origin_price = $("#original_price").data('price');
             let sale_price = 0;
             let ct_id = sessionStorage.getItem("ct_id");
@@ -1064,13 +1065,18 @@
         //     }
         // });
 
+        // history.pushState(null, null, location.href); 
 
+        //     window.onpopstate = function(event) { 
+        //         // $('#event_text').text(event)
+        //         console.log('envent',event);
+        //         console.log('history',history);
+        //         console.log('location.href',location.href);
+        //         // iosSeatDelete();m
+        //     // alert("여기에 작성하고 싶은 코드를 작성하면 됩니다!");
+
+        // }
 
     </script>
-
-  
-  
-  
-
 </body>
 </html>

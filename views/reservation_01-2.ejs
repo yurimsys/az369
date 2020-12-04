@@ -97,7 +97,7 @@
                         <li style="width: 100%;"><a href="/" class="back">뒤로</a></li>
                     </ul>
                 </div>
-
+                <div id='event_text'></div>
 
             </div>
 
@@ -355,9 +355,10 @@
                             $payment_seats_cnt.text(sc.find('selected').length - 1);
                             $origin_price.text(formatNumber(origin_price) + '원');
                             $origin_price.data('price', origin_price);
-                            $sale_price.text('-' + formatNumber(origin_price) + '원');
-                            $sale_price.data('price', origin_price);
+                            // $sale_price.text('-' + formatNumber(origin_price) + '원');
+                            // $sale_price.data('price', origin_price);
                             $now_price.text(origin_price+'원')
+                            $total_price.text(origin_price+'원')
                             //seat has been vacated
                             if(selected_seats_cnt === 0){
                                 $nums.text('　');
@@ -544,6 +545,7 @@
                     "user_id" : user_id,
                 },
                 success: function(res){
+                    alert('g')
                     // console.log('res!',res);
                 }					
             });
@@ -722,7 +724,7 @@
                             icon: 'error',
                             button: '확인'
                         }).then(function(){
-                            processCancel();
+                            iosSeatDelete();
                             location.href = "/reservation2";
                         })
                     }
@@ -733,7 +735,7 @@
                             icon: 'error',
                             button: '확인'
                         }).then(function(){
-                            processCancel();
+                            iosSeatDelete();
                             location.href = "/reservation2";
                         })
                     }
@@ -855,19 +857,19 @@
             else{
                 if(resultcode == 3022){
                     alert('할부 개월 오류');
-                    processCancel();
+                    iosSeatDelete();
                 }else if(resultcode == 3023){
                     alert('할부개월 한도 초과');
-                    processCancel();
+                    iosSeatDelete();
                 }else if(resultcode == 3031){
                     alert('무이자할부 카드가 아닙니다.');
-                    processCancel();
+                    iosSeatDelete();
                 }else if(resultcode == 3032){
                     alert('무이자할부 불가 개월수');
-                    processCancel();
+                    iosSeatDelete();
                 }else{
                     alert('결제가 실패되었습니다. 다시 시도해 주세요');
-                    processCancel();
+                    iosSeatDelete();
                 }
             }
         }
@@ -883,11 +885,21 @@
                 payBack();
             }
             else {
-                iosSeatDelete();
                 // 새로운 페이지 로드 시
+                iosSeatDelete();
+                
             }
         }
+        history.pushState(null, null, location.href); 
 
+            window.onpopstate = function(event) { 
+                $('#event_text').text(event)
+                // iosSeatDelete();
+            // alert("여기에 작성하고 싶은 코드를 작성하면 됩니다!");
+
+        }
+
+        //좌석 삭제 ios 용
         function iosSeatDelete(){
             let ssesion_id = "<%=sessionUser.U_ID%>";
             
@@ -895,6 +907,7 @@
                 url : '/api/temporary_seat_delete_ios',
                 method : 'delete',
                 dataType : 'json',
+                async: false,
                 data : {'user_id' : ssesion_id},
                 success: function(res){
                     // console.log('success');
@@ -902,9 +915,6 @@
             });
         }
 
-        // window.addEventListener('beforeunload', function (e) {
-        //     payBack();
-        // }); 
 
     </script>
 

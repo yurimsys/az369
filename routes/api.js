@@ -1681,7 +1681,7 @@ router.post('/temporary_seat', async function(req, res){
         let str_values ="";
         let overlap_query = `SELECT 
                                 CR_ID, 
-                                CR_U_ID 
+                                CR_U_ID
                              FROM tCR 
                              WHERE CR_CT_ID = ${ct_id} AND 
                                    CR_Cancel = 'N' AND
@@ -1690,17 +1690,17 @@ router.post('/temporary_seat', async function(req, res){
 
         let cr_query = `
             INSERT INTO tCR
-                (CR_CT_ID, CR_U_ID, CR_SeatNum)
+                (CR_CT_ID, CR_U_ID, CR_SeatNum, CR_Memo)
             VALUES
         `;
         
         if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
             for(let i=0; i<seatNums.length; i++){
-                str_values_list.push(`(${ct_id}, ${u_id}, ${seatNums[i]})`)
+                str_values_list.push(`(${ct_id}, ${u_id}, ${seatNums[i]}, '진행중')`)
             }
             str_values = str_values_list.join(', ');
         } else if(typeof(seatNums) === "string" ){ // 선택한 좌석이 1개
-            str_values = `(${ct_id}, ${u_id}, ${seatNums})`;
+            str_values = `(${ct_id}, ${u_id}, ${seatNums}, '진행중')`;
         }
 
         cr_query += str_values;
@@ -1864,7 +1864,7 @@ function vBankInterval(){
                     INNER JOIN tPH ON tCR.CR_PH_ID = tPH.PH_ID
                 WHERE PH_Type = '무통장입금' AND 
                         CR_PayState = '결제대기' AND
-                        DATE_ADD(CR_cDt, INTERVAL + 24 HOUR) < NOW()        
+                        DATE_ADD(CR_cDt, INTERVAL + 24 HOUR) < NOW()                
                 GROUP BY PH_BankNumber`
                 
     connection.query(query, function(err, rows){
@@ -1912,23 +1912,44 @@ let cancel_non_deposit = schedule.scheduleJob(schedule_rule, () => {
     console.log('미입금 취소!')
 })
 
-// //가상계좌 입금이 24시간 이내 되지 않는 경우 이노페이 API 통해 취소
-// router.get('/vbankinterval', function(req, res){
-//     let query = `SELECT * FROM tCR 
-//                         INNER JOIN tPH ON tCR.CR_PH_ID = tPH.PH_ID
-//                     WHERE PH_Type = '무통장입금' AND 
-//                             CR_PayState = '결제대기' AND
-//                             DATE_ADD(CR_cDt, INTERVAL + 24 HOUR) < NOW()
-//                     GROUP BY PH_BankNumber`
-                    
-//     connection.query(query, function(err, rows){
-//         if(err) throw err;
-//         res.json({data : rows})
+//좌석 예매 강제종료 시 좌석 초기화 안되는 부분 처리 함수
+function exceptionEnd(){
+    //20분이 지난 진행중인 좌석을 찾아서 삭제 쿼리
+    let del_query = `DELETE FROM tCR
+                        WHERE CR_ID IN (
+                                         SELECT 
+                                            CR_ID 
+                                         FROM (SELECT 
+					                                CR_ID 
+					                            FROM tCR
+					                            WHERE CR_Memo = '진행중' AND
+					                                  DATE_ADD(CR_cDt, INTERVAL + 20 minute) < NOW()) AS temp)`                                                      
 
-//     })
-// })
+    connection.beginTransaction(err => {
+        if(err) throw err;
 
+        connection.query(del_query, function(err, rows){
+            if(err){
+                connection.rollback(function(){
+                    //처리 중 에러시 롤백 시킴
+                    console.log('Error ROLLBACK exceptionEnd()', err);
+                })
+            }
+            //오류가 발생하지 않으면 
+            connection.commit(function(err) {
+                if (err) {
+                    return connection.rollback(function() {
+                        throw err;
+                    });
+                }
+                console.log('강제종료로 인한 좌석 초기화', rows);  
+            });
+        })
+    })
+}
 
+//20분마다 exceptionEnd() 함수 실행
+setInterval(exceptionEnd, 1000*60*20)
 
 //결제완료
 router.post('/payment', auth.isLoggedIn, async (req, res) =>{
@@ -1993,6 +2014,7 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
         if(req.body.tid != undefined){
             pg_id = req.body.tid;
         }else{
+            //후불결제일 경우
             pg_id = '1';
         }
         //결제 전 중복확인 쿼리
@@ -2081,6 +2103,7 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                                 VALUES
                                             `;
                                             
+                                            //쿼리 추가
                                             if( typeof(seatNums) === "object"){ //선택한 좌석이 2개 이상
                                                 for(let i=0; i<seatNums.length; i++){
                                                     str_values_list.push(`(${ct_id}, ${u_id}, ${ph_id}, ${seatNums[i]}, ${one_price}, '${hash_qrcode[i]}', '${cr_memo}','${payState}')`)
@@ -2116,7 +2139,6 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                                     });
                                                 });
                                         });
-        
                                 }else{
                                     let over_lap = [];
                                     for(let i=0; i <rows.length; i++){
@@ -2125,18 +2147,12 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                     let seat_number = over_lap.join('번,')+'번';
                                     res.json({data : '0', seats : seat_number})
                                 }
-                                
                             }); 
                         }
                 })
             }
         })
-
-
-
-
     })
-
 });
 
 
@@ -2156,7 +2172,6 @@ router.post('/user/resDept', auth.isLoggedIn, (req, res, next) =>{
             console.log("rows : ",rows);            
         });       
 });
-
 
 //기사앱 좌석 리스트
 router.post('/driver_seat',(req, res, next) =>{
