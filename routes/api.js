@@ -38,10 +38,10 @@ connection.config.queryFormat = function (query, values) {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, path.join(__dirname, '..', '_tmp_files/'))
+        cb(null, path.join(__dirname, '..', '_tmp_files/'))
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname)
+        cb(null, file.originalname)
     }
   })
 const upload = multer({storage: storage})
@@ -1949,7 +1949,7 @@ function exceptionEnd(){
 }
 
 //20분마다 exceptionEnd() 함수 실행
-setInterval(exceptionEnd, 1000*60*20)
+setInterval(exceptionEnd, 1000 * 60 * 20)
 
 //결제완료
 router.post('/payment', auth.isLoggedIn, async (req, res) =>{
@@ -3502,9 +3502,9 @@ router.put('/ad/:adId', upload.any(), async function (req, res, next) {
 
 
 
-        let filename 
-        let old_path 
-        let new_path 
+        let filename;
+        let old_path;
+        let new_path; 
         filename = req.body.adUrl
         // 광고입력
         // if(req.files.length === 0) throw Error('Non include files');
@@ -6408,15 +6408,9 @@ router.get('/benefit_length', function(req,res){
 
 
 router.post('/filesave', upload.any(), async function (req, res, next) {
-    // console.log('good');
-    // let json_test = req.files[0].fieldname;
-    // console.log('json',json_test);
-    // console.log('json stringfy',JSON.stringify(json_test));
-    // for (var key in json_test){
-    //     console.log("attr: " + key + ", value: " + json_test[key]);
-    // }
-    console.log('goodbye',req.body);
-    let test = 'good'
+
+    console.log('body',req.body);
+    console.log('file',req.files);
 })
 
 

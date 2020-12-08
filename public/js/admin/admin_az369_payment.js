@@ -62,7 +62,6 @@
 
             sessionStorage.removeItem('row_data');
         } else if( mode === "modify"){
-            // console.log('row_data',row_data);
             action_btns_instance.removeClass('action-new');
             action_btns_instance.addClass('action-modify');
             
@@ -78,8 +77,14 @@
             $("#ph_type").val(row_data.PH_Type);
             $('#pay_state').val(row_data.CR_PayState);
             $('#cr_cdt').val(row_data.CR_cDt);
-
-
+            $('#cr_memo').val(row_data.CR_Memo);
+            $('#ph_amount').val(row_data.PH_PayAmount);
+            if(row_data.PH_PayAmount == null){
+                $('#ph_amount').val('0');
+            }
+            $('#ph_confirm').val(row_data.PH_PayConfirm);
+            
+            
             sessionStorage.setItem('row_data', JSON.stringify(row_data) );
         }
     }
@@ -168,6 +173,9 @@
                 // row_data.CR_PayState = ph_pay_state;
                 row_data.CR_PayState = e.data.CR_PayState;
                 row_data.CR_cDt = e.data.CR_cDt;
+                row_data.CR_Memo = e.data.CR_Memo;
+                row_data.PH_PayConfirm = e.data.PH_PayConfirm;
+                row_data.PH_PayAmount = e.data.PH_PayAmount;
                 if($('.brand_info').css('display') == 'none'){
                     folding();
                 }
@@ -376,14 +384,14 @@
     function searchPopupReset(){
         let search_cr_cdt_instance = $("#object-search-popup .search_cr_cdt").dxDateBox("instance");
         
-            $('#search_u_name').val('');
-            $("#search_u_phone").val('');
-            $("#search_pg_name").val('');
-            $('#search_pg_id').val('');
-            $("#search_ph_price").val('');
-            $("#search_ph_type").val('');
-            $('#search_pay_state').val('');
-            search_cr_cdt_instance.reset();
+        $('#search_u_name').val('');
+        $("#search_u_phone").val('');
+        $("#search_pg_name").val('');
+        $('#search_pg_id').val('');
+        $("#search_ph_price").val('');
+        $("#search_ph_type").val('');
+        $('#search_pay_state').val('');
+        search_cr_cdt_instance.reset();
     }
     
     //검색 팝업
