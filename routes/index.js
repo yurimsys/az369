@@ -625,6 +625,7 @@ router.get('/refund', function(req, res, next) {
 
 //비디오 페이징
 router.get('/video', function(req, res, next) {
+    console.log('소개영상 들어왔습니다.');
     res.redirect('/video/1')
 });
 

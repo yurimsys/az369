@@ -88,6 +88,7 @@
             sessionStorage.setItem('row_data', JSON.stringify(row_data) );
         }
     }
+    
     let tableInit = function (data) {
         $("#mgmt-table").dxDataGrid({
             dataSource: "/api/admin_payment",
