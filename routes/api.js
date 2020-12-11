@@ -1653,9 +1653,6 @@ router.get('/ordernumber', function(req, res){
                     }
                 }
             }
-
-
-
             res.json({data : order_number})
     })
 })
@@ -1951,6 +1948,70 @@ function exceptionEnd(){
 //20분마다 exceptionEnd() 함수 실행
 setInterval(exceptionEnd, 1000 * 60 * 20)
 
+//후불결제의 경우 결제처리 완료 후 정상데이터로 업데이트
+router.post('/my-payment', auth.isLoggedIn, async (req, res) =>{
+    connection.beginTransaction(function(err){
+
+        let cardName = req.body.card_name; //카드사명,은행사명
+        let pg_id = req.body.tid;
+        let ph_type; //결제수단
+        let cancel_type; // 취소코드
+        let bank_cd = ''; //은행코드
+        let pay_ph_id = req.body.pay_ph_id;
+
+        if(req.body.bankCd){
+            bank_cd = req.body.bankCd
+        }
+
+        if(req.body.cancel_type == 'CARD'){
+            ph_type = '신용카드';
+            cancel_type = "01";
+        }else if(req.body.cancel_type == 'free'){
+            ph_type = '무료에매';
+            cancel_type = "00";
+        }else if(req.body.cancel_type == "BANK"){
+            ph_type = '계좌이체';
+            cancel_type = "02";
+        }else if(req.body.cancel_type == "VBANK"){
+            ph_type = '무통장입금';
+            cancel_type = "03";
+        }else if(req.body.cancel_type == "EPAY"){
+            ph_type = req.body.EPayType;
+            cancel_type = "16";
+        }
+        let udt_query = `UPDATE tCR INNER JOIN tPH ON tCR.CR_PH_ID = tPH.PH_ID
+                                SET 
+                                    CR_Memo = '',
+                                    CR_PayState = '결제완료',
+                                    PH_PG_ID = '${pg_id}',
+                                    PH_Type = '${ph_type}',
+                                    PH_CodeType = '${cancel_type}',
+                                    PH_CardName = '${cardName}',
+                                    PH_BankCode = '${bank_cd}'
+                                WHERE PH_ID = ${pay_ph_id}`
+
+        connection.query(udt_query,
+            function(err, result){
+                if (err){
+                    connection.rollback(function(){
+                        console.log('my-payment eroor :', err);
+                        //실패
+                        res.json({data : '0'});    
+                    })
+                }
+                connection.commit(function(err) {
+                    if (err) {
+                        return connection.rollback(function() {
+                            throw err;
+                        });
+                    }
+                    //입력 성공
+                    res.json({data : '1'});    
+                });
+        })
+    })
+})
+
 //결제완료
 router.post('/payment', auth.isLoggedIn, async (req, res) =>{
     connection.beginTransaction(function(err){
@@ -2096,7 +2157,7 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
                                             }
                                             console.log('origin:',origin_qrcode);
                                             
-        
+
                                             let cr_query = `
                                                 INSERT INTO tCR
                                                     (CR_CT_ID, CR_U_ID, CR_PH_ID, CR_SeatNum, CR_Price, CR_QrCode, CR_Memo, CR_PayState)
@@ -5648,6 +5709,7 @@ router.get('/admin_payment',function(req, res){
                                     PH_PayAmount,
                                     CR_Memo,
                                     CR_cDt,
+                                    CR_CancelDt,
                                     PH_PayConfirm,
                                     PH_OrderNumber
                                 FROM tPH 
@@ -6765,10 +6827,7 @@ function payCalculate(day_param){
 
                 console.log('rows',pg_number);
                 console.log('rows',pg_pay);
-                // //DB 정산확인 컬럼을 Y로 변경
-                // let udt_query = `UPDATE tPH SET
-                //                         PH_PayConfirm = 'Y'
-                //                     WHERE PH_PG_ID IN (:pg_number)`
+               
                 //정산된 결제내역의 ID 가져오기
                 let sel_query = `SELECT PH_ID FROM tPH 
                                     WHERE PH_PG_ID IN (:pg_number)`

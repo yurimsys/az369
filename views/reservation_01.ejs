@@ -272,7 +272,7 @@
                     <option value='CARD'>신용카드</option>
                     <option value='BANK'>계좌이체</option>
                     <option value='VBANK'>가상계좌</option>
-                    <!-- <option value='EPAY'>간편결제</option> -->
+                    <option value='EPAY'>간편결제</option>
                 </select>
             </div>
             
@@ -845,25 +845,27 @@
             let resultmsg = data.ResultMsg;		// 결과메세지(PG)
             let errorcode = data.ErrorCode;		// 에러코드(상위기관)
             let errormsg = data.ErrorMsg;		// 에러메세지(상위기관)
-            let bank_code = data.VBankCd;       // 은행코드 ( 가상계좌 용 )
+            let bank_code = data.BankCd;       // 은행코드 ( 계좌이체 용 )
+            let vbank_code = data.VBankCd;       // 은행코드 ( 가상계좌 용 )
             let ePayCl   = data.EPayCl;         // 간편결제 종류 01 : 카카오, 02 : LPay, 03: Payco, 04:SSG, 06: 네이버페이
             let payType = data.AcquCardCode;    // 결제 타입 ex) 신용카드 01 계좌이체 02 DB 입력
             let cancel_type = $('#pay_type option:selected').val(); // 결제수단
             let EPayType; //간편결제 종류
+            let bank_name = data.bankName;
             //카드사명
             let card_name = 'null';
             if(data.fn_name){
                 card_name = data.fn_name;
             }
             //은행사명 ( 무통장 입금 )
-            let bank_name = "null";
+            let vbank_name = "null";
             if(data.VbankName){
-                bank_name = data.VbankName;
+                vbank_name = data.VbankName;
             }
             //가상계좌번호
-            let bank_number = 'null';
+            let vbank_number = 'null';
             if(data.VbankNum){
-                bank_number = data.VbankNum;
+                vbank_number = data.VbankNum;
             }
 
             // console.log('success : ', data);
@@ -943,13 +945,13 @@
                         "ct_id": ct_id,
                         "tid" : tid,
                         "moid" : moid,
-                        "bankCd" : bank_code,
+                        "bankCd" : vbank_code,
                         "payType" : payType,
                         "user_id" : user_id,
                         "cancel_type" : cancel_type,
                         "EPayType" : EPayType,
-                        "bank_name" : bank_name,
-                        "bank_number" : bank_number
+                        "bank_name" : vbank_number,
+                        "bank_number" : vbank_number
                     },
                     success: function(result){
                         $('#payment').css('display','none');

@@ -263,6 +263,7 @@
                 },
                 { dataField: "PH_PayAmount", caption: "실제정산금액"},
                 { dataField: "CR_cDt", caption: "결제일시"},
+                { dataField: "CR_CancelDt", caption: "취소일시"},
                 { dataField: "PH_PG_Name", caption: "PG사명"}
             ],
             //하단 합계
@@ -774,24 +775,20 @@
         }
         //무통장 부분 취소일떄 경우 안내 메세지 표시
         else if(chk_pg_pay_type == '03' && cancelType == '1'){
-            $('#popup').css('display','none');	   
+            $('#popup').css('display','none');
             alert('무통장 입금은 취소를 지원하지 않습니다. 직접 해당 좌석을 환불해 주시고 예약 관리 페이지에서 예매 취소를 해주세요');
             location.reload();
         }
-        // //계좌이채 부분 취소일때 안내 메세지 표시
-        // else if(chk_pg_pay_type == '02' && cancelType == '1'){
-        //     $('#popup').css('display','none');	
-        //     alert('계죄이체는 부분취소를 지원하지 않습니다. 직접 해당 좌석을 환불해 주시고 예약 관리 페이지에서 예매 취소를 해주세요');
-        //     location.reload();            
-        // }
-        //그 외 결제수단은 api처리	
+        //간편결제 부분취소 인경우
+        else if(chk_pg_pay_type == '16' && cancelType == '1'){
+            $('#popup').css('display','none');	            
+            alert('간편결제는 부분취소를 지원하지 않습니다. 직접 해당 좌석을 환불해 주시고 예약 관리 페이지에서 예매 취소를 해주세요');
+        }
+        //그 외 결제수단은 api처리
         else{
-            console.log('아님여기냐');
             //결제 취소 우선 진행
             innopayCancelAPI(check_box_arr, chk_u_id, cancelType, ph_pay, chk_pg_id, chk_pg_pay_type)
-            
         }
-        
     }
 
     //좌석 예약 취소
@@ -802,21 +799,13 @@
             dataType: 'json',
             async: false,
             data: { 
-                'cr_id': check_box_arr, 
-                "u_id" : chk_u_id, 
+                'cr_id': check_box_arr,
+                "u_id" : chk_u_id,
                 "cancelType" : cancelType  //부분취소 여부
             },
             success: function (res) {
                 alert('취소완료');
                 location.reload();
-                // swal({
-                //     title: '예매취소 완료',
-                //     text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
-                //     icon: 'success',
-                //     button: '확인'
-                // }).then((value)=>{
-                //     location.href='mypage';
-                // })
             }
         })
     }

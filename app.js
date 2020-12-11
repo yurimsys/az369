@@ -129,6 +129,7 @@ app.use(function(err, req, res, next) {
     console.log(err);
     console.log(err.message);
     // render the error page
+    //오류 발생시 에러 페이지를 출력함
     res.status(err.status || 500).sendFile(path.join(__dirname, "./views", 'errpr_page.html'));
     // res.end();
   
