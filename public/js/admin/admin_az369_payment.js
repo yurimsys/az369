@@ -9,7 +9,6 @@
             $('.ab').each(function(e){
                 // console.log('e',e);
                 if($('.ab').attr('disabled') == "disabled" ){
-                    console.log('first');
                     $('.check-all').prop('checked', false);
                 }else{
                     if(this.disabled == false){
@@ -533,7 +532,6 @@
     
     // 검색
     function searchPopupAction() {
-        
         let condition_data = {
             searchType : $("#object_search_info #searchType").is(":checked"),
             u_name : $('#search_u_name').val(),
@@ -728,13 +726,7 @@
             
         });
         ph_pay = seatPay * check_box_arr.length;
-        let all_res_seat = $('#res_seat_list').children('li').length;
-        // if($("input:checkbox[id='ex_chk5']").is(":checked") == true){
-        //     cancelType = "0"
-        // }else{
-        //     cancelType = "1"
-        // }
-        //cancelType = 1 - 부분 취소 cancelType = 0 - 전체취소
+        
         if(getCancelType(ph_id) > $("input[name=seat_chk]:checked").length){
             cancelType = "1"
         }else{
@@ -824,14 +816,11 @@
                 if(data.resultCode == '2001' ||data.resultCode == '2211'){
                     cancelSeatAPI(check_box_arr, chk_u_id, cancelType);
                 }else{
-                    alert('취소 오류 이노페이 관리페이지에서 직접 취소 해주세요.')
-                    
+                    alert('취소 오류 이노페이 관리페이지에서 직접 취소 해주세요.');
                 }
                 // resSeatClose();
                 //좌석 취소
                 location.reload();
-                
-
             },
             error : function(data){
                 console.log(data);
@@ -839,7 +828,6 @@
             }
         });
     }
-
 
 
     //결제 취소 요청 값!
@@ -876,11 +864,9 @@
             console.log('this',this);
         })
         if($('input:checkbox[name=seat_chk]:checked').length < $("input:checkbox[name=seat_chk]").length){
-            console.log('첫');
             $("#ex_chk5").prop('checked', false);
             return false;
         }else if($('input:checkbox[name=seat_chk]:checked').length == $("input:checkbox[name=seat_chk]").length){
-            console.log('둘');
             $("#ex_chk5").prop('checked', true);
             return false;
         }

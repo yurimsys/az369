@@ -337,21 +337,8 @@
                     { 
                         //mobile 
                         location.href = "/reservation2";
-                        // alert('mobile 접속'); 
                     }
                 }
-
-            // console.log('local',location.search);
-            // if(location.search == '?pay_test'){
-            //     sessionStorage.setItem('isTest','test');
-            //     $('#pay_type option[value="free"]').remove();
-            // }else{
-            //     sessionStorage.removeItem('isTest','test');
-            //     $('#pay_type option[value="CARD"]').remove();
-            //     $('#pay_type option[value="BANK"]').remove();
-            //     $('#pay_type option[value="VBANK"]').remove();
-            //     $('#pay_type option[value="EPAY"]').remove();
-            // }
         })
 
     
@@ -1025,9 +1012,6 @@
                         location.href = "/complete";
                     }
                 })
-                // .done((result) => {
-
-                // });
             }
             //결제 실패
             else{
@@ -1053,31 +1037,9 @@
         }
 
         //창 강제 종료시 임시 예약 데이터 제거
-        // window.addEventListener('beforeunload',function(e){
-        //     processCancel();
-        // })
-
         window.onbeforeunload = function(){
             processCancel();
         }
-        
-        // $(window).bind('pageshow', function(event){
-        //     if(event.originalEvent && event.originalEvent.persisted){
-        //         location.reload();
-        //     }
-        // });
-
-        // history.pushState(null, null, location.href); 
-
-        //     window.onpopstate = function(event) { 
-        //         // $('#event_text').text(event)
-        //         console.log('envent',event);
-        //         console.log('history',history);
-        //         console.log('location.href',location.href);
-        //         // iosSeatDelete();m
-        //     // alert("여기에 작성하고 싶은 코드를 작성하면 됩니다!");
-
-        // }
 
     </script>
 </body>

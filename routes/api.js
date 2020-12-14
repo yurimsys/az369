@@ -5715,11 +5715,7 @@ router.get('/admin_payment',function(req, res){
                                 FROM tPH 
                                     INNER JOIN tU ON tU.U_ID = tPH.PH_U_ID
                                     INNER JOIN tCR ON tCR.CR_PH_ID = tPH.PH_ID
-                                    ORDER BY CR_PayState ASC) sort`
-
-                                    // (CR_Price * (SELECT COUNT(*) FROM tCR WHERE CR_PH_ID = PH_ID AND CR_PayState = '결제취소')) AS cancel_pay,
-                                    // (PH_Price - CR_Price * (SELECT COUNT(*) FROM tCR WHERE CR_PH_ID = PH_ID AND CR_PayState = '결제취소')) AS last_pay,
-
+                                    ORDER BY CR_PayState ASC) sort`;
 
     // 검색일 경우 쿼리 추가                                    
     if(req.query.type === 'search'){
