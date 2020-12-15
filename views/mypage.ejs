@@ -1424,8 +1424,14 @@
             //계좌이체 일 경우 svcCd=02 으로 설정
             }else if(pg_ph_type == '02'){
                 window.open("https://pg.innopay.co.kr/pay/issue/TransIssue.jsp?TID="+pg_ph_id+"&svcCd=02","new","width=450,height=700,top=50,left=100");	
+            
+            }
+            //신용카드 경우 매출 전표출력
+            else if(pg_ph_type == '01'){
+                window.open("https://pg.innopay.co.kr/pay/issue/CardIssue.jsp?TID="+pg_ph_id+"&svcCd=01","new","width=450,height=700,top=50,left=100");	
+            }
             //그 외 신용카드 및 간편결제는 해당 tID만 넣으면 된다.
-            }else{
+            else{
                 window.open("https://pg.innopay.co.kr/pay/issue/TransIssue.jsp?TID="+pg_ph_id,"new","width=450,height=700,top=50,left=100");	
             }
             
