@@ -32,18 +32,6 @@ const storage = multer.diskStorage({
   })
 const upload = multer({storage: storage})
 
-router.get('/fcm_test',function(req, res){
-    res.render('fcm_test');
-})
-
-router.get('/pay_test',function(req, res){
-    res.render('pay_test');
-})
-
-router.get('/pay_cancel',function(req, res){
-    res.render('pay_cancel');
-})
-
 //사이니지 메인화면
 router.get('/sign', function(req, res, next) {
     res.render('signage');

@@ -3208,8 +3208,8 @@ router.post('/tbs', upload.any(), async function (req, res, next) {
             .input('BS_BreakDtF', mssql.DateTime, breakF)
             .input('BS_PersonalDayKor', mssql.NVarChar, req.body.bsPersonalKo)
             .input('BS_PersonalDayEng', mssql.NVarChar, req.body.bsPersonalEn)
-            .input('BS_ThumbnailUrl', mssql.NVarChar, '/img/'+req.files[1].originalname)
-            .input('BS_ImageUrl', mssql.NVarChar, '/img/'+req.files[0].originalname)
+            .input('BS_ThumbnailUrl', mssql.NVarChar, '/img/sign_brand/'+req.files[1].originalname)
+            .input('BS_ImageUrl', mssql.NVarChar, '/img/sign_brand/'+req.files[0].originalname)
             .query(`INSERT INTO tBS(
                                 BS_BC_ID, BS_LoginID, BS_LoginPW, BS_CEO, BS_NameKor, BS_NameEng, BS_ContentsKor, BS_ContentsEng, 
                                 BS_Phone, BS_CEOPhone, BS_Addr1Kor, BS_Addr2Kor, BS_Addr1Eng, BS_Addr2Eng, BS_MainDtS, BS_MainDtF,
@@ -3415,8 +3415,8 @@ router.put('/tbs/:bsId', upload.any(), async function (req, res, next) {
             .input('BS_BreakDtF', mssql.DateTime, breakF)
             .input('BS_PersonalDayKor', mssql.NVarChar, req.body.bsPersonalKo)
             .input('BS_PersonalDayEng', mssql.NVarChar, req.body.bsPersonalEn)
-            .input('BS_ThumbnailUrl', mssql.NVarChar, '/img/'+tumb_url)
-            .input('BS_ImageUrl', mssql.NVarChar, '/img/'+img_url)
+            .input('BS_ThumbnailUrl', mssql.NVarChar, '/img/sign_brand/'+tumb_url)
+            .input('BS_ImageUrl', mssql.NVarChar, '/img/sign_brand/'+img_url)
             .query(query);
 
 
@@ -6472,201 +6472,6 @@ router.post('/filesave', upload.any(), async function (req, res, next) {
 })
 
 
-//게시물 등록
-router.post('/board/:cmt', async function (req, res, next) {
-    try {
-        let pool = await mssql.connect(dbconf.mssql)
-
-        let cmt_type = req.params.cmt;
-        let board_id = req.body.board_id;
-        let board_text = req.body.board_text;
-
-        if(cmt_type == "default_cmt"){
-            await pool.request()
-            .input('board_text', mssql.NVarChar, req.body.board_text)
-            .query(`INSERT INTO board 
-                        VALUES(
-                            (select CASE  WHEN MAX(B_Group) IS NULL THEN 1 ELSE MAX(B_Group)+1 END FROM board),
-                            0,
-                            0,
-                            @board_text
-                            )`
-                    );
-
-        }else if(cmt_type == "first_cmt"){
-            await pool.request()
-            .input('board_id', mssql.Int, req.body.board_id)
-            .input('board_text', mssql.NVarChar, req.body.board_text)
-            .query(`UPDATE board 
-                            SET B_Index = B_Index+1 
-                            WHERE 
-                                B_Group = (SELECT B_Group FROM board WHERE B_ID = @board_id) AND 
-                                B_Index > 0
-                    `
-                    );
-            await pool.request()
-            .input('board_id', mssql.Int, req.body.board_id)
-            .input('board_text', mssql.NVarChar, req.body.board_text)
-            .query(`INSERT INTO board 
-                        VALUES(
-                            (SELECT B_Group FROM board WHERE B_ID = @board_id),
-                            1,
-                            1,
-                            @board_text
-                            )`
-                    );
-
-        }else{
-            await pool.request()
-            .input('board_id', mssql.Int, req.body.board_id)
-            .input('board_text', mssql.NVarChar, req.body.board_text)
-            .query(`UPDATE board 
-                        SET B_Index = B_Index+1 
-                        WHERE 
-                            B_Group = (SELECT B_Group FROM board WHERE B_ID = @board_id) AND 
-                            B_Index > (SELECT B_Index FROM board WHERE B_ID = @board_id)
-                            `
-                    );
-            await pool.request()
-            .input('board_id', mssql.Int, req.body.board_id)
-            .input('board_text', mssql.NVarChar, req.body.board_text)
-            .query(`INSERT INTO board 
-                            VALUES (
-                                (SELECT B_Group FROM board WHERE B_ID = @board_id),
-                                (SELECT B_Index+1 FROM board WHERE B_ID = @board_id),
-                                (SELECT B_Depth+1 FROM board WHERE B_ID = @board_id),
-                                @board_text
-                                ) `
-                    );
-        }
-
- 
-        res.json({data:'1'})
-    } catch (err) {
-        console.log(err);
-        console.log('error fire')
-    }
-});
-
-
-router.get('/board', function(req, res, next) {
-    mssql.connect(dbconf.mssql, function (err, result){
-        if(err) throw err;
-
-        let query = `select B_ID, B_Group, B_Index, B_Depth, B_Ex from board order by B_Group desc, B_Index`
-
-        // 관리 페이지 상세검색
-        new mssql.Request().query(query,
-            (err, result)=>{
-                console.log('result',result);
-                res.json({data : result.recordset})
-        })
-
-    });
-});
-
-router.get('/boardTwo', function(req, res, next) {
-    mssql.connect(dbconf.mssql, function (err, result){
-        if(err) throw err;
-
-        let query = `WITH sorted AS
-                            (
-                            SELECT 
-                                right(cast (1000000 + (select coalesce(max(t2.id),t.id) 
-                                            from tree_table t2 
-                                            where t2.parent_id = t.id )as varchar(max)),6) 
-                                AS [sort_key],
-                                t.id,
-                                t.parent_id,
-                                t.name
-                            FROM
-                                tree_table t
-                            ),
-                            rcte AS (
-                                SELECT *, 
-                                    id AS top_parent_Id    -- Added this
-                                FROM  sorted t
-                                WHERE 
-                                    t.parent_id = 0
-                                UNION ALL
-                                SELECT 
-                                    r.sort_key + t.sort_key,
-                                    t.id,
-                                    t.parent_id,
-                                    t.name,
-                                    r.Top_parent_Id
-                                FROM
-                                    sorted t
-                                JOIN
-                                    rcte r ON r.id = t.parent_id
-                            )
-                        
-                            SELECT 
-                                rcte.
-                                *
-                            FROM rcte
-                            -- added following line
-                            INNER JOIN (SELECT top_parent_id, MAX(id) AS MaxId FROM rcte GROUP BY top_parent_id) AS Parent_Sort 
-                                ON rcte.top_parent_Id = Parent_sort.top_parent_Id   
-                            ORDER BY 
-                                Parent_sort.MaxID DESC,  -- added this
-                                stuff(replicate(cast ('9' as varchar(max)), 
-                                (select max(len(r2.sort_key)) from rcte r2)),
-                                1,
-                                len(sort_key), sort_key) 
-                            DESC;
-                        `
-        // 관리 페이지 상세검색
-        new mssql.Request().query(query,
-            (err, result)=>{
-                console.log('result',result.recordset);
-                res.json({data : result.recordset})
-        })
-
-    });
-});
-
-//게시물 등록
-router.post('/boardTwo/:cmt', async function (req, res, next) {
-    try {
-        let pool = await mssql.connect(dbconf.mssql)
-
-        let cmt_type = req.params.cmt;
-        let parent_id = req.body.parent_id;
-        let name = req.body.board_text;
-
-        if(cmt_type == "default_cmt"){
-            await pool.request()
-            .input('id', mssql.Int)
-            .input('parent_id', mssql.Int)
-            .input('name', mssql.NVarChar, name)
-            .query(`INSERT INTO tree_table 
-                        VALUES(
-                            (SELECT CASE  WHEN MAX(id) IS NULL THEN 1 ELSE MAX(id)+1 END FROM tree_table),
-                            0,
-                            @name
-                            )`
-                    );
-
-        }else{
-            await pool.request()
-            .input('id', mssql.Int)
-            .input('parent_id', mssql.Int, parent_id)
-            .input('name', mssql.NVarChar, name)
-            .query(`INSERT INTO tree_table 
-                        VALUES(
-                            (SELECT CASE  WHEN MAX(id) IS NULL THEN 1 ELSE MAX(id)+1 END FROM tree_table),
-                            @parent_id,
-                            @name
-                            )`
-                    );
-        }
-        res.json({data:'1'})
-    } catch (err) {
-        console.log(err);
-        console.log('error fire')
-    }
-});
 
 
 //카드 리턴값
