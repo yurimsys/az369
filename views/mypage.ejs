@@ -107,7 +107,7 @@
                                                 <dd> <% if(sessionUser) {%>
                                                         <%= sessionUser.U_Phone %>　
                                                     <% }%>
-                                                    　
+                                                    
                                                 </dd>
                                             </dl>
 
@@ -121,9 +121,8 @@
                                     </div>
 
                                     <div class="mypage_nav">
-                                        <button class="tablinks" id="tab1" onclick="openList(event, '01')"
-                                            id="defaultOpen"> 승차권 확인<span><img src="/img/common/gray_arrow.png"
-                                                    alt=""></span></button>
+                                        <button class="tablinks" id="tab1" onclick="openList(event, '01')"> 승차권 확인
+                                            <span><img src="/img/common/gray_arrow.png" alt=""></span></button>
 
                                         <button class="tablinks" id="tab2" onclick="openList(event, '02')"> 예매결제내역
                                             <span><img src="/img/common/gray_arrow.png" alt=""></span></button>
@@ -147,6 +146,7 @@
                                     <button class="tablinks" id="tab_mo3" onclick="openList(event, '03')">
                                         <p>취소환불조회</p>
                                     </button>
+                            
                                 </div>
                             </li>
 
@@ -320,9 +320,9 @@
                                                         <th>영수증</th>
                                                     </tr>
                                                 </thead>
-                                                <!-- <tbody id='payList'>
-                                                </tbody> -->
-                                                <tbody>
+                                                <tbody id='payList'>
+                                                </tbody>
+                                                <!-- <tbody>
                                                     <tr>
                                                         <td>2020.01.01</td>
                                                         <td>2020.01.01 22:00</td>
@@ -330,9 +330,9 @@
                                                         <td>11, 12, 13, 14</td>
                                                         <td>신용카드</td>
                                                         <td>20,000원</td>
-                                                        <td><a class="Receipt  btn-light">영수증 출력</a></td>
+                                                        <td><a class="Receipt btn-light">영수증 출력</a></td>
                                                     </tr>
-                                                </tbody>
+                                                </tbody> -->
                                             </table>
                                         </div>
                                         <!--두번째 리스트 mo 414px-->
@@ -347,11 +347,11 @@
                                                 <h3>예매 결제 상세내역</h3>
                                                 <div class="table_mo">
                                                 </div>
-                                                <div>
-                                                <a class="receipt btn-light">영수증 출력</a>
-                                            </div>
+                                                <div id='mobile_bill'>
+                                                    <!-- <a class="receipt btn-light">영수증 출력</a> -->
+                                                </div>
                                                 <div class="popup_btn_mo">
-                                                    <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block')" >닫기</a>
+                                                    <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');" >닫기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -469,7 +469,7 @@
                                                 </div>
 
                                                 <div class="popup_btn_mo">
-                                                    <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block')">닫기</a>
+                                                    <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');">닫기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -627,7 +627,7 @@
     </div>
     
     <!--두번째 리스트 popup mo-->
-    <div id="popup2" class="layer">
+    <!-- <div id="popup2" class="layer">
         <div class="popup_box_mo popup_box_mo2">
             <h3>예매 및 결제 상세내역</h3>
             <div class="table_mo">
@@ -637,11 +637,11 @@
                 <a class="btn btn-secondary" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');">닫기</a>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!--세번째 리스트 popup mo-->
     <!--환불완료-->
-    <div id="popup3" class="layer">
+    <!-- <div id="popup3" class="layer">
         <div class="popup_box_mo">
             <h3>취소 및 환불 상세내역</h3>
             <div class="table_mo">
@@ -652,13 +652,19 @@
                 <a class="btn btn-secondary popup_close" onclick="javascript:$('header').css('display','block');$('footer').css('display','block');">닫기</a>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 
     <!-- <script src="/js/qrcode.js"></script>S -->
+    <!-- 이노페이 -->
+    <script type="text/javascript" src="https://pg.innopay.co.kr/ipay/js/innopay-2.0.js" charset="utf-8"></script>
     <script>
-
+        // const test_good2 = "<%=title%>";
+        // console.log('wjddn',test_good2);
+        const session_name = "<%=sessionUser.U_Name%>"
+        const session_phone = "<%=sessionUser.U_Phone%>"
+        
         /*agreement 전체동의 체크*/
         $(document).ready(function () {
 
@@ -668,7 +674,6 @@
 
 
         });
-
 
         $(window).load(function () {
             $('#tab1').addClass('active')
@@ -683,7 +688,11 @@
             });
         });
         
-
+        let seat_name;
+        let seat_price;
+        let order_number;
+        　
+        //승차권 상세보기!
         function resModal(e) {
             // $('.swiper-wrapper').empty();
             $("#ex_chk5").prop('checked', false);
@@ -712,12 +721,9 @@
                 }
             }
             var sendJson = JSON.stringify(send_array);
-            //console.log('sendjson :',sendJson); 
-
+            //선택한 좌석목록
             var seatArr = JSON.parse(sendJson);
 
-
-            // <p>장차예매 이용자임을 확인하기 위한 QR코드입니다. <br>QR코드가 있는 승차권으로 장차 탑승이 가능합니다.</p>
             $.ajax({
                 url: "api/user/payCancel",
                 method: 'post',
@@ -725,8 +731,21 @@
                 data: {
                     'sendArray': seatArr
                 },
+                // <tr><th>계좌번호</th><td>2221246578745</td></tr>
                 success: function (res) {
-                    // console.log(res.data);
+                    if(res.data[0].PH_PG_ID === "1"){
+                        alert('후불결제된 좌석입니다. 24시간 이내 결제를 진행하지 않으면 좌석은 자동으로 취소됩니다.')
+                    }
+
+                    //상품명
+                    seat_name = "좌석";
+                    for(let i=0; i<res.data.length; i++){
+                        seat_name += res.data[i].CR_SeatNum+'번, '
+                    }
+                    //전체 좌석 가격
+                    seat_price = res.data[0].CR_Price * res.data.length;
+                    //주문번호
+                    order_number = res.data[0].PH_OrderNumber
                     $('.time_info').empty();
                     $('.payment_info').empty();
                     $('#res_seat_list').empty();
@@ -737,28 +756,197 @@
                         top_html += "<li><img src='/img/mypage/info_arrow.png'></li><li><dt>동대문</dt><dd>"+res.data[0].returnTime+"</dd></li></ul></div></div>";
 
                     $('.time_info').append(top_html);
-
+                    // console.log('tetestews',res.data[0].PH_PG_ID);
+                    
+                    // let res_pay = (res.data[0].PH_PG_ID === "1") ? '<tr><td><a class="cancel_btn select_cancel">결제진행</a></td></tr>' : "";
+                    // let res_pay = (res.data[0].PH_PG_ID === "1") ? '<tr><td style="border:1px solid #000000; width:auto; cursor:pointer;" onclick="innopayProcess()">결제진행</td></tr>' : "";
+                    let res_pay = (res.data[0].PH_PG_ID === "1") ? `<tr><th>결제진행</th><td><select id="pay_type" style='width:50%;'>
+                                                                                                    <option value="null">결제수단 선택</option>
+                                                                                                    <option value="CARD">신용카드</option>
+                                                                                                    <option value="BANK">계좌이체</option>
+                                                                                                    <option value="EPAY">간편결제</option>
+                                                                                               </select>
+                                                                                               <button type="button" onclick="innopayProcess(this)" data-phid=`+res.data[0].PH_ID+` style="width: 20%;font-size: 14px;text-align: center;">결제</button>
+                                                                                               </td></tr>` : "";
+                                                                                               
+                    let bank_num = res.data[0].PH_BankNumber == null ?  "" : "<tr><td style='width:100%'>"+res.data[0].PH_CardName+" "+res.data[0].PH_BankNumber+"</td></tr>";
+                    
                     let mid_html = "<tr><th>결제일시</th><td>"+res.data[0].payDayYM+' ('+getInputDayLabel(res.data[0].payDayWeek)+') '+res.data[0].payDayTm+"</td></tr>";
+                        mid_html += "<tr><th>주문번호</th><td>"+res.data[0].PH_OrderNumber+"</td></tr>";
                         mid_html += "<tr><th>결제수단</th><td>"+res.data[0].PH_Type+"</td></tr>";
+                        mid_html += bank_num;
                         mid_html += "<tr><th>결제금액</th><td>"+(res.data[0].CR_Price * res.data.length)+"원</td></tr>";
+                        mid_html += "<tr><th>결제상태</th><td>"+res.data[0].CR_PayState+"</td></tr>";
+                        mid_html += res_pay;
 
                     $('.payment_info').append(mid_html);
- 
+                    let tag_test = `<a onclick="javascript:$('#popup').css('display','none');$('header').css('display','block');$('footer').css('display','block');" class=" close_btn btn-secondary">결제진행</a>`;
                     for(let i=0; i<res.data.length; i++){
                         let bot_html = "<li><div class='checks etrans' id=res_seat"+res.data[i].CR_ID+">";
-                            bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+" data-pgpaytype="+res.data[i].PH_CodeType+">";
+                            bot_html += "<input type='checkbox' onclick='seatCheck(this)' name='seat_chk' id=seat_chk"+res.data[i].CR_ID+" value="+res.data[i].CR_ID+" class='ab' data-uid="+res.data[i].CR_U_ID+" data-pgid="+res.data[i].PH_PG_ID+" data-pgpaytype="+res.data[i].PH_CodeType+" data-seatprice="+res.data[i].CR_Price+" data-phid="+res.data[i].PH_ID+" data-ordernum="+res.data[i].PH_OrderNumber+" data-vbanknum="+res.data[i].PH_BankNumber+" data-vbankcd="+res.data[i].PH_BankCode+">";
                             bot_html += "<label for=seat_chk"+res.data[i].CR_ID+">좌석번호<span>"+res.data[i].CR_SeatNum+"</span></label>";
                             bot_html += "<a onclick='qrcode_full_open(this)' id='qrcode_full_btn' value="+res.data[i].CR_ID+" data-pgid="+res.data[i].CR_QrCode+" data-seatnum="+res.data[i].CR_SeatNum+"><div class='qrcode' id=qrcode"+res.data[i].CR_ID+"></div></a></div>"
                             
                         $('#res_seat_list').append(bot_html);
-                          // <a href="#img-id"><div class="qrcode"></div></a>
+                        
                         let qr_type = 'default'
                         qrCodeImg(res.data[i].CR_ID,res.data[i].CR_QrCode, qr_type)
                     }
+                    // $('#res_seat_list').append(tag_test);
 
                 }
                 
             })
+        }
+
+        let pay_ph_id;
+        function innopayProcess(e){
+            // console.log('eeee',e.dataset.phid);
+            pay_ph_id = e.dataset.phid;
+            if($('#pay_type').val() == "null"){
+                alert('결제수단을 선택해 주세요.');
+                return false;
+            }
+    
+            innopay.goPay({
+                //// 필수 파라미터
+                PayMethod: $('#pay_type').val(),		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY)
+                MID: "pgaz369azm",					    // 가맹점 MID
+                MerchantKey: "fx/UT4tcb5VWxP24BXiwH0stdJnNxFf6GpdFdvd42Bmwnurd/1QgGPORTIfioiAVy/B0cx6j5spsDwAfGsleuQ==", // 가맹점 라이센스키
+                GoodsName: seat_name.slice(0,-2),       // 상품명
+                Amt: seat_price.toString(),             // 결제금액(과세)
+                BuyerName: session_name,		        // 고객명
+                BuyerTel: session_phone,	            // 고객전화번호  (선택값임)
+                BuyerEmail: "",			                // 고객이메일 (선택값임)
+                ResultYN: "Y",				            // 결제결과창 출력유뮤
+                Moid:order_number,			            // 가맹점에서 생성한 주문번호 셋팅
+
+                //// 선택 파라미터
+                // ReturnURL:frm.ReturnURL.value,			    // 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
+                //	ArsConnType:'02', 							///* ARS 결제 연동시 필수 01:호전환, 02(가상번호),        03:대표번호 */
+                //	FORWARD:'',									// 결제창 연동방식 (X:레이어, 기본값)
+                //	GoodsCnt:'',								// 상품갯수 (가맹점 참고용)
+                //	MallReserved:'',							// 가맹점 데이터
+                //	OfferingPeriod:'',							// 제공기간
+                //	DutyFreeAmt:'',								//결제금액(복합과세/면세 가맹점의 경우 금액설정)
+                //	EncodingType:'utf-8',						// 가맹점 서버 인코딩 타입 (utf-8, euc-kr)
+                //	MallIP:'',									// 가맹점 서버 IP
+                //	UserIP:'',									// 고객 PC IP
+                //	mallUserID:'',								// 가맹점 고객ID
+                //	User_ID:'',									// Innopay에 등록된 영업사원ID
+                Currency:''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
+            });
+        }
+        
+        //결제 리턴값
+        function innopay_result(data){
+            // console.log('data',data);
+            // console.log('pay',pay_ph_id);
+            // console.log('data',data.VBankCd);
+            var a = JSON.stringify(data);
+            // Sample
+            let mid = data.MID;					// 가맹점 MID
+            let tid = data.TID;					// 거래고유번호 DB입력
+            let amt = data.Amt;					// 금액 영수증* 공급금액 부가세 합계금액
+            let moid = data.MOID;				// 주문번호
+            let authdate = data.AuthDate;		// 승인일자 영수증*
+            let authcode = data.AuthCode;		// 승인번호 영수증*
+            let resultcode = data.ResultCode;	// 결과코드(PG)
+            let resultmsg = data.ResultMsg;		// 결과메세지(PG)
+            let errorcode = data.ErrorCode;		// 에러코드(상위기관)
+            let errormsg = data.ErrorMsg;		// 에러메세지(상위기관)
+            let bank_code = data.BankCd;       // 은행코드 ( 계좌이체 용 )
+            let ePayCl   = data.EPayCl;         // 간편결제 종류 01 : 카카오, 02 : LPay, 03: Payco, 04:SSG, 06: 네이버페이
+            let payType = data.AcquCardCode;    // 결제 타입 ex) 신용카드 01 계좌이체 02 DB 입력
+            let cancel_type = $('#pay_type option:selected').val(); // 결제수단
+            let EPayType; //간편결제 종류
+            let bank_name = data.bankName;
+            //카드사명
+            let card_name = 'null';
+            if(data.fn_name){
+                card_name = data.fn_name;
+            }
+        
+
+            if(ePayCl == '01'){
+                EPayType = '카카오페이'
+            }else if(ePayCl == '02'){
+                EPayType = 'LPay'
+            }else if(ePayCl == '03'){
+                EPayType = 'Payco'
+            }else if(ePayCl == '04'){
+                EPayType = 'SSGPay'
+            }else if(ePayCl == '06'){
+                EPayType = '네이버페이'
+            }
+            // console.log('ePAP',EPayType);
+
+            //신용카드 및 간편결제
+            if(resultcode == '3001'){
+                sessionStorage.setItem('pay_complete',"complete");
+                // console.log('data',data.VbankName, data.VbankNum);
+                // alert('에이작스')
+                $.ajax({
+                    method: "POST",
+                    dataType: "json",
+                    url: "/api/my-payment",
+                    data: {
+                        "pay_ph_id" : pay_ph_id,
+                        "tid" : tid,
+                        "bankCd" : bank_code,
+                        "payType" : payType,
+                        "cancel_type" : cancel_type,
+                        "EPayType" : EPayType,
+                        "card_name" : card_name
+                    },
+                    success: function(result){
+                        alert('결제완료 되었습니다.');
+                        location.reload();
+                    }
+                })
+
+            //계좌이체일때
+            }else if(resultcode == '4000'){
+                $.ajax({
+                    method: "POST",
+                    dataType: "json",
+                    url: "/api/payment",  
+                    data: {
+                        "pay_ph_id" : pay_ph_id,
+                        "tid" : tid,
+                        "bankCd" : bank_code,
+                        "payType" : payType,
+                        "cancel_type" : cancel_type,
+                        "EPayType" : EPayType,
+                        "card_name" : bank_name
+                    },
+                    success: function(result){
+                        alert('결제완료 되었습니다.');
+                        location.reload();
+                    }
+                })
+            }
+            //결제 실패
+            else{
+
+                if(resultcode == 3022){
+                    alert('할부 개월 오류');
+                    processCancel();
+                }else if(resultcode == 3023){
+                    alert('할부개월 한도 초과');
+                    processCancel();
+                }else if(resultcode == 3031){
+                    alert('무이자할부 카드가 아닙니다.');
+                    processCancel();
+                }else if(resultcode == 3032){
+                    alert('무이자할부 불가 개월수');
+                    processCancel();
+                }else{
+                    alert('결제가 실패되었습니다. 다시 시도해 주세요');
+                    processCancel();
+                }
+                
+            }
         }
 
         //체크박스 활성화
@@ -816,80 +1004,200 @@
                     correctLevel : QRCode.CorrectLevel.H
                 });
             }
-
-            
         }
-
-
-        // //QR코드 생성 함수 모바일
-        // function qrCodeImgMo(qrId,userInfo){
-        //     let qr_id = qrId;
-        //     let qr_text = userInfo;
-        //     let qrcode = new QRCode(document.getElementById('qrcodemo'+qr_id), 
-        //         {
-        //             text: qr_text,
-        //             width: 100,
-        //             height: 100,
-        //             colorDark : "#000000",
-        //             colorLight : "#ffffff",
-        //             correctLevel : QRCode.CorrectLevel.H
-        //         });
-            
-        // }
-
-        // function slider(){
-        //     new Swiper('.myswiper', {
-        //         // 슬라이드 속도 설정
-        //         // 지정하지 않을시 기본값은 300
-        //         speed : 500,
-        //         navigation : { // 네비게이션 설정
-        //             nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-        //             prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-        //         },
-        //     })
-        // }
-
-        function cancelInfo(string, codeString) {
-
+ 
+        // 이노페이 결제취소 정보
+        function cancelInfo(string, codeString, cancelType ,ph_pay) {       
             let cancel_data = {}                        //전체 필수 값 !!!!
-                cancel_data.mid = 'testpay01m',         //이노페이에서 발급한 상점아이디
+                cancel_data.mid = 'pgaz369azm',         //이노페이에서 발급한 상점아이디
                 cancel_data.tid = string,               //거래고유번호
-                cancel_data.svcCd = `${codeString}`,    //취소 결과 코드 ex) 신용카드 : 01, 계좌이체 : 02, 간편결제 : 16
-                cancel_data.partialCancelCode = '0',    //전체취소 : 0, 부분취소 : 1  (부분취소 사용 가능 가맹점만 사용 가능)
-                cancel_data.cancelAmt = '700',          //취소 금액
-                cancel_data.cancelMsg = '환불테스트',   //취소사유
+                cancel_data.svcCd = codeString.toString(),    //취소 결과 코드 ex) 신용카드 : 01, 계좌이체 : 02, 간편결제 : 16
+                cancel_data.partialCancelCode = cancelType,    //전체취소 : 0, 부분취소 : 1  (부분취소 사용 가능 가맹점만 사용 가능)
+                cancel_data.cancelAmt = ph_pay,          //취소 금액
+                cancel_data.cancelMsg = '단순변심',   //취소사유
                 cancel_data.cancelPwd = '123456'        //취소비밀번호                                
                 
             return JSON.stringify(cancel_data);
 
         }
 
-        // 예매 취소
+        //예약한 좌석의 수 구하기
+        function getCancelType(ph_id){
+            let cancel_type;
+            $.ajax({
+                url : '/api/user/canceltype',
+                method : 'get',
+                dataType : 'json',
+                async : false,
+                data : {ph_id : ph_id},
+                success: function(res){
+                    cancel_type = res.data[0].count
+                }					
+            });
+            return cancel_type;
+        }
+
+        //가상계좌 취소 요청값
+        function vBankCancel(tid, moid, pay, vbank_code, vbank_num){
+            let vBank_data = {}
+                vBank_data.mid = 'pgaz369azm'
+                vBank_data.licenseKey = 'fx/UT4tcb5VWxP24BXiwH0stdJnNxFf6GpdFdvd42Bmwnurd/1QgGPORTIfioiAVy/B0cx6j5spsDwAfGsleuQ=='
+                vBank_data.tid = tid
+                vBank_data.moid = moid
+                vBank_data.amt = pay
+                vBank_data.vbankBankCode = vbank_code
+                vBank_data.vbankNum = vbank_num
+
+            return JSON.stringify(vBank_data); 
+        }
+        
+        //가상계좌 취소 요청
+        function vBank(chk_pg_id, order_num, ph_pay, vbank_code, vbank_num){
+            $.ajax({
+                type : "POST",
+                url : "https://api.innopay.co.kr/api/vbankCancel",
+                async : true,
+                data : vBankCancel(chk_pg_id, order_num, ph_pay, vbank_code, vbank_num),
+                contentType: "application/json; charset=utf-8",
+                dataType : "json",
+                success : function(data){
+                    // console.log(data);
+                },
+                error : function(data){
+                    // console.log(data);   
+                }
+            });
+        }
+
+        // 예매 취소전 결제 모듈 확인 및 예외처리
         function resCancel(e) {
             // console.log('데이터 :', e.dataset.pgid);
             if($('input:checkbox[name=seat_chk]:checked').length == 0){
                 alert('취소할 좌석을 선택해 주세요.')
                 return false;
             }
-            var checkBoxArr = [];
-            let chk_pg_id; //PG사 결제 고유 아이디
+            var checkBoxArr = []; //예매한 좌석 cr_id
+            let chk_pg_id; //PG사 결제 고유 아이디 tid
             let chk_u_id; // 결제 회원 아이디
             let chk_pg_pay_type; // 결제 취소 코드
+            let seatPay; //선택된 좌석 금액
+            let ph_pay; //취소할 금액
+            let cancelType; //전체취소 or 부분취소
+            let ph_id; //결제 고유 아이디 ph_id
+            let order_num; //주문번호
+            let vbank_num; //가상계좌 번호
+            let vbank_cd; //가상계좌 은행코드
+
+            //해당 체크박스의 값들 도출
             $("input[name=seat_chk]:checked").each(function(i){
                 checkBoxArr.push($(this).val());
                 let chk_id = this.id;
                 chk_pg_id = $('#'+chk_id).data('pgid');
                 chk_u_id = $('#'+chk_id).data('uid');
                 chk_pg_pay_type = $('#'+chk_id).data('pgpaytype');
-                
+                seatPay = $('#'+chk_id).data('seatprice');
+                ph_id = $('#'+chk_id).data('phid');
+                order_num = $('#'+chk_id).data('ordernum');
+                vbank_num = $('#'+chk_id).data('vbanknum');
+                vbank_cd = $('#'+chk_id).data('vbankcd');
                 
             });
+            ph_pay = seatPay * checkBoxArr.length;
+            let all_res_seat = $('#res_seat_list').children('li').length;
+            // if($("input:checkbox[id='ex_chk5']").is(":checked") == true){
+            //     cancelType = "0"
+            // }else{
+            //     cancelType = "1"
+            // }
+            
+            //cancelType = 1 - 부분 취소 cancelType = 0 - 전체취소
+            if(getCancelType(ph_id) > $("input[name=seat_chk]:checked").length){
+                cancelType = "1"
+            }else{
+                cancelType = "0"
+            }
+            // console.log('test',chk_pg_pay_type);
+            // console.log('good',cancelType);
+            // 무통장 입금일때 api 처리
+            if(chk_pg_pay_type == '03' && cancelType == '0'){   
+                // console.log('통과');
+                $.ajax({
+                    url : '/api/user/vBank',
+                    method : 'get',
+                    dataType : 'json',
+                    data : {'cr_id': checkBoxArr},
+                    success: function(res){
+                        if(res.data == '결제대기'){
+                            $('#popup').css('display','none');
+                            let msgType = "입금 전 취소"
+                            cancelSeatAPI(checkBoxArr, chk_u_id, cancelType, msgType)
+                            vBank(chk_pg_id, order_num.toString(), ph_pay.toString(), vbank_cd, vbank_num.toString())
+                        }else{
+                            $('#popup').css('display','none');
+                            swal({	
+                                title: '고객센터 문의',	
+                                text: '가상계좌(무통장 입금)을 하신 고객님 께서는 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',	
+                                icon: 'error',	
+                                button: '확인'	
+                            })
+                            .then((value)=>{	
+                                location.href='mypage';	
+                            })	
+                        }
+                    }					
+                });
+                return false;
+            }
+            //무통장 부분 취소일떄 경우 안내 메세지 표시
+            else if(chk_pg_pay_type == '03' && cancelType == '1'){
+                $('#popup').css('display','none');	            
+                    swal({	
+                        title: '고객센터 문의',	
+                        text: '가상계좌(무통장 입금)을 하신 고객님 께서는 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',	
+                        icon: 'error',	
+                        button: '확인'	
+                    })
+                    .then((value)=>{	
+                        location.href='mypage';	
+                    })	
+                return false;
+            }
+            //간편결제 부분취소 인경우
+            else if(chk_pg_pay_type == '16' && cancelType == '1'){
+                $('#popup').css('display','none');	            
+                    swal({	
+                        title: '고객센터 문의',	
+                        text: '간편결제는 부분취소를 지원하지않습니다. 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',
+                        icon: 'error',
+                        button: '확인'
+                    })
+                    .then((value)=>{	
+                        location.href='mypage';	
+                    })	
+                return false;
+            }
+            //후불결제 일경우
+            else if(chk_pg_id == '1'){
+                $('#popup').css('display','none');
+                let msgType = "입금 전 취소"
+                cancelSeatAPI(checkBoxArr, chk_u_id, cancelType, msgType)
+            }
+            //그 외 결제수단은 api처리	
+            else{
+                cancelPayApi(checkBoxArr, chk_u_id, cancelType, ph_pay, chk_pg_id, chk_pg_pay_type)
+            }
+            
+        }
 
-            // console.log('check?',checkBoxArr);
-            // console.log('data',chk_pg_id);
-            // console.log('daaaa',chk_u_id);
+        //취소 가능 여부 확인 API
+        function cancelPayApi(checkBoxArr, chk_u_id, cancelType, ph_pay, chk_pg_id, chk_pg_pay_type){
 
+            // 우선 취소할 수 있는 좌석인지 확인을 해야한다.
+            // 아래 else 문에서 취소가 가능하기에 이때 이노페이 API를 요청해야한다.
+            // 이노페이 API가 오류가 나타나면 고객센터 문의 알림을 띄우며 예매취소 API를 요청하지 않는다.
+            // 이노페이 API 응답이 성공할 시 좌석예매 API를 진행한다.
 
+            //취소 가능 여부 확인
             $.ajax({
                 url: "api/user/cancelRes",
                 method: 'post',
@@ -899,9 +1207,10 @@
                 success: function (res) {
                     $('#popup').css('display','none');
                     $('.swal-icon--success__ring').css('display','none');
+                    //환불규정으로 가는 링크 생성
                     let link = document.createElement('div')
-                        link.innerHTML = "<a href='/'>환불규정 보기</a>"
-                    if (res.data == 0) {
+                        link.innerHTML = "<a href='/refund'>환불규정 보기</a>"
+                    if(res.data == 201) {
                         swal({
                             title: '취소 실패',
                             text: '출발일 기준 3일 내 예매취소가 불가능합니다. \n',
@@ -909,75 +1218,109 @@
                             icon: 'error',
                             button: '환불규정 보기',
                             button: '확인'
-                        }).then((value)=>{
+                        })
+                        .then((value)=>{
                             location.href='mypage';
                         })
-                    } else if(res.data == 200){
-
-                        swal({
-                            title: '취소 실패',
-                            text: '승차하신 좌석은 취소가 불가능 합니다.',
-                            icon: 'error',
-                            button: '확인'
-                        }).then((value)=>{
-                            location.href='mypage';
-                        })
-
-                    }else if(res.data == 200){
-
-                        swal({
-                            title: '취소 실패',
-                            text: '승차하신 좌석은 취소가 불가능 합니다.',
-                            icon: 'error',
-                            button: '확인'
-                        }).then((value)=>{
-                            location.href='mypage';
-                        })
-
-                    }else if(res.data == 201){
-
+                    }
+                    else if(res.data == 202){
                         swal({
                             title: '취소 실패',
                             text: '출발한 버스는 예매 취소가 불가능 합니다.',
                             icon: 'error',
                             button: '확인'
-                        }).then((value)=>{
+                        })
+                        .then((value)=>{
                             location.href='mypage';
                         })
 
-                        }
+                    }
+                    else if(res.data == 203){
+                        swal({
+                            title: '취소 실패',
+                            text: '승차하신 좌석은 취소가 불가능 합니다.',
+                            icon: 'error',
+                            button: '확인'
+                        })
+                        .then((value)=>{
+                            location.href='mypage';
+                        })
+
+                    }
+                    else if(res.data == 204){
+                        swal({
+                            title: '고객센터 문의',
+                            text: '계죄이체는 취소를 지원하지 않습니다. 고객센터로 직접 문의해 주세요.\n문의전화 : 7092 - 0814 (평일 09:00 ~ 18:00)',
+                            icon: 'error',
+                            button: '확인'
+                        })
+                        .then((value)=>{
+                            location.href='mypage';
+                        })
+
+                    }
+                    //취소 가능할 때
                     else {
-                        // console.log('취소 요청값 :', cancelInfo(chk_pg_id,chk_pg_pay_type));
-                        $.ajax({
-                            type : "POST",
-                            url : "https://api.innopay.co.kr/api/cancelApi",
-                            async : true,
-                            data : cancelInfo(chk_pg_id,chk_pg_pay_type),
-                            contentType: "application/json; charset=utf-8",
-                            dataType : "json",
-                            success : function(data){
-                                console.log('취소결과',data);
-                                
-                                swal({
-                                    title: '예매취소 완료',
-                                    text: res.seats+' 좌석이 취소완료되었습니다. \n 환불금액 : '+res.cancelPay +'원',
-                                    icon: 'success',
-                                    button: '확인'
-                                }).then((value)=>{
-                                    location.href='mypage';
-                                })
-
-                            },
-                            error : function(data){
-                                // console.log(data);   
-                                alert("취소 오류 고객센터에 문의해 주세요.");
-                            }
-                        });
-
+                        //이노페이 결제취소 요청 
+                        innopayCancelAPI(checkBoxArr, chk_u_id, cancelType, ph_pay, chk_pg_id, chk_pg_pay_type)
                     }
                 }
             })
         }
+
+        //좌석 예매 취소 함수
+        function cancelSeatAPI(checkBoxArr, chk_u_id, cancelType, msgType){
+            //취소 메시지
+            let cancel_msg;
+            $.ajax({
+                url : '/api/cancel-seat',
+                method : 'post',
+                dataType : 'json',
+                data: { 
+                    'cr_id': checkBoxArr,      // 취소할 좌석
+                    'u_id' : chk_u_id,         // 취소할 좌석의 user 아이디
+                    "cancelType" : cancelType  //부분취소 여부
+                },
+                success: function(res){
+                    msgType = "입금 전 취소" ? cancel_msg = "" : cancel_msg = "환불금액 : " +res.cancelPay +'원';
+                    swal({
+                        title: '예매취소 완료',
+                        text: res.seats+' 좌석이 취소완료되었습니다. \n '+cancel_msg,
+                        icon: 'success',
+                        button: '확인'
+                    }).then((value)=>{
+                        location.href='mypage';
+                    })
+                }					
+            });
+        }
+
+        //이노페이 결제 취소 요청 API
+        function innopayCancelAPI(checkBoxArr, chk_u_id, cancelType, ph_pay, chk_pg_id, chk_pg_pay_type){
+            $.ajax({
+                type : "POST",
+                url : "https://api.innopay.co.kr/api/cancelApi",
+                async : true,
+                data : cancelInfo(chk_pg_id, chk_pg_pay_type, cancelType, ph_pay),
+                contentType: "application/json; charset=utf-8",
+                dataType : "json",
+                success : function(data){
+                    // console.log('data !', data);
+                    //resultCode == 2001 일때 정상 취소결과
+                    //역환 발생 오류 이노페이 측에 문의해야 함
+                    if(data.resultCode != '2026'){
+                        cancelSeatAPI(checkBoxArr, chk_u_id, cancelType);
+                    }else{
+                        alert("취소 오류 고객센터에 문의해 주세요.");
+                    }
+                    
+                },
+                error : function(data){
+                    alert("취소 오류 고객센터에 문의해 주세요.");
+                }
+            });
+        }
+
 
         //요일 계산 함수
         function getInputDayLabel(date) {
@@ -1006,14 +1349,16 @@
                 method: "post",
                 dataType: "json",
                 success: function (res) {
+                    // console.log('res',res.data);
                     //PC리스트
+                    let html = "";
                     for (let i = 0; i < res.data.length; i++) {
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
                         // let seatList = decodeURIComponent(seatNum).join('번');
                         // console.log('seatList',seatNum);
                         // console.log('sease',decodeURIComponent(seatNum));
-                        let html = "<tr>";
+                        html += "<tr>";
                         html += "<td>" + res.data[i].PayDay + "</td>";
                         html += "<td>" + res.data[i].deptTe + "</td>";
                         // html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
@@ -1021,9 +1366,11 @@
                         html += "<td>" + seatNum+ "</td>";
                         html += "<td>" + (res.data[i].payType || "-") + "</td>";
                         html += "<td>" + (res.data[i].price || 0) + "</td>";
+                        html += "<td><a class='Receipt btn-light' value="+res.data[i].PH_PG_ID+" data-phtype="+res.data[i].PH_CodeType+" data-paystate="+res.data[i].CR_PayState+" onclick='openBill(this)'>영수증 출력</a></td>";
                         html += "</tr>";
-                        $("#payList").append(html);
+                        
                     }
+                    $("#payList").append(html);
                 }
             });
         });
@@ -1043,20 +1390,58 @@
                 success: function (res) {
                     for (let i = 0; i < res.data.length; i++) {
                         let html = "<div class='list02_mo_list' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
-                        html += "<a class='popup_open2'>";
-                        html += "<ul class='testcode' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
-                        html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
-                        html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
-                        html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><img src='/img/common/reserve_bar_arrow.png'></li>";
-                        html += "</ul></a>";
-                        html += "</div>";
+                            html += "<a class='popup_open2'>";
+                            html += "<ul class='testcode' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
+                            html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
+                            html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
+                            html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><img src='/img/common/reserve_bar_arrow.png'></li>";
+                            html += "</ul></a>";
+                            html += "</div>";
                         $(".list02_mo").append(html);
                     }
+
                 }
             });
         });
 
-        //결제리스트 날짜 조회 @@@@@@@
+
+        //영수증 오픈
+        function openBill(e){	
+            //클릭한 tID 가져오기
+            let pg_ph_id = $(e).attr('value');	
+            //클릭한 결제 타입 가져오기
+            let pg_ph_type = e.dataset.phtype;	
+            let pay_state = e.dataset.paystate;
+
+            // alert(pg_ph_type)
+            if(pg_ph_type == '03' && (pay_state == '결제대기' || pay_state == '결제취소')){
+                alert('입금이 되지 않은 가상계좌(무통장 입금)은 영수증 출력이 불가능 합니다.')
+                return false;
+            }
+            if(pg_ph_type == 'null'){
+                alert('후불결제는 입금 전 영수증 출력이 불가능 합니다.')
+                return false;
+            }
+            //가상계좌 일 경우 svcCd=03 으로 설정
+            if(pg_ph_type == '03'){	
+                window.open("https://pg.innopay.co.kr/pay/issue/TransIssue.jsp?TID="+pg_ph_id+"&svcCd=03","new","width=450,height=700,top=50,left=100");	
+            //계좌이체 일 경우 svcCd=02 으로 설정
+            }else if(pg_ph_type == '02'){
+                window.open("https://pg.innopay.co.kr/pay/issue/TransIssue.jsp?TID="+pg_ph_id+"&svcCd=02","new","width=450,height=700,top=50,left=100");	
+            
+            }
+            //신용카드 경우 매출 전표출력
+            else if(pg_ph_type == '01'){
+                window.open("https://pg.innopay.co.kr/pay/issue/CardIssue.jsp?TID="+pg_ph_id+"&svcCd=01","new","width=450,height=700,top=50,left=100");	
+            }
+            //그 외 신용카드 및 간편결제는 해당 tID만 넣으면 된다.
+            else{
+                window.open("https://pg.innopay.co.kr/pay/issue/TransIssue.jsp?TID="+pg_ph_id,"new","width=450,height=700,top=50,left=100");	
+            }
+            
+        }
+
+        //결제리스트 날짜 조회
         function payBetween() {
             if ($('#deptDay').val() == '' && $('#endDay').val() == '') {
                 return false;
@@ -1073,34 +1458,38 @@
                     'endDay': $("#endDay").val()
                 },
                 success: function (res) {
-                    console.log('resData ::::', res.data[0].seatNumMo.data);
-                    
+                    //PC 부분
+                    let pc_html = "";
                     for (let i = 0; i < res.data.length; i++) {
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
-                        let html = "<tr>";
-                        html += "<td>" + res.data[i].PayDay + "</td>";
-                        html += "<td>" + res.data[i].deptTe + "</td>";
-                        // html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
-                        html += "<td>" + res.data[i].carName + "</td>";
-                        html += "<td>" + seatNum + "</td>";
-                        html += "<td>" + (res.data[i].payType || "-") + "</td>";
-                        html += "<td>" + (res.data[i].price || 0) + "</td>";
-                        html += "</tr>";
-                        $("#payList").append(html);
+                            pc_html += "<tr>";
+                            pc_html += "<td>" + res.data[i].PayDay + "</td>";
+                            pc_html += "<td>" + res.data[i].deptTe + "</td>";
+                            // html += "<td>"+res.data[i].carName+"\n"+res.data[i].carNum+"</td>";
+                            pc_html += "<td>" + res.data[i].carName + "</td>";
+                            pc_html += "<td>" + seatNum + "</td>";
+                            pc_html += "<td>" + (res.data[i].payType || "-") + "</td>";
+                            pc_html += "<td>" + (res.data[i].price || 0) + "</td>";
+                            pc_html += "<td><a class='Receipt btn-light' value="+res.data[i].PH_PG_ID+" data-phtype="+res.data[i].PH_CodeType+" data-paystate="+res.data[i].CR_PayState+" onclick='openBill(this)'>영수증 출력</a></td>";
+                            pc_html += "</tr>";
+                        
                     }
-                    //모바일 부분 @@@@@@@@@@@@@@@@@@@@@@@@@
+                    $("#payList").append(pc_html);
+
+                    //모바일 부분
+                    let mo_html = "";
                     for (let i = 0; i < res.data.length; i++) {
-                        let html2 = "<div class='list02_mo_list' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
-                        html2 += "<a class='popup_open2'>";
-                        html2 += "<ul>";
-                        html2 += "<li class='text' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
-                        html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
-                        html2 += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><img src='/img/common/reserve_bar_arrow.png'></li>";
-                        html2 += "</ul></a>";
-                        html2 += "</div>";
-                        $(".list02_mo").append(html2);
+                            mo_html += "<div class='list02_mo_list' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">";
+                            mo_html += "<a class='popup_open2'>";
+                            mo_html += "<ul>";
+                            mo_html += "<li class='text' id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">" + res.data[i].deptTe + "</li>";
+                            mo_html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + ">평택 - 서울동대문</li>";
+                            mo_html += "<li id=" + res.data[i].crCTID + " value=" + res.data[i].crPHID + "><img src='/img/common/reserve_bar_arrow.png'></li>";
+                            mo_html += "</ul></a>";
+                            mo_html += "</div>";
                     }
+                    $(".list02_mo").append(mo_html);
                 }
             })
         }
@@ -1125,25 +1514,27 @@
                 },
                 success: function (res) {
                     $('.table_mo').empty();
+                    $('#mobile_bill').empty();
                     // location.href = "#popup2"
                     for (let i = 0; i < res.data.length; i++) {
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<table class='detail_table'>";
-                        //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
-                        html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+")</td></tr>";
-                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 - 동대문)</span></td></tr>";
-                        html += "<tr><th>좌석번호</th><td>" + seatNum + "</td></tr>";
-                        html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td><tr>";
-                        html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
+                            //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
+                            html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+")</td></tr>";
+                            html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 - 동대문)</span></td></tr>";
+                            html += "<tr><th>좌석번호</th><td>" + seatNum + "</td></tr>";
+                            html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td><tr>";
+                            html += "<tr><th>결제금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);
                     }
+                    let bill_html = "<a class='receipt btn-light' value="+res.data[0].PH_PG_ID+" data-phtype="+res.data[0].PH_CodeType+" data-paystate="+res.data[i].CR_PayState+"  onclick='openBill(this)'>영수증 출력</a>"	
+                    $('#mobile_bill').append(bill_html);
                 }
             })
         })
 
-
-
+        
         //@@@@@PC 취소 및 환불 리스트
         $("#tab3").on('click', function () {
             $('.chkbox2').removeClass('on')
@@ -1161,13 +1552,13 @@
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<tr>";
-                        html += "<td>" + res.data[i].PayDay + "</td>";
-                        html += "<td>" + res.data[i].deptTe + "</td>";
-                        html += "<td>" + res.data[i].cancelDay + "</td>";
-                        html += "<td>" + seatNum+ "</td>";
-                        html += "<td>" + res.data[i].payType + "</td>";
-                        html += "<td>" + res.data[i].price + "</td>";
-                        html += "</tr>";
+                            html += "<td>" + res.data[i].PayDay + "</td>";
+                            html += "<td>" + res.data[i].deptTe + "</td>";
+                            html += "<td>" + res.data[i].cancelDay + "</td>";
+                            html += "<td>" + seatNum+ "</td>";
+                            html += "<td>" + res.data[i].payType + "</td>";
+                            html += "<td>" + res.data[i].price + "</td>";
+                            html += "</tr>";
                         $("#cancelList").append(html);
                     }
                 }
@@ -1190,12 +1581,12 @@
                     //console.log("모바일 취소 리스트 :", res.data);
                     for (let k = 0; k < res.data.length; k++) {
                         let html2 = "<div class='list03_mo_list' id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">";
-                        html2 += "<a class='popup_open3'>";
-                        html2 += "<ul>";
-                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">" + res.data[k].deptTe + "</li>";
-                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">평택 - 서울동대문</li>";
-                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + "><img src='/img/common/reserve_bar_arrow.png'></li>";
-                        html2 += "</ul></a></div>";
+                            html2 += "<a class='popup_open3'>";
+                            html2 += "<ul>";
+                            html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">" + res.data[k].deptTe + "</li>";
+                            html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">평택 - 서울동대문</li>";
+                            html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + "><img src='/img/common/reserve_bar_arrow.png'></li>";
+                            html2 += "</ul></a></div>";
                         $(".list03_mo").append(html2);
                     }
                 }
@@ -1221,24 +1612,24 @@
                         let origin_seat = res.data[i].seatNumMo.data
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
                         let html = "<tr>";
-                        html += "<td>" + res.data[i].PayDay + "</td>";
-                        html += "<td>" + res.data[i].deptTe + "</td>";
-                        html += "<td>" + res.data[i].cancelDay + "</td>";
-                        html += "<td>" + seatNum + "</td>";
-                        html += "<td>" + res.data[i].payType + "</td>";
-                        html += "<td>" + res.data[i].price + "</td>";
-                        html += "</tr>";
+                            html += "<td>" + res.data[i].PayDay + "</td>";
+                            html += "<td>" + res.data[i].deptTe + "</td>";
+                            html += "<td>" + res.data[i].cancelDay + "</td>";
+                            html += "<td>" + seatNum + "</td>";
+                            html += "<td>" + res.data[i].payType + "</td>";
+                            html += "<td>" + res.data[i].price + "</td>";
+                            html += "</tr>";
                         $("#cancelList").append(html);
                     }
                     ///모바일 부분@@@@@@@@@@@@@@@@@@@@@@@@@
                     for (let k = 0; k < res.data.length; k++) {
                         let html2 = "<div class='list03_mo_list' id=" + res.data[k].ctId + " val=" + res.data[k].phId + ">";
-                        html2 += "<a class='popup_open3'>";
-                        html2 += "<ul>";
-                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">" + res.data[k].deptTe + "</li>";
-                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">평택 - 서울동대문</li>";
-                        html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + "><i class='fas fa-chevron-right'></i></li>";
-                        html2 += "</ul></a></div>";
+                            html2 += "<a class='popup_open3'>";
+                            html2 += "<ul>";
+                            html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">" + res.data[k].deptTe + "</li>";
+                            html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + ">평택 - 서울동대문</li>";
+                            html2 += "<li id=" + res.data[k].ctId + " value=" + res.data[k].phId + "><i class='fas fa-chevron-right'></i></li>";
+                            html2 += "</ul></a></div>";
                         $(".list03_mo").append(html2);
                     }
                 }
@@ -1269,13 +1660,13 @@
                         var seatNum = String.fromCharCode.apply(null, origin_seat);
 
                         let html = "<table class='detail_table'>";
-                        //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
-                        html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+")</td></tr>";
-                        html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 - 동대문)</span></td></tr>";
-                        html += "<tr><th>좌석번호</th><td>" + seatNum + "</td></tr>";
-                        html += "<tr><th>취소일시</th><td>" + res.data[i].cancelDay + "</td></tr>"
-                        html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
-                        html += "<tr><th>환불금액</th><td>" + res.data[i].price + "</td></tr></table>";
+                            //html += "<dt>예매번호</dt><dd>xxxxxxxxx</dd>";
+                            html += "<tr><th>결제일시</th><td>" + res.data[i].PayDay +' ('+getInputDayLabel(res.data[i].payWeek)+")</td></tr>";
+                            html += "<tr><th>예매정보</th><td>" + res.data[i].deptYM +' ('+getInputDayLabel(res.data[i].deptWeek)+') '+res.data[i].deptTM+ '\n' + "" + res.data[i].carName + "<br><span>(평택 - 동대문)</span></td></tr>";
+                            html += "<tr><th>좌석번호</th><td>" + seatNum + "</td></tr>";
+                            html += "<tr><th>취소일시</th><td>" + res.data[i].cancelDay + "</td></tr>"
+                            html += "<tr><th>결제수단</th><td>" + res.data[i].payType + "</td></tr>";
+                            html += "<tr><th>환불금액</th><td>" + res.data[i].price + "</td></tr></table>";
                         $('.table_mo').append(html);
                     }
                 }
@@ -1330,7 +1721,7 @@
         $(document).ready(function () {
 
             //datepicker 한국어로 사용하기 위한 언어설정
-            $.datepicker.setDefaults($.datepicker.regional['ko']);
+            jQuery.datepicker.setDefaults(jQuery.datepicker.regional['ko']);
 
             // Datepicker
             $(".datepicker").datepicker({
@@ -1442,15 +1833,8 @@
             });*/
 
         }
-
-
     </script>
-
-
-
-
-
-
+    
 </body>
 
 </html>

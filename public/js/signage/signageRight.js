@@ -160,39 +160,31 @@ $(document).ready(function(){
                 if($('#kor').hasClass('choose') == false){
                     if(nowDust < 30){
                         nowDust = '좋음';
-                        $dust.css('color','#40CFD9');
-                        $dust.text(nowDust);
+                        $dust.css('color','#40CFD9').text(nowDust);
                     }else if(nowDust < 80){
                         nowDust = '보통';
-                        $dust.css('color','#53ec5d');
-                        $dust.text(nowDust);
+                        $dust.css('color','#53ec5d').text(nowDust);
                     }else if(nowDust < 150){
                         nowDust = '나쁨';
-                        $dust.css('color','#C7622D');
-                        $dust.text(nowDust);
+                        $dust.css('color','#C7622D').text(nowDust);
                     }else if(nowDust > 150){
                         nowDust = '매우나쁨';
-                        $dust.css('color','#C72D2D');
-                        $dust.text(nowDust);
+                        $dust.css('color','#C72D2D').text(nowDust);
                     }
 
                 }else{
                     if(nowDust < 30){
                         nowDust = ' Good';
-                        $dust.css('color','#40CFD9');
-                        $dust.text(nowDust);
+                        $dust.css('color','#40CFD9').text(nowDust);
                     }else if(nowDust < 80){
                         nowDust = ' Usually';
-                        $dust.css('color','#53ec5d');
-                        $dust.text(nowDust);
+                        $dust.css('color','#53ec5d').text(nowDust);
                     }else if(nowDust < 150){
                         nowDust = ' Bad';
-                        $dust.css('color','#C7622D');
-                        $dust.text(nowDust);
+                        $dust.css('color','#C7622D').text(nowDust);
                     }else if(nowDust > 150){
                         nowDust = ' Wrong';
-                        $dust.css('color','#C72D2D');
-                        $dust.text(nowDust);
+                        $dust.css('color','#C72D2D').text(nowDust);
                     }
                 }
 
@@ -206,7 +198,7 @@ $(document).ready(function(){
     setInterval(function(){
         dustInterval = this;
         dustInterval.dustState();
-    },3600000)  
+    },3600000)
 
 //날짜 함수
     function dayCount(){
@@ -276,9 +268,8 @@ $(document).ready(function(){
             $kor.removeClass('choose');
             $eng.addClass('choose');
             $('.rightNav_list').css('width','50%');   
-            $search_total.css('height', '38px');
-            $search_total.css('letter-spacing', '-0.96px');
-            $info_img.attr('src','/img/signage/main_info_img_ko.png')
+            $search_total.css('height', '38px').css('letter-spacing', '-0.96px');
+            $info_img.attr('src','/img/signage/main_info_img_ko.png');
         
         $('[data-kor]').each(function(){
             $(this).html($(this).data('kor'));
@@ -290,9 +281,8 @@ $(document).ready(function(){
             $kor.addClass('choose');
             $eng.removeClass('choose');    
             $('.rightNav_list').css('width','65%');
-            $search_total.css('height', '7%');
-            $search_total.css('letter-spacing', '-1.96px');
-            $info_img.attr('src','/img/signage/main_info_img_en.png')
+            $search_total.css('height', '7%').css('letter-spacing', '-1.96px');
+            $info_img.attr('src','/img/signage/main_info_img_en.png');
         
         $('[data-eng]').each(function(){
             $(this).html($(this).data('eng'));

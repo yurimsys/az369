@@ -1,4 +1,16 @@
 //*** 중앙 svg 스크립트 ***
+// $("body").contextmenu( function() {
+
+//     return false;
+    
+//     });
+
+//우클릭 방지
+    $("body").contextmenu( function() {
+
+        return false;
+    
+    });
 
     //이미지 확대
     let img_L = 0;
@@ -49,6 +61,8 @@
 
     //터치 종료
     function cancelEnd(e){
+        e.preventDefault();
+
         m_left = [];
         m_top = [];
     }
@@ -273,7 +287,7 @@
     $('.floorBtn div').on('click',function(e){
         let nowFloor = e.target.id;
         localStorage.removeItem('scale_down');
-        localStorage.removeItem('scale_test'); 
+        localStorage.removeItem('scale_up'); 
         $('.floorBtn div').removeClass('floorSelect');
         $('#'+nowFloor).addClass('floorSelect');
         if(nowFloor == 'floor1Btn'){
@@ -307,15 +321,18 @@
     
 
 
-
     
     //svg파일 클래스,텍스트 매칭
     function svgLocation(){
         let storeList = JSON.parse(localStorage.getItem('storeInfo'));
+        let storeList_length = storeList.length;
         //상가 호수에 카테고리명 클래스 입력
         $1f_store_path.each(function(){
-            let svg1FStore = $(this).attr('id').replace('h','');
-            for(let i=0; i<storeList.length; i++){
+            //상가 호수를 돌려서 data와 동일할시
+            // let svg1FStore = $(this).attr('id').replace('h','');
+            let svg1FStore = this.id.replace('h','');
+
+            for(let i=0; i<storeList_length; i++){
                 if(storeList[i].LS_Number == svg1FStore){
                     $(this).addClass('svgCat '+storeList[i].BC_NameEng.replace(/ /g, ''));
                 }
@@ -323,17 +340,18 @@
         })
         //상가 호수에 브랜드명 입력
         $1f_store_name.each(function(){
-            let svg2FStoreName = $(this).attr('id').replace('h','').replace('-2','');
-            for(let i=0; i<storeList.length; i++){
+            let svg2FStoreName = this.id.replace('h','').replace('-2','');
+            for(let i=0; i<storeList_length; i++){
                 if(storeList[i].LS_Number == svg2FStoreName){
-                    $('#eng').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng);
+                    // $eng.hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng);
+                    $eng.hasClass('choose') ? this.children[0].innerHTML = storeList[i].BS_NameKor : this.children[0].innerHTML = storeList[i].BS_NameEng;
                 }
             }
         })
         //상가 호수에 카테고리명 클래스 입력
         $2f_store_path.each(function(){
-            let svg3FStore = $(this).attr('id').replace('h','');
-            for(let i=0; i<storeList.length; i++){
+            let svg3FStore = this.id.replace('h','');
+            for(let i=0; i<storeList_length; i++){
                 if(storeList[i].LS_Number == svg3FStore){
                     $(this).addClass('svgCat '+storeList[i].BC_NameEng.replace(/ /g, ''));
                 }
@@ -341,17 +359,17 @@
         })
         //상가 호수에 브랜드명 입력
         $2f_store_name.each(function(){
-            let svg2FStoreName = $(this).attr('id').replace('h','').replace('-2','');
-            for(let i=0; i<storeList.length; i++){
+            let svg2FStoreName = this.id.replace('h','').replace('-2','');
+            for(let i=0; i<storeList_length; i++){
                 if(storeList[i].LS_Number == svg2FStoreName){
-                    $('#eng').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng); 
+                    $eng.hasClass('choose') ? this.children[0].innerHTML = storeList[i].BS_NameKor : this.children[0].innerHTML = storeList[i].BS_NameEng;
                 }
             }
         })
         //상가 호수에 카테고리명 클래스 입력
         $3f_store_path.each(function(){
-            let svg3FStore = $(this).attr('id').replace('h','');
-            for(let i=0; i<storeList.length; i++){
+            let svg3FStore = this.id.replace('h','');
+            for(let i=0; i<storeList_length; i++){
                 if(storeList[i].LS_Number == svg3FStore){
                     $(this).addClass('svgCat '+storeList[i].BC_NameEng.replace(/ /g, ''));
                 }
@@ -359,10 +377,10 @@
         })
         //상가 호수에 브랜드명 입력
         $3f_store_name.each(function(){
-            let svg3FStoreName = $(this).attr('id').replace('h','').replace('-2','');
-            for(let i=0; i<storeList.length; i++){
+            let svg3FStoreName = this.id.replace('h','').replace('-2','');
+            for(let i=0; i<storeList_length; i++){
                 if(storeList[i].LS_Number == svg3FStoreName){
-                    $('#eng').hasClass('choose') ? $(this).children('tspan').text(storeList[i].BS_NameKor) : $(this).children('tspan').text(storeList[i].BS_NameEng);
+                    $eng.hasClass('choose') ? this.children[0].innerHTML = storeList[i].BS_NameKor : this.children[0].innerHTML = storeList[i].BS_NameEng;
                 }
             }
         })
@@ -395,7 +413,7 @@
 
     //핀치줌 이벤트
     function pointermove_handler(ev) {
-        
+        ev.preventDefault();
         for (var i = 0; i < evCache.length; i++) {
             if (ev.pointerId == evCache[i].pointerId) {
                 evCache[i] = ev;
@@ -424,70 +442,84 @@
             let up_scale;
             let down_scale;
 
-            move_scale = (location_y + location_x) / 2000;
-            
+            //줌한 값 
+            // console.log('test',location_x + location_y);
+            move_scale = (location_x + location_y) / 2000;
+
             down_scale = Number(now_scale) - move_scale
-            
             up_scale = Number(now_scale) + move_scale
             
-            
-            //줌인
+            //prevDiff의 기본값은 -1 처음 확대 및 축소를 해야 맨 아래줄에서 재선언 됨
+            //확대, 축소할 값
+            let event_move;
             if (prevDiff > 0) {
+                //줌인
                 if (move_scale > prevDiff) {
-                    
                     //현재 확대할 줌이 현재 사이즈 보다 클때 줌 
-                    if(Number(up_scale) > Number(localStorage.getItem('scale_test'))){
+                    if(Number(up_scale) > Number(localStorage.getItem('scale_up'))){
                         
-                        zoom(ev, up_scale, now_floor)
+                        //배열에 저장후 터치를 뗀 후(?) 몇초내에 움직이지 않는 경우(?) 마지막 값을 실행
                         //현재 사이즈 값 로컬에 저장
-                        localStorage.setItem('scale_test',up_scale)
+                        localStorage.setItem('scale_up',up_scale);
+                        event_move = up_scale;
+                        // zoom(ev, up_scale, now_floor)
                     }
                 }
 
                 //줌 아웃
-
                 if (move_scale < prevDiff) {
                     //현재 축소할 줌이 현재 사이즈 보다 클때 축소 
                     if(Number(down_scale) > Number(localStorage.getItem('scale_down'))){
-                        localStorage.setItem('scale_down',down_scale)
                         //현재 사이즈 값 로컬에 저장
-                        zoom(ev, down_scale, now_floor)
+                        
+                        localStorage.setItem('scale_down',down_scale);
+                        event_move = down_scale;
+                        // zoom(ev, down_scale, now_floor)
                     }
                 }
+                zoom(ev, event_move, now_floor);
             }
+            // if(prevDiff > 1){
+            //     zoom(ev, event_move, now_floor)
+            // }
+            
+            //처음 확대 및 축소했을때의 값을 prevDiff에 저장 이후 위의 조건문으로 돌아감
             prevDiff = move_scale;
         }
     }
 
+    
     //확대할 줌
     function zoom(ev, now_scale,now_floor){
-            //svg파일 좌표 지정
-            ev.currentTarget.style.left = '0px';
-            ev.currentTarget.style.top = '0px';
+        ev.preventDefault();
+        //svg파일 좌표 지정 삭제 시 확대 후 움직이지 않음
+        ev.currentTarget.style.left = '0px';
+        ev.currentTarget.style.top = '0px';
 
-            $('#'+now_floor+'Fstore_name text').css('font-size','14px');
-            $('#'+now_floor+'Fstore_name text').show();
+        $('#'+now_floor+'Fstore_name text').css('font-size','14px');
+        $('#'+now_floor+'Fstore_name text').show();
+        
+        //확대크기 지정
+        ev.currentTarget.style.transform = 'scale('+now_scale+')';
+        //이전 확대,축소값 제거
+        localStorage.removeItem('scale_down');
+        localStorage.removeItem('scale_up');
+        //확대가 3배가 이상일때 3배로 고정
+        if(now_scale >= 3){
+            ev.currentTarget.style.transform = 'scale(3.0)';
+            return false;
 
-            //확대크기 지정
-            ev.currentTarget.style.transform = 'scale('+now_scale+')';
-            localStorage.removeItem('scale_down');
-            localStorage.removeItem('scale_test');
-            //확대가 3배가 이상일때 3배로 고정
-            if(now_scale >= 3){
-                ev.currentTarget.style.transform = 'scale(3.0)';
-                return;
-
-            //1배 이하일때 1배로 고정 및 좌표값 삭제
-            }else if(now_scale <= 1){
-                $('#'+now_floor+'Fstore_name text').hide();
-                // ev.currentTarget.style.transform = 'scale(1.0)';
-                zoomReset();
-                ev.currentTarget.style.left = '';
-                ev.currentTarget.style.top = '';
-                return;
-            }
-
-
+        //1배 이하일때 1배로 고정 및 좌표값 삭제
+        }else if(now_scale <= 1.1){
+            ev.preventDefault();
+            $('#'+now_floor+'Fstore_name text').hide();
+            //1배 화면으로 고정
+            ev.currentTarget.style.transform = 'scale(1.0)';
+            //1배 일때는 터치로 하여 움직임이 불가능 하도록 설정
+            ev.currentTarget.style.left = '';
+            ev.currentTarget.style.top = '';
+            return false;
+        }
 
     }
 
@@ -495,6 +527,7 @@
     function pointerup_handler(ev) {
         log(ev.type, ev);
         remove_event(ev);
+        //현재 터치된 수의 갯수가 2개 미만이면 터치 아웃
         if (evCache.length < 2) {
             prevDiff = -1;
         }
@@ -504,7 +537,7 @@
         for (var i = 0; i < evCache.length; i++) {
             if (evCache[i].pointerId == ev.pointerId) {
                 evCache.splice(i, 1);
-                break;
+                break;  
             }
         }
     }

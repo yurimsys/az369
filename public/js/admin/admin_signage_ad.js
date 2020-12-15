@@ -114,7 +114,7 @@ let objectInfo = function (mode = "modify", row_data) {
         $('.object-info .inputAdTitle').val(row_data.inputAdTitle);
         ad_duration_start_instance.option("value", row_data.ad_duration_start);
         ad_duration_final_instance.option("value", row_data.ad_duration_final);
-
+        
         sessionStorage.setItem('row_data', JSON.stringify(row_data) );
     }
 }

@@ -165,7 +165,7 @@
                                         
                                         <div class="select_seat">
                                             
-                                            <h4>좌석선택 <span style="color: #999; font-weight: 300;">(최대 4개)</span></h4>
+                                            <h4>좌석선택 <span style="color: #999; font-weight: 300;">(최대 2개)</span></h4>
                                             <!-- <ul>
                                                 <li>01.31(월)</li>
                                                 <li>평택 22:00 ~ 동대문 04:00</li>
@@ -269,20 +269,19 @@
                 <label for="select">결제수단</label>
                 <select id='pay_type'>
                     <option value='null'>선택</option>
-                    <option value='free'>무료예매</option>
                     <option value='CARD'>신용카드</option>
                     <option value='BANK'>계좌이체</option>
-                    <option value='VBANK'>무통장입금</option>
+                    <option value='VBANK'>가상계좌</option>
                     <option value='EPAY'>간편결제</option>
                 </select>
             </div>
             
-
             <div class="notice">
                 <h5>NOTICE</h5>
                 <!-- <p>8월 1일 ~ 8월 31일까지 장차이용 무료서비스가 진행중입니다.</p> -->
                 <p>취소 및 환불은 출발일로부터 <span style="font-weight: 400; color: #222;">3일 전</span>까지 가능합니다.</p>
                 <p>출발일 3일 전까지 버스를 예매한 적정 인원수가 부족할 경우 차량이 변경될 수 있습니다.</p>
+                <p>장차운영에 에이제트369쇼핑몰(AZ369)는 예약 및 결제 대행만 진행하며, 실제 운송은 블루홀스관광여행사에서 진행합니다.</p>
             </div>
             
             <ul class="payment_btn">
@@ -310,6 +309,7 @@
     <script>
         const user_name = "<%=sessionUser.U_Name%>";
         const user_id = "<%=sessionUser.U_ID%>"
+        const user_phone = "<%=sessionUser.U_Phone%>"
         let now_location = 'default';
 
 
@@ -323,6 +323,8 @@
                     dataType: "json",
                     success: function (res) {
                         sessionStorage.setItem("car_list", JSON.stringify(res.data));
+                        sessionStorage.setItem("deptTime",JSON.stringify(res.dept));
+                        sessionStorage.setItem("returnTime",JSON.stringify(res.return));
                         let ctId = res.data[0].ctID;
                         let price = res.data[0].seatPrice;
                         openBus(ctId,price);
@@ -335,21 +337,8 @@
                     { 
                         //mobile 
                         location.href = "/reservation2";
-                        // alert('mobile 접속'); 
                     }
                 }
-
-
-            if(location.search == '?pay_test'){
-                sessionStorage.setItem('isTest','test');
-                $('#pay_type option[value="free"]').remove();
-            }else{
-                sessionStorage.removeItem('isTest','test');
-                $('#pay_type option[value="CARD"]').remove();
-                $('#pay_type option[value="BANK"]').remove();
-                $('#pay_type option[value="VBANK"]').remove();
-                $('#pay_type option[value="EPAY"]').remove();
-            }
         })
 
     
@@ -393,13 +382,18 @@
                             let car_list = JSON.parse(sessionStorage.getItem("car_list")),
                             ct_id = sessionStorage.getItem("ct_id");
 
-                            let reserve_car_info = car_list.find((k) => (k.ctID == ct_id)),
-                            deptTe = reserve_car_info.deptTe,
-                            retuTe = reserve_car_info.retuTe,
-                            b_name = reserve_car_info.b_name;
-                            $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptTe) + ') '));
-                            $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retuTe) + ') '));
-                            $("#payment_car_info").text(b_name);
+                            // let reserve_car_info = car_list.find((k) => (k.ctID == ct_id)),
+                            // deptTe = reserve_car_info.deptTe,
+                            // retuTe = reserve_car_info.retuTe,
+                            // b_name = reserve_car_info.b_name;
+                            // console.log('good',deptTe);
+                            // $("#payment_deptTe").text(deptTe.split(' ').join('(' + getInputDayLabel(deptTe) + ') '));
+                            // $("#payment_retuTe").text(retuTe.split(' ').join('(' + getInputDayLabel(retuTe) + ') '));
+                            // $("#payment_car_info").text(b_name);
+
+                            $("#payment_deptTe").text(car_list[0].deptTe.split(' ').join('(' +JSON.parse(sessionStorage.getItem("deptTime")) + ') '));
+                            $("#payment_retuTe").text(car_list[0].retuTe.split(' ').join('(' + JSON.parse(sessionStorage.getItem("returnTime")) + ') '));
+                            $("#payment_car_info").text(car_list[0].b_name);
 
                             $('#payment').css('display','block')
                         }
@@ -413,17 +407,17 @@
             
             let car_info = JSON.parse(sessionStorage.getItem("car_list"));
             //버스 정보
-            let bus_text1 = car_info[0].startDay+'(' +getInputDayLabel(car_info[0].deptTe)+') ';
+            let bus_text1 = car_info[0].startDay+'(' +JSON.parse(sessionStorage.getItem("deptTime"))+') ';
             let bus_text2 = '평택 '+car_info[0].startTime+' - '+'동대문 '+car_info[0].returnTime + ' ';
             let bus_text3 = car_info[0].b_name+'('+car_info[0].backNum+')';
             $('.bus_info_txt').text(bus_text1 + bus_text2 + bus_text3)
-            console.log('evt',car_info);
+            // console.log('evt',car_info);
             var i, tablinks
             //좌석 선택시 우측 문구 삭제
             $('.before_p').css('display','none');
             sessionStorage.removeItem('seat_price');
             tablinks = document.getElementsByClassName("tablinks");
-            //alert(seatPrice);
+            // alert(seatPrice);
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
@@ -445,6 +439,7 @@
                 $counter = $('#selected_seats_cnt'),
                 $now_price = $('#selected_seats_price'),
                 $origin_price = $('#original_price'),
+                // $origin_price = "1000",
                 $sale_price = $('#sale_price'),
                 $payment_seats_cnt = $('#payment_seats_cnt'),
                 $payment_seats_nums = $('#payment_seats_nums'),
@@ -479,8 +474,8 @@
                     },
                     click: function () {
                         if (this.status() == 'available') {
-                            if (selected_seats_cnt >= 4) {
-                                alert("최대 4개까지 선택가능합니다.");
+                            if (selected_seats_cnt >= 2) {
+                                alert("최대 2개까지 선택가능합니다.");
                                 return this.style();
                             }
                             
@@ -517,10 +512,10 @@
                             $payment_seats_cnt.text(sc.find('selected').length - 1);
                             $origin_price.text(formatNumber(origin_price) + '원');
                             $origin_price.data('price', origin_price);
-                            $sale_price.text('-' + formatNumber(origin_price) + '원');
-                            $sale_price.data('price', origin_price);
+                            // $sale_price.text('-' + formatNumber(origin_price) + '원');
+                            // $sale_price.data('price', origin_price);
                             $now_price.text('　'+origin_price+'원')
-
+                            $total_price.text(origin_price+'원')
                             //seat has been vacated
                             if(selected_seats_cnt === 0){
                                 $nums.text('　');
@@ -583,15 +578,20 @@
             $.ajax({
                 dataType: "json",
                 method: "GET",
-                url: "/api/useSeat/" + ct_id
-            }).done((res) => {
-                let seat_id_list = [];
-                res.data.map((seat_num) => {
-                    seat_id_list.push(getSeatId(seat_num));
-                });
+                url: "/api/useSeat/" + ct_id,
+                success: function(res){
+                    let seat_id_list = [];
+                // res.data.map((seat_num) => {
+                //     console.log('ggg',seat_num);
+                //     seat_id_list.push(getSeatId(seat_num));
+                // });
+                for(let i=0; i<res.data.length; i++){
+                    seat_id_list.push(getSeatId(res.data[i]))
+                }
                 sc.find('unavailable').status('available');
                 sc.status(seat_id_list, 'unavailable');
-            });
+                }
+            })
         }
 
         // 45인승 기준 seatId 가져오기
@@ -607,10 +607,12 @@
                     column = seat_num % 10;
                 } else {
                     if ((seat_num % 4) === 0) {
-                        row = Number.parseInt(seat_num / 4);
+                        // row = Number.parseInt(seat_num / 4);  익스플로러 환경은 parseInt를 직접 선언해야 함
+                        row = parseInt(seat_num / 4);
                         column = 4;
                     } else {
-                        row = (Number.parseInt(seat_num / 4)) + 1;
+                        // row = (Number.parseInt(seat_num / 4)) + 1;
+                        row = (parseInt(seat_num / 4)) + 1;
                         column = seat_num % 4;
                     }
 
@@ -729,154 +731,95 @@
             });
         }
 
+        //주문번호 생성
+        function getOrderNumber(){
+            //주문 번호
+            let order_number;
+            $.ajax({
+                url : '/api/ordernumber',
+                method : 'get',
+                dataType : 'json',
+                async: false,
+                success: function(res){
+                    order_number = res.data
+                }					
+            });
+            return order_number;
+        }
 
-        
-
+        //결제 진행
         function processPayment() {
-        //무료예약!!
-            if(sessionStorage.getItem('isTest') === null ){
-                let origin_price = $("#original_price").data('price');
-                let sale_price = 0;
-                let ct_id = sessionStorage.getItem("ct_id");
-                let seatPrice = sessionStorage.getItem("seatPrice")
-                let cancel_type = $('#pay_type option:selected').val(); // 결제수단
-                // location.href='/pay_test';
-                if($("#pay_type option:selected").attr('value') == 'null'){
-                    alert('결제수단을 선택해 주세요.');
-                    return false;
-                }else{
-                    $.ajax({
-                        method: "POST",
-                        dataType: "json",
-                        url: "/api/payment",
-                        data: {
-                            "seatNums": selected_seats,
-                            "oPrice": origin_price,
-                            "sPrice": sale_price,
-                            "ct_id": ct_id,
-                            "user_id" : user_id,
-                            "payType" : '무료예매',
-                            "cancel_type" : cancel_type
-                        }
-                    }).done((result) => {
-                        $('#payment').css('display','none');
-                        if(result.data == 0){
-                            swal({
-                                title: '예매 실패',
-                                text: result.seats+' 좌석이 매진입니다. 다른 좌석을 이용해 주세요.',
-                                icon: 'error',
-                                button: '확인'
-                            }).then(function(){
-                                processCancel();
-                                location.href = "/reservation";
-                            })
-                        }
-                        else if(result.data == 500){
-                            swal({
-                                title: '예매 실패',
-                                text: '선택하신 버스는 이미 출발하였습니다. 다른 버스를 이용해 주세요.',
-                                icon: 'error',
-                                button: '확인'
-                            }).then(function(){
-                                processCancel();
-                                location.href = "/reservation";
-                            })
-                        }
-                        
-                        else{
-                            sessionStorage.setItem('pay_complete',"complete");
-                            let car_list = JSON.parse(sessionStorage.getItem("car_list")),
-                            ct_id = sessionStorage.getItem("ct_id");
-                    
-                            let bus_text1 = car_list[0].startDay+'(' +getInputDayLabel(car_list[0].deptTe)+') ';
-                            let bus_text2 = '평택 '+car_list[0].startTime+' - '+'동대문 '+car_list[0].returnTime + ' ';
-                    
-                            let payment_result = car_list.find((k) => (k.ctID == ct_id));
-                            payment_result.price = $('#selected_seats_price').text().trim();
-                            payment_result.seat = $('#selected_seats_num').text().trim();
-                            payment_result.ph_type = result.ph_type;
-                            payment_result.start_day = bus_text1 + bus_text2;
-                            
-                            sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
-                            location.href = "/complete";
-                    
-                            
-                        }
-                    
-                    });
-                }
-        // 결제 테스트!!
-            }else{
             
-                let origin_price = $("#original_price").data('price');
-                let sale_price = 0;
-                let ct_id = sessionStorage.getItem("ct_id");
-                let seatPrice = sessionStorage.getItem("seatPrice")
-                
-                // location.href='/pay_test';
-                if($("#pay_type option:selected").attr('value') == 'null'){
-                    alert('결제수단을 선택해 주세요.');
-                    return false;
-                }else{
-                    $.ajax({
-                        url : '/api/temporary_seat',
-                        method : 'post',
-                        dataType : 'JSON',
-                        data : {
-                            "seatNums": selected_seats,
-                            "user_id" : user_id,
-                            "ct_id": ct_id
-                            },
-                        success: function(res){
-                            if(res.data == "fail"){
-                                alert('선택된 좌석이 이미 예매되있습니다.')
-                                location.reload();
-                            }else if(res.data == 'continue' || res.data == 'success'){
-                                // 결제요청 함수
-                                console.log('test',$("#pay_type option:selected").attr('value'));
-                                innopay.goPay({
-                                    //// 필수 파라미터
-                                    PayMethod: $("#pay_type option:selected").attr('value'),		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY)
-                                    MID: "testpay01m",							// 가맹점 MID
-                                    MerchantKey: "Ma29gyAFhvv/+e4/AHpV6pISQIvSKziLIbrNoXPbRS5nfTx2DOs8OJve+NzwyoaQ8p9Uy1AN4S1I0Um5v7oNUg==",	// 가맹점 라이센스키
-                                    GoodsName: "장차 좌석",		                    // 상품명
-                                    Amt: "700",							            // 결제금액(과세)
-                                    BuyerName: user_name,		                    // 고객명
-                                    BuyerTel: "01012341234",				        // 고객전화번호
-                                    BuyerEmail: "email@eamil",			            // 고객이메일
-                                    ResultYN: "Y",				                    // 결제결과창 출력유뮤
-                                    Moid:'testpay01m0123456789',			        // 가맹점에서 생성한 주문번호 셋팅
+            let origin_price = $("#original_price").data('price');
+            let sale_price = 0;
+            let ct_id = sessionStorage.getItem("ct_id");
+            let seatPrice = sessionStorage.getItem("seatPrice")
+            
+            // location.href='/pay_test';
+            if($("#pay_type option:selected").attr('value') == 'null'){
+                alert('결제수단을 선택해 주세요.');
+                return false;
+            }else{
+                $.ajax({
+                    url : '/api/temporary_seat',
+                    method : 'post',
+                    dataType : 'JSON',
+                    data : {
+                        "seatNums": selected_seats,
+                        "user_id" : user_id,
+                        "ct_id": ct_id
+                        },
+                    success: function(res){
+                       if(res.data == 'continue' || res.data == 'success'){
+                            // 결제요청 함수
+                            // console.log('test',$("#pay_type option:selected").attr('value'));
+                            let ph_price = Number(sessionStorage.getItem('seat_price')) * $('#selected_seats_cnt').text();
+                            // console.log('glog',ph_price.toString());
+                            innopay.goPay({
+                                //// 필수 파라미터
+                                PayMethod: $("#pay_type option:selected").attr('value'),		// 결제수단(CARD,BANK,VBANK,CARS,CSMS,DSMS,EPAY)
+                                MID: "pgaz369azm",							// 가맹점 MID
+                                // MerchantKey: "Ma29gyAFhvv/+e4/AHpV6pISQIvSKziLIbrNoXPbRS5nfTx2DOs8OJve+NzwyoaQ8p9Uy1AN4S1I0Um5v7oNUg==",	// 가맹점 라이센스키
+                                MerchantKey: "fx/UT4tcb5VWxP24BXiwH0stdJnNxFf6GpdFdvd42Bmwnurd/1QgGPORTIfioiAVy/B0cx6j5spsDwAfGsleuQ==",
+                                GoodsName: "좌석"+$('#selected_seats_num').text().trim(), // 상품명
+                                Amt: ph_price.toString(),// 결제금액(과세)
+                                BuyerName: user_name,		                    // 고객명
+                                BuyerTel: user_phone,				        // 고객전화번호 (선택값임)
+                                BuyerEmail: "",			            // 고객이메일 (선택값임)
+                                ResultYN: "Y",				                    // 결제결과창 출력유뮤
+                                Moid:getOrderNumber(),			        // 가맹점에서 생성한 주문번호 셋팅
 
-                                    //// 선택 파라미터
-                                    // ReturnURL:frm.ReturnURL.value,			    // 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
-                                    //	ArsConnType:'02', 							///* ARS 결제 연동시 필수 01:호전환, 02(가상번호),        03:대표번호 */
-                                    //	FORWARD:'',									// 결제창 연동방식 (X:레이어, 기본값)
-                                    //	GoodsCnt:'',								// 상품갯수 (가맹점 참고용)
-                                    //	MallReserved:'',							// 가맹점 데이터
-                                    //	OfferingPeriod:'',							// 제공기간
-                                    //	DutyFreeAmt:'',								//결제금액(복합과세/면세 가맹점의 경우 금액설정)
-                                    //	EncodingType:'utf-8',						// 가맹점 서버 인코딩 타입 (utf-8, euc-kr)
-                                    //	MallIP:'',									// 가맹점 서버 IP
-                                    //	UserIP:'',									// 고객 PC IP
-                                    //	mallUserID:'',								// 가맹점 고객ID
-                                    //	User_ID:'',									// Innopay에 등록된 영업사원ID
-                                    Currency:''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
-                                });
-                            }else{
-                                alert('선택된 좌석이 이미 예매되있습니다.')
-                                location.reload();
-                            }
+                                //// 선택 파라미터
+                                // ReturnURL:frm.ReturnURL.value,			    // 결제결과 전송 URL(없는 경우 아래 innopay_result 함수에 결제결과가 전송됨)
+                                //	ArsConnType:'02', 							///* ARS 결제 연동시 필수 01:호전환, 02(가상번호),        03:대표번호 */
+                                //	FORWARD:'',									// 결제창 연동방식 (X:레이어, 기본값)
+                                //	GoodsCnt:'',								// 상품갯수 (가맹점 참고용)
+                                //	MallReserved:'',							// 가맹점 데이터
+                                //	OfferingPeriod:'',							// 제공기간
+                                //	DutyFreeAmt:'',								//결제금액(복합과세/면세 가맹점의 경우 금액설정)
+                                //	EncodingType:'utf-8',						// 가맹점 서버 인코딩 타입 (utf-8, euc-kr)
+                                //	MallIP:'',									// 가맹점 서버 IP
+                                //	UserIP:'',									// 고객 PC IP
+                                //	mallUserID:'',								// 가맹점 고객ID
+                                //	User_ID:'',									// Innopay에 등록된 영업사원ID
+                                Currency:''										// 통화코드가 원화가 아닌 경우만 사용(KRW/USD)
+                            });
+                        }else{
+                            alert('선택된 좌석이 이미 예매되있습니다.')
+                            location.reload();
+                        }
 
-                        }					
-                    });
-                }
+                    }					
+                });
             }
+        
         }
 
 
         //결제 리턴값
         function innopay_result(data){
-            console.log('data',data);
+            // console.log('data',data);
+            // console.log('data',data.VBankCd);
             var a = JSON.stringify(data);
             // Sample
             let mid = data.MID;					// 가맹점 MID
@@ -889,33 +832,51 @@
             let resultmsg = data.ResultMsg;		// 결과메세지(PG)
             let errorcode = data.ErrorCode;		// 에러코드(상위기관)
             let errormsg = data.ErrorMsg;		// 에러메세지(상위기관)
-                                                // 구매자명 영수증*
-            let EPayCl   = data.EPayCl;         // 간편결제 종류 01 : 카카오, 02 : LPay, 03: Payco, 04:SSG, 06: 네이버페이
+            let bank_code = data.BankCd;       // 은행코드 ( 계좌이체 용 )
+            let vbank_code = data.VBankCd;       // 은행코드 ( 가상계좌 용 )
+            let ePayCl   = data.EPayCl;         // 간편결제 종류 01 : 카카오, 02 : LPay, 03: Payco, 04:SSG, 06: 네이버페이
             let payType = data.AcquCardCode;    // 결제 타입 ex) 신용카드 01 계좌이체 02 DB 입력
             let cancel_type = $('#pay_type option:selected').val(); // 결제수단
-            let EPayType;
+            let EPayType; //간편결제 종류
+            let bank_name = data.bankName;
+            //카드사명
+            let card_name = 'null';
+            if(data.fn_name){
+                card_name = data.fn_name;
+            }
+            //은행사명 ( 무통장 입금 )
+            let vbank_name = "null";
+            if(data.VbankName){
+                vbank_name = data.VbankName;
+            }
+            //가상계좌번호
+            let vbank_number = 'null';
+            if(data.VbankNum){
+                vbank_number = data.VbankNum;
+            }
+
             // console.log('success : ', data);
-            // alert("["+resultcode+"]"+resultmsg);
-            // alert(resultcode);
             let origin_price = $("#original_price").data('price');
             let sale_price = 0;
             let ct_id = sessionStorage.getItem("ct_id");
             let seatPrice = sessionStorage.getItem("seatPrice")
 
-            if(EPayCl == '01'){
+            if(ePayCl == '01'){
                 EPayType = '카카오페이'
-            }else if(EPayCl == '02'){
+            }else if(ePayCl == '02'){
                 EPayType = 'LPay'
-            }else if(EPayCl == '03'){
+            }else if(ePayCl == '03'){
                 EPayType = 'Payco'
-            }else if(EPayCl == '04'){
+            }else if(ePayCl == '04'){
                 EPayType = 'SSGPay'
-            }else if(EPayCl == '06'){
+            }else if(ePayCl == '06'){
                 EPayType = '네이버페이'
             }
 
+            //신용카드 및 간편결제
             if(resultcode == '3001'){
                 sessionStorage.setItem('pay_complete',"complete");
+                // console.log('data',data.VbankName, data.VbankNum);
                 // alert('에이작스')
                 $.ajax({
                     method: "POST",
@@ -927,28 +888,36 @@
                         "sPrice": sale_price,
                         "ct_id": ct_id,
                         "tid" : tid,
+                        "moid" : moid,
+                        "bankCd" : bank_code,
                         "payType" : payType,
                         "user_id" : user_id,
                         "cancel_type" : cancel_type,
-                        "EPayType" : EPayType
+                        "EPayType" : EPayType,
+                        "card_name" : card_name
+                    },
+                    success: function(result){
+                        $('#payment').css('display','none');
+                        let car_list = JSON.parse(sessionStorage.getItem("car_list")),
+                        ct_id = sessionStorage.getItem("ct_id");
+
+                        let bus_text1 = car_list[0].startDay+'(' +JSON.parse(sessionStorage.getItem("deptTime"))+') ';
+                        let bus_text2 = '평택 '+car_list[0].startTime+' - '+'동대문 '+car_list[0].returnTime + ' ';
+
+                        // let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                        let payment_result = car_list[0];
+                        payment_result.price = $('#selected_seats_price').text().trim();
+                        payment_result.seat = $('#selected_seats_num').text().trim();
+                        payment_result.ph_type = result.ph_type;
+                        payment_result.start_day = bus_text1 + bus_text2;
+                        
+                        sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
+                        location.href = "/complete";
+
                     }
-                }).done((result) => {
-                    $('#payment').css('display','none');
-                    let car_list = JSON.parse(sessionStorage.getItem("car_list")),
-                    ct_id = sessionStorage.getItem("ct_id");
+                })
 
-                    let bus_text1 = car_list[0].startDay+'(' +getInputDayLabel(car_list[0].deptTe)+') ';
-                    let bus_text2 = '평택 '+car_list[0].startTime+' - '+'동대문 '+car_list[0].returnTime + ' ';
-
-                    let payment_result = car_list.find((k) => (k.ctID == ct_id));
-                    payment_result.price = $('#selected_seats_price').text().trim();
-                    payment_result.seat = $('#selected_seats_num').text().trim();
-                    payment_result.ph_type = result.ph_type;
-                    payment_result.start_day = bus_text1 + bus_text2;
-                    
-                    sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
-                    location.href = "/complete";
-                });
+            //무통장 입금일때
             }else if(resultcode == '4100'){
                 sessionStorage.setItem('pay_complete',"complete");
                 // alert('에이작스')
@@ -962,65 +931,116 @@
                         "sPrice": sale_price,
                         "ct_id": ct_id,
                         "tid" : tid,
+                        "moid" : moid,
+                        "bankCd" : vbank_code,
                         "payType" : payType,
                         "user_id" : user_id,
                         "cancel_type" : cancel_type,
-                        "EPayType" : EPayType
+                        "EPayType" : EPayType,
+                        "bank_name" : vbank_number,
+                        "bank_number" : vbank_number
+                    },
+                    success: function(result){
+                        $('#payment').css('display','none');
+                        let car_list = JSON.parse(sessionStorage.getItem("car_list")),
+                        ct_id = sessionStorage.getItem("ct_id");
+
+                        let bus_text1 = car_list[0].startDay+'(' +JSON.parse(sessionStorage.getItem("deptTime"))+') ';
+                        let bus_text2 = '평택 '+car_list[0].startTime+' - '+'동대문 '+car_list[0].returnTime + ' ';
+
+                        // let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                        let payment_result = car_list[0];
+                        payment_result.price = $('#selected_seats_price').text().trim();
+                        payment_result.seat = $('#selected_seats_num').text().trim();
+                        payment_result.ph_type = result.ph_type;
+                        payment_result.start_day = bus_text1 + bus_text2;
+                        
+                        sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
+                        swal({
+                            title: '가상계좌(무통장 입금)',
+                            text: '예매일 기준 24시간 내에 입금이 완료되지 않으면 예매는 자동적으로 취소됩니다.',
+                            icon: 'success',
+                            button: '확인'
+                        }).then(function(){
+                            processCancel();
+                            location.href = "/complete";
+                        })
                     }
-                }).done((result) => {
-                    $('#payment').css('display','none');
-                    let car_list = JSON.parse(sessionStorage.getItem("car_list")),
-                    ct_id = sessionStorage.getItem("ct_id");
+                })
+                // .done((result) => {
 
-                    let bus_text1 = car_list[0].startDay+'(' +getInputDayLabel(car_list[0].deptTe)+') ';
-                    let bus_text2 = '평택 '+car_list[0].startTime+' - '+'동대문 '+car_list[0].returnTime + ' ';
+                // });
+            //계좌 이체 일때
+            }else if(resultcode == '4000'){
+                sessionStorage.setItem('pay_complete',"complete");
+                // console.log('data',data.VbankName, data.VbankNum);
+                // alert('에이작스')
+                $.ajax({
+                    method: "POST",
+                    dataType: "json",
+                    url: "/api/payment",
+                    data: {
+                        "seatNums": selected_seats,
+                        "oPrice": origin_price,
+                        "sPrice": sale_price,
+                        "ct_id": ct_id,
+                        "tid" : tid,
+                        "moid" : moid,
+                        "bankCd" : bank_code,
+                        "payType" : payType,
+                        "user_id" : user_id,
+                        "cancel_type" : cancel_type,
+                        "EPayType" : EPayType,
+                        "bank_name" : bank_name
+                    },
+                    success: function(result){
+                        $('#payment').css('display','none');
+                        let car_list = JSON.parse(sessionStorage.getItem("car_list")),
+                        ct_id = sessionStorage.getItem("ct_id");
 
-                    let payment_result = car_list.find((k) => (k.ctID == ct_id));
-                    payment_result.price = $('#selected_seats_price').text().trim();
-                    payment_result.seat = $('#selected_seats_num').text().trim();
-                    payment_result.ph_type = result.ph_type;
-                    payment_result.start_day = bus_text1 + bus_text2;
-                    
-                    sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
-                    swal({
-                        title: '무통장 입금',
-                        text: '출발 당일날 까지 입금이 완료되지 않으면 예매는 자동적으로 취소됩니다.',
-                        icon: 'success',
-                        button: '확인'
-                    }).then(function(){
-                        processCancel();
+                        let bus_text1 = car_list[0].startDay+'(' +JSON.parse(sessionStorage.getItem("deptTime"))+') ';
+                        let bus_text2 = '평택 '+car_list[0].startTime+' - '+'동대문 '+car_list[0].returnTime + ' ';
+
+                        // let payment_result = car_list.find((k) => (k.ctID == ct_id));
+                        let payment_result = car_list[0];
+                        payment_result.price = $('#selected_seats_price').text().trim();
+                        payment_result.seat = $('#selected_seats_num').text().trim();
+                        payment_result.ph_type = result.ph_type;
+                        payment_result.start_day = bus_text1 + bus_text2;
+                        
+                        sessionStorage.setItem("payment_result", JSON.stringify(payment_result));
                         location.href = "/complete";
-                    })
-                });
-            }else{
+                    }
+                })
+            }
+            //결제 실패
+            else{
+
+                if(resultcode == 3022){
+                    alert('할부 개월 오류');
+                    processCancel();
+                }else if(resultcode == 3023){
+                    alert('할부개월 한도 초과');
+                    processCancel();
+                }else if(resultcode == 3031){
+                    alert('무이자할부 카드가 아닙니다.');
+                    processCancel();
+                }else if(resultcode == 3032){
+                    alert('무이자할부 불가 개월수');
+                    processCancel();
+                }else{
+                    alert('결제가 실패되었습니다. 다시 시도해 주세요');
+                    processCancel();
+                }
                 
-                alert('결제가 실패되었습니다.');
-                processCancel();
             }
         }
 
         //창 강제 종료시 임시 예약 데이터 제거
-        // window.addEventListener('beforeunload',function(e){
-        //     processCancel();
-        // })
-
         window.onbeforeunload = function(){
             processCancel();
         }
-        
-        $(window).bind('pageshow', function(event){
-            if(event.originalEvent && event.originalEvent.persisted){
-                location.reload();
-            }
-        });
-
-
 
     </script>
-
-  
-  
-  
-
 </body>
 </html>

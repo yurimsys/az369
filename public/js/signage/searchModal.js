@@ -90,15 +90,21 @@ function searchModalInit(){
         //리스트 초기화
         $search_result.empty();
         let jsonBrand = JSON.parse(localStorage.getItem('brandListOverLap'));
-        for(let i=0; i<jsonBrand.length; i++){
+        let jsonBrand_length = jsonBrand.length;
+        let html = "";
+        for(let i=0; i<jsonBrand_length; i++){
             let lanType1 = $eng.hasClass('choose') ? jsonBrand[i].BS_NameKor : jsonBrand[i].BS_NameEng;
             let lanType2 = $eng.hasClass('choose') ? jsonBrand[i].BC_NameKor : jsonBrand[i].BC_NameEng;
-            let html = "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+" data-lv2CateogryId="+jsonBrand[i].BCR_LV2_BC_ID+"><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
+                html += "<div class='brandList' id="+jsonBrand[i].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+jsonBrand[i].BCR_LV1_BC_ID+" data-lv2CateogryId="+jsonBrand[i].BCR_LV2_BC_ID+"><div class='categoryImg'><img src="+jsonBrand[i].BS_ThumbnailUrl+"></div>";
                 html += '<input type="checkbox" name="searchCategoryList" class="searchCheck">';
                 html += "<ul><li><div class='searchBrand' data-kor='"+jsonBrand[i].BS_NameKor+"' data-eng='"+jsonBrand[i].BS_NameEng+"'>"+lanType1+"</div>";
-                html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation' data-kor='"+jsonBrand[i].BC_NameKor+"' data-eng='"+jsonBrand[i].BC_NameEng+"'>"+lanType2+"</span></h4><div class='searchTime'><span data-kor='영업시간 ' data-eng='open '>영업시간 </span>"+jsonBrand[i].BS_MainDtS.substring(0,5)+" ~ "+jsonBrand[i].BS_MainDtF.substring(0,5)+"</div></li></ul>";
-            $search_result.append(html);
+                html += "<h4 class='searchLocation'>"+jsonBrand[i].LS_Floor+".<span class='searchLocation' data-kor='"+jsonBrand[i].BC_NameKor+"' data-eng='"+jsonBrand[i].BC_NameEng+"'>"+lanType2+"</span></h4><div class='searchTime'><span data-kor='영업시간 ' data-eng='open '>영업시간 </span>"+jsonBrand[i].BS_MainDtS.substring(0,5)+" ~ "+jsonBrand[i].BS_MainDtF.substring(0,5)+"</div></li></ul></div>";
+                
         }
+        $search_result.append(html);
+        // console.log('html',html);
+        
+        
     }
     searchBrandList();
     //대분류 브랜드 리스트 생성 
@@ -109,17 +115,16 @@ function searchModalInit(){
             //검색내용이 있으면 리스트를 그려줌
         let lv1BrandList = [];
             lv1BrandList = jsonBrand.filter(data => data.BCR_LV1_BC_ID == lv1CatNum);
-
-        for(let j=0; j<lv1BrandList.length; j++){
+        let lv1BrandList_length = lv1BrandList.length;
+        let html = "";
+        for(let j=0; j<lv1BrandList_length; j++){
             let lanType1 = $eng.hasClass('choose') ? lv1BrandList[j].BS_NameKor : lv1BrandList[j].BS_NameEng;
             let lanType2 = $eng.hasClass('choose') ? lv1BrandList[j].BC_NameKor : lv1BrandList[j].BC_NameEng;
-            debugger;
-            let html = "<div class='brandList' id="+lv1BrandList[j].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+lv1BrandList[j].BCR_LV1_BC_ID+" ><div><div class='categoryImg'><img src="+lv1BrandList[j].BS_ThumbnailUrl+"></div></div>";
-                html += "<ul><li><div class='searchBrand'>"+lanType1+"</div>";
-                html += "<h4 class='searchLocation'>"+lv1BrandList[j].LS_Floor+"."+lanType2+"</h4><div class='searchTime'>영업시간 "+lv1BrandList[j].BS_MainDtS.substring(0,5)+" ~ "+lv1BrandList[j].BS_MainDtF.substring(0,5)+"</div></li></ul>";
-            $search_result.append(html);
-
+            html += "<div class='brandList' id="+lv1BrandList[j].BS_ID+" onclick='brandClick(this)' data-lv1CategoryId="+lv1BrandList[j].BCR_LV1_BC_ID+" ><div><div class='categoryImg'><img src="+lv1BrandList[j].BS_ThumbnailUrl+"></div></div>";
+            html += "<ul><li><div class='searchBrand'>"+lanType1+"</div>";
+            html += "<h4 class='searchLocation'>"+lv1BrandList[j].LS_Floor+"."+lanType2+"</h4><div class='searchTime'>영업시간 "+lv1BrandList[j].BS_MainDtS.substring(0,5)+" ~ "+lv1BrandList[j].BS_MainDtF.substring(0,5)+"</div></li></ul>";
         }
+        $search_result.append(html);
     }
 
     //대분류 카테고리 리스트
@@ -128,36 +133,44 @@ function searchModalInit(){
         $searchList2.empty();
         //로컬에 저장된 카테고리를 사용
         let searchCatLV1 = JSON.parse(localStorage.getItem('categoryLV1'));
-        for(let i=0; i<searchCatLV1.length; i++){
+        let searchCatLV1_length = searchCatLV1.length;
+        let html = "";
+        let html2 = "";
+        for(let i=0; i<searchCatLV1_length; i++){
             let lanType = ( $eng.hasClass('choose') ) ? searchCatLV1[i].BC_NameKor : searchCatLV1[i].BC_NameEng;
             if(i < 9){
-                let html = "<li><label>";
-                    html += "<input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                    html += "<div class='searchCategory searchCategoryFont categoryBack' data-lv1cat ="+Number(i+1)+" onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' value='"+lanType+"'  data-kor="+searchCatLV1[i].BC_NameKor+" data-eng='"+searchCatLV1[i].BC_NameEng+"'>"+searchCatLV1[i].BC_NameKor+"</div>";
-                    html += "</label></li>";
-                $searchList.append(html);
+                html += "<li><label>";
+                html += "<input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                html += "<div class='searchCategory searchCategoryFont categoryBack' data-lv1cat ="+Number(i+1)+" onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' value='"+lanType+"'  data-kor="+searchCatLV1[i].BC_NameKor+" data-eng='"+searchCatLV1[i].BC_NameEng+"'>"+searchCatLV1[i].BC_NameKor+"</div>";
+                html += "</label></li>";
+                
             }
             else if(i >= 9){
-                let html = "<li><label>";
-                    html += "<input type='checkbox' name='searchCategoryList' class='searchCheck'>";
-                    html += "<div class='searchCategory searchCategoryFont categoryBack' data-lv1cat ="+Number(i+1)+"  onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' value='"+lanType+"'  data-kor="+searchCatLV1[i].BC_NameKor+" data-eng='"+searchCatLV1[i].BC_NameEng+"'>"+searchCatLV1[i].BC_NameKor+"</div>";
-                    html += "</label></li>";
-                $searchList2.append(html);
+                html2 += "<li><label>";
+                html2 += "<input type='checkbox' name='searchCategoryList' class='searchCheck'>";
+                html2 += "<div class='searchCategory searchCategoryFont categoryBack' data-lv1cat ="+Number(i+1)+"  onclick='LV1Cat(this)' id='lv1Cateogry"+i+"' value='"+lanType+"'  data-kor="+searchCatLV1[i].BC_NameKor+" data-eng='"+searchCatLV1[i].BC_NameEng+"'>"+searchCatLV1[i].BC_NameKor+"</div>";
+                html2 += "</label></li>";
+                
             }
 
         }
+        $searchList.append(html);
+        $searchList2.append(html2);
     }
 
     //중분류 카테고리 렌더
     function lv2CatList(){
+        let html = "";
+        let html2 = "";
         for(let i=1; i<11; i++){
-            let html = "<ul class='lv2category2 searchCatSub"+i+"' data-lv2catid="+i+"></ul>"
-            $searchList2.after(html)
+            html += "<ul class='lv2category2 searchCatSub"+i+"' data-lv2catid="+i+"></ul>"
         }
+        $searchList2.after(html)
+
         for(let i=1; i<11; i++){
-            let html = "<ul class='lv2category searchCat"+i+"' data-lv2catid="+i+"></ul>"
-            $searchList2.after(html)
+            html2 += "<ul class='lv2category searchCat"+i+"' data-lv2catid="+i+"></ul>"
         }
+        $searchList2.after(html2)
         // BCR_LV1_CAT
         let cat_arr = [1,2,3,4,5,6,7,8,9,10]
         for(let i=0; i<cat_arr.length; i++){
@@ -169,12 +182,14 @@ function searchModalInit(){
     //중분류 카테고리 내용
     function lv2CatRoad(data){
         let searchCatLV2 = JSON.parse(localStorage.getItem('categoryLV2'));
+        let searchCatLV2_length = searchCatLV2.length;
         let cat_lv2_arr = [];
-        for(let i=0; i<searchCatLV2.length; i++){
+        let cat_length;
+        for(let i=0; i<searchCatLV2_length; i++){
             let html ="<li><label><input type='checkbox' name='searchCategoryList' class='searchCheck'><div class='searchCategory searchCategoryFont categoryBack' onclick='LV2Cat(this)' id='lv2Cateogry"+i+"' data-lv2cat ="+searchCatLV2[i].BC_ID+" data-kor='"+searchCatLV2[i].BC_NameKor+"' data-eng='"+searchCatLV2[i].BC_NameEng+"'>"+searchCatLV2[i].BC_NameKor+"</div></label></li>"
             if(searchCatLV2[i].BCR_LV1_BC_ID == data){
                 cat_lv2_arr.push(searchCatLV2[i].BCR_LV1_BC_ID)
-                var cat_length = cat_lv2_arr.length;
+                cat_length = cat_lv2_arr.length;
                 if(cat_length < 9){
                     $('.searchCat'+data+'').append(html)
                     $searchNav.css('display','none');
@@ -295,9 +310,9 @@ function searchModalInit(){
             // if($(`.lv2category[data-lv2catid=${cat_lv2}]`).hasClass('selectCat') == true){
             if($(`.searchCat`+cat_lv2+`[data-lv2catid=${cat_lv2}]`).hasClass('selectCat') == true){
                 // console.log('good');
-                $('.searchCat'+cat_lv2+'').removeClass('selectCat')
-                $('.searchCatSub'+cat_lv2+'').css('display','block')
-                $('.searchCatSub'+cat_lv2+'').addClass('selectCat')
+                $('.searchCat'+cat_lv2+'').removeClass('selectCat');
+                $('.searchCatSub'+cat_lv2+'').css('display','block').addClass('selectCat');
+                // $('.searchCatSub'+cat_lv2+'').addClass('selectCat');
             }
             //대분류 다음
             if($('.lv2category').hasClass('selectCat') == false && $('.lv2category2').hasClass('selectCat') == false){
@@ -374,7 +389,10 @@ function searchModalInit(){
     function storeLocation(e){
         let storeArea = e.id.replace(/area/g,'')
         $('#myModal').css('display','none');
-        
+        //키보드 닫기
+        searchModalInit();
+        //검색 내역 초기화
+        searchCancel();
         $('.floorBtn div').removeClass('floorSelect');
         $brandInfoCenter.css('display','none');
         $brandMenuCenter.css('display','none');
@@ -387,39 +405,38 @@ function searchModalInit(){
             $('#floor1Btn').addClass('floorSelect');
             $nowFloor.text('1F');
             $1f_store_name.each(function(){
+                // console.log('good!!!',$(this));
+                // let storeName = this.childNodes[1].innerHTML;
                 let storeName = $(this);
+                
                 let storeNumber;
+                console.log('storeName',storeName.text());
                 //svg텍스트가 선택한 브랜드 명과 같으면
                 if(storeName.text() == $('#h'+storeArea+'-2').text()){
                     //해당 아이디를 가져옴
-                    storeNumber = $(this).attr('id').substring('1','5');
+                    storeNumber = this.id.substring('1','5');
                     $('#h'+storeNumber).css('fill','#a91179');
-                    storeNumber = $(this).attr('id').substring('1','5')
                 }
             })
             //좌표이동
                 //1사 분면
                 if((storeArea >= 1001 && storeArea <= 1026) ||(storeArea >= 1133 && storeArea <= 1147) || (storeArea >= 1220 && storeArea <= 1226)){
-                    $central_svg_1f.css('left','424px');
-                    $central_svg_1f.css('top','250px');
+                    $central_svg_1f.css('left','424px').css('top','250px');
                     storeMapSize(1,15,2.125);
                 }
                 //2사 분면
                 else if((storeArea >= 1027 && storeArea <= 1056) ||(storeArea >= 1148 && storeArea <= 1171)){
-                    $central_svg_1f.css('left','-319px');
-                    $central_svg_1f.css('top','273px');
+                    $central_svg_1f.css('left','-319px').css('top','273px');
                     storeMapSize(1,15,2.125);
                 }
                 //3사 분면
                 else if((storeArea >= 1057 && storeArea <= 1096) ||(storeArea >= 1172 && storeArea <= 1196) ||(storeArea >= 1227 && storeArea<= 1230)){
-                    $central_svg_1f.css('left','-378px');
-                    $central_svg_1f.css('top','-435px');
+                    $central_svg_1f.css('left','-378px').css('top','-435px');
                     storeMapSize(1,15,2.125);
                 }
                 //4사 분면
                 else if((storeArea >= 1097 && storeArea <= 1132) ||(storeArea >= 1199 && storeArea <= 1219)){
-                    $central_svg_1f.css('left','445px');
-                    $central_svg_1f.css('top','-297px');
+                    $central_svg_1f.css('left','445px').css('top','-297px');
                     storeMapSize(1,15,2.125);
                 }
 
@@ -427,7 +444,7 @@ function searchModalInit(){
         
         //2층
             else if(storeArea>= 2001 && storeArea<= 2102){
-                // console.log('2층')
+                console.log('2층')
                 $2f_store_path.css('fill','#E2E2E2');
                 $center_left_1f.css('display','none');
                 $center_left_2f.css('display','block');
@@ -438,35 +455,31 @@ function searchModalInit(){
                     let storeName = $(this);
                     let storeNumber;
                     //svg텍스트가 선택한 브랜드 명과 같으면
-                    if(storeName.text() == $('#h'+e.id+'-2').text()){
+                    if(storeName.text() == $('#h'+storeArea+'-2').text()){
                         //해당 아이디를 가져옴
-                        storeNumber = $(this).attr('id').substring('1','5');
+                        storeNumber = this.id.substring('1','5');
                         $('#h'+storeNumber).css('fill','#a91179');
                     }
                 })
                 //좌표이동
                 //1사 분면
                 if((storeArea >= 2001 && storeArea <= 2010) ||(storeArea >= 2064 && storeArea <= 2067) || (storeArea == 2060 || storeArea == 2101)){
-                    $central_svg_2f.css('left','424px');
-                    $central_svg_2f.css('top','250px');
+                    $central_svg_2f.css('left','424px').css('top','250px');
                     storeMapSize(2,15,2.125);
                 }
                 //2사 분면
                 else if((storeArea >= 2011 && storeArea <= 2027) ||(storeArea >= 2068 && storeArea <= 2077) || storeArea == 2061){
-                    $central_svg_2f.css('left','-319px');
-                    $central_svg_2f.css('top','273px');
+                    $central_svg_2f.css('left','-319px').css('top','273px');
                     storeMapSize(2,15,2.125);
                 }
                 //3사 분면
                 else if((storeArea >= 2028 && storeArea <= 2044) ||(storeArea >= 2078 && storeArea <= 2090) ||(storeArea == 2062)){
-                    $central_svg_2f.css('left','-378px');
-                    $central_svg_2f.css('top','-435px');
+                    $central_svg_2f.css('left','-378px').css('top','-435px');
                     storeMapSize(2,15,2.125);
                 }
                 //4사 분면
                 else if((storeArea >= 2045 && storeArea <= 2059) ||(storeArea >= 2091 && storeArea <= 2100) || storeArea == 2063){
-                    $central_svg_2f.css('left','445px');
-                    $central_svg_2f.css('top','-297px');
+                    $central_svg_2f.css('left','445px').css('top','-297px');
                     storeMapSize(2,15,2.125);
                 }
             }
@@ -485,32 +498,29 @@ function searchModalInit(){
                 //svg텍스트가 선택한 브랜드 명과 같으면
                 if(storeName.text() == $('#h'+storeArea+'-2').text()){
                     //해당 아이디를 가져옴
-                    storeNumber = $(this).attr('id').substring('1','5');
+                    storeNumber = this.id.substring('1','5');
+                    // storeNumber = $(this).attr('id').substring('1','5');
                     $('#h'+storeNumber).css('fill','#a91179');
                 }
                 //좌표이동
                 //1사 분면
                 if((storeArea >= 3001 && storeArea <= 3010) ||(storeArea >= 3060 && storeArea <= 3061) ||(storeArea >= 3068 && storeArea <= 3071) || (storeArea == 3106)){
-                    $central_svg_3f.css('left','424px');
-                    $central_svg_3f.css('top','250px');
+                    $central_svg_3f.css('left','424px').css('top','250px');
                     storeMapSize(3,15,2.125);
                 }
                 //2사 분면
                 else if((storeArea >= 3011 && storeArea <= 3027) ||(storeArea >= 3062 && storeArea <= 3063) ||(storeArea >= 3072 && storeArea <= 3081)){
-                    $central_svg_3f.css('left','-319px');
-                    $central_svg_3f.css('top','273px');
+                    $central_svg_3f.css('left','-319px').css('top','273px');
                     storeMapSize(3,15,2.125);
                 }
                 //3사 분면
                 else if((storeArea >= 3028 && storeArea <= 3044) ||(storeArea >= 3064 && storeArea <= 3065) ||(storeArea >= 3082 && storeArea <= 3095)){
-                    $central_svg_3f.css('left','-378px');
-                    $central_svg_3f.css('top','-435px');
+                    $central_svg_3f.css('left','-378px').css('top','-435px');
                     storeMapSize(3,15,2.125);
                 }
                 //4사 분면
                 else if((storeArea >= 3045 && storeArea <= 3059) ||(storeArea >= 3066 && storeArea <= 3067) ||(storeArea >= 3096 && storeArea <= 3105)){
-                    $central_svg_3f.css('left','445px');
-                    $central_svg_3f.css('top','-297px');
+                    $central_svg_3f.css('left','445px').css('top','-297px');
                     storeMapSize(3,15,2.125);
                 }
             })
@@ -592,6 +602,7 @@ function searchModalInit(){
             html += lanName4;
             html += "<dd>"+lanType2+"</dd>";
             html += "<dd>"+lanType3+"</dd></dl>";
+            // debugger;
         $('.brandInfoDetail_txt').append(html);
         $('#infoStoreName').append(lanType4);
     }
@@ -611,41 +622,63 @@ function searchModalInit(){
     //현재 브랜드의 값을 도출
         resultEvent = eventList.filter(data => data.M_BS_ID == brnadId);
         resultNormal = normalList.filter(data => data.M_BS_ID == brnadId);
+        console.log('resultNormal',resultNormal);
     //M_MC_ID가 같은것 끼리 묶어주기
         eventOne = resultEvent.filter(data => data.M_MC_ID == 1);
         eventTwo = resultEvent.filter(data => data.M_MC_ID == 2);
         eventThree = resultEvent.filter(data => data.M_MC_ID == 3);
   
+        let eventOne_length = eventOne.length;
+        let eventTwo_length = eventTwo.length;
+        let resultNormal_length = resultNormal.length;
         $event_menu_one.empty();
         $event_menu_two.empty();
         $('#normalList').empty();
 
-        for(let i=0; i<eventOne.length; i++){
+        let html = "";
+        for(let i=0; i<eventOne_length; i++){
             let languageType1 = $eng.hasClass('choose') ? eventOne[i].M_NameKor : eventOne[i].M_NameEng;
             let languageName1 = $eng.hasClass('choose') ? eventOne[0].MC_NameKor : eventOne[0].MC_NameEng;
-            let html = '<li><div class="menu_best_pic"><img src='+eventOne[i].M_ImageUrl+'></div>';
+                html += '<li><div class="menu_best_pic"><img src='+eventOne[i].M_ImageUrl+'></div>';
                 html += '<div class="menu_best_name">'+languageType1+'</div>';
                 html += '<div class="menu_best_price">'+eventOne[i].M_Price+'</div></li>';
-            $event_menu_one.append(html);
             $('#eventMenuOneName').text(languageName1);
         
         }
+        $event_menu_one.append(html);
  
-        
-        for(let i=0; i<eventTwo.length; i++){
+        let html2 = "";
+        for(let i=0; i<eventTwo_length; i++){
             let languageType2 = $eng.hasClass('choose') ? eventTwo[i].M_NameKor : eventTwo[i].M_NameEng;
             let languageName2 = $eng.hasClass('choose') ? eventTwo[0].MC_NameKor : eventTwo[0].MC_NameEng;
-            let html = '<li><div class="menu_best_pic"><img src='+eventTwo[i].M_ImageUrl+'></div>';
-                html += '<div class="menu_best_name">'+languageType2+'</div>';
-                html += '<div class="menu_best_price">'+eventTwo[i].M_Price+'</div></li>';
-            $event_menu_two.append(html);
+                html2 += '<li><div class="menu_best_pic"><img src='+eventTwo[i].M_ImageUrl+'></div>';
+                html2 += '<div class="menu_best_name">'+languageType2+'</div>';
+                html2 += '<div class="menu_best_price">'+eventTwo[i].M_Price+'</div></li>';
             $('#eventMenuTwoName').text(languageName2);
         }
-        for(let i=0; i<resultNormal.length; i++){
+        $event_menu_two.append(html2);
+        
+        let normal_count = 0;
+        let html3 = "<li>";
+        let html4 = "<li>";
+        for(let i=0; i<resultNormal_length; i++){
             let languageType3 = $eng.hasClass('choose') ? resultNormal[i].M_NameKor : resultNormal[i].M_NameEng;
-            let html = '<li><dl>';
-                html += '<dt>'+languageType3+'</dt>';
-                html += '<dd><h6>'+resultNormal[i].M_Price+'</h6></dd></dl></li>';
-            $('#normalList').append(html);
+
+            //증가할때 마다 좌우로 나눠줌
+            normal_count += 1;
+            if(normal_count % 2 != 0){
+                html3 += '<dl>';
+                html3 += '<dt>'+languageType3+'</dt>';
+                html3 += '<dd><h6>'+resultNormal[i].M_Price+'</h6></dd></dl>';
+            }else{
+                html4 += '<dl>';
+                html4 += '<dt>'+languageType3+'</dt>';
+                html4 += '<dd><h6>'+resultNormal[i].M_Price+'</h6></dd></dl>';
+            }
         }
+        //반복문 탈출 후 리스트 닫아주고 두개를 합쳐준 후 normalList에 추가
+        html3 += "</li>";
+        html4 += "</li>";
+        let normal_html = html3 + html4
+        $('#normalList').append(normal_html);
     }

@@ -83,24 +83,28 @@
     function LV1CatList(){
         let categoryList = JSON.parse(localStorage.getItem('categoryLV1'))
             categoryList_length = categoryList.length;
+        let html = "";
+        let html2 = "";
         for(let i=0; i<categoryList_length; i++){
             if(i <7){
-                let html = "<li>";
+                    html += "<li>";
                     html += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"class="categoryIconBox categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>';
                     html += "</li>";
-                $category_list.append(html);
             }
+            
             if(i >= 7){
-                let html2 = "<li>";
+                    html2 += "<li>";
                     html2 += '<div class="categoryBtn categoryFont categoryBack" data-catclass="'+categoryList[i].BC_NameEng+'" id="mainCatNum'+i+'" onclick="selectCat(this)"><span id="categoryIcon'+i+'"class="categoryIconBox categoryIcon'+i+'"></span><span class="categoryName" data-Kor="'+categoryList[i].BC_NameKor+'" data-Eng="'+categoryList[i].BC_NameEng+'">'+categoryList[i].BC_NameKor+'</span></div>';
                     html2 += "</li>";
-                $category_list2.append(html2);
             }
         }
+        $category_list.append(html);
+        $category_list2.append(html2);
     }
     
-    
+    //카테고리 리스트 실행
     LV1CatList();
+    
     let count = 0;
     function selectCat(e){
         let $svg_cat = $('.svgCat')
@@ -123,7 +127,7 @@
             $(e).removeClass('selected');
             $svg_class.css('fill','#e2e2e2');
             if($('.categoryList div').hasClass('selected') == false && $('.categoryList2 div').hasClass('selected') == false){
-                $svg_cat.css('fill',''); 
+                $svg_cat.css('fill','');
                 
                 count = 0;
                 return count;

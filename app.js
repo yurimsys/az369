@@ -22,8 +22,7 @@ const indexRouter = require('./routes/index'),
 const multer = require('multer');
 const { logger, stream }  = require('./config/winston');
 const app = express();
-    
-    
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -92,40 +91,47 @@ app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+    // next(createError(404));
+    //404일시 아래 메세지내역을 페이지내에 출력함
+    // res.status(404).send('일치하는 주소가 없습니다!');
+    // console.log('404에러 발생!');
+    // console.log(path.join(__dirname, "./views",'not_found.html'));
+    //404일시 에러 페이지 출력
+    res.status(404).sendFile(path.join(__dirname, "./views", 'not_found.html'));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  let apiError = err;
+    let apiError = err;
 
-  if(!err.status){
-      apiError = createError(err);
-  }
-  let errObj = {
-      user : req.user,
-      req: {
-          headers: req.headers,
-          query : req.query,
-          body : req.body,
-          route: req.route
-      },
-      error: {
-          message: apiError.message,
-          stack: apiError.status
-      }
-  }
+    if(!err.status){
+        apiError = createError(err);
+    }
+    let errObj = {
+        user : req.user,
+        req: {
+            headers: req.headers,
+            query : req.query,
+            body : req.body,
+            route: req.route
+        },
+        error: {
+            message: apiError.message,
+            stack: apiError.status
+        }
+    }
   
 
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  
-  console.log(err);
-  console.log(err.message);
-  // render the error page
-  res.status(err.status || 500);
-  res.end();
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    console.log('app.js error handler 발생');
+    console.log(err);
+    console.log(err.message);
+    // render the error page
+    //오류 발생시 에러 페이지를 출력함
+    res.status(err.status || 500).sendFile(path.join(__dirname, "./views", 'errpr_page.html'));
+    // res.end();
   
 });
-
 module.exports = app;

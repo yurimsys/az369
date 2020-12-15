@@ -32,18 +32,6 @@ const storage = multer.diskStorage({
   })
 const upload = multer({storage: storage})
 
-router.get('/fcm_test',function(req, res){
-    res.render('fcm_test');
-})
-
-router.get('/pay_test',function(req, res){
-    res.render('pay_test');
-})
-
-router.get('/pay_cancel',function(req, res){
-    res.render('pay_cancel');
-})
-
 //사이니지 메인화면
 router.get('/sign', function(req, res, next) {
     res.render('signage');
@@ -464,7 +452,7 @@ router.get('/reservation', auth.isLoggedIn, function(req,res, next){
     connection.query(query,
         function(err, rows, fields) {
             if (err) throw err;
-            console.log(rows);
+            console.log('장차 정보',rows);
             res.render('reservation_01', {sessionUser: req.user, timeone : rows[0], timetwo : rows[1]});
             
             
@@ -625,11 +613,16 @@ router.get('/refund', function(req, res, next) {
 
 //비디오 페이징
 router.get('/video', function(req, res, next) {
+    console.log('소개영상 들어왔습니다.');
     res.redirect('/video/1')
 });
 
 //비디오 페이징
 router.get('/video/:currentPage', function(req, res, next) {
+    let page_query = `SELECT 		
+                            CEIL(COUNT(*)/6) AS page
+                        FROM tYL `
+
     let query = `SELECT 		
                         YL_id,
                         YL_url,
@@ -642,16 +635,58 @@ router.get('/video/:currentPage', function(req, res, next) {
                     ORDER BY YL_dDt desc 
                         limit :beginRow, :rowPerPage`; 
     let currentPage = req.params.currentPage;
-    console.log("커런트 페이지지ㅣ ::", currentPage);
+    console.log("API currentPage :", currentPage);
     //페이지 내 보여줄 수
     let rowPerPage = 6;
     let beginRow = (currentPage-1)* rowPerPage;
-    connection.query(query, {beginRow, rowPerPage},
-      function(err, rows, fields) {
-          if (err) throw err;
-          res.render('video', { data : rows,sessionUser: req.user });
-          console.log("user",rows);
-      });
+    console.log('API beginRow :',beginRow);
+
+    //문자열 확인 함수
+    function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
+
+    
+    if(currentPage > 10000){
+        console.log('페이지 이동이 전체 페이지보다 큰 경우');
+        return res.redirect('/video/1');
+    }
+    
+    if(isNumber(currentPage) == false){
+        console.log('페이지 이동을 문자열로 입력한 경우');
+        return res.redirect('/video/1');
+    }
+
+    connection.query(page_query,
+        function(err, result, fields) {
+            if (err) {
+                // throw err;
+                return res.redirect('/video/1');
+            }
+            console.log("API Page",result[0].page);
+            let lastPage = result[0].page;
+            //사용자가 임의로 currentPage을 1밑으로 입력한 경우 무조건 az369/video/1로 돌아간다.        
+            if(beginRow < 0){
+                // beginRow = 1;
+                
+                return res.redirect('/video/1');
+            }
+            //전체 페이지 수 보다 높은 페이지 수를 입력한 경우
+            if(currentPage > lastPage){
+                return res.redirect('/video/1');
+            }
+
+            connection.query(query, {beginRow, rowPerPage},
+                function(err, rows, fields) {
+                    if (err){
+                        return res.redirect('/video/1');
+                        throw err;
+                    } 
+                    res.render('video', { data : rows,sessionUser: req.user });
+                    console.log("user",rows);
+                });
+
+
+        });
+
 });
 
 //장차 기사전용 앱
@@ -659,6 +694,8 @@ router.get('/driver_app', function(req, res, next) {
     res.render('driver_app');
 });
 
-
-
+//파일 업로드 테스트
+router.get('/file',function(req, res){
+    res.render('file_test');
+})
 module.exports = router;
