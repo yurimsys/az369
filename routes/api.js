@@ -6109,7 +6109,10 @@ router.get('/info',function(req, res){
 
         connection.query(query,
             function(err, rows){
-            if(err) throw err;
+            if(err){
+                console.log('/info 에러발생',err);
+                throw err;
+            } 
 
             res.json({data : rows})
         })
