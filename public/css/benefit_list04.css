@@ -63,14 +63,14 @@ section.sub_wrap h6 {text-align: center; color: #C3A164; font-family: 'PT Serif'
 
 section.sub_wrap h1 {
     text-align: center; 
-    font-size: 35px;
+    font-size: 32px;
     line-height: 1.35;
      font-weight: normal;
 }
 
-
-section.sub_wrap h2 {font-size: 24px; text-align: center; margin-bottom: 70px; line-height: 1.6; font-weight: 300;}
-section.sub_wrap h2 span {color: #000; font-weight: 600;}
+section.sub_wrap h2 {font-size: 32px; text-align: center; margin-top: 30px; line-height: 1.6; font-weight: 400;}
+section.sub_wrap h2 span { font-weight: 600;}
+.sub_info p { margin-top: 32px; text-align: center; font-weight: 300;  margin-bottom: 50px;}
 
 section.sub_wrap h5 {font-size: 20px; font-weight: 300; text-align:center; color: #444;}
 section.sub_wrap h5 br {display: none;}
@@ -80,8 +80,6 @@ section.sub_wrap h5 span {font-weight: 400;}
 .sub_bg img {width: 100%;}
 
 
-.sub_info {width: 100%; background: #fafafa; height: auto; padding: 30px 0;  margin-top: 20px;}
-.sub_info p {text-align: center; font-weight: 300; color: #000;}
 
 
 /*section.sub_wrap 완료*/

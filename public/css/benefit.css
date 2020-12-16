@@ -9,9 +9,9 @@ section.main {
     overflow: hidden;
 }
 
-.main_bg {background: url(/img/gnb_02/benefit_bg.jpg);
+.main_bg {background: url(/img/gnb_02/benefit_bg.png);
 background-position: center;
-background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
+background-size: cover; width: 100%; height: 450px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 
 @keyframes bg {
     0% {transform: scale(1.05);}
@@ -21,12 +21,11 @@ background-size: cover; width: 100%; height: 500px; animation: bg; animation-del
 /*section.main 완료*/
 /*section.sub_wrap 시작*/
 section.sub_wrap h2 {word-break: keep-all;}
-section.sub_wrap h2 br {display: none;}
 section.sub_wrap h5 br {display: none;}
 
-.benefit_list{width: 100%; overflow: hidden; padding: 30px 25px 40px; background: #fafafa;}
-.benefit_list ul li {float: left; position: relative; width: 32.3%; margin-right: 1.5%; margin-bottom: 2%; height: 480px; border: 1px solid #eee; border-radius: 12px; transition: 0.3s all; background: #fff;  box-shadow: 10px 20px 20px rgba(180,180,180,0.3); overflow: hidden;} 
-/* .benefit_list ul li:hover {border: 1px solid #eee; background: #fff; } */
+.benefit_list{width: 100%; overflow: hidden; padding: 30px 32px 40px; background: #fafafa;}
+.benefit_list ul li {float: left; position: relative; width: 32.3%; margin-right: 1.5%; margin-bottom: 2%; height: 430px; border: 1px solid #eee; border-radius: 12px; transition: 0.3s all; background: #fff;   overflow: hidden;} 
+.benefit_list ul li:hover {box-shadow: 10px 10px 30px rgba(180,180,180,0.3);}
 
 .benefit_list ul li:nth-child(3),
 .benefit_list ul li:nth-child(6),
@@ -37,17 +36,37 @@ section.sub_wrap h5 br {display: none;}
 .benefit_list ul li:nth-child(9) {margin-bottom: 0;}
 
 .benefit_list ul li .pic {float: left; width: 100%; height: 43%; overflow: hidden;}
-.benefit_list ul li .pic img {width: 100%; height: 100%; transition: all 0.5s; }
+.benefit_list ul li .pic img {width: 100%; height: 100%; transition: all 0.5s;}
 .benefit_list ul li:hover .pic img {transform: scale(1.03);}
-.benefit_list ul li:hover .benefit_btn {color: #C3A164;}
 .benefit_list ul li .txt {float: left; width: 100%; height: 57%; padding: 7% 8%; overflow: hidden;}
 .benefit_list ul li .txt span {color: #999;}
-.benefit_list h3 {margin: 0; font-weight: 500; font-size: 24px; line-height: 1.4; font-weight: 600; width: 100%; letter-spacing: -0.5px;}
-.benefit_list .txt p {font-size: 15px; line-height: 1.6; margin-bottom: 10px;}
+.benefit_list h3 {margin: 0; font-weight: bold; font-size: 24px; line-height: 1.4;  width: 100%; letter-spacing: -0.5px; margin-bottom: 12px;;}
+.benefit_list .txt p {font-size: 15px; line-height: 1.6; margin-bottom: 06px;}
 .benefit_list .txt p br {display: none;}
-.benefit_list .txt {font-weight: 500; font-size: 15px; color: #222;}
+.benefit_list .txt { font-size: 15px; color: #222; position: relative;}
 .list_bar {width: 20px; border-bottom: 1px solid #dbdbdb; margin: 20px 0;}
-.benefit_btn {font-size: 15px; transition: all 0.2s;}
+.benefit_btn {font-size: 16px; transition: all 0.2s;}
+
+
+.benefit_btn { 
+    color: #C3A164;
+    display:inline-block; 
+    padding: 6px 0;
+    margin:0;
+    text-transform:uppercase;
+}
+
+    .benefit_btn:after {
+    display:block;
+    content: '';
+    border-bottom: 2px solid #C3A164; 
+    box-shadow: inset 0 -2px 0 #C3A164;
+    transform: scaleX(0);  
+    transition: transform 250ms ease-in-out;
+  }
+  .benefit_btn:hover:after { transform: scaleX(1); }
+  .benefit_btn:after{  transform-origin:  0% 50%; }
+
 
 /* .benefit_btn {display: inline-block; transition: all 0.4s; margin-top: 10px; color: #222; font-weight: 500; font-size: 15px; overflow: hidden;} */
 /* .benefit_list ul li:nth-child(1):hover,
@@ -77,9 +96,9 @@ section.sub_wrap h5 br {display: none;}
 .call_txt h3 {font-size: 20px; font-weight:300;}
 .call_txt p {font-size: 24px; color:#fff !important; margin-top: 3px; font-weight: 600 !important; text-align: center; }
 
-.apply_btn {text-align: center;  margin: 0 auto;margin-top: 40px; width: 30%; height: 50px; line-height: 50px;}
+.apply_btn a {text-align: center;  margin: 0 auto;margin-top: 40px; padding: 12px 32px; border: 1px solid #dbdbdb; display: inline-block; border-radius: 4px; margin-left: 50%; transform: translateX(-50%);}
+.apply_btn a:hover {background-color: #C3A164; color: #fff; transition: all .2s;}
 
-.apply_btn a {display: block;}
 /*section.sub_wrap 완료*/
 
 /*반응형*/
@@ -96,7 +115,7 @@ section.sub_wrap h5 br {display: none;}
 	.benefit_list ul li .txt {padding-top: 20px;}
 	.benefit_list ul li h3 {padding-top: 8px;}
     .benefit_list {margin: 0; margin: 0 auto;}
-    .benefit_list ul li {width: 49.5%; margin-right: 1%; margin-bottom: 2%;}
+    .benefit_list ul li {width: 49.5%; margin-right: 1%; margin-bottom: 2%; height: 400px;}
     .benefit_list ul li:nth-child(3) {margin-right: 1%;}
     .benefit_list ul li:nth-child(2),
     .benefit_list ul li:nth-child(4),
@@ -104,15 +123,17 @@ section.sub_wrap h5 br {display: none;}
     .benefit_list ul li:nth-child(8) {margin-right: 0;}
     .benefit_list ul li:last-child {display: none;}
     .benefit_list ul li .txt p {width: 100%;}
-    .benefit_list ul li {height: 460px;}
-    .apply_btn {background: #C3A164; color: #fff; width: 50%;}
+    .apply_btn a {background: #C3A164; color: #fff; border: none;}
 
 }
 
 /*450px*/
 @media screen and (max-width: 450px) {
 
+    .main_bg {background: url(/img/gnb_02/benefit_bg_mo.png);}
+
     .benefit_list h3 {font-size: 24px;}
+    .benefit_list ul li h3 {padding-top:0;}
     .benefit_list {margin: 0; margin: 0 auto;}
     .benefit_list ul li {margin: 0; width: 95%; margin-bottom: 20px; margin-left: 50%; transform: translateX(-50%); height: auto;}
     .benefit_list ul li:nth-child(7),
@@ -120,18 +141,15 @@ section.sub_wrap h5 br {display: none;}
     .benefit_list ul li:last-child {display: block;}
     .call_pic {width: 100%;}
     .benefit_list ul li .txt p {width: 100%;}
-    .benefit_btn {margin-top: 25px;}
-    .apply_btn a { width: 100%; height: 50px; line-height: 50px;}
-    .apply_btn {width: 93%;}
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
     .benefit_list{ padding: 10px 5px 40px;}
-	.benefit_list ul li {height: 430px;}
 	.benefit_list ul li .pic {height: 35%;}
 	.benefit_list ul li .txt { height: 65%;}
     .benefit_list h3 {font-size: 22px;}
+    .benefit_list ul li .txt {padding: 8% 10%;}
     .benefit_list ul li .txt p {width: 100%; font-size: 15px;}
     .benefit_list ul li .call_txt h3 {font-size: 20px; font-weight: 500; color: #eee;}
 

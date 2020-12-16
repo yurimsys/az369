@@ -39,7 +39,7 @@ section.sub_wrap {
 section.sub_wrap h6 {text-align: center; color: #C3A164; margin-top:80px; font-weight: 500; font-size: 16px;}
 section.sub_wrap h1 {
     text-align: center;
-    font-size: 40px;
+    font-size: 46px;
     margin-top:-7px;
 	font-family: 'PT Serif', serif;
     font-weight: normal; 
@@ -53,26 +53,24 @@ section.sub_wrap .bar {
 }
 
 /* 소제목1 */
-section.sub_wrap h2 {font-size: 24px;  text-align: center; margin-bottom: 40px; line-height: 1.6; font-family: 'Noto Sans KR', sans-serif; font-weight: 300;}
+section.sub_wrap h2 {font-size: 28px;  text-align: center; margin-bottom: 40px; line-height: 1.6; font-family: 'Noto Sans KR', sans-serif; font-weight: 300;}
 section.sub_wrap h2 span {font-weight: 500;}
-section.sub_wrap h5 {font-size: 24px; font-weight: 300; text-align:center;}
-section.sub_wrap h5 span {font-weight: 500;}
+
 
 /* 소제목2 */
-section.sub_wrap h4 {font-size: 20px; font-weight: 300; margin-bottom: 35px; line-height: 1.6;}
-section.sub_wrap h4 span {font-weight: 500;}
+section.sub_wrap h4 {font-size: 24px; font-weight: 300; margin-bottom: 32px; line-height: 1.6;}
+section.sub_wrap h4 span {font-weight: bold;}
 section.sub_wrap p { font-weight: 300;}
 section.sub_wrap p span {font-weight: 400;}
 
 /* 버튼 */
-.btn {text-align: center; border-radius: 4px;}
 .btn-primary {border: 1px solid #C3A164; background: #c3a164; color: #fff; font-weight: 400;}
 .btn-outline-primary:hover {background: #c3a164; color: #fff; font-weight: 400;}
-.btn-outline-primary {border: 1px solid #dbdbdb; color: #444;transition: all 0.3s;}
+.btn-outline-primary {padding: 12px 32px; border: 1px solid #dbdbdb; display: inline-block; border-radius: 4px; text-align: center;}
 .btn-secondary {background: #eee; color: #767676; border: 1px solid #f8f8f8;} 
  
 /* input ----------------------------------------------------- */
-input {width: 100%; height: 50px; padding: 0 15px; border: 1px solid #eee;}
+input {/* width: 100%;*/ height: 50px; padding: 0 15px; border: 1px solid #eee;}
 input::placeholder {font-size: 14px; font-weight: 300; color: #767676;}
 input:focus, textarea:focus {border: 1px solid #c3a164;}
 
@@ -98,8 +96,9 @@ input:focus, textarea:focus {border: 1px solid #c3a164;}
 @media screen and (max-width: 768px) {
     section.sub_wrap {margin-bottom: 30px;}
     section.sub_wrap h6 {margin-top: 60px;}
-    section.sub_wrap h1 {font-size: 35px;}
-    section.sub_wrap h2 {font-size: 24px; margin-bottom: 45px;}
+    section.sub_wrap h1 {font-size: 36px;}
+    section.sub_wrap h2 {font-size: 24px; margin-bottom: 40px;}
+    section.sub_wrap h4 {font-size: 20px; margin-bottom: 24px;}
     .sub_info ul {width: 100%;}    
 }
 
@@ -149,6 +148,6 @@ input:focus, textarea:focus {border: 1px solid #c3a164;}
     
     .sub_info p {margin: 0 auto; }
     .sub_info p br{display: none;}
-    .sub_info ul {margin-top: 30px;;}
+    /* .sub_info ul {margin-top: 30px;;} */
     .sub_info .info_btn a {font-size: 15px;}
 }

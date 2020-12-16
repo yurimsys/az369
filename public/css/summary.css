@@ -7,11 +7,10 @@ section.main {
     height: 450px;
     overflow: hidden;
 }
-.main_bg { background: url(/img/gnb_01/sub01_main_bg.png) no-repeat; background-position: bottom; background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
+.main_bg { background: url(/img/gnb_01/gnb_01_bg.png) no-repeat; background-position: bottom;background-size: cover; width: 100%; height: 450px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 @keyframes bg {
     0% {transform: scale(1.05);}
     100% {transform: scale(1);}
-    
 }
 /*section.main 완료*/
 /*section.sub_wrap 시작*/
@@ -20,13 +19,12 @@ section.main {
 
 /*sub_info*/
 .sub_info {width: 100%; text-align: center; margin-top:50px;}
-.sub_info ul { width: 50%; padding: 0; overflow: hidden; margin: 0 auto; margin-top: 40px;}
-.sub_info ul li {float: left; width: 49%; overflow: hidden;  transition: all 0.3s; margin-right: 2%;height: 50px; line-height: 50px; border-radius: 4px;}
+.sub_info ul {padding: 0; overflow: hidden; margin: 0 auto; text-align: center; }
+
+.sub_info ul li {display: inline-block; overflow: hidden; margin-right: 10px; transition: all 0.3s;}
 .sub_info ul li:nth-child(2) {margin-right: 0;}
 .sub_info .info_btn a {display: block;}
 .sub_info p {text-align: center;}
-
-
 
 /*반응형*/
 /*1200px*/
@@ -45,9 +43,12 @@ section.main {
 
 /*450px*/
 @media screen and (max-width: 450px) {
+
+    .main_bg {background: url(/img/gnb_01/gnb01_bg_mo.png)}
+
     section.sub_wrap h2 br {display: block;}
     .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: center;}
-    .sub_info {margin-top: 35px;}
+    .sub_info {margin-top: 32px;}
     .sub_info ul {width: 93%; margin-top: 10px;}
     .sub_info h4 br {display: block;}
     
