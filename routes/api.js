@@ -766,6 +766,7 @@ router.post('/user/payCancel', auth.isLoggedIn, (req, res, next) =>{
                     tCR.CR_QrCode,
                     PH_PG_ID,
                     CR_U_ID,
+                    PH_OPrice,
                     PH_CodeType,
                     DAYOFWEEK(tCT.CT_DepartureTe) AS deptDay,
                     DAYOFWEEK(tCT.CT_ReturnTe) AS retnDay,
@@ -6109,7 +6110,10 @@ router.get('/info',function(req, res){
 
         connection.query(query,
             function(err, rows){
-            if(err) throw err;
+            if(err){
+                console.log('/info 에러발생',err);
+                throw err;
+            } 
 
             res.json({data : rows})
         })
