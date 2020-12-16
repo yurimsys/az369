@@ -852,10 +852,8 @@
                     mid_html += "<tr><th>결제금액</th><td>"+(res.data[0].CR_Price * res.data.length)+"원</td></tr>";
                     mid_html += "<tr><th>결제상태</th><td>"+res.data[0].CR_PayState+"</td></tr>";
                     mid_html += res_pay;
-
                 $('.payment_info').append(mid_html);
             }
-            
         })
     }
 
