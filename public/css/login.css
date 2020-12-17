@@ -3,7 +3,7 @@
  
 /*section.sub_wrap 시작*/
 
-.login_box {width: 100%; position: relative; background: #fff; height: auto;padding:0 30%; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; /* border: 1px solid #eee; */ margin-bottom: 40px;}
+.login_box {width: 100%; position: relative; background: #fff; height: auto;padding:0 28%; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; /* border: 1px solid #eee; */ margin-bottom: 40px;}
 
 @keyframes box {
     0% {opacity: 0; transform: translateY(-10px);}
