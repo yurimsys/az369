@@ -1,5 +1,5 @@
 /* (section.main 없음) div.box가 있는 ejs의 공통 css입니다. */
-
+@charset "UTF-8";
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
 @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
 
@@ -19,6 +19,11 @@ input, button {-webkit-tap-highlight-color: transparent;}
 *:focus {outline: none;}
 /* ----------------------- */
 
+/* 박스 애니메이션 */
+@keyframes box {
+  0% {opacity: 0; transform: translateY(2%);}
+  100% {opacity: 1; transform: translateY(0%);}
+}
 
 /* 공통 속성 영역 : 상단 */
 .wrap {width: 100%; margin: 0 auto; height: auto;  z-index: -1000;}
@@ -29,7 +34,7 @@ section.sub_wrap {
     margin-bottom: 60px;
 }
 .inner_sub_wrap {width: 100%;}
-.box {position: relative; padding-top: 140px; overflow: hidden;}
+.box {position: relative; padding-top: 130px; overflow: hidden;}
 
 section.sub_wrap h6 {text-align: center; color: #C3A164;font-weight: 500; font-size: 16px;}
 section.sub_wrap h1 {
@@ -38,8 +43,27 @@ section.sub_wrap h1 {
     margin-top:-10px;
 	font-family: 'PT Serif', serif;
     font-weight: normal; 
-    margin-bottom: 40px;
 }
+section.sub_wrap .bar {
+  border-bottom: 1px solid #c3a164; 
+  width: 20px; 
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+/* 찾기 박스영역 */
+.find_box {position: relative; width: 100%; background: #fff; height: auto; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; padding:0 28%;}
+.find_box_inner {width: 100%; padding: 32px 0; margin: 0 auto; text-align: center; overflow: hidden; }
+.find_box_inner p { font-weight: 300; margin-bottom: 24px; text-align: center;}
+
+/* join 상단 텍스트영역 */
+/*회원가입과정*/
+.join_box .join_process {text-align: center; color: #999999; font-size: 15px; margin-bottom: 5px;}
+.join_box .join_process span {color: #C3A164; font-weight: 400;}
+.join_box h2 {text-align: center; font-size: 28px; margin-bottom: 40px; font-weight: 500;}
+.join_box h3 {font-size: 18px; font-weight: 500; margin-bottom: 16px;}
+.join_box h3 span {color: #c3a164;}
 
 
 /* 버튼 -----------------------------------------------------*/
@@ -47,7 +71,19 @@ section.sub_wrap h1 {
 .btn-primary {border: 1px solid #C3A164; background: #c3a164; color: #fff; font-weight: 400;padding: 12px 32px; border-radius: 4px;}
 .btn-outline-primary {padding: 12px 32px; border: 1px solid #dbdbdb; display: inline-block; border-radius: 4px; text-align: center;}
 .btn-secondary {border: 1px solid #444; color: #191919;background: #fff;} 
- .btn-light {border: 1px solid #dbdbdb; color: #505050;background: #fff;} 
+ .btn-light {border: 1px solid #dbdbdb; color: #505050;background: #fff;}
+
+ /* 찾기 버튼 */
+.find_btn {margin-top: 32px;}
+.find_btn a {display: inline-block;}
+.find_btn ul {width: 100%; text-align: center; margin-top: 32px;}
+.find_btn ul li {display: inline-block; margin-right: 1%; text-align: center;}
+.find_btn ul li:nth-child(2) {margin-right: 0;}
+
+.tab {width: 100%;}
+.tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: 500;}
+.tab ul li a {display: block;}
+.find_box_inner ul {width: 100%;}
 
  /*스크롤 --------------------------------*/
 .scroll_style::-webkit-scrollbar {width: 2px;}
@@ -139,7 +175,7 @@ input:focus {border: 1px solid #c3a164;}
   margin-top: 0;
   opacity: .6;
   box-shadow: none;
-  border-color: #ad863c;
+  border-color: #c3a164;
   -webkit-transition: all .12s, border-color .08s;
   transition: all .12s, border-color .08s;
 }
@@ -153,7 +189,7 @@ input:focus {border: 1px solid #c3a164;}
   border-radius: 0;
   opacity:1; 
   background: transparent;
-  border-color:transparent #ad863c #ad863c transparent;
+  border-color:transparent #c3a164 #c3a164 transparent;
   border-top-color:transparent;
   border-left-color:transparent;
   -ms-transform:rotate(45deg);
@@ -167,9 +203,9 @@ input:focus {border: 1px solid #c3a164;}
   left: 0;
   width: 21px;
   line-height: 21px;
-  color: #ad863c;
+  color: #c3a164;
   text-align: center;
-  border: 1px solid #ad863c;
+  border: 1px solid #c3a164;
 }
 
 input[type="submit"] {font-size: 18px;}
@@ -187,29 +223,34 @@ input[type="submit"] {font-size: 18px;}
 /*1024px*/
 @media screen and (max-width: 1024px) {
     .box {padding-top: 100px;}
-	.find_id_btn {width: 100%;}
-}
+  .find_id_btn {width: 100%;}
+  
+} 
 
 
 /*768px*/
 @media screen and (max-width: 768px) {
     section.sub_wrap {margin-bottom: 30px;}
-    section.sub_wrap h1 {font-size: 35px;}
-    section.sub_wrap h2 {font-size: 24px; margin-bottom: 45px;}
+    section.sub_wrap h1 {font-size: 42px;}
+    section.sub_wrap h2 {font-size: 24px; margin-bottom: 40px;}
+
+    .find_box {padding: 0 5%;}
 }
 
-/*450px*/
-@media screen and (max-width: 450px) {
+/*425px*/
+@media screen and (max-width: 425px) {
    .tab ul li  {height:50px; font-size: 15px; line-height: 50px;}
     section.sub_wrap h6 {font-size: 15px;}
-    section.sub_wrap h1 {font-size: 30px;}
+    section.sub_wrap h1 {font-size: 36px;}
+    section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
     input::placeholder {font-size: 13px;}
-    /* #phone {width: 60%;}
-    .check_btn {width: 39%; font-size: 15px;} */
+
+    .find_box {padding: 0 2.5%; margin: 0 auto;}
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
+  section.sub_wrap h1 {font-size: 32px;}
     .gnb_mo_login a {font-size: 13px;}
     section.sub_wrap h1 {font-size: 26px;}
 }

@@ -6,23 +6,22 @@
 .join_box .join_process span {color: #c3a164; font-weight: 500;}
 
 /*박스 내부*/
-.join_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; padding: 4% 5%;}
+.join_box {position: relative; width: 100%; background: #fff; height: auto; padding: 0 30%;}
 
-.check_img { margin-left: 50%; transform: translateX(-50%); text-align: center; padding: 10px 0 20px;}
-.check_img img {width: 30%;}
+.check_img { margin-left: 50%; transform: translateX(-50%); text-align: center; padding: 10px 0 20px; margin-bottom: 8px;}
+/* .check_img img {width: 30%;} */
 
-.join_box h2 {text-align: center; font-size: 24px; margin-bottom: 3%; font-weight: 500;}
-
+.join_box h2 {margin-bottom: 20px;}
 .join_txt {text-align: center;}
-.join_txt span {color: #ad863c; font-weight: bold;}
-.join_box h3 {font-size: 26px; font-weight:400;}
-.join_box h3 span {color: #ad863c;}
-.join_box h4 {font-size: 18px; margin-bottom: 20px; font-weight: 400; }
+.join_txt span {color: #c3a164; font-weight: bold;}
+.join_box h3 {font-size:28px;}
+.join_box h3 span {color: #c3a164;}
+.join_box h4 {font-size: 20px; margin-bottom: 16px;}
 .join_box p {color: #999999; text-align: center; font-weight: 300;}
 
 .join_txt h3 br, .join_txt h4 br {display: none;}
 
-.login_btn {width: 40%; margin: 0 auto; text-align: center; height: 50px; line-height: 50px; margin-top: 30px;}
+.login_btn { margin: 0 auto; text-align: center; margin-top: 40px; margin-bottom: 30px;}
 
 
 /*반응형*/
@@ -41,7 +40,7 @@
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    
+    .join_box{padding: 0 24%;}
     .box {padding-top: 100px;}
     .login_btn {margin-top: 40px;}
     section.sub_wrap h4 {margin-bottom: 2%;}
@@ -53,16 +52,16 @@
     
     /*section.sub_wrap*/
     section.sub_wrap {width:100%;}
-    section.sub_wrap .inner_sub_wrap {width: 95%;}
     section.sub_wrap h1 {font-size: 35px;}
     .login_btn {width: 100%;}
+    .join_box{padding: 0 12%;}
 }
 
-/*450px*/
-@media screen and (max-width: 450px) {
+/*425px*/
+@media screen and (max-width: 425px) {
 
     .box {padding-top: 80px;}
-
+    .join_box {padding: 0 2.5%; margin: 0 auto;}
     /*section.sub_wrap*/
     section.sub_wrap {width:100%; margin-bottom: 10%;}
     section.sub_wrap h6 {margin-bottom: -5px;}
@@ -70,17 +69,13 @@
     section.sub_wrap .bar {display: none;}
     section.sub_wrap h2 {font-size: 20px;  line-height: 1.5; text-align: center;}
     section.sub_wrap p {font-size: 15px; text-align: center; margin-bottom: 3%;}
-    
     .join_box .join_process {font-size: 14px;}
-    
     .join_txt h3 {font-size: 24px; width: 85%; margin: 0 auto; line-height: 1.5;}
-    .join_txt h3 br {display: block;}
+    /* .join_txt h3 br {display: block;} */
     .join_txt h4 br {display: block;}
     .join_txt h4 {font-size: 16px; margin: 0 auto; padding: 5% 0; color: #777;}
-    .join_txt p {display: none;}
+    /* .join_txt p {display: none;} */
     .login_btn {width: 100%; margin-top: 8%; height: 40px; line-height: 40px;}
-    .check_img img {width: 70%; margin: 2% 0 4%;}
-    
 }
 
 /*320px*/

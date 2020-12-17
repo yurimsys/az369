@@ -1,21 +1,11 @@
 @charset "UTF-8";
 
-.find_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee;}
-
-.find_box_inner p span {font-weight: 500;}
-
-.tab {width: 100%;}
-.tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: bold;}
-
-.find_box_inner {width: 100%; padding: 6% 24%; margin: 0 auto; text-align: center; overflow: hidden; }
-.find_box_inner h3 {font-size: 20px; margin-top: 25px; font-weight: 500;}
+.find_img {margin-top: 20px;}
+.find_box_inner h3 {font-size: 24px; margin-top:30px; font-weight: 500;}
 .find_box_inner h3 span {color:#C3A164;}
 .find_box_inner h3 br {display: none;}
-.find_box_inner p {text-align: center; font-weight: 300;}
+.find_box_inner p {text-align: center; font-weight: 300; color: #999999; margin-bottom: 40px;}
 
-.login_btn {width: 50%; margin: 0 auto; margin-top: 40px;}
-
-.find_img img {width: 12%; margin: 3% 0 2%;}
 /*section.sub_wrap 완료*/
 
 /*반응형*/
@@ -23,13 +13,13 @@
 @media screen and (max-width: 768px) {
     .find_box_inner {margin: 0 auto; padding: 6% 8%;}
     .login_btn {margin-top: 30px;}
-    .find_img img {width: 14%;}
+    /* .find_img img {width: 14%;} */
 }
 
 /*450px*/
 @media screen and (max-width: 450px) {
     .find_box_inner {margin: 0 auto; padding:12% 5% 10%;}
-    .find_box_inner h3 {font-size: 22px; margin-top: 15px; line-height: 1.6;}
+    .find_box_inner h3 {font-size: 22px; margin-top: 15px; line-height: 1;}
 	.find_box_inner h3 br {display: block;}
     .find_box p {font-size: 15px; margin-top: 4px;}
     .login_btn {width: 100%; margin-top: 40px; height: 45px; line-height: 45px;}
