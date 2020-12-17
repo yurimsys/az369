@@ -35,6 +35,9 @@ section.sub_wrap h2 {margin-bottom: 40px;}
 	.sub_info {width: 100%; margin: 0 auto;}
     .sub_info p {width: 90%; margin: 0 auto; text-align:left; word-break: break-all;}
     .sub_info p br {display: none;}
+
+    .main_bg {background: url(/img/gnb_02/benefit_list04_bg_mo.png);background-position: center;
+        background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s; z-index: -1000;}
 }
 
 /*320px*/
