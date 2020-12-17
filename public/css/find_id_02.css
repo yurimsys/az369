@@ -3,7 +3,7 @@
 /*section.sub_wrap 시작*/
 .find_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee;}
 
-.find_box_inner {width: 100%; padding: 7% 24%; margin: 0 auto; text-align: center; overflow: hidden; }
+.find_box_inner {width: 100%; padding: 5% 26%; margin: 0 auto; text-align: center; overflow: hidden; }
 .find_box_inner h3 {font-weight: normal; font-size: 16px; color: #222; font-weight: 300; margin-top: 30px;}
 .find_box_inner h4 {font-size: 20px; color: #222; padding: 10px; background: #fafafa; margin-top: 15px;}
 
@@ -15,8 +15,9 @@
 .find_box_inner ul li button {height: 50px; width:27.5%; border: 1px solid #aaa; background: none; cursor: pointer; transition: all 0.3s;}
 .find_box_inner form ul li button:hover {background: #f4f4f4;}
 
-.find_id_btn {width: 100%; margin: 0 auto; margin-top: 30px;}
-.find_id_btn ul li a {float:left; width: 49%; margin-right: 1%; text-align: center; }
+.find_id_btn ul {width: 100%; text-align: center; margin-top: 32px;}
+.find_id_btn ul li {display: inline-block; margin-right: 1%; text-align: center;}
+.find_id_btn ul li:nth-child(2) {margin-right: 0;}
 
 /*section.sub_wrap 완료*/
 
@@ -30,14 +31,14 @@
 /*768px*/
 @media screen and (max-width: 768px) {
     .find_id_btn {width: 100%;}
-    .search_box_inner {margin: 0 auto; padding: 6% 8%;}
-    .find_img img {width: 14%;}
+    .search_box_inner {margin: 0 auto; padding: 40px 20%;}
+    .find_img img {width: 20%;}
     .find_box_inner h3 {margin-top: 25px;}
 }
 
 /*450px*/
 @media screen and (max-width: 450px) {
-    .find_box_inner {margin: 0 auto; padding:12% 5% 10%;}
+    .find_box_inner {margin: 0 auto; padding:32px 24px;}
     .find_id_btn {margin-top: 40px; font-size: 16px; height: 45px; line-height: 45px;}
     .find_box_inner p {font-size: 15px;}
 }

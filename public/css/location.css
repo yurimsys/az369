@@ -66,7 +66,7 @@ header .open {
 
 /*768px*/
 @media screen and (max-width: 768px) {
-    .sub_contents ul li {width: 100%; padding-bottom: 15px;}
+    /* .sub_contents ul li {width: 100%; padding-bottom: 15px;} */
     .sub_contents ul li em {width: 30%;}
 
 }
@@ -76,8 +76,9 @@ header .open {
 
     .main_bg {background: url(/img/gnb_01/gnb01_bg_mo.png)}
 
-    .sub_contents {margin-top: 40px; width: 90%;}
-    .sub_contents ul li:nth-child(1) {padding-bottom: 20px;}
+    .sub_contents ul li {width: 100%; padding-bottom: 15px;}
+    .sub_contents {margin-top: 30px; width: 90%;}
+    .sub_contents ul li:nth-child(1) {padding-bottom: 16px;}
     .sub_contents ul li p { text-align: justify; padding: 0;}
     .sub_contents ul li em, p {padding: 0;}
 	

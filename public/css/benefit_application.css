@@ -65,7 +65,7 @@ input[type=submit], .check_btn {
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s;
-    margin-top: 40px;
+    margin-top: 32px;
 }
 
 input[type=submit]:hover {
@@ -133,11 +133,11 @@ input[type=submit]:hover {
 @media screen and (max-width: 768px) {
     .popup_box {width: 65%;}
     .apply_form ul li {width: 100%; margin-bottom: 16px;}
-    input[type=submit], .check_btn {margin-top: 32px;}
+    input[type=submit], .check_btn {margin-top: 24px;}
 }
 
-/*450px*/
-@media screen and (max-width: 450px) {
+/*425px*/
+@media screen and (max-width: 425px) {
         .apply_form, .apply_check {
         padding: 24px 32px;
         margin: 0 20px 30px;
@@ -153,10 +153,7 @@ input[type=submit]:hover {
     .apply_form h3 {font-size: 20px; margin-bottom: 3px;}
     .apply_check h3 {font-size: 20px; margin-bottom: 15px;}
     .apply_form {margin-bottom: 20px;}
-    .apply_form, .apply_check {
-        padding: 24px 20px;
-        margin: 0 12px 20px;
-    }
+    .apply_form, .apply_check {padding: 24px 20px 30px; margin: 0 12px 20px;}
     
     .apply_form p {margin-bottom: 25px; line-height: 1.6;}
     

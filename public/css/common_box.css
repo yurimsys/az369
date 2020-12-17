@@ -5,6 +5,7 @@
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.25px; word-break: keep-all;}
+html, body {height: 100%;}
 body {margin: 0; font-size: 16px; line-height: 1.8; color: #191919;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
@@ -28,23 +29,23 @@ section.sub_wrap {
     margin-bottom: 60px;
 }
 .inner_sub_wrap {width: 100%;}
-.box {position: relative; padding-top: 120px; overflow: hidden;}
+.box {position: relative; padding-top: 140px; overflow: hidden;}
 
 section.sub_wrap h6 {text-align: center; color: #C3A164;font-weight: 500; font-size: 16px;}
 section.sub_wrap h1 {
     text-align: center;
-    font-size: 38px;
+    font-size: 46px;
     margin-top:-10px;
 	font-family: 'PT Serif', serif;
     font-weight: normal; 
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 
 /* 버튼 -----------------------------------------------------*/
 .btn {text-align: center; border-radius: 4px; height: 50px; line-height: 50px; font-size: 15px;}
-.btn-primary {border: 1px solid #C3A164; background: #c3a164; color: #fff; font-weight: 400;}
-.btn-outline-primary {border: 1px solid #dbdbdb; color: #444;transition: all 0.3s;}
+.btn-primary {border: 1px solid #C3A164; background: #c3a164; color: #fff; font-weight: 400;padding: 12px 32px; border-radius: 4px;}
+.btn-outline-primary {padding: 12px 32px; border: 1px solid #dbdbdb; display: inline-block; border-radius: 4px; text-align: center;}
 .btn-secondary {border: 1px solid #444; color: #191919;background: #fff;} 
  .btn-light {border: 1px solid #dbdbdb; color: #505050;background: #fff;} 
 

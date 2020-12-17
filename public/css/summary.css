@@ -1,12 +1,12 @@
 @charset "UTF-8";
 
 /*section.main*/
-section.main {
+/* section.main {
     position: relative;
     width: 100%;
     height: 450px;
     overflow: hidden;
-}
+} */
 .main_bg { background: url(/img/gnb_01/gnb_01_bg.png) no-repeat; background-position: bottom;background-size: cover; width: 100%; height: 450px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 @keyframes bg {
     0% {transform: scale(1.05);}
@@ -16,14 +16,12 @@ section.main {
 /*section.sub_wrap 시작*/
 
 .sub_bg img {width: 100%;border-radius: 12px;}
-
 /*sub_info*/
 .sub_info {width: 100%; text-align: center; margin-top:50px;}
-.sub_info ul {padding: 0; overflow: hidden; margin: 0 auto; text-align: center; }
+.sub_info ul {padding: 0; overflow: hidden; margin: 0 auto; text-align: center; margin-top: 40px;}
 
 .sub_info ul li {display: inline-block; overflow: hidden; margin-right: 10px; transition: all 0.3s;}
 .sub_info ul li:nth-child(2) {margin-right: 0;}
-.sub_info .info_btn a {display: block;}
 .sub_info p {text-align: center;}
 
 /*반응형*/
@@ -34,30 +32,25 @@ section.main {
 
 /*768PX*/
 @media screen and (max-width: 768px) {
-    .sub_info {margin-top: 35px;}
-    /* section.sub_wrap h4 {margin-bottom:} */
-    .sub_info ul {margin-top: 25px;}
-    .sub_info p {text-align: left; width: 95%; margin: 0 auto;}
+    .sub_info {margin-top: 40px;}
+    .sub_info p {text-align: left; width: 95%; margin: 0 auto; margin-top: 24px;text-align: center;}
     .sub_info p br {display: none;}
 }
 
-/*450px*/
-@media screen and (max-width: 450px) {
-
+/*425px*/
+@media screen and (max-width: 425px) {
     .main_bg {background: url(/img/gnb_01/gnb01_bg_mo.png)}
-
     section.sub_wrap h2 br {display: block;}
-    .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: center;}
     .sub_info {margin-top: 32px;}
-    .sub_info ul {width: 93%; margin-top: 10px;}
-    .sub_info h4 br {display: block;}
-    
     .sub_info {width:100%;}
-    .sub_info p {width: 93%; margin: 0 auto; font-size: 16px; text-align: center;}
-    
 }
 
 /*375px*/
+@media screen and (max-width: 375px) {
+    .sub_info p {text-align: justify;}
+    section.sub_wrap h2 {width: 90%; margin: 0 auto; margin-bottom: 40px;}
+}
+/*320px*/
 @media screen and (max-width: 320px) {
-    .sub_info p {text-align: left;}
+    .sub_info p {width: 95%;}
 }

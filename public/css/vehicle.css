@@ -55,9 +55,9 @@ section.sub_wrap h2 {word-break: keep-all;}
 
 /*section.sub_wrap 완료*/
 
-.sub_list {width: 100%; height: auto; margin: 0 auto; padding: 30px 35px; background: #fafafa; word-break: keep-all; word-wrap: break-word;  text-align: left;}
+.sub_list {width: 100%; height: auto; margin: 0 auto; padding: 30px 32px; background: #f8f8f8; word-break: keep-all; word-wrap: break-word;  text-align: left;}
 .sub_list ul {width: 100%; display: flex;} 
-.sub_list ul li {flex: 1; padding: 20px 30px 25px; margin-right: 15px; border: 1px solid #eee; background: #fff; border-radius: 12px;  font-size: 15px; box-shadow: 20px 20px 20px rgba(180,180,180,0.2);}
+.sub_list ul li {flex: 1; padding: 20px 30px 25px; margin-right: 15px; border: 1px solid #eee; background: #fff; border-radius: 12px;  font-size: 15px; box-shadow: 10px 10px 30px rgba(180,180,180,0.2);}
 .sub_list ul li:nth-child(4) {margin-right: 0;}
 .sub_list ul li span {color: #999;}
 .sub_list ul li h3 {margin-bottom: 16px; font-size: 20px;}
@@ -71,21 +71,18 @@ section.sub_wrap h2 {word-break: keep-all;}
     .sub_contents {width: 93%;}
 }
 
-
 /*768px*/
 @media screen and (max-width: 768px) {
     .sub_list ul {flex-direction: column;}
     .sub_list ul li {margin-right: 0; margin-bottom: 15px;}
     .list_bar {margin: 15px 0;}
 	section.sub_wrap h3 br {display: block;}
-    .vehicle_btn {width: 60%;}
-    .vehicle_btn ul li a {padding: 0; display: block; height: 100%;} 
-    .vehicle_location {border: 1px solid #ddd;}
     .reservation {background: #c3a164; border: #c3a164; color: #fff;}
+    .vehicle_btn {margin-top: 20px;}
 }
 
-/*450px*/
-@media screen and (max-width: 450px) {
+/*425px*/
+@media screen and (max-width: 425px) {
     
     /*main*/
     section.main {width: 100%;}
@@ -100,20 +97,16 @@ section.sub_wrap h2 {word-break: keep-all;}
     section.sub_wrap h3 {font-size: 18px; width: 100%; margin: 0 auto;}
     .sub_list {padding: 30px 25px;}
     .sub_list ul li {padding: 20px 25px 30px;}
-     
-    .vehicle_btn {width:95%; margin: 0 auto; margin-left: 50%; transform: translateX(-50%); padding-bottom: 4px; margin-top: 20px;}
-    .vehicle_btn ul li {height: 50px; line-height: 50px; width: 49.5%;}
-   
-}   
-
+}
+/*375px*/
+@media screen and (max-width: 375px) {
+    section.sub_wrap h2 br {display: none;}
+}
 
 /*320px*/
 @media screen and (max-width: 320px) {
     
 	section.sub_wrap h3 br {display: none;}
-	section.sub_wrap p {font-size: 14px;}
-    
-	.vehicle_btn ul li {font-size: 15px;}
-    .vehicle_btn ul {width: 100%;}
-    
+    section.sub_wrap p {font-size: 14px;}
+    .vehicle_location {margin-bottom: 10px;}
 }
