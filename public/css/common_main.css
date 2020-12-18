@@ -7,14 +7,14 @@
 
 /*reset*/
 * {margin: 0;padding: 0; box-sizing: border-box;  font-family: 'Noto Sans KR', sans-serif; letter-spacing: -0.25px; word-break: keep-all;}
-body {margin: 0; font-size: 16px; line-height: 1.8; color: #222;}
+body {margin: 0; font-size: 16px; line-height: 1.7; color: #191919;}
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd {margin: 0; padding: 0;}
 a {color: inherit; text-decoration: inherit;cursor: pointer; font-family: inherit;}
 img {vertical-align: middle;}
 a img {border: none;}
 li {list-style: none;}
 address, em, i {font-style: normal;}
-p { font-family: inherit; font-size: 16px;}
+p { font-family: inherit; font-size: 16px; font-weight: 300;}
 span {padding: 0; margin: 0;}
 *:focus {outline: none;}
 /* ----------------------- */
@@ -26,53 +26,62 @@ section.sub_wrap {
     width: 1200px;
     margin: 0 auto;
     overflow: hidden;
-    margin-bottom: 60px;
+    margin-bottom: 70px;
 }
 .inner_sub_wrap {width: 100%;}
+/* main영역 */
+section.main {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+}
+
+@keyframes bg {
+	0% {transform: scale(1.05);}
+    100% {transform: scale(1);}
+}
 /* tnb영역 */
 .tnb {position: absolute; width: 1200px; bottom: 0; left: 50%; transform: translatex(-50%);  display:flex;}
 .tnb ul{width: 100%; display:flex;}
-.tnb a { flex: 1; text-align: center; height: 100%; background: rgba(255,255,255,0.9); line-height: 55px; font-size: 16px; transition: all 0.2s; font-weight: 400; color: #444;}
+.tnb a { flex: 1; text-align: center; height: 100%; background: rgba(255,255,255,0.9); line-height: 56px; font-size: 18px; transition: all 0.2s; color: #444;}
 
-
-
-section.sub_wrap h6 {text-align: center; color: #C3A164; margin-top:80px; font-weight: 500; font-size: 16px;}
+/* 본문폰트영역 */
+section.sub_wrap h6 {text-align: center; color: #C3A164; margin-top:80px; font-weight: 400; font-size: 16px;}
 section.sub_wrap h1 {
     text-align: center;
-    font-size: 40px;
+    font-size: 46px;
     margin-top:-7px;
 	font-family: 'PT Serif', serif;
     font-weight: normal; 
 }
 section.sub_wrap .bar {
     border-bottom: 1px solid #c3a164; 
-    width: 25px; 
+    width: 20px; 
     margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 40px;
 }
 
 /* 소제목1 */
-section.sub_wrap h2 {font-size: 24px;  text-align: center; margin-bottom: 40px; line-height: 1.6; font-family: 'Noto Sans KR', sans-serif; font-weight: 300;}
+section.sub_wrap h2 {font-size: 28px; text-align: center; margin-bottom: 50px; font-weight: 300;}
 section.sub_wrap h2 span {font-weight: 500;}
-section.sub_wrap h5 {font-size: 24px; font-weight: 300; text-align:center;}
-section.sub_wrap h5 span {font-weight: 500;}
+
 
 /* 소제목2 */
-section.sub_wrap h4 {font-size: 20px; font-weight: 300; margin-bottom: 35px; line-height: 1.6;}
-section.sub_wrap h4 span {font-weight: 500;}
-section.sub_wrap p { font-weight: 300;}
+section.sub_wrap h4 {font-size: 28px; font-weight: 300; margin-bottom: 30px;}
+section.sub_wrap h4 span {font-weight: bold;}
+/* section.sub_wrap p { font-weight: 300;} */
 section.sub_wrap p span {font-weight: 400;}
 
 /* 버튼 */
-.btn {text-align: center; border-radius: 4px;}
-.btn-primary {border: 1px solid #C3A164; background: #c3a164; color: #fff; font-weight: 400;}
-.btn-outline-primary:hover {background: #c3a164; color: #fff; font-weight: 400;}
-.btn-outline-primary {border: 1px solid #dbdbdb; color: #444;transition: all 0.3s;}
-.btn-secondary {background: #eee; color: #767676; border: 1px solid #f8f8f8;} 
+.btn-primary {border: 1px solid #C3A164; background: #c3a164; color: #fff;}
+.btn-outline-primary:hover{border: 1px solid #C3A164; background: #c3a164; color: #fff; transition: all 0.2s;}
+.btn-outline-primary{padding: 12px 32px; border: 1px solid #dbdbdb; display: inline-block; border-radius: 4px; text-align: center;}
+.btn-secondary{background: #eee; color: #767676; border: 1px solid #f8f8f8;} 
  
 /* input ----------------------------------------------------- */
-input {width: 100%; height: 50px; padding: 0 15px; border: 1px solid #eee;}
+input {/* width: 100%;*/ height: 50px; padding: 0 15px; border: 1px solid #eee;}
 input::placeholder {font-size: 14px; font-weight: 300; color: #767676;}
 input:focus, textarea:focus {border: 1px solid #c3a164;}
 
@@ -86,37 +95,23 @@ input:focus, textarea:focus {border: 1px solid #c3a164;}
     section.main .inner_main {width: 100%;}
     section.sub_wrap {width:100%;}
     .tnb {width: 100%;}
-    section.sub_wrap {margin-bottom: 40px;}
+    section.sub_wrap {margin-bottom: 60px;}
 }
-
-/*1024px*/
-@media screen and (max-width: 1024px) {
-}
-
 
 /*768px*/
 @media screen and (max-width: 768px) {
-    section.sub_wrap {margin-bottom: 30px;}
     section.sub_wrap h6 {margin-top: 60px;}
-    section.sub_wrap h1 {font-size: 35px;}
-    section.sub_wrap h2 {font-size: 24px; margin-bottom: 45px;}
+    section.sub_wrap h1 {font-size: 42px;}
+    section.sub_wrap h4 { width: 95%; margin: 0 auto; font-size: 24px; margin-top: 40px; margin-bottom: 20px;}
     .sub_info ul {width: 100%;}    
 }
 
-/*450px*/
-@media screen and (max-width: 450px) {
-
-    section.sub_wrap h6 {font-size: 15px;}
+/*425px*/
+@media screen and (max-width: 425px) {
 	section.sub_wrap .bar {margin-top: 20px; margin-bottom: 30px;}
-    section.sub_wrap h1 {font-size: 30px;}
-    /* ㄴ{font-size: 20px; line-height: 1.5; margin-bottom: 30px;} */
-    section.sub_wrap h5,section.sub_wrap h2  {font-size: 22px;}
-    
-    section.sub_wrap h4 {font-size: 18px; width: 93%;}
-    section.sub_wrap p {font-size: 15px; }
-	
-    .tnb ul li {font-size: 15px; height: 50px; line-height: 50px;}
-    .sub_info h4 { width: 93%; margin: 0 auto; font-size: 16px;}
+    section.sub_wrap h1 {font-size: 36px;}
+    section.sub_wrap h2  {font-size: 24px; width: 95%; margin: 0 auto; margin-bottom: 40px;}
+    .sub_info h4 { width: 95%; margin: 0 auto; font-size: 16px;}
     .sub_info h3 {font-size: 18px; width: 90%; margin: 0 auto; margin-bottom: 20px; letter-spacing: -0.35px;}
 }
 
@@ -125,30 +120,26 @@ input:focus, textarea:focus {border: 1px solid #c3a164;}
     section.sub_wrap p { word-break: normal;}
     /* text-align: justify; */
     .none_br {display: none;}
+    .tnb ul li {font-size: 16px;} 
+
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
     
     .gnb_mo_login a {font-size: 13px;}
-    
-    /*main*/
-    section.main {width: 100%;}
-    
-    /*section.sub_wrap*/
+
     section.sub_wrap {width:100%;}
-    section.sub_wrap h1 {font-size: 26px;}
-    section.sub_wrap h2 {font-size: 20px; line-height: 1.5; width: 93%; margin: 0 auto; margin-bottom: 25px;}
+    section.sub_wrap h1 {font-size: 32px;}
+    section.sub_wrap h2 {font-size: 20px; margin: 0 auto; margin-bottom: 30px;}
+    section.sub_wrap h4 {font-size: 20px; margin-top: 30px;}
     section.sub_wrap h2 br {display: block;}
-    section.sub_wrap h5{font-size: 18px;}
     
     .tnb ul li {font-size: 14px;}
     .sub_bg {margin: 0 auto;}
     
     .sub_info {width: 90%; margin-top: 30px;}
-    
-    .sub_info p {margin: 0 auto; }
+    .sub_info p {margin: 0 auto; width: 80%;}
     .sub_info p br{display: none;}
-    .sub_info ul {margin-top: 30px;;}
     .sub_info .info_btn a {font-size: 15px;}
 }

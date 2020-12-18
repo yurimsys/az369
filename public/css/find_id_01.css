@@ -2,31 +2,7 @@
 
 /*section.sub_wrap 시작*/
 
-.find_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
-
-@keyframes box {
-    0% {opacity: 0; transform: translateY(2%);}
-    100% {opacity: 1; transform: translateY(0%);}
-}
-
-.find_box_inner {width: 100%; padding: 7% 24%; margin: 0 auto; text-align: center; overflow: hidden; }
-.find_box_inner h2 {font-size: 26px;}
-.find_box_inner p { color: #222; font-weight: 300; margin-bottom: 25px; text-align: center;}
-.find_box_inner p span {font-weight: 500;}
-
- .tab {width: 100%;}
- .tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: 500;}
- .tab ul li a {display: block;}
- .tab ul li:nth-child(1) {border-bottom: 1px solid #ad863c; background: #f6f6f6; color: #999; font-weight: 400;}
-.tab ul li:nth-child(2) {border-top: 1px solid #C3A164; border-left: 1px solid #C3A164; border-right: 1px solid #C3A164;}
-
-
-.find_box_inner ul {width: 100%;}
-
-.find_id_btn {width: 100%; margin: 0 auto; margin-top: 40px; height: 45px; line-height: 50px; position: relative;}
-.find_id_btn ul li {float:left; width: 49.5%; margin-right: 1%; text-align: center;}
-.find_id_btn ul li:nth-child(2) {margin-right: 0;}
-
+.find_box {position: relative; width: 100%; background: #fff; height: auto; animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease; padding:0 28%;}
 
 #phone_check_box {
   font-size: 16px;
@@ -34,13 +10,8 @@
 width: 100%;
   margin: auto;
 }
-
-#phone_check_box {
-  display: none;
-}
-
+#phone_check_box {display: none;}
 .find_form {overflow: hidden;}
-
 /*section.sub_wrap 완료*/
 
 
@@ -66,25 +37,16 @@ header .open {
 
 
 /*반응형*/
-
-/*768px*/
-@media screen and (max-width: 768px) {
-    /*section.sub_wrap*/    
-    .find_box_inner {margin: 0 auto; padding: 6% 8%;}
-}
-
-/*450px*/
-@media screen and (max-width: 450px) {
-    .find_box_inner {margin: 0 auto; padding:12% 5% 10%;}
-    .find_box p {font-size: 15px; margin-bottom: 15px; text-align: justify;}
-    .find_id_btn {width: 100%; margin-top: 10%; font-size: 16px; height: 40px; line-height: 40px;}
+/*425px*/
+@media screen and (max-width: 425px) {
+    .find_box p {font-size: 15px; margin-bottom: 15px;}
+    .find_box {padding: 0 2.5%; margin: 0 auto;}
 }
 
 /*320px*/
 @media screen and (max-width: 320px) {
 
     /*section.sub_wrap*/
-	.find_box_inner {margin: 0 auto; padding: 10% 3%;}
 	.find_box p {font-size: 15px;}
     .find_id_btn { font-size: 15px;}
     .check_btn {font-size: 14px;}

@@ -7,7 +7,7 @@ section.main {
     height: 450px;
     overflow: hidden;
 }
-.main_bg { background: url(/img/gnb_01/sub01_main_bg.png) no-repeat; background-position: bottom; background-size: cover; width: 100%; height: 500px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
+.main_bg { background: url(/img/gnb_01/gnb_01_bg.png) no-repeat; background-position: bottom; background-size: cover; width: 100%; height: 450px; animation: bg; animation-delay: 0s; animation-duration: 1.5s;}
 
 @keyframes bg {
 	0% {transform: scale(1.05);}
@@ -17,23 +17,17 @@ section.main {
 /*section.main 완료*/
 /*section.sub_wrap 시작*/
 
-section.sub_wrap h2 br {display: none;}
 section.sub_wrap h5 br {display: none;}
 
+/* 슬라이드 영역 */
 .mySlides {display: none; }
 .mySlides img {border-radius: 12px;}
-
 .slideshow-container {
-    
 	width: 100%;
     position: relative;
     height: auto;
-    /* overflow: hidden; */
-    
 }
-
 .slide_btn {width:30%; height: auto; position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);}
-/* Next & previous buttons */
 .prev, .next {
 	cursor: pointer;
 	position: absolute;
@@ -44,8 +38,6 @@ section.sub_wrap h5 br {display: none;}
     transition: 0.6s ease;
 }
 .next {right: 0;}
-
-/* The dots/bullets/indicators */
 .dot {
 	cursor: pointer;
 	height: 8px;
@@ -60,7 +52,6 @@ section.sub_wrap h5 br {display: none;}
     background-color: #C3A164;
     width: 8px; height: 8px;
 }
-/* Fading animation */
 .fade {
 	-webkit-animation-name: fade;
 	-webkit-animation-duration: 1s;
@@ -69,20 +60,17 @@ section.sub_wrap h5 br {display: none;}
 }
 
 /*sub_info*/
-.sub_info {width: 100%; margin: 0 auto; text-align: center; margin-top: 50px;}
-/* .sub_info h4 br {display: none;} */
-
+.sub_info {width: 100%; margin: 0 auto; text-align: center; margin-top: 70px;}
+section.sub_wrap h4 {margin-bottom: 50px;}
 .sub_info p br {display: none;}
-.ctd_btn { text-align: center;  margin: 0 auto;  overflow: hidden;  transition: all 0.3s; width: 30%; height: 50px; line-height: 50px;  font-size: 16px; margin-top: 40px; border-radius: 4px;}
-.ctd_btn a {display: block;}
+.ctd_btn {margin-top: 40px;}
 
-.sub_list {width: 100%; height: auto; margin: 0 auto; padding: 40px 35px; background: #fafafa; margin-top: 40px;}
+.sub_list {width: 100%; height: auto; margin: 0 auto; padding: 30px 32px; background: #f8f8f8;}
 .sub_list ul {width: 100%; display: flex;} 
-.sub_list ul li {flex: 1; padding: 25px 30px 30px; margin-right: 15px; border: 1px solid #eee; background: #fff; border-radius: 12px; text-align: justify; font-size: 15px; box-shadow: 10px 20px 20px rgba(180,180,180,0.3);}
+.sub_list ul li {flex: 1; padding: 24px 32px 30px; margin-right: 15px; border: 1px solid #eee; background: #fff; border-radius: 12px; text-align: justify; font-size: 15px; box-shadow: 10px 10px 30px rgba(180,180,180,0.2);}
 .sub_list ul li:nth-child(3) {margin-right: 0;}
 .sub_list ul li span {color: #999;}
-.list_bar {background-color: red; width: 20px;border-bottom: 1px solid #dbdbdb; margin: 20px 0; position: relative;}
-.sub_list h3 {font-size:20px; line-height: 1.5;}
+.sub_list h3 {font-size:24px; line-height: 1.5; margin-bottom: 16px;}
 .list_txt p { width: 100%; font-size: 15px; text-align: left;}
 
 
@@ -90,52 +78,54 @@ section.sub_wrap h5 br {display: none;}
 /*1200px*/
 @media screen and (max-width: 1200px) {
     .slideshow-container {width: 95%; margin: 0 auto;}
+    .sub_info {margin-top: 60px;}
 }
     
 
 /*1024px*/
 @media screen and (max-width: 1024px) {
     .dot {margin-bottom: 3px;}
-    .ctd_btn {background-color: #C3A164; color: #fff; font-weight: 400;}
+    .ctd_btn a {background-color: #C3A164; color: #fff;}
 }
 
 /*768px*/
 @media screen and (max-width: 768px) {
-    .sub_list h3 {font-size: 18px;}
+
+    .sub_info {margin-top: 50px;}
+    .sub_list h3 {font-size: 20px; }
     .sub_list h3 br {display: none;}
     .list_bar {margin: 15px 0;}
     .sub_info p br {display: none; text-align: justify;}
     .slide_btn {width: 100%;}
     .sub_list ul {flex-direction: column;}
-    .sub_list ul li {margin-right: 0; margin-bottom: 15px;}
-    .sub_info h4 br {display: none;}
-    .sub_info h4 {width: 95%; margin: 0 auto;}
+    .sub_list ul li {margin-right: 0; margin-bottom: 15px; padding: 32px;}
+    section.sub_wrap h4 {margin-bottom: 40px;}
     
 }
 
-/*450px*/
-@media screen and (max-width: 450px) {
+/*425px*/
+@media screen and (max-width: 425px) {
+
+    .main_bg {background: url(/img/gnb_01/gnb01_bg_mo.png)}
+    
+    section.sub_wrap h2 span {display: block;}
+    .sub_info {margin-top: 32px;}
     .sub_info h3 {width: 100%;}
     section.sub_wrap h4 br {display: none;}
-	
 	.list_title br {display: none;}
     .list_txt p {float: none; width: 100%;}
-    .slide_btn {width: 93%;}
-    .ctd_btn {width: 93%; margin-top: 20px; }
-    .sub_list ul li {padding: 30px 25px 30px;}
+    .ctd_btn {margin-top: 20px;}
+    .sub_list ul li {padding: 30px 25px;}
     .sub_list {width: 100%; height: auto; margin: 0 auto; padding: 20px ; background: #f8f8f8;}
     .dot {margin-bottom: 0px;}
 }
 
+/*425px*/
+@media screen and (max-width: 425px) {
+    .sub_list ul li {text-align: left;}
+}
+
 /*320px*/
 @media screen and (max-width: 320px) {
-    
-	section.sub_wrap h5 br {display: block; font-synthesis: 16px;}
-    section.sub_wrap h4 {margin-top: 30px; margin-bottom: 25px; font-size: 16px;}
-    .sub_info {margin-top: 0%;}
-    .sub_info_list {padding-top: 20px;}
-    .sub_info p {font-size: 15px;}
-    
-    .ctd_btn {margin-top: 5%;}
-    .ctd_btn a {font-size: 15px;}
+    section.sub_wrap h4 {margin-top: 40px; margin-bottom: 30px;}
 }

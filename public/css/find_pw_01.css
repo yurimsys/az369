@@ -1,25 +1,6 @@
 @charset "UTF-8";
 
 /*find_box*/
-.find_box {position: relative; width: 100%; background: #fff; height: auto; border: 1px solid #eee;animation-name: box; animation-delay: 0; animation-duration: 0.7s; animation-timing-function: ease;}
-
-.find_box_inner {width: 100%; padding: 7% 24%; margin: 0 auto; text-align: center; overflow: hidden; }
-.find_box_inner h2 {font-size: 26px;}
-.find_box_inner p { color: #222; font-weight: 300; margin-bottom: 25px;text-align: center;}
-.find_box_inner p span {font-weight: 500;}
-
-/*find_box tab*/
-.tab {width: 100%;}
-.tab ul li {width: 50%; float: left; text-align: center; height: 60px; line-height: 60px; font-size: 18px; font-weight: 500;}
-.tab ul li a {display: block;}
-.find_box_inner ul {width: 100%;}
-
-
-/*하단버튼*/
-.find_pw_btn {width: 100%; margin: 0 auto; margin-top: 40px; height: 50px; line-height: 50px;}
-.find_pw_btn ul li {float:left; width: 49.5%; margin-right: 1%; text-align: center; display: block;}
-.find_pw_btn ul li:nth-child(2) {margin-right: 0;}
-
 #phone_check_box {
   font-size: 16px;
   text-align: center;
@@ -35,27 +16,7 @@
 
 /*반응형*/
 
-    
-
-/*1024px*/
-@media screen and (max-width: 1024px) {
-    .find_pw_btn {width: 100%;}
-}
-
-
-/*768px*/
-@media screen and (max-width: 768px) {
-    .find_box_inner {margin: 0 auto; padding: 6% 8%;}
-}
-
-/*450px*/
-@media screen and (max-width: 450px) {
-    .find_box_inner {margin: 0 auto; padding:12% 5% 10%;}
+/*425px*/
+@media screen and (max-width: 425px) {
     .find_box p {font-size: 15px; margin-bottom: 15px; text-align: justify;}
-
-}
-
-/*320px*/
-@media screen and (max-width: 320px) {
-	.find_box_inner {margin: 0 auto; padding: 10% 3%;}
 }

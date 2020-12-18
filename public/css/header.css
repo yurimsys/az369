@@ -20,7 +20,7 @@ nav.gnb ul li {float: left; flex: 1;} */
 
 .logo_mo {display: none;}
 
-.innerHeader h1.logo {float: left; margin-left: 30px; line-height: 70px; overflow: hidden; transition: .5s all;}
+.innerHeader h1.logo {float: left; margin-left: 30px; line-height: 70px; overflow: hidden;}
 
 
 

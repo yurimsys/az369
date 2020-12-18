@@ -98,7 +98,7 @@ section h6 {text-align: center; color: #c3a164;; margin-bottom: -5px; font-weigh
 section h3 {
     text-align: center;
     font-weight: bold;
-    font-size: 37px;
+    font-size: 46px;
     font-family: 'PT Serif', serif;
     font-weight: normal;
 }
@@ -117,11 +117,11 @@ section.about .bar {margin-bottom: 40px;}
 section.about ul li {float: left; width: 47%;}
 section.about .about_img {overflow: hidden; border-radius: 12px;}
 section.about .about_img img {width: 100%;}
-section.about .about_text {margin-left: 8%; margin-top: 20px;}
+section.about .about_text {margin-left: 8%;}
 section.about .about_text h4 {color: #222; font-weight: 400; font-size: 24px; line-height: 1.5;}
 section.about .about_text h4 span {font-weight: 600;}
 section.about .about_text p {margin-top: 20px; line-height: 1.7; color: #767676;}
-section.about .about_btn {width: 180px; height: 45px; line-height: 45px; text-align: center;border: 1px solid #dbdbdb; border-radius: 4px; display: inline-block; transition: all 0.4s; margin-top: 40px; color: #222;}
+section.about .about_btn {padding: 12px 32px; border: 1px solid #dbdbdb; display: inline-block; border-radius: 4px; text-align: center; transition: all 0.4s; margin-top: 40px; color: #222;}
 section.about .about_btn a {display: block;}
 section.about .about_btn:hover {background: #c3a164; color: #fff; border: 1px solid #c3a164;}
 /*section.about 완료*/
@@ -515,6 +515,8 @@ a.slide_btn {
     .gallery_slide img {width: 100%;}
     .directional_nav {width: 100%;}
 
+    .previous_btn {left: 0%;}
+    .next_btn {right: 0%;}
 }
 
 
@@ -577,8 +579,6 @@ a.slide_btn {
     section.about .about_text p {margin-top: 20px;}
     section.about .about_btn {margin-top: 10%; height: 40px; line-height: 40px;}
     
-    
-    
     /*section.gallery*/
     section.gallery {margin-top: 50px; padding-bottom: 0;}
     section.gallery p {display: none;}
@@ -586,9 +586,7 @@ a.slide_btn {
     section.gallery .inner_gallery p {display: none}
     .gallery_slide_group, .gallery_slide_viewer {height: 190px;}
     .gallery_slide_group, .gallery_slide_viewer img {height: 100%;}
-    .previous_btn {left: 28%;}
-    .next_btn {right: 28%;}
-	.gallery_btn img {width: 70%;}
+  	.gallery_btn img {width: 70%;}
 
 }
 
@@ -609,9 +607,9 @@ a.slide_btn {
     /* .main_btn img {width: 3%;} */
     .main_prev, .main_next {padding: 10px 15px;}
 
-	/*section.about*/
-	section.about .about_text p {text-align: justify;}
-	section.about .about_btn {margin-top: 25px;}
+  	/*section.about*/
+  	section.about .about_text p {text-align: justify;}
+  	section.about .about_btn {margin-top: 25px;}
     }
 
 
