@@ -6480,7 +6480,7 @@ router.post('/filesave', upload.any(), async function (req, res, next) {
 
 //카드 리턴값
 router.post('/return_card', (req, res, next) =>{
-    console.log('카드결제 연동값 :', req.boy);
+    console.log('카드결제 연동값 :', req.body);
     res.send("0000")
 });
 
@@ -6562,8 +6562,8 @@ function payCalculate(day_param){
         },
         headers: {
             'Content-Type': 'text/html; charset=utf-8' //요청할 값의 타입 
-        },
-        encoding: null //인코딩 안함
+        }
+        ,encoding: null //인코딩 안함
     }
 
     //정산관리 API에 요청할 날짜 확인
