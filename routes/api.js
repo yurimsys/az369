@@ -933,8 +933,6 @@ router.post('/cancel-seat', auth.isLoggedIn, async (req, res) =>{
                             res.json({data : '201'})
                         });
                     })
-
-                
         })
     }else{
         //트랜잭션 시작
@@ -2026,8 +2024,8 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
         moid = req.body.moid, // 주문번호
         price = ((oPrice-sPrice) < 0) ? 0 : (oPrice-sPrice);
         // ph_type = '-'; // 무료기간동안만 - 으로 넣음.
-        let ph_type;
-        let pg_id;
+        let ph_type; //결제수단
+        let pg_id; //거래 고유 아이디
         let u_id = req.body.user_id //등록할 회원 아이디
         let cr_memo; // 메모
         let cancel_type; // 취소코드
@@ -2090,9 +2088,7 @@ router.post('/payment', auth.isLoggedIn, async (req, res) =>{
 
         //결제 전 버스출발 확인 쿼리
         let checkQuery = `SELECT tCT.CT_PyStart FROM tCT WHERE CT_ID = :ct_id`;
-        /**
-         * TODO : 무료기간 끝나면 PH_TYPE 값 결제 수단으로 변경해야함.
-         */
+        
         let ph_query = `
             INSERT INTO tPH
                 (PH_U_ID, PH_PG_ID, PH_OrderNumber, PH_Price, PH_OPrice, PH_SPrice, PH_Type, PH_CodeType, PH_CardName, PH_BankNumber, PH_BankCode)
@@ -6520,7 +6516,7 @@ router.post('/return_bank', async function(req, res){
     res.send("0000");
 });
 
-//관리 페이지에서 정산 요청
+//관리 페이지에서 정산 수동 요청
 router.get('/pay-calculate', function(req,res){
     console.log('req!!',req.query.req_day);
     payCalculate(req.query.req_day)

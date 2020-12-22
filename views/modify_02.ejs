@@ -40,6 +40,14 @@
 </head>
 
 <body>
+    <script>
+        if(!sessionStorage.getItem('success_certify')){
+            alert('본인인증을 먼저 해주세요.');
+            location.href = 'modify';
+        }else{
+            sessionStorage.removeItem('success_certify');
+        }
+    </script>
     <div class="wrap">
 
         <% include templates/header.ejs %>
@@ -219,7 +227,9 @@
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <script>
+        
         $(document).ready(() => {
+            
             //본인인증
             $("div.check_btn").click((e) => {
                 if ($('#phone').val() == "") {

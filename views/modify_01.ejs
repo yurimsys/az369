@@ -81,8 +81,8 @@
 
                         <div class="modify_btn">
                             <ul>
-                                <li class="back btn btn-outline-primary"><a href="mypage">취소</a></li>
-                                <li class="next btn btn-primary"> <a onclick="confirmPw()">다음</a></li>
+                                <li class="back btn btn-outline-primary"><a href="mypage" style="line-height: 2;">취소</a></li>
+                                <li class="next btn btn-primary"> <a onclick="confirmPw()" style="line-height: 2;">다음</a></li>
                             </ul>
                         </div>
 
@@ -124,8 +124,8 @@
                             location.reload();
                         })
                     } else if (res.data === "성공") {
-                        location.href = "modify2"
-
+                        sessionStorage.setItem('success_certify','clear');
+                        location.href = "modify2";
                     }
                 }
             })

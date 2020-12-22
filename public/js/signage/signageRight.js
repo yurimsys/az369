@@ -114,7 +114,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(json){
                 let skyState = json.weather[0].main;
-                // console.log(skyState, ' 기상 상태')
+                console.log(skyState, ' 기상 상태')
                 // 
                 if(skyState == 'Clear'){
                     let html = "<img src='/img/signage/weather/weather_01m_icon.png'></img>";
@@ -146,7 +146,8 @@ $(document).ready(function(){
         skyInterval.skyState();
     },3600000)
 
-//현재 미세먼지 상황
+    //현재 미세먼지 상황
+    //우측 미세먼지 부분
     let $dust = $('#dust')
     function dustState(){
         $.ajax({
@@ -200,9 +201,8 @@ $(document).ready(function(){
         dustInterval.dustState();
     },3600000)
 
-//날짜 함수
+    //날짜 함수
     function dayCount(){
-
         this.day = new Date();
         nowYear = String(day.getFullYear());
         nowMon = String(day.getMonth() + 1);

@@ -6,15 +6,17 @@
 //     });
 
 //우클릭 방지
-    $("body").contextmenu( function() {
+    // $("body").contextmenu( function() {
 
-        return false;
+    //     return false;
     
-    });
+    // });
 
     //이미지 확대
+    //처음 이미지의 위치 변수
     let img_L = 0;
     let img_T = 0;
+    //이동중인 이미지의 위치 배열
     let m_left = [];
     let m_top = [];
     let targetObj;
@@ -25,14 +27,16 @@
         return parseInt(o.style.top.replace('px', ''));
     }
 
+    /* 각 central1F, central2F, central3F에 <svg viewBox = ... 에 함수가 지정되어있음 */
     //마우스 끌기 이벤트 
     // // 드래그 시작
     function startDrag(e, obj){
         targetObj = obj;
         let e_obj = window.event? window.event : e;
+
+        //현재 이미지 위치를 구함
         img_L = getLeft(obj) - e_obj.clientX;
         img_T = getTop(obj) - e_obj.clientY;
-        
         document.onmousemove = moveDrag;
         document.onmouseup = stopDrag;
         if(e_obj.preventDefault)e_obj.preventDefault();
@@ -99,18 +103,26 @@
         // refreshTimeout();
         return false;
     }
-
-    let $svgCat = $('.svgCat')
-    let $central_svg_1f = $('.centralSvg1F')
-    let $central_svg_2f = $('.centralSvg2F')
-    let $central_svg_3f = $('.centralSvg3F')
-    let $1f_store_name = $('#1Fstore_name text')
-    let $2f_store_name = $('#2Fstore_name text')
-    let $3f_store_name = $('#3Fstore_name text')
-    let $1f_store_path = $('#1Fstore path')
-    let $2f_store_path = $('#2Fstore path')
-    let $3f_store_path = $('#3Fstore path')
-    let $centralSvg = $('.centralSvg')
+    //각 지도 호실별 카테고리 클래스
+    let $svgCat = $('.svgCat');
+    //1층 svg 파일
+    let $central_svg_1f = $('.centralSvg1F');
+    //2층 svg 파일
+    let $central_svg_2f = $('.centralSvg2F');
+    //3층 svg 파일
+    let $central_svg_3f = $('.centralSvg3F');
+    //1층 svg파일 내에 매장명
+    let $1f_store_name = $('#1Fstore_name text');
+    //2층 svg파일 내에 매장명
+    let $2f_store_name = $('#2Fstore_name text');
+    //3층 svg파일 내에 매장명
+    let $3f_store_name = $('#3Fstore_name text');
+    //1층 svg파일 내에 호실
+    let $1f_store_path = $('#1Fstore path');
+    //2층 svg파일 내에 호실
+    let $2f_store_path = $('#2Fstore path');
+    //3층 svg파일 내에 호실
+    let $3f_store_path = $('#3Fstore path');
     let $nowFloor = $('#nowFloor')
     let $center_left_1f = $('.centerLeft1F')
     let $central_map_1f = $('.centralMap1F')
@@ -122,7 +134,7 @@
     $2f_store_name.hide();
     $3f_store_name.hide();
 
-    //줌인
+    //줌인 중앙 네비게이션 + 버튼
     function zoomIn(){
         //이미지 커서 이동 css
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '12px'){
@@ -144,7 +156,7 @@
             return false;
         }
         
-        //2줌
+        //2배줌
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '13px'){
             storeMapSize(1,14,2.0);
             return false;
@@ -158,7 +170,7 @@
             return false;
         }
         
-        //3줌
+        //3배줌
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '14px'){
             storeMapSize(1,15,2.5);
             return false;
@@ -173,7 +185,7 @@
         }
         
 
-        //4줌
+        //4배줌
         if($center_left_1f.css('display') == 'block' && $1f_store_name.css('font-size') == '15px'){
             storeMapSize(1,16,3.0);
             return false;
@@ -254,9 +266,10 @@
         $('#'+floor+'Fstore_name text').show();
     }
 
-//리셋
+    //지도 리셋
     function zoomReset(){
         $('#zoomIn').attr('class', 'plusBtn')
+        //1층이 활성화 되어있는 경우
         if($center_left_1f.css('display') == 'block'){
             storeMapSize(1,12,1);
             $1f_store_name.hide();
@@ -265,6 +278,7 @@
             $central_svg_1f.css('top','');
             $center_left_1f.css('width','100%')
         }
+        //2층이 활성화 되어있는 경우
         else if($center_left_2f.css('display') == 'block'){
             storeMapSize(2,12,1);
             $2f_store_name.hide();
@@ -273,6 +287,7 @@
             $central_svg_2f.css('top','');
             $center_left_2f.css('width','100%')
         }
+        //3층이 활성화 되어있는 경우
         else if($center_left_3f.css('display') == 'block'){
             storeMapSize(3,12,1);
             $3f_store_name.hide();
@@ -286,10 +301,12 @@
     //층수 클릭
     $('.floorBtn div').on('click',function(e){
         let nowFloor = e.target.id;
+        //저장된 확대, 축소값을 제거
         localStorage.removeItem('scale_down');
         localStorage.removeItem('scale_up'); 
         $('.floorBtn div').removeClass('floorSelect');
         $('#'+nowFloor).addClass('floorSelect');
+        //1층의 경우
         if(nowFloor == 'floor1Btn'){
             $center_left_1f.css('display','block');
             $center_left_2f.css('display','none');
@@ -298,7 +315,9 @@
             targetObj = document.getElementsByClassName('centralSvg1F')[0]
             el=document.getElementsByClassName('centralSvg1F')[0]
             init(1);
-        }else if(nowFloor == 'floor2Btn'){
+        }
+        //2층의 경우
+        else if(nowFloor == 'floor2Btn'){
             console.log('gooooooooooo2f');
             console.log($center_left_2f.css('display'));
             $center_left_1f.css('display','none');
@@ -308,7 +327,9 @@
             targetObj = document.getElementsByClassName('centralSvg2F')[0]
             el=document.getElementsByClassName('centralSvg2F')[0]
             init(2);
-        }else if(nowFloor == 'floor3Btn'){
+        }
+        //3층의 경우
+        else if(nowFloor == 'floor3Btn'){
             $center_left_1f.css('display','none');
             $center_left_2f.css('display','none');
             $center_left_3f.css('display','block');
@@ -543,7 +564,7 @@
     }
 
     var logEvents = false;
-
+    //로그기록 사용하지않음
     function log(prefix, ev) {
         if (!logEvents) return;
         var o = document.getElementsByTagName('output')[0];

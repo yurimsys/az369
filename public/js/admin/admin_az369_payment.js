@@ -513,17 +513,17 @@
                 console.log('resL',res);
                 if(res[0]){
                     if(res[0].type0 == "0001"){
-                        alert(req_day+'날은 정산내역이 없습니다.')
+                        alert(req_day+'날은 정산내역이 없습니다.');
                     }
                     else{
                         for(let i=0; i<res.length; i++){
-                            ph_id_arr.push(res[i].PH_ID)
+                            ph_id_arr.push(res[i].PH_ID);
                         }
-                        alert(req_day+'일'+'\n'+ph_id_arr+'번 PH_ID의 내역이 정산 되었습니다.')
+                        alert(req_day+'일'+'\n'+ph_id_arr+'번 PH_ID의 내역이 정산 되었습니다.');
                         $("#mgmt-table").dxDataGrid("instance").refresh();
                     }
                 }else{
-                    alert(req_day+'날은 정산내역이 없습니다.')
+                    alert(req_day+'날은 정산내역이 없습니다.');
                 }
                 
             }					
@@ -612,7 +612,6 @@
                     let chk_dis_memo = "";
                     for(let i=0; i<res.data.length; i++){
                         if(res.data[i].CR_Cancel == 'Y'){
-
                             bot_html += "<li style='background-color: #BDBDBD'>";
                             chk_dis = 'disabled';
                             chk_dis_memo = "취소된 좌석";
