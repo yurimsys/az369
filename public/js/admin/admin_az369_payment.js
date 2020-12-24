@@ -752,7 +752,7 @@
                 dataType : 'json',
                 data : {'cr_id': check_box_arr},
                 success: function(res){
-                    alert(cancelType)
+                    console.log('미 입금 시', res.data);
                     if(res.data == '결제대기'){
                         cancelSeatAPI(check_box_arr, chk_u_id)
                         vBank(chk_pg_id, order_num.toString(), ph_pay.toString(), vbank_cd, vbank_num.toString())

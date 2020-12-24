@@ -13,7 +13,9 @@ $(document).ready(function(){
     function nowLocation(){
         let nowLocation = urlParam();
         // $('#'+nowLocation.device_cd+ ' rect').css('fill','red')
+        // console.log('now',nowLocation);
         // console.log(nowLocation.device_cd.substring(0,1));
+        //해당 접속경로가 1층인경우
         if(nowLocation.device_cd.substring(0,1) == 1){
             $center_left_1f.css('display','block');
             $center_left_2f.css('display','none');
@@ -35,6 +37,7 @@ $(document).ready(function(){
             $('#floor3Btn').addClass('floorSelect');
             $nowFloor.text('3F');
         }
+        //해당 사이니지구역에 위치 표시
         $('.'+nowLocation.device_cd).css('display','block')
         
     }
