@@ -25,8 +25,11 @@ module.exports = {
     },
     enc_salt : '!@#yurimsys#@!',
     path : {
+        //사이니지 광고 이미지
         ad_image : path.join(__dirname, '..', '/public/img/ad'),
+        //사이니지 매장 이미지
         bs_image : path.join(__dirname, '..', '/public/img/sign_brand'),
+        //공지사항 이미지
         info_image : path.join(__dirname, '..', '/public/img/info')
     }
 }
