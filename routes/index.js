@@ -579,9 +579,9 @@ router.get('/vehicle', (req, res, next) => {
 // });
 
 //입점신청 페이지
-router.get('/benefit_application', function(req, res, next) {
-    res.render('benefit_application', { sessionUser : req.user });
-});
+// router.get('/benefit_application', function(req, res, next) {
+//     res.render('benefit_application', { sessionUser : req.user });
+// });
 
 //입점혜택 페이지1
 router.get('/benefit_1', function(req, res, next) {
