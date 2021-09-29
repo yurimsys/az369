@@ -15,7 +15,7 @@
     "cookie-parser": "~1.4.4",
     "cross-env": "^7.0.0",
     "crypto-js": "^4.0.0",
-    "datatables.net": "^1.10.20",
+    "datatables.net": "^1.11.3",
     "datatables.net-dt": "^1.10.20",
     "datatables.net-editor": "^1.6.5",
     "datatables.net-editor-server": "^1.9.2",
