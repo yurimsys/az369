@@ -25,14 +25,14 @@
                 <li><a href="/benefit" class="gnb_link">입점신청 및 혜택</a>
                     <ul>
                         <li><a href="/benefit">입점상가혜택</a></li>
-                        <!-- <li><a href="/benefit_application">입점상담신청</a></li> -->
+                        <li><a href="/benefit_application">입점상담신청</a></li>
                     </ul>
                 </li>
                 <li><a href="/vehicle" class="gnb_link">장차예매</a>
                     <ul>
                         <li><a href="/vehicle">장차운행안내</a></li>
-                        <!-- <li><a href="/reservation">장차예매신청</a></li>
-                        <li><a href="/mypage">마이페이지</a></li> -->
+                        <li><a href="/reservation">장차예매신청</a></li>
+                        <li><a href="/mypage">마이페이지</a></li>
                     </ul>
                 </li>
                 <li><a href="/video" class="gnb_link">소개영상</a>
@@ -53,8 +53,8 @@
                 <li><a href="/mypage" style="font-weight:bold"><%= sessionUser.U_Name %> 님</a></li>
                 <li><a href="/logout" onclick="logOut()">로그아웃</a></li>
                 <% } else { %>
-                <!-- <li><a href="/login">로그인</a></li>
-                <li><a href="/join">회원가입</a></li> -->
+                <li><a href="/login">로그인</a></li>
+                <li><a href="/join">회원가입</a></li>
                 <% } %>
                 <li>
                     <div class="tooltip">전화문의
@@ -74,7 +74,7 @@
         <a class="close"><img src="/img/common/btn_gnb_close.png" alt="메뉴닫기"></a>
 
         <ul>
-            <!-- <li class="gnb_mo_login">
+            <li class="gnb_mo_login">
                 <% if( sessionUser ){ %>
                 <strong style="font-weight: 500; font-size: 16px;"><%= sessionUser.U_Name %>
                         님</strong>
@@ -85,7 +85,7 @@
                 <% } else { %>
                 <a href="/login" style="color: #767676;">장차예매는 <u>로그인</u>이 필요합니다.</a>
                 <% } %>
-            </li> -->
+            </li>
             <li>
                 <a href="#">사업안내</a>
                 <ul class="inner">
@@ -98,15 +98,15 @@
                 <a href="#">입점신청 및 혜택</a>
                 <ul class="inner">
                     <li><a href="/benefit">입점상가혜택</a></li>
-                    <!-- <li><a href="/benefit_application">입점상담신청</a></li> -->
+                    <li><a href="/benefit_application">입점상담신청</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">장차예매</a>
                 <ul class="inner">
                     <li><a href="/vehicle">장차운행안내</a></li>
-                    <!-- <li><a href="/reservation">장차예매신청</a></li>
-                    <li><a href="/mypage">마이페이지</a></li> -->
+                    <li><a href="/reservation">장차예매신청</a></li>
+                    <li><a href="/mypage">마이페이지</a></li>
                 </ul>
             </li>
             <li>

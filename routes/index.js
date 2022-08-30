@@ -381,7 +381,7 @@ router.get('/az369_survey_intro', function(req,res){
     res.render('az369_survey_intro');
 });
 
-router.get('/admin_login', function(req, res, next){
+router.get('/login', function(req, res, next){
     if(req.user !== undefined){
         
         res.redirect('/');
@@ -538,50 +538,50 @@ router.get('/vehicle', (req, res, next) => {
     res.render('vehicle', { sessionUser : req.user })
 });
 
-// //회원가입 동의 페이지
-// router.get('/join', (req, res, next) => {
-//     res.render('join_01', { sessionUser : req.user })
-// });
+//회원가입 동의 페이지
+router.get('/join', (req, res, next) => {
+    res.render('join_01', { sessionUser : req.user })
+});
 
-// //회원가입 페이지
-// router.get('/join2', function(req, res, next) {
-//     res.render('join_02', { sessionUser : req.user });
-// });
+//회원가입 페이지
+router.get('/join2', function(req, res, next) {
+    res.render('join_02', { sessionUser : req.user });
+});
 
-// //회원가입 완료페이지
-// router.get('/join3', function(req, res, next) {
-//     res.render('join_03', { sessionUser : req.user });
-// });
+//회원가입 완료페이지
+router.get('/join3', function(req, res, next) {
+    res.render('join_03', { sessionUser : req.user });
+});
 
 //아이디 찾기 1페이지
-// router.get('/findId', function(req, res, next) {
-//     res.render('find_id_01', { sessionUser : req.user });
-//   });
+router.get('/findId', function(req, res, next) {
+    res.render('find_id_01', { sessionUser : req.user });
+  });
 
-// //아이디 찾기 완료 페이지
-// router.get('/findId2', function(req, res, next) {
-//     res.render('find_id_02', { sessionUser : req.user });
-// });
+//아이디 찾기 완료 페이지
+router.get('/findId2', function(req, res, next) {
+    res.render('find_id_02', { sessionUser : req.user });
+});
 
-// //비밀번호 찾기 페이지
-// router.get('/findPw', function(req, res, next) {
-//     res.render('find_pw_01', { sessionUser : req.user });
-// });
+//비밀번호 찾기 페이지
+router.get('/findPw', function(req, res, next) {
+    res.render('find_pw_01', { sessionUser : req.user });
+});
 
-// //비밀번호 찾은 후 수정 페이지
-// router.get('/findPw2', function(req, res, next) {
-//     res.render('find_pw_02', { sessionUser : req.user });
-// });
+//비밀번호 찾은 후 수정 페이지
+router.get('/findPw2', function(req, res, next) {
+    res.render('find_pw_02', { sessionUser : req.user });
+});
 
-// //비밀번호 찾은 후 수정 완료 페이지
-// router.get('/findPw3', function(req, res, next) {
-//     res.render('find_pw_03', { sessionUser : req.user });
-// });
+//비밀번호 찾은 후 수정 완료 페이지
+router.get('/findPw3', function(req, res, next) {
+    res.render('find_pw_03', { sessionUser : req.user });
+});
 
 //입점신청 페이지
-// router.get('/benefit_application', function(req, res, next) {
-//     res.render('benefit_application', { sessionUser : req.user });
-// });
+router.get('/benefit_application', function(req, res, next) {
+    res.render('benefit_application', { sessionUser : req.user });
+});
 
 //입점혜택 페이지1
 router.get('/benefit_1', function(req, res, next) {

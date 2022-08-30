@@ -3,7 +3,7 @@
 $(document).ready(function(){
     let default_url = urlParam();
     if(default_url.device_cd == undefined){
-        location.href = 'http://az369.com/sign?device_cd=1fa'
+        location.href = '/sign?device_cd=1fa'
     }
 })
 
